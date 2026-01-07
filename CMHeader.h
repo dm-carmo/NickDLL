@@ -14,6 +14,75 @@ typedef enum class COMPETITION_TYPE : char {
 	NATION_INTERNATIONAL = 4
 } competition_type;
 
+enum RoundNames {
+	None = 0,
+	FirstRound = 0x0A,
+	SecondRound = 0x14,
+	ThirdRound = 0x1E,
+	FourthRound = 0x28,
+	FifthRound = 0x32,
+	SixthRound = 0x3C,
+	SeventhRound = 0x46,
+	EighthRound = 0x50,
+	NinthRound = 0x5A,
+	TenthRound = 0x64,
+	EleventhRound = 0x6E,
+	QuarterFinal = 0x78,
+	SemiFinal = 0x82,
+	ThirdPlacePlayoff = 0x8C,
+	Final = 0x96,
+	Playoff = 0xA0,
+	Playout = 0xBE,
+	QualifyingRound = 0xDC,
+	PreliminaryRound = 0xE6,
+	FirstQualifyingPhase = 0xFA,
+	SecondQualifyingPhase = 0x104,
+	ThirdQualifyingPhase = 0x10E,
+	Playoff1 = 0x118,
+	Playoff2 = 0x122,
+	NumericGroupStage = 0x3E8,
+	CarribeanZone = 0x40F,
+	MLSCup = 0x417,
+	NorthernSouthernSection = 0x41D,
+	AlphabeticGroupStage = 0x420,
+	OpeningStage = 0x434,
+	ClosingStage = 0x435,
+	Promotion = 0x438,
+	ChampionshipGroup = 0x44B,
+	RelegationGroup = 0x44C,
+	RelegationPlayoff = 0x452,
+	NorthSouthCentral = 0x453,
+	PromotionPlayoff = 0x458,
+	SecondPromotionPlayoff = 0x45A,
+	ThirdPromotionPlayoff = 0x45B,
+	FourthPromotionPlayoff = 0x45C,
+	CentralAmericanZoneGroup1 = 0x473,
+	ClassificationGroup1 = 0x475,
+	EastWest = 0x480
+};
+
+enum Game1Tiebreaks {
+	NoTiebreak_1 = 0,
+	PenaltiesNoExtraTime_1 = 1,
+	ExtraTimeNoPenalties_1 = 2,
+	ExtraTimePenalties_1 = 3,
+	Libertadores_1 = 4,
+	GoldenGoal_1 = 83
+};
+
+enum Game2Tiebreaks {
+	NoTiebreak_2 = 0,
+	AwayGoalsPenaltiesNoExtraTime_2 = 1,
+	AwayGoalsExtraTimePenalties_2 = 3,
+	ExtraTimePenaltiesNoAwayGoals_2 = 7,
+	GoldenGoal_2 = 83
+};
+
+enum Game3Tiebreaks {
+	NoTiebreak_3 = 0,
+	ExtraTimePenalties_3 = 3
+};
+
 typedef struct cm3_continents CM3_CONTINENTS;
 typedef struct cm3_club_comps CM3_CLUB_COMPS;
 typedef struct cm3_club_comp_history CM3_CLUB_COMP_HISTORY;

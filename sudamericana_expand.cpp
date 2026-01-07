@@ -3,6 +3,7 @@
 #include <conio.h>
 #include "CMHeader.h"
 #include "Helper.h"
+#include "generic_functions.h"
 
 static int(*sub_682200)() = (int(*)())(0x682200);
 static int(*sub_687B10)() = (int(*)())(0x687B10);
@@ -136,10 +137,6 @@ extern "C" void __declspec(naked) sub_4c46c0() // replace 4c46c0
 			/*004C30D5*/	add esp, 0x214
 			/*004C30DB*/	ret 0x8
 	}
-}
-
-void WriteFuncPtr(DWORD addr, int pos, DWORD data) {
-	WriteDWORD(addr + 4 * (pos - 1), data);
 }
 
 void setup_sudamericana_expand() {

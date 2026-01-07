@@ -13,6 +13,13 @@ enum Day
 	Sunday		= 6
 };
 
+enum TimeOfDay
+{
+	Morning,
+	Afternoon,
+	Evening
+};
+
 enum Month
 {
 	January,

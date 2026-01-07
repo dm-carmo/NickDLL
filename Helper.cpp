@@ -87,7 +87,7 @@ vector<cm3_nations*> central_america_countries()
 			stricmp((*nations)[i].NationName, "United States") == 0 ||
 			stricmp((*nations)[i].NationName, "Canada") == 0)
 			continue;
-		if ((*nations)[i].NationRegion == 7)
+		if ((*nations)[i].NationContinent != NULL && (*nations)[i].NationRegion == 7)
 			ret.push_back(&(*nations)[i]);
 	}
 	return ret;
@@ -99,7 +99,7 @@ vector<cm3_nations*> caribbean_countries()
 	ret.clear();
 	for (int i = 0; i < *nations_count; i++)
 	{
-		if ((*nations)[i].NationRegion == 6)
+		if ((*nations)[i].NationContinent != NULL && (*nations)[i].NationRegion == 6)
 			ret.push_back(&(*nations)[i]);
 	}
 	return ret;
@@ -229,7 +229,7 @@ bool compareClubLastDivPos(cm3_clubs* c1, cm3_clubs* c2)
 {
 	if (c1->ClubLastDivision->ClubCompReputation != c2->ClubLastDivision->ClubCompReputation)
 		return (c1->ClubLastDivision->ClubCompReputation > c2->ClubLastDivision->ClubCompReputation);
-	return (c1->ClubLastPosition < c2->ClubLastPosition);
+	return (c1->ClubLastPosition > 0 && c1->ClubLastPosition < c2->ClubLastPosition);
 }
 
 cm3_clubs* get_last_comp_winner(cm3_club_comps* comp)

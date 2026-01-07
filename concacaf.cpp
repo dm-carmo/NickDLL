@@ -6,272 +6,47 @@
 #include <filesystem>
 #include <fstream>
 #include <string>
+#include "constants.h"
+#include "generic_functions.h"
 
 using namespace std;
 
-static int(*sub_944E46)() = (int(*)())(0x944E46);
-static int(*sub_944CFF)() = (int(*)())(0x944CFF);
-static int(*sub_90D130)() = (int(*)())(0x90D130);
-static int(*sub_944C9F)() = (int(*)())(0x944C9F);
-static int(*sub_5E8290)() = (int(*)())(0x5E8290);
-static int(*sub_521E60)() = (int(*)())(0x521E60);
-static int(*sub_521EB0)() = (int(*)())(0x521EB0);
-static int(*sub_521F10)() = (int(*)())(0x521F10);
-
-extern "C" void sub_4C0F00();
-extern "C" void __declspec(naked) sub_4C0F00()
+DWORD CreateConcacafCupFixtures(BYTE* _this, BYTE stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
 {
-	__asm
-	{
-		mov al, byte ptr ss : [esp + 0x4]
-		sub esp, 0x200
-		cmp al, 0xFF
-		push ebx
-		push esi
-		push edi
-		mov edi, ecx
-		jne end_fixtures
-		mov eax, dword ptr ss : [esp + 0x21C]
-		xor ebx, ebx
-		cmp eax, ebx
-		je eax_null
-		mov dword ptr ds : [eax] , ebx
-		eax_null :
-		mov eax, dword ptr ss : [esp + 0x214]
-			mov ecx, dword ptr ss : [esp + 0x218]
-			push 0x208
-			mov word ptr ds : [eax] , 0x5
-			mov word ptr ds : [ecx] , bx
-			call sub_944E46		/*call cm0102.944E46*/
-			mov esi, eax
-			add esp, 0x4
-			cmp esi, ebx
-			jne fixtures_no_error
-			lea edx, dword ptr ss : [esp + 0xC]
-			lea eax, dword ptr ss : [esp + 0x10C]
-			push edx
-			push eax
-			push ebx
-			push ebx
-			push 0x9A7D30		/*push cm0102.9A7D30*/
-			call sub_944CFF		/*call cm0102.944CFF*/
-			add esp, 0x14
-			lea ecx, dword ptr ss : [esp + 0xC]
-			lea edx, dword ptr ss : [esp + 0x10C]
-			push 0x97
-			push ecx
-			push edx
-			call sub_90D130		/*call cm0102.90D130*/
-			push eax
-			push 0x9870E8		/*push cm0102.9870E8*/
-			push 0xAE24D0		/*push cm0102.AE24D0*/
-			call sub_944C9F		/*call cm0102.944C9F*/
-			push ebx
-			push 0xAE24D0		/*push cm0102.AE24D0*/
-			push 0x9870E0		/*push cm0102.9870E0*/
-			call sub_5E8290		/*call cm0102.5E8290*/
-			add esp, 0x24
-			mov dword ptr ds : [0xB67A34] , ebx
-			end_fixtures :
-		pop edi
-			pop esi
-			xor eax, eax
-			pop ebx
-			add esp, 0x200
-			ret 0x10
-			fixtures_no_error:
-		movsx eax, word ptr ds : [edi + 0x40]
-			push eax
-			push 0x2
-			push ebx
-			push 0x0
-			push 0x0e
-			push ebx
-			push esi
-			call sub_521E60		/*call cm0102.521E60*/
-			movsx ecx, word ptr ds : [edi + 0x40]
-			push ebx
-			push ecx
-			push 0x2
-			push 0x2
-			push ebx
-			push 0x1
-			push 0x5
-			push ebx
-			push esi
-			call sub_521EB0		/*call cm0102.521EB0*/
-			add esp, 0x40
-			mov word ptr ds : [esi + 0x7] , 0xa
-			mov word ptr ds : [esi + 0x9] , bx
-			mov word ptr ds : [esi + 0xB] , bx
-			mov word ptr ds : [esi + 0xD] , bx
-			mov word ptr ds : [esi + 0xF] , 0x3
-			mov byte ptr ds : [esi + 0x17] , 0x8
-			mov word ptr ds : [esi + 0x18] , 0x16
-			mov word ptr ds : [esi + 0x1A] , 0xb
-			mov word ptr ds : [esi + 0x1C] , 0x16
-			mov word ptr ds : [esi + 0x1E] , bx
-			mov byte ptr ds : [esi + 0x20] , bl
-			mov byte ptr ds : [esi + 0x21] , 0x2
-			mov byte ptr ds : [esi + 0x22] , 0xe
-			mov dword ptr ds : [esi + 0x5C] , ebx
-			mov dword ptr ds : [esi + 0x60] , 0x2
-			mov dword ptr ds : [esi + 0x64] , 0xe
-			movsx edx, word ptr ds : [edi + 0x40]
-			push edx
-			push 0x3
-			push ebx
-			push 0x1
-			push 0x1b
-			push 0x1
-			push esi
-			call sub_521E60		/*call cm0102.521E60*/
-			movsx eax, word ptr ds : [edi + 0x40]
-			push ebx
-			push eax
-			push 0x2
-			push 0x2
-			push ebx
-			push 0x2
-			push 0x5
-			push 0x1
-			push esi
-			call sub_521EB0		/*call cm0102.521EB0*/
-			add esp, 0x40
-			mov word ptr ds : [esi + 0x6F] , 0x6e
-			mov word ptr ds : [esi + 0x71] , 0x1
-			mov word ptr ds : [esi + 0x73] , bx
-			mov word ptr ds : [esi + 0x75] , bx
-			mov word ptr ds : [esi + 0x77] , 0x3
-			mov byte ptr ds : [esi + 0x7F] , 0x8
-			mov word ptr ds : [esi + 0x80] , 0x10
-			mov word ptr ds : [esi + 0x82] , 0x8
-			mov word ptr ds : [esi + 0x84] , 0x5
-			mov word ptr ds : [esi + 0x86] , 0x16
-			mov byte ptr ds : [esi + 0x88] , bl
-			mov byte ptr ds : [esi + 0x89] , 0x2
-			mov byte ptr ds : [esi + 0x8A] , 0x7
-			mov dword ptr ds : [esi + 0xC4] , ebx
-			mov dword ptr ds : [esi + 0xC8] , 0xFFFFFFFF
-			mov dword ptr ds : [esi + 0xCC] , ebx
-			movsx ecx, word ptr ds : [edi + 0x40]
-			push ecx
-			push 0x3
-			push ebx
-			push 0x2
-			push 0x0d
-			push 0x2
-			push esi
-			call sub_521E60		/*call cm0102.521E60*/
-			movsx edx, word ptr ds : [edi + 0x40]
-			push ebx
-			push edx
-			push 0x2
-			push 0x2
-			push ebx
-			push 0x3
-			push 0x2
-			push 0x2
-			push esi
-			call sub_521EB0		/*call cm0102.521EB0*/
-			add esp, 0x40
-			mov word ptr ds : [esi + 0xD7] , 0x78
-			mov word ptr ds : [esi + 0xD9] , 0x2
-			mov word ptr ds : [esi + 0xDB] , 0x2
-			mov word ptr ds : [esi + 0xDD] , bx
-			mov word ptr ds : [esi + 0xDF] , 0x3
-			mov byte ptr ds : [esi + 0xE7] , 0x8
-			mov word ptr ds : [esi + 0xE8] , 0x8
-			mov word ptr ds : [esi + 0xEA] , 0x4
-			mov word ptr ds : [esi + 0xEC] , bx
-			mov word ptr ds : [esi + 0xEE] , bx
-			mov byte ptr ds : [esi + 0xF0] , bl
-			mov byte ptr ds : [esi + 0xF1] , 0x2
-			mov byte ptr ds : [esi + 0xF2] , 0x7
-			mov dword ptr ds : [esi + 0x12C] , ebx
-			mov dword ptr ds : [esi + 0x130] , 0xFFFFFFFF
-			mov dword ptr ds : [esi + 0x134] , ebx
-			movsx ecx, word ptr ds : [edi + 0x40]
-			push ecx
-			push 0x3
-			push ebx
-			push 0x3
-			push 0x9
-			push 0x3
-			push esi
-			call sub_521E60		/*call cm0102.521E60*/
-			movsx edx, word ptr ds : [edi + 0x40]
-			push ebx
-			push edx
-			push 0x2
-			push 0x2
-			push ebx
-			push 0x3
-			push 0x17
-			push 0x3
-			push esi
-			call sub_521EB0		/*call cm0102.521EB0*/
-			add esp, 0x40
-			mov word ptr ds : [esi + 0x13F] , 0x82
-			mov word ptr ds : [esi + 0x141] , 0x3
-			mov word ptr ds : [esi + 0x143] , 0x2
-			mov word ptr ds : [esi + 0x145] , bx
-			mov word ptr ds : [esi + 0x147] , 0x3
-			mov byte ptr ds : [esi + 0x14F] , 0x8
-			mov word ptr ds : [esi + 0x150] , 0x4
-			mov word ptr ds : [esi + 0x152] , 0x2
-			mov word ptr ds : [esi + 0x154] , bx
-			mov word ptr ds : [esi + 0x156] , bx
-			mov byte ptr ds : [esi + 0x158] , bl
-			mov byte ptr ds : [esi + 0x159] , 0x2
-			mov byte ptr ds : [esi + 0x15A] , 0x7
-			mov dword ptr ds : [esi + 0x194] , ebx
-			mov dword ptr ds : [esi + 0x198] , 0xFFFFFFFF
-			mov dword ptr ds : [esi + 0x19C] , ebx
-			movsx ecx, word ptr ds : [edi + 0x40]
-			push ecx
-			push 0x3
-			push ebx
-			push 0x4
-			push 0x1
-			push 0x4
-			push esi
-			call sub_521E60		/*call cm0102.521E60*/
-			movsx edx, word ptr ds : [edi + 0x40]
-			push 0x4
-			push edx
-			push 0x1
-			push 0x6
-			push ebx
-			push 0x5
-			push 0x1
-			push 0x4
-			push esi
-			call sub_521EB0		/*call cm0102.521EB0*/
-			add esp, 0x40
-			mov word ptr ds : [esi + 0x1A7] , 0x96
-			mov word ptr ds : [esi + 0x1A9] , 0x4
-			mov word ptr ds : [esi + 0x1AB] , bx
-			mov word ptr ds : [esi + 0x1AD] , 0x3
-			mov word ptr ds : [esi + 0x1AF] , bx
-			mov byte ptr ds : [esi + 0x1B7] , 0x8
-			mov word ptr ds : [esi + 0x1B8] , 0x2
-			mov word ptr ds : [esi + 0x1BA] , 0x1
-			mov word ptr ds : [esi + 0x1BC] , bx
-			mov word ptr ds : [esi + 0x1BE] , bx
-			mov byte ptr ds : [esi + 0x1C0] , bl
-			mov byte ptr ds : [esi + 0x1C1] , 0x1
-			mov byte ptr ds : [esi + 0x1C2] , bl
-			mov dword ptr ds : [esi + 0x1FC] , ebx
-			mov dword ptr ds : [esi + 0x200] , 0xFFFFFFFF
-			mov dword ptr ds : [esi + 0x204] , ebx
-			mov eax, esi
-			pop edi
-			pop esi
-			pop ebx
-			add esp, 0x200
-			ret 0x10
+	if (stage_idx == 0xFF) {
+		if (a5)
+			*a5 = 0;
+		BYTE* pMem = NULL;
+		WORD year = *(WORD*)(_this + 0x40);
+		*num_rounds = 5;
+		*stage_name_id = 0;
+
+		pMem = (BYTE*)sub_944E46_malloc(playoff_dates_sz * (*num_rounds));
+
+		int fixture_id = 0;
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 1, 14), year, Wednesday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 2, 5), year, Wednesday, Evening);
+		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 2, 22, 11, 22, 0, 0, 2, 14);
+
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 2, 27), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 3, 5), year, Wednesday, Evening);
+		FillFixtureDetails(pMem, fixture_id++, EleventhRound, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 2, 16, 8, 5, 22, 0, 2, 7);
+
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 3, 13), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 4, 2), year, Wednesday, Evening);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 2, 8, 4, 0, 0, 0, 2, 7);
+
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 4, 10), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 4, 23), year, Wednesday, Evening);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 2, 4, 2, 0, 0, 0, 2, 7);
+
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 5, 1), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 6, 1), year, Sunday, Afternoon, 4);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 0, 2, 1, 0, 0, 0, 1, 0);
+
+		return (DWORD)pMem;
 	}
+	return 0;
 }
 
 void AddConcacafClubs(vector<cm3_clubs*>& vec, const char* szNation, int numberOfClubs)
@@ -328,7 +103,7 @@ void AddCentralAmericaClubs(vector<cm3_clubs*>& vec, int numberOfCountries, int 
 	vector<cm3_nations*> nations = central_america_countries();
 	int sz = nations.size();
 	sort(nations.begin(), nations.end(), [](const cm3_nations* n1, const cm3_nations* n2) {
-		return n1->NationReputation < n2->NationReputation;
+		return n1->NationReputation > n2->NationReputation;
 		});
 
 	int CountriesToSelectFrom = (sz < 8) ? sz : 8;
@@ -366,7 +141,7 @@ void AddCaribbeanClubs(vector<cm3_clubs*>& vec, int numberOfCountries, int clubs
 	vector<cm3_nations*> nations = caribbean_countries();
 	int sz = nations.size();
 	sort(nations.begin(), nations.end(), [](const cm3_nations* n1, const cm3_nations* n2) {
-		return n1->NationReputation < n2->NationReputation;
+		return n1->NationReputation > n2->NationReputation;
 		});
 
 	int CountriesToSelectFrom = (sz < 8) ? sz : 8;
@@ -569,6 +344,22 @@ extern "C" _declspec(naked) int replacement_4c11a0()
 	}
 }
 
+void __declspec(naked) concacaf_fixture_caller()		// used as a __thiscall -> __cdecl converter
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x10]
+		push dword ptr[eax + 0xC]
+		push dword ptr[eax + 0x8]
+		push dword ptr[eax + 0x4]
+		push ecx
+		call CreateConcacafCupFixtures
+		add esp, 0x14
+		ret 0x10
+	}
+}
+
 void setup_concacaf()
 {
 	PatchFunction(0x4c11a0, (DWORD)&replacement_4c11a0);
@@ -580,7 +371,8 @@ void setup_concacaf()
 
 	//WriteBytes(0x4c0f35, 2, 0xa0, 0x1);
 	//WriteBytes(0x4c0f3d, 1, 0x4);
-	PatchFunction(0x4C0F00, (DWORD)&sub_4C0F00);
+	//PatchFunction(0x4C0F00, (DWORD)&sub_4C0F00);
+	WriteFuncPtr(0x968AA0, 16, (DWORD)&concacaf_fixture_caller);
 	WriteBytes(0x8318b1, 3, 0x6a, 0x0, 0x53);
 	WriteBytes(0x667588, 1, 0x1);
 }

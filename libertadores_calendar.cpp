@@ -1,11 +1,9 @@
 #include "Helper.h"
+#include "generic_functions.h"
 
-static int(*sub_944E46)() = (int(*)())(0x944E46);
-static int(*sub_944CFF)() = (int(*)())(0x944CFF);
 static int(*sub_68A160)() = (int(*)())(0x68A160);
 static int(*sub_68A1C0)() = (int(*)())(0x68A1C0);
 static int(*sub_90D130)() = (int(*)())(0x90D130);
-static int(*sub_944C9F)() = (int(*)())(0x944C9F);
 static int(*sub_5E8290)() = (int(*)())(0x5E8290);
 static int(*sub_521E60)() = (int(*)())(0x521E60);
 static int(*sub_521EB0)() = (int(*)())(0x521EB0);
@@ -38,7 +36,7 @@ extern "C" void __declspec(naked) sub_4C31C0()
 		add edx, 0x3E9
 		mov word ptr ds : [ecx] , 0x6
 		mov word ptr ds : [eax] , dx
-		call sub_944E46		/*call cm0102.944E46*/
+		call sub_944E46_malloc		/*call cm0102.944E46*/
 		mov esi, eax
 		add esp, 0x4
 		cmp esi, ebx
@@ -50,7 +48,7 @@ extern "C" void __declspec(naked) sub_4C31C0()
 		push ebx
 		push ebx
 		push 0x9A7DE4		/*push cm0102.9A7DE4*/
-		call sub_944CFF		/*call cm0102.944CFF*/
+		call sub_944CFF_splitpath		/*call cm0102.944CFF*/
 		add esp, 0x14
 		lea eax, dword ptr ss : [esp + 0x10]
 		lea ecx, dword ptr ss : [esp + 0x110]
@@ -200,7 +198,7 @@ extern "C" void __declspec(naked) sub_4C31C0()
 			push 0x1A0
 			mov word ptr ds : [edx] , bp
 			mov word ptr ds : [eax] , bx
-			call sub_944E46		/*call cm0102.944E46*/
+			call sub_944E46_malloc		/*call cm0102.944E46*/
 			mov esi, eax
 			add esp, 0x4
 			cmp esi, ebx
@@ -212,7 +210,7 @@ extern "C" void __declspec(naked) sub_4C31C0()
 			push ebx
 			push ebx
 			push 0x9A7DE4		/*push cm0102.9A7DE4*/
-			call sub_944CFF		/*call cm0102.944CFF*/
+			call sub_944CFF_splitpath		/*call cm0102.944CFF*/
 			add esp, 0x14
 			lea eax, dword ptr ss : [esp + 0x110]
 			lea ecx, dword ptr ss : [esp + 0x10]
@@ -224,7 +222,7 @@ extern "C" void __declspec(naked) sub_4C31C0()
 			push eax
 			push 0x9870E8		/*push cm0102.9870E8*/
 			push 0xAE24D0		/*push cm0102.AE24D0*/
-			call sub_944C9F		/*call cm0102.944C9F*/
+			call sub_944C9F_sprintf		/*call cm0102.944C9F*/
 			push ebx
 			push 0xAE24D0		/*push cm0102.AE24D0*/
 			push 0x9870E0		/*push cm0102.9870E0*/
