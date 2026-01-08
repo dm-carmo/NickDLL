@@ -87,9 +87,9 @@ void FillFixtureDetails(BYTE* pMem, int fixture, WORD stage_name, WORD draw_type
 	*(BYTE*)(pMem + (fixture * playoff_dates_sz) + 0x20) = replays;
 	*(BYTE*)(pMem + (fixture * playoff_dates_sz) + 0x21) = legs;
 	*(BYTE*)(pMem + (fixture * playoff_dates_sz) + 0x22) = days_between_games;
-	*((DWORD*)pMem + (fixture * playoff_dates_sz) + 0x5C) = prize_reach;
-	*((DWORD*)pMem + (fixture * playoff_dates_sz) + 0x60) = prize_win;
-	*((DWORD*)pMem + (fixture * playoff_dates_sz) + 0x64) = prize_lose;
+	*(DWORD*)(pMem + (fixture * playoff_dates_sz) + 0x5C) = prize_reach;
+	*(DWORD*)(pMem + (fixture * playoff_dates_sz) + 0x60) = prize_win;
+	*(DWORD*)(pMem + (fixture * playoff_dates_sz) + 0x64) = prize_lose;
 }
 
 // Not part of the Tapani patches but one of the hooks needed to call our relegation code. Standard B0 in vtable for relegation/promotion
