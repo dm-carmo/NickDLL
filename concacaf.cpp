@@ -11,15 +11,15 @@
 
 using namespace std;
 
-DWORD CreateConcacafCupFixtures(BYTE* _this, BYTE stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
+DWORD CreateConcacafCupFixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
 {
-	if (stage_idx == 0xFF) {
+	if (stage_idx == -1) {
 		if (a5)
 			*a5 = 0;
 		BYTE* pMem = NULL;
 		WORD year = *(WORD*)(_this + 0x40);
 		*num_rounds = 5;
-		*stage_name_id = 0;
+		*stage_name_id = None;
 
 		pMem = (BYTE*)sub_944E46_malloc(playoff_dates_sz * (*num_rounds));
 

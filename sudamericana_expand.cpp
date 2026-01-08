@@ -4,6 +4,7 @@
 #include "CMHeader.h"
 #include "Helper.h"
 #include "generic_functions.h"
+#include "constants.h"
 
 static int(*sub_682200)() = (int(*)())(0x682200);
 static int(*sub_687B10)() = (int(*)())(0x687B10);
@@ -139,11 +140,85 @@ extern "C" void __declspec(naked) sub_4c46c0() // replace 4c46c0
 	}
 }
 
+
+DWORD CreateSudamericanaFixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
+{
+	if (stage_idx < 7) {
+		if (a5)
+			*a5 = 1;
+		BYTE* pMem = NULL;
+		WORD year = *(WORD*)(_this + 0x40);
+		*num_rounds = 6;
+		*stage_name_id = 1 + NumericGroupStage + stage_idx;
+
+		pMem = (BYTE*)sub_944E46_malloc(fixture_dates_sz * (*num_rounds));
+
+		int fixture_id = 0;
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 4, 2), year, Wednesday, Evening);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 4, 9), year, Wednesday, Evening);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 4, 23), year, Wednesday, Evening);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 5, 7), year, Wednesday, Evening);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 5, 14), year, Wednesday, Evening);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 5, 28), year, Wednesday, Evening);
+
+		return (DWORD)pMem;
+	}
+	else {
+		if (stage_idx != 7) return 0;
+
+		if (a5)
+			*a5 = 0;
+		BYTE* pMem = NULL;
+		WORD year = *(WORD*)(_this + 0x40);
+		*num_rounds = 4;
+		*stage_name_id = None;
+
+		pMem = (BYTE*)sub_944E46_malloc(playoff_dates_sz * (*num_rounds));
+
+		int fixture_id = 0;
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 5, 29), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 13), year, Wednesday, Evening);
+		FillFixtureDetails(pMem, fixture_id++, EleventhRound, 0, NoTiebreak_1, AwayGoalsPenaltiesNoExtraTime_2, 7, 16, 8, 16, 0, 0, 2, 7, 0, -1, 0);
+
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 21), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 17), year, Wednesday, Evening);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, NoTiebreak_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 8, 4, 0, 0, 0, 2, 7, 0, -1, 0);
+
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 25), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 22), year, Wednesday, Evening);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, NoTiebreak_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 4, 2, 0, 0, 0, 2, 7, 0, -1, 0);
+
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 29), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 29), year, Saturday, Afternoon, 4);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 8, 2, 1, 0, 0, 0, 1, 0, 0, 2000000, 800000);
+
+		return (DWORD)pMem;
+	}
+	return 0;
+}
+
+void __declspec(naked) sudamericana_fixture_caller()		// used as a __thiscall -> __cdecl converter
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x10]
+		push dword ptr[eax + 0xC]
+		push dword ptr[eax + 0x8]
+		push dword ptr[eax + 0x4]
+		push ecx
+		call CreateSudamericanaFixtures
+		add esp, 0x14
+		ret 0x10
+	}
+}
+
 void setup_sudamericana_expand() {
 	PatchFunction(0x4c46c0, (DWORD)&sub_4c46c0);
 	WriteFuncPtr(0x968ca8, 11, 0x4c3a80);
 	WriteFuncPtr(0x968ca8, 13, 0x637750);
-	WriteFuncPtr(0x968ca8, 16, 0x4c31c0);
+	//WriteFuncPtr(0x968ca8, 16, 0x4c31c0);
+	WriteFuncPtr(0x968ca8, 16, (DWORD)&sudamericana_fixture_caller);
 	WriteFuncPtr(0x968ca8, 18, 0x4c4080);
 	WriteFuncPtr(0x968ca8, 19, 0x4c3680);
 	WriteFuncPtr(0x968ca8, 24, 0x4c4210);
