@@ -140,11 +140,11 @@
     <ClCompile Include="european_cup.cpp" />
     <ClCompile Include="generic_functions.cpp" />
     <ClCompile Include="Helper.cpp" />
+    <ClCompile Include="inject_club_renames.cpp" />
     <ClCompile Include="libertadores.cpp" />
     <ClCompile Include="libertadores_calendar.cpp" />
     <ClCompile Include="NickDLL.cpp" />
     <ClCompile Include="sudamericana.cpp" />
-    <ClCompile Include="sudamericana_expand.cpp" />
     <ClCompile Include="tapani_relegation_patch.cpp" />
     <ClCompile Include="tiny-json.c" />
   </ItemGroup>
@@ -158,12 +158,13 @@
     <ClInclude Include="european_cup.h" />
     <ClInclude Include="generic_functions.h" />
     <ClInclude Include="Helper.h" />
+    <ClInclude Include="inject_club_renames.h" />
     <ClInclude Include="libertadores.h" />
     <ClInclude Include="libertadores_calendar.h" />
     <ClInclude Include="NString.h" />
     <ClInclude Include="sudamericana.h" />
-    <ClInclude Include="sudamericana_expand.h" />
     <ClInclude Include="tiny-json.h" />
+    <ClInclude Include="vtable.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

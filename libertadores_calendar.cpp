@@ -2,13 +2,6 @@
 #include "generic_functions.h"
 #include "constants.h"
 
-static int(*sub_68A160)() = (int(*)())(0x68A160);
-static int(*sub_68A1C0)() = (int(*)())(0x68A1C0);
-static int(*sub_90D130)() = (int(*)())(0x90D130);
-static int(*sub_5E8290)() = (int(*)())(0x5E8290);
-static int(*sub_521E60)() = (int(*)())(0x521E60);
-static int(*sub_521EB0)() = (int(*)())(0x521EB0);
-
 
 DWORD CreateLibertadoresFixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
 {

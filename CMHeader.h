@@ -320,7 +320,7 @@ struct cm3_club_comp_history
 #pragma pack(push, 1)
 typedef struct comp
 {
-	DWORD* comp_func_ptrs;							//0
+	DWORD* comp_vtable;								//0
 	CM3_CLUB_COMPS* competition_db;					//4	
 	long f8;										//8
 	long f12;										//12
@@ -351,7 +351,7 @@ typedef struct comp
 	unsigned int pad173;							//173
 	DWORD* team_league_table;						//177
 	char pad181[5];									//181
-	int f186;										//186
+	DWORD* fixtures_table;							//186
 	char promotions;								//190
 	char prom_playoff;								//191
 	char rele_playoff;								//192
@@ -370,7 +370,9 @@ typedef struct comp
 	short min_stadium_capacity;						//226
 	short min_stadium_seats;						//228
 	char pad230[7];									//230
-	unsigned char lastchar;							//237
+	unsigned char f237;								//237
+	DWORD* teams2;									//238
+	unsigned short n_teams2;						//242
 } comp_stats;
 #pragma pack(pop)
 
@@ -382,6 +384,56 @@ typedef struct TEAMS_SEEDED
 	char f6;
 } teams_seeded;
 #pragma pack(pop)
+
+#pragma pack(push, 1)
+typedef struct TEAM_LEAGUE_STATS
+{
+	CM3_CLUBS* club;			// 0
+	char current_pos;			// 4
+	char pad4[4];				// 5
+	DWORD* position_history;	// 9
+	char pad13[4];				// 13
+	char games;					// 17
+	char wins;					// 18
+	char draws;					// 19
+	char losses;				// 20
+	WORD goals_for;				// 21
+	WORD goals_against;			// 23
+	short points;				// 25
+	char pad27[4];				// 27
+	char games_home;			// 31
+	char wins_home;				// 32
+	char draws_home;			// 33
+	char losses_home;			// 34
+	WORD goals_for_home;		// 35
+	WORD goals_against_home;	// 37
+	short points_home;			// 39
+	char pad41[4];				// 41
+	char games_away;			// 45
+	char wins_away;				// 46
+	char draws_away;			// 47
+	char losses_away;			// 48
+	WORD goals_for_away;		// 49
+	WORD goals_against_away;	// 51
+	short points_away;			// 53
+	char league_fate;			// 55
+	char f56;					// 56
+	char highest_possible_pos;	// 57
+	char lowest_possible_pos;	// 58
+} team_league_stats;
+#pragma pack(pop)
+
+enum LeagueFates {
+	Promoted=0,
+	TopPlayoff=1,
+	BottomPlayoff=2,
+	Relegated=3,
+	Champions=5,
+	Qualified1=6,
+	Qualified2=7,
+	Qualified3=8,
+	NoFate=0xFF
+};
 
 extern cm3_nations** nations;
 extern DWORD* nations_count;

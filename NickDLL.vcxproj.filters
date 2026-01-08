@@ -30,16 +30,10 @@
     <ClCompile Include="sudamericana.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="sudamericana_expand.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="libertadores.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="concacaf.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="conmebol_helper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="libertadores_calendar.cpp">
@@ -57,6 +51,12 @@
     <ClCompile Include="tapani_relegation_patch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="inject_club_renames.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="conmebol_helper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMHeader.h">
@@ -72,9 +72,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="libertadores.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sudamericana_expand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="conmebol_helper.h">
@@ -102,6 +99,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="constants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vtable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inject_club_renames.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -144,9 +144,10 @@ void AddCaribbeanClubs(vector<cm3_clubs*>& vec, int numberOfCountries, int clubs
 		return n1->NationReputation > n2->NationReputation;
 		});
 
-	int CountriesToSelectFrom = (sz < 8) ? sz : 8;
+	int CountriesToSelectFrom = (sz < 6) ? sz : 6;
 	for (int i = 0; i < numberOfCountries; i++) {
 		cm3_nations* nation = nations[rand() % CountriesToSelectFrom];
+
 		vector<cm3_clubs*> nation_clubs = find_clubs_of_country_for_euro(nation->NationID);
 		sort(nation_clubs.begin(), nation_clubs.end(), compareClubRep);
 
@@ -270,12 +271,17 @@ void replacement_4c11a0_full() {
 			}
 			cm3_clubs* club = find_club(name.c_str());
 			if (!club || !club->ClubNation) {
-				dprintf("Club %s not found, getting backup from %s\n", name, nation);
+				dprintf("Club %s not found, getting backup from %s\n", name.c_str(), nation);
+				AddConcacafClubs(concacaf_clubs, nation, 1);
+			}
+			else if (club->ClubEuroFlag != -1) {
+				dprintf("Club %s already qualified, getting backup from %s\n", name.c_str(), nation);
 				AddConcacafClubs(concacaf_clubs, nation, 1);
 			}
 			else {
 				dprintf("Setting club %s to CONCACAF Champions Cup\n", (club->ClubName));
 				concacaf_clubs.push_back(club);
+				club->ClubEuroFlag = 1;
 			}
 		}
 		in.close();
@@ -315,15 +321,6 @@ void replacement_4c11a0_full() {
 			teams[i].club->ClubEuroFlag = -1;
 			i++;
 		}
-		/*
-		AddConcacafClubs(concacaf_clubs_bye, "Jamaica", 1); // Caribbean
-		AddConcacafClubs(concacaf_clubs, "Dominican Republic", 1); // Caribbean
-		AddConcacafClubs(concacaf_clubs, "Haiti", 1); // Caribbean
-		AddConcacafClubs(concacaf_clubs, "Nicaragua", 1); // Central America
-		AddConcacafClubs(concacaf_clubs, "Guatemala", 1); // Central America
-		AddConcacafClubs(concacaf_clubs, "Costa Rica", 2); // Central America
-		AddConcacafClubs(concacaf_clubs, "Honduras", 1); // Central America
-		*/
 	}
 	dprintf("\n");
 }
@@ -369,9 +366,6 @@ void setup_concacaf()
 
 	WriteBytes(0x4c11b3, 1, 0x1b);
 
-	//WriteBytes(0x4c0f35, 2, 0xa0, 0x1);
-	//WriteBytes(0x4c0f3d, 1, 0x4);
-	//PatchFunction(0x4C0F00, (DWORD)&sub_4C0F00);
 	WriteFuncPtr(0x968AA0, 16, (DWORD)&concacaf_fixture_caller);
 	WriteBytes(0x8318b1, 3, 0x6a, 0x0, 0x53);
 	WriteBytes(0x667588, 1, 0x1);

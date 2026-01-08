@@ -5,6 +5,9 @@
 
 char* szDebugFile = "";
 
+Config configFile = Config();
+std::default_random_engine rng = std::default_random_engine{};
+
 void dprintf(const char* fmt, ...)
 {
 	char printString[1024];

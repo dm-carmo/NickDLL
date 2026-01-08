@@ -15,6 +15,7 @@
 #include "sudamericana.h"
 #include "libertadores.h"
 #include "libertadores_calendar.h"
+#include "inject_club_renames.h"
 //#include "european_cup.h"
 
 using namespace std;
@@ -50,10 +51,25 @@ void Setup()
 	WriteBytes(0x5CCD3C, 6, 0xe9, 0x72, 0x03, 0x00, 0x00, 0x90);
 #endif 
 
-	setup_libertadores();
-	setup_sudamericana();
-	setup_libertadores_calendar();
-	setup_concacaf();
+	setup_name_injection();
+
+	configFile.LoadConfig("NickDLL_config.json");
+
+	if (configFile.GetBool("applyLibertadores", true)) {
+		dprintf("Applying Libertadores changes\n");
+		setup_libertadores();
+		setup_libertadores_calendar();
+	}
+
+	if (configFile.GetBool("applySudamericana", true)) {
+		dprintf("Applying Sudamericana changes\n");
+		setup_sudamericana();
+	}
+
+	if (configFile.GetBool("applyConcacafCup", true)) {
+		dprintf("Applying CONCACAF Champions Cup changes\n");
+		setup_concacaf();
+	}
 	//setup_european_cup();
 }
 

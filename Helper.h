@@ -2,10 +2,14 @@
 #include <windows.h>
 #include <vector>
 #include "CMHeader.h"
+#include "Config.h"
+#include <random>
 
 using namespace std;
 
 extern char *szDebugFile;
+extern Config configFile;
+extern std::default_random_engine rng;
 
 void dprintf(const char* fmt, ...);
 void WriteBytes(DWORD addr, int bytes, ...);

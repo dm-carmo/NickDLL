@@ -18,7 +18,7 @@ Function to select 32 teams for Copa Libertadores
 /*
 Last Libertadores winners
 Last Sudamericana winners
-5 teams from Argentina and Brazil
+5 teams from Argentina and Brazil (tries to get cup winners and losers if possible)
 3 teams from Chile and Colombia
 2 teams from Bolivia, Ecuador, Paraguay, Peru, Uruguay and Venezuela
 */
@@ -195,8 +195,7 @@ void replacement_004C6430_full()
 			if (nation_count >= required) continue;
 			cm3_clubs* club = find_club(name.c_str());
 			if (!club || !club->ClubNation) {
-				continue;
-				dprintf("Club %s not found, skipping\n", name);
+				dprintf("Club %s not found, skipping\n", name.c_str());
 			}
 			else {
 				dprintf("Setting club %s to Libertadores\n", (club->ClubName));
@@ -226,7 +225,6 @@ void replacement_004C6430_full()
 	dprintf("\n");
 }
 
-
 extern "C" _declspec(naked) int replacement_004C6430()
 {
 	_asm
@@ -243,10 +241,7 @@ extern "C" _declspec(naked) int replacement_004C6430()
 
 void setup_libertadores()
 {
-	// 004C625D  |. E8 CE010000    CALL cm0102.004C6430                     ; \cm0102.004C6430
-	// Remap function to our function
+	// Remap CONMEBOL seeding function to our function, as this controls which teams get picked for Libertadores
 	DWORD func_addr = (DWORD)replacement_004C6430;
 	WriteDWORD(0x004C625D + 1, func_addr - (0x004C625D + 5));
-	//004C6259 | . 50             PUSH EAX; / Arg2
-	//004C625A | . 52             PUSH EDX; | Arg1
 }
