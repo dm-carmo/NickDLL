@@ -51,7 +51,7 @@ void Setup()
 	WriteBytes(0x5CCD3C, 6, 0xe9, 0x72, 0x03, 0x00, 0x00, 0x90);
 #endif 
 
-	setup_name_injection();
+	//setup_name_injection();
 
 	configFile.LoadConfig("NickDLL_config.json");
 
