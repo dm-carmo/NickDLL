@@ -137,6 +137,7 @@ vector<cm3_clubs*> find_clubs_of_country(DWORD nation_id)
 	return ret;
 }
 
+// Gets all clubs from the country that do not have a Euro (i.e. continental) competition set, for playable countries as it removes clubs with no last division
 vector<cm3_clubs*> find_clubs_of_country_for_euro_playable(DWORD nation_id)
 {
 	vector<cm3_clubs*> ret;
@@ -157,6 +158,7 @@ vector<cm3_clubs*> find_clubs_of_country_for_euro_playable(DWORD nation_id)
 	return ret;
 }
 
+// Gets all clubs from the country that do not have a Euro (i.e. continental) competition set
 vector<cm3_clubs*> find_clubs_of_country_for_euro(DWORD nation_id)
 {
 	vector<cm3_clubs*> ret;

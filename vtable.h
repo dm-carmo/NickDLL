@@ -7,7 +7,7 @@
 /*
 * Notes on these function pointers: (example is Brazilian Bahia State league)
 F0 F4 42 00 => Some kind of init/free?
-30 5D 68 00 => Related to periods maybe? (Netherlands D2)
+30 5D 68 00 => Related to periods maybe? (check Netherlands D2)
 10 FE 42 00 => Called to update at the end of the season
 10 CE 48 00 
 D0 9A 68 00 
@@ -18,7 +18,7 @@ B0 CE 48 00
 A0 CE 48 00 
 C0 FF 42 00 => Qualifies teams for playoffs and sets up the stages
 70 CE 48 00 
-70 29 43 00 => Related to periods maybe? (Netherlands D2)
+70 29 43 00 => Related to periods maybe? (check Netherlands D2)
 70 34 58 00 
 B0 CA 48 00 
 D0 F5 42 00 => Sets up fixtures

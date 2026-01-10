@@ -432,6 +432,7 @@ enum LeagueFates {
 	Qualified1=6,
 	Qualified2=7,
 	Qualified3=8,
+	CantBePromoted=0xFC,
 	NoFate=0xFF
 };
 

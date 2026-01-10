@@ -140,7 +140,7 @@ public:
 
 	void print(const char *szPrefix = NULL) const
 	{
-		const char *szDaysOfWeek[] = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
+		const char *szDaysOfWeek[] = { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" };
 		const char* szMonthsOfYear[] = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
 		if (szPrefix)
 			dprintf("%s ", szPrefix);

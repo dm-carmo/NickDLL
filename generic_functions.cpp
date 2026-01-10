@@ -5,6 +5,7 @@
 #include "constants.h"
 
 
+// Generic function that will add teams to a league competition
 int AddTeams(BYTE* _this)
 {
 	DWORD CompID = *(DWORD*)(*(DWORD*)(_this + 0x4));
@@ -20,7 +21,7 @@ int AddTeams(BYTE* _this)
 	{
 		cm3_clubs* club = &(*clubs)[i];
 		if (club->ClubDivision && club->ClubDivision->ClubCompID == CompID)
-			sub_687430_add_team_call(_this, teamsAdded++, club, 0, 0);
+			add_team_call(_this, teamsAdded++, club, 0, 0);
 	}
 	return 1;
 }
@@ -43,32 +44,38 @@ void AddLeague(BYTE* _this, const char* szLeagueName, int leagueNo, int year, DW
 		dprintf("Could not find comp %s!", szLeagueName);
 }
 
+// Creates a fixture block with the specified data
 void AddFixture(BYTE* pMem, int fixture, Date date, int startYear, Day dayOfWeek /* Mon = 0 */, int timeOfDay, int stadiumType)
 {
 	add_fixture_date_call(pMem, fixture, date.getDay(), date.getMonth() - 1, date.getYear() - startYear, dayOfWeek, timeOfDay, startYear, stadiumType);
 }
 
+// Creates a block with the specified data, that defines days to move matches for TV
 void AddFixtureTV(BYTE* pMem, int fixture, int tv_id, int num_to_move, Day dayOfWeek /* Mon = 0 */, int timeOfDay, int stadiumType)
 {
 	add_fixture_tv_days_call(pMem, fixture, tv_id, dayOfWeek, timeOfDay, num_to_move, stadiumType);
 }
 
+// Creates a fixture block with the specified data, with a shortcut to add a TV days block with nothing defined
 void AddFixtureNoTV(BYTE* pMem, int fixture, Date date, int startYear, Day dayOfWeek /* Mon = 0 */, int timeOfDay, int stadiumType)
 {
 	add_fixture_date_call(pMem, fixture, date.getDay(), date.getMonth() - 1, date.getYear() - startYear, dayOfWeek, timeOfDay, startYear, stadiumType);
 	add_fixture_tv_days_call(pMem, fixture, 0, -1, -1, -1, 0);
 }
 
+// Creates a cup/playoff fixture block with the specified data
 void AddPlayoffFixture(BYTE* pMem, int fixture, Date date, int startYear, Day dayOfWeek /* Mon = 0 */, int timeOfDay, int stadiumType)
 {
 	add_playoff_fixture_date_call(pMem, fixture, date.getDay(), date.getMonth() - 1, date.getYear() - startYear, dayOfWeek, timeOfDay, startYear, stadiumType);
 }
 
+// Creates a cup/playoff draw date block with the specified data
 void AddPlayoffDrawFixture(BYTE* pMem, int fixture, Date date, int startYear, Day dayOfWeek /* Mon = 0 */)
 {
 	add_playoff_draw_date_call(pMem, fixture, date.getDay(), date.getMonth() - 1, date.getYear() - startYear, dayOfWeek, startYear);
 }
 
+// Fills in details for cup/playoff fixtures, based on this information: https://champman0102.net/viewtopic.php?p=16076#p16076
 void FillFixtureDetails(BYTE* pMem, int fixture, WORD stage_name, WORD draw_type, WORD game_1_tiebreak, WORD game_2_tiebreak, BYTE unk17, WORD teams_in_round, 
 	WORD num_games, WORD new_teams_in_round, WORD total_teams_in, BYTE replays, BYTE legs, BYTE days_between_games, 
 	DWORD prize_reach, DWORD prize_win, DWORD prize_lose, WORD game_3_tiebreak)

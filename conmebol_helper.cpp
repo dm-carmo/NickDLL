@@ -1,5 +1,6 @@
 #include "conmebol_helper.h"
 
+// Number of teams from each country that usually qualify to Copa Libertadores
 map<string, int> libertadores_qual = {
 	{"Argentina", 6},
 	{"Bolivia", 2},
@@ -13,6 +14,7 @@ map<string, int> libertadores_qual = {
 	{"Venezuela", 2},
 };
 
+// Number of teams from each country that usually qualify to Copa Sudamericana
 map<string, int> sudamericana_qual = {
 	{"Argentina", 6},
 	{"Bolivia", 2},

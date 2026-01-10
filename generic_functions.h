@@ -4,7 +4,7 @@
 #include "Helper.h"
 #include "Date.h"
 
-static int(*sub_549F70_convert_to_cm_date)() = (int(*)())(0x549F70);
+static int(*convert_to_cm_date)() = (int(*)())(0x549F70);
 
 static int(*add_fixture_date_call)(BYTE* a1, __int16 a2, __int16 a3, unsigned __int8 a4, __int16 a5, int a6, char a7, __int16 a8, int a9) =
 (int(*)(BYTE * a1, __int16 a2, __int16 a3, unsigned __int8 a4, __int16 a5, int a6, char a7, __int16 a8, int a9))(0x68A160);
@@ -22,7 +22,7 @@ static int   (*sub_944CFF_splitpath)() = (int(*)())(0x944CFF);
 static void* (*sub_944E46_malloc)(int size) = (void* (*)(int size))(0x944E46);
 static void* (*sub_945501_alloc)(int size, int a2) = (void* (*)(int size, int a2))(0x945501);
 
-static int(__thiscall* sub_687430_add_team_call)(BYTE* _this, BYTE teamNo, cm3_clubs* club, BYTE a3, DWORD* a4) =
+static int(__thiscall* add_team_call)(BYTE* _this, BYTE teamNo, cm3_clubs* club, BYTE a3, DWORD* a4) =
 (int(__thiscall*)(BYTE * _this, BYTE teamNo, cm3_clubs * club, BYTE a3, DWORD * a4))(0x687430);
 
 int AddTeams(BYTE* _this);
