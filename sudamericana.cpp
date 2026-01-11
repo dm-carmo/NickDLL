@@ -1,3 +1,4 @@
+#pragma warning (disable : 4733)
 #include <windows.h>
 #include "CMHeader.h"
 #include "Helper.h"
@@ -83,7 +84,7 @@ void AddSudamericanaClubs(vector<cm3_clubs*>& vec, const char* szNation, int num
 
 void SudamericanaTeams(BYTE* _this) {
 	BYTE* pMem = NULL;
-	DWORD teams = 32;
+	WORD teams = 32;
 
 	pMem = (BYTE*)sub_944E46_malloc(4 * teams);
 	((comp_stats*)_this)->n_teams2 = teams;

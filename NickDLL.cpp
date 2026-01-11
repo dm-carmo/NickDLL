@@ -1,4 +1,4 @@
-#pragma warning (disable : 4786)  // Stops all the weird STL warnings
+#pragma warning (disable : 4786 4996)  // Stops all the weird STL warnings
 #include <windows.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -15,6 +15,7 @@
 #include "sudamericana.h"
 #include "libertadores.h"
 #include "libertadores_calendar.h"
+#include "eng_conf.h"
 #include "inject_club_renames.h"
 //#include "european_cup.h"
 
@@ -54,6 +55,11 @@ void Setup()
 	//setup_name_injection();
 
 	configFile.LoadConfig("NickDLL_config.json");
+
+	if (configFile.GetBool("applyEngland", true)) {
+		dprintf("Applying England changes\n");
+		setup_eng_conf();
+	}
 
 	if (configFile.GetBool("applyLibertadores", true)) {
 		dprintf("Applying Libertadores changes\n");

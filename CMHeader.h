@@ -8,11 +8,11 @@
 
 #define SI_DOUBLE double
 
-typedef enum class COMPETITION_TYPE : char {
+enum CompetitionType : char {
 	CLUB_DOMESTIC = 1,
 	CLUB_INTERNATITONAL = 2,
 	NATION_INTERNATIONAL = 4
-} competition_type;
+};
 
 enum RoundNames {
 	None = 0,
@@ -81,6 +81,29 @@ enum Game2Tiebreaks {
 enum Game3Tiebreaks {
 	NoTiebreak_3 = 0,
 	ExtraTimePenalties_3 = 3
+};
+
+enum StadiumType {
+	HomeStadium = 0,
+	VenueUnknown_1 = 1,
+	Neutral30k_2 = 2,
+	Neutral30k_3 = 3,
+	NationalStadium = 4,
+	LargestStadiumNeutral = 5,
+	NeutralStadium = 8,
+	VenueUnknown_10 = 0x10,
+	Neutral50k_20 = 0x20,
+	FACupSemiFinals = 0x2A,
+	LargestStadium1 = 0x40,
+	LargestStadium2 = 0x80,
+	LargestStadium3 = 0x100,
+	LargestStadium4 = 0x200,
+	LargestStadium5 = 0x400,
+	LargestStadium6 = 0x800,
+	LargestStadium7 = 0x1000,
+	LargestStadium8 = 0x2000,
+	LargestStadium9 = 0x4000,
+	StadeLouisII = 0x8000
 };
 
 typedef struct cm3_continents CM3_CONTINENTS;
@@ -323,17 +346,20 @@ typedef struct comp
 	DWORD* comp_vtable;								//0
 	CM3_CLUB_COMPS* competition_db;					//4	
 	long f8;										//8
-	long f12;										//12
+	DWORD* stages;									//12
 	char pad16[12];									//16
-	CM3_CLUB_COMPS* promotes_to;					//28
-	CM3_CLUB_COMPS* relegates_to;					//32
+	long promotes_to;								//28
+	long relegates_to;								//32
 	long f36;										//36
-	char pad40[18];									//40
-	unsigned short n_games;							//58
-	unsigned short n_rounds;						//60
-	unsigned short n_teams;							//62
-	unsigned short year;							//64
-	competition_type comp_type;						//66
+	char pad40[4];									//40
+	long num_stages;								//44
+	long current_stage;								//48
+	char pad48[6];									//52
+	WORD n_games;									//58
+	WORD n_rounds;									//60
+	WORD n_teams;									//62
+	WORD year;										//64
+	CompetitionType comp_type;						//66
 	char f67;										//67
 	char f68;										//68
 	char pad73[4];									//69
@@ -344,7 +370,7 @@ typedef struct comp
 	char f81;										//81
 	char f82;										//82
 	char tmp_file_name[80];							//83
-	long f163;										//163
+	BYTE* rounds_list;								//163
 	DWORD* teams_list;								//167
 	char f171;										//171
 	char f172;										//172
@@ -372,7 +398,7 @@ typedef struct comp
 	char pad230[7];									//230
 	unsigned char f237;								//237
 	DWORD* teams2;									//238
-	unsigned short n_teams2;						//242
+	WORD n_teams2;									//242
 } comp_stats;
 #pragma pack(pop)
 
@@ -423,17 +449,18 @@ typedef struct TEAM_LEAGUE_STATS
 } team_league_stats;
 #pragma pack(pop)
 
-enum LeagueFates {
-	Promoted=0,
-	TopPlayoff=1,
-	BottomPlayoff=2,
-	Relegated=3,
-	Champions=5,
-	Qualified1=6,
-	Qualified2=7,
-	Qualified3=8,
-	CantBePromoted=0xFC,
-	NoFate=0xFF
+enum LeagueFates : BYTE {
+	Promoted = 0,
+	TopPlayoff = 1,
+	BottomPlayoff = 2,
+	Relegated = 3,
+	Champions = 5,
+	Qualified1 = 6,
+	Qualified2 = 7,
+	Qualified3 = 8,
+	CantBePromoted = 0xFC,
+	Eliminated = 0xFE,
+	NoFate = 0xFF
 };
 
 extern cm3_nations** nations;
@@ -458,3 +485,5 @@ extern DWORD** comp_stats_list;
 extern DWORD* comp_stats_count;
 
 extern WORD* current_year;
+
+extern DWORD* staff_history;

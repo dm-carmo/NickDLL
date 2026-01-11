@@ -96,7 +96,6 @@
       <Optimization>Disabled</Optimization>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <WarningLevel>Level3</WarningLevel>
-      <MinimalRebuild>true</MinimalRebuild>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;NICKDLL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AssemblerListingLocation>.\Debug\</AssemblerListingLocation>
@@ -137,6 +136,7 @@
     <ClCompile Include="concacaf.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="conmebol_helper.cpp" />
+    <ClCompile Include="eng_conf.cpp" />
     <ClCompile Include="european_cup.cpp" />
     <ClCompile Include="generic_functions.cpp" />
     <ClCompile Include="Helper.cpp" />
@@ -155,6 +155,7 @@
     <ClInclude Include="conmebol_helper.h" />
     <ClInclude Include="constants.h" />
     <ClInclude Include="Date.h" />
+    <ClInclude Include="eng_conf.h" />
     <ClInclude Include="european_cup.h" />
     <ClInclude Include="generic_functions.h" />
     <ClInclude Include="Helper.h" />

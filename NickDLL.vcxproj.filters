@@ -57,6 +57,9 @@
     <ClCompile Include="conmebol_helper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="eng_conf.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMHeader.h">
@@ -105,6 +108,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="inject_club_renames.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="eng_conf.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

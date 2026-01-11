@@ -331,12 +331,12 @@ void replacement_4c11a0_full() {
 		AddCaribbeanClubs(concacaf_clubs_bye, 1, 1); // Caribbean winner
 		AddCaribbeanClubs(concacaf_clubs, 2, 1); // Caribbean
 
-		int i;
+		DWORD i;
 		for (i = 0; i < concacaf_clubs.size(); i++) {
 			teams[i].club = concacaf_clubs[i];
 			teams[i].club->ClubEuroFlag = -1;
 		}
-		for (int j = 0; j < concacaf_clubs_bye.size(); j++) {
+		for (DWORD j = 0; j < concacaf_clubs_bye.size(); j++) {
 			teams[i].club = concacaf_clubs_bye[j];
 			teams[i].club->ClubEuroFlag = -1;
 			i++;

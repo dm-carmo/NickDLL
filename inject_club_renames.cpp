@@ -26,13 +26,13 @@ void inject_names_full()
 	for (const auto& [key, value] : club_rename_short) {
 		cm3_clubs* to_rename = find_club(key.c_str());
 		if (to_rename) {
-			strcpy((*to_rename).ClubNameShort, value.c_str());
+			strcpy_s((*to_rename).ClubNameShort, value.c_str());
 		}
 	}
 	for (const auto& [key, value] : club_rename_long) {
 		cm3_clubs* to_rename = find_club(key.c_str());
 		if (to_rename) {
-			strcpy((*to_rename).ClubName, value.c_str());
+			strcpy_s((*to_rename).ClubName, value.c_str());
 		}
 	}
 }

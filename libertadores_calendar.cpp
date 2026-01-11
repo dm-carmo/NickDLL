@@ -9,7 +9,8 @@ DWORD CreateLibertadoresFixtures(BYTE* _this, char stage_idx, WORD* num_rounds, 
 		if (a5)
 			*a5 = 1;
 		BYTE* pMem = NULL;
-		WORD year = *(WORD*)(_this + 0x40);
+		WORD year = ((comp_stats*)_this)->year;
+		//WORD year = *(WORD*)(_this + 0x40);
 		*num_rounds = 6;
 		*stage_name_id = 1 + NumericGroupStage + stage_idx;
 
@@ -51,7 +52,7 @@ DWORD CreateLibertadoresFixtures(BYTE* _this, char stage_idx, WORD* num_rounds, 
 		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, NoTiebreak_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 4, 2, 0, 0, 0, 2, 7, 0, -1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 29), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 29), year, Saturday, Afternoon, 4);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 29), year, Saturday, Afternoon, NationalStadium);
 		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 8, 2, 1, 0, 0, 0, 1, 0, 0, 2000000, 800000);
 
 		return (DWORD)pMem;
@@ -77,7 +78,6 @@ void __declspec(naked) libertadores_fixture_caller()		// used as a __thiscall ->
 
 void setup_libertadores_calendar()
 {
-	//PatchFunction(0x4c31c0, (DWORD)&sub_4C31C0);
 	WriteFuncPtr(0x968BF4, 16, (DWORD)&libertadores_fixture_caller);
 	// Recopa calendar
 	WriteBytes(0x6323ff, 1, 0x0);

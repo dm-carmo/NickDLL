@@ -1,3 +1,4 @@
+#pragma warning (disable : 4733)
 #include <windows.h>
 #include <stdio.h>
 #include <conio.h>
