@@ -345,7 +345,7 @@ typedef struct comp
 {
 	DWORD* comp_vtable;								//0
 	CM3_CLUB_COMPS* competition_db;					//4	
-	long f8;										//8
+	DWORD* f8;										//8
 	DWORD* stages;									//12
 	char pad16[12];									//16
 	long promotes_to;								//28
@@ -366,7 +366,7 @@ typedef struct comp
 	char max_bench;									//73
 	char max_subs;									//74
 	char pad80[5];									//75
-	char f80;										//80
+	char rules;										//80
 	char f81;										//81
 	char f82;										//82
 	char tmp_file_name[80];							//83

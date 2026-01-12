@@ -4,7 +4,8 @@
 #include "Helper.h"
 #include "Date.h"
 
-static int(*convert_to_cm_date)() = (int(*)())(0x549F70);
+static int(__thiscall* convert_to_cm_date)(BYTE* _this, WORD day, BYTE month, WORD year, DWORD* a5) =
+(int(__thiscall*)(BYTE * _this, WORD day, BYTE month, WORD year, DWORD * a5))(0x549F70);
 
 static int(*add_fixture_date_call)(BYTE* a1, __int16 a2, __int16 a3, unsigned __int8 a4, __int16 a5, int a6, char a7, __int16 a8, int a9) =
 (int(*)(BYTE * a1, __int16 a2, __int16 a3, unsigned __int8 a4, __int16 a5, int a6, char a7, __int16 a8, int a9))(0x68A160);
@@ -33,6 +34,22 @@ static BYTE* (__thiscall* create_stage_data)(BYTE* _this, BYTE* main_comp, __int
 
 static int(__thiscall* sub_51C800)(BYTE* _this, int a2) =
 (int(__thiscall*)(BYTE * _this, int a2))(0x51C800);
+static int(__thiscall* sub_682200)(BYTE* _this) =
+(int(__thiscall*)(BYTE * _this))(0x682200);
+static int(__thiscall* sub_687B10)(BYTE* _this, char a2) =
+(int(__thiscall*)(BYTE * _this, char a2))(0x687B10);
+static int(__thiscall* sub_6835C0)(BYTE* _this) =
+(int(__thiscall*)(BYTE * _this))(0x6835C0);
+//int __thiscall sub_6827D0(int this, void *Base);
+static int(__thiscall* sub_6827D0)(BYTE* _this, BYTE* base) =
+(int(__thiscall*)(BYTE * _this, BYTE * base))(0x6827D0);
+//char *__thiscall sub_49EE70(char *this, int a2);
+static int(__thiscall* sub_49EE70)(BYTE* _this, BYTE* base) =
+(int(__thiscall*)(BYTE * _this, BYTE * base))(0x49EE70);
+//void __thiscall sub_68A850(int this);
+static int(__thiscall* sub_68A850)(BYTE* _this) =
+(int(__thiscall*)(BYTE * _this))(0x68A850);
+
 static void(__thiscall* add_staff_history_qualified)(BYTE* _this, DWORD* club, int comp_id, __int16 stage_main, int stage_sub, char a6) =
 (void(__thiscall*)(BYTE * _this, DWORD * club, int comp_id, __int16 stage_main, int stage_sub, char a6))(0x86BDD0);
 static void(__thiscall* add_staff_history_champions)(BYTE* _this, DWORD* club, int comp_id) =

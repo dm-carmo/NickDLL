@@ -15,7 +15,7 @@
 #include "sudamericana.h"
 #include "libertadores.h"
 #include "libertadores_calendar.h"
-#include "eng_conf.h"
+#include "eng_setup.h"
 #include "inject_club_renames.h"
 //#include "european_cup.h"
 
@@ -50,6 +50,9 @@ void Setup()
 
 	// Disable splash screen
 	WriteBytes(0x5CCD3C, 6, 0xe9, 0x72, 0x03, 0x00, 0x00, 0x90);
+
+	// Increased exe speed for testing
+	WriteDWORD(0x9472ce, 500);
 #endif 
 
 	//setup_name_injection();
@@ -58,7 +61,7 @@ void Setup()
 
 	if (configFile.GetBool("applyEngland", true)) {
 		dprintf("Applying England changes\n");
-		setup_eng_conf();
+		setup_eng_nation();
 	}
 
 	if (configFile.GetBool("applyLibertadores", true)) {

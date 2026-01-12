@@ -154,7 +154,6 @@ void SudamericanaTeams(BYTE* _this) {
 	}
 }
 
-
 extern "C" _declspec(naked) void sudamericana_teams_full()
 {
 	_asm
@@ -167,11 +166,8 @@ extern "C" _declspec(naked) void sudamericana_teams_full()
 	}
 }
 
-static int(*sub_682200)() = (int(*)())(0x682200);
-static int(*sub_687B10)() = (int(*)())(0x687B10);
 static int(*sub_4C61B0)() = (int(*)())(0x4C61B0);
 static int(*sub_4C3890)() = (int(*)())(0x4C3890);
-static int(*sub_49EE70)() = (int(*)())(0x49EE70);
 static int(*sub_90D130)() = (int(*)())(0x90D130);
 static int(*sub_5E8290)() = (int(*)())(0x5E8290);
 
