@@ -1,13 +1,65 @@
 #pragma warning (disable : 4733)
 #include <windows.h>
-#include "generic_functions.h"
-#include "constants.h"
+#include "Helpers\generic_functions.h"
+#include "Helpers\constants.h"
+#include "Structures\vtable.h"
 
-int eng_conf_subs_c(BYTE* _this)
+DWORD* eng_conf_vtable = (DWORD*)0x969A74;
+
+void eng_conf_free_under(BYTE* _this) {
+	comp_stats* data = (comp_stats*)_this;
+	data->comp_vtable = eng_conf_vtable;
+	DWORD x = 0;
+	sub_687970(_this, 0);
+	if (data->fixtures_table) {
+		sub_9452CA_free(data->fixtures_table);
+		data->fixtures_table = 0;
+	}
+	long current = data->current_stage;
+	if (current >= 0) {
+		for (long i = 0; i <= current; i++) {
+			DWORD stage = data->stages[i];
+			if (stage) {
+				DWORD v1 = *(DWORD*)stage;
+				(DWORD*)(*(int(__thiscall**)(BYTE*, int a2))(v1))((BYTE*)stage, 1);
+			}
+		}
+	}
+	if (data->stages) {
+		sub_9452CA_free((BYTE*)(data->stages));
+		data->stages = 0;
+	}
+	if (data->f8) {
+		sub_49F450((BYTE*)(data->f8));
+		sub_944C94_free((BYTE*)(data->f8));
+	}
+	DWORD y = -1;
+	sub_682300(_this);
+}
+
+void eng_conf_free(BYTE* _this, BYTE a2) {
+	eng_conf_free_under(_this);
+	if (a2 & 1) {
+		sub_944C94_free(_this);
+	}
+}
+
+void __declspec(naked) eng_conf_free_c()		// used as a __thiscall -> __cdecl converter
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x4]
+		push ecx
+		call eng_conf_free
+		add esp, 0x8
+		ret 4
+	}
+}
+
+int eng_conf_subs(BYTE* _this)
 {
 	comp_stats* comp_data = (comp_stats*)_this;
-	DWORD CompID = comp_data->competition_db->ClubCompID;
-	dprintf("eng_conf_subs - CompID: %08X\n", CompID);
 
 	comp_data->n_rounds = 2;
 	comp_data->pts_for_win = 3;
@@ -38,22 +90,21 @@ int eng_conf_subs_c(BYTE* _this)
 }
 
 void eng_conf_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
-	// Maybe move this somewhere else, as it is done before this function call
-	//BYTE* pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
 	sub_682200(_this);
 	comp_stats* data = (comp_stats*)_this;
 	data->competition_db = comp;
-	data->comp_vtable = (DWORD*)0x969A74;
+	data->comp_vtable = eng_conf_vtable;
 	data->year = year;
-	//data->min_stadium_capacity = 0x1770;
-	//data->min_stadium_seats = 0x3E8;
+	//data->min_stadium_capacity = 0;
+	//data->min_stadium_seats = 0;
 	data->rules = 0x9;
-	sub_687B10(_this, 1);
+	int loaded = sub_687B10(_this, 1);
+	if (loaded) return;
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 1;
 	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
-	eng_conf_subs_c(_this);
+	eng_conf_subs(_this);
 	AddTeams(_this);
 	sub_6835C0(_this);
 	BYTE* ebx = 0;
@@ -64,7 +115,6 @@ void eng_conf_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
 	sub_68A850(_this);
-	//return (DWORD)_this;
 }
 
 void __declspec(naked) eng_conf_init_c()		// used as a __thiscall -> __cdecl converter
@@ -78,6 +128,51 @@ void __declspec(naked) eng_conf_init_c()		// used as a __thiscall -> __cdecl con
 		call eng_conf_init
 		add esp, 0xc
 		ret 8
+	}
+}
+
+char eng_conf_update(BYTE* _this) {
+	comp_stats* data = (comp_stats*)_this;
+	BYTE* ebx = 0;
+	data->f76 = 0;
+	sub_687970(_this, ebx);
+	if (data->fixtures_table) {
+		sub_9452CA_free(data->fixtures_table);
+		data->fixtures_table = 0;
+	}
+	if (data->f8) sub_4A1C50((BYTE*)(data->f8), 1);
+	long current = data->current_stage;
+	if (current >= 0) {
+		for (long i = 0; i <= current; i++) {
+			DWORD stage = data->stages[i];
+			if (stage) {
+				DWORD v1 = *(DWORD*)stage;
+				(DWORD*)(*(int(__thiscall**)(BYTE*, int a2))(v1))((BYTE*)stage, 1);
+			}
+		}
+	}
+	data->year++;
+	data->current_stage = -1;
+	eng_conf_subs(_this);
+	AddTeams(_this);
+	sub_6835C0(_this);
+	BYTE* edx = 0;
+	sub_6827D0(_this, edx);
+	DWORD v1 = *(DWORD*)_this;
+	(DWORD*)(*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
+	sub_68AA80(_this);
+	return sub_79CEE0((BYTE*)*b74340, (BYTE*)(data->competition_db));
+}
+
+void __declspec(naked) eng_conf_update_c()		// used as a __thiscall -> __cdecl converter
+{
+	__asm
+	{
+		mov eax, esp
+		push ecx
+		call eng_conf_update
+		add esp, 0x4
+		ret
 	}
 }
 
@@ -131,13 +226,13 @@ void __declspec(naked) eng_playoffs_create()		// used as a __thiscall -> __cdecl
 	}
 }
 
-void __declspec(naked) eng_conf_subs()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) eng_conf_subs_c()		// used as a __thiscall -> __cdecl converter
 {
 	__asm
 	{
 		mov eax, esp
 		push ecx
-		call eng_conf_subs_c
+		call eng_conf_subs
 		add esp, 0x4
 		ret
 	}
@@ -327,9 +422,10 @@ void __declspec(naked) eng_conf_fixtures()		// used as a __thiscall -> __cdecl c
 }
 
 void setup_eng_conf() {
-	PatchFunction(0x56db60, (DWORD)&eng_conf_init_c);
-	WriteFuncPtr(0x969A74, 11, (DWORD)&eng_playoffs_create);
-	WriteFuncPtr(0x969A74, 16, (DWORD)&eng_conf_fixtures);
-	WriteFuncPtr(0x969A74, 18, (DWORD)&eng_conf_set_table_fate);
-	WriteFuncPtr(0x969A74, 36, (DWORD)&eng_conf_subs);
+	WriteVTablePtr(eng_conf_vtable, VTableInitFree, (DWORD)&eng_conf_free_c);
+	WriteVTablePtr(eng_conf_vtable, VTableEoSUpdate, (DWORD)&eng_conf_update_c);
+	WriteVTablePtr(eng_conf_vtable, VTablePlayoffQual, (DWORD)&eng_playoffs_create);
+	WriteVTablePtr(eng_conf_vtable, VTableFixtures, (DWORD)&eng_conf_fixtures);
+	WriteVTablePtr(eng_conf_vtable, VTableTableFates, (DWORD)&eng_conf_set_table_fate);
+	WriteVTablePtr(eng_conf_vtable, VTableSubsRounds, (DWORD)&eng_conf_subs_c);
 }

@@ -24,30 +24,55 @@ enum RoundNames {
 	SixthRound = 0x3C,
 	SeventhRound = 0x46,
 	EighthRound = 0x50,
-	NinthRound = 0x5A,
-	TenthRound = 0x64,
-	EleventhRound = 0x6E,
+	NinthRound = 0x5A, // Round of 64 if patched
+	TenthRound = 0x64, // Round of 32 if patched
+	EleventhRound = 0x6E, // Round of 16 if patched
 	QuarterFinal = 0x78,
 	SemiFinal = 0x82,
 	ThirdPlacePlayoff = 0x8C,
 	Final = 0x96,
 	Playoff = 0xA0,
 	Playout = 0xBE,
+	FirstPreliminaryRound = 0xC8,
+	SecondPreliminaryRound = 0xD2,
 	QualifyingRound = 0xDC,
 	PreliminaryRound = 0xE6,
+	PromotionFinal = 0xF0,
 	FirstQualifyingPhase = 0xFA,
 	SecondQualifyingPhase = 0x104,
 	ThirdQualifyingPhase = 0x10E,
 	Playoff1 = 0x118,
 	Playoff2 = 0x122,
+	EliminationFinal = 0x140,
+	MinorSemiFinal = 0x14A,
+	MajorSemiFinal = 0x154,
+	PreliminaryFinal = 0x15E,
+	GrandFinal = 0x168,
+	InterzonePlayoff = 0x172,
 	NumericGroupStage = 0x3E8,
-	CarribeanZone = 0x40F,
+	SecondPlacedTeams = 0x3FC,
+	FirstRoundNumericGroup = 0x3E8,
+	SecondRoundNumericGroup = 0x407,
+	CaribbeanZone = 0x40F,
+	CentralAmericanZone = 0x410,
+	EasternConference = 0x413,
+	WesternConference = 0x414,
+	EasternConferencePlayoff = 0x415,
+	WesternConferencePlayoff = 0x416,
 	MLSCup = 0x417,
+	AutumnSeason = 0x419,
+	SpringSeason = 0x41A,
 	NorthernSouthernSection = 0x41D,
-	AlphabeticGroupStage = 0x420,
+	AlphabeticGroupStage = 0x41F,
+	OceaniaAsiaPlayoff = 0x42F,
+	FirstStage = 0x432,
+	SecondStage = 0x433,
 	OpeningStage = 0x434,
 	ClosingStage = 0x435,
+	InteriorZone = 0x436,
+	MetropolitanZone = 0x437,
 	Promotion = 0x438,
+	Periods1to4=0x439,
 	ChampionshipGroup = 0x44B,
 	RelegationGroup = 0x44C,
 	RelegationPlayoff = 0x452,
@@ -58,7 +83,10 @@ enum RoundNames {
 	FourthPromotionPlayoff = 0x45C,
 	CentralAmericanZoneGroup1 = 0x473,
 	ClassificationGroup1 = 0x475,
-	EastWest = 0x480
+	CentralConference = 0x47B,
+	EastWest = 0x480,
+	EastQuarterFinal = 0x482,
+	WestQuarterFinal = 0x483
 };
 
 enum Game1Tiebreaks {
@@ -362,10 +390,11 @@ typedef struct comp
 	CompetitionType comp_type;						//66
 	char f67;										//67
 	char f68;										//68
-	char pad73[4];									//69
+	DWORD f69;										//69
 	char max_bench;									//73
 	char max_subs;									//74
-	char pad80[5];									//75
+	char f75;										//75
+	DWORD* f76;										//76
 	char rules;										//80
 	char f81;										//81
 	char f82;										//82
@@ -374,7 +403,7 @@ typedef struct comp
 	DWORD* teams_list;								//167
 	char f171;										//171
 	char f172;										//172
-	unsigned int pad173;							//173
+	DWORD* f173;									//173
 	DWORD* team_league_table;						//177
 	char pad181[5];									//181
 	DWORD* fixtures_table;							//186
@@ -487,3 +516,5 @@ extern DWORD* comp_stats_count;
 extern WORD* current_year;
 
 extern DWORD* staff_history;
+
+extern DWORD* b74340;

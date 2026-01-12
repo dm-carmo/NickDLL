@@ -1,15 +1,17 @@
 #include <windows.h>
-#include "CMHeader.h"
-#include "Helper.h"
+#include "Structures\CMHeader.h"
+#include "Helpers\Helper.h"
 #include <algorithm>
-#include "concacaf.h"
 #include <filesystem>
 #include <fstream>
 #include <string>
-#include "constants.h"
-#include "generic_functions.h"
+#include "Helpers\constants.h"
+#include "Helpers\generic_functions.h"
+#include "Structures\vtable.h"
 
 using namespace std;
+
+DWORD* concacaf_cup_vtable = (DWORD*)0x968AA0;
 
 DWORD CreateConcacafCupFixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
 {
@@ -41,7 +43,7 @@ DWORD CreateConcacafCupFixtures(BYTE* _this, char stage_idx, WORD* num_rounds, W
 		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 2, 4, 2, 0, 0, 0, 2, 7);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 5, 1), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 6, 1), year, Sunday, Afternoon, 4);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 6, 1), year, Sunday, Afternoon, NationalStadium);
 		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 0, 2, 1, 0, 0, 0, 1, 0);
 
 		return (DWORD)pMem;
@@ -181,6 +183,42 @@ void AddCaribbeanClubs(vector<cm3_clubs*>& vec, int numberOfCountries, int clubs
 	}
 }
 
+// Similar to ConcacafGetCupWinner, but will search for the runner-up instead
+void ConcacafGetCupLoser(vector<cm3_clubs*>& vec, const char* szNation, long comp_id)
+{
+	cm3_nations* nation = find_country(szNation);
+
+	if (nation->NationLeagueSelected) {
+		cm3_club_comps* comp = &(*club_comps)[comp_id];
+		if (!comp) {
+			dprintf("Competition %ld not found, getting backup club\n", comp_id);
+			AddConcacafClubs(vec, szNation, 1);
+		}
+		else {
+			cm3_clubs* last_runner_up = get_last_comp_runner_up(comp);
+			if (!last_runner_up || !last_runner_up->ClubNation) {
+				dprintf("Last runner-up of %s not found or invalid, getting backup club\n", comp->ClubCompName);
+				AddConcacafClubs(vec, szNation, 1);
+			}
+			else {
+				if (last_runner_up->ClubEuroFlag != -1) {
+					dprintf("Last runner-up of %s (%s) is already qualified, getting backup club\n", comp->ClubCompName, (last_runner_up->ClubName));
+					AddConcacafClubs(vec, szNation, 1);
+				}
+				else {
+					dprintf("Setting club %s to CONCACAF Champions Cup (last runner-up of %s)\n", (last_runner_up->ClubName), comp->ClubCompName);
+					vec.push_back(last_runner_up);
+					last_runner_up->ClubEuroFlag = 1;
+				}
+			}
+		}
+	}
+	else {
+		dprintf("Country %s is inactive, getting backup club\n", szNation);
+		AddConcacafClubs(vec, szNation, 1);
+	}
+}
+
 // Tries to find the latest cup winner from comp_id to add to the competition
 // szNation is provided as a backup in case the competition can't be found, or there is no available club in the history
 // loser_backup decides if the cup loser can be used when the winner has already been qualified, or if the place should go to the best available club in the league instead
@@ -217,42 +255,6 @@ void ConcacafGetCupWinner(vector<cm3_clubs*>& vec, const char* szNation, long co
 		}
 	}
 	// If nation has no active competitions, get a random top club instead
-	else {
-		dprintf("Country %s is inactive, getting backup club\n", szNation);
-		AddConcacafClubs(vec, szNation, 1);
-	}
-}
-
-// Similar to ConcacafGetCupWinner, but will search for the runner-up instead
-void ConcacafGetCupLoser(vector<cm3_clubs*>& vec, const char* szNation, long comp_id)
-{
-	cm3_nations* nation = find_country(szNation);
-
-	if (nation->NationLeagueSelected) {
-		cm3_club_comps* comp = &(*club_comps)[comp_id];
-		if (!comp) {
-			dprintf("Competition %ld not found, getting backup club\n", comp_id);
-			AddConcacafClubs(vec, szNation, 1);
-		}
-		else {
-			cm3_clubs* last_runner_up = get_last_comp_runner_up(comp);
-			if (!last_runner_up || !last_runner_up->ClubNation) {
-				dprintf("Last runner-up of %s not found or invalid, getting backup club\n", comp->ClubCompName);
-				AddConcacafClubs(vec, szNation, 1);
-			}
-			else {
-				if (last_runner_up->ClubEuroFlag != -1) {
-					dprintf("Last runner-up of %s (%s) is already qualified, getting backup club\n", comp->ClubCompName, (last_runner_up->ClubName));
-					AddConcacafClubs(vec, szNation, 1);
-				}
-				else {
-					dprintf("Setting club %s to CONCACAF Champions Cup (last runner-up of %s)\n", (last_runner_up->ClubName), comp->ClubCompName);
-					vec.push_back(last_runner_up);
-					last_runner_up->ClubEuroFlag = 1;
-				}
-			}
-		}
-	}
 	else {
 		dprintf("Country %s is inactive, getting backup club\n", szNation);
 		AddConcacafClubs(vec, szNation, 1);
@@ -386,7 +388,7 @@ void setup_concacaf()
 
 	WriteBytes(0x4c11b3, 1, 0x1b);
 
-	WriteFuncPtr(0x968AA0, 16, (DWORD)&concacaf_fixture_caller);
+	WriteVTablePtr(concacaf_cup_vtable, VTableFixtures, (DWORD)&concacaf_fixture_caller);
 	WriteBytes(0x8318b1, 3, 0x6a, 0x0, 0x53);
 	WriteBytes(0x667588, 1, 0x1);
 }

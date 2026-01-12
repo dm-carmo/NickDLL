@@ -45,9 +45,11 @@
     <OutDir>.\Release\</OutDir>
     <IntDir>.\Release\</IntDir>
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -132,42 +134,46 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CMHeader.cpp" />
-    <ClCompile Include="concacaf.cpp" />
+    <ClCompile Include="CONCACAF\concacaf.cpp" />
     <ClCompile Include="Config.cpp" />
-    <ClCompile Include="conmebol_helper.cpp" />
-    <ClCompile Include="eng_conf.cpp" />
-    <ClCompile Include="eng_setup.cpp" />
+    <ClCompile Include="CONMEBOL\conmebol_helper.cpp" />
+    <ClCompile Include="CONMEBOL\libertadores.cpp" />
+    <ClCompile Include="CONMEBOL\libertadores_calendar.cpp" />
+    <ClCompile Include="CONMEBOL\sudamericana.cpp" />
+    <ClCompile Include="England\eng_conf.cpp" />
+    <ClCompile Include="England\eng_fa_cup.cpp" />
+    <ClCompile Include="England\eng_setup.cpp" />
+    <ClCompile Include="England\eng_third.cpp" />
     <ClCompile Include="european_cup.cpp" />
-    <ClCompile Include="generic_functions.cpp" />
-    <ClCompile Include="Helper.cpp" />
+    <ClCompile Include="Helpers\generic_functions.cpp" />
+    <ClCompile Include="Helpers\Helper.cpp" />
     <ClCompile Include="inject_club_renames.cpp" />
-    <ClCompile Include="libertadores.cpp" />
-    <ClCompile Include="libertadores_calendar.cpp" />
     <ClCompile Include="NickDLL.cpp" />
-    <ClCompile Include="sudamericana.cpp" />
+    <ClCompile Include="Structures\CMHeader.cpp" />
     <ClCompile Include="tapani_relegation_patch.cpp" />
     <ClCompile Include="tiny-json.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CMHeader.h" />
-    <ClInclude Include="concacaf.h" />
+    <ClInclude Include="CONCACAF\concacaf.h" />
     <ClInclude Include="Config.h" />
-    <ClInclude Include="conmebol_helper.h" />
-    <ClInclude Include="constants.h" />
-    <ClInclude Include="Date.h" />
-    <ClInclude Include="eng_conf.h" />
-    <ClInclude Include="eng_setup.h" />
+    <ClInclude Include="CONMEBOL\conmebol_helper.h" />
+    <ClInclude Include="CONMEBOL\libertadores.h" />
+    <ClInclude Include="CONMEBOL\libertadores_calendar.h" />
+    <ClInclude Include="CONMEBOL\sudamericana.h" />
+    <ClInclude Include="England\eng_conf.h" />
+    <ClInclude Include="England\eng_fa_cup.h" />
+    <ClInclude Include="England\eng_setup.h" />
+    <ClInclude Include="England\eng_third.h" />
     <ClInclude Include="european_cup.h" />
-    <ClInclude Include="generic_functions.h" />
-    <ClInclude Include="Helper.h" />
+    <ClInclude Include="Helpers\constants.h" />
+    <ClInclude Include="Helpers\generic_functions.h" />
+    <ClInclude Include="Helpers\Helper.h" />
     <ClInclude Include="inject_club_renames.h" />
-    <ClInclude Include="libertadores.h" />
-    <ClInclude Include="libertadores_calendar.h" />
     <ClInclude Include="NString.h" />
-    <ClInclude Include="sudamericana.h" />
+    <ClInclude Include="Structures\CMHeader.h" />
+    <ClInclude Include="Structures\Date.h" />
+    <ClInclude Include="Structures\vtable.h" />
     <ClInclude Include="tiny-json.h" />
-    <ClInclude Include="vtable.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

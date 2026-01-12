@@ -2,8 +2,8 @@
 #include <windows.h>
 #include <stdio.h>
 #include <conio.h>
-#include "CMHeader.h"
-#include "Helper.h"
+#include "Structures\CMHeader.h"
+#include "Helpers\Helper.h"
 
 static int(*cm0102_malloc)() = (int(*)())(0x944E46);
 static int(*cm0102_splitpath)() = (int(*)())(0x944CFF);

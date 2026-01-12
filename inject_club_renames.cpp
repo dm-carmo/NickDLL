@@ -1,4 +1,4 @@
-#include "Helper.h"
+#include "Helpers\Helper.h"
 #include "inject_club_renames.h"
 
 map<string, string> club_rename_short = {

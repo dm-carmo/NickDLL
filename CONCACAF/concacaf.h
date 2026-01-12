@@ -1,7 +1,7 @@
 #pragma once
 #include <windows.h>
-#include "CMHeader.h"
-#include "Helper.h"
+#include "Structures\CMHeader.h"
+#include "Helpers\Helper.h"
 
 void AddConcacafClubs(vector<cm3_clubs*>& vec, const char* szNation, int numberOfClubs);
 void ConcacafGetCupLoser(vector<cm3_clubs*>& vec, const char* szNation, long comp_id);

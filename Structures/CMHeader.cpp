@@ -24,3 +24,5 @@ DWORD* comp_stats_count = (DWORD*)0xADADF8;
 WORD* current_year = (WORD*)0xAE2C92;
 
 DWORD* staff_history = (DWORD*)0xDD7F00;
+
+DWORD* b74340 = (DWORD*)0xB74340;

@@ -124,6 +124,20 @@ cm3_club_comps* get_comp(DWORD compID)
 	return (compID != -1L) ? &(*club_comps)[compID] : NULL;
 }
 
+vector<cm3_clubs*> find_clubs_of_comp(DWORD comp_id, long nation_id)
+{
+	vector<cm3_clubs*> ret;
+	ret.clear();
+	for (DWORD i = 0; i < *clubs_count; i++)
+	{
+		if (!(*clubs)[i].ClubNation) continue;
+		if (!(*clubs)[i].ClubDivision) continue;
+		if ((*clubs)[i].ClubDivision->ClubCompID == comp_id && (nation_id == -1 || (*clubs)[i].ClubNation->NationID == nation_id))
+			ret.push_back(&(*clubs)[i]);
+	}
+	return ret;
+}
+
 vector<cm3_clubs*> find_clubs_of_country(DWORD nation_id)
 {
 	vector<cm3_clubs*> ret;
@@ -236,11 +250,25 @@ bool compareClubRep(cm3_clubs* c1, cm3_clubs* c2)
 	return (c1->ClubReputation > c2->ClubReputation);
 }
 
+bool compareClubRepInv(cm3_clubs* c1, cm3_clubs* c2)
+{
+	return compareClubRep(c2, c1);
+}
+
 bool compareClubLastDivPos(cm3_clubs* c1, cm3_clubs* c2)
 {
+	if (!c1->ClubLastDivision)
+		return (c2->ClubLastPosition > 0 && c2->ClubLastPosition < c1->ClubLastPosition);
+	if (!c2->ClubLastDivision)
+		return (c1->ClubLastPosition > 0 && c1->ClubLastPosition < c2->ClubLastPosition);
 	if (c1->ClubLastDivision->ClubCompReputation != c2->ClubLastDivision->ClubCompReputation)
 		return (c1->ClubLastDivision->ClubCompReputation > c2->ClubLastDivision->ClubCompReputation);
 	return (c1->ClubLastPosition > 0 && c1->ClubLastPosition < c2->ClubLastPosition);
+}
+
+bool compareClubLastDivPosInv(cm3_clubs* c1, cm3_clubs* c2)
+{
+	return compareClubLastDivPos(c2, c1);
 }
 
 cm3_clubs* get_last_comp_winner(cm3_club_comps* comp)

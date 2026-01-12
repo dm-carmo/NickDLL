@@ -1,6 +1,6 @@
 #include <Windows.h>
-#include "CMHeader.h"
-#include "Helper.h"
+#include "Structures\CMHeader.h"
+#include "Helpers\Helper.h"
 
 static int(*sub_543540)() = (int(*)())(0x543540);
 static int(*sub_6020A0)() = (int(*)())(0x6020A0);

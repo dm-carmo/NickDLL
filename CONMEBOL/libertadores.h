@@ -1,7 +1,7 @@
 #pragma once
 #include <windows.h>
-#include "CMHeader.h"
-#include "Helper.h"
+#include "Structures\CMHeader.h"
+#include "Helpers\Helper.h"
 
 void ConmebolSeedingLeague(const char* szNation, int numberOfClubs);
 void replacement_004C6430_full();

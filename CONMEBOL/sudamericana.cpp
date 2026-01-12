@@ -1,14 +1,15 @@
 #pragma warning (disable : 4733)
 #include <windows.h>
-#include "CMHeader.h"
-#include "Helper.h"
+#include "Structures\CMHeader.h"
+#include "Helpers\Helper.h"
 #include <algorithm>
 #include <filesystem>
 #include <fstream>
 #include <string>
 #include "conmebol_helper.h"
-#include "generic_functions.h"
-#include "constants.h"
+#include "Helpers\generic_functions.h"
+#include "Helpers\constants.h"
+#include "Structures\vtable.h"
 
 using namespace std;
 
@@ -23,6 +24,7 @@ This function in NickDLL then selects randomly from the 32 best teams (based on 
 /*
 If any of the leagues are active, teams will be picked based on last position.
 */
+DWORD* sudamericana_vtable = (DWORD*)0x968CA8;
 
 vector<cm3_clubs*> sudamericana_32_clubs;
 
@@ -372,14 +374,14 @@ void setup_sudamericana()
 
 	// Expanded to 32 teams using Libertadores structure
 	PatchFunction(0x4c46c0, (DWORD)&sub_4c46c0);
-	WriteFuncPtr(0x968ca8, 11, 0x4c3a80);
-	WriteFuncPtr(0x968ca8, 13, 0x637750);
-	WriteFuncPtr(0x968ca8, 16, (DWORD)&sudamericana_fixture_caller);
-	WriteFuncPtr(0x968ca8, 18, 0x4c4080);
-	WriteFuncPtr(0x968ca8, 19, 0x4c3680);
-	WriteFuncPtr(0x968ca8, 24, 0x4c4210);
-	WriteFuncPtr(0x968ca8, 27, 0x4c4610);
-	WriteFuncPtr(0x968ca8, 36, 0x4c3890);
+	WriteVTablePtr(sudamericana_vtable, VTablePlayoffQual, 0x4c3a80);
+	WriteVTablePtr(sudamericana_vtable, VTable13, 0x637750);
+	WriteVTablePtr(sudamericana_vtable, VTableFixtures, (DWORD)&sudamericana_fixture_caller);
+	WriteVTablePtr(sudamericana_vtable, VTableTableFates, 0x4c4080);
+	WriteVTablePtr(sudamericana_vtable, VTableStageNews, 0x4c3680);
+	WriteVTablePtr(sudamericana_vtable, VTable24, 0x4c4210);
+	WriteVTablePtr(sudamericana_vtable, VTable27, 0x4c4610);
+	WriteVTablePtr(sudamericana_vtable, VTableSubsRounds, 0x4c3890);
 	WriteBytes(0x4c5864, 1, 0x20);
 	WriteBytes(0x4c5e8e, 1, 0x7);
 }

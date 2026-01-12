@@ -1,7 +1,9 @@
-#include "Helper.h"
-#include "generic_functions.h"
-#include "constants.h"
+#include "Helpers\Helper.h"
+#include "Helpers\generic_functions.h"
+#include "Helpers\constants.h"
+#include "Structures\vtable.h"
 
+DWORD* libertadores_vtable = (DWORD*)0x968BF4;
 
 DWORD CreateLibertadoresFixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
 {
@@ -78,7 +80,7 @@ void __declspec(naked) libertadores_fixture_caller()		// used as a __thiscall ->
 
 void setup_libertadores_calendar()
 {
-	WriteFuncPtr(0x968BF4, 16, (DWORD)&libertadores_fixture_caller);
+	WriteVTablePtr(libertadores_vtable, VTableFixtures, (DWORD)&libertadores_fixture_caller);
 	// Recopa calendar
 	WriteBytes(0x6323ff, 1, 0x0);
 	WriteBytes(0x632401, 1, 0x19);

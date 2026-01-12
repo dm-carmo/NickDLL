@@ -1,11 +1,12 @@
 #include <windows.h>
-#include "CMHeader.h"
-#include "Helper.h"
+#include "Structures\CMHeader.h"
+#include "Helpers\Helper.h"
 #include <algorithm>
 #include <fstream>
 #include <filesystem>
 #include <string>
 #include "conmebol_helper.h"
+#include "Structures\vtable.h"
 
 using namespace std;
 

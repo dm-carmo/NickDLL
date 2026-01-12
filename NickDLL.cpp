@@ -9,13 +9,13 @@
 #include <set>
 #include <algorithm>
 
-#include "CMHeader.h"
-#include "Helper.h"
-#include "concacaf.h"
-#include "sudamericana.h"
-#include "libertadores.h"
-#include "libertadores_calendar.h"
-#include "eng_setup.h"
+#include "Structures\CMHeader.h"
+#include "Helpers\Helper.h"
+#include "CONCACAF\concacaf.h"
+#include "CONMEBOL\sudamericana.h"
+#include "CONMEBOL\libertadores.h"
+#include "CONMEBOL\libertadores_calendar.h"
+#include "England\eng_setup.h"
 #include "inject_club_renames.h"
 //#include "european_cup.h"
 

@@ -1,6 +1,6 @@
 #include <Windows.h>
 #include "generic_functions.h"
-#include "CMHeader.h"
+#include "Structures\CMHeader.h"
 #include "Helper.h"
 #include "constants.h"
 
@@ -150,6 +150,6 @@ _00689C73:
 }
 
 
-void WriteFuncPtr(DWORD addr, int pos, DWORD data) {
-	WriteDWORD(addr + 4 * (pos - 1), data);
+void WriteVTablePtr(DWORD* addr, int pos, DWORD data) {
+	WriteDWORD((DWORD)addr + 4 * (pos - 1), data);
 }

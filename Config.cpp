@@ -1,6 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include "config.h"
-#include "Helper.h"
+#include "Helpers\Helper.h"
 #include "NString.h"
 
 #define MAX_FIELDS 100

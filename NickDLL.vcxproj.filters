@@ -15,34 +15,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CMHeader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="european_cup.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Helper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="NickDLL.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="sudamericana.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="libertadores.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="concacaf.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="libertadores_calendar.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Config.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="generic_functions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="tiny-json.c">
@@ -54,48 +33,48 @@
     <ClCompile Include="inject_club_renames.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="conmebol_helper.cpp">
+    <ClCompile Include="CONCACAF\concacaf.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="eng_conf.cpp">
+    <ClCompile Include="CONMEBOL\conmebol_helper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="eng_setup.cpp">
+    <ClCompile Include="CONMEBOL\libertadores.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CONMEBOL\libertadores_calendar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CONMEBOL\sudamericana.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="England\eng_conf.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="England\eng_fa_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="England\eng_setup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="England\eng_third.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Helpers\generic_functions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Helpers\Helper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Structures\CMHeader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CMHeader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="european_cup.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Helper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sudamericana.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="libertadores.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="conmebol_helper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="libertadores_calendar.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="concacaf.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Config.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Date.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="generic_functions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="NString.h">
@@ -104,19 +83,52 @@
     <ClInclude Include="tiny-json.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="constants.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="vtable.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="inject_club_renames.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="eng_conf.h">
+    <ClInclude Include="CONCACAF\concacaf.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="eng_setup.h">
+    <ClInclude Include="CONMEBOL\conmebol_helper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CONMEBOL\libertadores.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CONMEBOL\libertadores_calendar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CONMEBOL\sudamericana.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="England\eng_conf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="England\eng_fa_cup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="England\eng_setup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="England\eng_third.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Helpers\constants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Helpers\generic_functions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Helpers\Helper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Structures\CMHeader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Structures\Date.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Structures\vtable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
