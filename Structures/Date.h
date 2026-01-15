@@ -3,14 +3,14 @@
 
 enum Day
 {
-	DontCare	= -1,
-	Monday		= 0,
-	Tuesday		= 1,
-	Wednesday	= 2,
-	Thursday	= 3,
-	Friday		= 4,
-	Saturday	= 5,
-	Sunday		= 6
+	DontCare = -1,
+	Monday = 0,
+	Tuesday = 1,
+	Wednesday = 2,
+	Thursday = 3,
+	Friday = 4,
+	Saturday = 5,
+	Sunday = 6
 };
 
 enum TimeOfDay
@@ -108,7 +108,7 @@ public:
 			WriteInt32(outBytes + 4, leap);
 	}
 
-	
+
 	int DayOfWeek() const	// 0 = Monday, 1 = Tuesday, 2 = Wednesday, 3 = Thursday, 4 = Friday, 5 = Saturday, 6 = Sunday
 	{
 		// Zeller’s Congruence (Gregorian calendar)
@@ -138,13 +138,33 @@ public:
 		return DateToDayOfYear(year, month, day);
 	}
 
-	void print(const char *szPrefix = NULL) const
+	void print(const char* szPrefix = NULL) const
 	{
-		const char *szDaysOfWeek[] = { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" };
+		const char* szDaysOfWeek[] = { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" };
 		const char* szMonthsOfYear[] = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
 		if (szPrefix)
 			dprintf("%s ", szPrefix);
 		dprintf("Date: y:%d m:%d d:%d DoW: %d - DayOfYear: %02X (%s %d %s %d)\n", getYear(), getMonth(), getDay(), DayOfWeek(), DayOfYear(), szDaysOfWeek[DayOfWeek()], getDay(), szMonthsOfYear[getMonth() - 1], getYear());
+	}
+
+	bool operator == (const Date& d) {
+		return (day == d.day && month == d.month && year == d.year);
+	}
+
+	static Date easter_gregorian(int y) {
+		if (y < 1583 || y > 9999) throw std::out_of_range("Gregorian years only");
+		int a = y % 19;
+		int b = y / 100, c = y % 100;
+		int d = b / 4, e = b % 4;
+		int f = (b + 8) / 25;
+		int g = (b - f + 1) / 3;
+		int h = (19 * a + b - d - g + 15) % 30;
+		int i = c / 4, k = c % 4;
+		int l = (32 + 2 * e + 2 * i - h - k) % 7;
+		int m = (a + 11 * h + 22 * l) / 451;
+		int month = (h + l - 7 * m + 114) / 31;          // 3=March, 4=April
+		int day = ((h + l - 7 * m + 114) % 31) + 1;
+		return Date(y, month, day);
 	}
 
 private:
@@ -257,9 +277,9 @@ private:
 	static int ReadInt32(const unsigned char* p)
 	{
 		return (int)(p[0] |
-					(p[1] << 8) |
-					(p[2] << 16) |
-					(p[3] << 24));
+			(p[1] << 8) |
+			(p[2] << 16) |
+			(p[3] << 24));
 	}
 
 	static void WriteInt16(unsigned char* p, short value)

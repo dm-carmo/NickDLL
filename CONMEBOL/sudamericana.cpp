@@ -42,11 +42,11 @@ void AddSudamericanaClubs(vector<cm3_clubs*>& vec, const char* szNation, int num
 			cm3_clubs* club = nation_clubs[j++];
 
 			if (club->ClubEuroFlag != -1) {
-				dprintf("Club %s is in Libertadores, skipping\n", (club->ClubName));
+				//dprintf("Club %s is in Libertadores, skipping\n", (club->ClubName));
 				i--;
 			}
 			else if (!vector_contains_club(vec, club)) {
-				dprintf("Setting club %s to Sudamericana\n", (club->ClubName));
+				//dprintf("Setting club %s to Sudamericana\n", (club->ClubName));
 				vec.push_back(club);
 			}
 			else
@@ -71,11 +71,11 @@ void AddSudamericanaClubs(vector<cm3_clubs*>& vec, const char* szNation, int num
 			cm3_clubs* club = nation_clubs[rand() % TeamsToSelectFrom];
 
 			if (club->ClubEuroFlag != -1) {
-				dprintf("Club %s is in Libertadores, skipping\n", (club->ClubName));
+				//dprintf("Club %s is in Libertadores, skipping\n", (club->ClubName));
 				i--;
 			}
 			else if (!vector_contains_club(vec, club)) {
-				dprintf("Setting club %s to Sudamericana\n", (club->ClubName));
+				//dprintf("Setting club %s to Sudamericana\n", (club->ClubName));
 				vec.push_back(club);
 			}
 			else
@@ -94,7 +94,7 @@ void SudamericanaTeams(BYTE* _this) {
 
 	sudamericana_32_clubs.clear();
 	if (std::filesystem::exists("Data/conmebol.cfg") && *current_year == (WORD)2025) {
-		dprintf("Getting preset teams for Sudamericana\n");
+		//dprintf("Getting preset teams for Sudamericana\n");
 		ifstream in("Data/conmebol.cfg", ios_base::in);
 		string name;
 		char nation[LONG_TXT_LENGTH];
@@ -104,7 +104,7 @@ void SudamericanaTeams(BYTE* _this) {
 		{
 			if (name.size() == 0) {
 				if (nation_count >= 0 && nation_count < required) {
-					dprintf("Too few clubs from %s (need %d, only found %d), trying to add more\n", nation, required, nation_count);
+					//("Too few clubs from %s (need %d, only found %d), trying to add more\n", nation, required, nation_count);
 					AddSudamericanaClubs(sudamericana_32_clubs, nation, required - nation_count);
 				}
 				continue;
@@ -118,13 +118,13 @@ void SudamericanaTeams(BYTE* _this) {
 			if (nation_count >= required) continue;
 			cm3_clubs* club = find_club(name.c_str());
 			if (!club || !club->ClubNation) {
-				dprintf("Club %s not found, skipping\n", name.c_str());
+				//dprintf("Club %s not found, skipping\n", name.c_str());
 			}
 			else if (club->ClubEuroFlag != -1) {
-				dprintf("Club %s is in Libertadores, skipping\n", (club->ClubName));
+				//dprintf("Club %s is in Libertadores, skipping\n", (club->ClubName));
 			}
 			else {
-				dprintf("Setting club %s to Sudamericana\n", (club->ClubName));
+				//dprintf("Setting club %s to Sudamericana\n", (club->ClubName));
 				sudamericana_32_clubs.push_back(club);
 				nation_count++;
 			}
@@ -139,7 +139,7 @@ void SudamericanaTeams(BYTE* _this) {
 			AddSudamericanaClubs(sudamericana_32_clubs, nation, sudamericana_qual.at(nation));
 		}
 	}
-	dprintf("\n");
+	//dprintf("\n");
 
 	// Sort teams based on reputation, then randomize them in 4 halves
 	// This "simulates" the group stage draw as teams will otherwise be assigned to groups alphabetically

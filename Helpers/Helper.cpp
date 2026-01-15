@@ -71,6 +71,26 @@ int GetKey()
 	return _getch();
 }
 
+DWORD Get9CF(DWORD id)
+{
+	return *(DWORD*)id;
+}
+
+cm3_clubs* get_club(DWORD clubID)
+{
+	return (clubID != -1L) ? &(*clubs)[clubID] : NULL;
+}
+
+int get_club_count()
+{
+	return (int)*clubs_count;
+}
+
+BYTE* get_loaded_league(DWORD compID)
+{
+	return (BYTE*)*&(*comp_stats_list)[compID];
+}
+
 cm3_nations* find_country(const char* szCountry)
 {
 	for (DWORD i = 0; i < *nations_count; i++)
@@ -269,6 +289,24 @@ bool compareClubLastDivPos(cm3_clubs* c1, cm3_clubs* c2)
 bool compareClubLastDivPosInv(cm3_clubs* c1, cm3_clubs* c2)
 {
 	return compareClubLastDivPos(c2, c1);
+}
+
+bool compareClubLatitude(cm3_clubs* c1, cm3_clubs* c2)
+{
+	if (!c1->ClubStadium || !c1->ClubStadium->StadiumCity)
+		return true;
+	if (!c2->ClubStadium || !c2->ClubStadium->StadiumCity)
+		return false;
+	return (c1->ClubStadium->StadiumCity->CityLatitude) > (c2->ClubStadium->StadiumCity->CityLatitude);
+}
+
+bool compareClubLongitude(cm3_clubs* c1, cm3_clubs* c2)
+{
+	if (!c1->ClubStadium || !c1->ClubStadium->StadiumCity)
+		return true;
+	if (!c2->ClubStadium || !c2->ClubStadium->StadiumCity)
+		return false;
+	return (c1->ClubStadium->StadiumCity->CityLongitude) > (c2->ClubStadium->StadiumCity->CityLongitude);
 }
 
 cm3_clubs* get_last_comp_winner(cm3_club_comps* comp)

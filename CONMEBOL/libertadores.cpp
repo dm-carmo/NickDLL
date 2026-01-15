@@ -38,11 +38,11 @@ void ConmebolSeedingLeague(const char* szNation, int numberOfClubs)
 			cm3_clubs* club = nation_clubs[j++];
 
 			if (club->ClubEuroFlag != -1) {
-				dprintf("Club %s is already in Libertadores, skipping\n", (club->ClubName));
+				//dprintf("Club %s is already in Libertadores, skipping\n", (club->ClubName));
 				i--; // Else do again as the club selected was already picked
 			}
 			else {
-				dprintf("Setting club %s to Libertadores\n", (club->ClubName));
+				//dprintf("Setting club %s to Libertadores\n", (club->ClubName));
 				club->ClubEuroFlag = *(DWORD*)0x9CF63C;
 			}
 		}
@@ -64,11 +64,11 @@ void ConmebolSeedingLeague(const char* szNation, int numberOfClubs)
 		{
 			cm3_clubs* club = nation_clubs[rand() % TeamsToSelectFrom];
 			if (club->ClubEuroFlag != -1) {
-				dprintf("Club %s is already in Libertadores, skipping\n", (club->ClubName));
+				//dprintf("Club %s is already in Libertadores, skipping\n", (club->ClubName));
 				i--;  // Else do again as the club selected was already picked
 			}
 			else {
-				dprintf("Setting club %s to Libertadores\n", (club->ClubName));
+				//dprintf("Setting club %s to Libertadores\n", (club->ClubName));
 				club->ClubEuroFlag = *(DWORD*)0x9CF63C;
 			}
 		}
@@ -79,22 +79,22 @@ void ConmebolSeedingCompWinner(long comp_id)
 {
 	cm3_club_comps* comp = &(*club_comps)[comp_id];
 	if (!comp) {
-		dprintf("Competition %ld not found, getting backup club\n", comp_id);
+		//dprintf("Competition %ld not found, getting backup club\n", comp_id);
 		ConmebolSeedingLeague("Brazil", 1);
 	}
 	else {
 		cm3_clubs* last_winner = get_last_comp_winner(comp);
 		if (!last_winner || !last_winner->ClubNation) {
-			dprintf("Last winner of %s not found or invalid, getting backup club\n", comp->ClubCompName);
+			//dprintf("Last winner of %s not found or invalid, getting backup club\n", comp->ClubCompName);
 			ConmebolSeedingLeague("Brazil", 1);
 		}
 		else {
 			if (last_winner->ClubEuroFlag != -1) {
-				dprintf("Last winner of %s (%s) is already qualified, getting backup club\n", comp->ClubCompName, (last_winner->ClubName));
+				//dprintf("Last winner of %s (%s) is already qualified, getting backup club\n", comp->ClubCompName, (last_winner->ClubName));
 				ConmebolSeedingLeague(last_winner->ClubNation->NationName, 1);
 			}
 			else {
-				dprintf("Setting club %s to Libertadores (last winners of %s)\n", (last_winner->ClubName), comp->ClubCompName);
+				//dprintf("Setting club %s to Libertadores (last winners of %s)\n", (last_winner->ClubName), comp->ClubCompName);
 				last_winner->ClubEuroFlag = *(DWORD*)0x9CF63C;
 			}
 		}
@@ -108,29 +108,29 @@ void ConmebolSeedingCupWinner(const char* szNation, long comp_id)
 	if (nation->NationLeagueSelected) {
 		cm3_club_comps* comp = &(*club_comps)[comp_id];
 		if (!comp) {
-			dprintf("Competition %ld not found, getting backup club\n", comp_id);
+			//dprintf("Competition %ld not found, getting backup club\n", comp_id);
 			ConmebolSeedingLeague(szNation, 1);
 		}
 		else {
 			cm3_clubs* last_winner = get_last_comp_winner(comp);
 			if (!last_winner || !last_winner->ClubNation) {
-				dprintf("Last winner of %s not found or invalid, getting backup club\n", comp->ClubCompName);
+				//dprintf("Last winner of %s not found or invalid, getting backup club\n", comp->ClubCompName);
 				ConmebolSeedingLeague(szNation, 1);
 			}
 			else {
 				if (last_winner->ClubEuroFlag != -1) {
-					dprintf("Last winner of %s (%s) is already qualified, getting backup club\n", comp->ClubCompName, (last_winner->ClubName));
+					//dprintf("Last winner of %s (%s) is already qualified, getting backup club\n", comp->ClubCompName, (last_winner->ClubName));
 					ConmebolSeedingLeague(szNation, 1);
 				}
 				else {
-					dprintf("Setting club %s to Libertadores (last winners of %s)\n", (last_winner->ClubName), comp->ClubCompName);
+					//dprintf("Setting club %s to Libertadores (last winners of %s)\n", (last_winner->ClubName), comp->ClubCompName);
 					last_winner->ClubEuroFlag = *(DWORD*)0x9CF63C;
 				}
 			}
 		}
 	}
 	else {
-		dprintf("Country %s is inactive, getting backup club\n", szNation);
+		//dprintf("Country %s is inactive, getting backup club\n", szNation);
 		ConmebolSeedingLeague(szNation, 1);
 	}
 }
@@ -142,29 +142,29 @@ void ConmebolSeedingCupLoser(const char* szNation, long comp_id)
 	if (nation->NationLeagueSelected) {
 		cm3_club_comps* comp = &(*club_comps)[comp_id];
 		if (!comp) {
-			dprintf("Competition %ld not found, getting backup club\n", comp_id);
+			//dprintf("Competition %ld not found, getting backup club\n", comp_id);
 			ConmebolSeedingLeague(szNation, 1);
 		}
 		else {
 			cm3_clubs* last_runner_up = get_last_comp_runner_up(comp);
 			if (!last_runner_up || !last_runner_up->ClubNation) {
-				dprintf("Last runner-up of %s not found or invalid, getting backup club\n", comp->ClubCompName);
+				//dprintf("Last runner-up of %s not found or invalid, getting backup club\n", comp->ClubCompName);
 				ConmebolSeedingLeague(szNation, 1);
 			}
 			else {
 				if (last_runner_up->ClubEuroFlag != -1) {
-					dprintf("Last runner-up of %s (%s) is already qualified, getting backup club\n", comp->ClubCompName, (last_runner_up->ClubName));
+					//dprintf("Last runner-up of %s (%s) is already qualified, getting backup club\n", comp->ClubCompName, (last_runner_up->ClubName));
 					ConmebolSeedingLeague(szNation, 1);
 				}
 				else {
-					dprintf("Setting club %s to Libertadores (last runner-up of %s)\n", (last_runner_up->ClubName), comp->ClubCompName);
+					//dprintf("Setting club %s to Libertadores (last runner-up of %s)\n", (last_runner_up->ClubName), comp->ClubCompName);
 					last_runner_up->ClubEuroFlag = *(DWORD*)0x9CF63C;
 				}
 			}
 		}
 	}
 	else {
-		dprintf("Country %s is inactive, getting backup club\n", szNation);
+		//dprintf("Country %s is inactive, getting backup club\n", szNation);
 		ConmebolSeedingLeague(szNation, 1);
 	}
 }
@@ -172,7 +172,7 @@ void ConmebolSeedingCupLoser(const char* szNation, long comp_id)
 void replacement_004C6430_full()
 {
 	if (std::filesystem::exists("Data/conmebol.cfg") && *current_year == (WORD)2025) {
-		dprintf("Getting preset teams for Libertadores\n");
+		//dprintf("Getting preset teams for Libertadores\n");
 		ifstream in("Data/conmebol.cfg", ios_base::in);
 		string name;
 		char nation[LONG_TXT_LENGTH];
@@ -182,7 +182,7 @@ void replacement_004C6430_full()
 		{
 			if (name.size() == 0) {
 				if (nation_count >= 0 && nation_count < required) {
-					dprintf("Too few clubs from %s (need %d, only found %d), trying to add more\n", nation, required, nation_count);
+					//dprintf("Too few clubs from %s (need %d, only found %d), trying to add more\n", nation, required, nation_count);
 					ConmebolSeedingLeague(nation, required - nation_count);
 				}
 				continue;
@@ -196,10 +196,10 @@ void replacement_004C6430_full()
 			if (nation_count >= required) continue;
 			cm3_clubs* club = find_club(name.c_str());
 			if (!club || !club->ClubNation) {
-				dprintf("Club %s not found, skipping\n", name.c_str());
+				//dprintf("Club %s not found, skipping\n", name.c_str());
 			}
 			else {
-				dprintf("Setting club %s to Libertadores\n", (club->ClubName));
+				//dprintf("Setting club %s to Libertadores\n", (club->ClubName));
 				club->ClubEuroFlag = *(DWORD*)0x9CF63C;
 				nation_count++;
 			}
@@ -207,7 +207,7 @@ void replacement_004C6430_full()
 		in.close();
 	}
 	else {
-		dprintf("Getting teams for Libertadores based on last season performance\n");
+		//dprintf("Getting teams for Libertadores based on last season performance\n");
 		ConmebolSeedingLeague("Argentina", libertadores_qual.at("Argentina") - 3); // minus cup slots and Libertadores winner slot
 		ConmebolSeedingCupWinner("Argentina", *(DWORD*)0x9CF67C);
 		ConmebolSeedingCupLoser("Argentina", *(DWORD*)0x9CF67C);
@@ -223,7 +223,7 @@ void replacement_004C6430_full()
 		ConmebolSeedingCompWinner(*(DWORD*)0x9CF63C);
 		ConmebolSeedingCompWinner(*(DWORD*)0x9CF698);
 	}
-	dprintf("\n");
+	//dprintf("\n");
 }
 
 extern "C" _declspec(naked) int replacement_004C6430()

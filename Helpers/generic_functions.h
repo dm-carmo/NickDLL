@@ -29,10 +29,10 @@ static void  (*sub_944C94_free)(void* ptr) = (void(*)(void* ptr))(0x944C94);
 static int(__thiscall* add_team_call)(BYTE* _this, BYTE teamNo, cm3_clubs* club, BYTE a3, DWORD* a4) =
 (int(__thiscall*)(BYTE * _this, BYTE teamNo, cm3_clubs * club, BYTE a3, DWORD * a4))(0x687430);
 
-static BYTE* (__thiscall* create_stage_data)(BYTE* _this, BYTE* main_comp, __int16 n_teams, DWORD* teamsPtr, __int16 n_rounds, int comp_id, const void* fixturesPtr, 
+static BYTE* (__thiscall* create_stage_data)(BYTE* _this, BYTE* main_comp, __int16 n_teams, DWORD* teamsPtr, __int16 n_rounds, int comp_id, const void* fixturesPtr,
 	__int16 year, char stage_num, char a10, __int16 stage_name_id, char a12, int a13, int a14, int a15, int a16) =
-(BYTE * (__thiscall*)(BYTE * _this, BYTE * main_comp, __int16 n_teams, DWORD * teamsPtr, __int16 n_rounds, int comp_id, const void* fixturesPtr,
-	__int16 year, char stage_num, char a10, __int16 stage_name_id, char a12, int a13, int a14, int a15, int a16))(0x522E00);
+	(BYTE * (__thiscall*)(BYTE * _this, BYTE * main_comp, __int16 n_teams, DWORD * teamsPtr, __int16 n_rounds, int comp_id, const void* fixturesPtr,
+		__int16 year, char stage_num, char a10, __int16 stage_name_id, char a12, int a13, int a14, int a15, int a16))(0x522E00);
 
 static int(__thiscall* sub_51C800)(BYTE* _this, int a2) =
 (int(__thiscall*)(BYTE * _this, int a2))(0x51C800);
@@ -70,6 +70,17 @@ static void(__thiscall* sub_5223A0)(BYTE* _this) =
 (void(__thiscall*)(BYTE * _this))(0x5223A0);
 static void(__thiscall* sub_518690)(BYTE* _this) =
 (void(__thiscall*)(BYTE * _this))(0x518690);
+//void __stdcall sub_689C80(int a1, int a2, int a3, int a4, char a5, char a6);
+static void(__thiscall* sub_689C80)(BYTE* _this, BYTE* top, BYTE* btm, int a3, int a4, char a5, char a6) =
+(void(__thiscall*)(BYTE * _this, BYTE * top, BYTE * btm, int a3, int a4, char a5, char a6))(0x689C80);
+//void __thiscall sub_68A980(int this, char a2, char a3, char a4, int a5);
+static void(__thiscall* sub_68A980)(BYTE* _this, char a2, char a3, char a4, int a5) =
+(void(__thiscall*)(BYTE * _this, char a2, char a3, char a4, int a5))(0x68A980);
+//char __stdcall sub_6830B0(BYTE* club, DWORD league, int a3);
+static void (*sub_6830B0)(BYTE* club, DWORD league, int a3) = (void(*)(BYTE * club, DWORD league, int a3))(0x6830B0);
+static void(__thiscall* sub_574E60)(BYTE* _this) =
+(void(__thiscall*)(BYTE * _this))(0x574E60);
+
 
 static void(__thiscall* add_staff_history_qualified)(BYTE* _this, DWORD* club, int comp_id, __int16 stage_main, int stage_sub, char a6) =
 (void(__thiscall*)(BYTE * _this, DWORD * club, int comp_id, __int16 stage_main, int stage_sub, char a6))(0x86BDD0);

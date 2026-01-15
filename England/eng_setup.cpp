@@ -3,7 +3,12 @@
 #include "Helpers\generic_functions.h"
 #include "eng_third.h"
 #include "eng_conf.h"
+#include "eng_conf_n.h"
+#include "eng_conf_s.h"
 #include "eng_fa_cup.h"
+#include "eng_prm.h"
+#include "eng_first.h"
+#include "eng_fa_trophy.h"
 
 static DWORD(__thiscall* eng_prm_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
 (DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x573380);
@@ -40,7 +45,7 @@ DWORD eng_setup_c(BYTE* nation_data) {
 		*(DWORD*)(nation_data + 0xc) = 8;
 	}
 	else {
-		*(DWORD*)(nation_data + 0xc) = 10;
+		*(DWORD*)(nation_data + 0xc) = 12;
 	}
 	DWORD* nation_comps = (DWORD*)sub_944E46_malloc(*(DWORD*)(nation_data + 0xc) * 4);
 	*(DWORD*)(nation_data + 0x10) = (DWORD)nation_comps;
@@ -67,6 +72,7 @@ DWORD eng_setup_c(BYTE* nation_data) {
 	// Championship
 	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
 	eng_first_setup(pMem, *current_year, &(*club_comps)[*(DWORD*)0x9CF5C0]);
+	eng_first_points_deductions(pMem, *current_year);
 	nation_comps[i++] = (DWORD)pMem;
 	// League One
 	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
@@ -77,10 +83,18 @@ DWORD eng_setup_c(BYTE* nation_data) {
 	//eng_third_setup(pMem, *current_year, &(*club_comps)[*(DWORD*)0x9CF5C8]);
 	eng_third_init(pMem, *current_year, &(*club_comps)[*(DWORD*)0x9CF5C8]);
 	nation_comps[i++] = (DWORD)pMem;
-	// National League
 	if ((selected & 4) != 0) {
+		// National League
 		pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
 		eng_conf_init(pMem, *current_year, &(*club_comps)[*(DWORD*)0x9CF69C]);
+		nation_comps[i++] = (DWORD)pMem;
+		// National League North
+		pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+		eng_conf_n_init(pMem, *current_year, &(*club_comps)[0x168]);
+		nation_comps[i++] = (DWORD)pMem;
+		// National League South
+		pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+		eng_conf_s_init(pMem, *current_year, &(*club_comps)[0x167]);
 		nation_comps[i++] = (DWORD)pMem;
 	}
 	// FA Cup
@@ -93,9 +107,9 @@ DWORD eng_setup_c(BYTE* nation_data) {
 	eng_league_cup_setup(pMem, *current_year, &(*club_comps)[*(DWORD*)0x9CF750]);
 	nation_comps[i++] = (DWORD)pMem;
 	// League Trophy
-	/*pMem = (BYTE*)sub_944CF1_operator_new(0xBA);
+	pMem = (BYTE*)sub_944CF1_operator_new(0xBA);
 	eng_league_trophy_setup(pMem, *current_year, &(*club_comps)[*(DWORD*)0x9CF758]);
-	nation_comps[i++] = (DWORD)pMem;*/
+	nation_comps[i++] = (DWORD)pMem;
 	// Charity Shield
 	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
 	eng_charity_setup(pMem, *current_year, &(*club_comps)[*(DWORD*)0x9CF754]);
@@ -117,7 +131,11 @@ DWORD eng_setup_c(BYTE* nation_data) {
 
 void setup_eng_nation() {
 	WriteDWORD(0x667D97 + 6, (DWORD)&eng_setup_c);
+	setup_eng_prm();
 	setup_eng_third();
 	setup_eng_conf();
+	setup_eng_conf_n();
+	setup_eng_conf_s();
 	setup_eng_fa_cup();
+	setup_eng_fa_trophy();
 }

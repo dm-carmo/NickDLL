@@ -141,7 +141,12 @@
     <ClCompile Include="CONMEBOL\libertadores_calendar.cpp" />
     <ClCompile Include="CONMEBOL\sudamericana.cpp" />
     <ClCompile Include="England\eng_conf.cpp" />
+    <ClCompile Include="England\eng_conf_n.cpp" />
+    <ClCompile Include="England\eng_conf_s.cpp" />
     <ClCompile Include="England\eng_fa_cup.cpp" />
+    <ClCompile Include="England\eng_fa_trophy.cpp" />
+    <ClCompile Include="England\eng_first.cpp" />
+    <ClCompile Include="England\eng_prm.cpp" />
     <ClCompile Include="England\eng_setup.cpp" />
     <ClCompile Include="England\eng_third.cpp" />
     <ClCompile Include="european_cup.cpp" />
@@ -161,7 +166,12 @@
     <ClInclude Include="CONMEBOL\libertadores_calendar.h" />
     <ClInclude Include="CONMEBOL\sudamericana.h" />
     <ClInclude Include="England\eng_conf.h" />
+    <ClInclude Include="England\eng_conf_n.h" />
+    <ClInclude Include="England\eng_conf_s.h" />
     <ClInclude Include="England\eng_fa_cup.h" />
+    <ClInclude Include="England\eng_fa_trophy.h" />
+    <ClInclude Include="England\eng_first.h" />
+    <ClInclude Include="England\eng_prm.h" />
     <ClInclude Include="England\eng_setup.h" />
     <ClInclude Include="England\eng_third.h" />
     <ClInclude Include="european_cup.h" />

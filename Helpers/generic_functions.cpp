@@ -100,7 +100,7 @@ void FillFixtureDetails(BYTE* pMem, int fixture, WORD stage_name, WORD draw_type
 }
 
 // Not part of the Tapani patches but one of the hooks needed to call our relegation code. Standard B0 in vtable for relegation/promotion
-static int(*sub_689C80)() = (int(*)())(0x689C80);
+static int(*sub_689C80_2)() = (int(*)())(0x689C80);
 void sub_601FF0();
 void __declspec(naked) sub_689C20_relegation_hook()
 {
@@ -134,7 +134,7 @@ _00689C42:
 	/*00689C5C*/	push esi
 	/*00689C5D*/	push edi
 	/*00689C5E*/	mov ecx,ebx
-	/*00689C60*/	call sub_689C80		/*call <cm0102.sub_689C80>*/
+	/*00689C60*/	call sub_689C80_2		/*call <cm0102.sub_689C80>*/
 	/*00689C65*/	mov eax,dword ptr ds:[esi+0x20]
 	/*00689C68*/	mov edi,esi
 	/*00689C6A*/	test eax,eax

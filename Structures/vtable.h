@@ -108,6 +108,10 @@ public:
 		std::fill(std::begin(vtable_bytes), std::end(vtable_bytes), 0xFF);
 	}
 
+	vtable(BYTE* src, int amt) {
+		for (int i = 0; i < amt; i++) vtable_bytes[i] = src[i];
+	}
+
 	void SetPointer(int pos, DWORD funcAddr)
 	{
 		WriteDWORD((DWORD)(&vtable_ptr[(pos - 1) * 4]), funcAddr);

@@ -67,7 +67,7 @@ void AddConcacafClubs(vector<cm3_clubs*>& vec, const char* szNation, int numberO
 			cm3_clubs* club = nation_clubs[j++];
 
 			if (club->ClubEuroFlag == -1) {
-				dprintf("Setting club %s to CONCACAF Champions Cup\n", (club->ClubName));
+				//dprintf("Setting club %s to CONCACAF Champions Cup\n", (club->ClubName));
 				vec.push_back(club);
 				club->ClubEuroFlag = 1;
 			}
@@ -94,7 +94,7 @@ void AddConcacafClubs(vector<cm3_clubs*>& vec, const char* szNation, int numberO
 			cm3_clubs* club = nation_clubs[rand() % TeamsToSelectFrom];
 
 			if (club->ClubEuroFlag == -1) {
-				dprintf("Setting club %s to CONCACAF Champions Cup\n", (club->ClubName));
+				//dprintf("Setting club %s to CONCACAF Champions Cup\n", (club->ClubName));
 				vec.push_back(club);
 				club->ClubEuroFlag = 1;
 			}
@@ -133,7 +133,7 @@ void AddCentralAmericaClubs(vector<cm3_clubs*>& vec, int numberOfCountries, int 
 			cm3_clubs* club = nation_clubs[rand() % TeamsToSelectFrom];
 
 			if (club->ClubEuroFlag == -1) {
-				dprintf("Setting club %s to CONCACAF Champions Cup\n", (club->ClubName));
+				//dprintf("Setting club %s to CONCACAF Champions Cup\n", (club->ClubName));
 				vec.push_back(club);
 				club->ClubEuroFlag = 1;
 			}
@@ -173,7 +173,7 @@ void AddCaribbeanClubs(vector<cm3_clubs*>& vec, int numberOfCountries, int clubs
 			cm3_clubs* club = nation_clubs[rand() % TeamsToSelectFrom];
 
 			if (club->ClubEuroFlag == -1) {
-				dprintf("Setting club %s to CONCACAF Champions Cup\n", (club->ClubName));
+				//dprintf("Setting club %s to CONCACAF Champions Cup\n", (club->ClubName));
 				vec.push_back(club);
 				club->ClubEuroFlag = 1;
 			}
@@ -191,22 +191,22 @@ void ConcacafGetCupLoser(vector<cm3_clubs*>& vec, const char* szNation, long com
 	if (nation->NationLeagueSelected) {
 		cm3_club_comps* comp = &(*club_comps)[comp_id];
 		if (!comp) {
-			dprintf("Competition %ld not found, getting backup club\n", comp_id);
+			//dprintf("Competition %ld not found, getting backup club\n", comp_id);
 			AddConcacafClubs(vec, szNation, 1);
 		}
 		else {
 			cm3_clubs* last_runner_up = get_last_comp_runner_up(comp);
 			if (!last_runner_up || !last_runner_up->ClubNation) {
-				dprintf("Last runner-up of %s not found or invalid, getting backup club\n", comp->ClubCompName);
+				//dprintf("Last runner-up of %s not found or invalid, getting backup club\n", comp->ClubCompName);
 				AddConcacafClubs(vec, szNation, 1);
 			}
 			else {
 				if (last_runner_up->ClubEuroFlag != -1) {
-					dprintf("Last runner-up of %s (%s) is already qualified, getting backup club\n", comp->ClubCompName, (last_runner_up->ClubName));
+					//dprintf("Last runner-up of %s (%s) is already qualified, getting backup club\n", comp->ClubCompName, (last_runner_up->ClubName));
 					AddConcacafClubs(vec, szNation, 1);
 				}
 				else {
-					dprintf("Setting club %s to CONCACAF Champions Cup (last runner-up of %s)\n", (last_runner_up->ClubName), comp->ClubCompName);
+					//dprintf("Setting club %s to CONCACAF Champions Cup (last runner-up of %s)\n", (last_runner_up->ClubName), comp->ClubCompName);
 					vec.push_back(last_runner_up);
 					last_runner_up->ClubEuroFlag = 1;
 				}
@@ -214,7 +214,7 @@ void ConcacafGetCupLoser(vector<cm3_clubs*>& vec, const char* szNation, long com
 		}
 	}
 	else {
-		dprintf("Country %s is inactive, getting backup club\n", szNation);
+		//dprintf("Country %s is inactive, getting backup club\n", szNation);
 		AddConcacafClubs(vec, szNation, 1);
 	}
 }
@@ -231,23 +231,23 @@ void ConcacafGetCupWinner(vector<cm3_clubs*>& vec, const char* szNation, long co
 	if (nation->NationLeagueSelected) {
 		cm3_club_comps* comp = &(*club_comps)[comp_id];
 		if (!comp) {
-			dprintf("Competition %ld not found, getting backup club\n", comp_id);
+			//dprintf("Competition %ld not found, getting backup club\n", comp_id);
 			AddConcacafClubs(vec, szNation, 1);
 		}
 		else {
 			cm3_clubs* last_winner = get_last_comp_winner(comp);
 			if (!last_winner || !last_winner->ClubNation) {
-				dprintf("Last winner of %s not found or invalid, getting backup club\n", comp->ClubCompName);
+				//dprintf("Last winner of %s not found or invalid, getting backup club\n", comp->ClubCompName);
 				AddConcacafClubs(vec, szNation, 1);
 			}
 			else {
 				if (last_winner->ClubEuroFlag != -1) {
-					dprintf("Last winner of %s (%s) is already qualified, getting backup club\n", comp->ClubCompName, (last_winner->ClubName));
+					//dprintf("Last winner of %s (%s) is already qualified, getting backup club\n", comp->ClubCompName, (last_winner->ClubName));
 					if (loser_backup) ConcacafGetCupLoser(vec, szNation, comp_id);
 					else AddConcacafClubs(vec, szNation, 1);
 				}
 				else {
-					dprintf("Setting club %s to CONCACAF Champions Cup (last winners of %s)\n", (last_winner->ClubName), comp->ClubCompName);
+					//dprintf("Setting club %s to CONCACAF Champions Cup (last winners of %s)\n", (last_winner->ClubName), comp->ClubCompName);
 					vec.push_back(last_winner);
 					last_winner->ClubEuroFlag = 1;
 				}
@@ -256,7 +256,7 @@ void ConcacafGetCupWinner(vector<cm3_clubs*>& vec, const char* szNation, long co
 	}
 	// If nation has no active competitions, get a random top club instead
 	else {
-		dprintf("Country %s is inactive, getting backup club\n", szNation);
+		//dprintf("Country %s is inactive, getting backup club\n", szNation);
 		AddConcacafClubs(vec, szNation, 1);
 	}
 }
@@ -274,7 +274,7 @@ void replacement_4c11a0_full() {
 	// If there is a .cfg file, uses it to get preset teams for the first year
 	// Includes failsafes in case any of the clubs can't be found or are already qualified for some reason
 	if (std::filesystem::exists("Data/concacaf.cfg") && *current_year == (WORD)2025) {
-		dprintf("Getting preset teams for CONCACAF\n");
+		//dprintf("Getting preset teams for CONCACAF\n");
 		ifstream in("Data/concacaf.cfg", ios_base::in);
 		string name;
 		char nation[LONG_TXT_LENGTH];
@@ -289,15 +289,15 @@ void replacement_4c11a0_full() {
 			}
 			cm3_clubs* club = find_club(name.c_str());
 			if (!club || !club->ClubNation) {
-				dprintf("Club %s not found, getting backup from %s\n", name.c_str(), nation);
+				//dprintf("Club %s not found, getting backup from %s\n", name.c_str(), nation);
 				AddConcacafClubs(concacaf_clubs, nation, 1);
 			}
 			else if (club->ClubEuroFlag != -1) {
-				dprintf("Club %s already qualified, getting backup from %s\n", name.c_str(), nation);
+				//dprintf("Club %s already qualified, getting backup from %s\n", name.c_str(), nation);
 				AddConcacafClubs(concacaf_clubs, nation, 1);
 			}
 			else {
-				dprintf("Setting club %s to CONCACAF Champions Cup\n", (club->ClubName));
+				//dprintf("Setting club %s to CONCACAF Champions Cup\n", (club->ClubName));
 				concacaf_clubs.push_back(club);
 				club->ClubEuroFlag = 1;
 			}
@@ -311,7 +311,7 @@ void replacement_4c11a0_full() {
 	}
 	// After the first year, or if there is no .cfg, gets teams based on last league positions, or random top clubs depending on the case
 	else {
-		dprintf("Getting teams for CONCACAF based on last season performance\n");
+		//dprintf("Getting teams for CONCACAF based on last season performance\n");
 		int rnd = rand() % 2;
 		// Second vector to store 5 teams that will start in the second round
 		vector<cm3_clubs*> concacaf_clubs_bye;
@@ -344,7 +344,7 @@ void replacement_4c11a0_full() {
 			i++;
 		}
 	}
-	dprintf("\n");
+	//dprintf("\n");
 }
 
 

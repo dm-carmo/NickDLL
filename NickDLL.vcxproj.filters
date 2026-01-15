@@ -69,6 +69,21 @@
     <ClCompile Include="Structures\CMHeader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="England\eng_prm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="England\eng_conf_n.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="England\eng_conf_s.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="England\eng_fa_trophy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="England\eng_first.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="european_cup.h">
@@ -129,6 +144,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Structures\vtable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="England\eng_prm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="England\eng_conf_n.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="England\eng_conf_s.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="England\eng_fa_trophy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="England\eng_first.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
