@@ -1,9 +1,13 @@
 #include <windows.h>
 #include "Structures\CMHeader.h"
 #include "Helpers\generic_functions.h"
+#include "ita_ser_a.h"
+#include "ita_ser_b.h"
 #include "ita_ser_c.h"
 #include "ita_cup.h"
+#include "ita_c_cup.h"
 #include "ita_awards.h"
+#include <Helpers/new_league_ids.h>
 
 static DWORD(__thiscall* ita_ser_a_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
 (DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x6406D0);
@@ -54,11 +58,11 @@ DWORD ita_setup_c(BYTE* nation_data) {
 	nation_comps[i++] = (DWORD)pMem;
 	// Serie B
 	pMem = (BYTE*)sub_944CF1_operator_new(0xEF);
-	ita_ser_b_setup(pMem, *current_year, &(*club_comps)[Get9CF(0x9CF574)]);
+	ita_ser_b_init(pMem, *current_year, &(*club_comps)[Get9CF(0x9CF574)]);
 	nation_comps[i++] = (DWORD)pMem;
 	// Serie C
 	pMem = (BYTE*)sub_944CF1_operator_new(0xEF);
-	ita_ser_c_init(pMem, *current_year, &(*club_comps)[0x19A]);
+	ita_ser_c_init(pMem, *current_year, &(*club_comps)[serie_c_id]);
 	nation_comps[i++] = (DWORD)pMem;
 	/*
 	// Serie C1/A
@@ -92,11 +96,11 @@ DWORD ita_setup_c(BYTE* nation_data) {
 	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
 	ita_supercup_setup(pMem, *current_year, &(*club_comps)[Get9CF(0x9CF724)]);
 	nation_comps[i++] = (DWORD)pMem;
-	/*
 	// Coppa Serie C
-	pMem = (BYTE*)sub_944CF1_operator_new(0xF6);
-	ita_c_cup_setup(pMem, *current_year, &(*club_comps)[Get9CF(0x9CF720)]);
+	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
+	ita_c_cup_init(pMem, *current_year, &(*club_comps)[Get9CF(0x9CF720)]);
 	nation_comps[i++] = (DWORD)pMem;
+	/*
 	// Supercoppa Serie C
 	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
 	ita_c_supercup_setup(pMem, *current_year, &(*club_comps)[Get9CF(0x9CF938)]);
@@ -113,6 +117,10 @@ DWORD ita_setup_c(BYTE* nation_data) {
 
 void setup_ita_nation() {
 	WriteDWORD(0x668449 + 6, (DWORD)&ita_setup_c);
+	setup_ita_ser_a();
+	setup_ita_ser_b();
+	setup_ita_ser_c();
 	setup_ita_cup();
+	setup_ita_c_cup();
 	setup_ita_awards();
 }

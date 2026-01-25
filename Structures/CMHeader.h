@@ -666,7 +666,7 @@ typedef struct TEAM_LEAGUE_STATS
 } team_league_stats;
 #pragma pack(pop)
 
-enum LeagueFates : BYTE {
+enum LeagueFates : char {
 	Promoted = 0,
 	TopPlayoff = 1,
 	BottomPlayoff = 2,
@@ -675,9 +675,9 @@ enum LeagueFates : BYTE {
 	Qualified1 = 6,
 	Qualified2 = 7,
 	Qualified3 = 8,
-	CantBePromoted = 0xFC,
-	Eliminated = 0xFE,
-	NoFate = 0xFF
+	CantBePromoted = -4,
+	Eliminated = -2,
+	NoFate = -1
 };
 
 extern cm3_nations** nations;

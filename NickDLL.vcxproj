@@ -156,6 +156,9 @@
     <ClCompile Include="inject_club_renames.cpp" />
     <ClCompile Include="Italy\ita_awards.cpp" />
     <ClCompile Include="Italy\ita_cup.cpp" />
+    <ClCompile Include="Italy\ita_c_cup.cpp" />
+    <ClCompile Include="Italy\ita_ser_a.cpp" />
+    <ClCompile Include="Italy\ita_ser_b.cpp" />
     <ClCompile Include="Italy\ita_ser_c.cpp" />
     <ClCompile Include="Italy\ita_setup.cpp" />
     <ClCompile Include="NickDLL.cpp" />
@@ -184,9 +187,13 @@
     <ClInclude Include="Helpers\constants.h" />
     <ClInclude Include="Helpers\generic_functions.h" />
     <ClInclude Include="Helpers\Helper.h" />
+    <ClInclude Include="Helpers\new_league_ids.h" />
     <ClInclude Include="inject_club_renames.h" />
     <ClInclude Include="Italy\ita_awards.h" />
     <ClInclude Include="Italy\ita_cup.h" />
+    <ClInclude Include="Italy\ita_c_cup.h" />
+    <ClInclude Include="Italy\ita_ser_a.h" />
+    <ClInclude Include="Italy\ita_ser_b.h" />
     <ClInclude Include="Italy\ita_ser_c.h" />
     <ClInclude Include="Italy\ita_setup.h" />
     <ClInclude Include="NString.h" />
