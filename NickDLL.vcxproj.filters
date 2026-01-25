@@ -84,6 +84,21 @@
     <ClCompile Include="England\eng_first.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Italy\ita_setup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="England\eng_awards.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Italy\ita_awards.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Italy\ita_ser_c.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Italy\ita_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="european_cup.h">
@@ -159,6 +174,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="England\eng_first.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Italy\ita_setup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="England\eng_awards.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Italy\ita_awards.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Italy\ita_ser_c.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Italy\ita_cup.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

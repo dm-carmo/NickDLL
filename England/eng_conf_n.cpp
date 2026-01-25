@@ -89,49 +89,6 @@ int eng_conf_n_subs(BYTE* _this)
 	return 1;
 }
 
-void eng_conf_n_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
-	strcpy(comp->ClubCompNameThreeLetter, "NLN");
-	strcpy(comp->ClubCompName, "English National League North");
-	strcpy(comp->ClubCompNameShort, "National League North");
-	sub_682200(_this);
-	comp_stats* data = (comp_stats*)_this;
-	data->competition_db = comp;
-	data->comp_vtable = (DWORD*)(eng_conf_n_vtable->vtable_ptr);
-	data->year = year;
-	data->rules = 0x9;
-	int loaded = sub_687B10(_this, 1);
-	if (loaded) return;
-	data->f68 = -1;
-	data->current_stage = -1;
-	data->num_stages = 1;
-	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
-	eng_conf_n_subs(_this);
-	AddTeams(_this);
-	sub_6835C0(_this);
-	BYTE* ebx = 0;
-	sub_6827D0(_this, ebx);
-	BYTE* pMem2 = (BYTE*)sub_944CF1_operator_new(0x5CE);
-	BYTE unk1 = 1;
-	sub_49EE70(pMem2, _this);
-	unk1 = 0;
-	data->f8 = (DWORD*)pMem2;
-	sub_68A850(_this);
-}
-
-void __declspec(naked) eng_conf_n_init_c()		// used as a __thiscall -> __cdecl converter
-{
-	__asm
-	{
-		mov eax, esp
-		push dword ptr[eax + 0x8]
-		push dword ptr[eax + 0x4]
-		push ecx
-		call eng_conf_n_init
-		add esp, 0xc
-		ret 8
-	}
-}
-
 char eng_conf_n_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
@@ -189,11 +146,40 @@ void __declspec(naked) eng_conf_n_subs_c()		// used as a __thiscall -> __cdecl c
 	}
 }
 
-void setup_eng_conf_n() {
+void eng_conf_n_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
+	strcpy(comp->ClubCompNameThreeLetter, "NLN");
+	strcpy(comp->ClubCompName, "English National League North");
+	strcpy(comp->ClubCompNameShort, "National League North");
+	sub_682200(_this);
+	comp_stats* data = (comp_stats*)_this;
+	data->competition_db = comp;
+	data->comp_vtable = (DWORD*)(eng_conf_n_vtable->vtable_ptr);
 	eng_conf_n_vtable->SetPointer(VTableInitFree, (DWORD)&eng_conf_n_free_c);
 	eng_conf_n_vtable->SetPointer(VTableEoSUpdate, (DWORD)&eng_conf_n_update_c);
 	eng_conf_n_vtable->SetPointer(VTablePlayoffQual, (DWORD)&eng_playoffs_create);
 	eng_conf_n_vtable->SetPointer(VTableFixtures, (DWORD)&eng_conf_fixtures);
 	eng_conf_n_vtable->SetPointer(VTableTableFates, (DWORD)&eng_conf_set_table_fate);
 	eng_conf_n_vtable->SetPointer(VTableSubsRounds, (DWORD)&eng_conf_n_subs_c);
+	data->year = year;
+	data->rules = 0x9;
+	int loaded = sub_687B10(_this, 1);
+	if (loaded) return;
+	data->f68 = -1;
+	data->current_stage = -1;
+	data->num_stages = 1;
+	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
+	eng_conf_n_subs(_this);
+	AddTeams(_this);
+	sub_6835C0(_this);
+	BYTE* ebx = 0;
+	sub_6827D0(_this, ebx);
+	BYTE* pMem2 = (BYTE*)sub_944CF1_operator_new(0x5CE);
+	BYTE unk1 = 1;
+	sub_49EE70(pMem2, _this);
+	unk1 = 0;
+	data->f8 = (DWORD*)pMem2;
+	sub_68A850(_this);
+}
+
+void setup_eng_conf_n() {
 }

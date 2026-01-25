@@ -16,6 +16,7 @@
 #include "CONMEBOL\libertadores.h"
 #include "CONMEBOL\libertadores_calendar.h"
 #include "England\eng_setup.h"
+#include "Italy\ita_setup.h"
 #include "inject_club_renames.h"
 //#include "european_cup.h"
 
@@ -62,6 +63,11 @@ void Setup()
 	if (configFile.GetBool("applyEngland", true)) {
 		dprintf("Applying England changes\n");
 		setup_eng_nation();
+	}
+
+	if (configFile.GetBool("applyItaly", true)) {
+		dprintf("Applying Italy changes\n");
+		setup_ita_nation();
 	}
 
 	if (configFile.GetBool("applyLibertadores", true)) {

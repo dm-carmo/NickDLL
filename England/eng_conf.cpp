@@ -196,7 +196,7 @@ void create_playoffs_c_under(BYTE* _this) {
 	DWORD v1 = *(DWORD*)_this;
 	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, char, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
 	BYTE* new_stage = (BYTE*)sub_944CF1_operator_new(0xB2);
-	create_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, *(DWORD*)(_this + 0x4), pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, 0);
+	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, *(DWORD*)(_this + 0x4), pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, 0);
 	DWORD* stages_arr = comp_data->stages;
 	*((DWORD*)(&stages_arr[stage_num * 4])) = (DWORD)new_stage;
 	sub_51C800(new_stage, 0);
@@ -383,12 +383,12 @@ int ConferenceTableIndicators(BYTE* _this, DWORD* club, BYTE fate, char stage, B
 			if (c != club) continue;
 			switch (fate) {
 			case TopPlayoff:
-				add_staff_history_promotion(staff_hist_ptr, club, *(DWORD*)(_this + 0x4), 0x32);
+				staff_history_promoted_869480(staff_hist_ptr, club, *(DWORD*)(_this + 0x4), 0x32);
 				table[i].league_fate = Promoted;
 				*a5 = 1;
 				return 0;
 			case Promoted:
-				add_staff_history_qualified(staff_hist_ptr, club, *(DWORD*)(_this + 0x4), *(WORD*)(round_data + 0x32),
+				staff_history_qualified_868DD0(staff_hist_ptr, club, *(DWORD*)(_this + 0x4), *(WORD*)(round_data + 0x32),
 					*(WORD*)(rounds + playoff_dates_sz * (current_round + 1) + 7), 0xF);
 				return 0;
 			case NoFate:
@@ -405,16 +405,16 @@ int ConferenceTableIndicators(BYTE* _this, DWORD* club, BYTE fate, char stage, B
 	else {
 		switch (fate) {
 		case Champions:
-			add_staff_history_champions(staff_hist_ptr, club, *(DWORD*)(_this + 0x4));
+			staff_history_champion_868C50(staff_hist_ptr, club, *(DWORD*)(_this + 0x4));
 			return 0;
 		case Promoted:
-			add_staff_history_promotion(staff_hist_ptr, club, *(DWORD*)(_this + 0x4), 0x64);
+			staff_history_promoted_869480(staff_hist_ptr, club, *(DWORD*)(_this + 0x4), 0x64);
 			return 0;
 		case TopPlayoff:
-			add_staff_history_qualified(staff_hist_ptr, club, *(DWORD*)(_this + 0x4), Playoff, None, 0x1E);
+			staff_history_qualified_868DD0(staff_hist_ptr, club, *(DWORD*)(_this + 0x4), Playoff, None, 0x1E);
 			return 0;
 		case Relegated:
-			add_staff_history_relegated(staff_hist_ptr, club, *(DWORD*)(_this + 0x4));
+			staff_history_relegated_86A1C0(staff_hist_ptr, club, *(DWORD*)(_this + 0x4));
 			return 0;
 		default:
 			return 0;

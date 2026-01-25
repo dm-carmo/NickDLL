@@ -140,6 +140,7 @@
     <ClCompile Include="CONMEBOL\libertadores.cpp" />
     <ClCompile Include="CONMEBOL\libertadores_calendar.cpp" />
     <ClCompile Include="CONMEBOL\sudamericana.cpp" />
+    <ClCompile Include="England\eng_awards.cpp" />
     <ClCompile Include="England\eng_conf.cpp" />
     <ClCompile Include="England\eng_conf_n.cpp" />
     <ClCompile Include="England\eng_conf_s.cpp" />
@@ -153,6 +154,10 @@
     <ClCompile Include="Helpers\generic_functions.cpp" />
     <ClCompile Include="Helpers\Helper.cpp" />
     <ClCompile Include="inject_club_renames.cpp" />
+    <ClCompile Include="Italy\ita_awards.cpp" />
+    <ClCompile Include="Italy\ita_cup.cpp" />
+    <ClCompile Include="Italy\ita_ser_c.cpp" />
+    <ClCompile Include="Italy\ita_setup.cpp" />
     <ClCompile Include="NickDLL.cpp" />
     <ClCompile Include="Structures\CMHeader.cpp" />
     <ClCompile Include="tapani_relegation_patch.cpp" />
@@ -165,6 +170,7 @@
     <ClInclude Include="CONMEBOL\libertadores.h" />
     <ClInclude Include="CONMEBOL\libertadores_calendar.h" />
     <ClInclude Include="CONMEBOL\sudamericana.h" />
+    <ClInclude Include="England\eng_awards.h" />
     <ClInclude Include="England\eng_conf.h" />
     <ClInclude Include="England\eng_conf_n.h" />
     <ClInclude Include="England\eng_conf_s.h" />
@@ -179,6 +185,10 @@
     <ClInclude Include="Helpers\generic_functions.h" />
     <ClInclude Include="Helpers\Helper.h" />
     <ClInclude Include="inject_club_renames.h" />
+    <ClInclude Include="Italy\ita_awards.h" />
+    <ClInclude Include="Italy\ita_cup.h" />
+    <ClInclude Include="Italy\ita_ser_c.h" />
+    <ClInclude Include="Italy\ita_setup.h" />
     <ClInclude Include="NString.h" />
     <ClInclude Include="Structures\CMHeader.h" />
     <ClInclude Include="Structures\Date.h" />

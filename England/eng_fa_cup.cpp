@@ -3,7 +3,6 @@
 #include "Helpers\generic_functions.h"
 #include "eng_third.h"
 #include "eng_conf.h"
-#include "eng_fa_cup.h"
 #include "Structures\vtable.h"
 #include "Helpers\constants.h"
 
@@ -63,7 +62,7 @@ int eng_fa_cup_teams(BYTE* _this) {
 	WORD total_teams = 276;
 	BYTE* pMem = (BYTE*)sub_944E46_malloc(6 * total_teams);
 
-	comp_data->n_teams = total_teams;;
+	comp_data->n_teams = total_teams;
 	comp_data->teams_list = (DWORD*)pMem;
 
 	teams_seeded* teams = (teams_seeded*)comp_data->teams_list;
@@ -98,31 +97,31 @@ int eng_fa_cup_teams(BYTE* _this) {
 		vec.push_back(club);
 	}
 	// National League
-	division_clubs = find_clubs_of_comp(*(DWORD*)0x9CF69C);
+	division_clubs = find_clubs_of_comp(Get9CF(0x9CF69C));
 	for (cm3_clubs* club : division_clubs)
 	{
 		vec.push_back(club);
 	}
 	// League 2
-	division_clubs = find_clubs_of_comp(*(DWORD*)0x9CF5C8);
+	division_clubs = find_clubs_of_comp(Get9CF(0x9CF5C8));
 	for (cm3_clubs* club : division_clubs)
 	{
 		vec.push_back(club);
 	}
 	// League 1
-	division_clubs = find_clubs_of_comp(*(DWORD*)0x9CF5C4);
+	division_clubs = find_clubs_of_comp(Get9CF(0x9CF5C4));
 	for (cm3_clubs* club : division_clubs)
 	{
 		vec.push_back(club);
 	}
 	// Championship
-	division_clubs = find_clubs_of_comp(*(DWORD*)0x9CF5C0);
+	division_clubs = find_clubs_of_comp(Get9CF(0x9CF5C0));
 	for (cm3_clubs* club : division_clubs)
 	{
 		vec.push_back(club);
 	}
 	// Premier League
-	division_clubs = find_clubs_of_comp(*(DWORD*)0x9CF5BC);
+	division_clubs = find_clubs_of_comp(Get9CF(0x9CF5BC));
 	for (cm3_clubs* club : division_clubs)
 	{
 		vec.push_back(club);
@@ -136,18 +135,6 @@ int eng_fa_cup_teams(BYTE* _this) {
 	}
 
 	return 1;
-}
-
-void __declspec(naked) eng_fa_cup_teams_c()		// used as a __thiscall -> __cdecl converter
-{
-	__asm
-	{
-		mov eax, esp
-		push ecx
-		call eng_fa_cup_teams
-		add esp, 0x4
-		ret
-	}
 }
 
 DWORD CreateFACupFixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
@@ -327,6 +314,5 @@ void setup_eng_fa_cup() {
 	WriteVTablePtr(eng_fa_cup_vtable, VTableEoSUpdate, (DWORD)&eng_fa_cup_update_c);
 	WriteVTablePtr(eng_fa_cup_vtable, VTableFixtures, (DWORD)&fa_cup_fixture_caller);
 	WriteVTablePtr(eng_fa_cup_vtable, VTable6, 0x51F890);
-	//PatchFunction(0x56fab0, (DWORD)&eng_fa_cup_teams_c);
 	WriteBytes(0x570944, 1, 0x04);
 }

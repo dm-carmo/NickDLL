@@ -101,6 +101,16 @@ cm3_nations* find_country(const char* szCountry)
 	return NULL;
 }
 
+cm3_continents* find_continent(const char* szContinent)
+{
+	for (DWORD i = 0; i < *continents_count; i++)
+	{
+		if (_stricmp((*continents)[i].ContinentName, szContinent) == 0)
+			return &(*continents)[i];
+	}
+	return NULL;
+}
+
 vector<cm3_nations*> central_america_countries()
 {
 	vector<cm3_nations*> ret;
@@ -352,6 +362,19 @@ int CountNumberOfTeamsInComp(DWORD CompID)
 	{
 		cm3_clubs* club = &(*clubs)[i];
 		if (club->ClubDivision && club->ClubDivision->ClubCompID == CompID)
+			numberOfLeagueTeams++;
+	}
+	return numberOfLeagueTeams;
+}
+
+int CountNumberOfTeamsInCompWithGroup(DWORD CompID, DWORD GroupID)
+{
+	int numberOfLeagueTeams = 0;
+	for (DWORD i = 0; i < *clubs_count; i++)
+	{
+		cm3_clubs* club = &(*clubs)[i];
+		if (club->ClubDivision && club->ClubDivision->ClubCompID == CompID
+			&& club->ClubReserveDivision && club->ClubReserveDivision->ClubCompID == GroupID)
 			numberOfLeagueTeams++;
 	}
 	return numberOfLeagueTeams;

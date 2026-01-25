@@ -127,6 +127,7 @@ void __fastcall sub_5750A0_promote_teams_to_bottom_league_c(BYTE* _this)
 		}
 	}
 
+	sort(available_clubs.begin(), available_clubs.end(), compareClubRep);
 	for (unsigned int i = 0; i < northern_relegated_clubs.size(); i++)
 	{
 		int availableIdx = rand() % available_clubs.size();

@@ -263,8 +263,7 @@ void ConcacafGetCupWinner(vector<cm3_clubs*>& vec, const char* szNation, long co
 
 // Full replacement for the function that gets the teams for the competition
 void replacement_4c11a0_full() {
-	long concacaf_champs_cup_id = *(DWORD*)0x9CF72C;
-	comp_stats* comp_data = (comp_stats*)(*comp_stats_list)[concacaf_champs_cup_id];
+	comp_stats* comp_data = (comp_stats*)(*comp_stats_list)[Get9CF(0x9CF72C)];
 	teams_seeded* teams = (teams_seeded*)comp_data->teams_list;
 
 	comp_data->n_teams = 27;

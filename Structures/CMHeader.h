@@ -62,8 +62,8 @@ enum RoundNames {
 	MLSCup = 0x417,
 	AutumnSeason = 0x419,
 	SpringSeason = 0x41A,
-	NorthernSouthernSection = 0x41D,
-	AlphabeticGroupStage = 0x41F,
+	NorthernSouthernSection = 0x41E,
+	AlphabeticGroupStage = 0x420,
 	OceaniaAsiaPlayoff = 0x42F,
 	FirstStage = 0x432,
 	SecondStage = 0x433,
@@ -72,7 +72,7 @@ enum RoundNames {
 	InteriorZone = 0x436,
 	MetropolitanZone = 0x437,
 	Promotion = 0x438,
-	Periods1to4=0x439,
+	Periods1to4 = 0x439,
 	ChampionshipGroup = 0x44B,
 	RelegationGroup = 0x44C,
 	RelegationPlayoff = 0x452,
@@ -142,9 +142,196 @@ typedef struct cm3_cities CM3_CITIES;
 typedef struct cm3_stadiums CM3_STADIUMS;
 typedef struct cm3_colours CM3_COLOURS;
 typedef struct cm3_clubs CM3_CLUBS;
+typedef struct cm3_staff CM3_STAFF;
+typedef struct cm3_non_players CM3_NON_PLAYERS;
+typedef struct cm3_players CM3_PLAYERS;
+typedef struct cm3_staff_preferences CM3_STAFF_PREFERENCES;
 
-#define CM3_STAFF DWORD*
+#pragma pack(push, 1)
+typedef struct
+{
+	short day; // days from Jan 1st.
+	short year;
+	long LeapYear; // =1 if year is a leapyear, 0 otherwise.
+} CM_DATE;
+#pragma pack(pop)
 
+#pragma pack(push, 1)
+struct cm3_players
+{
+	// original data
+	long StaffPlayerID;
+	char StaffPlayerSquadNumber;
+	short StaffPlayerCurrentAbility;
+	short StaffPlayerPotentialAbility;
+	short StaffPlayerHomeReputation; // Version 0x02 - Changed char->short
+	short StaffPlayerCurrentReputation; // Version 0x02 - Changed char->short
+	short StaffPlayerWorldReputation; // Version 0x02 - Changed char->short
+	char StaffPlayerGoalkeeper;
+	char StaffPlayerSweeper;
+	char StaffPlayerDefender;
+	char StaffPlayerDefensiveMidfielder;
+	char StaffPlayerMidfielder;
+	char StaffPlayerAttackingMidfielder;
+	char StaffPlayerAttacker;
+	char StaffPlayerWingBack;
+	char StaffPlayerRightSide;
+	char StaffPlayerLeftSide;
+	char StaffPlayerCentral;
+	char StaffPlayerFreeRole;
+	char StaffPlayerAcceleration;
+	char StaffPlayerAggression;
+	char StaffPlayerAgility;
+	char StaffPlayerAnticipation;
+	char StaffPlayerBalance;
+	char StaffPlayerBravery; // Value
+	char StaffPlayerConsistency;
+	char StaffPlayerCorners;
+	char StaffPlayerCrossing;
+	char StaffPlayerDecisions;
+	char StaffPlayerDirtiness;
+	char StaffPlayerDribbling;
+	char StaffPlayerFinishing;
+	char StaffPlayerFlair;
+	char StaffPlayerFreeKicks;
+	char StaffPlayerHandling;
+	char StaffPlayerHeading;
+	char StaffPlayerImportantMatches;
+	char StaffPlayerInjuryProneness;
+	char StaffPlayerJumping;
+	char StaffPlayerLeadership;
+	char StaffPlayerLeftFoot;
+	char StaffPlayerLongShots;
+	char StaffPlayerMarking;
+	char StaffPlayerMovement;
+	char StaffPlayerNaturalFitness;
+	char StaffPlayerOneOnOnes;
+	char StaffPlayerPace;
+	char StaffPlayerPassing;
+	char StaffPlayerPenalties;
+	char StaffPlayerPositioning;
+	char StaffPlayerReflexes;
+	char StaffPlayerRightFoot;
+	char StaffPlayerStamina;
+	char StaffPlayerStrength;
+	char StaffPlayerTackling;
+	char StaffPlayerTeamwork;
+	char StaffPlayerTechnique;
+	char StaffPlayerThrowIns;
+	char StaffPlayerVersatility;
+	char StaffPlayerVision;
+	char StaffPlayerWorkRate;
+
+	// runtime data
+	char StaffPlayerMorale;
+};
+#pragma pack(pop)
+
+#pragma pack(push, 1)
+struct cm3_non_players
+{
+	long StaffNonPlayerID;
+	short StaffNonPlayerCurrentAbility;
+	short StaffNonPlayerPotentialAbility;
+	short StaffNonPlayerHomeReputation; // Version 0x02 - Changed char->short
+	short StaffNonPlayerCurrentReputation; // Version 0x02 - Changed char->short
+	short StaffNonPlayerWorldReputation; // Version 0x02 - Changed char->short
+	char StaffNonPlayerAttacking;
+	char StaffNonPlayerBusiness;
+	char StaffNonPlayerCoaching;
+	char StaffNonPlayerCoachingGks;
+	char StaffNonPlayerCoachingTechnique;
+	char StaffNonPlayerDirectness;
+	char StaffNonPlayerDiscipline;
+	char StaffNonPlayerFreeRoles;
+	char StaffNonPlayerInterference;
+	char StaffNonPlayerJudgement;
+	char StaffNonPlayerJudgingPotential;
+	char StaffNonPlayerManHandling;
+	char StaffNonPlayerMarking;
+	char StaffNonPlayerMotivating;
+	char StaffNonPlayerOffside;
+	char StaffNonPlayerPatience;
+	char StaffNonPlayerPhysiotherapy;
+	char StaffNonPlayerPressing;
+	char StaffNonPlayerResources;
+	char StaffNonPlayerTactics;
+	char StaffNonPlayerYoungsters;
+	CM3_STAFF* StaffNonPlayerGoalkeeper;
+	CM3_STAFF* StaffNonPlayerSweeper;
+	CM3_STAFF* StaffNonPlayerDefender;
+	CM3_STAFF* StaffNonPlayerDefensiveMidfielder;
+	CM3_STAFF* StaffNonPlayerMidfielder;
+	CM3_STAFF* StaffNonPlayerAttackingMidfielder;
+	CM3_STAFF* StaffNonPlayerAttacker;
+	CM3_STAFF* StaffNonPlayerWingBack;
+	char StaffNonPlayerFormationPreferred;
+};
+#pragma pack(pop)
+
+#pragma pack(push, 1)
+struct cm3_staff_preferences
+{
+	long StaffPreferencesID;
+	CM3_CLUBS* StaffFavouriteClubs1;
+	CM3_CLUBS* StaffFavouriteClubs2;
+	CM3_CLUBS* StaffFavouriteClubs3;
+	CM3_CLUBS* StaffDislikedClubs1;
+	CM3_CLUBS* StaffDislikedClubs2;
+	CM3_CLUBS* StaffDislikedClubs3;
+	CM3_STAFF* StaffFavouriteStaff1;
+	CM3_STAFF* StaffFavouriteStaff2;
+	CM3_STAFF* StaffFavouriteStaff3;
+	CM3_STAFF* StaffDislikedStaff1;
+	CM3_STAFF* StaffDislikedStaff2;
+	CM3_STAFF* StaffDislikedStaff3;
+};
+#pragma pack(pop)
+
+#pragma pack(push, 1)
+struct cm3_staff
+{
+	long StaffID;
+	DWORD* StaffFirstName;
+	DWORD* StaffSecondName;
+	DWORD* StaffCommonName;
+	CM_DATE StaffDateOfBirth;
+	short StaffYearOfBirth;
+	CM3_NATIONS* StaffNation;
+	CM3_NATIONS* StaffSecondNation;
+	unsigned char StaffInternationalApps;
+	unsigned char StaffInternationalGoals;
+	CM3_CLUBS* StaffNationContracted;
+	char StaffJobForNation;
+	CM_DATE StaffDateJoinedNation;
+	CM_DATE StaffContractExpiresNation;
+	CM3_CLUBS* StaffClubContracted;
+	char StaffJobForClub;
+	CM_DATE StaffDateJoinedClub;
+	CM_DATE StaffContractExpiresClub;
+	long StaffEstimatedWage;
+	long StaffEstimatedValue;
+	char StaffAdaptability;
+	char StaffAmbition;
+	char StaffDetermination;
+	char StaffLoyalty;
+	char StaffPressure;
+	char StaffProfessionalism;
+	char StaffSportsmanship;
+	char StaffTemperament;
+	char StaffPlayingSquad;
+	char StaffClassification;
+	char StaffClubValuation;
+	CM3_PLAYERS* StaffPlayerData;
+	CM3_STAFF_PREFERENCES* StaffPreferences; // Version 0x02 - New ptr type
+	CM3_NON_PLAYERS* StaffNonPlayerData;
+
+	// Runtime data //
+	char StaffSquadSelectedFor; // should be StaffEuroSquadFlag - Kev
+};
+#pragma pack(pop)
+
+#pragma pack(push, 1)
 struct cm3_continents
 {
 	// original data
@@ -159,6 +346,7 @@ struct cm3_continents
 	char ContinentGenderFederationNameShort;
 	SI_DOUBLE ContinentRegionalStrength;
 };
+#pragma pack(pop)
 
 #pragma pack(push, 1)
 struct cm3_nations
@@ -379,7 +567,7 @@ typedef struct comp
 	long promotes_to;								//28
 	long relegates_to;								//32
 	long f36;										//36
-	char pad40[4];									//40
+	long f40;										//40
 	long num_stages;								//44
 	long current_stage;								//48
 	char pad48[6];									//52
@@ -513,8 +701,10 @@ extern DWORD* club_comp_histories_count;
 extern DWORD** comp_stats_list;
 extern DWORD* comp_stats_count;
 
+extern DWORD* current_date;
 extern WORD* current_year;
 
 extern DWORD* staff_history;
 
+extern BYTE* playable_leagues_table;
 extern DWORD* b74340;

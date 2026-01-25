@@ -9,6 +9,7 @@
 #include "eng_prm.h"
 #include "eng_first.h"
 #include "eng_fa_trophy.h"
+#include "eng_awards.h"
 
 static DWORD(__thiscall* eng_prm_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
 (DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x573380);
@@ -67,26 +68,24 @@ DWORD eng_setup_c(BYTE* nation_data) {
 	BYTE i = 0;
 	// Premier League
 	BYTE* pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
-	eng_prm_setup(pMem, *current_year, &(*club_comps)[*(DWORD*)0x9CF5BC]);
+	eng_prm_setup(pMem, *current_year, &(*club_comps)[Get9CF(0x9CF5BC)]);
 	nation_comps[i++] = (DWORD)pMem;
 	// Championship
 	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
-	eng_first_setup(pMem, *current_year, &(*club_comps)[*(DWORD*)0x9CF5C0]);
-	eng_first_points_deductions(pMem, *current_year);
+	eng_first_init(pMem, *current_year, &(*club_comps)[Get9CF(0x9CF5C0)]);
 	nation_comps[i++] = (DWORD)pMem;
 	// League One
 	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
-	eng_second_setup(pMem, *current_year, &(*club_comps)[*(DWORD*)0x9CF5C4]);
+	eng_second_setup(pMem, *current_year, &(*club_comps)[Get9CF(0x9CF5C4)]);
 	nation_comps[i++] = (DWORD)pMem;
 	// League Two
 	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
-	//eng_third_setup(pMem, *current_year, &(*club_comps)[*(DWORD*)0x9CF5C8]);
-	eng_third_init(pMem, *current_year, &(*club_comps)[*(DWORD*)0x9CF5C8]);
+	eng_third_init(pMem, *current_year, &(*club_comps)[Get9CF(0x9CF5C8)]);
 	nation_comps[i++] = (DWORD)pMem;
 	if ((selected & 4) != 0) {
 		// National League
 		pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
-		eng_conf_init(pMem, *current_year, &(*club_comps)[*(DWORD*)0x9CF69C]);
+		eng_conf_init(pMem, *current_year, &(*club_comps)[Get9CF(0x9CF69C)]);
 		nation_comps[i++] = (DWORD)pMem;
 		// National League North
 		pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
@@ -99,33 +98,32 @@ DWORD eng_setup_c(BYTE* nation_data) {
 	}
 	// FA Cup
 	pMem = (BYTE*)sub_944CF1_operator_new(0xB5);
-	//eng_fa_cup_setup(pMem, *current_year, &(*club_comps)[*(DWORD*)0x9CF74C]);
-	eng_fa_cup_init(pMem, *current_year, &(*club_comps)[*(DWORD*)0x9CF74C]);
+	eng_fa_cup_init(pMem, *current_year, &(*club_comps)[Get9CF(0x9CF74C)]);
 	nation_comps[i++] = (DWORD)pMem;
 	// League Cup
 	pMem = (BYTE*)sub_944CF1_operator_new(0xB3);
-	eng_league_cup_setup(pMem, *current_year, &(*club_comps)[*(DWORD*)0x9CF750]);
+	eng_league_cup_setup(pMem, *current_year, &(*club_comps)[Get9CF(0x9CF750)]);
 	nation_comps[i++] = (DWORD)pMem;
 	// League Trophy
 	pMem = (BYTE*)sub_944CF1_operator_new(0xBA);
-	eng_league_trophy_setup(pMem, *current_year, &(*club_comps)[*(DWORD*)0x9CF758]);
+	eng_league_trophy_setup(pMem, *current_year, &(*club_comps)[Get9CF(0x9CF758)]);
 	nation_comps[i++] = (DWORD)pMem;
 	// Charity Shield
 	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
-	eng_charity_setup(pMem, *current_year, &(*club_comps)[*(DWORD*)0x9CF754]);
+	eng_charity_setup(pMem, *current_year, &(*club_comps)[Get9CF(0x9CF754)]);
 	nation_comps[i++] = (DWORD)pMem;
 	// FA Trophy
 	if ((selected & 4) != 0) {
 		pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
-		eng_fa_trophy_setup(pMem, *current_year, &(*club_comps)[*(DWORD*)0x9CF6A0]);
+		eng_fa_trophy_setup(pMem, *current_year, &(*club_comps)[Get9CF(0x9CF6A0)]);
 		nation_comps[i++] = (DWORD)pMem;
 	}
-	BYTE* cm_date = new BYTE[4];
+	BYTE* cm_date = new BYTE[8];
 	convert_to_cm_date(cm_date, 20, June, 2025, (DWORD*)-1);
 	*(WORD*)(nation_data + 0x15) = *(WORD*)cm_date;
 	*(WORD*)(nation_data + 0x1B) = *current_year;
 	*(BYTE*)(nation_data + 0x1D) = 1;
-	*(DWORD*)(nation_data + 0x26) = (DWORD) & (*club_comps)[*(DWORD*)0x9CF6A0];
+	*(DWORD*)(nation_data + 0x26) = (DWORD) & (*club_comps)[Get9CF(0x9CF754)];
 	return 1;
 }
 
@@ -138,4 +136,5 @@ void setup_eng_nation() {
 	setup_eng_conf_s();
 	setup_eng_fa_cup();
 	setup_eng_fa_trophy();
+	setup_eng_awards();
 }

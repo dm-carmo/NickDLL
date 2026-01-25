@@ -21,8 +21,10 @@ DWORD* club_comp_histories_count = (DWORD*)0xAE237C;
 DWORD** comp_stats_list = (DWORD**)0xADADFC;
 DWORD* comp_stats_count = (DWORD*)0xADADF8;
 
+DWORD* current_date = (DWORD*)0xAE2C90;
 WORD* current_year = (WORD*)0xAE2C92;
 
 DWORD* staff_history = (DWORD*)0xDD7F00;
 
+BYTE* playable_leagues_table = (BYTE*)0xB63D60;
 DWORD* b74340 = (DWORD*)0xB74340;
