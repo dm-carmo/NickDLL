@@ -6,6 +6,197 @@
 
 DWORD* ita_ser_b_vtable = (DWORD*)0x96C480;
 
+void ita_ser_b_free_under(BYTE* _this) {
+	comp_stats* data = (comp_stats*)_this;
+	data->comp_vtable = ita_ser_b_vtable;
+	DWORD x = 0;
+	sub_687970(_this, 0);
+	if (data->fixtures_table) {
+		sub_9452CA_free(data->fixtures_table);
+		data->fixtures_table = 0;
+	}
+	long current = data->current_stage;
+	if (current >= 0) {
+		for (long i = 0; i <= current; i++) {
+			DWORD stage = data->stages[i];
+			if (stage) {
+				DWORD v1 = *(DWORD*)stage;
+				(DWORD*)(*(int(__thiscall**)(BYTE*, int a2))(v1))((BYTE*)stage, 1);
+			}
+		}
+	}
+	if (data->stages) {
+		sub_9452CA_free((BYTE*)(data->stages));
+		data->stages = 0;
+	}
+	if (data->f8) {
+		sub_49F450((BYTE*)(data->f8));
+		sub_944C94_free((BYTE*)(data->f8));
+	}
+	DWORD y = -1;
+	sub_682300(_this);
+}
+
+void ita_ser_b_free(BYTE* _this, BYTE a2) {
+	ita_ser_b_free_under(_this);
+	if (a2 & 1) {
+		sub_944C94_free(_this);
+	}
+}
+
+void __declspec(naked) ita_ser_b_free_c()		// used as a __thiscall -> __cdecl converter
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x4]
+		push ecx
+		call ita_ser_b_free
+		add esp, 0x8
+		ret 4
+	}
+}
+
+DWORD ita_ser_b_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
+{
+	if (stage_idx < 0) {
+		if (a5)
+			*a5 = 1;
+		BYTE* pMem = NULL;
+		WORD year = ((comp_stats*)_this)->year;
+		DWORD CompID = *(DWORD*)(*(DWORD*)(_this + 0x4));
+		BYTE numberOfLeagueTeams = (BYTE)CountNumberOfTeamsInComp(CompID);
+		*num_rounds = (numberOfLeagueTeams - 1) * ((comp_stats*)_this)->n_rounds;
+		*stage_name_id = None;
+
+		pMem = (BYTE*)sub_944E46_malloc(fixture_dates_sz * (*num_rounds));
+
+		int fixture_id = 0;
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 23), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 30), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 13), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 20), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 27), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 30), year, Tuesday, Evening);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 4), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 18), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 25), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 28), year, Tuesday, Evening);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 1), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 8), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 22), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 29), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 12, 6), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 12, 13), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 12, 20), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 12, 27), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 1, 10), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 1, 17), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 1, 24), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 1, 31), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 7), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 10), year, Tuesday, Evening);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 14), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 21), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 28), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 3), year, Tuesday, Evening);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 7), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 14), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 17), year, Tuesday, Evening);
+
+		Date easter_day = Date::easter_gregorian(year + 1);
+		Date easter_test = Date(year + 1, 3, 21);
+		int diff = abs(easter_test.DayOfYear() - easter_day.DayOfYear());
+		AddFixtureNoTV(pMem, fixture_id++, diff < 4 ? easter_day : easter_test, year, diff < 4 ? Monday : Saturday, diff < 4 ? Evening : Afternoon);
+		easter_test = Date(year + 1, 4, 4);
+		diff = abs(easter_test.DayOfYear() - easter_day.DayOfYear());
+		AddFixtureNoTV(pMem, fixture_id++, diff < 4 ? easter_day : easter_test, year, diff < 4 ? Monday : Saturday, diff < 4 ? Evening : Afternoon);
+		easter_test = Date(year + 1, 4, 11);
+		diff = abs(easter_test.DayOfYear() - easter_day.DayOfYear());
+		AddFixtureNoTV(pMem, fixture_id++, diff < 4 ? easter_day : easter_test, year, diff < 4 ? Monday : Saturday, diff < 4 ? Evening : Afternoon);
+		easter_test = Date(year + 1, 4, 18);
+		diff = abs(easter_test.DayOfYear() - easter_day.DayOfYear());
+		AddFixtureNoTV(pMem, fixture_id++, diff < 4 ? easter_day : easter_test, year, diff < 4 ? Monday : Saturday, diff < 4 ? Evening : Afternoon);
+		easter_test = Date(year + 1, 4, 25);
+		diff = abs(easter_test.DayOfYear() - easter_day.DayOfYear());
+		AddFixtureNoTV(pMem, fixture_id++, diff < 4 ? easter_day : easter_test, year, diff < 4 ? Monday : Saturday, diff < 4 ? Evening : Afternoon);
+
+		Date may_first = Date(year + 1, 5, 1);
+		AddFixtureNoTV(pMem, fixture_id++, may_first, year, (Day)may_first.DayOfWeek(), Evening);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 5, 9), year, Saturday);
+
+		if (fixture_id != *num_rounds) {
+			string msg = "Wrong number of fixtures: " + to_string(fixture_id);
+			create_message_box("Error", msg.c_str(), true);
+		}
+
+		return (DWORD)pMem;
+	}
+	else if (stage_idx == 0) {
+		if (a5)
+			*a5 = 0;
+		BYTE* pMem = NULL;
+		WORD year = ((comp_stats*)_this)->year;
+		*num_rounds = 3;
+		*stage_name_id = PromotionPlayoff;
+
+		pMem = (BYTE*)sub_944E46_malloc(playoff_dates_sz * (*num_rounds));
+
+		int fixture_id = 0;
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 10), year, Sunday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 16), year, Saturday);
+		// highest team wins after et/pens
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, ExtraTimePenalties_1, NoTiebreak_2, 5, 4, 2, 4, 0, 0, 1, 0);
+
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 17), year, Sunday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 20), year, Wednesday, Evening);
+		// highest team wins, no et/pens
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 6, 4, 2, 2, 4, 0, 2, 4);
+
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 25), year, Monday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 28), year, Thursday, Evening);
+		// highest team wins, no et/pens
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 6, 2, 1, 0, 0, 0, 2, 3);
+
+		return (DWORD)pMem;
+	}
+	else if (stage_idx == 1) {
+		if (a5)
+			*a5 = 0;
+		BYTE* pMem = NULL;
+		WORD year = ((comp_stats*)_this)->year;
+		*num_rounds = 1;
+		*stage_name_id = RelegationPlayoff;
+
+		pMem = (BYTE*)sub_944E46_malloc(playoff_dates_sz * (*num_rounds));
+
+		int fixture_id = 0;
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 10), year, Sunday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 14), year, Thursday);
+		// highest team wins, no et/pens
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 5, 2, 1, 2, 0, 0, 2, 7);
+
+		return (DWORD)pMem;
+	}
+	return 0;
+}
+
+void __declspec(naked) ita_ser_b_fixtures_c()		// used as a __thiscall -> __cdecl converter
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x10]
+		push dword ptr[eax + 0xC]
+		push dword ptr[eax + 0x8]
+		push dword ptr[eax + 0x4]
+		push ecx
+		call ita_ser_b_fixtures
+		add esp, 0x14
+		ret 0x10
+	}
+}
+
 void ita_ser_b_subs(BYTE* _this)
 {
 	comp_stats* comp_data = (comp_stats*)_this;
@@ -18,10 +209,10 @@ void ita_ser_b_subs(BYTE* _this)
 	comp_data->tiebreaker_1 = 1;
 	comp_data->tiebreaker_2 = 2;
 	comp_data->tiebreaker_3 = 0;
-	comp_data->promotions = 3;
-	comp_data->prom_playoff = 0;
-	comp_data->rele_playoff = 0;
-	comp_data->relegations = 4;
+	comp_data->promotions = 2;
+	comp_data->prom_playoff = 6;
+	comp_data->rele_playoff = 2;
+	comp_data->relegations = 3;
 
 	comp_data->promotes_to = *(DWORD*)0x9CF570;
 	comp_data->relegates_to = serie_c_id;
@@ -61,8 +252,8 @@ void ita_ser_b_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	if (loaded) return;
 	data->f68 = -1;
 	data->current_stage = -1;
-	data->num_stages = 0;
-	//data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
+	data->num_stages = 2;
+	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
 	ita_ser_b_subs(_this);
 	AddTeams(_this);
 	sub_6835C0(_this);
@@ -76,7 +267,237 @@ void ita_ser_b_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	sub_68A850(_this);
 }
 
+char ita_ser_b_update(BYTE* _this) {
+	comp_stats* data = (comp_stats*)_this;
+	BYTE* ebx = 0;
+	data->f76 = 0;
+	sub_687970(_this, ebx);
+	if (data->fixtures_table) {
+		sub_9452CA_free(data->fixtures_table);
+		data->fixtures_table = 0;
+	}
+	if (data->f8) sub_4A1C50((BYTE*)(data->f8), 1);
+	long current = data->current_stage;
+	if (current >= 0) {
+		for (long i = 0; i <= current; i++) {
+			DWORD stage = data->stages[i];
+			if (stage) {
+				DWORD v1 = *(DWORD*)stage;
+				(DWORD*)(*(int(__thiscall**)(BYTE*, int a2))(v1))((BYTE*)stage, 1);
+			}
+		}
+	}
+	data->year++;
+	data->current_stage = -1;
+	ita_ser_b_subs(_this);
+	AddTeams(_this);
+	sub_6835C0(_this);
+	BYTE* edx = 0;
+	sub_6827D0(_this, edx);
+	DWORD v1 = *(DWORD*)_this;
+	(DWORD*)(*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
+	sub_68AA80(_this);
+	return sub_79CEE0((BYTE*)*b74340, (BYTE*)(data->competition_db));
+}
+
+void __declspec(naked) ita_ser_b_update_c()		// used as a __thiscall -> __cdecl converter
+{
+	__asm
+	{
+		mov eax, esp
+		push ecx
+		call ita_ser_b_update
+		add esp, 0x4
+		ret
+	}
+}
+
+void ita_ser_b_prom_playoffs(BYTE* _this) {
+	BYTE seeds[6] = { 7,6,5,4,3,2 };
+	char stage_num = 0;
+	comp_stats* comp_data = (comp_stats*)_this;
+	BYTE playoff_teams = comp_data->prom_playoff;
+	WORD total_teams = comp_data->n_teams;
+	DWORD* pTeams = (DWORD*)sub_944E46_malloc(playoff_teams * 4);
+	int j = 0;
+	team_league_stats* table_teams = (team_league_stats*)(comp_data->team_league_table);
+	for (int i = 0; i < total_teams && j < playoff_teams; i++) {
+		team_league_stats tls = table_teams[i];
+		if (tls.league_fate == TopPlayoff) {
+			*((DWORD*)(&pTeams[playoff_teams - j - 1])) = (DWORD)tls.club;
+			j++;
+		}
+	}
+	WORD num_rounds = 0;
+	WORD stage_name_id = 0;
+	WORD year = comp_data->year;
+	DWORD v1 = *(DWORD*)_this;
+	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, char, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
+	BYTE* new_stage = (BYTE*)sub_944CF1_operator_new(0xB2);
+	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, *(DWORD*)(_this + 0x4), pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, seeds);
+	DWORD* stages_arr = comp_data->stages;
+	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
+	sub_51C800(new_stage, 0);
+}
+
+void ita_ser_b_rele_playoffs(BYTE* _this) {
+	char stage_num = 1;
+	comp_stats* comp_data = (comp_stats*)_this;
+	BYTE playoff_teams = comp_data->rele_playoff;
+	WORD total_teams = comp_data->n_teams;
+	DWORD* pTeams = (DWORD*)sub_944E46_malloc(playoff_teams * 4);
+	int j = 0;
+	team_league_stats* table_teams = (team_league_stats*)(comp_data->team_league_table);
+	for (int i = 0; i < total_teams && j < playoff_teams; i++) {
+		team_league_stats tls = table_teams[i];
+		if (tls.league_fate == BottomPlayoff) {
+			*((DWORD*)(&pTeams[playoff_teams - j - 1])) = (DWORD)tls.club;
+			j++;
+		}
+	}
+	WORD num_rounds = 0;
+	WORD stage_name_id = 0;
+	WORD year = comp_data->year;
+	DWORD v1 = *(DWORD*)_this;
+	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, char, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
+	BYTE* new_stage = (BYTE*)sub_944CF1_operator_new(0xB2);
+	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, *(DWORD*)(_this + 0x4), pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, 0);
+	DWORD* stages_arr = comp_data->stages;
+	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
+	sub_51C800(new_stage, 0);;
+	comp_data->current_stage = (long)stage_num;
+}
+
+void ita_ser_b_playoffs_c(BYTE* _this) {
+	comp_stats* comp_data = (comp_stats*)_this;
+	long current = comp_data->current_stage;
+	long max = comp_data->num_stages;
+	if (current < max - 1) {
+		current++;
+		comp_data->current_stage = current;
+		if (current == 0) {
+			ita_ser_b_prom_playoffs(_this);
+			ita_ser_b_rele_playoffs(_this);
+		}
+	}
+}
+
+void __declspec(naked) ita_ser_b_playoffs_create()		// used as a __thiscall -> __cdecl converter
+{
+	__asm
+	{
+		mov eax, esp
+		push ecx
+		call ita_ser_b_playoffs_c
+		add esp, 0x4
+		ret
+	}
+}
+
+int SerieBTableIndicators(BYTE* _this, DWORD* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
+	if (stage == 0) {
+		comp_stats* comp_data = (comp_stats*)_this;
+		WORD num_teams = comp_data->n_teams;
+		if (num_teams <= 0) return 0;
+		team_league_stats* table = (team_league_stats*)(comp_data->team_league_table);
+		comp_stats* stage_data = (comp_stats*)(comp_data->stages[stage]);
+		BYTE* rounds = stage_data->rounds_list;
+		WORD current_round = *(WORD*)(round_data + 0x34);
+		for (int i = 0; i < num_teams; i++) {
+			DWORD* c = (DWORD*)table[i].club;
+			if (c != club) continue;
+			switch (fate) {
+			case TopPlayoff:
+				staff_history_promoted_869480(staff_hist_ptr, club, *(DWORD*)(_this + 0x4), 0x32);
+				table[i].league_fate = Promoted;
+				*a5 = 1;
+				return 0;
+			case Promoted:
+				staff_history_qualified_868DD0(staff_hist_ptr, club, *(DWORD*)(_this + 0x4), *(WORD*)(round_data + 0x32),
+					*(WORD*)(rounds + playoff_dates_sz * (current_round + 1) + 7), 0xF);
+				return 0;
+			default:
+				table[i].league_fate = Eliminated;
+				return 0;
+			}
+		}
+	}
+	else if (stage == 1) {
+		comp_stats* comp_data = (comp_stats*)_this;
+		WORD num_teams = comp_data->n_teams;
+		if (num_teams <= 0) return 0;
+		team_league_stats* table = (team_league_stats*)(comp_data->team_league_table);
+		comp_stats* stage_data = (comp_stats*)(comp_data->stages[stage]);
+		BYTE* rounds = stage_data->rounds_list;
+		WORD current_round = *(WORD*)(round_data + 0x34);
+		for (int i = 0; i < num_teams; i++) {
+			DWORD* c = (DWORD*)table[i].club;
+			if (c != club) continue;
+			switch (fate) {
+			case BottomPlayoff:
+				staff_history_relegated_86A1C0(staff_hist_ptr, club, *(DWORD*)(_this + 0x4));
+				table[i].league_fate = Relegated;
+				*a5 = 1;
+				return 0;
+			case Relegated:
+				staff_history_qualified_868DD0(staff_hist_ptr, club, *(DWORD*)(_this + 0x4), *(WORD*)(round_data + 0x32),
+					*(WORD*)(rounds + playoff_dates_sz * (current_round + 1) + 7), 0xF);
+				return 0;
+			default:
+				table[i].league_fate = Eliminated;
+				return 0;
+			}
+		}
+	}
+	else {
+		switch (fate) {
+		case Champions:
+			staff_history_champion_868C50(staff_hist_ptr, club, *(DWORD*)(_this + 0x4));
+			return 0;
+		case Promoted:
+			staff_history_promoted_869480(staff_hist_ptr, club, *(DWORD*)(_this + 0x4), 0x64);
+			return 0;
+		case TopPlayoff:
+			staff_history_qualified_868DD0(staff_hist_ptr, club, *(DWORD*)(_this + 0x4), PromotionPlayoff, None, 0x1E);
+			return 0;
+		case BottomPlayoff:
+			staff_history_qualified_868DD0(staff_hist_ptr, club, *(DWORD*)(_this + 0x4), RelegationPlayoff, None, 0x1E);
+			return 0;
+		case Relegated:
+			staff_history_relegated_86A1C0(staff_hist_ptr, club, *(DWORD*)(_this + 0x4));
+			return 0;
+		default:
+			return 0;
+		}
+	}
+	return 0;
+}
+
+void __declspec(naked) ita_ser_b_set_table_fate()		// used as a __thiscall -> __cdecl converter
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x18]
+		push dword ptr[eax + 0x14]
+		push dword ptr[eax + 0x10]
+		push dword ptr[eax + 0xC]
+		push dword ptr[eax + 0x8]
+		push dword ptr[eax + 0x4]
+		push ecx
+		call SerieBTableIndicators
+		add esp, 0x1c
+		ret 0x18
+	}
+}
+
 void setup_ita_ser_b()
 {
 	WriteVTablePtr(ita_ser_b_vtable, VTableSubsRounds, (DWORD)&ita_ser_b_subs_c);
+	WriteVTablePtr(ita_ser_b_vtable, VTableInitFree, (DWORD)&ita_ser_b_free_c);
+	WriteVTablePtr(ita_ser_b_vtable, VTableEoSUpdate, (DWORD)&ita_ser_b_update_c);
+	WriteVTablePtr(ita_ser_b_vtable, VTablePlayoffQual, (DWORD)&ita_ser_b_playoffs_create);
+	WriteVTablePtr(ita_ser_b_vtable, VTableFixtures, (DWORD)&ita_ser_b_fixtures_c);
+	WriteVTablePtr(ita_ser_b_vtable, VTableTableFates, (DWORD)&ita_ser_b_set_table_fate);
 }
