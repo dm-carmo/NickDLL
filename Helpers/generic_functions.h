@@ -43,6 +43,8 @@ static BYTE* (__thiscall* create_league_stage_data)(BYTE* _this, BYTE* main_comp
 		__int16 stage_name_id, char a17, char a18, __int16 a19, __int16 a20, __int16 a21, int a22, char a23))(0x68B100);
 static void(__thiscall* sub_4A2540)(BYTE* _this, cm3_clubs* club, char a3) =
 (void(__thiscall*)(BYTE * _this, cm3_clubs * club, char a3))(0x4A2540);
+static char(__thiscall* sub_6847C0)(BYTE* _this, DWORD current_date, int a3) =
+(char(__thiscall*)(BYTE * _this, DWORD current_date, int a3))(0x6847C0);
 
 static int(__thiscall* sub_51C800)(BYTE* _this, int a2) =
 (int(__thiscall*)(BYTE * _this, int a2))(0x51C800);

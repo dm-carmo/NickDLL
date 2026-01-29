@@ -288,7 +288,7 @@ bool compareClubRepInv(cm3_clubs* c1, cm3_clubs* c2)
 bool compareClubLastDivPos(cm3_clubs* c1, cm3_clubs* c2)
 {
 	if (!c1->ClubLastDivision)
-		return (c2->ClubLastPosition > 0 && c2->ClubLastPosition < c1->ClubLastPosition);
+		return (c2->ClubLastPosition > 0 && c1->ClubLastPosition < c2->ClubLastPosition);
 	if (!c2->ClubLastDivision)
 		return (c1->ClubLastPosition > 0 && c1->ClubLastPosition < c2->ClubLastPosition);
 	if (c1->ClubLastDivision->ClubCompReputation != c2->ClubLastDivision->ClubCompReputation)
@@ -355,9 +355,9 @@ cm3_clubs* get_last_comp_runner_up(cm3_club_comps* comp)
 	return ret[0]->ClubCompHistoryRunnersUp;
 }
 
-int CountNumberOfTeamsInComp(DWORD CompID)
+WORD CountNumberOfTeamsInComp(DWORD CompID)
 {
-	int numberOfLeagueTeams = 0;
+	WORD numberOfLeagueTeams = 0;
 	for (DWORD i = 0; i < *clubs_count; i++)
 	{
 		cm3_clubs* club = &(*clubs)[i];
@@ -367,9 +367,9 @@ int CountNumberOfTeamsInComp(DWORD CompID)
 	return numberOfLeagueTeams;
 }
 
-int CountNumberOfTeamsInCompWithGroup(DWORD CompID, DWORD GroupID)
+WORD CountNumberOfTeamsInCompWithGroup(DWORD CompID, DWORD GroupID)
 {
-	int numberOfLeagueTeams = 0;
+	WORD numberOfLeagueTeams = 0;
 	for (DWORD i = 0; i < *clubs_count; i++)
 	{
 		cm3_clubs* club = &(*clubs)[i];

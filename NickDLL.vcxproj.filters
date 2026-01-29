@@ -108,6 +108,9 @@
     <ClCompile Include="Italy\ita_ser_b.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Italy\ita_c_supercup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="european_cup.h">
@@ -210,6 +213,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Italy\ita_ser_b.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Italy\ita_c_supercup.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

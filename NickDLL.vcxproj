@@ -157,6 +157,7 @@
     <ClCompile Include="Italy\ita_awards.cpp" />
     <ClCompile Include="Italy\ita_cup.cpp" />
     <ClCompile Include="Italy\ita_c_cup.cpp" />
+    <ClCompile Include="Italy\ita_c_supercup.cpp" />
     <ClCompile Include="Italy\ita_ser_a.cpp" />
     <ClCompile Include="Italy\ita_ser_b.cpp" />
     <ClCompile Include="Italy\ita_ser_c.cpp" />
@@ -192,6 +193,7 @@
     <ClInclude Include="Italy\ita_awards.h" />
     <ClInclude Include="Italy\ita_cup.h" />
     <ClInclude Include="Italy\ita_c_cup.h" />
+    <ClInclude Include="Italy\ita_c_supercup.h" />
     <ClInclude Include="Italy\ita_ser_a.h" />
     <ClInclude Include="Italy\ita_ser_b.h" />
     <ClInclude Include="Italy\ita_ser_c.h" />

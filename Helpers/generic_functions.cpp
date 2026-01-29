@@ -8,14 +8,15 @@
 // Generic function that will add teams to a league competition
 int AddTeams(BYTE* _this)
 {
-	DWORD CompID = *(DWORD*)(*(DWORD*)(_this + 0x4));
+	comp_stats* comp_data = (comp_stats*)_this;
+	DWORD CompID = comp_data->competition_db->ClubCompID;
 
 	// Count the number of teams first, as the code really expects us to know up front
-	BYTE numberOfLeagueTeams = (BYTE)CountNumberOfTeamsInComp(CompID);
+	WORD numberOfLeagueTeams = CountNumberOfTeamsInComp(CompID);
 
 	// Now let's add the teams
-	*((WORD*)(_this + 0x3E)) = numberOfLeagueTeams; // number of teams
-	*((DWORD*)(_this + 0xB1)) = (DWORD)sub_944E46_malloc(numberOfLeagueTeams * league_team_list_sz); // number of teams * 59 (0x3B) - was 0x2FF
+	comp_data->n_teams = numberOfLeagueTeams; // number of teams
+	comp_data->team_league_table = (DWORD*)sub_944E46_malloc(numberOfLeagueTeams * league_team_list_sz); // number of teams * 59 (0x3B) - was 0x2FF
 	BYTE teamsAdded = 0;
 	for (DWORD i = 0; i < *clubs_count; i++)
 	{
@@ -30,14 +31,15 @@ int AddTeams(BYTE* _this)
 // Generic function that will add teams to a league competition that has groups
 int AddTeamsGroupLeague(BYTE* _this, DWORD first_group_id)
 {
-	DWORD CompID = *(DWORD*)(*(DWORD*)(_this + 0x4));
+	comp_stats* comp_data = (comp_stats*)_this;
+	DWORD CompID = comp_data->competition_db->ClubCompID;
 
 	// Count the number of teams first, as the code really expects us to know up front
-	BYTE numberOfLeagueTeams = (BYTE)CountNumberOfTeamsInCompWithGroup(CompID, first_group_id);
+	WORD numberOfLeagueTeams = CountNumberOfTeamsInCompWithGroup(CompID, first_group_id);
 
 	// Now let's add the teams
-	*((WORD*)(_this + 0x3E)) = numberOfLeagueTeams; // number of teams
-	*((DWORD*)(_this + 0xB1)) = (DWORD)sub_944E46_malloc(numberOfLeagueTeams * league_team_list_sz); // number of teams * 59 (0x3B) - was 0x2FF
+	comp_data->n_teams = numberOfLeagueTeams; // number of teams
+	comp_data->team_league_table = (DWORD*)sub_944E46_malloc(numberOfLeagueTeams * league_team_list_sz); // number of teams * 59 (0x3B) - was 0x2FF
 	BYTE teamsAdded = 0;
 	for (DWORD i = 0; i < *clubs_count; i++)
 	{
