@@ -15,6 +15,7 @@
 #include "CONMEBOL\sudamericana.h"
 #include "CONMEBOL\libertadores.h"
 #include "CONMEBOL\libertadores_calendar.h"
+#include "Croatia\cro_setup.h"
 #include "England\eng_setup.h"
 #include "Italy\ita_setup.h"
 #include "inject_club_renames.h"
@@ -59,6 +60,11 @@ void Setup()
 	//setup_name_injection();
 
 	configFile.LoadConfig("NickDLL_config.json");
+
+	if (configFile.GetBool("applyCroatia", true)) {
+		dprintf("Applying Croatia changes\n");
+		setup_cro_nation();
+	}
 
 	if (configFile.GetBool("applyEngland", true)) {
 		dprintf("Applying England changes\n");

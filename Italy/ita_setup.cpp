@@ -66,7 +66,8 @@ DWORD ita_setup_c(BYTE* nation_data) {
 	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
 	ita_c_supercup_init(pMem, *current_year, &(*club_comps)[Get9CF(0x9CF938)]);
 	nation_comps[i++] = (DWORD)pMem;
-	BYTE* cm_date = new BYTE[4];
+
+	BYTE* cm_date = new BYTE[8];
 	convert_to_cm_date(cm_date, 20, June, 2025, (DWORD*)-1);
 	*(WORD*)(nation_data + 0x15) = *(WORD*)cm_date;
 	*(WORD*)(nation_data + 0x1B) = *current_year;

@@ -181,15 +181,13 @@ void create_playoffs_c_under(BYTE* _this) {
 	BYTE playoff_teams = comp_data->prom_playoff;
 	WORD total_teams = comp_data->n_teams;
 	DWORD* pTeams = (DWORD*)sub_944E46_malloc(playoff_teams * 4);
-	int j = 0;
+	BYTE team_order[6] = { 4,5,0,3,2,1 };
+
 	team_league_stats* table_teams = (team_league_stats*)(comp_data->team_league_table);
-	for (int i = 0; i < total_teams && j < playoff_teams; i++) {
-		team_league_stats tls = table_teams[i];
-		if (tls.league_fate == TopPlayoff) {
-			*((DWORD*)(&pTeams[playoff_teams - j - 1])) = (DWORD)tls.club;
-			j++;
-		}
+	for (char i = comp_data->promotions, j = 0; i < total_teams && j < playoff_teams; i++) {
+		*((DWORD*)(&pTeams[team_order[j++]])) = (DWORD)table_teams[i].club;
 	}
+
 	WORD num_rounds = 0;
 	WORD stage_name_id = 0;
 	WORD year = comp_data->year;
@@ -353,11 +351,11 @@ DWORD CreateConferenceFixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WO
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 4, 26), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 2), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, ExtraTimePenalties_1, NoTiebreak_2, 5, 4, 2, 4, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 5, 4, 2, 4, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 3), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 6), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, ExtraTimePenalties_1, NoTiebreak_2, 5, 4, 2, 2, 4, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup2 + ExtraTimePenalties_1, NoTiebreak_2, 5, 4, 2, 2, 4, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 7), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 10), year, Sunday, Afternoon, NationalStadium);
@@ -391,13 +389,8 @@ int ConferenceTableIndicators(BYTE* _this, DWORD* club, BYTE fate, char stage, B
 				staff_history_qualified_868DD0(staff_hist_ptr, club, *(DWORD*)(_this + 0x4), *(WORD*)(round_data + 0x32),
 					*(WORD*)(rounds + playoff_dates_sz * (current_round + 1) + 7), 0xF);
 				return 0;
-			case NoFate:
-				table[i].league_fate = Eliminated;
-				return 0;
-			case BottomPlayoff:
-				table[i].league_fate = Eliminated;
-				return 0;
 			default:
+				table[i].league_fate = Eliminated;
 				return 0;
 			}
 		}

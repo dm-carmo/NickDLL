@@ -8,13 +8,16 @@
 
 #define SI_DOUBLE double
 
+extern WORD FixedTeamOrderInCup;
+extern WORD FixedTeamOrderInCup2;
+
 enum CompetitionType : char {
 	CLUB_DOMESTIC = 1,
 	CLUB_INTERNATITONAL = 2,
 	NATION_INTERNATIONAL = 4
 };
 
-enum RoundNames {
+enum RoundNames : WORD {
 	None = 0,
 	FirstRound = 0x0A,
 	SecondRound = 0x14,
@@ -89,7 +92,7 @@ enum RoundNames {
 	WestQuarterFinal = 0x483
 };
 
-enum Game1Tiebreaks {
+enum Game1Tiebreaks : WORD {
 	NoTiebreak_1 = 0,
 	PenaltiesNoExtraTime_1 = 1,
 	ExtraTimeNoPenalties_1 = 2,
@@ -98,7 +101,7 @@ enum Game1Tiebreaks {
 	GoldenGoal_1 = 83
 };
 
-enum Game2Tiebreaks {
+enum Game2Tiebreaks : WORD {
 	NoTiebreak_2 = 0,
 	AwayGoalsPenaltiesNoExtraTime_2 = 1,
 	AwayGoalsExtraTimePenalties_2 = 3,
@@ -106,7 +109,7 @@ enum Game2Tiebreaks {
 	GoldenGoal_2 = 83
 };
 
-enum Game3Tiebreaks {
+enum Game3Tiebreaks : WORD {
 	NoTiebreak_3 = 0,
 	ExtraTimePenalties_3 = 3
 };

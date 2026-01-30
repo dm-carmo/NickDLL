@@ -140,6 +140,7 @@
     <ClCompile Include="CONMEBOL\libertadores.cpp" />
     <ClCompile Include="CONMEBOL\libertadores_calendar.cpp" />
     <ClCompile Include="CONMEBOL\sudamericana.cpp" />
+    <ClCompile Include="Croatia\cro_setup.cpp" />
     <ClCompile Include="England\eng_awards.cpp" />
     <ClCompile Include="England\eng_conf.cpp" />
     <ClCompile Include="England\eng_conf_n.cpp" />
@@ -174,6 +175,7 @@
     <ClInclude Include="CONMEBOL\libertadores.h" />
     <ClInclude Include="CONMEBOL\libertadores_calendar.h" />
     <ClInclude Include="CONMEBOL\sudamericana.h" />
+    <ClInclude Include="Croatia\cro_setup.h" />
     <ClInclude Include="England\eng_awards.h" />
     <ClInclude Include="England\eng_conf.h" />
     <ClInclude Include="England\eng_conf_n.h" />

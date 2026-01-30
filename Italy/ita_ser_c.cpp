@@ -283,7 +283,7 @@ DWORD ita_ser_c_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 4, 27), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 3), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 5, 18, 9, 18, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 5, 18, 9, 18, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 4), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 7), year, Thursday, Evening);
@@ -320,7 +320,7 @@ DWORD ita_ser_c_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 4, 27), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 10), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 5, 12, 6, 12, 0, 0, 2, 7);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 5, 12, 6, 12, 0, 0, 2, 7);
 
 		return (DWORD)pMem;
 	}
@@ -475,7 +475,6 @@ void ita_c_playoffs_prom(BYTE* _this) {
 	DWORD* pTeams = (DWORD*)sub_944E46_malloc(playoff_teams * 4);
 	char fallback_group = -1;
 	bool use_fallback = false;
-	BYTE seeds[28] = { 0,1,2,2,1,0,3,4,5,5,4,3,6,7,8,8,7,6,9,10,11,12,13,14,15,16,17,18 };
 
 	comp_stats* curr_stage = comp_data;
 	vector<cm3_clubs*> clubs_rnd1;
@@ -604,10 +603,11 @@ void ita_c_playoffs_prom(BYTE* _this) {
 		}
 	}
 	// add them all now
-	int j = 0;
+	BYTE team_order[18] = { 0,2,4,5,3,1,6,8,10,11,9,7,12,14,16,17,15,13 };
 	for (size_t i = 0; i < clubs_rnd1.size(); i++) {
-		*((DWORD*)(&pTeams[j++])) = (DWORD)clubs_rnd1[i];
+		*((DWORD*)(&pTeams[team_order[i]])) = (DWORD)clubs_rnd1[i];
 	}
+	size_t j = clubs_rnd1.size();
 	for (size_t i = 0; i < clubs_rnd2.size(); i++) {
 		*((DWORD*)(&pTeams[j++])) = (DWORD)clubs_rnd2[i];
 	}
@@ -624,6 +624,7 @@ void ita_c_playoffs_prom(BYTE* _this) {
 	DWORD v1 = *(DWORD*)_this;
 	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, char, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
 	BYTE* new_stage = (BYTE*)sub_944CF1_operator_new(0xB2);
+	BYTE seeds[28] = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,2,2,2,2,3,3,3 };
 	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, *(DWORD*)(_this + 0x4), pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, seeds);
 	DWORD* stages_arr = comp_data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
@@ -635,7 +636,7 @@ void ita_c_playoffs_rele(BYTE* _this) {
 	comp_stats* comp_data = (comp_stats*)_this;
 	BYTE playoff_teams = 12;
 	DWORD* pTeams = (DWORD*)sub_944E46_malloc(playoff_teams * 4);
-	BYTE seeds[12] = { 0,1,1,0,2,3,3,2,4,5,5,4 };
+	BYTE team_order[12] = { 0,3,2,1,4,7,6,5,8,11,10,9 };
 
 	comp_stats* curr_stage = comp_data;
 	vector<cm3_clubs*> clubs;
@@ -652,7 +653,8 @@ void ita_c_playoffs_rele(BYTE* _this) {
 	}
 
 	for (size_t i = 0; i < clubs.size(); i++) {
-		*((DWORD*)(&pTeams[i])) = (DWORD)clubs[i];
+		dprintf("Relegation playoff club: %s\n", clubs[i]->ClubNameShort);
+		*((DWORD*)(&pTeams[team_order[i]])) = (DWORD)clubs[i];
 	}
 
 	WORD num_rounds = 0;
@@ -661,7 +663,7 @@ void ita_c_playoffs_rele(BYTE* _this) {
 	DWORD v1 = *(DWORD*)_this;
 	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, char, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
 	BYTE* new_stage = (BYTE*)sub_944CF1_operator_new(0xB2);
-	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, *(DWORD*)(_this + 0x4), pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, seeds);
+	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, *(DWORD*)(_this + 0x4), pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, 0);
 	DWORD* stages_arr = comp_data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
 	sub_51C800(new_stage, 0);

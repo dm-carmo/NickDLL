@@ -147,9 +147,9 @@ void __declspec(naked) eng_conf_s_subs_c()		// used as a __thiscall -> __cdecl c
 }
 
 void eng_conf_s_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
-	strcpy(comp->ClubCompNameThreeLetter, "NLS");
-	strcpy(comp->ClubCompName, "English National League South");
-	strcpy(comp->ClubCompNameShort, "National League South");
+	strcpy_s(comp->ClubCompNameThreeLetter, "NLS");
+	strcpy_s(comp->ClubCompName, "English National League South");
+	strcpy_s(comp->ClubCompNameShort, "National League South");
 	sub_682200(_this);
 	comp_stats* data = (comp_stats*)_this;
 	data->competition_db = comp;
