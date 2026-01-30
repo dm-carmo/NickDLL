@@ -6,7 +6,8 @@ void italy_awards(BYTE* _this, int a2) {
 	DWORD edi = *(DWORD*)(_this + 0x13);
 	BYTE selected = ((cm3_nations*)*(DWORD*)(_this + 0xE))->NationLeagueSelected;
 	if ((selected & 4) == 0) {
-		*(WORD*)(_this + 0x8) = 25;
+		// not used for now
+		*(WORD*)(_this + 0x8) = 15;
 	}
 	else {
 		*(WORD*)(_this + 0x8) = 15;

@@ -293,7 +293,7 @@ bool compareClubLastDivPos(cm3_clubs* c1, cm3_clubs* c2)
 		return (c1->ClubLastPosition > 0 && c1->ClubLastPosition < c2->ClubLastPosition);
 	if (c1->ClubLastDivision->ClubCompReputation != c2->ClubLastDivision->ClubCompReputation)
 		return (c1->ClubLastDivision->ClubCompReputation > c2->ClubLastDivision->ClubCompReputation);
-	return (c1->ClubLastPosition > 0 && c1->ClubLastPosition < c2->ClubLastPosition);
+	return (c1->ClubLastPosition < c2->ClubLastPosition);
 }
 
 bool compareClubLastDivPosInv(cm3_clubs* c1, cm3_clubs* c2)

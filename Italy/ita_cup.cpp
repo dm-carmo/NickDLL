@@ -69,11 +69,11 @@ DWORD CreateItalyCupFixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 6), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 10), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, QualifyingRound, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 12, 6, 12, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, QualifyingRound, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 8, 4, 8, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 11), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 17), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 32, 16, 26, 12, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 32, 16, 28, 8, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 18), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 24), year, Wednesday, Evening);
@@ -81,7 +81,7 @@ DWORD CreateItalyCupFixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 26), year, Friday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 3), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 16, 8, 8, 38, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 16, 8, 8, 36, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 1, 3), year, Friday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 2, 4), year, Wednesday, Evening);
@@ -120,18 +120,60 @@ int ita_cup_teams(BYTE* _this) {
 	vector<cm3_clubs*> vec;
 	vec.clear();
 	comp_stats* comp_data = (comp_stats*)_this;
-	WORD total_teams = 46;
+	WORD total_teams = 44;
 	BYTE* pMem = (BYTE*)sub_944E46_malloc(6 * total_teams);
 
 	comp_data->n_teams = total_teams;
 	comp_data->teams_list = (DWORD*)pMem;
 	teams_seeded* teams = (teams_seeded*)comp_data->teams_list;
 
-	// Serie C - review later
-	vector<cm3_clubs*> division_clubs = find_clubs_of_comp(serie_c_id);
-	sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPos);
-	for (DWORD i = 0; i < 6; i++) {
-		vec.push_back(division_clubs[i]);
+	vector<cm3_clubs*> division_clubs;
+	DWORD c_count = 0;
+	cm3_club_comps* serie_c = &(*club_comps)[serie_c_id];
+	cm3_club_comps* serie_c_cup = &(*club_comps)[Get9CF(0x9CF720)];
+
+	if (comp_data->year == 2025) {
+		vec.push_back(find_club("Audace Cerignola"));
+		vec.push_back(find_club("AS Giana Erminio")); // replaces Rimini
+		vec.push_back(find_club("Ternana Calcio"));
+		vec.push_back(find_club("LR Vicenza"));
+	}
+	else {
+		// Serie C
+		division_clubs = find_clubs_of_comp(serie_c_id);
+		sort(division_clubs.begin(), division_clubs.end(), compareClubRep);
+		sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPos);
+		for (DWORD i = 0; i < division_clubs.size(); i++) {
+			cm3_clubs* c_club = division_clubs[i];
+			if (c_club->ClubLastDivision && c_club->ClubLastDivision->ClubCompID == serie_c_id && c_club->ClubLastPosition == 2)
+			{
+				c_count++;
+				vec.push_back(c_club);
+			}
+		}
+		// Serie C Cup winner or runner-up
+		cm3_clubs* c_winner = get_last_comp_winner(serie_c_cup);
+		if (c_winner && c_winner->ClubDivision == serie_c && !vector_contains_club(vec, c_winner)) {
+			c_count++;
+			vec.push_back(c_winner);
+		}
+		cm3_clubs* c_loser = get_last_comp_runner_up(serie_c_cup);
+		if (c_count < 4 && c_loser && c_loser->ClubDivision == serie_c && !vector_contains_club(vec, c_loser)) {
+			c_count++;
+			vec.push_back(c_loser);
+		}
+		// Extra teams if needed
+		if (c_count < 4) {
+			dprintf("getting extra teams for Coppa Italia ...\n");
+			for (DWORD i = 0; i < division_clubs.size() && c_count < 4; i++) {
+				cm3_clubs* c_club_extra = division_clubs[i];
+				if (c_club_extra->ClubLastDivision && c_club_extra->ClubLastDivision->ClubCompID == serie_c_id && !vector_contains_club(vec, c_club_extra))
+				{
+					c_count++;
+					vec.push_back(c_club_extra);
+				}
+			}
+		}
 	}
 	// Serie B
 	division_clubs = find_clubs_of_comp(Get9CF(0x9CF574));

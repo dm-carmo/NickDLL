@@ -368,9 +368,6 @@ void ita_ser_c_setup_groups(BYTE* _this, BYTE idx) {
 	create_league_stage_data(pStage, _this, 20, pTeams, 2, *(DWORD*)(_this + 0x4), pFixtures, num_rounds,
 		data->pts_for_win, data->pts_for_draw, data->f196, (BYTE*)(_this + 0xC5), (BYTE*)(_this + 0xBE),
 		year, idx, stage_name_id, data->f81, 1, 0, data->f217, -1, 0, 2);
-	//BYTE* _this, BYTE* main_comp, __int16 n_teams, DWORD* teamsPtr, __int16 n_rounds, int comp_id, const void *fixturesPtr, 
-	// __int16 num_fixtures, char a9, char a10, char a11, int a12, int a13, __int16 year, char stage_num,
-	// __int16 stage_name_id, char a17, char a18, __int16 a19, __int16 a20, __int16 a21, int a22, char a23
 	DWORD* stages_arr = data->stages;
 	*((DWORD*)(&stages_arr[idx])) = (DWORD)pStage;
 	sub_9452CA_free(pTeams);
