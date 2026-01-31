@@ -143,7 +143,7 @@ DWORD CreateFACupFixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 		if (a5)
 			*a5 = 0;
 		BYTE* pMem = NULL;
-		WORD year = *(WORD*)(_this + 0x40);
+		WORD year = ((comp_stats*)_this)->year;
 		*num_rounds = 11;
 		*stage_name_id = None;
 
@@ -232,11 +232,6 @@ void eng_fa_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	int loaded = sub_51FC00(_this, 1);
 	if (loaded) return;
 	eng_fa_cup_teams(_this);
-	//*((BYTE*)(_this + 0xB2)) = 0;
-	//*((BYTE*)(_this + 0xB3)) = 0;
-	//*((BYTE*)(_this + 0xB4)) = 1;
-	//data->n_teams = 152;
-	//data->teams_list = (DWORD*)sub_945501_alloc(6, data->n_teams);
 	DWORD v1 = *(DWORD*)_this;
 	*((DWORD*)(_this + 0xA3)) = (DWORD)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0x3c, _this + 0x3a, 0);
 	cup_map_fixture_tree(_this);

@@ -78,7 +78,6 @@ void __fastcall serie_d_promotion(BYTE* _this)
 				if (nationID == Get9CF(0x9CF360) &&		// Italy
 					compID == Get9CF(0x9CF58C))			// Serie D
 				{
-					//dprintf("Available Club: %s (%s)\n", club->ClubName, club->ClubDivision->ClubCompName);
 					available_clubs.push_back(club);
 				}
 			}
@@ -86,17 +85,19 @@ void __fastcall serie_d_promotion(BYTE* _this)
 	}
 
 	sort(available_clubs.begin(), available_clubs.end(), compareClubRep);
+	int max_to_check = (available_clubs.size() > 15 ? 15 : available_clubs.size());
 	for (unsigned int i = 0; i < relegated_clubs.size(); i++)
 	{
-		int availableIdx = rand() % available_clubs.size();
+		int availableIdx = rand() % (max_to_check - i);
 		cm3_clubs* clubToRelegate = relegated_clubs[i];
 		cm3_clubs* available = available_clubs[availableIdx];
 
-		dprintf("Swapping Teams: %s (%s) <-> %s (%s)\n", clubToRelegate->ClubName, clubToRelegate->ClubDivision->ClubCompName, available->ClubName, available->ClubDivision->ClubCompName);
+		//dprintf("Swapping Teams: %s (%s) <-> %s (%s)\n", clubToRelegate->ClubName, clubToRelegate->ClubDivision->ClubCompName, available->ClubName, available->ClubDivision->ClubCompName);
 
-		cm3_club_comps* tempDivision = available->ClubDivision;
-		available->ClubDivision = clubToRelegate->ClubDivision;
-		clubToRelegate->ClubDivision = tempDivision;
+		cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
+		cm3_club_comps* bottomDivision = available->ClubDivision;
+		sub_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
+		sub_6830B0((BYTE*)available, (DWORD)topDivision, 1);
 		clubToRelegate->ClubReserveDivision = 0;
 
 		available_clubs.erase(available_clubs.begin() + availableIdx);

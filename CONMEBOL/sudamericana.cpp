@@ -301,7 +301,7 @@ DWORD CreateSudamericanaFixtures(BYTE* _this, char stage_idx, WORD* num_rounds, 
 		if (a5)
 			*a5 = 1;
 		BYTE* pMem = NULL;
-		WORD year = *(WORD*)(_this + 0x40);
+		WORD year = ((comp_stats*)_this)->year;
 		*num_rounds = 6;
 		*stage_name_id = 1 + NumericGroupStage + stage_idx;
 
@@ -323,7 +323,7 @@ DWORD CreateSudamericanaFixtures(BYTE* _this, char stage_idx, WORD* num_rounds, 
 		if (a5)
 			*a5 = 0;
 		BYTE* pMem = NULL;
-		WORD year = *(WORD*)(_this + 0x40);
+		WORD year = ((comp_stats*)_this)->year;
 		*num_rounds = 4;
 		*stage_name_id = None;
 

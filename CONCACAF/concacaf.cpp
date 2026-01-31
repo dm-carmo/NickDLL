@@ -19,7 +19,7 @@ DWORD CreateConcacafCupFixtures(BYTE* _this, char stage_idx, WORD* num_rounds, W
 		if (a5)
 			*a5 = 0;
 		BYTE* pMem = NULL;
-		WORD year = *(WORD*)(_this + 0x40);
+		WORD year = ((comp_stats*)_this)->year;
 		*num_rounds = 5;
 		*stage_name_id = None;
 

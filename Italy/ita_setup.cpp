@@ -33,6 +33,14 @@ DWORD ita_setup_c(BYTE* nation_data) {
 	}
 	DWORD* nation_comps = (DWORD*)sub_944E46_malloc(*(DWORD*)(nation_data + 0xc) * 4);
 	*(DWORD*)(nation_data + 0x10) = (DWORD)nation_comps;
+	// Serie C rename at setup time
+	cm3_club_comps* serie_c = &(*club_comps)[serie_c_id];
+	strcpy_s(serie_c->ClubCompNameThreeLetter, "C");
+	strcpy_s(serie_c->ClubCompName, "Italian Serie C");
+	strcpy_s(serie_c->ClubCompNameShort, "Serie C");
+	serie_c->ClubCompNation = find_country("Italy");
+	serie_c->ClubCompContinent = find_continent("Europe");
+	serie_c->ClubCompReputation = 7;
 	// start calling each league's functions
 	BYTE i = 0;
 	// Serie A

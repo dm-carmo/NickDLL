@@ -2,6 +2,7 @@
 #include "Helpers\generic_functions.h"
 #include "Helpers\constants.h"
 #include "Structures\vtable.h"
+#include <map>
 
 vtable* ita_ser_c_vtable = new vtable((BYTE*)0x96E858, 0xB4);
 
@@ -71,7 +72,7 @@ void ita_ser_c_subs(BYTE* _this)
 	comp_data->promotions = 1;
 	comp_data->prom_playoff = 9;
 	comp_data->rele_playoff = 4;
-	comp_data->relegations = 2;
+	comp_data->relegations = 1;
 
 	comp_data->promotes_to = *(DWORD*)0x9CF574;
 	comp_data->relegates_to = -1;
@@ -106,6 +107,10 @@ void ita_ser_c_init_teams(BYTE* _this) {
 	for (cm3_clubs* c : orig_clubs) c->ClubDivision = get_comp(Get9CF(0x9CF58C));
 	orig_clubs = find_clubs_of_comp(Get9CF(0x9CF588), -1);
 	for (cm3_clubs* c : orig_clubs) c->ClubDivision = get_comp(Get9CF(0x9CF58C));
+	orig_clubs = find_clubs_of_comp(Get9CF(0x9CF578), -1);
+	for (cm3_clubs* c : orig_clubs) c->ClubDivision = get_comp(Get9CF(0x9CF58C));
+	orig_clubs = find_clubs_of_comp(Get9CF(0x9CF57C), -1);
+	for (cm3_clubs* c : orig_clubs) c->ClubDivision = get_comp(Get9CF(0x9CF58C));
 	vector<string> c_a_clubs = {
 		"UC AlbinoLeffe",
 		"Alcione Milano",
@@ -122,7 +127,6 @@ void ita_ser_c_init_teams(BYTE* _this) {
 		"US Pergolettese 1932",
 		"Aurora Pro Patria",
 		"FC Pro Vercelli 1892",
-		"AC Renate",
 		"AC Renate",
 		"AC Trento",
 		"US Triestina",
@@ -216,7 +220,6 @@ DWORD ita_ser_c_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 			*a5 = 1;
 		BYTE* pMem = NULL;
 		WORD year = ((comp_stats*)_this)->year;
-		DWORD CompID = *(DWORD*)(*(DWORD*)(_this + 0x4));
 		BYTE numberOfLeagueTeams = 20;
 		*num_rounds = (numberOfLeagueTeams - 1) * ((comp_stats*)_this)->n_rounds;
 		*stage_name_id = AlphabeticGroupStage + stage_idx;
@@ -365,7 +368,7 @@ void ita_ser_c_setup_groups(BYTE* _this, BYTE idx) {
 	}
 	WORD year = data->year;
 	BYTE* pStage = (BYTE*)sub_944CF1_operator_new(0xEE);
-	create_league_stage_data(pStage, _this, 20, pTeams, 2, *(DWORD*)(_this + 0x4), pFixtures, num_rounds,
+	create_league_stage_data(pStage, _this, 20, pTeams, 2, (DWORD)(data->competition_db), pFixtures, num_rounds,
 		data->pts_for_win, data->pts_for_draw, data->f196, (BYTE*)(_this + 0xC5), (BYTE*)(_this + 0xBE),
 		year, idx, stage_name_id, data->f81, 1, 0, data->f217, -1, 0, 2);
 	DWORD* stages_arr = data->stages;
@@ -461,7 +464,7 @@ void set_playoff_place(BYTE* _this, cm3_clubs* club) {
 			team_league_stats table_pos = ((team_league_stats*)curr_stage->team_league_table)[num];
 			if (club == table_pos.club && table_pos.league_fate != TopPlayoff) {
 				((team_league_stats*)curr_stage->team_league_table)[num].league_fate = TopPlayoff;
-				staff_history_qualified_868DD0((BYTE*)*staff_history, (DWORD*)club, *(DWORD*)(_this + 0x4), PromotionPlayoff, None, 0x1E);
+				staff_history_qualified_868DD0((BYTE*)*staff_history, (DWORD*)club, (DWORD)(comp_data->competition_db), PromotionPlayoff, None, 0x1E);
 				return;
 			}
 		}
@@ -494,7 +497,7 @@ void ita_c_playoffs_prom(BYTE* _this) {
 		// 0-index so 1 = second place
 		cm3_clubs* r4_club = ((team_league_stats*)curr_stage->team_league_table)[1].club;
 		clubs_rnd4.push_back(r4_club);
-		dprintf("Club in round 4: 2nd place %s\n", r4_club->ClubNameShort);
+		//dprintf("Club in round 4: 2nd place %s\n", r4_club->ClubNameShort);
 	}
 	// clubs for round 3 (3rd places + cup team)
 	curr_stage = comp_data;
@@ -505,26 +508,26 @@ void ita_c_playoffs_prom(BYTE* _this) {
 		// 0-index so 2 = third place
 		cm3_clubs* r3_club = ((team_league_stats*)curr_stage->team_league_table)[2].club;
 		clubs_rnd3.push_back(r3_club);
-		dprintf("Club in round 3: 3rd place %s\n", r3_club->ClubNameShort);
+		//dprintf("Club in round 3: 3rd place %s\n", r3_club->ClubNameShort);
 	}
 	cm3_clubs* c_winner = SerieCCupWinner(comp_data);
 	if (c_winner) {
 		pair<char, WORD> winner_grp_pos = get_club_group_and_pos(comp_data, c_winner);
 		// if they finished 1st (promoted), 2nd or 3rd (already in later playoffs)
 		// or if they are in relegation area
-		if (winner_grp_pos.second < 3 || winner_grp_pos.second >= 14) {
+		if (winner_grp_pos.second < 3 || winner_grp_pos.second >= 15) {
 			fallback_group = winner_grp_pos.first;
 			cm3_clubs* c_loser = SerieCCupLoser(comp_data);
 			if (c_loser) {
 				pair<char, WORD> loser_grp_pos = get_club_group_and_pos(comp_data, c_loser);
-				if (loser_grp_pos.second < 3 || loser_grp_pos.second >= 14) {
+				if (loser_grp_pos.second < 3 || loser_grp_pos.second >= 15) {
 					// do not add club here
 					use_fallback = true;
 				}
 				else {
 					clubs_rnd3.push_back(c_loser);
 					set_playoff_place(_this, c_loser);
-					dprintf("Club in round 3: cup loser %s\n", c_loser->ClubNameShort);
+					//dprintf("Club in round 3: cup loser %s\n", c_loser->ClubNameShort);
 				}
 			}
 			else use_fallback = true;
@@ -532,21 +535,21 @@ void ita_c_playoffs_prom(BYTE* _this) {
 		else {
 			clubs_rnd3.push_back(c_winner);
 			set_playoff_place(_this, c_winner);
-			dprintf("Club in round 3: cup winner %s\n", c_winner->ClubNameShort);
+			//dprintf("Club in round 3: cup winner %s\n", c_winner->ClubNameShort);
 		}
 	}
 	else {
 		cm3_clubs* c_loser = SerieCCupLoser(comp_data);
 		if (c_loser) {
 			pair<char, WORD> loser_grp_pos = get_club_group_and_pos(comp_data, c_loser);
-			if (loser_grp_pos.second < 3 || loser_grp_pos.second >= 14) {
+			if (loser_grp_pos.second < 3 || loser_grp_pos.second >= 15) {
 				// do not add club here
 				use_fallback = true;
 			}
 			else {
 				clubs_rnd3.push_back(c_loser);
 				set_playoff_place(_this, c_loser);
-				dprintf("Club in round 3: cup loser %s\n", c_loser->ClubNameShort);
+				//dprintf("Club in round 3: cup loser %s\n", c_loser->ClubNameShort);
 			}
 		}
 		else use_fallback = true;
@@ -559,7 +562,7 @@ void ita_c_playoffs_prom(BYTE* _this) {
 		// fallback 4th place from same group as winner
 		cm3_clubs* fallback_club = ((team_league_stats*)curr_stage->team_league_table)[3].club;
 		clubs_rnd3.push_back(fallback_club);
-		dprintf("Club in round 3: fallback 4th place %s\n", fallback_club->ClubNameShort);
+		//dprintf("Club in round 3: fallback 4th place %s\n", fallback_club->ClubNameShort);
 	}
 	// clubs for round 2 (4th places)
 	curr_stage = comp_data;
@@ -577,7 +580,7 @@ void ita_c_playoffs_prom(BYTE* _this) {
 			else {
 				clubs_rnd2.push_back(r2_club);
 				found_r2 = true;
-				dprintf("Club in round 2: %dth place %s\n", start_r2, r2_club->ClubNameShort);
+				//dprintf("Club in round 2: %dth place %s\n", start_r2, r2_club->ClubNameShort);
 			}
 		}
 	}
@@ -597,7 +600,7 @@ void ita_c_playoffs_prom(BYTE* _this) {
 			else {
 				clubs_rnd1.push_back(r1_club);
 				if (start_r1 > 10) set_playoff_place(_this, r1_club);
-				dprintf("Club in round 1: %dth place %s\n", start_r1, r1_club->ClubNameShort);
+				//dprintf("Club in round 1: %dth place %s\n", start_r1, r1_club->ClubNameShort);
 				found_count++;
 			}
 		}
@@ -625,7 +628,7 @@ void ita_c_playoffs_prom(BYTE* _this) {
 	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, char, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
 	BYTE* new_stage = (BYTE*)sub_944CF1_operator_new(0xB2);
 	BYTE seeds[28] = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,2,2,2,2,3,3,3 };
-	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, *(DWORD*)(_this + 0x4), pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, seeds);
+	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)(comp_data->competition_db), pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, seeds);
 	DWORD* stages_arr = comp_data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
 	sub_51C800(new_stage, 0);
@@ -641,11 +644,11 @@ void ita_c_playoffs_rele(BYTE* _this) {
 	comp_stats* curr_stage = comp_data;
 	vector<cm3_clubs*> clubs;
 	for (char al = -1; al < 2; al++) {
-		// 0-index so 14 = fifteenth place
-		int start = 14;
 		if (al >= 0) {
 			curr_stage = (comp_stats*)(comp_data->stages[al]);
 		}
+		// 0-index so 15 = sixteenth place
+		int start = curr_stage->n_teams - curr_stage->relegations - curr_stage->rele_playoff;
 		for (int i = 0; i < 4; i++) {
 			cm3_clubs* club = ((team_league_stats*)curr_stage->team_league_table)[start + i].club;
 			clubs.push_back(club);
@@ -653,7 +656,6 @@ void ita_c_playoffs_rele(BYTE* _this) {
 	}
 
 	for (size_t i = 0; i < clubs.size(); i++) {
-		dprintf("Relegation playoff club: %s\n", clubs[i]->ClubNameShort);
 		*((DWORD*)(&pTeams[team_order[i]])) = (DWORD)clubs[i];
 	}
 
@@ -663,7 +665,7 @@ void ita_c_playoffs_rele(BYTE* _this) {
 	DWORD v1 = *(DWORD*)_this;
 	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, char, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
 	BYTE* new_stage = (BYTE*)sub_944CF1_operator_new(0xB2);
-	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, *(DWORD*)(_this + 0x4), pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, 0);
+	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)(comp_data->competition_db), pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, 0);
 	DWORD* stages_arr = comp_data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
 	sub_51C800(new_stage, 0);
@@ -698,8 +700,8 @@ void __declspec(naked) ita_c_playoffs_create()		// used as a __thiscall -> __cde
 
 int SerieCTableIndicators(BYTE* _this, DWORD* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
+	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == 2) {
-		comp_stats* comp_data = (comp_stats*)_this;
 		WORD num_teams = comp_data->n_teams;
 		if (num_teams <= 0) return 0;
 		comp_stats* stage_data = (comp_stats*)(comp_data->stages[stage]);
@@ -716,12 +718,12 @@ int SerieCTableIndicators(BYTE* _this, DWORD* club, char fate, char stage, BYTE*
 				if (c != club) continue;
 				switch (fate) {
 				case TopPlayoff:
-					staff_history_promoted_869480(staff_hist_ptr, club, *(DWORD*)(_this + 0x4), 0x32);
+					staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), 0x32);
 					table[i].league_fate = Promoted;
 					*a5 = 1;
 					return 0;
 				case Promoted:
-					staff_history_qualified_868DD0(staff_hist_ptr, club, *(DWORD*)(_this + 0x4), *(WORD*)(round_data + 0x32),
+					staff_history_qualified_868DD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
 						*(WORD*)(rounds + playoff_dates_sz * (current_round + 1) + 7), 0xF);
 					return 0;
 				case NoFate:
@@ -737,7 +739,6 @@ int SerieCTableIndicators(BYTE* _this, DWORD* club, char fate, char stage, BYTE*
 		}
 	}
 	else if (stage == 3) {
-		comp_stats* comp_data = (comp_stats*)_this;
 		WORD num_teams = comp_data->n_teams;
 		if (num_teams <= 0) return 0;
 		comp_stats* stage_data = (comp_stats*)(comp_data->stages[stage]);
@@ -754,12 +755,12 @@ int SerieCTableIndicators(BYTE* _this, DWORD* club, char fate, char stage, BYTE*
 				if (c != club) continue;
 				switch (fate) {
 				case BottomPlayoff:
-					staff_history_relegated_86A1C0(staff_hist_ptr, club, *(DWORD*)(_this + 0x4));
+					staff_history_relegated_86A1C0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));
 					table[i].league_fate = Relegated;
 					*a5 = 1;
 					return 0;
 				case Relegated:
-					staff_history_qualified_868DD0(staff_hist_ptr, club, *(DWORD*)(_this + 0x4), *(WORD*)(round_data + 0x32),
+					staff_history_qualified_868DD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
 						*(WORD*)(rounds + playoff_dates_sz * (current_round + 1) + 7), 0xF);
 					return 0;
 				case NoFate:
@@ -777,19 +778,19 @@ int SerieCTableIndicators(BYTE* _this, DWORD* club, char fate, char stage, BYTE*
 	else {
 		switch (fate) {
 		case Champions:
-			staff_history_champion_868C50(staff_hist_ptr, club, *(DWORD*)(_this + 0x4));
+			staff_history_champion_868C50(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));
 			return 0;
 		case Promoted:
-			staff_history_promoted_869480(staff_hist_ptr, club, *(DWORD*)(_this + 0x4), 0x64);
+			staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), 0x64);
 			return 0;
 		case TopPlayoff:
-			staff_history_qualified_868DD0(staff_hist_ptr, club, *(DWORD*)(_this + 0x4), PromotionPlayoff, None, 0x1E);
+			staff_history_qualified_868DD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), PromotionPlayoff, None, 0x1E);
 			return 0;
 		case BottomPlayoff:
-			staff_history_qualified_868DD0(staff_hist_ptr, club, *(DWORD*)(_this + 0x4), RelegationPlayoff, None, 0x1E);
+			staff_history_qualified_868DD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), RelegationPlayoff, None, 0x1E);
 			return 0;
 		case Relegated:
-			staff_history_relegated_86A1C0(staff_hist_ptr, club, *(DWORD*)(_this + 0x4));
+			staff_history_relegated_86A1C0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));
 			return 0;
 		default:
 			return 0;
@@ -863,13 +864,38 @@ void __declspec(naked) ita_ser_c_update_c()		// used as a __thiscall -> __cdecl 
 	}
 }
 
+void ita_ser_c_points_deductions(BYTE* _this, WORD current_year)
+{
+	if (current_year > 2025) return;
+	map<cm3_clubs*, short> point_deduction_map = {
+		{find_club("US Triestina"), -23},
+		{find_club("Campobasso FC"), -2},
+		{find_club("Ternana Calcio"), -5},
+		{find_club("FC Trapani 1905"), -15}
+	};
+	comp_stats* data = (comp_stats*)_this;
+
+
+	comp_stats* curr_stage = data;
+	vector<cm3_clubs*> clubs;
+	for (char al = -1; al < 2; al++) {
+		if (al >= 0) {
+			curr_stage = (comp_stats*)(data->stages[al]);
+		}
+		team_league_stats* table_teams = (team_league_stats*)(curr_stage->team_league_table);
+		for (int i = 0; i < curr_stage->n_teams; i++) {
+			team_league_stats* tls = &table_teams[i];
+			auto find_club = point_deduction_map.find(tls->club);
+			if (find_club != point_deduction_map.end()) {
+				tls->points = find_club->second;
+				tls->points_away = find_club->second;
+			}
+		}
+	}
+}
+
 void ita_ser_c_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 {
-	strcpy(comp->ClubCompNameThreeLetter, "C");
-	strcpy(comp->ClubCompName, "Italian Serie C");
-	strcpy(comp->ClubCompNameShort, "Serie C");
-	comp->ClubCompNation = find_country("Italy");
-	comp->ClubCompContinent = find_continent("Europe");
 	sub_682200(_this);
 	comp_stats* data = (comp_stats*)_this;
 	data->competition_db = comp;
@@ -882,7 +908,7 @@ void ita_ser_c_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	ita_ser_c_vtable->SetPointer(VTable24, (DWORD)&ita_7D2CD0_c);
 	ita_ser_c_vtable->SetPointer(VTableSubsRounds, (DWORD)&ita_ser_c_subs_c);
 	data->year = year;
-	data->rules = 0x12;
+	data->rules = 0x11;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
 	data->f68 = -1;
@@ -903,6 +929,7 @@ void ita_ser_c_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 		ita_ser_c_setup_groups(_this, i);
 	}
 	ita_7D2CD0(_this);
+	ita_ser_c_points_deductions(_this, year);
 }
 
 void setup_ita_ser_c()

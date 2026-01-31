@@ -146,7 +146,6 @@ DWORD ita_c_supercup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WOR
 			*a5 = 1;
 		BYTE* pMem = NULL;
 		WORD year = ((comp_stats*)_this)->year;
-		DWORD CompID = *(DWORD*)(*(DWORD*)(_this + 0x4));
 		BYTE numberOfLeagueTeams = 3;
 		*num_rounds = (numberOfLeagueTeams) * ((comp_stats*)_this)->n_rounds;
 		*stage_name_id = None;
@@ -254,7 +253,7 @@ void ita_c_supercup_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	ita_c_supercup_vtable->SetPointer(VTableSubsRounds, (DWORD)&ita_c_supercup_subs_c);
 	ita_c_supercup_vtable->SetPointer(VTableTableFates, (DWORD)0x686940);
 	data->year = year;
-	data->rules = 0x12;
+	data->rules = 0x11;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
 	data->f68 = -1;

@@ -82,7 +82,7 @@ DWORD CreateFATrophyFixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD
 		if (a5)
 			*a5 = 0;
 		BYTE* pMem = NULL;
-		WORD year = *(WORD*)(_this + 0x40);
+		WORD year = ((comp_stats*)_this)->year;
 		*num_rounds = 8;
 		*stage_name_id = None;
 

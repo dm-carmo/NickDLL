@@ -60,7 +60,7 @@ DWORD CreateItalyCupFixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD
 		if (a5)
 			*a5 = 0;
 		BYTE* pMem = NULL;
-		WORD year = *(WORD*)(_this + 0x40);
+		WORD year = ((comp_stats*)_this)->year;
 		*num_rounds = 7;
 		*stage_name_id = None;
 
@@ -214,7 +214,7 @@ void ita_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->comp_type = CLUB_DOMESTIC;
 	data->max_bench = 9;
 	data->max_subs = 5;
-	data->rules = 0x12;
+	data->rules = 0x11;
 	*((BYTE*)(_this + 0xB1)) = 0;
 	int loaded = sub_51FC00(_this, 1);
 	if (loaded) return;

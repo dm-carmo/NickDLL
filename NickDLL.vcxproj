@@ -140,7 +140,13 @@
     <ClCompile Include="CONMEBOL\libertadores.cpp" />
     <ClCompile Include="CONMEBOL\libertadores_calendar.cpp" />
     <ClCompile Include="CONMEBOL\sudamericana.cpp" />
+    <ClCompile Include="Croatia\cro_awards.cpp" />
+    <ClCompile Include="Croatia\cro_cup.cpp" />
+    <ClCompile Include="Croatia\cro_first.cpp" />
+    <ClCompile Include="Croatia\cro_second.cpp" />
     <ClCompile Include="Croatia\cro_setup.cpp" />
+    <ClCompile Include="Croatia\cro_super.cpp" />
+    <ClCompile Include="Croatia\cro_third.cpp" />
     <ClCompile Include="England\eng_awards.cpp" />
     <ClCompile Include="England\eng_conf.cpp" />
     <ClCompile Include="England\eng_conf_n.cpp" />
@@ -175,7 +181,13 @@
     <ClInclude Include="CONMEBOL\libertadores.h" />
     <ClInclude Include="CONMEBOL\libertadores_calendar.h" />
     <ClInclude Include="CONMEBOL\sudamericana.h" />
+    <ClInclude Include="Croatia\cro_awards.h" />
+    <ClInclude Include="Croatia\cro_cup.h" />
+    <ClInclude Include="Croatia\cro_first.h" />
+    <ClInclude Include="Croatia\cro_second.h" />
     <ClInclude Include="Croatia\cro_setup.h" />
+    <ClInclude Include="Croatia\cro_super.h" />
+    <ClInclude Include="Croatia\cro_third.h" />
     <ClInclude Include="England\eng_awards.h" />
     <ClInclude Include="England\eng_conf.h" />
     <ClInclude Include="England\eng_conf_n.h" />

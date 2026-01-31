@@ -303,20 +303,22 @@ bool compareClubLastDivPosInv(cm3_clubs* c1, cm3_clubs* c2)
 
 bool compareClubLatitude(cm3_clubs* c1, cm3_clubs* c2)
 {
-	if (!c1->ClubStadium || !c1->ClubStadium->StadiumCity)
-		return true;
-	if (!c2->ClubStadium || !c2->ClubStadium->StadiumCity)
-		return false;
-	return (c1->ClubStadium->StadiumCity->CityLatitude) > (c2->ClubStadium->StadiumCity->CityLatitude);
+	double l1 = 0, l2 = 0;
+	if (c1->ClubStadium && c1->ClubStadium->StadiumCity)
+		l1 = c1->ClubStadium->StadiumCity->CityLatitude;
+	if (c2->ClubStadium && c2->ClubStadium->StadiumCity)
+		l2 = c2->ClubStadium->StadiumCity->CityLatitude;
+	return l1 > l2;
 }
 
 bool compareClubLongitude(cm3_clubs* c1, cm3_clubs* c2)
 {
-	if (!c1->ClubStadium || !c1->ClubStadium->StadiumCity)
-		return true;
-	if (!c2->ClubStadium || !c2->ClubStadium->StadiumCity)
-		return false;
-	return (c1->ClubStadium->StadiumCity->CityLongitude) > (c2->ClubStadium->StadiumCity->CityLongitude);
+	double l1 = 0, l2 = 0;
+	if (c1->ClubStadium && c1->ClubStadium->StadiumCity)
+		l1 = c1->ClubStadium->StadiumCity->CityLongitude;
+	if (c2->ClubStadium && c2->ClubStadium->StadiumCity)
+		l2 = c2->ClubStadium->StadiumCity->CityLongitude;
+	return l1 > l2;
 }
 
 cm3_clubs* get_last_comp_winner(cm3_club_comps* comp)

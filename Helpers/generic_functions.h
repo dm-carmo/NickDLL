@@ -86,7 +86,8 @@ static void(__thiscall* sub_689C80)(BYTE* _this, BYTE* top, BYTE* btm, int a3, i
 (void(__thiscall*)(BYTE * _this, BYTE * top, BYTE * btm, int a3, int a4, char a5, char a6))(0x689C80);
 static void(__thiscall* sub_68A980)(BYTE* _this, char a2, char a3, char a4, int a5) =
 (void(__thiscall*)(BYTE * _this, char a2, char a3, char a4, int a5))(0x68A980);
-static void (*sub_6830B0)(BYTE* club, DWORD league, int a3) = (void(*)(BYTE * club, DWORD league, int a3))(0x6830B0);
+static void (__stdcall*sub_6830B0)(BYTE* club, DWORD league, int a3) = (void(__stdcall*)(BYTE * club, DWORD league, int a3))(0x6830B0);
+static void (__stdcall*sub_6831A0)(BYTE* club, DWORD league, int a3) = (void(__stdcall*)(BYTE * club, DWORD league, int a3))(0x6831A0);
 static void(__thiscall* sub_574E60)(BYTE* _this) =
 (void(__thiscall*)(BYTE * _this))(0x574E60);
 static char(__thiscall* sub_768310)(BYTE* _this, DWORD date_addr) =

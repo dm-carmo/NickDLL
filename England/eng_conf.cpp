@@ -194,7 +194,7 @@ void create_playoffs_c_under(BYTE* _this) {
 	DWORD v1 = *(DWORD*)_this;
 	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, char, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
 	BYTE* new_stage = (BYTE*)sub_944CF1_operator_new(0xB2);
-	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, *(DWORD*)(_this + 0x4), pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, 0);
+	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)comp_data->competition_db, pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, 0);
 	DWORD* stages_arr = comp_data->stages;
 	*((DWORD*)(&stages_arr[stage_num * 4])) = (DWORD)new_stage;
 	sub_51C800(new_stage, 0);
@@ -241,8 +241,9 @@ DWORD CreateConferenceFixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WO
 		if (a5)
 			*a5 = 1;
 		BYTE* pMem = NULL;
-		WORD year = ((comp_stats*)_this)->year;
-		DWORD CompID = *(DWORD*)(*(DWORD*)(_this + 0x4));
+		comp_stats* data = (comp_stats*)_this;
+		WORD year = data->year;
+		DWORD CompID = data->competition_db->ClubCompID;
 		BYTE numberOfLeagueTeams = (BYTE)CountNumberOfTeamsInComp(CompID);
 		*num_rounds = (numberOfLeagueTeams - 1) * ((comp_stats*)_this)->n_rounds;
 		*stage_name_id = None;
@@ -368,8 +369,8 @@ DWORD CreateConferenceFixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WO
 
 int ConferenceTableIndicators(BYTE* _this, DWORD* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
+	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage != -1) {
-		comp_stats* comp_data = (comp_stats*)_this;
 		WORD num_teams = comp_data->n_teams;
 		if (num_teams <= 0) return 0;
 		team_league_stats* table = (team_league_stats*)(comp_data->team_league_table);
@@ -381,12 +382,12 @@ int ConferenceTableIndicators(BYTE* _this, DWORD* club, BYTE fate, char stage, B
 			if (c != club) continue;
 			switch (fate) {
 			case TopPlayoff:
-				staff_history_promoted_869480(staff_hist_ptr, club, *(DWORD*)(_this + 0x4), 0x32);
+				staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)comp_data->competition_db, 0x32);
 				table[i].league_fate = Promoted;
 				*a5 = 1;
 				return 0;
 			case Promoted:
-				staff_history_qualified_868DD0(staff_hist_ptr, club, *(DWORD*)(_this + 0x4), *(WORD*)(round_data + 0x32),
+				staff_history_qualified_868DD0(staff_hist_ptr, club, (DWORD)comp_data->competition_db, *(WORD*)(round_data + 0x32),
 					*(WORD*)(rounds + playoff_dates_sz * (current_round + 1) + 7), 0xF);
 				return 0;
 			default:
@@ -398,16 +399,16 @@ int ConferenceTableIndicators(BYTE* _this, DWORD* club, BYTE fate, char stage, B
 	else {
 		switch (fate) {
 		case Champions:
-			staff_history_champion_868C50(staff_hist_ptr, club, *(DWORD*)(_this + 0x4));
+			staff_history_champion_868C50(staff_hist_ptr, club, (DWORD)comp_data->competition_db);
 			return 0;
 		case Promoted:
-			staff_history_promoted_869480(staff_hist_ptr, club, *(DWORD*)(_this + 0x4), 0x64);
+			staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)comp_data->competition_db, 0x64);
 			return 0;
 		case TopPlayoff:
-			staff_history_qualified_868DD0(staff_hist_ptr, club, *(DWORD*)(_this + 0x4), Playoff, None, 0x1E);
+			staff_history_qualified_868DD0(staff_hist_ptr, club, (DWORD)comp_data->competition_db, Playoff, None, 0x1E);
 			return 0;
 		case Relegated:
-			staff_history_relegated_86A1C0(staff_hist_ptr, club, *(DWORD*)(_this + 0x4));
+			staff_history_relegated_86A1C0(staff_hist_ptr, club, (DWORD)comp_data->competition_db);
 			return 0;
 		default:
 			return 0;

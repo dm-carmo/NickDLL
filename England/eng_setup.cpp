@@ -44,7 +44,7 @@ DWORD eng_setup_c(BYTE* nation_data) {
 	*(DWORD*)(nation_data + 0x10) = (DWORD)nation_comps;
 	// Add the 2 missing teams to the National League in the first year only
 	if (*current_year == 2025) {
-		cm3_club_comps* nat_lge = find_club_comp("English National League");
+		cm3_club_comps* nat_lge = &(*club_comps)[Get9CF(0x9CF69C)];
 		if (nat_lge) {
 			cm3_clubs* club1 = find_club("Boston United");
 			if (club1) {

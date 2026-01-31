@@ -59,7 +59,7 @@ void __declspec(naked) eng_prm_prom_rel_update_c()		// used as a __thiscall -> _
 	}
 }
 
-std::vector<cm3_clubs*> get_relegated_teams(DWORD compID)
+vector<cm3_clubs*> get_relegated_teams(DWORD compID)
 {
 	std::vector<cm3_clubs*> relegated_clubs;
 	BYTE* league = get_loaded_league(compID);
@@ -77,12 +77,6 @@ std::vector<cm3_clubs*> get_relegated_teams(DWORD compID)
 			BYTE status = teams[i * 0x3B + 0x37];
 			if (club)
 			{
-				//dprintf("club: %d. %s %d %d\n", i, club->ClubName, pos, status);
-				/*
-				for (int j = 0; j < 0x3B; j++)
-					dprintf("%02X ", *(teams + (i * 0x3B) + j));
-				dprintf("\n");
-				*/
 				if (status == Relegated)
 					relegated_clubs.push_back(club);
 			}
@@ -95,8 +89,6 @@ std::vector<cm3_clubs*> get_relegated_teams(DWORD compID)
 
 void __fastcall sub_5750A0_promote_teams_to_bottom_league_c(BYTE* _this)
 {
-	//dprintf("sub_5750A0_promote_teams_to_bottom_league_c called - _this: %08X (eng_prm)\n", _this);
-
 	vector<cm3_clubs*> northern_relegated_clubs = get_relegated_teams(0x168);
 	vector<cm3_clubs*> southern_relegated_clubs = get_relegated_teams(0x167);
 	vector<cm3_clubs*> available_clubs;
@@ -120,7 +112,6 @@ void __fastcall sub_5750A0_promote_teams_to_bottom_league_c(BYTE* _this)
 					compID != 0x168 &&		// Northern Premier
 					compID != 0x167)		// Southern Premier
 				{
-					//dprintf("Available Club: %s (%s)\n", club->ClubName, club->ClubDivision->ClubCompName);
 					available_clubs.push_back(club);
 				}
 			}
@@ -128,32 +119,34 @@ void __fastcall sub_5750A0_promote_teams_to_bottom_league_c(BYTE* _this)
 	}
 
 	sort(available_clubs.begin(), available_clubs.end(), compareClubRep);
-	for (unsigned int i = 0; i < northern_relegated_clubs.size(); i++)
+	int max_to_check = (available_clubs.size() > 12 ? 12 : available_clubs.size());
+	unsigned int i;
+	for (i = 0; i < northern_relegated_clubs.size(); i++)
 	{
-		int availableIdx = rand() % available_clubs.size();
+		int availableIdx = rand() % (max_to_check - i);
 		cm3_clubs* clubToRelegate = northern_relegated_clubs[i];
-		cm3_clubs* available = available_clubs[availableIdx];
+		//dprintf("Swapping Teams: %s (%s) <-> %s (%s)\n", clubToRelegate->ClubName, clubToRelegate->ClubDivision->ClubCompName, available->ClubName, available->ClubDivision->ClubCompName);
 
-		dprintf("Swapping Teams: %s (%s) <-> %s (%s)\n", clubToRelegate->ClubName, clubToRelegate->ClubDivision->ClubCompName, available->ClubName, available->ClubDivision->ClubCompName);
-
-		cm3_club_comps* tempDivision = available->ClubDivision;
-		available->ClubDivision = clubToRelegate->ClubDivision;
-		clubToRelegate->ClubDivision = tempDivision;
+		cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
+		cm3_club_comps* bottomDivision = available->ClubDivision;
+		sub_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
+		sub_6830B0((BYTE*)available, (DWORD)topDivision, 1);
 
 		available_clubs.erase(available_clubs.begin() + availableIdx);
 	}
 
-	for (unsigned int i = 0; i < southern_relegated_clubs.size(); i++)
+	for (unsigned int j = 0; j < southern_relegated_clubs.size(); j++)
 	{
-		int availableIdx = rand() % available_clubs.size();
-		cm3_clubs* clubToRelegate = southern_relegated_clubs[i];
+		int availableIdx = rand() % (max_to_check - i - j);
+		cm3_clubs* clubToRelegate = southern_relegated_clubs[j];
 		cm3_clubs* available = available_clubs[availableIdx];
 
-		dprintf("Swapping Teams: %s (%s) <-> %s (%s)\n", clubToRelegate->ClubName, clubToRelegate->ClubDivision->ClubCompName, available->ClubName, available->ClubDivision->ClubCompName);
+		//dprintf("Swapping Teams: %s (%s) <-> %s (%s)\n", clubToRelegate->ClubName, clubToRelegate->ClubDivision->ClubCompName, available->ClubName, available->ClubDivision->ClubCompName);
 
-		cm3_club_comps* tempDivision = available->ClubDivision;
-		available->ClubDivision = clubToRelegate->ClubDivision;
-		clubToRelegate->ClubDivision = tempDivision;
+		cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
+		cm3_club_comps* bottomDivision = available->ClubDivision;
+		sub_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
+		sub_6830B0((BYTE*)available, (DWORD)topDivision, 1);
 
 		available_clubs.erase(available_clubs.begin() + availableIdx);
 	}
@@ -264,8 +257,9 @@ DWORD CreateFixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_
 		if (a5)
 			*a5 = 1;
 		BYTE* pMem = NULL;
-		WORD year = ((comp_stats*)_this)->year;
-		DWORD CompID = *(DWORD*)(*(DWORD*)(_this + 0x4));
+		comp_stats* data = (comp_stats*)_this;
+		WORD year = data->year;
+		DWORD CompID = data->competition_db->ClubCompID;
 		BYTE numberOfLeagueTeams = (BYTE)CountNumberOfTeamsInComp(CompID);
 		*num_rounds = (numberOfLeagueTeams - 1) * ((comp_stats*)_this)->n_rounds;
 		*stage_name_id = None;

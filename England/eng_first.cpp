@@ -11,8 +11,6 @@ static DWORD(__thiscall* eng_first_subs)(BYTE* _this) = (DWORD(__thiscall*)(BYTE
 void eng_first_points_deductions(BYTE* _this, WORD current_year)
 {
 	if (current_year > 2025) return;
-	int loaded = sub_687B10(_this, 1);
-	if (loaded) return;
 	cm3_clubs* sheff_wed = find_club("Sheffield Wednesday");
 	if (sheff_wed) {
 		comp_stats* data = (comp_stats*)_this;
