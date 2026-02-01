@@ -2,7 +2,7 @@
 #include "Helpers\generic_functions.h"
 #include "Helpers\constants.h"
 #include "Structures\vtable.h"
-#include <Helpers/new_league_ids.h>
+#include <Helpers\9cf_constants.h>
 
 DWORD* ita_ser_b_vtable = (DWORD*)0x96C480;
 
@@ -215,8 +215,8 @@ void ita_ser_b_subs(BYTE* _this)
 	comp_data->rele_playoff = 2;
 	comp_data->relegations = 3;
 
-	comp_data->promotes_to = *(DWORD*)0x9CF570;
-	comp_data->relegates_to = serie_c_id;
+	comp_data->promotes_to = ITA_SERIE_A_9CF();
+	comp_data->relegates_to = ITA_SERIE_C_9CF();
 
 	comp_data->f82 = 2;
 	comp_data->max_bench = 7;

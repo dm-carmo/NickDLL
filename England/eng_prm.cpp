@@ -4,6 +4,7 @@
 #include "Helpers\Helper.h"
 #include "Structures\vtable.h"
 #include "Helpers\constants.h"
+#include <Helpers\9cf_constants.h>
 
 DWORD* eng_prm_vtable = (DWORD*)0x969D1C;
 static DWORD(__thiscall* eng_prm_subs)(BYTE* _this) = (DWORD(__thiscall*)(BYTE * _this))(0x574B70);
@@ -12,15 +13,15 @@ void eng_prm_prom_rel_update(BYTE* _this, int a2) {
 	DWORD v1 = *(DWORD*)_this;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(_this);
 
-	BYTE* eng_first = get_loaded_league(Get9CF(0x9CF5C0));
+	BYTE* eng_first = get_loaded_league(ENG_FIRST_9CF());
 	v1 = *(DWORD*)eng_first;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(eng_first);
 
-	BYTE* eng_second = get_loaded_league(Get9CF(0x9CF5C4));
+	BYTE* eng_second = get_loaded_league(ENG_SECOND_9CF());
 	v1 = *(DWORD*)eng_second;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(eng_second);
 
-	BYTE* eng_third = get_loaded_league(Get9CF(0x9CF5C8));
+	BYTE* eng_third = get_loaded_league(ENG_THIRD_9CF());
 	v1 = *(DWORD*)eng_third;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(eng_third);
 
@@ -28,14 +29,14 @@ void eng_prm_prom_rel_update(BYTE* _this, int a2) {
 	sub_689C80(_this, eng_first, eng_second, 1, a2, -1, -1);
 	sub_689C80(_this, eng_second, eng_third, 1, a2, -1, -1);
 
-	BYTE* eng_conf = get_loaded_league(Get9CF(0x9CF69C));
+	BYTE* eng_conf = get_loaded_league(ENG_CONFERENCE_9CF());
 	if (eng_conf) {
 		v1 = *(DWORD*)eng_conf;
 		(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(eng_conf);
-		BYTE* eng_conf_n = get_loaded_league(0x168);
+		BYTE* eng_conf_n = get_loaded_league(ENG_CONFERENCE_NORTH_9CF());
 		v1 = *(DWORD*)eng_conf_n;
 		(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(eng_conf_n);
-		BYTE* eng_conf_s = get_loaded_league(0x167);
+		BYTE* eng_conf_s = get_loaded_league(ENG_CONFERENCE_SOUTH_9CF());
 		v1 = *(DWORD*)eng_conf_s;
 		(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(eng_conf_s);
 
@@ -89,8 +90,8 @@ vector<cm3_clubs*> get_relegated_teams(DWORD compID)
 
 void __fastcall sub_5750A0_promote_teams_to_bottom_league_c(BYTE* _this)
 {
-	vector<cm3_clubs*> northern_relegated_clubs = get_relegated_teams(0x168);
-	vector<cm3_clubs*> southern_relegated_clubs = get_relegated_teams(0x167);
+	vector<cm3_clubs*> northern_relegated_clubs = get_relegated_teams(ENG_CONFERENCE_NORTH_9CF());
+	vector<cm3_clubs*> southern_relegated_clubs = get_relegated_teams(ENG_CONFERENCE_SOUTH_9CF());
 	vector<cm3_clubs*> available_clubs;
 
 	for (int i = 0; i < get_club_count(); i++)
@@ -102,15 +103,15 @@ void __fastcall sub_5750A0_promote_teams_to_bottom_league_c(BYTE* _this)
 			{
 				DWORD compID = club->ClubDivision->ClubCompID;
 				DWORD nationID = club->ClubNation->NationID;
-				if (nationID == Get9CF(0x9cf2e4) &&		// England
-					compID != Get9CF(0x9cf5bc) &&		// Premier Division
-					compID != Get9CF(0x9cf5c0) &&		// First Division
-					compID != Get9CF(0x9cf5c4) &&		// Second Division
-					compID != Get9CF(0x9cf5c8) &&		// Third Division
-					compID != Get9CF(0x9cf69c) &&		// Conference
-					compID != 0x1B1 &&		// A Lower Division B
-					compID != 0x168 &&		// Northern Premier
-					compID != 0x167)		// Southern Premier
+				if (nationID == NATION_ENGLAND_9CF() &&		// England
+					compID != ENG_PREMIER_9CF() &&		// Premier Division
+					compID != ENG_FIRST_9CF() &&		// First Division
+					compID != ENG_SECOND_9CF() &&		// Second Division
+					compID != ENG_THIRD_9CF() &&		// Third Division
+					compID != ENG_CONFERENCE_9CF() &&		// Conference
+					compID != A_LOWER_B_9CF() &&		// A Lower Division B
+					compID != ENG_CONFERENCE_NORTH_9CF() &&		// Northern Premier
+					compID != ENG_CONFERENCE_SOUTH_9CF())		// Southern Premier
 				{
 					available_clubs.push_back(club);
 				}
@@ -125,6 +126,7 @@ void __fastcall sub_5750A0_promote_teams_to_bottom_league_c(BYTE* _this)
 	{
 		int availableIdx = rand() % (max_to_check - i);
 		cm3_clubs* clubToRelegate = northern_relegated_clubs[i];
+		cm3_clubs* available = available_clubs[availableIdx];
 		//dprintf("Swapping Teams: %s (%s) <-> %s (%s)\n", clubToRelegate->ClubName, clubToRelegate->ClubDivision->ClubCompName, available->ClubName, available->ClubDivision->ClubCompName);
 
 		cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
@@ -153,15 +155,15 @@ void __fastcall sub_5750A0_promote_teams_to_bottom_league_c(BYTE* _this)
 }
 
 void sort_conf_n_s_clubs() {
-	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(0x168);
-	vector<cm3_clubs*> conf_s_clubs = find_clubs_of_comp(0x167);
+	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(ENG_CONFERENCE_NORTH_9CF());
+	vector<cm3_clubs*> conf_s_clubs = find_clubs_of_comp(ENG_CONFERENCE_SOUTH_9CF());
 	move(conf_s_clubs.begin(), conf_s_clubs.end(), back_inserter(available_clubs));
 	sort(available_clubs.begin(), available_clubs.end(), compareClubLatitude);
 
 	for (size_t i = 0; i < available_clubs.size(); i++)
 	{
-		if (i < 24) available_clubs[i]->ClubDivision = get_comp(0x168);
-		else available_clubs[i]->ClubDivision = get_comp(0x167);
+		if (i < 24) available_clubs[i]->ClubDivision = get_comp(ENG_CONFERENCE_NORTH_9CF());
+		else available_clubs[i]->ClubDivision = get_comp(ENG_CONFERENCE_SOUTH_9CF());
 	}
 }
 
@@ -171,7 +173,7 @@ char eng_prm_update(BYTE* _this) {
 	data->f76 = 0;
 	eng_prm_prom_rel_update(_this, 1);
 
-	BYTE* eng_conf = get_loaded_league(Get9CF(0x9CF69C));
+	BYTE* eng_conf = get_loaded_league(ENG_CONFERENCE_9CF());
 	if (eng_conf) {
 		sub_5750A0_promote_teams_to_bottom_league_c(_this);
 		sort_conf_n_s_clubs();
@@ -206,9 +208,9 @@ char eng_prm_update(BYTE* _this) {
 	DWORD v1 = *(DWORD*)_this;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
 
-	BYTE* eng_first = get_loaded_league(Get9CF(0x9CF5C0));
-	BYTE* eng_second = get_loaded_league(Get9CF(0x9CF5C4));
-	BYTE* eng_third = get_loaded_league(Get9CF(0x9CF5C8));
+	BYTE* eng_first = get_loaded_league(ENG_FIRST_9CF());
+	BYTE* eng_second = get_loaded_league(ENG_SECOND_9CF());
+	BYTE* eng_third = get_loaded_league(ENG_THIRD_9CF());
 
 	sub_68A980(eng_third, 1, 3, -3, 1);
 	if (eng_conf) sub_68A980(eng_conf, 2, 0, -3, 1);
@@ -226,11 +228,11 @@ char eng_prm_update(BYTE* _this) {
 		v1 = *(DWORD*)eng_conf;
 		(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(eng_conf);
 
-		BYTE* eng_conf_n = get_loaded_league(0x168);
+		BYTE* eng_conf_n = get_loaded_league(ENG_CONFERENCE_NORTH_9CF());
 		v1 = *(DWORD*)eng_conf_n;
 		(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(eng_conf_n);
 
-		BYTE* eng_conf_s = get_loaded_league(0x167);
+		BYTE* eng_conf_s = get_loaded_league(ENG_CONFERENCE_SOUTH_9CF());
 		v1 = *(DWORD*)eng_conf_s;
 		(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(eng_conf_s);
 	}

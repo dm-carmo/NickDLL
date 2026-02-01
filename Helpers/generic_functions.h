@@ -29,6 +29,7 @@ static char  (*sub_669340)(int a1) = (char(*)(int a1))(0x669340);
 
 static int(__thiscall* add_team_call)(BYTE* _this, BYTE teamNo, cm3_clubs* club, BYTE a3, DWORD* a4) =
 (int(__thiscall*)(BYTE * _this, BYTE teamNo, cm3_clubs * club, BYTE a3, DWORD * a4))(0x687430);
+static BYTE* (*check_if_reserve_team_540A50)(BYTE* club, DWORD* a2, int a3) = (BYTE* (*)(BYTE * club, DWORD * a2, int a3))(0x540A50);
 
 static BYTE* (__thiscall* create_cup_stage_data)(BYTE* _this, BYTE* main_comp, __int16 n_teams, DWORD* teamsPtr, __int16 n_rounds, int comp_id, const void* fixturesPtr,
 	__int16 year, char stage_num, char a10, __int16 stage_name_id, char a12, int a13, int a14, int a15, BYTE* a16) =

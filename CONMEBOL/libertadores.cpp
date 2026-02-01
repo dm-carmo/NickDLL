@@ -7,6 +7,7 @@
 #include <string>
 #include "conmebol_helper.h"
 #include "Structures\vtable.h"
+#include <Helpers\9cf_constants.h>
 
 using namespace std;
 
@@ -43,7 +44,7 @@ void ConmebolSeedingLeague(const char* szNation, int numberOfClubs)
 			}
 			else {
 				//dprintf("Setting club %s to Libertadores\n", (club->ClubName));
-				club->ClubEuroFlag = *(DWORD*)0x9CF63C;
+				club->ClubEuroFlag = COPA_LIBERTADORES_9CF();
 			}
 		}
 	}
@@ -69,7 +70,7 @@ void ConmebolSeedingLeague(const char* szNation, int numberOfClubs)
 			}
 			else {
 				//dprintf("Setting club %s to Libertadores\n", (club->ClubName));
-				club->ClubEuroFlag = *(DWORD*)0x9CF63C;
+				club->ClubEuroFlag = COPA_LIBERTADORES_9CF();
 			}
 		}
 	}
@@ -95,7 +96,7 @@ void ConmebolSeedingCompWinner(long comp_id)
 			}
 			else {
 				//dprintf("Setting club %s to Libertadores (last winners of %s)\n", (last_winner->ClubName), comp->ClubCompName);
-				last_winner->ClubEuroFlag = *(DWORD*)0x9CF63C;
+				last_winner->ClubEuroFlag = COPA_LIBERTADORES_9CF();
 			}
 		}
 	}
@@ -124,7 +125,7 @@ void ConmebolSeedingCupWinner(const char* szNation, long comp_id)
 				}
 				else {
 					//dprintf("Setting club %s to Libertadores (last winners of %s)\n", (last_winner->ClubName), comp->ClubCompName);
-					last_winner->ClubEuroFlag = *(DWORD*)0x9CF63C;
+					last_winner->ClubEuroFlag = COPA_LIBERTADORES_9CF();
 				}
 			}
 		}
@@ -158,7 +159,7 @@ void ConmebolSeedingCupLoser(const char* szNation, long comp_id)
 				}
 				else {
 					//dprintf("Setting club %s to Libertadores (last runner-up of %s)\n", (last_runner_up->ClubName), comp->ClubCompName);
-					last_runner_up->ClubEuroFlag = *(DWORD*)0x9CF63C;
+					last_runner_up->ClubEuroFlag = COPA_LIBERTADORES_9CF();
 				}
 			}
 		}
@@ -200,7 +201,7 @@ void replacement_004C6430_full()
 			}
 			else {
 				//dprintf("Setting club %s to Libertadores\n", (club->ClubName));
-				club->ClubEuroFlag = *(DWORD*)0x9CF63C;
+				club->ClubEuroFlag = COPA_LIBERTADORES_9CF();
 				nation_count++;
 			}
 		}
@@ -209,19 +210,19 @@ void replacement_004C6430_full()
 	else {
 		//dprintf("Getting teams for Libertadores based on last season performance\n");
 		ConmebolSeedingLeague("Argentina", libertadores_qual.at("Argentina") - 3); // minus cup slots and Libertadores winner slot
-		ConmebolSeedingCupWinner("Argentina", *(DWORD*)0x9CF67C);
-		ConmebolSeedingCupLoser("Argentina", *(DWORD*)0x9CF67C);
+		ConmebolSeedingCupWinner("Argentina", ARG_CUP_9CF());
+		ConmebolSeedingCupLoser("Argentina", ARG_CUP_9CF());
 		ConmebolSeedingLeague("Brazil", libertadores_qual.at("Brazil") - 3); // minus cup slots and Sudamericana winner slot
-		ConmebolSeedingCupWinner("Brazil", *(DWORD*)0x9CF9E8);
-		ConmebolSeedingCupLoser("Brazil", *(DWORD*)0x9CF9E8);
+		ConmebolSeedingCupWinner("Brazil", BRA_CUP_9CF());
+		ConmebolSeedingCupLoser("Brazil", BRA_CUP_9CF());
 		const char* nations_list[] = {
 			"Bolivia", "Chile", "Colombia", "Ecuador", "Paraguay", "Peru", "Uruguay", "Venezuela"
 		};
 		for (const char* nation : nations_list) {
 			ConmebolSeedingLeague(nation, libertadores_qual.at(nation));
 		}
-		ConmebolSeedingCompWinner(*(DWORD*)0x9CF63C);
-		ConmebolSeedingCompWinner(*(DWORD*)0x9CF698);
+		ConmebolSeedingCompWinner(COPA_LIBERTADORES_9CF());
+		ConmebolSeedingCompWinner(COPA_SUDAMERICANA_9CF());
 	}
 	//dprintf("\n");
 }

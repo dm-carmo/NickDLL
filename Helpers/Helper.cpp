@@ -50,6 +50,14 @@ void WriteBytes(DWORD addr, int bytes, ...)
 	va_end(valist);
 }
 
+void WriteWORD(DWORD addr, WORD data)
+{
+	DWORD dwOldProt, dwOldProt2;
+	VirtualProtect((void*)addr, 4, PAGE_EXECUTE_READWRITE, &dwOldProt);
+	*((WORD*)addr) = data;
+	VirtualProtect((void*)addr, 4, dwOldProt, &dwOldProt2);
+}
+
 void WriteDWORD(DWORD addr, DWORD data)
 {
 	DWORD dwOldProt, dwOldProt2;
@@ -237,6 +245,16 @@ cm3_club_comps* find_club_comp(const char* szClubComp)
 	return NULL;
 }
 
+cm3_staff_comps* find_award(const char* szAward)
+{
+	for (DWORD i = 0; i < *awards_count; i++)
+	{
+		if (_stricmp((*awards)[i].StaffCompName, szAward) == 0)
+			return &(*awards)[i];
+	}
+	return NULL;
+}
+
 DWORD find_club_comp_id(const char* szClubComp, const char* szClubCompAlternative)
 {
 	DWORD CompID = -1L;
@@ -311,6 +329,11 @@ bool compareClubLatitude(cm3_clubs* c1, cm3_clubs* c2)
 	return l1 > l2;
 }
 
+bool compareClubLatitudeInv(cm3_clubs* c1, cm3_clubs* c2)
+{
+	return compareClubLatitude(c2, c1);
+}
+
 bool compareClubLongitude(cm3_clubs* c1, cm3_clubs* c2)
 {
 	double l1 = 0, l2 = 0;
@@ -319,6 +342,11 @@ bool compareClubLongitude(cm3_clubs* c1, cm3_clubs* c2)
 	if (c2->ClubStadium && c2->ClubStadium->StadiumCity)
 		l2 = c2->ClubStadium->StadiumCity->CityLongitude;
 	return l1 > l2;
+}
+
+bool compareClubLongitudeInv(cm3_clubs* c1, cm3_clubs* c2)
+{
+	return compareClubLongitude(c2, c1);
 }
 
 cm3_clubs* get_last_comp_winner(cm3_club_comps* comp)

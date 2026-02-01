@@ -3,7 +3,7 @@
 #include "Helpers\generic_functions.h"
 #include "Structures\vtable.h"
 #include "Helpers\constants.h"
-#include <Helpers/new_league_ids.h>
+#include <Helpers\9cf_constants.h>
 
 DWORD* ita_c_cup_vtable = (DWORD*)0x96C264;
 
@@ -121,12 +121,12 @@ int ita_c_cup_teams(BYTE* _this) {
 	comp_data->teams_list = (DWORD*)pMem;
 	teams_seeded* teams = (teams_seeded*)comp_data->teams_list;
 
-	vector<cm3_clubs*> division_clubs = find_clubs_of_comp(serie_c_id);
+	vector<cm3_clubs*> division_clubs = find_clubs_of_comp(ITA_SERIE_C_9CF());
 
 	DWORD c_count = 0;
 	vector<cm3_clubs*> vec;
 	vec.clear();
-	cm3_club_comps* serie_c = &(*club_comps)[serie_c_id];
+	cm3_club_comps* serie_c = &(*club_comps)[ITA_SERIE_C_9CF()];
 	if (comp_data->year == 2025) {
 		vec.push_back(find_club("Audace Cerignola"));
 		vec.push_back(find_club("AS Giana Erminio")); // replaces Rimini
@@ -138,7 +138,7 @@ int ita_c_cup_teams(BYTE* _this) {
 		sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPos);
 		for (DWORD i = 0; i < division_clubs.size(); i++) {
 			cm3_clubs* c_club = division_clubs[i];
-			if (c_club->ClubLastDivision && c_club->ClubLastDivision->ClubCompID == serie_c_id && c_club->ClubLastPosition == 2)
+			if (c_club->ClubLastDivision && c_club->ClubLastDivision->ClubCompID == ITA_SERIE_C_9CF() && c_club->ClubLastPosition == 2)
 			{
 				c_count++;
 				vec.push_back(c_club);
@@ -160,7 +160,7 @@ int ita_c_cup_teams(BYTE* _this) {
 			dprintf("getting extra teams for Coppa Italia Serie C ...\n");
 			for (DWORD i = 0; i < division_clubs.size() && c_count < 4; i++) {
 				cm3_clubs* c_club_extra = division_clubs[i];
-				if (c_club_extra->ClubLastDivision && c_club_extra->ClubLastDivision->ClubCompID == serie_c_id && !vector_contains_club(vec, c_club_extra))
+				if (c_club_extra->ClubLastDivision && c_club_extra->ClubLastDivision->ClubCompID == ITA_SERIE_C_9CF() && !vector_contains_club(vec, c_club_extra))
 				{
 					c_count++;
 					vec.push_back(c_club_extra);

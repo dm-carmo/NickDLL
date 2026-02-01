@@ -5,6 +5,7 @@
 #include "eng_conf.h"
 #include "Structures\vtable.h"
 #include "Helpers\constants.h"
+#include <Helpers\9cf_constants.h>
 
 DWORD* eng_fa_cup_vtable = (DWORD*)0x969B28;
 
@@ -66,8 +67,8 @@ int eng_fa_cup_teams(BYTE* _this) {
 	comp_data->teams_list = (DWORD*)pMem;
 
 	teams_seeded* teams = (teams_seeded*)comp_data->teams_list;
-	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(*(DWORD*)0x9CF764, *(DWORD*)0x9CF2E4);
-	vector<cm3_clubs*> lower_clubs2 = find_clubs_of_comp(0x1B1, *(DWORD*)0x9CF2E4);
+	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_ENGLAND_9CF());
+	vector<cm3_clubs*> lower_clubs2 = find_clubs_of_comp(A_LOWER_B_9CF(), NATION_ENGLAND_9CF());
 	move(lower_clubs2.begin(), lower_clubs2.end(), back_inserter(lower_clubs));
 	sort(lower_clubs.begin(), lower_clubs.end(), compareClubRep);
 
@@ -85,43 +86,51 @@ int eng_fa_cup_teams(BYTE* _this) {
 			i--;	// Else do again as the club selected was already picked
 	}
 	// National League North
-	vector<cm3_clubs*> division_clubs = find_clubs_of_comp(0x168);
+	vector<cm3_clubs*> division_clubs = find_clubs_of_comp(ENG_CONFERENCE_NORTH_9CF());
 	for (cm3_clubs* club : division_clubs)
 	{
 		vec.push_back(club);
 	}
 	// National League South
-	division_clubs = find_clubs_of_comp(0x167);
+	division_clubs = find_clubs_of_comp(ENG_CONFERENCE_SOUTH_9CF());
 	for (cm3_clubs* club : division_clubs)
 	{
 		vec.push_back(club);
 	}
+	BYTE selected = find_country("England")->NationLeagueSelected;
+	if ((selected & 4) == 0) {
+		division_clubs = find_clubs_of_comp(0x166);
+		for (cm3_clubs* club : division_clubs)
+		{
+			vec.push_back(club);
+		}
+	}
 	// National League
-	division_clubs = find_clubs_of_comp(Get9CF(0x9CF69C));
+	division_clubs = find_clubs_of_comp(ENG_CONFERENCE_9CF());
 	for (cm3_clubs* club : division_clubs)
 	{
 		vec.push_back(club);
 	}
 	// League 2
-	division_clubs = find_clubs_of_comp(Get9CF(0x9CF5C8));
+	division_clubs = find_clubs_of_comp(ENG_THIRD_9CF());
 	for (cm3_clubs* club : division_clubs)
 	{
 		vec.push_back(club);
 	}
 	// League 1
-	division_clubs = find_clubs_of_comp(Get9CF(0x9CF5C4));
+	division_clubs = find_clubs_of_comp(ENG_SECOND_9CF());
 	for (cm3_clubs* club : division_clubs)
 	{
 		vec.push_back(club);
 	}
 	// Championship
-	division_clubs = find_clubs_of_comp(Get9CF(0x9CF5C0));
+	division_clubs = find_clubs_of_comp(ENG_FIRST_9CF());
 	for (cm3_clubs* club : division_clubs)
 	{
 		vec.push_back(club);
 	}
 	// Premier League
-	division_clubs = find_clubs_of_comp(Get9CF(0x9CF5BC));
+	division_clubs = find_clubs_of_comp(ENG_PREMIER_9CF());
 	for (cm3_clubs* club : division_clubs)
 	{
 		vec.push_back(club);

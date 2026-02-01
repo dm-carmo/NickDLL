@@ -158,9 +158,17 @@
     <ClCompile Include="England\eng_setup.cpp" />
     <ClCompile Include="England\eng_third.cpp" />
     <ClCompile Include="european_cup.cpp" />
+    <ClCompile Include="Germany\ger_cup.cpp" />
+    <ClCompile Include="Germany\ger_first.cpp" />
+    <ClCompile Include="Germany\ger_regional.cpp" />
+    <ClCompile Include="Germany\ger_second.cpp" />
+    <ClCompile Include="Germany\ger_setup.cpp" />
+    <ClCompile Include="Germany\ger_super.cpp" />
+    <ClCompile Include="Germany\ger_third.cpp" />
+    <ClCompile Include="Helpers\9cf_constants.cpp" />
     <ClCompile Include="Helpers\generic_functions.cpp" />
     <ClCompile Include="Helpers\Helper.cpp" />
-    <ClCompile Include="inject_club_renames.cpp" />
+    <ClCompile Include="inject_9cf_rename.cpp" />
     <ClCompile Include="Italy\ita_awards.cpp" />
     <ClCompile Include="Italy\ita_cup.cpp" />
     <ClCompile Include="Italy\ita_c_cup.cpp" />
@@ -173,6 +181,7 @@
     <ClCompile Include="Structures\CMHeader.cpp" />
     <ClCompile Include="tapani_relegation_patch.cpp" />
     <ClCompile Include="tiny-json.c" />
+    <ClCompile Include="Helpers\YearChanger.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CONCACAF\concacaf.h" />
@@ -199,11 +208,19 @@
     <ClInclude Include="England\eng_setup.h" />
     <ClInclude Include="England\eng_third.h" />
     <ClInclude Include="european_cup.h" />
+    <ClInclude Include="Germany\ger_cup.h" />
+    <ClInclude Include="Germany\ger_first.h" />
+    <ClInclude Include="Germany\ger_regional.h" />
+    <ClInclude Include="Germany\ger_second.h" />
+    <ClInclude Include="Germany\ger_setup.h" />
+    <ClInclude Include="Germany\ger_super.h" />
+    <ClInclude Include="Germany\ger_third.h" />
+    <ClInclude Include="Helpers\9cf_constants.h" />
     <ClInclude Include="Helpers\constants.h" />
     <ClInclude Include="Helpers\generic_functions.h" />
     <ClInclude Include="Helpers\Helper.h" />
-    <ClInclude Include="Helpers\new_league_ids.h" />
-    <ClInclude Include="inject_club_renames.h" />
+    <ClInclude Include="Helpers\YearChanger.h" />
+    <ClInclude Include="inject_9cf_rename.h" />
     <ClInclude Include="Italy\ita_awards.h" />
     <ClInclude Include="Italy\ita_cup.h" />
     <ClInclude Include="Italy\ita_c_cup.h" />

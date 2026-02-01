@@ -2,7 +2,7 @@
 #include "Helpers\generic_functions.h"
 #include "Helpers\constants.h"
 #include "Structures\vtable.h"
-#include <Helpers/new_league_ids.h>
+#include <Helpers\9cf_constants.h>
 
 vtable* ita_c_supercup_vtable = new vtable((BYTE*)0x96C0C8, 0xB4);
 
@@ -193,7 +193,7 @@ int ita_c_supercup_teams(BYTE* _this) {
 	comp_data->n_teams = total_teams;
 	comp_data->team_league_table = (DWORD*)pMem;
 
-	comp_stats* ita_ser_c_data = (comp_stats*)get_loaded_league(serie_c_id);
+	comp_stats* ita_ser_c_data = (comp_stats*)get_loaded_league(ITA_SERIE_C_9CF());
 	comp_stats* curr_stage = ita_ser_c_data;
 	BYTE teamsAdded = 0;
 	for (char al = -1; al < 2; al++) {
@@ -211,7 +211,7 @@ int ita_c_supercup_teams(BYTE* _this) {
 void replacement_63B300(BYTE* _this, DWORD current_date, int a3) {
 	comp_stats* data = (comp_stats*)_this;
 	if (!data->f69) {
-		comp_stats* ita_ser_c_data = (comp_stats*)get_loaded_league(serie_c_id);
+		comp_stats* ita_ser_c_data = (comp_stats*)get_loaded_league(ITA_SERIE_C_9CF());
 		if(ita_ser_c_data->current_stage > 1) {
 			if (!a3) {
 				ita_c_supercup_teams(_this);

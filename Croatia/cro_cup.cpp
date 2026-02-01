@@ -3,7 +3,7 @@
 #include "Helpers\generic_functions.h"
 #include "Structures\vtable.h"
 #include "Helpers\constants.h"
-#include <Helpers/new_league_ids.h>
+#include <Helpers\9cf_constants.h>
 
 DWORD* cro_cup_vtable = (DWORD*)0x9692E0;
 
@@ -77,9 +77,9 @@ int cro_cup_teams(BYTE* _this) {
 
 	teams_seeded* teams = (teams_seeded*)comp_data->teams_list;
 
-	vector<DWORD> non_league_9cf = { 0x9CF884, 0x9CF888, 0x9CF88C, 0x9CF890, 0x9CF894 };
+	vector<DWORD> non_league_9cf = {CRO_FOURTH_CENTRAL_9CF(), CRO_FOURTH_NORTH_9CF(), CRO_FOURTH_SOUTH_9CF(), CRO_FOURTH_EAST_9CF(), CRO_FOURTH_WEST_9CF()};
 	for (size_t i = 0; i < non_league_9cf.size(); i++) {
-		vector<cm3_clubs*> club_list = find_clubs_of_comp(Get9CF(non_league_9cf[i]));
+		vector<cm3_clubs*> club_list = find_clubs_of_comp(non_league_9cf[i]);
 		sort(club_list.begin(), club_list.end(), compareClubRep);
 		int max_to_check = (club_list.size() > 5 ? 5 : club_list.size());
 		for (int i = 0; i < 2; i++) {
@@ -90,21 +90,21 @@ int cro_cup_teams(BYTE* _this) {
 		}
 	}
 	// 2. NL
-	vector<cm3_clubs*> division_clubs = find_clubs_of_comp(cro_third_id);
+	vector<cm3_clubs*> division_clubs = find_clubs_of_comp(CRO_THIRD_9CF());
 	sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPosInv);
 	for (cm3_clubs* club : division_clubs)
 	{
 		vec.push_back(club);
 	}
 	// 1. NL
-	division_clubs = find_clubs_of_comp(Get9CF(0x9CF880));
+	division_clubs = find_clubs_of_comp(CRO_SECOND_9CF());
 	sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPosInv);
 	for (cm3_clubs* club : division_clubs)
 	{
 		vec.push_back(club);
 	}
 	// HNL
-	division_clubs = find_clubs_of_comp(Get9CF(0x9CF87C));
+	division_clubs = find_clubs_of_comp(CRO_FIRST_9CF());
 	sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPosInv);
 	for (cm3_clubs* club : division_clubs)
 	{

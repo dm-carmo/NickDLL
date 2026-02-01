@@ -3,6 +3,9 @@
 WORD FixedTeamOrderInCup = 0x200;
 WORD FixedTeamOrderInCup2 = 0x400;
 
+cm3_staff_comps** awards = (cm3_staff_comps**)0xAE23E0;
+DWORD* awards_count = (DWORD*)0xAE2388;
+
 cm3_nations** nations = (cm3_nations**)0xAE23A8;
 DWORD* nations_count = (DWORD*)0xAE2350;
 

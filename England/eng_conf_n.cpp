@@ -4,6 +4,7 @@
 #include "Helpers\constants.h"
 #include "Structures\vtable.h"
 #include "eng_conf.h"
+#include <Helpers\9cf_constants.h>
 
 vtable* eng_conf_n_vtable = new vtable((BYTE*)0x969A74, 0xB4);
 
@@ -75,8 +76,8 @@ int eng_conf_n_subs(BYTE* _this)
 	comp_data->rele_playoff = 0;
 	comp_data->relegations = 4;
 
-	comp_data->promotes_to = *(DWORD*)0x9CF69C;
-	comp_data->relegates_to = 0x167;
+	comp_data->promotes_to = ENG_CONFERENCE_9CF();
+	comp_data->relegates_to = ENG_CONFERENCE_SOUTH_9CF();
 
 	comp_data->f82 = 2;
 	comp_data->max_bench = 5;
@@ -146,10 +147,46 @@ void __declspec(naked) eng_conf_n_subs_c()		// used as a __thiscall -> __cdecl c
 	}
 }
 
+void NLNConfigureAwardData() {
+	cm3_staff_comps* data = &(*awards)[ENG_CONFERENCE_N_MANAGER_OF_MONTH_9CF()];
+	if (data) {
+		data->StaffCompNation = find_country("England");
+		data->StaffCompContinent = find_continent("Europe");
+		data->StaffCompReputation = 4;
+	}
+	data = &(*awards)[ENG_CONFERENCE_N_MANAGER_OF_YEAR_9CF()];
+	if (data) {
+		data->StaffCompNation = find_country("England");
+		data->StaffCompContinent = find_continent("Europe");
+		data->StaffCompReputation = 5;
+	}
+	data = &(*awards)[ENG_CONFERENCE_N_PLAYER_OF_MONTH_9CF()];
+	if (data) {
+		data->StaffCompNation = find_country("England");
+		data->StaffCompContinent = find_continent("Europe");
+		data->StaffCompReputation = 4;
+	}
+	data = &(*awards)[ENG_CONFERENCE_N_TEAM_OF_WEEK_9CF()];
+	if (data) {
+		data->StaffCompNation = find_country("England");
+		data->StaffCompContinent = find_continent("Europe");
+		data->StaffCompReputation = 4;
+	}
+	data = &(*awards)[ENG_CONFERENCE_N_TEAM_OF_YEAR_9CF()];
+	if (data) {
+		data->StaffCompNation = find_country("England");
+		data->StaffCompContinent = find_continent("Europe");
+		data->StaffCompReputation = 5;
+	}
+	data = &(*awards)[ENG_CONFERENCE_N_YOUNG_PLAYER_OF_MONTH_9CF()];
+	if (data) {
+		data->StaffCompNation = find_country("England");
+		data->StaffCompContinent = find_continent("Europe");
+		data->StaffCompReputation = 3;
+	}
+}
+
 void eng_conf_n_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
-	strcpy_s(comp->ClubCompNameThreeLetter, "NLN");
-	strcpy_s(comp->ClubCompName, "English National League North");
-	strcpy_s(comp->ClubCompNameShort, "National League North");
 	sub_682200(_this);
 	comp_stats* data = (comp_stats*)_this;
 	data->competition_db = comp;
@@ -164,6 +201,7 @@ void eng_conf_n_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->rules = 0x9;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
+	NLNConfigureAwardData();
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 1;

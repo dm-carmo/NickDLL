@@ -4,7 +4,7 @@
 #include "Helpers\Helper.h"
 #include "Structures\vtable.h"
 #include "Helpers\constants.h"
-#include <Helpers/new_league_ids.h>
+#include <Helpers\9cf_constants.h>
 
 DWORD* cro_second_vtable = (DWORD*)0x969178;
 
@@ -76,8 +76,8 @@ void cro_second_subs(BYTE* _this)
 	comp_data->rele_playoff = 1;
 	comp_data->relegations = 1;
 
-	comp_data->promotes_to = *(DWORD*)0x9CF87C;
-	comp_data->relegates_to = cro_third_id;
+	comp_data->promotes_to = CRO_FIRST_9CF();
+	comp_data->relegates_to = CRO_THIRD_9CF();
 
 	comp_data->f82 = 2;
 	comp_data->max_bench = 7;
@@ -283,7 +283,7 @@ void cro_second_playoff_under(BYTE* _this) {
 		}
 	}
 
-	comp_stats* cro_third_data = (comp_stats*)get_loaded_league(cro_third_id);
+	comp_stats* cro_third_data = (comp_stats*)get_loaded_league(CRO_THIRD_9CF());
 	total_teams = cro_third_data->n_teams;
 	table_teams = (team_league_stats*)(cro_third_data->team_league_table);
 	for (int i = 0; i < total_teams; i++) {
@@ -311,7 +311,7 @@ void cro_second_playoffs_c(BYTE* _this) {
 	long max = comp_data->num_stages;
 	if (current < max - 1) {
 
-		BYTE* cro_third = get_loaded_league(cro_third_id);
+		BYTE* cro_third = get_loaded_league(CRO_THIRD_9CF());
 		DWORD v1 = *(DWORD*)cro_third;
 		char ret = (*(int(__thiscall**)(BYTE*, int, int))(v1 + 0x10))(cro_third, 0, 1);
 		if (ret != 0) {
@@ -342,9 +342,9 @@ int PrvaNLTableIndicators(BYTE* _this, DWORD* club, BYTE fate, char stage, BYTE*
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == 0) {
 		cm3_clubs* club_ptr = (cm3_clubs*)club;
-		cm3_club_comps* cro_third = &(*club_comps)[cro_third_id];
+		cm3_club_comps* cro_third = &(*club_comps)[CRO_THIRD_9CF()];
 		if (club_ptr->ClubDivision == cro_third) {
-			comp_stats* cro_third_data = (comp_stats*)get_loaded_league(cro_third_id);
+			comp_stats* cro_third_data = (comp_stats*)get_loaded_league(CRO_THIRD_9CF());
 			WORD num_teams = cro_third_data->n_teams;
 			if (num_teams <= 0) return 0;
 			team_league_stats* table = (team_league_stats*)(cro_third_data->team_league_table);

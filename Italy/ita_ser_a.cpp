@@ -4,7 +4,7 @@
 #include "Helpers\Helper.h"
 #include "Structures\vtable.h"
 #include "Helpers\constants.h"
-#include <Helpers/new_league_ids.h>
+#include <Helpers\9cf_constants.h>
 
 DWORD* ita_ser_a_vtable = (DWORD*)0x96C3CC;
 static DWORD(__thiscall* ita_ser_a_subs)(BYTE* _this) = (DWORD(__thiscall*)(BYTE * _this))(0x641640);
@@ -13,12 +13,12 @@ void ita_ser_a_prom_rel_update(BYTE* _this, int a2) {
 	DWORD v1 = *(DWORD*)_this;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(_this);
 
-	BYTE* ita_ser_b = get_loaded_league(Get9CF(0x9CF574));
+	BYTE* ita_ser_b = get_loaded_league(ITA_SERIE_B_9CF());
 	v1 = *(DWORD*)ita_ser_b;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(ita_ser_b);
 	sub_689C80(_this, _this, ita_ser_b, 1, a2, -1, -1);
 
-	BYTE* ita_ser_c = get_loaded_league(serie_c_id);
+	BYTE* ita_ser_c = get_loaded_league(ITA_SERIE_C_9CF());
 	comp_stats* ita_ser_c_data = (comp_stats*)ita_ser_c;
 	v1 = *(DWORD*)ita_ser_c;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(ita_ser_c);
@@ -50,7 +50,7 @@ void __fastcall serie_d_promotion(BYTE* _this)
 {
 	vector<cm3_clubs*> relegated_clubs;
 
-	comp_stats* comp_data = (comp_stats*)get_loaded_league(serie_c_id);
+	comp_stats* comp_data = (comp_stats*)get_loaded_league(ITA_SERIE_C_9CF());
 	comp_stats* curr_stage = comp_data;
 	for (char al = -1; al < 2; al++) {
 		if (al >= 0) {
@@ -75,8 +75,8 @@ void __fastcall serie_d_promotion(BYTE* _this)
 			{
 				DWORD compID = club->ClubDivision->ClubCompID;
 				DWORD nationID = club->ClubNation->NationID;
-				if (nationID == Get9CF(0x9CF360) &&		// Italy
-					compID == Get9CF(0x9CF58C))			// Serie D
+				if (nationID == NATION_ITALY_9CF() &&		// Italy
+					compID == ITA_SERIE_D_9CF())			// Serie D
 				{
 					available_clubs.push_back(club);
 				}
@@ -105,14 +105,14 @@ void __fastcall serie_d_promotion(BYTE* _this)
 }
 
 void sort_serie_c_clubs() {
-	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(serie_c_id);
+	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(ITA_SERIE_C_9CF());
 	sort(available_clubs.begin(), available_clubs.end(), compareClubLatitude);
 
 	for (size_t i = 0; i < available_clubs.size(); i++)
 	{
-		if (i < 20) available_clubs[i]->ClubReserveDivision = get_comp(Get9CF(0x9CF580));
-		else if (i < 40) available_clubs[i]->ClubReserveDivision = get_comp(Get9CF(0x9CF584));
-		else available_clubs[i]->ClubReserveDivision = get_comp(Get9CF(0x9CF588));
+		if (i < 20) available_clubs[i]->ClubReserveDivision = get_comp(ITA_SERIE_C_A_9CF());
+		else if (i < 40) available_clubs[i]->ClubReserveDivision = get_comp(ITA_SERIE_C_B_9CF());
+		else available_clubs[i]->ClubReserveDivision = get_comp(ITA_SERIE_C_C_9CF());
 	}
 }
 
@@ -150,8 +150,8 @@ char ita_ser_a_update(BYTE* _this) {
 	DWORD v1 = *(DWORD*)_this;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
 
-	BYTE* ita_ser_b = get_loaded_league(Get9CF(0x9CF574));
-	BYTE* ita_ser_c = get_loaded_league(serie_c_id);
+	BYTE* ita_ser_b = get_loaded_league(ITA_SERIE_B_9CF());
+	BYTE* ita_ser_c = get_loaded_league(ITA_SERIE_C_9CF());
 
 	v1 = *(DWORD*)ita_ser_b;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(ita_ser_b);

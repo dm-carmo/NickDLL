@@ -3,6 +3,7 @@
 #include "Helpers\constants.h"
 #include "Structures\vtable.h"
 #include <map>
+#include <Helpers\9cf_constants.h>
 
 vtable* ita_ser_c_vtable = new vtable((BYTE*)0x96E858, 0xB4);
 
@@ -74,7 +75,7 @@ void ita_ser_c_subs(BYTE* _this)
 	comp_data->rele_playoff = 4;
 	comp_data->relegations = 1;
 
-	comp_data->promotes_to = *(DWORD*)0x9CF574;
+	comp_data->promotes_to = ITA_SERIE_B_9CF();
 	comp_data->relegates_to = -1;
 
 	comp_data->f82 = 2;
@@ -98,119 +99,6 @@ void __declspec(naked) ita_ser_c_subs_c()		// used as a __thiscall -> __cdecl co
 		add esp, 0x4
 		ret
 	}
-}
-
-void ita_ser_c_init_teams(BYTE* _this) {
-	vector<cm3_clubs*> orig_clubs = find_clubs_of_comp(Get9CF(0x9CF580), -1);
-	for (cm3_clubs* c : orig_clubs) c->ClubDivision = get_comp(Get9CF(0x9CF58C));
-	orig_clubs = find_clubs_of_comp(Get9CF(0x9CF584), -1);
-	for (cm3_clubs* c : orig_clubs) c->ClubDivision = get_comp(Get9CF(0x9CF58C));
-	orig_clubs = find_clubs_of_comp(Get9CF(0x9CF588), -1);
-	for (cm3_clubs* c : orig_clubs) c->ClubDivision = get_comp(Get9CF(0x9CF58C));
-	orig_clubs = find_clubs_of_comp(Get9CF(0x9CF578), -1);
-	for (cm3_clubs* c : orig_clubs) c->ClubDivision = get_comp(Get9CF(0x9CF58C));
-	orig_clubs = find_clubs_of_comp(Get9CF(0x9CF57C), -1);
-	for (cm3_clubs* c : orig_clubs) c->ClubDivision = get_comp(Get9CF(0x9CF58C));
-	vector<string> c_a_clubs = {
-		"UC AlbinoLeffe",
-		"Alcione Milano",
-		"Arzignano Valchiampo",
-		"Union Brescia",
-		"AS Cittadella",
-		"Dolomiti Bellunesi",
-		"AS Giana Erminio",
-		"Inter U23",
-		"Calcio Lecco 1912",
-		"FC Lumezzane",
-		"Novara FC",
-		"CPR Ospitaletto",
-		"US Pergolettese 1932",
-		"Aurora Pro Patria",
-		"FC Pro Vercelli 1892",
-		"AC Renate",
-		"AC Trento",
-		"US Triestina",
-		"LR Vicenza",
-		"Virtusvecomp Verona"
-	};
-	vector<string> c_b_clubs = {
-		"SS Arezzo",
-		"Ascoli Calcio",
-		"Bra",
-		"Campobasso FC",
-		"AC Carpi",
-		"Forlì FC",
-		"AS Gubbio 1910",
-		"Guidonia Montecelio 1937 FC",
-		"Juventus Next Gen",
-		"US Livorno 1915",
-		"Milan Futuro",
-		"AC Perugia Calcio",
-		"US Pianese",
-		"Pineto Calcio",
-		"US Città di Pontedera",
-		"Ravenna FC",
-		"US Sambenedettese",
-		"Ternana Calcio",
-		"SEF Torres 1903",
-		"Vis Pesaro 1898"
-	};
-	vector<string> c_c_clubs = {
-		"AZ Picerno",
-		"ASD Team Altamura",
-		"Atalanta U23",
-		"Benevento Calcio",
-		"Casarano Calcio",
-		"Casertana FC",
-		"Catania FC",
-		"Cavese 1919",
-		"Audace Cerignola",
-		"Cosenza Calcio",
-		"FC Crotone",
-		"Calcio Foggia 1920",
-		"Giugliano Calcio 1928",
-		"Latina Calcio 1932",
-		"SS Monopoli 1966",
-		"Potenza Calcio",
-		"US Salernitana 1919",
-		"Siracusa Calcio",
-		"Sorrento 1945",
-		"FC Trapani 1905"
-	};
-	comp_stats* data = (comp_stats*)_this;
-	//data->n_teams = 20;
-	cm3_club_comps* c_a = get_comp(Get9CF(0x9CF580));
-	cm3_club_comps* c_b = get_comp(Get9CF(0x9CF584));
-	cm3_club_comps* c_c = get_comp(Get9CF(0x9CF588));
-	for (string s : c_a_clubs) {
-		cm3_clubs* club = find_club(s.c_str());
-		if (!club) {
-			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
-			continue;
-		}
-		club->ClubDivision = data->competition_db;
-		club->ClubReserveDivision = c_a;
-	}
-	for (string s : c_b_clubs) {
-		cm3_clubs* club = find_club(s.c_str());
-		if (!club) {
-			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
-			continue;
-		}
-		club->ClubDivision = data->competition_db;
-		club->ClubReserveDivision = c_b;
-	}
-	for (string s : c_c_clubs) {
-		cm3_clubs* club = find_club(s.c_str());
-		if (!club) {
-			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
-			continue;
-		}
-		club->ClubDivision = data->competition_db;
-		club->ClubReserveDivision = c_c;
-	}
-	//data->team_league_table = (DWORD*)sub_944E46_malloc(data->n_teams * league_team_list_sz);
-	AddTeamsGroupLeague(_this, Get9CF(0x9CF580));
 }
 
 DWORD ita_ser_c_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
@@ -352,8 +240,8 @@ void ita_ser_c_setup_groups(BYTE* _this, BYTE idx) {
 	WORD stage_name_id = 0;
 	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, int, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, idx, &num_rounds, &stage_name_id, 0);
 	comp_stats* data = (comp_stats*)_this;
-	DWORD group_id = Get9CF(0x9CF584);
-	if (idx > 0) group_id = Get9CF(0x9CF588);
+	DWORD group_id = ITA_SERIE_C_B_9CF();
+	if (idx > 0) group_id = ITA_SERIE_C_C_9CF();
 	DWORD* pTeams = (DWORD*)sub_944E46_malloc(data->n_teams * 4);
 
 	BYTE teamsAdded = 0;
@@ -414,7 +302,7 @@ void __declspec(naked) ita_7D2CD0_c()		// used as a __thiscall -> __cdecl conver
 
 cm3_clubs* SerieCCupLoser(comp_stats* comp_data)
 {
-	cm3_club_comps* comp = &(*club_comps)[Get9CF(0x9CF720)];
+	cm3_club_comps* comp = &(*club_comps)[ITA_SERIE_C_CUP_9CF()];
 	cm3_clubs* last_runner_up = get_last_comp_runner_up(comp);
 	if (!last_runner_up || !last_runner_up->ClubNation || !last_runner_up->ClubDivision || last_runner_up->ClubDivision->ClubCompID != comp_data->competition_db->ClubCompID) {
 		return 0;
@@ -426,7 +314,7 @@ cm3_clubs* SerieCCupLoser(comp_stats* comp_data)
 
 cm3_clubs* SerieCCupWinner(comp_stats* comp_data)
 {
-	cm3_club_comps* comp = &(*club_comps)[Get9CF(0x9CF720)];
+	cm3_club_comps* comp = &(*club_comps)[ITA_SERIE_C_CUP_9CF()];
 	cm3_clubs* last_winner = get_last_comp_winner(comp);
 	if (!last_winner || !last_winner->ClubNation || !last_winner->ClubDivision || last_winner->ClubDivision->ClubCompID != comp_data->competition_db->ClubCompID) {
 		return 0;
@@ -840,7 +728,7 @@ char ita_ser_c_update(BYTE* _this) {
 	data->year++;
 	data->current_stage = -1;
 	ita_ser_c_subs(_this);
-	AddTeamsGroupLeague(_this, Get9CF(0x9CF580));
+	AddTeamsGroupLeague(_this, ITA_SERIE_C_A_9CF());
 	BYTE* edx = 0;
 	sub_6827D0(_this, edx);
 	sub_6835C0(_this);
@@ -894,6 +782,165 @@ void ita_ser_c_points_deductions(BYTE* _this, WORD current_year)
 	}
 }
 
+void ita_7D2B80(BYTE* _this, DWORD** team_list, WORD* total_teams) {
+	*total_teams = 60;
+	DWORD* pMem = (DWORD*)sub_944E46_malloc(4 * (*total_teams));
+	*team_list = pMem;
+
+	comp_stats* comp_data = (comp_stats*)_this;
+	comp_stats* curr_stage = comp_data;
+	WORD idx = 0;
+	for (char al = -1; al < 2; al++) {
+		if (al >= 0) {
+			curr_stage = (comp_stats*)(comp_data->stages[al]);
+		}
+		for (WORD num = 0; num < curr_stage->n_teams; num++) {
+			cm3_clubs* club = ((team_league_stats*)curr_stage->team_league_table)[num].club;
+			pMem[idx++] = (DWORD)club;
+		}
+	}
+}
+
+void __declspec(naked) ita_7D2B80_c()		// used as a __thiscall -> __cdecl converter
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x8]
+		push dword ptr[eax + 0x4]
+		push ecx
+		call ita_7D2B80
+		add esp, 0xc
+		ret 8
+	}
+}
+
+void serie_c_restruct_2025() {
+	cm3_club_comps* serie_c = &(*club_comps)[ITA_SERIE_C_9CF()];
+	serie_c->ClubCompNation = find_country("Italy");
+	serie_c->ClubCompContinent = find_continent("Europe");
+	serie_c->ClubCompReputation = 7;
+
+	cm3_club_comps* serie_c_a = &(*club_comps)[ITA_SERIE_C_A_9CF()];
+	serie_c_a->ClubCompReputation = 7;
+
+	cm3_club_comps* serie_c_b = &(*club_comps)[ITA_SERIE_C_B_9CF()];
+	serie_c_b->ClubCompReputation = 7;
+
+	cm3_club_comps* serie_c_c = &(*club_comps)[ITA_SERIE_C_C_9CF()];
+	serie_c_c->ClubCompNation = find_country("Italy");
+	serie_c_c->ClubCompContinent = find_continent("Europe");
+	serie_c_c->ClubCompReputation = 7;
+
+	vector<cm3_clubs*> orig_clubs = find_clubs_of_comp(ITA_SERIE_C_A_9CF());
+	for (cm3_clubs* c : orig_clubs) c->ClubDivision = get_comp(ITA_SERIE_D_9CF());
+	orig_clubs = find_clubs_of_comp(ITA_SERIE_C_B_9CF());
+	for (cm3_clubs* c : orig_clubs) c->ClubDivision = get_comp(ITA_SERIE_D_9CF());
+	orig_clubs = find_clubs_of_comp(ITA_SERIE_C2_A_9CF());
+	for (cm3_clubs* c : orig_clubs) c->ClubDivision = get_comp(ITA_SERIE_D_9CF());
+	orig_clubs = find_clubs_of_comp(ITA_SERIE_C2_B_9CF());
+	for (cm3_clubs* c : orig_clubs) c->ClubDivision = get_comp(ITA_SERIE_D_9CF());
+	orig_clubs = find_clubs_of_comp(ITA_SERIE_C2_C_9CF());
+	for (cm3_clubs* c : orig_clubs) c->ClubDivision = get_comp(ITA_SERIE_D_9CF());
+	vector<string> c_a_clubs = {
+		"UC AlbinoLeffe",
+		"Alcione Milano",
+		"Arzignano Valchiampo",
+		"Union Brescia",
+		"AS Cittadella",
+		"Dolomiti Bellunesi",
+		"AS Giana Erminio",
+		"Inter U23",
+		"Calcio Lecco 1912",
+		"FC Lumezzane",
+		"Novara FC",
+		"CPR Ospitaletto",
+		"US Pergolettese 1932",
+		"Aurora Pro Patria",
+		"FC Pro Vercelli 1892",
+		"AC Renate",
+		"AC Trento",
+		"US Triestina",
+		"LR Vicenza",
+		"Virtusvecomp Verona"
+	};
+	vector<string> c_b_clubs = {
+		"SS Arezzo",
+		"Ascoli Calcio",
+		"Bra",
+		"Campobasso FC",
+		"AC Carpi",
+		"Forlì FC",
+		"AS Gubbio 1910",
+		"Guidonia Montecelio 1937 FC",
+		"Juventus Next Gen",
+		"US Livorno 1915",
+		"Milan Futuro",
+		"AC Perugia Calcio",
+		"US Pianese",
+		"Pineto Calcio",
+		"US Città di Pontedera",
+		"Ravenna FC",
+		"US Sambenedettese",
+		"Ternana Calcio",
+		"SEF Torres 1903",
+		"Vis Pesaro 1898"
+	};
+	vector<string> c_c_clubs = {
+		"AZ Picerno",
+		"ASD Team Altamura",
+		"Atalanta U23",
+		"Benevento Calcio",
+		"Casarano Calcio",
+		"Casertana FC",
+		"Catania FC",
+		"Cavese 1919",
+		"Audace Cerignola",
+		"Cosenza Calcio",
+		"FC Crotone",
+		"Calcio Foggia 1920",
+		"Giugliano Calcio 1928",
+		"Latina Calcio 1932",
+		"SS Monopoli 1966",
+		"Potenza Calcio",
+		"US Salernitana 1919",
+		"Siracusa Calcio",
+		"Sorrento 1945",
+		"FC Trapani 1905"
+	};
+
+	cm3_club_comps* c_a = get_comp(ITA_SERIE_C_A_9CF());
+	cm3_club_comps* c_b = get_comp(ITA_SERIE_C_B_9CF());
+	cm3_club_comps* c_c = get_comp(ITA_SERIE_C_C_9CF());
+	for (string s : c_a_clubs) {
+		cm3_clubs* club = find_club(s.c_str());
+		if (!club) {
+			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
+			continue;
+		}
+		club->ClubDivision = serie_c;
+		club->ClubReserveDivision = c_a;
+	}
+	for (string s : c_b_clubs) {
+		cm3_clubs* club = find_club(s.c_str());
+		if (!club) {
+			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
+			continue;
+		}
+		club->ClubDivision = serie_c;
+		club->ClubReserveDivision = c_b;
+	}
+	for (string s : c_c_clubs) {
+		cm3_clubs* club = find_club(s.c_str());
+		if (!club) {
+			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
+			continue;
+		}
+		club->ClubDivision = serie_c;
+		club->ClubReserveDivision = c_c;
+	}
+}
+
 void ita_ser_c_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 {
 	sub_682200(_this);
@@ -906,17 +953,19 @@ void ita_ser_c_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	ita_ser_c_vtable->SetPointer(VTableFixtures, (DWORD)&ita_ser_c_fixtures_c);
 	ita_ser_c_vtable->SetPointer(VTableTableFates, (DWORD)&ita_ser_c_set_table_fate);
 	ita_ser_c_vtable->SetPointer(VTable24, (DWORD)&ita_7D2CD0_c);
+	ita_ser_c_vtable->SetPointer(VTable41, (DWORD)&ita_7D2B80_c);
 	ita_ser_c_vtable->SetPointer(VTableSubsRounds, (DWORD)&ita_ser_c_subs_c);
 	data->year = year;
 	data->rules = 0x11;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
+	if (year == 2025) serie_c_restruct_2025();
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 4;
 	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
 	ita_ser_c_subs(_this);
-	ita_ser_c_init_teams(_this);
+	AddTeamsGroupLeague(_this, ITA_SERIE_C_A_9CF());
 	BYTE* ebx = 0;
 	sub_6827D0(_this, ebx);
 	BYTE* pMem2 = (BYTE*)sub_944CF1_operator_new(0x5CE);

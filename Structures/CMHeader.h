@@ -79,7 +79,11 @@ enum RoundNames : WORD {
 	ChampionshipGroup = 0x44B,
 	RelegationGroup = 0x44C,
 	RelegationPlayoff = 0x452,
-	NorthSouthCentral = 0x453,
+	North = 0x453,
+	Northeast = 0x454,
+	WestSouthwest= 0x455,
+	South= 0x456,
+	Central = 0x457,
 	PromotionPlayoff = 0x458,
 	SecondPromotionPlayoff = 0x45A,
 	ThirdPromotionPlayoff = 0x45B,
@@ -140,6 +144,8 @@ enum StadiumType {
 typedef struct cm3_continents CM3_CONTINENTS;
 typedef struct cm3_club_comps CM3_CLUB_COMPS;
 typedef struct cm3_club_comp_history CM3_CLUB_COMP_HISTORY;
+typedef struct cm3_staff_comps CM3_STAFF_COMPS;
+typedef struct cm3_staff_comp_history CM3_STAFF_COMP_HISTORY;
 typedef struct cm3_nations CM3_NATIONS;
 typedef struct cm3_cities CM3_CITIES;
 typedef struct cm3_stadiums CM3_STADIUMS;
@@ -560,6 +566,43 @@ struct cm3_club_comp_history
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+struct cm3_staff_comps
+{
+	long StaffCompID;
+	char StaffCompName[STANDARD_TXT_LENGTH];
+	char StaffCompGenderName;
+	char StaffCompNameShort[SHORT_TXT_LENGTH];
+	char StaffCompGenderNameShort;
+	CM3_CONTINENTS* StaffCompContinent;
+	CM3_NATIONS* StaffCompNation;
+	CM3_COLOURS* StaffCompForegroundColour;
+	CM3_COLOURS* StaffCompBackgroundColour;
+	short StaffCompReputation; // Version 0x02 - Changed char->short
+};
+#pragma pack(pop)
+
+#pragma pack(push, 1)
+struct cm3_staff_comp_history
+{
+	long StaffCompHistoryID;
+	CM3_STAFF_COMPS* StaffCompHistoryStaffComp;
+	short StaffCompHistoryYear;
+	char* StaffCompHistoryFirstPlacedFirstName;
+	char* StaffCompHistoryFirstPlacedSecondName;
+	CM3_STAFF* StaffCompHistoryFirstPlacedIndex;
+	long StaffCompHistoryFirstPlacedInfo;
+	char* StaffCompHistorySecondPlacedFirstName;
+	char* StaffCompHistorySecondPlacedSecondName;
+	CM3_STAFF* StaffCompHistorySecondPlacedIndex;
+	long StaffCompHistorySecondPlacedInfo;
+	char* StaffCompHistoryThirdPlacedFirstName;
+	char* StaffCompHistoryThirdPlacedSecondName;
+	CM3_STAFF* StaffCompHistoryThirdPlacedIndex;
+	long StaffCompHistoryThirdPlacedInfo;
+};
+#pragma pack(pop)
+
+#pragma pack(push, 1)
 typedef struct comp
 {
 	DWORD* comp_vtable;								//0
@@ -682,6 +725,9 @@ enum LeagueFates : char {
 	Eliminated = -2,
 	NoFate = -1
 };
+
+extern cm3_staff_comps** awards;
+extern DWORD* awards_count;
 
 extern cm3_nations** nations;
 extern DWORD* nations_count;

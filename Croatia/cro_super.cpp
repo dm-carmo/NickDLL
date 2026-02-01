@@ -3,6 +3,7 @@
 #include "Helpers\generic_functions.h"
 #include "Structures\vtable.h"
 #include "Helpers\constants.h"
+#include <Helpers\9cf_constants.h>
 
 vtable* cro_super_vtable = new vtable((BYTE*)0x96C8B8, 0xA0);
 
@@ -103,8 +104,8 @@ int cro_super_teams(BYTE* _this) {
 
 	teams_seeded* teams = (teams_seeded*)comp_data->teams_list;
 
-	cm3_club_comps* league = &(*club_comps)[Get9CF(0x9CF87C)];
-	cm3_club_comps* cup = &(*club_comps)[Get9CF(0x9CF898)];
+	cm3_club_comps* league = &(*club_comps)[CRO_FIRST_9CF()];
+	cm3_club_comps* cup = &(*club_comps)[CRO_CUP_9CF()];
 	cm3_clubs* league_champ = get_last_comp_winner(league);
 	if (league_champ) vec.push_back(league_champ);
 	else {

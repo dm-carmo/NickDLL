@@ -30,7 +30,7 @@
     <ClCompile Include="tapani_relegation_patch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="inject_club_renames.cpp">
+    <ClCompile Include="inject_9cf_rename.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CONCACAF\concacaf.cpp">
@@ -132,6 +132,33 @@
     <ClCompile Include="Croatia\cro_super.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Germany\ger_setup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Germany\ger_first.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Germany\ger_second.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Germany\ger_third.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Helpers\9cf_constants.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Helpers\YearChanger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Germany\ger_regional.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Germany\ger_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Germany\ger_super.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="european_cup.h">
@@ -146,7 +173,7 @@
     <ClInclude Include="tiny-json.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="inject_club_renames.h">
+    <ClInclude Include="inject_9cf_rename.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CONCACAF\concacaf.h">
@@ -230,9 +257,6 @@
     <ClInclude Include="Italy\ita_ser_a.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Helpers\new_league_ids.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Italy\ita_ser_b.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -258,6 +282,33 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Croatia\cro_super.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Germany\ger_setup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Germany\ger_first.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Germany\ger_second.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Germany\ger_third.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Helpers\9cf_constants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Helpers\YearChanger.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Germany\ger_regional.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Germany\ger_cup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Germany\ger_super.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

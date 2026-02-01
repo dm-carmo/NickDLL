@@ -8,7 +8,7 @@
 #include "ita_c_cup.h"
 #include "ita_c_supercup.h"
 #include "ita_awards.h"
-#include <Helpers/new_league_ids.h>
+#include <Helpers\9cf_constants.h>
 
 static DWORD(__thiscall* ita_ser_a_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
 (DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x6406D0);
@@ -33,46 +33,38 @@ DWORD ita_setup_c(BYTE* nation_data) {
 	}
 	DWORD* nation_comps = (DWORD*)sub_944E46_malloc(*(DWORD*)(nation_data + 0xc) * 4);
 	*(DWORD*)(nation_data + 0x10) = (DWORD)nation_comps;
-	// Serie C rename at setup time
-	cm3_club_comps* serie_c = &(*club_comps)[serie_c_id];
-	strcpy_s(serie_c->ClubCompNameThreeLetter, "C");
-	strcpy_s(serie_c->ClubCompName, "Italian Serie C");
-	strcpy_s(serie_c->ClubCompNameShort, "Serie C");
-	serie_c->ClubCompNation = find_country("Italy");
-	serie_c->ClubCompContinent = find_continent("Europe");
-	serie_c->ClubCompReputation = 7;
 	// start calling each league's functions
 	BYTE i = 0;
 	// Serie A
 	BYTE* pMem = (BYTE*)sub_944CF1_operator_new(0xEF);
-	ita_ser_a_setup(pMem, *current_year, &(*club_comps)[Get9CF(0x9CF570)]);
+	ita_ser_a_setup(pMem, *current_year, &(*club_comps)[ITA_SERIE_A_9CF()]);
 	nation_comps[i++] = (DWORD)pMem;
 	// Serie B
 	pMem = (BYTE*)sub_944CF1_operator_new(0xEF);
-	ita_ser_b_init(pMem, *current_year, &(*club_comps)[Get9CF(0x9CF574)]);
+	ita_ser_b_init(pMem, *current_year, &(*club_comps)[ITA_SERIE_B_9CF()]);
 	nation_comps[i++] = (DWORD)pMem;
 	// Serie C
 	pMem = (BYTE*)sub_944CF1_operator_new(0xEF);
-	ita_ser_c_init(pMem, *current_year, &(*club_comps)[serie_c_id]);
+	ita_ser_c_init(pMem, *current_year, &(*club_comps)[ITA_SERIE_C_9CF()]);
 	nation_comps[i++] = (DWORD)pMem;
 	if ((selected & 4) != 0) {
 		// not used for now
 	}
 	// Coppa Italia
 	pMem = (BYTE*)sub_944CF1_operator_new(0xB4);
-	ita_cup_init(pMem, *current_year, &(*club_comps)[Get9CF(0x9CF71C)]);
+	ita_cup_init(pMem, *current_year, &(*club_comps)[ITA_CUP_9CF()]);
 	nation_comps[i++] = (DWORD)pMem;
 	// Supercoppa Italia
 	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
-	ita_supercup_setup(pMem, *current_year, &(*club_comps)[Get9CF(0x9CF724)]);
+	ita_supercup_setup(pMem, *current_year, &(*club_comps)[ITA_SUPER_CUP_9CF()]);
 	nation_comps[i++] = (DWORD)pMem;
 	// Coppa Serie C
 	pMem = (BYTE*)sub_944CF1_operator_new(0xB4);
-	ita_c_cup_init(pMem, *current_year, &(*club_comps)[Get9CF(0x9CF720)]);
+	ita_c_cup_init(pMem, *current_year, &(*club_comps)[ITA_SERIE_C_CUP_9CF()]);
 	nation_comps[i++] = (DWORD)pMem;
 	// Supercoppa Serie C
 	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
-	ita_c_supercup_init(pMem, *current_year, &(*club_comps)[Get9CF(0x9CF938)]);
+	ita_c_supercup_init(pMem, *current_year, &(*club_comps)[ITA_C1_SUPER_CUP_9CF()]);
 	nation_comps[i++] = (DWORD)pMem;
 
 	BYTE* cm_date = new BYTE[8];
@@ -80,7 +72,7 @@ DWORD ita_setup_c(BYTE* nation_data) {
 	*(WORD*)(nation_data + 0x15) = *(WORD*)cm_date;
 	*(WORD*)(nation_data + 0x1B) = *current_year;
 	*(BYTE*)(nation_data + 0x1D) = 1;
-	*(DWORD*)(nation_data + 0x26) = (DWORD) & (*club_comps)[Get9CF(0x9CF724)];
+	*(DWORD*)(nation_data + 0x26) = (DWORD) & (*club_comps)[ITA_SUPER_CUP_9CF()];
 	return 1;
 }
 

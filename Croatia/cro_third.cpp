@@ -4,7 +4,7 @@
 #include "Helpers\Helper.h"
 #include "Structures\vtable.h"
 #include "Helpers\constants.h"
-#include <Helpers/new_league_ids.h>
+#include <Helpers\9cf_constants.h>
 
 DWORD* cro_third_vtable = (DWORD*)0x96922C;
 
@@ -76,7 +76,7 @@ void cro_third_subs(BYTE* _this)
 	comp_data->rele_playoff = 1;
 	comp_data->relegations = 2;
 
-	comp_data->promotes_to = *(DWORD*)0x9CF880;
+	comp_data->promotes_to = CRO_SECOND_9CF();
 	comp_data->relegates_to = -1;
 
 	comp_data->f82 = 2;
@@ -280,9 +280,9 @@ void cro_third_playoff_under(BYTE* _this) {
 		}
 	}
 
-	vector<DWORD> non_league_9cf = { 0x9CF884, 0x9CF888, 0x9CF88C, 0x9CF890, 0x9CF894 };
+	vector<DWORD> non_league_9cf = { CRO_FOURTH_CENTRAL_9CF(), CRO_FOURTH_NORTH_9CF(), CRO_FOURTH_SOUTH_9CF(), CRO_FOURTH_EAST_9CF(), CRO_FOURTH_WEST_9CF() };
 	for (size_t i = 0; i < non_league_9cf.size(); i++) {
-		vector<cm3_clubs*> club_list = find_clubs_of_comp(Get9CF(non_league_9cf[i]));
+		vector<cm3_clubs*> club_list = find_clubs_of_comp(non_league_9cf[i]);
 		sort(club_list.begin(), club_list.end(), compareClubRep);
 		cm3_clubs* selected = club_list[rand() % 3];
 		*((DWORD*)(&pTeams[i])) = (DWORD)selected;
@@ -328,7 +328,7 @@ void __declspec(naked) cro_third_playoffs_create()		// used as a __thiscall -> _
 int DrugaNLTableIndicators(BYTE* _this, DWORD* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
-	cm3_club_comps* cro_second = &(*club_comps)[Get9CF(0x9CF880)];
+	cm3_club_comps* cro_second = &(*club_comps)[CRO_SECOND_9CF()];
 	if (stage == 0) {
 		cm3_clubs* club_ptr = (cm3_clubs*)club;
 		if (club_ptr->ClubDivision == comp_data->competition_db) {

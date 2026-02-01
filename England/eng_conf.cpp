@@ -3,6 +3,7 @@
 #include "Helpers\generic_functions.h"
 #include "Helpers\constants.h"
 #include "Structures\vtable.h"
+#include <Helpers\9cf_constants.h>
 
 DWORD* eng_conf_vtable = (DWORD*)0x969A74;
 
@@ -74,8 +75,8 @@ int eng_conf_subs(BYTE* _this)
 	comp_data->rele_playoff = 0;
 	comp_data->relegations = 4;
 
-	comp_data->promotes_to = *(DWORD*)0x9CF5C8;
-	comp_data->relegates_to = 0x168;
+	comp_data->promotes_to = ENG_THIRD_9CF();
+	comp_data->relegates_to = ENG_CONFERENCE_NORTH_9CF();
 
 	comp_data->f82 = 2;
 	comp_data->max_bench = 5;
@@ -86,6 +87,20 @@ int eng_conf_subs(BYTE* _this)
 	comp_data->fixtures_table = (DWORD*)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0xA9, _this + 0x3A, 0);
 
 	return 1;
+}
+
+void eng_conf_restruct_2025() {
+	cm3_club_comps* nat_lge = &(*club_comps)[ENG_CONFERENCE_9CF()];
+	if (nat_lge) {
+		cm3_clubs* club1 = find_club("Boston United");
+		if (club1) {
+			club1->ClubDivision = nat_lge;
+		}
+		cm3_clubs* club2 = find_club("Braintree Town");
+		if (club2) {
+			club2->ClubDivision = nat_lge;
+		}
+	}
 }
 
 void eng_conf_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
@@ -99,6 +114,7 @@ void eng_conf_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->rules = 0x9;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
+	if (year == 2025) eng_conf_restruct_2025();
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 1;

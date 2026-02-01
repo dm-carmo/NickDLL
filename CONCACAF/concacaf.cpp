@@ -8,6 +8,7 @@
 #include "Helpers\constants.h"
 #include "Helpers\generic_functions.h"
 #include "Structures\vtable.h"
+#include <Helpers\9cf_constants.h>
 
 using namespace std;
 
@@ -263,7 +264,7 @@ void ConcacafGetCupWinner(vector<cm3_clubs*>& vec, const char* szNation, long co
 
 // Full replacement for the function that gets the teams for the competition
 void replacement_4c11a0_full() {
-	comp_stats* comp_data = (comp_stats*)(*comp_stats_list)[Get9CF(0x9CF72C)];
+	comp_stats* comp_data = (comp_stats*)(*comp_stats_list)[CONCACAF_CHAMPIONS_CUP_9CF()];
 	teams_seeded* teams = (teams_seeded*)comp_data->teams_list;
 
 	comp_data->n_teams = 27;
@@ -272,7 +273,7 @@ void replacement_4c11a0_full() {
 
 	// If there is a .cfg file, uses it to get preset teams for the first year
 	// Includes failsafes in case any of the clubs can't be found or are already qualified for some reason
-	if (std::filesystem::exists("Data/concacaf.cfg") && *current_year == (WORD)2025) {
+	if (std::filesystem::exists("Data/concacaf.cfg") && *current_year == 2025) {
 		//dprintf("Getting preset teams for CONCACAF\n");
 		ifstream in("Data/concacaf.cfg", ios_base::in);
 		string name;
@@ -317,9 +318,9 @@ void replacement_4c11a0_full() {
 		concacaf_clubs_bye.clear();
 
 		// Since the MLS has playoffs to decide the winner, I used the functions to get cup winners/losers first
-		ConcacafGetCupWinner(concacaf_clubs_bye, "United States", *(DWORD*)0x9CF590, false); // USA champions
-		ConcacafGetCupLoser(concacaf_clubs, "United States", *(DWORD*)0x9CF590); // USA runner-up
-		ConcacafGetCupWinner(concacaf_clubs, "United States", *(DWORD*)0x9CF728, true); // USA cup winner
+		ConcacafGetCupWinner(concacaf_clubs_bye, "United States", USA_MLS_9CF(), false); // USA champions
+		ConcacafGetCupLoser(concacaf_clubs, "United States", USA_MLS_9CF()); // USA runner-up
+		ConcacafGetCupWinner(concacaf_clubs, "United States", USA_OPEN_CUP_9CF(), true); // USA cup winner
 		AddConcacafClubs(concacaf_clubs_bye, "United States", 1); // Leagues Cup
 		AddConcacafClubs(concacaf_clubs, "United States", 3); // USA
 		AddConcacafClubs(concacaf_clubs, "United States", 1); // Leagues Cup
