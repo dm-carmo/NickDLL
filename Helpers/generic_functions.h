@@ -111,6 +111,9 @@ static char* (__thiscall* monthly_person_award_setup_766E10)(BYTE* _this, int a2
 (char* (__thiscall*)(BYTE * _this, int a2, int a3, DWORD award_id, WORD rep1, WORD rep2, DWORD comp_id, BYTE start_month, WORD start_year, BYTE end_month, WORD end_year, int a12, int is_player))(0x766E10);
 static void(__thiscall* yearly_player_award_nominate_768CF0)(BYTE* _this, DWORD comp_id, DWORD date_addr, DWORD award_addr, BYTE max_age, unsigned __int16 a6, char a7, DWORD nation_id, int a9, DWORD nation_id_exclude, int a11) =
 (void(__thiscall*)(BYTE * _this, DWORD comp_id, DWORD date_addr, DWORD award_addr, BYTE max_age, unsigned __int16 a6, char a7, DWORD nation_id, int a9, DWORD nation_id_exclude, int a11))(0x768CF0);
+static void(__thiscall* yearly_player_award_nominate_769380)(BYTE* _this, DWORD date_addr, DWORD award_addr, DWORD nation_based, DWORD nationality, int a5, int a6, char a7, unsigned __int16 a8, int a9) =
+(void(__thiscall*)(BYTE * _this, DWORD date_addr, DWORD award_addr, DWORD nation_based, DWORD nationality, int a5, int a6, char a7, unsigned __int16 a8, int a9))(0x769380);
+
 static void(__thiscall* yearly_team_award_nominate_7698F0)(BYTE* _this, DWORD comp_id, DWORD award_addr) =
 (void(__thiscall*)(BYTE * _this, DWORD comp_id, DWORD award_addr))(0x7698F0);
 static void(__thiscall* yearly_staff_award_nominate_768940)(BYTE* _this, DWORD date_addr, DWORD award_addr, DWORD comp_id) =

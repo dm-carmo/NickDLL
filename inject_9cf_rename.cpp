@@ -1,8 +1,10 @@
 #include "Helpers\Helper.h"
 #include "inject_9cf_rename.h"
+#include <Helpers\9cf_constants.h>
 
 map<string, char*> clubs_rename_short = {
 	{"C.D. Ourense", "Ourense CF"},
+	{"SC Paderborn 07 Reserves", "Paderborn II"},
 };
 
 map<string, char*> clubs_rename_long = {
@@ -20,6 +22,8 @@ map<string, char*> clubs_rename_long = {
 	{"Bra", "AC Bra"},
 	{"AZ", "AZ Alkmaar"},
 	{"GD Chaves Satelite", "GD Chaves B"},
+	{"Bor. M'gladbach Amateure", "Borussia M'gladbach II"},
+	{"SC Paderborn 07 Reserves", "SC Paderborn 07 II"},
 };
 
 map<string, char*> leagues_rename_long = {
@@ -66,6 +70,15 @@ map<string, char*> leagues_rename_long_italy = {
 	{"Indian Haryana State Championship", "Italian Serie C/C"},
 };
 
+map<string, char*> leagues_rename_long_portugal = {
+	{"Liga 3 North", "Liga 3 Série A"},
+	{"Liga 3 South", "Liga 3 Série B"},
+	{"Liga 3 Central", "Campeonato de Portugal Série A"},
+	{"Korean University League", "Campeonato de Portugal Série B"},
+	{"Korean High School League", "Campeonato de Portugal Série C"},
+	{"Korean President Cup", "Campeonato de Portugal Série D"},
+};
+
 map<string, char*> leagues_rename_short = {
 	{"English Northern Premier League Premier Division", "National League North"},
 	{"English Southern League Premier Division", "National League South"},
@@ -108,6 +121,15 @@ map<string, char*> leagues_rename_short_italy = {
 	{"Indian Haryana State Championship", "Serie C/C"},
 };
 
+map<string, char*> leagues_rename_short_portugal = {
+	{"Liga 3 North", "Liga 3 A"},
+	{"Liga 3 South", "Liga 3 B"},
+	{"Liga 3 Central", "Campeonato de Portugal A"},
+	{"Korean University League", "Campeonato de Portugal B"},
+	{"Korean High School League", "Campeonato de Portugal C"},
+	{"Korean President Cup", "Campeonato de Portugal D"},
+};
+
 map<string, char*> leagues_rename_tla = {
 	{"English Northern Premier League Premier Division", "NLN"},
 	{"English Southern League Premier Division", "NLS"},
@@ -136,6 +158,15 @@ map<string, char*> leagues_rename_tla_italy = {
 	{"Italian Serie C1/A", "C/A"},
 	{"Italian Serie C1/B", "C/B"},
 	{"Indian Haryana State Championship", "C/C"},
+};
+
+map<string, char*> leagues_rename_tla_portugal = {
+	{"Liga 3 North", "L3A"},
+	{"Liga 3 South", "L3B"},
+	{"Liga 3 Central", "CPA"},
+	{"Korean University League", "CPB"},
+	{"Korean High School League", "CPC"},
+	{"Korean President Cup", "CPD"},
 };
 
 map<string, char*> awards_rename_short = {
@@ -423,8 +454,8 @@ map<string, DWORD> club_dword_match = {
 	{"C.D. Leganés B", (DWORD)0x9d03c0},
 	{"C.D. Tenerife", (DWORD)0x9d03c4},
 	{"C.D. Tenerife B", (DWORD)0x9d03c8},
-	{"C.P. Mérida", (DWORD)0x9d03cc},
-	{"C.P. Mérida B", (DWORD)0x9d03d0},
+	{"SC Paderborn 07", (DWORD)0x9d03cc},
+	{"SC Paderborn 07 Reserves", (DWORD)0x9d03d0},
 	{"Deportivo Alavés B", (DWORD)0x9d03d4},
 	{"CD Lugo", (DWORD)0x9d03d8},
 	{"CD Lugo B Polvorín", (DWORD)0x9d03dc},
@@ -1264,6 +1295,10 @@ map<string, DWORD> award_dword_match = {
 	{"South Korean Young Player of the Year", (DWORD)0x9D00A0},
 };
 
+map<DWORD, DWORD> reserve_teams_mapping;
+
+map<DWORD, DWORD> reserve_teams_mapping_vals;
+
 int setup_9cf_leagues_sub(char* league_name, DWORD league_id, map<string, char*> new_names_map) {
 	auto it = league_dword_match.find(string(league_name));
 	if (it != league_dword_match.end()) {
@@ -1391,6 +1426,149 @@ int setup_9cf_awards(char* award_name, DWORD award_id) {
 	return setup_9cf_awards_sub(award_name, award_id, awards_rename_long);
 }
 
+void fill_reserve_team_maps() {
+	reserve_teams_mapping.emplace(CLUB_1860_MUNICH_9CF(), CLUB_1860_MUNICH_II_9CF());
+	reserve_teams_mapping.emplace(CLUB_ALAVES_9CF(), CLUB_ALAVES_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_ALBACETE_9CF(), CLUB_ALBACETE_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_ALCORCON_9CF(), CLUB_ALCORCON_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_ALMERIA_9CF(), CLUB_ALMERIA_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_ALVERCA_9CF(), CLUB_ALVERCA_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_ATHLETIC_BILBAO_9CF(), CLUB_ATHLETIC_BILBAO_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_ATLETICO_MADRID_9CF(), CLUB_ATLETICO_MADRID_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_AUGSBURG_9CF(), CLUB_AUGSBURG_II_9CF());
+	reserve_teams_mapping.emplace(CLUB_BARCELONA_9CF(), CLUB_BARCELONA_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_BENFICA_9CF(), CLUB_BENFICA_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_BETIS_9CF(), CLUB_BETIS_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_BIELEFELD_9CF(), CLUB_BIELEFELD_II_9CF());
+	reserve_teams_mapping.emplace(CLUB_BOCHUM_9CF(), CLUB_BOCHUM_II_9CF());
+	reserve_teams_mapping.emplace(CLUB_BRAGA_9CF(), CLUB_BRAGA_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_BURGOS_9CF(), CLUB_BURGOS_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_CADIZ_9CF(), CLUB_CADIZ_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_CARTAGENA_9CF(), CLUB_CARTAGENA_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_CASTELLON_9CF(), CLUB_CASTELLON_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_CELTA_9CF(), CLUB_CELTA_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_CHAVES_9CF(), CLUB_CHAVES_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_CORDOBA_9CF(), CLUB_CORDOBA_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_CULTURAL_9CF(), CLUB_CULTURAL_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_DEPORTIVO_9CF(), CLUB_DEPORTIVO_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_DORTMUND_9CF(), CLUB_DORTMUND_II_9CF());
+	reserve_teams_mapping.emplace(CLUB_DUSSELDORF_9CF(), CLUB_DUSSELDORF_II_9CF());
+	reserve_teams_mapping.emplace(CLUB_EIBAR_9CF(), CLUB_EIBAR_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_ELCHE_9CF(), CLUB_ELCHE_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_ESPANYOL_9CF(), CLUB_ESPANYOL_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_FC_BAYERN_9CF(), CLUB_FC_BAYERN_II_9CF());
+	reserve_teams_mapping.emplace(CLUB_FRANKFURT_9CF(), CLUB_FRANKFURT_II_9CF());
+	reserve_teams_mapping.emplace(CLUB_FREIBURG_9CF(), CLUB_FREIBURG_II_9CF());
+	reserve_teams_mapping.emplace(CLUB_FURTH_9CF(), CLUB_FURTH_II_9CF());
+	reserve_teams_mapping.emplace(CLUB_GETAFE_9CF(), CLUB_GETAFE_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_GRANADA_9CF(), CLUB_GRANADA_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_HAMBURG_9CF(), CLUB_HAMBURG_II_9CF());
+	reserve_teams_mapping.emplace(CLUB_HANNOVER_96_9CF(), CLUB_HANNOVER_96_II_9CF());
+	reserve_teams_mapping.emplace(CLUB_HERTHA_BSC_9CF(), CLUB_HERTHA_BSC_II_9CF());
+	reserve_teams_mapping.emplace(CLUB_HOFFENHEIM_9CF(), CLUB_HOFFENHEIM_II_9CF());
+	reserve_teams_mapping.emplace(CLUB_HUESCA_9CF(), CLUB_HUESCA_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_INGOLSTADT_9CF(), CLUB_INGOLSTADT_II_9CF());
+	reserve_teams_mapping.emplace(CLUB_KAISERSLAUTERN_9CF(), CLUB_KAISERSLAUTERN_II_9CF());
+	reserve_teams_mapping.emplace(CLUB_KARLSRUHE_9CF(), CLUB_KARLSRUHE_II_9CF());
+	reserve_teams_mapping.emplace(CLUB_KIEL_9CF(), CLUB_KIEL_II_9CF());
+	reserve_teams_mapping.emplace(CLUB_KOLN_9CF(), CLUB_KOLN_II_9CF());
+	reserve_teams_mapping.emplace(CLUB_LAS_PALMAS_9CF(), CLUB_LAS_PALMAS_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_LEGANES_9CF(), CLUB_LEGANES_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_LEVANTE_9CF(), CLUB_LEVANTE_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_LOGRONES_9CF(), CLUB_LOGRONES_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_LUGO_9CF(), CLUB_LUGO_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_M_GLADBACH_9CF(), CLUB_M_GLADBACH_II_9CF());
+	reserve_teams_mapping.emplace(CLUB_MAINZ_9CF(), CLUB_MAINZ_II_9CF());
+	reserve_teams_mapping.emplace(CLUB_MALAGA_9CF(), CLUB_MALAGA_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_MALLORCA_9CF(), CLUB_MALLORCA_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_MARITIMO_9CF(), CLUB_MARITIMO_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_MURCIA_9CF(), CLUB_MURCIA_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_NUMANCIA_9CF(), CLUB_NUMANCIA_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_NURNBERG_9CF(), CLUB_NURNBERG_II_9CF());
+	reserve_teams_mapping.emplace(CLUB_OSASUNA_9CF(), CLUB_OSASUNA_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_OVIEDO_9CF(), CLUB_OVIEDO_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_PORTO_9CF(), CLUB_PORTO_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_RACING_SANTANDER_9CF(), CLUB_RACING_SANTANDER_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_RAYO_9CF(), CLUB_RAYO_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_REAL_MADRID_9CF(), CLUB_REAL_MADRID_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_REAL_SOCIEDAD_9CF(), CLUB_REAL_SOCIEDAD_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_RECREATIVO_9CF(), CLUB_RECREATIVO_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_REGENSBURG_9CF(), CLUB_REGENSBURG_II_9CF());
+	reserve_teams_mapping.emplace(CLUB_ROSTOCK_9CF(), CLUB_ROSTOCK_II_9CF());
+	reserve_teams_mapping.emplace(CLUB_SCHALKE_04_9CF(), CLUB_SCHALKE_04_II_9CF());
+	reserve_teams_mapping.emplace(CLUB_SEVILLA_9CF(), CLUB_SEVILLA_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_SPORTING_CP_9CF(), CLUB_SPORTING_CP_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_SPORTING_GIJON_9CF(), CLUB_SPORTING_GIJON_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_ST_PAULI_9CF(), CLUB_ST_PAULI_II_9CF());
+	reserve_teams_mapping.emplace(CLUB_STUTTGART_9CF(), CLUB_STUTTGART_II_9CF());
+	reserve_teams_mapping.emplace(CLUB_TENERIFE_9CF(), CLUB_TENERIFE_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_UNTERHACHING_9CF(), CLUB_UNTERHACHING_II_9CF());
+	reserve_teams_mapping.emplace(CLUB_VALENCIA_9CF(), CLUB_VALENCIA_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_VALLADOLID_9CF(), CLUB_VALLADOLID_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_VILLARREAL_9CF(), CLUB_VILLARREAL_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_VIT_GUIMARAES_9CF(), CLUB_VIT_GUIMARAES_B_9CF());
+	reserve_teams_mapping.emplace(CLUB_WERDER_BREMEN_9CF(), CLUB_WERDER_BREMEN_II_9CF());
+	reserve_teams_mapping.emplace(CLUB_ZARAGOZA_9CF(), CLUB_ZARAGOZA_B_9CF());;
+	reserve_teams_mapping.emplace(CLUB_PADERBORN_9CF(), CLUB_PADERBORN_II_9CF());
+
+	for (const auto [key, value] : reserve_teams_mapping) {
+		reserve_teams_mapping_vals.emplace(value, key);
+	}
+}
+
+DWORD cache_clubs_count = *clubs_count;
+
+BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD a3) {
+	DWORD current_clubs_count = *clubs_count;
+	auto find_invalid = reserve_teams_mapping.find((DWORD)-1);
+	//if (current_clubs_count != cache_clubs_count || reserve_teams_mapping.size() == 0) {
+	if (current_clubs_count != cache_clubs_count || find_invalid != reserve_teams_mapping.end() || reserve_teams_mapping.size() == 0) {
+		reserve_teams_mapping.clear();
+		reserve_teams_mapping_vals.clear();
+		fill_reserve_team_maps();
+		cache_clubs_count = current_clubs_count;
+	}
+	//if (reserve_teams_mapping.size() == 0) fill_reserve_team_maps();
+	if (!to_check) return NULL;
+	if (a3 != 0 && to_check->ClubHasLinkedClub == 0) return NULL;
+	if (!to_check->ClubNation) return NULL;
+	auto find_main = reserve_teams_mapping.find((DWORD)to_check->ClubID);
+	if (find_main != reserve_teams_mapping.end()) {
+		if (is_main_club) *is_main_club = 1;
+		if (find_main->second < 0) {
+			to_check->ClubHasLinkedClub = 0;
+			return NULL;
+		}
+		return (BYTE*)get_club(find_main->second);
+	}
+	else {
+		auto find_reserve = reserve_teams_mapping_vals.find((DWORD)to_check->ClubID);
+		if (find_reserve != reserve_teams_mapping_vals.end()) {
+			if (is_main_club) *is_main_club = 0;
+			if (find_reserve->second < 0) {
+				to_check->ClubHasLinkedClub = 0;
+				return NULL;
+			}
+			return (BYTE*)get_club(find_reserve->second);
+		}
+	}
+	return NULL;
+}
+
+void __declspec(naked) check_if_reserve_team_new_c()		// used as a __thiscall -> __cdecl converter
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x8]
+		push dword ptr[eax + 0x4]
+		push ecx
+		call check_if_reserve_team_new
+		add esp, 0x0c
+		ret
+	}
+}
+
 void setup_name_injection()
 {
 	// Add call to our name function after all player setups have been loaded
@@ -1398,6 +1576,8 @@ void setup_name_injection()
 	PatchFunction(0x60EFD0, (DWORD)setup_9cf_leagues);
 	PatchFunction(0x6115E0, (DWORD)setup_9cf_awards);
 	PatchFunction(0x6146B0, (DWORD)setup_9cf_clubs);
+
+	PatchFunction(0x540A50, (DWORD)check_if_reserve_team_new);
 
 	if (configFile.GetBool("applyCroatia", true)) {
 		awards_rename_long.insert(awards_rename_long_croatia.begin(), awards_rename_long_croatia.end());
@@ -1419,5 +1599,11 @@ void setup_name_injection()
 		leagues_rename_long.insert(leagues_rename_long_italy.begin(), leagues_rename_long_italy.end());
 		leagues_rename_short.insert(leagues_rename_short_italy.begin(), leagues_rename_short_italy.end());
 		leagues_rename_tla.insert(leagues_rename_tla_italy.begin(), leagues_rename_tla_italy.end());
+	}
+
+	if (configFile.GetBool("applyPortugal", true)) {
+		leagues_rename_long.insert(leagues_rename_long_portugal.begin(), leagues_rename_long_portugal.end());
+		leagues_rename_short.insert(leagues_rename_short_portugal.begin(), leagues_rename_short_portugal.end());
+		leagues_rename_tla.insert(leagues_rename_tla_portugal.begin(), leagues_rename_tla_portugal.end());
 	}
 }

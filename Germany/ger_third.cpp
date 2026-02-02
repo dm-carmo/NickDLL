@@ -587,9 +587,31 @@ void ger_third_restruct_2025() {
 		club->ClubDivision = ger_regional;
 		club->ClubReserveDivision = ger_reg_bayern;
 	}
+
+	vector<string> extinct_ger = {
+		"VfL Wolfsburg Amateure",
+		"MSV Duisburg Amateure",
+		"Bayer Leverkusen (A)",
+		"FC Energie Cottbus II",
+		"SG Hoechst II",
+		"FC Carl Zeiss Jena II",
+		"RW Oberhausen Amateure",
+		"1.FC Saarbrücken II",
+		"Stuttgarter Kickers II",
+		"SSV Ulm 1846 II",
+		"SG Wattenscheid 09 II",
+	};
+	for (string s : extinct_ger) {
+		cm3_clubs* club = find_club(s.c_str());
+		if (!club) {
+			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
+			continue;
+		}
+		club->ClubNation = 0;
+	}
 }
 
-void BlockReservePromotion(BYTE* _this) {
+void BlockReservePromotion3Liga(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	WORD total_teams = data->n_teams;
 	team_league_stats* table_teams = (team_league_stats*)(data->team_league_table);
@@ -624,7 +646,7 @@ void ger_third_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->num_stages = 0;
 	ger_third_subs(_this);
 	AddTeams(_this);
-	BlockReservePromotion(_this);
+	BlockReservePromotion3Liga(_this);
 	sub_6835C0(_this);
 	BYTE* ebx = 0;
 	sub_6827D0(_this, ebx);

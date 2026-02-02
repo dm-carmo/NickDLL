@@ -36,7 +36,7 @@ void england_awards(BYTE* _this, int a2) {
 	awards_list[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)sub_944CF1_operator_new(0xA2);
-	monthly_person_award_setup_766E10(pMem, edi, i, ENG_PREMIER_PLAYER_OF_MONTH_9CF() , 5000, 1500, ENG_PREMIER_9CF(), August, *current_year, May, *current_year + 1, a2, 1);
+	monthly_person_award_setup_766E10(pMem, edi, i, ENG_PREMIER_PLAYER_OF_MONTH_9CF(), 5000, 1500, ENG_PREMIER_9CF(), August, *current_year, May, *current_year + 1, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)sub_944CF1_operator_new(0xA2);

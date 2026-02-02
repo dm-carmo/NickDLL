@@ -159,6 +159,15 @@
     <ClCompile Include="Germany\ger_super.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Germany\ger_awards.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Germany\ger_awards_default.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Portugal\por_setup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="european_cup.h">
@@ -309,6 +318,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Germany\ger_super.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Germany\ger_awards.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Germany\ger_awards_default.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Portugal\por_setup.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

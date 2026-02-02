@@ -1,5 +1,6 @@
 #pragma once
 #include "NString.h"
+#include <stdexcept>
 
 enum Day
 {

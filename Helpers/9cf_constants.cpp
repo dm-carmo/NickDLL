@@ -728,8 +728,8 @@ DWORD CLUB_LEGANES_9CF() { return Get9CF(0x9d03bc); }
 DWORD CLUB_LEGANES_B_9CF() { return Get9CF(0x9d03c0); }
 DWORD CLUB_TENERIFE_9CF() { return Get9CF(0x9d03c4); }
 DWORD CLUB_TENERIFE_B_9CF() { return Get9CF(0x9d03c8); }
-DWORD CLUB_MERIDA_9CF() { return Get9CF(0x9d03cc); }
-DWORD CLUB_MERIDA_B_9CF() { return Get9CF(0x9d03d0); }
+DWORD CLUB_PADERBORN_9CF() { return Get9CF(0x9d03cc); }
+DWORD CLUB_PADERBORN_II_9CF() { return Get9CF(0x9d03d0); }
 DWORD CLUB_ALAVES_B_9CF() { return Get9CF(0x9d03d4); }
 DWORD CLUB_LUGO_9CF() { return Get9CF(0x9d03d8); }
 DWORD CLUB_LUGO_B_9CF() { return Get9CF(0x9d03dc); }

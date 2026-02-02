@@ -115,8 +115,7 @@ void __fastcall ger_non_league_promotion(BYTE* _this)
 			{
 				DWORD compID = club->ClubDivision->ClubCompID;
 				DWORD nationID = club->ClubNation->NationID;
-				if (nationID == NATION_GERMANY_9CF() &&		// Italy
-					compID == A_LOWER_9CF())			// Serie D
+				if (nationID == NATION_GERMANY_9CF() && compID == A_LOWER_9CF())
 				{
 					available_clubs.push_back(club);
 				}
@@ -133,12 +132,18 @@ void __fastcall ger_non_league_promotion(BYTE* _this)
 		cm3_clubs* available = available_clubs[availableIdx];
 
 		//dprintf("Swapping Teams: %s (%s) <-> %s (%s)\n", clubToRelegate->ClubName, clubToRelegate->ClubDivision->ClubCompName, available->ClubName, available->ClubDivision->ClubCompName);
-
-		cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
-		cm3_club_comps* bottomDivision = available->ClubDivision;
-		sub_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
-		sub_6830B0((BYTE*)available, (DWORD)topDivision, 1);
-		clubToRelegate->ClubReserveDivision = 0;
+		DWORD is_main_club;
+		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)available, &is_main_club, 1);
+		if (ret_club && !is_main_club && ret_club->ClubDivision->ClubCompID == GER_REGIONAL_9CF())
+			i--;
+		else
+		{
+			cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
+			cm3_club_comps* bottomDivision = available->ClubDivision;
+			sub_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
+			sub_6830B0((BYTE*)available, (DWORD)topDivision, 1);
+			clubToRelegate->ClubReserveDivision = 0;
+		}
 
 		available_clubs.erase(available_clubs.begin() + availableIdx);
 	}
@@ -167,8 +172,7 @@ void __fastcall ger_liga_3_relegation(BYTE* _this)
 			{
 				DWORD compID = club->ClubDivision->ClubCompID;
 				DWORD nationID = club->ClubNation->NationID;
-				if (nationID == NATION_GERMANY_9CF() &&		// Italy
-					compID == GER_REGIONAL_9CF())			// Serie D
+				if (nationID == NATION_GERMANY_9CF() && compID == GER_REGIONAL_9CF())
 				{
 					available_clubs.push_back(club);
 				}
@@ -185,13 +189,112 @@ void __fastcall ger_liga_3_relegation(BYTE* _this)
 		cm3_clubs* available = available_clubs[availableIdx];
 
 		//dprintf("Swapping Teams: %s (%s) <-> %s (%s)\n", clubToRelegate->ClubName, clubToRelegate->ClubDivision->ClubCompName, available->ClubName, available->ClubDivision->ClubCompName);
-
-		cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
-		cm3_club_comps* bottomDivision = available->ClubDivision;
-		sub_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
-		sub_6830B0((BYTE*)available, (DWORD)topDivision, 1);
+		DWORD is_main_club;
+		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)available, &is_main_club, 1);
+		if (ret_club && !is_main_club && ret_club->ClubDivision->ClubCompID == GER_THIRD_9CF())
+			i--;
+		else
+		{
+			cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
+			cm3_club_comps* bottomDivision = available->ClubDivision;
+			sub_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
+			sub_6830B0((BYTE*)available, (DWORD)topDivision, 1);
+		}
 
 		available_clubs.erase(available_clubs.begin() + availableIdx);
+	}
+}
+
+void __fastcall ger_check_reserve_teams(BYTE* _this) {
+	//comp_stats* ger_second_data = (comp_stats*)get_loaded_league(GER_SECOND_9CF());
+	comp_stats* ger_third_data = (comp_stats*)get_loaded_league(GER_THIRD_9CF());
+	BYTE* ger_regional = get_loaded_league(GER_REGIONAL_9CF());
+	if (ger_regional) {
+		// Check teams from Regional: promoted but main team relegated from D2 - remove promotion + remove one relegation from D3
+		// Check teams from Regional: main team relegated from D3 - add relegation + remove one relegation from D3 if needed
+		comp_stats* ger_regional_data = (comp_stats*)ger_regional;
+		comp_stats* curr_stage = ger_regional_data;
+		for (char al = -1; al < 4; al++) {
+			if (al >= 0) {
+				curr_stage = (comp_stats*)(ger_regional_data->stages[al]);
+			}
+			for (WORD num = 0; num < curr_stage->n_teams; num++) {
+				team_league_stats* table_teams = (team_league_stats*)curr_stage->team_league_table;
+				DWORD is_main_club;
+				cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)table_teams[num].club, &is_main_club, 1);
+				// If it is a reserve team
+				if (ret_club && !is_main_club)
+				{
+					// If reserve team from Regional is promoted
+					if (table_teams[num].league_fate == Promoted) {
+						// If main team is in the second league
+						if (ret_club->ClubDivision->ClubCompID == GER_SECOND_9CF()) {
+							team_league_stats* main_club_data = get_team_league_stats(GER_SECOND_9CF(), ret_club);
+							// If the main team was relegated
+							if (main_club_data->league_fate == Relegated) {
+								table_teams[num].league_fate = Eliminated;
+								// Do not promote the reserve team, and relegate one less team from the third league
+								team_league_stats* d3_table = (team_league_stats*)ger_third_data->team_league_table;
+								for (WORD i = ger_third_data->n_teams - ger_third_data->relegations; i < ger_third_data->n_teams; i++) {
+									if (d3_table[i].league_fate == Relegated) {
+										d3_table[i].league_fate = Eliminated;
+										break;
+									}
+								}
+							}
+						}
+					}
+					// If team was not relegated
+					else if (table_teams[num].league_fate != Relegated) {
+						// If main team is in the third league
+						if (ret_club->ClubDivision->ClubCompID == GER_THIRD_9CF()) {
+							team_league_stats* main_club_data = get_team_league_stats(GER_THIRD_9CF(), ret_club);
+							// If the main team was relegated
+							if (main_club_data->league_fate == Relegated) {
+								table_teams[num].league_fate = Relegated;
+								// Relegate the reserve team, and relegate one less team from the third league
+								team_league_stats* d3_table = (team_league_stats*)ger_third_data->team_league_table;
+								for (WORD i = ger_third_data->n_teams - ger_third_data->relegations; i < ger_third_data->n_teams; i++) {
+									if (d3_table[i].league_fate == Relegated) {
+										d3_table[i].league_fate = Eliminated;
+										break;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	// Check teams from D3: main team relegated from D2 - add relegation + remove one relegation
+	for (WORD num = 0; num < ger_third_data->n_teams; num++) {
+		team_league_stats* table_teams = (team_league_stats*)ger_third_data->team_league_table;
+		DWORD is_main_club;
+		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)table_teams[num].club, &is_main_club, 1);
+		// If it is a reserve team
+		if (ret_club && !is_main_club)
+		{
+			// If reserve team was not relegated
+			if (table_teams[num].league_fate != Relegated) {
+				// If main team is in the second league
+				if (ret_club->ClubDivision->ClubCompID == GER_SECOND_9CF()) {
+					team_league_stats* main_club_data = get_team_league_stats(GER_SECOND_9CF(), ret_club);
+					// If the main team was relegated
+					if (main_club_data->league_fate == Relegated) {
+						table_teams[num].league_fate = Relegated;
+						// Relegate the reserve team, and relegate one less team from the third league
+						team_league_stats* d3_table = (team_league_stats*)ger_third_data->team_league_table;
+						for (WORD i = ger_third_data->n_teams - ger_third_data->relegations; i < ger_third_data->n_teams; i++) {
+							if (d3_table[i].league_fate == Relegated) {
+								d3_table[i].league_fate = Eliminated;
+								break;
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 }
 
@@ -215,6 +318,7 @@ char ger_first_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
 	data->f76 = 0;
+	ger_check_reserve_teams(_this);
 	ger_first_prom_rel_update(_this, 1);
 
 	BYTE* ger_regional = get_loaded_league(GER_REGIONAL_9CF());

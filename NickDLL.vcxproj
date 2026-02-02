@@ -158,6 +158,8 @@
     <ClCompile Include="England\eng_setup.cpp" />
     <ClCompile Include="England\eng_third.cpp" />
     <ClCompile Include="european_cup.cpp" />
+    <ClCompile Include="Germany\ger_awards.cpp" />
+    <ClCompile Include="Germany\ger_awards_default.cpp" />
     <ClCompile Include="Germany\ger_cup.cpp" />
     <ClCompile Include="Germany\ger_first.cpp" />
     <ClCompile Include="Germany\ger_regional.cpp" />
@@ -178,6 +180,7 @@
     <ClCompile Include="Italy\ita_ser_c.cpp" />
     <ClCompile Include="Italy\ita_setup.cpp" />
     <ClCompile Include="NickDLL.cpp" />
+    <ClCompile Include="Portugal\por_setup.cpp" />
     <ClCompile Include="Structures\CMHeader.cpp" />
     <ClCompile Include="tapani_relegation_patch.cpp" />
     <ClCompile Include="tiny-json.c" />
@@ -208,6 +211,8 @@
     <ClInclude Include="England\eng_setup.h" />
     <ClInclude Include="England\eng_third.h" />
     <ClInclude Include="european_cup.h" />
+    <ClInclude Include="Germany\ger_awards.h" />
+    <ClInclude Include="Germany\ger_awards_default.h" />
     <ClInclude Include="Germany\ger_cup.h" />
     <ClInclude Include="Germany\ger_first.h" />
     <ClInclude Include="Germany\ger_regional.h" />
@@ -230,6 +235,7 @@
     <ClInclude Include="Italy\ita_ser_c.h" />
     <ClInclude Include="Italy\ita_setup.h" />
     <ClInclude Include="NString.h" />
+    <ClInclude Include="Portugal\por_setup.h" />
     <ClInclude Include="Structures\CMHeader.h" />
     <ClInclude Include="Structures\Date.h" />
     <ClInclude Include="Structures\vtable.h" />

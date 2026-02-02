@@ -7,6 +7,7 @@
 #include "ger_regional.h"
 #include "ger_cup.h"
 #include "ger_super.h"
+#include "ger_awards.h"
 #include <Helpers\9cf_constants.h>
 
 static DWORD(__thiscall* ger_cup_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
@@ -81,4 +82,5 @@ void setup_ger_nation()
 	setup_ger_regional();
 	setup_ger_cup();
 	setup_ger_super();
+	setup_ger_awards();
 }

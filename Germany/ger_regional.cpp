@@ -278,6 +278,27 @@ void __declspec(naked) ger_regional_update_c()		// used as a __thiscall -> __cde
 	}
 }
 
+void BlockReservePromotionRegional(BYTE* _this) {
+	comp_stats* data = (comp_stats*)_this;
+	comp_stats* curr_stage = data;
+	for (char al = -1; al < 4; al++) {
+		if (al >= 0) {
+			curr_stage = (comp_stats*)(data->stages[al]);
+		}
+		WORD total_teams = curr_stage->n_teams;
+		team_league_stats* table_teams = (team_league_stats*)(curr_stage->team_league_table);
+		for (int i = 0; i < total_teams; i++) {
+			DWORD is_main_club;
+			cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)table_teams[i].club, &is_main_club, 1);
+			if (ret_club && !is_main_club) {
+				if (ret_club->ClubDivision->ClubCompID != GER_FIRST_9CF() &&
+					ret_club->ClubDivision->ClubCompID != GER_SECOND_9CF())
+					table_teams[i].league_fate = CantBePromoted;
+			}
+		}
+	}
+}
+
 void ger_regional_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 {
 	sub_682200(_this);
@@ -305,6 +326,7 @@ void ger_regional_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	for (BYTE i = 0; i < 4; i++) {
 		ger_regional_setup_groups(_this, i);
 	}
+	BlockReservePromotionRegional(_this);
 	ger_7D2CD0(_this);
 }
 

@@ -409,3 +409,18 @@ WORD CountNumberOfTeamsInCompWithGroup(DWORD CompID, DWORD GroupID)
 	}
 	return numberOfLeagueTeams;
 }
+
+team_league_stats* get_team_league_stats(DWORD comp_id, cm3_clubs* club)
+{
+	BYTE* loaded = get_loaded_league(comp_id);
+	if (loaded) {
+		comp_stats* data = (comp_stats*)loaded;
+		WORD num_teams = data->n_teams;
+		team_league_stats* table = (team_league_stats*)(data->team_league_table);
+		for (int i = 0; i < num_teams; i++) {
+			cm3_clubs* c = table[i].club;
+			if (c == club) return &table[i];
+		}
+	}
+	return NULL;
+}

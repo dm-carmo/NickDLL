@@ -19,7 +19,9 @@
 #include "Croatia\cro_setup.h"
 #include "England\eng_setup.h"
 #include "Germany\ger_setup.h"
+#include <Germany\ger_awards_default.h>
 #include "Italy\ita_setup.h"
+#include "Portugal\por_setup.h"
 #include "inject_9cf_rename.h"
 //#include "european_cup.h"
 
@@ -75,10 +77,18 @@ void Setup()
 		dprintf("Applying Germany changes\n");
 		setup_ger_nation();
 	}
+	else {
+		setup_ger_awards_default();
+	}
 
 	if (configFile.GetBool("applyItaly", true)) {
 		dprintf("Applying Italy changes\n");
 		setup_ita_nation();
+	}
+
+	if (configFile.GetBool("applyPortugal", true)) {
+		dprintf("Applying Portugal changes\n");
+		setup_por_nation();
 	}
 
 	if (configFile.GetBool("applyLibertadores", true)) {

@@ -49,3 +49,4 @@ cm3_clubs* get_last_comp_winner(cm3_club_comps* comp);
 cm3_clubs* get_last_comp_runner_up(cm3_club_comps* comp);
 WORD CountNumberOfTeamsInComp(DWORD CompID);
 WORD CountNumberOfTeamsInCompWithGroup(DWORD CompID, DWORD GroupID);
+team_league_stats* get_team_league_stats(DWORD comp_id, cm3_clubs* club);
