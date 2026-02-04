@@ -96,8 +96,8 @@ void __fastcall serie_d_promotion(BYTE* _this)
 
 		cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
 		cm3_club_comps* bottomDivision = available->ClubDivision;
-		sub_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
-		sub_6830B0((BYTE*)available, (DWORD)topDivision, 1);
+		relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
+		promote_club_6830B0((BYTE*)available, (DWORD)topDivision, 1);
 		clubToRelegate->ClubReserveDivision = 0;
 
 		available_clubs.erase(available_clubs.begin() + availableIdx);

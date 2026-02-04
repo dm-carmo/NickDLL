@@ -375,7 +375,7 @@ void setup_sudamericana()
 	// Expanded to 32 teams using Libertadores structure
 	PatchFunction(0x4c46c0, (DWORD)&sub_4c46c0);
 	WriteVTablePtr(sudamericana_vtable, VTablePlayoffQual, 0x4c3a80);
-	WriteVTablePtr(sudamericana_vtable, VTable13, 0x637750);
+	WriteVTablePtr(sudamericana_vtable, VTableSetChampion, 0x637750);
 	WriteVTablePtr(sudamericana_vtable, VTableFixtures, (DWORD)&sudamericana_fixture_caller);
 	WriteVTablePtr(sudamericana_vtable, VTableTableFates, 0x4c4080);
 	WriteVTablePtr(sudamericana_vtable, VTableStageNews, 0x4c3680);

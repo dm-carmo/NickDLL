@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <conio.h>
 #include <algorithm>
+#include "generic_functions.h"
 
 char* szDebugFile = "";
 
@@ -171,6 +172,20 @@ vector<cm3_clubs*> find_clubs_of_comp(DWORD comp_id, long nation_id)
 		if (!(*clubs)[i].ClubNation) continue;
 		if (!(*clubs)[i].ClubDivision) continue;
 		if ((*clubs)[i].ClubDivision->ClubCompID == comp_id && (nation_id == -1 || (*clubs)[i].ClubNation->NationID == nation_id))
+			ret.push_back(&(*clubs)[i]);
+	}
+	return ret;
+}
+
+vector<cm3_clubs*> find_clubs_of_comp_last_division(DWORD comp_id, long nation_id)
+{
+	vector<cm3_clubs*> ret;
+	ret.clear();
+	for (DWORD i = 0; i < *clubs_count; i++)
+	{
+		if (!(*clubs)[i].ClubNation) continue;
+		if (!(*clubs)[i].ClubLastDivision) continue;
+		if ((*clubs)[i].ClubLastDivision->ClubCompID == comp_id && (nation_id == -1 || (*clubs)[i].ClubNation->NationID == nation_id))
 			ret.push_back(&(*clubs)[i]);
 	}
 	return ret;
@@ -393,6 +408,22 @@ WORD CountNumberOfTeamsInComp(DWORD CompID)
 		cm3_clubs* club = &(*clubs)[i];
 		if (club->ClubDivision && club->ClubDivision->ClubCompID == CompID)
 			numberOfLeagueTeams++;
+	}
+	return numberOfLeagueTeams;
+}
+
+WORD CountNumberOfTeamsInCompNoReserve(DWORD CompID)
+{
+	WORD numberOfLeagueTeams = 0;
+	for (DWORD i = 0; i < *clubs_count; i++)
+	{
+		cm3_clubs* club = &(*clubs)[i];
+		if (club->ClubDivision && club->ClubDivision->ClubCompID == CompID)
+		{
+			DWORD is_main_club;
+			cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)club, &is_main_club, 1);
+			if (!ret_club || is_main_club) numberOfLeagueTeams++;
+		}
 	}
 	return numberOfLeagueTeams;
 }

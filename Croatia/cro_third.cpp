@@ -216,7 +216,7 @@ void cro_third_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	sub_49EE70(pMem2, _this);
 	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
-	sub_68A850(_this);
+	reputation_setup_generic_68A850(_this);
 }
 
 char cro_third_update(BYTE* _this) {
@@ -400,12 +400,53 @@ void __declspec(naked) cro_third_set_table_fate()		// used as a __thiscall -> __
 	}
 }
 
+void cro_third_reputation_calc(BYTE* _this, BYTE* club, char stage, char current, char min, char max) {
+	comp_stats* comp_data = (comp_stats*)_this;
+	BYTE* ret = (BYTE*)sub_4A4850((BYTE*)comp_data->f8, club);
+	if (!ret) return;
+	char ret_current = current;
+	char ret_min = min;
+	char ret_max = max;
+	if (stage == 0) {
+		cm3_clubs* club_data = (cm3_clubs*)club;
+		if (club_data->ClubDivision->ClubCompID == comp_data->competition_db->ClubCompID) {
+			ret_current = 14;
+			ret_min = 14;
+			ret_max = 14;
+		}
+		else {
+			return;
+		}
+	}
+	ret[0x73] = ret_current;
+	ret[0x74] = ret_min;
+	ret[0x75] = ret_max;
+}
+
+void __declspec(naked) cro_third_reputation_calc_c()		// used as a __thiscall -> __cdecl converter
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x14]
+		push dword ptr[eax + 0x10]
+		push dword ptr[eax + 0xc]
+		push dword ptr[eax + 0x8]
+		push dword ptr[eax + 0x4]
+		push ecx
+		call cro_third_reputation_calc
+		add esp, 0x18
+		ret 0x14
+	}
+}
+
 void setup_cro_third()
 {
 	WriteVTablePtr(cro_third_vtable, VTableSubsRounds, (DWORD)&cro_third_subs_c);
 	WriteVTablePtr(cro_third_vtable, VTableInitFree, (DWORD)&cro_third_free_c);
 	WriteVTablePtr(cro_third_vtable, VTableEoSUpdate, (DWORD)&cro_third_update_c);
 	WriteVTablePtr(cro_third_vtable, VTableFixtures, (DWORD)&cro_third_fixtures_c);
+	WriteVTablePtr(cro_third_vtable, VTable27, (DWORD)&cro_third_reputation_calc_c);
 	WriteVTablePtr(cro_third_vtable, VTablePlayoffQual, (DWORD)&cro_third_playoffs_create);
 	WriteVTablePtr(cro_third_vtable, VTableTableFates, (DWORD)&cro_third_set_table_fate);
 }

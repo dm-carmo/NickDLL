@@ -61,6 +61,9 @@ void Setup()
 	WriteDWORD(0x9472ce, 500);
 #endif 
 
+	// Fixes a slight bug where B-teams can't qualify for relegation playoffs if they have the "CantBePromoted" flag set
+	WriteBytes(0x68527E, 1, 0xFC);
+
 	configFile.LoadConfig("NickDLL_config.json");
 
 	if (configFile.GetBool("applyCroatia", true)) {

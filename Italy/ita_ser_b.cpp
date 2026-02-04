@@ -265,7 +265,7 @@ void ita_ser_b_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	sub_49EE70(pMem2, _this);
 	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
-	sub_68A850(_this);
+	reputation_setup_generic_68A850(_this);
 }
 
 char ita_ser_b_update(BYTE* _this) {
@@ -489,6 +489,45 @@ void __declspec(naked) ita_ser_b_set_table_fate()		// used as a __thiscall -> __
 	}
 }
 
+void ita_ser_b_reputation_calc(BYTE* _this, BYTE* club, char stage, char current, char min, char max) {
+	comp_stats* comp_data = (comp_stats*)_this;
+	BYTE* ret = (BYTE*)sub_4A4850((BYTE*)comp_data->f8, club);
+	if (!ret) return;
+	char ret_current = current;
+	char ret_min = min;
+	char ret_max = max;
+	if (stage == 0) {
+		ret_current = current + 2;
+		ret_min = min + 2;
+		ret_max = max + 2;
+	}
+	else if (stage == 1) {
+		ret_current = current + 15;
+		ret_min = min + 15;
+		ret_max = max + 15;
+	}
+	ret[0x73] = ret_current;
+	ret[0x74] = ret_min;
+	ret[0x75] = ret_max;
+}
+
+void __declspec(naked) ita_ser_b_reputation_calc_c()		// used as a __thiscall -> __cdecl converter
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x14]
+		push dword ptr[eax + 0x10]
+		push dword ptr[eax + 0xc]
+		push dword ptr[eax + 0x8]
+		push dword ptr[eax + 0x4]
+		push ecx
+		call ita_ser_b_reputation_calc
+		add esp, 0x18
+		ret 0x14
+	}
+}
+
 void setup_ita_ser_b()
 {
 	WriteVTablePtr(ita_ser_b_vtable, VTableSubsRounds, (DWORD)&ita_ser_b_subs_c);
@@ -496,5 +535,6 @@ void setup_ita_ser_b()
 	WriteVTablePtr(ita_ser_b_vtable, VTableEoSUpdate, (DWORD)&ita_ser_b_update_c);
 	WriteVTablePtr(ita_ser_b_vtable, VTablePlayoffQual, (DWORD)&ita_ser_b_playoffs_create);
 	WriteVTablePtr(ita_ser_b_vtable, VTableFixtures, (DWORD)&ita_ser_b_fixtures_c);
+	WriteVTablePtr(ita_ser_b_vtable, VTable27, (DWORD)&ita_ser_b_reputation_calc_c);
 	WriteVTablePtr(ita_ser_b_vtable, VTableTableFates, (DWORD)&ita_ser_b_set_table_fate);
 }

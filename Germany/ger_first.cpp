@@ -86,6 +86,19 @@ void ger_first_prom_rel_update(BYTE* _this, int a2) {
 	}
 }
 
+void __declspec(naked) ger_first_prom_rel_update_c()		// used as a __thiscall -> __cdecl converter
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x4]
+		push ecx
+		call ger_first_prom_rel_update
+		add esp, 0x8
+		ret 4
+	}
+}
+
 void __fastcall ger_non_league_promotion(BYTE* _this)
 {
 	vector<cm3_clubs*> relegated_clubs;
@@ -140,8 +153,8 @@ void __fastcall ger_non_league_promotion(BYTE* _this)
 		{
 			cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
 			cm3_club_comps* bottomDivision = available->ClubDivision;
-			sub_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
-			sub_6830B0((BYTE*)available, (DWORD)topDivision, 1);
+			relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
+			promote_club_6830B0((BYTE*)available, (DWORD)topDivision, 1);
 			clubToRelegate->ClubReserveDivision = 0;
 		}
 
@@ -197,8 +210,8 @@ void __fastcall ger_liga_3_relegation(BYTE* _this)
 		{
 			cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
 			cm3_club_comps* bottomDivision = available->ClubDivision;
-			sub_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
-			sub_6830B0((BYTE*)available, (DWORD)topDivision, 1);
+			relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
+			promote_club_6830B0((BYTE*)available, (DWORD)topDivision, 1);
 		}
 
 		available_clubs.erase(available_clubs.begin() + availableIdx);
@@ -211,7 +224,7 @@ void __fastcall ger_check_reserve_teams(BYTE* _this) {
 	BYTE* ger_regional = get_loaded_league(GER_REGIONAL_9CF());
 	if (ger_regional) {
 		// Check teams from Regional: promoted but main team relegated from D2 - remove promotion + remove one relegation from D3
-		// Check teams from Regional: main team relegated from D3 - add relegation + remove one relegation from D3 if needed
+		// Check teams from Regional: main team relegated from D3 - add relegation
 		comp_stats* ger_regional_data = (comp_stats*)ger_regional;
 		comp_stats* curr_stage = ger_regional_data;
 		for (char al = -1; al < 4; al++) {
@@ -251,15 +264,8 @@ void __fastcall ger_check_reserve_teams(BYTE* _this) {
 							team_league_stats* main_club_data = get_team_league_stats(GER_THIRD_9CF(), ret_club);
 							// If the main team was relegated
 							if (main_club_data->league_fate == Relegated) {
+								// Relegate the reserve team
 								table_teams[num].league_fate = Relegated;
-								// Relegate the reserve team, and relegate one less team from the third league
-								team_league_stats* d3_table = (team_league_stats*)ger_third_data->team_league_table;
-								for (WORD i = ger_third_data->n_teams - ger_third_data->relegations; i < ger_third_data->n_teams; i++) {
-									if (d3_table[i].league_fate == Relegated) {
-										d3_table[i].league_fate = Eliminated;
-										break;
-									}
-								}
 							}
 						}
 					}
@@ -687,7 +693,7 @@ void ger_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	sub_49EE70(pMem2, _this);
 	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
-	sub_68A850(_this);
+	reputation_setup_generic_68A850(_this);
 }
 
 void ger_first_playoff_under(BYTE* _this) {
@@ -861,12 +867,59 @@ void __declspec(naked) ger_first_set_table_fate()		// used as a __thiscall -> __
 	}
 }
 
+void ger_first_reputation_calc(BYTE* _this, BYTE* club, char stage, char current, char min, char max) {
+	comp_stats* comp_data = (comp_stats*)_this;
+	BYTE* ret = (BYTE*)sub_4A4850((BYTE*)comp_data->f8, club);
+	if (!ret) return;
+	char ret_current = current;
+	char ret_min = min;
+	char ret_max = max;
+	if (stage == 0) {
+		comp_stats* d2_comp_data = (comp_stats*)get_loaded_league(GER_SECOND_9CF());
+		cm3_clubs* club_data = (cm3_clubs*)club;
+		if (club_data->ClubDivision->ClubCompID == GER_SECOND_9CF()) {
+			ret = (BYTE*)sub_4A4850((BYTE*)d2_comp_data->f8, club);
+			if (!ret) return;
+			ret_current = 3;
+			ret_min = 3;
+			ret_max = 3;
+		}
+		else {
+			ret_current = 16;
+			ret_min = 16;
+			ret_max = 16;
+		}
+	}
+	ret[0x73] = ret_current;
+	ret[0x74] = ret_min;
+	ret[0x75] = ret_max;
+}
+
+void __declspec(naked) ger_first_reputation_calc_c()		// used as a __thiscall -> __cdecl converter
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x14]
+		push dword ptr[eax + 0x10]
+		push dword ptr[eax + 0xc]
+		push dword ptr[eax + 0x8]
+		push dword ptr[eax + 0x4]
+		push ecx
+		call ger_first_reputation_calc
+		add esp, 0x18
+		ret 0x14
+	}
+}
+
 void setup_ger_first()
 {
 	WriteVTablePtr(ger_first_vtable, VTableSubsRounds, (DWORD)&ger_first_subs_c);
 	WriteVTablePtr(ger_first_vtable, VTableInitFree, (DWORD)&ger_first_free_c);
 	WriteVTablePtr(ger_first_vtable, VTableEoSUpdate, (DWORD)&ger_first_update_c);
 	WriteVTablePtr(ger_first_vtable, VTableFixtures, (DWORD)&ger_first_fixtures_c);
+	WriteVTablePtr(ger_first_vtable, VTable27, (DWORD)&ger_first_reputation_calc_c);
 	WriteVTablePtr(ger_first_vtable, VTablePlayoffQual, (DWORD)&ger_first_playoffs_create);
 	WriteVTablePtr(ger_first_vtable, VTableTableFates, (DWORD)&ger_first_set_table_fate);
+	WriteVTablePtr(ger_first_vtable, VTablePromRelUpdate, (DWORD)&ger_first_prom_rel_update_c);
 }

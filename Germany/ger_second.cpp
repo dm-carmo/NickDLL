@@ -352,7 +352,7 @@ void ger_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	sub_49EE70(pMem2, _this);
 	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
-	sub_68A850(_this);
+	reputation_setup_generic_68A850(_this);
 }
 
 void ger_second_playoff_under(BYTE* _this) {
@@ -428,6 +428,7 @@ void __declspec(naked) ger_second_playoffs_create()		// used as a __thiscall -> 
 int ger_second_table_indicators(BYTE* _this, DWORD* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
+	cm3_club_comps* ger_first = &(*club_comps)[GER_FIRST_9CF()];
 	if (stage == 0) {
 		cm3_clubs* club_ptr = (cm3_clubs*)club;
 		cm3_club_comps* ger_third = &(*club_comps)[GER_THIRD_9CF()];
@@ -494,6 +495,7 @@ int ger_second_table_indicators(BYTE* _this, DWORD* club, BYTE fate, char stage,
 			staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), 0x64);
 			return 0;
 		case TopPlayoff:
+			staff_history_qualified_868DD0(staff_hist_ptr, club, (DWORD)(ger_first), None, Playoff, 0x1E);
 			return 0;
 		case BottomPlayoff:
 			staff_history_qualified_868DD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, Playoff, 0x1E);
@@ -571,12 +573,58 @@ void __declspec(naked) ger_second_update_c()		// used as a __thiscall -> __cdecl
 	}
 }
 
+void ger_second_reputation_calc(BYTE* _this, BYTE* club, char stage, char current, char min, char max) {
+	comp_stats* comp_data = (comp_stats*)_this;
+	BYTE* ret = (BYTE*)sub_4A4850((BYTE*)comp_data->f8, club);
+	if (!ret) return;
+	char ret_current = current;
+	char ret_min = min;
+	char ret_max = max;
+	if (stage == 0) {
+		comp_stats* d3_comp_data = (comp_stats*)get_loaded_league(GER_THIRD_9CF());
+		cm3_clubs* club_data = (cm3_clubs*)club;
+		if (club_data->ClubDivision->ClubCompID == GER_THIRD_9CF()) {
+			ret = (BYTE*)sub_4A4850((BYTE*)d3_comp_data->f8, club);
+			if (!ret) return;
+			ret_current = 3;
+			ret_min = 3;
+			ret_max = 3;
+		}
+		else {
+			ret_current = 16;
+			ret_min = 16;
+			ret_max = 16;
+		}
+	}
+	ret[0x73] = ret_current;
+	ret[0x74] = ret_min;
+	ret[0x75] = ret_max;
+}
+
+void __declspec(naked) ger_second_reputation_calc_c()		// used as a __thiscall -> __cdecl converter
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x14]
+		push dword ptr[eax + 0x10]
+		push dword ptr[eax + 0xc]
+		push dword ptr[eax + 0x8]
+		push dword ptr[eax + 0x4]
+		push ecx
+		call ger_second_reputation_calc
+		add esp, 0x18
+		ret 0x14
+	}
+}
+
 void setup_ger_second()
 {
 	WriteVTablePtr(ger_second_vtable, VTableSubsRounds, (DWORD)&ger_second_subs_c);
 	WriteVTablePtr(ger_second_vtable, VTableInitFree, (DWORD)&ger_second_free_c);
 	WriteVTablePtr(ger_second_vtable, VTableEoSUpdate, (DWORD)&ger_second_update_c);
 	WriteVTablePtr(ger_second_vtable, VTableFixtures, (DWORD)&ger_second_fixtures_c);
+	WriteVTablePtr(ger_second_vtable, VTable27, (DWORD)&ger_second_reputation_calc_c);
 	WriteVTablePtr(ger_second_vtable, VTablePlayoffQual, (DWORD)&ger_second_playoffs_create);
 	WriteVTablePtr(ger_second_vtable, VTableTableFates, (DWORD)&ger_second_set_table_fate);
 }

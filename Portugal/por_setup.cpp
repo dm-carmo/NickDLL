@@ -2,14 +2,15 @@
 #include "Structures\CMHeader.h"
 #include "Helpers\generic_functions.h"
 #include <Helpers\9cf_constants.h>
+#include "por_first.h"
+#include "por_second.h"
+#include "por_third.h"
+#include "por_fourth.h"
+#include "por_cup.h"
+#include "por_league_cup.h"
+#include "por_super.h"
+#include "por_awards.h"
 
-
-static DWORD(__thiscall* por_first_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x7CE720);
-static DWORD(__thiscall* por_second_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x7D0950);
-static DWORD(__thiscall* por_second_b_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x7D1920);
 static DWORD(__thiscall* por_cup_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
 (DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x7CD980);
 static DWORD(__thiscall* por_super_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
@@ -26,10 +27,10 @@ DWORD por_setup_c(BYTE* nation_data) {
 	*(WORD*)(nation_data + 0x46) = 6;
 	BYTE selected = ((cm3_nations*)*(DWORD*)(nation_data))->NationLeagueSelected;
 	if ((selected & 4) == 0) {
-		*(DWORD*)(nation_data + 0xc) = 4;
+		*(DWORD*)(nation_data + 0xc) = 6;
 	}
 	else {
-		*(DWORD*)(nation_data + 0xc) = 5;
+		*(DWORD*)(nation_data + 0xc) = 7;
 	}
 	DWORD* nation_comps = (DWORD*)sub_944E46_malloc(*(DWORD*)(nation_data + 0xc) * 4);
 	*(DWORD*)(nation_data + 0x10) = (DWORD)nation_comps;
@@ -37,21 +38,29 @@ DWORD por_setup_c(BYTE* nation_data) {
 	BYTE i = 0;
 	// Liga 1
 	BYTE* pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
-	por_first_setup(pMem, *current_year, &(*club_comps)[POR_FIRST_9CF()]);
+	por_first_init(pMem, *current_year, &(*club_comps)[POR_FIRST_9CF()]);
 	nation_comps[i++] = (DWORD)pMem;
 	// Liga 2
 	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
-	por_second_setup(pMem, *current_year, &(*club_comps)[POR_SECOND_9CF()]);
+	por_second_init(pMem, *current_year, &(*club_comps)[POR_SECOND_9CF()]);
+	nation_comps[i++] = (DWORD)pMem;
+	// Liga 3
+	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	por_third_init(pMem, *current_year, &(*club_comps)[POR_THIRD_9CF()]);
 	nation_comps[i++] = (DWORD)pMem;
 	if ((selected & 4) != 0) {
-		// Liga 3
+		// Campeonato de Portugal
 		pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
-		por_second_b_setup(pMem, *current_year, &(*club_comps)[POR_SECOND_B_9CF()]);
+		por_fourth_init(pMem, *current_year, &(*club_comps)[POR_FOURTH_9CF()]);
 		nation_comps[i++] = (DWORD)pMem;
 	}
 	// Cup
 	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
 	por_cup_setup(pMem, *current_year, &(*club_comps)[POR_CUP_9CF()]);
+	nation_comps[i++] = (DWORD)pMem;
+	// League Cup
+	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
+	por_league_cup_init(pMem, *current_year, &(*club_comps)[POR_LEAGUE_CUP_9CF()]);
 	nation_comps[i++] = (DWORD)pMem;
 	// Super Cup
 	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
@@ -69,4 +78,12 @@ DWORD por_setup_c(BYTE* nation_data) {
 void setup_por_nation()
 {
 	WriteDWORD(0x6688D6 + 6, (DWORD)&por_setup_c);
+	setup_por_first();
+	setup_por_second();
+	setup_por_third();
+	setup_por_fourth();
+	setup_por_cup();
+	setup_por_league_cup();
+	setup_por_super();
+	setup_por_awards();
 }

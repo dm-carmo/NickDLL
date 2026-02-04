@@ -29,7 +29,7 @@ static char  (*sub_669340)(int a1) = (char(*)(int a1))(0x669340);
 
 static int(__thiscall* add_team_call)(BYTE* _this, BYTE teamNo, cm3_clubs* club, BYTE a3, DWORD* a4) =
 (int(__thiscall*)(BYTE * _this, BYTE teamNo, cm3_clubs * club, BYTE a3, DWORD * a4))(0x687430);
-static BYTE* (*check_if_reserve_team_540A50)(BYTE* club, DWORD* a2, int a3) = (BYTE* (*)(BYTE * club, DWORD * a2, int a3))(0x540A50);
+static BYTE* (*check_if_reserve_team_540A50)(BYTE* club, DWORD* a2, int a3) = (BYTE * (*)(BYTE * club, DWORD * a2, int a3))(0x540A50);
 
 static BYTE* (__thiscall* create_cup_stage_data)(BYTE* _this, BYTE* main_comp, __int16 n_teams, DWORD* teamsPtr, __int16 n_rounds, int comp_id, const void* fixturesPtr,
 	__int16 year, char stage_num, char a10, __int16 stage_name_id, char a12, int a13, int a14, int a15, BYTE* a16) =
@@ -59,7 +59,7 @@ static int(__thiscall* sub_6827D0)(BYTE* _this, BYTE* base) =
 (int(__thiscall*)(BYTE * _this, BYTE * base))(0x6827D0);
 static int(__thiscall* sub_49EE70)(BYTE* _this, BYTE* base) =
 (int(__thiscall*)(BYTE * _this, BYTE * base))(0x49EE70);
-static int(__thiscall* sub_68A850)(BYTE* _this) =
+static int(__thiscall* reputation_setup_generic_68A850)(BYTE* _this) =
 (int(__thiscall*)(BYTE * _this))(0x68A850);
 static int(__thiscall* sub_518640)(BYTE* _this) =
 (int(__thiscall*)(BYTE * _this))(0x518640);
@@ -87,12 +87,13 @@ static void(__thiscall* sub_689C80)(BYTE* _this, BYTE* top, BYTE* btm, int a3, i
 (void(__thiscall*)(BYTE * _this, BYTE * top, BYTE * btm, int a3, int a4, char a5, char a6))(0x689C80);
 static void(__thiscall* sub_68A980)(BYTE* _this, char a2, char a3, char a4, int a5) =
 (void(__thiscall*)(BYTE * _this, char a2, char a3, char a4, int a5))(0x68A980);
-static void (__stdcall*sub_6830B0)(BYTE* club, DWORD league, int a3) = (void(__stdcall*)(BYTE * club, DWORD league, int a3))(0x6830B0);
-static void (__stdcall*sub_6831A0)(BYTE* club, DWORD league, int a3) = (void(__stdcall*)(BYTE * club, DWORD league, int a3))(0x6831A0);
+static void(__stdcall* promote_club_6830B0)(BYTE* club, DWORD league, int a3) = (void(__stdcall*)(BYTE * club, DWORD league, int a3))(0x6830B0);
+static void(__stdcall* relegate_club_6831A0)(BYTE* club, DWORD league, int a3) = (void(__stdcall*)(BYTE * club, DWORD league, int a3))(0x6831A0);
 static void(__thiscall* sub_574E60)(BYTE* _this) =
 (void(__thiscall*)(BYTE * _this))(0x574E60);
 static char(__thiscall* sub_768310)(BYTE* _this, DWORD date_addr) =
 (char(__thiscall*)(BYTE * _this, DWORD date_addr))(0x768310);
+static void* (__thiscall* sub_4A4850)(BYTE* _this, BYTE* club) = (void* (__thiscall*)(BYTE * _this, BYTE * club))(0x4A4850);
 
 static void(__thiscall* staff_history_qualified_868DD0)(BYTE* _this, DWORD* club, DWORD comp_id, WORD stage_main, DWORD stage_sub, char a6) =
 (void(__thiscall*)(BYTE * _this, DWORD * club, DWORD comp_id, WORD stage_main, DWORD stage_sub, char a6))(0x86BDD0);

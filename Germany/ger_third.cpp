@@ -333,6 +333,19 @@ void __declspec(naked) ger_third_fixtures_c()		// used as a __thiscall -> __cdec
 	}
 }
 
+void BlockReservePromotion3Liga(BYTE* _this) {
+	comp_stats* data = (comp_stats*)_this;
+	WORD total_teams = data->n_teams;
+	team_league_stats* table_teams = (team_league_stats*)(data->team_league_table);
+	for (int i = 0; i < total_teams; i++) {
+		DWORD is_main_club;
+		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)table_teams[i].club, &is_main_club, 1);
+		if (ret_club && !is_main_club) {
+			table_teams[i].league_fate = CantBePromoted;
+		}
+	}
+}
+
 char ger_third_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
@@ -357,6 +370,7 @@ char ger_third_update(BYTE* _this) {
 	data->current_stage = -1;
 	ger_third_subs(_this);
 	AddTeams(_this);
+	BlockReservePromotion3Liga(_this);
 	sub_6835C0(_this);
 	BYTE* edx = 0;
 	sub_6827D0(_this, edx);
@@ -611,16 +625,48 @@ void ger_third_restruct_2025() {
 	}
 }
 
-void BlockReservePromotion3Liga(BYTE* _this) {
-	comp_stats* data = (comp_stats*)_this;
-	WORD total_teams = data->n_teams;
-	team_league_stats* table_teams = (team_league_stats*)(data->team_league_table);
-	for (int i = 0; i < total_teams; i++) {
-		DWORD is_main_club;
-		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)table_teams[i].club, &is_main_club, 1);
-		if (ret_club && !is_main_club) {
-			table_teams[i].league_fate = CantBePromoted;
+int ger_third_table_indicators(BYTE* _this, DWORD* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
+	comp_stats* comp_data = (comp_stats*)_this;
+	cm3_club_comps* ger_second = &(*club_comps)[GER_SECOND_9CF()];
+	if (stage == -1) {
+		switch (fate) {
+		case Champions:
+			staff_history_champion_868C50(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));
+			return 0;
+		case Promoted:
+			staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), 0x64);
+			return 0;
+		case TopPlayoff:
+			staff_history_qualified_868DD0(staff_hist_ptr, club, (DWORD)(ger_second), None, Playoff, 0x1E);
+			return 0;
+		case BottomPlayoff:
+			return 0;
+		case Relegated:
+			staff_history_relegated_86A1C0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));
+			return 0;
+		default:
+			return 0;
 		}
+	}
+	return 0;
+}
+
+void __declspec(naked) ger_third_set_table_fate()		// used as a __thiscall -> __cdecl converter
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x18]
+		push dword ptr[eax + 0x14]
+		push dword ptr[eax + 0x10]
+		push dword ptr[eax + 0xC]
+		push dword ptr[eax + 0x8]
+		push dword ptr[eax + 0x4]
+		push ecx
+		call ger_third_table_indicators
+		add esp, 0x1c
+		ret 0x18
 	}
 }
 
@@ -635,7 +681,7 @@ void ger_third_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	ger_third_vtable->SetPointer(VTableFixtures, (DWORD)&ger_third_fixtures_c);
 	ger_third_vtable->SetPointer(VTableSubsRounds, (DWORD)&ger_third_subs_c);
 	//WriteVTablePtr(ger_third_vtable, VTablePlayoffQual, (DWORD)&ger_third_playoffs_create);
-	//WriteVTablePtr(ger_third_vtable, VTableTableFates, (DWORD)&ger_third_set_table_fate);
+	ger_third_vtable->SetPointer(VTableTableFates, (DWORD)&ger_third_set_table_fate);
 	data->year = year;
 	data->rules = 0x0D;
 	int loaded = sub_687B10(_this, 1);
@@ -655,7 +701,7 @@ void ger_third_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	sub_49EE70(pMem2, _this);
 	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
-	sub_68A850(_this);
+	reputation_setup_generic_68A850(_this);
 }
 
 void setup_ger_third()

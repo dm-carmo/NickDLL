@@ -18,7 +18,7 @@ B0 CE 48 00
 A0 CE 48 00 => Set table fates and send news
 C0 FF 42 00 => Qualifies teams for playoffs and sets up the stages
 70 CE 48 00 
-70 29 43 00 => Related to periods maybe? (check Netherlands D2)
+70 29 43 00 => Sets competition champion (by default the winner of stage -1)
 70 34 58 00 
 B0 CA 48 00 
 D0 F5 42 00 => Sets up fixtures
@@ -66,7 +66,7 @@ enum VTablePointers {
 	VTable10 = 10,
 	VTablePlayoffQual = 11,
 	VTable12 = 12,
-	VTable13 = 13,
+	VTableSetChampion = 13,
 	VTable14 = 14,
 	VTable15 = 15,
 	VTableFixtures = 16,

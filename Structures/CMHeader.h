@@ -78,6 +78,7 @@ enum RoundNames : WORD {
 	Periods1to4 = 0x439,
 	ChampionshipGroup = 0x44B,
 	RelegationGroup = 0x44C,
+	PromotionGroupAtoD = 0x44D,
 	RelegationPlayoff = 0x452,
 	North = 0x453,
 	Northeast = 0x454,
@@ -639,7 +640,8 @@ typedef struct comp
 	char f172;										//172
 	DWORD* f173;									//173
 	DWORD* team_league_table;						//177
-	char pad181[5];									//181
+	char pad181;									//181
+	char pad182[4];									//182
 	DWORD* fixtures_table;							//186
 	char promotions;								//190
 	char prom_playoff;								//191
@@ -654,7 +656,7 @@ typedef struct comp
 	char pad200[17];								//200
 	short f217;										//217
 	short f219;										//219
-	unsigned int f221;								//221
+	DWORD f221;										//221
 	char f225;										//225
 	short min_stadium_capacity;						//226
 	short min_stadium_seats;						//228
@@ -721,9 +723,10 @@ enum LeagueFates : char {
 	Qualified1 = 6,
 	Qualified2 = 7,
 	Qualified3 = 8,
-	CantBePromoted = -4,
-	Eliminated = -2,
-	NoFate = -1
+	CantBePromoted = -4, // 0FC
+	CantBePromotedOrRelegated = -3, // 0FD
+	Eliminated = -2, // 0FE
+	NoFate = -1 // 0FF
 };
 
 extern cm3_staff_comps** awards;

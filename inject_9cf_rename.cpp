@@ -77,6 +77,7 @@ map<string, char*> leagues_rename_long_portugal = {
 	{"Korean University League", "Campeonato de Portugal Série B"},
 	{"Korean High School League", "Campeonato de Portugal Série C"},
 	{"Korean President Cup", "Campeonato de Portugal Série D"},
+	{"Argentine Interior Zone", "Taça da Liga"},
 };
 
 map<string, char*> leagues_rename_short = {
@@ -128,6 +129,7 @@ map<string, char*> leagues_rename_short_portugal = {
 	{"Korean University League", "Campeonato de Portugal B"},
 	{"Korean High School League", "Campeonato de Portugal C"},
 	{"Korean President Cup", "Campeonato de Portugal D"},
+	{"Argentine Interior Zone", "Taça da Liga"},
 };
 
 map<string, char*> leagues_rename_tla = {
@@ -196,6 +198,10 @@ map<string, char*> awards_rename_short_italy = {
 
 };
 
+map<string, char*> awards_rename_short_portugal = {
+	{ "Asian All Star XI", "Manager of the Year" },
+};
+
 map<string, char*> awards_rename_long = {
 	{"EFL Championship Team of the Year", "English Championship Team of the Year"},
 	{"EFL One Team of the Year", "English League One Team of the Year"},
@@ -231,6 +237,18 @@ map<string, char*> awards_rename_long = {
 	{"South Korean Fair Play of the Month", "English National South Team of the Year"}, //20B
 	{"South Korean Fair Play of the Year", "English National North Young Player of the Month"}, //20F
 	{"South African Young Player of the Year", "English National South Young Player of the Month"}, //1AC
+	{"Portuguese Premier League Manager of the Year", "Liga Portugal 1 Manager of the Year"},
+	{"Portuguese Premier League Most Man of the Match", "Liga Portugal 1 Most Man of the Match"},
+	{"Portuguese Premier League Player of the Year", "Liga Portugal 1 Player of the Year"},
+	{"Portuguese Premier League Team of the Week", "Liga Portugal 1 Team of the Week"},
+	{"Portuguese Premier League Team of the Year", "Liga Portugal 1 Team of the Year"},
+	{"Portuguese Premier League Top Goalscorer", "Liga Portugal 1 Top Goalscorer"},
+	{"Portuguese Second League Manager of the Year", "Liga Portugal 2 Manager of the Year"},
+	{"Portuguese Second League Most Man of the Match", "Liga Portugal 2 Most Man of the Match"},
+	{"Portuguese Second League Player of the Year", "Liga Portugal 2 Player of the Year"},
+	{"Portuguese Second League Team of the Week", "Liga Portugal 2 Team of the Week"},
+	{"Portuguese Second League Team of the Year", "Liga Portugal 2 Team of the Year"},
+	{"Portuguese Second League Top Goalscorer", "Liga Portugal 2 Top Goalscorer"},
 };
 
 map<string, char*> awards_rename_long_croatia = {
@@ -251,6 +269,15 @@ map<string, char*> awards_rename_long_italy = {
 	{ "Italian Serie C1/A Team of the Week", "Italian Serie C Team of the Week" },
 	{ "Italian Serie C1/A Team of the Year", "Italian Serie C Team of the Year" },
 	{ "Italian Serie C1/A Top Goalscorer", "Italian Serie C Top Goalscorer" },
+};
+
+map<string, char*> awards_rename_long_portugal = {
+	{ "Portuguese Second Division B Most Man of the Match", "Liga 3 Most Man of the Match" },
+	{ "Portuguese Second Division B Player of the Year", "Liga 3 Player of the Year" },
+	{ "Portuguese Second Division B Team of the Week", "Liga 3 Team of the Week" },
+	{ "Portuguese Second Division B Team of the Year", "Liga 3 Team of the Year" },
+	{ "Portuguese Second Division B Top Goalscorer", "Liga 3 Top Goalscorer" },
+	{ "Asian All Star XI", "Liga 3 Manager of the Year" },
 };
 
 map<string, DWORD> club_dword_match = {
@@ -632,7 +659,7 @@ map<string, DWORD> league_dword_match = {
 	{"Spanish Primera Federación Group 3", (DWORD)0x9CF634},
 	{"Spanish Primera Federación Group 4", (DWORD)0x9CF638},
 	{"Copa Libertadores de América", (DWORD)0x9CF63C},
-	{"Supercopa Libertadores", (DWORD)0x9CF640},
+	{"Korean High School League", (DWORD)0x9CF640},
 	{"Copa CONMEBOL", (DWORD)0x9CF644},
 	{"Recopa Sudamericana", (DWORD)0x9CF648},
 	{"AFC Champions League", (DWORD)0x9CF64C},
@@ -681,7 +708,7 @@ map<string, DWORD> league_dword_match = {
 	{"UEFA Europa League Qualifying", (DWORD)0x9CF6F8},
 	{"Supercoupe de Belgique", (DWORD)0x9CF6FC},
 	{"Coupe de Belgique", (DWORD)0x9CF700},
-	{"Belgian League Cup", (DWORD)0x9CF704},
+	{"Korean University League", (DWORD)0x9CF704},
 	{"DBU Pokalen", (DWORD)0x9CF708},
 	{"Coupe de France", (DWORD)0x9CF70C},
 	{"Coupe de la Ligue", (DWORD)0x9CF710},
@@ -692,7 +719,7 @@ map<string, DWORD> league_dword_match = {
 	{"Supercoppa Italiana", (DWORD)0x9CF724},
 	{"Lamar Hunt U.S. Open Cup", (DWORD)0x9CF728},
 	{"CONCACAF Champions League", (DWORD)0x9CF72C},
-	{"Cup Winners Cup", (DWORD)0x9CF730},
+	{"Korean President Cup", (DWORD)0x9CF730},
 	{"Norwegian Cupen", (DWORD)0x9CF734},
 	{"Norwegian 3. Divisjon", (DWORD)0x9CF738},
 	{"Taça de Portugal", (DWORD)0x9CF73C},
@@ -1508,9 +1535,13 @@ void fill_reserve_team_maps() {
 	reserve_teams_mapping.emplace(CLUB_VILLARREAL_9CF(), CLUB_VILLARREAL_B_9CF());
 	reserve_teams_mapping.emplace(CLUB_VIT_GUIMARAES_9CF(), CLUB_VIT_GUIMARAES_B_9CF());
 	reserve_teams_mapping.emplace(CLUB_WERDER_BREMEN_9CF(), CLUB_WERDER_BREMEN_II_9CF());
-	reserve_teams_mapping.emplace(CLUB_ZARAGOZA_9CF(), CLUB_ZARAGOZA_B_9CF());;
+	reserve_teams_mapping.emplace(CLUB_ZARAGOZA_9CF(), CLUB_ZARAGOZA_B_9CF());
 	reserve_teams_mapping.emplace(CLUB_PADERBORN_9CF(), CLUB_PADERBORN_II_9CF());
-
+	/*
+	cm3_clubs* a = find_club("Internazionale");
+	cm3_clubs* b = find_club("Inter U23");
+	if (a && b) reserve_teams_mapping.emplace(a->ClubID, b->ClubID);
+	*/
 	for (const auto [key, value] : reserve_teams_mapping) {
 		reserve_teams_mapping_vals.emplace(value, key);
 	}
@@ -1602,6 +1633,8 @@ void setup_name_injection()
 	}
 
 	if (configFile.GetBool("applyPortugal", true)) {
+		awards_rename_long.insert(awards_rename_long_portugal.begin(), awards_rename_long_portugal.end());
+		awards_rename_short.insert(awards_rename_short_portugal.begin(), awards_rename_short_portugal.end());
 		leagues_rename_long.insert(leagues_rename_long_portugal.begin(), leagues_rename_long_portugal.end());
 		leagues_rename_short.insert(leagues_rename_short_portugal.begin(), leagues_rename_short_portugal.end());
 		leagues_rename_tla.insert(leagues_rename_tla_portugal.begin(), leagues_rename_tla_portugal.end());

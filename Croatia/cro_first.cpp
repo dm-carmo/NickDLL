@@ -508,7 +508,7 @@ void cro_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	sub_49EE70(pMem2, _this);
 	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
-	sub_68A850(_this);
+	reputation_setup_generic_68A850(_this);
 }
 
 void __fastcall cro_non_league_promotion(BYTE* _this)
@@ -531,7 +531,7 @@ void __fastcall cro_non_league_promotion(BYTE* _this)
 		if (t.f6 == 1) {
 			cm3_clubs* promote = t.club;
 			if (promote->ClubDivision && promote->ClubDivision != comp_data->competition_db) {
-				sub_6830B0((BYTE*)promote, (DWORD)comp_data->competition_db, 1);
+				promote_club_6830B0((BYTE*)promote, (DWORD)comp_data->competition_db, 1);
 				promoted_teams++;
 			}
 		}
@@ -541,7 +541,7 @@ void __fastcall cro_non_league_promotion(BYTE* _this)
 
 	for (unsigned int i = 0; i < relegated_clubs.size(); i++)
 	{
-		sub_6831A0((BYTE*)relegated_clubs[i], (DWORD)get_comp(CRO_FOURTH_NORTH_9CF()), 1);
+		relegate_club_6831A0((BYTE*)relegated_clubs[i], (DWORD)get_comp(CRO_FOURTH_NORTH_9CF()), 1);
 	}
 }
 

@@ -290,7 +290,7 @@ void setup_ita_cup()
 	WriteVTablePtr(ita_cup_vtable, VTable9, 0x48CEB0);
 	WriteVTablePtr(ita_cup_vtable, VTable10, 0x48CEA0);
 	WriteVTablePtr(ita_cup_vtable, VTablePlayoffQual, 0x5A8F60);
-	WriteVTablePtr(ita_cup_vtable, VTable13, 0x519A90);
+	WriteVTablePtr(ita_cup_vtable, VTableSetChampion, 0x519A90);
 	WriteVTablePtr(ita_cup_vtable, VTable17, 0x519690);
 	WriteVTablePtr(ita_cup_vtable, VTableTableFates, 0x519890);
 	WriteVTablePtr(ita_cup_vtable, VTableStageNews, 0x48C6D0);

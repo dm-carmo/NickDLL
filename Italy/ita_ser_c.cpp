@@ -266,35 +266,38 @@ void ita_ser_c_setup_groups(BYTE* _this, BYTE idx) {
 	data->current_stage = idx;
 }
 
-void ita_7D2CD0(BYTE* _this) {
-	comp_stats* data = (comp_stats*)_this;
-	comp_stats* curr_stage = data;
-	DWORD* f8 = data->f8;
-	if (f8) {
-		vector<cm3_clubs*> clubs;
+void ita_ser_c_reputation_setup(BYTE* _this) {
+	comp_stats* comp_data = (comp_stats*)_this;
+
+	if (comp_data->f8)
+	{
+		comp_stats* curr_stage = comp_data;
 		for (char al = -1; al < 2; al++) {
-			clubs.clear();
+			vector<cm3_clubs*> clubs;
 			if (al >= 0) {
-				curr_stage = (comp_stats*)(data->stages[al]);
+				curr_stage = (comp_stats*)(comp_data->stages[al]);
 			}
-			for (WORD num = 0; num < curr_stage->n_teams; num++) {
-				clubs.push_back(((team_league_stats*)curr_stage->team_league_table)[num].club);
+			WORD total_teams = curr_stage->n_teams;
+			team_league_stats* table_teams = (team_league_stats*)(curr_stage->team_league_table);
+			for (int i = 0; i < total_teams; i++) {
+				clubs.push_back(table_teams[i].club);
 			}
 			sort(clubs.begin(), clubs.end(), compareClubRep);
-			for (WORD i = 0; i < curr_stage->n_teams; i++) {
-				sub_4A2540((BYTE*)f8, clubs[i], (i * 3 + 1));
+			for (size_t i = 0; i < clubs.size(); i++) {
+				cm3_clubs* c = clubs[i];
+				sub_4A2540((BYTE*)comp_data->f8, c, (char)(i * 3 + 1));
 			}
 		}
 	}
 }
 
-void __declspec(naked) ita_7D2CD0_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) ita_ser_c_reputation_setup_c()		// used as a __thiscall -> __cdecl converter
 {
 	__asm
 	{
 		mov eax, esp
 		push ecx
-		call ita_7D2CD0
+		call ita_ser_c_reputation_setup
 		add esp, 0x4
 		ret
 	}
@@ -815,6 +818,50 @@ void __declspec(naked) ita_7D2B80_c()		// used as a __thiscall -> __cdecl conver
 	}
 }
 
+void ita_ser_c_reputation_calc(BYTE* _this, BYTE* club, char stage, char current, char min, char max) {
+	comp_stats* comp_data = (comp_stats*)_this;
+	BYTE* ret = (BYTE*)sub_4A4850((BYTE*)comp_data->f8, club);
+	if (!ret) return;
+	char ret_current = current;
+	char ret_min = min;
+	char ret_max = max;
+	if (stage < 2) {
+		ret_current = 1 + 5 * (current - 1);
+		ret_min = 1 + 5 * (min - 1);
+		ret_max = 1 + 5 * (max - 1);
+	}
+	else if (stage == 3) {
+		ret_current = current + 1;
+		ret_min = min + 1;
+		ret_max = max + 1;
+	}
+	else if (stage == 4) {
+		ret_current = current + 15;
+		ret_min = min + 15;
+		ret_max = min + 15;
+	}
+	ret[0x73] = ret_current;
+	ret[0x74] = ret_min;
+	ret[0x75] = ret_max;
+}
+
+void __declspec(naked) ita_ser_c_reputation_calc_c()		// used as a __thiscall -> __cdecl converter
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x14]
+		push dword ptr[eax + 0x10]
+		push dword ptr[eax + 0xc]
+		push dword ptr[eax + 0x8]
+		push dword ptr[eax + 0x4]
+		push ecx
+		call ita_ser_c_reputation_calc
+		add esp, 0x18
+		ret 0x14
+	}
+}
+
 void serie_c_restruct_2025() {
 	cm3_club_comps* serie_c = &(*club_comps)[ITA_SERIE_C_9CF()];
 	serie_c->ClubCompNation = find_country("Italy");
@@ -952,7 +999,8 @@ void ita_ser_c_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	ita_ser_c_vtable->SetPointer(VTablePlayoffQual, (DWORD)&ita_c_playoffs_create);
 	ita_ser_c_vtable->SetPointer(VTableFixtures, (DWORD)&ita_ser_c_fixtures_c);
 	ita_ser_c_vtable->SetPointer(VTableTableFates, (DWORD)&ita_ser_c_set_table_fate);
-	ita_ser_c_vtable->SetPointer(VTable24, (DWORD)&ita_7D2CD0_c);
+	ita_ser_c_vtable->SetPointer(VTable24, (DWORD)&ita_ser_c_reputation_setup_c);
+	ita_ser_c_vtable->SetPointer(VTable27, (DWORD)&ita_ser_c_reputation_calc_c);
 	ita_ser_c_vtable->SetPointer(VTable41, (DWORD)&ita_7D2B80_c);
 	ita_ser_c_vtable->SetPointer(VTableSubsRounds, (DWORD)&ita_ser_c_subs_c);
 	data->year = year;
@@ -977,7 +1025,7 @@ void ita_ser_c_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	for (BYTE i = 0; i < 2; i++) {
 		ita_ser_c_setup_groups(_this, i);
 	}
-	ita_7D2CD0(_this);
+	ita_ser_c_reputation_setup(_this);
 	ita_ser_c_points_deductions(_this, year);
 }
 

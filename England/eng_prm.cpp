@@ -131,8 +131,8 @@ void __fastcall sub_5750A0_promote_teams_to_bottom_league_c(BYTE* _this)
 
 		cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
 		cm3_club_comps* bottomDivision = available->ClubDivision;
-		sub_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
-		sub_6830B0((BYTE*)available, (DWORD)topDivision, 1);
+		relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
+		promote_club_6830B0((BYTE*)available, (DWORD)topDivision, 1);
 
 		available_clubs.erase(available_clubs.begin() + availableIdx);
 	}
@@ -147,8 +147,8 @@ void __fastcall sub_5750A0_promote_teams_to_bottom_league_c(BYTE* _this)
 
 		cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
 		cm3_club_comps* bottomDivision = available->ClubDivision;
-		sub_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
-		sub_6830B0((BYTE*)available, (DWORD)topDivision, 1);
+		relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
+		promote_club_6830B0((BYTE*)available, (DWORD)topDivision, 1);
 
 		available_clubs.erase(available_clubs.begin() + availableIdx);
 	}
