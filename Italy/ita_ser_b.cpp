@@ -535,6 +535,6 @@ void setup_ita_ser_b()
 	WriteVTablePtr(ita_ser_b_vtable, VTableEoSUpdate, (DWORD)&ita_ser_b_update_c);
 	WriteVTablePtr(ita_ser_b_vtable, VTablePlayoffQual, (DWORD)&ita_ser_b_playoffs_create);
 	WriteVTablePtr(ita_ser_b_vtable, VTableFixtures, (DWORD)&ita_ser_b_fixtures_c);
-	WriteVTablePtr(ita_ser_b_vtable, VTable27, (DWORD)&ita_ser_b_reputation_calc_c);
+	WriteVTablePtr(ita_ser_b_vtable, VTableReputationCalc, (DWORD)&ita_ser_b_reputation_calc_c);
 	WriteVTablePtr(ita_ser_b_vtable, VTableTableFates, (DWORD)&ita_ser_b_set_table_fate);
 }

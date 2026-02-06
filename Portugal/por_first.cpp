@@ -1076,7 +1076,7 @@ void setup_por_first()
 	WriteVTablePtr(por_first_vtable, VTableInitFree, (DWORD)&por_first_free_c);
 	WriteVTablePtr(por_first_vtable, VTableEoSUpdate, (DWORD)&por_first_update_c);
 	WriteVTablePtr(por_first_vtable, VTableFixtures, (DWORD)&por_first_fixtures_c);
-	WriteVTablePtr(por_first_vtable, VTable27, (DWORD)&por_first_reputation_calc_c);
+	WriteVTablePtr(por_first_vtable, VTableReputationCalc, (DWORD)&por_first_reputation_calc_c);
 	WriteVTablePtr(por_first_vtable, VTablePlayoffQual, (DWORD)&por_first_playoffs_create);
 	WriteVTablePtr(por_first_vtable, VTableTableFates, (DWORD)&por_first_set_table_fate);
 	WriteVTablePtr(por_first_vtable, VTablePromRelUpdate, (DWORD)&por_first_prom_rel_update_c);

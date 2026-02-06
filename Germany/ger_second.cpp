@@ -624,7 +624,7 @@ void setup_ger_second()
 	WriteVTablePtr(ger_second_vtable, VTableInitFree, (DWORD)&ger_second_free_c);
 	WriteVTablePtr(ger_second_vtable, VTableEoSUpdate, (DWORD)&ger_second_update_c);
 	WriteVTablePtr(ger_second_vtable, VTableFixtures, (DWORD)&ger_second_fixtures_c);
-	WriteVTablePtr(ger_second_vtable, VTable27, (DWORD)&ger_second_reputation_calc_c);
+	WriteVTablePtr(ger_second_vtable, VTableReputationCalc, (DWORD)&ger_second_reputation_calc_c);
 	WriteVTablePtr(ger_second_vtable, VTablePlayoffQual, (DWORD)&ger_second_playoffs_create);
 	WriteVTablePtr(ger_second_vtable, VTableTableFates, (DWORD)&ger_second_set_table_fate);
 }

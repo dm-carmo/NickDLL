@@ -94,6 +94,12 @@ void AddPlayoffFixture(BYTE* pMem, int fixture, Date date, int startYear, Day da
 	add_playoff_fixture_date_call(pMem, fixture, date.getDay(), date.getMonth() - 1, date.getYear() - startYear, dayOfWeek, timeOfDay, startYear, stadiumType);
 }
 
+// Creates a block with the specified data, that defines days to move matches for TV - playoffs
+void AddPlayoffTVFixture(BYTE* pMem, int fixture, int tv_id, int num_to_move, Day dayOfWeek /* Mon = 0 */, int timeOfDay, int stadiumType)
+{
+	add_playoff_tv_fixture_date_call(pMem, fixture, tv_id, dayOfWeek, timeOfDay, num_to_move, stadiumType);
+}
+
 // Creates a cup/playoff draw date block with the specified data
 void AddPlayoffDrawFixture(BYTE* pMem, int fixture, Date date, int startYear, Day dayOfWeek /* Mon = 0 */)
 {

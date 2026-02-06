@@ -45,6 +45,13 @@ map<string, char*> leagues_rename_long = {
 	{"NIFL Cup", "Irish Football League Cup"},
 };
 
+map<string, char*> leagues_rename_long_brazil = {
+	{"Brazilian Campeonato Série A", "Campeonato Brasileiro Série A"},
+	{"Brazilian Campeonato Série B", "Campeonato Brasileiro Série B"},
+	{"Brazilian Campeonato Série C", "Campeonato Brasileiro Série C"},
+	{"CIS Champions Cup", "Campeonato Brasileiro Série D"},
+};
+
 map<string, char*> leagues_rename_long_germany = {
 	{"Turkish 2. Divison Category B Group 1", "German Regionalliga"},
 	{"Indian Guwahati Lower Division", "German Regionalliga Bayern"},
@@ -97,6 +104,10 @@ map<string, char*> leagues_rename_short = {
 	{"Supercoppa Serie C", "Supercoppa Serie C"},
 };
 
+map<string, char*> leagues_rename_short_brazil = {
+	{"CIS Champions Cup", "Série D"},
+};
+
 map<string, char*> leagues_rename_short_germany = {
 	{"Turkish 2. Divison Category B Group 1", "Regionalliga"},
 	{"Indian Guwahati Lower Division", "Regionalliga Bayern"},
@@ -135,6 +146,10 @@ map<string, char*> leagues_rename_short_portugal = {
 map<string, char*> leagues_rename_tla = {
 	{"English Northern Premier League Premier Division", "NLN"},
 	{"English Southern League Premier Division", "NLS"},
+};
+
+map<string, char*> leagues_rename_tla_brazil = {
+	{"CIS Champions Cup", "D"},
 };
 
 map<string, char*> leagues_rename_tla_germany = {
@@ -678,7 +693,7 @@ map<string, DWORD> league_dword_match = {
 	{"Argentine Interior Zone", (DWORD)0x9CF680},
 	{"Reserve", (DWORD)0x9CF684},
 	{"Argentine Third Division", (DWORD)0x9CF688},
-	{"Merconorte Cup", (DWORD)0x9CF68C},
+	{"CIS Champions Cup", (DWORD)0x9CF68C},
 	{"MLS All-Stars", (DWORD)0x9CF690},
 	{"German DFL-Supercup", (DWORD)0x9CF694},
 	{"Copa Sudamericana", (DWORD)0x9CF698},
@@ -1552,14 +1567,12 @@ DWORD cache_clubs_count = *clubs_count;
 BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD a3) {
 	DWORD current_clubs_count = *clubs_count;
 	auto find_invalid = reserve_teams_mapping.find((DWORD)-1);
-	//if (current_clubs_count != cache_clubs_count || reserve_teams_mapping.size() == 0) {
 	if (current_clubs_count != cache_clubs_count || find_invalid != reserve_teams_mapping.end() || reserve_teams_mapping.size() == 0) {
 		reserve_teams_mapping.clear();
 		reserve_teams_mapping_vals.clear();
 		fill_reserve_team_maps();
 		cache_clubs_count = current_clubs_count;
 	}
-	//if (reserve_teams_mapping.size() == 0) fill_reserve_team_maps();
 	if (!to_check) return NULL;
 	if (a3 != 0 && to_check->ClubHasLinkedClub == 0) return NULL;
 	if (!to_check->ClubNation) return NULL;
@@ -1609,6 +1622,14 @@ void setup_name_injection()
 	PatchFunction(0x6146B0, (DWORD)setup_9cf_clubs);
 
 	PatchFunction(0x540A50, (DWORD)check_if_reserve_team_new);
+
+	if (configFile.GetBool("applyBrazil", true)) {
+		//awards_rename_long.insert(awards_rename_long_brazil.begin(), awards_rename_long_brazil.end());
+		//awards_rename_short.insert(awards_rename_short_brazil.begin(), awards_rename_short_brazil.end());
+		leagues_rename_long.insert(leagues_rename_long_brazil.begin(), leagues_rename_long_brazil.end());
+		leagues_rename_short.insert(leagues_rename_short_brazil.begin(), leagues_rename_short_brazil.end());
+		leagues_rename_tla.insert(leagues_rename_tla_brazil.begin(), leagues_rename_tla_brazil.end());
+	}
 
 	if (configFile.GetBool("applyCroatia", true)) {
 		awards_rename_long.insert(awards_rename_long_croatia.begin(), awards_rename_long_croatia.end());

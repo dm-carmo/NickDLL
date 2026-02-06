@@ -12,17 +12,22 @@
 #include "Structures\CMHeader.h"
 #include "Helpers\Helper.h"
 #include "Helpers\YearChanger.h"
+
 #include "CONCACAF\concacaf.h"
 #include "CONMEBOL\sudamericana.h"
 #include "CONMEBOL\libertadores.h"
 #include "CONMEBOL\libertadores_calendar.h"
+
+#include "Brazil\bra_setup.h"
 #include "Croatia\cro_setup.h"
 #include "England\eng_setup.h"
 #include "Germany\ger_setup.h"
 #include <Germany\ger_awards_default.h>
 #include "Italy\ita_setup.h"
 #include "Portugal\por_setup.h"
+
 #include "inject_9cf_rename.h"
+#include "setup_misc_functions.h"
 //#include "european_cup.h"
 
 using namespace std;
@@ -65,6 +70,11 @@ void Setup()
 	WriteBytes(0x68527E, 1, 0xFC);
 
 	configFile.LoadConfig("NickDLL_config.json");
+
+	if (configFile.GetBool("applyBrazil", true)) {
+		dprintf("Applying Brazil changes\n");
+		setup_bra_nation();
+	}
 
 	if (configFile.GetBool("applyCroatia", true)) {
 		dprintf("Applying Croatia changes\n");
@@ -111,6 +121,7 @@ void Setup()
 	}
 	//setup_european_cup();
 	setup_name_injection();
+	setup_misc_functions();
 }
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved)

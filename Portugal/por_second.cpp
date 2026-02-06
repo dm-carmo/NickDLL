@@ -703,7 +703,7 @@ void setup_por_second()
 	WriteVTablePtr(por_second_vtable, VTableInitFree, (DWORD)&por_second_free_c);
 	WriteVTablePtr(por_second_vtable, VTableEoSUpdate, (DWORD)&por_second_update_c);
 	WriteVTablePtr(por_second_vtable, VTableFixtures, (DWORD)&por_second_fixtures_c);
-	WriteVTablePtr(por_second_vtable, VTable27, (DWORD)&por_second_reputation_calc_c);
+	WriteVTablePtr(por_second_vtable, VTableReputationCalc, (DWORD)&por_second_reputation_calc_c);
 	WriteVTablePtr(por_second_vtable, VTablePlayoffQual, (DWORD)&por_second_playoffs_create);
 	WriteVTablePtr(por_second_vtable, VTableTableFates, (DWORD)&por_second_set_table_fate);
 }

@@ -16,6 +16,8 @@ static int(*add_playoff_draw_date_call)(BYTE* a1, __int16 a2, __int16 a3, BYTE a
 (int(*)(BYTE * a1, __int16 a2, __int16 a3, unsigned __int8 a4, __int16 a5, int a6, __int16 a7))(0x521E60);
 static int(*add_playoff_fixture_date_call)(BYTE* a1, __int16 a2, __int16 a3, BYTE a4, __int16 a5, int a6, char a7, __int16 a8, int a9) =
 (int(*)(BYTE * a1, __int16 a2, __int16 a3, unsigned __int8 a4, __int16 a5, int a6, char a7, __int16 a8, int a9))(0x521EB0);
+static int(*add_playoff_tv_fixture_date_call)(BYTE* a1, __int16 a2, unsigned __int16 a3, __int16 a4, char a5, char a6, int a7) =
+(int(*)(BYTE * a1, __int16 a2, unsigned __int16 a3, __int16 a4, char a5, char a6, int a7))(0x521F10);
 static int(*create_message_box)(const char* title, const char* message, bool show_quit) = (int(*)(const char* title, const char* message, bool show_quit))(0x5E8290);
 
 static int   (*sub_944C9F_sprintf)() = (int(*)())(0x944C9F);
@@ -26,6 +28,7 @@ static void* (*sub_945501_alloc)(int size, int a2) = (void* (*)(int size, int a2
 static void  (*sub_9452CA_free)(void* ptr) = (void(*)(void* ptr))(0x9452CA);
 static void  (*sub_944C94_free)(void* ptr) = (void(*)(void* ptr))(0x944C94);
 static char  (*sub_669340)(int a1) = (char(*)(int a1))(0x669340);
+static int   (*sub_66F4E0)(DWORD dest_ptr, DWORD src_ptr, ...) = (int(*)(DWORD dest_ptr, DWORD src_ptr, ...))(0x66F4E0);
 
 static int(__thiscall* add_team_call)(BYTE* _this, BYTE teamNo, cm3_clubs* club, BYTE a3, DWORD* a4) =
 (int(__thiscall*)(BYTE * _this, BYTE teamNo, cm3_clubs * club, BYTE a3, DWORD * a4))(0x687430);
@@ -94,6 +97,8 @@ static void(__thiscall* sub_574E60)(BYTE* _this) =
 static char(__thiscall* sub_768310)(BYTE* _this, DWORD date_addr) =
 (char(__thiscall*)(BYTE * _this, DWORD date_addr))(0x768310);
 static void* (__thiscall* sub_4A4850)(BYTE* _this, BYTE* club) = (void* (__thiscall*)(BYTE * _this, BYTE * club))(0x4A4850);
+//_DWORD* __thiscall sub_54C770(_WORD* this, _DWORD* a2, unsigned __int8 a3);
+static DWORD* (__thiscall* sub_54C770)(BYTE* _this, BYTE* date_ret, char a3) = (DWORD * (__thiscall*)(BYTE * _this, BYTE * date_ret, char a3))(0x54C770);
 
 static void(__thiscall* staff_history_qualified_868DD0)(BYTE* _this, DWORD* club, DWORD comp_id, WORD stage_main, DWORD stage_sub, char a6) =
 (void(__thiscall*)(BYTE * _this, DWORD * club, DWORD comp_id, WORD stage_main, DWORD stage_sub, char a6))(0x86BDD0);
@@ -141,6 +146,7 @@ void AddFixture(BYTE* pMem, int fixture, Date date, int startYear, Day dayOfWeek
 void AddFixtureTV(BYTE* pMem, int fixture, int tv_id = 0, int num_to_move = -1, Day dayOfWeek = DontCare, int timeOfDay = DontCare, int stadiumType = HomeStadium);
 void AddFixtureNoTV(BYTE* pMem, int fixture, Date date, int startYear, Day dayOfWeek, int timeOfDay = Afternoon, int stadiumType = HomeStadium);
 void AddPlayoffFixture(BYTE* pMem, int fixture, Date date, int startYear, Day dayOfWeek, int timeOfDay = Afternoon, int stadiumType = HomeStadium);
+void AddPlayoffTVFixture(BYTE* pMem, int fixture, int tv_id = 0, int num_to_move = -1, Day dayOfWeek = DontCare, int timeOfDay = DontCare, int stadiumType = HomeStadium);
 void AddPlayoffDrawFixture(BYTE* pMem, int fixture, Date date, int startYear, Day dayOfWeek);
 void FillFixtureDetails(BYTE* pMem, int fixture, WORD stage_name, WORD draw_type, WORD game_1_tiebreak, WORD game_2_tiebreak,
 	BYTE unk17, WORD teams_in_round, WORD num_games, WORD new_teams_in_round, WORD total_teams_in, BYTE replays, BYTE legs, BYTE days_between_games,

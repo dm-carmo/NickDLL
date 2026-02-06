@@ -648,8 +648,8 @@ void por_fourth_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	por_fourth_vtable->SetPointer(VTableEoSUpdate, (DWORD)&por_fourth_update_c);
 	por_fourth_vtable->SetPointer(VTableFixtures, (DWORD)&por_fourth_fixtures_c);
 	por_fourth_vtable->SetPointer(VTableSetChampion, (DWORD)&por_fourth_set_champion_c);
-	por_fourth_vtable->SetPointer(VTable24, (DWORD)&por_fourth_reputation_setup_c);
-	por_fourth_vtable->SetPointer(VTable27, (DWORD)&por_fourth_reputation_calc_c);
+	por_fourth_vtable->SetPointer(VTableReputationSetup, (DWORD)&por_fourth_reputation_setup_c);
+	por_fourth_vtable->SetPointer(VTableReputationCalc, (DWORD)&por_fourth_reputation_calc_c);
 	por_fourth_vtable->SetPointer(VTableSubsRounds, (DWORD)&por_fourth_subs_c);
 	por_fourth_vtable->SetPointer(VTableTableFates, (DWORD)&por_fourth_set_table_fate);
 	por_fourth_vtable->SetPointer(VTablePlayoffQual, (DWORD)&por_fourth_playoffs_create_c);

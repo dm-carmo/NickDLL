@@ -46,6 +46,7 @@ bool compareClubLatitude(cm3_clubs* c1, cm3_clubs* c2);
 bool compareClubLatitudeInv(cm3_clubs* c1, cm3_clubs* c2);
 bool compareClubLongitude(cm3_clubs* c1, cm3_clubs* c2);
 bool compareClubLongitudeInv(cm3_clubs* c1, cm3_clubs* c2);
+bool compareClubEWDiagNS(cm3_clubs* c1, cm3_clubs* c2);
 cm3_clubs* get_last_comp_winner(cm3_club_comps* comp);
 cm3_clubs* get_last_comp_runner_up(cm3_club_comps* comp);
 WORD CountNumberOfTeamsInComp(DWORD CompID);

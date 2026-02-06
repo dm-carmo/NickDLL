@@ -523,8 +523,8 @@ void setup_ger_regional()
 {
 	WriteVTablePtr(ger_regional_vtable, VTableEoSUpdate, (DWORD)&ger_regional_update_c);
 	WriteVTablePtr(ger_regional_vtable, VTableFixtures, (DWORD)&ger_regional_fixtures_c);
-	WriteVTablePtr(ger_regional_vtable, VTable24, (DWORD)&ger_regional_reputation_setup_c);
-	WriteVTablePtr(ger_regional_vtable, VTable27, (DWORD)&ger_regional_reputation_calc_c);
+	WriteVTablePtr(ger_regional_vtable, VTableReputationSetup, (DWORD)&ger_regional_reputation_setup_c);
+	WriteVTablePtr(ger_regional_vtable, VTableReputationCalc, (DWORD)&ger_regional_reputation_calc_c);
 	WriteVTablePtr(ger_regional_vtable, VTableSubsRounds, (DWORD)&ger_regional_subs_c);
 	WriteVTablePtr(ger_regional_vtable, VTableTableFates, (DWORD)&ger_regional_set_table_fate);
 	WriteVTablePtr(ger_regional_vtable, VTablePlayoffQual, (DWORD)&ger_regional_playoffs_create_c);

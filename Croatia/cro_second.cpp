@@ -489,7 +489,7 @@ void setup_cro_second()
 	WriteVTablePtr(cro_second_vtable, VTableInitFree, (DWORD)&cro_second_free_c);
 	WriteVTablePtr(cro_second_vtable, VTableEoSUpdate, (DWORD)&cro_second_update_c);
 	WriteVTablePtr(cro_second_vtable, VTableFixtures, (DWORD)&cro_second_fixtures_c);
-	WriteVTablePtr(cro_second_vtable, VTable27, (DWORD)&cro_second_reputation_calc_c);
+	WriteVTablePtr(cro_second_vtable, VTableReputationCalc, (DWORD)&cro_second_reputation_calc_c);
 	WriteVTablePtr(cro_second_vtable, VTablePlayoffQual, (DWORD)&cro_second_playoffs_create);
 	WriteVTablePtr(cro_second_vtable, VTableTableFates, (DWORD)&cro_second_set_table_fate);
 }

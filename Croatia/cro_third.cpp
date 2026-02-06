@@ -446,7 +446,7 @@ void setup_cro_third()
 	WriteVTablePtr(cro_third_vtable, VTableInitFree, (DWORD)&cro_third_free_c);
 	WriteVTablePtr(cro_third_vtable, VTableEoSUpdate, (DWORD)&cro_third_update_c);
 	WriteVTablePtr(cro_third_vtable, VTableFixtures, (DWORD)&cro_third_fixtures_c);
-	WriteVTablePtr(cro_third_vtable, VTable27, (DWORD)&cro_third_reputation_calc_c);
+	WriteVTablePtr(cro_third_vtable, VTableReputationCalc, (DWORD)&cro_third_reputation_calc_c);
 	WriteVTablePtr(cro_third_vtable, VTablePlayoffQual, (DWORD)&cro_third_playoffs_create);
 	WriteVTablePtr(cro_third_vtable, VTableTableFates, (DWORD)&cro_third_set_table_fate);
 }

@@ -918,7 +918,7 @@ void setup_ger_first()
 	WriteVTablePtr(ger_first_vtable, VTableInitFree, (DWORD)&ger_first_free_c);
 	WriteVTablePtr(ger_first_vtable, VTableEoSUpdate, (DWORD)&ger_first_update_c);
 	WriteVTablePtr(ger_first_vtable, VTableFixtures, (DWORD)&ger_first_fixtures_c);
-	WriteVTablePtr(ger_first_vtable, VTable27, (DWORD)&ger_first_reputation_calc_c);
+	WriteVTablePtr(ger_first_vtable, VTableReputationCalc, (DWORD)&ger_first_reputation_calc_c);
 	WriteVTablePtr(ger_first_vtable, VTablePlayoffQual, (DWORD)&ger_first_playoffs_create);
 	WriteVTablePtr(ger_first_vtable, VTableTableFates, (DWORD)&ger_first_set_table_fate);
 	WriteVTablePtr(ger_first_vtable, VTablePromRelUpdate, (DWORD)&ger_first_prom_rel_update_c);

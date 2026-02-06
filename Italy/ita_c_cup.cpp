@@ -286,8 +286,8 @@ void setup_ita_c_cup()
 	WriteVTablePtr(ita_c_cup_vtable, VTableTableFates, 0x519890);
 	WriteVTablePtr(ita_c_cup_vtable, VTableStageNews, 0x48C6D0);
 	WriteVTablePtr(ita_c_cup_vtable, VTable22, 0x5221F0);
-	WriteVTablePtr(ita_c_cup_vtable, VTable24, 0x5223A0);
-	WriteVTablePtr(ita_c_cup_vtable, VTable27, 0x48E380);
+	WriteVTablePtr(ita_c_cup_vtable, VTableReputationSetup, 0x5223A0);
+	WriteVTablePtr(ita_c_cup_vtable, VTableReputationCalc, 0x48E380);
 	WriteVTablePtr(ita_c_cup_vtable, VTable33, 0x522910);
 	WriteVTablePtr(ita_c_cup_vtable, VTable34, 0x522C50);
 	WriteVTablePtr(ita_c_cup_vtable, VTableSubsRounds, 0x4C15F0);

@@ -999,9 +999,9 @@ void ita_ser_c_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	ita_ser_c_vtable->SetPointer(VTablePlayoffQual, (DWORD)&ita_c_playoffs_create);
 	ita_ser_c_vtable->SetPointer(VTableFixtures, (DWORD)&ita_ser_c_fixtures_c);
 	ita_ser_c_vtable->SetPointer(VTableTableFates, (DWORD)&ita_ser_c_set_table_fate);
-	ita_ser_c_vtable->SetPointer(VTable24, (DWORD)&ita_ser_c_reputation_setup_c);
-	ita_ser_c_vtable->SetPointer(VTable27, (DWORD)&ita_ser_c_reputation_calc_c);
-	ita_ser_c_vtable->SetPointer(VTable41, (DWORD)&ita_7D2B80_c);
+	ita_ser_c_vtable->SetPointer(VTableReputationSetup, (DWORD)&ita_ser_c_reputation_setup_c);
+	ita_ser_c_vtable->SetPointer(VTableReputationCalc, (DWORD)&ita_ser_c_reputation_calc_c);
+	ita_ser_c_vtable->SetPointer(VTableAwardTeamsSetup, (DWORD)&ita_7D2B80_c);
 	ita_ser_c_vtable->SetPointer(VTableSubsRounds, (DWORD)&ita_ser_c_subs_c);
 	data->year = year;
 	data->rules = 0x11;

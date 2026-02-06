@@ -379,8 +379,8 @@ void setup_sudamericana()
 	WriteVTablePtr(sudamericana_vtable, VTableFixtures, (DWORD)&sudamericana_fixture_caller);
 	WriteVTablePtr(sudamericana_vtable, VTableTableFates, 0x4c4080);
 	WriteVTablePtr(sudamericana_vtable, VTableStageNews, 0x4c3680);
-	WriteVTablePtr(sudamericana_vtable, VTable24, 0x4c4210);
-	WriteVTablePtr(sudamericana_vtable, VTable27, 0x4c4610);
+	WriteVTablePtr(sudamericana_vtable, VTableReputationSetup, 0x4c4210);
+	WriteVTablePtr(sudamericana_vtable, VTableReputationCalc, 0x4c4610);
 	WriteVTablePtr(sudamericana_vtable, VTableSubsRounds, 0x4c3890);
 	WriteBytes(0x4c5864, 1, 0x20);
 	WriteBytes(0x4c5e8e, 1, 0x7);

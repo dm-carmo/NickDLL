@@ -134,6 +134,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Brazil\bra_first.cpp" />
+    <ClCompile Include="Brazil\bra_fourth.cpp" />
+    <ClCompile Include="Brazil\bra_second.cpp" />
+    <ClCompile Include="Brazil\bra_setup.cpp" />
+    <ClCompile Include="Brazil\bra_third.cpp" />
     <ClCompile Include="CONCACAF\concacaf.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="CONMEBOL\conmebol_helper.cpp" />
@@ -179,6 +184,7 @@
     <ClCompile Include="Italy\ita_ser_b.cpp" />
     <ClCompile Include="Italy\ita_ser_c.cpp" />
     <ClCompile Include="Italy\ita_setup.cpp" />
+    <ClCompile Include="Italy\ita_super.cpp" />
     <ClCompile Include="NickDLL.cpp" />
     <ClCompile Include="Portugal\por_awards.cpp" />
     <ClCompile Include="Portugal\por_cup.cpp" />
@@ -189,12 +195,18 @@
     <ClCompile Include="Portugal\por_setup.cpp" />
     <ClCompile Include="Portugal\por_super.cpp" />
     <ClCompile Include="Portugal\por_third.cpp" />
+    <ClCompile Include="setup_misc_functions.cpp" />
     <ClCompile Include="Structures\CMHeader.cpp" />
     <ClCompile Include="tapani_relegation_patch.cpp" />
     <ClCompile Include="tiny-json.c" />
     <ClCompile Include="Helpers\YearChanger.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Brazil\bra_fourth.h" />
+    <ClInclude Include="Brazil\bra_first.h" />
+    <ClInclude Include="Brazil\bra_second.h" />
+    <ClInclude Include="Brazil\bra_setup.h" />
+    <ClInclude Include="Brazil\bra_third.h" />
     <ClInclude Include="CONCACAF\concacaf.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="CONMEBOL\conmebol_helper.h" />
@@ -242,6 +254,7 @@
     <ClInclude Include="Italy\ita_ser_b.h" />
     <ClInclude Include="Italy\ita_ser_c.h" />
     <ClInclude Include="Italy\ita_setup.h" />
+    <ClInclude Include="Italy\ita_super.h" />
     <ClInclude Include="NString.h" />
     <ClInclude Include="Portugal\por_awards.h" />
     <ClInclude Include="Portugal\por_cup.h" />
@@ -252,6 +265,7 @@
     <ClInclude Include="Portugal\por_setup.h" />
     <ClInclude Include="Portugal\por_super.h" />
     <ClInclude Include="Portugal\por_third.h" />
+    <ClInclude Include="setup_misc_functions.h" />
     <ClInclude Include="Structures\CMHeader.h" />
     <ClInclude Include="Structures\Date.h" />
     <ClInclude Include="Structures\vtable.h" />

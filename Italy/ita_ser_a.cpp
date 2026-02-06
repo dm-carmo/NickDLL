@@ -178,5 +178,5 @@ void __declspec(naked) ita_ser_a_update_c()		// used as a __thiscall -> __cdecl 
 void setup_ita_ser_a()
 {
 	WriteVTablePtr(ita_ser_a_vtable, VTableEoSUpdate, (DWORD)&ita_ser_a_update_c);
-	WriteVTablePtr(ita_ser_a_vtable, VTablePromRelUpdate, (DWORD)&ita_ser_a_prom_rel_update);
+	WriteVTablePtr(ita_ser_a_vtable, VTablePromRelUpdate, (DWORD)&ita_ser_a_prom_rel_update_c);
 }

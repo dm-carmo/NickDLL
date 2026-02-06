@@ -900,9 +900,9 @@ void setup_por_third()
 	WriteVTablePtr(por_third_vtable, VTableEoSUpdate, (DWORD)&por_third_update_c);
 	WriteVTablePtr(por_third_vtable, VTableFixtures, (DWORD)&por_third_fixtures_c);
 	WriteVTablePtr(por_third_vtable, VTableSetChampion, (DWORD)&por_third_set_champion_c);
-	WriteVTablePtr(por_third_vtable, VTable24, (DWORD)&por_third_reputation_setup_c);
-	WriteVTablePtr(por_third_vtable, VTable27, (DWORD)&por_third_reputation_calc_c);
-	WriteVTablePtr(por_third_vtable, VTable41, (DWORD)&por_7D2B80_c);
+	WriteVTablePtr(por_third_vtable, VTableReputationSetup, (DWORD)&por_third_reputation_setup_c);
+	WriteVTablePtr(por_third_vtable, VTableReputationCalc, (DWORD)&por_third_reputation_calc_c);
+	WriteVTablePtr(por_third_vtable, VTableAwardTeamsSetup, (DWORD)&por_7D2B80_c);
 	WriteVTablePtr(por_third_vtable, VTableSubsRounds, (DWORD)&por_third_subs_c);
 	WriteVTablePtr(por_third_vtable, VTableTableFates, (DWORD)&por_third_set_table_fate);
 	WriteVTablePtr(por_third_vtable, VTablePlayoffQual, (DWORD)&por_third_playoffs_create_c);

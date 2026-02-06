@@ -5,6 +5,7 @@
 #include "ita_ser_b.h"
 #include "ita_ser_c.h"
 #include "ita_cup.h"
+#include "ita_super.h"
 #include "ita_c_cup.h"
 #include "ita_c_supercup.h"
 #include "ita_awards.h"
@@ -83,6 +84,7 @@ void setup_ita_nation() {
 	setup_ita_ser_b();
 	setup_ita_ser_c();
 	setup_ita_cup();
+	setup_ita_super();
 	setup_ita_c_cup();
 	setup_ita_c_supercup();
 	setup_ita_awards();

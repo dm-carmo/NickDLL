@@ -54,7 +54,7 @@ enum RoundNames : WORD {
 	InterzonePlayoff = 0x172,
 	NumericGroupStage = 0x3E8,
 	SecondPlacedTeams = 0x3FC,
-	FirstRoundNumericGroup = 0x3E8,
+	FirstRoundNumericGroup = 0x3FD,
 	SecondRoundNumericGroup = 0x407,
 	CaribbeanZone = 0x40F,
 	CentralAmericanZone = 0x410,
@@ -79,6 +79,7 @@ enum RoundNames : WORD {
 	ChampionshipGroup = 0x44B,
 	RelegationGroup = 0x44C,
 	PromotionGroupAtoD = 0x44D,
+	PromotionGroupStage = 0x451,
 	RelegationPlayoff = 0x452,
 	North = 0x453,
 	Northeast = 0x454,
@@ -757,6 +758,7 @@ extern DWORD* current_date;
 extern WORD* current_year;
 
 extern DWORD* staff_history;
+extern DWORD* dd6ec8;
 
 extern BYTE* playable_leagues_table;
 extern DWORD* b74340;

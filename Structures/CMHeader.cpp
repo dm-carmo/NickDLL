@@ -31,6 +31,7 @@ DWORD* current_date = (DWORD*)0xAE2C90;
 WORD* current_year = (WORD*)0xAE2C92;
 
 DWORD* staff_history = (DWORD*)0xDD7F00;
+DWORD* dd6ec8 = (DWORD*)0xDD6EC8;
 
 BYTE* playable_leagues_table = (BYTE*)0xB63D60;
 DWORD* b74340 = (DWORD*)0xB74340;
