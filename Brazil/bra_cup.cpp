@@ -4,6 +4,7 @@
 #include "Structures\vtable.h"
 #include "Helpers\constants.h"
 #include <Helpers\9cf_constants.h>
+#include "bra_state_league_list.h"
 
 DWORD* bra_cup_vtable = (DWORD*)0x967CF8;
 
@@ -26,7 +27,7 @@ DWORD CreateBrazilCupFixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WOR
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 2, 27), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 3, 5), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SecondRound, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 40, 20, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, SecondRound, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 40, 20, 0, 80, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 3, 13), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 4, 30), year, Wednesday, Evening);
@@ -41,12 +42,12 @@ DWORD CreateBrazilCupFixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WOR
 		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, NoTiebreak_1, PenaltiesNoExtraTime_1, 4, 8, 4, 0, 0, 0, 2, 15);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 12), year, Friday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 26), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, NoTiebreak_1, PenaltiesNoExtraTime_1, 6, 4, 2, 0, 0, 0, 2, 14);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 8), year, Wednesday, Evening);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, NoTiebreak_1, PenaltiesNoExtraTime_1, 6, 4, 2, 0, 0, 0, 2, 21);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 11), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 17), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, NoTiebreak_1, PenaltiesNoExtraTime_1, 6, 2, 1, 0, 0, 0, 2, 4);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 30), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 10), year, Wednesday, Evening);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, NoTiebreak_1, PenaltiesNoExtraTime_1, 6, 2, 1, 0, 0, 0, 2, 7);
 
 		return (DWORD)pMem;
 	}
@@ -87,6 +88,9 @@ int bra_cup_teams(BYTE* _this) {
 		teams[i].f6 = 0;
 	}
 
+	sub_9452CA_free(comp_data->special_teems_seedings);
+	comp_data->special_teems_seedings = 0;
+
 	return 1;
 }
 
@@ -94,7 +98,7 @@ void bra_cup_first_year_teams(BYTE* _this) {
 	WORD total_teams = 92;
 	comp_stats* cup_data = (comp_stats*)_this;
 	if (!cup_data) return;
-	cup_data->special_nteams_seedings = total_teams;
+	//cup_data->special_nteams_seedings = total_teams;
 	// third phase: libertadores teams + winner d2 +  winner cup + best d1
 	vector<cm3_clubs*> third_phase;
 	vector<cm3_clubs*> first_phase;
@@ -149,35 +153,7 @@ void bra_cup_first_year_teams(BYTE* _this) {
 		//dprintf("Club %s has qualified for Copa do Brasil first round! (from Série C)\n", division_clubs[i]->ClubNameShort);
 		first_phase.push_back(division_clubs[i]);
 	}
-	vector<DWORD> state_leagues = {
-		BRA_BAHIA_STATE_9CF(),
-		BRA_CENTRAL_STATE_9CF(),
-		BRA_GAUCHO_STATE_9CF(),
-		BRA_GOIAS_STATE_9CF(),
-		BRA_MINAS_GERAIS_STATE_9CF(),
-		BRA_NORTH_STATE_9CF(),
-		BRA_NORTHEAST_STATE_9CF(),
-		BRA_PARANA_STATE_9CF(),
-		BRA_PERNAMBUCO_STATE_9CF(),
-		BRA_RIO_DE_JANEIRO_STATE_9CF(),
-		BRA_SANTA_CATARINA_STATE_9CF(),
-		BRA_SAO_PAULO_STATE_9CF(),
-	};
-	vector<DWORD> state_lower = {
-		BRA_BAHIA_LOWER_9CF(),
-		BRA_CENTRAL_LOWER_9CF(),
-		BRA_GAUCHO_LOWER_9CF(),
-		BRA_GOIAS_LOWER_9CF(),
-		BRA_MINAS_GERAIS_LOWER_9CF(),
-		BRA_NORTH_LOWER_9CF(),
-		BRA_NORTHEAST_LOWER_9CF(),
-		BRA_PARANA_LOWER_9CF(),
-		BRA_PERNAMBUCO_LOWER_9CF(),
-		BRA_RIO_DE_JANEIRO_LOWER_9CF(),
-		BRA_SANTA_CATARINA_LOWER_9CF(),
-		BRA_SAO_PAULO_LOWER_9CF(),
-	};
-	BYTE state_counts[12] = { 2,6,2,2,2,3,5,2,2,2,2,2 };
+	BYTE state_counts[12] = { 2,2,2,6,2,2,2,5,3,2,2,2 };
 	for (size_t i = 0; i < state_leagues.size(); i++) {
 		cm3_club_comps* lower = get_comp(state_lower[i]);
 		division_clubs = find_clubs_of_comp_reserve_division(state_leagues[i]);

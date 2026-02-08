@@ -134,6 +134,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Brazil\bra_awards.cpp" />
     <ClCompile Include="Brazil\bra_cup.cpp" />
     <ClCompile Include="Brazil\bra_first.cpp" />
     <ClCompile Include="Brazil\bra_fourth.cpp" />
@@ -216,6 +217,7 @@
     <ClCompile Include="Helpers\YearChanger.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Brazil\bra_awards.h" />
     <ClInclude Include="Brazil\bra_cup.h" />
     <ClInclude Include="Brazil\bra_fourth.h" />
     <ClInclude Include="Brazil\bra_first.h" />
@@ -233,6 +235,8 @@
     <ClInclude Include="Brazil\bra_reg_rio.h" />
     <ClInclude Include="Brazil\bra_second.h" />
     <ClInclude Include="Brazil\bra_setup.h" />
+    <ClInclude Include="Brazil\bra_state_league_list.cpp" />
+    <ClInclude Include="Brazil\bra_state_league_list.h" />
     <ClInclude Include="Brazil\bra_super.h" />
     <ClInclude Include="Brazil\bra_third.h" />
     <ClInclude Include="CONCACAF\concacaf.h" />

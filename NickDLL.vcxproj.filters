@@ -255,6 +255,9 @@
     <ClCompile Include="Brazil\bra_super.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Brazil\bra_awards.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="european_cup.h">
@@ -501,6 +504,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Brazil\bra_super.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Brazil\bra_awards.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Brazil\bra_state_league_list.cpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Brazil\bra_state_league_list.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

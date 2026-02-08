@@ -20,8 +20,39 @@
 #include "bra_reg_northeast.h"
 #include "bra_cup.h"
 #include "bra_super.h"
+#include "bra_awards.h"
+#include "bra_state_league_list.h"
 
 DWORD bra_setup_c(BYTE* nation_data) {
+	state_leagues = {
+		BRA_BAHIA_STATE_9CF(),
+		BRA_RIO_DE_JANEIRO_STATE_9CF(),
+		BRA_SANTA_CATARINA_STATE_9CF(),
+		BRA_CENTRAL_STATE_9CF(),
+		BRA_GAUCHO_STATE_9CF(),
+		BRA_GOIAS_STATE_9CF(),
+		BRA_MINAS_GERAIS_STATE_9CF(),
+		BRA_NORTHEAST_STATE_9CF(),
+		BRA_NORTH_STATE_9CF(),
+		BRA_PARANA_STATE_9CF(),
+		BRA_SAO_PAULO_STATE_9CF(),
+		BRA_PERNAMBUCO_STATE_9CF(),
+	};
+	state_lower = {
+		BRA_BAHIA_LOWER_9CF(),
+		BRA_RIO_DE_JANEIRO_LOWER_9CF(),
+		BRA_SANTA_CATARINA_LOWER_9CF(),
+		BRA_CENTRAL_LOWER_9CF(),
+		BRA_GAUCHO_LOWER_9CF(),
+		BRA_GOIAS_LOWER_9CF(),
+		BRA_MINAS_GERAIS_LOWER_9CF(),
+		BRA_NORTHEAST_LOWER_9CF(),
+		BRA_NORTH_LOWER_9CF(),
+		BRA_PARANA_LOWER_9CF(),
+		BRA_SAO_PAULO_LOWER_9CF(),
+		BRA_PERNAMBUCO_LOWER_9CF(),
+	};
+
 	BYTE* start_date = new BYTE[8];
 	sub_54C770((BYTE*)dd6ec8, start_date, 4);
 	WORD start_year = *(WORD*)(start_date + 2);
@@ -124,6 +155,9 @@ void setup_bra_nation() {
 	WriteDWORD(0x667AC7 + 6, (DWORD)&bra_setup_c);
 	// move start date forward a bit
 	WriteBytes(0x667B17, 1, 30);
+	// minor fix related to state leagues new start/end
+	WriteBytes(0x44429C, 1, March);
+	WriteBytes(0x44429E, 1, 31);
 	setup_bra_first();
 	setup_bra_second();
 	setup_bra_third();
@@ -142,4 +176,5 @@ void setup_bra_nation() {
 	setup_bra_reg_northeast();
 	setup_bra_cup();
 	setup_bra_super();
+	setup_bra_awards();
 }

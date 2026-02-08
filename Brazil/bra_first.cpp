@@ -5,6 +5,7 @@
 #include "Structures\vtable.h"
 #include "Helpers\constants.h"
 #include <Helpers\9cf_constants.h>
+#include "bra_state_league_list.h"
 
 DWORD* bra_first_vtable = (DWORD*)0x967D98;
 
@@ -1161,35 +1162,7 @@ void __fastcall bra_promotion_to_fourth(BYTE* _this) {
 		}
 		//else dprintf("Club %s was relegated from Série C, they will play in Série D next season!\n", c->ClubNameShort);
 	}
-	vector<DWORD> state_leagues = {
-		BRA_BAHIA_STATE_9CF(),
-		BRA_CENTRAL_STATE_9CF(),
-		BRA_GAUCHO_STATE_9CF(),
-		BRA_GOIAS_STATE_9CF(),
-		BRA_MINAS_GERAIS_STATE_9CF(),
-		BRA_NORTH_STATE_9CF(),
-		BRA_NORTHEAST_STATE_9CF(),
-		BRA_PARANA_STATE_9CF(),
-		BRA_PERNAMBUCO_STATE_9CF(),
-		BRA_RIO_DE_JANEIRO_STATE_9CF(),
-		BRA_SANTA_CATARINA_STATE_9CF(),
-		BRA_SAO_PAULO_STATE_9CF(),
-	};
-	vector<DWORD> state_lower = {
-		BRA_BAHIA_LOWER_9CF(),
-		BRA_CENTRAL_LOWER_9CF(),
-		BRA_GAUCHO_LOWER_9CF(),
-		BRA_GOIAS_LOWER_9CF(),
-		BRA_MINAS_GERAIS_LOWER_9CF(),
-		BRA_NORTH_LOWER_9CF(),
-		BRA_NORTHEAST_LOWER_9CF(),
-		BRA_PARANA_LOWER_9CF(),
-		BRA_PERNAMBUCO_LOWER_9CF(),
-		BRA_RIO_DE_JANEIRO_LOWER_9CF(),
-		BRA_SANTA_CATARINA_LOWER_9CF(),
-		BRA_SAO_PAULO_LOWER_9CF(),
-	};
-	BYTE state_counts[12] = { 4,9,4,4,4,6,9,4,4,4,4,4 };
+	BYTE state_counts[12] = { 4,4,4,9,4,4,4,9,6,4,4,4 };
 	for (size_t i = 0; i < state_leagues.size(); i++) {
 		comp_stats* league = (comp_stats*)get_loaded_league(state_leagues[i]);
 		cm3_club_comps* lower = get_comp(state_lower[i]);
@@ -1238,35 +1211,6 @@ void __fastcall bra_promotion_to_fourth(BYTE* _this) {
 }
 
 void __fastcall bra_state_leagues_update(BYTE* _this) {
-	vector<DWORD> state_leagues = {
-		BRA_BAHIA_STATE_9CF(),
-		BRA_CENTRAL_STATE_9CF(),
-		BRA_GAUCHO_STATE_9CF(),
-		BRA_GOIAS_STATE_9CF(),
-		BRA_MINAS_GERAIS_STATE_9CF(),
-		BRA_NORTH_STATE_9CF(),
-		BRA_NORTHEAST_STATE_9CF(),
-		BRA_PARANA_STATE_9CF(),
-		BRA_PERNAMBUCO_STATE_9CF(),
-		BRA_RIO_DE_JANEIRO_STATE_9CF(),
-		BRA_SANTA_CATARINA_STATE_9CF(),
-		BRA_SAO_PAULO_STATE_9CF(),
-	};
-	vector<DWORD> state_lower = {
-		BRA_BAHIA_LOWER_9CF(),
-		BRA_CENTRAL_LOWER_9CF(),
-		BRA_GAUCHO_LOWER_9CF(),
-		BRA_GOIAS_LOWER_9CF(),
-		BRA_MINAS_GERAIS_LOWER_9CF(),
-		BRA_NORTH_LOWER_9CF(),
-		BRA_NORTHEAST_LOWER_9CF(),
-		BRA_PARANA_LOWER_9CF(),
-		BRA_PERNAMBUCO_LOWER_9CF(),
-		BRA_RIO_DE_JANEIRO_LOWER_9CF(),
-		BRA_SANTA_CATARINA_LOWER_9CF(),
-		BRA_SAO_PAULO_LOWER_9CF(),
-	};
-
 	for (size_t i = 0; i < state_leagues.size(); i++) {
 		comp_stats* league = (comp_stats*)get_loaded_league(state_leagues[i]);
 		if (league) {
@@ -1314,7 +1258,7 @@ void __fastcall bra_qualify_teams_for_cup(BYTE* _this) {
 		sub_9452CA_free(cup_data->special_teems_seedings);
 		cup_data->special_teems_seedings = 0;
 	}
-	cup_data->special_nteams_seedings = total_teams;
+	//cup_data->special_nteams_seedings = total_teams;
 	// third phase: libertadores teams + winner d2 +  winner cup + best d1
 	vector<cm3_clubs*> third_phase;
 	vector<cm3_clubs*> first_phase;
@@ -1369,35 +1313,7 @@ void __fastcall bra_qualify_teams_for_cup(BYTE* _this) {
 		//dprintf("Club %s has qualified for Copa do Brasil first round! (from Série C)\n", division_clubs[i]->ClubNameShort);
 		first_phase.push_back(division_clubs[i]);
 	}
-	vector<DWORD> state_leagues = {
-		BRA_BAHIA_STATE_9CF(),
-		BRA_CENTRAL_STATE_9CF(),
-		BRA_GAUCHO_STATE_9CF(),
-		BRA_GOIAS_STATE_9CF(),
-		BRA_MINAS_GERAIS_STATE_9CF(),
-		BRA_NORTH_STATE_9CF(),
-		BRA_NORTHEAST_STATE_9CF(),
-		BRA_PARANA_STATE_9CF(),
-		BRA_PERNAMBUCO_STATE_9CF(),
-		BRA_RIO_DE_JANEIRO_STATE_9CF(),
-		BRA_SANTA_CATARINA_STATE_9CF(),
-		BRA_SAO_PAULO_STATE_9CF(),
-	};
-	vector<DWORD> state_lower = {
-		BRA_BAHIA_LOWER_9CF(),
-		BRA_CENTRAL_LOWER_9CF(),
-		BRA_GAUCHO_LOWER_9CF(),
-		BRA_GOIAS_LOWER_9CF(),
-		BRA_MINAS_GERAIS_LOWER_9CF(),
-		BRA_NORTH_LOWER_9CF(),
-		BRA_NORTHEAST_LOWER_9CF(),
-		BRA_PARANA_LOWER_9CF(),
-		BRA_PERNAMBUCO_LOWER_9CF(),
-		BRA_RIO_DE_JANEIRO_LOWER_9CF(),
-		BRA_SANTA_CATARINA_LOWER_9CF(),
-		BRA_SAO_PAULO_LOWER_9CF(),
-	};
-	BYTE state_counts[12] = { 2,6,2,2,2,3,5,2,2,2,2,2 };
+	BYTE state_counts[12] = { 2,2,2,6,2,2,2,5,3,2,2,2 };
 	for (size_t i = 0; i < state_leagues.size(); i++) {
 		comp_stats* league = (comp_stats*)get_loaded_league(state_leagues[i]);
 		cm3_club_comps* lower = get_comp(state_lower[i]);
