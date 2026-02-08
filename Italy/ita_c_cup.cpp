@@ -125,7 +125,6 @@ int ita_c_cup_teams(BYTE* _this) {
 
 	DWORD c_count = 0;
 	vector<cm3_clubs*> vec;
-	vec.clear();
 	cm3_club_comps* serie_c = &(*club_comps)[ITA_SERIE_C_9CF()];
 	if (comp_data->year == 2025) {
 		vec.push_back(find_club("Audace Cerignola"));

@@ -114,10 +114,7 @@ DWORD ger_regional_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD*
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 5, 9), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 5, 16), year, Saturday);
 
-		if (fixture_id != 34) {
-			string msg = "Wrong number of fixtures: " + to_string(fixture_id);
-			create_message_box("Error", msg.c_str(), true);
-		}
+		check_number_of_fixtures(_this, fixture_id, *num_rounds);
 
 		return (DWORD)pMem;
 	}
@@ -342,7 +339,6 @@ void ger_regional_playoffs_under(BYTE* _this) {
 
 	comp_stats* curr_stage = comp_data;
 	vector<cm3_clubs*> clubs;
-	clubs.clear();
 
 	for (char al = -1; al < 4; al++) {
 		if (al >= 0) {

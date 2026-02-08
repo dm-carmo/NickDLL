@@ -213,6 +213,48 @@
     <ClCompile Include="Brazil\bra_fourth.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Brazil\bra_reg_bahia.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Brazil\bra_reg_goias.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Brazil\bra_reg_parana.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Brazil\bra_reg_pernambuco.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Brazil\bra_reg_catarina.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Brazil\bra_reg_rio.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Brazil\bra_reg_paulo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Brazil\bra_reg_central.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Brazil\bra_reg_north.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Brazil\bra_reg_northeast.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Brazil\bra_reg_gaucho.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Brazil\bra_reg_minas.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Brazil\bra_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Brazil\bra_super.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="european_cup.h">
@@ -417,6 +459,48 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Brazil\bra_fourth.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Brazil\bra_reg_bahia.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Brazil\bra_reg_goias.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Brazil\bra_reg_parana.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Brazil\bra_reg_pernambuco.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Brazil\bra_reg_catarina.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Brazil\bra_reg_rio.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Brazil\bra_reg_paulo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Brazil\bra_reg_central.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Brazil\bra_reg_north.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Brazil\bra_reg_northeast.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Brazil\bra_reg_gaucho.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Brazil\bra_reg_minas.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Brazil\bra_cup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Brazil\bra_super.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

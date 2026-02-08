@@ -185,7 +185,6 @@ void __declspec(naked) ita_c_supercup_fixtures_c()		// used as a __thiscall -> _
 
 int ita_c_supercup_teams(BYTE* _this) {
 	vector<cm3_clubs*> vec;
-	vec.clear();
 	comp_stats* comp_data = (comp_stats*)_this;
 	WORD total_teams = 3;
 	BYTE* pMem = (BYTE*)sub_944E46_malloc(league_team_list_sz * total_teams);

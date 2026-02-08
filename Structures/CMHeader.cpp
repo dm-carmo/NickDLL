@@ -34,4 +34,7 @@ DWORD* staff_history = (DWORD*)0xDD7F00;
 DWORD* dd6ec8 = (DWORD*)0xDD6EC8;
 
 BYTE* playable_leagues_table = (BYTE*)0xB63D60;
+
 DWORD* b74340 = (DWORD*)0xB74340;
+DWORD* b67a44 = (DWORD*)0xB67A44;
+DWORD* ae1050 = (DWORD*)0xAE1050;

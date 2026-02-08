@@ -626,10 +626,7 @@ DWORD ger_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 5, 16), year, Saturday);
 
-		if (fixture_id != *num_rounds) {
-			string msg = "Wrong number of fixtures: " + to_string(fixture_id);
-			create_message_box("Error", msg.c_str(), true);
-		}
+		check_number_of_fixtures(_this, fixture_id, *num_rounds);
 
 		return (DWORD)pMem;
 	}

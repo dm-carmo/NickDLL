@@ -217,10 +217,7 @@ DWORD bra_second_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 23), year, Sunday);
 
-		if (fixture_id != *num_rounds) {
-			string msg = "Wrong number of fixtures: " + to_string(fixture_id);
-			create_message_box("Error", msg.c_str(), true);
-		}
+		check_number_of_fixtures(_this, fixture_id, *num_rounds);
 
 		return (DWORD)pMem;
 	}
@@ -250,7 +247,7 @@ void bra_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->competition_db = comp;
 	data->comp_vtable = bra_second_vtable;
 	data->year = year;
-	data->rules = 0x6;
+	data->rules = 0x7;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
 	data->f68 = -1;

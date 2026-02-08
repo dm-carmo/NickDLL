@@ -199,10 +199,7 @@ DWORD por_fourth_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 12), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 18), year, Saturday);
 
-		if (fixture_id != 26) {
-			string msg = "Wrong number of fixtures: " + to_string(fixture_id);
-			create_message_box("Error", msg.c_str(), true);
-		}
+		check_number_of_fixtures(_this, fixture_id, *num_rounds);
 
 		return (DWORD)pMem;
 	}
@@ -226,10 +223,7 @@ DWORD por_fourth_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 5, 23), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 5, 31), year, Sunday);
 
-		if (fixture_id != 6) {
-			string msg = "Wrong number of fixtures: " + to_string(fixture_id);
-			create_message_box("Error", msg.c_str(), true);
-		}
+		check_number_of_fixtures(_this, fixture_id, *num_rounds);
 
 		return (DWORD)pMem;
 	}

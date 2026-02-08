@@ -26,8 +26,6 @@ If any of the leagues are active, teams will be picked based on last position.
 */
 DWORD* sudamericana_vtable = (DWORD*)0x968CA8;
 
-vector<cm3_clubs*> sudamericana_32_clubs;
-
 void AddSudamericanaClubs(vector<cm3_clubs*>& vec, const char* szNation, int numberOfClubs)
 {
 
@@ -92,7 +90,7 @@ void SudamericanaTeams(BYTE* _this) {
 	((comp_stats*)_this)->n_teams2 = teams;
 	((comp_stats*)_this)->teams2 = (DWORD*)pMem;
 
-	sudamericana_32_clubs.clear();
+	vector<cm3_clubs*> sudamericana_32_clubs;
 	if (std::filesystem::exists("Data/conmebol.cfg") && *current_year == (WORD)2025) {
 		//dprintf("Getting preset teams for Sudamericana\n");
 		ifstream in("Data/conmebol.cfg", ios_base::in);

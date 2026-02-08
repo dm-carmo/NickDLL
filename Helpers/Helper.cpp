@@ -123,7 +123,6 @@ cm3_continents* find_continent(const char* szContinent)
 vector<cm3_nations*> central_america_countries()
 {
 	vector<cm3_nations*> ret;
-	ret.clear();
 	for (DWORD i = 0; i < *nations_count; i++)
 	{
 		if (_stricmp((*nations)[i].NationName, "Mexico") == 0 ||
@@ -139,7 +138,6 @@ vector<cm3_nations*> central_america_countries()
 vector<cm3_nations*> caribbean_countries()
 {
 	vector<cm3_nations*> ret;
-	ret.clear();
 	for (DWORD i = 0; i < *nations_count; i++)
 	{
 		if ((*nations)[i].NationContinent != NULL && (*nations)[i].NationRegion == 6)
@@ -166,7 +164,6 @@ cm3_club_comps* get_comp(DWORD compID)
 vector<cm3_clubs*> find_clubs_of_comp(DWORD comp_id, long nation_id)
 {
 	vector<cm3_clubs*> ret;
-	ret.clear();
 	for (DWORD i = 0; i < *clubs_count; i++)
 	{
 		if (!(*clubs)[i].ClubNation) continue;
@@ -177,10 +174,22 @@ vector<cm3_clubs*> find_clubs_of_comp(DWORD comp_id, long nation_id)
 	return ret;
 }
 
+vector<cm3_clubs*> find_clubs_of_comp_reserve_division(DWORD comp_id, long nation_id)
+{
+	vector<cm3_clubs*> ret;
+	for (DWORD i = 0; i < *clubs_count; i++)
+	{
+		if (!(*clubs)[i].ClubNation) continue;
+		if (!(*clubs)[i].ClubReserveDivision) continue;
+		if ((*clubs)[i].ClubReserveDivision->ClubCompID == comp_id && (nation_id == -1 || (*clubs)[i].ClubNation->NationID == nation_id))
+			ret.push_back(&(*clubs)[i]);
+	}
+	return ret;
+}
+
 vector<cm3_clubs*> find_clubs_of_comp_last_division(DWORD comp_id, long nation_id)
 {
 	vector<cm3_clubs*> ret;
-	ret.clear();
 	for (DWORD i = 0; i < *clubs_count; i++)
 	{
 		if (!(*clubs)[i].ClubNation) continue;
@@ -429,6 +438,18 @@ WORD CountNumberOfTeamsInComp(DWORD CompID)
 	return numberOfLeagueTeams;
 }
 
+WORD CountNumberOfTeamsInReserveComp(DWORD CompID)
+{
+	WORD numberOfLeagueTeams = 0;
+	for (DWORD i = 0; i < *clubs_count; i++)
+	{
+		cm3_clubs* club = &(*clubs)[i];
+		if (club->ClubReserveDivision && club->ClubReserveDivision->ClubCompID == CompID)
+			numberOfLeagueTeams++;
+	}
+	return numberOfLeagueTeams;
+}
+
 WORD CountNumberOfTeamsInCompNoReserve(DWORD CompID)
 {
 	WORD numberOfLeagueTeams = 0;
@@ -471,4 +492,34 @@ team_league_stats* get_team_league_stats(DWORD comp_id, cm3_clubs* club)
 		}
 	}
 	return NULL;
+}
+
+void check_number_of_fixtures(BYTE* _this, int created_fixtures, WORD needed_fixtures)
+{
+	if (created_fixtures != needed_fixtures) {
+		string comp_name = ((comp_stats*)_this)->competition_db->ClubCompName;
+		string msg = "Wrong number of fixtures in " + comp_name + ": created " + to_string(created_fixtures) + " but needed " + to_string(needed_fixtures);
+		create_message_box("Error", msg.c_str(), true);
+	}
+}
+
+vector<cm3_clubs*> get_relegated_teams(DWORD compID)
+{
+	vector<cm3_clubs*> relegated_clubs;
+	comp_stats* league = (comp_stats*)get_loaded_league(compID);
+
+	if (league)
+	{
+		WORD numberOfTeams = league->n_teams;
+		team_league_stats* table = (team_league_stats*)league->team_league_table;
+
+		for (int i = 0; i < numberOfTeams; i++)
+		{
+			if (table[i].league_fate == Relegated)
+				relegated_clubs.push_back(table[i].club);
+		}
+	}
+	else
+		dprintf("Can't find relegated clubs at compID: %08X\n", compID);
+	return relegated_clubs;
 }

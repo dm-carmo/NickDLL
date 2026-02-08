@@ -50,6 +50,7 @@ map<string, char*> leagues_rename_long_brazil = {
 	{"Brazilian Campeonato Série B", "Campeonato Brasileiro Série B"},
 	{"Brazilian Campeonato Série C", "Campeonato Brasileiro Série C"},
 	{"CIS Champions Cup", "Campeonato Brasileiro Série D"},
+	{"Brazilian Copa dos Campeões", "Brazilian Supercopa Rei"},
 };
 
 map<string, char*> leagues_rename_long_germany = {
@@ -106,6 +107,7 @@ map<string, char*> leagues_rename_short = {
 
 map<string, char*> leagues_rename_short_brazil = {
 	{"CIS Champions Cup", "Série D"},
+	{"Brazilian Copa dos Campeões", "Supercopa Rei"},
 };
 
 map<string, char*> leagues_rename_short_germany = {

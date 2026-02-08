@@ -2,7 +2,13 @@
 #include <Structures/CMHeader.h>
 #include <Helpers/9cf_constants.h>
 #include <Helpers/generic_functions.h>
+#include "Helpers/Helper.h"
 
+static WORD(*rgb_to_word_5E4800)(unsigned char a1, unsigned char a2, unsigned char a3, DWORD* a4) =
+(WORD(*)(unsigned char a1, unsigned char a2, unsigned char a3, DWORD * a4))(0x5E4800);
+
+WORD* default_comp_colour_fg = (WORD*)0xAE3184;
+WORD* default_comp_colour_bg = (WORD*)0xAEBE04;
 
 int show_extra_leagues_in_start(BYTE* nation, DWORD dest_ptr, int a3) {
 	if (!nation || !dest_ptr || a3 < 20) return 0;
@@ -164,7 +170,33 @@ void __declspec(naked) show_extra_leagues_in_start_c()		// used as a __thiscall 
 	}
 }
 
+int comp_colours_in_header(BYTE* club_comp, WORD* fg_titlebar, WORD* bg_titlebar) {
+	*fg_titlebar = *default_comp_colour_fg;
+	*bg_titlebar = *default_comp_colour_bg;
+	if (club_comp) {
+		cm3_club_comps* cm3_comp = (cm3_club_comps*)club_comp;
+		cm3_colours* fg = cm3_comp->ClubCompForegroundColour;
+		cm3_colours* bg = cm3_comp->ClubCompBackgroundColour;
+		if (fg && bg) {
+			*fg_titlebar = rgb_to_word_5E4800(fg->ColourRedIntensity, fg->ColourGreenIntensity, fg->ColourBlueIntensity, 0);
+			*bg_titlebar = rgb_to_word_5E4800(bg->ColourRedIntensity, bg->ColourGreenIntensity, bg->ColourBlueIntensity, 0);
+		}
+		else if (cm3_comp->ClubCompNation) {
+			fg = cm3_comp->ClubCompNation->NationForegroundColour1;
+			bg = cm3_comp->ClubCompNation->NationBackgroundColour1;
+			if (fg && bg)
+			{
+				*fg_titlebar = rgb_to_word_5E4800(fg->ColourRedIntensity, fg->ColourGreenIntensity, fg->ColourBlueIntensity, 0);
+				*bg_titlebar = rgb_to_word_5E4800(bg->ColourRedIntensity, bg->ColourGreenIntensity, bg->ColourBlueIntensity, 0);
+			}
+		}
+		return 1;
+	}
+	else return 0;
+}
+
 void setup_misc_functions()
 {
+	if (configFile.GetBool("competitionColoursPatch", true)) PatchFunction(0x53b7c0, (DWORD)&comp_colours_in_header);
 	PatchFunction(0x669f50, (DWORD)&show_extra_leagues_in_start);
 }

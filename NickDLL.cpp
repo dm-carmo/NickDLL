@@ -69,6 +69,9 @@ void Setup()
 	// Fixes a slight bug where B-teams can't qualify for relegation playoffs if they have the "CantBePromoted" flag set
 	WriteBytes(0x68527E, 1, 0xFC);
 
+	// Shows more teams in Team Stats, up to 127
+	WriteBytes(0x495976, 1, 0x7F);
+
 	configFile.LoadConfig("NickDLL_config.json");
 
 	if (configFile.GetBool("applyBrazil", true)) {

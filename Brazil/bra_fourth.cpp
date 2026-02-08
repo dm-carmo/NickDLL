@@ -132,46 +132,6 @@ void bra_fourth_setup_groups(BYTE* _this, BYTE idx) {
 	data->current_stage = idx;
 }
 
-void bra_fourth_reputation_setup(BYTE* _this) {
-	comp_stats* comp_data = (comp_stats*)_this;
-
-	if (comp_data->f8)
-	{
-		comp_stats* curr_stage = comp_data;
-		DWORD* all_teams = comp_data->teams2;
-		vector<cm3_clubs*> clubs;
-		for (int i = 0; i < 64; i++) clubs.push_back((cm3_clubs*)all_teams[i]);
-		sort(clubs.begin(), clubs.end(), compareClubRep);
-
-		sub_4A2540((BYTE*)comp_data->f8, clubs[0], 1);
-		sub_4A2540((BYTE*)comp_data->f8, clubs[1], 2);
-		for (int i = 2; i < 4; i++) {
-			sub_4A2540((BYTE*)comp_data->f8, clubs[i], 3);
-		}
-		for (int i = 4; i < 8; i++) {
-			sub_4A2540((BYTE*)comp_data->f8, clubs[i], 5);
-		}
-		for (int i = 8; i < 16; i++) {
-			sub_4A2540((BYTE*)comp_data->f8, clubs[i], 9);
-		}
-		for (int i = 16; i < 32; i++) {
-			sub_4A2540((BYTE*)comp_data->f8, clubs[i], 17);
-		}
-		for (int i = 32; i < 40; i++) {
-			sub_4A2540((BYTE*)comp_data->f8, clubs[i], 33);
-		}
-		for (int i = 40; i < 48; i++) {
-			sub_4A2540((BYTE*)comp_data->f8, clubs[i], 41);
-		}
-		for (int i = 48; i < 56; i++) {
-			sub_4A2540((BYTE*)comp_data->f8, clubs[i], 49);
-		}
-		for (int i = 56; i < 64; i++) {
-			sub_4A2540((BYTE*)comp_data->f8, clubs[i], 57);
-		}
-	}
-}
-
 void bra_fourth_reputation_calc(BYTE* _this, BYTE* club, char stage, char current, char min, char max) {
 	comp_stats* comp_data = (comp_stats*)_this;
 	BYTE* ret = (BYTE*)sub_4A4850((BYTE*)comp_data->f8, club);
@@ -243,10 +203,7 @@ DWORD bra_fourth_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 7, 20), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 7, 27), year, Sunday);
 
-		if (fixture_id != *num_rounds) {
-			string msg = "Wrong number of fixtures: " + to_string(fixture_id);
-			create_message_box("Error", msg.c_str(), true);
-		}
+		check_number_of_fixtures(_this, fixture_id, *num_rounds);
 
 		return (DWORD)pMem;
 	}
@@ -302,6 +259,46 @@ void __declspec(naked) bra_fourth_fixtures_c()		// used as a __thiscall -> __cde
 	}
 }
 
+void bra_fourth_reputation_setup(BYTE* _this) {
+	comp_stats* comp_data = (comp_stats*)_this;
+
+	if (comp_data->f8)
+	{
+		comp_stats* curr_stage = comp_data;
+		DWORD* all_teams = comp_data->teams2;
+		vector<cm3_clubs*> clubs;
+		for (int i = 0; i < 64; i++) clubs.push_back((cm3_clubs*)all_teams[i]);
+		sort(clubs.begin(), clubs.end(), compareClubRep);
+
+		sub_4A2540((BYTE*)comp_data->f8, clubs[0], 1);
+		sub_4A2540((BYTE*)comp_data->f8, clubs[1], 2);
+		for (int i = 2; i < 4; i++) {
+			sub_4A2540((BYTE*)comp_data->f8, clubs[i], 3);
+		}
+		for (int i = 4; i < 8; i++) {
+			sub_4A2540((BYTE*)comp_data->f8, clubs[i], 5);
+		}
+		for (int i = 8; i < 16; i++) {
+			sub_4A2540((BYTE*)comp_data->f8, clubs[i], 9);
+		}
+		for (int i = 16; i < 32; i++) {
+			sub_4A2540((BYTE*)comp_data->f8, clubs[i], 17);
+		}
+		for (int i = 32; i < 40; i++) {
+			sub_4A2540((BYTE*)comp_data->f8, clubs[i], 33);
+		}
+		for (int i = 40; i < 48; i++) {
+			sub_4A2540((BYTE*)comp_data->f8, clubs[i], 41);
+		}
+		for (int i = 48; i < 56; i++) {
+			sub_4A2540((BYTE*)comp_data->f8, clubs[i], 49);
+		}
+		for (int i = 56; i < 64; i++) {
+			sub_4A2540((BYTE*)comp_data->f8, clubs[i], 57);
+		}
+	}
+}
+
 void __declspec(naked) bra_fourth_reputation_setup_c()		// used as a __thiscall -> __cdecl converter
 {
 	__asm
@@ -321,7 +318,7 @@ void bra_fourth_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->competition_db = comp;
 	data->comp_vtable = bra_fourth_vtable;
 	data->year = year;
-	data->rules = 0x6;
+	data->rules = 0x7;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
 	data->f68 = -1;

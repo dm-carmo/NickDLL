@@ -94,7 +94,6 @@ void __declspec(naked) cro_super_fixture_caller()		// used as a __thiscall -> __
 
 int cro_super_teams(BYTE* _this) {
 	vector<cm3_clubs*> vec;
-	vec.clear();
 	comp_stats* comp_data = (comp_stats*)_this;
 	WORD total_teams = 2;
 	BYTE* pMem = (BYTE*)sub_944E46_malloc(6 * total_teams);

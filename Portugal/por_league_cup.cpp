@@ -56,7 +56,6 @@ void __declspec(naked) por_league_cup_free_c()		// used as a __thiscall -> __cde
 
 int por_league_cup_teams(BYTE* _this) {
 	vector<cm3_clubs*> vec;
-	vec.clear();
 	comp_stats* comp_data = (comp_stats*)_this;
 	WORD total_teams = 8;
 	BYTE* pMem = (BYTE*)sub_944E46_malloc(6 * total_teams);

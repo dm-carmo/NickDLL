@@ -213,10 +213,7 @@ DWORD bra_third_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		tv_id = 0;
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 30), year, Saturday);
 
-		if (fixture_id != *num_rounds) {
-			string msg = "Wrong number of fixtures: " + to_string(fixture_id);
-			create_message_box("Error", msg.c_str(), true);
-		}
+		check_number_of_fixtures(_this, fixture_id, *num_rounds);
 
 		return (DWORD)pMem;
 	}
@@ -240,10 +237,7 @@ DWORD bra_third_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 4), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 11), year, Saturday);
 
-		if (fixture_id != 6) {
-			string msg = "Wrong number of fixtures: " + to_string(fixture_id);
-			create_message_box("Error", msg.c_str(), true);
-		}
+		check_number_of_fixtures(_this, fixture_id, *num_rounds);
 
 		return (DWORD)pMem;
 	}
@@ -610,7 +604,7 @@ void bra_third_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	bra_third_vtable->SetPointer(VTableReputationCalc, (DWORD)&bra_third_reputation_calc_c);
 	bra_third_vtable->SetPointer(VTable37, (DWORD)0x68aad0);
 	data->year = year;
-	data->rules = 0x6;
+	data->rules = 0x7;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
 	data->f68 = -1;

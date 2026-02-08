@@ -60,34 +60,6 @@ void __declspec(naked) eng_prm_prom_rel_update_c()		// used as a __thiscall -> _
 	}
 }
 
-vector<cm3_clubs*> get_relegated_teams(DWORD compID)
-{
-	std::vector<cm3_clubs*> relegated_clubs;
-	BYTE* league = get_loaded_league(compID);
-
-	if (league)
-	{
-		BYTE numberOfTeams = league[0x3E];
-		BYTE* teams = (BYTE*)*(DWORD*)(league + 0xB1);
-
-		for (int i = 0; i < numberOfTeams; i++)
-		{
-			DWORD* clubPtr = (DWORD*)(teams + (i * 0x3B));
-			cm3_clubs* club = (cm3_clubs*)*clubPtr;
-			BYTE pos = teams[i * 0x3B + 4];
-			BYTE status = teams[i * 0x3B + 0x37];
-			if (club)
-			{
-				if (status == Relegated)
-					relegated_clubs.push_back(club);
-			}
-		}
-	}
-	else
-		dprintf("Can't find relegated clubs at compID: %08X\n", compID);
-	return relegated_clubs;
-}
-
 void __fastcall sub_5750A0_promote_teams_to_bottom_league_c(BYTE* _this)
 {
 	vector<cm3_clubs*> northern_relegated_clubs = get_relegated_teams(ENG_CONFERENCE_NORTH_9CF());
@@ -477,10 +449,7 @@ DWORD CreateFixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 5, 17), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 5, 24), year, Sunday);
 
-		if (fixture_id != 38) {
-			string msg = "Wrong number of fixtures: " + to_string(fixture_id);
-			create_message_box("Error", msg.c_str(), true);
-		}
+		check_number_of_fixtures(_this, fixture_id, *num_rounds);
 
 		return (DWORD)pMem;
 	}

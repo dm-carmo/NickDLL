@@ -154,10 +154,7 @@ DWORD ita_ser_c_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 19), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 26), year, Sunday);
 
-		if (fixture_id != 38) {
-			string msg = "Wrong number of fixtures: " + to_string(fixture_id);
-			create_message_box("Error", msg.c_str(), true);
-		}
+		check_number_of_fixtures(_this, fixture_id, *num_rounds);
 
 		return (DWORD)pMem;
 	}
@@ -375,10 +372,6 @@ void ita_c_playoffs_prom(BYTE* _this) {
 	vector<cm3_clubs*> clubs_rnd2;
 	vector<cm3_clubs*> clubs_rnd3;
 	vector<cm3_clubs*> clubs_rnd4;
-	clubs_rnd1.clear();
-	clubs_rnd2.clear();
-	clubs_rnd3.clear();
-	clubs_rnd4.clear();
 	// clubs for round 4 (2nd places)
 	curr_stage = comp_data;
 	for (char al = -1; al < 2; al++) {

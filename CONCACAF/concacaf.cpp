@@ -269,7 +269,6 @@ void replacement_4c11a0_full() {
 
 	comp_data->n_teams = 27;
 	vector<cm3_clubs*> concacaf_clubs;
-	concacaf_clubs.clear();
 
 	// If there is a .cfg file, uses it to get preset teams for the first year
 	// Includes failsafes in case any of the clubs can't be found or are already qualified for some reason
@@ -315,7 +314,6 @@ void replacement_4c11a0_full() {
 		int rnd = rand() % 2;
 		// Second vector to store 5 teams that will start in the second round
 		vector<cm3_clubs*> concacaf_clubs_bye;
-		concacaf_clubs_bye.clear();
 
 		// Since the MLS has playoffs to decide the winner, I used the functions to get cup winners/losers first
 		ConcacafGetCupWinner(concacaf_clubs_bye, "United States", USA_MLS_9CF(), false); // USA champions

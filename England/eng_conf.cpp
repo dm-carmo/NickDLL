@@ -346,10 +346,7 @@ DWORD CreateConferenceFixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WO
 			AddFixtureNoTV(pMem, fixture_id++, easter_day, year, Monday, Evening);
 		}
 
-		if (fixture_id != 46) {
-			string msg = "Wrong number of fixtures: " + to_string(fixture_id);
-			create_message_box("Error", msg.c_str(), true);
-		}
+		check_number_of_fixtures(_this, fixture_id, *num_rounds);
 
 		return (DWORD)pMem;
 	}

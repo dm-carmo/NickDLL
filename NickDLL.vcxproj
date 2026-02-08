@@ -134,10 +134,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Brazil\bra_cup.cpp" />
     <ClCompile Include="Brazil\bra_first.cpp" />
     <ClCompile Include="Brazil\bra_fourth.cpp" />
+    <ClCompile Include="Brazil\bra_reg_bahia.cpp" />
+    <ClCompile Include="Brazil\bra_reg_catarina.cpp" />
+    <ClCompile Include="Brazil\bra_reg_central.cpp" />
+    <ClCompile Include="Brazil\bra_reg_gaucho.cpp" />
+    <ClCompile Include="Brazil\bra_reg_goias.cpp" />
+    <ClCompile Include="Brazil\bra_reg_minas.cpp" />
+    <ClCompile Include="Brazil\bra_reg_north.cpp" />
+    <ClCompile Include="Brazil\bra_reg_northeast.cpp" />
+    <ClCompile Include="Brazil\bra_reg_parana.cpp" />
+    <ClCompile Include="Brazil\bra_reg_paulo.cpp" />
+    <ClCompile Include="Brazil\bra_reg_pernambuco.cpp" />
+    <ClCompile Include="Brazil\bra_reg_rio.cpp" />
     <ClCompile Include="Brazil\bra_second.cpp" />
     <ClCompile Include="Brazil\bra_setup.cpp" />
+    <ClCompile Include="Brazil\bra_super.cpp" />
     <ClCompile Include="Brazil\bra_third.cpp" />
     <ClCompile Include="CONCACAF\concacaf.cpp" />
     <ClCompile Include="Config.cpp" />
@@ -202,10 +216,24 @@
     <ClCompile Include="Helpers\YearChanger.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Brazil\bra_cup.h" />
     <ClInclude Include="Brazil\bra_fourth.h" />
     <ClInclude Include="Brazil\bra_first.h" />
+    <ClInclude Include="Brazil\bra_reg_bahia.h" />
+    <ClInclude Include="Brazil\bra_reg_catarina.h" />
+    <ClInclude Include="Brazil\bra_reg_central.h" />
+    <ClInclude Include="Brazil\bra_reg_gaucho.h" />
+    <ClInclude Include="Brazil\bra_reg_goias.h" />
+    <ClInclude Include="Brazil\bra_reg_minas.h" />
+    <ClInclude Include="Brazil\bra_reg_north.h" />
+    <ClInclude Include="Brazil\bra_reg_northeast.h" />
+    <ClInclude Include="Brazil\bra_reg_parana.h" />
+    <ClInclude Include="Brazil\bra_reg_paulo.h" />
+    <ClInclude Include="Brazil\bra_reg_pernambuco.h" />
+    <ClInclude Include="Brazil\bra_reg_rio.h" />
     <ClInclude Include="Brazil\bra_second.h" />
     <ClInclude Include="Brazil\bra_setup.h" />
+    <ClInclude Include="Brazil\bra_super.h" />
     <ClInclude Include="Brazil\bra_third.h" />
     <ClInclude Include="CONCACAF\concacaf.h" />
     <ClInclude Include="Config.h" />

@@ -59,7 +59,7 @@ DWORD ger_setup_c(BYTE* nation_data) {
 	nation_comps[i++] = (DWORD)pMem;
 	// Supercup
 	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
-	ger_super_setup(pMem, *current_year, &(*club_comps)[GER_LEAGUE_CUP_9CF()]);
+	ger_super_setup(pMem, *current_year, &(*club_comps)[GER_SUPER_CUP_9CF()]);
 	nation_comps[i++] = (DWORD)pMem;
 
 	BYTE* cm_date = new BYTE[8];
@@ -67,7 +67,7 @@ DWORD ger_setup_c(BYTE* nation_data) {
 	*(WORD*)(nation_data + 0x15) = *(WORD*)cm_date;
 	*(WORD*)(nation_data + 0x1B) = *current_year;
 	*(BYTE*)(nation_data + 0x1D) = 1;
-	*(DWORD*)(nation_data + 0x26) = 0;
+	*(DWORD*)(nation_data + 0x26) = (DWORD) & (*club_comps)[GER_SUPER_CUP_9CF()];
 	return 1;
 }
 

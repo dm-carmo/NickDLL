@@ -49,6 +49,12 @@ static void(__thiscall* sub_4A2540)(BYTE* _this, cm3_clubs* club, char a3) =
 (void(__thiscall*)(BYTE * _this, cm3_clubs * club, char a3))(0x4A2540);
 static char(__thiscall* sub_6847C0)(BYTE* _this, DWORD current_date, int a3) =
 (char(__thiscall*)(BYTE * _this, DWORD current_date, int a3))(0x6847C0);
+static char(__thiscall* fire_manager_relegation_to_unplayable_69B790)(BYTE* _this, cm3_clubs* club, char a3, char a4, int a5) =
+(char(__thiscall*)(BYTE * _this, cm3_clubs * club, char a3, char a4, int a5))(0x69B790);
+//void __thiscall sub_4CD030(_DWORD* this, int* a2, int a3);
+static char(__thiscall* trigger_relegation_clauses_4CD030)(BYTE* _this, cm3_clubs* club, cm3_club_comps* comp) =
+(char(__thiscall*)(BYTE * _this, cm3_clubs * club, cm3_club_comps * comp))(0x4CD030);
+
 
 static int(__thiscall* sub_51C800)(BYTE* _this, int a2) =
 (int(__thiscall*)(BYTE * _this, int a2))(0x51C800);
@@ -138,6 +144,7 @@ static void(__thiscall* sub_769C70)(BYTE* _this, DWORD comp_id, DWORD award_addr
 
 
 int AddTeams(BYTE* _this);
+int AddTeamsReserveDivision(BYTE* _this);
 int AddTeamsGroupLeague(BYTE* _this, DWORD first_group_id);
 void AddLeague(BYTE* _this, const char* szLeagueName, int leagueNo, int year, DWORD league_init_addr);
 void sub_689C20_relegation_hook();

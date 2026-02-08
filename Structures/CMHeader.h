@@ -611,14 +611,18 @@ typedef struct comp
 	CM3_CLUB_COMPS* competition_db;					//4	
 	DWORD* f8;										//8
 	DWORD* stages;									//12
-	char pad16[12];									//16
+	DWORD f16;										//16
+	DWORD* special_teems_seedings;					//20
+	DWORD f24;										//24
 	long promotes_to;								//28
 	long relegates_to;								//32
 	long f36;										//36
 	long f40;										//40
 	long num_stages;								//44
 	long current_stage;								//48
-	char pad48[6];									//52
+	WORD f52;										//52
+	WORD special_nteams_seedings;					//54
+	WORD f56;										//56
 	WORD n_games;									//58
 	WORD n_rounds;									//60
 	WORD n_teams;									//62
@@ -761,4 +765,7 @@ extern DWORD* staff_history;
 extern DWORD* dd6ec8;
 
 extern BYTE* playable_leagues_table;
+
 extern DWORD* b74340;
+extern DWORD* b67a44;
+extern DWORD* ae1050;
