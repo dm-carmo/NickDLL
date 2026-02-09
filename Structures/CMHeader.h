@@ -83,8 +83,8 @@ enum RoundNames : WORD {
 	RelegationPlayoff = 0x452,
 	North = 0x453,
 	Northeast = 0x454,
-	WestSouthwest= 0x455,
-	South= 0x456,
+	WestSouthwest = 0x455,
+	South = 0x456,
 	Central = 0x457,
 	PromotionPlayoff = 0x458,
 	SecondPromotionPlayoff = 0x45A,
@@ -104,7 +104,8 @@ enum Game1Tiebreaks : WORD {
 	ExtraTimeNoPenalties_1 = 2,
 	ExtraTimePenalties_1 = 3,
 	Libertadores_1 = 4,
-	GoldenGoal_1 = 83
+	YardShootout_1 = 0x30,
+	GoldenGoal_1 = 0x83
 };
 
 enum Game2Tiebreaks : WORD {
@@ -112,12 +113,14 @@ enum Game2Tiebreaks : WORD {
 	AwayGoalsPenaltiesNoExtraTime_2 = 1,
 	AwayGoalsExtraTimePenalties_2 = 3,
 	ExtraTimePenaltiesNoAwayGoals_2 = 7,
-	GoldenGoal_2 = 83
+	YardShootout_2 = 0x30,
+	GoldenGoal_2 = 0x83
 };
 
 enum Game3Tiebreaks : WORD {
 	NoTiebreak_3 = 0,
-	ExtraTimePenalties_3 = 3
+	ExtraTimePenalties_3 = 3,
+	YardShootout_3 = 0x20
 };
 
 enum StadiumType {
@@ -748,6 +751,9 @@ extern DWORD* continents_count;
 
 extern cm3_cities** cities;
 extern DWORD* cities_count;
+
+extern cm3_stadiums** stadiums;
+extern DWORD* stadiums_count;
 
 extern cm3_club_comps** club_comps;
 extern DWORD* club_comps_count;

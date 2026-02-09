@@ -258,6 +258,21 @@
     <ClCompile Include="Brazil\bra_awards.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="USA\usa_setup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="USA\usa_mls.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="USA\usa_champ.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="USA\usa_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="USA\usa_awards.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="european_cup.h">
@@ -513,6 +528,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Brazil\bra_state_league_list.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="USA\usa_setup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="USA\usa_mls.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="USA\usa_champ.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="USA\usa_cup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="USA\usa_awards.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

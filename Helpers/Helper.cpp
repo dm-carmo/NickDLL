@@ -51,6 +51,19 @@ void WriteBytes(DWORD addr, int bytes, ...)
 	va_end(valist);
 }
 
+void WriteNOP(DWORD addr, int bytes)
+{
+	for (int i = 0; i < bytes; i++)
+	{
+		DWORD dwOldProt, dwOldProt2;
+		VirtualProtect((void*)addr, 1, PAGE_EXECUTE_READWRITE, &dwOldProt);
+		*((BYTE*)addr) = 0x90;
+		VirtualProtect((void*)addr, 1, dwOldProt, &dwOldProt2);
+
+		addr++;
+	}
+}
+
 void WriteWORD(DWORD addr, WORD data)
 {
 	DWORD dwOldProt, dwOldProt2;
@@ -275,6 +288,26 @@ cm3_staff_comps* find_award(const char* szAward)
 	{
 		if (_stricmp((*awards)[i].StaffCompName, szAward) == 0)
 			return &(*awards)[i];
+	}
+	return NULL;
+}
+
+cm3_cities* find_city(const char* szCity)
+{
+	for (DWORD i = 0; i < *cities_count; i++)
+	{
+		if (_stricmp((*cities)[i].CityName, szCity) == 0)
+			return &(*cities)[i];
+	}
+	return NULL;
+}
+
+cm3_stadiums* find_stadium(const char* szStadium)
+{
+	for (DWORD i = 0; i < *stadiums_count; i++)
+	{
+		if (_stricmp((*stadiums)[i].StadiumName, szStadium) == 0)
+			return &(*stadiums)[i];
 	}
 	return NULL;
 }

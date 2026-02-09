@@ -1,6 +1,7 @@
 #include <windows.h>
 #include "Structures\CMHeader.h"
 #include "Helpers\generic_functions.h"
+#include <Helpers\9cf_constants.h>
 #include "ita_ser_a.h"
 #include "ita_ser_b.h"
 #include "ita_ser_c.h"
@@ -37,11 +38,11 @@ DWORD ita_setup_c(BYTE* nation_data) {
 	// start calling each league's functions
 	BYTE i = 0;
 	// Serie A
-	BYTE* pMem = (BYTE*)sub_944CF1_operator_new(0xEF);
+	BYTE* pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
 	ita_ser_a_setup(pMem, *current_year, &(*club_comps)[ITA_SERIE_A_9CF()]);
 	nation_comps[i++] = (DWORD)pMem;
 	// Serie B
-	pMem = (BYTE*)sub_944CF1_operator_new(0xEF);
+	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
 	ita_ser_b_init(pMem, *current_year, &(*club_comps)[ITA_SERIE_B_9CF()]);
 	nation_comps[i++] = (DWORD)pMem;
 	// Serie C

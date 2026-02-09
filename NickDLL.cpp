@@ -25,6 +25,7 @@
 #include <Germany\ger_awards_default.h>
 #include "Italy\ita_setup.h"
 #include "Portugal\por_setup.h"
+#include "USA\usa_setup.h"
 
 #include "inject_9cf_rename.h"
 #include "setup_misc_functions.h"
@@ -105,6 +106,11 @@ void Setup()
 	if (configFile.GetBool("applyPortugal", true)) {
 		dprintf("Applying Portugal changes\n");
 		setup_por_nation();
+	}
+
+	if (configFile.GetBool("applyUSA", true)) {
+		dprintf("Applying USA changes\n");
+		setup_usa_nation();
 	}
 
 	if (configFile.GetBool("applyLibertadores", true)) {

@@ -18,6 +18,9 @@ DWORD* continents_count = (DWORD*)0xAE234C;
 cm3_cities** cities = (cm3_cities**)0xAE23AC;
 DWORD* cities_count = (DWORD*)0xAE2354;
 
+cm3_stadiums** stadiums = (cm3_stadiums**)0xAE23B0;
+DWORD* stadiums_count = (DWORD*)0xAE2358;
+
 cm3_club_comps** club_comps = (cm3_club_comps**)0xAE23D0;
 DWORD* club_comps_count = (DWORD*)0xAE2378;
 

@@ -635,7 +635,7 @@ int ger_third_table_indicators(BYTE* _this, DWORD* club, BYTE fate, char stage, 
 			staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), 0x64);
 			return 0;
 		case TopPlayoff:
-			staff_history_qualified_868DD0(staff_hist_ptr, club, (DWORD)(ger_second), None, Playoff, 0x1E);
+			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(ger_second), None, Playoff, 0x1E);
 			return 0;
 		case BottomPlayoff:
 			return 0;

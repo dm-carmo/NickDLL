@@ -787,7 +787,7 @@ int ger_first_table_indicators(BYTE* _this, DWORD* club, BYTE fate, char stage, 
 					*a5 = 1;
 					return 0;
 				case Promoted:
-					staff_history_qualified_868DD0(staff_hist_ptr, club, (DWORD)ger_second, *(WORD*)(round_data + 0x32),
+					staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)ger_second, *(WORD*)(round_data + 0x32),
 						*(WORD*)(rounds + playoff_dates_sz * (current_round + 1) + 7), 0xF);
 					return 0;
 				default:
@@ -813,7 +813,7 @@ int ger_first_table_indicators(BYTE* _this, DWORD* club, BYTE fate, char stage, 
 					*a5 = 1;
 					return 0;
 				case Relegated:
-					staff_history_qualified_868DD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
+					staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
 						*(WORD*)(rounds + playoff_dates_sz * (current_round + 1) + 7), 0xF);
 					return 0;
 				default:
@@ -834,7 +834,7 @@ int ger_first_table_indicators(BYTE* _this, DWORD* club, BYTE fate, char stage, 
 		case TopPlayoff:
 			return 0;
 		case BottomPlayoff:
-			staff_history_qualified_868DD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, Playoff, 0x1E);
+			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, Playoff, 0x1E);
 			return 0;
 		case Relegated:
 			staff_history_relegated_86A1C0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));

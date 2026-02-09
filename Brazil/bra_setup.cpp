@@ -143,7 +143,7 @@ DWORD bra_setup_c(BYTE* nation_data) {
 	nation_comps[i++] = (DWORD)pMem;
 
 	BYTE* cm_date = new BYTE[8];
-	convert_to_cm_date(cm_date, 2, January, 2025, (DWORD*)-1);
+	convert_to_cm_date(cm_date, 1, January, 2025, (DWORD*)-1);
 	*(WORD*)(nation_data + 0x15) = *(WORD*)cm_date;
 	*(WORD*)(nation_data + 0x1B) = start_year;
 	*(BYTE*)(nation_data + 0x1D) = 1;

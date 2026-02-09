@@ -352,7 +352,7 @@ void set_playoff_place(BYTE* _this, cm3_clubs* club) {
 			team_league_stats table_pos = ((team_league_stats*)curr_stage->team_league_table)[num];
 			if (club == table_pos.club && table_pos.league_fate != TopPlayoff) {
 				((team_league_stats*)curr_stage->team_league_table)[num].league_fate = TopPlayoff;
-				staff_history_qualified_868DD0((BYTE*)*staff_history, (DWORD*)club, (DWORD)(comp_data->competition_db), PromotionPlayoff, None, 0x1E);
+				staff_history_qualified_86BDD0((BYTE*)*staff_history, (DWORD*)club, (DWORD)(comp_data->competition_db), PromotionPlayoff, None, 0x1E);
 				return;
 			}
 		}
@@ -607,16 +607,12 @@ int SerieCTableIndicators(BYTE* _this, DWORD* club, char fate, char stage, BYTE*
 					*a5 = 1;
 					return 0;
 				case Promoted:
-					staff_history_qualified_868DD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
+					staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
 						*(WORD*)(rounds + playoff_dates_sz * (current_round + 1) + 7), 0xF);
 					return 0;
-				case NoFate:
-					table[i].league_fate = Eliminated;
-					return 0;
-				case BottomPlayoff:
-					table[i].league_fate = Eliminated;
-					return 0;
 				default:
+					staff_history_knocked_out_86C000(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
+						*(WORD*)(rounds + playoff_dates_sz * current_round + 7), 0xF);
 					return 0;
 				}
 			}
@@ -644,7 +640,7 @@ int SerieCTableIndicators(BYTE* _this, DWORD* club, char fate, char stage, BYTE*
 					*a5 = 1;
 					return 0;
 				case Relegated:
-					staff_history_qualified_868DD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
+					staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
 						*(WORD*)(rounds + playoff_dates_sz * (current_round + 1) + 7), 0xF);
 					return 0;
 				case NoFate:
@@ -668,10 +664,10 @@ int SerieCTableIndicators(BYTE* _this, DWORD* club, char fate, char stage, BYTE*
 			staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), 0x64);
 			return 0;
 		case TopPlayoff:
-			staff_history_qualified_868DD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), PromotionPlayoff, None, 0x1E);
+			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), PromotionPlayoff, None, 0x1E);
 			return 0;
 		case BottomPlayoff:
-			staff_history_qualified_868DD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), RelegationPlayoff, None, 0x1E);
+			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), RelegationPlayoff, None, 0x1E);
 			return 0;
 		case Relegated:
 			staff_history_relegated_86A1C0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));

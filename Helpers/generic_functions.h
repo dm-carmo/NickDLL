@@ -106,7 +106,7 @@ static void* (__thiscall* sub_4A4850)(BYTE* _this, BYTE* club) = (void* (__thisc
 //_DWORD* __thiscall sub_54C770(_WORD* this, _DWORD* a2, unsigned __int8 a3);
 static DWORD* (__thiscall* sub_54C770)(BYTE* _this, BYTE* date_ret, char a3) = (DWORD * (__thiscall*)(BYTE * _this, BYTE * date_ret, char a3))(0x54C770);
 
-static void(__thiscall* staff_history_qualified_868DD0)(BYTE* _this, DWORD* club, DWORD comp_id, WORD stage_main, DWORD stage_sub, char a6) =
+static void(__thiscall* staff_history_qualified_86BDD0)(BYTE* _this, DWORD* club, DWORD comp_id, WORD stage_main, DWORD stage_sub, char a6) =
 (void(__thiscall*)(BYTE * _this, DWORD * club, DWORD comp_id, WORD stage_main, DWORD stage_sub, char a6))(0x86BDD0);
 static void(__thiscall* staff_history_champion_868C50)(BYTE* _this, DWORD* club, DWORD comp_id) =
 (void(__thiscall*)(BYTE * _this, DWORD * club, DWORD comp_id))(0x868C50);
@@ -114,6 +114,14 @@ static void(__thiscall* staff_history_promoted_869480)(BYTE* _this, DWORD* club,
 (void(__thiscall*)(BYTE * _this, DWORD * club, DWORD comp_id, char a4))(0x869480);
 static void(__thiscall* staff_history_relegated_86A1C0)(BYTE* _this, DWORD* club, DWORD comp_id) =
 (void(__thiscall*)(BYTE * _this, DWORD * club, DWORD comp_id))(0x86A1C0);
+static void(__thiscall* staff_history_knocked_out_86C000)(BYTE* _this, DWORD* club, DWORD comp_id, WORD stage_main, DWORD stage_sub, char a6) =
+(void(__thiscall*)(BYTE * _this, DWORD * club, DWORD comp_id, WORD stage_main, DWORD stage_sub, char a6))(0x86C000);
+static void(__thiscall* staff_history_comp_winner_86A800)(BYTE* _this, DWORD* club, BYTE* round_data, int a4) =
+(void(__thiscall*)(BYTE * _this, DWORD * club, BYTE * round_data, int a4))(0x86A800);
+static void(__thiscall* staff_history_comp_runner_up_86B0B0)(BYTE* _this, DWORD* club, BYTE* round_data, int a4) =
+(void(__thiscall*)(BYTE * _this, DWORD * club, BYTE * round_data, int a4))(0x86B0B0);
+static void(__thiscall* staff_history_comp_third_place_86B710)(BYTE* _this, DWORD* club, BYTE* round_data, int a4) =
+(void(__thiscall*)(BYTE * _this, DWORD * club, BYTE * round_data, int a4))(0x86B710);
 
 static int(__thiscall* yearly_person_award_setup_92FE80)(BYTE* _this, int a2, int a3, DWORD award_id, WORD rep1, WORD rep2, DWORD comp_id, char a8, int a9, char a10, int a11, int is_player) =
 (int(__thiscall*)(BYTE * _this, int a2, int a3, DWORD award_id, WORD rep1, WORD rep2, DWORD comp_id, char a8, int a9, char a10, int a11, int is_player))(0x92FE80);
@@ -135,10 +143,10 @@ static void(__thiscall* monthly_person_award_nominate_7672E0)(BYTE* _this, WORD 
 
 static CM3_STAFF* (__thiscall* sub_86F950)(BYTE* _this, DWORD comp_id) =
 (CM3_STAFF * (__thiscall*)(BYTE * _this, DWORD comp_id))(0x86F950);
-static void(__thiscall* sub_7671C0)(BYTE* _this, int a2, int a3, BYTE a4, WORD a5) =
-(void(__thiscall*)(BYTE * _this, int a2, int a3, BYTE a4, WORD a5))(0x7671C0);
-static void(__thiscall* sub_767150)(BYTE* _this, int a2, char a3) =
-(void(__thiscall*)(BYTE * _this, int a2, char a3))(0x767150);
+static void(__thiscall* sub_7671C0)(BYTE* _this, long a2, long a3, BYTE a4, WORD a5) =
+(void(__thiscall*)(BYTE * _this, long a2, long a3, BYTE a4, WORD a5))(0x7671C0);
+static void(__thiscall* sub_767150)(BYTE* _this, DWORD a2, char a3) =
+(void(__thiscall*)(BYTE * _this, DWORD a2, char a3))(0x767150);
 static void(__thiscall* sub_769C70)(BYTE* _this, DWORD comp_id, DWORD award_addr) =
 (void(__thiscall*)(BYTE * _this, DWORD comp_id, DWORD award_addr))(0x769C70);
 

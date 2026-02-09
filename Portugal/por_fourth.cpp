@@ -310,10 +310,10 @@ int CampeonatoPortugalTableIndicators(BYTE* _this, DWORD* club, char fate, char 
 			staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), 0x64);
 			return 0;
 		case TopPlayoff:
-			staff_history_qualified_868DD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, PromotionPlayoff, 0x1E);
+			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, PromotionPlayoff, 0x1E);
 			return 0;
 		case BottomPlayoff:
-			staff_history_qualified_868DD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, RelegationPlayoff, 0x1E);
+			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, RelegationPlayoff, 0x1E);
 			return 0;
 		case Relegated:
 			staff_history_relegated_86A1C0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));
@@ -382,8 +382,13 @@ int CampeonatoPortugalTableIndicators(BYTE* _this, DWORD* club, char fate, char 
 					//return 0;
 					break;
 				case Promoted:
-					staff_history_qualified_868DD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
+					staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
 						*(WORD*)(rounds + playoff_dates_sz * (current_round + 1) + 7), 0xF);
+					//return 0;
+					break;
+				case BottomPlayoff:
+					staff_history_comp_runner_up_86B0B0(staff_hist_ptr, club, round_data, a7);
+					table[i].league_fate = Eliminated;
 					//return 0;
 					break;
 					//default:

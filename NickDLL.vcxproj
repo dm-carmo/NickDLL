@@ -215,6 +215,11 @@
     <ClCompile Include="tapani_relegation_patch.cpp" />
     <ClCompile Include="tiny-json.c" />
     <ClCompile Include="Helpers\YearChanger.cpp" />
+    <ClCompile Include="USA\usa_awards.cpp" />
+    <ClCompile Include="USA\usa_champ.cpp" />
+    <ClCompile Include="USA\usa_cup.cpp" />
+    <ClCompile Include="USA\usa_mls.cpp" />
+    <ClCompile Include="USA\usa_setup.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Brazil\bra_awards.h" />
@@ -302,6 +307,11 @@
     <ClInclude Include="Structures\Date.h" />
     <ClInclude Include="Structures\vtable.h" />
     <ClInclude Include="tiny-json.h" />
+    <ClInclude Include="USA\usa_awards.h" />
+    <ClInclude Include="USA\usa_champ.h" />
+    <ClInclude Include="USA\usa_cup.h" />
+    <ClInclude Include="USA\usa_mls.h" />
+    <ClInclude Include="USA\usa_setup.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

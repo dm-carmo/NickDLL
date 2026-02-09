@@ -1,6 +1,7 @@
 #include "Helpers\Helper.h"
 #include "inject_9cf_rename.h"
 #include <Helpers\9cf_constants.h>
+#include <Helpers\generic_functions.h>
 
 map<string, char*> clubs_rename_short = {
 	{"C.D. Ourense", "Ourense CF"},

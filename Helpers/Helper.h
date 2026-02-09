@@ -13,6 +13,7 @@ extern std::default_random_engine rng;
 
 void dprintf(const char* fmt, ...);
 void WriteBytes(DWORD addr, int bytes, ...);
+void WriteNOP(DWORD addr, int bytes);
 void WriteWORD(DWORD addr, WORD data);
 void WriteDWORD(DWORD addr, DWORD data);
 void PatchFunction(DWORD addr, DWORD jmpTo);
@@ -33,6 +34,8 @@ vector<cm3_clubs*> find_clubs_of_comp_reserve_division(DWORD comp_id, long natio
 vector<cm3_clubs*> find_clubs_of_comp_last_division(DWORD comp_id, long nation_id = -1);
 cm3_club_comps* find_club_comp(const char* szClubComp);
 cm3_staff_comps* find_award(const char* szAward);
+cm3_cities* find_city(const char* szCity);
+cm3_stadiums* find_stadium(const char* szStadium);
 DWORD find_club_comp_id(const char* szClubComp, const char* szClubCompAlternative = NULL);
 vector<cm3_club_comps*> find_club_comps_of_nation(const char* szNation);
 vector<cm3_clubs*> find_clubs_of_country(DWORD nation_id);
