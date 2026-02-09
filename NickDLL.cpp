@@ -21,9 +21,11 @@
 #include "Brazil\bra_setup.h"
 #include "Croatia\cro_setup.h"
 #include "England\eng_setup.h"
+#include "France\fra_setup.h"
 #include "Germany\ger_setup.h"
 #include <Germany\ger_awards_default.h>
 #include "Italy\ita_setup.h"
+#include "Poland\pol_setup.h"
 #include "Portugal\por_setup.h"
 #include "USA\usa_setup.h"
 
@@ -90,6 +92,11 @@ void Setup()
 		setup_eng_nation();
 	}
 
+	if (configFile.GetBool("applyFrance", true)) {
+		dprintf("Applying France changes\n");
+		setup_fra_nation();
+	}
+
 	if (configFile.GetBool("applyGermany", true)) {
 		dprintf("Applying Germany changes\n");
 		setup_ger_nation();
@@ -101,6 +108,11 @@ void Setup()
 	if (configFile.GetBool("applyItaly", true)) {
 		dprintf("Applying Italy changes\n");
 		setup_ita_nation();
+	}
+
+	if (configFile.GetBool("applyPoland", true)) {
+		dprintf("Applying Poland changes\n");
+		setup_pol_nation();
 	}
 
 	if (configFile.GetBool("applyPortugal", true)) {

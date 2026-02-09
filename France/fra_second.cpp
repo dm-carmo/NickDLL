@@ -6,11 +6,11 @@
 #include "Helpers\constants.h"
 #include <Helpers\9cf_constants.h>
 
-DWORD* por_second_vtable = (DWORD*)0x96E7A4;
+DWORD* fra_second_vtable = (DWORD*)0x96AC2C;
 
-void por_second_free_under(BYTE* _this) {
+void fra_second_free_under(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
-	data->comp_vtable = por_second_vtable;
+	data->comp_vtable = fra_second_vtable;
 	DWORD x = 0;
 	sub_687970(_this, 0);
 	if (data->fixtures_table) {
@@ -39,27 +39,27 @@ void por_second_free_under(BYTE* _this) {
 	sub_682300(_this);
 }
 
-void por_second_free(BYTE* _this, BYTE a2) {
-	por_second_free_under(_this);
+void fra_second_free(BYTE* _this, BYTE a2) {
+	fra_second_free_under(_this);
 	if (a2 & 1) {
 		sub_944C94_free(_this);
 	}
 }
 
-void __declspec(naked) por_second_free_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) fra_second_free_c()		// used as a __thiscall -> __cdecl converter
 {
 	__asm
 	{
 		mov eax, esp
 		push dword ptr[eax + 0x4]
 		push ecx
-		call por_second_free
+		call fra_second_free
 		add esp, 0x8
 		ret 4
 	}
 }
 
-void por_second_subs(BYTE* _this)
+void fra_second_subs(BYTE* _this)
 {
 	comp_stats* comp_data = (comp_stats*)_this;
 
@@ -68,16 +68,16 @@ void por_second_subs(BYTE* _this)
 	comp_data->pts_for_draw = 1;
 	comp_data->f196 = 2;
 	comp_data->comp_type = CLUB_DOMESTIC;
-	comp_data->tiebreaker_1 = 4;
-	comp_data->tiebreaker_2 = 1;
-	comp_data->tiebreaker_3 = 2;
+	comp_data->tiebreaker_1 = 1;
+	comp_data->tiebreaker_2 = 2;
+	comp_data->tiebreaker_3 = 3;
 	comp_data->promotions = 2;
-	comp_data->prom_playoff = 1;
+	comp_data->prom_playoff = 3;
 	comp_data->rele_playoff = 1;
 	comp_data->relegations = 2;
 
-	comp_data->promotes_to = POR_FIRST_9CF();
-	comp_data->relegates_to = POR_THIRD_9CF();
+	comp_data->promotes_to = FRA_FIRST_9CF();
+	comp_data->relegates_to = FRA_NATIONAL_9CF();
 
 	comp_data->f82 = 2;
 	comp_data->max_bench = 7;
@@ -90,19 +90,19 @@ void por_second_subs(BYTE* _this)
 	return;
 }
 
-void __declspec(naked) por_second_subs_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) fra_second_subs_c()		// used as a __thiscall -> __cdecl converter
 {
 	__asm
 	{
 		mov eax, esp
 		push ecx
-		call por_second_subs
+		call fra_second_subs
 		add esp, 0x4
 		ret
 	}
 }
 
-DWORD por_second_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
+DWORD fra_second_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
 {
 	if (stage_idx == -1) {
 		if (a5)
@@ -119,202 +119,163 @@ DWORD por_second_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 
 		int fixture_id = 0;
 		int tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year, 8, 10), year, Sunday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixture(pMem, fixture_id, Date(year, 8, 8), year, Friday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Monday, Evening);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year, 8, 17), year, Sunday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixture(pMem, fixture_id, Date(year, 8, 15), year, Friday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Monday, Evening);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year, 8, 24), year, Sunday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixture(pMem, fixture_id, Date(year, 8, 22), year, Friday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Monday, Evening);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year, 8, 31), year, Sunday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixture(pMem, fixture_id, Date(year, 8, 29), year, Friday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Monday, Evening);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year, 9, 14), year, Sunday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixture(pMem, fixture_id, Date(year, 9, 12), year, Friday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Monday, Evening);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year, 9, 28), year, Sunday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixture(pMem, fixture_id, Date(year, 9, 19), year, Friday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Monday, Evening);
+		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 23), year, Tuesday, Evening);
+		tv_id = 0;
+		AddFixture(pMem, fixture_id, Date(year, 9, 26), year, Friday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Monday, Evening);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year, 10, 5), year, Sunday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixture(pMem, fixture_id, Date(year, 10, 3), year, Friday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Monday, Evening);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year, 10, 26), year, Sunday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixture(pMem, fixture_id, Date(year, 10, 17), year, Friday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Monday, Evening);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year, 10, 29), year, Wednesday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Thursday, Evening);
+		AddFixture(pMem, fixture_id, Date(year, 10, 24), year, Friday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Monday, Evening);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 28), year, Tuesday, Evening);
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year, 11, 2), year, Sunday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixture(pMem, fixture_id, Date(year, 10, 31), year, Friday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Monday, Evening);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year, 11, 9), year, Sunday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixture(pMem, fixture_id, Date(year, 11, 7), year, Friday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Monday, Evening);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year, 11, 30), year, Sunday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixture(pMem, fixture_id, Date(year, 11, 21), year, Friday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Monday, Evening);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year, 12, 7), year, Sunday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixture(pMem, fixture_id, Date(year, 12, 5), year, Friday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Monday, Evening);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year, 12, 14), year, Sunday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixture(pMem, fixture_id, Date(year, 12, 12), year, Friday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Monday, Evening);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year, 12, 21), year, Sunday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixture(pMem, fixture_id, Date(year + 1, 1, 2), year, Friday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Monday, Evening);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year, 12, 28), year, Sunday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixture(pMem, fixture_id, Date(year + 1, 1, 16), year, Friday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Monday, Evening);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year + 1, 1, 4), year, Sunday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixture(pMem, fixture_id, Date(year + 1, 1, 23), year, Friday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Monday, Evening);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year + 1, 1, 18), year, Sunday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixture(pMem, fixture_id, Date(year + 1, 1, 30), year, Friday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Monday, Evening);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year + 1, 1, 25), year, Sunday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixture(pMem, fixture_id, Date(year + 1, 2, 6), year, Friday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Monday, Evening);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year + 1, 2, 1), year, Sunday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixture(pMem, fixture_id, Date(year + 1, 2, 13), year, Friday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Monday, Evening);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year + 1, 2, 8), year, Sunday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixture(pMem, fixture_id, Date(year + 1, 2, 20), year, Friday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Monday, Evening);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year + 1, 2, 15), year, Sunday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixture(pMem, fixture_id, Date(year + 1, 2, 27), year, Friday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Monday, Evening);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year + 1, 2, 22), year, Sunday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixture(pMem, fixture_id, Date(year + 1, 3, 6), year, Friday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Monday, Evening);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year + 1, 3, 1), year, Sunday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixture(pMem, fixture_id, Date(year + 1, 3, 13), year, Friday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Monday, Evening);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year + 1, 3, 8), year, Sunday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixture(pMem, fixture_id, Date(year + 1, 3, 20), year, Friday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Monday, Evening);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year + 1, 3, 15), year, Sunday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixture(pMem, fixture_id, Date(year + 1, 4, 3), year, Friday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Monday, Evening);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year + 1, 3, 22), year, Sunday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixture(pMem, fixture_id, Date(year + 1, 4, 10), year, Friday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Monday, Evening);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year + 1, 4, 4), year, Saturday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixture(pMem, fixture_id, Date(year + 1, 4, 17), year, Friday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Monday, Evening);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year + 1, 4, 12), year, Sunday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixture(pMem, fixture_id, Date(year + 1, 4, 24), year, Friday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Monday, Evening);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year + 1, 4, 19), year, Sunday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixture(pMem, fixture_id, Date(year + 1, 5, 1), year, Friday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Monday, Evening);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
-		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year + 1, 4, 26), year, Sunday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Monday, Evening);
-		AddFixtureTV(pMem, fixture_id++, tv_id++);
-		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year + 1, 5, 3), year, Sunday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Monday, Evening);
-		AddFixtureTV(pMem, fixture_id++, tv_id++);
-		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year + 1, 5, 10), year, Sunday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Monday, Evening);
-		AddFixtureTV(pMem, fixture_id++, tv_id++);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 5, 17), year, Sunday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 5, 8), year, Friday);
 
 		check_number_of_fixtures(_this, fixture_id, *num_rounds);
 
@@ -325,22 +286,43 @@ DWORD por_second_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 			*a5 = 0;
 		BYTE* pMem = NULL;
 		WORD year = ((comp_stats*)_this)->year;
+		*num_rounds = 2;
+		*stage_name_id = PromotionPlayoff;
+
+		pMem = (BYTE*)sub_944E46_malloc(playoff_dates_sz * (*num_rounds));
+
+		int fixture_id = 0;
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 9), year, Saturday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 12), year, Tuesday, Evening);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, ExtraTimePenalties_1, NoTiebreak_2, 5, 2, 1, 2, 0, 0, 1, 0);
+
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 13), year, Wednesday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 15), year, Friday, Evening);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 5, 2, 1, 1, 2, 0, 1, 0);
+
+		return (DWORD)pMem;
+	}
+	else if (stage_idx == 1) {
+		if (a5)
+			*a5 = 0;
+		BYTE* pMem = NULL;
+		WORD year = ((comp_stats*)_this)->year;
 		*num_rounds = 1;
 		*stage_name_id = None;
 
 		pMem = (BYTE*)sub_944E46_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 18), year, Monday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 23), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, Playoff, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 5, 2, 1, 2, 0, 0, 2, 6);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 16), year, Saturday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 19), year, Tuesday, Evening);
+		FillFixtureDetails(pMem, fixture_id++, Playoff, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 5, 2, 1, 2, 0, 0, 2, 5);
 
 		return (DWORD)pMem;
 	}
 	return 0;
 }
 
-void __declspec(naked) por_second_fixtures_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) fra_second_fixtures_c()		// used as a __thiscall -> __cdecl converter
 {
 	__asm
 	{
@@ -350,42 +332,28 @@ void __declspec(naked) por_second_fixtures_c()		// used as a __thiscall -> __cde
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call por_second_fixtures
+		call fra_second_fixtures
 		add esp, 0x14
 		ret 0x10
 	}
 }
 
-void BlockReservePromotionPortugal2(BYTE* _this) {
-	comp_stats* data = (comp_stats*)_this;
-	WORD total_teams = data->n_teams;
-	team_league_stats* table_teams = (team_league_stats*)(data->team_league_table);
-	for (int i = 0; i < total_teams; i++) {
-		DWORD is_main_club;
-		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)table_teams[i].club, &is_main_club, 1);
-		if (ret_club && !is_main_club) {
-			table_teams[i].league_fate = CantBePromoted;
-		}
-	}
-}
-
-void por_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
+void fra_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 {
 	sub_682200(_this);
 	comp_stats* data = (comp_stats*)_this;
 	data->competition_db = comp;
-	data->comp_vtable = por_second_vtable;
+	data->comp_vtable = fra_second_vtable;
 	data->year = year;
-	data->rules = 0x17;
+	data->rules = 0xc;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
 	data->f68 = -1;
 	data->current_stage = -1;
-	data->num_stages = 1;
+	data->num_stages = 2;
 	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
-	por_second_subs(_this);
+	fra_second_subs(_this);
 	AddTeams(_this);
-	BlockReservePromotionPortugal2(_this);
 	sub_6835C0(_this);
 	BYTE* ebx = 0;
 	sub_6827D0(_this, ebx);
@@ -397,8 +365,8 @@ void por_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	reputation_setup_generic_68A850(_this);
 }
 
-void por_second_playoff_under(BYTE* _this) {
-	char stage_num = 0;
+void fra_second_playoff_rele(BYTE* _this) {
+	char stage_num = 1;
 	comp_stats* comp_data = (comp_stats*)_this;
 	BYTE playoff_teams = 2;
 	WORD total_teams = comp_data->n_teams;
@@ -413,10 +381,9 @@ void por_second_playoff_under(BYTE* _this) {
 		}
 	}
 
-	comp_stats* por_third_data = (comp_stats*)get_loaded_league(POR_THIRD_9CF());
-	comp_stats* prom_playoff = (comp_stats*)por_third_data->stages[1];
-	total_teams = prom_playoff->n_teams;
-	table_teams = (team_league_stats*)(prom_playoff->team_league_table);
+	comp_stats* fra_third_data = (comp_stats*)get_loaded_league(FRA_NATIONAL_9CF());
+	total_teams = fra_third_data->n_teams;
+	table_teams = (team_league_stats*)(fra_third_data->team_league_table);
 	for (int i = 0; i < total_teams; i++) {
 		team_league_stats tls = table_teams[i];
 		if (tls.league_fate == TopPlayoff) {
@@ -436,97 +403,125 @@ void por_second_playoff_under(BYTE* _this) {
 	sub_51C800(new_stage, 0);
 }
 
-void por_second_playoffs_c(BYTE* _this) {
+void fra_second_playoff_prom(BYTE* _this) {
+	char stage_num = 0;
+	comp_stats* comp_data = (comp_stats*)_this;
+	BYTE playoff_teams = comp_data->prom_playoff;
+	WORD total_teams = comp_data->n_teams;
+	DWORD* pTeams = (DWORD*)sub_944E46_malloc(playoff_teams * 4);
+
+	team_league_stats* table_teams = (team_league_stats*)(comp_data->team_league_table);
+	for (int i = comp_data->promotions, j = playoff_teams; i < total_teams && j > 0; i++) {
+		team_league_stats tls = table_teams[i];
+		if (tls.league_fate == TopPlayoff) {
+			*((DWORD*)(&pTeams[j - 1])) = (DWORD)tls.club;
+			j--;
+		}
+	}
+
+	WORD num_rounds = 0;
+	WORD stage_name_id = 0;
+	WORD year = comp_data->year;
+	DWORD v1 = *(DWORD*)_this;
+	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, char, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
+	BYTE* new_stage = (BYTE*)sub_944CF1_operator_new(0xB2);
+	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)comp_data->competition_db, pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, 0);
+	DWORD* stages_arr = comp_data->stages;
+	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
+	sub_51C800(new_stage, 0);
+}
+
+void fra_second_playoffs_c(BYTE* _this) {
 	comp_stats* comp_data = (comp_stats*)_this;
 	long current = comp_data->current_stage;
 	long max = comp_data->num_stages;
 	if (current < max - 1) {
-		BYTE* por_third = get_loaded_league(POR_THIRD_9CF());
-		comp_stats* por_third_data = (comp_stats*)por_third;
-		BYTE* prom_playoff = (BYTE*)por_third_data->stages[1];
-		if (prom_playoff) {
-			DWORD v1 = *(DWORD*)prom_playoff;
-			char ret = (*(int(__thiscall**)(BYTE*, int, int))(v1 + 0x10))(prom_playoff, 0, 1);
+		if (current + 1 == 0) {
+			current++;
+			comp_data->current_stage = current;
+			fra_second_playoff_prom(_this);
+		}
+		else if (current + 1 == 1)
+		{
+			BYTE* fra_national = get_loaded_league(FRA_NATIONAL_9CF());
+			DWORD v1 = *(DWORD*)fra_national;
+			char ret = (*(int(__thiscall**)(BYTE*, int, int))(v1 + 0x10))(fra_national, 0, 1);
 			if (ret != 0) {
-				(*(void(__thiscall**)(BYTE*))(v1 + 0x94))(prom_playoff);
+				(*(void(__thiscall**)(BYTE*))(v1 + 0x94))(fra_national);
 				current++;
 				comp_data->current_stage = current;
-				if (current == 0) {
-					por_second_playoff_under(_this);
-				}
+				fra_second_playoff_rele(_this);
 			}
 		}
 	}
 }
 
-void __declspec(naked) por_second_playoffs_create()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) fra_second_playoffs_create()		// used as a __thiscall -> __cdecl converter
 {
 	__asm
 	{
 		mov eax, esp
 		push ecx
-		call por_second_playoffs_c
+		call fra_second_playoffs_c
 		add esp, 0x4
 		ret
 	}
 }
 
-int por_second_table_indicators(BYTE* _this, DWORD* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int fra_second_table_indicators(BYTE* _this, DWORD* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == 0) {
+		cm3_club_comps* fra_first = get_comp(FRA_FIRST_9CF());
+		WORD num_teams = comp_data->n_teams;
+		if (num_teams <= 0) return 0;
+		team_league_stats* table = (team_league_stats*)(comp_data->team_league_table);
+		comp_stats* stage_data = (comp_stats*)(comp_data->stages[stage]);
+		BYTE* rounds = stage_data->rounds_list;
+		WORD current_round = *(WORD*)(round_data + 0x34);
+		for (int i = 0; i < num_teams; i++) {
+			DWORD* c = (DWORD*)table[i].club;
+			if (c != club) continue;
+			switch (fate) {
+			case TopPlayoff:
+				staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)fra_first, None, Playoff, 0xF);
+				*a5 = 1;
+				return 0;
+			case Promoted:
+				staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
+					*(WORD*)(rounds + playoff_dates_sz * (current_round + 1) + 7), 0xF);
+				return 0;
+			default:
+				staff_history_knocked_out_86C000(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
+					*(WORD*)(rounds + playoff_dates_sz * current_round + 7), 0xF);
+				table[i].league_fate = Eliminated;
+				return 0;
+			}
+		}
+	}
+	else if (stage == 1) {
 		cm3_clubs* club_ptr = (cm3_clubs*)club;
-		cm3_club_comps* por_third = &(*club_comps)[POR_THIRD_9CF()];
-		if (club_ptr->ClubDivision == por_third) {
+		cm3_club_comps* fra_national = &(*club_comps)[FRA_NATIONAL_9CF()];
+		if (club_ptr->ClubDivision == fra_national) {
 			comp_stats* stage_data = (comp_stats*)(comp_data->stages[stage]);
 			BYTE* rounds = stage_data->rounds_list;
 			WORD current_round = *(WORD*)(round_data + 0x34);
 
-			comp_stats* por_third_data = (comp_stats*)get_loaded_league(POR_THIRD_9CF());
-			comp_stats* curr_stage = por_third_data;
-			for (char al = -1; al < 1; al++) {
-				if (al >= 0) {
-					curr_stage = (comp_stats*)(por_third_data->stages[al]);
-				}
-				WORD num_teams = curr_stage->n_teams;
-				team_league_stats* table = (team_league_stats*)(curr_stage->team_league_table);
-				for (int i = 0; i < num_teams; i++) {
-					DWORD* c = (DWORD*)table[i].club;
-					if (c != club) continue;
-					switch (fate) {
-					case TopPlayoff:
-						staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)por_third, 0x32);
-						table[i].league_fate = Promoted;
-						*a5 = 1;
-						//return 0;
-						break;
-					case Promoted:
-						staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)por_third, *(WORD*)(round_data + 0x32),
-							*(WORD*)(rounds + playoff_dates_sz * (current_round + 1) + 7), 0xF);
-						//return 0;
-						break;
-						//default:
-							//table[i].league_fate = Eliminated;
-							//return 0;
-					}
-				}
-			}
-
-			curr_stage = (comp_stats*)(por_third_data->stages[1]);
-			WORD num_teams = curr_stage->n_teams;
-			team_league_stats* table = (team_league_stats*)(curr_stage->team_league_table);
+			comp_stats* fra_national_data = (comp_stats*)get_loaded_league(FRA_NATIONAL_9CF());
+			WORD num_teams = fra_national_data->n_teams;
+			team_league_stats* table = (team_league_stats*)(fra_national_data->team_league_table);
 			for (int i = 0; i < num_teams; i++) {
 				DWORD* c = (DWORD*)table[i].club;
 				if (c != club) continue;
 				switch (fate) {
 				case TopPlayoff:
-					//staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)por_third, 0x32);
+					staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)fra_national, 0x32);
 					table[i].league_fate = Promoted;
 					*a5 = 1;
 					return 0;
 				case Promoted:
-					//staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)por_third, *(WORD*)(round_data + 0x32),
-						//*(WORD*)(rounds + playoff_dates_sz * (current_round + 1) + 7), 0xF);
+					staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)fra_national, *(WORD*)(round_data + 0x32),
+						*(WORD*)(rounds + playoff_dates_sz * (current_round + 1) + 7), 0xF);
 					return 0;
 				default:
 					table[i].league_fate = Eliminated;
@@ -570,6 +565,7 @@ int por_second_table_indicators(BYTE* _this, DWORD* club, BYTE fate, char stage,
 			staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), 0x64);
 			return 0;
 		case TopPlayoff:
+			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, PromotionPlayoff, 0x1E);
 			return 0;
 		case BottomPlayoff:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, Playoff, 0x1E);
@@ -584,7 +580,7 @@ int por_second_table_indicators(BYTE* _this, DWORD* club, BYTE fate, char stage,
 	return 0;
 }
 
-void __declspec(naked) por_second_set_table_fate()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) fra_second_set_table_fate()		// used as a __thiscall -> __cdecl converter
 {
 	__asm
 	{
@@ -596,13 +592,13 @@ void __declspec(naked) por_second_set_table_fate()		// used as a __thiscall -> _
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call por_second_table_indicators
+		call fra_second_table_indicators
 		add esp, 0x1c
 		ret 0x18
 	}
 }
 
-char por_second_update(BYTE* _this) {
+char fra_second_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
 	data->f76 = 0;
@@ -624,9 +620,8 @@ char por_second_update(BYTE* _this) {
 	}
 	data->year++;
 	data->current_stage = -1;
-	por_second_subs(_this);
+	fra_second_subs(_this);
 	AddTeams(_this);
-	BlockReservePromotionPortugal2(_this);
 	sub_6835C0(_this);
 	BYTE* edx = 0;
 	sub_6827D0(_this, edx);
@@ -636,19 +631,19 @@ char por_second_update(BYTE* _this) {
 	return sub_79CEE0((BYTE*)*b74340, (BYTE*)(data->competition_db));
 }
 
-void __declspec(naked) por_second_update_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) fra_second_update_c()		// used as a __thiscall -> __cdecl converter
 {
 	__asm
 	{
 		mov eax, esp
 		push ecx
-		call por_second_update
+		call fra_second_update
 		add esp, 0x4
 		ret
 	}
 }
 
-void por_second_reputation_calc(BYTE* _this, BYTE* club, char stage, char current, char min, char max) {
+void fra_second_reputation_calc(BYTE* _this, BYTE* club, char stage, char current, char min, char max) {
 	comp_stats* comp_data = (comp_stats*)_this;
 	BYTE* ret = (BYTE*)sub_4A4850((BYTE*)comp_data->f8, club);
 	if (!ret) return;
@@ -656,9 +651,14 @@ void por_second_reputation_calc(BYTE* _this, BYTE* club, char stage, char curren
 	char ret_min = min;
 	char ret_max = max;
 	if (stage == 0) {
-		comp_stats* d3_comp_data = (comp_stats*)get_loaded_league(POR_THIRD_9CF());
+		ret_current = 2 + current;
+		ret_min = 2 + min;
+		ret_max = 2 + max;
+	}
+	else if (stage == 1) {
+		comp_stats* d3_comp_data = (comp_stats*)get_loaded_league(FRA_NATIONAL_9CF());
 		cm3_clubs* club_data = (cm3_clubs*)club;
-		if (club_data->ClubDivision->ClubCompID == POR_THIRD_9CF()) {
+		if (club_data->ClubDivision->ClubCompID == FRA_NATIONAL_9CF()) {
 			ret = (BYTE*)sub_4A4850((BYTE*)d3_comp_data->f8, club);
 			if (!ret) return;
 			ret_current = 3;
@@ -676,7 +676,7 @@ void por_second_reputation_calc(BYTE* _this, BYTE* club, char stage, char curren
 	ret[0x75] = ret_max;
 }
 
-void __declspec(naked) por_second_reputation_calc_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) fra_second_reputation_calc_c()		// used as a __thiscall -> __cdecl converter
 {
 	__asm
 	{
@@ -687,19 +687,19 @@ void __declspec(naked) por_second_reputation_calc_c()		// used as a __thiscall -
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call por_second_reputation_calc
+		call fra_second_reputation_calc
 		add esp, 0x18
 		ret 0x14
 	}
 }
 
-void setup_por_second()
+void setup_fra_second()
 {
-	WriteVTablePtr(por_second_vtable, VTableSubsRounds, (DWORD)&por_second_subs_c);
-	WriteVTablePtr(por_second_vtable, VTableInitFree, (DWORD)&por_second_free_c);
-	WriteVTablePtr(por_second_vtable, VTableEoSUpdate, (DWORD)&por_second_update_c);
-	WriteVTablePtr(por_second_vtable, VTableFixtures, (DWORD)&por_second_fixtures_c);
-	WriteVTablePtr(por_second_vtable, VTableReputationCalc, (DWORD)&por_second_reputation_calc_c);
-	WriteVTablePtr(por_second_vtable, VTablePlayoffQual, (DWORD)&por_second_playoffs_create);
-	WriteVTablePtr(por_second_vtable, VTableTableFates, (DWORD)&por_second_set_table_fate);
+	WriteVTablePtr(fra_second_vtable, VTableSubsRounds, (DWORD)&fra_second_subs_c);
+	WriteVTablePtr(fra_second_vtable, VTableInitFree, (DWORD)&fra_second_free_c);
+	WriteVTablePtr(fra_second_vtable, VTableEoSUpdate, (DWORD)&fra_second_update_c);
+	WriteVTablePtr(fra_second_vtable, VTableFixtures, (DWORD)&fra_second_fixtures_c);
+	WriteVTablePtr(fra_second_vtable, VTableReputationCalc, (DWORD)&fra_second_reputation_calc_c);
+	WriteVTablePtr(fra_second_vtable, VTablePlayoffQual, (DWORD)&fra_second_playoffs_create);
+	WriteVTablePtr(fra_second_vtable, VTableTableFates, (DWORD)&fra_second_set_table_fate);
 }

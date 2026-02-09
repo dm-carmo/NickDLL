@@ -273,6 +273,39 @@
     <ClCompile Include="USA\usa_awards.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Poland\pol_setup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Poland\pol_first.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Poland\pol_second.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Poland\pol_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Poland\pol_super.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="France\fra_setup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="France\fra_first.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="France\fra_second.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="France\fra_third.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="France\fra_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="France\fra_super.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="european_cup.h">
@@ -543,6 +576,39 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="USA\usa_awards.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Poland\pol_setup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Poland\pol_first.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Poland\pol_second.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Poland\pol_cup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Poland\pol_super.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="France\fra_setup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="France\fra_first.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="France\fra_second.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="France\fra_third.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="France\fra_cup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="France\fra_super.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

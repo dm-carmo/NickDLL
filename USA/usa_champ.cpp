@@ -397,6 +397,7 @@ char usa_champ_update(BYTE* _this) {
 	}
 	DWORD v1 = *(DWORD*)_this;
 	(DWORD*)(*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
+	sub_68AA80(_this);
 	return sub_79CEE0((BYTE*)*b74340, (BYTE*)(data->competition_db));
 }
 
