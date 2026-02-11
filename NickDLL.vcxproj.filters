@@ -306,6 +306,51 @@
     <ClCompile Include="France\fra_super.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Denmark\den_setup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Denmark\den_premier.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Denmark\den_first.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Denmark\den_second.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Denmark\den_third.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Denmark\den_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Denmark\den_awards.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Japan\jpn_setup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Japan\jpn_first.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Japan\jpn_second.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Japan\jpn_third.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Japan\jpn_jfl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Japan\jpn_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Japan\jpn_league_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Japan\jpn_super.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="european_cup.h">
@@ -609,6 +654,51 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="France\fra_super.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Denmark\den_setup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Denmark\den_premier.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Denmark\den_first.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Denmark\den_second.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Denmark\den_third.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Denmark\den_cup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Denmark\den_awards.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Japan\jpn_setup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Japan\jpn_first.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Japan\jpn_second.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Japan\jpn_third.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Japan\jpn_jfl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Japan\jpn_cup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Japan\jpn_league_cup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Japan\jpn_super.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

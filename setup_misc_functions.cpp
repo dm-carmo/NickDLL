@@ -32,6 +32,12 @@ int show_extra_leagues_in_start(BYTE* nation, DWORD dest_ptr, int a3) {
 		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
 		return 1;
 	}
+	if (cm3_nation->NationID == NATION_JAPAN_9CF()) {
+		if (configFile.GetBool("applyJapan", true)) league_str = "JFL";
+		else return 0;
+		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
+		return 1;
+	}
 	if (cm3_nation->NationID == NATION_PORTUGAL_9CF()) {
 		if (configFile.GetBool("applyPortugal", true)) league_str = "Campeonato de Portugal";
 		else league_str = "Liga 3";
@@ -96,11 +102,6 @@ int show_extra_leagues_in_start(BYTE* nation, DWORD dest_ptr, int a3) {
 	}
 	if (cm3_nation->NationID == NATION_HOLLAND_9CF()) {
 		league_str = "Tweede Divisie";
-		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
-		return 1;
-	}
-	if (cm3_nation->NationID == NATION_JAPAN_9CF()) {
-		league_str = "JFL";
 		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
 		return 1;
 	}

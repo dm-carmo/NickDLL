@@ -690,7 +690,7 @@ typedef struct TEAM_LEAGUE_STATS
 	CM3_CLUBS* club;			// 0
 	char current_pos;			// 4
 	char pad4[4];				// 5
-	DWORD* position_history;	// 9
+	DWORD position_history;		// 9
 	char pad13[4];				// 13
 	char games;					// 17
 	char wins;					// 18
@@ -775,3 +775,4 @@ extern BYTE* playable_leagues_table;
 extern DWORD* b74340;
 extern DWORD* b67a44;
 extern DWORD* ae1050;
+extern DWORD* ad9c60;

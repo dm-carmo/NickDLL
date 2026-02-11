@@ -211,7 +211,7 @@ void setup_bra_super()
 	WriteVTablePtr(bra_super_vtable, VTableFixtures, (DWORD)&bra_super_fixture_caller);
 	WriteVTablePtr(bra_super_vtable, VTable2, 0x51A150);
 	WriteVTablePtr(bra_super_vtable, VTable5, 0x521E00);
-	WriteVTablePtr(bra_super_vtable, VTable6, 0x51F890);
+	WriteVTablePtr(bra_super_vtable, VTableLeagueSplit, 0x51F890);
 	WriteVTablePtr(bra_super_vtable, VTable7, 0x51FC00);
 	WriteVTablePtr(bra_super_vtable, VTable8, 0x5210F0);
 	WriteVTablePtr(bra_super_vtable, VTable9, 0x48CEB0);

@@ -56,12 +56,14 @@ DWORD bra_setup_c(BYTE* nation_data) {
 	BYTE* start_date = new BYTE[8];
 	sub_54C770((BYTE*)dd6ec8, start_date, 4);
 	WORD start_year = *(WORD*)(start_date + 2);
-	*(WORD*)(nation_data + 0x32) = 18;
-	*(BYTE*)(nation_data + 0x34) = 0;
+	// contract start date?
+	*(WORD*)(nation_data + 0x32) = 3;
+	*(BYTE*)(nation_data + 0x34) = January;
 	*(WORD*)(nation_data + 0x35) = start_year;
 	*(WORD*)(nation_data + 0x37) = 6;
+	// contract end date?
 	*(WORD*)(nation_data + 0x41) = 14;
-	*(BYTE*)(nation_data + 0x43) = 11;
+	*(BYTE*)(nation_data + 0x43) = December;
 	*(WORD*)(nation_data + 0x44) = start_year;
 	*(WORD*)(nation_data + 0x46) = 6;
 	*(DWORD*)(nation_data + 0xc) = 18;

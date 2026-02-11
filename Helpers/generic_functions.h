@@ -133,6 +133,8 @@ static void(__thiscall* yearly_player_award_nominate_768CF0)(BYTE* _this, DWORD 
 (void(__thiscall*)(BYTE * _this, DWORD comp_id, DWORD date_addr, DWORD award_addr, BYTE max_age, unsigned __int16 a6, char a7, DWORD nation_id, int a9, DWORD nation_id_exclude, int a11))(0x768CF0);
 static void(__thiscall* yearly_player_award_nominate_769380)(BYTE* _this, DWORD date_addr, DWORD award_addr, DWORD nation_based, DWORD nationality, int a5, int a6, char a7, unsigned __int16 a8, int a9) =
 (void(__thiscall*)(BYTE * _this, DWORD date_addr, DWORD award_addr, DWORD nation_based, DWORD nationality, int a5, int a6, char a7, unsigned __int16 a8, int a9))(0x769380);
+static void(__thiscall* yearly_player_award_nominate_7683C0)(BYTE* _this, DWORD date_addr, DWORD award_addr, int a4, DWORD nation_id, int a6, int a7, int a8, int a9, char a10, char a11) =
+(void(__thiscall*)(BYTE * _this, DWORD date_addr, DWORD award_addr, int a4, DWORD nation_id, int a6, int a7, int a8, int a9, char a10, char a11))(0x7683C0);
 
 static void(__thiscall* yearly_team_award_nominate_7698F0)(BYTE* _this, DWORD comp_id, DWORD award_addr) =
 (void(__thiscall*)(BYTE * _this, DWORD comp_id, DWORD award_addr))(0x7698F0);

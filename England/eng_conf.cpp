@@ -466,6 +466,40 @@ void __declspec(naked) eng_conf_fixtures()		// used as a __thiscall -> __cdecl c
 	}
 }
 
+void eng_conf_reputation_calc(BYTE* _this, BYTE* club, char stage, char current, char min, char max) {
+	comp_stats* comp_data = (comp_stats*)_this;
+	BYTE* ret = (BYTE*)sub_4A4850((BYTE*)comp_data->f8, club);
+	if (!ret) return;
+	char ret_current = current;
+	char ret_min = min;
+	char ret_max = max;
+	if (stage == 0) {
+		ret_current = 1 + current;
+		ret_min = 1 + min;
+		ret_max = 1 + max;
+	}
+	ret[0x73] = ret_current;
+	ret[0x74] = ret_min;
+	ret[0x75] = ret_max;
+}
+
+void __declspec(naked) eng_conf_reputation_calc_c()		// used as a __thiscall -> __cdecl converter
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x14]
+		push dword ptr[eax + 0x10]
+		push dword ptr[eax + 0xc]
+		push dword ptr[eax + 0x8]
+		push dword ptr[eax + 0x4]
+		push ecx
+		call eng_conf_reputation_calc
+		add esp, 0x18
+		ret 0x14
+	}
+}
+
 void setup_eng_conf() {
 	WriteVTablePtr(eng_conf_vtable, VTableInitFree, (DWORD)&eng_conf_free_c);
 	WriteVTablePtr(eng_conf_vtable, VTableEoSUpdate, (DWORD)&eng_conf_update_c);
@@ -473,4 +507,5 @@ void setup_eng_conf() {
 	WriteVTablePtr(eng_conf_vtable, VTableFixtures, (DWORD)&eng_conf_fixtures);
 	WriteVTablePtr(eng_conf_vtable, VTableTableFates, (DWORD)&eng_conf_set_table_fate);
 	WriteVTablePtr(eng_conf_vtable, VTableSubsRounds, (DWORD)&eng_conf_subs_c);
+	WriteVTablePtr(eng_conf_vtable, VTableReputationCalc, (DWORD)&eng_conf_reputation_calc_c);
 }

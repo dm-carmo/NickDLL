@@ -247,7 +247,7 @@ void ita_c_supercup_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->comp_vtable = (DWORD*)(ita_c_supercup_vtable->vtable_ptr);
 	ita_c_supercup_vtable->SetPointer(VTableInitFree, (DWORD)&ita_c_supercup_free_c);
 	ita_c_supercup_vtable->SetPointer(VTableEoSUpdate, (DWORD)&ita_c_supercup_update_c);
-	ita_c_supercup_vtable->SetPointer(VTable6, (DWORD)&replacement_63B300_c);
+	ita_c_supercup_vtable->SetPointer(VTableLeagueSplit, (DWORD)&replacement_63B300_c);
 	ita_c_supercup_vtable->SetPointer(VTableFixtures, (DWORD)&ita_c_supercup_fixtures_c);
 	ita_c_supercup_vtable->SetPointer(VTableSubsRounds, (DWORD)&ita_c_supercup_subs_c);
 	ita_c_supercup_vtable->SetPointer(VTableTableFates, (DWORD)0x686940);

@@ -18,12 +18,14 @@ static DWORD(__thiscall* ita_supercup_setup)(BYTE* _this, WORD year, cm3_club_co
 (DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x65F670);
 
 DWORD ita_setup_c(BYTE* nation_data) {
+	// contract start date?
 	*(WORD*)(nation_data + 0x32) = 6;
-	*(BYTE*)(nation_data + 0x34) = 8;
+	*(BYTE*)(nation_data + 0x34) = August;
 	*(WORD*)(nation_data + 0x35) = *current_year;
 	*(WORD*)(nation_data + 0x37) = 6;
+	// contract end date?
 	*(WORD*)(nation_data + 0x41) = 8;
-	*(BYTE*)(nation_data + 0x43) = 5;
+	*(BYTE*)(nation_data + 0x43) = June;
 	*(WORD*)(nation_data + 0x44) = *current_year + 1;
 	*(WORD*)(nation_data + 0x46) = 6;
 	BYTE selected = ((cm3_nations*)*(DWORD*)(nation_data))->NationLeagueSelected;

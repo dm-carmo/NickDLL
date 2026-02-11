@@ -274,7 +274,7 @@ void setup_ita_c_cup()
 	WriteVTablePtr(ita_c_cup_vtable, VTableFixtures, (DWORD)&ita_c_cup_fixture_caller);
 	WriteVTablePtr(ita_c_cup_vtable, VTable2, 0x51A150);
 	WriteVTablePtr(ita_c_cup_vtable, VTable5, 0x521E00);
-	WriteVTablePtr(ita_c_cup_vtable, VTable6, 0x51F890);
+	WriteVTablePtr(ita_c_cup_vtable, VTableLeagueSplit, 0x51F890);
 	WriteVTablePtr(ita_c_cup_vtable, VTable7, 0x51FC00);
 	WriteVTablePtr(ita_c_cup_vtable, VTable8, 0x5210F0);
 	WriteVTablePtr(ita_c_cup_vtable, VTable9, 0x48CEB0);

@@ -186,6 +186,23 @@ void NLSConfigureAwardData() {
 	}
 }
 
+void __declspec(naked) eng_conf_s_reputation_calc_c()		// used as a __thiscall -> __cdecl converter
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x14]
+		push dword ptr[eax + 0x10]
+		push dword ptr[eax + 0xc]
+		push dword ptr[eax + 0x8]
+		push dword ptr[eax + 0x4]
+		push ecx
+		call eng_conf_reputation_calc
+		add esp, 0x18
+		ret 0x14
+	}
+}
+
 void eng_conf_s_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	sub_682200(_this);
 	comp_stats* data = (comp_stats*)_this;
@@ -197,6 +214,7 @@ void eng_conf_s_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	eng_conf_s_vtable->SetPointer(VTableFixtures, (DWORD)&eng_conf_fixtures);
 	eng_conf_s_vtable->SetPointer(VTableTableFates, (DWORD)&eng_conf_set_table_fate);
 	eng_conf_s_vtable->SetPointer(VTableSubsRounds, (DWORD)&eng_conf_s_subs_c);
+	eng_conf_s_vtable->SetPointer(VTableReputationCalc, (DWORD)&eng_conf_s_reputation_calc_c);
 	data->year = year;
 	data->rules = 0x9;
 	int loaded = sub_687B10(_this, 1);

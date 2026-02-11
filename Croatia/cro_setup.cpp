@@ -19,12 +19,14 @@ static DWORD(__thiscall* cro_cup_setup)(BYTE* _this, WORD year, cm3_club_comps* 
 (DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x517480);
 
 DWORD cro_setup_c(BYTE* nation_data) {
-	*(WORD*)(nation_data + 0x32) = 24;
-	*(BYTE*)(nation_data + 0x34) = 6;
+	// contract start date?
+	*(WORD*)(nation_data + 0x32) = 1;
+	*(BYTE*)(nation_data + 0x34) = August;
 	*(WORD*)(nation_data + 0x35) = *current_year;
 	*(WORD*)(nation_data + 0x37) = 5;
-	*(WORD*)(nation_data + 0x41) = 14;
-	*(BYTE*)(nation_data + 0x43) = 4;
+	// contract end date?
+	*(WORD*)(nation_data + 0x41) = 16;
+	*(BYTE*)(nation_data + 0x43) = June;
 	*(WORD*)(nation_data + 0x44) = *current_year + 1;
 	*(WORD*)(nation_data + 0x46) = 5;
 	*(DWORD*)(nation_data + 0xc) = 5;

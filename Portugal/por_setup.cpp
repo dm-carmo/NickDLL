@@ -17,12 +17,14 @@ static DWORD(__thiscall* por_super_setup)(BYTE* _this, WORD year, cm3_club_comps
 (DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x7D2E40);
 
 DWORD por_setup_c(BYTE* nation_data) {
-	*(WORD*)(nation_data + 0x32) = 19;
-	*(BYTE*)(nation_data + 0x34) = 7;
+	// contract start date?
+	*(WORD*)(nation_data + 0x32) = 1;
+	*(BYTE*)(nation_data + 0x34) = August;
 	*(WORD*)(nation_data + 0x35) = *current_year;
 	*(WORD*)(nation_data + 0x37) = 6;
-	*(WORD*)(nation_data + 0x41) = 8;
-	*(BYTE*)(nation_data + 0x43) = 5;
+	// contract end date?
+	*(WORD*)(nation_data + 0x41) = 10;
+	*(BYTE*)(nation_data + 0x43) = June;
 	*(WORD*)(nation_data + 0x44) = *current_year + 1;
 	*(WORD*)(nation_data + 0x46) = 6;
 	BYTE selected = ((cm3_nations*)*(DWORD*)(nation_data))->NationLeagueSelected;

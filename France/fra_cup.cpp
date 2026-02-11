@@ -102,13 +102,7 @@ int fra_cup_teams(BYTE* _this) {
 	{
 		int availableIdx = rand() % lower_clubs.size();
 		cm3_clubs* lower_club = lower_clubs[availableIdx];
-
-		DWORD is_main_club;
-		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)lower_club, &is_main_club, 1);
-		if (ret_club && !is_main_club)
-			i--;
-		else
-			vec.push_back(lower_club);
+		vec.push_back(lower_club);
 
 		lower_clubs.erase(lower_clubs.begin() + availableIdx);
 	}

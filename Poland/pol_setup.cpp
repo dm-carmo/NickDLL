@@ -13,12 +13,14 @@ static DWORD(__thiscall* pol_super_setup)(BYTE* _this, WORD year, cm3_club_comps
 (DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x7CC920);
 
 DWORD pol_setup_c(BYTE* nation_data) {
+	// contract start date?
 	*(WORD*)(nation_data + 0x32) = 17;
-	*(BYTE*)(nation_data + 0x34) = 6;
+	*(BYTE*)(nation_data + 0x34) = July;
 	*(WORD*)(nation_data + 0x35) = *current_year;
 	*(WORD*)(nation_data + 0x37) = 5;
-	*(WORD*)(nation_data + 0x41) = 27;
-	*(BYTE*)(nation_data + 0x43) = 4;
+	// contract end date?
+	*(WORD*)(nation_data + 0x41) = 3;
+	*(BYTE*)(nation_data + 0x43) = June;
 	*(WORD*)(nation_data + 0x44) = *current_year + 1;
 	*(WORD*)(nation_data + 0x46) = 5;
 	*(DWORD*)(nation_data + 0xc) = 4;

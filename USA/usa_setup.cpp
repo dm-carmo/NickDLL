@@ -14,12 +14,14 @@ DWORD usa_setup_c(BYTE* nation_data) {
 	BYTE* start_date = new BYTE[8];
 	sub_54C770((BYTE*)dd6ec8, start_date, 4);
 	WORD start_year = *(WORD*)(start_date + 2);
-	*(WORD*)(nation_data + 0x32) = 22;
-	*(BYTE*)(nation_data + 0x34) = 2;
+	// contract start date?
+	*(WORD*)(nation_data + 0x32) = 14;
+	*(BYTE*)(nation_data + 0x34) = February;
 	*(WORD*)(nation_data + 0x35) = start_year;
 	*(WORD*)(nation_data + 0x37) = 5;
-	*(WORD*)(nation_data + 0x41) = 6;
-	*(BYTE*)(nation_data + 0x43) = 0;
+	// contract end date?
+	*(WORD*)(nation_data + 0x41) = 16;
+	*(BYTE*)(nation_data + 0x43) = December;
 	*(WORD*)(nation_data + 0x44) = start_year;
 	*(WORD*)(nation_data + 0x46) = 2;
 	*(DWORD*)(nation_data + 0xc) = 3;

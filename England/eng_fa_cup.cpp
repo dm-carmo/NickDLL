@@ -316,6 +316,6 @@ void setup_eng_fa_cup() {
 	WriteVTablePtr(eng_fa_cup_vtable, VTableInitFree, (DWORD)&eng_fa_cup_free_c);
 	WriteVTablePtr(eng_fa_cup_vtable, VTableEoSUpdate, (DWORD)&eng_fa_cup_update_c);
 	WriteVTablePtr(eng_fa_cup_vtable, VTableFixtures, (DWORD)&fa_cup_fixture_caller);
-	WriteVTablePtr(eng_fa_cup_vtable, VTable6, 0x51F890);
+	WriteVTablePtr(eng_fa_cup_vtable, VTableLeagueSplit, 0x51F890);
 	WriteBytes(0x570944, 1, 0x04);
 }

@@ -485,7 +485,7 @@ DWORD fra_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 18), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 21), year, Thursday);
-		FillFixtureDetails(pMem, fixture_id++, Playoff, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 5, 2, 1, 2, 0, 0, 2, 3);
+		FillFixtureDetails(pMem, fixture_id++, Playoff, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 5, 2, 1, 2, 0, 0, 2, 3);
 
 		return (DWORD)pMem;
 	}
@@ -668,7 +668,7 @@ int fra_first_table_indicators(BYTE* _this, DWORD* club, BYTE fate, char stage, 
 					*a5 = 1;
 					return 0;
 				case Promoted:
-					staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)fra_second, *(WORD*)(round_data + 0x32),
+					staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
 						*(WORD*)(rounds + playoff_dates_sz * (current_round + 1) + 7), 0xF);
 					return 0;
 				default:

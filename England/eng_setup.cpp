@@ -26,12 +26,14 @@ static DWORD(__thiscall* eng_league_trophy_setup)(BYTE* _this, WORD year, cm3_cl
 (DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x56AA30);
 
 DWORD eng_setup_c(BYTE* nation_data) {
+	// contract start date?
 	*(WORD*)(nation_data + 0x32) = 10;
-	*(BYTE*)(nation_data + 0x34) = 7;
+	*(BYTE*)(nation_data + 0x34) = August;
 	*(WORD*)(nation_data + 0x35) = *current_year;
 	*(WORD*)(nation_data + 0x37) = 5;
-	*(WORD*)(nation_data + 0x41) = 24;
-	*(BYTE*)(nation_data + 0x43) = 4;
+	// contract end date?
+	*(WORD*)(nation_data + 0x41) = 29;
+	*(BYTE*)(nation_data + 0x43) = May;
 	*(WORD*)(nation_data + 0x44) = *current_year + 1;
 	*(WORD*)(nation_data + 0x46) = 5;
 	BYTE selected = ((cm3_nations*)*(DWORD*)(nation_data))->NationLeagueSelected;

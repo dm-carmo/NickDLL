@@ -294,11 +294,11 @@ DWORD fra_second_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 9), year, Saturday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 12), year, Tuesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, ExtraTimePenalties_1, NoTiebreak_2, 5, 2, 1, 2, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 5, 2, 1, 2, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 13), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 15), year, Friday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 5, 2, 1, 1, 2, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 1, 2, 0, 1, 0);
 
 		return (DWORD)pMem;
 	}
@@ -315,7 +315,7 @@ DWORD fra_second_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 16), year, Saturday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 19), year, Tuesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, Playoff, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 5, 2, 1, 2, 0, 0, 2, 5);
+		FillFixtureDetails(pMem, fixture_id++, Playoff, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 5, 2, 1, 2, 0, 0, 2, 5);
 
 		return (DWORD)pMem;
 	}
@@ -436,19 +436,18 @@ void fra_second_playoffs_c(BYTE* _this) {
 	long current = comp_data->current_stage;
 	long max = comp_data->num_stages;
 	if (current < max - 1) {
-		if (current + 1 == 0) {
-			current++;
+		current++;
+		if (current == 0) {
 			comp_data->current_stage = current;
 			fra_second_playoff_prom(_this);
 		}
-		else if (current + 1 == 1)
+		else if (current == 1)
 		{
 			BYTE* fra_national = get_loaded_league(FRA_NATIONAL_9CF());
 			DWORD v1 = *(DWORD*)fra_national;
 			char ret = (*(int(__thiscall**)(BYTE*, int, int))(v1 + 0x10))(fra_national, 0, 1);
 			if (ret != 0) {
 				(*(void(__thiscall**)(BYTE*))(v1 + 0x94))(fra_national);
-				current++;
 				comp_data->current_stage = current;
 				fra_second_playoff_rele(_this);
 			}
@@ -520,7 +519,7 @@ int fra_second_table_indicators(BYTE* _this, DWORD* club, BYTE fate, char stage,
 					*a5 = 1;
 					return 0;
 				case Promoted:
-					staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)fra_national, *(WORD*)(round_data + 0x32),
+					staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
 						*(WORD*)(rounds + playoff_dates_sz * (current_round + 1) + 7), 0xF);
 					return 0;
 				default:

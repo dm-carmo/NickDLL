@@ -79,6 +79,11 @@ map<string, char*> leagues_rename_long_italy = {
 	{"Indian Haryana State Championship", "Italian Serie C/C"},
 };
 
+map<string, char*> leagues_rename_long_japan = {
+	{"Japanese Regional Leagues", "Japanese Football League"},
+	{"Japanese University League", "Japanese Regional Championships"},
+};
+
 map<string, char*> leagues_rename_long_portugal = {
 	{"Liga 3 North", "Liga 3 Série A"},
 	{"Liga 3 South", "Liga 3 Série B"},
@@ -136,6 +141,11 @@ map<string, char*> leagues_rename_short_italy = {
 	{"Indian Haryana State Championship", "Serie C/C"},
 };
 
+map<string, char*> leagues_rename_short_japan = {
+	{"Japanese Regional Leagues", "JFL"},
+	{"Japanese University League", "Regional Ch'ships"},
+};
+
 map<string, char*> leagues_rename_short_portugal = {
 	{"Liga 3 North", "Liga 3 A"},
 	{"Liga 3 South", "Liga 3 B"},
@@ -179,6 +189,11 @@ map<string, char*> leagues_rename_tla_italy = {
 	{"Italian Serie C1/A", "C/A"},
 	{"Italian Serie C1/B", "C/B"},
 	{"Indian Haryana State Championship", "C/C"},
+};
+
+map<string, char*> leagues_rename_tla_japan = {
+	{"Japanese Regional Leagues", "JFL"},
+	{"Japanese University League", "Reg"},
 };
 
 map<string, char*> leagues_rename_tla_portugal = {
@@ -331,6 +346,11 @@ map<string, char*> awards_rename_long = {
 	{"Brazilian São Paulo Best Player", "Campeonato Paulista Best Player"},
 	{"Brazilian São Paulo Team of the Week", "Campeonato Paulista Team of the Week"},
 	{"Brazilian São Paulo Top Goalscorer", "Campeonato Paulista Top Goalscorer"},
+	{"Danish Premier Division Player of the Year", "Danish Superliga Player of the Year"},
+	{"Danish Premier Division Young Player of the Year", "Danish Superliga Young Player of the Year"},
+	{"Danish Kvalifikationsrækken Player of the Year", "Danish Third Division Player of the Year"},
+	{"Danish Kvalifikationsrækken Young Player of Year", "Danish Third Division Young Player of Year"},
+	{"Danish Premier Division Team of the Week", "Danish Superliga Team of the Week"},
 };
 
 map<string, char*> awards_rename_long_croatia = {
@@ -753,9 +773,9 @@ map<string, DWORD> league_dword_match = {
 	{"Japanese J.League Cup", (DWORD)0x9CF664},
 	{"Friendly", (DWORD)0x9CF668},
 	{"Japanese Super Cup", (DWORD)0x9CF66C},
-	{"Japanese J3 League", (DWORD)0x9CF670},
+	{"Japanese Regional Leagues", (DWORD)0x9CF670},
 	{"Japanese University League", (DWORD)0x9CF674},
-	{"Japanese Regional Leagues", (DWORD)0x9CF678},
+	{"Japanese J3 League", (DWORD)0x9CF678},
 	{"Copa Argentina", (DWORD)0x9CF67C},
 	{"Argentine Interior Zone", (DWORD)0x9CF680},
 	{"Reserve", (DWORD)0x9CF684},
@@ -1765,6 +1785,12 @@ void setup_name_injection()
 		leagues_rename_long.insert(leagues_rename_long_italy.begin(), leagues_rename_long_italy.end());
 		leagues_rename_short.insert(leagues_rename_short_italy.begin(), leagues_rename_short_italy.end());
 		leagues_rename_tla.insert(leagues_rename_tla_italy.begin(), leagues_rename_tla_italy.end());
+	}
+
+	if (configFile.GetBool("applyJapan", true)) {
+		leagues_rename_long.insert(leagues_rename_long_japan.begin(), leagues_rename_long_japan.end());
+		leagues_rename_short.insert(leagues_rename_short_japan.begin(), leagues_rename_short_japan.end());
+		leagues_rename_tla.insert(leagues_rename_tla_japan.begin(), leagues_rename_tla_japan.end());
 	}
 
 	if (configFile.GetBool("applyPortugal", true)) {
