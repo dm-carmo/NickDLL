@@ -144,7 +144,6 @@ void __fastcall jpn_third_relegation(BYTE* _this)
 	for (WORD num = 0; num < comp_data->n_teams; num++) {
 		team_league_stats table_pos = ((team_league_stats*)comp_data->team_league_table)[num];
 		if (table_pos.league_fate == Relegated) {
-			dprintf("Relegating club from J3: %s\n", table_pos.club->ClubNameShort);
 			relegated_clubs.push_back(table_pos.club);
 		}
 	}
@@ -157,7 +156,6 @@ void __fastcall jpn_third_relegation(BYTE* _this)
 		if (t.f6 == 1) {
 			cm3_clubs* promote = t.club;
 			if (promote->ClubDivision && promote->ClubDivision != comp_data->competition_db) {
-				dprintf("Promoting club to J3 (playoff): %s\n", promote->ClubNameShort);
 				promote_club_6830B0((BYTE*)promote, (DWORD)comp_data->competition_db, 1);
 				promoted_teams++;
 			}
@@ -166,7 +164,6 @@ void __fastcall jpn_third_relegation(BYTE* _this)
 
 	cm3_clubs* jfl_club = (cm3_clubs*)*(DWORD*)(comp_bytes + 0xEE);
 	if (jfl_club) {
-		dprintf("Promoting club to J3 (simulated winner): %s\n", jfl_club->ClubNameShort);
 		promote_club_6830B0((BYTE*)jfl_club, (DWORD)comp_data->competition_db, 1);
 		promoted_teams++;
 	}

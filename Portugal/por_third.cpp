@@ -5,8 +5,6 @@
 #include <map>
 #include <Helpers\9cf_constants.h>
 
-// Playoffs and fixtures
-
 DWORD* por_third_vtable = (DWORD*)0x96E858;
 
 void por_third_subs(BYTE* _this)

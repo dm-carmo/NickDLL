@@ -351,6 +351,24 @@
     <ClCompile Include="Japan\jpn_super.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Sweden\swe_setup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Sweden\swe_premier.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Sweden\swe_first.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Sweden\swe_second.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Sweden\swe_third.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Sweden\swe_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="european_cup.h">
@@ -699,6 +717,24 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Japan\jpn_super.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Sweden\swe_setup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Sweden\swe_premier.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Sweden\swe_first.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Sweden\swe_second.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Sweden\swe_third.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Sweden\swe_cup.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

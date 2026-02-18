@@ -50,7 +50,8 @@ int show_extra_leagues_in_start(BYTE* nation, DWORD dest_ptr, int a3) {
 		return 1;
 	}
 	if (cm3_nation->NationID == NATION_SWEDEN_9CF()) {
-		league_str = "Ettan";
+		if (configFile.GetBool("applySweden", true)) league_str = "Division 2";
+		else league_str = "Ettan";
 		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
 		return 1;
 	}

@@ -601,12 +601,14 @@ void jpn_third_reputation_calc(BYTE* _this, BYTE* club, char stage, char current
 	else if (stage == 1) {
 		comp_stats* jfl_comp_data = (comp_stats*)get_loaded_league(JPN_JFL_9CF());
 		cm3_clubs* club_data = (cm3_clubs*)club;
-		if (jfl_comp_data && club_data->ClubDivision->ClubCompID == JPN_JFL_9CF()) {
-			ret = (BYTE*)sub_4A4850((BYTE*)jfl_comp_data->f8, club);
-			if (!ret) return;
-			ret_current = 2;
-			ret_min = 2;
-			ret_max = 2;
+		if (club_data->ClubDivision->ClubCompID == JPN_JFL_9CF()) {
+			if (jfl_comp_data) {
+				ret = (BYTE*)sub_4A4850((BYTE*)jfl_comp_data->f8, club);
+				if (!ret) return;
+				ret_current = 2;
+				ret_min = 2;
+				ret_max = 2;
+			}
 		}
 		else {
 			ret_current = 19;

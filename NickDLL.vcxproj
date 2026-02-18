@@ -238,6 +238,12 @@
     <ClCompile Include="Portugal\por_third.cpp" />
     <ClCompile Include="setup_misc_functions.cpp" />
     <ClCompile Include="Structures\CMHeader.cpp" />
+    <ClCompile Include="Sweden\swe_cup.cpp" />
+    <ClCompile Include="Sweden\swe_first.cpp" />
+    <ClCompile Include="Sweden\swe_premier.cpp" />
+    <ClCompile Include="Sweden\swe_second.cpp" />
+    <ClCompile Include="Sweden\swe_setup.cpp" />
+    <ClCompile Include="Sweden\swe_third.cpp" />
     <ClCompile Include="tapani_relegation_patch.cpp" />
     <ClCompile Include="tiny-json.c" />
     <ClCompile Include="Helpers\YearChanger.cpp" />
@@ -358,6 +364,12 @@
     <ClInclude Include="Structures\CMHeader.h" />
     <ClInclude Include="Structures\Date.h" />
     <ClInclude Include="Structures\vtable.h" />
+    <ClInclude Include="Sweden\swe_cup.h" />
+    <ClInclude Include="Sweden\swe_first.h" />
+    <ClInclude Include="Sweden\swe_premier.h" />
+    <ClInclude Include="Sweden\swe_second.h" />
+    <ClInclude Include="Sweden\swe_setup.h" />
+    <ClInclude Include="Sweden\swe_third.h" />
     <ClInclude Include="tiny-json.h" />
     <ClInclude Include="USA\usa_awards.h" />
     <ClInclude Include="USA\usa_champ.h" />

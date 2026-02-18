@@ -94,6 +94,14 @@ map<string, char*> leagues_rename_long_portugal = {
 	{"Argentine Interior Zone", "Taça da Liga"},
 };
 
+map<string, char*> leagues_rename_long_sweden = {
+	{"Swedish Division 2 Middle Gotaland", "Swedish Division 2"},
+	{"Swedish Division 2 North Norrland", "Swedish Division 2 Norrland"},
+	{"Swedish Division 2 Northwest Gotaland", "Swedish Division 2 North Gotaland"},
+	{"Swedish Division 2 Northeast Gotaland", "Swedish Division 2 West Gotaland"},
+	{"Swedish Division 2 South Norrland", "Swedish Division 2 South Svealand"},
+};
+
 map<string, char*> leagues_rename_short = {
 	{"English Northern Premier League Premier Division", "National League North"},
 	{"English Southern League Premier Division", "National League South"},
@@ -154,6 +162,14 @@ map<string, char*> leagues_rename_short_portugal = {
 	{"Korean High School League", "Campeonato de Portugal C"},
 	{"Korean President Cup", "Campeonato de Portugal D"},
 	{"Argentine Interior Zone", "Taça da Liga"},
+};
+
+map<string, char*> leagues_rename_short_sweden = {
+	{"Swedish Division 2 Middle Gotaland", "Division 2"},
+	{"Swedish Division 2 North Norrland", "Division 2 N"},
+	{"Swedish Division 2 Northwest Gotaland", "Division 2 NG"},
+	{"Swedish Division 2 Northeast Gotaland", "Division 2 WG"},
+	{"Swedish Division 2 South Norrland", "Division 2 SS"},
 };
 
 map<string, char*> leagues_rename_tla = {
@@ -1799,5 +1815,10 @@ void setup_name_injection()
 		leagues_rename_long.insert(leagues_rename_long_portugal.begin(), leagues_rename_long_portugal.end());
 		leagues_rename_short.insert(leagues_rename_short_portugal.begin(), leagues_rename_short_portugal.end());
 		leagues_rename_tla.insert(leagues_rename_tla_portugal.begin(), leagues_rename_tla_portugal.end());
+	}
+
+	if (configFile.GetBool("applySweden", true)) {
+		leagues_rename_long.insert(leagues_rename_long_sweden.begin(), leagues_rename_long_sweden.end());
+		leagues_rename_short.insert(leagues_rename_short_sweden.begin(), leagues_rename_short_sweden.end());
 	}
 }
