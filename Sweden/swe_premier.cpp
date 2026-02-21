@@ -1075,9 +1075,9 @@ void swe_premier_reputation_calc(BYTE* _this, BYTE* club, char stage, char curre
 			ret_max = 3;
 		}
 		else {
-			ret_current = 16;
-			ret_min = 16;
-			ret_max = 16;
+			ret_current = 14;
+			ret_min = 14;
+			ret_max = 14;
 		}
 	}
 	ret[0x73] = ret_current;

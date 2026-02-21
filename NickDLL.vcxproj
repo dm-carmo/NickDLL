@@ -227,6 +227,12 @@
     <ClCompile Include="Japan\jpn_super.cpp" />
     <ClCompile Include="Japan\jpn_third.cpp" />
     <ClCompile Include="NickDLL.cpp" />
+    <ClCompile Include="Norway\nor_cup.cpp" />
+    <ClCompile Include="Norway\nor_first.cpp" />
+    <ClCompile Include="Norway\nor_premier.cpp" />
+    <ClCompile Include="Norway\nor_second.cpp" />
+    <ClCompile Include="Norway\nor_setup.cpp" />
+    <ClCompile Include="Norway\nor_third.cpp" />
     <ClCompile Include="Poland\pol_cup.cpp" />
     <ClCompile Include="Poland\pol_first.cpp" />
     <ClCompile Include="Poland\pol_second.cpp" />
@@ -355,6 +361,12 @@
     <ClInclude Include="Japan\jpn_setup.h" />
     <ClInclude Include="Japan\jpn_super.h" />
     <ClInclude Include="Japan\jpn_third.h" />
+    <ClInclude Include="Norway\nor_cup.h" />
+    <ClInclude Include="Norway\nor_first.h" />
+    <ClInclude Include="Norway\nor_premier.h" />
+    <ClInclude Include="Norway\nor_second.h" />
+    <ClInclude Include="Norway\nor_setup.h" />
+    <ClInclude Include="Norway\nor_third.h" />
     <ClInclude Include="NString.h" />
     <ClInclude Include="Poland\pol_cup.h" />
     <ClInclude Include="Poland\pol_first.h" />

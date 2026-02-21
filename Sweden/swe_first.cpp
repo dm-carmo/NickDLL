@@ -592,9 +592,9 @@ void swe_first_reputation_calc(BYTE* _this, BYTE* club, char stage, char current
 			ret_max = 2;
 		}
 		else {
-			ret_current = 15;
-			ret_min = 15;
-			ret_max = 15;
+			ret_current = 13;
+			ret_min = 13;
+			ret_max = 13;
 		}
 	}
 	ret[0x73] = ret_current;

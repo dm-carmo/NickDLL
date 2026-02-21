@@ -384,6 +384,24 @@
     <ClCompile Include="Holland\hol_super.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Norway\nor_setup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Norway\nor_premier.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Norway\nor_first.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Norway\nor_second.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Norway\nor_third.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Norway\nor_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="european_cup.h">
@@ -765,6 +783,24 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Holland\hol_super.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Norway\nor_setup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Norway\nor_premier.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Norway\nor_first.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Norway\nor_second.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Norway\nor_third.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Norway\nor_cup.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

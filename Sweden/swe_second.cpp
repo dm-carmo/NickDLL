@@ -736,9 +736,9 @@ void swe_second_reputation_calc(BYTE* _this, BYTE* club, char stage, char curren
 		ret_max = 1 + 2 * (max - 1);
 	}
 	else if (stage == 1) {
-		comp_stats* d3_comp_data = (comp_stats*)get_loaded_league(SWE_SECOND_9CF());
+		comp_stats* d3_comp_data = (comp_stats*)get_loaded_league(SWE_THIRD_9CF());
 		cm3_clubs* club_data = (cm3_clubs*)club;
-		if (club_data->ClubDivision->ClubCompID == SWE_SECOND_9CF()) {
+		if (club_data->ClubDivision->ClubCompID == SWE_THIRD_9CF()) {
 			if (d3_comp_data) {
 				ret = (BYTE*)sub_4A4850((BYTE*)d3_comp_data->f8, club);
 				if (!ret) return;

@@ -629,7 +629,6 @@ void setup_swe_cup()
 	WriteVTablePtr(swe_cup_vtable, VTableFixtures, (DWORD)&swe_cup_fixture_caller);
 	WriteVTablePtr(swe_cup_vtable, VTableInitFree, (DWORD)&swe_cup_free_c);
 	WriteVTablePtr(swe_cup_vtable, VTableEoSUpdate, (DWORD)&swe_cup_update_c);
-	//WriteVTablePtr(swe_cup_vtable, VTableLeagueSplit, 0x51F890);
 	WriteVTablePtr(swe_cup_vtable, VTablePlayoffQual, (DWORD)&swe_cup_stages_create_c);
 	WriteVTablePtr(swe_cup_vtable, VTableSetChampion, (DWORD)&swe_cup_set_champion_c);
 	WriteVTablePtr(swe_cup_vtable, VTableTableFates, (DWORD)&swe_cup_set_table_fate);

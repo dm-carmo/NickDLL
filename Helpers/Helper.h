@@ -57,6 +57,6 @@ WORD CountNumberOfTeamsInComp(DWORD CompID);
 WORD CountNumberOfTeamsInReserveComp(DWORD CompID);
 WORD CountNumberOfTeamsInCompNoReserve(DWORD CompID);
 WORD CountNumberOfTeamsInCompWithGroup(DWORD CompID, DWORD GroupID);
-team_league_stats* get_team_league_stats(DWORD comp_id, cm3_clubs* club);
+team_league_stats* get_team_league_stats(DWORD comp_id, cm3_clubs* club, char stage_num = -1);
 void check_number_of_fixtures(BYTE* _this, int created_fixtures, WORD needed_fixtures);
 vector<cm3_clubs*> get_relegated_teams(DWORD compID);

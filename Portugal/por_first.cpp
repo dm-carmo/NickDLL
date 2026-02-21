@@ -347,6 +347,7 @@ void __fastcall por_check_reserve_teams(BYTE* _this) {
 						// If main team is in the third league
 						if (ret_club->ClubDivision->ClubCompID == POR_THIRD_9CF()) {
 							team_league_stats* main_club_data = get_team_league_stats(POR_THIRD_9CF(), ret_club);
+							if(!main_club_data) main_club_data = get_team_league_stats(POR_THIRD_9CF(), ret_club, 0);
 							// If the main team was relegated
 							if (main_club_data->league_fate == Relegated) {
 								// Relegate the reserve team

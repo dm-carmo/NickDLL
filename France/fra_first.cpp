@@ -621,7 +621,7 @@ void fra_first_playoffs_c(BYTE* _this) {
 			DWORD v1 = *(DWORD*)prom_playoff;
 			char ret = (*(int(__thiscall**)(BYTE*, int, int))(v1 + 0x10))(prom_playoff, 0, 1);
 			if (ret != 0) {
-				(*(void(__thiscall**)(BYTE*))(v1 + 0x94))(prom_playoff);
+				//(*(void(__thiscall**)(BYTE*))(v1 + 0x94))(prom_playoff);
 				current++;
 				comp_data->current_stage = current;
 				if (current == 0) {

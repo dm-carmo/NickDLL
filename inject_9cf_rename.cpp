@@ -84,6 +84,16 @@ map<string, char*> leagues_rename_long_japan = {
 	{"Japanese University League", "Japanese Regional Championships"},
 };
 
+map<string, char*> leagues_rename_long_norway = {
+	{"Swedish Fourth Division", "Norwegian 2. Divisjon"},
+	{"Norwegian 2. Divisjon Group 3", "Norwegian 3. Divisjon Group 1"},
+	{"Norwegian 2. Divisjon Group 4", "Norwegian 3. Divisjon Group 2"},
+	{"Norwegian 2. Divisjon Group 5", "Norwegian 3. Divisjon Group 3"},
+	{"Norwegian 2. Divisjon Group 6", "Norwegian 3. Divisjon Group 4"},
+	{"Norwegian 2. Divisjon Group 7", "Norwegian 3. Divisjon Group 5"},
+	{"Norwegian 2. Divisjon Group 8", "Norwegian 3. Divisjon Group 6"},
+};
+
 map<string, char*> leagues_rename_long_portugal = {
 	{"Liga 3 North", "Liga 3 Série A"},
 	{"Liga 3 South", "Liga 3 Série B"},
@@ -154,6 +164,16 @@ map<string, char*> leagues_rename_short_japan = {
 	{"Japanese University League", "Regional Ch'ships"},
 };
 
+map<string, char*> leagues_rename_short_norway = {
+	{"Swedish Fourth Division", "2. Divisjon"},
+	{"Norwegian 2. Divisjon Group 3", "3. Divisjon Group 1"},
+	{"Norwegian 2. Divisjon Group 4", "3. Divisjon Group 2"},
+	{"Norwegian 2. Divisjon Group 5", "3. Divisjon Group 3"},
+	{"Norwegian 2. Divisjon Group 6", "3. Divisjon Group 4"},
+	{"Norwegian 2. Divisjon Group 7", "3. Divisjon Group 5"},
+	{"Norwegian 2. Divisjon Group 8", "3. Divisjon Group 6"},
+};
+
 map<string, char*> leagues_rename_short_portugal = {
 	{"Liga 3 North", "Liga 3 A"},
 	{"Liga 3 South", "Liga 3 B"},
@@ -210,6 +230,16 @@ map<string, char*> leagues_rename_tla_italy = {
 map<string, char*> leagues_rename_tla_japan = {
 	{"Japanese Regional Leagues", "JFL"},
 	{"Japanese University League", "Reg"},
+};
+
+map<string, char*> leagues_rename_tla_norway = {
+	{"Swedish Fourth Division", "D2"},
+	{"Norwegian 2. Divisjon Group 3", "D3"},
+	{"Norwegian 2. Divisjon Group 4", "D3"},
+	{"Norwegian 2. Divisjon Group 5", "D3"},
+	{"Norwegian 2. Divisjon Group 6", "D3"},
+	{"Norwegian 2. Divisjon Group 7", "D3"},
+	{"Norwegian 2. Divisjon Group 8", "D3"},
 };
 
 map<string, char*> leagues_rename_tla_portugal = {
@@ -1657,6 +1687,49 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 	if ((DWORD)to_check->ClubID == CLUB_WERDER_BREMEN_9CF()) return (BYTE*)get_club(CLUB_WERDER_BREMEN_II_9CF());
 	if ((DWORD)to_check->ClubID == CLUB_ZARAGOZA_9CF()) return (BYTE*)get_club(CLUB_ZARAGOZA_B_9CF());
 	if ((DWORD)to_check->ClubID == CLUB_PADERBORN_9CF()) return (BYTE*)get_club(CLUB_PADERBORN_II_9CF());
+	// non-hardcoded test
+	if (_strcmpi(to_check->ClubName, "Aalesunds FK") == 0 && find_club("Aalesunds FK II")) return (BYTE*)find_club("Aalesunds FK II");
+	if (_strcmpi(to_check->ClubName, "Bærum SK") == 0 && find_club("Baerum SK 2")) return (BYTE*)find_club("Baerum SK 2");
+	if (_strcmpi(to_check->ClubName, "FK Bodø/Glimt") == 0 && find_club("FK Bodø/Glimt B")) return (BYTE*)find_club("FK Bodø/Glimt B");
+	if (_strcmpi(to_check->ClubName, "SK Brann") == 0 && find_club("SK Brann 2")) return (BYTE*)find_club("SK Brann 2");
+	if (_strcmpi(to_check->ClubName, "Bryne FK") == 0 && find_club("Bryne FK 2")) return (BYTE*)find_club("Bryne FK 2");
+	if (_strcmpi(to_check->ClubName, "Byåsen TF") == 0 && find_club("Byasen Trondheim II")) return (BYTE*)find_club("Byasen Trondheim II");
+	if (_strcmpi(to_check->ClubName, "Follo FK") == 0 && find_club("Follo FK 2")) return (BYTE*)find_club("Follo FK 2");
+	if (_strcmpi(to_check->ClubName, "Fredrikstad FK") == 0 && find_club("Fredrikstad FK 2")) return (BYTE*)find_club("Fredrikstad FK 2");
+	if (_strcmpi(to_check->ClubName, "FK Fyllingsdalen") == 0 && find_club("Fyllingsdalen FK 2")) return (BYTE*)find_club("Fyllingsdalen FK 2");
+	if (_strcmpi(to_check->ClubName, "SK Gjøvik-Lyn") == 0 && find_club("SK Gjøvik-Lyn 2")) return (BYTE*)find_club("SK Gjøvik-Lyn 2");
+	if (_strcmpi(to_check->ClubName, "Grorud IL") == 0 && find_club("Grorud IL 2")) return (BYTE*)find_club("Grorud IL 2");
+	if (_strcmpi(to_check->ClubName, "Hamarkameratene") == 0 && find_club("Hamarkameratene 2")) return (BYTE*)find_club("Hamarkameratene 2");
+	if (_strcmpi(to_check->ClubName, "FK Haugesund") == 0 && find_club("FK Haugesund 2")) return (BYTE*)find_club("FK Haugesund 2");
+	if (_strcmpi(to_check->ClubName, "IL Hødd") == 0 && find_club("IL Hødd 2")) return (BYTE*)find_club("IL Hødd 2");
+	if (_strcmpi(to_check->ClubName, "Hønefoss BK") == 0 && find_club("Hønefoss BK 2")) return (BYTE*)find_club("Hønefoss BK 2");
+	if (_strcmpi(to_check->ClubName, "Kjelsås IL") == 0 && find_club("Kjelsas IL 2")) return (BYTE*)find_club("Kjelsas IL 2");
+	if (_strcmpi(to_check->ClubName, "Kongsvinger IL") == 0 && find_club("Kongsvinger IL II")) return (BYTE*)find_club("Kongsvinger IL II");
+	if (_strcmpi(to_check->ClubName, "Kristiansund BK") == 0 && find_club("Kristiansund BK 2")) return (BYTE*)find_club("Kristiansund BK 2");
+	if (_strcmpi(to_check->ClubName, "Lillestrøm SK") == 0 && find_club("Lilleström SK 2")) return (BYTE*)find_club("Lilleström SK 2");
+	if (_strcmpi(to_check->ClubName, "Mjøndalen IF") == 0 && find_club("Mjøndalen IF 2")) return (BYTE*)find_club("Mjøndalen IF 2");
+	if (_strcmpi(to_check->ClubName, "Molde FK") == 0 && find_club("Molde FK II")) return (BYTE*)find_club("Molde FK II");
+	if (_strcmpi(to_check->ClubName, "Nardo FK") == 0 && find_club("Nardo FK 2")) return (BYTE*)find_club("Nardo FK 2");
+	if (_strcmpi(to_check->ClubName, "Odds BK") == 0 && find_club("Odds BK II")) return (BYTE*)find_club("Odds BK II");
+	if (_strcmpi(to_check->ClubName, "Pors Fotball") == 0 && find_club("Pors Fotball II")) return (BYTE*)find_club("Pors Fotball II");
+	if (_strcmpi(to_check->ClubName, "Ranheim IL") == 0 && find_club("Ranheim 2")) return (BYTE*)find_club("Ranheim 2");
+	if (_strcmpi(to_check->ClubName, "Raufoss IL") == 0 && find_club("Raufoss IL 2")) return (BYTE*)find_club("Raufoss IL 2");
+	if (_strcmpi(to_check->ClubName, "Rosenborg BK") == 0 && find_club("Rosenborg BK II")) return (BYTE*)find_club("Rosenborg BK II");
+	if (_strcmpi(to_check->ClubName, "Sandefjord Fotball") == 0 && find_club("Sandefjord Fotball 2")) return (BYTE*)find_club("Sandefjord Fotball 2");
+	if (_strcmpi(to_check->ClubName, "Sandnes Ulf") == 0 && find_club("Sandnes Ulf 2")) return (BYTE*)find_club("Sandnes Ulf 2");
+	if (_strcmpi(to_check->ClubName, "Sarpsborg 08 FF") == 0 && find_club("Sarpsborg 08 2")) return (BYTE*)find_club("Sarpsborg 08 2");
+	if (_strcmpi(to_check->ClubName, "Skeid Oslo") == 0 && find_club("Skeid Oslo II")) return (BYTE*)find_club("Skeid Oslo II");
+	if (_strcmpi(to_check->ClubName, "Sogndal IL") == 0 && find_club("Sogndal IL II")) return (BYTE*)find_club("Sogndal IL II");
+	if (_strcmpi(to_check->ClubName, "Stabæk Fotball") == 0 && find_club("Stabaek IF II")) return (BYTE*)find_club("Stabaek IF II");
+	if (_strcmpi(to_check->ClubName, "IK Start") == 0 && find_club("IK Start 2")) return (BYTE*)find_club("IK Start 2");
+	if (_strcmpi(to_check->ClubName, "Strømmen IF") == 0 && find_club("Strømmen IL 2")) return (BYTE*)find_club("Strømmen IL 2");
+	if (_strcmpi(to_check->ClubName, "Strømsgodset IF") == 0 && find_club("Strømsgodset IF II")) return (BYTE*)find_club("Strømsgodset IF II");
+	if (_strcmpi(to_check->ClubName, "Tromsø IL") == 0 && find_club("Tromsø IL II")) return (BYTE*)find_club("Tromsø IL II");
+	if (_strcmpi(to_check->ClubName, "SK Træff") == 0 && find_club("SK Træff 2")) return (BYTE*)find_club("SK Træff 2");
+	if (_strcmpi(to_check->ClubName, "Ullensaker/Kisa IL") == 0 && find_club("Ullensaker/Kisa IL 2")) return (BYTE*)find_club("Ullensaker/Kisa IL 2");
+	if (_strcmpi(to_check->ClubName, "SK Vard Haugesund") == 0 && find_club("SK Vard Haugesund 2")) return (BYTE*)find_club("SK Vard Haugesund 2");
+	if (_strcmpi(to_check->ClubName, "Viking FK") == 0 && find_club("Viking FK II")) return (BYTE*)find_club("Viking FK II");
+	if (_strcmpi(to_check->ClubName, "Vålerenga Fotball Elite") == 0 && find_club("Vålerenga Fotball II")) return (BYTE*)find_club("Vålerenga Fotball II");
 
 	// Reserve teams check
 	if (is_main_club) *is_main_club = 0;
@@ -1743,6 +1816,49 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 	if ((DWORD)to_check->ClubID == CLUB_WERDER_BREMEN_II_9CF()) return (BYTE*)get_club(CLUB_WERDER_BREMEN_9CF());
 	if ((DWORD)to_check->ClubID == CLUB_ZARAGOZA_B_9CF()) return (BYTE*)get_club(CLUB_ZARAGOZA_9CF());
 	if ((DWORD)to_check->ClubID == CLUB_PADERBORN_II_9CF()) return (BYTE*)get_club(CLUB_PADERBORN_9CF());
+	// non-hardcoded test
+	if (_strcmpi(to_check->ClubName, "Aalesunds FK II") == 0 && find_club("Aalesunds FK")) return (BYTE*)find_club("Aalesunds FK");
+	if (_strcmpi(to_check->ClubName, "Baerum SK 2") == 0 && find_club("Bærum SK")) return (BYTE*)find_club("Bærum SK");
+	if (_strcmpi(to_check->ClubName, "FK Bodø/Glimt B") == 0 && find_club("FK Bodø/Glimt")) return (BYTE*)find_club("FK Bodø/Glimt");
+	if (_strcmpi(to_check->ClubName, "SK Brann 2") == 0 && find_club("SK Brann")) return (BYTE*)find_club("SK Brann");
+	if (_strcmpi(to_check->ClubName, "Bryne FK 2") == 0 && find_club("Bryne FK")) return (BYTE*)find_club("Bryne FK");
+	if (_strcmpi(to_check->ClubName, "Byasen Trondheim II") == 0 && find_club("Byåsen TF")) return (BYTE*)find_club("Byåsen TF");
+	if (_strcmpi(to_check->ClubName, "Follo FK 2") == 0 && find_club("Follo FK")) return (BYTE*)find_club("Follo FK");
+	if (_strcmpi(to_check->ClubName, "Fredrikstad FK 2") == 0 && find_club("Fredrikstad FK")) return (BYTE*)find_club("Fredrikstad FK");
+	if (_strcmpi(to_check->ClubName, "Fyllingsdalen FK 2") == 0 && find_club("FK Fyllingsdalen")) return (BYTE*)find_club("FK Fyllingsdalen");
+	if (_strcmpi(to_check->ClubName, "SK Gjøvik-Lyn 2") == 0 && find_club("SK Gjøvik-Lyn")) return (BYTE*)find_club("SK Gjøvik-Lyn");
+	if (_strcmpi(to_check->ClubName, "Grorud IL 2") == 0 && find_club("Grorud IL")) return (BYTE*)find_club("Grorud IL");
+	if (_strcmpi(to_check->ClubName, "Hamarkameratene 2") == 0 && find_club("Hamarkameratene")) return (BYTE*)find_club("Hamarkameratene");
+	if (_strcmpi(to_check->ClubName, "FK Haugesund 2") == 0 && find_club("FK Haugesund")) return (BYTE*)find_club("FK Haugesund");
+	if (_strcmpi(to_check->ClubName, "IL Hødd 2") == 0 && find_club("IL Hødd")) return (BYTE*)find_club("IL Hødd");
+	if (_strcmpi(to_check->ClubName, "Hønefoss BK 2") == 0 && find_club("Hønefoss BK")) return (BYTE*)find_club("Hønefoss BK");
+	if (_strcmpi(to_check->ClubName, "Kjelsas IL 2") == 0 && find_club("Kjelsås IL")) return (BYTE*)find_club("Kjelsås IL");
+	if (_strcmpi(to_check->ClubName, "Kongsvinger IL II") == 0 && find_club("Kongsvinger IL")) return (BYTE*)find_club("Kongsvinger IL");
+	if (_strcmpi(to_check->ClubName, "Kristiansund BK 2") == 0 && find_club("Kristiansund BK")) return (BYTE*)find_club("Kristiansund BK");
+	if (_strcmpi(to_check->ClubName, "Lilleström SK 2") == 0 && find_club("Lillestrøm SK")) return (BYTE*)find_club("Lillestrøm SK");
+	if (_strcmpi(to_check->ClubName, "Mjøndalen IF 2") == 0 && find_club("Mjøndalen IF")) return (BYTE*)find_club("Mjøndalen IF");
+	if (_strcmpi(to_check->ClubName, "Molde FK II") == 0 && find_club("Molde FK")) return (BYTE*)find_club("Molde FK");
+	if (_strcmpi(to_check->ClubName, "Nardo FK 2") == 0 && find_club("Nardo FK")) return (BYTE*)find_club("Nardo FK");
+	if (_strcmpi(to_check->ClubName, "Odds BK II") == 0 && find_club("Odds BK")) return (BYTE*)find_club("Odds BK");
+	if (_strcmpi(to_check->ClubName, "Pors Fotball II") == 0 && find_club("Pors Fotball")) return (BYTE*)find_club("Pors Fotball");
+	if (_strcmpi(to_check->ClubName, "Ranheim 2") == 0 && find_club("Ranheim IL")) return (BYTE*)find_club("Ranheim IL");
+	if (_strcmpi(to_check->ClubName, "Raufoss IL 2") == 0 && find_club("Raufoss IL")) return (BYTE*)find_club("Raufoss IL");
+	if (_strcmpi(to_check->ClubName, "Rosenborg BK II") == 0 && find_club("Rosenborg BK")) return (BYTE*)find_club("Rosenborg BK");
+	if (_strcmpi(to_check->ClubName, "Sandefjord Fotball 2") == 0 && find_club("Sandefjord Fotball")) return (BYTE*)find_club("Sandefjord Fotball");
+	if (_strcmpi(to_check->ClubName, "Sandnes Ulf 2") == 0 && find_club("Sandnes Ulf")) return (BYTE*)find_club("Sandnes Ulf");
+	if (_strcmpi(to_check->ClubName, "Sarpsborg 08 2") == 0 && find_club("Sarpsborg 08 FF")) return (BYTE*)find_club("Sarpsborg 08 FF");
+	if (_strcmpi(to_check->ClubName, "Skeid Oslo II") == 0 && find_club("Skeid Oslo")) return (BYTE*)find_club("Skeid Oslo");
+	if (_strcmpi(to_check->ClubName, "Sogndal IL II") == 0 && find_club("Sogndal IL")) return (BYTE*)find_club("Sogndal IL");
+	if (_strcmpi(to_check->ClubName, "Stabaek IF II") == 0 && find_club("Stabæk Fotball")) return (BYTE*)find_club("Stabæk Fotball");
+	if (_strcmpi(to_check->ClubName, "IK Start 2") == 0 && find_club("IK Start")) return (BYTE*)find_club("IK Start");
+	if (_strcmpi(to_check->ClubName, "Strømmen IL 2") == 0 && find_club("Strømmen IF")) return (BYTE*)find_club("Strømmen IF");
+	if (_strcmpi(to_check->ClubName, "Strømsgodset IF II") == 0 && find_club("Strømsgodset IF")) return (BYTE*)find_club("Strømsgodset IF");
+	if (_strcmpi(to_check->ClubName, "Tromsø IL II") == 0 && find_club("Tromsø IL")) return (BYTE*)find_club("Tromsø IL");
+	if (_strcmpi(to_check->ClubName, "SK Træff 2") == 0 && find_club("SK Træff")) return (BYTE*)find_club("SK Træff");
+	if (_strcmpi(to_check->ClubName, "Ullensaker/Kisa IL 2") == 0 && find_club("Ullensaker/Kisa IL")) return (BYTE*)find_club("Ullensaker/Kisa IL");
+	if (_strcmpi(to_check->ClubName, "SK Vard Haugesund 2") == 0 && find_club("SK Vard Haugesund")) return (BYTE*)find_club("SK Vard Haugesund");
+	if (_strcmpi(to_check->ClubName, "Viking FK II") == 0 && find_club("Viking FK")) return (BYTE*)find_club("Viking FK");
+	if (_strcmpi(to_check->ClubName, "Vålerenga Fotball II") == 0 && find_club("Vålerenga Fotball Elite")) return (BYTE*)find_club("Vålerenga Fotball Elite");
 
 	// default case if none found
 	to_check->ClubHasLinkedClub = 0;
@@ -1807,6 +1923,12 @@ void setup_name_injection()
 		leagues_rename_long.insert(leagues_rename_long_japan.begin(), leagues_rename_long_japan.end());
 		leagues_rename_short.insert(leagues_rename_short_japan.begin(), leagues_rename_short_japan.end());
 		leagues_rename_tla.insert(leagues_rename_tla_japan.begin(), leagues_rename_tla_japan.end());
+	}
+
+	if (configFile.GetBool("applyNorway", true)) {
+		leagues_rename_long.insert(leagues_rename_long_norway.begin(), leagues_rename_long_norway.end());
+		leagues_rename_short.insert(leagues_rename_short_norway.begin(), leagues_rename_short_norway.end());
+		leagues_rename_tla.insert(leagues_rename_tla_norway.begin(), leagues_rename_tla_norway.end());
 	}
 
 	if (configFile.GetBool("applyPortugal", true)) {
