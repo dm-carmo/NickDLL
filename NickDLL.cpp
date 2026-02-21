@@ -25,6 +25,7 @@
 #include "France\fra_setup.h"
 #include "Germany\ger_setup.h"
 #include <Germany\ger_awards_default.h>
+#include "Holland\hol_setup.h"
 #include "Italy\ita_setup.h"
 #include "Japan\jpn_setup.h"
 #include "Poland\pol_setup.h"
@@ -111,6 +112,11 @@ void Setup()
 	}
 	else {
 		setup_ger_awards_default();
+	}
+
+	if (configFile.GetBool("applyHolland", true)) {
+		dprintf("Applying Holland changes\n");
+		setup_hol_nation();
 	}
 
 	if (configFile.GetBool("applyItaly", true)) {

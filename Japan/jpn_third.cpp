@@ -392,7 +392,7 @@ void jpn_third_playoffs_rele(BYTE* _this) {
 		int idx = rand() % 5;
 		// pick team to be promoted
 		cm3_clubs* promoted = club_list[idx];
-		*(DWORD*)(_this + 0xEE) = (DWORD)promoted;
+		*(DWORD*)(_this + 0xEE) = (DWORD)promoted->ClubID;
 		club_list.erase(club_list.begin() + idx);
 		// pick team for playoff
 		cm3_clubs* playoff = club_list[rand() % 4];

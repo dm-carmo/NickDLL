@@ -162,10 +162,11 @@ void __fastcall jpn_third_relegation(BYTE* _this)
 		}
 	}
 
-	cm3_clubs* jfl_club = (cm3_clubs*)*(DWORD*)(comp_bytes + 0xEE);
+	cm3_clubs* jfl_club = get_club(*(DWORD*)(comp_bytes + 0xEE));
 	if (jfl_club) {
 		promote_club_6830B0((BYTE*)jfl_club, (DWORD)comp_data->competition_db, 1);
 		promoted_teams++;
+		*(DWORD*)(comp_bytes + 0xEE) = -1;
 	}
 
 	if (promoted_teams != relegated_clubs.size()) create_message_box("Error", "Promoted and relegated club count does not match for jpn_third", false);

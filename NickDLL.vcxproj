@@ -203,6 +203,11 @@
     <ClCompile Include="Helpers\9cf_constants.cpp" />
     <ClCompile Include="Helpers\generic_functions.cpp" />
     <ClCompile Include="Helpers\Helper.cpp" />
+    <ClCompile Include="Holland\hol_cup.cpp" />
+    <ClCompile Include="Holland\hol_first.cpp" />
+    <ClCompile Include="Holland\hol_second.cpp" />
+    <ClCompile Include="Holland\hol_setup.cpp" />
+    <ClCompile Include="Holland\hol_super.cpp" />
     <ClCompile Include="inject_9cf_rename.cpp" />
     <ClCompile Include="Italy\ita_awards.cpp" />
     <ClCompile Include="Italy\ita_cup.cpp" />
@@ -327,6 +332,11 @@
     <ClInclude Include="Helpers\generic_functions.h" />
     <ClInclude Include="Helpers\Helper.h" />
     <ClInclude Include="Helpers\YearChanger.h" />
+    <ClInclude Include="Holland\hol_cup.h" />
+    <ClInclude Include="Holland\hol_first.h" />
+    <ClInclude Include="Holland\hol_second.h" />
+    <ClInclude Include="Holland\hol_setup.h" />
+    <ClInclude Include="Holland\hol_super.h" />
     <ClInclude Include="inject_9cf_rename.h" />
     <ClInclude Include="Italy\ita_awards.h" />
     <ClInclude Include="Italy\ita_cup.h" />

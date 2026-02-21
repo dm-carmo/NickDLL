@@ -51,7 +51,6 @@ static char(__thiscall* sub_6847C0)(BYTE* _this, DWORD current_date, int a3) =
 (char(__thiscall*)(BYTE * _this, DWORD current_date, int a3))(0x6847C0);
 static char(__thiscall* fire_manager_relegation_to_unplayable_69B790)(BYTE* _this, cm3_clubs* club, char a3, char a4, int a5) =
 (char(__thiscall*)(BYTE * _this, cm3_clubs * club, char a3, char a4, int a5))(0x69B790);
-//void __thiscall sub_4CD030(_DWORD* this, int* a2, int a3);
 static char(__thiscall* trigger_relegation_clauses_4CD030)(BYTE* _this, cm3_clubs* club, cm3_club_comps* comp) =
 (char(__thiscall*)(BYTE * _this, cm3_clubs * club, cm3_club_comps * comp))(0x4CD030);
 
@@ -103,8 +102,10 @@ static void(__thiscall* sub_574E60)(BYTE* _this) =
 static char(__thiscall* sub_768310)(BYTE* _this, DWORD date_addr) =
 (char(__thiscall*)(BYTE * _this, DWORD date_addr))(0x768310);
 static void* (__thiscall* sub_4A4850)(BYTE* _this, BYTE* club) = (void* (__thiscall*)(BYTE * _this, BYTE * club))(0x4A4850);
-//_DWORD* __thiscall sub_54C770(_WORD* this, _DWORD* a2, unsigned __int8 a3);
 static DWORD* (__thiscall* sub_54C770)(BYTE* _this, BYTE* date_ret, char a3) = (DWORD * (__thiscall*)(BYTE * _this, BYTE * date_ret, char a3))(0x54C770);
+//int __thiscall sub_685D30(int this, char* Drive, int a3);
+static int(__thiscall* sub_685D30)(BYTE* _this, BYTE* round_data, int a3) =
+(int(__thiscall*)(BYTE * _this, BYTE * round_data, int a3))(0x685D30);
 
 static void(__thiscall* staff_history_qualified_86BDD0)(BYTE* _this, DWORD* club, DWORD comp_id, WORD stage_main, DWORD stage_sub, char a6) =
 (void(__thiscall*)(BYTE * _this, DWORD * club, DWORD comp_id, WORD stage_main, DWORD stage_sub, char a6))(0x86BDD0);

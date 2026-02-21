@@ -369,6 +369,21 @@
     <ClCompile Include="Sweden\swe_cup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Holland\hol_setup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Holland\hol_first.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Holland\hol_second.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Holland\hol_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Holland\hol_super.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="european_cup.h">
@@ -735,6 +750,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Sweden\swe_cup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Holland\hol_setup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Holland\hol_first.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Holland\hol_second.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Holland\hol_cup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Holland\hol_super.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

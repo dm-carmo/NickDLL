@@ -9,12 +9,6 @@
 #include "cro_awards.h"
 #include <Helpers\9cf_constants.h>
 
-static DWORD(__thiscall* cro_first_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x513E10);
-static DWORD(__thiscall* cro_second_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x515310);
-static DWORD(__thiscall* cro_third_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x516430);
 static DWORD(__thiscall* cro_cup_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
 (DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x517480);
 

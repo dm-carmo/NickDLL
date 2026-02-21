@@ -153,6 +153,7 @@ void __fastcall swe_second_relegation(BYTE* _this)
 		//dprintf("Promoting club to Ettan (simulated winner): %s\n", c->ClubNameShort);
 		promote_club_6830B0((BYTE*)c, (DWORD)comp_data->competition_db, 1);
 		promoted_teams++;
+		*(DWORD*)(comp_bytes + 0xEE + 4 * i) = -1;
 	}
 
 	if (promoted_teams != relegated_clubs.size()) create_message_box("Error", "Promoted and relegated club count does not match for swe_second", false);
@@ -162,9 +163,6 @@ void __fastcall swe_second_relegation(BYTE* _this)
 		relegate_club_6831A0((BYTE*)relegated_clubs[i], (DWORD)get_comp(SWE_THIRD_9CF()), 1);
 		relegated_clubs[i]->ClubReserveDivision = 0;
 	}
-
-	sub_9452CA_free((DWORD*)(comp_bytes + 0xEE));
-	*(DWORD*)(comp_bytes + 0xEE) = 0;
 }
 
 void __fastcall swe_non_league_promotion(BYTE* _this)
@@ -207,6 +205,7 @@ void __fastcall swe_non_league_promotion(BYTE* _this)
 		//dprintf("Promoting club to Division 2 (simulated winner): %s\n", c->ClubNameShort);
 		promote_club_6830B0((BYTE*)c, (DWORD)comp_data->competition_db, 1);
 		promoted_teams++;
+		*(DWORD*)(comp_bytes + 0xEE + 4 * i) = -1;
 	}
 
 	if (promoted_teams != relegated_clubs.size()) create_message_box("Error", "Promoted and relegated club count does not match for swe_third", false);
@@ -216,9 +215,6 @@ void __fastcall swe_non_league_promotion(BYTE* _this)
 		relegate_club_6831A0((BYTE*)relegated_clubs[i], (DWORD)get_comp(SWE_LOWER_9CF()), 1);
 		relegated_clubs[i]->ClubReserveDivision = 0;
 	}
-
-	sub_9452CA_free((DWORD*)(comp_bytes + 0xEE));
-	*(DWORD*)(comp_bytes + 0xEE) = 0;
 }
 
 void sort_swe_second_clubs() {
