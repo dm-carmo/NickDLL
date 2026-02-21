@@ -31,6 +31,7 @@
 #include "Norway\nor_setup.h"
 #include "Poland\pol_setup.h"
 #include "Portugal\por_setup.h"
+#include "South Korea\kor_setup.h"
 #include "Sweden\swe_setup.h"
 #include "USA\usa_setup.h"
 
@@ -143,6 +144,11 @@ void Setup()
 	if (configFile.GetBool("applyPortugal", true)) {
 		dprintf("Applying Portugal changes\n");
 		setup_por_nation();
+	}
+
+	if (configFile.GetBool("applySouthKorea", true)) {
+		dprintf("Applying South Korea changes\n");
+		setup_kor_nation();
 	}
 
 	if (configFile.GetBool("applySweden", true)) {

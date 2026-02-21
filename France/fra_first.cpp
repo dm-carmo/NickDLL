@@ -623,8 +623,8 @@ void fra_first_playoffs_c(BYTE* _this) {
 			if (ret != 0) {
 				//(*(void(__thiscall**)(BYTE*))(v1 + 0x94))(prom_playoff);
 				current++;
-				comp_data->current_stage = current;
 				if (current == 0) {
+					comp_data->current_stage = current;
 					fra_first_playoff_under(_this);
 				}
 			}

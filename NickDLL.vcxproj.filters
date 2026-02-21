@@ -402,6 +402,21 @@
     <ClCompile Include="Norway\nor_cup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="South Korea\kor_setup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="South Korea\kor_first.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="South Korea\kor_second.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="South Korea\kor_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="South Korea\kor_super.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="european_cup.h">
@@ -801,6 +816,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Norway\nor_cup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="South Korea\kor_setup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="South Korea\kor_first.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="South Korea\kor_second.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="South Korea\kor_cup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="South Korea\kor_super.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

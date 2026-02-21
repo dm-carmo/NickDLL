@@ -44,6 +44,8 @@ map<string, char*> leagues_rename_long = {
 	{"Belgian Fourth Division  D", "Belgian Division 2 D"},
 	{"Northern Irish League Lower Division", "NIFL Premier Intermediate League"},
 	{"NIFL Cup", "Irish Football League Cup"},
+	{"Korean FA Cup", "Korea Cup"},
+	{"Korean Super Cup", "K League Super Cup"},
 };
 
 map<string, char*> leagues_rename_long_brazil = {
@@ -127,6 +129,7 @@ map<string, char*> leagues_rename_short = {
 	{"Belgian Fourth Division  D", "Division 2 D"},
 	{"Coppa Italia Serie C", "Coppa Serie C"},
 	{"Supercoppa Serie C", "Supercoppa Serie C"},
+	{"Korean FA Cup", "Korea Cup"},
 };
 
 map<string, char*> leagues_rename_short_brazil = {
@@ -1045,7 +1048,7 @@ map<string, DWORD> league_dword_match = {
 	{"Irish Munster Senior Cup", (DWORD)0x9CF9F0},
 	{"Irish Leinster Senior Cup", (DWORD)0x9CF9F4},
 	{"Korean Super Cup", (DWORD)0x9CF9F8},
-	{"Korean League Cup", (DWORD)0x9CF9FC},
+	{"K League 2", (DWORD)0x9CF9FC},
 	{"K League 1", (DWORD)0x9CFA00},
 	{"Korean FA Cup", (DWORD)0x9CFA04},
 };

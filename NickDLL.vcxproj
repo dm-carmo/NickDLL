@@ -248,6 +248,11 @@
     <ClCompile Include="Portugal\por_super.cpp" />
     <ClCompile Include="Portugal\por_third.cpp" />
     <ClCompile Include="setup_misc_functions.cpp" />
+    <ClCompile Include="South Korea\kor_cup.cpp" />
+    <ClCompile Include="South Korea\kor_first.cpp" />
+    <ClCompile Include="South Korea\kor_second.cpp" />
+    <ClCompile Include="South Korea\kor_setup.cpp" />
+    <ClCompile Include="South Korea\kor_super.cpp" />
     <ClCompile Include="Structures\CMHeader.cpp" />
     <ClCompile Include="Sweden\swe_cup.cpp" />
     <ClCompile Include="Sweden\swe_first.cpp" />
@@ -383,6 +388,11 @@
     <ClInclude Include="Portugal\por_super.h" />
     <ClInclude Include="Portugal\por_third.h" />
     <ClInclude Include="setup_misc_functions.h" />
+    <ClInclude Include="South Korea\kor_cup.h" />
+    <ClInclude Include="South Korea\kor_first.h" />
+    <ClInclude Include="South Korea\kor_second.h" />
+    <ClInclude Include="South Korea\kor_setup.h" />
+    <ClInclude Include="South Korea\kor_super.h" />
     <ClInclude Include="Structures\CMHeader.h" />
     <ClInclude Include="Structures\Date.h" />
     <ClInclude Include="Structures\vtable.h" />
