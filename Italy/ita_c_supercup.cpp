@@ -207,7 +207,7 @@ int ita_c_supercup_teams(BYTE* _this) {
 	return 1;
 }
 
-void replacement_63B300(BYTE* _this, DWORD current_date, int a3) {
+void ita_c_supercup_63B300(BYTE* _this, DWORD current_date, int a3) {
 	comp_stats* data = (comp_stats*)_this;
 	if (!data->f69) {
 		comp_stats* ita_ser_c_data = (comp_stats*)get_loaded_league(ITA_SERIE_C_9CF());
@@ -225,7 +225,7 @@ void replacement_63B300(BYTE* _this, DWORD current_date, int a3) {
 	sub_6847C0(_this, current_date, a3);
 }
 
-void __declspec(naked) replacement_63B300_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) ita_c_supercup_63B300_c()		// used as a __thiscall -> __cdecl converter
 {
 	__asm
 	{
@@ -233,7 +233,7 @@ void __declspec(naked) replacement_63B300_c()		// used as a __thiscall -> __cdec
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call replacement_63B300
+		call ita_c_supercup_63B300
 		add esp, 0xc
 		ret 8
 	}
@@ -247,7 +247,7 @@ void ita_c_supercup_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->comp_vtable = (DWORD*)(ita_c_supercup_vtable->vtable_ptr);
 	ita_c_supercup_vtable->SetPointer(VTableInitFree, (DWORD)&ita_c_supercup_free_c);
 	ita_c_supercup_vtable->SetPointer(VTableEoSUpdate, (DWORD)&ita_c_supercup_update_c);
-	ita_c_supercup_vtable->SetPointer(VTableLeagueSplit, (DWORD)&replacement_63B300_c);
+	ita_c_supercup_vtable->SetPointer(VTableLeagueSplit, (DWORD)&ita_c_supercup_63B300_c);
 	ita_c_supercup_vtable->SetPointer(VTableFixtures, (DWORD)&ita_c_supercup_fixtures_c);
 	ita_c_supercup_vtable->SetPointer(VTableSubsRounds, (DWORD)&ita_c_supercup_subs_c);
 	ita_c_supercup_vtable->SetPointer(VTableTableFates, (DWORD)0x686940);

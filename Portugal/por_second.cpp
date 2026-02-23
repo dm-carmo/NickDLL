@@ -356,7 +356,7 @@ void __declspec(naked) por_second_fixtures_c()		// used as a __thiscall -> __cde
 	}
 }
 
-void BlockReservePromotionPortugal2(BYTE* _this) {
+void por_second_block_promotion(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	WORD total_teams = data->n_teams;
 	team_league_stats* table_teams = (team_league_stats*)(data->team_league_table);
@@ -385,7 +385,7 @@ void por_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
 	por_second_subs(_this);
 	AddTeams(_this);
-	BlockReservePromotionPortugal2(_this);
+	por_second_block_promotion(_this);
 	sub_6835C0(_this);
 	BYTE* ebx = 0;
 	sub_6827D0(_this, ebx);
@@ -626,7 +626,7 @@ char por_second_update(BYTE* _this) {
 	data->current_stage = -1;
 	por_second_subs(_this);
 	AddTeams(_this);
-	BlockReservePromotionPortugal2(_this);
+	por_second_block_promotion(_this);
 	sub_6835C0(_this);
 	BYTE* edx = 0;
 	sub_6827D0(_this, edx);

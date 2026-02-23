@@ -77,7 +77,7 @@ void swe_premier_prom_rel_update(BYTE* _this, int a2) {
 		comp_stats* swe_third_data = (comp_stats*)swe_third;
 		v1 = *(DWORD*)swe_third;
 		(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(swe_third);
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < 5; i++)
 		{
 			BYTE* swe_third_grp = (BYTE*)swe_third_data->stages[i];
 			v1 = *(DWORD*)swe_third_grp;

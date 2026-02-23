@@ -25,8 +25,7 @@ Last Sudamericana winners
 2 teams from Bolivia, Ecuador, Paraguay, Peru, Uruguay and Venezuela
 */
 
-
-void ConmebolSeedingLeague(const char* szNation, int numberOfClubs)
+void get_teams_for_conmebol(const char* szNation, int numberOfClubs)
 {
 	cm3_nations* nation = find_country(szNation);
 
@@ -57,7 +56,7 @@ void ConmebolSeedingLeague(const char* szNation, int numberOfClubs)
 		if (TeamsToSelectFrom < numberOfClubs)
 		{
 			// If we can't get this countries clubs - then just get some more Argentina or Brazil ones
-			ConmebolSeedingLeague(((rand() % 2) == 0) ? "Brazil" : "Argentina", numberOfClubs);
+			get_teams_for_conmebol(((rand() % 2) == 0) ? "Brazil" : "Argentina", numberOfClubs);
 			return;
 		}
 
@@ -76,23 +75,23 @@ void ConmebolSeedingLeague(const char* szNation, int numberOfClubs)
 	}
 }
 
-void ConmebolSeedingCompWinner(long comp_id)
+void get_comp_winner_for_conmebol(long comp_id)
 {
 	cm3_club_comps* comp = &(*club_comps)[comp_id];
 	if (!comp) {
 		//dprintf("Competition %ld not found, getting backup club\n", comp_id);
-		ConmebolSeedingLeague("Brazil", 1);
+		get_teams_for_conmebol("Brazil", 1);
 	}
 	else {
 		cm3_clubs* last_winner = get_last_comp_winner(comp);
 		if (!last_winner || !last_winner->ClubNation) {
 			//dprintf("Last winner of %s not found or invalid, getting backup club\n", comp->ClubCompName);
-			ConmebolSeedingLeague("Brazil", 1);
+			get_teams_for_conmebol("Brazil", 1);
 		}
 		else {
 			if (last_winner->ClubEuroFlag != -1) {
 				//dprintf("Last winner of %s (%s) is already qualified, getting backup club\n", comp->ClubCompName, (last_winner->ClubName));
-				ConmebolSeedingLeague(last_winner->ClubNation->NationName, 1);
+				get_teams_for_conmebol(last_winner->ClubNation->NationName, 1);
 			}
 			else {
 				//dprintf("Setting club %s to Libertadores (last winners of %s)\n", (last_winner->ClubName), comp->ClubCompName);
@@ -102,7 +101,7 @@ void ConmebolSeedingCompWinner(long comp_id)
 	}
 }
 
-void ConmebolSeedingCupWinner(const char* szNation, long comp_id)
+void get_cup_winner_for_conmebol(const char* szNation, long comp_id)
 {
 	cm3_nations* nation = find_country(szNation);
 
@@ -110,18 +109,18 @@ void ConmebolSeedingCupWinner(const char* szNation, long comp_id)
 		cm3_club_comps* comp = &(*club_comps)[comp_id];
 		if (!comp) {
 			//dprintf("Competition %ld not found, getting backup club\n", comp_id);
-			ConmebolSeedingLeague(szNation, 1);
+			get_teams_for_conmebol(szNation, 1);
 		}
 		else {
 			cm3_clubs* last_winner = get_last_comp_winner(comp);
 			if (!last_winner || !last_winner->ClubNation) {
 				//dprintf("Last winner of %s not found or invalid, getting backup club\n", comp->ClubCompName);
-				ConmebolSeedingLeague(szNation, 1);
+				get_teams_for_conmebol(szNation, 1);
 			}
 			else {
 				if (last_winner->ClubEuroFlag != -1) {
 					//dprintf("Last winner of %s (%s) is already qualified, getting backup club\n", comp->ClubCompName, (last_winner->ClubName));
-					ConmebolSeedingLeague(szNation, 1);
+					get_teams_for_conmebol(szNation, 1);
 				}
 				else {
 					//dprintf("Setting club %s to Libertadores (last winners of %s)\n", (last_winner->ClubName), comp->ClubCompName);
@@ -132,11 +131,11 @@ void ConmebolSeedingCupWinner(const char* szNation, long comp_id)
 	}
 	else {
 		//dprintf("Country %s is inactive, getting backup club\n", szNation);
-		ConmebolSeedingLeague(szNation, 1);
+		get_teams_for_conmebol(szNation, 1);
 	}
 }
 
-void ConmebolSeedingCupLoser(const char* szNation, long comp_id)
+void get_cup_loser_for_conmebol(const char* szNation, long comp_id)
 {
 	cm3_nations* nation = find_country(szNation);
 
@@ -144,18 +143,18 @@ void ConmebolSeedingCupLoser(const char* szNation, long comp_id)
 		cm3_club_comps* comp = &(*club_comps)[comp_id];
 		if (!comp) {
 			//dprintf("Competition %ld not found, getting backup club\n", comp_id);
-			ConmebolSeedingLeague(szNation, 1);
+			get_teams_for_conmebol(szNation, 1);
 		}
 		else {
 			cm3_clubs* last_runner_up = get_last_comp_runner_up(comp);
 			if (!last_runner_up || !last_runner_up->ClubNation) {
 				//dprintf("Last runner-up of %s not found or invalid, getting backup club\n", comp->ClubCompName);
-				ConmebolSeedingLeague(szNation, 1);
+				get_teams_for_conmebol(szNation, 1);
 			}
 			else {
 				if (last_runner_up->ClubEuroFlag != -1) {
 					//dprintf("Last runner-up of %s (%s) is already qualified, getting backup club\n", comp->ClubCompName, (last_runner_up->ClubName));
-					ConmebolSeedingLeague(szNation, 1);
+					get_teams_for_conmebol(szNation, 1);
 				}
 				else {
 					//dprintf("Setting club %s to Libertadores (last runner-up of %s)\n", (last_runner_up->ClubName), comp->ClubCompName);
@@ -166,7 +165,7 @@ void ConmebolSeedingCupLoser(const char* szNation, long comp_id)
 	}
 	else {
 		//dprintf("Country %s is inactive, getting backup club\n", szNation);
-		ConmebolSeedingLeague(szNation, 1);
+		get_teams_for_conmebol(szNation, 1);
 	}
 }
 
@@ -184,7 +183,7 @@ void replacement_004C6430_full()
 			if (name.size() == 0) {
 				if (nation_count >= 0 && nation_count < required) {
 					//dprintf("Too few clubs from %s (need %d, only found %d), trying to add more\n", nation, required, nation_count);
-					ConmebolSeedingLeague(nation, required - nation_count);
+					get_teams_for_conmebol(nation, required - nation_count);
 				}
 				continue;
 			}
@@ -209,20 +208,20 @@ void replacement_004C6430_full()
 	}
 	else {
 		//dprintf("Getting teams for Libertadores based on last season performance\n");
-		ConmebolSeedingLeague("Argentina", libertadores_qual.at("Argentina") - 3); // minus cup slots and Libertadores winner slot
-		ConmebolSeedingCupWinner("Argentina", ARG_CUP_9CF());
-		ConmebolSeedingCupLoser("Argentina", ARG_CUP_9CF());
-		ConmebolSeedingLeague("Brazil", libertadores_qual.at("Brazil") - 3); // minus cup slots and Sudamericana winner slot
-		ConmebolSeedingCupWinner("Brazil", BRA_CUP_9CF());
-		ConmebolSeedingCupLoser("Brazil", BRA_CUP_9CF());
+		get_teams_for_conmebol("Argentina", libertadores_qual.at("Argentina") - 3); // minus cup slots and Libertadores winner slot
+		get_cup_winner_for_conmebol("Argentina", ARG_CUP_9CF());
+		get_cup_loser_for_conmebol("Argentina", ARG_CUP_9CF());
+		get_teams_for_conmebol("Brazil", libertadores_qual.at("Brazil") - 3); // minus cup slots and Sudamericana winner slot
+		get_cup_winner_for_conmebol("Brazil", BRA_CUP_9CF());
+		get_cup_loser_for_conmebol("Brazil", BRA_CUP_9CF());
 		const char* nations_list[] = {
 			"Bolivia", "Chile", "Colombia", "Ecuador", "Paraguay", "Peru", "Uruguay", "Venezuela"
 		};
 		for (const char* nation : nations_list) {
-			ConmebolSeedingLeague(nation, libertadores_qual.at(nation));
+			get_teams_for_conmebol(nation, libertadores_qual.at(nation));
 		}
-		ConmebolSeedingCompWinner(COPA_LIBERTADORES_9CF());
-		ConmebolSeedingCompWinner(COPA_SUDAMERICANA_9CF());
+		get_comp_winner_for_conmebol(COPA_LIBERTADORES_9CF());
+		get_comp_winner_for_conmebol(COPA_SUDAMERICANA_9CF());
 	}
 	//dprintf("\n");
 }

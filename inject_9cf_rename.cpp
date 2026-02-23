@@ -74,6 +74,14 @@ map<string, char*> leagues_rename_long_croatia = {
 	{"Croatian Druga NL West", "Croatian Treca NL West"},
 };
 
+map<string, char*> leagues_rename_long_finland = {
+	{"Finnish Ykkösliiga North", "Finnish Ykkönen"},
+	{"Finnish Ykkösliiga South", "Finnish Kolmonen"},
+	{"Finnish Ykkönen North", "Finnish Kakkonen Group A"},
+	{"Finnish Ykkönen West", "Finnish Kakkonen Group B"},
+	{"Finnish Ykkönen South", "Finnish Kakkonen Group C"},
+};
+
 map<string, char*> leagues_rename_long_italy = {
 	{"Indian Chennai League", "Italian Serie C"},
 	{"Italian Serie C1/A", "Italian Serie C/A"},
@@ -155,6 +163,14 @@ map<string, char*> leagues_rename_short_croatia = {
 	{"Croatian Druga NL West", "3. NL West"},
 };
 
+map<string, char*> leagues_rename_short_finland = {
+	{"Finnish Ykkösliiga North", "Ykkönen"},
+	{"Finnish Ykkösliiga South", "Kolmonen"},
+	{"Finnish Ykkönen North", "Kakkonen Group A"},
+	{"Finnish Ykkönen West", "Kakkonen Group B"},
+	{"Finnish Ykkönen South", "Kakkonen Group C"},
+};
+
 map<string, char*> leagues_rename_short_italy = {
 	{"Indian Chennai League", "Serie C"},
 	{"Italian Serie C1/A", "Serie C/A"},
@@ -223,6 +239,14 @@ map<string, char*> leagues_rename_tla_croatia = {
 	{"Croatian Druga NL West", "3LW"},
 };
 
+map<string, char*> leagues_rename_tla_finland = {
+	{"Finnish Ykkösliiga North", "Ykk"},
+	{"Finnish Ykkösliiga South", "Kol"},
+	{"Finnish Ykkönen North", "Kak"},
+	{"Finnish Ykkönen West", "Kak"},
+	{"Finnish Ykkönen South", "Kak"},
+};
+
 map<string, char*> leagues_rename_tla_italy = {
 	{"Indian Chennai League", "C"},
 	{"Italian Serie C1/A", "C/A"},
@@ -270,6 +294,7 @@ map<string, char*> awards_rename_short = {
 	{"South Korean Referee of the Year", "Players Team of the Year"}, //211
 	{"South Korean Fair Play of the Month", "Players Team of the Year"}, //20B
 	{"South Korean Fair Play of the Year", "Young Player of the Month"}, //20F
+	{"South Korean Goalkeeper of the Month", "Manager of the Month"},
 	{"South African Young Player of the Year", "Young Player of the Month"}, //1AC
 };
 
@@ -319,6 +344,7 @@ map<string, char*> awards_rename_long = {
 	{"South Korean Referee of the Year", "English National North Team of the Year"}, //211
 	{"South Korean Fair Play of the Month", "English National South Team of the Year"}, //20B
 	{"South Korean Fair Play of the Year", "English National North Young Player of the Month"}, //20F
+	{"South Korean Goalkeeper of the Month", "South Korean Manager of the Month"},
 	{"South African Young Player of the Year", "English National South Young Player of the Month"}, //1AC
 	{"Portuguese Premier League Manager of the Year", "Liga Portugal 1 Manager of the Year"},
 	{"Portuguese Premier League Most Man of the Match", "Liga Portugal 1 Most Man of the Match"},
@@ -400,6 +426,11 @@ map<string, char*> awards_rename_long = {
 	{"Danish Kvalifikationsrækken Player of the Year", "Danish Third Division Player of the Year"},
 	{"Danish Kvalifikationsrækken Young Player of Year", "Danish Third Division Young Player of Year"},
 	{"Danish Premier Division Team of the Week", "Danish Superliga Team of the Week"},
+	{ "Finnish Ykkönen Manager of the Month", "Finnish Ykkösliiga Manager of the Month" },
+	{ "Finnish Ykkönen Player of the Month", "Finnish Ykkösliiga Player of the Month" },
+	{ "Finnish Ykkönen Team of the Week", "Finnish Ykkösliiga Team of the Week" },
+	{ "Finnish Ykkönen Team of the Year", "Finnish Ykkösliiga Team of the Year" },
+	{ "Finnish Ykkönen Top Goalscorer", "Finnish Ykkösliiga Top Goalscorer" },
 };
 
 map<string, char*> awards_rename_long_croatia = {
@@ -1912,6 +1943,12 @@ void setup_name_injection()
 		leagues_rename_long.insert(leagues_rename_long_germany.begin(), leagues_rename_long_germany.end());
 		leagues_rename_short.insert(leagues_rename_short_germany.begin(), leagues_rename_short_germany.end());
 		leagues_rename_tla.insert(leagues_rename_tla_germany.begin(), leagues_rename_tla_germany.end());
+	}
+
+	if (configFile.GetBool("applyFinland", true)) {
+		leagues_rename_long.insert(leagues_rename_long_finland.begin(), leagues_rename_long_finland.end());
+		leagues_rename_short.insert(leagues_rename_short_finland.begin(), leagues_rename_short_finland.end());
+		leagues_rename_tla.insert(leagues_rename_tla_finland.begin(), leagues_rename_tla_finland.end());
 	}
 
 	if (configFile.GetBool("applyItaly", true)) {

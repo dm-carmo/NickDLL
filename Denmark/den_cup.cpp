@@ -7,7 +7,7 @@
 
 DWORD* den_cup_vtable = (DWORD*)0x969590;
 
-DWORD CreateDenatiaCupFixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
+DWORD den_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
 {
 	if (stage_idx == -1) {
 		if (a5)
@@ -65,7 +65,7 @@ void __declspec(naked) den_cup_fixture_caller()		// used as a __thiscall -> __cd
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call CreateDenatiaCupFixtures
+		call den_cup_fixtures
 		add esp, 0x14
 		ret 0x10
 	}

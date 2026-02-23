@@ -60,7 +60,7 @@ void __declspec(naked) eng_prm_prom_rel_update_c()		// used as a __thiscall -> _
 	}
 }
 
-void __fastcall sub_5750A0_promote_teams_to_bottom_league_c(BYTE* _this)
+void __fastcall eng_non_league_promotion(BYTE* _this)
 {
 	vector<cm3_clubs*> northern_relegated_clubs = get_relegated_teams(ENG_CONFERENCE_NORTH_9CF());
 	vector<cm3_clubs*> southern_relegated_clubs = get_relegated_teams(ENG_CONFERENCE_SOUTH_9CF());
@@ -147,7 +147,7 @@ char eng_prm_update(BYTE* _this) {
 
 	BYTE* eng_conf = get_loaded_league(ENG_CONFERENCE_9CF());
 	if (eng_conf) {
-		sub_5750A0_promote_teams_to_bottom_league_c(_this);
+		eng_non_league_promotion(_this);
 		sort_conf_n_s_clubs();
 	}
 	else {
@@ -225,7 +225,7 @@ void __declspec(naked) eng_prm_update_c()		// used as a __thiscall -> __cdecl co
 	}
 }
 
-DWORD CreateFixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
+DWORD eng_prm_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
 {
 	if (stage_idx < 0) {
 		if (a5)
@@ -456,7 +456,7 @@ DWORD CreateFixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_
 	else return 0;
 }
 
-void __declspec(naked) fixture_caller()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) eng_prm_fixture_caller()		// used as a __thiscall -> __cdecl converter
 {
 	__asm
 	{
@@ -466,7 +466,7 @@ void __declspec(naked) fixture_caller()		// used as a __thiscall -> __cdecl conv
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call CreateFixtures
+		call eng_prm_fixtures
 		add esp, 0x14
 		ret 0x10
 	}
@@ -475,7 +475,7 @@ void __declspec(naked) fixture_caller()		// used as a __thiscall -> __cdecl conv
 void setup_eng_prm()
 {
 	WriteVTablePtr(eng_prm_vtable, VTableEoSUpdate, (DWORD)&eng_prm_update_c);
-	WriteVTablePtr(eng_prm_vtable, VTableFixtures, (DWORD)&fixture_caller);
+	WriteVTablePtr(eng_prm_vtable, VTableFixtures, (DWORD)&eng_prm_fixture_caller);
 	WriteVTablePtr(eng_prm_vtable, VTablePromRelUpdate, (DWORD)&eng_prm_prom_rel_update_c);
 	// Charity Shield day
 	WriteBytes(0x56d718, 1, 10);

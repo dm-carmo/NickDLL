@@ -389,7 +389,7 @@ void __declspec(naked) ita_ser_b_playoffs_create()		// used as a __thiscall -> _
 	}
 }
 
-int SerieBTableIndicators(BYTE* _this, DWORD* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int ita_ser_b_table_indicators(BYTE* _this, DWORD* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == 0) {
@@ -482,7 +482,7 @@ void __declspec(naked) ita_ser_b_set_table_fate()		// used as a __thiscall -> __
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call SerieBTableIndicators
+		call ita_ser_b_table_indicators
 		add esp, 0x1c
 		ret 0x18
 	}

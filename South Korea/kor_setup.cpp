@@ -6,6 +6,7 @@
 #include "kor_second.h"
 #include "kor_cup.h"
 #include "kor_super.h"
+#include "kor_awards.h"
 
 static DWORD(__thiscall* kor_cup_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
 (DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x66A460);
@@ -63,6 +64,7 @@ void setup_kor_nation() {
 	setup_kor_second();
 	setup_kor_cup();
 	setup_kor_super();
+	setup_kor_awards();
 	// Start date
 	WriteBytes(0x668BE8, 1, February);
 	WriteBytes(0x668BEA, 1, 14);

@@ -300,7 +300,7 @@ void __declspec(naked) ita_ser_c_reputation_setup_c()		// used as a __thiscall -
 	}
 }
 
-cm3_clubs* SerieCCupLoser(comp_stats* comp_data)
+cm3_clubs* get_ita_c_cup_loser(comp_stats* comp_data)
 {
 	cm3_club_comps* comp = &(*club_comps)[ITA_SERIE_C_CUP_9CF()];
 	cm3_clubs* last_runner_up = get_last_comp_runner_up(comp);
@@ -312,7 +312,7 @@ cm3_clubs* SerieCCupLoser(comp_stats* comp_data)
 	}
 }
 
-cm3_clubs* SerieCCupWinner(comp_stats* comp_data)
+cm3_clubs* get_ita_c_cup_winner(comp_stats* comp_data)
 {
 	cm3_club_comps* comp = &(*club_comps)[ITA_SERIE_C_CUP_9CF()];
 	cm3_clubs* last_winner = get_last_comp_winner(comp);
@@ -394,14 +394,14 @@ void ita_c_playoffs_prom(BYTE* _this) {
 		clubs_rnd3.push_back(r3_club);
 		//dprintf("Club in round 3: 3rd place %s\n", r3_club->ClubNameShort);
 	}
-	cm3_clubs* c_winner = SerieCCupWinner(comp_data);
+	cm3_clubs* c_winner = get_ita_c_cup_winner(comp_data);
 	if (c_winner) {
 		pair<char, WORD> winner_grp_pos = get_club_group_and_pos(comp_data, c_winner);
 		// if they finished 1st (promoted), 2nd or 3rd (already in later playoffs)
 		// or if they are in relegation area
 		if (winner_grp_pos.second < 3 || winner_grp_pos.second >= 15) {
 			fallback_group = winner_grp_pos.first;
-			cm3_clubs* c_loser = SerieCCupLoser(comp_data);
+			cm3_clubs* c_loser = get_ita_c_cup_loser(comp_data);
 			if (c_loser) {
 				pair<char, WORD> loser_grp_pos = get_club_group_and_pos(comp_data, c_loser);
 				if (loser_grp_pos.second < 3 || loser_grp_pos.second >= 15) {
@@ -423,7 +423,7 @@ void ita_c_playoffs_prom(BYTE* _this) {
 		}
 	}
 	else {
-		cm3_clubs* c_loser = SerieCCupLoser(comp_data);
+		cm3_clubs* c_loser = get_ita_c_cup_loser(comp_data);
 		if (c_loser) {
 			pair<char, WORD> loser_grp_pos = get_club_group_and_pos(comp_data, c_loser);
 			if (loser_grp_pos.second < 3 || loser_grp_pos.second >= 15) {
@@ -582,7 +582,7 @@ void __declspec(naked) ita_c_playoffs_create()		// used as a __thiscall -> __cde
 	}
 }
 
-int SerieCTableIndicators(BYTE* _this, DWORD* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int ita_ser_c_table_indicators(BYTE* _this, DWORD* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == 2) {
@@ -691,7 +691,7 @@ void __declspec(naked) ita_ser_c_set_table_fate()		// used as a __thiscall -> __
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call SerieCTableIndicators
+		call ita_ser_c_table_indicators
 		add esp, 0x1c
 		ret 0x18
 	}

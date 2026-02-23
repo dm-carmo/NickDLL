@@ -4,5 +4,5 @@
 #include "Structures\CMHeader.h"
 #include "Helpers\Helper.h"
 
-void AddSudamericanaClubs(vector<cm3_clubs*> &vec, const char *szNation, int numberOfClubs);
+void get_clubs_for_sudamericana(vector<cm3_clubs*> &vec, const char *szNation, int numberOfClubs);
 void setup_sudamericana();

@@ -147,7 +147,7 @@ void __declspec(naked) eng_conf_s_subs_c()		// used as a __thiscall -> __cdecl c
 	}
 }
 
-void NLSConfigureAwardData() {
+void eng_conf_s_awards_restruct() {
 	cm3_staff_comps* data = &(*awards)[ENG_CONFERENCE_S_MANAGER_OF_MONTH_9CF()];
 	if (data) {
 		data->StaffCompNation = find_country("England");
@@ -211,7 +211,7 @@ void eng_conf_s_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	eng_conf_s_vtable->SetPointer(VTableInitFree, (DWORD)&eng_conf_s_free_c);
 	eng_conf_s_vtable->SetPointer(VTableEoSUpdate, (DWORD)&eng_conf_s_update_c);
 	eng_conf_s_vtable->SetPointer(VTablePlayoffQual, (DWORD)&eng_playoffs_create);
-	eng_conf_s_vtable->SetPointer(VTableFixtures, (DWORD)&eng_conf_fixtures);
+	eng_conf_s_vtable->SetPointer(VTableFixtures, (DWORD)&eng_conf_fixtures_c);
 	eng_conf_s_vtable->SetPointer(VTableTableFates, (DWORD)&eng_conf_set_table_fate);
 	eng_conf_s_vtable->SetPointer(VTableSubsRounds, (DWORD)&eng_conf_s_subs_c);
 	eng_conf_s_vtable->SetPointer(VTableReputationCalc, (DWORD)&eng_conf_s_reputation_calc_c);
@@ -219,7 +219,7 @@ void eng_conf_s_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->rules = 0x9;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
-	NLSConfigureAwardData();
+	eng_conf_s_awards_restruct();
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 1;

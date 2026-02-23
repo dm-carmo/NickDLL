@@ -185,6 +185,13 @@
     <ClCompile Include="England\eng_setup.cpp" />
     <ClCompile Include="England\eng_third.cpp" />
     <ClCompile Include="european_cup.cpp" />
+    <ClCompile Include="Finland\fin_awards.cpp" />
+    <ClCompile Include="Finland\fin_cup.cpp" />
+    <ClCompile Include="Finland\fin_first.cpp" />
+    <ClCompile Include="Finland\fin_premier.cpp" />
+    <ClCompile Include="Finland\fin_second.cpp" />
+    <ClCompile Include="Finland\fin_setup.cpp" />
+    <ClCompile Include="Finland\fin_third.cpp" />
     <ClCompile Include="France\fra_cup.cpp" />
     <ClCompile Include="France\fra_first.cpp" />
     <ClCompile Include="France\fra_second.cpp" />
@@ -248,6 +255,7 @@
     <ClCompile Include="Portugal\por_super.cpp" />
     <ClCompile Include="Portugal\por_third.cpp" />
     <ClCompile Include="setup_misc_functions.cpp" />
+    <ClCompile Include="South Korea\kor_awards.cpp" />
     <ClCompile Include="South Korea\kor_cup.cpp" />
     <ClCompile Include="South Korea\kor_first.cpp" />
     <ClCompile Include="South Korea\kor_second.cpp" />
@@ -323,6 +331,13 @@
     <ClInclude Include="England\eng_setup.h" />
     <ClInclude Include="England\eng_third.h" />
     <ClInclude Include="european_cup.h" />
+    <ClInclude Include="Finland\fin_awards.h" />
+    <ClInclude Include="Finland\fin_cup.h" />
+    <ClInclude Include="Finland\fin_first.h" />
+    <ClInclude Include="Finland\fin_premier.h" />
+    <ClInclude Include="Finland\fin_second.h" />
+    <ClInclude Include="Finland\fin_setup.h" />
+    <ClInclude Include="Finland\fin_third.h" />
     <ClInclude Include="France\fra_cup.h" />
     <ClInclude Include="France\fra_first.h" />
     <ClInclude Include="France\fra_second.h" />
@@ -388,6 +403,7 @@
     <ClInclude Include="Portugal\por_super.h" />
     <ClInclude Include="Portugal\por_third.h" />
     <ClInclude Include="setup_misc_functions.h" />
+    <ClInclude Include="South Korea\kor_awards.h" />
     <ClInclude Include="South Korea\kor_cup.h" />
     <ClInclude Include="South Korea\kor_first.h" />
     <ClInclude Include="South Korea\kor_second.h" />

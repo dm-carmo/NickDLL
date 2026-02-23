@@ -251,7 +251,7 @@ void __declspec(naked) eng_conf_subs_c()		// used as a __thiscall -> __cdecl con
 	}
 }
 
-DWORD CreateConferenceFixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
+DWORD eng_conf_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
 {
 	if (stage_idx < 0) {
 		if (a5)
@@ -380,7 +380,7 @@ DWORD CreateConferenceFixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WO
 	return 0;
 }
 
-int ConferenceTableIndicators(BYTE* _this, DWORD* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int eng_conf_table_indicators(BYTE* _this, DWORD* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage != -1) {
@@ -444,13 +444,13 @@ void __declspec(naked) eng_conf_set_table_fate()		// used as a __thiscall -> __c
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call ConferenceTableIndicators
+		call eng_conf_table_indicators
 		add esp, 0x1c
 		ret 0x18
 	}
 }
 
-void __declspec(naked) eng_conf_fixtures()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) eng_conf_fixtures_c()		// used as a __thiscall -> __cdecl converter
 {
 	__asm
 	{
@@ -460,7 +460,7 @@ void __declspec(naked) eng_conf_fixtures()		// used as a __thiscall -> __cdecl c
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call CreateConferenceFixtures
+		call eng_conf_fixtures
 		add esp, 0x14
 		ret 0x10
 	}
@@ -504,7 +504,7 @@ void setup_eng_conf() {
 	WriteVTablePtr(eng_conf_vtable, VTableInitFree, (DWORD)&eng_conf_free_c);
 	WriteVTablePtr(eng_conf_vtable, VTableEoSUpdate, (DWORD)&eng_conf_update_c);
 	WriteVTablePtr(eng_conf_vtable, VTablePlayoffQual, (DWORD)&eng_playoffs_create);
-	WriteVTablePtr(eng_conf_vtable, VTableFixtures, (DWORD)&eng_conf_fixtures);
+	WriteVTablePtr(eng_conf_vtable, VTableFixtures, (DWORD)&eng_conf_fixtures_c);
 	WriteVTablePtr(eng_conf_vtable, VTableTableFates, (DWORD)&eng_conf_set_table_fate);
 	WriteVTablePtr(eng_conf_vtable, VTableSubsRounds, (DWORD)&eng_conf_subs_c);
 	WriteVTablePtr(eng_conf_vtable, VTableReputationCalc, (DWORD)&eng_conf_reputation_calc_c);

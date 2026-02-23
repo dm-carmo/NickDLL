@@ -330,7 +330,7 @@ void __declspec(naked) ger_third_fixtures_c()		// used as a __thiscall -> __cdec
 	}
 }
 
-void BlockReservePromotion3Liga(BYTE* _this) {
+void ger_third_block_promotion(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	WORD total_teams = data->n_teams;
 	team_league_stats* table_teams = (team_league_stats*)(data->team_league_table);
@@ -367,7 +367,7 @@ char ger_third_update(BYTE* _this) {
 	data->current_stage = -1;
 	ger_third_subs(_this);
 	AddTeams(_this);
-	BlockReservePromotion3Liga(_this);
+	ger_third_block_promotion(_this);
 	sub_6835C0(_this);
 	BYTE* edx = 0;
 	sub_6827D0(_this, edx);
@@ -689,7 +689,7 @@ void ger_third_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->num_stages = 0;
 	ger_third_subs(_this);
 	AddTeams(_this);
-	BlockReservePromotion3Liga(_this);
+	ger_third_block_promotion(_this);
 	sub_6835C0(_this);
 	BYTE* ebx = 0;
 	sub_6827D0(_this, ebx);

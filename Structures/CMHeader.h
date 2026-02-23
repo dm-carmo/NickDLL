@@ -52,7 +52,7 @@ enum RoundNames : WORD {
 	PreliminaryFinal = 0x15E,
 	GrandFinal = 0x168,
 	InterzonePlayoff = 0x172,
-	NumericGroupStage = 0x3E8,
+	NumericGroupStage = 0x3E9,
 	SecondPlacedTeams = 0x3FC,
 	FirstRoundNumericGroup = 0x3FD,
 	SecondRoundNumericGroup = 0x407,

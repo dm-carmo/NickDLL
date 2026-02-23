@@ -425,6 +425,7 @@ void __declspec(naked) swe_first_playoffs_create()		// used as a __thiscall -> _
 int swe_first_table_indicators(BYTE* _this, DWORD* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
+	cm3_club_comps* swe_premier = &(*club_comps)[SWE_PREMIER_9CF()];
 	if (stage == 0) {
 		cm3_clubs* club_ptr = (cm3_clubs*)club;
 		cm3_club_comps* swe_second = &(*club_comps)[SWE_SECOND_9CF()];
@@ -497,6 +498,7 @@ int swe_first_table_indicators(BYTE* _this, DWORD* club, BYTE fate, char stage, 
 			staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), 0x64);
 			return 0;
 		case TopPlayoff:
+			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(swe_premier), None, Playoff, 0x1E);
 			return 0;
 		case BottomPlayoff:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, Playoff, 0x1E);

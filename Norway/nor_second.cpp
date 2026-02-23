@@ -119,7 +119,7 @@ DWORD nor_second_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 		DWORD CompID = data->competition_db->ClubCompID;
 		BYTE numberOfLeagueTeams = 14;
 		*num_rounds = (numberOfLeagueTeams - 1) * ((comp_stats*)_this)->n_rounds;
-		*stage_name_id = 1 + NumericGroupStage + stage_idx;
+		*stage_name_id = NumericGroupStage + stage_idx;
 
 		pMem = (BYTE*)sub_944E46_malloc(fixture_dates_sz * (*num_rounds));
 

@@ -104,7 +104,7 @@ DWORD swe_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		WORD year = data->year;
 		WORD numberOfLeagueTeams = 4;
 		*num_rounds = 3;
-		*stage_name_id = NumericGroupStage + (stage_idx);
+		*stage_name_id = NumericGroupStage + stage_idx - 1;
 
 		pMem = (BYTE*)sub_944E46_malloc(fixture_dates_sz * (*num_rounds));
 

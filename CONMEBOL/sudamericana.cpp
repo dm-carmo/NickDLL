@@ -26,7 +26,7 @@ If any of the leagues are active, teams will be picked based on last position.
 */
 DWORD* sudamericana_vtable = (DWORD*)0x968CA8;
 
-void AddSudamericanaClubs(vector<cm3_clubs*>& vec, const char* szNation, int numberOfClubs)
+void get_clubs_for_sudamericana(vector<cm3_clubs*>& vec, const char* szNation, int numberOfClubs)
 {
 
 	cm3_nations* nation = find_country(szNation);
@@ -60,7 +60,7 @@ void AddSudamericanaClubs(vector<cm3_clubs*>& vec, const char* szNation, int num
 		if (TeamsToSelectFrom < numberOfClubs)
 		{
 			// If we can't get this countries clubs - then just get some more Argentina or Brazil ones
-			AddSudamericanaClubs(vec, ((rand() % 2) == 0) ? "Brazil" : "Argentina", numberOfClubs);
+			get_clubs_for_sudamericana(vec, ((rand() % 2) == 0) ? "Brazil" : "Argentina", numberOfClubs);
 			return;
 		}
 
@@ -82,7 +82,7 @@ void AddSudamericanaClubs(vector<cm3_clubs*>& vec, const char* szNation, int num
 	}
 }
 
-void SudamericanaTeams(BYTE* _this) {
+void get_sudamericana_teams(BYTE* _this) {
 	BYTE* pMem = NULL;
 	WORD teams = 32;
 
@@ -103,7 +103,7 @@ void SudamericanaTeams(BYTE* _this) {
 			if (name.size() == 0) {
 				if (nation_count >= 0 && nation_count < required) {
 					//("Too few clubs from %s (need %d, only found %d), trying to add more\n", nation, required, nation_count);
-					AddSudamericanaClubs(sudamericana_32_clubs, nation, required - nation_count);
+					get_clubs_for_sudamericana(sudamericana_32_clubs, nation, required - nation_count);
 				}
 				continue;
 			}
@@ -134,7 +134,7 @@ void SudamericanaTeams(BYTE* _this) {
 			"Argentina", "Brazil", "Bolivia", "Chile", "Colombia", "Ecuador", "Paraguay", "Peru", "Uruguay", "Venezuela"
 		};
 		for (const char* nation : nations_list) {
-			AddSudamericanaClubs(sudamericana_32_clubs, nation, sudamericana_qual.at(nation));
+			get_clubs_for_sudamericana(sudamericana_32_clubs, nation, sudamericana_qual.at(nation));
 		}
 	}
 	//dprintf("\n");
@@ -160,7 +160,7 @@ extern "C" _declspec(naked) void sudamericana_teams_full()
 	{
 		mov eax, esp
 		push ecx
-		call SudamericanaTeams
+		call get_sudamericana_teams
 		add esp, 0x4
 		ret
 	}
@@ -293,7 +293,7 @@ extern "C" void __declspec(naked) sub_4c46c0() // replace 4c46c0
 	}
 }
 
-DWORD CreateSudamericanaFixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
+DWORD conmebol_sudamericana_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
 {
 	if (stage_idx < 7) {
 		if (a5)
@@ -301,7 +301,7 @@ DWORD CreateSudamericanaFixtures(BYTE* _this, char stage_idx, WORD* num_rounds, 
 		BYTE* pMem = NULL;
 		WORD year = ((comp_stats*)_this)->year;
 		*num_rounds = 6;
-		*stage_name_id = 1 + NumericGroupStage + stage_idx;
+		*stage_name_id = NumericGroupStage + stage_idx;
 
 		pMem = (BYTE*)sub_944E46_malloc(fixture_dates_sz * (*num_rounds));
 
@@ -359,7 +359,7 @@ void __declspec(naked) sudamericana_fixture_caller()		// used as a __thiscall ->
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call CreateSudamericanaFixtures
+		call conmebol_sudamericana_fixtures
 		add esp, 0x14
 		ret 0x10
 	}

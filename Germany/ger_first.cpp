@@ -736,7 +736,6 @@ void ger_first_playoffs_c(BYTE* _this) {
 	long current = comp_data->current_stage;
 	long max = comp_data->num_stages;
 	if (current < max - 1) {
-
 		BYTE* ger_second = get_loaded_league(GER_SECOND_9CF());
 		DWORD v1 = *(DWORD*)ger_second;
 		char ret = (*(int(__thiscall**)(BYTE*, int, int))(v1 + 0x10))(ger_second, 0, 1);

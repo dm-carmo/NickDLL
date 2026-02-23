@@ -54,7 +54,7 @@ void __declspec(naked) cro_super_free_c()		// used as a __thiscall -> __cdecl co
 	}
 }
 
-DWORD CreateCroatiaSuperFixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
+DWORD cro_super_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
 {
 	if (stage_idx == -1) {
 		if (a5)
@@ -86,7 +86,7 @@ void __declspec(naked) cro_super_fixture_caller()		// used as a __thiscall -> __
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call CreateCroatiaSuperFixtures
+		call cro_super_fixtures
 		add esp, 0x14
 		ret 0x10
 	}

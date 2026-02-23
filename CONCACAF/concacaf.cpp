@@ -14,7 +14,7 @@ using namespace std;
 
 DWORD* concacaf_cup_vtable = (DWORD*)0x968AA0;
 
-DWORD CreateConcacafCupFixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
+DWORD concacaf_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
 {
 	if (stage_idx == -1) {
 		if (a5)
@@ -53,7 +53,7 @@ DWORD CreateConcacafCupFixtures(BYTE* _this, char stage_idx, WORD* num_rounds, W
 }
 
 // Function that will add numbereOfClubs from szNation to vec
-void AddConcacafClubs(vector<cm3_clubs*>& vec, const char* szNation, int numberOfClubs)
+void add_clubs_for_concacaf_comps(vector<cm3_clubs*>& vec, const char* szNation, int numberOfClubs)
 {
 	cm3_nations* nation = find_country(szNation);
 
@@ -86,7 +86,7 @@ void AddConcacafClubs(vector<cm3_clubs*>& vec, const char* szNation, int numberO
 		if (TeamsToSelectFrom < numberOfClubs)
 		{
 			// If we can't get this country's clubs - then just get some more USA or Mexico ones
-			AddConcacafClubs(vec, ((rand() % 2) == 0) ? "United States" : "Mexico", numberOfClubs);
+			add_clubs_for_concacaf_comps(vec, ((rand() % 2) == 0) ? "United States" : "Mexico", numberOfClubs);
 			return;
 		}
 
@@ -105,8 +105,8 @@ void AddConcacafClubs(vector<cm3_clubs*>& vec, const char* szNation, int numberO
 	}
 }
 
-// Similar to AddConcacafClubs, but gets random Central American clubs
-void AddCentralAmericaClubs(vector<cm3_clubs*>& vec, int numberOfCountries, int clubsPerCountry = 1)
+// Similar to add_clubs_for_concacaf_comps, but gets random Central American clubs
+void add_central_american_clubs(vector<cm3_clubs*>& vec, int numberOfCountries, int clubsPerCountry = 1)
 {
 	vector<cm3_nations*> nations = central_america_countries();
 	int sz = nations.size();
@@ -125,7 +125,7 @@ void AddCentralAmericaClubs(vector<cm3_clubs*>& vec, int numberOfCountries, int 
 		if (TeamsToSelectFrom < clubsPerCountry)
 		{
 			// If we can't get this countries clubs - then just get some more USA or Mexico ones
-			AddConcacafClubs(vec, ((rand() % 2) == 0) ? "United States" : "Mexico", clubsPerCountry);
+			add_clubs_for_concacaf_comps(vec, ((rand() % 2) == 0) ? "United States" : "Mexico", clubsPerCountry);
 			return;
 		}
 
@@ -144,8 +144,8 @@ void AddCentralAmericaClubs(vector<cm3_clubs*>& vec, int numberOfCountries, int 
 	}
 }
 
-// Similar to AddConcacafClubs, but gets random Caribbean clubs
-void AddCaribbeanClubs(vector<cm3_clubs*>& vec, int numberOfCountries, int clubsPerCountry = 1)
+// Similar to add_clubs_for_concacaf_comps, but gets random Caribbean clubs
+void add_caribbean_clubs(vector<cm3_clubs*>& vec, int numberOfCountries, int clubsPerCountry = 1)
 {
 	vector<cm3_nations*> nations = caribbean_countries();
 	int sz = nations.size();
@@ -165,7 +165,7 @@ void AddCaribbeanClubs(vector<cm3_clubs*>& vec, int numberOfCountries, int clubs
 		if (TeamsToSelectFrom < clubsPerCountry)
 		{
 			// If we can't get this countries clubs - then just get some more USA or Mexico ones
-			AddConcacafClubs(vec, ((rand() % 2) == 0) ? "United States" : "Mexico", clubsPerCountry);
+			add_clubs_for_concacaf_comps(vec, ((rand() % 2) == 0) ? "United States" : "Mexico", clubsPerCountry);
 			return;
 		}
 
@@ -184,8 +184,8 @@ void AddCaribbeanClubs(vector<cm3_clubs*>& vec, int numberOfCountries, int clubs
 	}
 }
 
-// Similar to ConcacafGetCupWinner, but will search for the runner-up instead
-void ConcacafGetCupLoser(vector<cm3_clubs*>& vec, const char* szNation, long comp_id)
+// Similar to get_cup_winner_for_concacaf, but will search for the runner-up instead
+void get_cup_loser_for_concacaf(vector<cm3_clubs*>& vec, const char* szNation, long comp_id)
 {
 	cm3_nations* nation = find_country(szNation);
 
@@ -193,18 +193,18 @@ void ConcacafGetCupLoser(vector<cm3_clubs*>& vec, const char* szNation, long com
 		cm3_club_comps* comp = &(*club_comps)[comp_id];
 		if (!comp) {
 			//dprintf("Competition %ld not found, getting backup club\n", comp_id);
-			AddConcacafClubs(vec, szNation, 1);
+			add_clubs_for_concacaf_comps(vec, szNation, 1);
 		}
 		else {
 			cm3_clubs* last_runner_up = get_last_comp_runner_up(comp);
 			if (!last_runner_up || !last_runner_up->ClubNation) {
 				//dprintf("Last runner-up of %s not found or invalid, getting backup club\n", comp->ClubCompName);
-				AddConcacafClubs(vec, szNation, 1);
+				add_clubs_for_concacaf_comps(vec, szNation, 1);
 			}
 			else {
 				if (last_runner_up->ClubEuroFlag != -1) {
 					//dprintf("Last runner-up of %s (%s) is already qualified, getting backup club\n", comp->ClubCompName, (last_runner_up->ClubName));
-					AddConcacafClubs(vec, szNation, 1);
+					add_clubs_for_concacaf_comps(vec, szNation, 1);
 				}
 				else {
 					//dprintf("Setting club %s to CONCACAF Champions Cup (last runner-up of %s)\n", (last_runner_up->ClubName), comp->ClubCompName);
@@ -216,14 +216,14 @@ void ConcacafGetCupLoser(vector<cm3_clubs*>& vec, const char* szNation, long com
 	}
 	else {
 		//dprintf("Country %s is inactive, getting backup club\n", szNation);
-		AddConcacafClubs(vec, szNation, 1);
+		add_clubs_for_concacaf_comps(vec, szNation, 1);
 	}
 }
 
 // Tries to find the latest cup winner from comp_id to add to the competition
 // szNation is provided as a backup in case the competition can't be found, or there is no available club in the history
 // loser_backup decides if the cup loser can be used when the winner has already been qualified, or if the place should go to the best available club in the league instead
-void ConcacafGetCupWinner(vector<cm3_clubs*>& vec, const char* szNation, long comp_id, bool loser_backup = true)
+void get_cup_winner_for_concacaf(vector<cm3_clubs*>& vec, const char* szNation, long comp_id, bool loser_backup = true)
 {
 	cm3_nations* nation = find_country(szNation);
 
@@ -233,19 +233,19 @@ void ConcacafGetCupWinner(vector<cm3_clubs*>& vec, const char* szNation, long co
 		cm3_club_comps* comp = &(*club_comps)[comp_id];
 		if (!comp) {
 			//dprintf("Competition %ld not found, getting backup club\n", comp_id);
-			AddConcacafClubs(vec, szNation, 1);
+			add_clubs_for_concacaf_comps(vec, szNation, 1);
 		}
 		else {
 			cm3_clubs* last_winner = get_last_comp_winner(comp);
 			if (!last_winner || !last_winner->ClubNation) {
 				//dprintf("Last winner of %s not found or invalid, getting backup club\n", comp->ClubCompName);
-				AddConcacafClubs(vec, szNation, 1);
+				add_clubs_for_concacaf_comps(vec, szNation, 1);
 			}
 			else {
 				if (last_winner->ClubEuroFlag != -1) {
 					//dprintf("Last winner of %s (%s) is already qualified, getting backup club\n", comp->ClubCompName, (last_winner->ClubName));
-					if (loser_backup) ConcacafGetCupLoser(vec, szNation, comp_id);
-					else AddConcacafClubs(vec, szNation, 1);
+					if (loser_backup) get_cup_loser_for_concacaf(vec, szNation, comp_id);
+					else add_clubs_for_concacaf_comps(vec, szNation, 1);
 				}
 				else {
 					//dprintf("Setting club %s to CONCACAF Champions Cup (last winners of %s)\n", (last_winner->ClubName), comp->ClubCompName);
@@ -258,7 +258,7 @@ void ConcacafGetCupWinner(vector<cm3_clubs*>& vec, const char* szNation, long co
 	// If nation has no active competitions, get a random top club instead
 	else {
 		//dprintf("Country %s is inactive, getting backup club\n", szNation);
-		AddConcacafClubs(vec, szNation, 1);
+		add_clubs_for_concacaf_comps(vec, szNation, 1);
 	}
 }
 
@@ -289,11 +289,11 @@ void replacement_4c11a0_full() {
 			cm3_clubs* club = find_club(name.c_str());
 			if (!club || !club->ClubNation) {
 				//dprintf("Club %s not found, getting backup from %s\n", name.c_str(), nation);
-				AddConcacafClubs(concacaf_clubs, nation, 1);
+				add_clubs_for_concacaf_comps(concacaf_clubs, nation, 1);
 			}
 			else if (club->ClubEuroFlag != -1) {
 				//dprintf("Club %s already qualified, getting backup from %s\n", name.c_str(), nation);
-				AddConcacafClubs(concacaf_clubs, nation, 1);
+				add_clubs_for_concacaf_comps(concacaf_clubs, nation, 1);
 			}
 			else {
 				//dprintf("Setting club %s to CONCACAF Champions Cup\n", (club->ClubName));
@@ -316,20 +316,20 @@ void replacement_4c11a0_full() {
 		vector<cm3_clubs*> concacaf_clubs_bye;
 
 		// Since the MLS has playoffs to decide the winner, I used the functions to get cup winners/losers first
-		ConcacafGetCupWinner(concacaf_clubs_bye, "United States", USA_MLS_9CF(), false); // USA champions
-		ConcacafGetCupLoser(concacaf_clubs, "United States", USA_MLS_9CF()); // USA runner-up
-		ConcacafGetCupWinner(concacaf_clubs, "United States", USA_OPEN_CUP_9CF(), true); // USA cup winner
-		AddConcacafClubs(concacaf_clubs_bye, "United States", 1); // Leagues Cup
-		AddConcacafClubs(concacaf_clubs, "United States", 3); // USA
-		AddConcacafClubs(concacaf_clubs, "United States", 1); // Leagues Cup
-		AddConcacafClubs(concacaf_clubs_bye, "Mexico", 1); // Mexico champions
-		AddConcacafClubs(concacaf_clubs, "Mexico", 1); // Leagues Cup
-		AddConcacafClubs(concacaf_clubs, "Mexico", 5); // Mexico
-		AddConcacafClubs(concacaf_clubs, "Canada", 3); // Canada
-		AddCentralAmericaClubs(concacaf_clubs_bye, 1, 1); // Central America winner
-		AddCentralAmericaClubs(concacaf_clubs, 5, 1); // Central America
-		AddCaribbeanClubs(concacaf_clubs_bye, 1, 1); // Caribbean winner
-		AddCaribbeanClubs(concacaf_clubs, 2, 1); // Caribbean
+		get_cup_winner_for_concacaf(concacaf_clubs_bye, "United States", USA_MLS_9CF(), false); // USA champions
+		get_cup_loser_for_concacaf(concacaf_clubs, "United States", USA_MLS_9CF()); // USA runner-up
+		get_cup_winner_for_concacaf(concacaf_clubs, "United States", USA_OPEN_CUP_9CF(), true); // USA cup winner
+		add_clubs_for_concacaf_comps(concacaf_clubs_bye, "United States", 1); // Leagues Cup
+		add_clubs_for_concacaf_comps(concacaf_clubs, "United States", 3); // USA
+		add_clubs_for_concacaf_comps(concacaf_clubs, "United States", 1); // Leagues Cup
+		add_clubs_for_concacaf_comps(concacaf_clubs_bye, "Mexico", 1); // Mexico champions
+		add_clubs_for_concacaf_comps(concacaf_clubs, "Mexico", 1); // Leagues Cup
+		add_clubs_for_concacaf_comps(concacaf_clubs, "Mexico", 5); // Mexico
+		add_clubs_for_concacaf_comps(concacaf_clubs, "Canada", 3); // Canada
+		add_central_american_clubs(concacaf_clubs_bye, 1, 1); // Central America winner
+		add_central_american_clubs(concacaf_clubs, 5, 1); // Central America
+		add_caribbean_clubs(concacaf_clubs_bye, 1, 1); // Caribbean winner
+		add_caribbean_clubs(concacaf_clubs, 2, 1); // Caribbean
 
 		DWORD i;
 		for (i = 0; i < concacaf_clubs.size(); i++) {
@@ -344,7 +344,6 @@ void replacement_4c11a0_full() {
 	}
 	//dprintf("\n");
 }
-
 
 extern "C" _declspec(naked) int replacement_4c11a0()
 {
@@ -371,7 +370,7 @@ void __declspec(naked) concacaf_fixture_caller()		// used as a __thiscall -> __c
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call CreateConcacafCupFixtures
+		call concacaf_cup_fixtures
 		add esp, 0x14
 		ret 0x10
 	}

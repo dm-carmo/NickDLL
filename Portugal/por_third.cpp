@@ -288,7 +288,7 @@ void __declspec(naked) por_third_update_c()		// used as a __thiscall -> __cdecl 
 	}
 }
 
-void BlockReservePromotionLiga3(BYTE* _this) {
+void por_third_block_promotion(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	comp_stats* curr_stage = data;
 	curr_stage = (comp_stats*)(data->stages[1]);
@@ -570,7 +570,7 @@ void por_third_playoffs_prom(BYTE* _this) {
 		year, stage_num, stage_name_id, 0x14, 1, 0, f217, -1, 0, 2);
 	DWORD* stages_arr = comp_data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)pStage;
-	BlockReservePromotionLiga3(_this);
+	por_third_block_promotion(_this);
 	sub_9452CA_free(pTeams);
 	sub_9452CA_free(pFixtures);
 }
@@ -673,7 +673,7 @@ void __declspec(naked) por_third_playoffs_create_c()		// used as a __thiscall ->
 	}
 }
 
-int Liga3TableIndicators(BYTE* _this, DWORD* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int por_third_table_indicators(BYTE* _this, DWORD* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	cm3_club_comps* por_second = &(*club_comps)[POR_SECOND_9CF()];
@@ -781,7 +781,7 @@ void __declspec(naked) por_third_set_table_fate()		// used as a __thiscall -> __
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call Liga3TableIndicators
+		call por_third_table_indicators
 		add esp, 0x1c
 		ret 0x18
 	}

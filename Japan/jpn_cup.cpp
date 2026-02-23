@@ -7,7 +7,7 @@
 
 DWORD* jpn_cup_vtable = (DWORD*)0x96C9A0;
 
-DWORD CreateEmperorCupFixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
+DWORD jpn_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
 {
 	if (stage_idx == -1) {
 		if (a5)
@@ -63,7 +63,7 @@ void __declspec(naked) jpn_cup_fixture_caller()		// used as a __thiscall -> __cd
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call CreateEmperorCupFixtures
+		call jpn_cup_fixtures
 		add esp, 0x14
 		ret 0x10
 	}

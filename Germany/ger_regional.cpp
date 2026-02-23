@@ -231,7 +231,7 @@ void __declspec(naked) ger_regional_reputation_setup_c()		// used as a __thiscal
 	}
 }
 
-void BlockReservePromotionRegional(BYTE* _this) {
+void ger_regional_block_promotion(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	comp_stats* curr_stage = data;
 	for (char al = -1; al < 4; al++) {
@@ -282,7 +282,7 @@ char ger_regional_update(BYTE* _this) {
 	for (BYTE i = 0; i < 4; i++) {
 		ger_regional_setup_groups(_this, i);
 	}
-	BlockReservePromotionRegional(_this);
+	ger_regional_block_promotion(_this);
 	DWORD v1 = *(DWORD*)_this;
 	(DWORD*)(*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
 	return sub_79CEE0((BYTE*)*b74340, (BYTE*)(data->competition_db));
@@ -327,7 +327,7 @@ void ger_regional_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	for (BYTE i = 0; i < 4; i++) {
 		ger_regional_setup_groups(_this, i);
 	}
-	BlockReservePromotionRegional(_this);
+	ger_regional_block_promotion(_this);
 	ger_regional_reputation_setup(_this);
 }
 
@@ -395,7 +395,7 @@ void __declspec(naked) ger_regional_playoffs_create_c()		// used as a __thiscall
 	}
 }
 
-int RegionalligaTableIndicators(BYTE* _this, DWORD* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int ger_regional_table_indicators(BYTE* _this, DWORD* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == 4) {
@@ -470,7 +470,7 @@ void __declspec(naked) ger_regional_set_table_fate()		// used as a __thiscall ->
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call RegionalligaTableIndicators
+		call ger_regional_table_indicators
 		add esp, 0x1c
 		ret 0x18
 	}

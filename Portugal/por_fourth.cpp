@@ -298,7 +298,7 @@ void por_fourth_setup_groups(BYTE* _this, BYTE idx) {
 	data->current_stage = idx;
 }
 
-int CampeonatoPortugalTableIndicators(BYTE* _this, DWORD* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int por_fourth_table_indicators(BYTE* _this, DWORD* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage < 3) {
@@ -432,7 +432,7 @@ void __declspec(naked) por_fourth_set_table_fate()		// used as a __thiscall -> _
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call CampeonatoPortugalTableIndicators
+		call por_fourth_table_indicators
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -673,7 +673,7 @@ void por_fourth_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	for (BYTE i = 0; i < 3; i++) {
 		por_fourth_setup_groups(_this, i);
 	}
-	//BlockReservePromotionLiga3(_this);
+	//por_third_block_promotion(_this);
 	por_fourth_reputation_setup(_this);
 }
 
