@@ -65,6 +65,11 @@ map<string, char*> leagues_rename_long_germany = {
 	{"German 3. Liga West", "German Regionalliga West"},
 };
 
+map<string, char*> leagues_rename_long_greece= {
+	{"Swedish Division 2 East Svealand", "Greek Super League 2 North Group"},
+	{"Swedish Division 2 West Svealand", "Greek Super League 2 South Group"},
+};
+
 map<string, char*> leagues_rename_long_croatia = {
 	{"Croatian Treca NL", "Croatian Druga NL"},
 	{"Croatian Druga NL Central", "Croatian Treca NL Central"},
@@ -102,6 +107,10 @@ map<string, char*> leagues_rename_long_norway = {
 	{"Norwegian 2. Divisjon Group 6", "Norwegian 3. Divisjon Group 4"},
 	{"Norwegian 2. Divisjon Group 7", "Norwegian 3. Divisjon Group 5"},
 	{"Norwegian 2. Divisjon Group 8", "Norwegian 3. Divisjon Group 6"},
+};
+
+map<string, char*> leagues_rename_long_poland= {
+	{"Korean All-Star Cup", "Polish III Liga"},
 };
 
 map<string, char*> leagues_rename_long_portugal = {
@@ -154,6 +163,11 @@ map<string, char*> leagues_rename_short_germany = {
 	{"German 3. Liga West", "Regionalliga West"},
 };
 
+map<string, char*> leagues_rename_short_greece = {
+	{"Swedish Division 2 East Svealand", "Super League 2 North"},
+	{"Swedish Division 2 West Svealand", "Super League 2 South"},
+};
+
 map<string, char*> leagues_rename_short_croatia = {
 	{"Croatian Treca NL", "2. NL"},
 	{"Croatian Druga NL Central", "3. NL Central"},
@@ -193,6 +207,10 @@ map<string, char*> leagues_rename_short_norway = {
 	{"Norwegian 2. Divisjon Group 8", "3. Divisjon Group 6"},
 };
 
+map<string, char*> leagues_rename_short_poland = {
+	{"Korean All-Star Cup", "III Liga"},
+};
+
 map<string, char*> leagues_rename_short_portugal = {
 	{"Liga 3 North", "Liga 3 A"},
 	{"Liga 3 South", "Liga 3 B"},
@@ -228,6 +246,11 @@ map<string, char*> leagues_rename_tla_germany = {
 	{"German 3. Liga Osten", "Reg"},
 	{"German 3. Liga Nord", "Reg"},
 	{"German 3. Liga West", "Reg"},
+};
+
+map<string, char*> leagues_rename_tla_greece = {
+	{"Swedish Division 2 East Svealand", "SL2"},
+	{"Swedish Division 2 West Svealand", "SL2"},
 };
 
 map<string, char*> leagues_rename_tla_croatia = {
@@ -269,6 +292,10 @@ map<string, char*> leagues_rename_tla_norway = {
 	{"Norwegian 2. Divisjon Group 8", "D3"},
 };
 
+map<string, char*> leagues_rename_tla_poland = {
+	{"Korean All-Star Cup", "L3"},
+};
+
 map<string, char*> leagues_rename_tla_portugal = {
 	{"Liga 3 North", "L3A"},
 	{"Liga 3 South", "L3B"},
@@ -302,12 +329,23 @@ map<string, char*> awards_rename_short_croatia = {
 
 };
 
+map<string, char*> awards_rename_short_holland = {
+	{ "Dutch Premier Division Golden Boot", "Manager of the Year" },
+	{ "Dutch First Division Golden Boot", "Manager of the Year" },
+	{ "Dutch Manager of the Year", "Young Player of the Year" },
+};
+
 map<string, char*> awards_rename_short_italy = {
 
 };
 
 map<string, char*> awards_rename_short_portugal = {
 	{ "Asian All Star XI", "Manager of the Year" },
+};
+
+map<string, char*> awards_rename_short_poland = {
+	{ "Polish First Division Manager of the Month", "Team of the Year" },
+	{ "Polish Second Division Manager of the Month", "Team of the Year" },
 };
 
 map<string, char*> awards_rename_long = {
@@ -431,6 +469,37 @@ map<string, char*> awards_rename_long = {
 	{ "Finnish Ykkönen Team of the Week", "Finnish Ykkösliiga Team of the Week" },
 	{ "Finnish Ykkönen Team of the Year", "Finnish Ykkösliiga Team of the Year" },
 	{ "Finnish Ykkönen Top Goalscorer", "Finnish Ykkösliiga Top Goalscorer" },
+	{ "Greek Football League Manager of the Year", "Greek Super League 2 Manager of the Year" },
+	{ "Greek Football League Player of the Year", "Greek Super League 2 Player of the Year" },
+	{ "Greek Football League Team of the Week", "Greek Super League 2 Team of the Week" },
+	{ "Greek Football League Top Goalscorer", "Greek Super League 2 Top Goalscorer" },
+	{ "Greek Superleague Manager of the Year", "Greek Super League Manager of the Year" },
+	{ "Greek Superleague Player of the Year", "Greek Super League Player of the Year" },
+	{ "Greek Superleague Team of the Week", "Greek Super League Team of the Week" },
+	{ "Greek Superleague Top Goalscorer", "Greek Super League Top Goalscorer" },
+	{ "Swedish First Division Team of the Week", "Swedish Superettan Team of the Week" },
+	{ "Swedish Premier Division Team of the Week", "Swedish Allsvenskan Team of the Week" },
+	{ "Swedish Premier Division Top Goalscorer", "Swedish Allsvenskan Top Goalscorer" },
+	{ "Polish First Division Manager of the Year", "Polish Ekstraklasa Manager of the Year" },
+	{ "Polish First Division Player of the Year", "Polish Ekstraklasa Player of the Year" },
+	{ "Polish First Division Team of the Week", "Polish Ekstraklasa Team of the Week" },
+	{ "Polish First Division Young Player of the Year", "Polish Ekstraklasa Young Player of the Year" },
+	{ "Polish Second Division Manager of the Year", "Polish I Liga Manager of the Year" },
+	{ "Polish Second Division Player of the Year", "Polish I Liga Player of the Year" },
+	{ "Polish Second Division Team of the Week", "Polish I Liga Team of the Week" },
+	{ "Polish Second Division Young Player of the Year", "Polish I Liga Young Player of the Year" },
+	{ "Norwegian First Division Manager of the Month", "Norwegian 1. Divisjon Manager of the Month" },
+	{ "Norwegian First Division Player of the Month", "Norwegian 1. Divisjon Player of the Month" },
+	{ "Norwegian First Division Team of the Week", "Norwegian 1. Divisjon Team of the Week" },
+	{ "Norwegian Premier Division Manager of the Month", "Norwegian Eliteserien Manager of the Month" },
+	{ "Norwegian Premier Division Player of the Month", "Norwegian Eliteserien Player of the Month" },
+	{ "Norwegian Premier Division Team of the Week", "Norwegian Eliteserien Team of the Week" },
+	{ "Dutch First Division Player of the Year", "Dutch Eerste Divisie Player of the Year" },
+	{ "Dutch First Division Team of the Week", "Dutch Eerste Divisie Team of the Week" },
+	{ "Dutch First Division Top Goalscorer", "Dutch Eerste Divisie Top Goalscorer" },
+	{ "Dutch Premier Division Player of the Year", "Dutch Eredivisie Player of the Year" },
+	{ "Dutch Premier Division Team of the Week", "Dutch Eredivisie Team of the Week" },
+	{ "Dutch Premier Division Top Goalscorer", "Dutch Eredivisie Top Goalscorer" },
 };
 
 map<string, char*> awards_rename_long_croatia = {
@@ -443,6 +512,13 @@ map<string, char*> awards_rename_long_croatia = {
 	{ "Croatian Second Division B Player of the Year", "Croatian 2. NL Player of the Year" },
 	{ "Croatian Second Division B Team of the Week", "Croatian 2. NL Team of the Week" },
 	{ "Croatian Second Division B Top Goalscorer", "Croatian 2. NL Top Goalscorer" },
+};
+
+map<string, char*> awards_rename_long_holland = {
+	{ "Dutch Premier Division Golden Boot", "Dutch Eredivisie Manager of the Year" },
+	{ "Dutch First Division Golden Boot", "Dutch Eerste Divisie Manager of the Year" },
+	{ "Dutch Manager of the Year", "Dutch Eredivisie Young Player of the Year" },
+	{ "Dutch Young Player of the Year", "Dutch Eerste Divisie Young Player of the Year" },
 };
 
 map<string, char*> awards_rename_long_italy = {
@@ -460,6 +536,11 @@ map<string, char*> awards_rename_long_portugal = {
 	{ "Portuguese Second Division B Team of the Year", "Liga 3 Team of the Year" },
 	{ "Portuguese Second Division B Top Goalscorer", "Liga 3 Top Goalscorer" },
 	{ "Asian All Star XI", "Liga 3 Manager of the Year" },
+};
+
+map<string, char*> awards_rename_long_poland = {
+	{ "Polish First Division Manager of the Month", "Polish Ekstraklasa Team of the Year" },
+	{ "Polish Second Division Manager of the Month", "Polish I Liga Team of the Year" },
 };
 
 map<string, DWORD> club_dword_match = {
@@ -976,7 +1057,7 @@ map<string, DWORD> league_dword_match = {
 	{"Irish Leinster Senior League Premier", (DWORD)0x9CF854},
 	{"Polish Ekstraklasa", (DWORD)0x9CF858},
 	{"Polish I Liga", (DWORD)0x9CF85C},
-	{"Puchar Ekstraklasa", (DWORD)0x9CF860},
+	{"Korean All-Star Cup", (DWORD)0x9CF860},
 	{"Puchar Polski", (DWORD)0x9CF864},
 	{"Polish II Liga", (DWORD)0x9CF868},
 	{"Greek Super League", (DWORD)0x9CF86C},
@@ -1924,8 +2005,6 @@ void setup_name_injection()
 	PatchFunction(0x540A50, (DWORD)check_if_reserve_team_new);
 
 	if (configFile.GetBool("applyBrazil", true)) {
-		//awards_rename_long.insert(awards_rename_long_brazil.begin(), awards_rename_long_brazil.end());
-		//awards_rename_short.insert(awards_rename_short_brazil.begin(), awards_rename_short_brazil.end());
 		leagues_rename_long.insert(leagues_rename_long_brazil.begin(), leagues_rename_long_brazil.end());
 		leagues_rename_short.insert(leagues_rename_short_brazil.begin(), leagues_rename_short_brazil.end());
 		leagues_rename_tla.insert(leagues_rename_tla_brazil.begin(), leagues_rename_tla_brazil.end());
@@ -1945,10 +2024,21 @@ void setup_name_injection()
 		leagues_rename_tla.insert(leagues_rename_tla_germany.begin(), leagues_rename_tla_germany.end());
 	}
 
+	if (configFile.GetBool("applyGreece", true)) {
+		leagues_rename_long.insert(leagues_rename_long_greece.begin(), leagues_rename_long_greece.end());
+		leagues_rename_short.insert(leagues_rename_short_greece.begin(), leagues_rename_short_greece.end());
+		leagues_rename_tla.insert(leagues_rename_tla_greece.begin(), leagues_rename_tla_greece.end());
+	}
+
 	if (configFile.GetBool("applyFinland", true)) {
 		leagues_rename_long.insert(leagues_rename_long_finland.begin(), leagues_rename_long_finland.end());
 		leagues_rename_short.insert(leagues_rename_short_finland.begin(), leagues_rename_short_finland.end());
 		leagues_rename_tla.insert(leagues_rename_tla_finland.begin(), leagues_rename_tla_finland.end());
+	}
+
+	if (configFile.GetBool("applyHolland", true)) {
+		awards_rename_long.insert(awards_rename_long_holland.begin(), awards_rename_long_holland.end());
+		awards_rename_short.insert(awards_rename_short_holland.begin(), awards_rename_short_holland.end());
 	}
 
 	if (configFile.GetBool("applyItaly", true)) {
@@ -1969,6 +2059,14 @@ void setup_name_injection()
 		leagues_rename_long.insert(leagues_rename_long_norway.begin(), leagues_rename_long_norway.end());
 		leagues_rename_short.insert(leagues_rename_short_norway.begin(), leagues_rename_short_norway.end());
 		leagues_rename_tla.insert(leagues_rename_tla_norway.begin(), leagues_rename_tla_norway.end());
+	}
+
+	if (configFile.GetBool("applyPoland", true)) {
+		awards_rename_long.insert(awards_rename_long_poland.begin(), awards_rename_long_poland.end());
+		awards_rename_short.insert(awards_rename_short_poland.begin(), awards_rename_short_poland.end());
+		leagues_rename_long.insert(leagues_rename_long_poland.begin(), leagues_rename_long_poland.end());
+		leagues_rename_short.insert(leagues_rename_short_poland.begin(), leagues_rename_short_poland.end());
+		leagues_rename_tla.insert(leagues_rename_tla_poland.begin(), leagues_rename_tla_poland.end());
 	}
 
 	if (configFile.GetBool("applyPortugal", true)) {

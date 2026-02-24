@@ -91,13 +91,21 @@ int pol_cup_teams(BYTE* _this) {
 	// Lower
 	division_clubs = find_clubs_of_comp(POL_LOWER_9CF());
 	sort(division_clubs.begin(), division_clubs.end(), compareClubRep);
-	for (unsigned int i = 0; i < 34; i++)
+	for (unsigned int i = 0; i < 16; i++)
 	{
 		int availableIdx = rand() % division_clubs.size();
 		cm3_clubs* lower_club = division_clubs[availableIdx];
 		if (!vector_contains_club(vec_uefa, lower_club)) vec.push_back(lower_club);
 
 		division_clubs.erase(division_clubs.begin() + availableIdx);
+	}
+
+	// II Liga
+	division_clubs = find_clubs_of_comp(POL_THIRD_9CF());
+	sort(division_clubs.begin(), division_clubs.end(), compareClubRep);
+	for (cm3_clubs* club : division_clubs)
+	{
+		if (!vector_contains_club(vec_uefa, club)) vec.push_back(club);
 	}
 	// I Liga
 	division_clubs = find_clubs_of_comp(POL_SECOND_9CF());

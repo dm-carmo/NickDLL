@@ -59,6 +59,11 @@ void pol_first_prom_rel_update(BYTE* _this, int a2) {
 	v1 = *(DWORD*)pol_second;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(pol_second);
 	sub_689C80(_this, _this, pol_second, 1, a2, -1, -1);
+
+	BYTE* pol_third = get_loaded_league(POL_THIRD_9CF());
+	v1 = *(DWORD*)pol_third;
+	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(pol_third);
+	sub_689C80(_this, pol_second, pol_third, 1, a2, -1, -1);
 }
 
 void __declspec(naked) pol_first_prom_rel_update_c()		// used as a __thiscall -> __cdecl converter
@@ -74,11 +79,11 @@ void __declspec(naked) pol_first_prom_rel_update_c()		// used as a __thiscall ->
 	}
 }
 
-void __fastcall pol_d2_relegation(BYTE* _this)
+void __fastcall pol_d3_relegation(BYTE* _this)
 {
 	vector<cm3_clubs*> relegated_clubs;
 
-	comp_stats* comp_data = (comp_stats*)get_loaded_league(POL_SECOND_9CF());
+	comp_stats* comp_data = (comp_stats*)get_loaded_league(POL_THIRD_9CF());
 	for (WORD num = 0; num < comp_data->n_teams; num++) {
 		team_league_stats table_pos = ((team_league_stats*)comp_data->team_league_table)[num];
 		if (table_pos.league_fate == Relegated) {
@@ -135,7 +140,7 @@ char pol_first_update(BYTE* _this) {
 	BYTE* ebx = 0;
 	data->f76 = 0;
 	pol_first_prom_rel_update(_this, 1);
-	pol_d2_relegation(_this);
+	pol_d3_relegation(_this);
 
 	sub_687970(_this, ebx);
 	if (data->fixtures_table) {
@@ -164,9 +169,12 @@ char pol_first_update(BYTE* _this) {
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
 
 	BYTE* pol_second = get_loaded_league(POL_SECOND_9CF());
+	BYTE* pol_third = get_loaded_league(POL_THIRD_9CF());
 
 	v1 = *(DWORD*)pol_second;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(pol_second);
+	v1 = *(DWORD*)pol_third;
+	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(pol_third);
 
 	sub_68AA80(_this);
 	return sub_79CEE0((BYTE*)*b74340, (BYTE*)(data->competition_db));
@@ -476,11 +484,39 @@ void __declspec(naked) pol_first_fixtures_c()		// used as a __thiscall -> __cdec
 
 void pol_restruct_2025() {
 	cm3_club_comps* pol_first = &(*club_comps)[POL_FIRST_9CF()];
+	cm3_club_comps* pol_third = &(*club_comps)[POL_THIRD_9CF()];
+	cm3_club_comps* pol_lower = &(*club_comps)[POL_LOWER_9CF()];
+
+	vector<cm3_clubs*> clubs = find_clubs_of_comp(pol_third->ClubCompID);
+	for (cm3_clubs* c : clubs) {
+		c->ClubDivision = pol_lower;
+	}
 
 	vector<string> d1_clubs = {
 		"Bruk-Bet Termalica Nieciecza",
 		"Piast Gliwice",
 	};
+	vector<string> d3_clubs = {
+		"Chojniczanka Chojnice",
+		"GKS Jastrzebie",
+		"Hutnik Krakow",
+		"KKS 1925 Kalisz",
+		"LKS Lodz II",
+		"Olimpia Grudziadz",
+		"Podbeskidzie Bielsko-Biala",
+		"Podhale Nowy Targ",
+		"Rekord Bielsko-Biala",
+		"Resovia Rzeszow",
+		"Sandecja Nowy Sacz",
+		"Slask Wroclaw II",
+		"Sokol Kleczew",
+		"Stal Stalowa Wola",
+		"Swit Szczecin",
+		"Unia Skierniewice",
+		"Warta Poznan",
+		"Zaglebie Sosnowiec",
+	};
+
 	for (string s : d1_clubs) {
 		cm3_clubs* club = find_club(s.c_str());
 		if (!club) {
@@ -488,6 +524,14 @@ void pol_restruct_2025() {
 			continue;
 		}
 		club->ClubDivision = pol_first;
+	}
+	for (string s : d3_clubs) {
+		cm3_clubs* club = find_club(s.c_str());
+		if (!club) {
+			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
+			continue;
+		}
+		club->ClubDivision = pol_third;
 	}
 }
 

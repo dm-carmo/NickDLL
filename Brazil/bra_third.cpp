@@ -542,7 +542,7 @@ int bra_third_set_fates(BYTE* _this, DWORD* club, char fate, char stage, BYTE* a
 				break;
 			case BottomPlayoff:
 				staff_history_comp_runner_up_86B0B0(staff_hist_ptr, club, round_data, a7);
-				table[i].league_fate = Eliminated;
+				//table[i].league_fate = Eliminated;
 				//return 0;
 				break;
 				//default:

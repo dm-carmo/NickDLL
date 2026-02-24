@@ -79,6 +79,7 @@ void ita_ser_c_subs(BYTE* _this)
 	comp_data->relegates_to = -1;
 
 	comp_data->f82 = 2;
+	comp_data->f217 = 0x2;
 	comp_data->max_bench = 7;
 	comp_data->max_subs = 3;
 
@@ -613,6 +614,7 @@ int ita_ser_c_table_indicators(BYTE* _this, DWORD* club, char fate, char stage, 
 				default:
 					staff_history_knocked_out_86C000(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
 						*(WORD*)(rounds + playoff_dates_sz * current_round + 7), 0xF);
+					table[i].league_fate = Eliminated;
 					return 0;
 				}
 			}

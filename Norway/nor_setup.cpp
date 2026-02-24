@@ -7,6 +7,7 @@
 #include "nor_second.h"
 #include "nor_third.h"
 #include "nor_cup.h"
+#include "nor_awards.h"
 
 static DWORD(__thiscall* nor_cup_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
 (DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x78F020);
@@ -75,4 +76,5 @@ void setup_nor_nation()
 	setup_nor_second();
 	setup_nor_third();
 	setup_nor_cup();
+	setup_nor_awards();
 }

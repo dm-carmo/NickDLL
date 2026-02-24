@@ -6,9 +6,9 @@
 #include "Helpers\constants.h"
 #include <Helpers\9cf_constants.h>
 
-DWORD* pol_second_vtable = (DWORD*)0x96E4B4;
+vtable* pol_third_vtable = new vtable((BYTE*)0x96E4B4, 0xB4);
 
-void pol_second_subs(BYTE* _this)
+void pol_third_subs(BYTE* _this)
 {
 	comp_stats* comp_data = (comp_stats*)_this;
 
@@ -23,10 +23,10 @@ void pol_second_subs(BYTE* _this)
 	comp_data->promotions = 2;
 	comp_data->prom_playoff = 4;
 	comp_data->rele_playoff = 0;
-	comp_data->relegations = 3;
+	comp_data->relegations = 4;
 
-	comp_data->promotes_to = POL_FIRST_9CF();
-	comp_data->relegates_to = POL_THIRD_9CF();
+	comp_data->promotes_to = POL_SECOND_9CF();
+	comp_data->relegates_to = -1;
 
 	comp_data->f82 = 2;
 	comp_data->max_bench = 7;
@@ -39,19 +39,19 @@ void pol_second_subs(BYTE* _this)
 	return;
 }
 
-void __declspec(naked) pol_second_subs_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) pol_third_subs_c()		// used as a __thiscall -> __cdecl converter
 {
 	__asm
 	{
 		mov eax, esp
 		push ecx
-		call pol_second_subs
+		call pol_third_subs
 		add esp, 0x4
 		ret
 	}
 }
 
-char pol_second_update(BYTE* _this) {
+char pol_third_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
 	data->f76 = 0;
@@ -73,7 +73,7 @@ char pol_second_update(BYTE* _this) {
 	}
 	data->year++;
 	data->current_stage = -1;
-	pol_second_subs(_this);
+	pol_third_subs(_this);
 	AddTeams(_this);
 	sub_6835C0(_this);
 	BYTE* edx = 0;
@@ -84,21 +84,21 @@ char pol_second_update(BYTE* _this) {
 	return sub_79CEE0((BYTE*)*b74340, (BYTE*)(data->competition_db));
 }
 
-void __declspec(naked) pol_second_update_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) pol_third_update_c()		// used as a __thiscall -> __cdecl converter
 {
 	__asm
 	{
 		mov eax, esp
 		push ecx
-		call pol_second_update
+		call pol_third_update
 		add esp, 0x4
 		ret
 	}
 }
 
-void pol_second_free_under(BYTE* _this) {
+void pol_third_free_under(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
-	data->comp_vtable = pol_second_vtable;
+	data->comp_vtable = (DWORD*)(pol_third_vtable->vtable_ptr);
 	DWORD x = 0;
 	sub_687970(_this, 0);
 	if (data->fixtures_table) {
@@ -127,27 +127,27 @@ void pol_second_free_under(BYTE* _this) {
 	sub_682300(_this);
 }
 
-void pol_second_free(BYTE* _this, BYTE a2) {
-	pol_second_free_under(_this);
+void pol_third_free(BYTE* _this, BYTE a2) {
+	pol_third_free_under(_this);
 	if (a2 & 1) {
 		sub_944C94_free(_this);
 	}
 }
 
-void __declspec(naked) pol_second_free_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) pol_third_free_c()		// used as a __thiscall -> __cdecl converter
 {
 	__asm
 	{
 		mov eax, esp
 		push dword ptr[eax + 0x4]
 		push ecx
-		call pol_second_free
+		call pol_third_free
 		add esp, 0x8
 		ret 4
 	}
 }
 
-DWORD pol_second_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
+DWORD pol_third_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
 {
 	if (stage_idx == -1) {
 		if (a5)
@@ -389,7 +389,7 @@ DWORD pol_second_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 	return 0;
 }
 
-void __declspec(naked) pol_second_fixtures_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) pol_third_fixtures_c()		// used as a __thiscall -> __cdecl converter
 {
 	__asm
 	{
@@ -399,40 +399,13 @@ void __declspec(naked) pol_second_fixtures_c()		// used as a __thiscall -> __cde
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call pol_second_fixtures
+		call pol_third_fixtures
 		add esp, 0x14
 		ret 0x10
 	}
 }
 
-void pol_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
-{
-	sub_682200(_this);
-	comp_stats* data = (comp_stats*)_this;
-	data->competition_db = comp;
-	data->comp_vtable = pol_second_vtable;
-	data->year = year;
-	data->rules = 0x1f;
-	int loaded = sub_687B10(_this, 1);
-	if (loaded) return;
-	data->f68 = -1;
-	data->current_stage = -1;
-	data->num_stages = 1;
-	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
-	pol_second_subs(_this);
-	AddTeams(_this);
-	sub_6835C0(_this);
-	BYTE* ebx = 0;
-	sub_6827D0(_this, ebx);
-	BYTE* pMem2 = (BYTE*)sub_944CF1_operator_new(0x5CE);
-	BYTE unk1 = 1;
-	sub_49EE70(pMem2, _this);
-	unk1 = 0;
-	data->f8 = (DWORD*)pMem2;
-	reputation_setup_generic_68A850(_this);
-}
-
-void pol_second_prom_playoffs(BYTE* _this) {
+void pol_third_prom_playoffs(BYTE* _this) {
 	char stage_num = 0;
 	comp_stats* comp_data = (comp_stats*)_this;
 	BYTE playoff_teams = comp_data->prom_playoff;
@@ -457,7 +430,7 @@ void pol_second_prom_playoffs(BYTE* _this) {
 	sub_51C800(new_stage, 0);
 }
 
-void pol_second_playoffs_c(BYTE* _this) {
+void pol_third_playoffs_c(BYTE* _this) {
 	comp_stats* comp_data = (comp_stats*)_this;
 	long current = comp_data->current_stage;
 	long max = comp_data->num_stages;
@@ -465,24 +438,24 @@ void pol_second_playoffs_c(BYTE* _this) {
 		current++;
 		comp_data->current_stage = current;
 		if (current == 0) {
-			pol_second_prom_playoffs(_this);
+			pol_third_prom_playoffs(_this);
 		}
 	}
 }
 
-void __declspec(naked) pol_second_playoffs_create()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) pol_third_playoffs_create()		// used as a __thiscall -> __cdecl converter
 {
 	__asm
 	{
 		mov eax, esp
 		push ecx
-		call pol_second_playoffs_c
+		call pol_third_playoffs_c
 		add esp, 0x4
 		ret
 	}
 }
 
-int pol_second_table_indicators(BYTE* _this, DWORD* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int pol_third_table_indicators(BYTE* _this, DWORD* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == 0) {
@@ -537,7 +510,7 @@ int pol_second_table_indicators(BYTE* _this, DWORD* club, BYTE fate, char stage,
 	return 0;
 }
 
-void __declspec(naked) pol_second_set_table_fate()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) pol_third_set_table_fate()		// used as a __thiscall -> __cdecl converter
 {
 	__asm
 	{
@@ -549,13 +522,13 @@ void __declspec(naked) pol_second_set_table_fate()		// used as a __thiscall -> _
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call pol_second_table_indicators
+		call pol_third_table_indicators
 		add esp, 0x1c
 		ret 0x18
 	}
 }
 
-void pol_second_reputation_calc(BYTE* _this, BYTE* club, char stage, char current, char min, char max) {
+void pol_third_reputation_calc(BYTE* _this, BYTE* club, char stage, char current, char min, char max) {
 	comp_stats* comp_data = (comp_stats*)_this;
 	BYTE* ret = (BYTE*)sub_4A4850((BYTE*)comp_data->f8, club);
 	if (!ret) return;
@@ -572,7 +545,7 @@ void pol_second_reputation_calc(BYTE* _this, BYTE* club, char stage, char curren
 	ret[0x75] = ret_max;
 }
 
-void __declspec(naked) pol_second_reputation_calc_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) pol_third_reputation_calc_c()		// used as a __thiscall -> __cdecl converter
 {
 	__asm
 	{
@@ -583,19 +556,46 @@ void __declspec(naked) pol_second_reputation_calc_c()		// used as a __thiscall -
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call pol_second_reputation_calc
+		call pol_third_reputation_calc
 		add esp, 0x18
 		ret 0x14
 	}
 }
 
-void setup_pol_second()
+void pol_third_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 {
-	WriteVTablePtr(pol_second_vtable, VTableSubsRounds, (DWORD)&pol_second_subs_c);
-	WriteVTablePtr(pol_second_vtable, VTableInitFree, (DWORD)&pol_second_free_c);
-	WriteVTablePtr(pol_second_vtable, VTableEoSUpdate, (DWORD)&pol_second_update_c);
-	WriteVTablePtr(pol_second_vtable, VTableFixtures, (DWORD)&pol_second_fixtures_c);
-	WriteVTablePtr(pol_second_vtable, VTableReputationCalc, (DWORD)&pol_second_reputation_calc_c);
-	WriteVTablePtr(pol_second_vtable, VTablePlayoffQual, (DWORD)&pol_second_playoffs_create);
-	WriteVTablePtr(pol_second_vtable, VTableTableFates, (DWORD)&pol_second_set_table_fate);
+	sub_682200(_this);
+	comp_stats* data = (comp_stats*)_this;
+	data->competition_db = comp;
+	data->comp_vtable = (DWORD*)(pol_third_vtable->vtable_ptr);
+	pol_third_vtable->SetPointer(VTableInitFree, (DWORD)&pol_third_free_c);
+	pol_third_vtable->SetPointer(VTableEoSUpdate, (DWORD)&pol_third_update_c);
+	pol_third_vtable->SetPointer(VTableFixtures, (DWORD)&pol_third_fixtures_c);
+	pol_third_vtable->SetPointer(VTableSubsRounds, (DWORD)&pol_third_subs_c);
+	pol_third_vtable->SetPointer(VTableTableFates, (DWORD)&pol_third_set_table_fate);
+	pol_third_vtable->SetPointer(VTableReputationCalc, (DWORD)&pol_third_reputation_calc_c);
+	pol_third_vtable->SetPointer(VTablePlayoffQual, (DWORD)&pol_third_playoffs_create);
+	data->year = year;
+	data->rules = 0x1f;
+	int loaded = sub_687B10(_this, 1);
+	if (loaded) return;
+	data->f68 = -1;
+	data->current_stage = -1;
+	data->num_stages = 1;
+	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
+	pol_third_subs(_this);
+	AddTeams(_this);
+	sub_6835C0(_this);
+	BYTE* ebx = 0;
+	sub_6827D0(_this, ebx);
+	BYTE* pMem2 = (BYTE*)sub_944CF1_operator_new(0x5CE);
+	BYTE unk1 = 1;
+	sub_49EE70(pMem2, _this);
+	unk1 = 0;
+	data->f8 = (DWORD*)pMem2;
+	reputation_setup_generic_68A850(_this);
+}
+
+void setup_pol_third()
+{
 }
