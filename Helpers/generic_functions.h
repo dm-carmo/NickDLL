@@ -40,10 +40,10 @@ static BYTE* (__thiscall* create_cup_stage_data)(BYTE* _this, BYTE* main_comp, _
 		__int16 year, char stage_num, char a10, __int16 stage_name_id, char a12, int a13, int a14, int a15, BYTE * a16))(0x522E00);
 
 static BYTE* (__thiscall* create_league_stage_data)(BYTE* _this, BYTE* main_comp, __int16 n_teams, DWORD* teamsPtr, __int16 n_rounds, int comp_id, const void* fixturesPtr,
-	__int16 num_fixtures, char a9, char a10, char a11, BYTE* a12, BYTE* a13, __int16 year, char stage_num,
+	__int16 num_fixtures, char a9, char a10, char a11, BYTE* tiebreaks_addr, BYTE* prom_rel_addr, __int16 year, char stage_num,
 	__int16 stage_name_id, char a17, char a18, __int16 a19, __int16 a20, __int16 a21, int a22, char a23) =
 	(BYTE * (__thiscall*)(BYTE * _this, BYTE * main_comp, __int16 n_teams, DWORD * teamsPtr, __int16 n_rounds, int comp_id, const void* fixturesPtr,
-		__int16 num_fixtures, char a9, char a10, char a11, BYTE * a12, BYTE * a13, __int16 year, char stage_num,
+		__int16 num_fixtures, char a9, char a10, char a11, BYTE * tiebreaks_addr, BYTE * prom_rel_addr, __int16 year, char stage_num,
 		__int16 stage_name_id, char a17, char a18, __int16 a19, __int16 a20, __int16 a21, int a22, char a23))(0x68B100);
 static void(__thiscall* sub_4A2540)(BYTE* _this, cm3_clubs* club, char a3) =
 (void(__thiscall*)(BYTE * _this, cm3_clubs * club, char a3))(0x4A2540);
@@ -73,7 +73,7 @@ static int(__thiscall* sub_518640)(BYTE* _this) =
 (int(__thiscall*)(BYTE * _this))(0x518640);
 static int(__thiscall* sub_51FC00)(BYTE* _this, char a2) =
 (int(__thiscall*)(BYTE * _this, char a2))(0x51FC00);
-static int(__thiscall* cup_map_fixture_tree)(BYTE* _this) =
+static int(__thiscall* cup_map_fixture_tree_518790)(BYTE* _this) =
 (int(__thiscall*)(BYTE * _this))(0x518790);
 static int(__thiscall* sub_687970)(BYTE* _this, BYTE* base) =
 (int(__thiscall*)(BYTE * _this, BYTE * base))(0x687970);
@@ -107,22 +107,22 @@ static DWORD* (__thiscall* sub_54C770)(BYTE* _this, BYTE* date_ret, char a3) = (
 static int(__thiscall* sub_685D30)(BYTE* _this, BYTE* round_data, int a3) =
 (int(__thiscall*)(BYTE * _this, BYTE * round_data, int a3))(0x685D30);
 
-static void(__thiscall* staff_history_qualified_86BDD0)(BYTE* _this, DWORD* club, DWORD comp_id, WORD stage_main, DWORD stage_sub, char a6) =
-(void(__thiscall*)(BYTE * _this, DWORD * club, DWORD comp_id, WORD stage_main, DWORD stage_sub, char a6))(0x86BDD0);
-static void(__thiscall* staff_history_champion_868C50)(BYTE* _this, DWORD* club, DWORD comp_id) =
-(void(__thiscall*)(BYTE * _this, DWORD * club, DWORD comp_id))(0x868C50);
-static void(__thiscall* staff_history_promoted_869480)(BYTE* _this, DWORD* club, DWORD comp_id, char a4) =
-(void(__thiscall*)(BYTE * _this, DWORD * club, DWORD comp_id, char a4))(0x869480);
-static void(__thiscall* staff_history_relegated_86A1C0)(BYTE* _this, DWORD* club, DWORD comp_id) =
-(void(__thiscall*)(BYTE * _this, DWORD * club, DWORD comp_id))(0x86A1C0);
-static void(__thiscall* staff_history_knocked_out_86C000)(BYTE* _this, DWORD* club, DWORD comp_id, WORD stage_main, DWORD stage_sub, char a6) =
-(void(__thiscall*)(BYTE * _this, DWORD * club, DWORD comp_id, WORD stage_main, DWORD stage_sub, char a6))(0x86C000);
-static void(__thiscall* staff_history_comp_winner_86A800)(BYTE* _this, DWORD* club, BYTE* round_data, int a4) =
-(void(__thiscall*)(BYTE * _this, DWORD * club, BYTE * round_data, int a4))(0x86A800);
-static void(__thiscall* staff_history_comp_runner_up_86B0B0)(BYTE* _this, DWORD* club, BYTE* round_data, int a4) =
-(void(__thiscall*)(BYTE * _this, DWORD * club, BYTE * round_data, int a4))(0x86B0B0);
-static void(__thiscall* staff_history_comp_third_place_86B710)(BYTE* _this, DWORD* club, BYTE* round_data, int a4) =
-(void(__thiscall*)(BYTE * _this, DWORD * club, BYTE * round_data, int a4))(0x86B710);
+static void(__thiscall* staff_history_qualified_86BDD0)(BYTE* _this, cm3_clubs* club, DWORD comp_id, WORD stage_main, DWORD stage_sub, char a6) =
+(void(__thiscall*)(BYTE * _this, cm3_clubs * club, DWORD comp_id, WORD stage_main, DWORD stage_sub, char a6))(0x86BDD0);
+static void(__thiscall* staff_history_champion_868C50)(BYTE* _this, cm3_clubs* club, DWORD comp_id) =
+(void(__thiscall*)(BYTE * _this, cm3_clubs * club, DWORD comp_id))(0x868C50);
+static void(__thiscall* staff_history_promoted_869480)(BYTE* _this, cm3_clubs* club, DWORD comp_id, char a4) =
+(void(__thiscall*)(BYTE * _this, cm3_clubs * club, DWORD comp_id, char a4))(0x869480);
+static void(__thiscall* staff_history_relegated_86A1C0)(BYTE* _this, cm3_clubs* club, DWORD comp_id) =
+(void(__thiscall*)(BYTE * _this, cm3_clubs * club, DWORD comp_id))(0x86A1C0);
+static void(__thiscall* staff_history_knocked_out_86C000)(BYTE* _this, cm3_clubs* club, DWORD comp_id, WORD stage_main, DWORD stage_sub, char a6) =
+(void(__thiscall*)(BYTE * _this, cm3_clubs * club, DWORD comp_id, WORD stage_main, DWORD stage_sub, char a6))(0x86C000);
+static void(__thiscall* staff_history_comp_winner_86A800)(BYTE* _this, cm3_clubs* club, BYTE* round_data, int a4) =
+(void(__thiscall*)(BYTE * _this, cm3_clubs * club, BYTE * round_data, int a4))(0x86A800);
+static void(__thiscall* staff_history_comp_runner_up_86B0B0)(BYTE* _this, cm3_clubs* club, BYTE* round_data, int a4) =
+(void(__thiscall*)(BYTE * _this, cm3_clubs * club, BYTE * round_data, int a4))(0x86B0B0);
+static void(__thiscall* staff_history_comp_third_place_86B710)(BYTE* _this, cm3_clubs* club, BYTE* round_data, int a4) =
+(void(__thiscall*)(BYTE * _this, cm3_clubs * club, BYTE * round_data, int a4))(0x86B710);
 
 static int(__thiscall* yearly_person_award_setup_92FE80)(BYTE* _this, int a2, int a3, DWORD award_id, WORD rep1, WORD rep2, DWORD comp_id, char a8, int a9, char a10, int a11, int is_player) =
 (int(__thiscall*)(BYTE * _this, int a2, int a3, DWORD award_id, WORD rep1, WORD rep2, DWORD comp_id, char a8, int a9, char a10, int a11, int is_player))(0x92FE80);
@@ -158,7 +158,6 @@ int AddTeams(BYTE* _this);
 int AddTeamsReserveDivision(BYTE* _this);
 int AddTeamsGroupLeague(BYTE* _this, DWORD first_group_id);
 void AddLeague(BYTE* _this, const char* szLeagueName, int leagueNo, int year, DWORD league_init_addr);
-void sub_689C20_relegation_hook();
 
 void AddFixture(BYTE* pMem, int fixture, Date date, int startYear, Day dayOfWeek, int timeOfDay = Afternoon, int stadiumType = HomeStadium);
 void AddFixtureTV(BYTE* pMem, int fixture, int tv_id = 0, int num_to_move = -1, Day dayOfWeek = DontCare, int timeOfDay = DontCare, int stadiumType = HomeStadium);

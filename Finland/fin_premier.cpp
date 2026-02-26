@@ -353,7 +353,7 @@ void __fastcall fin_second_relegation(BYTE* _this)
 	}
 
 	vector<cm3_clubs*> available_clubs;
-	for (int i = 0; i < get_club_count(); i++)
+	for (DWORD i = 0; i < *clubs_count; i++)
 	{
 		cm3_clubs* club = get_club(i);
 		if (club)
@@ -408,7 +408,7 @@ void __fastcall fin_non_league_promotion(BYTE* _this)
 	}
 
 	vector<cm3_clubs*> available_clubs;
-	for (int i = 0; i < get_club_count(); i++)
+	for (DWORD i = 0; i < *clubs_count; i++)
 	{
 		cm3_clubs* club = get_club(i);
 		if (club)
@@ -527,19 +527,19 @@ void __declspec(naked) fin_premier_update_c()		// used as a __thiscall -> __cdec
 }
 
 void fin_restruct_2025() {
-	cm3_club_comps* fin_first = &(*club_comps)[FIN_FIRST_9CF()];
-	cm3_club_comps* fin_second = &(*club_comps)[FIN_SECOND_9CF()];
+	cm3_club_comps* fin_first = get_comp(FIN_FIRST_9CF());
+	cm3_club_comps* fin_second = get_comp(FIN_SECOND_9CF());
 	fin_second->ClubCompReputation = 2;
-	cm3_club_comps* fin_third = &(*club_comps)[FIN_THIRD_9CF()];
-	cm3_club_comps* fin_third_a = &(*club_comps)[FIN_THIRD_A_9CF()];
+	cm3_club_comps* fin_third = get_comp(FIN_THIRD_9CF());
+	cm3_club_comps* fin_third_a = get_comp(FIN_THIRD_A_9CF());
 	fin_third_a->ClubCompReputation = 1;
-	cm3_club_comps* fin_third_b = &(*club_comps)[FIN_THIRD_B_9CF()];
+	cm3_club_comps* fin_third_b = get_comp(FIN_THIRD_B_9CF());
 	fin_third_b->ClubCompReputation = 1;
-	cm3_club_comps* fin_third_c = &(*club_comps)[FIN_THIRD_C_9CF()];
+	cm3_club_comps* fin_third_c = get_comp(FIN_THIRD_C_9CF());
 	fin_third_c->ClubCompReputation = 1;
-	cm3_club_comps* fin_lower = &(*club_comps)[FIN_LOWER_9CF()];
+	cm3_club_comps* fin_lower = get_comp(FIN_LOWER_9CF());
 	fin_lower->ClubCompReputation = 1;
-	cm3_club_comps* a_lower = &(*club_comps)[A_LOWER_9CF()];
+	cm3_club_comps* a_lower = get_comp(A_LOWER_9CF());
 
 	vector<cm3_clubs*> orig_clubs = find_clubs_of_comp(FIN_FIRST_9CF());
 	for (cm3_clubs* c : orig_clubs) c->ClubDivision = get_comp(FIN_LOWER_9CF());
@@ -619,7 +619,7 @@ void fin_restruct_2025() {
 		"Kuopion Elo",
 	};
 
-	cm3_nations* finland = find_country("Finland");
+	cm3_nations* finland = get_country(NATION_FINLAND_9CF());
 	cm3_clubs* elo = find_club("Kuopion Elo");
 	if (elo) {
 		elo->ClubNation = finland;
@@ -856,12 +856,12 @@ void __declspec(naked) fin_premier_playoffs_create()		// used as a __thiscall ->
 	}
 }
 
-int fin_premier_table_indicators(BYTE* _this, DWORD* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int fin_premier_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == 0) {
 		cm3_clubs* club_ptr = (cm3_clubs*)club;
-		cm3_club_comps* fin_first = &(*club_comps)[FIN_FIRST_9CF()];
+		cm3_club_comps* fin_first = get_comp(FIN_FIRST_9CF());
 		if (club_ptr->ClubDivision == fin_first) {
 			comp_stats* fin_first_data = (comp_stats*)get_loaded_league(FIN_FIRST_9CF());
 			WORD num_teams = fin_first_data->n_teams;
@@ -871,8 +871,7 @@ int fin_premier_table_indicators(BYTE* _this, DWORD* club, BYTE fate, char stage
 			BYTE* rounds = stage_data->rounds_list;
 			WORD current_round = *(WORD*)(round_data + 0x34);
 			for (int i = 0; i < num_teams; i++) {
-				DWORD* c = (DWORD*)table[i].club;
-				if (c != club) continue;
+					if (table[i].club != club) continue;
 				switch (fate) {
 				case TopPlayoff:
 					staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)fin_first, 0x32);
@@ -897,8 +896,7 @@ int fin_premier_table_indicators(BYTE* _this, DWORD* club, BYTE fate, char stage
 			BYTE* rounds = stage_data->rounds_list;
 			WORD current_round = *(WORD*)(round_data + 0x34);
 			for (int i = 0; i < num_teams; i++) {
-				DWORD* c = (DWORD*)table[i].club;
-				if (c != club) continue;
+					if (table[i].club != club) continue;
 				switch (fate) {
 				case BottomPlayoff:
 					staff_history_relegated_86A1C0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));

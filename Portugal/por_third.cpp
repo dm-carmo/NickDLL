@@ -26,7 +26,7 @@ void por_third_subs(BYTE* _this)
 	comp_data->relegations = 0;
 
 	comp_data->promotes_to = POR_SECOND_9CF();
-	BYTE selected = find_country("Portugal")->NationLeagueSelected;
+	BYTE selected = get_country(NATION_PORTUGAL_9CF())->NationLeagueSelected;
 	if ((selected & 4) == 0) {
 		comp_data->relegates_to = -1;
 	}
@@ -308,33 +308,33 @@ void por_third_block_promotion(BYTE* _this) {
 void por_third_restruct_2025() {
 	cm3_staff_comps* data = &(*awards)[POR_THIRD_MANAGER_OF_YEAR_9CF()];
 	if (data) {
-		data->StaffCompNation = find_country("Portugal");
+		data->StaffCompNation = get_country(NATION_PORTUGAL_9CF());
 		data->StaffCompContinent = find_continent("Europe");
 		data->StaffCompReputation = 2;
 	}
 
-	cm3_club_comps* por_third = &(*club_comps)[POR_THIRD_9CF()];
+	cm3_club_comps* por_third = get_comp(POR_THIRD_9CF());
 	por_third->ClubCompReputation = 6;
-	cm3_club_comps* por_third_a = &(*club_comps)[POR_THIRD_A_9CF()];
+	cm3_club_comps* por_third_a = get_comp(POR_THIRD_A_9CF());
 	por_third_a->ClubCompReputation = 6;
-	cm3_club_comps* por_third_b = &(*club_comps)[POR_THIRD_B_9CF()];
+	cm3_club_comps* por_third_b = get_comp(POR_THIRD_B_9CF());
 	por_third_b->ClubCompReputation = 6;
-	cm3_club_comps* por_fourth = &(*club_comps)[POR_FOURTH_9CF()];
-	cm3_club_comps* por_fourth_a = &(*club_comps)[POR_FOURTH_A_9CF()];
+	cm3_club_comps* por_fourth = get_comp(POR_FOURTH_9CF());
+	cm3_club_comps* por_fourth_a = get_comp(POR_FOURTH_A_9CF());
 	por_fourth_a->ClubCompReputation = 3;
-	cm3_club_comps* por_fourth_b = &(*club_comps)[POR_FOURTH_B_9CF()];
-	por_fourth_b->ClubCompNation = find_country("Portugal");
+	cm3_club_comps* por_fourth_b = get_comp(POR_FOURTH_B_9CF());
+	por_fourth_b->ClubCompNation = get_country(NATION_PORTUGAL_9CF());
 	por_fourth_b->ClubCompContinent = find_continent("Europe");
 	por_fourth_b->ClubCompReputation = 3;
-	cm3_club_comps* por_fourth_c = &(*club_comps)[POR_FOURTH_C_9CF()];
-	por_fourth_c->ClubCompNation = find_country("Portugal");
+	cm3_club_comps* por_fourth_c = get_comp(POR_FOURTH_C_9CF());
+	por_fourth_c->ClubCompNation = get_country(NATION_PORTUGAL_9CF());
 	por_fourth_c->ClubCompContinent = find_continent("Europe");
 	por_fourth_c->ClubCompReputation = 3;
-	cm3_club_comps* por_fourth_d = &(*club_comps)[POR_FOURTH_D_9CF()];
-	por_fourth_d->ClubCompNation = find_country("Portugal");
+	cm3_club_comps* por_fourth_d = get_comp(POR_FOURTH_D_9CF());
+	por_fourth_d->ClubCompNation = get_country(NATION_PORTUGAL_9CF());
 	por_fourth_d->ClubCompContinent = find_continent("Europe");
 	por_fourth_d->ClubCompReputation = 3;
-	cm3_club_comps* a_lower = &(*club_comps)[A_LOWER_9CF()];
+	cm3_club_comps* a_lower = get_comp(A_LOWER_9CF());
 
 	vector<cm3_clubs*> club_list = find_clubs_of_comp(POR_THIRD_A_9CF());
 	for (cm3_clubs* c : club_list) {
@@ -673,10 +673,10 @@ void __declspec(naked) por_third_playoffs_create_c()		// used as a __thiscall ->
 	}
 }
 
-int por_third_table_indicators(BYTE* _this, DWORD* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int por_third_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
-	cm3_club_comps* por_second = &(*club_comps)[POR_SECOND_9CF()];
+	cm3_club_comps* por_second = get_comp(POR_SECOND_9CF());
 	if (stage < 1) {
 		switch (fate) {
 		case Champions:
@@ -708,8 +708,7 @@ int por_third_table_indicators(BYTE* _this, DWORD* club, char fate, char stage, 
 			}
 			team_league_stats* table = (team_league_stats*)(curr_stage->team_league_table);
 			for (int i = 0; i < num_teams; i++) {
-				DWORD* c = (DWORD*)table[i].club;
-				if (c != club) continue;
+					if (table[i].club != club) continue;
 				switch (fate) {
 				case Champions:
 					staff_history_champion_868C50(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));
@@ -746,8 +745,7 @@ int por_third_table_indicators(BYTE* _this, DWORD* club, char fate, char stage, 
 			}
 			team_league_stats* table = (team_league_stats*)(curr_stage->team_league_table);
 			for (int i = 0; i < num_teams; i++) {
-				DWORD* c = (DWORD*)table[i].club;
-				if (c != club) continue;
+					if (table[i].club != club) continue;
 				switch (fate) {
 				case Relegated:
 					staff_history_relegated_86A1C0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));

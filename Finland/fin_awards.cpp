@@ -104,7 +104,7 @@ char fin_awards_2(BYTE* _this, DWORD current_date) {
 		yearly_team_award_nominate_7698F0(_this, FIN_FIRST_9CF(), awards_list[12]);
 	}
 	BYTE sub_669340_ret = sub_669340(nation);
-	WORD nation_day = *(WORD*)(playable_leagues_table + 0x15 + sub_669340_ret * 72);
+	WORD nation_day = pnd_list[sub_669340_ret].update_day;
 	if (*(WORD*)(current_date) == nation_day) {
 		monthly_person_award_nominate_7672E0((BYTE*)awards_list[5], *(WORD*)(current_date + 2));
 		monthly_person_award_nominate_7672E0((BYTE*)awards_list[6], *(WORD*)(current_date + 2));

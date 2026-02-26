@@ -21,9 +21,9 @@ int GetKey();
 
 DWORD Get9CF(DWORD id);
 cm3_clubs* get_club(DWORD clubID);
-int get_club_count();
 BYTE* get_loaded_league(DWORD compID);
 cm3_nations* find_country(const char* szCountry);
+cm3_nations* get_country(DWORD countryID);
 cm3_continents* find_continent(const char* szContinent);
 vector<cm3_nations*> central_america_countries();
 vector<cm3_nations*> caribbean_countries();
@@ -42,6 +42,7 @@ vector<cm3_clubs*> find_clubs_of_country(DWORD nation_id);
 vector<cm3_clubs*> find_clubs_of_country_for_euro_playable(DWORD nation_id);
 vector<cm3_clubs*> find_clubs_of_country_for_euro(DWORD nation_id);
 bool vector_contains_club(vector<cm3_clubs*> &vec, cm3_clubs* club);
+bool compareClubSeeding(cm3_clubs* c1, cm3_clubs* c2);
 bool compareClubRep(cm3_clubs* c1, cm3_clubs* c2);
 bool compareClubRepInv(cm3_clubs* c1, cm3_clubs* c2);
 bool compareClubLastDivPos(cm3_clubs* c1, cm3_clubs* c2);

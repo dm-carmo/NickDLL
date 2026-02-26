@@ -172,10 +172,10 @@ void __declspec(naked) jpn_jfl_fixtures_c()		// used as a __thiscall -> __cdecl 
 	}
 }
 
-int jpn_jfl_table_indicators(BYTE* _this, DWORD* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int jpn_jfl_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
-	cm3_club_comps* jpn_third = &(*club_comps)[JPN_THIRD_9CF()];
+	cm3_club_comps* jpn_third = get_comp(JPN_THIRD_9CF());
 	if (stage == -1) {
 		switch (fate) {
 		case Champions:

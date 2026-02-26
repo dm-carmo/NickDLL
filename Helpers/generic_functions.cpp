@@ -49,7 +49,6 @@ int AddTeamsReserveDivision(BYTE* _this)
 	return 1;
 }
 
-
 // Generic function that will add teams to a league competition that has groups
 int AddTeamsGroupLeague(BYTE* _this, DWORD first_group_id)
 {
@@ -72,7 +71,6 @@ int AddTeamsGroupLeague(BYTE* _this, DWORD first_group_id)
 	}
 	return 1;
 }
-
 
 typedef BYTE*(__thiscall*league_init_typedef)(BYTE* _this, __int16 a2, cm3_club_comps* a3);
 void AddLeague(BYTE* _this, const char* szLeagueName, int leagueNo, int year, DWORD league_init_addr)
@@ -151,57 +149,6 @@ void FillFixtureDetails(BYTE* pMem, int fixture, WORD stage_name, WORD draw_type
 	*(DWORD*)(pMem + (fixture * playoff_dates_sz) + 0x60) = prize_win;
 	*(DWORD*)(pMem + (fixture * playoff_dates_sz) + 0x64) = prize_lose;
 }
-
-// Not part of the Tapani patches but one of the hooks needed to call our relegation code. Standard B0 in vtable for relegation/promotion
-static int(*sub_689C80_2)() = (int(*)())(0x689C80);
-void sub_601FF0();
-void __declspec(naked) sub_689C20_relegation_hook()
-{
-	__asm
-	{
-	/*00689C20*/	push ebx
-	/*00689C21*/	mov ebx,ecx
-	/*00689C23*/	push edi
-	/*00689C24*/	mov eax,dword ptr ds:[ebx+0x1C]
-	/*00689C27*/	test eax,eax
-	/*00689C29*/	jge _00689C73
-	/*00689C2B*/	mov eax,dword ptr ds:[ebx]
-	/*00689C2D*/	mov edi,ebx
-	/*00689C2F*/	call dword ptr ds:[eax+0xA4]
-	/*00689C35*/	mov eax,dword ptr ds:[ebx+0x20]
-	/*00689C38*/	test eax,eax
-	/*00689C3A*/	jl _00689C73
-	/*00689C3C*/	push ebp
-	/*00689C3D*/	mov ebp,dword ptr ss:[esp+0x10]
-	/*00689C41*/	push esi
-_00689C42:
-	/*00689C42*/	mov ecx,dword ptr ds:[0xADADFC]
-	/*00689C48*/	mov esi,dword ptr ds:[ecx+eax*0x4]
-	/*00689C4B*/	mov ecx,esi
-	/*00689C4D*/	mov edx,dword ptr ds:[esi]
-	/*00689C4F*/	call dword ptr ds:[edx+0xA4]
-	/*00689C55*/	push 0xFFFFFFFF
-	/*00689C57*/	push 0xFFFFFFFF
-	/*00689C59*/	push ebp
-	/*00689C5A*/	push 0x1
-	/*00689C5C*/	push esi
-	/*00689C5D*/	push edi
-	/*00689C5E*/	mov ecx,ebx
-	/*00689C60*/	call sub_689C80_2		/*call <cm0102.sub_689C80>*/
-	/*00689C65*/	mov eax,dword ptr ds:[esi+0x20]
-	/*00689C68*/	mov edi,esi
-	/*00689C6A*/	test eax,eax
-	/*00689C6C*/	jge _00689C42
-	/*00689C6E*/	call sub_601FF0		/*call <cm0102.sub_601FF0>*/		// <---- additional call added by Tapani
-_00689C73:
-	/*00689C73*/	pop esi
-	/*00689C74*/	pop ebp
-	/*00689C75*/	pop edi
-	/*00689C76*/	pop ebx
-	/*00689C77*/	ret 0x4
-	}
-}
-
 
 void WriteVTablePtr(DWORD* addr, int pos, DWORD data) {
 	WriteDWORD((DWORD)addr + 4 * (pos - 1), data);

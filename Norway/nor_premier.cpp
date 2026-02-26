@@ -205,7 +205,7 @@ void __fastcall nor_second_relegation(BYTE* _this)
 	}
 
 	vector<cm3_clubs*> available_clubs;
-	for (int i = 0; i < get_club_count(); i++)
+	for (DWORD i = 0; i < *clubs_count; i++)
 	{
 		cm3_clubs* club = get_club(i);
 		if (club)
@@ -268,7 +268,7 @@ void __fastcall nor_non_league_promotion(BYTE* _this)
 	}
 
 	vector<cm3_clubs*> available_clubs;
-	for (int i = 0; i < get_club_count(); i++)
+	for (DWORD i = 0; i < *clubs_count; i++)
 	{
 		cm3_clubs* club = get_club(i);
 		if (club)
@@ -639,29 +639,29 @@ void __declspec(naked) nor_premier_fixtures_c()		// used as a __thiscall -> __cd
 }
 
 void nor_restruct_2025() {
-	cm3_nations* norway = find_country("Norway");
-	cm3_club_comps* nor_premier = &(*club_comps)[NOR_PREMIER_9CF()];
-	cm3_club_comps* nor_first = &(*club_comps)[NOR_FIRST_9CF()];
-	cm3_club_comps* nor_second = &(*club_comps)[NOR_SECOND_9CF()];
+	cm3_nations* norway = get_country(NATION_NORWAY_9CF());
+	cm3_club_comps* nor_premier = get_comp(NOR_PREMIER_9CF());
+	cm3_club_comps* nor_first = get_comp(NOR_FIRST_9CF());
+	cm3_club_comps* nor_second = get_comp(NOR_SECOND_9CF());
 	nor_second->ClubCompNation = norway;
 	nor_second->ClubCompReputation = 4;
-	cm3_club_comps* nor_second_1 = &(*club_comps)[NOR_SECOND_G1_9CF()];
-	cm3_club_comps* nor_second_2 = &(*club_comps)[NOR_SECOND_G2_9CF()];
-	cm3_club_comps* nor_third = &(*club_comps)[NOR_THIRD_9CF()];
+	cm3_club_comps* nor_second_1 = get_comp(NOR_SECOND_G1_9CF());
+	cm3_club_comps* nor_second_2 = get_comp(NOR_SECOND_G2_9CF());
+	cm3_club_comps* nor_third = get_comp(NOR_THIRD_9CF());
 	nor_third->ClubCompReputation = 2;
-	cm3_club_comps* nor_third_1 = &(*club_comps)[NOR_THIRD_G1_9CF()];
+	cm3_club_comps* nor_third_1 = get_comp(NOR_THIRD_G1_9CF());
 	nor_third_1->ClubCompReputation = 2;
-	cm3_club_comps* nor_third_2 = &(*club_comps)[NOR_THIRD_G2_9CF()];
+	cm3_club_comps* nor_third_2 = get_comp(NOR_THIRD_G2_9CF());
 	nor_third_2->ClubCompReputation = 2;
-	cm3_club_comps* nor_third_3 = &(*club_comps)[NOR_THIRD_G3_9CF()];
+	cm3_club_comps* nor_third_3 = get_comp(NOR_THIRD_G3_9CF());
 	nor_third_3->ClubCompReputation = 2;
-	cm3_club_comps* nor_third_4 = &(*club_comps)[NOR_THIRD_G4_9CF()];
+	cm3_club_comps* nor_third_4 = get_comp(NOR_THIRD_G4_9CF());
 	nor_third_4->ClubCompReputation = 2;
-	cm3_club_comps* nor_third_5 = &(*club_comps)[NOR_THIRD_G5_9CF()];
+	cm3_club_comps* nor_third_5 = get_comp(NOR_THIRD_G5_9CF());
 	nor_third_5->ClubCompReputation = 2;
-	cm3_club_comps* nor_third_6 = &(*club_comps)[NOR_THIRD_G6_9CF()];
+	cm3_club_comps* nor_third_6 = get_comp(NOR_THIRD_G6_9CF());
 	nor_third_6->ClubCompReputation = 2;
-	cm3_club_comps* a_lower = &(*club_comps)[A_LOWER_9CF()];
+	cm3_club_comps* a_lower = get_comp(A_LOWER_9CF());
 
 	vector<string> move_to_lower = {
 		"Norwegian 2. Divisjon",
@@ -1019,12 +1019,12 @@ void __declspec(naked) nor_premier_playoffs_create()		// used as a __thiscall ->
 	}
 }
 
-int nor_premier_table_indicators(BYTE* _this, DWORD* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int nor_premier_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == 0) {
 		cm3_clubs* club_ptr = (cm3_clubs*)club;
-		cm3_club_comps* nor_first = &(*club_comps)[NOR_FIRST_9CF()];
+		cm3_club_comps* nor_first = get_comp(NOR_FIRST_9CF());
 		if (club_ptr->ClubDivision == nor_first) {
 			comp_stats* nor_first_data = (comp_stats*)get_loaded_league(NOR_FIRST_9CF());
 			WORD num_teams = nor_first_data->n_teams;
@@ -1034,8 +1034,7 @@ int nor_premier_table_indicators(BYTE* _this, DWORD* club, BYTE fate, char stage
 			BYTE* rounds = stage_data->rounds_list;
 			WORD current_round = *(WORD*)(round_data + 0x34);
 			for (int i = 0; i < num_teams; i++) {
-				DWORD* c = (DWORD*)table[i].club;
-				if (c != club) continue;
+					if (table[i].club != club) continue;
 				switch (fate) {
 				case TopPlayoff:
 					staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)nor_first, 0x32);
@@ -1060,8 +1059,7 @@ int nor_premier_table_indicators(BYTE* _this, DWORD* club, BYTE fate, char stage
 			BYTE* rounds = stage_data->rounds_list;
 			WORD current_round = *(WORD*)(round_data + 0x34);
 			for (int i = 0; i < num_teams; i++) {
-				DWORD* c = (DWORD*)table[i].club;
-				if (c != club) continue;
+					if (table[i].club != club) continue;
 				switch (fate) {
 				case BottomPlayoff:
 					staff_history_relegated_86A1C0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));

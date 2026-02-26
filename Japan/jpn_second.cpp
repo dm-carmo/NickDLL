@@ -380,7 +380,7 @@ void __declspec(naked) jpn_second_playoffs_create()		// used as a __thiscall -> 
 	}
 }
 
-int jpn_second_table_indicators(BYTE* _this, DWORD* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int jpn_second_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage != -1) {
@@ -391,8 +391,7 @@ int jpn_second_table_indicators(BYTE* _this, DWORD* club, BYTE fate, char stage,
 		BYTE* rounds = stage_data->rounds_list;
 		WORD current_round = *(WORD*)(round_data + 0x34);
 		for (int i = 0; i < num_teams; i++) {
-			DWORD* c = (DWORD*)table[i].club;
-			if (c != club) continue;
+			if (table[i].club != club) continue;
 			switch (fate) {
 			case TopPlayoff:
 				staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)comp_data->competition_db, 0x32);

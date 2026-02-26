@@ -15,69 +15,67 @@ static DWORD(__thiscall* ger_cup_setup)(BYTE* _this, WORD year, cm3_club_comps* 
 static DWORD(__thiscall* ger_super_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
 (DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x92B4B0);
 
-DWORD ger_setup_c(BYTE* nation_data) {
+DWORD ger_setup_c(playable_nation_data* nation_data) {
 	// contract start date?
-	*(WORD*)(nation_data + 0x32) = 21;
-	*(BYTE*)(nation_data + 0x34) = July;
-	*(WORD*)(nation_data + 0x35) = *current_year;
-	*(WORD*)(nation_data + 0x37) = 5;
+	nation_data->contract_start_day = 21;
+	nation_data->contract_start_month = July;
+	nation_data->contract_start_year = *current_year;
+	nation_data->f55 = 5;
 	// contract end date?
-	*(WORD*)(nation_data + 0x41) = 31;
-	*(BYTE*)(nation_data + 0x43) = May;
-	*(WORD*)(nation_data + 0x44) = *current_year + 1;
-	*(WORD*)(nation_data + 0x46) = 5;
-	BYTE selected = ((cm3_nations*)*(DWORD*)(nation_data))->NationLeagueSelected;
+	nation_data->contract_end_day = 31;
+	nation_data->contract_end_month = May;
+	nation_data->contract_end_year = *current_year + 1;
+	nation_data->f70 = 5;
+	BYTE selected = nation_data->nation->NationLeagueSelected;
 	if ((selected & 4) == 0) {
-		*(DWORD*)(nation_data + 0xc) = 5;
+		nation_data->num_of_comps = 5;
 	}
 	else {
-		*(DWORD*)(nation_data + 0xc) = 6;
+		nation_data->num_of_comps = 6;
 	}
-	DWORD* nation_comps = (DWORD*)sub_944E46_malloc(*(DWORD*)(nation_data + 0xc) * 4);
-	*(DWORD*)(nation_data + 0x10) = (DWORD)nation_comps;
+	DWORD* nation_comps = (DWORD*)sub_944E46_malloc(nation_data->num_of_comps * 4);
+	nation_data->comps_list = (DWORD)nation_comps;
 	// start calling each league's functions
 	BYTE i = 0;
 	// Bundesliga
 	BYTE* pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
-	ger_first_init(pMem, *current_year, &(*club_comps)[GER_FIRST_9CF()]);
+	ger_first_init(pMem, *current_year, get_comp(GER_FIRST_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// 2. Bundesliga
 	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
-	ger_second_init(pMem, *current_year, &(*club_comps)[GER_SECOND_9CF()]);
+	ger_second_init(pMem, *current_year, get_comp(GER_SECOND_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// 3. Liga
 	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
-	ger_third_init(pMem, *current_year, &(*club_comps)[GER_THIRD_9CF()]);
+	ger_third_init(pMem, *current_year, get_comp(GER_THIRD_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	if ((selected & 4) != 0) {
 		// Regionalliga
 		pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
-		ger_regional_init(pMem, *current_year, &(*club_comps)[GER_REGIONAL_9CF()]);
+		ger_regional_init(pMem, *current_year, get_comp(GER_REGIONAL_9CF()));
 		nation_comps[i++] = (DWORD)pMem;
 	}
 	// Cup
 	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
-	ger_cup_setup(pMem, *current_year, &(*club_comps)[GER_CUP_9CF()]);
+	ger_cup_setup(pMem, *current_year, get_comp(GER_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Supercup
 	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
-	ger_super_setup(pMem, *current_year, &(*club_comps)[GER_SUPER_CUP_9CF()]);
+	ger_super_setup(pMem, *current_year, get_comp(GER_SUPER_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
 	BYTE* cm_date = new BYTE[8];
 	convert_to_cm_date(cm_date, 20, June, 2025, (DWORD*)-1);
-	*(WORD*)(nation_data + 0x15) = *(WORD*)cm_date;
-	*(WORD*)(nation_data + 0x1B) = *current_year;
-	*(BYTE*)(nation_data + 0x1D) = 1;
-	*(DWORD*)(nation_data + 0x26) = (DWORD) & (*club_comps)[GER_SUPER_CUP_9CF()];
+	nation_data->update_day = *(WORD*)cm_date;
+	nation_data->update_year = *current_year;
+	nation_data->f29 = 1;
+	nation_data->super_cup = get_comp(GER_SUPER_CUP_9CF());
 	return 1;
 }
 
 void setup_ger_nation()
 {
 	WriteDWORD(0x66807B + 6, (DWORD)&ger_setup_c);
-	char* regionalliga_text = "Regionalliga";
-	WriteDWORD(0x66A022 + 1, (DWORD)&regionalliga_text[0]);
 	setup_ger_first();
 	setup_ger_second();
 	setup_ger_third();

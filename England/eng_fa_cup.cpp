@@ -96,7 +96,7 @@ int eng_fa_cup_teams(BYTE* _this) {
 	{
 		vec.push_back(club);
 	}
-	BYTE selected = find_country("England")->NationLeagueSelected;
+	BYTE selected = get_country(NATION_ENGLAND_9CF())->NationLeagueSelected;
 	if ((selected & 4) == 0) {
 		division_clubs = find_clubs_of_comp(0x166);
 		for (cm3_clubs* club : division_clubs)
@@ -242,7 +242,7 @@ void eng_fa_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	eng_fa_cup_teams(_this);
 	DWORD v1 = *(DWORD*)_this;
 	*((DWORD*)(_this + 0xA3)) = (DWORD)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0x3c, _this + 0x3a, 0);
-	cup_map_fixture_tree(_this);
+	cup_map_fixture_tree_518790(_this);
 	BYTE* pMem2 = (BYTE*)sub_944CF1_operator_new(0x5CE);
 	BYTE unk1 = 1;
 	sub_49EE70(pMem2, _this);

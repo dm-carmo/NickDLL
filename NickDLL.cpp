@@ -18,27 +18,9 @@
 #include "CONMEBOL\libertadores.h"
 #include "CONMEBOL\libertadores_calendar.h"
 
-#include "Brazil\bra_setup.h"
-#include "Croatia\cro_setup.h"
-#include "Denmark\den_setup.h"
-#include "England\eng_setup.h"
-#include "Finland\fin_setup.h"
-#include "France\fra_setup.h"
-#include "Germany\ger_setup.h"
-#include "Germany\ger_awards_default.h"
-#include "Greece\gre_setup.h"
-#include "Holland\hol_setup.h"
-#include "Italy\ita_setup.h"
-#include "Japan\jpn_setup.h"
-#include "Norway\nor_setup.h"
-#include "Poland\pol_setup.h"
-#include "Portugal\por_setup.h"
-#include "South Korea\kor_setup.h"
-#include "Sweden\swe_setup.h"
-#include "USA\usa_setup.h"
-
 #include "inject_9cf_rename.h"
 #include "setup_misc_functions.h"
+#include <leagues_setup.h>
 //#include "european_cup.h"
 
 using namespace std;
@@ -173,6 +155,11 @@ void Setup()
 		setup_usa_nation();
 	}
 
+	if (configFile.GetBool("applyUEFA", true)) {
+		dprintf("Applying UEFA changes\n");
+		setup_uefa_continent();
+	}
+
 	if (configFile.GetBool("applyLibertadores", true)) {
 		dprintf("Applying Libertadores changes\n");
 		setup_libertadores();
@@ -191,6 +178,8 @@ void Setup()
 	//setup_european_cup();
 	setup_name_injection();
 	setup_misc_functions();
+
+	setup_leagues_setup();
 }
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved)

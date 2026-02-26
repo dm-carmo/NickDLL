@@ -66,7 +66,7 @@ void __fastcall eng_non_league_promotion(BYTE* _this)
 	vector<cm3_clubs*> southern_relegated_clubs = get_relegated_teams(ENG_CONFERENCE_SOUTH_9CF());
 	vector<cm3_clubs*> available_clubs;
 
-	for (int i = 0; i < get_club_count(); i++)
+	for (DWORD i = 0; i < *clubs_count; i++)
 	{
 		cm3_clubs* club = get_club(i);
 		if (club)

@@ -65,7 +65,7 @@ int ita_super_teams(BYTE* _this) {
 	vector<cm3_clubs*> ser_a_clubs = find_clubs_of_comp_last_division(ITA_SERIE_A_9CF());
 	sort(ser_a_clubs.begin(), ser_a_clubs.end(), compareClubLastDivPos);
 
-	cm3_club_comps* ita_cup = &(*club_comps)[ITA_CUP_9CF()];
+	cm3_club_comps* ita_cup = get_comp(ITA_CUP_9CF());
 	cm3_clubs* winner = get_last_comp_winner(ita_cup);
 	if (winner) vec.push_back(winner);
 	cm3_clubs* runner_up = get_last_comp_runner_up(ita_cup);

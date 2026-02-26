@@ -358,7 +358,7 @@ void __declspec(naked) gre_cup_stages_create_c()		// used as a __thiscall -> __c
 	}
 }
 
-int gre_cup_set_fates(BYTE* _this, DWORD* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int gre_cup_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == -1) {
@@ -367,7 +367,7 @@ int gre_cup_set_fates(BYTE* _this, DWORD* club, char fate, char stage, BYTE* a5,
 		switch (fate) {
 		case TopPlayoff:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, GroupStage, 0x1E);
-			*a5 = 1;
+			//*a5 = 1;
 			return 0;
 		case Promoted:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
@@ -401,7 +401,7 @@ int gre_cup_set_fates(BYTE* _this, DWORD* club, char fate, char stage, BYTE* a5,
 		switch (fate) {
 		case TopPlayoff:
 			staff_history_comp_winner_86A800(staff_hist_ptr, club, round_data, a7);
-			*a5 = 1;
+			//*a5 = 1;
 			return 0;
 		case Promoted:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
@@ -555,7 +555,7 @@ void gre_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	gre_cup_teams(_this);
 	DWORD v1 = *(DWORD*)_this;
 	*((DWORD*)(_this + 0xA3)) = (DWORD)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0x3c, _this + 0x3a, 0);
-	cup_map_fixture_tree(_this);
+	cup_map_fixture_tree_518790(_this);
 	BYTE* pMem2 = (BYTE*)sub_944CF1_operator_new(0x5CE);
 	BYTE unk1 = 1;
 	sub_49EE70(pMem2, _this);

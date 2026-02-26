@@ -288,38 +288,38 @@ void __declspec(naked) bra_first_fixtures_c()		// used as a __thiscall -> __cdec
 }
 
 void brazil_restruct_2025() {
-	cm3_nations* brazil = find_country("Brazil");
-	cm3_club_comps* bra_first = &(*club_comps)[BRA_FIRST_9CF()];
-	cm3_club_comps* bra_second = &(*club_comps)[BRA_SECOND_9CF()];
-	cm3_club_comps* bra_third = &(*club_comps)[BRA_THIRD_9CF()];
-	cm3_club_comps* bra_fourth = &(*club_comps)[BRA_FOURTH_9CF()];
+	cm3_nations* brazil = get_country(NATION_BRAZIL_9CF());
+	cm3_club_comps* bra_first = get_comp(BRA_FIRST_9CF());
+	cm3_club_comps* bra_second = get_comp(BRA_SECOND_9CF());
+	cm3_club_comps* bra_third = get_comp(BRA_THIRD_9CF());
+	cm3_club_comps* bra_fourth = get_comp(BRA_FOURTH_9CF());
 	bra_fourth->ClubCompNation = brazil;
 	bra_fourth->ClubCompContinent = find_continent("South America");
 	bra_fourth->ClubCompReputation = 3;
-	cm3_club_comps* bra_reg_bahia = &(*club_comps)[BRA_BAHIA_STATE_9CF()];
-	cm3_club_comps* bra_lower_bahia = &(*club_comps)[BRA_BAHIA_LOWER_9CF()];
-	cm3_club_comps* bra_reg_catarina = &(*club_comps)[BRA_SANTA_CATARINA_STATE_9CF()];
-	cm3_club_comps* bra_lower_catarina = &(*club_comps)[BRA_SANTA_CATARINA_LOWER_9CF()];
-	cm3_club_comps* bra_reg_gaucho = &(*club_comps)[BRA_GAUCHO_STATE_9CF()];
-	cm3_club_comps* bra_lower_gaucho = &(*club_comps)[BRA_GAUCHO_LOWER_9CF()];
-	cm3_club_comps* bra_reg_goias = &(*club_comps)[BRA_GOIAS_STATE_9CF()];
-	cm3_club_comps* bra_lower_goias = &(*club_comps)[BRA_GOIAS_LOWER_9CF()];
-	cm3_club_comps* bra_reg_minas = &(*club_comps)[BRA_MINAS_GERAIS_STATE_9CF()];
-	cm3_club_comps* bra_lower_minas = &(*club_comps)[BRA_MINAS_GERAIS_LOWER_9CF()];
-	cm3_club_comps* bra_reg_parana = &(*club_comps)[BRA_PARANA_STATE_9CF()];
-	cm3_club_comps* bra_lower_parana = &(*club_comps)[BRA_PARANA_LOWER_9CF()];
-	cm3_club_comps* bra_reg_paulo = &(*club_comps)[BRA_SAO_PAULO_STATE_9CF()];
-	cm3_club_comps* bra_lower_paulo = &(*club_comps)[BRA_SAO_PAULO_LOWER_9CF()];
-	cm3_club_comps* bra_reg_pernambuco = &(*club_comps)[BRA_PERNAMBUCO_STATE_9CF()];
-	cm3_club_comps* bra_lower_pernambuco = &(*club_comps)[BRA_PERNAMBUCO_LOWER_9CF()];
-	cm3_club_comps* bra_reg_rio = &(*club_comps)[BRA_RIO_DE_JANEIRO_STATE_9CF()];
-	cm3_club_comps* bra_lower_rio = &(*club_comps)[BRA_RIO_DE_JANEIRO_LOWER_9CF()];
-	cm3_club_comps* bra_reg_central = &(*club_comps)[BRA_CENTRAL_STATE_9CF()];
-	cm3_club_comps* bra_lower_central = &(*club_comps)[BRA_CENTRAL_LOWER_9CF()];
-	cm3_club_comps* bra_reg_north = &(*club_comps)[BRA_NORTH_STATE_9CF()];
-	cm3_club_comps* bra_lower_north = &(*club_comps)[BRA_NORTH_LOWER_9CF()];
-	cm3_club_comps* bra_reg_northeast = &(*club_comps)[BRA_NORTHEAST_STATE_9CF()];
-	cm3_club_comps* bra_lower_northeast = &(*club_comps)[BRA_NORTHEAST_LOWER_9CF()];
+	cm3_club_comps* bra_reg_bahia = get_comp(BRA_BAHIA_STATE_9CF());
+	cm3_club_comps* bra_lower_bahia = get_comp(BRA_BAHIA_LOWER_9CF());
+	cm3_club_comps* bra_reg_catarina = get_comp(BRA_SANTA_CATARINA_STATE_9CF());
+	cm3_club_comps* bra_lower_catarina = get_comp(BRA_SANTA_CATARINA_LOWER_9CF());
+	cm3_club_comps* bra_reg_gaucho = get_comp(BRA_GAUCHO_STATE_9CF());
+	cm3_club_comps* bra_lower_gaucho = get_comp(BRA_GAUCHO_LOWER_9CF());
+	cm3_club_comps* bra_reg_goias = get_comp(BRA_GOIAS_STATE_9CF());
+	cm3_club_comps* bra_lower_goias = get_comp(BRA_GOIAS_LOWER_9CF());
+	cm3_club_comps* bra_reg_minas = get_comp(BRA_MINAS_GERAIS_STATE_9CF());
+	cm3_club_comps* bra_lower_minas = get_comp(BRA_MINAS_GERAIS_LOWER_9CF());
+	cm3_club_comps* bra_reg_parana = get_comp(BRA_PARANA_STATE_9CF());
+	cm3_club_comps* bra_lower_parana = get_comp(BRA_PARANA_LOWER_9CF());
+	cm3_club_comps* bra_reg_paulo = get_comp(BRA_SAO_PAULO_STATE_9CF());
+	cm3_club_comps* bra_lower_paulo = get_comp(BRA_SAO_PAULO_LOWER_9CF());
+	cm3_club_comps* bra_reg_pernambuco = get_comp(BRA_PERNAMBUCO_STATE_9CF());
+	cm3_club_comps* bra_lower_pernambuco = get_comp(BRA_PERNAMBUCO_LOWER_9CF());
+	cm3_club_comps* bra_reg_rio = get_comp(BRA_RIO_DE_JANEIRO_STATE_9CF());
+	cm3_club_comps* bra_lower_rio = get_comp(BRA_RIO_DE_JANEIRO_LOWER_9CF());
+	cm3_club_comps* bra_reg_central = get_comp(BRA_CENTRAL_STATE_9CF());
+	cm3_club_comps* bra_lower_central = get_comp(BRA_CENTRAL_LOWER_9CF());
+	cm3_club_comps* bra_reg_north = get_comp(BRA_NORTH_STATE_9CF());
+	cm3_club_comps* bra_lower_north = get_comp(BRA_NORTH_LOWER_9CF());
+	cm3_club_comps* bra_reg_northeast = get_comp(BRA_NORTHEAST_STATE_9CF());
+	cm3_club_comps* bra_lower_northeast = get_comp(BRA_NORTHEAST_LOWER_9CF());
 
 	cm3_clubs* penedense = find_club("SC Penedense");
 	if (penedense) penedense->ClubNation = brazil;
@@ -1154,7 +1154,7 @@ void bra_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 }
 
 void __fastcall bra_promotion_to_fourth(BYTE* _this) {
-	cm3_club_comps* bra_fourth = &(*club_comps)[BRA_FOURTH_9CF()];
+	cm3_club_comps* bra_fourth = get_comp(BRA_FOURTH_9CF());
 	vector<cm3_clubs*> d_clubs = find_clubs_of_comp(BRA_FOURTH_9CF());
 	for (cm3_clubs* c : d_clubs) {
 		if (!c->ClubLastDivision || c->ClubLastDivision->ClubCompID != BRA_THIRD_9CF()) {
@@ -1254,9 +1254,9 @@ void __fastcall bra_qualify_teams_for_cup(BYTE* _this) {
 	WORD total_teams = 92;
 	comp_stats* cup_data = (comp_stats*)get_loaded_league(BRA_CUP_9CF());
 	if (!cup_data) return;
-	if (cup_data->special_teems_seedings) {
-		sub_9452CA_free(cup_data->special_teems_seedings);
-		cup_data->special_teems_seedings = 0;
+	if (cup_data->special_teams_seedings) {
+		sub_9452CA_free(cup_data->special_teams_seedings);
+		cup_data->special_teams_seedings = 0;
 	}
 	//cup_data->special_nteams_seedings = total_teams;
 	// third phase: libertadores teams + winner d2 +  winner cup + best d1
@@ -1345,8 +1345,8 @@ void __fastcall bra_qualify_teams_for_cup(BYTE* _this) {
 		//else dprintf("State league %d not found!\n", i);
 	}
 	BYTE* pMem = (BYTE*)sub_944E46_malloc(6 * total_teams);
-	cup_data->special_teems_seedings = (DWORD*)pMem;
-	teams_seeded* teams = (teams_seeded*)cup_data->special_teems_seedings;
+	cup_data->special_teams_seedings = (DWORD*)pMem;
+	teams_seeded* teams = (teams_seeded*)cup_data->special_teams_seedings;
 
 	size_t i;
 	for (i = 0; i < first_phase.size(); i++)

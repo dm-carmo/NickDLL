@@ -1,4 +1,5 @@
 #include "CMHeader.h"
+#include <algorithm>
 
 WORD FixedTeamOrderInCup = 0x200;
 WORD FixedTeamOrderInCup2 = 0x400;
@@ -36,9 +37,14 @@ WORD* current_year = (WORD*)0xAE2C92;
 DWORD* staff_history = (DWORD*)0xDD7F00;
 DWORD* dd6ec8 = (DWORD*)0xDD6EC8;
 
-BYTE* playable_leagues_table = (BYTE*)0xB63D60;
+const DWORD pnd_count = 36;
+playable_nation_data* pnd_list = new playable_nation_data[pnd_count]; //0xB63D60
+BYTE* pnd_order = new BYTE[pnd_count];
+
+uefa_seedings** uefa_seeding_list = (uefa_seedings**)0xDE1F58;
 
 DWORD* b74340 = (DWORD*)0xB74340;
 DWORD* b67a44 = (DWORD*)0xB67A44;
 DWORD* ae1050 = (DWORD*)0xAE1050;
 DWORD* ad9c60 = (DWORD*)0xAD9C60;
+DWORD* ae2a38 = (DWORD*)0xAE2A38;

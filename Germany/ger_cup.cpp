@@ -103,7 +103,7 @@ int ger_cup_teams(BYTE* _this) {
 		}
 	}
 
-	BYTE selected = find_country("Germany")->NationLeagueSelected;
+	BYTE selected = get_country(NATION_GERMANY_9CF())->NationLeagueSelected;
 	if ((selected & 4) != 0) {
 		// D4
 		division_clubs = find_clubs_of_comp(GER_REGIONAL_9CF());

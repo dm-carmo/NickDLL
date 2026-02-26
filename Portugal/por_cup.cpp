@@ -105,7 +105,7 @@ int por_cup_teams(BYTE* _this) {
 		division_clubs.erase(division_clubs.begin() + availableIdx);
 	}
 	// Campeonato de Portugal
-	BYTE selected = find_country("Portugal")->NationLeagueSelected;
+	BYTE selected = get_country(NATION_PORTUGAL_9CF())->NationLeagueSelected;
 	division_clubs = find_clubs_of_comp(POR_FOURTH_9CF());
 	if ((selected & 4) != 0) sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPosInv);
 	else sort(division_clubs.begin(), division_clubs.end(), compareClubRep);

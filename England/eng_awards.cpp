@@ -256,7 +256,7 @@ char eng_awards_2(BYTE* _this, DWORD current_date) {
 		}
 	}
 	BYTE sub_669340_ret = sub_669340(nation);
-	WORD nation_day = *(WORD*)(playable_leagues_table + 0x15 + sub_669340_ret * 72); //b64165 england
+	WORD nation_day = pnd_list[sub_669340_ret].update_day;
 	if (*(WORD*)(current_date) == nation_day) {
 		// Premier
 		monthly_person_award_nominate_7672E0((BYTE*)awards_list[3], *(WORD*)(current_date + 2));

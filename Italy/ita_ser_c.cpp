@@ -303,7 +303,7 @@ void __declspec(naked) ita_ser_c_reputation_setup_c()		// used as a __thiscall -
 
 cm3_clubs* get_ita_c_cup_loser(comp_stats* comp_data)
 {
-	cm3_club_comps* comp = &(*club_comps)[ITA_SERIE_C_CUP_9CF()];
+	cm3_club_comps* comp = get_comp(ITA_SERIE_C_CUP_9CF());
 	cm3_clubs* last_runner_up = get_last_comp_runner_up(comp);
 	if (!last_runner_up || !last_runner_up->ClubNation || !last_runner_up->ClubDivision || last_runner_up->ClubDivision->ClubCompID != comp_data->competition_db->ClubCompID) {
 		return 0;
@@ -315,7 +315,7 @@ cm3_clubs* get_ita_c_cup_loser(comp_stats* comp_data)
 
 cm3_clubs* get_ita_c_cup_winner(comp_stats* comp_data)
 {
-	cm3_club_comps* comp = &(*club_comps)[ITA_SERIE_C_CUP_9CF()];
+	cm3_club_comps* comp = get_comp(ITA_SERIE_C_CUP_9CF());
 	cm3_clubs* last_winner = get_last_comp_winner(comp);
 	if (!last_winner || !last_winner->ClubNation || !last_winner->ClubDivision || last_winner->ClubDivision->ClubCompID != comp_data->competition_db->ClubCompID) {
 		return 0;
@@ -353,7 +353,7 @@ void set_playoff_place(BYTE* _this, cm3_clubs* club) {
 			team_league_stats table_pos = ((team_league_stats*)curr_stage->team_league_table)[num];
 			if (club == table_pos.club && table_pos.league_fate != TopPlayoff) {
 				((team_league_stats*)curr_stage->team_league_table)[num].league_fate = TopPlayoff;
-				staff_history_qualified_86BDD0((BYTE*)*staff_history, (DWORD*)club, (DWORD)(comp_data->competition_db), PromotionPlayoff, None, 0x1E);
+				staff_history_qualified_86BDD0((BYTE*)*staff_history, club, (DWORD)(comp_data->competition_db), PromotionPlayoff, None, 0x1E);
 				return;
 			}
 		}
@@ -583,7 +583,7 @@ void __declspec(naked) ita_c_playoffs_create()		// used as a __thiscall -> __cde
 	}
 }
 
-int ita_ser_c_table_indicators(BYTE* _this, DWORD* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int ita_ser_c_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == 2) {
@@ -599,8 +599,7 @@ int ita_ser_c_table_indicators(BYTE* _this, DWORD* club, char fate, char stage, 
 			}
 			team_league_stats* table = (team_league_stats*)(curr_stage->team_league_table);
 			for (int i = 0; i < num_teams; i++) {
-				DWORD* c = (DWORD*)table[i].club;
-				if (c != club) continue;
+					if (table[i].club != club) continue;
 				switch (fate) {
 				case TopPlayoff:
 					staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), 0x32);
@@ -633,8 +632,7 @@ int ita_ser_c_table_indicators(BYTE* _this, DWORD* club, char fate, char stage, 
 			}
 			team_league_stats* table = (team_league_stats*)(curr_stage->team_league_table);
 			for (int i = 0; i < num_teams; i++) {
-				DWORD* c = (DWORD*)table[i].club;
-				if (c != club) continue;
+					if (table[i].club != club) continue;
 				switch (fate) {
 				case BottomPlayoff:
 					staff_history_relegated_86A1C0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));
@@ -854,19 +852,19 @@ void __declspec(naked) ita_ser_c_reputation_calc_c()		// used as a __thiscall ->
 }
 
 void serie_c_restruct_2025() {
-	cm3_club_comps* serie_c = &(*club_comps)[ITA_SERIE_C_9CF()];
-	serie_c->ClubCompNation = find_country("Italy");
+	cm3_club_comps* serie_c = get_comp(ITA_SERIE_C_9CF());
+	serie_c->ClubCompNation = get_country(NATION_ITALY_9CF());
 	serie_c->ClubCompContinent = find_continent("Europe");
 	serie_c->ClubCompReputation = 7;
 
-	cm3_club_comps* serie_c_a = &(*club_comps)[ITA_SERIE_C_A_9CF()];
+	cm3_club_comps* serie_c_a = get_comp(ITA_SERIE_C_A_9CF());
 	serie_c_a->ClubCompReputation = 7;
 
-	cm3_club_comps* serie_c_b = &(*club_comps)[ITA_SERIE_C_B_9CF()];
+	cm3_club_comps* serie_c_b = get_comp(ITA_SERIE_C_B_9CF());
 	serie_c_b->ClubCompReputation = 7;
 
-	cm3_club_comps* serie_c_c = &(*club_comps)[ITA_SERIE_C_C_9CF()];
-	serie_c_c->ClubCompNation = find_country("Italy");
+	cm3_club_comps* serie_c_c = get_comp(ITA_SERIE_C_C_9CF());
+	serie_c_c->ClubCompNation = get_country(NATION_ITALY_9CF());
 	serie_c_c->ClubCompContinent = find_continent("Europe");
 	serie_c_c->ClubCompReputation = 7;
 

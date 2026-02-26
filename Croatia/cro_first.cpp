@@ -264,15 +264,15 @@ void __declspec(naked) cro_first_fixtures_c()		// used as a __thiscall -> __cdec
 }
 
 void croatia_restruct_2025() {
-	cm3_club_comps* cro_first = &(*club_comps)[CRO_FIRST_9CF()];
-	cm3_club_comps* cro_second = &(*club_comps)[CRO_SECOND_9CF()];
-	cm3_club_comps* cro_third = &(*club_comps)[CRO_THIRD_9CF()];
-	cm3_club_comps* cro_reg_e = &(*club_comps)[CRO_FOURTH_EAST_9CF()];
-	cm3_club_comps* cro_reg_w = &(*club_comps)[CRO_FOURTH_WEST_9CF()];
-	cm3_club_comps* cro_reg_n = &(*club_comps)[CRO_FOURTH_NORTH_9CF()];
-	cm3_club_comps* cro_reg_s = &(*club_comps)[CRO_FOURTH_SOUTH_9CF()];
-	cm3_club_comps* cro_reg_c = &(*club_comps)[CRO_FOURTH_CENTRAL_9CF()];
-	cm3_club_comps* a_lower = &(*club_comps)[A_LOWER_9CF()];
+	cm3_club_comps* cro_first = get_comp(CRO_FIRST_9CF());
+	cm3_club_comps* cro_second = get_comp(CRO_SECOND_9CF());
+	cm3_club_comps* cro_third = get_comp(CRO_THIRD_9CF());
+	cm3_club_comps* cro_reg_e = get_comp(CRO_FOURTH_EAST_9CF());
+	cm3_club_comps* cro_reg_w = get_comp(CRO_FOURTH_WEST_9CF());
+	cm3_club_comps* cro_reg_n = get_comp(CRO_FOURTH_NORTH_9CF());
+	cm3_club_comps* cro_reg_s = get_comp(CRO_FOURTH_SOUTH_9CF());
+	cm3_club_comps* cro_reg_c = get_comp(CRO_FOURTH_CENTRAL_9CF());
+	cm3_club_comps* a_lower = get_comp(A_LOWER_9CF());
 
 	cro_third->ClubCompReputation = 4;
 	vector<cm3_clubs*> cro_clubs = find_clubs_of_country(NATION_CROATIA_9CF());
@@ -545,7 +545,7 @@ void __fastcall cro_non_league_promotion(BYTE* _this)
 void sort_cro_non_league_clubs() {
 	vector<cm3_clubs*> available_clubs;
 
-	for (int i = 0; i < get_club_count(); i++)
+	for (DWORD i = 0; i < *clubs_count; i++)
 	{
 		cm3_clubs* club = get_club(i);
 		if (club)

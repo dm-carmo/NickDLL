@@ -90,7 +90,7 @@ int eng_conf_subs(BYTE* _this)
 }
 
 void eng_conf_restruct_2025() {
-	cm3_club_comps* nat_lge = &(*club_comps)[ENG_CONFERENCE_9CF()];
+	cm3_club_comps* nat_lge = get_comp(ENG_CONFERENCE_9CF());
 	if (nat_lge) {
 		cm3_clubs* club1 = find_club("Boston United");
 		if (club1) {
@@ -380,7 +380,7 @@ DWORD eng_conf_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* sta
 	return 0;
 }
 
-int eng_conf_table_indicators(BYTE* _this, DWORD* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int eng_conf_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage != -1) {
@@ -391,8 +391,7 @@ int eng_conf_table_indicators(BYTE* _this, DWORD* club, BYTE fate, char stage, B
 		BYTE* rounds = stage_data->rounds_list;
 		WORD current_round = *(WORD*)(round_data + 0x34);
 		for (int i = 0; i < num_teams; i++) {
-			DWORD* c = (DWORD*)table[i].club;
-			if (c != club) continue;
+			if (table[i].club != club) continue;
 			switch (fate) {
 			case TopPlayoff:
 				staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)comp_data->competition_db, 0x32);

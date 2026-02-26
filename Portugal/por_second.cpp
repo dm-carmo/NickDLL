@@ -471,12 +471,12 @@ void __declspec(naked) por_second_playoffs_create()		// used as a __thiscall -> 
 	}
 }
 
-int por_second_table_indicators(BYTE* _this, DWORD* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int por_second_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == 0) {
 		cm3_clubs* club_ptr = (cm3_clubs*)club;
-		cm3_club_comps* por_third = &(*club_comps)[POR_THIRD_9CF()];
+		cm3_club_comps* por_third = get_comp(POR_THIRD_9CF());
 		if (club_ptr->ClubDivision == por_third) {
 			comp_stats* stage_data = (comp_stats*)(comp_data->stages[stage]);
 			BYTE* rounds = stage_data->rounds_list;
@@ -491,8 +491,7 @@ int por_second_table_indicators(BYTE* _this, DWORD* club, BYTE fate, char stage,
 				WORD num_teams = curr_stage->n_teams;
 				team_league_stats* table = (team_league_stats*)(curr_stage->team_league_table);
 				for (int i = 0; i < num_teams; i++) {
-					DWORD* c = (DWORD*)table[i].club;
-					if (c != club) continue;
+							if (table[i].club != club) continue;
 					switch (fate) {
 					case TopPlayoff:
 						staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)por_third, 0x32);
@@ -516,8 +515,7 @@ int por_second_table_indicators(BYTE* _this, DWORD* club, BYTE fate, char stage,
 			WORD num_teams = curr_stage->n_teams;
 			team_league_stats* table = (team_league_stats*)(curr_stage->team_league_table);
 			for (int i = 0; i < num_teams; i++) {
-				DWORD* c = (DWORD*)table[i].club;
-				if (c != club) continue;
+					if (table[i].club != club) continue;
 				switch (fate) {
 				case TopPlayoff:
 					//staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)por_third, 0x32);
@@ -542,8 +540,7 @@ int por_second_table_indicators(BYTE* _this, DWORD* club, BYTE fate, char stage,
 			BYTE* rounds = stage_data->rounds_list;
 			WORD current_round = *(WORD*)(round_data + 0x34);
 			for (int i = 0; i < num_teams; i++) {
-				DWORD* c = (DWORD*)table[i].club;
-				if (c != club) continue;
+					if (table[i].club != club) continue;
 				switch (fate) {
 				case BottomPlayoff:
 					staff_history_relegated_86A1C0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));

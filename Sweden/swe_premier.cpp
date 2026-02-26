@@ -568,28 +568,28 @@ void __declspec(naked) swe_premier_fixtures_c()		// used as a __thiscall -> __cd
 }
 
 void swe_restruct_2025() {
-	cm3_club_comps* swe_premier = &(*club_comps)[SWE_PREMIER_9CF()];
-	cm3_club_comps* swe_first = &(*club_comps)[SWE_FIRST_9CF()];
-	cm3_club_comps* swe_second = &(*club_comps)[SWE_SECOND_9CF()];
+	cm3_club_comps* swe_premier = get_comp(SWE_PREMIER_9CF());
+	cm3_club_comps* swe_first = get_comp(SWE_FIRST_9CF());
+	cm3_club_comps* swe_second = get_comp(SWE_SECOND_9CF());
 	swe_second->ClubCompReputation = 4;
-	cm3_club_comps* swe_second_n = &(*club_comps)[SWE_SECOND_NORTH_9CF()];
+	cm3_club_comps* swe_second_n = get_comp(SWE_SECOND_NORTH_9CF());
 	swe_second_n->ClubCompReputation = 4;
-	cm3_club_comps* swe_second_s = &(*club_comps)[SWE_SECOND_SOUTH_9CF()];
-	cm3_club_comps* swe_third = &(*club_comps)[SWE_THIRD_9CF()];
+	cm3_club_comps* swe_second_s = get_comp(SWE_SECOND_SOUTH_9CF());
+	cm3_club_comps* swe_third = get_comp(SWE_THIRD_9CF());
 	swe_third->ClubCompReputation = 2;
-	cm3_club_comps* swe_third_ng = &(*club_comps)[SWE_THIRD_NORTH_GOTALAND_9CF()];
+	cm3_club_comps* swe_third_ng = get_comp(SWE_THIRD_NORTH_GOTALAND_9CF());
 	swe_third_ng->ClubCompReputation = 2;
-	cm3_club_comps* swe_third_ns = &(*club_comps)[SWE_THIRD_NORTH_SVEALAND_9CF()];
+	cm3_club_comps* swe_third_ns = get_comp(SWE_THIRD_NORTH_SVEALAND_9CF());
 	swe_third_ns->ClubCompReputation = 2;
-	cm3_club_comps* swe_third_n = &(*club_comps)[SWE_THIRD_NORRLAND_9CF()];
+	cm3_club_comps* swe_third_n = get_comp(SWE_THIRD_NORRLAND_9CF());
 	swe_third_n->ClubCompReputation = 2;
-	cm3_club_comps* swe_third_sg = &(*club_comps)[SWE_THIRD_SOUTH_GOTALAND_9CF()];
+	cm3_club_comps* swe_third_sg = get_comp(SWE_THIRD_SOUTH_GOTALAND_9CF());
 	swe_third_sg->ClubCompReputation = 2;
-	cm3_club_comps* swe_third_ss = &(*club_comps)[SWE_THIRD_SOUTH_SVEALAND_9CF()];
+	cm3_club_comps* swe_third_ss = get_comp(SWE_THIRD_SOUTH_SVEALAND_9CF());
 	swe_third_ss->ClubCompReputation = 2;
-	cm3_club_comps* swe_third_wg = &(*club_comps)[SWE_THIRD_WEST_GOTALAND_9CF()];
+	cm3_club_comps* swe_third_wg = get_comp(SWE_THIRD_WEST_GOTALAND_9CF());
 	swe_third_wg->ClubCompReputation = 2;
-	cm3_club_comps* swe_lower = &(*club_comps)[SWE_LOWER_9CF()];
+	cm3_club_comps* swe_lower = get_comp(SWE_LOWER_9CF());
 
 	vector<string> move_to_lower = {
 		"Swedish Division 2 East Svealand",
@@ -622,7 +622,7 @@ void swe_restruct_2025() {
 		}
 	}
 
-	cm3_nations* sweden = find_country("Sweden");
+	cm3_nations* sweden = get_country(NATION_SWEDEN_9CF());
 	cm3_clubs* tidaholms_goif = find_club("Tidaholms GoIF");
 	if (tidaholms_goif) {
 		tidaholms_goif->ClubNation = sweden;
@@ -956,12 +956,12 @@ void __declspec(naked) swe_premier_playoffs_create()		// used as a __thiscall ->
 	}
 }
 
-int swe_premier_table_indicators(BYTE* _this, DWORD* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int swe_premier_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == 0) {
 		cm3_clubs* club_ptr = (cm3_clubs*)club;
-		cm3_club_comps* swe_first = &(*club_comps)[SWE_FIRST_9CF()];
+		cm3_club_comps* swe_first = get_comp(SWE_FIRST_9CF());
 		if (club_ptr->ClubDivision == swe_first) {
 			comp_stats* swe_first_data = (comp_stats*)get_loaded_league(SWE_FIRST_9CF());
 			WORD num_teams = swe_first_data->n_teams;
@@ -971,8 +971,7 @@ int swe_premier_table_indicators(BYTE* _this, DWORD* club, BYTE fate, char stage
 			BYTE* rounds = stage_data->rounds_list;
 			WORD current_round = *(WORD*)(round_data + 0x34);
 			for (int i = 0; i < num_teams; i++) {
-				DWORD* c = (DWORD*)table[i].club;
-				if (c != club) continue;
+					if (table[i].club != club) continue;
 				switch (fate) {
 				case TopPlayoff:
 					staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)swe_first, 0x32);
@@ -997,8 +996,7 @@ int swe_premier_table_indicators(BYTE* _this, DWORD* club, BYTE fate, char stage
 			BYTE* rounds = stage_data->rounds_list;
 			WORD current_round = *(WORD*)(round_data + 0x34);
 			for (int i = 0; i < num_teams; i++) {
-				DWORD* c = (DWORD*)table[i].club;
-				if (c != club) continue;
+					if (table[i].club != club) continue;
 				switch (fate) {
 				case BottomPlayoff:
 					staff_history_relegated_86A1C0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));

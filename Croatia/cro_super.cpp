@@ -103,8 +103,8 @@ int cro_super_teams(BYTE* _this) {
 
 	teams_seeded* teams = (teams_seeded*)comp_data->teams_list;
 
-	cm3_club_comps* league = &(*club_comps)[CRO_FIRST_9CF()];
-	cm3_club_comps* cup = &(*club_comps)[CRO_CUP_9CF()];
+	cm3_club_comps* league = get_comp(CRO_FIRST_9CF());
+	cm3_club_comps* cup = get_comp(CRO_CUP_9CF());
 	cm3_clubs* league_champ = get_last_comp_winner(league);
 	if (league_champ) vec.push_back(league_champ);
 	else {
@@ -198,7 +198,7 @@ void cro_super_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	DWORD v1 = *(DWORD*)_this;
 	data->f40 = 600000;
 	*((DWORD*)(_this + 0xA3)) = (DWORD)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0x3c, _this + 0x3a, 0);
-	cup_map_fixture_tree(_this);
+	cup_map_fixture_tree_518790(_this);
 	BYTE* pMem2 = (BYTE*)sub_944CF1_operator_new(0x5CE);
 	BYTE unk1 = 1;
 	sub_49EE70(pMem2, _this);

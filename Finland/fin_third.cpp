@@ -344,7 +344,7 @@ void fin_third_playoffs_under(BYTE* _this) {
 			if (tls.club == third.club) {
 				table_teams[curr_stage->prom_playoff].league_fate = TopPlayoff;
 				curr_stage->prom_playoff++;
-				staff_history_qualified_86BDD0(staff_hist_ptr, (DWORD*)tls.club, (DWORD)(comp_data->competition_db), None, PromotionPlayoff, 0x1E);
+				staff_history_qualified_86BDD0(staff_hist_ptr, tls.club, (DWORD)(comp_data->competition_db), None, PromotionPlayoff, 0x1E);
 			}
 		}
 	}
@@ -391,7 +391,7 @@ void __declspec(naked) fin_third_playoffs_create_c()		// used as a __thiscall ->
 	}
 }
 
-int fin_third_table_indicators(BYTE* _this, DWORD* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int fin_third_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == 2) {
@@ -407,8 +407,7 @@ int fin_third_table_indicators(BYTE* _this, DWORD* club, char fate, char stage, 
 			}
 			team_league_stats* table = (team_league_stats*)(curr_stage->team_league_table);
 			for (int i = 0; i < num_teams; i++) {
-				DWORD* c = (DWORD*)table[i].club;
-				if (c != club) continue;
+					if (table[i].club != club) continue;
 				switch (fate) {
 				case TopPlayoff:
 					staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), 0x32);

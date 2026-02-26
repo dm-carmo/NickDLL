@@ -93,7 +93,7 @@ void __fastcall pol_d3_relegation(BYTE* _this)
 
 	vector<cm3_clubs*> available_clubs;
 
-	for (int i = 0; i < get_club_count(); i++)
+	for (DWORD i = 0; i < *clubs_count; i++)
 	{
 		cm3_clubs* club = get_club(i);
 		if (club)
@@ -483,9 +483,9 @@ void __declspec(naked) pol_first_fixtures_c()		// used as a __thiscall -> __cdec
 }
 
 void pol_restruct_2025() {
-	cm3_club_comps* pol_first = &(*club_comps)[POL_FIRST_9CF()];
-	cm3_club_comps* pol_third = &(*club_comps)[POL_THIRD_9CF()];
-	cm3_club_comps* pol_lower = &(*club_comps)[POL_LOWER_9CF()];
+	cm3_club_comps* pol_first = get_comp(POL_FIRST_9CF());
+	cm3_club_comps* pol_third = get_comp(POL_THIRD_9CF());
+	cm3_club_comps* pol_lower = get_comp(POL_LOWER_9CF());
 
 	vector<cm3_clubs*> clubs = find_clubs_of_comp(pol_third->ClubCompID);
 	for (cm3_clubs* c : clubs) {

@@ -125,7 +125,7 @@ int ita_c_cup_teams(BYTE* _this) {
 
 	DWORD c_count = 0;
 	vector<cm3_clubs*> vec;
-	cm3_club_comps* serie_c = &(*club_comps)[ITA_SERIE_C_9CF()];
+	cm3_club_comps* serie_c = get_comp(ITA_SERIE_C_9CF());
 	if (comp_data->year == 2025) {
 		vec.push_back(find_club("Audace Cerignola"));
 		vec.push_back(find_club("AS Giana Erminio")); // replaces Rimini
@@ -212,7 +212,7 @@ void ita_c_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	DWORD v1 = *(DWORD*)_this;
 	data->f40 = 600000;
 	*((DWORD*)(_this + 0xA3)) = (DWORD)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0x3c, _this + 0x3a, 0);
-	cup_map_fixture_tree(_this);
+	cup_map_fixture_tree_518790(_this);
 	BYTE* pMem2 = (BYTE*)sub_944CF1_operator_new(0x5CE);
 	BYTE unk1 = 1;
 	sub_49EE70(pMem2, _this);

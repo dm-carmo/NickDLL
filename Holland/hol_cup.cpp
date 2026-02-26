@@ -198,7 +198,7 @@ void hol_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	DWORD v1 = *(DWORD*)_this;
 	data->f40 = 600000;
 	*((DWORD*)(_this + 0xA3)) = (DWORD)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0x3c, _this + 0x3a, 0);
-	cup_map_fixture_tree(_this);
+	cup_map_fixture_tree_518790(_this);
 	BYTE* pMem2 = (BYTE*)sub_944CF1_operator_new(0x5CE);
 	BYTE unk1 = 1;
 	sub_49EE70(pMem2, _this);

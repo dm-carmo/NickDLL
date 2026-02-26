@@ -315,7 +315,7 @@ void __fastcall gre_second_relegation(BYTE* _this)
 	}
 
 	vector<cm3_clubs*> available_clubs;
-	for (int i = 0; i < get_club_count(); i++)
+	for (DWORD i = 0; i < *clubs_count; i++)
 	{
 		cm3_clubs* club = get_club(i);
 		if (club)
@@ -417,16 +417,16 @@ void __declspec(naked) gre_first_update_c()		// used as a __thiscall -> __cdecl 
 }
 
 void gre_restruct_2025() {
-	cm3_nations* greece = find_country("Greece");
-	cm3_club_comps* gre_second = &(*club_comps)[GRE_SECOND_9CF()];
-	cm3_club_comps* gre_second_n = &(*club_comps)[GRE_SECOND_NORTH_9CF()];
+	cm3_nations* greece = get_country(NATION_GREECE_9CF());
+	cm3_club_comps* gre_second = get_comp(GRE_SECOND_9CF());
+	cm3_club_comps* gre_second_n = get_comp(GRE_SECOND_NORTH_9CF());
 	gre_second_n->ClubCompNation = greece;
 	gre_second_n->ClubCompReputation = 8;
-	cm3_club_comps* gre_second_s = &(*club_comps)[GRE_SECOND_SOUTH_9CF()];
+	cm3_club_comps* gre_second_s = get_comp(GRE_SECOND_SOUTH_9CF());
 	gre_second_s->ClubCompNation = greece;
 	gre_second_s->ClubCompReputation = 8;
-	cm3_club_comps* gre_lower = &(*club_comps)[GRE_LOWER_9CF()];
-	cm3_club_comps* swe_lower = &(*club_comps)[SWE_LOWER_9CF()];
+	cm3_club_comps* gre_lower = get_comp(GRE_LOWER_9CF());
+	cm3_club_comps* swe_lower = get_comp(SWE_LOWER_9CF());
 
 	vector<cm3_clubs*> clubs = find_clubs_of_comp(gre_second->ClubCompID);
 	for (cm3_clubs* c : clubs) {

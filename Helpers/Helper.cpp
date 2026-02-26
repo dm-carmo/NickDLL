@@ -103,11 +103,6 @@ cm3_clubs* get_club(DWORD clubID)
 	return (clubID != -1L) ? &(*clubs)[clubID] : NULL;
 }
 
-int get_club_count()
-{
-	return (int)*clubs_count;
-}
-
 BYTE* get_loaded_league(DWORD compID)
 {
 	return (BYTE*)*&(*comp_stats_list)[compID];
@@ -121,6 +116,11 @@ cm3_nations* find_country(const char* szCountry)
 			return &(*nations)[i];
 	}
 	return NULL;
+}
+
+cm3_nations* get_country(DWORD countryID)
+{
+	return (countryID != -1L) ? &(*nations)[countryID] : NULL;
 }
 
 cm3_continents* find_continent(const char* szContinent)
@@ -216,7 +216,7 @@ vector<cm3_clubs*> find_clubs_of_comp_last_division(DWORD comp_id, long nation_i
 vector<cm3_clubs*> find_clubs_of_country(DWORD nation_id)
 {
 	vector<cm3_clubs*> ret;
-	for (DWORD i = 0; i < *clubs_count; i++)
+	for (DWORD i = 0; i < *clubs_count - 2 * *nations_count; i++)
 	{
 		if ((*clubs)[i].ClubNation != NULL && (*clubs)[i].ClubNation->NationID == nation_id && (*clubs)[i].ClubDivision != 0)  // ClubDivision != 0 to stop us getting the national teams
 		{
@@ -236,7 +236,7 @@ vector<cm3_clubs*> find_clubs_of_country(DWORD nation_id)
 vector<cm3_clubs*> find_clubs_of_country_for_euro_playable(DWORD nation_id)
 {
 	vector<cm3_clubs*> ret;
-	for (DWORD i = 0; i < *clubs_count; i++)
+	for (DWORD i = 0; i < *clubs_count - 2 * *nations_count; i++)
 	{
 		if ((*clubs)[i].ClubNation != NULL && (*clubs)[i].ClubNation->NationID == nation_id && (*clubs)[i].ClubDivision != 0)  // ClubDivision != 0 to stop us getting the national teams
 		{
@@ -257,7 +257,7 @@ vector<cm3_clubs*> find_clubs_of_country_for_euro_playable(DWORD nation_id)
 vector<cm3_clubs*> find_clubs_of_country_for_euro(DWORD nation_id)
 {
 	vector<cm3_clubs*> ret;
-	for (DWORD i = 0; i < *clubs_count; i++)
+	for (DWORD i = 0; i < *clubs_count - 2 * *nations_count; i++)
 	{
 		if ((*clubs)[i].ClubNation != NULL && (*clubs)[i].ClubNation->NationID == nation_id && (*clubs)[i].ClubDivision != 0)  // ClubDivision != 0 to stop us getting the national teams
 		{
@@ -348,6 +348,12 @@ bool vector_contains_club(vector<cm3_clubs*>& vec, cm3_clubs* club)
 			return true;
 	}
 	return false;
+}
+
+bool compareClubSeeding(cm3_clubs* c1, cm3_clubs* c2)
+{
+	if(c1->ClubEuroSeeding == c2->ClubEuroSeeding) return (c1->ClubReputation > c2->ClubReputation);
+	return (c1->ClubEuroSeeding > c2->ClubEuroSeeding);
 }
 
 bool compareClubRep(cm3_clubs* c1, cm3_clubs* c2)

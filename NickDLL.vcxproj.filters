@@ -27,9 +27,6 @@
     <ClCompile Include="tiny-json.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="tapani_relegation_patch.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="inject_9cf_rename.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -466,6 +463,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Holland\hol_awards.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="leagues_setup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UEFA\uefa_setup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UEFA\uefa_champions_league.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -933,6 +939,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Holland\hol_awards.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="leagues_setup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UEFA\uefa_setup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UEFA\uefa_champions_league.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -239,6 +239,7 @@
     <ClCompile Include="Japan\jpn_setup.cpp" />
     <ClCompile Include="Japan\jpn_super.cpp" />
     <ClCompile Include="Japan\jpn_third.cpp" />
+    <ClCompile Include="leagues_setup.cpp" />
     <ClCompile Include="NickDLL.cpp" />
     <ClCompile Include="Norway\nor_awards.cpp" />
     <ClCompile Include="Norway\nor_cup.cpp" />
@@ -277,9 +278,10 @@
     <ClCompile Include="Sweden\swe_second.cpp" />
     <ClCompile Include="Sweden\swe_setup.cpp" />
     <ClCompile Include="Sweden\swe_third.cpp" />
-    <ClCompile Include="tapani_relegation_patch.cpp" />
     <ClCompile Include="tiny-json.c" />
     <ClCompile Include="Helpers\YearChanger.cpp" />
+    <ClCompile Include="UEFA\uefa_champions_league.cpp" />
+    <ClCompile Include="UEFA\uefa_setup.cpp" />
     <ClCompile Include="USA\usa_awards.cpp" />
     <ClCompile Include="USA\usa_champ.cpp" />
     <ClCompile Include="USA\usa_cup.cpp" />
@@ -396,6 +398,7 @@
     <ClInclude Include="Japan\jpn_setup.h" />
     <ClInclude Include="Japan\jpn_super.h" />
     <ClInclude Include="Japan\jpn_third.h" />
+    <ClInclude Include="leagues_setup.h" />
     <ClInclude Include="Norway\nor_awards.h" />
     <ClInclude Include="Norway\nor_cup.h" />
     <ClInclude Include="Norway\nor_first.h" />
@@ -437,6 +440,8 @@
     <ClInclude Include="Sweden\swe_setup.h" />
     <ClInclude Include="Sweden\swe_third.h" />
     <ClInclude Include="tiny-json.h" />
+    <ClInclude Include="UEFA\uefa_champions_league.h" />
+    <ClInclude Include="UEFA\uefa_setup.h" />
     <ClInclude Include="USA\usa_awards.h" />
     <ClInclude Include="USA\usa_champ.h" />
     <ClInclude Include="USA\usa_cup.h" />

@@ -77,7 +77,7 @@ void ger_third_subs(BYTE* _this)
 	comp_data->relegations = 4;
 
 	comp_data->promotes_to = GER_SECOND_9CF();
-	BYTE selected = find_country("Germany")->NationLeagueSelected;
+	BYTE selected = get_country(NATION_GERMANY_9CF())->NationLeagueSelected;
 	if ((selected & 4) == 0) {
 		comp_data->relegates_to = -1;
 	}
@@ -390,21 +390,21 @@ void __declspec(naked) ger_third_update_c()		// used as a __thiscall -> __cdecl 
 }
 
 void ger_third_restruct_2025() {
-	cm3_club_comps* ger_regional = &(*club_comps)[GER_REGIONAL_9CF()];
-	ger_regional->ClubCompNation = find_country("Germany");
+	cm3_club_comps* ger_regional = get_comp(GER_REGIONAL_9CF());
+	ger_regional->ClubCompNation = get_country(NATION_GERMANY_9CF());
 	ger_regional->ClubCompContinent = find_continent("Europe");
 	ger_regional->ClubCompReputation = 4;
 
-	cm3_club_comps* ger_third = &(*club_comps)[GER_THIRD_9CF()];
-	cm3_club_comps* ger_reg_n = &(*club_comps)[GER_REGIONAL_NORTH_9CF()];
-	cm3_club_comps* ger_reg_ne = &(*club_comps)[GER_REGIONAL_NORTHEAST_9CF()];
-	cm3_club_comps* ger_reg_w = &(*club_comps)[GER_REGIONAL_WEST_9CF()];
-	cm3_club_comps* ger_reg_sw = &(*club_comps)[GER_REGIONAL_SOUTHWEST_9CF()];
-	cm3_club_comps* ger_reg_bayern = &(*club_comps)[GER_REGIONAL_BAYERN_9CF()];
-	ger_reg_bayern->ClubCompNation = find_country("Germany");
+	cm3_club_comps* ger_third = get_comp(GER_THIRD_9CF());
+	cm3_club_comps* ger_reg_n = get_comp(GER_REGIONAL_NORTH_9CF());
+	cm3_club_comps* ger_reg_ne = get_comp(GER_REGIONAL_NORTHEAST_9CF());
+	cm3_club_comps* ger_reg_w = get_comp(GER_REGIONAL_WEST_9CF());
+	cm3_club_comps* ger_reg_sw = get_comp(GER_REGIONAL_SOUTHWEST_9CF());
+	cm3_club_comps* ger_reg_bayern = get_comp(GER_REGIONAL_BAYERN_9CF());
+	ger_reg_bayern->ClubCompNation = get_country(NATION_GERMANY_9CF());
 	ger_reg_bayern->ClubCompContinent = find_continent("Europe");
 	ger_reg_bayern->ClubCompReputation = 4;
-	cm3_club_comps* a_lower = &(*club_comps)[A_LOWER_9CF()];
+	cm3_club_comps* a_lower = get_comp(A_LOWER_9CF());
 
 	vector<cm3_clubs*> club_list = find_clubs_of_comp(GER_REGIONAL_NORTH_9CF());
 	for (cm3_clubs* c : club_list) {
@@ -622,10 +622,10 @@ void ger_third_restruct_2025() {
 	}
 }
 
-int ger_third_table_indicators(BYTE* _this, DWORD* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int ger_third_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
-	cm3_club_comps* ger_second = &(*club_comps)[GER_SECOND_9CF()];
+	cm3_club_comps* ger_second = get_comp(GER_SECOND_9CF());
 	if (stage == -1) {
 		switch (fate) {
 		case Champions:

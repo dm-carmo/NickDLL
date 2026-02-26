@@ -384,7 +384,7 @@ void __declspec(naked) gre_second_update_c()		// used as a __thiscall -> __cdecl
 	}
 }
 
-int gre_second_table_indicators(BYTE* _this, DWORD* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int gre_second_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage < 1) {

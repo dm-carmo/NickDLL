@@ -93,7 +93,7 @@ void __fastcall fra_national_relegation(BYTE* _this)
 
 	vector<cm3_clubs*> available_clubs;
 
-	for (int i = 0; i < get_club_count(); i++)
+	for (DWORD i = 0; i < *clubs_count; i++)
 	{
 		cm3_clubs* club = get_club(i);
 		if (club)
@@ -509,8 +509,8 @@ void __declspec(naked) fra_first_fixtures_c()		// used as a __thiscall -> __cdec
 }
 
 void fra_restruct_2025() {
-	cm3_club_comps* fra_third = &(*club_comps)[FRA_NATIONAL_9CF()];
-	cm3_club_comps* fra_fourth = &(*club_comps)[FRA_CFA_9CF()];
+	cm3_club_comps* fra_third = get_comp(FRA_NATIONAL_9CF());
+	cm3_club_comps* fra_fourth = get_comp(FRA_CFA_9CF());
 
 	vector<string> d3_clubs = {
 		"SM Caen",
@@ -644,12 +644,12 @@ void __declspec(naked) fra_first_playoffs_create()		// used as a __thiscall -> _
 	}
 }
 
-int fra_first_table_indicators(BYTE* _this, DWORD* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int fra_first_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == 0) {
 		cm3_clubs* club_ptr = (cm3_clubs*)club;
-		cm3_club_comps* fra_second = &(*club_comps)[FRA_SECOND_9CF()];
+		cm3_club_comps* fra_second = get_comp(FRA_SECOND_9CF());
 		if (club_ptr->ClubDivision == fra_second) {
 			comp_stats* fra_second_data = (comp_stats*)get_loaded_league(FRA_SECOND_9CF());
 			WORD num_teams = fra_second_data->n_teams;
@@ -659,8 +659,7 @@ int fra_first_table_indicators(BYTE* _this, DWORD* club, BYTE fate, char stage, 
 			BYTE* rounds = stage_data->rounds_list;
 			WORD current_round = *(WORD*)(round_data + 0x34);
 			for (int i = 0; i < num_teams; i++) {
-				DWORD* c = (DWORD*)table[i].club;
-				if (c != club) continue;
+					if (table[i].club != club) continue;
 				switch (fate) {
 				case TopPlayoff:
 					staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)fra_second, 0x32);
@@ -685,8 +684,7 @@ int fra_first_table_indicators(BYTE* _this, DWORD* club, BYTE fate, char stage, 
 			BYTE* rounds = stage_data->rounds_list;
 			WORD current_round = *(WORD*)(round_data + 0x34);
 			for (int i = 0; i < num_teams; i++) {
-				DWORD* c = (DWORD*)table[i].club;
-				if (c != club) continue;
+					if (table[i].club != club) continue;
 				switch (fate) {
 				case BottomPlayoff:
 					staff_history_relegated_86A1C0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));

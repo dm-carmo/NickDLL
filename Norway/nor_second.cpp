@@ -77,7 +77,7 @@ void nor_second_subs(BYTE* _this)
 	comp_data->relegations = 3;
 
 	comp_data->promotes_to = NOR_FIRST_9CF();
-	BYTE selected = find_country("Norway")->NationLeagueSelected;
+	BYTE selected = get_country(NATION_NORWAY_9CF())->NationLeagueSelected;
 	if ((selected & 4) == 0) {
 		comp_data->relegates_to = -1;
 	}
@@ -456,10 +456,10 @@ void __declspec(naked) nor_second_playoffs_create_c()		// used as a __thiscall -
 	}
 }
 
-int nor_second_table_indicators(BYTE* _this, DWORD* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int nor_second_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
-	cm3_club_comps* nor_first = &(*club_comps)[NOR_FIRST_9CF()];
+	cm3_club_comps* nor_first = get_comp(NOR_FIRST_9CF());
 	if (stage < 1) {
 		switch (fate) {
 		case Champions:
@@ -498,8 +498,7 @@ int nor_second_table_indicators(BYTE* _this, DWORD* club, char fate, char stage,
 			}
 			team_league_stats* table = (team_league_stats*)(curr_stage->team_league_table);
 			for (int i = 0; i < num_teams; i++) {
-				DWORD* c = (DWORD*)table[i].club;
-				if (c != club) continue;
+					if (table[i].club != club) continue;
 				switch (fate) {
 				case TopPlayoff:
 					staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)nor_first, None, Playoff, 0xF);

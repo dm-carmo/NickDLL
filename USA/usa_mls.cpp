@@ -152,14 +152,8 @@ int usa_mls_add_teams(BYTE* _this)
 	if (all_teams) sub_9452CA_free(all_teams);
 
 	// Count the number of teams first, as the code really expects us to know up front
-	WORD numberOfLeagueTeams = CountNumberOfTeamsInComp(CompID);
-	comp_data->teams2 = (DWORD*)sub_944E46_malloc(numberOfLeagueTeams * 4);
-	vector<cm3_clubs*> mls_clubs;
-	for (DWORD i = 0; i < *clubs_count; i++)
-	{
-		cm3_clubs* club = &(*clubs)[i];
-		if (club->ClubDivision && club->ClubDivision->ClubCompID == CompID) mls_clubs.push_back(club);
-	}
+	vector<cm3_clubs*> mls_clubs = find_clubs_of_comp(comp_data->competition_db->ClubCompID);
+	comp_data->teams2 = (DWORD*)sub_944E46_malloc(mls_clubs.size() * 4);
 	sort(mls_clubs.begin(), mls_clubs.end(), compareClubLongitude);
 	for (DWORD i = 0; i < mls_clubs.size(); i++)
 	{
@@ -363,12 +357,12 @@ void __declspec(naked) usa_mls_fixtures_c()		// used as a __thiscall -> __cdecl 
 }
 
 void usa_restruct_2025() {
-	cm3_club_comps* usa_mls = &(*club_comps)[USA_MLS_9CF()];
-	cm3_club_comps* usa_champ = &(*club_comps)[USA_SECOND_9CF()];
+	cm3_club_comps* usa_mls = get_comp(USA_MLS_9CF());
+	cm3_club_comps* usa_champ = get_comp(USA_SECOND_9CF());
 	usa_champ->ClubCompReputation = 7;
-	cm3_club_comps* usa_l1 = &(*club_comps)[USA_THIRD_9CF()];
+	cm3_club_comps* usa_l1 = get_comp(USA_THIRD_9CF());
 	usa_l1->ClubCompReputation = 6;
-	cm3_club_comps* a_lower = &(*club_comps)[A_LOWER_9CF()];
+	cm3_club_comps* a_lower = get_comp(A_LOWER_9CF());
 
 	vector<cm3_clubs*> club_list = find_clubs_of_comp(USA_MLS_9CF());
 
@@ -483,7 +477,7 @@ void __declspec(naked) usa_mls_update_c()		// used as a __thiscall -> __cdecl co
 	}
 }
 
-int usa_mls_set_fates(BYTE* _this, DWORD* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int usa_mls_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage < 1) {
@@ -521,8 +515,7 @@ int usa_mls_set_fates(BYTE* _this, DWORD* club, char fate, char stage, BYTE* a5,
 			}
 			team_league_stats* table = (team_league_stats*)(curr_stage->team_league_table);
 			for (int i = 0; i < num_teams; i++) {
-				DWORD* c = (DWORD*)table[i].club;
-				if (c != club) continue;
+					if (table[i].club != club) continue;
 				switch (fate) {
 				case TopPlayoff:
 					staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, SecondRound, 0x1E);
@@ -556,8 +549,7 @@ int usa_mls_set_fates(BYTE* _this, DWORD* club, char fate, char stage, BYTE* a5,
 			}
 			team_league_stats* table = (team_league_stats*)(curr_stage->team_league_table);
 			for (int i = 0; i < num_teams; i++) {
-				DWORD* c = (DWORD*)table[i].club;
-				if (c != club) continue;
+					if (table[i].club != club) continue;
 				switch (fate) {
 				case TopPlayoff:
 					staff_history_champion_868C50(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));

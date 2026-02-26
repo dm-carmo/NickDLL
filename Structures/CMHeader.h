@@ -77,6 +77,10 @@ enum RoundNames : WORD {
 	MetropolitanZone = 0x437,
 	Promotion = 0x438,
 	Periods1to4 = 0x439,
+	Phase1GroupAtoH = 0x43D,
+	Phase2GroupAtoD = 0x445,
+	Phase1 = 0x449,
+	Phase2 = 0x44A,
 	ChampionshipGroup = 0x44B,
 	RelegationGroup = 0x44C,
 	PromotionGroupAtoD = 0x44D,
@@ -614,14 +618,14 @@ struct cm3_staff_comp_history
 #pragma pack(pop)
 
 #pragma pack(push, 1)
-typedef struct comp
+typedef struct COMP_STATS
 {
 	DWORD* comp_vtable;								//0
 	CM3_CLUB_COMPS* competition_db;					//4	
 	DWORD* f8;										//8
 	DWORD* stages;									//12
 	DWORD f16;										//16
-	DWORD* special_teems_seedings;					//20
+	DWORD* special_teams_seedings;					//20
 	DWORD f24;										//24
 	long promotes_to;								//28
 	long relegates_to;								//32
@@ -728,6 +732,76 @@ typedef struct TEAM_LEAGUE_STATS
 } team_league_stats;
 #pragma pack(pop)
 
+#pragma pack(push, 1)
+typedef struct PLAYABLE_NATION_DATA
+{
+	cm3_nations* nation; // B63D60
+	cm3_continents* continent; // B63D64
+	DWORD setup_function_addr; // B63D68
+	DWORD num_of_comps; // B63D6C
+	DWORD comps_list; // B63D70
+	BYTE d; // B63D74
+	WORD update_day; // B63D75
+	DWORD updates_in_june; // B63D77
+	WORD update_year; // B63D7B
+	BYTE f29; // B63D7D
+	cm3_club_comps* main_cup; // B63D7E
+	cm3_club_comps* league_cup; // B63D82
+	cm3_club_comps* super_cup; // B63D86
+	BYTE start_date[8]; // B63D8A
+	WORD contract_start_day; // B63D92
+	BYTE contract_start_month; // B63D94
+	WORD contract_start_year; // B63D95
+	WORD f55; // B63D97
+	BYTE end_date[8]; // B63D99
+	WORD contract_end_day; // B63DA1
+	BYTE contract_end_month; // B63DA3
+	WORD contract_end_year; // B63DA4
+	WORD f70; // B63DA6
+
+	PLAYABLE_NATION_DATA()
+	{
+		nation = 0;
+		continent = 0;
+		setup_function_addr = 0;
+		num_of_comps = 0;
+		comps_list = 0;
+		d = 0;
+		update_day = 0;
+		updates_in_june = 0;
+		update_year = 0;
+		f29 = 0;
+		main_cup = 0;
+		league_cup = 0;
+		super_cup = 0;
+		for (int i = 0; i < 8; i++) start_date[i] = 0;
+		contract_start_day = 0;
+		contract_start_month = 0;
+		contract_start_year = 0;
+		f55 = 0;
+		for (int i = 0; i < 8; i++) end_date[i] = 0;
+		contract_end_day = 0;
+		contract_end_month = 0;
+		contract_end_year = 0;
+		f70 = 0;
+	}
+} playable_nation_data;
+#pragma pack(pop)
+
+#pragma pack(push, 1)
+typedef struct UEFA_SEEDINGS
+{
+	DWORD id;
+	cm3_nations* nation;
+	float coefficient;
+	BYTE ucl_spots;
+	BYTE uel_spots;
+	BYTE uecl_spots;
+	WORD current_year_points;
+	BYTE num_teams_in_comps;
+} uefa_seedings;
+#pragma pack(pop)
+
 enum LeagueFates : char {
 	Promoted = 0,
 	TopPlayoff = 1,
@@ -776,9 +850,14 @@ extern WORD* current_year;
 extern DWORD* staff_history;
 extern DWORD* dd6ec8;
 
-extern BYTE* playable_leagues_table;
+extern const DWORD pnd_count;
+extern playable_nation_data* pnd_list; //0xB63D60
+extern BYTE* pnd_order;
+
+extern uefa_seedings** uefa_seeding_list;
 
 extern DWORD* b74340;
 extern DWORD* b67a44;
 extern DWORD* ae1050;
 extern DWORD* ad9c60;
+extern DWORD* ae2a38;

@@ -463,7 +463,7 @@ void __declspec(naked) bra_third_playoffs_create_c()		// used as a __thiscall ->
 	}
 }
 
-int bra_third_set_fates(BYTE* _this, DWORD* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int bra_third_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == -1) {
@@ -492,8 +492,7 @@ int bra_third_set_fates(BYTE* _this, DWORD* club, char fate, char stage, BYTE* a
 		if (num_teams <= 0) return 0;
 		team_league_stats* table = (team_league_stats*)(comp_data->team_league_table);
 		for (int i = 0; i < num_teams; i++) {
-			DWORD* c = (DWORD*)table[i].club;
-			if (c != club) continue;
+			if (table[i].club != club) continue;
 			switch (fate) {
 			case Champions:
 				staff_history_champion_868C50(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));
@@ -526,8 +525,7 @@ int bra_third_set_fates(BYTE* _this, DWORD* club, char fate, char stage, BYTE* a
 		WORD current_round = *(WORD*)(round_data + 0x34);
 		team_league_stats* table = (team_league_stats*)(comp_data->team_league_table);
 		for (int i = 0; i < num_teams; i++) {
-			DWORD* c = (DWORD*)table[i].club;
-			if (c != club) continue;
+			if (table[i].club != club) continue;
 			switch (fate) {
 			case TopPlayoff:
 				staff_history_champion_868C50(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));
@@ -555,8 +553,7 @@ int bra_third_set_fates(BYTE* _this, DWORD* club, char fate, char stage, BYTE* a
 			curr_stage = (comp_stats*)(comp_data->stages[al]);
 			team_league_stats* table = (team_league_stats*)(curr_stage->team_league_table);
 			for (int i = 0; i < num_teams; i++) {
-				DWORD* c = (DWORD*)table[i].club;
-				if (c != club) continue;
+					if (table[i].club != club) continue;
 				switch (fate) {
 				case TopPlayoff:
 					table[i].league_fate = Champions;

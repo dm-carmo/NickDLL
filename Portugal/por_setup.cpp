@@ -16,64 +16,64 @@ static DWORD(__thiscall* por_cup_setup)(BYTE* _this, WORD year, cm3_club_comps* 
 static DWORD(__thiscall* por_super_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
 (DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x7D2E40);
 
-DWORD por_setup_c(BYTE* nation_data) {
+DWORD por_setup_c(playable_nation_data* nation_data) {
 	// contract start date?
-	*(WORD*)(nation_data + 0x32) = 1;
-	*(BYTE*)(nation_data + 0x34) = August;
-	*(WORD*)(nation_data + 0x35) = *current_year;
-	*(WORD*)(nation_data + 0x37) = 6;
+	nation_data->contract_start_day = 1;
+	nation_data->contract_start_month = August;
+	nation_data->contract_start_year = *current_year;
+	nation_data->f55 = 6;
 	// contract end date?
-	*(WORD*)(nation_data + 0x41) = 10;
-	*(BYTE*)(nation_data + 0x43) = June;
-	*(WORD*)(nation_data + 0x44) = *current_year + 1;
-	*(WORD*)(nation_data + 0x46) = 6;
-	BYTE selected = ((cm3_nations*)*(DWORD*)(nation_data))->NationLeagueSelected;
+	nation_data->contract_end_day = 10;
+	nation_data->contract_end_month = June;
+	nation_data->contract_end_year = *current_year + 1;
+	nation_data->f70 = 6;
+	BYTE selected = nation_data->nation->NationLeagueSelected;
 	if ((selected & 4) == 0) {
-		*(DWORD*)(nation_data + 0xc) = 6;
+		nation_data->num_of_comps = 6;
 	}
 	else {
-		*(DWORD*)(nation_data + 0xc) = 7;
+		nation_data->num_of_comps = 7;
 	}
-	DWORD* nation_comps = (DWORD*)sub_944E46_malloc(*(DWORD*)(nation_data + 0xc) * 4);
-	*(DWORD*)(nation_data + 0x10) = (DWORD)nation_comps;
+	DWORD* nation_comps = (DWORD*)sub_944E46_malloc(nation_data->num_of_comps * 4);
+	nation_data->comps_list = (DWORD)nation_comps;
 	// start calling each league's functions
 	BYTE i = 0;
 	// Liga 1
 	BYTE* pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
-	por_first_init(pMem, *current_year, &(*club_comps)[POR_FIRST_9CF()]);
+	por_first_init(pMem, *current_year, get_comp(POR_FIRST_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Liga 2
 	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
-	por_second_init(pMem, *current_year, &(*club_comps)[POR_SECOND_9CF()]);
+	por_second_init(pMem, *current_year, get_comp(POR_SECOND_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Liga 3
 	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
-	por_third_init(pMem, *current_year, &(*club_comps)[POR_THIRD_9CF()]);
+	por_third_init(pMem, *current_year, get_comp(POR_THIRD_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	if ((selected & 4) != 0) {
 		// Campeonato de Portugal
 		pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
-		por_fourth_init(pMem, *current_year, &(*club_comps)[POR_FOURTH_9CF()]);
+		por_fourth_init(pMem, *current_year, get_comp(POR_FOURTH_9CF()));
 		nation_comps[i++] = (DWORD)pMem;
 	}
 	// Cup
 	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
-	por_cup_setup(pMem, *current_year, &(*club_comps)[POR_CUP_9CF()]);
+	por_cup_setup(pMem, *current_year, get_comp(POR_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// League Cup
 	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
-	por_league_cup_init(pMem, *current_year, &(*club_comps)[POR_LEAGUE_CUP_9CF()]);
+	por_league_cup_init(pMem, *current_year, get_comp(POR_LEAGUE_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Super Cup
 	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
-	por_super_setup(pMem, *current_year, &(*club_comps)[POR_SUPER_CUP_9CF()]);
+	por_super_setup(pMem, *current_year, get_comp(POR_SUPER_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	BYTE* cm_date = new BYTE[8];
 	convert_to_cm_date(cm_date, 20, June, 2025, (DWORD*)-1);
-	*(WORD*)(nation_data + 0x15) = *(WORD*)cm_date;
-	*(WORD*)(nation_data + 0x1B) = *current_year;
-	*(BYTE*)(nation_data + 0x1D) = 1;
-	*(DWORD*)(nation_data + 0x26) = (DWORD) & (*club_comps)[POR_SUPER_CUP_9CF()];
+	nation_data->update_day = *(WORD*)cm_date;
+	nation_data->update_year = *current_year;
+	nation_data->f29 = 1;
+	nation_data->super_cup = get_comp(POR_SUPER_CUP_9CF());
 	return 1;
 }
 

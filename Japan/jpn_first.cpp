@@ -101,7 +101,7 @@ void __fastcall jpn_jfl_relegation(BYTE* _this)
 
 	vector<cm3_clubs*> available_clubs;
 
-	for (int i = 0; i < get_club_count(); i++)
+	for (DWORD i = 0; i < *clubs_count; i++)
 	{
 		cm3_clubs* club = get_club(i);
 		if (club)
@@ -450,11 +450,11 @@ void __declspec(naked) jpn_first_fixtures_c()		// used as a __thiscall -> __cdec
 }
 
 void japan_restruct_2025() {
-	cm3_club_comps* jpn_first = &(*club_comps)[JPN_FIRST_9CF()];
-	cm3_club_comps* jpn_second = &(*club_comps)[JPN_SECOND_9CF()];
-	cm3_club_comps* jpn_third = &(*club_comps)[JPN_THIRD_9CF()];
-	cm3_club_comps* jpn_jfl = &(*club_comps)[JPN_JFL_9CF()];
-	cm3_club_comps* jpn_reg = &(*club_comps)[JPN_REGIONAL_9CF()];
+	cm3_club_comps* jpn_first = get_comp(JPN_FIRST_9CF());
+	cm3_club_comps* jpn_second = get_comp(JPN_SECOND_9CF());
+	cm3_club_comps* jpn_third = get_comp(JPN_THIRD_9CF());
+	cm3_club_comps* jpn_jfl = get_comp(JPN_JFL_9CF());
+	cm3_club_comps* jpn_reg = get_comp(JPN_REGIONAL_9CF());
 
 	cm3_clubs* morioka = find_club("Morioka Zejpn");
 	if (morioka) {

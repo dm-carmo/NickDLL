@@ -264,7 +264,7 @@ void fin_second_subs(BYTE* _this)
 	comp_data->relegations = 2;
 
 	comp_data->promotes_to = FIN_FIRST_9CF();
-	BYTE selected = find_country("Finland")->NationLeagueSelected;
+	BYTE selected = get_country(NATION_FINLAND_9CF())->NationLeagueSelected;
 	if ((selected & 4) == 0) {
 		comp_data->relegates_to = -1;
 	}
@@ -425,10 +425,10 @@ void __declspec(naked) fin_second_table_split_c()		// used as a __thiscall -> __
 	}
 }
 
-int fin_second_table_indicators(BYTE* _this, DWORD* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int fin_second_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
-	cm3_club_comps* fin_first = &(*club_comps)[FIN_FIRST_9CF()];
+	cm3_club_comps* fin_first = get_comp(FIN_FIRST_9CF());
 	if (stage == -1) {
 		switch (fate) {
 		case Champions:

@@ -240,7 +240,7 @@ void nor_third_setup_groups(BYTE* _this, BYTE idx) {
 	data->current_stage = idx;
 }
 
-int nor_third_table_indicators(BYTE* _this, DWORD* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int nor_third_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage < 5) {

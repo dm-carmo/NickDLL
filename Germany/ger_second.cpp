@@ -422,13 +422,13 @@ void __declspec(naked) ger_second_playoffs_create()		// used as a __thiscall -> 
 	}
 }
 
-int ger_second_table_indicators(BYTE* _this, DWORD* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int ger_second_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
-	cm3_club_comps* ger_first = &(*club_comps)[GER_FIRST_9CF()];
+	cm3_club_comps* ger_first = get_comp(GER_FIRST_9CF());
 	if (stage == 0) {
 		cm3_clubs* club_ptr = (cm3_clubs*)club;
-		cm3_club_comps* ger_third = &(*club_comps)[GER_THIRD_9CF()];
+		cm3_club_comps* ger_third = get_comp(GER_THIRD_9CF());
 		if (club_ptr->ClubDivision == ger_third) {
 			comp_stats* ger_third_data = (comp_stats*)get_loaded_league(GER_THIRD_9CF());
 			WORD num_teams = ger_third_data->n_teams;
@@ -438,8 +438,7 @@ int ger_second_table_indicators(BYTE* _this, DWORD* club, BYTE fate, char stage,
 			BYTE* rounds = stage_data->rounds_list;
 			WORD current_round = *(WORD*)(round_data + 0x34);
 			for (int i = 0; i < num_teams; i++) {
-				DWORD* c = (DWORD*)table[i].club;
-				if (c != club) continue;
+					if (table[i].club != club) continue;
 				switch (fate) {
 				case TopPlayoff:
 					staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)ger_third, 0x32);
@@ -464,8 +463,7 @@ int ger_second_table_indicators(BYTE* _this, DWORD* club, BYTE fate, char stage,
 			BYTE* rounds = stage_data->rounds_list;
 			WORD current_round = *(WORD*)(round_data + 0x34);
 			for (int i = 0; i < num_teams; i++) {
-				DWORD* c = (DWORD*)table[i].club;
-				if (c != club) continue;
+					if (table[i].club != club) continue;
 				switch (fate) {
 				case BottomPlayoff:
 					staff_history_relegated_86A1C0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));

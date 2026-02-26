@@ -164,19 +164,12 @@ void __declspec(naked) usa_champ_set_champion_c()		// used as a __thiscall -> __
 int usa_champ_add_teams(BYTE* _this)
 {
 	comp_stats* comp_data = (comp_stats*)_this;
-	DWORD CompID = comp_data->competition_db->ClubCompID;
 	DWORD* all_teams = comp_data->teams2;
 	if (all_teams) sub_9452CA_free(all_teams);
 
 	// Count the number of teams first, as the code really expects us to know up front
-	WORD numberOfLeagueTeams = CountNumberOfTeamsInComp(CompID);
-	comp_data->teams2 = (DWORD*)sub_944E46_malloc(numberOfLeagueTeams * 4);
-	vector<cm3_clubs*> champ_clubs;
-	for (DWORD i = 0; i < *clubs_count; i++)
-	{
-		cm3_clubs* club = &(*clubs)[i];
-		if (club->ClubDivision && club->ClubDivision->ClubCompID == CompID) champ_clubs.push_back(club);
-	}
+	vector<cm3_clubs*> champ_clubs = find_clubs_of_comp(comp_data->competition_db->ClubCompID);
+	comp_data->teams2 = (DWORD*)sub_944E46_malloc(champ_clubs.size() * 4);
 	sort(champ_clubs.begin(), champ_clubs.end(), compareClubLongitude);
 	for (DWORD i = 0; i < champ_clubs.size(); i++)
 	{
@@ -413,7 +406,7 @@ void __declspec(naked) usa_champ_update_c()		// used as a __thiscall -> __cdecl 
 	}
 }
 
-int usa_champ_set_fates(BYTE* _this, DWORD* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int usa_champ_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage < 1) {
@@ -451,8 +444,7 @@ int usa_champ_set_fates(BYTE* _this, DWORD* club, char fate, char stage, BYTE* a
 			}
 			team_league_stats* table = (team_league_stats*)(curr_stage->team_league_table);
 			for (int i = 0; i < num_teams; i++) {
-				DWORD* c = (DWORD*)table[i].club;
-				if (c != club) continue;
+					if (table[i].club != club) continue;
 				switch (fate) {
 				case TopPlayoff:
 					staff_history_champion_868C50(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));

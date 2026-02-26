@@ -335,7 +335,7 @@ void __fastcall den_third_relegation(BYTE* _this)
 	}
 
 	vector<cm3_clubs*> available_clubs;
-	for (int i = 0; i < get_club_count(); i++)
+	for (DWORD i = 0; i < *clubs_count; i++)
 	{
 		cm3_clubs* club = get_club(i);
 		if (club)
@@ -433,10 +433,10 @@ void __declspec(naked) den_premier_update_c()		// used as a __thiscall -> __cdec
 }
 
 void den_restruct_2025() {
-	cm3_club_comps* den_second = &(*club_comps)[DEN_SECOND_9CF()];
-	cm3_club_comps* den_third = &(*club_comps)[DEN_THIRD_9CF()];
-	cm3_club_comps* a_lower = &(*club_comps)[A_LOWER_9CF()];
-	cm3_club_comps* reserve = &(*club_comps)[RESERVE_9CF()];
+	cm3_club_comps* den_second = get_comp(DEN_SECOND_9CF());
+	cm3_club_comps* den_third = get_comp(DEN_THIRD_9CF());
+	cm3_club_comps* a_lower = get_comp(A_LOWER_9CF());
+	cm3_club_comps* reserve = get_comp(RESERVE_9CF());
 
 	vector<string> d2_clubs = {
 		"FC Helsingør",

@@ -6,7 +6,7 @@
 
 enum VTablePointers {
 	VTableInitFree = 1, // Some kind of init/free, called when loading and saving I think
-	VTable2 = 2,
+	VTable2 = 2, // Used in Champions League, gives out money for each win/draw in the group stage
 	VTableEoSUpdate = 3, // End of season competition update
 	VTable4 = 4,
 	VTable5 = 5,
@@ -19,7 +19,7 @@ enum VTablePointers {
 	VTable12 = 12,
 	VTableSetChampion = 13, // Called when competition finishes, creates history entry with winner
 	VTable14 = 14,
-	VTable15 = 15,
+	VTable15 = 15, // Text that shows in "Competitions" club page (Winners, round they were eliminated in, etc)
 	VTableFixtures = 16, // Creates fixtures for the competition
 	VTable17 = 17,
 	VTableTableFates = 18, // Sets table information (champions, promoted etc)

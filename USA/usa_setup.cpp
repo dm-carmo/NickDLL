@@ -10,44 +10,44 @@
 static DWORD(__thiscall* usa_cup_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
 (DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x90AEB0);
 
-DWORD usa_setup_c(BYTE* nation_data) {
+DWORD usa_setup_c(playable_nation_data* nation_data) {
 	BYTE* start_date = new BYTE[8];
 	sub_54C770((BYTE*)dd6ec8, start_date, 4);
 	WORD start_year = *(WORD*)(start_date + 2);
 	// contract start date?
-	*(WORD*)(nation_data + 0x32) = 14;
-	*(BYTE*)(nation_data + 0x34) = February;
-	*(WORD*)(nation_data + 0x35) = start_year;
-	*(WORD*)(nation_data + 0x37) = 5;
+	nation_data->contract_start_day = 14;
+	nation_data->contract_start_month = February;
+	nation_data->contract_start_year = start_year;
+	nation_data->f55 = 5;
 	// contract end date?
-	*(WORD*)(nation_data + 0x41) = 16;
-	*(BYTE*)(nation_data + 0x43) = December;
-	*(WORD*)(nation_data + 0x44) = start_year;
-	*(WORD*)(nation_data + 0x46) = 2;
-	*(DWORD*)(nation_data + 0xc) = 3;
-	DWORD* nation_comps = (DWORD*)sub_944E46_malloc(*(DWORD*)(nation_data + 0xc) * 4);
-	*(DWORD*)(nation_data + 0x10) = (DWORD)nation_comps;
+	nation_data->contract_end_day = 16;
+	nation_data->contract_end_month = December;
+	nation_data->contract_end_year = start_year;
+	nation_data->f70 = 2;
+	nation_data->num_of_comps = 3;
+	DWORD* nation_comps = (DWORD*)sub_944E46_malloc(nation_data->num_of_comps * 4);
+	nation_data->comps_list = (DWORD)nation_comps;
 	// start calling each league's functions
 	BYTE i = 0;
 	// MLS
 	BYTE* pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
-	usa_mls_init(pMem, start_year, &(*club_comps)[USA_MLS_9CF()]);
+	usa_mls_init(pMem, start_year, get_comp(USA_MLS_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Championship
 	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
-	usa_champ_init(pMem, start_year, &(*club_comps)[USA_SECOND_9CF()]);
+	usa_champ_init(pMem, start_year, get_comp(USA_SECOND_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Cup
 	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
-	usa_cup_setup(pMem, start_year, &(*club_comps)[USA_OPEN_CUP_9CF()]);
+	usa_cup_setup(pMem, start_year, get_comp(USA_OPEN_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
 	BYTE* cm_date = new BYTE[8];
 	convert_to_cm_date(cm_date, 1, January, 2025, (DWORD*)-1);
-	*(WORD*)(nation_data + 0x15) = *(WORD*)cm_date;
-	*(WORD*)(nation_data + 0x1B) = start_year;
-	*(BYTE*)(nation_data + 0x1D) = 1;
-	*(DWORD*)(nation_data + 0x26) = 0;
+	nation_data->update_day = *(WORD*)cm_date;
+	nation_data->update_year = start_year;
+	nation_data->f29 = 1;
+	nation_data->super_cup = 0;
 	return 1;
 }
 
