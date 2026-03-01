@@ -927,13 +927,12 @@ int por_first_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char sta
 	if (stage == 0) {
 		cm3_clubs* club_ptr = (cm3_clubs*)club;
 		cm3_club_comps* por_second = get_comp(POR_SECOND_9CF());
+		BYTE* rounds = ((comp_stats*)(comp_data->stages[stage]))->rounds_list;
 		if (club_ptr->ClubDivision == por_second) {
 			comp_stats* por_second_data = (comp_stats*)get_loaded_league(POR_SECOND_9CF());
 			WORD num_teams = por_second_data->n_teams;
 			if (num_teams <= 0) return 0;
 			team_league_stats* table = (team_league_stats*)(por_second_data->team_league_table);
-			comp_stats* stage_data = (comp_stats*)(comp_data->stages[stage]);
-			BYTE* rounds = stage_data->rounds_list;
 			WORD current_round = *(WORD*)(round_data + 0x34);
 			for (int i = 0; i < num_teams; i++) {
 					if (table[i].club != club) continue;
@@ -957,8 +956,6 @@ int por_first_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char sta
 			WORD num_teams = comp_data->n_teams;
 			if (num_teams <= 0) return 0;
 			team_league_stats* table = (team_league_stats*)(comp_data->team_league_table);
-			comp_stats* stage_data = (comp_stats*)(comp_data->stages[stage]);
-			BYTE* rounds = stage_data->rounds_list;
 			WORD current_round = *(WORD*)(round_data + 0x34);
 			for (int i = 0; i < num_teams; i++) {
 					if (table[i].club != club) continue;

@@ -1,9 +1,12 @@
 #include <windows.h>
+#include <map>
 #include "Structures\CMHeader.h"
 #include "Helpers\generic_functions.h"
 #include "Structures\vtable.h"
 #include "Helpers\constants.h"
 #include <Helpers\9cf_constants.h>
+
+using namespace std;
 
 DWORD* gre_cup_vtable = (DWORD*)0x96B4B4;
 
@@ -395,8 +398,7 @@ int gre_cup_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE*
 	else if (stage == 4) {
 		WORD num_teams = comp_data->n_teams;
 		if (num_teams <= 0) return 0;
-		comp_stats* stage_data = (comp_stats*)(comp_data->stages[stage]);
-		BYTE* rounds = stage_data->rounds_list;
+		BYTE* rounds = ((comp_stats*)(comp_data->stages[stage]))->rounds_list;
 		WORD current_round = *(WORD*)(round_data + 0x34);
 		switch (fate) {
 		case TopPlayoff:
@@ -486,6 +488,12 @@ void __declspec(naked) gre_cup_reputation_setup_c()		// used as a __thiscall -> 
 	}
 }
 
+map<char, char> gre_cup_mappings = {
+	{1,13},
+	{13,21},
+	{25,33},
+};
+
 void gre_cup_reputation_calc(BYTE* _this, BYTE* club, char stage, char current, char min, char max) {
 	comp_stats* comp_data = (comp_stats*)_this;
 	BYTE* ret = (BYTE*)sub_4A4850((BYTE*)comp_data->f8, club);
@@ -494,22 +502,21 @@ void gre_cup_reputation_calc(BYTE* _this, BYTE* club, char stage, char current, 
 	char ret_min = min;
 	char ret_max = max;
 	if (stage == -1) {
-		ret_current = (char)pow(2, current + 5) + 1;
-		ret_min = (char)pow(2, min + 5) + 1;
-		ret_max = (char)pow(2, max + 5) + 1;
+		ret_current = gre_cup_mappings[current];
+		if (ret_min != 1) ret_min = gre_cup_mappings[min];
+		ret_max = gre_cup_mappings[max];
 	}
 	else if (stage < 4) {
 		ret_current = 1 + 4 * (current - 1);
-		ret_min = 1 + 4 * (min - 1);
-		ret_max = 1 + 4 * (max - 1);
+		if (min < 2) ret_min = 1;
+		else ret_min = 1 + 4 * (min - 1);
+		if (max < 2) ret_max = 5;
+		else if (max < 4) ret_max = 9;
+		else ret_max = 1 + 4 * (max - 1);
+		if (ret_current > ret_max) ret_current = ret_max;
 	}
 	else if (stage == 4) {
-		if (current < 4) ret_current = current;
-		else ret_current = (char)pow(2, current - 2) + 1;
-		if (min < 4) ret_min = min;
-		else ret_min = (char)pow(2, min - 2) + 1;
-		if (max < 4) ret_max = max;
-		else ret_max = (char)pow(2, max - 2) + 1;
+		// do nothing
 	}
 	ret[0x73] = ret_current;
 	ret[0x74] = ret_min;

@@ -141,16 +141,14 @@ void bra_fourth_reputation_calc(BYTE* _this, BYTE* club, char stage, char curren
 	char ret_max = max;
 	if (stage < 7) {
 		ret_current = 1 + 8 * (current - 1);
-		ret_min = 1 + 8 * (min - 1);
-		ret_max = 1 + 8 * (max - 1);
+		if (min < 5) ret_min = 1;
+		else ret_min = 1 + 8 * (min - 1);
+		if (max < 5) ret_max = 17;
+		else ret_max = 1 + 8 * (max - 1);
+		if (ret_current > ret_max) ret_current = ret_max;
 	}
 	else if (stage == 7) {
-		if (current < 4) ret_current = current;
-		else ret_current = (char)pow(2, current - 2) + 1;
-		if (min < 4) ret_min = min;
-		else ret_min = (char)pow(2, min - 2) + 1;
-		if (max < 4) ret_max = max;
-		else ret_max = (char)pow(2, max - 2) + 1;
+		// do nothing
 	}
 	ret[0x73] = ret_current;
 	ret[0x74] = ret_min;
@@ -414,8 +412,7 @@ int bra_fourth_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BY
 	else if (stage == 7) {
 		WORD num_teams = comp_data->n_teams;
 		if (num_teams <= 0) return 0;
-		comp_stats* stage_data = (comp_stats*)(comp_data->stages[stage]);
-		BYTE* rounds = stage_data->rounds_list;
+		BYTE* rounds = ((comp_stats*)(comp_data->stages[stage]))->rounds_list;
 		WORD current_round = *(WORD*)(round_data + 0x34);
 		team_league_stats* table = (team_league_stats*)(comp_data->team_league_table);
 
@@ -426,7 +423,7 @@ int bra_fourth_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BY
 			}
 			team_league_stats* table = (team_league_stats*)(curr_stage->team_league_table);
 			for (int i = 0; i < num_teams; i++) {
-					if (table[i].club != club) continue;
+				if (table[i].club != club) continue;
 				switch (fate) {
 				case TopPlayoff:
 					staff_history_champion_868C50(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));

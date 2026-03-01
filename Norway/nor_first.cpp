@@ -431,8 +431,7 @@ int nor_first_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char sta
 		WORD num_teams = comp_data->n_teams;
 		if (num_teams <= 0) return 0;
 		team_league_stats* table = (team_league_stats*)(comp_data->team_league_table);
-		comp_stats* stage_data = (comp_stats*)(comp_data->stages[stage]);
-		BYTE* rounds = stage_data->rounds_list;
+		BYTE* rounds = ((comp_stats*)(comp_data->stages[stage]))->rounds_list;
 		WORD current_round = *(WORD*)(round_data + 0x34);
 		for (int i = 0; i < num_teams; i++) {
 			if (table[i].club != club) continue;
@@ -456,11 +455,9 @@ int nor_first_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char sta
 	else if (stage == 1) {
 		cm3_clubs* club_ptr = (cm3_clubs*)club;
 		cm3_club_comps* nor_second = get_comp(NOR_SECOND_9CF());
+		BYTE* rounds = ((comp_stats*)(comp_data->stages[stage]))->rounds_list;
 		if (club_ptr->ClubDivision == nor_second) {
-			comp_stats* stage_data = (comp_stats*)(comp_data->stages[stage]);
-			BYTE* rounds = stage_data->rounds_list;
 			WORD current_round = *(WORD*)(round_data + 0x34);
-
 			comp_stats* nor_second_data = (comp_stats*)get_loaded_league(NOR_SECOND_9CF());
 			comp_stats* curr_stage = nor_second_data;
 			for (char al = -1; al < 1; al++) {
@@ -492,8 +489,6 @@ int nor_first_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char sta
 			WORD num_teams = comp_data->n_teams;
 			if (num_teams <= 0) return 0;
 			team_league_stats* table = (team_league_stats*)(comp_data->team_league_table);
-			comp_stats* stage_data = (comp_stats*)(comp_data->stages[stage]);
-			BYTE* rounds = stage_data->rounds_list;
 			WORD current_round = *(WORD*)(round_data + 0x34);
 			for (int i = 0; i < num_teams; i++) {
 					if (table[i].club != club) continue;

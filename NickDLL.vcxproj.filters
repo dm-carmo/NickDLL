@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="european_cup.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="NickDLL.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -474,11 +471,14 @@
     <ClCompile Include="UEFA\uefa_champions_league.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="UEFA\uefa_europa_league.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UEFA\uefa_conference_league.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="european_cup.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Config.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -948,6 +948,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="UEFA\uefa_champions_league.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UEFA\uefa_europa_league.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UEFA\uefa_conference_league.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -50,7 +50,7 @@ DWORD den_setup_c(playable_nation_data* nation_data) {
 	den_cup_setup(pMem, *current_year, get_comp(DEN_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	BYTE* cm_date = new BYTE[8];
-	convert_to_cm_date(cm_date, 20, June, 2025, (DWORD*)-1);
+	convert_to_cm_date(cm_date, 20, June, 2025, -1);
 	nation_data->update_day = *(WORD*)cm_date;
 	nation_data->update_year = *current_year;
 	nation_data->f29 = 1;

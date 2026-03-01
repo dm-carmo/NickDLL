@@ -3,6 +3,8 @@
 #include "Helpers\generic_functions.h"
 #include <Helpers\9cf_constants.h>
 #include "uefa_champions_league.h"
+#include "uefa_europa_league.h"
+#include "uefa_conference_league.h"
 
 static DWORD(__thiscall* uefa_champions_league_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
 (DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x5837C0);
@@ -14,8 +16,6 @@ static DWORD(__thiscall* uefa_super_cup_setup)(BYTE* _this, WORD year, cm3_club_
 (DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x57A100);
 
 DWORD uefa_setup_c(playable_nation_data* nation_data) {
-	BYTE* start_date = new BYTE[8];
-	sub_54C770((BYTE*)dd6ec8, start_date, 4);
 	// contract start date?
 	nation_data->contract_start_day = 23;
 	nation_data->contract_start_month = June;
@@ -37,12 +37,12 @@ DWORD uefa_setup_c(playable_nation_data* nation_data) {
 	uefa_champions_league_init(pMem, *current_year, get_comp(UEFA_CHAMPIONS_LEAGUE_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0xB3);
-	uefa_europa_league_setup(pMem, *current_year, get_comp(UEFA_EUROPA_LEAGUE_9CF()));
+	pMem = (BYTE*)sub_944CF1_operator_new(0xB6);
+	uefa_europa_league_init(pMem, *current_year, get_comp(UEFA_EUROPA_LEAGUE_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)sub_944CF1_operator_new(0xB6);
-	uefa_conference_league_setup(pMem, *current_year, get_comp(UEFA_CONFERENCE_LEAGUE_9CF()));
+	uefa_conference_league_init(pMem, *current_year, get_comp(UEFA_CONFERENCE_LEAGUE_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
@@ -50,9 +50,9 @@ DWORD uefa_setup_c(playable_nation_data* nation_data) {
 	nation_comps[i++] = (DWORD)pMem;
 
 	BYTE* cm_date = new BYTE[8];
-	convert_to_cm_date(cm_date, 21, June, 2025, (DWORD*)-1);
+	convert_to_cm_date(cm_date, 21, June, 2025, -1);
 	nation_data->update_day = *(WORD*)cm_date;
-	nation_data->update_year = 2025;
+	nation_data->update_year = *current_year;
 	nation_data->f29 = 1;
 	nation_data->super_cup = 0;
 	return 1;
@@ -83,6 +83,19 @@ void setup_uefa_continent() {
 	WriteDWORD(0x90503F, (DWORD)0x9CF6EC);
 	WriteDWORD(0x906190, (DWORD)0x9CF6EC);
 	WriteDWORD(0x90609C, (DWORD)0x9CF6EC);
+	// to show all teams in the groups drawn news
+	WriteBytes(0x684253 + 2, 1, 0x9);
 
 	setup_uefa_champions_league();
+	setup_uefa_europa_league();
+	setup_uefa_conference_league();
+
+	// UEFA Super Cup date
+	WriteBytes(0x57a499 + 1, 1, Wednesday);
+	WriteBytes(0x57a49e + 1, 1, 13);
+
+	// others
+	WriteBytes(0x58334a, 2, 0x74, 0x17);
+	WriteBytes(0x847af6, 1, 0xeb);
+	WriteWORD(0x847b03 + 3, 500);
 }

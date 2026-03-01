@@ -184,7 +184,6 @@
     <ClCompile Include="England\eng_prm.cpp" />
     <ClCompile Include="England\eng_setup.cpp" />
     <ClCompile Include="England\eng_third.cpp" />
-    <ClCompile Include="european_cup.cpp" />
     <ClCompile Include="Finland\fin_awards.cpp" />
     <ClCompile Include="Finland\fin_cup.cpp" />
     <ClCompile Include="Finland\fin_first.cpp" />
@@ -281,6 +280,8 @@
     <ClCompile Include="tiny-json.c" />
     <ClCompile Include="Helpers\YearChanger.cpp" />
     <ClCompile Include="UEFA\uefa_champions_league.cpp" />
+    <ClCompile Include="UEFA\uefa_conference_league.cpp" />
+    <ClCompile Include="UEFA\uefa_europa_league.cpp" />
     <ClCompile Include="UEFA\uefa_setup.cpp" />
     <ClCompile Include="USA\usa_awards.cpp" />
     <ClCompile Include="USA\usa_champ.cpp" />
@@ -341,7 +342,6 @@
     <ClInclude Include="England\eng_prm.h" />
     <ClInclude Include="England\eng_setup.h" />
     <ClInclude Include="England\eng_third.h" />
-    <ClInclude Include="european_cup.h" />
     <ClInclude Include="Finland\fin_awards.h" />
     <ClInclude Include="Finland\fin_cup.h" />
     <ClInclude Include="Finland\fin_first.h" />
@@ -441,6 +441,8 @@
     <ClInclude Include="Sweden\swe_third.h" />
     <ClInclude Include="tiny-json.h" />
     <ClInclude Include="UEFA\uefa_champions_league.h" />
+    <ClInclude Include="UEFA\uefa_conference_league.h" />
+    <ClInclude Include="UEFA\uefa_europa_league.h" />
     <ClInclude Include="UEFA\uefa_setup.h" />
     <ClInclude Include="USA\usa_awards.h" />
     <ClInclude Include="USA\usa_champ.h" />

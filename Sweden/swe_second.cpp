@@ -568,11 +568,9 @@ int swe_second_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char st
 	else if (stage == 1) {
 		cm3_clubs* club_ptr = (cm3_clubs*)club;
 		cm3_club_comps* swe_third = get_comp(SWE_THIRD_9CF());
+		BYTE* rounds = ((comp_stats*)(comp_data->stages[stage]))->rounds_list;
 		if (club_ptr->ClubDivision == swe_third) {
-			comp_stats* stage_data = (comp_stats*)(comp_data->stages[stage]);
-			BYTE* rounds = stage_data->rounds_list;
 			WORD current_round = *(WORD*)(round_data + 0x34);
-
 			comp_stats* swe_third_data = (comp_stats*)get_loaded_league(SWE_THIRD_9CF());
 			comp_stats* curr_stage = swe_third_data;
 			if (swe_third_data) {
@@ -632,8 +630,6 @@ int swe_second_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char st
 		else {
 			WORD num_teams = comp_data->n_teams;
 			if (num_teams <= 0) return 0;
-			comp_stats* stage_data = (comp_stats*)(comp_data->stages[stage]);
-			BYTE* rounds = stage_data->rounds_list;
 			WORD current_round = *(WORD*)(round_data + 0x34);
 			comp_stats* curr_stage = comp_data;
 			for (char al = -1; al < 1; al++) {

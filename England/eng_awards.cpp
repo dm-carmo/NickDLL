@@ -222,7 +222,7 @@ char eng_awards_2(BYTE* _this, DWORD current_date) {
 	BYTE selected = ((cm3_nations*)nation)->NationLeagueSelected;
 	DWORD* awards_list = (DWORD*)*(DWORD*)(_this + 0x4);
 	BYTE* cm_date = new BYTE[8];
-	convert_to_cm_date(cm_date, 5, April, *(WORD*)(current_date + 2), (DWORD*)-1);
+	convert_to_cm_date(cm_date, 5, April, *(WORD*)(current_date + 2), -1);
 	WORD date_day = *(WORD*)(cm_date);
 	WORD date_year = *(WORD*)(cm_date + 2);
 	//DWORD leap = *(DWORD*)(cm_date + 4);
@@ -240,7 +240,7 @@ char eng_awards_2(BYTE* _this, DWORD current_date) {
 		}
 	}
 	cm_date = new BYTE[8];
-	convert_to_cm_date(cm_date, 30, May, *(WORD*)(current_date + 2), (DWORD*)-1);
+	convert_to_cm_date(cm_date, 30, May, *(WORD*)(current_date + 2), -1);
 	date_day = *(WORD*)(cm_date);
 	date_year = *(WORD*)(cm_date + 2);
 	//leap = *(DWORD*)(cm_date + 4);

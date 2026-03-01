@@ -13,7 +13,7 @@ extern WORD FixedTeamOrderInCup2;
 
 enum CompetitionType : char {
 	CLUB_DOMESTIC = 1,
-	CLUB_INTERNATITONAL = 2,
+	CLUB_INTERNATIONAL = 2,
 	NATION_INTERNATIONAL = 4
 };
 
@@ -852,6 +852,7 @@ extern DWORD* dd6ec8;
 
 extern const DWORD pnd_count;
 extern playable_nation_data* pnd_list; //0xB63D60
+extern playable_nation_data** pnd_list_default;
 extern BYTE* pnd_order;
 
 extern uefa_seedings** uefa_seeding_list;

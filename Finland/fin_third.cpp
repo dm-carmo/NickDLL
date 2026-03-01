@@ -397,8 +397,7 @@ int fin_third_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char sta
 	if (stage == 2) {
 		WORD num_teams = comp_data->n_teams;
 		if (num_teams <= 0) return 0;
-		comp_stats* stage_data = (comp_stats*)(comp_data->stages[stage]);
-		BYTE* rounds = stage_data->rounds_list;
+		BYTE* rounds = ((comp_stats*)(comp_data->stages[stage]))->rounds_list;
 		WORD current_round = *(WORD*)(round_data + 0x34);
 		comp_stats* curr_stage = comp_data;
 		for (char al = -1; al < 2; al++) {

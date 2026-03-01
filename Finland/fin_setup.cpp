@@ -60,7 +60,7 @@ DWORD fin_setup_c(playable_nation_data* nation_data) {
 	fin_cup_setup(pMem, start_year, get_comp(FIN_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	BYTE* cm_date = new BYTE[8];
-	convert_to_cm_date(cm_date, 1, January, 2025, (DWORD*)-1);
+	convert_to_cm_date(cm_date, 1, January, 2025, -1);
 	nation_data->update_day = *(WORD*)cm_date;
 	nation_data->update_year = start_year;
 	nation_data->f29 = 0;

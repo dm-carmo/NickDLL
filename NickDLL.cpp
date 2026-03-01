@@ -21,7 +21,6 @@
 #include "inject_9cf_rename.h"
 #include "setup_misc_functions.h"
 #include <leagues_setup.h>
-//#include "european_cup.h"
 
 using namespace std;
 
@@ -175,7 +174,7 @@ void Setup()
 		dprintf("Applying CONCACAF Champions Cup changes\n");
 		setup_concacaf();
 	}
-	//setup_european_cup();
+
 	setup_name_injection();
 	setup_misc_functions();
 
