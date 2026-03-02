@@ -151,6 +151,18 @@ void Setup()
 		setup_usa_nation();
 	}
 
+	dprintf("------------------------------\n");
+
+	if (configFile.GetBool("applyAFC", true)) {
+		dprintf("Applying AFC changes\n");
+		setup_afc_continent();
+	}
+
+	if (configFile.GetBool("applyCONCACAF", true)) {
+		dprintf("Applying CONCACAF changes\n");
+		setup_concacaf();
+	}
+
 	if (configFile.GetBool("applyCONMEBOL", true)) {
 		dprintf("Applying CONMEBOL changes\n");
 		setup_conmebol_continent();
@@ -159,11 +171,6 @@ void Setup()
 	if (configFile.GetBool("applyUEFA", true)) {
 		dprintf("Applying UEFA changes\n");
 		setup_uefa_continent();
-	}
-
-	if (configFile.GetBool("applyConcacafCup", true)) {
-		dprintf("Applying CONCACAF Champions Cup changes\n");
-		setup_concacaf();
 	}
 
 	setup_name_injection();

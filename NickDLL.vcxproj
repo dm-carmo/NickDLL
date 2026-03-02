@@ -134,6 +134,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AFC\afc_challenge_league.cpp" />
+    <ClCompile Include="AFC\afc_champions_league_2.cpp" />
+    <ClCompile Include="AFC\afc_champions_league_elite.cpp" />
+    <ClCompile Include="AFC\afc_setup.cpp" />
     <ClCompile Include="Brazil\bra_awards.cpp" />
     <ClCompile Include="Brazil\bra_cup.cpp" />
     <ClCompile Include="Brazil\bra_first.cpp" />
@@ -154,9 +158,9 @@
     <ClCompile Include="Brazil\bra_setup.cpp" />
     <ClCompile Include="Brazil\bra_super.cpp" />
     <ClCompile Include="Brazil\bra_third.cpp" />
+    <ClCompile Include="CAF\caf_setup.cpp" />
     <ClCompile Include="CONCACAF\concacaf.cpp" />
     <ClCompile Include="Config.cpp" />
-    <ClCompile Include="CONMEBOL\conmebol_helper.cpp" />
     <ClCompile Include="CONMEBOL\conmebol_libertadores.cpp" />
     <ClCompile Include="CONMEBOL\conmebol_setup.cpp" />
     <ClCompile Include="CONMEBOL\conmebol_sudamericana.cpp" />
@@ -290,6 +294,10 @@
     <ClCompile Include="USA\usa_setup.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AFC\afc_challenge_league.h" />
+    <ClInclude Include="AFC\afc_champions_league_2.h" />
+    <ClInclude Include="AFC\afc_champions_league_elite.h" />
+    <ClInclude Include="AFC\afc_setup.h" />
     <ClInclude Include="Brazil\bra_awards.h" />
     <ClInclude Include="Brazil\bra_cup.h" />
     <ClInclude Include="Brazil\bra_fourth.h" />
@@ -312,9 +320,9 @@
     <ClInclude Include="Brazil\bra_state_league_list.h" />
     <ClInclude Include="Brazil\bra_super.h" />
     <ClInclude Include="Brazil\bra_third.h" />
+    <ClInclude Include="CAF\caf_setup.h" />
     <ClInclude Include="CONCACAF\concacaf.h" />
     <ClInclude Include="Config.h" />
-    <ClInclude Include="CONMEBOL\conmebol_helper.h" />
     <ClInclude Include="CONMEBOL\conmebol_libertadores.h" />
     <ClInclude Include="CONMEBOL\conmebol_setup.h" />
     <ClInclude Include="CONMEBOL\conmebol_sudamericana.h" />

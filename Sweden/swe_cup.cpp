@@ -648,5 +648,5 @@ void setup_swe_cup()
 	WriteVTablePtr(swe_cup_vtable, VTableStageNews, 0x48C6D0);
 	WriteVTablePtr(swe_cup_vtable, VTableReputationSetup, (DWORD)&swe_cup_reputation_setup_c);
 	WriteVTablePtr(swe_cup_vtable, VTableReputationCalc, (DWORD)&swe_cup_reputation_calc_c);
-	WriteVTablePtr(swe_cup_vtable, VTableSubsRounds, 0x4C15F0);
+	WriteVTablePtr(swe_cup_vtable, VTableSubsRounds, 0x858e70);
 }

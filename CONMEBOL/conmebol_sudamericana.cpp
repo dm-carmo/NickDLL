@@ -497,12 +497,12 @@ void conmebol_sudamericana_reputation_calc(BYTE* _this, BYTE* club, char stage, 
 		else ret_max = 41;
 	}
 	else if (stage < 8) {
-		ret_current = 1 + 4 * (current - 1);
+		ret_current = 1 + 8 * (current - 1);
 		if (min < 7) ret_min = 1;
-		else ret_min = 1 + 4 * (min - 1);
+		else ret_min = 1 + 8 * (min - 1);
 		if (max < 3) ret_max = 9;
 		else if (max < 7) ret_max = 17;
-		else ret_max = 1 + 4 * (max - 1);
+		else ret_max = 1 + 8 * (max - 1);
 		if (ret_current > ret_max) ret_current = ret_max;
 	}
 	else if (stage == 8) {
@@ -578,7 +578,6 @@ char conmebol_sudamericana_update(BYTE* _this) {
 	data->year++;
 	data->f171 = 0;
 	*((BYTE*)(_this + 0xB1)) = 0;
-	sub_9035A0((BYTE*)*uefa_seeding_list, 0);
 	conmebol_sudamericana_all_teams(_this); //584fa0
 	conmebol_sudamericana_qualifier_teams(_this); //584990
 	DWORD v1 = *(DWORD*)_this;
@@ -931,7 +930,6 @@ void conmebol_sudamericana_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	*((BYTE*)(_this + 0xB1)) = 0;
 	int loaded = sub_51FC00(_this, 1);
 	if (loaded) return;
-	sub_9035A0((BYTE*)*uefa_seeding_list, 0);
 	conmebol_sudamericana_all_teams(_this); //584fa0
 	conmebol_sudamericana_qualifier_teams(_this); //584990
 	DWORD v1 = *(DWORD*)_this;
@@ -969,7 +967,7 @@ void setup_conmebol_sudamericana() {
 	WriteVTablePtr(conmebol_sudamericana_vtable, VTable22, 0x5221F0);
 	WriteVTablePtr(conmebol_sudamericana_vtable, VTable33, 0x522910);
 	WriteVTablePtr(conmebol_sudamericana_vtable, VTable34, 0x522C50);
-	WriteVTablePtr(conmebol_sudamericana_vtable, VTableSubsRounds, 0x4C15F0);
+	WriteVTablePtr(conmebol_sudamericana_vtable, VTableSubsRounds, 0x858e70);
 	WriteVTablePtr(conmebol_sudamericana_vtable, VTable37, 0x522360);
 	WriteVTablePtr(conmebol_sudamericana_vtable, VTable38, 0x518790);
 	WriteVTablePtr(conmebol_sudamericana_vtable, VTable39, 0x51C020);

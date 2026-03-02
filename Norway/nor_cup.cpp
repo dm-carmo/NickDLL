@@ -276,6 +276,6 @@ void setup_nor_cup()
 	//WriteVTablePtr(nor_cup_vtable, VTableEoSUpdate, (DWORD)&nor_cup_update_c);
 	PatchFunction(0x78f890, (DWORD)&nor_cup_teams_c);
 	WriteVTablePtr(nor_cup_vtable, VTableStageNews, 0x48C6D0);
-	WriteVTablePtr(nor_cup_vtable, VTableSubsRounds, 0x4C15F0);
+	WriteVTablePtr(nor_cup_vtable, VTableSubsRounds, 0x858e70);
 	WriteVTablePtr(nor_cup_vtable, VTableLeagueSplit, 0x88d8a0); // same as Swedish Cup
 }

@@ -643,7 +643,7 @@ void setup_gre_cup()
 	WriteVTablePtr(gre_cup_vtable, VTableStageNews, 0x48C6D0);
 	WriteVTablePtr(gre_cup_vtable, VTableReputationSetup, (DWORD)&gre_cup_reputation_setup_c);
 	WriteVTablePtr(gre_cup_vtable, VTableReputationCalc, (DWORD)&gre_cup_reputation_calc_c);
-	WriteVTablePtr(gre_cup_vtable, VTableSubsRounds, 0x4C15F0);
+	WriteVTablePtr(gre_cup_vtable, VTableSubsRounds, 0x858e70);
 	WriteVTablePtr(gre_cup_vtable, VTable2, 0x51A150);
 	WriteVTablePtr(gre_cup_vtable, VTable5, 0x521E00);
 	WriteVTablePtr(gre_cup_vtable, VTableLeagueSplit, 0x51F890);

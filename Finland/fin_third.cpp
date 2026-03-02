@@ -284,17 +284,6 @@ void fin_third_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	fin_third_reputation_setup(_this);
 }
 
-bool sortTLS(team_league_stats s1, team_league_stats s2)
-{
-	if (s1.points != s2.points) return s1.points > s2.points;
-	int diff1 = s1.goals_for - s1.goals_against;
-	int diff2 = s2.goals_for - s2.goals_against;
-	if (diff1 != diff2) return diff1 > diff2;
-	if (s1.goals_for != s2.goals_for) return s1.goals_for > s2.goals_for;
-	if (s1.goals_against != s2.goals_against) return s1.goals_against < s2.goals_against;
-	return s1.club->ClubReputation > s2.club->ClubReputation;
-}
-
 void fin_third_playoffs_under(BYTE* _this) {
 	char stage_num = 2;
 	comp_stats* comp_data = (comp_stats*)_this;

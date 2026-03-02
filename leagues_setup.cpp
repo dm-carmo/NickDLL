@@ -84,18 +84,28 @@ int replacement_667150() {
 
 	cm_date = new BYTE[8];
 	pnd_list[idx].continent = find_continent("Asia");
-	pnd_list[idx].setup_function_addr = 0x831BA0;
+	if (configFile.GetBool("applyAFC", true))
+	{
+		pnd_list[idx].setup_function_addr = (DWORD)&afc_setup_c;
+		convert_to_cm_date(cm_date, 21, June, 2025, -1);
+		pnd_list[idx].update_day = *(WORD*)(cm_date);
+	}
+	else
+	{
+		pnd_list[idx].setup_function_addr = 0x831BA0;
+		convert_to_cm_date(cm_date, 21, February, 2025, -1);
+		pnd_list[idx].update_day = *(WORD*)(cm_date);
+	}
 	convert_to_cm_date(pnd_list[idx].start_date, 1, July, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 1, July, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
-	convert_to_cm_date(cm_date, 21, February, 2025, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
-	pnd_list[idx].main_cup = get_comp(AFC_CHAMPIONS_CUP_9CF());
+	pnd_list[idx].main_cup = get_comp(AFC_CHAMPIONS_LEAGUE_ELITE_9CF());
 	idx++;
 
 	cm_date = new BYTE[8];
 	pnd_list[idx].continent = find_continent("Africa");
-	pnd_list[idx].setup_function_addr = 0x831BA0;
+	pnd_list[idx].setup_function_addr = (DWORD)&caf_setup_c;
 	convert_to_cm_date(pnd_list[idx].start_date, 1, July, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 1, July, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;

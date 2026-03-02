@@ -2,13 +2,11 @@
 #include "Structures\CMHeader.h"
 #include "Helpers\generic_functions.h"
 #include <Helpers\9cf_constants.h>
-#include "conmebol_libertadores.h"
-#include "conmebol_sudamericana.h"
+#include "afc_champions_league_elite.h"
+#include "afc_champions_league_2.h"
+#include "afc_challenge_league.h"
 
-static DWORD(__thiscall* conmebol_recopa_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x632080);
-
-DWORD conmebol_setup_c(playable_nation_data* nation_data) {
+DWORD afc_setup_c(playable_nation_data* nation_data) {
 	// contract start date?
 	nation_data->contract_start_day = 1;
 	nation_data->contract_start_month = June;
@@ -27,19 +25,19 @@ DWORD conmebol_setup_c(playable_nation_data* nation_data) {
 	BYTE i = 0;
 
 	BYTE* pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
-	conmebol_libertadores_init(pMem, *current_year, get_comp(COPA_LIBERTADORES_9CF()));
+	afc_champions_league_elite_init(pMem, *current_year, get_comp(AFC_CHAMPIONS_LEAGUE_ELITE_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
-	conmebol_sudamericana_init(pMem, *current_year, get_comp(COPA_SUDAMERICANA_9CF()));
+	afc_champions_league_2_init(pMem, *current_year, get_comp(AFC_CHAMPIONS_LEAGUE_TWO_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
-	conmebol_recopa_setup(pMem, *current_year, get_comp(RECOPA_9CF()));
+	afc_challenge_league_init(pMem, *current_year, get_comp(AFC_CHALLENGE_LEAGUE_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
 	BYTE* cm_date = new BYTE[8];
-	convert_to_cm_date(cm_date, 2, January, 2025, -1);
+	convert_to_cm_date(cm_date, 21, June, 2025, -1);
 	nation_data->update_day = *(WORD*)cm_date;
 	nation_data->update_year = *current_year;
 	nation_data->f29 = 1;
@@ -47,17 +45,10 @@ DWORD conmebol_setup_c(playable_nation_data* nation_data) {
 	return 1;
 }
 
-void setup_conmebol_continent() {
-	WriteDWORD(0x6675b7 + 6, (DWORD)&conmebol_setup_c);
+void setup_afc_continent() {
+	WriteDWORD(0x66769f + 6, (DWORD)&afc_setup_c);
 
-	setup_conmebol_libertadores();
-	setup_conmebol_sudamericana();
-
-	// Recopa calendar
-	WriteBytes(0x6323ff, 1, 0x0);
-	WriteBytes(0x632401, 1, 0x19);
-	WriteBytes(0x632415, 3, 0x6a, 0x03, 0x53);
-	WriteBytes(0x632419, 1, 0x1);
-	WriteBytes(0x63241b, 1, 0x14);
-	WriteBytes(0x63245e, 1, 0x7);
+	setup_afc_champions_league_elite();
+	setup_afc_champions_league_2();
+	setup_afc_challenge_league();
 }

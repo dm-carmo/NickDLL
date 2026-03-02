@@ -226,7 +226,7 @@ void setup_bra_super()
 	WriteVTablePtr(bra_super_vtable, VTableReputationCalc, 0x48E380);
 	WriteVTablePtr(bra_super_vtable, VTable33, 0x522910);
 	WriteVTablePtr(bra_super_vtable, VTable34, 0x522C50);
-	WriteVTablePtr(bra_super_vtable, VTableSubsRounds, 0x4C15F0);
+	WriteVTablePtr(bra_super_vtable, VTableSubsRounds, 0x858e70);
 	WriteVTablePtr(bra_super_vtable, VTable37, 0x522360);
 	WriteVTablePtr(bra_super_vtable, VTable38, 0x518790);
 	WriteVTablePtr(bra_super_vtable, VTable39, 0x51C020);

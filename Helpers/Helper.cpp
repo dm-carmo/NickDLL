@@ -4,6 +4,7 @@
 #include <conio.h>
 #include <algorithm>
 #include "generic_functions.h"
+#include "constants.h"
 
 char* szDebugFile = "";
 
@@ -463,6 +464,16 @@ bool compareClubNation(cm3_clubs* c1, cm3_clubs* c2)
 	return n1 < n2;
 }
 
+bool compareClubAsiaWestEast(cm3_clubs* c1, cm3_clubs* c2)
+{
+	bool c1_west = false, c2_west = false;
+	if (!c1->ClubNation || !c2->ClubNation) return compareClubLongitude(c1, c2);
+	c1_west = find(asia_west.begin(), asia_west.end(), c1->ClubNation->NationName) != asia_west.end();
+	c2_west = find(asia_west.begin(), asia_west.end(), c2->ClubNation->NationName) != asia_west.end();
+	if (c1_west != c2_west) return c1_west;
+	else return compareClubLongitude(c1, c2);
+}
+
 cm3_clubs* get_last_comp_winner(cm3_club_comps* comp)
 {
 	vector<cm3_club_comp_history*> ret;
@@ -596,4 +607,15 @@ vector<cm3_clubs*> get_relegated_teams(DWORD compID)
 	else
 		dprintf("Can't find relegated clubs at compID: %08X\n", compID);
 	return relegated_clubs;
+}
+
+bool sortTLS(team_league_stats s1, team_league_stats s2)
+{
+	if (s1.points != s2.points) return s1.points > s2.points;
+	int diff1 = s1.goals_for - s1.goals_against;
+	int diff2 = s2.goals_for - s2.goals_against;
+	if (diff1 != diff2) return diff1 > diff2;
+	if (s1.goals_for != s2.goals_for) return s1.goals_for > s2.goals_for;
+	if (s1.goals_against != s2.goals_against) return s1.goals_against < s2.goals_against;
+	return s1.club->ClubReputation > s2.club->ClubReputation;
 }

@@ -30,9 +30,6 @@
     <ClCompile Include="CONCACAF\concacaf.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CONMEBOL\conmebol_helper.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="England\eng_conf.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -477,6 +474,21 @@
     <ClCompile Include="CONMEBOL\conmebol_sudamericana.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AFC\afc_setup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AFC\afc_champions_league_elite.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CAF\caf_setup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AFC\afc_champions_league_2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AFC\afc_challenge_league.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -492,9 +504,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CONCACAF\concacaf.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CONMEBOL\conmebol_helper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="England\eng_conf.h">
@@ -954,6 +963,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CONMEBOL\conmebol_sudamericana.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AFC\afc_setup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AFC\afc_champions_league_elite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AFC\afc_champions_league_2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AFC\afc_challenge_league.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CAF\caf_setup.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
