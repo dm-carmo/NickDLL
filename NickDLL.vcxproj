@@ -157,9 +157,9 @@
     <ClCompile Include="CONCACAF\concacaf.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="CONMEBOL\conmebol_helper.cpp" />
-    <ClCompile Include="CONMEBOL\libertadores.cpp" />
-    <ClCompile Include="CONMEBOL\libertadores_calendar.cpp" />
-    <ClCompile Include="CONMEBOL\sudamericana.cpp" />
+    <ClCompile Include="CONMEBOL\conmebol_libertadores.cpp" />
+    <ClCompile Include="CONMEBOL\conmebol_setup.cpp" />
+    <ClCompile Include="CONMEBOL\conmebol_sudamericana.cpp" />
     <ClCompile Include="Croatia\cro_awards.cpp" />
     <ClCompile Include="Croatia\cro_cup.cpp" />
     <ClCompile Include="Croatia\cro_first.cpp" />
@@ -315,9 +315,9 @@
     <ClInclude Include="CONCACAF\concacaf.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="CONMEBOL\conmebol_helper.h" />
-    <ClInclude Include="CONMEBOL\libertadores.h" />
-    <ClInclude Include="CONMEBOL\libertadores_calendar.h" />
-    <ClInclude Include="CONMEBOL\sudamericana.h" />
+    <ClInclude Include="CONMEBOL\conmebol_libertadores.h" />
+    <ClInclude Include="CONMEBOL\conmebol_setup.h" />
+    <ClInclude Include="CONMEBOL\conmebol_sudamericana.h" />
     <ClInclude Include="Croatia\cro_awards.h" />
     <ClInclude Include="Croatia\cro_cup.h" />
     <ClInclude Include="Croatia\cro_first.h" />

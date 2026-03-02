@@ -45,6 +45,20 @@ void swe_cup_free_under(BYTE* _this) {
 		}
 		sub_9452CA_free(data->f173);
 	}
+	long current = data->current_stage;
+	if (current >= 0) {
+		for (long i = 0; i <= current; i++) {
+			DWORD stage = data->stages[i];
+			if (stage) {
+				DWORD v1 = *(DWORD*)stage;
+				(DWORD*)(*(int(__thiscall**)(BYTE*, int a2))(v1))((BYTE*)stage, 1);
+			}
+		}
+	}
+	if (data->stages) {
+		sub_9452CA_free((BYTE*)(data->stages));
+		data->stages = 0;
+	}
 	if (data->f8) {
 		sub_49F450((BYTE*)(data->f8));
 		sub_944C94_free((BYTE*)(data->f8));

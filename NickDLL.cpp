@@ -14,9 +14,6 @@
 #include "Helpers\YearChanger.h"
 
 #include "CONCACAF\concacaf.h"
-#include "CONMEBOL\sudamericana.h"
-#include "CONMEBOL\libertadores.h"
-#include "CONMEBOL\libertadores_calendar.h"
 
 #include "inject_9cf_rename.h"
 #include "setup_misc_functions.h"
@@ -154,20 +151,14 @@ void Setup()
 		setup_usa_nation();
 	}
 
+	if (configFile.GetBool("applyCONMEBOL", true)) {
+		dprintf("Applying CONMEBOL changes\n");
+		setup_conmebol_continent();
+	}
+
 	if (configFile.GetBool("applyUEFA", true)) {
 		dprintf("Applying UEFA changes\n");
 		setup_uefa_continent();
-	}
-
-	if (configFile.GetBool("applyLibertadores", true)) {
-		dprintf("Applying Libertadores changes\n");
-		setup_libertadores();
-		setup_libertadores_calendar();
-	}
-
-	if (configFile.GetBool("applySudamericana", true)) {
-		dprintf("Applying Sudamericana changes\n");
-		setup_sudamericana();
 	}
 
 	if (configFile.GetBool("applyConcacafCup", true)) {

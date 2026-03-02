@@ -19,6 +19,11 @@
 #include "Sweden\swe_setup.h"
 #include "USA\usa_setup.h"
 
+//#include "AFC\afc_setup.h"
+//#include "CAF\caf_setup.h"
+//#include "CONCACAF\concacaf_setup.h"
+#include "CONMEBOL\conmebol_setup.h"
+//#include "OFC\ofc_setup.h"
 #include "UEFA\uefa_setup.h"
 
 void setup_leagues_setup();

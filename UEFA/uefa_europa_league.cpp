@@ -13,6 +13,67 @@ using namespace std;
 
 DWORD* uefa_europa_league_vtable = (DWORD*)0x970790;
 
+void uefa_europa_league_free_under(BYTE* _this) {
+	comp_stats* data = (comp_stats*)_this;
+	data->comp_vtable = uefa_europa_league_vtable;
+	DWORD x = 0;
+	if (data->teams_list) {
+		sub_9452CA_free(data->teams_list);
+	}
+	if ((DWORD*)data->rounds_list) {
+		sub_9452CA_free(data->rounds_list);
+	}
+	if (data->f173) {
+		for (WORD i = 0; i < data->n_rounds; i++) {
+			DWORD rnd = data->f173[i];
+			if (rnd) {
+				sub_9452CA_free((DWORD*)rnd);
+			}
+		}
+		sub_9452CA_free(data->f173);
+	}
+	long current = data->current_stage;
+	if (current >= 0) {
+		for (long i = 0; i <= current; i++) {
+			DWORD stage = data->stages[i];
+			if (stage) {
+				DWORD v1 = *(DWORD*)stage;
+				(DWORD*)(*(int(__thiscall**)(BYTE*, int a2))(v1))((BYTE*)stage, 1);
+			}
+		}
+	}
+	if (data->stages) {
+		sub_9452CA_free((BYTE*)(data->stages));
+		data->stages = 0;
+	}
+	if (data->f8) {
+		sub_49F450((BYTE*)(data->f8));
+		sub_944C94_free((BYTE*)(data->f8));
+	}
+	DWORD y = -1;
+	sub_518690(_this);
+}
+
+void uefa_europa_league_free(BYTE* _this, BYTE a2) {
+	uefa_europa_league_free_under(_this);
+	if (a2 & 1) {
+		sub_944C94_free(_this);
+	}
+}
+
+void __declspec(naked) uefa_europa_league_free_c()		// used as a __thiscall -> __cdecl converter
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x4]
+		push ecx
+		call uefa_europa_league_free
+		add esp, 0x8
+		ret 4
+	}
+}
+
 int uefa_europa_league_set_champion(BYTE* _this) {
 	comp_stats* comp_data = (comp_stats*)_this;
 	BYTE* stage_data_for_history = (BYTE*)comp_data->stages[6];
@@ -1356,6 +1417,7 @@ void __declspec(naked) uel_48CAB0_c()		// used as a __thiscall -> __cdecl conver
 }
 
 void setup_uefa_europa_league() {
+	WriteVTablePtr(uefa_europa_league_vtable, VTableInitFree, (DWORD)&uefa_europa_league_free_c);
 	WriteVTablePtr(uefa_europa_league_vtable, VTable2, (DWORD)&uel_583B10_c);
 	WriteVTablePtr(uefa_europa_league_vtable, VTableEoSUpdate, (DWORD)&uefa_europa_league_update_c);
 	WriteVTablePtr(uefa_europa_league_vtable, VTable9, 0x48CEB0);

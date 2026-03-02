@@ -5,13 +5,6 @@
 #include "uefa_champions_league.h"
 #include "uefa_europa_league.h"
 #include "uefa_conference_league.h"
-
-static DWORD(__thiscall* uefa_champions_league_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x5837C0);
-static DWORD(__thiscall* uefa_europa_league_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x9022E0);
-static DWORD(__thiscall* uefa_conference_league_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x632FB0);
 static DWORD(__thiscall* uefa_super_cup_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
 (DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x57A100);
 

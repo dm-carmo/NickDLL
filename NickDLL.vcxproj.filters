@@ -33,15 +33,6 @@
     <ClCompile Include="CONMEBOL\conmebol_helper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CONMEBOL\libertadores.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CONMEBOL\libertadores_calendar.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CONMEBOL\sudamericana.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="England\eng_conf.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -477,6 +468,15 @@
     <ClCompile Include="UEFA\uefa_conference_league.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CONMEBOL\conmebol_libertadores.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CONMEBOL\conmebol_setup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CONMEBOL\conmebol_sudamericana.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -495,15 +495,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CONMEBOL\conmebol_helper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CONMEBOL\libertadores.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CONMEBOL\libertadores_calendar.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CONMEBOL\sudamericana.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="England\eng_conf.h">
@@ -954,6 +945,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="UEFA\uefa_conference_league.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CONMEBOL\conmebol_libertadores.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CONMEBOL\conmebol_setup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CONMEBOL\conmebol_sudamericana.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

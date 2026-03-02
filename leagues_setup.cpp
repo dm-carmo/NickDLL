@@ -64,12 +64,21 @@ int replacement_667150() {
 
 	cm_date = new BYTE[8];
 	pnd_list[idx].continent = find_continent("South America");
-	pnd_list[idx].setup_function_addr = 0x8318F0;
+	if (configFile.GetBool("applyCONMEBOL", true))
+	{
+		pnd_list[idx].setup_function_addr = (DWORD)&conmebol_setup_c;
+		convert_to_cm_date(cm_date, 2, January, 2025, -1);
+		pnd_list[idx].update_day = *(WORD*)(cm_date);
+	}
+	else
+	{
+		pnd_list[idx].setup_function_addr = 0x8318F0;
+		convert_to_cm_date(cm_date, 21, December, 2025, -1);
+		pnd_list[idx].update_day = *(WORD*)(cm_date);
+	}
 	convert_to_cm_date(pnd_list[idx].start_date, 1, July, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 1, July, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
-	convert_to_cm_date(cm_date, 21, December, 2025, -1);
-	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].main_cup = get_comp(COPA_LIBERTADORES_9CF());
 	idx++;
 

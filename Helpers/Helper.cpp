@@ -159,6 +159,16 @@ vector<cm3_nations*> caribbean_countries()
 	return ret;
 }
 
+vector<cm3_nations*> get_countries_of_continent(DWORD continentID) {
+	vector<cm3_nations*> ret;
+	for (DWORD i = 0; i < *nations_count; i++)
+	{
+		if ((*nations)[i].NationContinent && (*nations)[i].NationContinent->ContinentID == continentID)
+			ret.push_back(&(*nations)[i]);
+	}
+	return ret;
+}
+
 cm3_clubs* find_club(const char* szClub)
 {
 	for (DWORD i = 0; i < *clubs_count; i++)
@@ -245,9 +255,9 @@ vector<cm3_clubs*> find_clubs_of_country_for_euro_playable(DWORD nation_id)
 			//dprintf("Club Division: %s\n", (club->ClubDivision)->ClubCompName);
 
 			// Don't add Lower Division Clubs
-			//if (stricmp((char *)(club->ClubDivision+1), "A Lower Division") != 0)
-			if (club->ClubEuroFlag == -1 && club->ClubLastDivision)
-				ret.push_back(club);
+			if (stricmp((char*)(club->ClubDivision + 1), "A Lower Division") != 0)
+				if (club->ClubEuroFlag == -1 && club->ClubLastDivision)
+					ret.push_back(club);
 		}
 	}
 	return ret;
@@ -270,6 +280,16 @@ vector<cm3_clubs*> find_clubs_of_country_for_euro(DWORD nation_id)
 		}
 	}
 	return ret;
+}
+
+void reset_club_euro_flags(DWORD continentID) {
+	for (DWORD i = 0; i < *clubs_count - 2 * *nations_count; i++)
+	{
+		if ((*clubs)[i].ClubNation && (*clubs)[i].ClubNation->NationContinent && (*clubs)[i].ClubNation->NationContinent->ContinentID == continentID)
+		{
+			(&(*clubs)[i])->ClubEuroFlag = -1;
+		}
+	}
 }
 
 cm3_club_comps* find_club_comp(const char* szClubComp)
@@ -352,7 +372,7 @@ bool vector_contains_club(vector<cm3_clubs*>& vec, cm3_clubs* club)
 
 bool compareClubSeeding(cm3_clubs* c1, cm3_clubs* c2)
 {
-	if(c1->ClubEuroSeeding == c2->ClubEuroSeeding) return (c1->ClubReputation > c2->ClubReputation);
+	if (c1->ClubEuroSeeding == c2->ClubEuroSeeding) return (c1->ClubReputation > c2->ClubReputation);
 	return (c1->ClubEuroSeeding > c2->ClubEuroSeeding);
 }
 
@@ -427,6 +447,20 @@ bool compareClubEWDiagNS(cm3_clubs* c1, cm3_clubs* c2)
 		lon2 = c2->ClubStadium->StadiumCity->CityLongitude;
 	}
 	return atan2(lon1, lat1) > atan2(lon2, lat2);
+}
+
+bool compareClubNation(cm3_clubs* c1, cm3_clubs* c2)
+{
+	long n1 = -1, n2 = -1;
+	if (c1->ClubNation)
+	{
+		n1 = c1->ClubNation->NationID;
+	}
+	if (c2->ClubNation)
+	{
+		n2 = c2->ClubNation->NationID;
+	}
+	return n1 < n2;
 }
 
 cm3_clubs* get_last_comp_winner(cm3_club_comps* comp)

@@ -13,6 +13,67 @@ using namespace std;
 
 DWORD* uefa_champions_league_vtable = (DWORD*)0x96A1D0;
 
+void uefa_champions_league_free_under(BYTE* _this) {
+	comp_stats* data = (comp_stats*)_this;
+	data->comp_vtable = uefa_champions_league_vtable;
+	DWORD x = 0;
+	if (data->teams_list) {
+		sub_9452CA_free(data->teams_list);
+	}
+	if ((DWORD*)data->rounds_list) {
+		sub_9452CA_free(data->rounds_list);
+	}
+	if (data->f173) {
+		for (WORD i = 0; i < data->n_rounds; i++) {
+			DWORD rnd = data->f173[i];
+			if (rnd) {
+				sub_9452CA_free((DWORD*)rnd);
+			}
+		}
+		sub_9452CA_free(data->f173);
+	}
+	long current = data->current_stage;
+	if (current >= 0) {
+		for (long i = 0; i <= current; i++) {
+			DWORD stage = data->stages[i];
+			if (stage) {
+				DWORD v1 = *(DWORD*)stage;
+				(DWORD*)(*(int(__thiscall**)(BYTE*, int a2))(v1))((BYTE*)stage, 1);
+			}
+		}
+	}
+	if (data->stages) {
+		sub_9452CA_free((BYTE*)(data->stages));
+		data->stages = 0;
+	}
+	if (data->f8) {
+		sub_49F450((BYTE*)(data->f8));
+		sub_944C94_free((BYTE*)(data->f8));
+	}
+	DWORD y = -1;
+	sub_518690(_this);
+}
+
+void uefa_champions_league_free(BYTE* _this, BYTE a2) {
+	uefa_champions_league_free_under(_this);
+	if (a2 & 1) {
+		sub_944C94_free(_this);
+	}
+}
+
+void __declspec(naked) uefa_champions_league_free_c()		// used as a __thiscall -> __cdecl converter
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x4]
+		push ecx
+		call uefa_champions_league_free
+		add esp, 0x8
+		ret 4
+	}
+}
+
 int uefa_champions_league_set_champion(BYTE* _this) {
 	comp_stats* comp_data = (comp_stats*)_this;
 	BYTE* stage_data_for_history = (BYTE*)comp_data->stages[6];
@@ -1365,6 +1426,7 @@ char sub_584550(BYTE* _this, int a2, char a3, char a4, int a5, int a6, __int16 a
 }
 
 void setup_uefa_champions_league() {
+	WriteVTablePtr(uefa_champions_league_vtable, VTableInitFree, (DWORD)&uefa_champions_league_free_c);
 	WriteVTablePtr(uefa_champions_league_vtable, VTable2, (DWORD)&ucl_583B10_c);
 	WriteVTablePtr(uefa_champions_league_vtable, VTableEoSUpdate, (DWORD)&uefa_champions_league_update_c);
 	WriteVTablePtr(uefa_champions_league_vtable, VTablePlayoffQual, (DWORD)&uefa_champions_league_stages_create_c);
