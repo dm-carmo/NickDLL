@@ -680,8 +680,8 @@ char uefa_europa_league_update(BYTE* _this) {
 	data->f171 = 0;
 	*((BYTE*)(_this + 0xB1)) = 0;
 	sub_9035A0((BYTE*)*uefa_seeding_list, 0);
-	uefa_europa_league_all_teams(_this); //584fa0
-	uefa_europa_league_main_path_teams(_this); //584990
+	uefa_europa_league_all_teams(_this);
+	uefa_europa_league_main_path_teams(_this);
 	DWORD v1 = *(DWORD*)_this;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x8C))(_this);
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x94))(_this);
@@ -724,8 +724,8 @@ void uefa_europa_league_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	int loaded = sub_51FC00(_this, 1);
 	if (loaded) return;
 	sub_9035A0((BYTE*)*uefa_seeding_list, 0);
-	uefa_europa_league_all_teams(_this); //584fa0
-	uefa_europa_league_main_path_teams(_this); //584990
+	uefa_europa_league_all_teams(_this);
+	uefa_europa_league_main_path_teams(_this);
 	DWORD v1 = *(DWORD*)_this;
 	*((DWORD*)(_this + 0xA3)) = (DWORD)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0x3c, _this + 0x3a, 0);
 	cup_map_fixture_tree_518790(_this);
@@ -735,7 +735,7 @@ void uefa_europa_league_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
 	uefa_europa_league_champions_path_setup(_this);
-	uefa_europa_league_reputation_setup(_this); //586900
+	uefa_europa_league_reputation_setup(_this);
 }
 
 void uefa_europa_league_group_stage_setup(BYTE* _this) {
@@ -1198,7 +1198,7 @@ char uel_team_selection(BYTE* _this, BYTE* club_list, int club_count) {
 	// Remaining teams
 	// League, Playoff, 3QR, 2QR, 1QR
 	BYTE quals_1[5] = { 2,0,0,0,0 }; // 1 to 5
-	BYTE quals_x[5] = { 2,0,0,1,0 }; // 6 to 7
+	BYTE quals_x[5] = { 2,0,0,1,0 }; // special case
 	BYTE quals_2[5] = { 1,0,0,1,0 }; // 6 to 7
 	BYTE quals_3[5] = { 0,1,0,1,0 }; // 8 to 12
 	BYTE quals_4[5] = { 0,0,1,0,0 }; // 13 to 15
@@ -1387,12 +1387,7 @@ void __declspec(naked) uel_team_selection_c()		// used as a __thiscall -> __cdec
 static void(__thiscall* sub_48CAB0)(BYTE* _this, char* a1, int a2, __int16 a3, __int16 a4, char a5, int a6) =
 (void(__thiscall*)(BYTE * _this, char* a1, int a2, __int16 a3, __int16 a4, char a5, int a6))(0x48CAB0);
 void uel_48CAB0(BYTE* _this, char* a1, int a2, __int16 a3, __int16 a4, char a5, int a6) {
-	//023ED028  ASCII "Champions League"
-	//000007D0  a2 => ebx
-	//0000      a3 => stage name id, di
-	//00A0      a4 => substage name id
-	//00        a5 => stage result
-	//1B918ABC  a6 => club
+	// Shows the right text in club's Competitions history if they win in the Champions Third Qualifying Round then lose in the Playoff
 	if (a3 == Phase1 && a4 == ThirdQualifyingPhase && a5 == 1)
 		sub_48CAB0(_this, a1, a2, MetropolitanZone, Playoff, 2, a6);
 	else sub_48CAB0(_this, a1, a2, a3, a4, a5, a6);

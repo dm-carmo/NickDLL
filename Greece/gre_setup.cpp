@@ -5,7 +5,6 @@
 #include "gre_second.h"
 #include "gre_cup.h"
 #include "gre_super.h"
-//#include "gre_awards.h"
 #include <Helpers\9cf_constants.h>
 
 static DWORD(__thiscall* gre_super_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
@@ -59,7 +58,6 @@ void setup_gre_nation() {
 	setup_gre_second();
 	setup_gre_cup();
 	setup_gre_super();
-	//setup_gre_awards();
-	//Bypass check for 14 teams in Greek leagues
+	// Bypass check for 14 teams in Greek leagues
 	WriteBytes(0x8283b9, 1, 0xEB);
 }

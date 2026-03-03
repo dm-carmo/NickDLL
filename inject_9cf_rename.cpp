@@ -1029,7 +1029,7 @@ map<string, DWORD> league_dword_match = {
 	{"Belgian National Division 1", (DWORD)0x9CF7C4},
 	{"Swedish Ettan", (DWORD)0x9CF7C8},
 	{"OFC Champions League", (DWORD)0x9CF7CC},
-	{"Asian Super Cup", (DWORD)0x9CF7D0},
+	{"CAF Super Cup", (DWORD)0x9CF7D0},
 	{"Belgian Fourth Division  A", (DWORD)0x9CF7D4},
 	{"Belgian Fourth Division  B", (DWORD)0x9CF7D8},
 	{"Belgian Fourth Division  C", (DWORD)0x9CF7DC},

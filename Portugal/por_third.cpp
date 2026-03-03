@@ -624,7 +624,6 @@ void por_third_playoffs_rele(BYTE* _this) {
 
 		WORD year = comp_data->year;
 		BYTE* pStage = (BYTE*)sub_944CF1_operator_new(0xEE);
-		//short f217 = 0;
 		create_league_stage_data(pStage, _this, playoff_teams, pTeams, 2, (DWORD)(comp_data->competition_db), pFixtures, num_rounds,
 			comp_data->pts_for_win, comp_data->pts_for_draw, comp_data->f196, (BYTE*)(_this + 0xC5), &prom_rel[0],
 			year, stage_num, stage_name_id, 0x14, 1, 0, comp_data->f217, -1, 0, 2);

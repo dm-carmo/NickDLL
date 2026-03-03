@@ -176,6 +176,5 @@ void setup_ger_awards()
 	PatchFunction(0x5DF790, (DWORD)&ger_awards_c);
 	PatchFunction(0x5DFD70, (DWORD)&ger_awards_2_c);
 	WriteDWORD(0x96B3C8, (DWORD)&ger_awards_team_of_week_c);
-	//PatchFunction(0x5DFF40, (DWORD)&ger_awards_team_of_week_c);
 	PatchFunction(0x5DFF40, (DWORD)&ger_awards_staff_history_c);
 }

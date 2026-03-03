@@ -167,7 +167,6 @@ int usa_champ_add_teams(BYTE* _this)
 	DWORD* all_teams = comp_data->teams2;
 	if (all_teams) sub_9452CA_free(all_teams);
 
-	// Count the number of teams first, as the code really expects us to know up front
 	vector<cm3_clubs*> champ_clubs = find_clubs_of_comp(comp_data->competition_db->ClubCompID);
 	comp_data->teams2 = (DWORD*)sub_944E46_malloc(champ_clubs.size() * 4);
 	sort(champ_clubs.begin(), champ_clubs.end(), compareClubLongitude);
@@ -176,9 +175,8 @@ int usa_champ_add_teams(BYTE* _this)
 		*((DWORD*)(&comp_data->teams2[i])) = (DWORD)champ_clubs[i];
 	}
 
-	// Now let's add the teams
 	comp_data->n_teams = 12; // number of teams per group in this case
-	comp_data->team_league_table = (DWORD*)sub_944E46_malloc(15 * league_team_list_sz); // number of teams * 59 (0x3B) - was 0x2FF
+	comp_data->team_league_table = (DWORD*)sub_944E46_malloc(15 * league_team_list_sz);
 	BYTE teamsAdded = 0;
 	for (DWORD i = 0; i < comp_data->n_teams; i++)
 	{

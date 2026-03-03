@@ -273,7 +273,7 @@ void nor_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 void setup_nor_cup()
 {
 	WriteVTablePtr(nor_cup_vtable, VTableFixtures, (DWORD)&nor_cup_fixture_caller);
-	//WriteVTablePtr(nor_cup_vtable, VTableEoSUpdate, (DWORD)&nor_cup_update_c);
+	WriteVTablePtr(nor_cup_vtable, VTableEoSUpdate, (DWORD)&nor_cup_update_c);
 	PatchFunction(0x78f890, (DWORD)&nor_cup_teams_c);
 	WriteVTablePtr(nor_cup_vtable, VTableStageNews, 0x48C6D0);
 	WriteVTablePtr(nor_cup_vtable, VTableSubsRounds, 0x858e70);

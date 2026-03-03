@@ -2,9 +2,12 @@
 #include "Structures\CMHeader.h"
 #include "Helpers\generic_functions.h"
 #include <Helpers\9cf_constants.h>
-//#include "caf_champions_league_elite.h"
-//#include "caf_champions_league_2.h"
-//#include "caf_challenge_league.h"
+#include "caf_champions_league.h"
+#include "caf_confederation_cup.h"
+#include "caf_super_cup.h"
+
+static DWORD(__thiscall* caf_super_cup_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
+(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x410650);
 
 DWORD caf_setup_c(playable_nation_data* nation_data) {
 	// contract start date?
@@ -24,17 +27,17 @@ DWORD caf_setup_c(playable_nation_data* nation_data) {
 	// start calling each league's functions
 	BYTE i = 0;
 
-	/*BYTE* pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
-	caf_champions_league_elite_init(pMem, *current_year, get_comp(CAF_CHAMPIONS_LEAGUE_ELITE_9CF()));
+	BYTE* pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
+	caf_champions_league_init(pMem, *current_year, get_comp(CAF_CHAMPIONS_LEAGUE_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
-	caf_champions_league_2_init(pMem, *current_year, get_comp(CAF_CHAMPIONS_LEAGUE_TWO_9CF()));
+	caf_confederation_cup_init(pMem, *current_year, get_comp(CAF_CONFEDERATION_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
-	caf_challenge_league_init(pMem, *current_year, get_comp(CAF_CHALLENGE_LEAGUE_9CF()));
-	nation_comps[i++] = (DWORD)pMem;*/
+	caf_super_cup_setup(pMem, *current_year, get_comp(CAF_SUPER_CUP_9CF()));
+	nation_comps[i++] = (DWORD)pMem;
 
 	BYTE* cm_date = new BYTE[8];
 	convert_to_cm_date(cm_date, 21, June, 2025, -1);
@@ -46,9 +49,7 @@ DWORD caf_setup_c(playable_nation_data* nation_data) {
 }
 
 void setup_caf_continent() {
-	//WriteDWORD(0x66769f + 6, (DWORD)&caf_setup_c);
-
-	//setup_caf_champions_league_elite();
-	//setup_caf_champions_league_2();
-	//setup_caf_challenge_league();
+	setup_caf_champions_league();
+	setup_caf_confederation_cup();
+	setup_caf_super_cup();
 }

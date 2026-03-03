@@ -76,7 +76,7 @@ char kor_awards_2(BYTE* _this, DWORD current_date) {
 		yearly_player_award_nominate_769380(_this, current_date, awards_list[7], NATION_SOUTH_KOREA_9CF(), -1, -1, -1, -1, 0, 5);
 	}
 	BYTE sub_669340_ret = sub_669340(nation);
-	WORD nation_day = pnd_list[sub_669340_ret].update_day; //b6423d kormany
+	WORD nation_day = pnd_list[sub_669340_ret].update_day;
 	if (*(WORD*)(current_date) == nation_day) {
 		monthly_person_award_nominate_7672E0((BYTE*)awards_list[1], *(WORD*)(current_date + 2));
 		monthly_person_award_nominate_7672E0((BYTE*)awards_list[2], *(WORD*)(current_date + 2));

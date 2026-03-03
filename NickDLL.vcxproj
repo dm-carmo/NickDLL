@@ -158,10 +158,15 @@
     <ClCompile Include="Brazil\bra_setup.cpp" />
     <ClCompile Include="Brazil\bra_super.cpp" />
     <ClCompile Include="Brazil\bra_third.cpp" />
+    <ClCompile Include="CAF\caf_champions_league.cpp" />
+    <ClCompile Include="CAF\caf_confederation_cup.cpp" />
     <ClCompile Include="CAF\caf_setup.cpp" />
-    <ClCompile Include="CONCACAF\concacaf.cpp" />
+    <ClCompile Include="CAF\caf_super_cup.cpp" />
+    <ClCompile Include="CONCACAF\concacaf_champions_cup.cpp" />
+    <ClCompile Include="CONCACAF\concacaf_setup.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="CONMEBOL\conmebol_libertadores.cpp" />
+    <ClCompile Include="CONMEBOL\conmebol_recopa.cpp" />
     <ClCompile Include="CONMEBOL\conmebol_setup.cpp" />
     <ClCompile Include="CONMEBOL\conmebol_sudamericana.cpp" />
     <ClCompile Include="Croatia\cro_awards.cpp" />
@@ -251,6 +256,8 @@
     <ClCompile Include="Norway\nor_second.cpp" />
     <ClCompile Include="Norway\nor_setup.cpp" />
     <ClCompile Include="Norway\nor_third.cpp" />
+    <ClCompile Include="OFC\ofc_champions_league.cpp" />
+    <ClCompile Include="OFC\ofc_setup.cpp" />
     <ClCompile Include="Poland\pol_awards.cpp" />
     <ClCompile Include="Poland\pol_cup.cpp" />
     <ClCompile Include="Poland\pol_first.cpp" />
@@ -287,6 +294,7 @@
     <ClCompile Include="UEFA\uefa_conference_league.cpp" />
     <ClCompile Include="UEFA\uefa_europa_league.cpp" />
     <ClCompile Include="UEFA\uefa_setup.cpp" />
+    <ClCompile Include="UEFA\uefa_super_cup.cpp" />
     <ClCompile Include="USA\usa_awards.cpp" />
     <ClCompile Include="USA\usa_champ.cpp" />
     <ClCompile Include="USA\usa_cup.cpp" />
@@ -320,10 +328,15 @@
     <ClInclude Include="Brazil\bra_state_league_list.h" />
     <ClInclude Include="Brazil\bra_super.h" />
     <ClInclude Include="Brazil\bra_third.h" />
+    <ClInclude Include="CAF\caf_champions_league.h" />
+    <ClInclude Include="CAF\caf_confederation_cup.h" />
     <ClInclude Include="CAF\caf_setup.h" />
-    <ClInclude Include="CONCACAF\concacaf.h" />
+    <ClInclude Include="CAF\caf_super_cup.h" />
+    <ClInclude Include="CONCACAF\concacaf_champions_cup.h" />
+    <ClInclude Include="CONCACAF\concacaf_setup.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="CONMEBOL\conmebol_libertadores.h" />
+    <ClInclude Include="CONMEBOL\conmebol_recopa.h" />
     <ClInclude Include="CONMEBOL\conmebol_setup.h" />
     <ClInclude Include="CONMEBOL\conmebol_sudamericana.h" />
     <ClInclude Include="Croatia\cro_awards.h" />
@@ -415,6 +428,8 @@
     <ClInclude Include="Norway\nor_setup.h" />
     <ClInclude Include="Norway\nor_third.h" />
     <ClInclude Include="NString.h" />
+    <ClInclude Include="OFC\ofc_champions_league.h" />
+    <ClInclude Include="OFC\ofc_setup.h" />
     <ClInclude Include="Poland\pol_awards.h" />
     <ClInclude Include="Poland\pol_cup.h" />
     <ClInclude Include="Poland\pol_first.h" />
@@ -452,6 +467,7 @@
     <ClInclude Include="UEFA\uefa_conference_league.h" />
     <ClInclude Include="UEFA\uefa_europa_league.h" />
     <ClInclude Include="UEFA\uefa_setup.h" />
+    <ClInclude Include="UEFA\uefa_super_cup.h" />
     <ClInclude Include="USA\usa_awards.h" />
     <ClInclude Include="USA\usa_champ.h" />
     <ClInclude Include="USA\usa_cup.h" />

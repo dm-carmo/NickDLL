@@ -53,12 +53,21 @@ int replacement_667150() {
 
 	cm_date = new BYTE[8];
 	pnd_list[idx].continent = find_continent("North America");
-	pnd_list[idx].setup_function_addr = 0x831650;
+	if (configFile.GetBool("applyCONCACAF", true))
+	{
+		pnd_list[idx].setup_function_addr = (DWORD)&concacaf_setup_c;
+		convert_to_cm_date(cm_date, 2, January, 2025, -1);
+		pnd_list[idx].update_day = *(WORD*)(cm_date);
+	}
+	else
+	{
+		pnd_list[idx].setup_function_addr = 0x831650;
+		convert_to_cm_date(cm_date, 1, February, 2025, -1);
+		pnd_list[idx].update_day = *(WORD*)(cm_date);
+	}
 	convert_to_cm_date(pnd_list[idx].start_date, 1, July, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 1, July, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
-	convert_to_cm_date(cm_date, 1, February, 2025, -1);
-	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].main_cup = get_comp(CONCACAF_CHAMPIONS_CUP_9CF());
 	idx++;
 
@@ -99,31 +108,41 @@ int replacement_667150() {
 	convert_to_cm_date(pnd_list[idx].start_date, 1, July, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 1, July, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
-	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].main_cup = get_comp(AFC_CHAMPIONS_LEAGUE_ELITE_9CF());
 	idx++;
 
 	cm_date = new BYTE[8];
-	pnd_list[idx].continent = find_continent("Africa");
-	pnd_list[idx].setup_function_addr = (DWORD)&caf_setup_c;
-	convert_to_cm_date(pnd_list[idx].start_date, 1, July, *current_year, -1);
-	convert_to_cm_date(pnd_list[idx].end_date, 1, July, *current_year, -1);
-	pnd_list[idx].updates_in_june = 1;
-	convert_to_cm_date(cm_date, 21, February, 2025, -1);
-	pnd_list[idx].update_day = *(WORD*)(cm_date);
-	pnd_list[idx].main_cup = get_comp(CAF_CHAMPIONS_LEAGUE_9CF());
-	idx++;
-
-	cm_date = new BYTE[8];
 	pnd_list[idx].continent = find_continent("Oceania");
-	pnd_list[idx].setup_function_addr = 0x831EB0;
+	if (configFile.GetBool("applyOFC", true))
+	{
+		pnd_list[idx].setup_function_addr = (DWORD)&ofc_setup_c;
+		convert_to_cm_date(cm_date, 2, January, 2025, -1);
+		pnd_list[idx].update_day = *(WORD*)(cm_date);
+	}
+	else
+	{
+		pnd_list[idx].setup_function_addr = 0x831EB0;
+		convert_to_cm_date(cm_date, 21, July, 2025, -1);
+		pnd_list[idx].update_day = *(WORD*)(cm_date);
+	}
 	convert_to_cm_date(pnd_list[idx].start_date, 1, July, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 1, July, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
-	convert_to_cm_date(cm_date, 21, July, 2025, -1);
-	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].main_cup = get_comp(OFC_CHAMPIONS_LEAGUE_9CF());
 	idx++;
+
+	if (configFile.GetBool("applyCAF", true)) {
+		cm_date = new BYTE[8];
+		pnd_list[idx].continent = find_continent("Africa");
+		pnd_list[idx].setup_function_addr = (DWORD)&caf_setup_c;
+		convert_to_cm_date(pnd_list[idx].start_date, 1, July, *current_year, -1);
+		convert_to_cm_date(pnd_list[idx].end_date, 1, July, *current_year, -1);
+		pnd_list[idx].updates_in_june = 1;
+		convert_to_cm_date(cm_date, 21, June, 2025, -1);
+		pnd_list[idx].update_day = *(WORD*)(cm_date);
+		pnd_list[idx].main_cup = get_comp(CAF_CHAMPIONS_LEAGUE_9CF());
+		idx++;
+	}
 
 	cm_date = new BYTE[8];
 	pnd_list[idx].nation = get_country(NATION_ARGENTINA_9CF());
@@ -674,13 +693,19 @@ vector<DWORD> pnd_countminus2_dword = {
 void setup_leagues_setup() {
 	PatchFunction(0x667150, (DWORD)&replacement_667150);
 	// fix if Africa added
-	WriteBytes(0x718174, 1, 8);
-	WriteBytes(0x718175, 1, 0x7e);
-	WriteBytes(0x72408C, 1, 6);
-	WriteBytes(0x724091, 1, 8);
-	WriteBytes(0x724092, 1, 0x7e);
-	WriteBytes(0x8d305e, 1, 8);
-	WriteBytes(0x8d305f, 1, 0x7e);
+	if (configFile.GetBool("applyCAF", true)) {
+		WriteBytes(0x48df27, 1, 8);
+		WriteBytes(0x5accb2, 1, 9);
+		WriteBytes(0x5acccf, 1, 9);
+		WriteBytes(0x5accdb, 1, 8);
+		WriteBytes(0x718174, 1, 8);
+		WriteBytes(0x718175, 1, 0x7e);
+		WriteBytes(0x72408C, 1, 6);
+		WriteBytes(0x724091, 1, 8);
+		WriteBytes(0x724092, 1, 0x7e);
+		WriteBytes(0x8d305e, 1, 8);
+		WriteBytes(0x8d305f, 1, 0x7e);
+	}
 
 	for (DWORD d : pnd_order_addr) {
 		WriteDWORD(d, (DWORD)&pnd_order[0]);

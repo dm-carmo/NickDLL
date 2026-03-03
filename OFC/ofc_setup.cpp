@@ -1,0 +1,42 @@
+#include <windows.h>
+#include "Structures\CMHeader.h"
+#include "Helpers\generic_functions.h"
+#include <Helpers\9cf_constants.h>
+#include "ofc_champions_league.h"
+
+DWORD ofc_setup_c(playable_nation_data* nation_data) {
+	// contract start date?
+	nation_data->contract_start_day = 1;
+	nation_data->contract_start_month = June;
+	nation_data->contract_start_year = *current_year;
+	nation_data->f55 = 5;
+	// contract end date?
+	nation_data->contract_end_day = 1;
+	nation_data->contract_end_month = June;
+	nation_data->contract_end_year = *current_year;
+	nation_data->f70 = 5;
+	// call 6699D0 removed so the comps always load
+	nation_data->num_of_comps = 1;
+	DWORD* nation_comps = (DWORD*)sub_944E46_malloc(nation_data->num_of_comps * 4);
+	nation_data->comps_list = (DWORD)nation_comps;
+	// start calling each league's functions
+	BYTE i = 0;
+
+	BYTE* pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	ofc_champions_league_init(pMem, *current_year, get_comp(OFC_CHAMPIONS_LEAGUE_9CF()));
+	nation_comps[i++] = (DWORD)pMem;
+
+	BYTE* cm_date = new BYTE[8];
+	convert_to_cm_date(cm_date, 2, January, 2025, -1);
+	nation_data->update_day = *(WORD*)cm_date;
+	nation_data->update_year = *current_year;
+	nation_data->f29 = 1;
+	nation_data->super_cup = 0;
+	return 1;
+}
+
+void setup_ofc_continent() {
+	WriteDWORD(0x667794 + 6, (DWORD)&ofc_setup_c);
+
+	setup_ofc_champions_league();
+}

@@ -127,15 +127,15 @@ DWORD conmebol_libertadores_fixtures(BYTE* _this, char stage_idx, WORD* num_roun
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 1, 5), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 2, 5), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, FirstRound, 4, NoTiebreak_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 6, 3, 6, 0, 0, 2, 7, 180000);
+		FillFixtureDetails(pMem, fixture_id++, FirstRound, 4, NoTiebreak_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 6, 3, 6, 0, 0, 2, 7, 0, 0, 180000);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 2, 13), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 2, 19), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SecondRound, 4, NoTiebreak_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 16, 8, 13, 6, 0, 2, 7, 225000);
+		FillFixtureDetails(pMem, fixture_id++, SecondRound, 4, NoTiebreak_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 16, 8, 13, 6, 0, 2, 7, 0, 0, 225000);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 2, 27), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 3, 5), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 4, NoTiebreak_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 8, 4, 0, 0, 0, 2, 7, 270000);
+		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 4, NoTiebreak_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 8, 4, 0, 0, 0, 2, 7, 0, 0, 270000);
 
 		return (DWORD)pMem;
 	}
@@ -182,15 +182,15 @@ DWORD conmebol_libertadores_fixtures(BYTE* _this, char stage_idx, WORD* num_roun
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 5, 29), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 13), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, EleventhRound, 0, FixedTeamOrderInCup + NoTiebreak_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 16, 8, 16, 0, 0, 2, 7, 562500);
+		FillFixtureDetails(pMem, fixture_id++, EleventhRound, 0, FixedTeamOrderInCup + NoTiebreak_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 16, 8, 16, 0, 0, 2, 7, 0, 0, 562500);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 21), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 17), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 8, 4, 0, 0, 0, 2, 7, 765000);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 8, 4, 0, 0, 0, 2, 7, 0, 0, 765000);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 25), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 22), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 4, 2, 0, 0, 0, 2, 7, 1035000);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 4, 2, 0, 0, 0, 2, 7, 0, 0, 1035000);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 29), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 29), year, Saturday, Afternoon, NationalStadium);
@@ -626,8 +626,8 @@ char conmebol_libertadores_update(BYTE* _this) {
 	data->year++;
 	data->f171 = 0;
 	*((BYTE*)(_this + 0xB1)) = 0;
-	conmebol_libertadores_all_teams(_this); //584fa0
-	conmebol_libertadores_qualifier_teams(_this); //584990
+	conmebol_libertadores_all_teams(_this);
+	conmebol_libertadores_qualifier_teams(_this);
 	DWORD v1 = *(DWORD*)_this;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x8C))(_this);
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x94))(_this);
@@ -826,7 +826,7 @@ int conmebol_libertadores_set_fates(BYTE* _this, cm3_clubs* club, char fate, cha
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, EleventhRound, 0x1E);
 			return 0;
 		case TopPlayoff:
-			//staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(sudam_data->competition_db), None, TenthRound, 0x1E);
+			//staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, TenthRound, 0x1E);
 			return 0;
 		default:
 			staff_history_knocked_out_86C000(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, GroupStage, 0xF);
@@ -905,8 +905,8 @@ void conmebol_libertadores_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	*((BYTE*)(_this + 0xB1)) = 0;
 	int loaded = sub_51FC00(_this, 1);
 	if (loaded) return;
-	conmebol_libertadores_all_teams(_this); //584fa0
-	conmebol_libertadores_qualifier_teams(_this); //584990
+	conmebol_libertadores_all_teams(_this);
+	conmebol_libertadores_qualifier_teams(_this);
 	DWORD v1 = *(DWORD*)_this;
 	*((DWORD*)(_this + 0xA3)) = (DWORD)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0x3c, _this + 0x3a, 0);
 	cup_map_fixture_tree_518790(_this);
@@ -915,7 +915,7 @@ void conmebol_libertadores_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	sub_49EE70(pMem2, _this);
 	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
-	conmebol_libertadores_reputation_setup(_this); //586900
+	conmebol_libertadores_reputation_setup(_this);
 }
 
 void setup_conmebol_libertadores() {
@@ -928,7 +928,6 @@ void setup_conmebol_libertadores() {
 	WriteVTablePtr(conmebol_libertadores_vtable, VTableFixtures, (DWORD)&conmebol_libertadores_fixture_caller);
 	WriteVTablePtr(conmebol_libertadores_vtable, VTableTableFates, (DWORD)&conmebol_libertadores_set_table_fate);
 	WriteVTablePtr(conmebol_libertadores_vtable, VTableStageNews, 0x48C6D0); // review? -> 584550
-	//WriteVTablePtr(conmebol_libertadores_vtable, VTable23, (DWORD)&ucl_586660_c);
 	WriteVTablePtr(conmebol_libertadores_vtable, VTableReputationSetup, (DWORD)&conmebol_libertadores_reputation_setup_c);
 	WriteVTablePtr(conmebol_libertadores_vtable, VTableReputationCalc, (DWORD)&conmebol_libertadores_reputation_calc_c);
 

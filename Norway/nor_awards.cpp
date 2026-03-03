@@ -32,7 +32,7 @@ void norway_awards(BYTE* _this, int a2) {
 	yearly_person_award_setup_92FE80(pMem, edi, i, NOR_ATTACKER_OF_YEAR_9CF(), 4000, 1750, -1, 0, 0, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	// Premier League awards
+	// Eliteserien awards
 	pMem = (BYTE*)sub_944CF1_operator_new(0x25D);
 	team_award_setup_8AF520(pMem, edi, i, NOR_PREMIER_TEAM_OF_WEEK_9CF(), 3000, 500, NOR_PREMIER_9CF(), 0, 1, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
@@ -45,7 +45,7 @@ void norway_awards(BYTE* _this, int a2) {
 	monthly_person_award_setup_766E10(pMem, edi, i, NOR_PREMIER_PLAYER_OF_MONTH_9CF(), 3000, 1500, NOR_PREMIER_9CF(), March, *current_year, November, *current_year, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	// Championship awards
+	// 1. Divisjon awards
 	pMem = (BYTE*)sub_944CF1_operator_new(0x25D);
 	team_award_setup_8AF520(pMem, edi, i, NOR_FIRST_TEAM_OF_WEEK_9CF(), 1000, 100, NOR_FIRST_9CF(), 0, 1, a2, 1);
 	awards_list[i++] = (DWORD)pMem;

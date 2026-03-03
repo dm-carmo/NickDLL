@@ -229,14 +229,10 @@ vector<cm3_clubs*> find_clubs_of_country(DWORD nation_id)
 	vector<cm3_clubs*> ret;
 	for (DWORD i = 0; i < *clubs_count - 2 * *nations_count; i++)
 	{
-		if ((*clubs)[i].ClubNation != NULL && (*clubs)[i].ClubNation->NationID == nation_id && (*clubs)[i].ClubDivision != 0)  // ClubDivision != 0 to stop us getting the national teams
+		if ((*clubs)[i].ClubNation != NULL && (*clubs)[i].ClubNation->NationID == nation_id)
 		{
 			cm3_clubs* club = &(*clubs)[i];
-
 			//dprintf("Club Division: %s\n", (club->ClubDivision)->ClubCompName);
-
-			// Don't add Lower Division Clubs
-			//if (stricmp((char *)(club->ClubDivision+1), "A Lower Division") != 0)
 			ret.push_back(club);
 		}
 	}
@@ -249,7 +245,7 @@ vector<cm3_clubs*> find_clubs_of_country_for_euro_playable(DWORD nation_id)
 	vector<cm3_clubs*> ret;
 	for (DWORD i = 0; i < *clubs_count - 2 * *nations_count; i++)
 	{
-		if ((*clubs)[i].ClubNation != NULL && (*clubs)[i].ClubNation->NationID == nation_id && (*clubs)[i].ClubDivision != 0)  // ClubDivision != 0 to stop us getting the national teams
+		if ((*clubs)[i].ClubNation != NULL && (*clubs)[i].ClubNation->NationID == nation_id)
 		{
 			cm3_clubs* club = &(*clubs)[i];
 
@@ -270,7 +266,7 @@ vector<cm3_clubs*> find_clubs_of_country_for_euro(DWORD nation_id)
 	vector<cm3_clubs*> ret;
 	for (DWORD i = 0; i < *clubs_count - 2 * *nations_count; i++)
 	{
-		if ((*clubs)[i].ClubNation != NULL && (*clubs)[i].ClubNation->NationID == nation_id && (*clubs)[i].ClubDivision != 0)  // ClubDivision != 0 to stop us getting the national teams
+		if ((*clubs)[i].ClubNation != NULL && (*clubs)[i].ClubNation->NationID == nation_id)
 		{
 			cm3_clubs* club = &(*clubs)[i];
 

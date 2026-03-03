@@ -102,7 +102,6 @@ static char(__thiscall* sub_768310)(BYTE* _this, DWORD date_addr) =
 (char(__thiscall*)(BYTE * _this, DWORD date_addr))(0x768310);
 static void* (__thiscall* sub_4A4850)(BYTE* _this, BYTE* club) = (void* (__thiscall*)(BYTE * _this, BYTE * club))(0x4A4850);
 static DWORD* (__thiscall* sub_54C770)(BYTE* _this, BYTE* date_ret, char a3) = (DWORD * (__thiscall*)(BYTE * _this, BYTE * date_ret, char a3))(0x54C770);
-//int __thiscall sub_685D30(int this, char* Drive, int a3);
 static int(__thiscall* sub_685D30)(BYTE* _this, BYTE* round_data, int a3) =
 (int(__thiscall*)(BYTE * _this, BYTE * round_data, int a3))(0x685D30);
 

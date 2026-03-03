@@ -13,8 +13,6 @@
 #include "Helpers\Helper.h"
 #include "Helpers\YearChanger.h"
 
-#include "CONCACAF\concacaf.h"
-
 #include "inject_9cf_rename.h"
 #include "setup_misc_functions.h"
 #include <leagues_setup.h>
@@ -158,9 +156,14 @@ void Setup()
 		setup_afc_continent();
 	}
 
+	if (configFile.GetBool("applyCAF", true)) {
+		dprintf("Applying CAF changes\n");
+		setup_caf_continent();
+	}
+
 	if (configFile.GetBool("applyCONCACAF", true)) {
 		dprintf("Applying CONCACAF changes\n");
-		setup_concacaf();
+		setup_concacaf_continent();
 	}
 
 	if (configFile.GetBool("applyCONMEBOL", true)) {
@@ -168,15 +171,24 @@ void Setup()
 		setup_conmebol_continent();
 	}
 
+	if (configFile.GetBool("applyOFC", true)) {
+		dprintf("Applying OFC changes\n");
+		setup_ofc_continent();
+	}
+
 	if (configFile.GetBool("applyUEFA", true)) {
 		dprintf("Applying UEFA changes\n");
 		setup_uefa_continent();
 	}
 
+	dprintf("------------------------------\n");
+
 	setup_name_injection();
 	setup_misc_functions();
 
 	setup_leagues_setup();
+
+	dprintf("Added %d playable nations/continents!\n", pnd_count);
 }
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved)

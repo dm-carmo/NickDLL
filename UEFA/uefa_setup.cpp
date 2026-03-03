@@ -5,6 +5,8 @@
 #include "uefa_champions_league.h"
 #include "uefa_europa_league.h"
 #include "uefa_conference_league.h"
+#include "uefa_super_cup.h"
+
 static DWORD(__thiscall* uefa_super_cup_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
 (DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x57A100);
 
@@ -82,10 +84,7 @@ void setup_uefa_continent() {
 	setup_uefa_champions_league();
 	setup_uefa_europa_league();
 	setup_uefa_conference_league();
-
-	// UEFA Super Cup date
-	WriteBytes(0x57a499 + 1, 1, Wednesday);
-	WriteBytes(0x57a49e + 1, 1, 13);
+	setup_uefa_super_cup();
 
 	// others
 	WriteBytes(0x58334a, 2, 0x74, 0x17);

@@ -55,3 +55,34 @@ const vector<string> asia_west = {
 	"Pakistan",
 	"Yemen",
 };
+
+const vector<string> caf_top12 = {
+	"Egypt",
+	"Morocco",
+	"South Africa",
+	"Algeria",
+	"Tanzania",
+	"Tunisia",
+	"Angola",
+	"Democratic Republic of Congo",
+	"Sudan",
+	"Ivory Coast",
+	"Libya",
+	"Nigeria",
+};
+
+const vector<string> caf_worst = {
+	"Chad",
+	"Eritrea",
+	"São Tomé & Principe",
+	"Somalia",
+	"Djibouti",
+	"Seychelles",
+};
+
+const vector<string> ofc_worst = {
+	"American Samoa",
+	"Cook Islands",
+	"Samoa",
+	"Tonga",
+};

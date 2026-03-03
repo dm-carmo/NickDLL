@@ -298,7 +298,6 @@ void sort_por_fourth_clubs(WORD year) {
 }
 
 void __fastcall por_check_reserve_teams(BYTE* _this) {
-	//comp_stats* ger_second_data = (comp_stats*)get_loaded_league(GER_SECOND_9CF());
 	comp_stats* por_second_data = (comp_stats*)get_loaded_league(POR_SECOND_9CF());
 	comp_stats* por_third_data = (comp_stats*)get_loaded_league(POR_THIRD_9CF());
 	BYTE* por_fourth = get_loaded_league(POR_FOURTH_9CF());

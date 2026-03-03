@@ -146,7 +146,4 @@ void setup_eng_fa_trophy()
 {
 	WriteVTablePtr(eng_fa_trophy_vtable, VTableFixtures, (DWORD)&fa_trophy_fixture_caller);
 	PatchFunction(0x5712b0, (DWORD)&eng_fa_trophy_teams_c);
-	//WriteBytes(0x5713cb, 1, 0x8);
-	//WriteBytes(0x5713db, 1, 0x8);
-	//WriteBytes(0x571429, 1, 0x30);
 }

@@ -533,8 +533,8 @@ char afc_challenge_league_update(BYTE* _this) {
 	data->year++;
 	data->f171 = 0;
 	*((BYTE*)(_this + 0xB1)) = 0;
-	afc_challenge_league_all_teams(_this); //584fa0
-	afc_challenge_league_qualifier_teams(_this); //584990
+	afc_challenge_league_all_teams(_this);
+	afc_challenge_league_qualifier_teams(_this);
 	DWORD v1 = *(DWORD*)_this;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x8C))(_this);
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x94))(_this);
@@ -762,7 +762,7 @@ int afc_challenge_league_set_fates(BYTE* _this, cm3_clubs* club, char fate, char
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, QuarterFinal, 0x1E);
 			return 0;
 		case TopPlayoff:
-			//staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(sudam_data->competition_db), None, EleventhRound, 0x1E);
+			//staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, EleventhRound, 0x1E);
 			return 0;
 		default:
 			staff_history_knocked_out_86C000(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, GroupStage, 0xF);
@@ -853,8 +853,8 @@ void afc_challenge_league_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	*((BYTE*)(_this + 0xB1)) = 0;
 	int loaded = sub_51FC00(_this, 1);
 	if (loaded) return;
-	afc_challenge_league_all_teams(_this); //584fa0
-	afc_challenge_league_qualifier_teams(_this); //584990
+	afc_challenge_league_all_teams(_this);
+	afc_challenge_league_qualifier_teams(_this);
 	DWORD v1 = *(DWORD*)_this;
 	*((DWORD*)(_this + 0xA3)) = (DWORD)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0x3c, _this + 0x3a, 0);
 	cup_map_fixture_tree_518790(_this);
@@ -863,7 +863,7 @@ void afc_challenge_league_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	sub_49EE70(pMem2, _this);
 	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
-	afc_challenge_league_reputation_setup(_this); //586900
+	afc_challenge_league_reputation_setup(_this);
 }
 
 void setup_afc_challenge_league() {

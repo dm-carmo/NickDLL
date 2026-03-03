@@ -660,7 +660,6 @@ void setup_hol_second()
 {
 	WriteVTablePtr(hol_second_vtable, VTableSubsRounds, (DWORD)&hol_second_subs_c);
 	WriteVTablePtr(hol_second_vtable, VTable2, (DWORD)&hol_second_vtable2_c);
-	//WriteVTablePtr(hol_second_vtable, VTableInitFree, (DWORD)&hol_second_free_c);
 	WriteVTablePtr(hol_second_vtable, VTableEoSUpdate, (DWORD)&hol_second_update_c);
 	WriteVTablePtr(hol_second_vtable, VTableFixtures, (DWORD)&hol_second_fixtures_c);
 	WriteVTablePtr(hol_second_vtable, VTableReputationCalc, (DWORD)&hol_second_reputation_calc_c);

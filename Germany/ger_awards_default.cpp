@@ -81,7 +81,7 @@ char ger_awards_default_2(BYTE* _this, DWORD current_date) {
 		yearly_staff_award_nominate_768940(_this, current_date, awards_list[7], GER_SECOND_9CF());
 	}
 	BYTE sub_669340_ret = sub_669340(nation);
-	WORD nation_day = pnd_list[sub_669340_ret].update_day; //b6423d germany
+	WORD nation_day = pnd_list[sub_669340_ret].update_day;
 	if (*(WORD*)(current_date) == nation_day) {
 		monthly_person_award_nominate_7672E0((BYTE*)awards_list[2], *(WORD*)(current_date + 2));
 		monthly_person_award_nominate_7672E0((BYTE*)awards_list[6], *(WORD*)(current_date + 2));
@@ -151,6 +151,5 @@ void setup_ger_awards_default()
 	PatchFunction(0x5DF790, (DWORD)&ger_awards_default_c);
 	PatchFunction(0x5DFD70, (DWORD)&ger_awards_default_2_c);
 	WriteDWORD(0x96B3C8, (DWORD)&ger_awards_team_of_week_default_c);
-	//PatchFunction(0x5DFF40, (DWORD)&ger_awards_team_of_week_default_c);
 	PatchFunction(0x5DFF40, (DWORD)&ger_awards_staff_history_default_c);
 }
