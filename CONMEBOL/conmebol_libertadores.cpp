@@ -26,6 +26,12 @@ int liber_583B10(BYTE* _this, BYTE* a2, int a3) {
 		cl = *(char*)(a2 + 0x44);
 	}
 	else cl = *(char*)(a2 + 0x48);
+	if (al > cl) {
+		club_check = (cm3_clubs*)*(DWORD*)(a2 + 0x1c);
+	}
+	else if (al < cl) {
+		club_check = (cm3_clubs*)*(DWORD*)(a2 + 0x20);
+	}
 	// group stage indexes
 	if (bl > -1 && bl < 8) {
 		if (club_check) {
@@ -849,7 +855,6 @@ int conmebol_libertadores_set_fates(BYTE* _this, cm3_clubs* club, char fate, cha
 		case Promoted:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
 				*(WORD*)(rounds + playoff_dates_sz * (current_round + 1) + 7), 0xF);
-			sub_9058B0((BYTE*)*uefa_seeding_list, (BYTE*)(club->ClubNation), 3);
 			return 0;
 		case BottomPlayoff:
 			staff_history_comp_runner_up_86B0B0(staff_hist_ptr, club, round_data, a7);

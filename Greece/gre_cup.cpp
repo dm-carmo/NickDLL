@@ -331,6 +331,16 @@ void gre_cup_final_stage_setup(BYTE* _this) {
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
 	sub_51C800(new_stage, 0);
 	comp_data->current_stage = (long)stage_num;
+
+	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
+	for (char al = 0; al < 4; al++) {
+		comp_stats* curr_stage = (comp_stats*)(comp_data->stages[al]);
+		team_league_stats t = ((team_league_stats*)(curr_stage->team_league_table))[3];
+		staff_history_knocked_out_86C000(staff_hist_ptr, t.club, (DWORD)(comp_data->competition_db), None, GroupStage, 0xF);
+
+		t = ((team_league_stats*)(curr_stage->team_league_table))[4];
+		staff_history_knocked_out_86C000(staff_hist_ptr, t.club, (DWORD)(comp_data->competition_db), None, GroupStage, 0xF);
+	}
 }
 
 void gre_cup_stages_create(BYTE* _this) {

@@ -1,4 +1,4 @@
-#pragma warning (disable : 4786 4996)  // Stops all the weird STL warnings
+#pragma warning (disable : 4786 4996 6031)  // Stops all the weird STL warnings
 #include <windows.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -151,6 +151,11 @@ void Setup()
 
 	dprintf("------------------------------\n");
 
+	if (configFile.GetBool("applyFIFAclubs", true)) {
+		dprintf("Applying FIFA changes (club comps)\n");
+		setup_fifa_club_comps();
+	}
+
 	if (configFile.GetBool("applyAFC", true)) {
 		dprintf("Applying AFC changes\n");
 		setup_afc_continent();
@@ -187,8 +192,6 @@ void Setup()
 	setup_misc_functions();
 
 	setup_leagues_setup();
-
-	dprintf("Added %d playable nations/continents!\n", pnd_count);
 }
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved)

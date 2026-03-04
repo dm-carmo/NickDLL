@@ -19,6 +19,7 @@
 #include "Sweden\swe_setup.h"
 #include "USA\usa_setup.h"
 
+#include "FIFA\fifa_club_setup.h"
 #include "AFC\afc_setup.h"
 #include "CAF\caf_setup.h"
 #include "CONCACAF\concacaf_setup.h"

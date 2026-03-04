@@ -198,7 +198,7 @@ DWORD bra_reg_central_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WO
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 3, 8), year, Saturday);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Sunday, Afternoon);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, AwayGoalsPenaltiesNoExtraTime_2, 5, 4, 2, 4, 0, 0, 2, 7);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup2 + NoTiebreak_1, AwayGoalsPenaltiesNoExtraTime_2, 5, 4, 2, 4, 0, 0, 2, 7);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 3, 17), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 3, 23), year, Sunday);

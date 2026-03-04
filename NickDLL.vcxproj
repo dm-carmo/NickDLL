@@ -193,6 +193,9 @@
     <ClCompile Include="England\eng_prm.cpp" />
     <ClCompile Include="England\eng_setup.cpp" />
     <ClCompile Include="England\eng_third.cpp" />
+    <ClCompile Include="FIFA\fifa_club_setup.cpp" />
+    <ClCompile Include="FIFA\fifa_club_world_cup.cpp" />
+    <ClCompile Include="FIFA\fifa_intercontinental_cup.cpp" />
     <ClCompile Include="Finland\fin_awards.cpp" />
     <ClCompile Include="Finland\fin_cup.cpp" />
     <ClCompile Include="Finland\fin_first.cpp" />
@@ -363,6 +366,9 @@
     <ClInclude Include="England\eng_prm.h" />
     <ClInclude Include="England\eng_setup.h" />
     <ClInclude Include="England\eng_third.h" />
+    <ClInclude Include="FIFA\fifa_club_setup.h" />
+    <ClInclude Include="FIFA\fifa_club_world_cup.h" />
+    <ClInclude Include="FIFA\fifa_intercontinental_cup.h" />
     <ClInclude Include="Finland\fin_awards.h" />
     <ClInclude Include="Finland\fin_cup.h" />
     <ClInclude Include="Finland\fin_first.h" />

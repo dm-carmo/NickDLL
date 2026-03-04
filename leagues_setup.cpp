@@ -25,11 +25,22 @@ int replacement_667150() {
 	BYTE* cm_date = new BYTE[8];
 	pnd_list[idx].nation = 0;
 	pnd_list[idx].continent = 0;
-	pnd_list[idx].setup_function_addr = 0x830FE0;
-	convert_to_cm_date(pnd_list[idx].start_date, 22, June, *current_year, -1);
-	convert_to_cm_date(pnd_list[idx].end_date, 20, May, *current_year, -1);
-	pnd_list[idx].updates_in_june = 1;
-	convert_to_cm_date(cm_date, 21, June, 2025, -1);
+	if (configFile.GetBool("applyFIFAclubs", true))
+	{
+		pnd_list[idx].setup_function_addr = (DWORD)&fifa_club_setup_c;
+		convert_to_cm_date(pnd_list[idx].start_date, 1, July, *current_year, -1);
+		convert_to_cm_date(pnd_list[idx].end_date, 1, July, *current_year, -1);
+		pnd_list[idx].updates_in_june = 1;
+		convert_to_cm_date(cm_date, 2, January, 2025, -1);
+	}
+	else
+	{
+		pnd_list[idx].setup_function_addr = 0x830FE0;
+		convert_to_cm_date(pnd_list[idx].start_date, 22, June, *current_year, -1);
+		convert_to_cm_date(pnd_list[idx].end_date, 20, May, *current_year, -1);
+		pnd_list[idx].updates_in_june = 1;
+		convert_to_cm_date(cm_date, 21, June, 2025, -1);
+	}
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	idx++;
 
@@ -180,7 +191,7 @@ int replacement_667150() {
 	if (configFile.GetBool("applyBrazil", true))
 	{
 		pnd_list[idx].setup_function_addr = (DWORD)&bra_setup_c;
-		convert_to_cm_date(pnd_list[idx].start_date, 30, January, *current_year + 1, -1);
+		convert_to_cm_date(pnd_list[idx].start_date, 31, January, *current_year + 1, -1);
 		convert_to_cm_date(pnd_list[idx].end_date, 17, December, *current_year + 1, -1);
 	}
 	else
@@ -707,6 +718,8 @@ void setup_leagues_setup() {
 		WriteBytes(0x8d305f, 1, 0x7e);
 	}
 
+	DWORD pnd_count_calc = pnd_count - !(configFile.GetBool("applyCAF", true));
+
 	for (DWORD d : pnd_order_addr) {
 		WriteDWORD(d, (DWORD)&pnd_order[0]);
 	}
@@ -769,22 +782,22 @@ void setup_leagues_setup() {
 		WriteDWORD(d, (DWORD)&pnd_list[0] + 61);
 	}
 	for (DWORD d : pnd_addr_end) {
-		WriteDWORD(d, (DWORD)&pnd_list[pnd_count - 1] + sizeof(playable_nation_data));
+		WriteDWORD(d, (DWORD)&pnd_list[pnd_count_calc - 1] + sizeof(playable_nation_data));
 	}
 	for (DWORD d : pnd_addr_endplus4) {
-		WriteDWORD(d, (DWORD)&pnd_list[pnd_count - 1] + sizeof(playable_nation_data) + 4);
+		WriteDWORD(d, (DWORD)&pnd_list[pnd_count_calc - 1] + sizeof(playable_nation_data) + 4);
 	}
 	for (DWORD d : pnd_addr_endplus8) {
-		WriteDWORD(d, (DWORD)&pnd_list[pnd_count - 1] + sizeof(playable_nation_data) + 8);
+		WriteDWORD(d, (DWORD)&pnd_list[pnd_count_calc - 1] + sizeof(playable_nation_data) + 8);
 	}
 	for (DWORD d : pnd_addr_endplus12) {
-		WriteDWORD(d, (DWORD)&pnd_list[pnd_count - 1] + sizeof(playable_nation_data) + 12);
+		WriteDWORD(d, (DWORD)&pnd_list[pnd_count_calc - 1] + sizeof(playable_nation_data) + 12);
 	}
 	for (DWORD d : pnd_addr_endplus20) {
-		WriteDWORD(d, (DWORD)&pnd_list[pnd_count - 1] + sizeof(playable_nation_data) + 20);
+		WriteDWORD(d, (DWORD)&pnd_list[pnd_count_calc - 1] + sizeof(playable_nation_data) + 20);
 	}
 	for (DWORD d : pnd_addr_endplus21) {
-		WriteDWORD(d, (DWORD)&pnd_list[pnd_count - 1] + sizeof(playable_nation_data) + 21);
+		WriteDWORD(d, (DWORD)&pnd_list[pnd_count_calc - 1] + sizeof(playable_nation_data) + 21);
 	}
 
 	for (DWORD d : pnd_addr_idx2) {
@@ -792,15 +805,17 @@ void setup_leagues_setup() {
 	}
 
 	for (DWORD d : pnd_count_dword) {
-		WriteDWORD(d, pnd_count);
+		WriteDWORD(d, pnd_count_calc);
 	}
 	for (DWORD d : pnd_count_word) {
-		WriteWORD(d, (WORD)pnd_count);
+		WriteWORD(d, (WORD)pnd_count_calc);
 	}
 	for (DWORD d : pnd_count_byte) {
-		WriteBytes(d, 1, (BYTE)pnd_count);
+		WriteBytes(d, 1, (BYTE)pnd_count_calc);
 	}
 	for (DWORD d : pnd_countminus2_dword) {
-		WriteDWORD(d, pnd_count - 2);
+		WriteDWORD(d, pnd_count_calc - 2);
 	}
+
+	dprintf("Added %d playable nations/continents!\n", pnd_count_calc);
 }

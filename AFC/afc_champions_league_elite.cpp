@@ -809,7 +809,6 @@ int afc_champions_league_elite_set_fates(BYTE* _this, cm3_clubs* club, char fate
 		case Promoted:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
 				*(WORD*)(rounds + playoff_dates_sz * (current_round + 1) + 7), 0xF);
-			sub_9058B0((BYTE*)*uefa_seeding_list, (BYTE*)(club->ClubNation), 3);
 			return 0;
 		case BottomPlayoff:
 			staff_history_comp_runner_up_86B0B0(staff_hist_ptr, club, round_data, a7);

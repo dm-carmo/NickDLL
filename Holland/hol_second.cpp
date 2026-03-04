@@ -276,7 +276,7 @@ DWORD hol_second_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 3), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 5), year, Tuesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup2 + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 5, 4, 2, 2, 4, 0, 2, 4);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup3 + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 5, 4, 2, 2, 4, 0, 2, 4);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 10), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 12), year, Tuesday, Evening);

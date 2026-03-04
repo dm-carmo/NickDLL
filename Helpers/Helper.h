@@ -7,7 +7,7 @@
 
 using namespace std;
 
-extern char *szDebugFile;
+extern char* szDebugFile;
 extern Config configFile;
 extern std::default_random_engine rng;
 
@@ -39,11 +39,12 @@ cm3_cities* find_city(const char* szCity);
 cm3_stadiums* find_stadium(const char* szStadium);
 DWORD find_club_comp_id(const char* szClubComp, const char* szClubCompAlternative = NULL);
 vector<cm3_club_comps*> find_club_comps_of_nation(const char* szNation);
+vector<cm3_clubs*> find_clubs_of_continent(DWORD continent_id);
 vector<cm3_clubs*> find_clubs_of_country(DWORD nation_id);
 vector<cm3_clubs*> find_clubs_of_country_for_euro_playable(DWORD nation_id);
 vector<cm3_clubs*> find_clubs_of_country_for_euro(DWORD nation_id);
 void reset_club_euro_flags(DWORD continentID);
-bool vector_contains_club(vector<cm3_clubs*> &vec, cm3_clubs* club);
+bool vector_contains_club(vector<cm3_clubs*>& vec, cm3_clubs* club);
 bool compareClubSeeding(cm3_clubs* c1, cm3_clubs* c2);
 bool compareClubRep(cm3_clubs* c1, cm3_clubs* c2);
 bool compareClubRepInv(cm3_clubs* c1, cm3_clubs* c2);
@@ -58,6 +59,8 @@ bool compareClubNation(cm3_clubs* c1, cm3_clubs* c2);
 bool compareClubAsiaWestEast(cm3_clubs* c1, cm3_clubs* c2);
 cm3_clubs* get_last_comp_winner(cm3_club_comps* comp);
 cm3_clubs* get_last_comp_runner_up(cm3_club_comps* comp);
+cm3_clubs* get_last_comp_winner_by_year(cm3_club_comps* comp, WORD year);
+cm3_clubs* get_last_comp_runner_up_by_year(cm3_club_comps* comp, WORD year);
 WORD CountNumberOfTeamsInComp(DWORD CompID);
 WORD CountNumberOfTeamsInReserveComp(DWORD CompID);
 WORD CountNumberOfTeamsInCompNoReserve(DWORD CompID);

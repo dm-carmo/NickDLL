@@ -171,7 +171,7 @@ DWORD bra_reg_pernambuco_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds,
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 2, 23), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 3, 2), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup + PenaltiesNoExtraTime_1, NoTiebreak_2, 5, 4, 2, 4, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup2 + PenaltiesNoExtraTime_1, NoTiebreak_2, 5, 4, 2, 4, 0, 0, 1, 0);
 
 		int tv_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 3, 3), year, Monday);

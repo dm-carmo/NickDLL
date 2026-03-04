@@ -112,15 +112,15 @@ DWORD uefa_conference_league_fixtures(BYTE* _this, char stage_idx, WORD* num_rou
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 6, 29), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 24), year, Thursday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SecondQualifyingPhase, 4, FixedTeamOrderInCup2 + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 86, 43, 61, 50, 0, 2, 7, 0, 0, 157500);
+		FillFixtureDetails(pMem, fixture_id++, SecondQualifyingPhase, 4, FixedTeamOrderInCup3 + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 86, 43, 61, 50, 0, 2, 7, 0, 0, 157500);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 21), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 7), year, Thursday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, ThirdQualifyingPhase, 4, FixedTeamOrderInCup2 + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 52, 26, 9, 111, 0, 2, 7, 0, 0, 247500);
+		FillFixtureDetails(pMem, fixture_id++, ThirdQualifyingPhase, 4, FixedTeamOrderInCup3 + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 52, 26, 9, 111, 0, 2, 7, 0, 0, 247500);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 4), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 21), year, Thursday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, Playoff, 4, FixedTeamOrderInCup2 + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 38, 19, 12, 120, 0, 2, 7, 0, 0, 337500);
+		FillFixtureDetails(pMem, fixture_id++, Playoff, 4, FixedTeamOrderInCup3 + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 38, 19, 12, 120, 0, 2, 7, 0, 0, 337500);
 
 		return (DWORD)pMem;
 	}
@@ -137,15 +137,15 @@ DWORD uefa_conference_league_fixtures(BYTE* _this, char stage_idx, WORD* num_rou
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 6, 29), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 24), year, Thursday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SecondQualifyingPhase, 4, FixedTeamOrderInCup2 + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 12, 6, 12, 0, 0, 2, 7, 0, 0, 157500);
+		FillFixtureDetails(pMem, fixture_id++, SecondQualifyingPhase, 4, FixedTeamOrderInCup3 + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 12, 6, 12, 0, 0, 2, 7, 0, 0, 157500);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 21), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 7), year, Thursday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, ThirdQualifyingPhase, 4, FixedTeamOrderInCup2 + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 8, 4, 2, 12, 0, 2, 7, 0, 0, 247500);
+		FillFixtureDetails(pMem, fixture_id++, ThirdQualifyingPhase, 4, FixedTeamOrderInCup3 + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 8, 4, 2, 12, 0, 2, 7, 0, 0, 247500);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 4), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 21), year, Thursday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, Playoff, 4, FixedTeamOrderInCup2 + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 10, 5, 6, 14, 0, 2, 7, 0, 0, 337500);
+		FillFixtureDetails(pMem, fixture_id++, Playoff, 4, FixedTeamOrderInCup3 + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 10, 5, 6, 14, 0, 2, 7, 0, 0, 337500);
 
 		return (DWORD)pMem;
 	}

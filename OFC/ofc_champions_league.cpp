@@ -127,7 +127,7 @@ void ofc_champions_league_subs(BYTE* _this)
 	comp_data->tiebreaker_1 = 1;
 	comp_data->tiebreaker_2 = 2;
 	comp_data->tiebreaker_3 = 4;
-	comp_data->f82 = 2;
+	comp_data->f82 = 3;
 
 	comp_data->promotions = 1;
 	comp_data->prom_playoff = 0;
@@ -637,7 +637,6 @@ int ofc_champions_league_set_fates(BYTE* _this, cm3_clubs* club, char fate, char
 		case Promoted:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
 				*(WORD*)(rounds + playoff_dates_sz * (current_round + 1) + 7), 0xF);
-			sub_9058B0((BYTE*)*uefa_seeding_list, (BYTE*)(club->ClubNation), 3);
 			return 0;
 		case BottomPlayoff:
 			staff_history_comp_runner_up_86B0B0(staff_hist_ptr, club, round_data, a7);

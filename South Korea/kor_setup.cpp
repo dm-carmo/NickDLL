@@ -68,4 +68,6 @@ void setup_kor_nation() {
 	// Start date
 	WriteBytes(0x668BE8, 1, February);
 	WriteBytes(0x668BEA, 1, 14);
+	// Fixes player values
+	WriteBytes(0x4d152a, 1, 0xeb);
 }

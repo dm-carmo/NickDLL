@@ -156,7 +156,7 @@ int ita_c_cup_teams(BYTE* _this) {
 		}
 		// Extra teams if needed
 		if (c_count < 4) {
-			dprintf("getting extra teams for Coppa Italia Serie C ...\n");
+			//dprintf("getting extra teams for Coppa Italia Serie C ...\n");
 			for (DWORD i = 0; i < division_clubs.size() && c_count < 4; i++) {
 				cm3_clubs* c_club_extra = division_clubs[i];
 				if (c_club_extra->ClubLastDivision && c_club_extra->ClubLastDivision->ClubCompID == ITA_SERIE_C_9CF() && !vector_contains_club(vec, c_club_extra))

@@ -513,6 +513,15 @@
     <ClCompile Include="OFC\ofc_champions_league.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FIFA\fifa_club_setup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FIFA\fifa_club_world_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FIFA\fifa_intercontinental_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -1026,6 +1035,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="OFC\ofc_champions_league.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FIFA\fifa_club_setup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FIFA\fifa_club_world_cup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FIFA\fifa_intercontinental_cup.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

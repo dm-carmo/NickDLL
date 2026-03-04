@@ -5,6 +5,7 @@
 #include <algorithm>
 #include "generic_functions.h"
 #include "constants.h"
+#include "9cf_constants.h"
 
 char* szDebugFile = "";
 
@@ -224,6 +225,20 @@ vector<cm3_clubs*> find_clubs_of_comp_last_division(DWORD comp_id, long nation_i
 	return ret;
 }
 
+vector<cm3_clubs*> find_clubs_of_continent(DWORD continent_id)
+{
+	vector<cm3_clubs*> ret;
+	for (DWORD i = 0; i < *clubs_count - 2 * *nations_count; i++)
+	{
+		if ((*clubs)[i].ClubNation && (*clubs)[i].ClubNation->NationContinent && (*clubs)[i].ClubNation->NationContinent->ContinentID == continent_id)
+		{
+			cm3_clubs* club = &(*clubs)[i];
+			ret.push_back(club);
+		}
+	}
+	return ret;
+}
+
 vector<cm3_clubs*> find_clubs_of_country(DWORD nation_id)
 {
 	vector<cm3_clubs*> ret;
@@ -252,7 +267,7 @@ vector<cm3_clubs*> find_clubs_of_country_for_euro_playable(DWORD nation_id)
 			//dprintf("Club Division: %s\n", (club->ClubDivision)->ClubCompName);
 
 			// Don't add Lower Division Clubs
-			if (stricmp((char*)(club->ClubDivision + 1), "A Lower Division") != 0)
+			if (!club->ClubDivision || club->ClubDivision->ClubCompID != A_LOWER_9CF() || club->ClubDivision->ClubCompID != A_LOWER_B_9CF())
 				if (club->ClubEuroFlag == -1 && club->ClubLastDivision)
 					ret.push_back(club);
 		}
@@ -504,6 +519,30 @@ cm3_clubs* get_last_comp_runner_up(cm3_club_comps* comp)
 			return h1->ClubCompHistoryYear > h2->ClubCompHistoryYear;
 		});
 	return ret[0]->ClubCompHistoryRunnersUp;
+}
+
+cm3_clubs* get_last_comp_winner_by_year(cm3_club_comps* comp, WORD year)
+{
+	for (DWORD i = 0; i < *club_comp_histories_count; i++) {
+		cm3_club_comp_history hist = (*club_comp_histories)[i];
+		if (hist.ClubCompHistoryClubComp == comp && hist.ClubCompHistoryYear == year)
+		{
+			return hist.ClubCompHistoryWinners;
+		}
+	}
+	return NULL;
+}
+
+cm3_clubs* get_last_comp_runner_up_by_year(cm3_club_comps* comp, WORD year)
+{
+	for (DWORD i = 0; i < *club_comp_histories_count; i++) {
+		cm3_club_comp_history hist = (*club_comp_histories)[i];
+		if (hist.ClubCompHistoryClubComp == comp && hist.ClubCompHistoryYear == year)
+		{
+			return hist.ClubCompHistoryRunnersUp;
+		}
+	}
+	return NULL;
 }
 
 WORD CountNumberOfTeamsInComp(DWORD CompID)

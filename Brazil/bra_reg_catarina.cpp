@@ -179,16 +179,16 @@ DWORD bra_reg_catarina_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, W
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 2, 24), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 3, 2), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup + PenaltiesNoExtraTime_1, NoTiebreak_2, 5, 8, 4, 8, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup2 + PenaltiesNoExtraTime_1, NoTiebreak_2, 5, 8, 4, 8, 0, 0, 1, 0);
 
 		int tv_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 3, 3), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 3, 8), year, Saturday);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Sunday, Afternoon);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + PenaltiesNoExtraTime_1, NoTiebreak_2, 5, 4, 2, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup2 + PenaltiesNoExtraTime_1, NoTiebreak_2, 5, 4, 2, 0, 0, 0, 1, 0);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 3, 9), year, Monday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 3, 10), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 3, 15), year, Saturday);
 		FillFixtureDetails(pMem, fixture_id++, Final, 0, NoTiebreak_1, AwayGoalsPenaltiesNoExtraTime_2, 5, 2, 1, 0, 0, 0, 2, 7);
 

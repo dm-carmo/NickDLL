@@ -561,7 +561,6 @@ void __declspec(naked) swe_cup_reputation_setup_c()		// used as a __thiscall -> 
 
 void swe_cup_reputation_calc(BYTE* _this, BYTE* club, char stage, char current, char min, char max) {
 	comp_stats* comp_data = (comp_stats*)_this;
-	dprintf("stage %d, club %s\n", stage, ((cm3_clubs*)club)->ClubNameShort);
 	BYTE* ret = (BYTE*)sub_4A4850((BYTE*)comp_data->f8, club);
 	if (!ret) return;
 	char ret_current = current;
@@ -582,8 +581,6 @@ void swe_cup_reputation_calc(BYTE* _this, BYTE* club, char stage, char current, 
 	else if (stage == 8) {
 		// do nothing
 	}
-	dprintf("-current %d, min %d, max %d\n", current, min, max);
-	dprintf("-ret_current %d, ret_min %d, ret_max %d\n", ret_current, ret_min, ret_max);
 	ret[0x73] = ret_current;
 	ret[0x74] = ret_min;
 	ret[0x75] = ret_max;

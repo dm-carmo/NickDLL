@@ -3,7 +3,8 @@
 #include <Helpers/Helper.h>
 
 WORD FixedTeamOrderInCup = 0x200;
-WORD FixedTeamOrderInCup2 = 0x400;
+WORD FixedTeamOrderInCup2 = 0x300;
+WORD FixedTeamOrderInCup3 = 0x400;
 
 cm3_staff_comps** awards = (cm3_staff_comps**)0xAE23E0;
 DWORD* awards_count = (DWORD*)0xAE2388;
@@ -38,13 +39,14 @@ WORD* current_year = (WORD*)0xAE2C92;
 DWORD* staff_history = (DWORD*)0xDD7F00;
 DWORD* dd6ec8 = (DWORD*)0xDD6EC8;
 
-const DWORD pnd_count = 35 + (configFile.GetBool("applyCAF", true));
+const DWORD pnd_count = 36;
 playable_nation_data* pnd_list = new playable_nation_data[pnd_count]; //0xB63D60
 playable_nation_data** pnd_list_default = (playable_nation_data**)0xB63D60;
 BYTE* pnd_order = new BYTE[pnd_count];
 
 uefa_seedings** uefa_seeding_list = (uefa_seedings**)0xDE1F58;
 
+DWORD* b5e134 = (DWORD*)0xB5E134;
 DWORD* b74340 = (DWORD*)0xB74340;
 DWORD* b67a44 = (DWORD*)0xB67A44;
 DWORD* ae1050 = (DWORD*)0xAE1050;

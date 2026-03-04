@@ -182,7 +182,7 @@ DWORD bra_reg_rio_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* 
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 3, 1), year, Saturday);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Sunday, Afternoon);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, AwayGoalsPenaltiesNoExtraTime_2, 5, 4, 2, 4, 0, 0, 2, 7);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup2 + NoTiebreak_1, AwayGoalsPenaltiesNoExtraTime_2, 5, 4, 2, 4, 0, 0, 2, 7);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 3, 10), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 3, 12), year, Wednesday);

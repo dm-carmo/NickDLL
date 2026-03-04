@@ -26,6 +26,12 @@ int sudam_583B10(BYTE* _this, BYTE* a2, int a3) {
 		cl = *(char*)(a2 + 0x44);
 	}
 	else cl = *(char*)(a2 + 0x48);
+	if (al > cl) {
+		club_check = (cm3_clubs*)*(DWORD*)(a2 + 0x1c);
+	}
+	else if (al < cl) {
+		club_check = (cm3_clubs*)*(DWORD*)(a2 + 0x20);
+	}
 	// group stage indexes
 	if (bl > -1 && bl < 8) {
 		if (club_check) {
@@ -351,6 +357,29 @@ void sudam_team_selection() {
 			conmebol_club->ClubEuroSeeding = curr_seeding;
 			clubs.erase(clubs.begin() + idx);
 			max_count--;
+			if (max_count < 1) break;
+		}
+		if (j < required) {
+			for (; j < required; j++) {
+				DWORD backup_id = (rand() % 2) ? NATION_ARGENTINA_9CF() : NATION_BRAZIL_9CF();
+				clubs = find_clubs_of_country_for_euro(backup_id);
+				sort(clubs.begin(), clubs.end(), compareClubRep);
+				size_t max_count = required + 2 - j;
+				if (max_count > clubs.size()) max_count = clubs.size();
+				int idx = rand() % max_count;
+				cm3_clubs* conmebol_club = clubs[idx];
+				//dprintf("Setting backup club %s to Copa Sudamericana\n", (conmebol_club->ClubName));
+				conmebol_club->ClubEuroFlag = COPA_SUDAMERICANA_9CF();
+				if (j >= count) {
+					for (int x = curr_seeding; x < 2; x++) {
+						count += quals[x];
+						curr_seeding = x + 1;
+						if (quals[x] > 0) break;
+					}
+					if (curr_seeding > 2) break;
+				}
+				conmebol_club->ClubEuroSeeding = curr_seeding;
+			}
 		}
 	}
 }
@@ -874,7 +903,6 @@ int conmebol_sudamericana_set_fates(BYTE* _this, cm3_clubs* club, char fate, cha
 		case Promoted:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
 				*(WORD*)(rounds + playoff_dates_sz * (current_round + 1) + 7), 0xF);
-			sub_9058B0((BYTE*)*uefa_seeding_list, (BYTE*)(club->ClubNation), 3);
 			return 0;
 		case BottomPlayoff:
 			staff_history_comp_runner_up_86B0B0(staff_hist_ptr, club, round_data, a7);

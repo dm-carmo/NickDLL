@@ -334,7 +334,7 @@ pair<char, WORD> get_club_group_and_pos(comp_stats* comp_data, cm3_clubs* club) 
 		for (WORD num = 0; num < curr_stage->n_teams; num++) {
 			cm3_clubs* lge_club = ((team_league_stats*)curr_stage->team_league_table)[num].club;
 			if (club == lge_club) {
-				dprintf("Club: %s, finished in position: %d, in group: %d\n", club->ClubNameShort, num + 1, al + 2);
+				//dprintf("Club: %s, finished in position: %d, in group: %d\n", club->ClubNameShort, num + 1, al + 2);
 				return make_pair(al, num);
 			}
 		}
