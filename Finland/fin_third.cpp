@@ -207,6 +207,26 @@ void __declspec(naked) fin_third_reputation_setup_c()		// used as a __thiscall -
 	}
 }
 
+void block_reserve_promotion_fin_third(BYTE* _this) {
+	comp_stats* comp_data = (comp_stats*)_this;
+	comp_stats* curr_stage = comp_data;
+	for (char al = -1; al < 2; al++) {
+		if (al >= 0) {
+			curr_stage = (comp_stats*)(comp_data->stages[al]);
+		}
+		WORD total_teams = curr_stage->n_teams;
+		team_league_stats* table_teams = (team_league_stats*)(curr_stage->team_league_table);
+		for (int i = 0; i < total_teams; i++) {
+			DWORD is_main_club;
+			cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)table_teams[i].club, &is_main_club, 1);
+			if (ret_club && !is_main_club && (!ret_club->ClubDivision || ret_club->ClubDivision->ClubCompID != FIN_PREMIER_9CF()
+				|| ret_club->ClubDivision->ClubCompID != FIN_FIRST_9CF() || ret_club->ClubDivision->ClubCompID != FIN_SECOND_9CF())) {
+				table_teams[i].league_fate = CantBePromoted;
+			}
+		}
+	}
+}
+
 char fin_third_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
@@ -237,6 +257,7 @@ char fin_third_update(BYTE* _this) {
 	for (BYTE i = 0; i < 2; i++) {
 		fin_third_setup_groups(_this, i);
 	}
+	//block_reserve_promotion_fin_third(_this);
 	DWORD v1 = *(DWORD*)_this;
 	(DWORD*)(*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
 	return sub_79CEE0((BYTE*)*b74340, (BYTE*)(data->competition_db));
@@ -281,6 +302,7 @@ void fin_third_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	for (BYTE i = 0; i < 2; i++) {
 		fin_third_setup_groups(_this, i);
 	}
+	//block_reserve_promotion_fin_third(_this);
 	fin_third_reputation_setup(_this);
 }
 
@@ -395,7 +417,7 @@ int fin_third_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char sta
 			}
 			team_league_stats* table = (team_league_stats*)(curr_stage->team_league_table);
 			for (int i = 0; i < num_teams; i++) {
-					if (table[i].club != club) continue;
+				if (table[i].club != club) continue;
 				switch (fate) {
 				case TopPlayoff:
 					staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), 0x32);

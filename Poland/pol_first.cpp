@@ -51,6 +51,68 @@ void __declspec(naked) pol_first_subs_c()		// used as a __thiscall -> __cdecl co
 	}
 }
 
+void __fastcall pol_check_reserve_teams(BYTE* _this) {
+	comp_stats* pol_first_data = (comp_stats*)get_loaded_league(POL_FIRST_9CF());
+	comp_stats* pol_second_data = (comp_stats*)get_loaded_league(POL_SECOND_9CF());
+	comp_stats* pol_third_data = (comp_stats*)get_loaded_league(POL_THIRD_9CF());
+	// Check teams from D3: main team relegated from D2 - add relegation + remove one relegation
+	for (WORD num = 0; num < pol_third_data->n_teams; num++) {
+		team_league_stats* table_teams = (team_league_stats*)pol_third_data->team_league_table;
+		DWORD is_main_club;
+		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)table_teams[num].club, &is_main_club, 1);
+		// If it is a reserve team
+		if (ret_club && !is_main_club)
+		{
+			// If reserve team was not relegated
+			if (table_teams[num].league_fate != Relegated) {
+				// If main team is in the second league
+				if (ret_club->ClubDivision->ClubCompID == POL_SECOND_9CF()) {
+					team_league_stats* main_club_data = get_team_league_stats(POL_SECOND_9CF(), ret_club);
+					// If the main team was relegated
+					if (main_club_data->league_fate == Relegated) {
+						table_teams[num].league_fate = Relegated;
+						// Relegate the reserve team, and relegate one less team from the third league
+						for (WORD i = pol_third_data->n_teams - pol_third_data->relegations; i < pol_third_data->n_teams; i++) {
+							if (i != num && table_teams[i].league_fate == Relegated) {
+								table_teams[i].league_fate = Eliminated;
+								break;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	// Check teams from D2: main team relegated from D1 - add relegation + remove one relegation
+	for (WORD num = 0; num < pol_second_data->n_teams; num++) {
+		team_league_stats* table_teams = (team_league_stats*)pol_second_data->team_league_table;
+		DWORD is_main_club;
+		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)table_teams[num].club, &is_main_club, 1);
+		// If it is a reserve team
+		if (ret_club && !is_main_club)
+		{
+			// If reserve team was not relegated
+			if (table_teams[num].league_fate != Relegated) {
+				// If main team is in the first league
+				if (ret_club->ClubDivision->ClubCompID == POL_FIRST_9CF()) {
+					team_league_stats* main_club_data = get_team_league_stats(POL_FIRST_9CF(), ret_club);
+					// If the main team was relegated
+					if (main_club_data->league_fate == Relegated) {
+						table_teams[num].league_fate = Relegated;
+						// Relegate the reserve team, and relegate one less team from the second league
+						for (WORD i = pol_second_data->n_teams - pol_second_data->relegations; i < pol_second_data->n_teams; i++) {
+							if (i != num && table_teams[i].league_fate == Relegated) {
+								table_teams[i].league_fate = Eliminated;
+								break;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
 void pol_first_prom_rel_update(BYTE* _this, int a2) {
 	DWORD v1 = *(DWORD*)_this;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(_this);
@@ -121,7 +183,8 @@ void __fastcall pol_d3_relegation(BYTE* _this)
 		//dprintf("Swapping Teams: %s (%s) <-> %s (%s)\n", clubToRelegate->ClubName, clubToRelegate->ClubDivision->ClubCompName, available->ClubName, available->ClubDivision->ClubCompName);
 		DWORD is_main_club;
 		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)available, &is_main_club, 1);
-		if (ret_club && !is_main_club)
+		if (ret_club && !is_main_club && (!ret_club->ClubDivision || ret_club->ClubDivision->ClubCompID != POL_FIRST_9CF()
+			|| ret_club->ClubDivision->ClubCompID != POL_SECOND_9CF()))
 			i--;
 		else
 		{
@@ -139,6 +202,7 @@ char pol_first_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
 	data->f76 = 0;
+	pol_check_reserve_teams(_this);
 	pol_first_prom_rel_update(_this, 1);
 	pol_d3_relegation(_this);
 

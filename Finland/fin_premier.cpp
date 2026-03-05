@@ -21,6 +21,100 @@ int fin_premier_7F3220(DWORD a1, DWORD a2) {
 	return al - cl;
 }
 
+void __fastcall fin_check_reserve_teams(BYTE* _this) {
+	comp_stats* fin_premier_data = (comp_stats*)get_loaded_league(FIN_PREMIER_9CF());
+	comp_stats* fin_first_data = (comp_stats*)get_loaded_league(FIN_FIRST_9CF());
+	comp_stats* fin_second_data = (comp_stats*)get_loaded_league(FIN_SECOND_9CF());
+	BYTE* fin_third = get_loaded_league(FIN_THIRD_9CF());
+	if (fin_third) {
+		// Check teams from D3: main team relegated from D2 - add relegation
+		comp_stats* fin_third_data = (comp_stats*)fin_third;
+		comp_stats* curr_stage = fin_third_data;
+		for (char al = -1; al < 2; al++) {
+			if (al >= 0) {
+				curr_stage = (comp_stats*)(fin_third_data->stages[al]);
+			}
+			for (WORD num = 0; num < curr_stage->n_teams; num++) {
+				team_league_stats* table_teams = (team_league_stats*)curr_stage->team_league_table;
+				DWORD is_main_club;
+				cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)table_teams[num].club, &is_main_club, 1);
+				// If it is a reserve team
+				if (ret_club && !is_main_club)
+				{
+					// If team was not relegated
+					if (table_teams[num].league_fate != Relegated) {
+						// If main team is in the first league
+						if (ret_club->ClubDivision->ClubCompID == FIN_SECOND_9CF()) {
+							team_league_stats* main_club_data = get_team_league_stats(FIN_SECOND_9CF(), ret_club);
+							// If the main team was relegated
+							if (main_club_data->league_fate == Relegated) {
+								// Relegate the reserve team
+								table_teams[num].league_fate = Relegated;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	// Check teams from D2: main team relegated from D1 - add relegation + remove one relegation
+	for (WORD num = 0; num < fin_second_data->n_teams; num++) {
+		team_league_stats* table_teams = (team_league_stats*)fin_second_data->team_league_table;
+		DWORD is_main_club;
+		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)table_teams[num].club, &is_main_club, 1);
+		// If it is a reserve team
+		if (ret_club && !is_main_club)
+		{
+			// If reserve team was not relegated
+			if (table_teams[num].league_fate != Relegated) {
+				// If main team is in the premier league
+				if (ret_club->ClubDivision->ClubCompID == FIN_FIRST_9CF()) {
+					team_league_stats* main_club_data = get_team_league_stats(FIN_FIRST_9CF(), ret_club);
+					// If the main team was relegated
+					if (main_club_data->league_fate == Relegated) {
+						table_teams[num].league_fate = Relegated;
+						// Relegate the reserve team, and relegate one less team from the second league
+						for (WORD i = fin_second_data->n_teams - fin_second_data->relegations; i < fin_second_data->n_teams; i++) {
+							if (i != num && table_teams[i].league_fate == Relegated) {
+								table_teams[i].league_fate = Eliminated;
+								break;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	// Check teams from D1: main team relegated from PEM - add relegation + remove one relegation
+	for (WORD num = 0; num < fin_first_data->n_teams; num++) {
+		team_league_stats* table_teams = (team_league_stats*)fin_first_data->team_league_table;
+		DWORD is_main_club;
+		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)table_teams[num].club, &is_main_club, 1);
+		// If it is a reserve team
+		if (ret_club && !is_main_club)
+		{
+			// If reserve team was not relegated
+			if (table_teams[num].league_fate != Relegated) {
+				// If main team is in the premier league
+				if (ret_club->ClubDivision->ClubCompID == FIN_PREMIER_9CF()) {
+					team_league_stats* main_club_data = get_team_league_stats(FIN_PREMIER_9CF(), ret_club);
+					// If the main team was relegated
+					if (main_club_data->league_fate == Relegated) {
+						table_teams[num].league_fate = Relegated;
+						// Relegate the reserve team, and relegate one less team from the first league
+						for (WORD i = fin_first_data->n_teams - fin_first_data->relegations; i < fin_first_data->n_teams; i++) {
+							if (i != num && table_teams[i].league_fate == Relegated) {
+								table_teams[i].league_fate = Eliminated;
+								break;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
 void fin_premier_prom_rel_update(BYTE* _this, int a2) {
 	DWORD v1 = *(DWORD*)_this;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(_this);
@@ -378,10 +472,20 @@ void __fastcall fin_second_relegation(BYTE* _this)
 		cm3_clubs* clubToRelegate = relegated_clubs[i];
 		cm3_clubs* available = available_clubs[availableIdx];
 
-		cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
-		cm3_club_comps* bottomDivision = available->ClubDivision;
-		relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
-		promote_club_6830B0((BYTE*)available, (DWORD)topDivision, 1);
+		//dprintf("Swapping Teams: %s (%s) <-> %s (%s)\n", clubToRelegate->ClubName, clubToRelegate->ClubDivision->ClubCompName, available->ClubName, available->ClubDivision->ClubCompName);
+		DWORD is_main_club;
+		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)available, &is_main_club, 1);
+		if (ret_club && !is_main_club && (!ret_club->ClubDivision || ret_club->ClubDivision->ClubCompID != FIN_PREMIER_9CF()
+			|| ret_club->ClubDivision->ClubCompID != FIN_FIRST_9CF()))
+			i--;
+		else
+		{
+			cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
+			cm3_club_comps* bottomDivision = available->ClubDivision;
+			relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
+			promote_club_6830B0((BYTE*)available, (DWORD)topDivision, 1);
+			clubToRelegate->ClubReserveDivision = 0;
+		}
 
 		available_clubs.erase(available_clubs.begin() + availableIdx);
 	}
@@ -433,11 +537,20 @@ void __fastcall fin_non_league_promotion(BYTE* _this)
 		cm3_clubs* clubToRelegate = relegated_clubs[i];
 		cm3_clubs* available = available_clubs[availableIdx];
 
-		cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
-		cm3_club_comps* bottomDivision = available->ClubDivision;
-		relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
-		promote_club_6830B0((BYTE*)available, (DWORD)topDivision, 1);
-		clubToRelegate->ClubReserveDivision = 0;
+		//dprintf("Swapping Teams: %s (%s) <-> %s (%s)\n", clubToRelegate->ClubName, clubToRelegate->ClubDivision->ClubCompName, available->ClubName, available->ClubDivision->ClubCompName);
+		DWORD is_main_club;
+		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)available, &is_main_club, 1);
+		if (ret_club && !is_main_club && (!ret_club->ClubDivision || ret_club->ClubDivision->ClubCompID != FIN_PREMIER_9CF()
+			|| ret_club->ClubDivision->ClubCompID != FIN_FIRST_9CF() || ret_club->ClubDivision->ClubCompID != FIN_SECOND_9CF()))
+			i--;
+		else
+		{
+			cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
+			cm3_club_comps* bottomDivision = available->ClubDivision;
+			relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
+			promote_club_6830B0((BYTE*)available, (DWORD)topDivision, 1);
+			clubToRelegate->ClubReserveDivision = 0;
+		}
 
 		available_clubs.erase(available_clubs.begin() + availableIdx);
 	}
@@ -459,7 +572,7 @@ char fin_premier_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
 	data->f76 = 0;
-	DWORD v1 = *(DWORD*)_this;
+	fin_check_reserve_teams(_this);
 	fin_premier_prom_rel_update(_this, 1);
 
 	BYTE* fin_third = get_loaded_league(FIN_THIRD_9CF());
@@ -494,6 +607,7 @@ char fin_premier_update(BYTE* _this) {
 	sub_6835C0(_this);
 	BYTE* edx = 0;
 	sub_6827D0(_this, edx);
+	DWORD v1 = *(DWORD*)_this;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
 
 	BYTE* fin_first = get_loaded_league(FIN_FIRST_9CF());
@@ -725,7 +839,7 @@ int fin_premier_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char s
 			team_league_stats* table = (team_league_stats*)(fin_first_data->team_league_table);
 			WORD current_round = *(WORD*)(round_data + 0x34);
 			for (int i = 0; i < num_teams; i++) {
-					if (table[i].club != club) continue;
+				if (table[i].club != club) continue;
 				switch (fate) {
 				case TopPlayoff:
 					staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)fin_first, 0x32);
@@ -748,7 +862,7 @@ int fin_premier_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char s
 			team_league_stats* table = (team_league_stats*)(comp_data->team_league_table);
 			WORD current_round = *(WORD*)(round_data + 0x34);
 			for (int i = 0; i < num_teams; i++) {
-					if (table[i].club != club) continue;
+				if (table[i].club != club) continue;
 				switch (fate) {
 				case BottomPlayoff:
 					staff_history_relegated_86A1C0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));

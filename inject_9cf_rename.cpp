@@ -6,6 +6,7 @@
 map<string, char*> clubs_rename_short = {
 	{"C.D. Ourense", "Ourense CF"},
 	{"SC Paderborn 07 Reserves", "Paderborn II"},
+	{"SJK Seinäjoki II", "SJK Akatemia"},
 };
 
 map<string, char*> clubs_rename_long = {
@@ -25,6 +26,7 @@ map<string, char*> clubs_rename_long = {
 	{"GD Chaves Satelite", "GD Chaves B"},
 	{"Bor. M'gladbach Amateure", "Borussia M'gladbach II"},
 	{"SC Paderborn 07 Reserves", "SC Paderborn 07 II"},
+	{"SJK Seinäjoki II", "SJK Seinäjoki Akatemia"},
 };
 
 map<string, char*> leagues_rename_long = {
@@ -68,7 +70,7 @@ map<string, char*> leagues_rename_long_germany = {
 	{"German 3. Liga West", "German Regionalliga West"},
 };
 
-map<string, char*> leagues_rename_long_greece= {
+map<string, char*> leagues_rename_long_greece = {
 	{"Swedish Division 2 East Svealand", "Greek Super League 2 North Group"},
 	{"Swedish Division 2 West Svealand", "Greek Super League 2 South Group"},
 };
@@ -112,7 +114,7 @@ map<string, char*> leagues_rename_long_norway = {
 	{"Norwegian 2. Divisjon Group 8", "Norwegian 3. Divisjon Group 6"},
 };
 
-map<string, char*> leagues_rename_long_poland= {
+map<string, char*> leagues_rename_long_poland = {
 	{"Korean All-Star Cup", "Polish III Liga"},
 };
 
@@ -1810,7 +1812,7 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 	if ((DWORD)to_check->ClubID == CLUB_WERDER_BREMEN_9CF()) return (BYTE*)get_club(CLUB_WERDER_BREMEN_II_9CF());
 	if ((DWORD)to_check->ClubID == CLUB_ZARAGOZA_9CF()) return (BYTE*)get_club(CLUB_ZARAGOZA_B_9CF());
 	if ((DWORD)to_check->ClubID == CLUB_PADERBORN_9CF()) return (BYTE*)get_club(CLUB_PADERBORN_II_9CF());
-	// non-hardcoded test
+	// non-hardcoded teams
 	if (_strcmpi(to_check->ClubName, "Aalesunds FK") == 0 && find_club("Aalesunds FK II")) return (BYTE*)find_club("Aalesunds FK II");
 	if (_strcmpi(to_check->ClubName, "Bærum SK") == 0 && find_club("Baerum SK 2")) return (BYTE*)find_club("Baerum SK 2");
 	if (_strcmpi(to_check->ClubName, "FK Bodø/Glimt") == 0 && find_club("FK Bodø/Glimt B")) return (BYTE*)find_club("FK Bodø/Glimt B");
@@ -1853,6 +1855,37 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 	if (_strcmpi(to_check->ClubName, "SK Vard Haugesund") == 0 && find_club("SK Vard Haugesund 2")) return (BYTE*)find_club("SK Vard Haugesund 2");
 	if (_strcmpi(to_check->ClubName, "Viking FK") == 0 && find_club("Viking FK II")) return (BYTE*)find_club("Viking FK II");
 	if (_strcmpi(to_check->ClubName, "Vålerenga Fotball Elite") == 0 && find_club("Vålerenga Fotball II")) return (BYTE*)find_club("Vålerenga Fotball II");
+	if (_strcmpi(to_check->ClubName, "HJK Helsinki") == 0 && find_club("HJK Klubi 04 Helsinki")) return (BYTE*)find_club("HJK Klubi 04 Helsinki");
+	if (_strcmpi(to_check->ClubName, "FC Espoo") == 0 && find_club("FC Espoo II")) return (BYTE*)find_club("FC Espoo II");
+	if (_strcmpi(to_check->ClubName, "Helsinki IFK") == 0 && find_club("Helsinki IFK II")) return (BYTE*)find_club("Helsinki IFK II");
+	if (_strcmpi(to_check->ClubName, "FC Honka") == 0 && find_club("FC Honka II")) return (BYTE*)find_club("FC Honka II");
+	if (_strcmpi(to_check->ClubName, "Ilves Tampere") == 0 && find_club("Ilves Tampere II")) return (BYTE*)find_club("Ilves Tampere II");
+	if (_strcmpi(to_check->ClubName, "Kuopion Palloseura") == 0 && find_club("Kuopion Palloseura II")) return (BYTE*)find_club("Kuopion Palloseura II");
+	if (_strcmpi(to_check->ClubName, "Rovaniemen Palloseura") == 0 && find_club("Rovaniemen Palloseura II")) return (BYTE*)find_club("Rovaniemen Palloseura II");
+	if (_strcmpi(to_check->ClubName, "Vaasan Palloseura") == 0 && find_club("Vaasan Palloseura II")) return (BYTE*)find_club("Vaasan Palloseura II");
+	if (_strcmpi(to_check->ClubName, "FC Energie Cottbus") == 0 && find_club("FC Energie Cottbus II")) return (BYTE*)find_club("FC Energie Cottbus II");
+	if (_strcmpi(to_check->ClubName, "MSV Duisburg") == 0 && find_club("MSV Duisburg Amateure")) return (BYTE*)find_club("MSV Duisburg Amateure");
+	if (_strcmpi(to_check->ClubName, "Bayer 04 Leverkusen") == 0 && find_club("Bayer Leverkusen (A)")) return (BYTE*)find_club("Bayer Leverkusen (A)");
+	if (_strcmpi(to_check->ClubName, "1.FC Saarbrücken") == 0 && find_club("1.FC Saarbrücken II")) return (BYTE*)find_club("1.FC Saarbrücken II");
+	if (_strcmpi(to_check->ClubName, "Stuttgarter Kickers") == 0 && find_club("Stuttgarter Kickers II")) return (BYTE*)find_club("Stuttgarter Kickers II");
+	if (_strcmpi(to_check->ClubName, "VfL Wolfsburg") == 0 && find_club("VfL Wolfsburg Amateure")) return (BYTE*)find_club("VfL Wolfsburg Amateure");
+	if (_strcmpi(to_check->ClubName, "Chrobry Glogow") == 0 && find_club("Chrobry Glogow II")) return (BYTE*)find_club("Chrobry Glogow II");
+	if (_strcmpi(to_check->ClubName, "Cracovia") == 0 && find_club("Cracovia II")) return (BYTE*)find_club("Cracovia II");
+	if (_strcmpi(to_check->ClubName, "Górnik Zabrze") == 0 && find_club("Gornik Zabrze II")) return (BYTE*)find_club("Gornik Zabrze II");
+	if (_strcmpi(to_check->ClubName, "Jagiellonia Bialystok") == 0 && find_club("Jagiellonia Bialystok II")) return (BYTE*)find_club("Jagiellonia Bialystok II");
+	if (_strcmpi(to_check->ClubName, "Korona Kielce") == 0 && find_club("Korona Kielce II")) return (BYTE*)find_club("Korona Kielce II");
+	if (_strcmpi(to_check->ClubName, "Lech Poznan") == 0 && find_club("Lech Poznan II")) return (BYTE*)find_club("Lech Poznan II");
+	if (_strcmpi(to_check->ClubName, "Legia Warszawa") == 0 && find_club("Legia Warsaw II")) return (BYTE*)find_club("Legia Warsaw II");
+	if (_strcmpi(to_check->ClubName, "LKS Lodz") == 0 && find_club("LKS Lodz II")) return (BYTE*)find_club("LKS Lodz II");
+	if (_strcmpi(to_check->ClubName, "Miedz Legnica") == 0 && find_club("Miedz Legnica II")) return (BYTE*)find_club("Miedz Legnica II");
+	if (_strcmpi(to_check->ClubName, "Piast Gliwice") == 0 && find_club("Piast Gliwice II")) return (BYTE*)find_club("Piast Gliwice II");
+	if (_strcmpi(to_check->ClubName, "Pogon Szczecin") == 0 && find_club("Pogon Szczecin II")) return (BYTE*)find_club("Pogon Szczecin II");
+	if (_strcmpi(to_check->ClubName, "Raków Czestochowa") == 0 && find_club("Rakow Czestochowa II")) return (BYTE*)find_club("Rakow Czestochowa II");
+	if (_strcmpi(to_check->ClubName, "Slask Wroclaw") == 0 && find_club("Slask Wroclaw II")) return (BYTE*)find_club("Slask Wroclaw II");
+	if (_strcmpi(to_check->ClubName, "Widzew Lodz") == 0 && find_club("Widzew Lodz II")) return (BYTE*)find_club("Widzew Lodz II");
+	if (_strcmpi(to_check->ClubName, "Wisla Kraków") == 0 && find_club("Wisla Krakow II")) return (BYTE*)find_club("Wisla Krakow II");
+	if (_strcmpi(to_check->ClubName, "Wisla Plock") == 0 && find_club("Wisla Plock II")) return (BYTE*)find_club("Wisla Plock II");
+	if (_strcmpi(to_check->ClubName, "Zaglebie Lubin") == 0 && find_club("Zaglebie Lubin II")) return (BYTE*)find_club("Zaglebie Lubin II");
 
 	// Reserve teams check
 	if (is_main_club) *is_main_club = 0;
@@ -1939,7 +1972,7 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 	if ((DWORD)to_check->ClubID == CLUB_WERDER_BREMEN_II_9CF()) return (BYTE*)get_club(CLUB_WERDER_BREMEN_9CF());
 	if ((DWORD)to_check->ClubID == CLUB_ZARAGOZA_B_9CF()) return (BYTE*)get_club(CLUB_ZARAGOZA_9CF());
 	if ((DWORD)to_check->ClubID == CLUB_PADERBORN_II_9CF()) return (BYTE*)get_club(CLUB_PADERBORN_9CF());
-	// non-hardcoded test
+	// non-hardcoded teams
 	if (_strcmpi(to_check->ClubName, "Aalesunds FK II") == 0 && find_club("Aalesunds FK")) return (BYTE*)find_club("Aalesunds FK");
 	if (_strcmpi(to_check->ClubName, "Baerum SK 2") == 0 && find_club("Bærum SK")) return (BYTE*)find_club("Bærum SK");
 	if (_strcmpi(to_check->ClubName, "FK Bodø/Glimt B") == 0 && find_club("FK Bodø/Glimt")) return (BYTE*)find_club("FK Bodø/Glimt");
@@ -1982,6 +2015,37 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 	if (_strcmpi(to_check->ClubName, "SK Vard Haugesund 2") == 0 && find_club("SK Vard Haugesund")) return (BYTE*)find_club("SK Vard Haugesund");
 	if (_strcmpi(to_check->ClubName, "Viking FK II") == 0 && find_club("Viking FK")) return (BYTE*)find_club("Viking FK");
 	if (_strcmpi(to_check->ClubName, "Vålerenga Fotball II") == 0 && find_club("Vålerenga Fotball Elite")) return (BYTE*)find_club("Vålerenga Fotball Elite");
+	if (_strcmpi(to_check->ClubName, "HJK Klubi 04 Helsinki") == 0 && find_club("HJK Helsinki")) return (BYTE*)find_club("HJK Helsinki");
+	if (_strcmpi(to_check->ClubName, "FC Espoo II") == 0 && find_club("FC Espoo")) return (BYTE*)find_club("FC Espoo");
+	if (_strcmpi(to_check->ClubName, "Helsinki IFK II") == 0 && find_club("Helsinki IFK")) return (BYTE*)find_club("Helsinki IFK");
+	if (_strcmpi(to_check->ClubName, "FC Honka II") == 0 && find_club("FC Honka")) return (BYTE*)find_club("FC Honka");
+	if (_strcmpi(to_check->ClubName, "Ilves Tampere II") == 0 && find_club("Ilves Tampere")) return (BYTE*)find_club("Ilves Tampere");
+	if (_strcmpi(to_check->ClubName, "Kuopion Palloseura II") == 0 && find_club("Kuopion Palloseura")) return (BYTE*)find_club("Kuopion Palloseura");
+	if (_strcmpi(to_check->ClubName, "Rovaniemen Palloseura II") == 0 && find_club("Rovaniemen Palloseura")) return (BYTE*)find_club("Rovaniemen Palloseura");
+	if (_strcmpi(to_check->ClubName, "Vaasan Palloseura II") == 0 && find_club("Vaasan Palloseura")) return (BYTE*)find_club("Vaasan Palloseura");
+	if (_strcmpi(to_check->ClubName, "FC Energie Cottbus II") == 0 && find_club("FC Energie Cottbus")) return (BYTE*)find_club("FC Energie Cottbus");
+	if (_strcmpi(to_check->ClubName, "MSV Duisburg Amateure") == 0 && find_club("MSV Duisburg")) return (BYTE*)find_club("MSV Duisburg");
+	if (_strcmpi(to_check->ClubName, "Bayer Leverkusen (A)") == 0 && find_club("Bayer 04 Leverkusen")) return (BYTE*)find_club("Bayer 04 Leverkusen");
+	if (_strcmpi(to_check->ClubName, "1.FC Saarbrücken II") == 0 && find_club("1.FC Saarbrücken")) return (BYTE*)find_club("1.FC Saarbrücken");
+	if (_strcmpi(to_check->ClubName, "Stuttgarter Kickers II") == 0 && find_club("Stuttgarter Kickers")) return (BYTE*)find_club("Stuttgarter Kickers");
+	if (_strcmpi(to_check->ClubName, "VfL Wolfsburg Amateure") == 0 && find_club("VfL Wolfsburg")) return (BYTE*)find_club("VfL Wolfsburg");
+	if (_strcmpi(to_check->ClubName, "Chrobry Glogow II") == 0 && find_club("Chrobry Glogow")) return (BYTE*)find_club("Chrobry Glogow");
+	if (_strcmpi(to_check->ClubName, "Cracovia II") == 0 && find_club("Cracovia")) return (BYTE*)find_club("Cracovia");
+	if (_strcmpi(to_check->ClubName, "Gornik Zabrze II") == 0 && find_club("Górnik Zabrze")) return (BYTE*)find_club("Górnik Zabrze");
+	if (_strcmpi(to_check->ClubName, "Jagiellonia Bialystok II") == 0 && find_club("Jagiellonia Bialystok")) return (BYTE*)find_club("Jagiellonia Bialystok");
+	if (_strcmpi(to_check->ClubName, "Korona Kielce II") == 0 && find_club("Korona Kielce")) return (BYTE*)find_club("Korona Kielce");
+	if (_strcmpi(to_check->ClubName, "Lech Poznan II") == 0 && find_club("Lech Poznan")) return (BYTE*)find_club("Lech Poznan");
+	if (_strcmpi(to_check->ClubName, "Legia Warsaw II") == 0 && find_club("Legia Warszawa")) return (BYTE*)find_club("Legia Warszawa");
+	if (_strcmpi(to_check->ClubName, "LKS Lodz II") == 0 && find_club("LKS Lodz")) return (BYTE*)find_club("LKS Lodz");
+	if (_strcmpi(to_check->ClubName, "Miedz Legnica II") == 0 && find_club("Miedz Legnica")) return (BYTE*)find_club("Miedz Legnica");
+	if (_strcmpi(to_check->ClubName, "Piast Gliwice II") == 0 && find_club("Piast Gliwice")) return (BYTE*)find_club("Piast Gliwice");
+	if (_strcmpi(to_check->ClubName, "Pogon Szczecin II") == 0 && find_club("Pogon Szczecin")) return (BYTE*)find_club("Pogon Szczecin");
+	if (_strcmpi(to_check->ClubName, "Rakow Czestochowa II") == 0 && find_club("Raków Czestochowa")) return (BYTE*)find_club("Raków Czestochowa");
+	if (_strcmpi(to_check->ClubName, "Slask Wroclaw II") == 0 && find_club("Slask Wroclaw")) return (BYTE*)find_club("Slask Wroclaw");
+	if (_strcmpi(to_check->ClubName, "Widzew Lodz II") == 0 && find_club("Widzew Lodz")) return (BYTE*)find_club("Widzew Lodz");
+	if (_strcmpi(to_check->ClubName, "Wisla Krakow II") == 0 && find_club("Wisla Kraków")) return (BYTE*)find_club("Wisla Kraków");
+	if (_strcmpi(to_check->ClubName, "Wisla Plock II") == 0 && find_club("Wisla Plock")) return (BYTE*)find_club("Wisla Plock");
+	if (_strcmpi(to_check->ClubName, "Zaglebie Lubin II") == 0 && find_club("Zaglebie Lubin")) return (BYTE*)find_club("Zaglebie Lubin");
 
 	// default case if none found
 	to_check->ClubHasLinkedClub = 0;
