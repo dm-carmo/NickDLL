@@ -416,76 +416,6 @@ void __declspec(naked) gre_first_update_c()		// used as a __thiscall -> __cdecl 
 	}
 }
 
-void gre_restruct_2025() {
-	cm3_nations* greece = get_country(NATION_GREECE_9CF());
-	cm3_club_comps* gre_second = get_comp(GRE_SECOND_9CF());
-	cm3_club_comps* gre_second_n = get_comp(GRE_SECOND_NORTH_9CF());
-	gre_second_n->ClubCompNation = greece;
-	gre_second_n->ClubCompReputation = 8;
-	cm3_club_comps* gre_second_s = get_comp(GRE_SECOND_SOUTH_9CF());
-	gre_second_s->ClubCompNation = greece;
-	gre_second_s->ClubCompReputation = 8;
-	cm3_club_comps* gre_lower = get_comp(GRE_LOWER_9CF());
-	cm3_club_comps* swe_lower = get_comp(SWE_LOWER_9CF());
-
-	vector<cm3_clubs*> clubs = find_clubs_of_comp(gre_second->ClubCompID);
-	for (cm3_clubs* c : clubs) {
-		c->ClubDivision = gre_lower;
-	}
-	clubs = find_clubs_of_comp(gre_second_n->ClubCompID);
-	for (cm3_clubs* c : clubs) {
-		c->ClubDivision = swe_lower;
-	}
-	clubs = find_clubs_of_comp(gre_second_s->ClubCompID);
-	for (cm3_clubs* c : clubs) {
-		c->ClubDivision = swe_lower;
-	}
-
-	vector<string> d2n_clubs = {
-		"Anagennisi Karditsas",
-		"Asteras Aktor B",
-		"POT Iraklis Thessaloniki",
-		"Kampaniakos",
-		"AO Kavala",
-		"Makedonikos Neapolis",
-		"Nestos Chrysoupolis",
-		"Niki Volou",
-		"PAOK Thessaloniki B",
-		"PAS Giannina",
-	};
-	vector<string> d2s_clubs = {
-		"Athens Kallithea",
-		"PAE Chania",
-		"AO Egaleo",
-		"Ellas Syrou",
-		"GS Ilioupolis",
-		"PS Kalamata",
-		"GS Marko",
-		"Olympiacos Piraeus B",
-		"Panargiakos APO",
-		"Panionios Athens",
-	};
-
-	for (string s : d2n_clubs) {
-		cm3_clubs* club = find_club(s.c_str());
-		if (!club) {
-			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
-			continue;
-		}
-		club->ClubDivision = gre_second;
-		club->ClubReserveDivision = gre_second_n;
-	}
-	for (string s : d2s_clubs) {
-		cm3_clubs* club = find_club(s.c_str());
-		if (!club) {
-			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
-			continue;
-		}
-		club->ClubDivision = gre_second;
-		club->ClubReserveDivision = gre_second_s;
-	}
-}
-
 void gre_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 {
 	sub_682200(_this);
@@ -500,7 +430,6 @@ void gre_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 		*((DWORD*)(_this + 0xA3)) = (DWORD)&gre_first_7F3220;
 		return;
 	}
-	if (year == 2025) gre_restruct_2025();
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 0;

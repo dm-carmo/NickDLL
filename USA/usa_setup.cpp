@@ -62,3 +62,37 @@ void setup_usa_nation() {
 	WriteBytes(0x668fa2, 1, 20);
 	WriteBytes(0x66900f, 3, 0x6a, 0x0, 0x57);
 }
+
+void usa_restructure() {
+	cm3_club_comps* usa_mls = get_comp(USA_MLS_9CF());
+	cm3_club_comps* usa_champ = get_comp(USA_SECOND_9CF());
+	usa_champ->ClubCompReputation = 7;
+	cm3_club_comps* usa_l1 = get_comp(USA_THIRD_9CF());
+	usa_l1->ClubCompReputation = 6;
+	cm3_club_comps* a_lower = get_comp(A_LOWER_9CF());
+
+	vector<cm3_clubs*> club_list = find_clubs_of_comp(USA_MLS_9CF());
+
+	club_list = find_clubs_of_comp(USA_SECOND_9CF());
+	for (cm3_clubs* c : club_list) c->ClubDivision = usa_mls;
+	club_list = find_clubs_of_comp(USA_THIRD_9CF());
+	for (cm3_clubs* c : club_list) c->ClubDivision = usa_champ;
+	club_list = find_clubs_of_comp(A_LOWER_9CF(), NATION_USA_9CF());
+	for (cm3_clubs* c : club_list) c->ClubDivision = usa_l1;
+
+	cm3_cities* austin = find_city("Austin");
+	if (austin && austin->CityLongitude > 0) austin->CityLongitude = -austin->CityLongitude;
+	cm3_cities* seaside = find_city("Seaside");
+	if (seaside && seaside->CityLongitude > 0) seaside->CityLongitude = -seaside->CityLongitude;
+	cm3_cities* oakland = find_city("Oakland");
+	if (oakland && oakland->CityLongitude > 0) oakland->CityLongitude = -oakland->CityLongitude;
+	cm3_cities* irvine = find_city("Irvine (USA)");
+	if (irvine && irvine->CityLongitude > 0) irvine->CityLongitude = -irvine->CityLongitude;
+	cm3_cities* scottsdale = find_city("Scottsdale");
+	if (scottsdale && scottsdale->CityLongitude > 0) scottsdale->CityLongitude = -scottsdale->CityLongitude;
+	cm3_stadiums* bc_place = find_stadium("BC Place");
+	if (bc_place) {
+		cm3_clubs* vancouver = find_club("Vancouver Whitecaps FC");
+		if (vancouver) vancouver->ClubStadium = bc_place;
+	}
+}

@@ -95,3 +95,116 @@ void setup_jpn_nation() {
 	WriteBytes(0x668582, 1, February);
 	WriteBytes(0x668584, 1, 14);
 }
+
+void japan_restructure() {
+	cm3_club_comps* jpn_first = get_comp(JPN_FIRST_9CF());
+	cm3_club_comps* jpn_second = get_comp(JPN_SECOND_9CF());
+	cm3_club_comps* jpn_third = get_comp(JPN_THIRD_9CF());
+	cm3_club_comps* jpn_jfl = get_comp(JPN_JFL_9CF());
+	cm3_club_comps* jpn_reg = get_comp(JPN_REGIONAL_9CF());
+
+	cm3_clubs* morioka = find_club("Morioka Zejpn");
+	if (morioka) {
+		morioka->ClubDivision = 0;
+		morioka->ClubNation = 0;
+	}
+
+	vector<string> d1_clubs = {
+		"Yokohama FC",
+		"Albirex Niigata",
+		"Shonan Bellmare",
+		"Yokohama F. Marinos",
+	};
+	vector<string> d2_clubs = {
+		"Blaublitz Akita",
+		"Ehime FC",
+		"Fujieda MYFC",
+		"Hokkaido Consadole Sapporo",
+		"FC Imabari",
+		"Iwaki Furukawa FC",
+		"Kataller Toyama",
+		"Montedio Yamagata",
+		"Renofa Yamaguchi",
+		"Roasso Kumamoto",
+		"Tokushima Vortis",
+		"Ventforet Kofu",
+	};
+	vector<string> d3_clubs = {
+		"Tochigi City",
+	};
+	vector<string> jfl_clubs = {
+		"Honda FC",
+		"MIO Biwako Shiga",
+		"Briobecca Urayasu",
+		"TIAMO Hirakata",
+		"ReinMeer Aomori",
+		"Verspah Oita",
+		"Veertien Mie",
+		"Kagura Shimane", // actually dissolved, but replacing Okinawa SV
+		"Iwate Grulla Morioka",
+		"Honda Lock",
+		"Maruyasu Okazaki",
+		"Criacao Shinjuku",
+		"Yokohama Sports & Culture Club",
+		"Yokogawa Musashino FC",
+		"Suzuka Point Getters",
+		"Sony Sendai", // actually dissolved, but replacing Asuka FC
+	};
+
+	vector<string> regional_clubs = {
+		"FC Tokushima",
+		"Veroskronos Tsuno",
+		"FC Kariya",
+		"Hokkaido Tokachi Sky Earth",
+		"Hokushukai Iwamizawa",
+		"Nippon Express FC",
+		"Nippon Steel Muroran",
+		"Norbritz Hokkaido",
+		"R.Supelbe Kushiro",
+		"Sapporo FC",
+		"Sapporo Univ. Goal Plunderers",
+		"Shintoku FC",
+	};
+
+	for (string s : d1_clubs) {
+		cm3_clubs* club = find_club(s.c_str());
+		if (!club) {
+			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
+			continue;
+		}
+		club->ClubDivision = jpn_first;
+	}
+	for (string s : d2_clubs) {
+		cm3_clubs* club = find_club(s.c_str());
+		if (!club) {
+			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
+			continue;
+		}
+		club->ClubDivision = jpn_second;
+	}
+	for (string s : d3_clubs) {
+		cm3_clubs* club = find_club(s.c_str());
+		if (!club) {
+			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
+			continue;
+		}
+		club->ClubDivision = jpn_third;
+	}
+	for (string s : jfl_clubs) {
+		cm3_clubs* club = find_club(s.c_str());
+		if (!club) {
+			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
+			continue;
+		}
+		club->ClubDivision = jpn_jfl;
+	}
+
+	for (string s : regional_clubs) {
+		cm3_clubs* club = find_club(s.c_str());
+		if (!club) {
+			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
+			continue;
+		}
+		club->ClubDivision = jpn_reg;
+	}
+}

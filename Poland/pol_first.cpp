@@ -482,59 +482,6 @@ void __declspec(naked) pol_first_fixtures_c()		// used as a __thiscall -> __cdec
 	}
 }
 
-void pol_restruct_2025() {
-	cm3_club_comps* pol_first = get_comp(POL_FIRST_9CF());
-	cm3_club_comps* pol_third = get_comp(POL_THIRD_9CF());
-	cm3_club_comps* pol_lower = get_comp(POL_LOWER_9CF());
-
-	vector<cm3_clubs*> clubs = find_clubs_of_comp(pol_third->ClubCompID);
-	for (cm3_clubs* c : clubs) {
-		c->ClubDivision = pol_lower;
-	}
-
-	vector<string> d1_clubs = {
-		"Bruk-Bet Termalica Nieciecza",
-		"Piast Gliwice",
-	};
-	vector<string> d3_clubs = {
-		"Chojniczanka Chojnice",
-		"GKS Jastrzebie",
-		"Hutnik Krakow",
-		"KKS 1925 Kalisz",
-		"LKS Lodz II",
-		"Olimpia Grudziadz",
-		"Podbeskidzie Bielsko-Biala",
-		"Podhale Nowy Targ",
-		"Rekord Bielsko-Biala",
-		"Resovia Rzeszow",
-		"Sandecja Nowy Sacz",
-		"Slask Wroclaw II",
-		"Sokol Kleczew",
-		"Stal Stalowa Wola",
-		"Swit Szczecin",
-		"Unia Skierniewice",
-		"Warta Poznan",
-		"Zaglebie Sosnowiec",
-	};
-
-	for (string s : d1_clubs) {
-		cm3_clubs* club = find_club(s.c_str());
-		if (!club) {
-			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
-			continue;
-		}
-		club->ClubDivision = pol_first;
-	}
-	for (string s : d3_clubs) {
-		cm3_clubs* club = find_club(s.c_str());
-		if (!club) {
-			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
-			continue;
-		}
-		club->ClubDivision = pol_third;
-	}
-}
-
 void pol_first_points_deductions(BYTE* _this, WORD current_year)
 {
 	if (current_year > 2025) return;
@@ -564,7 +511,6 @@ void pol_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->rules = 0x1f;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
-	if (year == 2025) pol_restruct_2025();
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 0;

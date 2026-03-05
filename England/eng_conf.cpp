@@ -89,20 +89,6 @@ int eng_conf_subs(BYTE* _this)
 	return 1;
 }
 
-void eng_conf_restruct_2025() {
-	cm3_club_comps* nat_lge = get_comp(ENG_CONFERENCE_9CF());
-	if (nat_lge) {
-		cm3_clubs* club1 = find_club("Boston United");
-		if (club1) {
-			club1->ClubDivision = nat_lge;
-		}
-		cm3_clubs* club2 = find_club("Braintree Town");
-		if (club2) {
-			club2->ClubDivision = nat_lge;
-		}
-	}
-}
-
 void eng_conf_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	sub_682200(_this);
 	comp_stats* data = (comp_stats*)_this;
@@ -114,7 +100,6 @@ void eng_conf_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->rules = 0x9;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
-	if (year == 2025) eng_conf_restruct_2025();
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 1;

@@ -147,45 +147,6 @@ void __declspec(naked) eng_conf_n_subs_c()		// used as a __thiscall -> __cdecl c
 	}
 }
 
-void eng_conf_n_awards_restruct() {
-	cm3_staff_comps* data = &(*awards)[ENG_CONFERENCE_N_MANAGER_OF_MONTH_9CF()];
-	if (data) {
-		data->StaffCompNation = get_country(NATION_ENGLAND_9CF());
-		data->StaffCompContinent = find_continent("Europe");
-		data->StaffCompReputation = 4;
-	}
-	data = &(*awards)[ENG_CONFERENCE_N_MANAGER_OF_YEAR_9CF()];
-	if (data) {
-		data->StaffCompNation = get_country(NATION_ENGLAND_9CF());
-		data->StaffCompContinent = find_continent("Europe");
-		data->StaffCompReputation = 5;
-	}
-	data = &(*awards)[ENG_CONFERENCE_N_PLAYER_OF_MONTH_9CF()];
-	if (data) {
-		data->StaffCompNation = get_country(NATION_ENGLAND_9CF());
-		data->StaffCompContinent = find_continent("Europe");
-		data->StaffCompReputation = 4;
-	}
-	data = &(*awards)[ENG_CONFERENCE_N_TEAM_OF_WEEK_9CF()];
-	if (data) {
-		data->StaffCompNation = get_country(NATION_ENGLAND_9CF());
-		data->StaffCompContinent = find_continent("Europe");
-		data->StaffCompReputation = 4;
-	}
-	data = &(*awards)[ENG_CONFERENCE_N_TEAM_OF_YEAR_9CF()];
-	if (data) {
-		data->StaffCompNation = get_country(NATION_ENGLAND_9CF());
-		data->StaffCompContinent = find_continent("Europe");
-		data->StaffCompReputation = 5;
-	}
-	data = &(*awards)[ENG_CONFERENCE_N_YOUNG_PLAYER_OF_MONTH_9CF()];
-	if (data) {
-		data->StaffCompNation = get_country(NATION_ENGLAND_9CF());
-		data->StaffCompContinent = find_continent("Europe");
-		data->StaffCompReputation = 3;
-	}
-}
-
 void __declspec(naked) eng_conf_n_reputation_calc_c()		// used as a __thiscall -> __cdecl converter
 {
 	__asm
@@ -219,7 +180,6 @@ void eng_conf_n_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->rules = 0x9;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
-	eng_conf_n_awards_restruct();
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 1;

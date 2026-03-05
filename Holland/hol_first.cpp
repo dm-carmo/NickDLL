@@ -321,23 +321,6 @@ void __declspec(naked) hol_first_fixtures_c()		// used as a __thiscall -> __cdec
 	}
 }
 
-void holland_restruct_2025() {
-	cm3_club_comps* hol_second = get_comp(HOL_SECOND_9CF());
-
-	vector<string> d2_clubs = {
-		"AZ Alkmaar U21",
-		"FC Utrecht U21"
-	};
-	for (string s : d2_clubs) {
-		cm3_clubs* club = find_club(s.c_str());
-		if (!club) {
-			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
-			continue;
-		}
-		club->ClubDivision = hol_second;
-	}
-}
-
 char hol_first_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
@@ -400,7 +383,6 @@ void hol_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->rules = 0xF;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
-	if (year == 2025) holland_restruct_2025();
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 1;

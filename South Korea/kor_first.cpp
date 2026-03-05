@@ -345,57 +345,6 @@ void __declspec(naked) kor_first_update_c()		// used as a __thiscall -> __cdecl 
 	}
 }
 
-void kor_restruct_2025() {
-	cm3_club_comps* kor_first = get_comp(KOR_FIRST_9CF());
-	cm3_club_comps* kor_second = get_comp(KOR_SECOND_9CF());
-	cm3_club_comps* a_lower = get_comp(A_LOWER_9CF());
-
-	vector<cm3_clubs*> kor_clubs = find_clubs_of_comp(KOR_SECOND_9CF());
-	for (cm3_clubs* c : kor_clubs) {
-		c->ClubDivision = a_lower;
-	}
-
-	vector<string> d1_clubs = {
-		"FC Anyang",
-		"Gwangju FC",
-		"Daegu FC",
-		"Suwon FC",
-	};
-	vector<string> d2_clubs = {
-		"Ansan Greeners",
-		"Bucheon FC 1995",
-		"Busan IPark",
-		"Cheonan City",
-		"Chungbuk Cheongju FC",
-		"Chungnam Asan",
-		"Gimpo FC",
-		"Gyeongnam FC",
-		"Hwaseong FC",
-		"Incheon United",
-		"Jeonnam Dragons",
-		"Seongnam FC",
-		"Seoul E-Land",
-		"Suwon Samsung Bluewings",
-	};
-
-	for (string s : d1_clubs) {
-		cm3_clubs* club = find_club(s.c_str());
-		if (!club) {
-			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
-			continue;
-		}
-		club->ClubDivision = kor_first;
-	}
-	for (string s : d2_clubs) {
-		cm3_clubs* club = find_club(s.c_str());
-		if (!club) {
-			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
-			continue;
-		}
-		club->ClubDivision = kor_second;
-	}
-}
-
 void kor_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 {
 	sub_682200(_this);
@@ -410,7 +359,6 @@ void kor_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 		*((DWORD*)(_this + 0xA3)) = (DWORD)&kor_first_7F3220;
 		return;
 	}
-	if (year == 2025 || year == 2026) kor_restruct_2025();
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 1;

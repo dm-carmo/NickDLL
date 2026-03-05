@@ -71,3 +71,54 @@ void setup_kor_nation() {
 	// Fixes player values
 	WriteBytes(0x4d152a, 1, 0xeb);
 }
+
+void korea_restructure() {
+	cm3_club_comps* kor_first = get_comp(KOR_FIRST_9CF());
+	cm3_club_comps* kor_second = get_comp(KOR_SECOND_9CF());
+	cm3_club_comps* a_lower = get_comp(A_LOWER_9CF());
+
+	vector<cm3_clubs*> kor_clubs = find_clubs_of_comp(KOR_SECOND_9CF());
+	for (cm3_clubs* c : kor_clubs) {
+		c->ClubDivision = a_lower;
+	}
+
+	vector<string> d1_clubs = {
+		"FC Anyang",
+		"Gwangju FC",
+		"Daegu FC",
+		"Suwon FC",
+	};
+	vector<string> d2_clubs = {
+		"Ansan Greeners",
+		"Bucheon FC 1995",
+		"Busan IPark",
+		"Cheonan City",
+		"Chungbuk Cheongju FC",
+		"Chungnam Asan",
+		"Gimpo FC",
+		"Gyeongnam FC",
+		"Hwaseong FC",
+		"Incheon United",
+		"Jeonnam Dragons",
+		"Seongnam FC",
+		"Seoul E-Land",
+		"Suwon Samsung Bluewings",
+	};
+
+	for (string s : d1_clubs) {
+		cm3_clubs* club = find_club(s.c_str());
+		if (!club) {
+			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
+			continue;
+		}
+		club->ClubDivision = kor_first;
+	}
+	for (string s : d2_clubs) {
+		cm3_clubs* club = find_club(s.c_str());
+		if (!club) {
+			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
+			continue;
+		}
+		club->ClubDivision = kor_second;
+	}
+}

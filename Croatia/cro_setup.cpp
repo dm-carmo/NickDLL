@@ -67,3 +67,221 @@ void setup_cro_nation() {
 	setup_cro_super();
 	setup_cro_awards();
 }
+
+void croatia_restructure() {
+	cm3_club_comps* cro_first = get_comp(CRO_FIRST_9CF());
+	cm3_club_comps* cro_second = get_comp(CRO_SECOND_9CF());
+	cm3_club_comps* cro_third = get_comp(CRO_THIRD_9CF());
+	cm3_club_comps* cro_reg_e = get_comp(CRO_FOURTH_EAST_9CF());
+	cm3_club_comps* cro_reg_w = get_comp(CRO_FOURTH_WEST_9CF());
+	cm3_club_comps* cro_reg_n = get_comp(CRO_FOURTH_NORTH_9CF());
+	cm3_club_comps* cro_reg_s = get_comp(CRO_FOURTH_SOUTH_9CF());
+	cm3_club_comps* cro_reg_c = get_comp(CRO_FOURTH_CENTRAL_9CF());
+	cm3_club_comps* a_lower = get_comp(A_LOWER_9CF());
+
+	cro_third->ClubCompReputation = 4;
+	vector<cm3_clubs*> cro_clubs = find_clubs_of_country(NATION_CROATIA_9CF());
+	for (cm3_clubs* c : cro_clubs) {
+		c->ClubDivision = a_lower;
+	}
+
+	vector<string> d1_clubs = {
+		"GNK Dinamo Zagreb",
+		"HNK Hajduk Split",
+		"NK Istra 1961",
+		"HNK Rijeka",
+		"Slaven Belupo Koprivnica",
+		"NK Varazdin",
+		"NK Lokomotiva Zagreb",
+		"HNK Gorica",
+		"HNK Vukovar 1991",
+		"NK Osijek"
+	};
+	vector<string> d2_clubs = {
+		"NK BSK Bijelo Brdo",
+		"HNK Cibalia Vinkovci",
+		"NK Croatia Zmijavci",
+		"NK Dubrava Tim kabel",
+		"NK Dugopolje",
+		"NK Hrvace",
+		"NK Jarun",
+		"NK Karlovac 1919",
+		"NK Opatija",
+		"HNK Orijent Rijeka",
+		"NK Rudes",
+		"NK Sesvete"
+	};
+	vector<string> d3_clubs = {
+		"NK Bjelovar",
+		"NK Dugo Selo",
+		"NK Croatia Dakovo",
+		"NK Grobnican",
+		"NK Hrvatski Dragovoljac",
+		"NK Jadran Luka Ploce",
+		"NK Kustosija Zagreb",
+		"NK Lucko",
+		"NK Mladost Zdralovi",
+		"NK Radnik Krizevci",
+		"HNK Segesta Sisak",
+		"NK Solin",
+		"NK Trnje Zagreb",
+		"NK Uljanik",
+		"NK Uskok Klis",
+		"NK Varteks Varazdin"
+	};
+	vector<string> d4n_clubs = {
+		//"NK Bilogora 91",
+		//"NK Daruvar",
+		"NK Dinamo Domasinec",
+		//"NK Dinamo Predavac",
+		//"NK Gari? (G)",
+		"NK Granicar Djurdjevac",
+		"NK Granicar Kotoriba",
+		"NK Koprivnica",
+		//"NK Me?imurec (DP)",
+		"NK Medjimurje Cakovec",
+		//"NK Nedeliš?e",
+		"NK Pitomaca",
+		"NK Podravina Ludbreg",
+		"NK Polet Sveti Martin na Muri",
+		"NK Rudar Mursko Sredisce",
+		//"NK Slatina"
+	};
+	vector<string> d4s_clubs = {
+		//"HNK Jadran (KS)",
+		"NK Primorac Biograd",
+		"HNK Sloga Mravince",
+		//"HNK Val",
+		"HNK Zadar",
+		"HNK Sibenik",
+		//"NK GOŠK Kaštela",
+		"NK GOSK - Dubrovnik 1919",
+		"NK Hrvatski vitez Posedarje",
+		"NK Junak Sinj",
+		//"NK Kamen (P)",
+		"NK Neretva Metkovic",
+		"NK Neretvanac Opuzen",
+		//"NK Omiš",
+		"NK Vodice",
+		"NK Zagora Unesic"
+	};
+	vector<string> d4e_clubs = {
+		"NK Bedem Ivankovo",
+		"NK Belisce",
+		//"NK Borac (KV)",
+		"NK Kutjevo",
+		"NK Marsonia 1909",
+		//"NK Radni?ki (D)",
+		"NK Slavija Pleternica",
+		"NK Slavonija Pozega",
+		//"NK Sva?i?",
+		//"NK Tomislav (C)",
+		//"NK Tomislav (DA)",
+		//"NK Valpovka",
+		//"NK Vardarac",
+		//"NK Vinogorac",
+		"NK Vuteks Sloga",
+		"NK Cepin"
+	};
+	vector<string> d4w_clubs = {
+		//"NK Banjole",
+		"NK Buje",
+		"NK Crikvenica",
+		//"NK Halubjan",
+		"NK Jadran Porec",
+		//"NK Kraljevica",
+		"NK Krk",
+		//"NK Lokomotiva (R)",
+		"NK Naprijed Hreljin",
+		"NK Nehaj Senj",
+		//"NK Novalja",
+		//"NK OŠK Omišalj",
+		"NK Pazinka Pazin",
+		"NK Pomorac Kostrena",
+		"Rudar Labin",
+		"NK Vinodol"
+	};
+	vector<string> d4c_clubs = {
+		//"GNK Tigar Sveta Nedelja",
+		"NK Mladost Petrinja",
+		"NK Bistra",
+		//"NK Dinamo Odranski Obrež",
+		"NK Gaj Mace",
+		"NK HASK Zagreb",
+		"NK Inter Zapresic",
+		"NK Kurilovec Velika Gorica",
+		"NK Maksimir",
+		"NK Ponikve",
+		//"NK Pre?ko",
+		"NK Ravnice",
+		//"NK Samobor",
+		"NK Tresnjevka Zagreb",
+		"NK Vrapce",
+		"NK Zagorec"
+	};
+
+	for (string s : d1_clubs) {
+		cm3_clubs* club = find_club(s.c_str());
+		if (!club) {
+			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
+			continue;
+		}
+		club->ClubDivision = cro_first;
+	}
+	for (string s : d2_clubs) {
+		cm3_clubs* club = find_club(s.c_str());
+		if (!club) {
+			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
+			continue;
+		}
+		club->ClubDivision = cro_second;
+	}
+	for (string s : d3_clubs) {
+		cm3_clubs* club = find_club(s.c_str());
+		if (!club) {
+			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
+			continue;
+		}
+		club->ClubDivision = cro_third;
+	}
+	for (string s : d4n_clubs) {
+		cm3_clubs* club = find_club(s.c_str());
+		if (!club) {
+			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
+			continue;
+		}
+		club->ClubDivision = cro_reg_n;
+	}
+	for (string s : d4s_clubs) {
+		cm3_clubs* club = find_club(s.c_str());
+		if (!club) {
+			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
+			continue;
+		}
+		club->ClubDivision = cro_reg_s;
+	}
+	for (string s : d4e_clubs) {
+		cm3_clubs* club = find_club(s.c_str());
+		if (!club) {
+			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
+			continue;
+		}
+		club->ClubDivision = cro_reg_e;
+	}
+	for (string s : d4w_clubs) {
+		cm3_clubs* club = find_club(s.c_str());
+		if (!club) {
+			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
+			continue;
+		}
+		club->ClubDivision = cro_reg_w;
+	}
+	for (string s : d4c_clubs) {
+		cm3_clubs* club = find_club(s.c_str());
+		if (!club) {
+			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
+			continue;
+		}
+		club->ClubDivision = cro_reg_c;
+	}
+}

@@ -508,41 +508,6 @@ void __declspec(naked) fra_first_fixtures_c()		// used as a __thiscall -> __cdec
 	}
 }
 
-void fra_restruct_2025() {
-	cm3_club_comps* fra_third = get_comp(FRA_NATIONAL_9CF());
-	cm3_club_comps* fra_fourth = get_comp(FRA_CFA_9CF());
-
-	vector<string> d3_clubs = {
-		"SM Caen",
-		"Dijon FCO",
-	};
-	vector<string> d4_clubs = {
-		"Nîmes Olympique",
-		"FC Martigues",
-		"AS Cannes",
-		"Chamois Niortais FC",
-		"AC Ajaccio",
-	};
-
-	for (string s : d3_clubs) {
-		cm3_clubs* club = find_club(s.c_str());
-		if (!club) {
-			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
-			continue;
-		}
-		club->ClubDivision = fra_third;
-	}
-
-	for (string s : d4_clubs) {
-		cm3_clubs* club = find_club(s.c_str());
-		if (!club) {
-			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
-			continue;
-		}
-		club->ClubDivision = fra_fourth;
-	}
-}
-
 void fra_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 {
 	sub_682200(_this);
@@ -553,7 +518,6 @@ void fra_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->rules = 0xc;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
-	if (year == 2025) fra_restruct_2025();
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 1;

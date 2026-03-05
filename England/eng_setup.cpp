@@ -119,3 +119,90 @@ void setup_eng_nation() {
 	setup_eng_fa_trophy();
 	setup_eng_awards();
 }
+
+void england_restructure() {
+	cm3_club_comps* nat_lge = get_comp(ENG_CONFERENCE_9CF());
+	if (nat_lge) {
+		cm3_clubs* club1 = find_club("Boston United");
+		if (club1) {
+			club1->ClubDivision = nat_lge;
+		}
+		cm3_clubs* club2 = find_club("Braintree Town");
+		if (club2) {
+			club2->ClubDivision = nat_lge;
+		}
+	}
+
+	cm3_staff_comps* data = &(*awards)[ENG_CONFERENCE_N_MANAGER_OF_MONTH_9CF()];
+	if (data) {
+		data->StaffCompNation = get_country(NATION_ENGLAND_9CF());
+		data->StaffCompContinent = find_continent("Europe");
+		data->StaffCompReputation = 4;
+	}
+	data = &(*awards)[ENG_CONFERENCE_N_MANAGER_OF_YEAR_9CF()];
+	if (data) {
+		data->StaffCompNation = get_country(NATION_ENGLAND_9CF());
+		data->StaffCompContinent = find_continent("Europe");
+		data->StaffCompReputation = 5;
+	}
+	data = &(*awards)[ENG_CONFERENCE_N_PLAYER_OF_MONTH_9CF()];
+	if (data) {
+		data->StaffCompNation = get_country(NATION_ENGLAND_9CF());
+		data->StaffCompContinent = find_continent("Europe");
+		data->StaffCompReputation = 4;
+	}
+	data = &(*awards)[ENG_CONFERENCE_N_TEAM_OF_WEEK_9CF()];
+	if (data) {
+		data->StaffCompNation = get_country(NATION_ENGLAND_9CF());
+		data->StaffCompContinent = find_continent("Europe");
+		data->StaffCompReputation = 4;
+	}
+	data = &(*awards)[ENG_CONFERENCE_N_TEAM_OF_YEAR_9CF()];
+	if (data) {
+		data->StaffCompNation = get_country(NATION_ENGLAND_9CF());
+		data->StaffCompContinent = find_continent("Europe");
+		data->StaffCompReputation = 5;
+	}
+	data = &(*awards)[ENG_CONFERENCE_N_YOUNG_PLAYER_OF_MONTH_9CF()];
+	if (data) {
+		data->StaffCompNation = get_country(NATION_ENGLAND_9CF());
+		data->StaffCompContinent = find_continent("Europe");
+		data->StaffCompReputation = 3;
+	}
+	data = &(*awards)[ENG_CONFERENCE_S_MANAGER_OF_MONTH_9CF()];
+	if (data) {
+		data->StaffCompNation = get_country(NATION_ENGLAND_9CF());
+		data->StaffCompContinent = find_continent("Europe");
+		data->StaffCompReputation = 4;
+	}
+	data = &(*awards)[ENG_CONFERENCE_S_MANAGER_OF_YEAR_9CF()];
+	if (data) {
+		data->StaffCompNation = get_country(NATION_ENGLAND_9CF());
+		data->StaffCompContinent = find_continent("Europe");
+		data->StaffCompReputation = 5;
+	}
+	data = &(*awards)[ENG_CONFERENCE_S_PLAYER_OF_MONTH_9CF()];
+	if (data) {
+		data->StaffCompNation = get_country(NATION_ENGLAND_9CF());
+		data->StaffCompContinent = find_continent("Europe");
+		data->StaffCompReputation = 4;
+	}
+	data = &(*awards)[ENG_CONFERENCE_S_TEAM_OF_WEEK_9CF()];
+	if (data) {
+		data->StaffCompNation = get_country(NATION_ENGLAND_9CF());
+		data->StaffCompContinent = find_continent("Europe");
+		data->StaffCompReputation = 4;
+	}
+	data = &(*awards)[ENG_CONFERENCE_S_TEAM_OF_YEAR_9CF()];
+	if (data) {
+		data->StaffCompNation = get_country(NATION_ENGLAND_9CF());
+		data->StaffCompContinent = find_continent("Europe");
+		data->StaffCompReputation = 5;
+	}
+	data = &(*awards)[ENG_CONFERENCE_S_YOUNG_PLAYER_OF_MONTH_9CF()];
+	if (data) {
+		data->StaffCompNation = get_country(NATION_ENGLAND_9CF());
+		data->StaffCompContinent = find_continent("Europe");
+		data->StaffCompReputation = 3;
+	}
+}

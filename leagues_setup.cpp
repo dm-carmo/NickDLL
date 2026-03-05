@@ -701,8 +701,46 @@ vector<DWORD> pnd_countminus2_dword = {
 	0x77766C + 4,
 };
 
+void league_restructure_init()
+{
+	if (configFile.GetBool("applyBrazil", true)) brazil_restructure();
+	if (configFile.GetBool("applyCroatia", true)) croatia_restructure();
+	if (configFile.GetBool("applyDenmark", true)) denmark_restructure();
+	if (configFile.GetBool("applyEngland", true)) england_restructure();
+	if (configFile.GetBool("applyFinland", true)) finland_restructure();
+	if (configFile.GetBool("applyFrance", true)) france_restructure();
+	if (configFile.GetBool("applyGermany", true)) germany_restructure();
+	if (configFile.GetBool("applyGreece", true)) greece_restructure();
+	if (configFile.GetBool("applyHolland", true)) holland_restructure();
+	if (configFile.GetBool("applyItaly", true)) italy_restructure();
+	if (configFile.GetBool("applyJapan", true)) japan_restructure();
+	if (configFile.GetBool("applyNorway", true)) norway_restructure();
+	if (configFile.GetBool("applyPoland", true)) poland_restructure();
+	if (configFile.GetBool("applyPortugal", true)) portugal_restructure();
+	if (configFile.GetBool("applySouthKorea", true)) korea_restructure();
+	if (configFile.GetBool("applySweden", true)) sweden_restructure();
+	if (configFile.GetBool("applyUSA", true)) usa_restructure();
+}
+
+extern "C" _declspec(naked) void inject_league_restructure_init()
+{
+	_asm
+	{
+		pushad
+	}
+	league_restructure_init();
+	_asm
+	{
+		popad
+		push 0x82838e
+		push 0x524d70
+		ret
+	}
+}
+
 void setup_leagues_setup() {
 	PatchFunction(0x667150, (DWORD)&replacement_667150);
+	PatchFunction(0x828389, (DWORD)inject_league_restructure_init);
 	// fix if Africa added
 	if (configFile.GetBool("applyCAF", true)) {
 		WriteBytes(0x48df27, 1, 8);

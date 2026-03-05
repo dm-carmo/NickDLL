@@ -70,3 +70,38 @@ void setup_fra_nation()
 	setup_fra_cup();
 	setup_fra_super();
 }
+
+void france_restructure() {
+	cm3_club_comps* fra_third = get_comp(FRA_NATIONAL_9CF());
+	cm3_club_comps* fra_fourth = get_comp(FRA_CFA_9CF());
+
+	vector<string> d3_clubs = {
+		"SM Caen",
+		"Dijon FCO",
+	};
+	vector<string> d4_clubs = {
+		"Nîmes Olympique",
+		"FC Martigues",
+		"AS Cannes",
+		"Chamois Niortais FC",
+		"AC Ajaccio",
+	};
+
+	for (string s : d3_clubs) {
+		cm3_clubs* club = find_club(s.c_str());
+		if (!club) {
+			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
+			continue;
+		}
+		club->ClubDivision = fra_third;
+	}
+
+	for (string s : d4_clubs) {
+		cm3_clubs* club = find_club(s.c_str());
+		if (!club) {
+			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
+			continue;
+		}
+		club->ClubDivision = fra_fourth;
+	}
+}
