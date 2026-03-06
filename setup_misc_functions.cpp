@@ -10,6 +10,31 @@ static WORD(*rgb_to_word_5E4800)(unsigned char a1, unsigned char a2, unsigned ch
 WORD* default_comp_colour_fg = (WORD*)0xAE3184;
 WORD* default_comp_colour_bg = (WORD*)0xAEBE04;
 
+vector<DWORD> friendly_aug_30plus4 = {
+	0x5CA5BE, 0x5CA8B3, 0x5CA9FC, 0x5CAA92, 0x5CAB6D, 0x5CADBD, 0x5CAE51, 0x5CAEF9, 0x5CAFC5, 0x5CB0A9, 0x5CB1F6, 0x5CB2A9, 0x5CB4DD,
+};
+vector<DWORD> friendly_aug_30plus3 = {
+	0x5CA64F, 0x5CA77C, 0x5CACD9, 0x5CB427, 0x5CB570, 0x5CB646, 0x5CB751,
+};
+vector<DWORD> friendly_sept_3plus4 = {
+	0x5CA678, 0x5CB596, 0x5CB787,
+};
+vector<DWORD> friendly_sept_3plus3 = {
+	0x5CA8E6, 0x5CAAB7, 0x5CAE75, 0x5CAFF8, 0x5CB0DE, 0x5CB22B, 0x5CB2DE,
+};
+vector<DWORD> friendly_oct_4plus4 = {
+	0x5CA7AF, 0x5CA91B, 0x5CAAE0, 0x5CB261, 0x5CB7BB,
+};
+vector<DWORD> friendly_oct_4plus3 = {
+	0x5CA69D, 0x5CAA21, 0x5CABD6, 0x5CAD42, 0x5CAE9B, 0x5CB02D, 0x5CB136, 0x5CB35A, 0x5CB48E, 0x5CB5BB,
+};
+vector<DWORD> friendly_march_21plus4 = {
+	0x5CA599, 0x5CA609, 0x5CA817, 0x5CAB38, 0x5CAC41, 0x5CAD98, 0x5CAE07, 0x5CAF2A, 0x5CB527, 0x5CB610, 0x5CB6B2,
+};
+vector<DWORD> friendly_march_21plus3 = {
+	0x5CA743, 0x5CA9D6, 0x5CAA6C, 0x5CB083, 0x5CB187, 0x5CB283, 0x5CB393, 0x5CB4B7,
+};
+
 int show_extra_leagues_in_start(BYTE* nation, DWORD dest_ptr, int a3) {
 	if (!nation || !dest_ptr || a3 < 20) return 0;
 	cm3_nations* cm3_nation = (cm3_nations*)nation;
@@ -203,4 +228,40 @@ void setup_misc_functions()
 {
 	if (configFile.GetBool("competitionColoursPatch", true)) PatchFunction(0x53b7c0, (DWORD)&comp_colours_in_header);
 	PatchFunction(0x669f50, (DWORD)&show_extra_leagues_in_start);
+
+	// Move August 30's international friendlies forward one week
+	for (DWORD d : friendly_aug_30plus4) {
+		WriteBytes(d + 4, 1, 9);
+	}
+	for (DWORD d : friendly_aug_30plus3) {
+		WriteBytes(d + 3, 1, 9);
+	}
+	WriteBytes(0x5cb892 + 1, 1, 9);
+	WriteBytes(0x5cb8dc + 1, 1, 9);
+	// Move September 3's international friendlies forward one week
+	for (DWORD d : friendly_sept_3plus4) {
+		WriteBytes(d + 4, 1, 13);
+	}
+	for (DWORD d : friendly_sept_3plus3) {
+		WriteBytes(d + 3, 1, 13);
+	}
+	WriteBytes(0x5caba1, 7, 0x66, 0xC7, 0x40, 0x01, 0x0D, 0x08, 0x90);
+	WriteBytes(0x5cad0e, 7, 0x66, 0xC7, 0x40, 0x01, 0x0D, 0x08, 0x90);
+	WriteBytes(0x5cb459, 7, 0x66, 0xC7, 0x40, 0x01, 0x0D, 0x08, 0x90);
+	// Move October 4's international friendlies forward one week
+	for (DWORD d : friendly_oct_4plus4) {
+		WriteBytes(d + 4, 1, 14);
+	}
+	for (DWORD d : friendly_oct_4plus3) {
+		WriteBytes(d + 3, 1, 14);
+	}
+	// Move March 21's international friendlies forward one week
+	for (DWORD d : friendly_march_21plus4) {
+		WriteBytes(d + 4, 1, 31);
+	}
+	for (DWORD d : friendly_march_21plus3) {
+		WriteBytes(d + 3, 1, 31);
+	}
+	WriteBytes(0x5cb872 + 1, 1, 31);
+	WriteBytes(0x5cb8b7 + 1, 1, 31);
 }

@@ -51,6 +51,10 @@ void Setup()
 
 	// Increased exe speed for testing
 	WriteDWORD(0x9472ce, 500);
+
+	// See any team's finances
+	WriteBytes(0x46066F, 4, 0xb8, 0x01, 0x00, 0x00);
+	WriteBytes(0x4608EA, 4, 0xb8, 0x01, 0x00, 0x00);
 #endif 
 
 	// Fixes a slight bug where B-teams can't qualify for relegation playoffs if they have the "CantBePromoted" flag set
