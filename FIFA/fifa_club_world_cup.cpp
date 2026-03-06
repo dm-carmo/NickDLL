@@ -155,18 +155,18 @@ int cwc_583B10(BYTE* _this, BYTE* a2, int a3) {
 	if (bl < 7) {
 		if (club_check) {
 			int ret = sub_5A0590(ae2a38_ptr, (BYTE*)club_check);
-			sub_5999A0((BYTE*)ret, 900000);
-			sub_48E3E0(_this, (BYTE*)club_check, 900000, 0, -1, 0, a2, -2);
+			add_to_income_prize_money_5999A0((BYTE*)ret, 900000);
+			add_money_to_club_from_comp_48E3E0(_this, (BYTE*)club_check, 900000, 0, -1, 0, a2, -2);
 		}
 		else {
 			cm3_clubs* club1 = (cm3_clubs*)*(DWORD*)(a2 + 0x1c);
 			int ret = sub_5A0590(ae2a38_ptr, (BYTE*)club1);
-			sub_5999A0((BYTE*)ret, 450000);
+			add_to_income_prize_money_5999A0((BYTE*)ret, 450000);
 			cm3_clubs* club2 = (cm3_clubs*)*(DWORD*)(a2 + 0x20);
 			ret = sub_5A0590(ae2a38_ptr, (BYTE*)club2);
-			sub_5999A0((BYTE*)ret, 450000);
-			sub_48E3E0(_this, (BYTE*)club1, 450000, 0, -1, 0, a2, -2);
-			sub_48E3E0(_this, (BYTE*)club2, 450000, 0, -1, 0, a2, -2);
+			add_to_income_prize_money_5999A0((BYTE*)ret, 450000);
+			add_money_to_club_from_comp_48E3E0(_this, (BYTE*)club1, 450000, 0, -1, 0, a2, -2);
+			add_money_to_club_from_comp_48E3E0(_this, (BYTE*)club2, 450000, 0, -1, 0, a2, -2);
 		}
 	}
 	return sub_685D30(_this, a2, a3);
@@ -576,15 +576,15 @@ void fifa_club_world_cup_all_teams(BYTE* _this) {
 		teams[i].f5 = 10;
 		teams[i].f6 = 0;
 		int ret = sub_5A0590(ae2a38_ptr, (BYTE*)uefa_clubs[i]);
-		sub_5999A0((BYTE*)ret, 6840000);
-		sub_48E3E0(_this, (BYTE*)uefa_clubs[i], 6840000, 0, -1, GroupStage, 0, -2);
+		add_to_income_prize_money_5999A0((BYTE*)ret, 6840000);
+		add_money_to_club_from_comp_48E3E0(_this, (BYTE*)uefa_clubs[i], 6840000, 0, -1, GroupStage, 0, -2);
 
 		teams[i + 4].club = conmebol_clubs[i];
 		teams[i + 4].f5 = 10;
 		teams[i + 4].f6 = 0;
 		ret = sub_5A0590(ae2a38_ptr, (BYTE*)conmebol_clubs[i]);
-		sub_5999A0((BYTE*)ret, 6840000);
-		sub_48E3E0(_this, (BYTE*)conmebol_clubs[i], 6840000, 0, -1, GroupStage, 0, -2);
+		add_to_income_prize_money_5999A0((BYTE*)ret, 6840000);
+		add_money_to_club_from_comp_48E3E0(_this, (BYTE*)conmebol_clubs[i], 6840000, 0, -1, GroupStage, 0, -2);
 	}
 	// Pot 2: The remaining eight teams from UEFA
 	for (int i = 0; i < 8; i++) {
@@ -592,8 +592,8 @@ void fifa_club_world_cup_all_teams(BYTE* _this) {
 		teams[i + 8].f5 = 11;
 		teams[i + 8].f6 = 0;
 		int ret = sub_5A0590(ae2a38_ptr, (BYTE*)uefa_clubs[i + 4]);
-		sub_5999A0((BYTE*)ret, 6840000);
-		sub_48E3E0(_this, (BYTE*)uefa_clubs[i + 4], 6840000, 0, -1, GroupStage, 0, -2);
+		add_to_income_prize_money_5999A0((BYTE*)ret, 6840000);
+		add_money_to_club_from_comp_48E3E0(_this, (BYTE*)uefa_clubs[i + 4], 6840000, 0, -1, GroupStage, 0, -2);
 	}
 	// Pot 3: The two top-ranked teams from each of AFC, CAF and CONCACAF, and the remaining two teams from CONMEBOL
 	for (int i = 0; i < 2; i++) {
@@ -601,29 +601,29 @@ void fifa_club_world_cup_all_teams(BYTE* _this) {
 		teams[i + 16].f5 = 12;
 		teams[i + 16].f6 = 0;
 		int ret = sub_5A0590(ae2a38_ptr, (BYTE*)afc_clubs[i]);
-		sub_5999A0((BYTE*)ret, 4297500);
-		sub_48E3E0(_this, (BYTE*)afc_clubs[i], 4297500, 0, -1, GroupStage, 0, -2);
+		add_to_income_prize_money_5999A0((BYTE*)ret, 4297500);
+		add_money_to_club_from_comp_48E3E0(_this, (BYTE*)afc_clubs[i], 4297500, 0, -1, GroupStage, 0, -2);
 
 		teams[i + 18].club = caf_clubs[i];
 		teams[i + 18].f5 = 12;
 		teams[i + 18].f6 = 0;
 		ret = sub_5A0590(ae2a38_ptr, (BYTE*)caf_clubs[i]);
-		sub_5999A0((BYTE*)ret, 4297500);
-		sub_48E3E0(_this, (BYTE*)caf_clubs[i], 4297500, 0, -1, GroupStage, 0, -2);
+		add_to_income_prize_money_5999A0((BYTE*)ret, 4297500);
+		add_money_to_club_from_comp_48E3E0(_this, (BYTE*)caf_clubs[i], 4297500, 0, -1, GroupStage, 0, -2);
 
 		teams[i + 20].club = concacaf_clubs[i];
 		teams[i + 20].f5 = 12;
 		teams[i + 20].f6 = 0;
 		ret = sub_5A0590(ae2a38_ptr, (BYTE*)concacaf_clubs[i]);
-		sub_5999A0((BYTE*)ret, 4297500);
-		sub_48E3E0(_this, (BYTE*)concacaf_clubs[i], 4297500, 0, -1, GroupStage, 0, -2);
+		add_to_income_prize_money_5999A0((BYTE*)ret, 4297500);
+		add_money_to_club_from_comp_48E3E0(_this, (BYTE*)concacaf_clubs[i], 4297500, 0, -1, GroupStage, 0, -2);
 
 		teams[i + 22].club = conmebol_clubs[i + 4];
 		teams[i + 22].f5 = 12;
 		teams[i + 22].f6 = 0;
 		ret = sub_5A0590(ae2a38_ptr, (BYTE*)conmebol_clubs[i + 4]);
-		sub_5999A0((BYTE*)ret, 6840000);
-		sub_48E3E0(_this, (BYTE*)conmebol_clubs[i + 4], 6840000, 0, -1, GroupStage, 0, -2);
+		add_to_income_prize_money_5999A0((BYTE*)ret, 6840000);
+		add_money_to_club_from_comp_48E3E0(_this, (BYTE*)conmebol_clubs[i + 4], 6840000, 0, -1, GroupStage, 0, -2);
 	}
 	// Pot 4: The remaining teams from AFC, CAF, CONCACAF, OFC and host country
 	for (int i = 0; i < 2; i++) {
@@ -631,30 +631,30 @@ void fifa_club_world_cup_all_teams(BYTE* _this) {
 		teams[i + 24].f5 = 13;
 		teams[i + 24].f6 = 0;
 		int ret = sub_5A0590(ae2a38_ptr, (BYTE*)afc_clubs[i + 2]);
-		sub_5999A0((BYTE*)ret, 4297500);
-		sub_48E3E0(_this, (BYTE*)afc_clubs[i + 2], 4297500, 0, -1, GroupStage, 0, -2);
+		add_to_income_prize_money_5999A0((BYTE*)ret, 4297500);
+		add_money_to_club_from_comp_48E3E0(_this, (BYTE*)afc_clubs[i + 2], 4297500, 0, -1, GroupStage, 0, -2);
 
 		teams[i + 26].club = caf_clubs[i + 2];
 		teams[i + 26].f5 = 13;
 		teams[i + 26].f6 = 0;
 		ret = sub_5A0590(ae2a38_ptr, (BYTE*)caf_clubs[i + 2]);
-		sub_5999A0((BYTE*)ret, 4297500);
-		sub_48E3E0(_this, (BYTE*)caf_clubs[i + 2], 4297500, 0, -1, GroupStage, 0, -2);
+		add_to_income_prize_money_5999A0((BYTE*)ret, 4297500);
+		add_money_to_club_from_comp_48E3E0(_this, (BYTE*)caf_clubs[i + 2], 4297500, 0, -1, GroupStage, 0, -2);
 
 		teams[i + 28].club = concacaf_clubs[i + 2];
 		teams[i + 28].f5 = 13;
 		teams[i + 28].f6 = 0;
 		ret = sub_5A0590(ae2a38_ptr, (BYTE*)concacaf_clubs[i + 2]);
-		sub_5999A0((BYTE*)ret, 4297500);
-		sub_48E3E0(_this, (BYTE*)concacaf_clubs[i + 2], 4297500, 0, -1, GroupStage, 0, -2);
+		add_to_income_prize_money_5999A0((BYTE*)ret, 4297500);
+		add_money_to_club_from_comp_48E3E0(_this, (BYTE*)concacaf_clubs[i + 2], 4297500, 0, -1, GroupStage, 0, -2);
 	}
 
 	teams[30].club = ofc_club;
 	teams[30].f5 = 13;
 	teams[30].f6 = 0;
 	int ret = sub_5A0590(ae2a38_ptr, (BYTE*)ofc_club);
-	sub_5999A0((BYTE*)ret, 1611000);
-	sub_48E3E0(_this, (BYTE*)ofc_club, 1611000, 0, -1, GroupStage, 0, -2);
+	add_to_income_prize_money_5999A0((BYTE*)ret, 1611000);
+	add_money_to_club_from_comp_48E3E0(_this, (BYTE*)ofc_club, 1611000, 0, -1, GroupStage, 0, -2);
 
 	teams[31].club = host_club;
 	teams[31].f5 = 13;
@@ -675,8 +675,8 @@ void fifa_club_world_cup_all_teams(BYTE* _this) {
 			prize = 1611000;
 		}
 		ret = sub_5A0590(ae2a38_ptr, (BYTE*)ofc_club);
-		sub_5999A0((BYTE*)ret, prize);
-		sub_48E3E0(_this, (BYTE*)ofc_club, prize, 0, -1, GroupStage, 0, -2);
+		add_to_income_prize_money_5999A0((BYTE*)ret, prize);
+		add_money_to_club_from_comp_48E3E0(_this, (BYTE*)ofc_club, prize, 0, -1, GroupStage, 0, -2);
 	}
 }
 

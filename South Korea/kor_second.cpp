@@ -488,6 +488,7 @@ char kor_second_update(BYTE* _this) {
 	data->current_stage = -1;
 	kor_second_subs(_this);
 	AddTeams(_this);
+	add_tv_money_683010(_this, 6750, 0);
 	sub_6835C0(_this);
 	BYTE* edx = 0;
 	sub_6827D0(_this, edx);
@@ -532,6 +533,7 @@ void kor_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
 	kor_second_subs(_this);
 	AddTeams(_this);
+	add_tv_money_683010(_this, 6750, 0);
 	sub_6835C0(_this);
 	BYTE* ebx = 0;
 	sub_6827D0(_this, ebx);

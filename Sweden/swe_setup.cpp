@@ -75,6 +75,8 @@ void setup_swe_nation()
 	setup_swe_second();
 	setup_swe_third();
 	setup_swe_cup();
+
+	WriteNOP(0x88ccb1, 7);
 }
 
 void sweden_restructure() {

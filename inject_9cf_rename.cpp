@@ -931,7 +931,7 @@ map<string, DWORD> league_dword_match = {
 	{"Spanish Primera Federación Group 3", (DWORD)0x9CF634},
 	{"Spanish Primera Federación Group 4", (DWORD)0x9CF638},
 	{"Copa Libertadores de América", (DWORD)0x9CF63C},
-	{"Korean High School League", (DWORD)0x9CF640},
+	{"Korean High School League", (DWORD)0x9CF640}, // Campeonato de Portugal group
 	{"Copa CONMEBOL", (DWORD)0x9CF644},
 	{"Recopa Sudamericana", (DWORD)0x9CF648},
 	{"AFC Champions League", (DWORD)0x9CF64C},
@@ -980,7 +980,7 @@ map<string, DWORD> league_dword_match = {
 	{"UEFA Europa League Qualifying", (DWORD)0x9CF6F8},
 	{"Supercoupe de Belgique", (DWORD)0x9CF6FC},
 	{"Coupe de Belgique", (DWORD)0x9CF700},
-	{"Korean University League", (DWORD)0x9CF704},
+	{"Korean University League", (DWORD)0x9CF704}, // Campeonato de Portugal group
 	{"DBU Pokalen", (DWORD)0x9CF708},
 	{"Coupe de France", (DWORD)0x9CF70C},
 	{"Coupe de la Ligue", (DWORD)0x9CF710},
@@ -991,7 +991,7 @@ map<string, DWORD> league_dword_match = {
 	{"Supercoppa Italiana", (DWORD)0x9CF724},
 	{"Lamar Hunt U.S. Open Cup", (DWORD)0x9CF728},
 	{"CONCACAF Champions League", (DWORD)0x9CF72C},
-	{"Korean President Cup", (DWORD)0x9CF730},
+	{"Korean President Cup", (DWORD)0x9CF730}, // Campeonato de Portugal group
 	{"Norwegian Cupen", (DWORD)0x9CF734},
 	{"Norwegian 3. Divisjon", (DWORD)0x9CF738},
 	{"Taça de Portugal", (DWORD)0x9CF73C},

@@ -53,77 +53,77 @@ void england_awards(BYTE* _this, int a2) {
 
 	// Championship awards
 	pMem = (BYTE*)sub_944CF1_operator_new(0x25D);
-	team_award_setup_8AF520(pMem, edi, i, ENG_FIRST_TEAM_OF_WEEK_9CF(), 3000, 500, ENG_FIRST_9CF(), 1, 0, a2, 1);
+	team_award_setup_8AF520(pMem, edi, i, ENG_CHAMP_TEAM_OF_WEEK_9CF(), 3000, 500, ENG_CHAMP_9CF(), 1, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)sub_944CF1_operator_new(0xA2);
-	monthly_person_award_setup_766E10(pMem, edi, i, ENG_FIRST_MANAGER_OF_MONTH_9CF(), 3000, 500, ENG_FIRST_9CF(), August, *current_year, May, *current_year + 1, a2, 0);
+	monthly_person_award_setup_766E10(pMem, edi, i, ENG_CHAMP_MANAGER_OF_MONTH_9CF(), 3000, 500, ENG_CHAMP_9CF(), August, *current_year, May, *current_year + 1, a2, 0);
 	awards_list[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)sub_944CF1_operator_new(0xA2);
-	monthly_person_award_setup_766E10(pMem, edi, i, ENG_FIRST_PLAYER_OF_MONTH_9CF(), 3500, 500, ENG_FIRST_9CF(), August, *current_year, May, *current_year + 1, a2, 1);
+	monthly_person_award_setup_766E10(pMem, edi, i, ENG_CHAMP_PLAYER_OF_MONTH_9CF(), 3500, 500, ENG_CHAMP_9CF(), August, *current_year, May, *current_year + 1, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)sub_944CF1_operator_new(0xA2);
-	monthly_person_award_setup_766E10(pMem, edi, i, ENG_FIRST_YOUNG_PLAYER_OF_MONTH_9CF(), 3000, 500, ENG_FIRST_9CF(), August, *current_year, May, *current_year + 1, a2, 1);
+	monthly_person_award_setup_766E10(pMem, edi, i, ENG_CHAMP_YOUNG_PLAYER_OF_MONTH_9CF(), 3000, 500, ENG_CHAMP_9CF(), August, *current_year, May, *current_year + 1, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
-	yearly_person_award_setup_92FE80(pMem, edi, i, ENG_FIRST_MANAGER_OF_YEAR_9CF(), 5000, 500, ENG_FIRST_9CF(), 1, 0, 0, a2, 0);
+	yearly_person_award_setup_92FE80(pMem, edi, i, ENG_CHAMP_MANAGER_OF_YEAR_9CF(), 5000, 500, ENG_CHAMP_9CF(), 1, 0, 0, a2, 0);
 	awards_list[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)sub_944CF1_operator_new(0x25D);
-	team_award_setup_8AF520(pMem, edi, i, ENG_FIRST_TEAM_OF_YEAR_9CF(), 4500, 500, ENG_FIRST_9CF(), 1, 0, a2, 1);
+	team_award_setup_8AF520(pMem, edi, i, ENG_CHAMP_TEAM_OF_YEAR_9CF(), 4500, 500, ENG_CHAMP_9CF(), 1, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
 	// League One awards
 	pMem = (BYTE*)sub_944CF1_operator_new(0x25D);
-	team_award_setup_8AF520(pMem, edi, i, ENG_SECOND_TEAM_OF_WEEK_9CF(), 2000, 0, ENG_SECOND_9CF(), 1, 0, a2, 1);
+	team_award_setup_8AF520(pMem, edi, i, ENG_LEAGUE_1_TEAM_OF_WEEK_9CF(), 2000, 0, ENG_LEAGUE_1_9CF(), 1, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)sub_944CF1_operator_new(0xA2);
-	monthly_person_award_setup_766E10(pMem, edi, i, ENG_SECOND_MANAGER_OF_MONTH_9CF(), 2000, 0, ENG_SECOND_9CF(), August, *current_year, May, *current_year + 1, a2, 0);
+	monthly_person_award_setup_766E10(pMem, edi, i, ENG_LEAGUE_1_MANAGER_OF_MONTH_9CF(), 2000, 0, ENG_LEAGUE_1_9CF(), August, *current_year, May, *current_year + 1, a2, 0);
 	awards_list[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)sub_944CF1_operator_new(0xA2);
-	monthly_person_award_setup_766E10(pMem, edi, i, ENG_SECOND_PLAYER_OF_MONTH_9CF(), 2500, 0, ENG_SECOND_9CF(), August, *current_year, May, *current_year + 1, a2, 1);
+	monthly_person_award_setup_766E10(pMem, edi, i, ENG_LEAGUE_1_PLAYER_OF_MONTH_9CF(), 2500, 0, ENG_LEAGUE_1_9CF(), August, *current_year, May, *current_year + 1, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)sub_944CF1_operator_new(0xA2);
-	monthly_person_award_setup_766E10(pMem, edi, i, ENG_SECOND_YOUNG_PLAYER_OF_MONTH_9CF(), 2000, 0, ENG_SECOND_9CF(), August, *current_year, May, *current_year + 1, a2, 1);
+	monthly_person_award_setup_766E10(pMem, edi, i, ENG_LEAGUE_1_YOUNG_PLAYER_OF_MONTH_9CF(), 2000, 0, ENG_LEAGUE_1_9CF(), August, *current_year, May, *current_year + 1, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
-	yearly_person_award_setup_92FE80(pMem, edi, i, ENG_SECOND_MANAGER_OF_YEAR_9CF(), 3000, 0, ENG_SECOND_9CF(), 1, 0, 0, a2, 0);
+	yearly_person_award_setup_92FE80(pMem, edi, i, ENG_LEAGUE_1_MANAGER_OF_YEAR_9CF(), 3000, 0, ENG_LEAGUE_1_9CF(), 1, 0, 0, a2, 0);
 	awards_list[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)sub_944CF1_operator_new(0x25D);
-	team_award_setup_8AF520(pMem, edi, i, ENG_SECOND_TEAM_OF_YEAR_9CF(), 3000, 0, ENG_SECOND_9CF(), 1, 0, a2, 1);
+	team_award_setup_8AF520(pMem, edi, i, ENG_LEAGUE_1_TEAM_OF_YEAR_9CF(), 3000, 0, ENG_LEAGUE_1_9CF(), 1, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
 	// League Two awards
 	pMem = (BYTE*)sub_944CF1_operator_new(0x25D);
-	team_award_setup_8AF520(pMem, edi, i, ENG_THIRD_TEAM_OF_WEEK_9CF(), 1500, 0, ENG_THIRD_9CF(), 1, 0, a2, 1);
+	team_award_setup_8AF520(pMem, edi, i, ENG_LEAGUE_2_TEAM_OF_WEEK_9CF(), 1500, 0, ENG_LEAGUE_2_9CF(), 1, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)sub_944CF1_operator_new(0xA2);
-	monthly_person_award_setup_766E10(pMem, edi, i, ENG_THIRD_MANAGER_OF_MONTH_9CF(), 1000, 0, ENG_THIRD_9CF(), August, *current_year, May, *current_year + 1, a2, 0);
+	monthly_person_award_setup_766E10(pMem, edi, i, ENG_LEAGUE_2_MANAGER_OF_MONTH_9CF(), 1000, 0, ENG_LEAGUE_2_9CF(), August, *current_year, May, *current_year + 1, a2, 0);
 	awards_list[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)sub_944CF1_operator_new(0xA2);
-	monthly_person_award_setup_766E10(pMem, edi, i, ENG_THIRD_PLAYER_OF_MONTH_9CF(), 1750, 0, ENG_THIRD_9CF(), August, *current_year, May, *current_year + 1, a2, 1);
+	monthly_person_award_setup_766E10(pMem, edi, i, ENG_LEAGUE_2_PLAYER_OF_MONTH_9CF(), 1750, 0, ENG_LEAGUE_2_9CF(), August, *current_year, May, *current_year + 1, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)sub_944CF1_operator_new(0xA2);
-	monthly_person_award_setup_766E10(pMem, edi, i, ENG_THIRD_YOUNG_PLAYER_OF_MONTH_9CF(), 1500, 0, ENG_THIRD_9CF(), August, *current_year, May, *current_year + 1, a2, 1);
+	monthly_person_award_setup_766E10(pMem, edi, i, ENG_LEAGUE_2_YOUNG_PLAYER_OF_MONTH_9CF(), 1500, 0, ENG_LEAGUE_2_9CF(), August, *current_year, May, *current_year + 1, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
-	yearly_person_award_setup_92FE80(pMem, edi, i, ENG_THIRD_MANAGER_OF_YEAR_9CF(), 2000, 0, ENG_THIRD_9CF(), 1, 0, 0, a2, 0);
+	yearly_person_award_setup_92FE80(pMem, edi, i, ENG_LEAGUE_2_MANAGER_OF_YEAR_9CF(), 2000, 0, ENG_LEAGUE_2_9CF(), 1, 0, 0, a2, 0);
 	awards_list[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)sub_944CF1_operator_new(0x25D);
-	team_award_setup_8AF520(pMem, edi, i, ENG_THIRD_TEAM_OF_YEAR_9CF(), 2000, 0, ENG_THIRD_9CF(), 1, 0, a2, 1);
+	team_award_setup_8AF520(pMem, edi, i, ENG_LEAGUE_2_TEAM_OF_YEAR_9CF(), 2000, 0, ENG_LEAGUE_2_9CF(), 1, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
 	if ((selected & 4) != 0) {
@@ -230,9 +230,9 @@ char eng_awards_2(BYTE* _this, DWORD current_date) {
 		yearly_player_award_nominate_768CF0(_this, ENG_PREMIER_9CF(), current_date, awards_list[0], -1, 0, 17, -1, -1, -1, -1);
 		yearly_player_award_nominate_768CF0(_this, ENG_PREMIER_9CF(), current_date, awards_list[1], 21, 0, 17, -1, -1, -1, -1);
 		yearly_team_award_nominate_7698F0(_this, ENG_PREMIER_9CF(), awards_list[7]);
-		yearly_team_award_nominate_7698F0(_this, ENG_FIRST_9CF(), awards_list[13]);
-		yearly_team_award_nominate_7698F0(_this, ENG_SECOND_9CF(), awards_list[19]);
-		yearly_team_award_nominate_7698F0(_this, ENG_THIRD_9CF(), awards_list[25]);
+		yearly_team_award_nominate_7698F0(_this, ENG_CHAMP_9CF(), awards_list[13]);
+		yearly_team_award_nominate_7698F0(_this, ENG_LEAGUE_1_9CF(), awards_list[19]);
+		yearly_team_award_nominate_7698F0(_this, ENG_LEAGUE_2_9CF(), awards_list[25]);
 		if ((selected & 4) != 0) {
 			yearly_team_award_nominate_7698F0(_this, ENG_CONFERENCE_9CF(), awards_list[31]);
 			yearly_team_award_nominate_7698F0(_this, ENG_CONFERENCE_NORTH_9CF(), awards_list[37]);
@@ -246,9 +246,9 @@ char eng_awards_2(BYTE* _this, DWORD current_date) {
 	//leap = *(DWORD*)(cm_date + 4);
 	if (date_year == *(WORD*)(current_date + 2) && date_day == *(WORD*)(current_date)) {
 		yearly_staff_award_nominate_768940(_this, current_date, awards_list[6], ENG_PREMIER_9CF());
-		yearly_staff_award_nominate_768940(_this, current_date, awards_list[12], ENG_FIRST_9CF());
-		yearly_staff_award_nominate_768940(_this, current_date, awards_list[18], ENG_SECOND_9CF());
-		yearly_staff_award_nominate_768940(_this, current_date, awards_list[24], ENG_THIRD_9CF());
+		yearly_staff_award_nominate_768940(_this, current_date, awards_list[12], ENG_CHAMP_9CF());
+		yearly_staff_award_nominate_768940(_this, current_date, awards_list[18], ENG_LEAGUE_1_9CF());
+		yearly_staff_award_nominate_768940(_this, current_date, awards_list[24], ENG_LEAGUE_2_9CF());
 		if ((selected & 4) != 0) {
 			yearly_staff_award_nominate_768940(_this, current_date, awards_list[30], ENG_CONFERENCE_9CF());
 			yearly_staff_award_nominate_768940(_this, current_date, awards_list[36], ENG_CONFERENCE_NORTH_9CF());
@@ -315,15 +315,15 @@ void eng_awards_staff_history(BYTE* _this) {
 	if (person) {
 		sub_7671C0((BYTE*)awards_list[3], person->StaffID, person->StaffClubContracted->ClubID, *(BYTE*)(staff_hist_ptr + 0x14), *(WORD*)(staff_hist_ptr + 0x16));
 	}
-	person = sub_86F950(staff_hist_ptr, ENG_FIRST_9CF());
+	person = sub_86F950(staff_hist_ptr, ENG_CHAMP_9CF());
 	if (person) {
 		sub_7671C0((BYTE*)awards_list[9], person->StaffID, person->StaffClubContracted->ClubID, *(BYTE*)(staff_hist_ptr + 0x14), *(WORD*)(staff_hist_ptr + 0x16));
 	}
-	person = sub_86F950(staff_hist_ptr, ENG_SECOND_9CF());
+	person = sub_86F950(staff_hist_ptr, ENG_LEAGUE_1_9CF());
 	if (person) {
 		sub_7671C0((BYTE*)awards_list[15], person->StaffID, person->StaffClubContracted->ClubID, *(BYTE*)(staff_hist_ptr + 0x14), *(WORD*)(staff_hist_ptr + 0x16));
 	}
-	person = sub_86F950(staff_hist_ptr, ENG_THIRD_9CF());
+	person = sub_86F950(staff_hist_ptr, ENG_LEAGUE_2_9CF());
 	if (person) {
 		sub_7671C0((BYTE*)awards_list[21], person->StaffID, person->StaffClubContracted->ClubID, *(BYTE*)(staff_hist_ptr + 0x14), *(WORD*)(staff_hist_ptr + 0x16));
 	}
@@ -380,15 +380,15 @@ void eng_awards_team_of_week(BYTE* _this, DWORD award_addr) {
 		return;
 	}
 	if (award_addr == awards_list[8]) {
-		sub_769C70(_this, ENG_FIRST_9CF(), award_addr);
+		sub_769C70(_this, ENG_CHAMP_9CF(), award_addr);
 		return;
 	}
 	if (award_addr == awards_list[14]) {
-		sub_769C70(_this, ENG_SECOND_9CF(), award_addr);
+		sub_769C70(_this, ENG_LEAGUE_1_9CF(), award_addr);
 		return;
 	}
 	if (award_addr == awards_list[20]) {
-		sub_769C70(_this, ENG_THIRD_9CF(), award_addr);
+		sub_769C70(_this, ENG_LEAGUE_2_9CF(), award_addr);
 		return;
 	}
 	if ((selected & 4) != 0) {

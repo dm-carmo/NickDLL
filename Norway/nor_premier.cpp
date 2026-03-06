@@ -375,6 +375,9 @@ char nor_premier_update(BYTE* _this) {
 	data->current_stage = -1;
 	nor_premier_subs(_this);
 	AddTeams(_this);
+	data->prize_money_pool = add_prize_money_682F70(_this, 72425);
+	data->f225 = 1;
+	add_tv_money_683010(_this, 141048, 0);
 	sub_6835C0(_this);
 	BYTE* edx = 0;
 	sub_6827D0(_this, edx);
@@ -654,6 +657,9 @@ void nor_premier_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
 	nor_premier_subs(_this);
 	AddTeams(_this);
+	data->prize_money_pool = add_prize_money_682F70(_this, 72425);
+	data->f225 = 1;
+	add_tv_money_683010(_this, 141048, 0);
 	sub_6835C0(_this);
 	BYTE* ebx = 0;
 	sub_6827D0(_this, ebx);

@@ -385,6 +385,7 @@ void por_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
 	por_second_subs(_this);
 	AddTeams(_this);
+	add_tv_money_683010(_this, 135000, 0);
 	por_second_block_promotion(_this);
 	sub_6835C0(_this);
 	BYTE* ebx = 0;
@@ -619,6 +620,7 @@ char por_second_update(BYTE* _this) {
 	data->current_stage = -1;
 	por_second_subs(_this);
 	AddTeams(_this);
+	add_tv_money_683010(_this, 135000, 0);
 	por_second_block_promotion(_this);
 	sub_6835C0(_this);
 	BYTE* edx = 0;

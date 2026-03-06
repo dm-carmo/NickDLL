@@ -532,18 +532,18 @@ int uecl_583B10(BYTE* _this, BYTE* a2, int a3) {
 	if (bl > 0 && bl < 5) {
 		if (club_check) {
 			int ret = sub_5A0590(ae2a38_ptr, (BYTE*)club_check);
-			sub_5999A0((BYTE*)ret, 180000);
-			sub_48E3E0(_this, (BYTE*)club_check, 180000, 0, -1, 0, a2, -2);
+			add_to_income_prize_money_5999A0((BYTE*)ret, 180000);
+			add_money_to_club_from_comp_48E3E0(_this, (BYTE*)club_check, 180000, 0, -1, 0, a2, -2);
 		}
 		else {
 			cm3_clubs* club1 = (cm3_clubs*)*(DWORD*)(a2 + 0x1c);
 			int ret = sub_5A0590(ae2a38_ptr, (BYTE*)club1);
-			sub_5999A0((BYTE*)ret, 60000);
+			add_to_income_prize_money_5999A0((BYTE*)ret, 60000);
 			cm3_clubs* club2 = (cm3_clubs*)*(DWORD*)(a2 + 0x20);
 			ret = sub_5A0590(ae2a38_ptr, (BYTE*)club2);
-			sub_5999A0((BYTE*)ret, 60000);
-			sub_48E3E0(_this, (BYTE*)club1, 60000, 0, -1, 0, a2, -2);
-			sub_48E3E0(_this, (BYTE*)club2, 60000, 0, -1, 0, a2, -2);
+			add_to_income_prize_money_5999A0((BYTE*)ret, 60000);
+			add_money_to_club_from_comp_48E3E0(_this, (BYTE*)club1, 60000, 0, -1, 0, a2, -2);
+			add_money_to_club_from_comp_48E3E0(_this, (BYTE*)club2, 60000, 0, -1, 0, a2, -2);
 		}
 	}
 	return sub_51A150(_this, a2, a3);
@@ -787,8 +787,8 @@ void uefa_conference_league_group_stage_setup(BYTE* _this) {
 			cm3_clubs* club = clubs[i + 4 * j];
 			*((DWORD*)(&pTeams[j])) = (DWORD)club;
 			int ret = sub_5A0590(ae2a38_ptr, (BYTE*)club);
-			sub_5999A0((BYTE*)ret, 1426500);
-			sub_48E3E0(_this, (BYTE*)club, 1426500, 0, -1, GroupStage, 0, -2);
+			add_to_income_prize_money_5999A0((BYTE*)ret, 1426500);
+			add_money_to_club_from_comp_48E3E0(_this, (BYTE*)club, 1426500, 0, -1, GroupStage, 0, -2);
 		}
 
 		WORD year = comp_data->year;
@@ -841,8 +841,8 @@ void uefa_conference_league_playoff_stage_setup(BYTE* _this) {
 		if (club)
 		{
 			int ret = sub_5A0590(ae2a38_ptr, (BYTE*)club);
-			sub_5999A0((BYTE*)ret, 90000);
-			sub_48E3E0(_this, (BYTE*)club, 90000, 0, -1, TenthRound, 0, -2);
+			add_to_income_prize_money_5999A0((BYTE*)ret, 90000);
+			add_money_to_club_from_comp_48E3E0(_this, (BYTE*)club, 90000, 0, -1, TenthRound, 0, -2);
 		}
 	}
 
@@ -907,8 +907,8 @@ void uefa_conference_league_final_stage_setup(BYTE* _this) {
 		if (club)
 		{
 			int ret = sub_5A0590(ae2a38_ptr, (BYTE*)club);
-			sub_5999A0((BYTE*)ret, 180000);
-			sub_48E3E0(_this, (BYTE*)club, 180000, 0, -1, EleventhRound, 0, -2);
+			add_to_income_prize_money_5999A0((BYTE*)ret, 180000);
+			add_money_to_club_from_comp_48E3E0(_this, (BYTE*)club, 180000, 0, -1, EleventhRound, 0, -2);
 			sub_9058B0((BYTE*)*uefa_seeding_list, (BYTE*)(club->ClubNation), 1);
 		}
 	}

@@ -67,6 +67,8 @@ void setup_den_nation()
 	setup_den_third();
 	setup_den_cup();
 	setup_den_awards();
+
+	WriteNOP(0x550a7a, 7);
 }
 
 void denmark_restructure() {

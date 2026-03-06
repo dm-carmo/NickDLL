@@ -61,6 +61,8 @@ void setup_usa_nation() {
 	WriteBytes(0x668fa0, 1, February);
 	WriteBytes(0x668fa2, 1, 20);
 	WriteBytes(0x66900f, 3, 0x6a, 0x0, 0x57);
+
+	WriteNOP(0x90af7a, 7);
 }
 
 void usa_restructure() {

@@ -94,6 +94,9 @@ void setup_jpn_nation() {
 	// Start date
 	WriteBytes(0x668582, 1, February);
 	WriteBytes(0x668584, 1, 14);
+
+	WriteNOP(0x661e02, 7);
+	WriteNOP(0x665452, 7);
 }
 
 void japan_restructure() {

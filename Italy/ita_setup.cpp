@@ -11,8 +11,6 @@
 #include "ita_c_supercup.h"
 #include "ita_awards.h"
 
-static DWORD(__thiscall* ita_ser_a_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x6406D0);
 static DWORD(__thiscall* ita_supercup_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
 (DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x65F670);
 
@@ -40,7 +38,7 @@ DWORD ita_setup_c(playable_nation_data* nation_data) {
 	BYTE i = 0;
 	// Serie A
 	BYTE* pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
-	ita_ser_a_setup(pMem, *current_year, get_comp(ITA_SERIE_A_9CF()));
+	ita_ser_a_init(pMem, *current_year, get_comp(ITA_SERIE_A_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Serie B
 	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);

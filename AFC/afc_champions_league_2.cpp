@@ -641,8 +641,8 @@ void afc_champions_league_2_group_stage_setup(BYTE* _this) {
 			cm3_clubs* club = clubs[idx + 4 * j];
 			*((DWORD*)(&pTeams[j])) = (DWORD)club;
 			int ret = sub_5A0590(ae2a38_ptr, (BYTE*)club);
-			sub_5999A0((BYTE*)ret, 135000);
-			sub_48E3E0(_this, (BYTE*)club, 135000, 0, -1, GroupStage, 0, -2);
+			add_to_income_prize_money_5999A0((BYTE*)ret, 135000);
+			add_money_to_club_from_comp_48E3E0(_this, (BYTE*)club, 135000, 0, -1, GroupStage, 0, -2);
 		}
 
 		WORD year = comp_data->year;

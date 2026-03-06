@@ -69,6 +69,8 @@ void setup_fra_nation()
 	setup_fra_third();
 	setup_fra_cup();
 	setup_fra_super();
+
+	WriteNOP(0x5ba202, 7);
 }
 
 void france_restructure() {

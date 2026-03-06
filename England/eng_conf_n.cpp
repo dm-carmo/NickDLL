@@ -114,6 +114,7 @@ char eng_conf_n_update(BYTE* _this) {
 	data->current_stage = -1;
 	eng_conf_n_subs(_this);
 	AddTeams(_this);
+	add_tv_money_683010(_this, 3375, 0);
 	sub_6835C0(_this);
 	BYTE* edx = 0;
 	sub_6827D0(_this, edx);
@@ -186,6 +187,7 @@ void eng_conf_n_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
 	eng_conf_n_subs(_this);
 	AddTeams(_this);
+	add_tv_money_683010(_this, 3375, 0);
 	sub_6835C0(_this);
 	BYTE* ebx = 0;
 	sub_6827D0(_this, ebx);

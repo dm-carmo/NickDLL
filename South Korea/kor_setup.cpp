@@ -70,6 +70,8 @@ void setup_kor_nation() {
 	WriteBytes(0x668BEA, 1, 14);
 	// Fixes player values
 	WriteBytes(0x4d152a, 1, 0xeb);
+
+	WriteNOP(0x66a52a, 7);
 }
 
 void korea_restructure() {

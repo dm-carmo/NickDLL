@@ -66,6 +66,8 @@ void setup_cro_nation() {
 	setup_cro_cup();
 	setup_cro_super();
 	setup_cro_awards();
+
+	WriteNOP(0x517552, 7);
 }
 
 void croatia_restructure() {

@@ -55,6 +55,10 @@ static char(__thiscall* fire_manager_relegation_to_unplayable_69B790)(BYTE* _thi
 (char(__thiscall*)(BYTE * _this, cm3_clubs * club, char a3, char a4, int a5))(0x69B790);
 static char(__thiscall* trigger_relegation_clauses_4CD030)(BYTE* _this, cm3_clubs* club, cm3_club_comps* comp) =
 (char(__thiscall*)(BYTE * _this, cm3_clubs * club, cm3_club_comps * comp))(0x4CD030);
+static int(__thiscall* add_prize_money_682F70)(BYTE* _this, int base_amount) =
+(int(__thiscall*)(BYTE * _this, int base_amount))(0x682F70);
+static int(__thiscall* add_tv_money_683010)(BYTE* _this, int amount, cm3_club_comps* last_division) =
+(int(__thiscall*)(BYTE * _this, int amount, cm3_club_comps * last_division))(0x683010);
 
 static int(__thiscall* sub_51C800)(BYTE* _this, int a2) =
 (int(__thiscall*)(BYTE * _this, int a2))(0x51C800);
@@ -155,14 +159,14 @@ static void(__thiscall* sub_769C70)(BYTE* _this, DWORD comp_id, DWORD award_addr
 
 static __int16(__thiscall* sub_48E1C0)(BYTE* _this, DWORD* a2, int a3) =
 (__int16(__thiscall*)(BYTE * _this, DWORD * a2, int a3))(0x48E1C0);
-static int(__thiscall* sub_48E3E0)(BYTE* _this, BYTE* a2, int a3, int a4, char a5, __int16 a6, BYTE* a7, char a8) =
-(int(__thiscall*)(BYTE * _this, BYTE * a2, int a3, int a4, char a5, __int16 a6, BYTE * a7, char a8))(0x48E3E0);
+static int(__thiscall* add_money_to_club_from_comp_48E3E0)(BYTE* _this, BYTE* club, int money, int a4, char position, WORD stage_name_idx, BYTE* a7, char a8) =
+(int(__thiscall*)(BYTE * _this, BYTE * club, int money, int a4, char position, WORD stage_name_idx, BYTE * a7, char a8))(0x48E3E0);
 static int(__thiscall* sub_5A0590)(BYTE* _this, BYTE* a2) =
 (int(__thiscall*)(BYTE * _this, BYTE * a2))(0x5A0590);
 static int(__thiscall* sub_51A150)(BYTE* _this, BYTE* a2, int a3) =
 (int(__thiscall*)(BYTE * _this, BYTE * a2, int a3))(0x51A150);
-static int(__thiscall* sub_5999A0)(BYTE* _this, int a2) =
-(int(__thiscall*)(BYTE * _this, int a2))(0x5999A0);
+static int(__thiscall* add_to_income_prize_money_5999A0)(BYTE* _this, int money) =
+(int(__thiscall*)(BYTE * _this, int money))(0x5999A0);
 static void(__thiscall* sub_684230)(BYTE* _this) =
 (void(__thiscall*)(BYTE * _this))(0x684230);
 static __int16(__thiscall* sub_9035A0)(BYTE* _this, int a2) =

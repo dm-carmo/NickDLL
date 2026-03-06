@@ -312,6 +312,8 @@ char den_first_update(BYTE* _this) {
 	data->current_stage = -1;
 	den_first_subs(_this);
 	AddTeams(_this);
+	data->prize_money_pool = add_prize_money_682F70(_this, 90720);
+	data->f225 = 1;
 	sub_6835C0(_this);
 	BYTE* edx = 0;
 	sub_6827D0(_this, edx);
@@ -352,6 +354,8 @@ void den_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->num_stages = 0;
 	den_first_subs(_this);
 	AddTeams(_this);
+	data->prize_money_pool = add_prize_money_682F70(_this, 90720);
+	data->f225 = 1;
 	sub_6835C0(_this);
 	BYTE* ebx = 0;
 	sub_6827D0(_this, ebx);

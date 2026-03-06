@@ -5,7 +5,7 @@
 #include <map>
 #include <Helpers\9cf_constants.h>
 
-vtable* por_league_cup_vtable = new vtable((BYTE*)0x96E650, 0xB4);
+vtable* por_league_cup_vtable = new vtable((BYTE*)0x96E650, 0xA0);
 
 void por_league_cup_free_under(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;

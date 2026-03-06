@@ -70,6 +70,8 @@ void setup_pol_nation()
 	setup_pol_awards();
 	// Start date
 	WriteBytes(0x66882C, 1, 27);
+
+	WriteNOP(0x7c7e52, 7);
 }
 
 void poland_restructure() {

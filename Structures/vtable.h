@@ -82,8 +82,8 @@ public:
 			dprintf("%02X = %08X\n", i, (*(DWORD*)&vtable_bytes[i]));
 	}
 
-	// mov eax, dword ptr[vtable_eng_third.vtable_ptr]
-	// vtable::PrintVTable(0x969E84, "eng_third");
+	// mov eax, dword ptr[vtable_eng_league_2.vtable_ptr]
+	// vtable::PrintVTable(0x969E84, "eng_league_2");
 	BYTE* vtable_ptr = vtable_bytes;
 	// Cup competitions (with no group stage) only use 0xA0 bytes
 	BYTE vtable_bytes[0xB4] = { 0x0 };

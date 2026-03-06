@@ -102,7 +102,7 @@ int pol_cup_teams(BYTE* _this) {
 
 	// II Liga
 	division_clubs = find_clubs_of_comp(POL_THIRD_9CF());
-	sort(division_clubs.begin(), division_clubs.end(), compareClubRep);
+	sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPosInv);
 	for (cm3_clubs* club : division_clubs)
 	{
 		if (!vector_contains_club(vec_uefa, club)) vec.push_back(club);

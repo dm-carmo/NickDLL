@@ -1,8 +1,6 @@
 #include <windows.h>
 #include "Structures\CMHeader.h"
 #include "Helpers\generic_functions.h"
-#include "eng_third.h"
-#include "eng_conf.h"
 #include "Structures\vtable.h"
 #include "Helpers\constants.h"
 #include <Helpers\9cf_constants.h>
@@ -111,19 +109,19 @@ int eng_fa_cup_teams(BYTE* _this) {
 		vec.push_back(club);
 	}
 	// League 2
-	division_clubs = find_clubs_of_comp(ENG_THIRD_9CF());
+	division_clubs = find_clubs_of_comp(ENG_LEAGUE_2_9CF());
 	for (cm3_clubs* club : division_clubs)
 	{
 		vec.push_back(club);
 	}
 	// League 1
-	division_clubs = find_clubs_of_comp(ENG_SECOND_9CF());
+	division_clubs = find_clubs_of_comp(ENG_LEAGUE_1_9CF());
 	for (cm3_clubs* club : division_clubs)
 	{
 		vec.push_back(club);
 	}
 	// Championship
-	division_clubs = find_clubs_of_comp(ENG_FIRST_9CF());
+	division_clubs = find_clubs_of_comp(ENG_CHAMP_9CF());
 	for (cm3_clubs* club : division_clubs)
 	{
 		vec.push_back(club);

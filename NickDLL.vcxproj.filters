@@ -36,7 +36,7 @@
     <ClCompile Include="England\eng_setup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="England\eng_third.cpp">
+    <ClCompile Include="England\eng_league_2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Helpers\generic_functions.cpp">
@@ -48,7 +48,7 @@
     <ClCompile Include="Structures\CMHeader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="England\eng_prm.cpp">
+    <ClCompile Include="England\eng_premier.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="England\eng_conf_n.cpp">
@@ -60,7 +60,7 @@
     <ClCompile Include="England\eng_fa_trophy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="England\eng_first.cpp">
+    <ClCompile Include="England\eng_champ.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Italy\ita_setup.cpp">
@@ -522,6 +522,12 @@
     <ClCompile Include="FIFA\fifa_intercontinental_cup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="England\eng_league_1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="England\eng_league_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -545,7 +551,7 @@
     <ClInclude Include="England\eng_setup.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="England\eng_third.h">
+    <ClInclude Include="England\eng_league_2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Helpers\constants.h">
@@ -566,7 +572,7 @@
     <ClInclude Include="Structures\vtable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="England\eng_prm.h">
+    <ClInclude Include="England\eng_premier.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="England\eng_conf_n.h">
@@ -578,7 +584,7 @@
     <ClInclude Include="England\eng_fa_trophy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="England\eng_first.h">
+    <ClInclude Include="England\eng_champ.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Italy\ita_setup.h">
@@ -1044,6 +1050,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="FIFA\fifa_intercontinental_cup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="England\eng_league_1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="England\eng_league_cup.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

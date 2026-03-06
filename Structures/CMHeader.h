@@ -631,7 +631,7 @@ typedef struct COMP_STATS
 	long promotes_to;								//28
 	long relegates_to;								//32
 	long f36;										//36
-	long f40;										//40
+	long prize_money_pool;							//40
 	long num_stages;								//44
 	long current_stage;								//48
 	WORD f52;										//52

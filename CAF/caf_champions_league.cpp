@@ -587,8 +587,8 @@ void caf_champions_league_final_stage_setup(BYTE* _this) {
 				staff_history_knocked_out_86C000(staff_hist_ptr, tls.club, (DWORD)(comp_data->competition_db), None, GroupStage, 0xF);
 				tls.club->ClubEuroFlag = -1;
 				int ret = sub_5A0590(ae2a38_ptr, (BYTE*)tls.club);
-				sub_5999A0((BYTE*)ret, 315000);
-				sub_48E3E0(_this, (BYTE*)tls.club, 315000, 0, -1, GroupStage, 0, -2);
+				add_to_income_prize_money_5999A0((BYTE*)ret, 315000);
+				add_money_to_club_from_comp_48E3E0(_this, (BYTE*)tls.club, 315000, 0, -1, GroupStage, 0, -2);
 			}
 		}
 	}

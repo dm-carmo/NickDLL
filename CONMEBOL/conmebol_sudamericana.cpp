@@ -36,8 +36,8 @@ int sudam_583B10(BYTE* _this, BYTE* a2, int a3) {
 	if (bl > -1 && bl < 8) {
 		if (club_check) {
 			int ret = sub_5A0590(ae2a38_ptr, (BYTE*)club_check);
-			sub_5999A0((BYTE*)ret, 45000);
-			sub_48E3E0(_this, (BYTE*)club_check, 45000, 0, -1, 0, a2, -2);
+			add_to_income_prize_money_5999A0((BYTE*)ret, 45000);
+			add_money_to_club_from_comp_48E3E0(_this, (BYTE*)club_check, 45000, 0, -1, 0, a2, -2);
 		}
 	}
 	return sub_51A150(_this, a2, a3);
@@ -667,8 +667,8 @@ void conmebol_sudamericana_group_stage_setup(BYTE* _this) {
 			cm3_clubs* club = clubs[i + 8 * j];
 			*((DWORD*)(&pTeams[j])) = (DWORD)club;
 			int ret = sub_5A0590(ae2a38_ptr, (BYTE*)club);
-			sub_5999A0((BYTE*)ret, 405000);
-			sub_48E3E0(_this, (BYTE*)club, 405000, 0, -1, GroupStage, 0, -2);
+			add_to_income_prize_money_5999A0((BYTE*)ret, 405000);
+			add_money_to_club_from_comp_48E3E0(_this, (BYTE*)club, 405000, 0, -1, GroupStage, 0, -2);
 		}
 
 		WORD year = comp_data->year;

@@ -75,7 +75,7 @@ int eng_conf_subs(BYTE* _this)
 	comp_data->rele_playoff = 0;
 	comp_data->relegations = 4;
 
-	comp_data->promotes_to = ENG_THIRD_9CF();
+	comp_data->promotes_to = ENG_LEAGUE_2_9CF();
 	comp_data->relegates_to = ENG_CONFERENCE_NORTH_9CF();
 
 	comp_data->f82 = 2;
@@ -106,6 +106,7 @@ void eng_conf_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
 	eng_conf_subs(_this);
 	AddTeams(_this);
+	add_tv_money_683010(_this, 2250, 0);
 	sub_6835C0(_this);
 	BYTE* ebx = 0;
 	sub_6827D0(_this, ebx);
@@ -155,6 +156,7 @@ char eng_conf_update(BYTE* _this) {
 	data->current_stage = -1;
 	eng_conf_subs(_this);
 	AddTeams(_this);
+	add_tv_money_683010(_this, 2250, 0);
 	sub_6835C0(_this);
 	BYTE* edx = 0;
 	sub_6827D0(_this, edx);

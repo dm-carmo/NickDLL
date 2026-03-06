@@ -77,6 +77,8 @@ void setup_nor_nation()
 	setup_nor_third();
 	setup_nor_cup();
 	setup_nor_awards();
+
+	WriteNOP(0x78f0f2, 7);
 }
 
 void norway_restructure() {

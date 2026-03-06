@@ -69,7 +69,7 @@ DWORD bra_super_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 1, 5), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 2, 2), year, Sunday, Afternoon, Neutral50k_20);
-		FillFixtureDetails(pMem, fixture_id++, None, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 2, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, None, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 2, 0, 0, 1, 0, 0, 886500, 443250);
 
 		return (DWORD)pMem;
 	}
@@ -193,7 +193,6 @@ void bra_super_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	if (loaded) return;
 	bra_super_teams(_this);
 	DWORD v1 = *(DWORD*)_this;
-	data->f40 = 600000;
 	*((DWORD*)(_this + 0xA3)) = (DWORD)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0x3c, _this + 0x3a, 0);
 	cup_map_fixture_tree_518790(_this);
 	BYTE* pMem2 = (BYTE*)sub_944CF1_operator_new(0x5CE);

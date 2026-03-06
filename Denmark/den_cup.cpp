@@ -48,7 +48,7 @@ DWORD den_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		Date easter_day = Date::easter_gregorian(year + 1);
 		easter_day.addDays(39);
 		AddPlayoffFixture(pMem, fixture_id, easter_day, year, Thursday, Evening, NationalStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0, 0, 36140, 15060);
 
 		return (DWORD)pMem;
 	}

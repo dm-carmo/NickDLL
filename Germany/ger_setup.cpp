@@ -83,6 +83,8 @@ void setup_ger_nation()
 	setup_ger_cup();
 	setup_ger_super();
 	setup_ger_awards();
+
+	WriteNOP(0x5d8cf2, 7);
 }
 
 void germany_restructure() {

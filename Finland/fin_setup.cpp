@@ -80,6 +80,8 @@ void setup_fin_nation()
 	// Start date
 	WriteBytes(0x667EE5, 1, April);
 	WriteBytes(0x667EE7, 1, 4);
+
+	WriteNOP(0x592322, 7);
 }
 
 void finland_restructure() {

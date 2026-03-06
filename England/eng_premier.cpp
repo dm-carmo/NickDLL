@@ -6,28 +6,28 @@
 #include "Helpers\constants.h"
 #include <Helpers\9cf_constants.h>
 
-DWORD* eng_prm_vtable = (DWORD*)0x969D1C;
-static DWORD(__thiscall* eng_prm_subs)(BYTE* _this) = (DWORD(__thiscall*)(BYTE * _this))(0x574B70);
+DWORD* eng_premier_vtable = (DWORD*)0x969D1C;
+static DWORD(__thiscall* eng_premier_subs)(BYTE* _this) = (DWORD(__thiscall*)(BYTE * _this))(0x574B70);
 
-void eng_prm_prom_rel_update(BYTE* _this, int a2) {
+void eng_premier_prom_rel_update(BYTE* _this, int a2) {
 	DWORD v1 = *(DWORD*)_this;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(_this);
 
-	BYTE* eng_first = get_loaded_league(ENG_FIRST_9CF());
-	v1 = *(DWORD*)eng_first;
-	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(eng_first);
+	BYTE* eng_champ = get_loaded_league(ENG_CHAMP_9CF());
+	v1 = *(DWORD*)eng_champ;
+	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(eng_champ);
 
-	BYTE* eng_second = get_loaded_league(ENG_SECOND_9CF());
-	v1 = *(DWORD*)eng_second;
-	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(eng_second);
+	BYTE* eng_league_1 = get_loaded_league(ENG_LEAGUE_1_9CF());
+	v1 = *(DWORD*)eng_league_1;
+	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(eng_league_1);
 
-	BYTE* eng_third = get_loaded_league(ENG_THIRD_9CF());
-	v1 = *(DWORD*)eng_third;
-	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(eng_third);
+	BYTE* eng_league_2 = get_loaded_league(ENG_LEAGUE_2_9CF());
+	v1 = *(DWORD*)eng_league_2;
+	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(eng_league_2);
 
-	sub_689C80(_this, _this, eng_first, 1, a2, -1, -1);
-	sub_689C80(_this, eng_first, eng_second, 1, a2, -1, -1);
-	sub_689C80(_this, eng_second, eng_third, 1, a2, -1, -1);
+	sub_689C80(_this, _this, eng_champ, 1, a2, -1, -1);
+	sub_689C80(_this, eng_champ, eng_league_1, 1, a2, -1, -1);
+	sub_689C80(_this, eng_league_1, eng_league_2, 1, a2, -1, -1);
 
 	BYTE* eng_conf = get_loaded_league(ENG_CONFERENCE_9CF());
 	if (eng_conf) {
@@ -41,20 +41,20 @@ void eng_prm_prom_rel_update(BYTE* _this, int a2) {
 		(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(eng_conf_s);
 
 		// To do: stadium capacity validations
-		sub_689C80(_this, eng_third, eng_conf, 1, a2, -1, -1);
+		sub_689C80(_this, eng_league_2, eng_conf, 1, a2, -1, -1);
 		sub_689C80(_this, eng_conf, eng_conf_n, 1, a2, -1, -1);
 		sub_689C80(_this, eng_conf, eng_conf_s, 1, a2, -1, -1);
 	}
 }
 
-void __declspec(naked) eng_prm_prom_rel_update_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) eng_premier_prom_rel_update_c()		// used as a __thiscall -> __cdecl converter
 {
 	__asm
 	{
 		mov eax, esp
 		push dword ptr[eax + 0x4]
 		push ecx
-		call eng_prm_prom_rel_update
+		call eng_premier_prom_rel_update
 		add esp, 0x8
 		ret 4
 	}
@@ -77,9 +77,9 @@ void __fastcall eng_non_league_promotion(BYTE* _this)
 				DWORD nationID = club->ClubNation->NationID;
 				if (nationID == NATION_ENGLAND_9CF() &&		// England
 					compID != ENG_PREMIER_9CF() &&		// Premier Division
-					compID != ENG_FIRST_9CF() &&		// First Division
-					compID != ENG_SECOND_9CF() &&		// Second Division
-					compID != ENG_THIRD_9CF() &&		// Third Division
+					compID != ENG_CHAMP_9CF() &&		// First Division
+					compID != ENG_LEAGUE_1_9CF() &&		// Second Division
+					compID != ENG_LEAGUE_2_9CF() &&		// Third Division
 					compID != ENG_CONFERENCE_9CF() &&		// Conference
 					compID != A_LOWER_B_9CF() &&		// A Lower Division B
 					compID != ENG_CONFERENCE_NORTH_9CF() &&		// Northern Premier
@@ -139,11 +139,11 @@ void sort_conf_n_s_clubs() {
 	}
 }
 
-char eng_prm_update(BYTE* _this) {
+char eng_premier_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
 	data->f76 = 0;
-	eng_prm_prom_rel_update(_this, 1);
+	eng_premier_prom_rel_update(_this, 1);
 
 	BYTE* eng_conf = get_loaded_league(ENG_CONFERENCE_9CF());
 	if (eng_conf) {
@@ -172,29 +172,32 @@ char eng_prm_update(BYTE* _this) {
 	}
 	data->year++;
 	data->current_stage = -1;
-	eng_prm_subs(_this);
+	eng_premier_subs(_this);
 	AddTeams(_this);
+	data->prize_money_pool = add_prize_money_682F70(_this, 869000);
+	data->f225 = 1;
+	add_tv_money_683010(_this, 36000000, 0);
 	sub_6835C0(_this);
 	BYTE* edx = 0;
 	sub_6827D0(_this, edx);
 	DWORD v1 = *(DWORD*)_this;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
 
-	BYTE* eng_first = get_loaded_league(ENG_FIRST_9CF());
-	BYTE* eng_second = get_loaded_league(ENG_SECOND_9CF());
-	BYTE* eng_third = get_loaded_league(ENG_THIRD_9CF());
+	BYTE* eng_champ = get_loaded_league(ENG_CHAMP_9CF());
+	BYTE* eng_league_1 = get_loaded_league(ENG_LEAGUE_1_9CF());
+	BYTE* eng_league_2 = get_loaded_league(ENG_LEAGUE_2_9CF());
 
-	sub_68A980(eng_third, 1, 3, -3, 1);
+	sub_68A980(eng_league_2, 1, 3, -3, 1);
 	if (eng_conf) sub_68A980(eng_conf, 2, 0, -3, 1);
 
-	v1 = *(DWORD*)eng_first;
-	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(eng_first);
+	v1 = *(DWORD*)eng_champ;
+	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(eng_champ);
 
-	v1 = *(DWORD*)eng_second;
-	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(eng_second);
+	v1 = *(DWORD*)eng_league_1;
+	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(eng_league_1);
 
-	v1 = *(DWORD*)eng_third;
-	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(eng_third);
+	v1 = *(DWORD*)eng_league_2;
+	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(eng_league_2);
 
 	if (eng_conf) {
 		v1 = *(DWORD*)eng_conf;
@@ -213,19 +216,19 @@ char eng_prm_update(BYTE* _this) {
 	return sub_79CEE0((BYTE*)*b74340, (BYTE*)(data->competition_db));
 }
 
-void __declspec(naked) eng_prm_update_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) eng_premier_update_c()		// used as a __thiscall -> __cdecl converter
 {
 	__asm
 	{
 		mov eax, esp
 		push ecx
-		call eng_prm_update
+		call eng_premier_update
 		add esp, 0x4
 		ret
 	}
 }
 
-DWORD eng_prm_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
+DWORD eng_premier_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
 {
 	if (stage_idx < 0) {
 		if (a5)
@@ -254,8 +257,8 @@ DWORD eng_prm_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Monday, Evening);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
-		//AddFixture(pMem, fixture_id, Date(year, 8, 30), year, Saturday); // doesn't work with CM0102 schedule
-		AddFixture(pMem, fixture_id, Date(year, 9, 6), year, Saturday);
+		AddFixture(pMem, fixture_id, Date(year, 8, 30), year, Saturday); // doesn't work with CM0102 schedule
+		//AddFixture(pMem, fixture_id, Date(year, 9, 6), year, Saturday);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Monday, Evening);
@@ -456,7 +459,7 @@ DWORD eng_prm_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 	else return 0;
 }
 
-void __declspec(naked) eng_prm_fixture_caller()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) eng_premier_fixture_caller()		// used as a __thiscall -> __cdecl converter
 {
 	__asm
 	{
@@ -466,17 +469,45 @@ void __declspec(naked) eng_prm_fixture_caller()		// used as a __thiscall -> __cd
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call eng_prm_fixtures
+		call eng_premier_fixtures
 		add esp, 0x14
 		ret 0x10
 	}
 }
 
-void setup_eng_prm()
+void eng_premier_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
+	sub_682200(_this);
+	comp_stats* data = (comp_stats*)_this;
+	data->competition_db = comp;
+	data->comp_vtable = eng_premier_vtable;
+	data->year = year;
+	data->rules = 0x9;
+	int loaded = sub_687B10(_this, 1);
+	if (loaded) return;
+	data->f68 = -1;
+	data->current_stage = -1;
+	data->num_stages = 0;
+	eng_premier_subs(_this);
+	AddTeams(_this);
+	data->prize_money_pool = add_prize_money_682F70(_this, 869000);
+	data->f225 = 1;
+	add_tv_money_683010(_this, 36000000, 0);
+	sub_6835C0(_this);
+	BYTE* ebx = 0;
+	sub_6827D0(_this, ebx);
+	BYTE* pMem2 = (BYTE*)sub_944CF1_operator_new(0x5CE);
+	BYTE unk1 = 1;
+	sub_49EE70(pMem2, _this);
+	unk1 = 0;
+	data->f8 = (DWORD*)pMem2;
+	reputation_setup_generic_68A850(_this);
+}
+
+void setup_eng_premier()
 {
-	WriteVTablePtr(eng_prm_vtable, VTableEoSUpdate, (DWORD)&eng_prm_update_c);
-	WriteVTablePtr(eng_prm_vtable, VTableFixtures, (DWORD)&eng_prm_fixture_caller);
-	WriteVTablePtr(eng_prm_vtable, VTablePromRelUpdate, (DWORD)&eng_prm_prom_rel_update_c);
+	WriteVTablePtr(eng_premier_vtable, VTableEoSUpdate, (DWORD)&eng_premier_update_c);
+	WriteVTablePtr(eng_premier_vtable, VTableFixtures, (DWORD)&eng_premier_fixture_caller);
+	WriteVTablePtr(eng_premier_vtable, VTablePromRelUpdate, (DWORD)&eng_premier_prom_rel_update_c);
 	// Charity Shield day
 	WriteBytes(0x56d718, 1, 10);
 }

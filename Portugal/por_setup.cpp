@@ -88,6 +88,8 @@ void setup_por_nation()
 	setup_por_league_cup();
 	setup_por_super();
 	setup_por_awards();
+
+	WriteNOP(0x7cda4a, 7);
 }
 
 void portugal_restructure() {
