@@ -845,6 +845,9 @@ extern DWORD* club_comp_histories_count;
 extern DWORD** comp_stats_list;
 extern DWORD* comp_stats_count;
 
+extern cm3_colours** colours;
+extern DWORD* colours_count;
+
 extern DWORD* current_date;
 extern WORD* current_year;
 

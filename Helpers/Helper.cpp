@@ -135,6 +135,10 @@ cm3_continents* find_continent(const char* szContinent)
 	return NULL;
 }
 
+cm3_colours* get_colour(DWORD colourID) {
+	return (colourID != -1L) ? &(*colours)[colourID] : NULL;
+}
+
 vector<cm3_nations*> central_america_countries()
 {
 	vector<cm3_nations*> ret;

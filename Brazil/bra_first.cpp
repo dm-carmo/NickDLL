@@ -297,6 +297,8 @@ void bra_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->rules = 0x7;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
+	comp->ClubCompBackgroundColour = get_colour(COLOUR_BROWN_2_9CF());
+	comp->ClubCompForegroundColour = get_colour(COLOUR_BLUE_1_9CF());
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 0;

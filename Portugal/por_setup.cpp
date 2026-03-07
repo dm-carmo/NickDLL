@@ -67,6 +67,8 @@ DWORD por_setup_c(playable_nation_data* nation_data) {
 	// Super Cup
 	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
 	por_super_setup(pMem, *current_year, get_comp(POR_SUPER_CUP_9CF()));
+	get_comp(POR_SUPER_CUP_9CF())->ClubCompBackgroundColour = get_colour(COLOUR_ORANGE_1_9CF());
+	get_comp(POR_SUPER_CUP_9CF())->ClubCompForegroundColour = get_colour(COLOUR_WHITE_9CF());
 	nation_comps[i++] = (DWORD)pMem;
 	BYTE* cm_date = new BYTE[8];
 	convert_to_cm_date(cm_date, 20, June, 2025, -1);

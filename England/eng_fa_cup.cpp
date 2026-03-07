@@ -7,7 +7,7 @@
 
 DWORD* eng_fa_cup_vtable = (DWORD*)0x969B28;
 
-void fa_cup_free_under(BYTE* _this) {
+void eng_fa_cup_free_under(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	data->comp_vtable = eng_fa_cup_vtable;
 	DWORD x = 0;
@@ -35,7 +35,7 @@ void fa_cup_free_under(BYTE* _this) {
 }
 
 void eng_fa_cup_free(BYTE* _this, BYTE a2) {
-	fa_cup_free_under(_this);
+	eng_fa_cup_free_under(_this);
 	if (a2 & 1) {
 		sub_944C94_free(_this);
 	}
@@ -205,7 +205,7 @@ DWORD eng_fa_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 	return 0;
 }
 
-void __declspec(naked) fa_cup_fixture_caller()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) eng_fa_cup_fixture_caller()		// used as a __thiscall -> __cdecl converter
 {
 	__asm
 	{
@@ -237,6 +237,8 @@ void eng_fa_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	//data->f69 = 0;
 	int loaded = sub_51FC00(_this, 1);
 	if (loaded) return;
+	comp->ClubCompBackgroundColour = get_colour(COLOUR_RED_2_9CF());
+	comp->ClubCompForegroundColour = get_colour(COLOUR_WHITE_9CF());
 	eng_fa_cup_teams(_this);
 	DWORD v1 = *(DWORD*)_this;
 	*((DWORD*)(_this + 0xA3)) = (DWORD)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0x3c, _this + 0x3a, 0);
@@ -313,7 +315,7 @@ void __declspec(naked) eng_fa_cup_update_c()		// used as a __thiscall -> __cdecl
 void setup_eng_fa_cup() {
 	WriteVTablePtr(eng_fa_cup_vtable, VTableInitFree, (DWORD)&eng_fa_cup_free_c);
 	WriteVTablePtr(eng_fa_cup_vtable, VTableEoSUpdate, (DWORD)&eng_fa_cup_update_c);
-	WriteVTablePtr(eng_fa_cup_vtable, VTableFixtures, (DWORD)&fa_cup_fixture_caller);
+	WriteVTablePtr(eng_fa_cup_vtable, VTableFixtures, (DWORD)&eng_fa_cup_fixture_caller);
 	WriteVTablePtr(eng_fa_cup_vtable, VTableLeagueSplit, 0x51F890);
 	WriteBytes(0x570944, 1, 0x04);
 }

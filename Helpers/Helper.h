@@ -25,6 +25,7 @@ BYTE* get_loaded_league(DWORD compID);
 cm3_nations* find_country(const char* szCountry);
 cm3_nations* get_country(DWORD countryID);
 cm3_continents* find_continent(const char* szContinent);
+cm3_colours* get_colour(DWORD colourID);
 vector<cm3_nations*> central_america_countries();
 vector<cm3_nations*> caribbean_countries();
 vector<cm3_nations*> get_countries_of_continent(DWORD continentID);

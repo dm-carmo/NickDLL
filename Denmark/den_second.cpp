@@ -347,6 +347,7 @@ void den_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 		*((DWORD*)(_this + 0xA3)) = (DWORD)&den_second_7F3220;
 		return;
 	}
+	comp->ClubCompReputation = 5;
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 0;

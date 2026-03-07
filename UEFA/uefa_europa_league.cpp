@@ -304,8 +304,16 @@ void uefa_europa_league_main_path_teams(BYTE* _this) {
 	data->teams_list = (DWORD*)pMem;
 
 	teams_seeded* teams = (teams_seeded*)data->teams_list;
-	teams_seeded* qualifiers = (teams_seeded*)data->special_teams_seedings;
+	// fill in teams with 0 to avoid odd crashes
+	for (DWORD i = 0; i < total_teams; i++)
+	{
+		teams[i].club = 0;
+		teams[i].f5 = 0;
+		teams[i].f6 = 0;
+	}
+
 	WORD count = 0;
+	teams_seeded* qualifiers = (teams_seeded*)data->special_teams_seedings;
 	DWORD total_count = data->special_nteams_seedings;
 	for (WORD i = 0; i < total_count; i++) {
 		char seed = qualifiers[i].f5;
@@ -354,7 +362,8 @@ void uefa_europa_league_champions_path_setup(BYTE* _this) {
 	BYTE playoff_teams = 12;
 	DWORD* pTeams = (DWORD*)sub_944E46_malloc(playoff_teams * 4);
 
-	// teams are added somewhere else
+	// teams are added somewhere else, fill in teams with 0 to avoid odd crashes
+	for (int i = 0; i < playoff_teams; i++) *((DWORD*)(&pTeams[i])) = 0;
 
 	WORD num_rounds = 0;
 	WORD stage_name_id = 0;
@@ -723,6 +732,8 @@ void uefa_europa_league_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	*((BYTE*)(_this + 0xB1)) = 0;
 	int loaded = sub_51FC00(_this, 1);
 	if (loaded) return;
+	comp->ClubCompBackgroundColour = get_colour(COLOUR_ORANGE_2_9CF());
+	comp->ClubCompForegroundColour = get_colour(COLOUR_BLACK_9CF());
 	sub_9035A0((BYTE*)*uefa_seeding_list, 0);
 	uefa_europa_league_all_teams(_this);
 	uefa_europa_league_main_path_teams(_this);

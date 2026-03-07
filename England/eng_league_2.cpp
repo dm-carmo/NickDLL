@@ -3,6 +3,7 @@
 #include "Helpers\generic_functions.h"
 #include "Helpers\constants.h"
 #include "Structures\vtable.h"
+#include <Helpers/9cf_constants.h>
 
 DWORD* eng_league_2_vtable = (DWORD*)0x969E84;
 static DWORD(__thiscall* eng_league_2_subs)(BYTE* _this) = (DWORD(__thiscall*)(BYTE * _this))(0x5780C0);
@@ -207,6 +208,8 @@ void eng_league_2_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->rules = 0x9;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
+	comp->ClubCompBackgroundColour = get_colour(COLOUR_WHITE_9CF());
+	comp->ClubCompForegroundColour = get_colour(COLOUR_RED_2_9CF());
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 1;

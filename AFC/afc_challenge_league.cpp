@@ -834,7 +834,6 @@ void afc_challenge_league_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	afc_challenge_league_vtable->SetPointer(VTableReputationSetup, (DWORD)&afc_challenge_league_reputation_setup_c);
 	afc_challenge_league_vtable->SetPointer(VTableReputationCalc, (DWORD)&afc_challenge_league_reputation_calc_c);
 	afc_challenge_league_vtable->SetPointer(VTableSubsRounds, 0x858e70);
-	comp->ClubCompContinent = find_continent("Asia");
 	data->f171 = 0;
 	data->f68 = -1;
 	data->current_stage = -1;
@@ -852,6 +851,9 @@ void afc_challenge_league_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	*((BYTE*)(_this + 0xB1)) = 0;
 	int loaded = sub_51FC00(_this, 1);
 	if (loaded) return;
+	comp->ClubCompContinent = find_continent("Asia");
+	comp->ClubCompBackgroundColour = get_colour(COLOUR_PURPLE_3_9CF());
+	comp->ClubCompForegroundColour = get_colour(COLOUR_ORANGE_1_9CF());
 	afc_challenge_league_all_teams(_this);
 	afc_challenge_league_qualifier_teams(_this);
 	DWORD v1 = *(DWORD*)_this;

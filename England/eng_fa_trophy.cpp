@@ -126,7 +126,7 @@ DWORD eng_fa_trophy_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD
 	return 0;
 }
 
-void __declspec(naked) fa_trophy_fixture_caller()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) eng_fa_trophy_fixture_caller()		// used as a __thiscall -> __cdecl converter
 {
 	__asm
 	{
@@ -144,6 +144,6 @@ void __declspec(naked) fa_trophy_fixture_caller()		// used as a __thiscall -> __
 
 void setup_eng_fa_trophy()
 {
-	WriteVTablePtr(eng_fa_trophy_vtable, VTableFixtures, (DWORD)&fa_trophy_fixture_caller);
+	WriteVTablePtr(eng_fa_trophy_vtable, VTableFixtures, (DWORD)&eng_fa_trophy_fixture_caller);
 	PatchFunction(0x5712b0, (DWORD)&eng_fa_trophy_teams_c);
 }

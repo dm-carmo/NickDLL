@@ -7,7 +7,7 @@
 
 DWORD* eng_league_cup_vtable = (DWORD*)0x969934;
 
-void league_cup_free_under(BYTE* _this) {
+void eng_league_cup_free_under(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	data->comp_vtable = eng_league_cup_vtable;
 	DWORD x = 0;
@@ -35,7 +35,7 @@ void league_cup_free_under(BYTE* _this) {
 }
 
 void eng_league_cup_free(BYTE* _this, BYTE a2) {
-	league_cup_free_under(_this);
+	eng_league_cup_free_under(_this);
 	if (a2 & 1) {
 		sub_944C94_free(_this);
 	}
@@ -204,6 +204,8 @@ void eng_league_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	//data->f69 = 0;
 	int loaded = sub_51FC00(_this, 1);
 	if (loaded) return;
+	comp->ClubCompBackgroundColour = get_colour(COLOUR_GREEN_1_9CF());
+	comp->ClubCompForegroundColour = get_colour(COLOUR_WHITE_9CF());
 	eng_league_cup_teams(_this);
 	DWORD v1 = *(DWORD*)_this;
 	*((DWORD*)(_this + 0xA3)) = (DWORD)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0x3c, _this + 0x3a, 0);

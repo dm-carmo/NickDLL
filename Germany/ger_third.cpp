@@ -445,12 +445,13 @@ void ger_third_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	ger_third_vtable->SetPointer(VTableEoSUpdate, (DWORD)&ger_third_update_c);
 	ger_third_vtable->SetPointer(VTableFixtures, (DWORD)&ger_third_fixtures_c);
 	ger_third_vtable->SetPointer(VTableSubsRounds, (DWORD)&ger_third_subs_c);
-	//WriteVTablePtr(ger_third_vtable, VTablePlayoffQual, (DWORD)&ger_third_playoffs_create);
 	ger_third_vtable->SetPointer(VTableTableFates, (DWORD)&ger_third_set_table_fate);
 	data->year = year;
 	data->rules = 0x0D;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
+	comp->ClubCompBackgroundColour = get_colour(COLOUR_BLACK_9CF());
+	comp->ClubCompForegroundColour = get_colour(COLOUR_WHITE_9CF());
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 0;

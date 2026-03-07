@@ -324,6 +324,11 @@ void fifa_intercontinental_cup_all_teams(BYTE* _this) {
 	teams[count].f5 = 0;
 	teams[count].f6 = 0;
 	count++;
+
+	// empty slot, to be filled in later
+	teams[count].club = 0;
+	teams[count].f5 = 0;
+	teams[count].f6 = 0;
 }
 
 void fifa_intercontinental_cup_qualifier_teams(BYTE* _this) {
@@ -603,6 +608,8 @@ void fifa_intercontinental_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp
 	*((BYTE*)(_this + 0xB1)) = 0;
 	int loaded = sub_51FC00(_this, 1);
 	if (loaded) return;
+	comp->ClubCompBackgroundColour = get_colour(COLOUR_BLUE_1_9CF());
+	comp->ClubCompForegroundColour = get_colour(COLOUR_AMBER_9CF());
 	DWORD v1 = *(DWORD*)_this;
 	*((DWORD*)(_this + 0xA3)) = (DWORD)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0x3c, _this + 0x3a, 0);
 	cup_map_fixture_tree_518790(_this);

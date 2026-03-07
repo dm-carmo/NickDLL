@@ -521,6 +521,8 @@ void fra_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->rules = 0xc;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
+	comp->ClubCompBackgroundColour = get_colour(COLOUR_BLUE_3_9CF());
+	comp->ClubCompForegroundColour = get_colour(COLOUR_WHITE_9CF());
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 1;
@@ -628,7 +630,7 @@ int fra_first_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char sta
 			team_league_stats* table = (team_league_stats*)(fra_second_data->team_league_table);
 			WORD current_round = *(WORD*)(round_data + 0x34);
 			for (int i = 0; i < num_teams; i++) {
-					if (table[i].club != club) continue;
+				if (table[i].club != club) continue;
 				switch (fate) {
 				case TopPlayoff:
 					staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)fra_second, 0x32);
@@ -651,7 +653,7 @@ int fra_first_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char sta
 			team_league_stats* table = (team_league_stats*)(comp_data->team_league_table);
 			WORD current_round = *(WORD*)(round_data + 0x34);
 			for (int i = 0; i < num_teams; i++) {
-					if (table[i].club != club) continue;
+				if (table[i].club != club) continue;
 				switch (fate) {
 				case BottomPlayoff:
 					staff_history_relegated_86A1C0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));

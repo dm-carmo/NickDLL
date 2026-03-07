@@ -45,10 +45,14 @@ DWORD fra_setup_c(playable_nation_data* nation_data) {
 	// Cup
 	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
 	fra_cup_setup(pMem, *current_year, get_comp(FRA_CUP_9CF()));
+	get_comp(FRA_CUP_9CF())->ClubCompForegroundColour = 0;
+	get_comp(FRA_CUP_9CF())->ClubCompBackgroundColour = 0;
 	nation_comps[i++] = (DWORD)pMem;
 	// Super Cup
 	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
 	fra_super_setup(pMem, *current_year, get_comp(FRA_SUPER_CUP_9CF()));
+	get_comp(FRA_SUPER_CUP_9CF())->ClubCompForegroundColour = 0;
+	get_comp(FRA_SUPER_CUP_9CF())->ClubCompBackgroundColour = 0;
 	nation_comps[i++] = (DWORD)pMem;
 	BYTE* cm_date = new BYTE[8];
 	convert_to_cm_date(cm_date, 20, June, 2025, -1);
@@ -64,6 +68,8 @@ void setup_fra_nation()
 	WriteDWORD(0x667FB5 + 6, (DWORD)&fra_setup_c);
 	// Removes reference to League Cup in nation table
 	WriteNOP(0x6680b2, 6);
+	// disable an offset related to the inactive French lower leagues
+	WriteBytes(0x7E62BE, 1, 0xeb);
 	setup_fra_first();
 	setup_fra_second();
 	setup_fra_third();

@@ -857,6 +857,8 @@ void afc_champions_league_2_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->num_stages = 9;
 	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
 	data->competition_db = comp;
+	comp->ClubCompBackgroundColour = get_colour(COLOUR_BLUE_2_9CF());
+	comp->ClubCompForegroundColour = get_colour(COLOUR_CYAN_1_9CF());
 	data->comp_type = CLUB_INTERNATIONAL;
 	data->promotes_to = -1;
 	data->relegates_to = -1;

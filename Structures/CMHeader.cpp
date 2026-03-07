@@ -33,6 +33,9 @@ DWORD* club_comp_histories_count = (DWORD*)0xAE237C;
 DWORD** comp_stats_list = (DWORD**)0xADADFC;
 DWORD* comp_stats_count = (DWORD*)0xADADF8;
 
+cm3_colours** colours = (cm3_colours**)0xAE23EC;
+DWORD* colours_count = (DWORD*)0xAE2394;
+
 DWORD* current_date = (DWORD*)0xAE2C90;
 WORD* current_year = (WORD*)0xAE2C92;
 

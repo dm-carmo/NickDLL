@@ -739,6 +739,8 @@ void caf_champions_league_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	*((BYTE*)(_this + 0xB1)) = 0;
 	int loaded = sub_51FC00(_this, 1);
 	if (loaded) return;
+	comp->ClubCompBackgroundColour = get_colour(COLOUR_BROWN_1_9CF());
+	comp->ClubCompForegroundColour = get_colour(COLOUR_YELLOW_2_9CF());
 	caf_champions_league_all_teams(_this);
 	caf_champions_league_qualifier_teams(_this);
 	DWORD v1 = *(DWORD*)_this;

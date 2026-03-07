@@ -42,6 +42,8 @@ DWORD hol_setup_c(playable_nation_data* nation_data) {
 	// Supercup
 	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
 	hol_super_setup(pMem, *current_year, get_comp(HOL_SUPER_CUP_9CF()));
+	get_comp(HOL_SUPER_CUP_9CF())->ClubCompForegroundColour = 0;
+	get_comp(HOL_SUPER_CUP_9CF())->ClubCompBackgroundColour = 0;
 	nation_comps[i++] = (DWORD)pMem;
 
 	BYTE* cm_date = new BYTE[8];

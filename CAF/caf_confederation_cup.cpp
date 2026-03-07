@@ -744,6 +744,8 @@ void caf_confederation_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	*((BYTE*)(_this + 0xB1)) = 0;
 	int loaded = sub_51FC00(_this, 1);
 	if (loaded) return;
+	comp->ClubCompBackgroundColour = get_colour(COLOUR_GREY_2_9CF());
+	comp->ClubCompForegroundColour = get_colour(COLOUR_YELLOW_1_9CF());
 	caf_confederation_cup_all_teams(_this);
 	caf_confederation_cup_qualifier_teams(_this);
 	DWORD v1 = *(DWORD*)_this;

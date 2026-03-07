@@ -7,7 +7,6 @@
 
 DWORD* caf_super_cup_vtable = (DWORD*)0x9676C8;
 
-
 DWORD caf_super_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
 {
 	if (stage_idx == -1) {
