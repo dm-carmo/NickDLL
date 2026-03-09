@@ -89,6 +89,9 @@ void setup_ita_nation() {
 	setup_ita_c_cup();
 	setup_ita_c_supercup();
 	setup_ita_awards();
+	// more loans allowed
+	WriteBytes(0x6618a4, 1, 9);
+	WriteDWORD(0x6618ba, 0x9C44D4);
 }
 
 void italy_restructure() {

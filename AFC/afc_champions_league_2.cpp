@@ -602,7 +602,7 @@ void afc_champions_league_2_group_stage_setup(BYTE* _this) {
 	DWORD* stages_arr = comp_data->stages;
 
 	BYTE prom_rel[4] = { 2, 0, 0, 0 };
-	BYTE tiebreaks[4] = { 4, 1, 2, 0 };
+	BYTE tiebreaks[4] = { CurrentPositionTiebreaker, GoalDifferenceTiebreaker, GoalsForTiebreaker, NoTiebreaker };
 
 	vector<cm3_clubs*> clubs;
 	teams_seeded* teams = (teams_seeded*)comp_data->special_teams_seedings;
@@ -888,7 +888,7 @@ void setup_afc_champions_league_2() {
 	WriteVTablePtr(afc_champions_league_2_vtable, VTableEoSUpdate, (DWORD)&afc_champions_league_2_update_c);
 	WriteVTablePtr(afc_champions_league_2_vtable, VTablePlayoffQual, (DWORD)&afc_champions_league_2_stages_create_c);
 	WriteVTablePtr(afc_champions_league_2_vtable, VTableSetChampion, (DWORD)&afc_champions_league_2_set_champion_c);
-	WriteVTablePtr(afc_champions_league_2_vtable, VTable15, 0x48cab0);
+	WriteVTablePtr(afc_champions_league_2_vtable, VTableClubLandmarks, 0x48cab0);
 	WriteVTablePtr(afc_champions_league_2_vtable, VTableFixtures, (DWORD)&afc_champions_league_2_fixture_caller);
 	WriteVTablePtr(afc_champions_league_2_vtable, VTableTableFates, (DWORD)&afc_champions_league_2_set_table_fate);
 	WriteVTablePtr(afc_champions_league_2_vtable, VTableStageNews, 0x48C6D0);

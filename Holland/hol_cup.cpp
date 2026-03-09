@@ -259,7 +259,7 @@ void setup_hol_cup()
 	WriteVTablePtr(hol_cup_vtable, VTableInitFree, (DWORD)&hol_cup_free_c);
 	WriteVTablePtr(hol_cup_vtable, VTableEoSUpdate, (DWORD)&hol_cup_update_c);
 	WriteVTablePtr(hol_cup_vtable, VTableFixtures, (DWORD)&hol_cup_fixture_caller);
-	WriteVTablePtr(hol_cup_vtable, VTable2, 0x51A150);
+	WriteVTablePtr(hol_cup_vtable, VTablePostMatchUpdate, 0x51A150);
 	WriteVTablePtr(hol_cup_vtable, VTable5, 0x521E00);
 	WriteVTablePtr(hol_cup_vtable, VTableLeagueSplit, 0x51F890);
 	WriteVTablePtr(hol_cup_vtable, VTable7, 0x51FC00);

@@ -60,6 +60,8 @@ static int(__thiscall* add_prize_money_682F70)(BYTE* _this, int base_amount) =
 static int(__thiscall* add_tv_money_683010)(BYTE* _this, int amount, cm3_club_comps* last_division) =
 (int(__thiscall*)(BYTE * _this, int amount, cm3_club_comps * last_division))(0x683010);
 
+static int(__thiscall* sub_51C410)(BYTE* _this, int a2) =
+(int(__thiscall*)(BYTE * _this, int a2))(0x51C410);
 static int(__thiscall* sub_51C800)(BYTE* _this, int a2) =
 (int(__thiscall*)(BYTE * _this, int a2))(0x51C800);
 static int(__thiscall* sub_682200)(BYTE* _this) =

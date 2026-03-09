@@ -8,14 +8,58 @@
 
 DWORD* usa_mls_vtable = (DWORD*)0x970844;
 
+int usa_mls_last_positions(BYTE* _this) {
+	comp_stats* data = (comp_stats*)_this;
+	comp_stats* curr_stage = data;
+	vector<team_league_stats> sort_groups;
+	for (char al = -1; al < 1; al++) {
+		if (al > -1) curr_stage = (comp_stats*)(data->stages[al]);
+		team_league_stats* table_teams = (team_league_stats*)(curr_stage->team_league_table);
+		for (WORD i = 0; i < curr_stage->n_teams; i++) sort_groups.push_back(table_teams[i]);
+	}
+	sort(sort_groups.begin(), sort_groups.end(), sortTLS);
+	for (size_t i = 0; i < sort_groups.size(); i++) {
+		cm3_clubs* club = sort_groups[i].club;
+		club->ClubLastDivision = data->competition_db;
+		club->ClubLastPosition = (char)i + 1;
+	}
+	return 1;
+}
+
+void __declspec(naked) usa_mls_last_positions_c()		// used as a __thiscall -> __cdecl converter
+{
+	__asm
+	{
+		mov eax, esp
+		push ecx
+		call usa_mls_last_positions
+		add esp, 0x4
+		ret
+	}
+}
+
 void usa_mls_prom_rel_update(BYTE* _this, int a2) {
+	comp_stats* data = (comp_stats*)_this;
 	DWORD v1 = *(DWORD*)_this;
-	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(_this);
+	//(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(_this);
+
+	BYTE* mls_conf = (BYTE*)data->stages[0];
+	v1 = *(DWORD*)mls_conf;
+	//(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(mls_conf);
+	usa_mls_last_positions(_this);
 
 	BYTE* usa_champ = get_loaded_league(USA_SECOND_9CF());
+	comp_stats* usa_champ_data = (comp_stats*)usa_champ;
 	v1 = *(DWORD*)usa_champ;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(usa_champ);
 	sub_689C80(_this, _this, usa_champ, 1, a2, -1, -1);
+	sub_689C80(_this, mls_conf, usa_champ, 1, a2, -1, -1);
+
+	BYTE* champ_conf = (BYTE*)usa_champ_data->stages[0];
+	v1 = *(DWORD*)champ_conf;
+	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(champ_conf);
+	sub_689C80(_this, _this, champ_conf, 1, a2, -1, -1);
+	sub_689C80(_this, mls_conf, champ_conf, 1, a2, -1, -1);
 }
 
 void __declspec(naked) usa_mls_prom_rel_update_c()		// used as a __thiscall -> __cdecl converter
@@ -207,9 +251,9 @@ void usa_mls_subs(BYTE* _this)
 	comp_data->pts_for_draw = 1;
 	comp_data->f196 = 2;
 	comp_data->comp_type = CLUB_DOMESTIC;
-	comp_data->tiebreaker_1 = 1;
-	comp_data->tiebreaker_2 = 2;
-	comp_data->tiebreaker_3 = 3;
+	comp_data->tiebreaker_1 = GoalDifferenceTiebreaker;
+	comp_data->tiebreaker_2 = GoalsForTiebreaker;
+	comp_data->tiebreaker_3 = GamesWonTiebreaker;
 	comp_data->promotions = 0;
 	comp_data->prom_playoff = 9;
 	comp_data->rele_playoff = 0;
@@ -390,9 +434,9 @@ char usa_mls_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
 	data->f76 = 0;
-	sub_687970(_this, ebx);
 	usa_mls_prom_rel_update(_this, 1);
 
+	sub_687970(_this, ebx);
 	if (data->fixtures_table) {
 		sub_9452CA_free(data->fixtures_table);
 		data->fixtures_table = 0;
@@ -701,9 +745,10 @@ void setup_usa_mls() {
 	WriteVTablePtr(usa_mls_vtable, VTableTableFates, (DWORD)&usa_mls_set_table_fate);
 	WriteVTablePtr(usa_mls_vtable, VTableStageNews, (DWORD)0x48c6d0);
 	WriteVTablePtr(usa_mls_vtable, VTablePlayoffQual, (DWORD)&usa_mls_playoffs_create);
-	WriteVTablePtr(usa_mls_vtable, VTable2, (DWORD)0x685d30);
+	WriteVTablePtr(usa_mls_vtable, VTablePostMatchUpdate, (DWORD)0x685d30);
 	WriteVTablePtr(usa_mls_vtable, VTableAwardTeamsSetup, (DWORD)&usa_awards_teams_c);
 	WriteVTablePtr(usa_mls_vtable, VTablePromRelUpdate, (DWORD)&usa_mls_prom_rel_update_c);
+	WriteVTablePtr(usa_mls_vtable, VTableUpdateLastDivision, (DWORD)&usa_mls_last_positions_c);
 
 	// Remove hardcoded MLS details in fixtures
 	WriteNOP(0x444394, 6);

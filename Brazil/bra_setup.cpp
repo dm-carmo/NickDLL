@@ -179,6 +179,16 @@ void setup_bra_nation() {
 	setup_bra_cup();
 	setup_bra_super();
 	setup_bra_awards();
+
+	// transfer window adjustment
+	WriteBytes(0x43f1be, 1, 0x5);
+	WriteBytes(0x43f1c8, 1, 0x3);
+	WriteBytes(0x43f1c9, 1, 0x2);
+	WriteBytes(0x43f1d5, 1, 0x6);
+	WriteBytes(0x43f1de, 1, 0xb);
+	WriteBytes(0x43f1df, 1, 0x8);
+	// foreign player limits
+	WriteBytes(0x43f2cb, 1, 0x9);
 }
 
 void brazil_restructure() {

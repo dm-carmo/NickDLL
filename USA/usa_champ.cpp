@@ -221,9 +221,9 @@ void usa_champ_subs(BYTE* _this)
 	comp_data->pts_for_draw = 1;
 	comp_data->f196 = 2;
 	comp_data->comp_type = CLUB_DOMESTIC;
-	comp_data->tiebreaker_1 = 1;
-	comp_data->tiebreaker_2 = 2;
-	comp_data->tiebreaker_3 = 3;
+	comp_data->tiebreaker_1 = GoalDifferenceTiebreaker;
+	comp_data->tiebreaker_2 = GoalsForTiebreaker;
+	comp_data->tiebreaker_3 = GamesWonTiebreaker;
 	comp_data->promotions = 0;
 	comp_data->prom_playoff = 8;
 	comp_data->rele_playoff = 0;
@@ -598,7 +598,7 @@ void usa_champ_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	usa_champ_vtable->SetPointer(VTableTableFates, (DWORD)&usa_champ_set_table_fate);
 	usa_champ_vtable->SetPointer(VTableStageNews, (DWORD)0x48c6d0);
 	usa_champ_vtable->SetPointer(VTablePlayoffQual, (DWORD)&usa_champ_playoffs_create);
-	usa_champ_vtable->SetPointer(VTable2, (DWORD)0x685d30);
+	usa_champ_vtable->SetPointer(VTablePostMatchUpdate, (DWORD)0x685d30);
 	usa_champ_vtable->SetPointer(VTableAwardTeamsSetup, (DWORD)&usa_d2_awards_teams_c);
 	data->year = year;
 	data->rules = 0x1e;

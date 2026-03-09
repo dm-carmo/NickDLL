@@ -17,9 +17,9 @@ void fra_third_subs(BYTE* _this)
 	comp_data->pts_for_draw = 1;
 	comp_data->f196 = 2;
 	comp_data->comp_type = CLUB_DOMESTIC;
-	comp_data->tiebreaker_1 = 1;
-	comp_data->tiebreaker_2 = 2;
-	comp_data->tiebreaker_3 = 3;
+	comp_data->tiebreaker_1 = GoalDifferenceTiebreaker;
+	comp_data->tiebreaker_2 = GoalsForTiebreaker;
+	comp_data->tiebreaker_3 = GamesWonTiebreaker;
 	comp_data->promotions = 2;
 	comp_data->prom_playoff = 1;
 	comp_data->rele_playoff = 0;

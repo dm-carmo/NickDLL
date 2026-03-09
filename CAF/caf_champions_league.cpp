@@ -490,7 +490,7 @@ void caf_champions_league_group_stage_setup(BYTE* _this) {
 	DWORD* stages_arr = comp_data->stages;
 
 	BYTE prom_rel[4] = { 2, 0, 0, 0 };
-	BYTE tiebreaks[4] = { 4, 1, 2, 0 };
+	BYTE tiebreaks[4] = { CurrentPositionTiebreaker, GoalDifferenceTiebreaker, GoalsForTiebreaker, GoalsForAwayTiebreaker };
 
 	vector<cm3_clubs*> clubs;
 	teams_seeded* teams = (teams_seeded*)comp_data->special_teams_seedings;
@@ -715,7 +715,7 @@ void caf_champions_league_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	caf_champions_league_vtable->SetPointer(VTableEoSUpdate, (DWORD)&caf_champions_league_update_c);
 	caf_champions_league_vtable->SetPointer(VTablePlayoffQual, (DWORD)&caf_champions_league_stages_create_c);
 	caf_champions_league_vtable->SetPointer(VTableSetChampion, (DWORD)&caf_champions_league_set_champion_c);
-	caf_champions_league_vtable->SetPointer(VTable15, 0x48cab0);
+	caf_champions_league_vtable->SetPointer(VTableClubLandmarks, 0x48cab0);
 	caf_champions_league_vtable->SetPointer(VTableFixtures, (DWORD)&caf_champions_league_fixture_caller);
 	caf_champions_league_vtable->SetPointer(VTableTableFates, (DWORD)&caf_champions_league_set_table_fate);
 	caf_champions_league_vtable->SetPointer(VTableStageNews, 0x48C6D0);

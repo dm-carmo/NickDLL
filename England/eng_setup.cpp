@@ -10,6 +10,7 @@
 #include "eng_conf_s.h"
 #include "eng_fa_cup.h"
 #include "eng_league_cup.h"
+#include "eng_league_trophy.h"
 #include "eng_fa_trophy.h"
 #include "eng_awards.h"
 #include <Helpers\9cf_constants.h>
@@ -18,8 +19,6 @@ static DWORD(__thiscall* eng_charity_setup)(BYTE* _this, WORD year, cm3_club_com
 (DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x56D380);
 static DWORD(__thiscall* eng_fa_trophy_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
 (DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x570C00);
-static DWORD(__thiscall* eng_league_trophy_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x56AA30);
 
 DWORD eng_setup_c(playable_nation_data* nation_data) {
 	// contract start date?
@@ -82,8 +81,8 @@ DWORD eng_setup_c(playable_nation_data* nation_data) {
 	eng_league_cup_init(pMem, *current_year, get_comp(ENG_LEAGUE_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// League Trophy
-	pMem = (BYTE*)sub_944CF1_operator_new(0xBA);
-	eng_league_trophy_setup(pMem, *current_year, get_comp(ENG_LEAGUE_TROPHY_9CF()));
+	pMem = (BYTE*)sub_944CF1_operator_new(0xF6);
+	eng_league_trophy_init(pMem, *current_year, get_comp(ENG_LEAGUE_TROPHY_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Charity Shield
 	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
@@ -119,6 +118,7 @@ void setup_eng_nation() {
 	setup_eng_conf_s();
 	setup_eng_fa_cup();
 	setup_eng_league_cup();
+	setup_eng_league_trophy();
 	setup_eng_fa_trophy();
 	setup_eng_awards();
 
@@ -128,14 +128,59 @@ void setup_eng_nation() {
 
 void england_restructure() {
 	cm3_club_comps* nat_lge = get_comp(ENG_CONFERENCE_9CF());
-	if (nat_lge) {
-		cm3_clubs* club1 = find_club("Boston United");
-		if (club1) {
-			club1->ClubDivision = nat_lge;
-		}
-		cm3_clubs* club2 = find_club("Braintree Town");
-		if (club2) {
-			club2->ClubDivision = nat_lge;
+	cm3_clubs* club1 = find_club("Boston United");
+	if (club1) {
+		club1->ClubDivision = nat_lge;
+	}
+	cm3_clubs* club2 = find_club("Braintree Town");
+	if (club2) {
+		club2->ClubDivision = nat_lge;
+	}
+
+	if (configFile.GetBool("useEnglandAcademyTeams"))
+	{
+		cm3_club_comps* eng_academy = get_comp(ENG_ACADEMY_9CF());
+		strcpy_s(eng_academy->ClubCompName, "English Academy League");
+		strcpy_s(eng_academy->ClubCompNameShort, "Academy League");
+		eng_academy->ClubCompReputation = 1;
+		vector<string> eng_reserves = {
+			"Arsenal FC U21",
+			"Aston Villa U21",
+			"Blackburn Rovers U23",
+			"Brentford FC B",
+			"Brighton & Hove Albion U21",
+			"Bristol City U21",
+			"Burnley FC U21",
+			"Chelsea FC U21",
+			"Crystal Palace U21",
+			"Everton FC U21",
+			"Fulham FC U23",
+			"Ipswich Town U21",
+			"Leeds United U21",
+			"Leicester City U21",
+			"Liverpool FC U21",
+			"Manchester City U21",
+			"Manchester United U21",
+			"Middlesbrough FC U21",
+			"Newcastle United U21",
+			"Nottingham Forest U21",
+			"Queens Park Rangers U23",
+			"Reading FC U23",
+			"Southampton FC B",
+			"Stoke City U21",
+			"Sunderland AFC U21",
+			"Tottenham Hotspur U21",
+			"West Bromwich Albion U21",
+			"West Ham United U21",
+			"Wolverhampton Wanderers U21",
+		};
+		for (string s : eng_reserves) {
+			cm3_clubs* club = find_club(s.c_str());
+			if (!club) {
+				create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
+				continue;
+			}
+			club->ClubDivision = eng_academy;
 		}
 	}
 

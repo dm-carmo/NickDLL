@@ -92,9 +92,9 @@ void fifa_club_world_cup_subs(BYTE* _this)
 	comp_data->pts_for_draw = 1;
 	comp_data->f196 = 8;
 	comp_data->comp_type = CLUB_INTERNATIONAL;
-	comp_data->tiebreaker_1 = 1;
-	comp_data->tiebreaker_2 = 2;
-	comp_data->tiebreaker_3 = 4;
+	comp_data->tiebreaker_1 = GoalDifferenceTiebreaker;
+	comp_data->tiebreaker_2 = GoalsForTiebreaker;
+	comp_data->tiebreaker_3 = CurrentPositionTiebreaker;
 	comp_data->f82 = 3;
 
 	comp_data->promotions = 2;
@@ -696,6 +696,7 @@ void fifa_club_world_cup_setup_first_group(BYTE* _this) {
 	add_team_call(_this, teamsAdded++, qualifiers[8].club, 0, 0);
 	add_team_call(_this, teamsAdded++, qualifiers[16].club, 0, 0);
 	add_team_call(_this, teamsAdded++, qualifiers[24].club, 0, 0);
+	sub_684230(_this);
 }
 
 void fifa_club_world_cup_setup_groups(BYTE* _this, BYTE idx) {
@@ -722,6 +723,7 @@ void fifa_club_world_cup_setup_groups(BYTE* _this, BYTE idx) {
 	*((DWORD*)(&stages_arr[idx])) = (DWORD)pStage;
 	sub_9452CA_free(pTeams);
 	sub_9452CA_free(pFixtures);
+	sub_684230(pStage);
 	data->current_stage = idx;
 }
 
@@ -955,14 +957,14 @@ void fifa_club_world_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	fifa_club_world_cup_vtable->SetPointer(VTableEoSUpdate, (DWORD)&fifa_club_world_cup_update_c);
 	fifa_club_world_cup_vtable->SetPointer(VTablePlayoffQual, (DWORD)&fifa_club_world_cup_stages_create_c);
 	fifa_club_world_cup_vtable->SetPointer(VTableSetChampion, (DWORD)&fifa_club_world_cup_set_champion_c);
-	fifa_club_world_cup_vtable->SetPointer(VTable15, 0x48cab0);
+	fifa_club_world_cup_vtable->SetPointer(VTableClubLandmarks, 0x48cab0);
 	fifa_club_world_cup_vtable->SetPointer(VTableFixtures, (DWORD)&fifa_club_world_cup_fixture_caller);
 	fifa_club_world_cup_vtable->SetPointer(VTableTableFates, (DWORD)&fifa_club_world_cup_set_table_fate);
 	fifa_club_world_cup_vtable->SetPointer(VTableStageNews, 0x48C6D0);
 	fifa_club_world_cup_vtable->SetPointer(VTableReputationSetup, (DWORD)&fifa_club_world_cup_reputation_setup_c);
 	fifa_club_world_cup_vtable->SetPointer(VTableReputationCalc, (DWORD)&fifa_club_world_cup_reputation_calc_c);
 	fifa_club_world_cup_vtable->SetPointer(VTableSubsRounds, (DWORD)&fifa_club_world_cup_subs_c);
-	fifa_club_world_cup_vtable->SetPointer(VTable2, (DWORD)&cwc_583B10_c);
+	fifa_club_world_cup_vtable->SetPointer(VTablePostMatchUpdate, (DWORD)&cwc_583B10_c);
 	fifa_club_world_cup_vtable->SetPointer(VTableLeagueSplit, (DWORD)&fifa_club_world_cup_init2_c);
 	data->rules = 0xd;
 	data->f81 = 0xf;

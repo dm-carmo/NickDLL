@@ -18,6 +18,16 @@ enum CompetitionType : char {
 	NATION_INTERNATIONAL = 4
 };
 
+enum CompetitionTiebreakers : char {
+	NoTiebreaker = 0,
+	GoalDifferenceTiebreaker = 1,
+	GoalsForTiebreaker = 2,
+	GamesWonTiebreaker = 3,
+	CurrentPositionTiebreaker = 4,
+	GoalsForAwayTiebreaker = 5,
+	SpecialPlayoffTiebreaker = 6
+};
+
 enum RoundNames : WORD {
 	None = 0,
 	FirstRound = 0x0A,
@@ -672,7 +682,8 @@ typedef struct COMP_STATS
 	char tiebreaker_1;								//197
 	char tiebreaker_2;								//198
 	char tiebreaker_3;								//199
-	char pad200[17];								//200
+	char tiebreaker_4;								//200
+	char pad201[16];								//201
 	short f217;										//217
 	short f219;										//219
 	DWORD f221;										//221

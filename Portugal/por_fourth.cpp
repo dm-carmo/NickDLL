@@ -35,9 +35,9 @@ void por_fourth_subs(BYTE* _this)
 	comp_data->pts_for_draw = 1;
 	comp_data->f196 = 2;
 	comp_data->comp_type = CLUB_DOMESTIC;
-	comp_data->tiebreaker_1 = 4;
-	comp_data->tiebreaker_2 = 2;
-	comp_data->tiebreaker_3 = 1;
+	comp_data->tiebreaker_1 = CurrentPositionTiebreaker;
+	comp_data->tiebreaker_2 = GoalsForTiebreaker;
+	comp_data->tiebreaker_3 = GoalDifferenceTiebreaker;
 	comp_data->f82 = 2;
 	comp_data->promotions = 0;
 	comp_data->prom_playoff = 2;

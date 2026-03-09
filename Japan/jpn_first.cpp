@@ -17,9 +17,9 @@ void jpn_first_subs(BYTE* _this)
 	comp_data->pts_for_draw = 1;
 	comp_data->f196 = 2;
 	comp_data->comp_type = CLUB_DOMESTIC;
-	comp_data->tiebreaker_1 = 1;
-	comp_data->tiebreaker_2 = 2;
-	comp_data->tiebreaker_3 = 4;
+	comp_data->tiebreaker_1 = GoalDifferenceTiebreaker;
+	comp_data->tiebreaker_2 = GoalsForTiebreaker;
+	comp_data->tiebreaker_3 = CurrentPositionTiebreaker;
 	comp_data->promotions = 0;
 	comp_data->prom_playoff = 0;
 	comp_data->rele_playoff = 0;
@@ -487,7 +487,7 @@ void setup_jpn_first()
 	WriteVTablePtr(jpn_first_vtable, VTableFixtures, (DWORD)&jpn_first_fixtures_c);
 	WriteVTablePtr(jpn_first_vtable, VTableEoSUpdate, (DWORD)&jpn_first_update_c);
 	WriteVTablePtr(jpn_first_vtable, VTablePromRelUpdate, (DWORD)&jpn_first_prom_rel_update_c);
-	WriteVTablePtr(jpn_first_vtable, VTable2, (DWORD)0x685d30);
+	WriteVTablePtr(jpn_first_vtable, VTablePostMatchUpdate, (DWORD)0x685d30);
 	WriteVTablePtr(jpn_first_vtable, VTablePlayoffQual, (DWORD)0x5a8f60);
 	WriteVTablePtr(jpn_first_vtable, VTableSetChampion, (DWORD)0x684640);
 	WriteVTablePtr(jpn_first_vtable, VTableTableFates, (DWORD)0x686940);

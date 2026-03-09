@@ -94,14 +94,6 @@ int eng_fa_cup_teams(BYTE* _this) {
 	{
 		vec.push_back(club);
 	}
-	BYTE selected = get_country(NATION_ENGLAND_9CF())->NationLeagueSelected;
-	if ((selected & 4) == 0) {
-		division_clubs = find_clubs_of_comp(0x166);
-		for (cm3_clubs* club : division_clubs)
-		{
-			vec.push_back(club);
-		}
-	}
 	// National League
 	division_clubs = find_clubs_of_comp(ENG_CONFERENCE_9CF());
 	for (cm3_clubs* club : division_clubs)

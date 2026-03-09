@@ -636,7 +636,7 @@ void conmebol_sudamericana_group_stage_setup(BYTE* _this) {
 	DWORD* stages_arr = comp_data->stages;
 
 	BYTE prom_rel[4] = { 1, 1, 0, 0 };
-	BYTE tiebreaks[4] = { 4, 1, 2, 0 };
+	BYTE tiebreaks[4] = { GoalDifferenceTiebreaker, GoalsForTiebreaker, GoalsForAwayTiebreaker, NoTiebreaker };
 
 	vector<cm3_clubs*> clubs;
 	teams_seeded* teams = (teams_seeded*)comp_data->special_teams_seedings;
@@ -975,11 +975,11 @@ void conmebol_sudamericana_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 
 void setup_conmebol_sudamericana() {
 	WriteVTablePtr(conmebol_sudamericana_vtable, VTableInitFree, (DWORD)&conmebol_sudamericana_free_c);
-	WriteVTablePtr(conmebol_sudamericana_vtable, VTable2, (DWORD)&sudam_583B10_c);
+	WriteVTablePtr(conmebol_sudamericana_vtable, VTablePostMatchUpdate, (DWORD)&sudam_583B10_c);
 	WriteVTablePtr(conmebol_sudamericana_vtable, VTableEoSUpdate, (DWORD)&conmebol_sudamericana_update_c);
 	WriteVTablePtr(conmebol_sudamericana_vtable, VTablePlayoffQual, (DWORD)&conmebol_sudamericana_stages_create_c);
 	WriteVTablePtr(conmebol_sudamericana_vtable, VTableSetChampion, (DWORD)&conmebol_sudamericana_set_champion_c);
-	WriteVTablePtr(conmebol_sudamericana_vtable, VTable15, 0x48cab0); // review? -> 586fa0
+	WriteVTablePtr(conmebol_sudamericana_vtable, VTableClubLandmarks, 0x48cab0); // review? -> 586fa0
 	WriteVTablePtr(conmebol_sudamericana_vtable, VTableFixtures, (DWORD)&conmebol_sudamericana_fixture_caller);
 	WriteVTablePtr(conmebol_sudamericana_vtable, VTableTableFates, (DWORD)&conmebol_sudamericana_set_table_fate);
 	WriteVTablePtr(conmebol_sudamericana_vtable, VTableStageNews, 0x48C6D0); // review? -> 584550

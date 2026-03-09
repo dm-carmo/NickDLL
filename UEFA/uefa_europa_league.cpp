@@ -758,7 +758,7 @@ void uefa_europa_league_group_stage_setup(BYTE* _this) {
 	DWORD* stages_arr = comp_data->stages;
 
 	BYTE prom_rel[4] = { 2, 4, 0, 0 };
-	BYTE tiebreaks[4] = { 4, 1, 2, 0 };
+	BYTE tiebreaks[4] = { GoalDifferenceTiebreaker, GoalsForTiebreaker, GamesWonTiebreaker, NoTiebreaker };
 	teams_seeded* teams = (teams_seeded*)comp_data->special_teams_seedings;
 
 	comp_stats* ucl_data = (comp_stats*)get_loaded_league(UEFA_CHAMPIONS_LEAGUE_9CF());
@@ -916,6 +916,11 @@ void uefa_europa_league_final_stage_setup(BYTE* _this) {
 	comp_stats* comp_data = (comp_stats*)_this;
 	BYTE playoff_teams = 16;
 	DWORD* pTeams = (DWORD*)sub_944E46_malloc(playoff_teams * 4);
+	// fill in teams with 0 to avoid odd crashes
+	for (DWORD i = 0; i < playoff_teams; i++)
+	{
+		*((DWORD*)(&pTeams[i])) = 0;
+	}
 
 	comp_stats* curr_stage = comp_data;
 
@@ -1424,13 +1429,13 @@ void __declspec(naked) uel_48CAB0_c()		// used as a __thiscall -> __cdecl conver
 
 void setup_uefa_europa_league() {
 	WriteVTablePtr(uefa_europa_league_vtable, VTableInitFree, (DWORD)&uefa_europa_league_free_c);
-	WriteVTablePtr(uefa_europa_league_vtable, VTable2, (DWORD)&uel_583B10_c);
+	WriteVTablePtr(uefa_europa_league_vtable, VTablePostMatchUpdate, (DWORD)&uel_583B10_c);
 	WriteVTablePtr(uefa_europa_league_vtable, VTableEoSUpdate, (DWORD)&uefa_europa_league_update_c);
 	WriteVTablePtr(uefa_europa_league_vtable, VTable9, 0x48CEB0);
 	WriteVTablePtr(uefa_europa_league_vtable, VTable10, 0x48CEA0);
 	WriteVTablePtr(uefa_europa_league_vtable, VTablePlayoffQual, (DWORD)&uefa_europa_league_stages_create_c);
 	WriteVTablePtr(uefa_europa_league_vtable, VTableSetChampion, (DWORD)&uefa_europa_league_set_champion_c);
-	WriteVTablePtr(uefa_europa_league_vtable, VTable15, (DWORD)&uel_48CAB0_c);
+	WriteVTablePtr(uefa_europa_league_vtable, VTableClubLandmarks, (DWORD)&uel_48CAB0_c);
 	WriteVTablePtr(uefa_europa_league_vtable, VTableSubsRounds, 0x858e70);
 	WriteVTablePtr(uefa_europa_league_vtable, VTableFixtures, (DWORD)&uefa_europa_league_fixture_caller);
 	WriteVTablePtr(uefa_europa_league_vtable, VTableTableFates, (DWORD)&uefa_europa_league_set_table_fate);

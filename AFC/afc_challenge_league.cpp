@@ -562,7 +562,7 @@ void afc_challenge_league_group_stage_setup(BYTE* _this) {
 	DWORD* stages_arr = comp_data->stages;
 
 	BYTE prom_rel[4] = { 1, 0, 0, 0 };
-	BYTE tiebreaks[4] = { 4, 1, 2, 0 };
+	BYTE tiebreaks[4] = { CurrentPositionTiebreaker, GoalDifferenceTiebreaker, GoalsForTiebreaker, NoTiebreaker };
 
 	vector<cm3_clubs*> clubs;
 	teams_seeded* teams = (teams_seeded*)comp_data->special_teams_seedings;
@@ -827,7 +827,7 @@ void afc_challenge_league_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	afc_challenge_league_vtable->SetPointer(VTableEoSUpdate, (DWORD)&afc_challenge_league_update_c);
 	afc_challenge_league_vtable->SetPointer(VTablePlayoffQual, (DWORD)&afc_challenge_league_stages_create_c);
 	afc_challenge_league_vtable->SetPointer(VTableSetChampion, (DWORD)&afc_challenge_league_set_champion_c);
-	afc_challenge_league_vtable->SetPointer(VTable15, 0x48cab0);
+	afc_challenge_league_vtable->SetPointer(VTableClubLandmarks, 0x48cab0);
 	afc_challenge_league_vtable->SetPointer(VTableFixtures, (DWORD)&afc_challenge_league_fixture_caller);
 	afc_challenge_league_vtable->SetPointer(VTableTableFates, (DWORD)&afc_challenge_league_set_table_fate);
 	afc_challenge_league_vtable->SetPointer(VTableStageNews, 0x48C6D0);

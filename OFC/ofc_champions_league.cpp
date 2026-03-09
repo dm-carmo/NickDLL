@@ -124,9 +124,9 @@ void ofc_champions_league_subs(BYTE* _this)
 	comp_data->pts_for_draw = 1;
 	comp_data->f196 = 8;
 	comp_data->comp_type = CLUB_INTERNATIONAL;
-	comp_data->tiebreaker_1 = 1;
-	comp_data->tiebreaker_2 = 2;
-	comp_data->tiebreaker_3 = 4;
+	comp_data->tiebreaker_1 = CurrentPositionTiebreaker;
+	comp_data->tiebreaker_2 = GoalDifferenceTiebreaker;
+	comp_data->tiebreaker_3 = GoalsForTiebreaker;
 	comp_data->f82 = 3;
 
 	comp_data->promotions = 1;
@@ -301,7 +301,7 @@ void ofc_champions_league_group_stage_setup(BYTE* _this) {
 	}
 
 	BYTE prom_rel[4] = { 2, 0, 0, 0 };
-	BYTE tiebreaks[4] = { 1, 2, 4, 0 };
+	BYTE tiebreaks[4] = { CurrentPositionTiebreaker, GoalDifferenceTiebreaker, GoalsForTiebreaker, NoTiebreaker };
 
 	vector<cm3_clubs*> clubs;
 	teams_seeded* teams = (teams_seeded*)comp_data->special_teams_seedings;

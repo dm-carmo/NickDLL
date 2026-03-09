@@ -769,7 +769,7 @@ void uefa_champions_league_group_stage_setup(BYTE* _this) {
 	DWORD* stages_arr = comp_data->stages;
 
 	BYTE prom_rel[4] = { 2, 4, 0, 0 };
-	BYTE tiebreaks[4] = { 4, 1, 2, 0 };
+	BYTE tiebreaks[4] = { GoalDifferenceTiebreaker, GoalsForTiebreaker, GamesWonTiebreaker, NoTiebreaker };
 
 	vector<cm3_clubs*> clubs;
 	teams_seeded* teams = (teams_seeded*)comp_data->special_teams_seedings;
@@ -903,6 +903,11 @@ void uefa_champions_league_final_stage_setup(BYTE* _this) {
 	comp_stats* comp_data = (comp_stats*)_this;
 	BYTE playoff_teams = 16;
 	DWORD* pTeams = (DWORD*)sub_944E46_malloc(playoff_teams * 4);
+	// fill in teams with 0 to avoid odd crashes
+	for (DWORD i = 0; i < playoff_teams; i++)
+	{
+		*((DWORD*)(&pTeams[i])) = 0;
+	}
 
 	comp_stats* curr_stage = comp_data;
 
@@ -1427,11 +1432,11 @@ char sub_584550(BYTE* _this, int a2, char a3, char a4, int a5, int a6, __int16 a
 
 void setup_uefa_champions_league() {
 	WriteVTablePtr(uefa_champions_league_vtable, VTableInitFree, (DWORD)&uefa_champions_league_free_c);
-	WriteVTablePtr(uefa_champions_league_vtable, VTable2, (DWORD)&ucl_583B10_c);
+	WriteVTablePtr(uefa_champions_league_vtable, VTablePostMatchUpdate, (DWORD)&ucl_583B10_c);
 	WriteVTablePtr(uefa_champions_league_vtable, VTableEoSUpdate, (DWORD)&uefa_champions_league_update_c);
 	WriteVTablePtr(uefa_champions_league_vtable, VTablePlayoffQual, (DWORD)&uefa_champions_league_stages_create_c);
 	WriteVTablePtr(uefa_champions_league_vtable, VTableSetChampion, (DWORD)&uefa_champions_league_set_champion_c);
-	WriteVTablePtr(uefa_champions_league_vtable, VTable15, 0x48cab0); // review? -> 586fa0
+	WriteVTablePtr(uefa_champions_league_vtable, VTableClubLandmarks, 0x48cab0); // review? -> 586fa0
 	WriteVTablePtr(uefa_champions_league_vtable, VTableFixtures, (DWORD)&uefa_champions_league_fixture_caller);
 	WriteVTablePtr(uefa_champions_league_vtable, VTableTableFates, (DWORD)&uefa_champions_league_set_table_fate);
 	WriteVTablePtr(uefa_champions_league_vtable, VTableStageNews, 0x48C6D0); // review? -> 584550

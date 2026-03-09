@@ -70,9 +70,10 @@ void bra_reg_parana_subs(BYTE* _this)
 	comp_data->pts_for_draw = 1;
 	comp_data->f196 = 2;
 	comp_data->comp_type = CLUB_DOMESTIC;
-	comp_data->tiebreaker_1 = 3;
-	comp_data->tiebreaker_2 = 1;
-	comp_data->tiebreaker_3 = 0;
+	comp_data->tiebreaker_1 = GamesWonTiebreaker;
+	comp_data->tiebreaker_2 = GoalDifferenceTiebreaker;
+	comp_data->tiebreaker_3 = GoalsForTiebreaker;
+	comp_data->tiebreaker_4 = CurrentPositionTiebreaker;
 	comp_data->promotions = 0;
 	comp_data->prom_playoff = 8;
 	comp_data->rele_playoff = 0;
@@ -414,7 +415,7 @@ void bra_reg_parana_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 
 void setup_bra_reg_parana() {
 	WriteVTablePtr(bra_reg_parana_vtable, VTableSubsRounds, (DWORD)&bra_reg_parana_subs_c);
-	WriteVTablePtr(bra_reg_parana_vtable, VTable2, (DWORD)0x685d30);
+	WriteVTablePtr(bra_reg_parana_vtable, VTablePostMatchUpdate, (DWORD)0x685d30);
 	WriteVTablePtr(bra_reg_parana_vtable, VTableReputationSetup, (DWORD)0x68a850);
 	WriteVTablePtr(bra_reg_parana_vtable, VTableFixtures, (DWORD)&bra_reg_parana_fixtures_c);
 	WriteVTablePtr(bra_reg_parana_vtable, VTableEoSUpdate, (DWORD)&bra_reg_parana_update_c);

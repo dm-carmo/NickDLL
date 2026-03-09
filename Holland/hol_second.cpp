@@ -17,9 +17,9 @@ void hol_second_subs(BYTE* _this)
 	comp_data->pts_for_draw = 1;
 	comp_data->f196 = 2;
 	comp_data->comp_type = CLUB_DOMESTIC;
-	comp_data->tiebreaker_1 = 1;
-	comp_data->tiebreaker_2 = 2;
-	comp_data->tiebreaker_3 = 0;
+	comp_data->tiebreaker_1 = GoalDifferenceTiebreaker;
+	comp_data->tiebreaker_2 = GoalsForTiebreaker;
+	comp_data->tiebreaker_3 = NoTiebreaker;
 	comp_data->promotions = 2;
 	comp_data->prom_playoff = 0;
 	comp_data->rele_playoff = 0;
@@ -661,7 +661,7 @@ void __declspec(naked) hol_second_set_table_fate()		// used as a __thiscall -> _
 void setup_hol_second()
 {
 	WriteVTablePtr(hol_second_vtable, VTableSubsRounds, (DWORD)&hol_second_subs_c);
-	WriteVTablePtr(hol_second_vtable, VTable2, (DWORD)&hol_second_vtable2_c);
+	WriteVTablePtr(hol_second_vtable, VTablePostMatchUpdate, (DWORD)&hol_second_vtable2_c);
 	WriteVTablePtr(hol_second_vtable, VTableEoSUpdate, (DWORD)&hol_second_update_c);
 	WriteVTablePtr(hol_second_vtable, VTableFixtures, (DWORD)&hol_second_fixtures_c);
 	WriteVTablePtr(hol_second_vtable, VTableReputationCalc, (DWORD)&hol_second_reputation_calc_c);

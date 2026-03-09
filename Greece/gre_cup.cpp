@@ -257,7 +257,7 @@ void gre_cup_group_stage_setup(BYTE* _this) {
 	DWORD* stages_arr = comp_data->stages;
 
 	BYTE prom_rel[4] = { 1, 2, 0, 0 };
-	BYTE tiebreaks[4] = { 1, 2, 3, 0 };
+	BYTE tiebreaks[4] = { GoalDifferenceTiebreaker, GoalsForTiebreaker, GamesWonTiebreaker, NoTiebreaker };
 
 	vector<cm3_clubs*> clubs;
 	for (WORD i = 0; i < 26; i++) {
@@ -654,7 +654,7 @@ void setup_gre_cup()
 	WriteVTablePtr(gre_cup_vtable, VTableReputationSetup, (DWORD)&gre_cup_reputation_setup_c);
 	WriteVTablePtr(gre_cup_vtable, VTableReputationCalc, (DWORD)&gre_cup_reputation_calc_c);
 	WriteVTablePtr(gre_cup_vtable, VTableSubsRounds, 0x858e70);
-	WriteVTablePtr(gre_cup_vtable, VTable2, 0x51A150);
+	WriteVTablePtr(gre_cup_vtable, VTablePostMatchUpdate, 0x51A150);
 	WriteVTablePtr(gre_cup_vtable, VTable5, 0x521E00);
 	WriteVTablePtr(gre_cup_vtable, VTableLeagueSplit, 0x51F890);
 	WriteVTablePtr(gre_cup_vtable, VTable7, 0x51FC00);

@@ -528,6 +528,9 @@
     <ClCompile Include="England\eng_league_cup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="England\eng_league_trophy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -1056,6 +1059,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="England\eng_league_cup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="England\eng_league_trophy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

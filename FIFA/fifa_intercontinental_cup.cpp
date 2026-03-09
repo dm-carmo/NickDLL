@@ -469,6 +469,7 @@ void __declspec(naked) fifa_intercontinental_cup_set_table_fate()		// used as a 
 
 char fifa_intercontinental_cup_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
+	dprintf("updating %s...\n", data->competition_db->ClubCompName);
 	BYTE* ebx = 0;
 	data->f76 = 0;
 	if (data->fixtures_table) {
