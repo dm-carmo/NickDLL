@@ -192,13 +192,14 @@ char gre_cup_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
 	data->f76 = 0;
-	if (data->fixtures_table) {
-		sub_9452CA_free(data->fixtures_table);
-		data->fixtures_table = 0;
-	}
 	if (data->teams_list) {
 		sub_9452CA_free(data->teams_list);
 		data->teams_list = 0;
+	}
+	if (data->special_teams_seedings) {
+		sub_9452CA_free(data->special_teams_seedings);
+		data->special_nteams_seedings = 0;
+		data->special_teams_seedings = 0;
 	}
 	if (data->rounds_list) {
 		sub_9452CA_free(data->rounds_list);
@@ -215,7 +216,6 @@ char gre_cup_update(BYTE* _this) {
 		sub_9452CA_free(data->f173);
 		data->f173 = 0;
 	}
-	if (data->f8) sub_4A1C50((BYTE*)(data->f8), 1);
 	long current = data->current_stage;
 	if (current >= 0) {
 		for (long i = 0; i <= current; i++) {

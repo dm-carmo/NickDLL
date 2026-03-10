@@ -224,10 +224,32 @@ int comp_colours_in_header(BYTE* club_comp, WORD* fg_titlebar, WORD* bg_titlebar
 	else return 0;
 }
 
+char* minor_premier = "  Minor Premiers";
+void __declspec(naked) aus_minor_premier_in_history()
+{
+	__asm
+	{
+		push esi
+		mov esi, dword ptr ds : [esi + 4]
+		mov esi, dword ptr ds : [esi]
+		cmp esi, dword ptr ds : [0x9CF89C]
+		pop esi
+		jnz not_australia
+		push minor_premier
+		jmp exit_func
+		not_australia :
+		push 0x990B6C
+			exit_func :
+			push 0x46B723
+			ret
+	}
+}
+
 void setup_misc_functions()
 {
 	if (configFile.GetBool("competitionColoursPatch", true)) PatchFunction(0x53b7c0, (DWORD)&comp_colours_in_header);
 	PatchFunction(0x669f50, (DWORD)&show_extra_leagues_in_start);
+	PatchFunction(0x46B71E, (DWORD)&aus_minor_premier_in_history);
 
 	// Move August 30's international friendlies forward one week
 	for (DWORD d : friendly_aug_30plus4) {

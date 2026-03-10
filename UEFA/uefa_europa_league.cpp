@@ -108,19 +108,19 @@ DWORD uefa_europa_league_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds,
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 6, 28), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 10), year, Thursday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, FirstQualifyingPhase, 4, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 12, 6, 12, 0, 0, 2, 7, 0, 0, 78750);
+		FillFixtureDetails(pMem, fixture_id++, FirstQualifyingPhase, 4, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 12, 6, 12, 0, 0, 2, 7, 0, 0, 151489);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 6, 29), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 24), year, Thursday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SecondQualifyingPhase, 4, FixedTeamOrderInCup3 + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 18, 9, 12, 12, 0, 2, 7, 0, 0, 78750);
+		FillFixtureDetails(pMem, fixture_id++, SecondQualifyingPhase, 4, FixedTeamOrderInCup3 + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 18, 9, 12, 12, 0, 2, 7, 0, 0, 151489);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 21), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 7), year, Thursday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, ThirdQualifyingPhase, 4, FixedTeamOrderInCup3 + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 14, 7, 5, 24, 0, 2, 7, 0, 0, 78750);
+		FillFixtureDetails(pMem, fixture_id++, ThirdQualifyingPhase, 4, FixedTeamOrderInCup3 + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 14, 7, 5, 24, 0, 2, 7, 0, 0, 151489);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 4), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 21), year, Thursday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, Playoff, 4, FixedTeamOrderInCup3 + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 24, 12, 17, 29, 0, 2, 7, 0, 0, 78750);
+		FillFixtureDetails(pMem, fixture_id++, Playoff, 4, FixedTeamOrderInCup3 + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 24, 12, 17, 29, 0, 2, 7, 0, 0, 151489);
 
 		return (DWORD)pMem;
 	}
@@ -137,7 +137,7 @@ DWORD uefa_europa_league_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds,
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 21), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 7), year, Thursday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, ThirdQualifyingPhase, 4, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 12, 6, 12, 0, 0, 2, 7, 0, 0, 78750);
+		FillFixtureDetails(pMem, fixture_id++, ThirdQualifyingPhase, 4, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 12, 6, 12, 0, 0, 2, 7, 0, 0, 151489);
 
 		return (DWORD)pMem;
 	}
@@ -183,7 +183,7 @@ DWORD uefa_europa_league_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds,
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 1, 30), year, Friday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 2, 19), year, Thursday, Evening);
 		AddPlayoffTVFixture(pMem, fixture_id, 0);
-		FillFixtureDetails(pMem, fixture_id++, TenthRound, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 16, 8, 16, 0, 0, 2, 7, 135000);
+		FillFixtureDetails(pMem, fixture_id++, TenthRound, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 16, 8, 16, 0, 0, 2, 7, 259695);
 
 		return (DWORD)pMem;
 	}
@@ -202,22 +202,22 @@ DWORD uefa_europa_league_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds,
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 2, 27), year, Friday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 12), year, Thursday, Evening);
 		AddPlayoffTVFixture(pMem, fixture_id, 0);
-		FillFixtureDetails(pMem, fixture_id++, EleventhRound, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 16, 8, 16, 0, 0, 2, 7, 787500);
+		FillFixtureDetails(pMem, fixture_id++, EleventhRound, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 16, 8, 16, 0, 0, 2, 7, 1514888);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 19), year, Friday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 9), year, Thursday, Evening);
 		AddPlayoffTVFixture(pMem, fixture_id, 0);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 8, 4, 0, 0, 0, 2, 7, 1125000);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 8, 4, 0, 0, 0, 2, 7, 2164125);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 4, 17), year, Friday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 30), year, Thursday, Evening);
 		AddPlayoffTVFixture(pMem, fixture_id, 0);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 4, 2, 0, 0, 0, 2, 7, 1890000);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 4, 2, 0, 0, 0, 2, 7, 3635730);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 8), year, Friday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 20), year, Wednesday, Evening, NationalStadium);
 		AddPlayoffTVFixture(pMem, fixture_id, 0);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 8, 2, 1, 0, 0, 0, 1, 0, 0, 5850000, 3150000);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 8, 2, 1, 0, 0, 0, 1, 0, 0, 11253450, 6059550);
 
 		return (DWORD)pMem;
 	}
@@ -552,18 +552,18 @@ int uel_583B10(BYTE* _this, BYTE* a2, int a3) {
 	if (bl > 0 && bl < 5) {
 		if (club_check) {
 			int ret = sub_5A0590(ae2a38_ptr, (BYTE*)club_check);
-			add_to_income_prize_money_5999A0((BYTE*)ret, 202500);
-			add_money_to_club_from_comp_48E3E0(_this, (BYTE*)club_check, 202500, 0, -1, 0, a2, -2);
+			AddToClubIncome((BYTE*)ret, 389543);
+			AddMoneyFromComp(_this, (BYTE*)club_check, 389543, 0, -1, 0, a2, -2);
 		}
 		else {
 			cm3_clubs* club1 = (cm3_clubs*)*(DWORD*)(a2 + 0x1c);
 			int ret = sub_5A0590(ae2a38_ptr, (BYTE*)club1);
-			add_to_income_prize_money_5999A0((BYTE*)ret, 67500);
+			AddToClubIncome((BYTE*)ret, 129848);
 			cm3_clubs* club2 = (cm3_clubs*)*(DWORD*)(a2 + 0x20);
 			ret = sub_5A0590(ae2a38_ptr, (BYTE*)club2);
-			add_to_income_prize_money_5999A0((BYTE*)ret, 67500);
-			add_money_to_club_from_comp_48E3E0(_this, (BYTE*)club1, 67500, 0, -1, 0, a2, -2);
-			add_money_to_club_from_comp_48E3E0(_this, (BYTE*)club2, 67500, 0, -1, 0, a2, -2);
+			AddToClubIncome((BYTE*)ret, 129848);
+			AddMoneyFromComp(_this, (BYTE*)club1, 129848, 0, -1, 0, a2, -2);
+			AddMoneyFromComp(_this, (BYTE*)club2, 129848, 0, -1, 0, a2, -2);
 		}
 	}
 	return sub_51A150(_this, a2, a3);
@@ -650,12 +650,13 @@ char uefa_europa_league_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
 	data->f76 = 0;
-	if (data->fixtures_table) {
-		sub_9452CA_free(data->fixtures_table);
-		data->fixtures_table = 0;
+	if (data->teams_list) {
+		sub_9452CA_free(data->teams_list);
+		data->teams_list = 0;
 	}
 	if (data->special_teams_seedings) {
 		sub_9452CA_free(data->special_teams_seedings);
+		data->special_nteams_seedings = 0;
 		data->special_teams_seedings = 0;
 	}
 	if (data->rounds_list) {
@@ -819,8 +820,8 @@ void uefa_europa_league_group_stage_setup(BYTE* _this) {
 			cm3_clubs* club = clubs[i + 4 * j];
 			*((DWORD*)(&pTeams[j])) = (DWORD)club;
 			int ret = sub_5A0590(ae2a38_ptr, (BYTE*)club);
-			add_to_income_prize_money_5999A0((BYTE*)ret, 1940000);
-			add_money_to_club_from_comp_48E3E0(_this, (BYTE*)club, 1940000, 0, -1, GroupStage, 0, -2);
+			AddToClubIncome((BYTE*)ret, 3730952);
+			AddMoneyFromComp(_this, (BYTE*)club, 3730952, 0, -1, GroupStage, 0, -2);
 		}
 
 		WORD year = comp_data->year;
@@ -873,8 +874,8 @@ void uefa_europa_league_playoff_stage_setup(BYTE* _this) {
 		if (club)
 		{
 			int ret = sub_5A0590(ae2a38_ptr, (BYTE*)club);
-			add_to_income_prize_money_5999A0((BYTE*)ret, 135000);
-			add_money_to_club_from_comp_48E3E0(_this, (BYTE*)club, 135000, 0, -1, TenthRound, 0, -2);
+			AddToClubIncome((BYTE*)ret, 259695);
+			AddMoneyFromComp(_this, (BYTE*)club, 259695, 0, -1, TenthRound, 0, -2);
 		}
 	}
 
@@ -944,8 +945,8 @@ void uefa_europa_league_final_stage_setup(BYTE* _this) {
 		if (club)
 		{
 			int ret = sub_5A0590(ae2a38_ptr, (BYTE*)club);
-			add_to_income_prize_money_5999A0((BYTE*)ret, 270000);
-			add_money_to_club_from_comp_48E3E0(_this, (BYTE*)club, 270000, 0, -1, EleventhRound, 0, -2);
+			AddToClubIncome((BYTE*)ret, 519390);
+			AddMoneyFromComp(_this, (BYTE*)club, 519390, 0, -1, EleventhRound, 0, -2);
 			sub_9058B0((BYTE*)*uefa_seeding_list, (BYTE*)(club->ClubNation), 2);
 		}
 	}

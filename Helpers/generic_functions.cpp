@@ -3,7 +3,7 @@
 #include "Structures\CMHeader.h"
 #include "Helper.h"
 #include "constants.h"
-
+#include <currency.h>
 
 // Generic function that will add teams to a league competition
 int AddTeams(BYTE* _this)
@@ -72,7 +72,7 @@ int AddTeamsGroupLeague(BYTE* _this, DWORD first_group_id)
 	return 1;
 }
 
-typedef BYTE*(__thiscall*league_init_typedef)(BYTE* _this, __int16 a2, cm3_club_comps* a3);
+typedef BYTE* (__thiscall* league_init_typedef)(BYTE* _this, __int16 a2, cm3_club_comps* a3);
 void AddLeague(BYTE* _this, const char* szLeagueName, int leagueNo, int year, DWORD league_init_addr)
 {
 	dprintf("Adding (This: %08X) league %s at slot %d for year %d (calling init addr: %08X).\n", (DWORD)_this, szLeagueName, leagueNo, (short)year, league_init_addr);
@@ -127,8 +127,8 @@ void AddPlayoffDrawFixture(BYTE* pMem, int fixture, Date date, int startYear, Da
 }
 
 // Fills in details for cup/playoff fixtures, based on this information: https://champman0102.net/viewtopic.php?p=16076#p16076
-void FillFixtureDetails(BYTE* pMem, int fixture, WORD stage_name, WORD draw_type, WORD game_1_tiebreak, WORD game_2_tiebreak, BYTE unk17, WORD teams_in_round, 
-	WORD num_games, WORD new_teams_in_round, WORD total_teams_in, BYTE replays, BYTE legs, BYTE days_between_games, 
+void FillFixtureDetails(BYTE* pMem, int fixture, WORD stage_name, WORD draw_type, WORD game_1_tiebreak, WORD game_2_tiebreak, BYTE unk17, WORD teams_in_round,
+	WORD num_games, WORD new_teams_in_round, WORD total_teams_in, BYTE replays, BYTE legs, BYTE days_between_games,
 	DWORD prize_reach, DWORD prize_win, DWORD prize_lose, WORD game_3_tiebreak)
 {
 	*(WORD*)(pMem + (fixture * playoff_dates_sz) + 0x7) = stage_name;
@@ -145,11 +145,27 @@ void FillFixtureDetails(BYTE* pMem, int fixture, WORD stage_name, WORD draw_type
 	*(BYTE*)(pMem + (fixture * playoff_dates_sz) + 0x20) = replays;
 	*(BYTE*)(pMem + (fixture * playoff_dates_sz) + 0x21) = legs;
 	*(BYTE*)(pMem + (fixture * playoff_dates_sz) + 0x22) = days_between_games;
-	*(DWORD*)(pMem + (fixture * playoff_dates_sz) + 0x5C) = prize_reach;
-	*(DWORD*)(pMem + (fixture * playoff_dates_sz) + 0x60) = prize_win;
-	*(DWORD*)(pMem + (fixture * playoff_dates_sz) + 0x64) = prize_lose;
+	*(DWORD*)(pMem + (fixture * playoff_dates_sz) + 0x5C) = (DWORD)(prize_reach / inflation_mult);
+	*(DWORD*)(pMem + (fixture * playoff_dates_sz) + 0x60) = (DWORD)(prize_win / inflation_mult);
+	*(DWORD*)(pMem + (fixture * playoff_dates_sz) + 0x64) = (DWORD)(prize_lose / inflation_mult);
 }
 
 void WriteVTablePtr(DWORD* addr, int pos, DWORD data) {
 	WriteDWORD((DWORD)addr + 4 * (pos - 1), data);
+}
+
+int SetupPrizeMoney(BYTE* _this, int base_amount) {
+	return add_prize_money_682F70(_this, (int)(base_amount / inflation_mult));
+}
+
+int SetupTVMoney(BYTE* _this, int amount, cm3_club_comps* last_division) {
+	return add_tv_money_683010(_this, (int)(amount / inflation_mult), last_division);
+}
+
+int AddMoneyFromComp(BYTE* _this, BYTE* club, int money, int a4, char position, WORD stage_name_idx, BYTE* a7, char a8) {
+	return add_money_to_club_from_comp_48E3E0(_this, club, (int)(money / inflation_mult), a4, position, stage_name_idx, a7, a8);
+}
+
+int AddToClubIncome(BYTE* _this, int money) {
+	return add_to_income_prize_money_5999A0(_this, (int)(money / inflation_mult));
 }

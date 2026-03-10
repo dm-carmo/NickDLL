@@ -211,7 +211,7 @@ int usa_mls_add_teams(BYTE* _this)
 		cm3_clubs* club = (cm3_clubs*)(comp_data->teams2[i]);
 		add_team_call(_this, teamsAdded++, club, 0, 0);
 	}
-	add_tv_money_683010(_this, 1620000, 0);
+	SetupTVMoney(_this, 2679368, 0);
 	return 1;
 }
 
@@ -234,7 +234,7 @@ void usa_mls_setup_groups(BYTE* _this, BYTE idx) {
 	create_league_stage_data(pStage, _this, data->n_teams, pTeams, 2, (DWORD)(data->competition_db), pFixtures, num_rounds,
 		data->pts_for_win, data->pts_for_draw, data->f196, (BYTE*)(_this + 0xC5), (BYTE*)(_this + 0xBE),
 		year, idx, stage_name_id, data->f81, 1, 0, data->f217, -1, 0, 2);
-	add_tv_money_683010(pStage, 1620000, 0);
+	SetupTVMoney(pStage, 2679368, 0);
 	DWORD* stages_arr = data->stages;
 	*((DWORD*)(&stages_arr[idx])) = (DWORD)pStage;
 	sub_9452CA_free(pTeams);

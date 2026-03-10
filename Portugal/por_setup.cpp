@@ -285,4 +285,9 @@ void portugal_restructure() {
 		club->ClubDivision = por_fourth;
 		club->ClubReserveDivision = por_fourth_d;
 	}
+
+	cm3_club_comps* por_league_cup = get_comp(POR_LEAGUE_CUP_9CF());
+	por_league_cup->ClubCompNation = get_country(NATION_PORTUGAL_9CF());
+	por_league_cup->ClubCompContinent = find_continent("Europe");
+	por_league_cup->ClubCompReputation = 7;
 }

@@ -22,27 +22,27 @@ DWORD cro_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 3), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 27), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, PreliminaryRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 32, 16, 32, 0, 0, 1, 0, 675, 0, 0);
+		FillFixtureDetails(pMem, fixture_id++, PreliminaryRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 32, 16, 32, 0, 0, 1, 0, 1298);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 28), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 10), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 32, 16, 16, 32, 0, 1, 0, 900, 0, 0);
+		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 32, 16, 16, 32, 0, 1, 0, 1730);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 11), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 29), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SecondRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 16, 8, 0, 0, 0, 1, 0, 1125, 0, 0);
+		FillFixtureDetails(pMem, fixture_id++, SecondRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 16, 8, 0, 0, 0, 1, 0, 2163);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 30), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 4), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 8, 4, 0, 0, 0, 1, 0, 1350, 0, 0);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 8, 4, 0, 0, 0, 1, 0, 2595);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 5), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 8), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 4, 2, 0, 0, 0, 1, 0, 2700, 0, 0);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 4, 2, 0, 0, 0, 1, 0, 5191);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 4, 9), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 13), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, NoTiebreak_1, AwayGoalsExtraTimePenalties_2, 6, 2, 1, 0, 0, 0, 2, 7, 0, 9000, 4500);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, NoTiebreak_1, AwayGoalsExtraTimePenalties_2, 6, 2, 1, 0, 0, 0, 2, 7, 0, 17303, 8652);
 
 		return (DWORD)pMem;
 	}
@@ -76,7 +76,7 @@ int cro_cup_teams(BYTE* _this) {
 
 	teams_seeded* teams = (teams_seeded*)comp_data->teams_list;
 
-	vector<DWORD> non_league_9cf = {CRO_FOURTH_CENTRAL_9CF(), CRO_FOURTH_NORTH_9CF(), CRO_FOURTH_SOUTH_9CF(), CRO_FOURTH_EAST_9CF(), CRO_FOURTH_WEST_9CF()};
+	vector<DWORD> non_league_9cf = { CRO_FOURTH_CENTRAL_9CF(), CRO_FOURTH_NORTH_9CF(), CRO_FOURTH_SOUTH_9CF(), CRO_FOURTH_EAST_9CF(), CRO_FOURTH_WEST_9CF() };
 	for (size_t i = 0; i < non_league_9cf.size(); i++) {
 		vector<cm3_clubs*> club_list = find_clubs_of_comp(non_league_9cf[i]);
 		sort(club_list.begin(), club_list.end(), compareClubRep);

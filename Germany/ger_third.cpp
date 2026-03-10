@@ -367,7 +367,7 @@ char ger_third_update(BYTE* _this) {
 	data->current_stage = -1;
 	ger_third_subs(_this);
 	AddTeams(_this);
-	add_tv_money_683010(_this, 530550, 0);
+	SetupTVMoney(_this, 1019953, 0);
 	ger_third_block_promotion(_this);
 	sub_6835C0(_this);
 	BYTE* edx = 0;
@@ -457,7 +457,7 @@ void ger_third_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->num_stages = 0;
 	ger_third_subs(_this);
 	AddTeams(_this);
-	add_tv_money_683010(_this, 530550, 0);
+	SetupTVMoney(_this, 1019953, 0);
 	ger_third_block_promotion(_this);
 	sub_6835C0(_this);
 	BYTE* ebx = 0;

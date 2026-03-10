@@ -308,7 +308,7 @@ char bra_reg_minas_update(BYTE* _this) {
 	data->current_stage = -1;
 	bra_reg_minas_subs(_this);
 	AddTeamsReserveDivision(_this);
-	add_tv_money_683010(_this, 74250, 0);
+	SetupTVMoney(_this, 144267, 0);
 	sub_6835C0(_this);
 	BYTE* edx = 0;
 	sub_6827D0(_this, edx);
@@ -397,7 +397,7 @@ void bra_reg_minas_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
 	bra_reg_minas_subs(_this);
 	AddTeamsReserveDivision(_this);
-	add_tv_money_683010(_this, 74250, 0);
+	SetupTVMoney(_this, 144267, 0);
 	sub_6835C0(_this);
 	BYTE* ebx = 0;
 	sub_6827D0(_this, ebx);

@@ -29,6 +29,8 @@ static void  (*sub_9452CA_free)(void* ptr) = (void(*)(void* ptr))(0x9452CA);
 static void  (*sub_944C94_free)(void* ptr) = (void(*)(void* ptr))(0x944C94);
 static char  (*sub_669340)(int a1) = (char(*)(int a1))(0x669340);
 static int   (*sub_66F4E0)(DWORD dest_ptr, DWORD src_ptr, ...) = (int(*)(DWORD dest_ptr, DWORD src_ptr, ...))(0x66F4E0);
+static char* (*sub_4AFCE0_add_history_entry)(BYTE* _this, cm3_clubs* first, cm3_clubs* second, cm3_clubs* third, cm3_clubs* host) =
+(char* (*)(BYTE * _this, cm3_clubs * first, cm3_clubs * second, cm3_clubs * third, cm3_clubs * host))(0x4AFCE0);
 
 static int(__thiscall* add_team_call)(BYTE* _this, BYTE teamNo, cm3_clubs* club, BYTE a3, DWORD* a4) =
 (int(__thiscall*)(BYTE * _this, BYTE teamNo, cm3_clubs * club, BYTE a3, DWORD * a4))(0x687430);
@@ -38,13 +40,13 @@ static BYTE* (__thiscall* create_cup_stage_data)(BYTE* _this, BYTE* main_comp, _
 	__int16 year, char stage_num, char a10, __int16 stage_name_id, char a12, int a13, int a14, int a15, BYTE* a16) =
 	(BYTE * (__thiscall*)(BYTE * _this, BYTE * main_comp, __int16 n_teams, DWORD * teamsPtr, __int16 n_rounds, int comp_id, const void* fixturesPtr,
 		__int16 year, char stage_num, char a10, __int16 stage_name_id, char a12, int a13, int a14, int a15, BYTE * a16))(0x522E00);
-
 static BYTE* (__thiscall* create_league_stage_data)(BYTE* _this, BYTE* main_comp, __int16 n_teams, DWORD* teamsPtr, __int16 n_rounds, int comp_id, const void* fixturesPtr,
 	__int16 num_fixtures, char pts_for_win, char pts_for_draw, char a11, BYTE* tiebreaks_addr, BYTE* prom_rel_addr, __int16 year, char stage_num,
 	__int16 stage_name_id, char a17, char a18, __int16 a19, __int16 a20, __int16 a21, int a22, char a23) =
 	(BYTE * (__thiscall*)(BYTE * _this, BYTE * main_comp, __int16 n_teams, DWORD * teamsPtr, __int16 n_rounds, int comp_id, const void* fixturesPtr,
 		__int16 num_fixtures, char pts_for_win, char pts_for_draw, char a11, BYTE * tiebreaks_addr, BYTE * prom_rel_addr, __int16 year, char stage_num,
 		__int16 stage_name_id, char a17, char a18, __int16 a19, __int16 a20, __int16 a21, int a22, char a23))(0x68B100);
+
 static void(__thiscall* sub_4A2540)(BYTE* _this, cm3_clubs* club, char a3) =
 (void(__thiscall*)(BYTE * _this, cm3_clubs * club, char a3))(0x4A2540);
 static char(__thiscall* sub_51F890)(BYTE* _this, DWORD current_date, int a3) =
@@ -191,3 +193,7 @@ void FillFixtureDetails(BYTE* pMem, int fixture, WORD stage_name, WORD draw_type
 	BYTE unk17, WORD teams_in_round, WORD num_games, WORD new_teams_in_round, WORD total_teams_in, BYTE replays, BYTE legs, BYTE days_between_games,
 	DWORD prize_reach = 0, DWORD prize_win = 0, DWORD prize_lose = 0, WORD game_3_tiebreak = 0);
 void WriteVTablePtr(DWORD* addr, int pos, DWORD data);
+int SetupPrizeMoney(BYTE* _this, int base_amount);
+int SetupTVMoney(BYTE* _this, int amount, cm3_club_comps* last_division);
+int AddMoneyFromComp(BYTE* _this, BYTE* club, int money, int a4, char position, WORD stage_name_idx, BYTE* a7, char a8);
+int AddToClubIncome(BYTE* _this, int money);

@@ -46,7 +46,7 @@ DWORD usa_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 18), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 1), year, Wednesday, Evening, NationalStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0, 0, 135000, 45000);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0, 0, 446561, 186067);
 
 		return (DWORD)pMem;
 	}

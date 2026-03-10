@@ -53,6 +53,10 @@ map<string, char*> leagues_rename_long = {
 	{"Korean Super Cup", "K League Super Cup"},
 };
 
+map<string, char*> leagues_rename_long_australia = {
+	{"Hong Kong Viceroy Cup", "Australia Cup"},
+};
+
 map<string, char*> leagues_rename_long_brazil = {
 	{"Brazilian Campeonato Série A", "Campeonato Brasileiro Série A"},
 	{"Brazilian Campeonato Série B", "Campeonato Brasileiro Série B"},
@@ -156,6 +160,10 @@ map<string, char*> leagues_rename_short = {
 	{"Coppa Italia Serie C", "Coppa Serie C"},
 	{"Supercoppa Serie C", "Supercoppa Serie C"},
 	{"Korean FA Cup", "Korea Cup"},
+};
+
+map<string, char*> leagues_rename_short_australia = {
+	{"Hong Kong Viceroy Cup", "Australia Cup"},
 };
 
 map<string, char*> leagues_rename_short_brazil = {
@@ -2075,6 +2083,11 @@ void setup_name_injection()
 	PatchFunction(0x6146B0, (DWORD)setup_9cf_clubs);
 
 	PatchFunction(0x540A50, (DWORD)check_if_reserve_team_new);
+
+	if (configFile.GetBool("applyAustralia", true)) {
+		leagues_rename_long.insert(leagues_rename_long_australia.begin(), leagues_rename_long_australia.end());
+		leagues_rename_short.insert(leagues_rename_short_australia.begin(), leagues_rename_short_australia.end());
+	}
 
 	if (configFile.GetBool("applyBrazil", true)) {
 		leagues_rename_long.insert(leagues_rename_long_brazil.begin(), leagues_rename_long_brazil.end());

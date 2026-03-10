@@ -531,6 +531,18 @@
     <ClCompile Include="England\eng_league_trophy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Australia\aus_setup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Australia\aus_league.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Australia\aus_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="currency.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -1062,6 +1074,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="England\eng_league_trophy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Australia\aus_setup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Australia\aus_league.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Australia\aus_cup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="currency.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

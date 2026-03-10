@@ -202,13 +202,6 @@ void __declspec(naked) por_league_cup_fixture_caller()		// used as a __thiscall 
 	}
 }
 
-void por_league_cup_rename(BYTE* _this) {
-	comp_stats* data = (comp_stats*)_this;
-	data->competition_db->ClubCompNation = get_country(NATION_PORTUGAL_9CF());
-	data->competition_db->ClubCompContinent = find_continent("Europe");
-	data->competition_db->ClubCompReputation = 7;
-}
-
 void por_league_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 {
 	sub_518640(_this);
@@ -230,7 +223,8 @@ void por_league_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	*((BYTE*)(_this + 0xB1)) = 0;;
 	int loaded = sub_51FC00(_this, 1);
 	if (loaded) return;
-	if (year == 2025) por_league_cup_rename(_this);
+	comp->ClubCompBackgroundColour = get_colour(COLOUR_BLUE_2_9CF());
+	comp->ClubCompForegroundColour = get_colour(COLOUR_GREY_2_9CF());
 	por_league_cup_teams(_this);
 	DWORD v1 = *(DWORD*)_this;
 	*((DWORD*)(_this + 0xA3)) = (DWORD)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0x3c, _this + 0x3a, 0);

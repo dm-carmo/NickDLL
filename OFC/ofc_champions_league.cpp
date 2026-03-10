@@ -69,11 +69,11 @@ DWORD ofc_champions_league_fixtures(BYTE* _this, char stage_idx, WORD* num_round
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 4, 7), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 4, 9), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 8, 4, 2, 4, 0, 0, 1, 0, 0, 0, 11250);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 8, 4, 2, 4, 0, 0, 1, 0, 0, 0, 11048);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 4, 10), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 4, 12), year, Saturday, Evening, NationalStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 8, 2, 1, 0, 0, 0, 1, 0, 0, 33750, 22500);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 8, 2, 1, 0, 0, 0, 1, 0, 0, 33145, 22096);
 
 		return (DWORD)pMem;
 	}

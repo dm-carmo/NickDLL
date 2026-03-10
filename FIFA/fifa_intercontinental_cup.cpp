@@ -110,11 +110,11 @@ DWORD fifa_intercontinental_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 9), year, Tuesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 14), year, Sunday, Evening, LargestStadium3);
 		AddPlayoffTVFixture(pMem, fixture_id, 0);
-		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 2, 0, 0, 1, 0, 0, 0, 450000);
+		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 2, 0, 0, 1, 0, 0, 0, 742721);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 15), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 23), year, Tuesday, Evening, LargestStadium2);
-		FillFixtureDetails(pMem, fixture_id++, SecondRound, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 1, 2, 0, 1, 0, 0, 0, 675000);
+		FillFixtureDetails(pMem, fixture_id++, SecondRound, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 1, 2, 0, 1, 0, 0, 0, 1114082);
 
 		return (DWORD)pMem;
 	}
@@ -133,15 +133,15 @@ DWORD fifa_intercontinental_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 3), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 10), year, Wednesday, Evening, LargestStadium2);
 		AddPlayoffTVFixture(pMem, fixture_id, 0);
-		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 2, 0, 0, 1, 0, 0, 0, 900000);
+		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 2, 0, 0, 1, 0, 0, 0, 1485442);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 11), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 13), year, Saturday, Evening, LargestStadium1);
-		FillFixtureDetails(pMem, fixture_id++, Playoff, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 1, 2, 0, 1, 0, 0, 0, 1125000);
+		FillFixtureDetails(pMem, fixture_id++, Playoff, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 1, 2, 0, 1, 0, 0, 0, 2228163);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 14), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 17), year, Wednesday, Evening, NationalStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 1, 3, 0, 1, 0, 0, 2250000, 1800000);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 1, 3, 0, 1, 0, 0, 3713605, 2970884);
 
 		return (DWORD)pMem;
 	}
@@ -336,6 +336,8 @@ void fifa_intercontinental_cup_qualifier_teams(BYTE* _this) {
 	WORD total_teams = 3;
 	BYTE* pMem = (BYTE*)sub_944E46_malloc(6 * total_teams);
 
+	if (data->teams_list) sub_9452CA_free(data->teams_list);
+
 	WORD year = data->year;
 	data->n_teams = total_teams;
 	data->teams_list = (DWORD*)pMem;
@@ -435,7 +437,6 @@ int fifa_intercontinental_cup_set_fates(BYTE* _this, cm3_clubs* club, char fate,
 		case Promoted:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
 				*(WORD*)(rounds + playoff_dates_sz * (current_round + 1) + 7), 0xF);
-			sub_9058B0((BYTE*)*uefa_seeding_list, (BYTE*)(club->ClubNation), 2);
 			return 0;
 		case BottomPlayoff:
 			staff_history_comp_runner_up_86B0B0(staff_hist_ptr, club, round_data, a7);
@@ -469,17 +470,12 @@ void __declspec(naked) fifa_intercontinental_cup_set_table_fate()		// used as a 
 
 char fifa_intercontinental_cup_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
-	dprintf("updating %s...\n", data->competition_db->ClubCompName);
 	BYTE* ebx = 0;
 	data->f76 = 0;
-	if (data->fixtures_table) {
-		sub_9452CA_free(data->fixtures_table);
-		data->fixtures_table = 0;
-	}
 	if (data->special_teams_seedings) {
 		sub_9452CA_free(data->special_teams_seedings);
-		data->special_teams_seedings = 0;
 		data->special_nteams_seedings = 0;
+		data->special_teams_seedings = 0;
 	}
 	if (data->rounds_list) {
 		sub_9452CA_free(data->rounds_list);
@@ -547,7 +543,7 @@ void fifa_intercontinental_cup_init2(BYTE* _this, DWORD current_date, int a3) {
 			}
 		}
 	}
-	if (data->f69 && data->current_stage < 0) {
+	else if (data->f69 && data->current_stage < 0) {
 		BYTE* liber_bytes = get_loaded_league(COPA_LIBERTADORES_9CF());
 		comp_stats* liber_data = (comp_stats*)liber_bytes;
 		BYTE* liber_final = (BYTE*)liber_data->stages[8];

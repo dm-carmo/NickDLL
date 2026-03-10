@@ -312,6 +312,9 @@ char den_second_update(BYTE* _this) {
 	data->current_stage = -1;
 	den_second_subs(_this);
 	AddTeams(_this);
+	data->prize_money_pool = SetupPrizeMoney(_this, 4823);
+	data->f225 = 1;
+	SetupTVMoney(_this, 77169, 0);
 	sub_6835C0(_this);
 	BYTE* edx = 0;
 	sub_6827D0(_this, edx);
@@ -353,9 +356,9 @@ void den_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->num_stages = 0;
 	den_second_subs(_this);
 	AddTeams(_this);
-	add_tv_money_683010(_this, 28915, get_comp(DEN_FIRST_9CF()));
-	add_tv_money_683010(_this, 12045, get_comp(DEN_SECOND_9CF()));
-	add_tv_money_683010(_this, 12045, get_comp(DEN_THIRD_9CF()));
+	data->prize_money_pool = SetupPrizeMoney(_this, 4823);
+	data->f225 = 1;
+	SetupTVMoney(_this, 77169, 0);
 	sub_6835C0(_this);
 	BYTE* ebx = 0;
 	sub_6827D0(_this, ebx);

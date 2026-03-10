@@ -138,6 +138,9 @@
     <ClCompile Include="AFC\afc_champions_league_2.cpp" />
     <ClCompile Include="AFC\afc_champions_league_elite.cpp" />
     <ClCompile Include="AFC\afc_setup.cpp" />
+    <ClCompile Include="Australia\aus_cup.cpp" />
+    <ClCompile Include="Australia\aus_league.cpp" />
+    <ClCompile Include="Australia\aus_setup.cpp" />
     <ClCompile Include="Brazil\bra_awards.cpp" />
     <ClCompile Include="Brazil\bra_cup.cpp" />
     <ClCompile Include="Brazil\bra_first.cpp" />
@@ -176,6 +179,7 @@
     <ClCompile Include="Croatia\cro_setup.cpp" />
     <ClCompile Include="Croatia\cro_super.cpp" />
     <ClCompile Include="Croatia\cro_third.cpp" />
+    <ClCompile Include="currency.cpp" />
     <ClCompile Include="Denmark\den_awards.cpp" />
     <ClCompile Include="Denmark\den_cup.cpp" />
     <ClCompile Include="Denmark\den_first.cpp" />
@@ -312,6 +316,9 @@
     <ClInclude Include="AFC\afc_champions_league_2.h" />
     <ClInclude Include="AFC\afc_champions_league_elite.h" />
     <ClInclude Include="AFC\afc_setup.h" />
+    <ClInclude Include="Australia\aus_cup.h" />
+    <ClInclude Include="Australia\aus_league.h" />
+    <ClInclude Include="Australia\aus_setup.h" />
     <ClInclude Include="Brazil\bra_awards.h" />
     <ClInclude Include="Brazil\bra_cup.h" />
     <ClInclude Include="Brazil\bra_fourth.h" />
@@ -352,6 +359,7 @@
     <ClInclude Include="Croatia\cro_setup.h" />
     <ClInclude Include="Croatia\cro_super.h" />
     <ClInclude Include="Croatia\cro_third.h" />
+    <ClInclude Include="currency.h" />
     <ClInclude Include="Denmark\den_awards.h" />
     <ClInclude Include="Denmark\den_cup.h" />
     <ClInclude Include="Denmark\den_first.h" />

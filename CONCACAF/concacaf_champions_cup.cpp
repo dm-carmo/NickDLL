@@ -39,11 +39,11 @@ DWORD concacaf_champions_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rou
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 4, 10), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 4, 23), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 2, 4, 2, 0, 0, 0, 2, 7, 0, 0, 900000);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 2, 4, 2, 0, 0, 0, 2, 7, 0, 0, 1486988);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 5, 1), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 6, 1), year, Sunday, Afternoon, NationalStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 0, 2, 1, 0, 0, 0, 1, 0, 0, 2250000, 1350000);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 0, 2, 1, 0, 0, 0, 1, 0, 0, 3717470, 2230482);
 
 		return (DWORD)pMem;
 	}
@@ -401,9 +401,9 @@ char concacaf_champions_cup_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
 	data->f76 = 0;
-	if (data->fixtures_table) {
-		sub_9452CA_free(data->fixtures_table);
-		data->fixtures_table = 0;
+	if (data->teams_list) {
+		sub_9452CA_free(data->teams_list);
+		data->teams_list = 0;
 	}
 	if (data->special_teams_seedings) {
 		sub_9452CA_free(data->special_teams_seedings);
@@ -424,18 +424,8 @@ char concacaf_champions_cup_update(BYTE* _this) {
 		sub_9452CA_free(data->f173);
 		data->f173 = 0;
 	}
-	long current = data->current_stage;
-	if (current >= 0) {
-		for (long i = 0; i <= current; i++) {
-			DWORD stage = data->stages[i];
-			if (stage) {
-				DWORD v1 = *(DWORD*)stage;
-				(DWORD*)(*(int(__thiscall**)(BYTE*, int a2))(v1))((BYTE*)stage, 1);
-			}
-		}
-	}
-	data->current_stage = -1;
 	if (data->f8) sub_4A1C50((BYTE*)(data->f8), 1);
+	data->current_stage = -1;
 	data->year++;
 	data->f171 = 0;
 	*((BYTE*)(_this + 0xB1)) = 0;

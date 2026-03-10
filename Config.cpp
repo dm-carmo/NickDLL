@@ -110,6 +110,20 @@ int Config::GetInt(const char* szPropertyName, int defaultReturn)
     return nResult;
 }
 
+double Config::GetDouble(const char* szPropertyName, double defaultReturn)
+{
+    double nResult = defaultReturn;
+    if (jsonRoot)
+    {
+        const char* value = json_getPropertyValue(jsonRoot, szPropertyName);
+        if (value)
+        {
+            nResult = atof(value);
+        }
+    }
+    return nResult;
+}
+
 int TestConfig()
 {
     Config config;

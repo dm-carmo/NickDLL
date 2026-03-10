@@ -89,11 +89,11 @@ DWORD caf_champions_league_fixtures(BYTE* _this, char stage_idx, WORD* num_round
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 6, 28), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 20), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, FirstQualifyingPhase, 0, NoTiebreak_1, AwayGoalsExtraTimePenalties_2, 8, 64, 32, 64, 0, 0, 2, 7, 0, 0, 22500);
+		FillFixtureDetails(pMem, fixture_id++, FirstQualifyingPhase, 0, NoTiebreak_1, AwayGoalsExtraTimePenalties_2, 8, 64, 32, 64, 0, 0, 2, 7, 0, 0, 74349);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 28), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 18), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, SecondQualifyingPhase, 0, NoTiebreak_1, AwayGoalsExtraTimePenalties_2, 8, 32, 16, 0, 0, 0, 2, 7, 0, 0, 22500);
+		FillFixtureDetails(pMem, fixture_id++, SecondQualifyingPhase, 0, NoTiebreak_1, AwayGoalsExtraTimePenalties_2, 8, 32, 16, 0, 0, 0, 2, 7, 0, 0, 74349);
 
 		return (DWORD)pMem;
 	}
@@ -140,15 +140,15 @@ DWORD caf_champions_league_fixtures(BYTE* _this, char stage_idx, WORD* num_round
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 2, 16), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 14), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, AwayGoalsExtraTimePenalties_2, 8, 8, 4, 8, 0, 0, 2, 7, 0, 0, 405000);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, AwayGoalsExtraTimePenalties_2, 8, 8, 4, 8, 0, 0, 2, 7, 0, 0, 669145);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 22), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 11), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, AwayGoalsExtraTimePenalties_2, 8, 4, 2, 0, 0, 0, 2, 7, 0, 0, 540000);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, AwayGoalsExtraTimePenalties_2, 8, 4, 2, 0, 0, 0, 2, 7, 0, 0, 892193);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 4, 19), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 15), year, Friday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, NoTiebreak_1, AwayGoalsExtraTimePenalties_2, 8, 2, 1, 0, 0, 0, 2, 9, 0, 1800000, 900000);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, NoTiebreak_1, AwayGoalsExtraTimePenalties_2, 8, 2, 1, 0, 0, 0, 2, 9, 0, 4460964, 1486988);
 
 		return (DWORD)pMem;
 	}
@@ -424,12 +424,13 @@ char caf_champions_league_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
 	data->f76 = 0;
-	if (data->fixtures_table) {
-		sub_9452CA_free(data->fixtures_table);
-		data->fixtures_table = 0;
+	if (data->teams_list) {
+		sub_9452CA_free(data->teams_list);
+		data->teams_list = 0;
 	}
 	if (data->special_teams_seedings) {
 		sub_9452CA_free(data->special_teams_seedings);
+		data->special_nteams_seedings = 0;
 		data->special_teams_seedings = 0;
 	}
 	if (data->rounds_list) {
@@ -587,8 +588,8 @@ void caf_champions_league_final_stage_setup(BYTE* _this) {
 				staff_history_knocked_out_86C000(staff_hist_ptr, tls.club, (DWORD)(comp_data->competition_db), None, GroupStage, 0xF);
 				tls.club->ClubEuroFlag = -1;
 				int ret = sub_5A0590(ae2a38_ptr, (BYTE*)tls.club);
-				add_to_income_prize_money_5999A0((BYTE*)ret, 315000);
-				add_money_to_club_from_comp_48E3E0(_this, (BYTE*)tls.club, 315000, 0, -1, GroupStage, 0, -2);
+				AddToClubIncome((BYTE*)ret, 520446);
+				AddMoneyFromComp(_this, (BYTE*)tls.club, 520446, 0, -1, GroupStage, 0, -2);
 			}
 		}
 	}

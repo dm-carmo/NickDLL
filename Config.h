@@ -15,6 +15,7 @@ public:
     const char* GetValue(const char* szPropertyName, const char* szDefaultValue = nullptr);
     bool GetBool(const char* szPropertyName, bool defaultReturn = false);
     int GetInt(const char* szPropertyName, int defaultReturn = 0);
+    double GetDouble(const char* szPropertyName, double defaultReturn = 0);
 
 private:
     void freeJSON();

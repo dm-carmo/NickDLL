@@ -129,15 +129,15 @@ DWORD afc_challenge_league_fixtures(BYTE* _this, char stage_idx, WORD* num_round
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 2), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 5), year, Thursday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 8, 4, 8, 0, 0, 2, 7, 36000);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 8, 4, 8, 0, 0, 2, 7, 59480);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 13), year, Friday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 9), year, Thursday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 4, 2, 0, 0, 0, 2, 7, 54000);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 4, 2, 0, 0, 0, 2, 7, 89219);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 4, 17), year, Friday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 9), year, Saturday, Afternoon, NationalStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 8, 2, 1, 0, 0, 0, 1, 0, 0, 450000, 225000);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 8, 2, 1, 0, 0, 0, 1, 0, 0, 743494, 371747);
 
 		return (DWORD)pMem;
 	}
@@ -495,12 +495,13 @@ char afc_challenge_league_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
 	data->f76 = 0;
-	if (data->fixtures_table) {
-		sub_9452CA_free(data->fixtures_table);
-		data->fixtures_table = 0;
+	if (data->teams_list) {
+		sub_9452CA_free(data->teams_list);
+		data->teams_list = 0;
 	}
 	if (data->special_teams_seedings) {
 		sub_9452CA_free(data->special_teams_seedings);
+		data->special_nteams_seedings = 0;
 		data->special_teams_seedings = 0;
 	}
 	if (data->rounds_list) {
@@ -604,8 +605,8 @@ void afc_challenge_league_group_stage_setup(BYTE* _this) {
 			cm3_clubs* club = clubs[idx + mult * j];
 			*((DWORD*)(&pTeams[j])) = (DWORD)club;
 			int ret = sub_5A0590(ae2a38_ptr, (BYTE*)club);
-			add_to_income_prize_money_5999A0((BYTE*)ret, 45000);
-			add_money_to_club_from_comp_48E3E0(_this, (BYTE*)club, 45000, 0, -1, GroupStage, 0, -2);
+			AddToClubIncome((BYTE*)ret, 74349);
+			AddMoneyFromComp(_this, (BYTE*)club, 74349, 0, -1, GroupStage, 0, -2);
 		}
 
 		WORD year = comp_data->year;

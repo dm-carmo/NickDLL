@@ -16,6 +16,7 @@
 #include "inject_9cf_rename.h"
 #include "setup_misc_functions.h"
 #include <leagues_setup.h>
+#include <currency.h>
 
 using namespace std;
 
@@ -64,6 +65,11 @@ void Setup()
 	WriteBytes(0x495976, 1, 0x7F);
 
 	configFile.LoadConfig("NickDLL_config.json");
+
+	if (configFile.GetBool("applyAustralia", true)) {
+		dprintf("Applying Australia changes\n");
+		setup_aus_nation();
+	}
 
 	if (configFile.GetBool("applyBrazil", true)) {
 		dprintf("Applying Brazil changes\n");
@@ -194,6 +200,7 @@ void Setup()
 
 	setup_name_injection();
 	setup_misc_functions();
+	setup_currency();
 
 	setup_leagues_setup();
 }

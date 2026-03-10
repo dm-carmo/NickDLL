@@ -319,7 +319,7 @@ void swe_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
 	swe_first_subs(_this);
 	AddTeams(_this);
-	data->prize_money_pool = add_prize_money_682F70(_this, 34455);
+	data->prize_money_pool = SetupPrizeMoney(_this, 66763);
 	data->f225 = 1;
 	sub_6835C0(_this);
 	BYTE* ebx = 0;
@@ -551,7 +551,7 @@ char swe_first_update(BYTE* _this) {
 	data->current_stage = -1;
 	swe_first_subs(_this);
 	AddTeams(_this);
-	data->prize_money_pool = add_prize_money_682F70(_this, 34455);
+	data->prize_money_pool = SetupPrizeMoney(_this, 66763);
 	data->f225 = 1;
 	sub_6835C0(_this);
 	BYTE* edx = 0;

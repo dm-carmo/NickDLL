@@ -197,7 +197,7 @@ void por_third_setup_groups(BYTE* _this, BYTE idx) {
 	create_league_stage_data(pStage, _this, 10, pTeams, 2, (DWORD)(data->competition_db), pFixtures, num_rounds,
 		data->pts_for_win, data->pts_for_draw, data->f196, (BYTE*)(_this + 0xC5), (BYTE*)(_this + 0xBE),
 		year, idx, stage_name_id, data->f81, 1, 0, data->f217, -1, 0, 2);
-	add_tv_money_683010(pStage, 135000, 0);
+	SetupTVMoney(pStage, 259485, 0);
 	DWORD* stages_arr = data->stages;
 	*((DWORD*)(&stages_arr[idx])) = (DWORD)pStage;
 	sub_9452CA_free(pTeams);
@@ -266,7 +266,7 @@ char por_third_update(BYTE* _this) {
 	data->current_stage = -1;
 	por_third_subs(_this);
 	AddTeamsGroupLeague(_this, POR_THIRD_A_9CF());
-	add_tv_money_683010(_this, 135000, 0);
+	SetupTVMoney(_this, 259485, 0);
 	BYTE* edx = 0;
 	sub_6827D0(_this, edx);
 	sub_6835C0(_this);
@@ -325,7 +325,7 @@ void por_third_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
 	por_third_subs(_this);
 	AddTeamsGroupLeague(_this, POR_THIRD_A_9CF());
-	add_tv_money_683010(_this, 135000, 0);
+	SetupTVMoney(_this, 259485, 0);
 	BYTE* ebx = 0;
 	sub_6827D0(_this, ebx);
 	BYTE* pMem2 = (BYTE*)sub_944CF1_operator_new(0x5CE);

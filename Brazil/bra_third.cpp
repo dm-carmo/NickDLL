@@ -256,7 +256,7 @@ DWORD bra_third_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 12), year, Sunday);
 
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 18), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 5, 2, 1, 2, 0, 0, 2, 7, 0, 40705, 29530);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 5, 2, 1, 2, 0, 0, 2, 7, 0, 86560, 59150);
 
 		return (DWORD)pMem;
 	}
@@ -303,7 +303,7 @@ char bra_third_update(BYTE* _this) {
 	data->current_stage = -1;
 	bra_third_subs(_this);
 	AddTeams(_this);
-	add_tv_money_683010(_this, 40615, 0);
+	SetupTVMoney(_this, 79347, 0);
 	sub_6835C0(_this);
 	BYTE* edx = 0;
 	sub_6827D0(_this, edx);
@@ -617,7 +617,7 @@ void bra_third_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
 	bra_third_subs(_this);
 	AddTeams(_this);
-	add_tv_money_683010(_this, 40615, 0);
+	SetupTVMoney(_this, 79347, 0);
 	sub_6835C0(_this);
 	BYTE* ebx = 0;
 	sub_6827D0(_this, ebx);
