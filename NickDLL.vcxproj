@@ -259,6 +259,13 @@
     <ClCompile Include="Japan\jpn_third.cpp" />
     <ClCompile Include="leagues_setup.cpp" />
     <ClCompile Include="NickDLL.cpp" />
+    <ClCompile Include="Northern Ireland\nir_charity.cpp" />
+    <ClCompile Include="Northern Ireland\nir_cup.cpp" />
+    <ClCompile Include="Northern Ireland\nir_first.cpp" />
+    <ClCompile Include="Northern Ireland\nir_league_cup.cpp" />
+    <ClCompile Include="Northern Ireland\nir_premier.cpp" />
+    <ClCompile Include="Northern Ireland\nir_second.cpp" />
+    <ClCompile Include="Northern Ireland\nir_setup.cpp" />
     <ClCompile Include="Norway\nor_awards.cpp" />
     <ClCompile Include="Norway\nor_cup.cpp" />
     <ClCompile Include="Norway\nor_first.cpp" />
@@ -446,6 +453,13 @@
     <ClInclude Include="Japan\jpn_super.h" />
     <ClInclude Include="Japan\jpn_third.h" />
     <ClInclude Include="leagues_setup.h" />
+    <ClInclude Include="Northern Ireland\nir_charity.h" />
+    <ClInclude Include="Northern Ireland\nir_cup.h" />
+    <ClInclude Include="Northern Ireland\nir_first.h" />
+    <ClInclude Include="Northern Ireland\nir_league_cup.h" />
+    <ClInclude Include="Northern Ireland\nir_premier.h" />
+    <ClInclude Include="Northern Ireland\nir_second.h" />
+    <ClInclude Include="Northern Ireland\nir_setup.h" />
     <ClInclude Include="Norway\nor_awards.h" />
     <ClInclude Include="Norway\nor_cup.h" />
     <ClInclude Include="Norway\nor_first.h" />

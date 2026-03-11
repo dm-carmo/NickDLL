@@ -13,6 +13,7 @@
 #include "Holland\hol_setup.h"
 #include "Italy\ita_setup.h"
 #include "Japan\jpn_setup.h"
+#include "Northern Ireland\nir_setup.h"
 #include "Norway\nor_setup.h"
 #include "Poland\pol_setup.h"
 #include "Portugal\por_setup.h"

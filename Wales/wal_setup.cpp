@@ -13,12 +13,12 @@ static DWORD(__thiscall* wal_cup_setup)(BYTE* _this, WORD year, cm3_club_comps* 
 
 DWORD wal_setup_c(playable_nation_data* nation_data) {
 	// contract start date?
-	nation_data->contract_start_day = 18;
-	nation_data->contract_start_month = August;
+	nation_data->contract_start_day = 15;
+	nation_data->contract_start_month = July;
 	nation_data->contract_start_year = *current_year;
 	nation_data->f55 = 5;
 	// contract end date?
-	nation_data->contract_end_day = 6;
+	nation_data->contract_end_day = 1;
 	nation_data->contract_end_month = May;
 	nation_data->contract_end_year = *current_year + 1;
 	nation_data->f70 = 5;

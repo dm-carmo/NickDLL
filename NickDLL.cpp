@@ -129,6 +129,11 @@ void Setup()
 		setup_jpn_nation();
 	}
 
+	if (configFile.GetBool("applyNorthernIreland", true)) {
+		dprintf("Applying Northern Ireland changes\n");
+		setup_nir_nation();
+	}
+
 	if (configFile.GetBool("applyNorway", true)) {
 		dprintf("Applying Norway changes\n");
 		setup_nor_nation();
