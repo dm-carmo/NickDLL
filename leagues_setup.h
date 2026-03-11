@@ -19,6 +19,7 @@
 #include "South Korea\kor_setup.h"
 #include "Sweden\swe_setup.h"
 #include "USA\usa_setup.h"
+#include "Wales\wal_setup.h"
 
 #include "FIFA\fifa_club_setup.h"
 #include "AFC\afc_setup.h"

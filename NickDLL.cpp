@@ -159,6 +159,11 @@ void Setup()
 		setup_usa_nation();
 	}
 
+	if (configFile.GetBool("applyWales", true)) {
+		dprintf("Applying Wales changes\n");
+		setup_wal_nation();
+	}
+
 	dprintf("------------------------------\n");
 
 	if (configFile.GetBool("applyFIFAclubs", true)) {

@@ -7,53 +7,6 @@
 
 DWORD* eng_league_cup_vtable = (DWORD*)0x969934;
 
-void eng_league_cup_free_under(BYTE* _this) {
-	comp_stats* data = (comp_stats*)_this;
-	data->comp_vtable = eng_league_cup_vtable;
-	DWORD x = 0;
-	if (data->teams_list) {
-		sub_9452CA_free(data->teams_list);
-	}
-	if ((DWORD*)data->rounds_list) {
-		sub_9452CA_free(data->rounds_list);
-	}
-	if (data->f173) {
-		for (WORD i = 0; i < data->n_rounds; i++) {
-			DWORD rnd = data->f173[i];
-			if (rnd) {
-				sub_9452CA_free((DWORD*)rnd);
-			}
-		}
-		sub_9452CA_free(data->f173);
-	}
-	if (data->f8) {
-		sub_49F450((BYTE*)(data->f8));
-		sub_944C94_free((BYTE*)(data->f8));
-	}
-	DWORD y = -1;
-	sub_518690(_this);
-}
-
-void eng_league_cup_free(BYTE* _this, BYTE a2) {
-	eng_league_cup_free_under(_this);
-	if (a2 & 1) {
-		sub_944C94_free(_this);
-	}
-}
-
-void __declspec(naked) eng_league_cup_free_c()		// used as a __thiscall -> __cdecl converter
-{
-	__asm
-	{
-		mov eax, esp
-		push dword ptr[eax + 0x4]
-		push ecx
-		call eng_league_cup_free
-		add esp, 0x8
-		ret 4
-	}
-}
-
 int eng_league_cup_teams(BYTE* _this) {
 	vector<cm3_clubs*> vec;
 	vector<cm3_clubs*> vec_uefa;
@@ -172,7 +125,7 @@ DWORD eng_league_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WOR
 	return 0;
 }
 
-void __declspec(naked) league_cup_fixture_caller()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) eng_league_cup_fixture_caller()		// used as a __thiscall -> __cdecl converter
 {
 	__asm
 	{
@@ -215,7 +168,8 @@ void eng_league_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	sub_49EE70(pMem2, _this);
 	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
-	//data->max_bench = 7;
+	data->max_bench = 7;
+	data->max_subs = 3;
 	sub_5223A0(_this);
 }
 
@@ -280,8 +234,7 @@ void __declspec(naked) eng_league_cup_update_c()		// used as a __thiscall -> __c
 }
 
 void setup_eng_league_cup() {
-	WriteVTablePtr(eng_league_cup_vtable, VTableInitFree, (DWORD)&eng_league_cup_free_c);
 	WriteVTablePtr(eng_league_cup_vtable, VTableEoSUpdate, (DWORD)&eng_league_cup_update_c);
-	WriteVTablePtr(eng_league_cup_vtable, VTableFixtures, (DWORD)&league_cup_fixture_caller);
+	WriteVTablePtr(eng_league_cup_vtable, VTableFixtures, (DWORD)&eng_league_cup_fixture_caller);
 	WriteVTablePtr(eng_league_cup_vtable, VTableLeagueSplit, 0x51F890);
 }

@@ -543,6 +543,24 @@
     <ClCompile Include="currency.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Wales\wal_setup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Wales\wal_premier.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Wales\wal_first_n.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Wales\wal_first_s.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Wales\wal_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Wales\wal_league_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -1086,6 +1104,24 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="currency.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Wales\wal_setup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Wales\wal_premier.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Wales\wal_first_n.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Wales\wal_first_s.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Wales\wal_cup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Wales\wal_league_cup.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

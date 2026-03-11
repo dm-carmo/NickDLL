@@ -119,7 +119,7 @@ map<string, char*> leagues_rename_long_norway = {
 };
 
 map<string, char*> leagues_rename_long_poland = {
-	{"Korean All-Star Cup", "Polish III Liga"},
+	{"Irish Super Cup", "Polish III Liga"},
 };
 
 map<string, char*> leagues_rename_long_portugal = {
@@ -138,6 +138,11 @@ map<string, char*> leagues_rename_long_sweden = {
 	{"Swedish Division 2 Northwest Gotaland", "Swedish Division 2 North Gotaland"},
 	{"Swedish Division 2 Northeast Gotaland", "Swedish Division 2 West Gotaland"},
 	{"Swedish Division 2 South Norrland", "Swedish Division 2 South Svealand"},
+};
+
+map<string, char*> leagues_rename_long_wales = {
+	{"Welsh Lower Division", "Welsh Cymru North"},
+	{"Hong Kong Senior Challenge Shield", "Welsh Cymru South"},
 };
 
 map<string, char*> leagues_rename_short = {
@@ -225,7 +230,7 @@ map<string, char*> leagues_rename_short_norway = {
 };
 
 map<string, char*> leagues_rename_short_poland = {
-	{"Korean All-Star Cup", "III Liga"},
+	{"Irish Super Cup", "III Liga"},
 };
 
 map<string, char*> leagues_rename_short_portugal = {
@@ -244,6 +249,11 @@ map<string, char*> leagues_rename_short_sweden = {
 	{"Swedish Division 2 Northwest Gotaland", "Division 2 NG"},
 	{"Swedish Division 2 Northeast Gotaland", "Division 2 WG"},
 	{"Swedish Division 2 South Norrland", "Division 2 SS"},
+};
+
+map<string, char*> leagues_rename_short_wales = {
+	{"Welsh Lower Division", "Cymru North"},
+	{"Hong Kong Senior Challenge Shield", "Cymru South"},
 };
 
 map<string, char*> leagues_rename_tla = {
@@ -310,7 +320,7 @@ map<string, char*> leagues_rename_tla_norway = {
 };
 
 map<string, char*> leagues_rename_tla_poland = {
-	{"Korean All-Star Cup", "L3"},
+	{"Irish Super Cup", "L3"},
 };
 
 map<string, char*> leagues_rename_tla_portugal = {
@@ -320,6 +330,11 @@ map<string, char*> leagues_rename_tla_portugal = {
 	{"Korean University League", "CPB"},
 	{"Korean High School League", "CPC"},
 	{"Korean President Cup", "CPD"},
+};
+
+map<string, char*> leagues_rename_tla_wales = {
+	{"Welsh Lower Division", "D1N"},
+	{"Hong Kong Senior Challenge Shield", "D1S"},
 };
 
 map<string, char*> awards_rename_short = {
@@ -1068,14 +1083,14 @@ map<string, DWORD> league_dword_match = {
 	{"Northern Irish Group D", (DWORD)0x9CF838},
 	{"League of Ireland Cup", (DWORD)0x9CF83C},
 	{"FAI Cup", (DWORD)0x9CF840},
-	{"Irish Super Cup", (DWORD)0x9CF844},
+	{"Korean All-Star Cup", (DWORD)0x9CF844},
 	{"Irish Connacht Senior League", (DWORD)0x9CF848},
 	{"Irish Ulster Senior League", (DWORD)0x9CF84C},
 	{"Irish Munster Senior League", (DWORD)0x9CF850},
 	{"Irish Leinster Senior League Premier", (DWORD)0x9CF854},
 	{"Polish Ekstraklasa", (DWORD)0x9CF858},
 	{"Polish I Liga", (DWORD)0x9CF85C},
-	{"Korean All-Star Cup", (DWORD)0x9CF860},
+	{"Irish Super Cup", (DWORD)0x9CF860},
 	{"Puchar Polski", (DWORD)0x9CF864},
 	{"Polish II Liga", (DWORD)0x9CF868},
 	{"Greek Super League", (DWORD)0x9CF86C},
@@ -2165,5 +2180,11 @@ void setup_name_injection()
 	if (configFile.GetBool("applySweden", true)) {
 		leagues_rename_long.insert(leagues_rename_long_sweden.begin(), leagues_rename_long_sweden.end());
 		leagues_rename_short.insert(leagues_rename_short_sweden.begin(), leagues_rename_short_sweden.end());
+	}
+
+	if (configFile.GetBool("applyWales", true)) {
+		leagues_rename_long.insert(leagues_rename_long_wales.begin(), leagues_rename_long_wales.end());
+		leagues_rename_short.insert(leagues_rename_short_wales.begin(), leagues_rename_short_wales.end());
+		leagues_rename_tla.insert(leagues_rename_tla_wales.begin(), leagues_rename_tla_wales.end());
 	}
 }

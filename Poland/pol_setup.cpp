@@ -77,7 +77,11 @@ void setup_pol_nation()
 void poland_restructure() {
 	cm3_club_comps* pol_first = get_comp(POL_FIRST_9CF());
 	cm3_club_comps* pol_third = get_comp(POL_THIRD_9CF());
+	pol_third->ClubCompReputation = 4;
 	cm3_club_comps* pol_lower = get_comp(POL_LOWER_9CF());
+	pol_lower->ClubCompNation = get_country(NATION_POLAND_9CF());
+	pol_lower->ClubCompContinent = find_continent("Europe");
+	pol_lower->ClubCompReputation = 2;
 
 	vector<cm3_clubs*> clubs = find_clubs_of_comp(pol_third->ClubCompID);
 	for (cm3_clubs* c : clubs) {

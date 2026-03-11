@@ -310,6 +310,12 @@
     <ClCompile Include="USA\usa_cup.cpp" />
     <ClCompile Include="USA\usa_mls.cpp" />
     <ClCompile Include="USA\usa_setup.cpp" />
+    <ClCompile Include="Wales\wal_cup.cpp" />
+    <ClCompile Include="Wales\wal_first_n.cpp" />
+    <ClCompile Include="Wales\wal_first_s.cpp" />
+    <ClCompile Include="Wales\wal_league_cup.cpp" />
+    <ClCompile Include="Wales\wal_premier.cpp" />
+    <ClCompile Include="Wales\wal_setup.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AFC\afc_challenge_league.h" />
@@ -493,6 +499,12 @@
     <ClInclude Include="USA\usa_cup.h" />
     <ClInclude Include="USA\usa_mls.h" />
     <ClInclude Include="USA\usa_setup.h" />
+    <ClInclude Include="Wales\wal_cup.h" />
+    <ClInclude Include="Wales\wal_first_n.h" />
+    <ClInclude Include="Wales\wal_first_s.h" />
+    <ClInclude Include="Wales\wal_league_cup.h" />
+    <ClInclude Include="Wales\wal_premier.h" />
+    <ClInclude Include="Wales\wal_setup.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
