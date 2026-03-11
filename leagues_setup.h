@@ -11,6 +11,7 @@
 #include "Germany\ger_awards_default.h"
 #include "Greece\gre_setup.h"
 #include "Holland\hol_setup.h"
+#include "Ireland\irl_setup.h"
 #include "Italy\ita_setup.h"
 #include "Japan\jpn_setup.h"
 #include "Northern Ireland\nir_setup.h"

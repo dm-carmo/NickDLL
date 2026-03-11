@@ -532,6 +532,19 @@ map<string, char*> awards_rename_long = {
 	{ "Dutch Premier Division Player of the Year", "Dutch Eredivisie Player of the Year" },
 	{ "Dutch Premier Division Team of the Week", "Dutch Eredivisie Team of the Week" },
 	{ "Dutch Premier Division Top Goalscorer", "Dutch Eredivisie Top Goalscorer" },
+	{ "N. Irish Premier Division Manager of the Month", "NIFL Premiership Manager of the Month" },
+	{ "N. Irish Premier Division Manager of the Year", "NIFL Premiership Manager of the Year" },
+	{ "N. Irish Premier Division Player of the Year", "NIFL Premiership Player of the Year" },
+	{ "N. Irish Premier Division Team of the Week", "NIFL Premiership Team of the Week" },
+	{ "N. Irish Premier Division Top Goalscorer", "NIFL Premiership Top Goalscorer" },
+	{ "N. Irish Premier Division Young Player of the Year", "NIFL Premiership Young Player of the Year" },
+	{ "N. Irish First Division Manager of the Month", "NIFL Championship Manager of the Month" },
+	{ "N. Irish First Division Manager of the Year", "NIFL Championship Manager of the Year" },
+	{ "N. Irish First Division Player of the Year", "NIFL Championship Player of the Year" },
+	{ "N. Irish First Division Team of the Week", "NIFL Championship Team of the Week" },
+	{ "N. Irish First Division Top Goalscorer", "NIFL Championship Top Goalscorer" },
+	{ "N. Irish First Division Young Player of the Year", "NIFL Championship Young Player of the Year" },
+	{ "N. Irish Player of the Year", "NIFL Player of the Year" },
 };
 
 map<string, char*> awards_rename_long_croatia = {

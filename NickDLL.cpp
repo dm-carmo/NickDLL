@@ -119,6 +119,11 @@ void Setup()
 		setup_hol_nation();
 	}
 
+	if (configFile.GetBool("applyIreland", true)) {
+		dprintf("Applying Ireland changes\n");
+		setup_irl_nation();
+	}
+
 	if (configFile.GetBool("applyItaly", true)) {
 		dprintf("Applying Italy changes\n");
 		setup_ita_nation();

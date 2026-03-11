@@ -582,6 +582,24 @@
     <ClCompile Include="Northern Ireland\nir_charity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Ireland\irl_setup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Ireland\irl_premier.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Ireland\irl_first.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Ireland\irl_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Ireland\irl_presidents.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Ireland\irl_awards.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -1164,6 +1182,24 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Northern Ireland\nir_charity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Ireland\irl_setup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Ireland\irl_premier.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Ireland\irl_first.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Ireland\irl_cup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Ireland\irl_presidents.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Ireland\irl_awards.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

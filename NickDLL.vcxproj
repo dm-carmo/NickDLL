@@ -240,6 +240,12 @@
     <ClCompile Include="Holland\hol_setup.cpp" />
     <ClCompile Include="Holland\hol_super.cpp" />
     <ClCompile Include="inject_9cf_rename.cpp" />
+    <ClCompile Include="Ireland\irl_awards.cpp" />
+    <ClCompile Include="Ireland\irl_cup.cpp" />
+    <ClCompile Include="Ireland\irl_first.cpp" />
+    <ClCompile Include="Ireland\irl_premier.cpp" />
+    <ClCompile Include="Ireland\irl_presidents.cpp" />
+    <ClCompile Include="Ireland\irl_setup.cpp" />
     <ClCompile Include="Italy\ita_awards.cpp" />
     <ClCompile Include="Italy\ita_cup.cpp" />
     <ClCompile Include="Italy\ita_c_cup.cpp" />
@@ -435,6 +441,12 @@
     <ClInclude Include="Holland\hol_setup.h" />
     <ClInclude Include="Holland\hol_super.h" />
     <ClInclude Include="inject_9cf_rename.h" />
+    <ClInclude Include="Ireland\irl_awards.h" />
+    <ClInclude Include="Ireland\irl_cup.h" />
+    <ClInclude Include="Ireland\irl_first.h" />
+    <ClInclude Include="Ireland\irl_premier.h" />
+    <ClInclude Include="Ireland\irl_presidents.h" />
+    <ClInclude Include="Ireland\irl_setup.h" />
     <ClInclude Include="Italy\ita_awards.h" />
     <ClInclude Include="Italy\ita_cup.h" />
     <ClInclude Include="Italy\ita_c_cup.h" />

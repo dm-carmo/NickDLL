@@ -382,13 +382,25 @@ int replacement_667150() {
 
 	cm_date = new BYTE[8];
 	pnd_list[idx].nation = get_country(NATION_IRELAND_9CF());
-	pnd_list[idx].setup_function_addr = 0x834E60;
-	convert_to_cm_date(pnd_list[idx].start_date, 1, August, *current_year, -1);
-	convert_to_cm_date(pnd_list[idx].end_date, 18, May, *current_year, -1);
-	pnd_list[idx].updates_in_june = 1;
-	convert_to_cm_date(cm_date, 20, June, 2025, -1);
-	pnd_list[idx].update_day = *(WORD*)(cm_date);
-	pnd_list[idx].main_cup = get_comp(IRE_CHALLENGE_CUP_9CF());
+	if (configFile.GetBool("applyIreland", true))
+	{
+		pnd_list[idx].setup_function_addr = (DWORD)&irl_setup_c;
+		convert_to_cm_date(pnd_list[idx].start_date, 14, February, *current_year + 1, -1);
+		convert_to_cm_date(pnd_list[idx].end_date, 14, November, *current_year + 1, -1);
+		pnd_list[idx].updates_in_june = 0;
+		convert_to_cm_date(cm_date, 1, January, 2025, -1);
+		pnd_list[idx].update_day = *(WORD*)(cm_date);
+	}
+	else
+	{
+		pnd_list[idx].setup_function_addr = 0x834E60;
+		convert_to_cm_date(pnd_list[idx].start_date, 1, August, *current_year, -1);
+		convert_to_cm_date(pnd_list[idx].end_date, 18, May, *current_year, -1);
+		pnd_list[idx].updates_in_june = 1;
+		convert_to_cm_date(cm_date, 20, June, 2025, -1);
+		pnd_list[idx].update_day = *(WORD*)(cm_date);
+	}
+	pnd_list[idx].main_cup = get_comp(IRL_CHALLENGE_CUP_9CF());
 	idx++;
 
 	cm_date = new BYTE[8];
@@ -753,6 +765,7 @@ void league_restructure_init()
 	if (configFile.GetBool("applyGermany", true)) germany_restructure();
 	if (configFile.GetBool("applyGreece", true)) greece_restructure();
 	if (configFile.GetBool("applyHolland", true)) holland_restructure();
+	if (configFile.GetBool("applyIreland", true)) ireland_restructure();
 	if (configFile.GetBool("applyItaly", true)) italy_restructure();
 	if (configFile.GetBool("applyJapan", true)) japan_restructure();
 	if (configFile.GetBool("applyNorthernIreland", true)) n_ireland_restructure();

@@ -64,6 +64,8 @@ void setup_wal_nation()
 	setup_wal_first_s();
 	setup_wal_cup();
 	setup_wal_league_cup();
+
+	WriteNOP(0x9244ea, 7);
 }
 
 void wales_restructure() {

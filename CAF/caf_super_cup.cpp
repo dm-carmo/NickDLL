@@ -93,8 +93,54 @@ void __declspec(naked) caf_super_cup_teams_c()		// used as a __thiscall -> __cde
 	}
 }
 
+char caf_super_cup_update(BYTE* _this) {
+	comp_stats* data = (comp_stats*)_this;
+	BYTE* ebx = 0;
+	data->f76 = 0;
+	if (data->teams_list) {
+		sub_9452CA_free(data->teams_list);
+		data->teams_list = 0;
+	}
+	if (data->rounds_list) {
+		sub_9452CA_free(data->rounds_list);
+		data->rounds_list = 0;
+	}
+	if (data->f173) {
+		for (WORD i = 0; i < data->n_rounds; i++) {
+			DWORD rnd = data->f173[i];
+			if (rnd) {
+				sub_9452CA_free((DWORD*)rnd);
+				data->f173[i] = 0;
+			}
+		}
+		sub_9452CA_free(data->f173);
+		data->f173 = 0;
+	}
+	if (data->f8) sub_4A1C50((BYTE*)(data->f8), 1);
+	data->year++;
+	data->f171 = 0;
+	*((BYTE*)(_this + 0xB1)) = 0;
+	caf_super_cup_teams(_this);
+	DWORD v1 = *(DWORD*)_this;
+	(*(int(__thiscall**)(BYTE*))(v1 + 0x8C))(_this);
+	return (*(int(__thiscall**)(BYTE*))(v1 + 0x94))(_this);
+}
+
+void __declspec(naked) caf_super_cup_update_c()		// used as a __thiscall -> __cdecl converter
+{
+	__asm
+	{
+		mov eax, esp
+		push ecx
+		call caf_super_cup_update
+		add esp, 0x4
+		ret
+	}
+}
+
 void setup_caf_super_cup()
 {
 	WriteVTablePtr(caf_super_cup_vtable, VTableFixtures, (DWORD)&caf_super_cup_fixture_caller);
+	WriteVTablePtr(caf_super_cup_vtable, VTableEoSUpdate, (DWORD)&caf_super_cup_update_c);
 	PatchFunction(0x410a50, (DWORD)&caf_super_cup_teams_c);
 }
