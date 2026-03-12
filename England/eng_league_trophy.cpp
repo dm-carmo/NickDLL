@@ -261,7 +261,7 @@ void eng_league_trophy_reputation_setup(BYTE* _this) {
 		comp_stats* curr_stage = comp_data;
 		DWORD* all_teams = comp_data->teams2;
 		vector<cm3_clubs*> clubs;
-		for (int i = 0; i < comp_data->n_teams2; i++)
+		for (DWORD i = 0; i < comp_data->n_teams2; i++)
 		{
 			clubs.push_back((cm3_clubs*)all_teams[i]);
 		}
@@ -345,7 +345,7 @@ void __declspec(naked) eng_league_trophy_reputation_calc_c()		// used as a __thi
 int eng_league_trophy_all_teams(BYTE* _this) {
 	vector<cm3_clubs*> vec;
 	comp_stats* comp_data = (comp_stats*)_this;
-	WORD total_teams = 64;
+	DWORD total_teams = 64;
 	BYTE* pMem = (BYTE*)sub_944E46_malloc(4 * total_teams);
 
 	comp_data->n_teams2 = total_teams;
@@ -659,8 +659,6 @@ void eng_league_trophy_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	eng_league_trophy_vtable->SetPointer(VTableReputationCalc, (DWORD)&eng_league_trophy_reputation_calc_c);
 	eng_league_trophy_vtable->SetPointer(VTableSubsRounds, (DWORD)&eng_league_trophy_subs_c);
 	eng_league_trophy_vtable->SetPointer(VTableLeagueSplit, (DWORD)0x6847c0);
-	eng_league_trophy_vtable->SetPointer(VTable9, (DWORD)0x48ceb0);
-	eng_league_trophy_vtable->SetPointer(VTable10, (DWORD)0x48cea0);
 	eng_league_trophy_vtable->SetPointer(VTablePostMatchUpdate, (DWORD)&league_trophy_583B10_c);
 	data->rules = 0x9;
 	data->f81 = 0xc;

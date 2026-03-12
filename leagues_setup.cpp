@@ -540,9 +540,19 @@ int replacement_667150() {
 
 	cm_date = new BYTE[8];
 	pnd_list[idx].nation = get_country(NATION_SCOTLAND_9CF());
-	pnd_list[idx].setup_function_addr = 0x836DC0;
-	convert_to_cm_date(pnd_list[idx].start_date, 2, August, *current_year, -1);
-	convert_to_cm_date(pnd_list[idx].end_date, 24, May, *current_year, -1);
+	if (configFile.GetBool("applyScotland", true))
+	{
+		pnd_list[idx].setup_function_addr = (DWORD)&sco_setup_c;
+		//convert_to_cm_date(pnd_list[idx].start_date, 2, August, *current_year, -1);
+		convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
+		convert_to_cm_date(pnd_list[idx].end_date, 31, May, *current_year, -1);
+	}
+	else
+	{
+		pnd_list[idx].setup_function_addr = 0x836DC0;
+		convert_to_cm_date(pnd_list[idx].start_date, 2, August, *current_year, -1);
+		convert_to_cm_date(pnd_list[idx].end_date, 24, May, *current_year, -1);
+	}
 	pnd_list[idx].updates_in_june = 1;
 	convert_to_cm_date(cm_date, 20, June, 2025, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
@@ -772,6 +782,7 @@ void league_restructure_init()
 	if (configFile.GetBool("applyNorway", true)) norway_restructure();
 	if (configFile.GetBool("applyPoland", true)) poland_restructure();
 	if (configFile.GetBool("applyPortugal", true)) portugal_restructure();
+	if (configFile.GetBool("applyScotland", true)) scotland_restructure();
 	if (configFile.GetBool("applySouthKorea", true)) korea_restructure();
 	if (configFile.GetBool("applySweden", true)) sweden_restructure();
 	if (configFile.GetBool("applyUSA", true)) usa_restructure();

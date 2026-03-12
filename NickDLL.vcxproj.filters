@@ -600,6 +600,36 @@
     <ClCompile Include="Ireland\irl_awards.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Scotland\sco_setup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scotland\sco_premier.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scotland\sco_champ.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scotland\sco_league_1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scotland\sco_league_2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scotland\sco_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scotland\sco_highland.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scotland\sco_lowland.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scotland\sco_league_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scotland\sco_challenge_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -1200,6 +1230,36 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Ireland\irl_awards.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scotland\sco_setup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scotland\sco_premier.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scotland\sco_champ.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scotland\sco_league_1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scotland\sco_league_2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scotland\sco_cup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scotland\sco_highland.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scotland\sco_lowland.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scotland\sco_league_cup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scotland\sco_challenge_cup.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

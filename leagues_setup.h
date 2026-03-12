@@ -18,6 +18,7 @@
 #include "Norway\nor_setup.h"
 #include "Poland\pol_setup.h"
 #include "Portugal\por_setup.h"
+#include "Scotland\sco_setup.h"
 #include "South Korea\kor_setup.h"
 #include "Sweden\swe_setup.h"
 #include "USA\usa_setup.h"

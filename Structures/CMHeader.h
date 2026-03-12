@@ -693,7 +693,7 @@ typedef struct COMP_STATS
 	char pad230[7];									//230
 	unsigned char f237;								//237
 	DWORD* teams2;									//238
-	WORD n_teams2;									//242
+	DWORD n_teams2;									//242
 } comp_stats;
 #pragma pack(pop)
 

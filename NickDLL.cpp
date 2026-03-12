@@ -154,6 +154,11 @@ void Setup()
 		setup_por_nation();
 	}
 
+	if (configFile.GetBool("applyScotland", true)) {
+		dprintf("Applying Scotland changes\n");
+		setup_sco_nation();
+	}
+
 	if (configFile.GetBool("applySouthKorea", true)) {
 		dprintf("Applying South Korea changes\n");
 		setup_kor_nation();

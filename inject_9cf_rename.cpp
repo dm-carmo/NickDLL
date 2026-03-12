@@ -132,6 +132,11 @@ map<string, char*> leagues_rename_long_portugal = {
 	{"Argentine Interior Zone", "Taça da Liga"},
 };
 
+map<string, char*> leagues_rename_long_scotland = {
+	{"South African First Division Inland", "Scottish Highland Football League"},
+	{"South African First Division Coastal", "Scottish Lowland Football League"},
+};
+
 map<string, char*> leagues_rename_long_sweden = {
 	{"Swedish Division 2 Middle Gotaland", "Swedish Division 2"},
 	{"Swedish Division 2 North Norrland", "Swedish Division 2 Norrland"},
@@ -243,6 +248,11 @@ map<string, char*> leagues_rename_short_portugal = {
 	{"Argentine Interior Zone", "Taça da Liga"},
 };
 
+map<string, char*> leagues_rename_short_scotland = {
+	{"South African First Division Inland", "Highland League"},
+	{"South African First Division Coastal", "Lowland League"},
+};
+
 map<string, char*> leagues_rename_short_sweden = {
 	{"Swedish Division 2 Middle Gotaland", "Division 2"},
 	{"Swedish Division 2 North Norrland", "Division 2 N"},
@@ -330,6 +340,11 @@ map<string, char*> leagues_rename_tla_portugal = {
 	{"Korean University League", "CPB"},
 	{"Korean High School League", "CPC"},
 	{"Korean President Cup", "CPD"},
+};
+
+map<string, char*> leagues_rename_tla_scotland = {
+	{"South African First Division Inland", "HFL"},
+	{"South African First Division Coastal", "LFL"},
 };
 
 map<string, char*> leagues_rename_tla_wales = {
@@ -1922,6 +1937,8 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 	if (_strcmpi(to_check->ClubName, "Wisla Kraków") == 0 && find_club("Wisla Krakow II")) return (BYTE*)find_club("Wisla Krakow II");
 	if (_strcmpi(to_check->ClubName, "Wisla Plock") == 0 && find_club("Wisla Plock II")) return (BYTE*)find_club("Wisla Plock II");
 	if (_strcmpi(to_check->ClubName, "Zaglebie Lubin") == 0 && find_club("Zaglebie Lubin II")) return (BYTE*)find_club("Zaglebie Lubin II");
+	if (_strcmpi(to_check->ClubName, "Glasgow Celtic") == 0 && find_club("Glasgow Celtic B")) return (BYTE*)find_club("Glasgow Celtic B");
+	if (_strcmpi(to_check->ClubName, "Heart of Midlothian FC") == 0 && find_club("Heart of Midlothian FC B")) return (BYTE*)find_club("Heart of Midlothian FC B");
 
 	// Reserve teams check
 	if (is_main_club) *is_main_club = 0;
@@ -2082,6 +2099,8 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 	if (_strcmpi(to_check->ClubName, "Wisla Krakow II") == 0 && find_club("Wisla Kraków")) return (BYTE*)find_club("Wisla Kraków");
 	if (_strcmpi(to_check->ClubName, "Wisla Plock II") == 0 && find_club("Wisla Plock")) return (BYTE*)find_club("Wisla Plock");
 	if (_strcmpi(to_check->ClubName, "Zaglebie Lubin II") == 0 && find_club("Zaglebie Lubin")) return (BYTE*)find_club("Zaglebie Lubin");
+	if (_strcmpi(to_check->ClubName, "Glasgow Celtic B") == 0 && find_club("Glasgow Celtic")) return (BYTE*)find_club("Glasgow Celtic");
+	if (_strcmpi(to_check->ClubName, "Heart of Midlothian FC B") == 0 && find_club("Heart of Midlothian FC")) return (BYTE*)find_club("Heart of Midlothian FC");
 
 	// default case if none found
 	to_check->ClubHasLinkedClub = 0;
@@ -2188,6 +2207,12 @@ void setup_name_injection()
 		leagues_rename_long.insert(leagues_rename_long_portugal.begin(), leagues_rename_long_portugal.end());
 		leagues_rename_short.insert(leagues_rename_short_portugal.begin(), leagues_rename_short_portugal.end());
 		leagues_rename_tla.insert(leagues_rename_tla_portugal.begin(), leagues_rename_tla_portugal.end());
+	}
+
+	if (configFile.GetBool("applyScotland", true)) {
+		leagues_rename_long.insert(leagues_rename_long_scotland.begin(), leagues_rename_long_scotland.end());
+		leagues_rename_short.insert(leagues_rename_short_scotland.begin(), leagues_rename_short_scotland.end());
+		leagues_rename_tla.insert(leagues_rename_tla_scotland.begin(), leagues_rename_tla_scotland.end());
 	}
 
 	if (configFile.GetBool("applySweden", true)) {

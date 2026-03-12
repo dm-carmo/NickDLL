@@ -81,6 +81,12 @@ int show_extra_leagues_in_start(BYTE* nation, DWORD dest_ptr, int a3) {
 		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
 		return 1;
 	}
+	if (cm3_nation->NationID == NATION_SCOTLAND_9CF()) {
+		if (configFile.GetBool("applyNorway", true)) league_str = "Highland/Lowland";
+		else return 0;
+		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
+		return 1;
+	}
 	if (cm3_nation->NationID == NATION_SPAIN_9CF()) {
 		league_str = "Primera Federación";
 		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
@@ -155,11 +161,6 @@ int show_extra_leagues_in_start(BYTE* nation, DWORD dest_ptr, int a3) {
 	}
 	if (cm3_nation->NationID == NATION_RUSSIA_9CF()) {
 		league_str = "Second League";
-		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
-		return 1;
-	}
-	if (cm3_nation->NationID == NATION_SCOTLAND_9CF()) {
-		league_str = "Highland/Lowland";
 		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
 		return 1;
 	}
