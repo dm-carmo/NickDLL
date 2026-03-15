@@ -14,7 +14,7 @@ int por_fourth_set_champion(BYTE* _this) {
 	return (*(int(__thiscall**)(BYTE*))(v1 + 0x30))(stage_data_for_history);
 }
 
-void __declspec(naked) por_fourth_set_champion_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) por_fourth_set_champion_c()
 {
 	__asm
 	{
@@ -51,14 +51,13 @@ void por_fourth_subs(BYTE* _this)
 	comp_data->max_bench = 7;
 	comp_data->max_subs = 3;
 
-	//call vtable +3C which is actually add fixtures function
 	DWORD v1 = *(DWORD*)_this;
 	comp_data->fixtures_table = (DWORD*)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0xA9, _this + 0x3A, 0);
 
 	return;
 }
 
-void __declspec(naked) por_fourth_subs_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) por_fourth_subs_c()
 {
 	__asm
 	{
@@ -108,7 +107,7 @@ void por_fourth_free(BYTE* _this, BYTE a2) {
 	}
 }
 
-void __declspec(naked) por_fourth_free_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) por_fourth_free_c()
 {
 	__asm
 	{
@@ -146,7 +145,7 @@ void por_fourth_reputation_setup(BYTE* _this) {
 	}
 }
 
-void __declspec(naked) por_fourth_reputation_setup_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) por_fourth_reputation_setup_c()
 {
 	__asm
 	{
@@ -249,7 +248,7 @@ DWORD por_fourth_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 	return 0;
 }
 
-void __declspec(naked) por_fourth_fixtures_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) por_fourth_fixtures_c()
 {
 	__asm
 	{
@@ -416,7 +415,7 @@ int por_fourth_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char st
 	return 0;
 }
 
-void __declspec(naked) por_fourth_set_table_fate()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) por_fourth_set_table_fate()
 {
 	__asm
 	{
@@ -469,7 +468,7 @@ char por_fourth_update(BYTE* _this) {
 	return sub_79CEE0((BYTE*)*b74340, (BYTE*)(data->competition_db));
 }
 
-void __declspec(naked) por_fourth_update_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) por_fourth_update_c()
 {
 	__asm
 	{
@@ -576,7 +575,7 @@ void por_fourth_playoffs_create(BYTE* _this) {
 	}
 }
 
-void __declspec(naked) por_fourth_playoffs_create_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) por_fourth_playoffs_create_c()
 {
 	__asm
 	{
@@ -615,7 +614,7 @@ void por_fourth_reputation_calc(BYTE* _this, BYTE* club, char stage, char curren
 	ret[0x75] = ret_max;
 }
 
-void __declspec(naked) por_fourth_reputation_calc_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) por_fourth_reputation_calc_c()
 {
 	__asm
 	{

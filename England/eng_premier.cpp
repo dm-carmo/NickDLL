@@ -47,7 +47,7 @@ void eng_premier_prom_rel_update(BYTE* _this, int a2) {
 	}
 }
 
-void __declspec(naked) eng_premier_prom_rel_update_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) eng_premier_prom_rel_update_c()
 {
 	__asm
 	{
@@ -216,7 +216,7 @@ char eng_premier_update(BYTE* _this) {
 	return sub_79CEE0((BYTE*)*b74340, (BYTE*)(data->competition_db));
 }
 
-void __declspec(naked) eng_premier_update_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) eng_premier_update_c()
 {
 	__asm
 	{
@@ -459,7 +459,7 @@ DWORD eng_premier_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* 
 	else return 0;
 }
 
-void __declspec(naked) eng_premier_fixture_caller()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) eng_premier_fixture_caller()
 {
 	__asm
 	{

@@ -32,14 +32,13 @@ void pol_first_subs(BYTE* _this)
 	comp_data->max_bench = 7;
 	comp_data->max_subs = 3;
 
-	//call vtable +3C which is actually add fixtures function
 	DWORD v1 = *(DWORD*)_this;
 	comp_data->fixtures_table = (DWORD*)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0xA9, _this + 0x3A, 0);
 
 	return;
 }
 
-void __declspec(naked) pol_first_subs_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) pol_first_subs_c()
 {
 	__asm
 	{
@@ -128,7 +127,7 @@ void pol_first_prom_rel_update(BYTE* _this, int a2) {
 	sub_689C80(_this, pol_second, pol_third, 1, a2, -1, -1);
 }
 
-void __declspec(naked) pol_first_prom_rel_update_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) pol_first_prom_rel_update_c()
 {
 	__asm
 	{
@@ -247,7 +246,7 @@ char pol_first_update(BYTE* _this) {
 	return sub_79CEE0((BYTE*)*b74340, (BYTE*)(data->competition_db));
 }
 
-void __declspec(naked) pol_first_update_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) pol_first_update_c()
 {
 	__asm
 	{
@@ -297,7 +296,7 @@ void pol_first_free(BYTE* _this, BYTE a2) {
 	}
 }
 
-void __declspec(naked) pol_first_free_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) pol_first_free_c()
 {
 	__asm
 	{
@@ -533,7 +532,7 @@ DWORD pol_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 	return 0;
 }
 
-void __declspec(naked) pol_first_fixtures_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) pol_first_fixtures_c()
 {
 	__asm
 	{
@@ -604,11 +603,11 @@ void setup_pol_first()
 	WriteVTablePtr(pol_first_vtable, VTableInitFree, (DWORD)&pol_first_free_c);
 	WriteVTablePtr(pol_first_vtable, VTableEoSUpdate, (DWORD)&pol_first_update_c);
 	WriteVTablePtr(pol_first_vtable, VTableFixtures, (DWORD)&pol_first_fixtures_c);
-	WriteVTablePtr(pol_first_vtable, VTableReputationCalc, (DWORD)0x48e380);
-	WriteVTablePtr(pol_first_vtable, VTablePlayoffQual, (DWORD)0x5a8f60);
-	WriteVTablePtr(pol_first_vtable, VTableTableFates, (DWORD)0x686940);
+	WriteVTablePtr(pol_first_vtable, VTableReputationCalc, 0x48e380);
+	WriteVTablePtr(pol_first_vtable, VTablePlayoffQual, 0x5a8f60);
+	WriteVTablePtr(pol_first_vtable, VTableTableFates, 0x686940);
 	WriteVTablePtr(pol_first_vtable, VTablePromRelUpdate, (DWORD)&pol_first_prom_rel_update_c);
-	WriteVTablePtr(pol_first_vtable, VTableSetChampion, (DWORD)0x684640);
-	WriteVTablePtr(pol_first_vtable, VTableStageNews, (DWORD)0x48c6d0);
-	WriteVTablePtr(pol_first_vtable, VTableReputationSetup, (DWORD)0x68a850);
+	WriteVTablePtr(pol_first_vtable, VTableSetChampion, 0x684640);
+	WriteVTablePtr(pol_first_vtable, VTableStageNews, 0x48c6d0);
+	WriteVTablePtr(pol_first_vtable, VTableReputationSetup, 0x68a850);
 }

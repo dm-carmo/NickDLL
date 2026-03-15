@@ -10,7 +10,6 @@
 #include "sco_cup.h"
 #include "sco_league_cup.h"
 #include "sco_challenge_cup.h"
-//#include "sco_awards.h"
 #include <Helpers\9cf_constants.h>
 
 static DWORD(__thiscall* sco_cup_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
@@ -19,12 +18,12 @@ static DWORD(__thiscall* sco_challenge_cup_setup)(BYTE* _this, WORD year, cm3_cl
 (DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x570C00);
 
 DWORD sco_setup_c(playable_nation_data* nation_data) {
-	// contract start date?
+	
 	nation_data->contract_start_day = 1;
 	nation_data->contract_start_month = August;
 	nation_data->contract_start_year = *current_year;
 	nation_data->f55 = 5;
-	// contract end date?
+	
 	nation_data->contract_end_day = 31;
 	nation_data->contract_end_month = May;
 	nation_data->contract_end_year = *current_year + 1;
@@ -38,7 +37,7 @@ DWORD sco_setup_c(playable_nation_data* nation_data) {
 	}
 	DWORD* nation_comps = (DWORD*)sub_944E46_malloc(nation_data->num_of_comps * 4);
 	nation_data->comps_list = (DWORD)nation_comps;
-	// start calling each league's functions
+	
 	BYTE i = 0;
 
 	BYTE* pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
@@ -97,7 +96,6 @@ void setup_sco_nation() {
 	setup_sco_cup();
 	setup_sco_league_cup();
 	setup_sco_challenge_cup();
-	//setup_sco_awards();
 
 	WriteNOP(0x7ed3e2, 7);
 }

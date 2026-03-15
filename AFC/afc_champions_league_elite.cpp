@@ -61,7 +61,7 @@ void afc_champions_league_elite_free(BYTE* _this, BYTE a2) {
 	}
 }
 
-void __declspec(naked) afc_champions_league_elite_free_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) afc_champions_league_elite_free_c()
 {
 	__asm
 	{
@@ -153,7 +153,7 @@ DWORD afc_champions_league_elite_fixtures(BYTE* _this, char stage_idx, WORD* num
 	return 0;
 }
 
-void __declspec(naked) afc_champions_league_elite_fixture_caller()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) afc_champions_league_elite_fixture_caller()
 {
 	__asm
 	{
@@ -176,7 +176,7 @@ int afc_champions_league_elite_set_champion(BYTE* _this) {
 	return (*(int(__thiscall**)(BYTE*))(v1 + 0x30))(stage_data_for_history);
 }
 
-void __declspec(naked) afc_champions_league_elite_set_champion_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) afc_champions_league_elite_set_champion_c()
 {
 	__asm
 	{
@@ -472,7 +472,7 @@ void afc_champions_league_elite_reputation_setup(BYTE* _this) {
 	}
 }
 
-void __declspec(naked) afc_champions_league_elite_reputation_setup_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) afc_champions_league_elite_reputation_setup_c()
 {
 	__asm
 	{
@@ -513,7 +513,7 @@ void afc_champions_league_elite_reputation_calc(BYTE* _this, BYTE* club, char st
 	ret[0x75] = ret_max;
 }
 
-void __declspec(naked) afc_champions_league_elite_reputation_calc_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) afc_champions_league_elite_reputation_calc_c()
 {
 	__asm
 	{
@@ -581,7 +581,7 @@ char afc_champions_league_elite_update(BYTE* _this) {
 	return (*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
 }
 
-void __declspec(naked) afc_champions_league_elite_update_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) afc_champions_league_elite_update_c()
 {
 	__asm
 	{
@@ -652,7 +652,7 @@ void afc_champions_league_elite_group_stage_setup(BYTE* _this) {
 		WORD year = comp_data->year;
 		BYTE* pStage = (BYTE*)sub_944CF1_operator_new(0xEE);
 		create_league_stage_data(pStage, _this, group_teams, pTeams, 1, (DWORD)(comp_data->competition_db), pFixtures, num_rounds,
-			3, 1, 8, &tiebreaks[0], &prom_rel[0], year, i + stage_num, stage_name_id, 0xf, 2, 0, 8, -1, 0, 2);
+			3, 1, 8, &tiebreaks[0], &prom_rel[0], year, i + stage_num, stage_name_id, 0xf, 2, 0, 0x28, -1, 0, 2);
 		DWORD* stages_arr = comp_data->stages;
 		*((DWORD*)(&stages_arr[i + stage_num])) = (DWORD)pStage;
 		sub_684230(pStage);
@@ -705,11 +705,9 @@ void afc_champions_league_elite_final_stage_setup(BYTE* _this) {
 	for (char al = 0; al < 4; al++) {
 		comp_stats* curr_stage = (comp_stats*)(comp_data->stages[al]);
 		team_league_stats t = ((team_league_stats*)(curr_stage->team_league_table))[4];
-		staff_history_knocked_out_86C000(staff_hist_ptr, t.club, (DWORD)(comp_data->competition_db), None, GroupStage, 0xF);
 		t.club->ClubEuroFlag = -1;
 
 		t = ((team_league_stats*)(curr_stage->team_league_table))[5];
-		staff_history_knocked_out_86C000(staff_hist_ptr, t.club, (DWORD)(comp_data->competition_db), None, GroupStage, 0xF);
 		t.club->ClubEuroFlag = -1;
 	}
 }
@@ -730,7 +728,7 @@ void afc_champions_league_elite_stages_create(BYTE* _this) {
 	}
 }
 
-void __declspec(naked) afc_champions_league_elite_stages_create_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) afc_champions_league_elite_stages_create_c()
 {
 	__asm
 	{
@@ -754,7 +752,6 @@ int afc_champions_league_elite_set_fates(BYTE* _this, cm3_clubs* club, char fate
 		switch (fate) {
 		case TopPlayoff:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, GroupStage, 0x1E);
-			//*a5 = 1;
 			return 0;
 		case Promoted:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
@@ -786,12 +783,8 @@ int afc_champions_league_elite_set_fates(BYTE* _this, cm3_clubs* club, char fate
 		case Qualified1:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, EleventhRound, 0x1E);
 			return 0;
-		case TopPlayoff:
-			//staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, TenthRound, 0x1E);
-			return 0;
 		default:
 			staff_history_knocked_out_86C000(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, GroupStage, 0xF);
-			club->ClubEuroFlag = -1;
 			return 0;
 		}
 	}
@@ -805,7 +798,6 @@ int afc_champions_league_elite_set_fates(BYTE* _this, cm3_clubs* club, char fate
 		case TopPlayoff:
 			staff_history_comp_winner_86A800(staff_hist_ptr, club, round_data, a7);
 			club->ClubEuroFlag = -1;
-			//*a5 = 1;
 			return 0;
 		case Promoted:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
@@ -825,7 +817,7 @@ int afc_champions_league_elite_set_fates(BYTE* _this, cm3_clubs* club, char fate
 	return 0;
 }
 
-void __declspec(naked) afc_champions_league_elite_set_table_fate()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) afc_champions_league_elite_set_table_fate()
 {
 	__asm
 	{
@@ -840,6 +832,79 @@ void __declspec(naked) afc_champions_league_elite_set_table_fate()		// used as a
 		call afc_champions_league_elite_set_fates
 		add esp, 0x1c
 		ret 0x18
+	}
+}
+
+int afc_cl_elite_stage_news(BYTE* _this, int club_idx, char fate, char stage_id, int stage_name_idx, int round_data, __int16 a7, int a8, char a9, int show_body_text, LPVOID* ret_str_ptr) {
+	comp_stats* data = (comp_stats*)_this;
+	cm3_club_comps* comp_data = data->competition_db;
+	cm3_clubs* club_data = get_club(club_idx);
+	if (stage_id == -1)
+	{
+		if (show_body_text) return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
+		if (fate == 1) {
+			sub_66F4E0(0xDE1F64, (DWORD)&qualified_grp_title_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
+				&club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+			sub_4AE660(ret_str_ptr, 0xDE1F64);
+			sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+			sub_4AE8A0((BYTE*)ret_str_ptr, &comp_data->ClubCompNameShort[0], 0x7d0, (DWORD)comp_data);
+			return 1;
+		}
+		else {
+			comp_data = get_comp(AFC_CHAMPIONS_LEAGUE_TWO_9CF());
+			sub_66F4E0(0xDE1F64, (DWORD)&drop_down_grp_title_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
+				&club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+			sub_4AE660(ret_str_ptr, 0xDE1F64);
+			sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+			sub_4AE8A0((BYTE*)ret_str_ptr, &comp_data->ClubCompNameShort[0], 0x7d0, (DWORD)comp_data);
+			return 1;
+		}
+	}
+	else if (stage_id < 4) {
+		if (fate == Qualified1) {
+			if (show_body_text) {
+				sub_66F4E0(0xDE1F64, (DWORD)&qualified_r16_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderName, comp_data->ClubCompGenderName,
+					&club_data->ClubNameShort[0], &comp_data->ClubCompName[0]);
+				sub_4AE660(ret_str_ptr, 0xDE1F64);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &comp_data->ClubCompName[0], 0x7d0, (DWORD)comp_data);
+				return 1;
+			}
+			else {
+				sub_66F4E0(0xDE1F64, (DWORD)&qualified_r16_title_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
+					&club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+				sub_4AE660(ret_str_ptr, 0xDE1F64);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &comp_data->ClubCompNameShort[0], 0x7d0, (DWORD)comp_data);
+				return 1;
+			}
+		}
+		else if (fate == Eliminated) return sub_4B4590(club_idx, (WORD)stage_name_idx, (DWORD)comp_data, fate, show_body_text, ret_str_ptr);
+	}
+	else if (stage_id == 4) return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
+
+	return 0;
+}
+
+void __declspec(naked) afc_cl_elite_stage_news_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x28]
+		push dword ptr[eax + 0x24]
+		push dword ptr[eax + 0x20]
+		push dword ptr[eax + 0x1c]
+		push dword ptr[eax + 0x18]
+		push dword ptr[eax + 0x14]
+		push dword ptr[eax + 0x10]
+		push dword ptr[eax + 0xc]
+		push dword ptr[eax + 0x8]
+		push dword ptr[eax + 0x4]
+		push ecx
+		call afc_cl_elite_stage_news
+		add esp, 0x2c
+		ret 0x28
 	}
 }
 
@@ -888,7 +953,7 @@ void setup_afc_champions_league_elite() {
 	WriteVTablePtr(afc_champions_league_elite_vtable, VTableClubLandmarks, 0x48cab0);
 	WriteVTablePtr(afc_champions_league_elite_vtable, VTableFixtures, (DWORD)&afc_champions_league_elite_fixture_caller);
 	WriteVTablePtr(afc_champions_league_elite_vtable, VTableTableFates, (DWORD)&afc_champions_league_elite_set_table_fate);
-	WriteVTablePtr(afc_champions_league_elite_vtable, VTableStageNews, 0x48C6D0);
+	WriteVTablePtr(afc_champions_league_elite_vtable, VTableStageNews, (DWORD)&afc_cl_elite_stage_news_c);
 	WriteVTablePtr(afc_champions_league_elite_vtable, VTableReputationSetup, (DWORD)&afc_champions_league_elite_reputation_setup_c);
 	WriteVTablePtr(afc_champions_league_elite_vtable, VTableReputationCalc, (DWORD)&afc_champions_league_elite_reputation_calc_c);
 	WriteVTablePtr(afc_champions_league_elite_vtable, VTableSubsRounds, 0x858e70);

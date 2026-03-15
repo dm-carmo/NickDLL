@@ -41,7 +41,7 @@ void bra_super_free(BYTE* _this, BYTE a2) {
 	}
 }
 
-void __declspec(naked) bra_super_free_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) bra_super_free_c()
 {
 	__asm
 	{
@@ -76,7 +76,7 @@ DWORD bra_super_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 	return 0;
 }
 
-void __declspec(naked) bra_super_fixture_caller()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) bra_super_fixture_caller()
 {
 	__asm
 	{
@@ -161,7 +161,7 @@ char bra_super_update(BYTE* _this) {
 	return (*(int(__thiscall**)(BYTE*))(v1 + 0x94))(_this);
 }
 
-void __declspec(naked) bra_super_update_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) bra_super_update_c()
 {
 	__asm
 	{

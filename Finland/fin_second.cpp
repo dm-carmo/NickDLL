@@ -46,7 +46,7 @@ void fin_second_free(BYTE* _this, BYTE a2) {
 	}
 }
 
-void __declspec(naked) fin_second_free_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) fin_second_free_c()
 {
 	__asm
 	{
@@ -228,7 +228,7 @@ DWORD fin_second_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 	return 0;
 }
 
-void __declspec(naked) fin_second_fixtures_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) fin_second_fixtures_c()
 {
 	__asm
 	{
@@ -276,14 +276,13 @@ void fin_second_subs(BYTE* _this)
 	comp_data->max_bench = 7;
 	comp_data->max_subs = 3;
 
-	//call vtable +3C which is actually add fixtures function
 	DWORD v1 = *(DWORD*)_this;
 	comp_data->fixtures_table = (DWORD*)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0xA9, _this + 0x3A, 0);
 
 	return;
 }
 
-void __declspec(naked) fin_second_subs_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) fin_second_subs_c()
 {
 	__asm
 	{
@@ -343,7 +342,7 @@ char fin_second_update(BYTE* _this) {
 	return sub_79CEE0((BYTE*)*b74340, (BYTE*)(data->competition_db));
 }
 
-void __declspec(naked) fin_second_update_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) fin_second_update_c()
 {
 	__asm
 	{
@@ -426,7 +425,7 @@ char fin_second_table_split(BYTE* _this, DWORD current_date, int a2) {
 	return sub_6847C0(_this, current_date, a2);
 }
 
-void __declspec(naked) fin_second_table_split_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) fin_second_table_split_c()
 {
 	__asm
 	{
@@ -468,7 +467,7 @@ int fin_second_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char st
 	return 0;
 }
 
-void __declspec(naked) fin_second_set_table_fate()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) fin_second_set_table_fate()
 {
 	__asm
 	{
@@ -496,11 +495,11 @@ void fin_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	fin_second_vtable->SetPointer(VTableInitFree, (DWORD)&fin_second_free_c);
 	fin_second_vtable->SetPointer(VTableEoSUpdate, (DWORD)&fin_second_update_c);
 	fin_second_vtable->SetPointer(VTableFixtures, (DWORD)&fin_second_fixtures_c);
-	fin_second_vtable->SetPointer(VTableReputationCalc, (DWORD)0x48e380);
-	fin_second_vtable->SetPointer(VTablePlayoffQual, (DWORD)0x5a8f60);
+	fin_second_vtable->SetPointer(VTableReputationCalc, 0x48e380);
+	fin_second_vtable->SetPointer(VTablePlayoffQual, 0x5a8f60);
 	fin_second_vtable->SetPointer(VTableTableFates, (DWORD)&fin_second_set_table_fate);
 	fin_second_vtable->SetPointer(VTableLeagueSplit, (DWORD)&fin_second_table_split_c);
-	fin_second_vtable->SetPointer(VTableStageNews, (DWORD)0x7f3080); // Scotland stage news contains champ/rel group news
+	fin_second_vtable->SetPointer(VTableStageNews, 0x7f3080); // Scotland stage news contains champ/rel group news
 	data->year = year;
 	data->rules = 0xa;
 	int loaded = sub_687B10(_this, 1);

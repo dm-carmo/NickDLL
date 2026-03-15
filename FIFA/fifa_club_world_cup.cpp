@@ -51,7 +51,7 @@ void fifa_club_world_cup_free(BYTE* _this, BYTE a2) {
 	}
 }
 
-void __declspec(naked) fifa_club_world_cup_free_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) fifa_club_world_cup_free_c()
 {
 	__asm
 	{
@@ -71,7 +71,7 @@ int fifa_club_world_cup_set_champion(BYTE* _this) {
 	return (*(int(__thiscall**)(BYTE*))(v1 + 0x30))(stage_data_for_history);
 }
 
-void __declspec(naked) fifa_club_world_cup_set_champion_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) fifa_club_world_cup_set_champion_c()
 {
 	__asm
 	{
@@ -105,7 +105,7 @@ void fifa_club_world_cup_subs(BYTE* _this)
 	comp_data->promotes_to = -1;
 	comp_data->relegates_to = -1;
 
-	comp_data->f217 = 0x8;
+	comp_data->f217 = 0x28;
 	comp_data->max_bench = 7;
 	comp_data->max_subs = 3;
 
@@ -113,14 +113,13 @@ void fifa_club_world_cup_subs(BYTE* _this)
 	convert_to_cm_date(cm_date, 3, January, comp_data->year, -1);
 	*((WORD*)(_this + 0xB6)) = *(WORD*)(cm_date);
 
-	//call vtable +3C which is actually add fixtures function
 	DWORD v1 = *(DWORD*)_this;
 	comp_data->fixtures_table = (DWORD*)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0xA9, _this + 0x3A, 0);
 
 	return;
 }
 
-void __declspec(naked) fifa_club_world_cup_subs_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) fifa_club_world_cup_subs_c()
 {
 	__asm
 	{
@@ -133,7 +132,7 @@ void __declspec(naked) fifa_club_world_cup_subs_c()		// used as a __thiscall -> 
 }
 
 // prize money for group stage win/draw
-int cwc_583B10(BYTE* _this, BYTE* a2, int a3) {
+int cwc_money_after_match(BYTE* _this, BYTE* a2, int a3) {
 	comp_stats* comp_data = (comp_stats*)_this;
 	BYTE* ae2a38_ptr = (BYTE*)*ae2a38;
 	char al, bl, cl;
@@ -172,7 +171,7 @@ int cwc_583B10(BYTE* _this, BYTE* a2, int a3) {
 	return sub_685D30(_this, a2, a3);
 }
 
-void __declspec(naked) cwc_583B10_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) cwc_money_after_match_c()
 {
 	__asm
 	{
@@ -180,7 +179,7 @@ void __declspec(naked) cwc_583B10_c()		// used as a __thiscall -> __cdecl conver
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call cwc_583B10
+		call cwc_money_after_match
 		add esp, 0xc
 		ret 8
 	}
@@ -307,7 +306,7 @@ DWORD fifa_club_world_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds
 	return 0;
 }
 
-void __declspec(naked) fifa_club_world_cup_fixture_caller()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) fifa_club_world_cup_fixture_caller()
 {
 	__asm
 	{
@@ -357,7 +356,7 @@ void fifa_club_world_cup_reputation_setup(BYTE* _this) {
 	}
 }
 
-void __declspec(naked) fifa_club_world_cup_reputation_setup_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) fifa_club_world_cup_reputation_setup_c()
 {
 	__asm
 	{
@@ -392,7 +391,7 @@ void fifa_club_world_cup_reputation_calc(BYTE* _this, BYTE* club, char stage, ch
 	ret[0x75] = ret_max;
 }
 
-void __declspec(naked) fifa_club_world_cup_reputation_calc_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) fifa_club_world_cup_reputation_calc_c()
 {
 	__asm
 	{
@@ -759,7 +758,7 @@ char fifa_club_world_cup_update(BYTE* _this) {
 	return 1;
 }
 
-void __declspec(naked) fifa_club_world_cup_update_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) fifa_club_world_cup_update_c()
 {
 	__asm
 	{
@@ -779,9 +778,6 @@ int fifa_club_world_cup_set_fates(BYTE* _this, cm3_clubs* club, char fate, char 
 		case Qualified1:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, EleventhRound, 0x1E);
 			return 0;
-		case TopPlayoff:
-			//staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, TenthRound, 0x1E);
-			return 0;
 		default:
 			staff_history_knocked_out_86C000(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, GroupStage, 0xF);
 			return 0;
@@ -796,7 +792,6 @@ int fifa_club_world_cup_set_fates(BYTE* _this, cm3_clubs* club, char fate, char 
 		switch (fate) {
 		case TopPlayoff:
 			staff_history_comp_winner_86A800(staff_hist_ptr, club, round_data, a7);
-			//*a5 = 1;
 			return 0;
 		case Promoted:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
@@ -814,7 +809,7 @@ int fifa_club_world_cup_set_fates(BYTE* _this, cm3_clubs* club, char fate, char 
 	return 0;
 }
 
-void __declspec(naked) fifa_club_world_cup_set_table_fate()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) fifa_club_world_cup_set_table_fate()
 {
 	__asm
 	{
@@ -867,17 +862,6 @@ void fifa_club_world_cup_final_stage_setup(BYTE* _this) {
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
 	sub_51C800(new_stage, 0);
 	comp_data->current_stage = (long)stage_num;
-
-	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
-	curr_stage = comp_data;
-	for (char al = -1; al < 7; al++) {
-		if (al > -1) curr_stage = (comp_stats*)(comp_data->stages[al]);
-		team_league_stats t = ((team_league_stats*)(curr_stage->team_league_table))[2];
-		staff_history_knocked_out_86C000(staff_hist_ptr, t.club, (DWORD)(comp_data->competition_db), None, GroupStage, 0xF);
-
-		t = ((team_league_stats*)(curr_stage->team_league_table))[3];
-		staff_history_knocked_out_86C000(staff_hist_ptr, t.club, (DWORD)(comp_data->competition_db), None, GroupStage, 0xF);
-	}
 }
 
 void fifa_club_world_cup_stages_create(BYTE* _this) {
@@ -893,7 +877,7 @@ void fifa_club_world_cup_stages_create(BYTE* _this) {
 	}
 }
 
-void __declspec(naked) fifa_club_world_cup_stages_create_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) fifa_club_world_cup_stages_create_c()
 {
 	__asm
 	{
@@ -929,7 +913,7 @@ void fifa_club_world_cup_init2(BYTE* _this, DWORD current_date, int a3) {
 	sub_6847C0(_this, current_date, a3);
 }
 
-void __declspec(naked) fifa_club_world_cup_init2_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) fifa_club_world_cup_init2_c()
 {
 	__asm
 	{
@@ -940,6 +924,58 @@ void __declspec(naked) fifa_club_world_cup_init2_c()		// used as a __thiscall ->
 		call fifa_club_world_cup_init2
 		add esp, 0xc
 		ret 8
+	}
+}
+
+int cwc_stage_news(BYTE* _this, int club_idx, char fate, char stage_id, int stage_name_idx, int round_data, __int16 a7, int a8, char a9, int show_body_text, LPVOID* ret_str_ptr) {
+	comp_stats* data = (comp_stats*)_this;
+	cm3_club_comps* comp_data = data->competition_db;
+	cm3_clubs* club_data = get_club(club_idx);
+	if (stage_id < 7) {
+		if (fate == Qualified1) {
+			if (show_body_text) {
+				sub_66F4E0(0xDE1F64, (DWORD)&qualified_r16_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderName, comp_data->ClubCompGenderName,
+					&club_data->ClubNameShort[0], &comp_data->ClubCompName[0]);
+				sub_4AE660(ret_str_ptr, 0xDE1F64);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &comp_data->ClubCompName[0], 0x7d0, (DWORD)comp_data);
+				return 1;
+			}
+			else {
+				sub_66F4E0(0xDE1F64, (DWORD)&qualified_r16_title_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
+					&club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+				sub_4AE660(ret_str_ptr, 0xDE1F64);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &comp_data->ClubCompNameShort[0], 0x7d0, (DWORD)comp_data);
+				return 1;
+			}
+		}
+		else if (fate == Eliminated) return sub_4B4590(club_idx, (WORD)stage_name_idx, (DWORD)comp_data, fate, show_body_text, ret_str_ptr);
+	}
+	else if (stage_id == 7) return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
+
+	return 0;
+}
+
+void __declspec(naked) cwc_stage_news_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x28]
+		push dword ptr[eax + 0x24]
+		push dword ptr[eax + 0x20]
+		push dword ptr[eax + 0x1c]
+		push dword ptr[eax + 0x18]
+		push dword ptr[eax + 0x14]
+		push dword ptr[eax + 0x10]
+		push dword ptr[eax + 0xc]
+		push dword ptr[eax + 0x8]
+		push dword ptr[eax + 0x4]
+		push ecx
+		call cwc_stage_news
+		add esp, 0x2c
+		ret 0x28
 	}
 }
 
@@ -960,11 +996,11 @@ void fifa_club_world_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	fifa_club_world_cup_vtable->SetPointer(VTableClubLandmarks, 0x48cab0);
 	fifa_club_world_cup_vtable->SetPointer(VTableFixtures, (DWORD)&fifa_club_world_cup_fixture_caller);
 	fifa_club_world_cup_vtable->SetPointer(VTableTableFates, (DWORD)&fifa_club_world_cup_set_table_fate);
-	fifa_club_world_cup_vtable->SetPointer(VTableStageNews, 0x48C6D0);
+	fifa_club_world_cup_vtable->SetPointer(VTableStageNews, (DWORD)&cwc_stage_news_c);
 	fifa_club_world_cup_vtable->SetPointer(VTableReputationSetup, (DWORD)&fifa_club_world_cup_reputation_setup_c);
 	fifa_club_world_cup_vtable->SetPointer(VTableReputationCalc, (DWORD)&fifa_club_world_cup_reputation_calc_c);
 	fifa_club_world_cup_vtable->SetPointer(VTableSubsRounds, (DWORD)&fifa_club_world_cup_subs_c);
-	fifa_club_world_cup_vtable->SetPointer(VTablePostMatchUpdate, (DWORD)&cwc_583B10_c);
+	fifa_club_world_cup_vtable->SetPointer(VTablePostMatchUpdate, (DWORD)&cwc_money_after_match_c);
 	fifa_club_world_cup_vtable->SetPointer(VTableLeagueSplit, (DWORD)&fifa_club_world_cup_init2_c);
 	data->rules = 0xd;
 	data->f81 = 0xf;

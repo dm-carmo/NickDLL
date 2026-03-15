@@ -267,7 +267,7 @@ DWORD ita_ser_a_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 	return 0;
 }
 
-void __declspec(naked) ita_ser_a_fixtures_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) ita_ser_a_fixtures_c()
 {
 	__asm
 	{
@@ -307,7 +307,7 @@ void ita_ser_a_prom_rel_update(BYTE* _this, int a2) {
 	sub_689C80(_this, ita_ser_b, ita_ser_c_c, 1, a2, -1, -1);
 }
 
-void __declspec(naked) ita_ser_a_prom_rel_update_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) ita_ser_a_prom_rel_update_c()
 {
 	__asm
 	{
@@ -439,7 +439,7 @@ char ita_ser_a_update(BYTE* _this) {
 	return sub_79CEE0((BYTE*)*b74340, (BYTE*)(data->competition_db));
 }
 
-void __declspec(naked) ita_ser_a_update_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) ita_ser_a_update_c()
 {
 	__asm
 	{

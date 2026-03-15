@@ -46,7 +46,7 @@ void jpn_third_free(BYTE* _this, BYTE a2) {
 	}
 }
 
-void __declspec(naked) jpn_third_free_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) jpn_third_free_c()
 {
 	__asm
 	{
@@ -89,14 +89,13 @@ void jpn_third_subs(BYTE* _this)
 	comp_data->max_bench = 7;
 	comp_data->max_subs = 3;
 
-	//call vtable +3C which is actually add fixtures function
 	DWORD v1 = *(DWORD*)_this;
 	comp_data->fixtures_table = (DWORD*)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0xA9, _this + 0x3A, 0);
 
 	return;
 }
 
-void __declspec(naked) jpn_third_subs_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) jpn_third_subs_c()
 {
 	__asm
 	{
@@ -316,7 +315,7 @@ DWORD jpn_third_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 	return 0;
 }
 
-void __declspec(naked) jpn_third_fixtures_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) jpn_third_fixtures_c()
 {
 	__asm
 	{
@@ -442,7 +441,7 @@ void jpn_third_playoffs_create_c(BYTE* _this) {
 	}
 }
 
-void __declspec(naked) jpn_third_playoffs_create()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) jpn_third_playoffs_create()
 {
 	__asm
 	{
@@ -562,7 +561,7 @@ int jpn_third_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char sta
 	return 0;
 }
 
-void __declspec(naked) jpn_third_set_table_fate()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) jpn_third_set_table_fate()
 {
 	__asm
 	{
@@ -615,7 +614,7 @@ void jpn_third_reputation_calc(BYTE* _this, BYTE* club, char stage, char current
 	ret[0x75] = ret_max;
 }
 
-void __declspec(naked) jpn_third_reputation_calc_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) jpn_third_reputation_calc_c()
 {
 	__asm
 	{
@@ -668,7 +667,7 @@ char jpn_third_update(BYTE* _this) {
 	return sub_79CEE0((BYTE*)*b74340, (BYTE*)(data->competition_db));
 }
 
-void __declspec(naked) jpn_third_update_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) jpn_third_update_c()
 {
 	__asm
 	{

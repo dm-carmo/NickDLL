@@ -125,7 +125,7 @@ DWORD eng_league_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WOR
 	return 0;
 }
 
-void __declspec(naked) eng_league_cup_fixture_caller()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) eng_league_cup_fixture_caller()
 {
 	__asm
 	{
@@ -154,7 +154,6 @@ void eng_league_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->comp_type = CLUB_DOMESTIC;
 	data->rules = 0x9;
 	*((BYTE*)(_this + 0xB1)) = 0;
-	//data->f69 = 0;
 	int loaded = sub_51FC00(_this, 1);
 	if (loaded) return;
 	comp->ClubCompBackgroundColour = get_colour(COLOUR_GREEN_1_9CF());
@@ -173,7 +172,7 @@ void eng_league_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	sub_5223A0(_this);
 }
 
-void __declspec(naked) eng_league_cup_init_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) eng_league_cup_init_c()
 {
 	__asm
 	{
@@ -221,7 +220,7 @@ char eng_league_cup_update(BYTE* _this) {
 	return (*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
 }
 
-void __declspec(naked) eng_league_cup_update_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) eng_league_cup_update_c()
 {
 	__asm
 	{

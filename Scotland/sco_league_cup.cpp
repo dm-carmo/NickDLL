@@ -50,7 +50,7 @@ void sco_league_cup_free(BYTE* _this, BYTE a2) {
 	}
 }
 
-void __declspec(naked) sco_league_cup_free_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) sco_league_cup_free_c()
 {
 	__asm
 	{
@@ -70,7 +70,7 @@ int sco_league_cup_set_champion(BYTE* _this) {
 	return (*(int(__thiscall**)(BYTE*))(v1 + 0x30))(stage_data_for_history);
 }
 
-void __declspec(naked) sco_league_cup_set_champion_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) sco_league_cup_set_champion_c()
 {
 	__asm
 	{
@@ -108,14 +108,13 @@ void sco_league_cup_subs(BYTE* _this)
 	comp_data->max_bench = 7;
 	comp_data->max_subs = 3;
 
-	//call vtable +3C which is actually add fixtures function
 	DWORD v1 = *(DWORD*)_this;
 	comp_data->fixtures_table = (DWORD*)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0xA9, _this + 0x3A, 0);
 
 	return;
 }
 
-void __declspec(naked) sco_league_cup_subs_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) sco_league_cup_subs_c()
 {
 	__asm
 	{
@@ -181,7 +180,7 @@ DWORD sco_league_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WOR
 	return 0;
 }
 
-void __declspec(naked) sco_league_cup_fixture_caller()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) sco_league_cup_fixture_caller()
 {
 	__asm
 	{
@@ -237,7 +236,7 @@ void sco_league_cup_reputation_setup(BYTE* _this) {
 	}
 }
 
-void __declspec(naked) sco_league_cup_reputation_setup_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) sco_league_cup_reputation_setup_c()
 {
 	__asm
 	{
@@ -272,7 +271,7 @@ void sco_league_cup_reputation_calc(BYTE* _this, BYTE* club, char stage, char cu
 	ret[0x75] = ret_max;
 }
 
-void __declspec(naked) sco_league_cup_reputation_calc_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) sco_league_cup_reputation_calc_c()
 {
 	__asm
 	{
@@ -480,7 +479,7 @@ char sco_league_cup_update(BYTE* _this) {
 	return 1;
 }
 
-void __declspec(naked) sco_league_cup_update_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) sco_league_cup_update_c()
 {
 	__asm
 	{
@@ -500,11 +499,7 @@ int sco_league_cup_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage
 		case Qualified1:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, SecondRound, 0x1E);
 			return 0;
-		case TopPlayoff:
-			//staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, SecondRound, 0x1E);
-			return 0;
 		default:
-			//staff_history_knocked_out_86C000(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, GroupStage, 0xF);
 			return 0;
 		}
 	}
@@ -517,7 +512,6 @@ int sco_league_cup_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage
 		switch (fate) {
 		case TopPlayoff:
 			staff_history_comp_winner_86A800(staff_hist_ptr, club, round_data, a7);
-			//*a5 = 1;
 			return 0;
 		case Promoted:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
@@ -535,7 +529,7 @@ int sco_league_cup_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage
 	return 0;
 }
 
-void __declspec(naked) sco_league_cup_set_table_fate()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) sco_league_cup_set_table_fate()
 {
 	__asm
 	{
@@ -654,7 +648,7 @@ void sco_league_cup_stages_create(BYTE* _this) {
 	}
 }
 
-void __declspec(naked) sco_league_cup_stages_create_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) sco_league_cup_stages_create_c()
 {
 	__asm
 	{
@@ -663,6 +657,58 @@ void __declspec(naked) sco_league_cup_stages_create_c()		// used as a __thiscall
 		call sco_league_cup_stages_create
 		add esp, 0x4
 		ret
+	}
+}
+
+int sco_league_cup_stage_news(BYTE* _this, int club_idx, char fate, char stage_id, int stage_name_idx, int round_data, __int16 a7, int a8, char a9, int show_body_text, LPVOID* ret_str_ptr) {
+	comp_stats* data = (comp_stats*)_this;
+	cm3_club_comps* comp_data = data->competition_db;
+	cm3_clubs* club_data = get_club(club_idx);
+	if (stage_id < 7) {
+		if (fate == Qualified1) {
+			if (show_body_text) {
+				sub_66F4E0(0xDE1F64, (DWORD)&qualified_rd2_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderName, comp_data->ClubCompGenderName,
+					&club_data->ClubNameShort[0], &comp_data->ClubCompName[0]);
+				sub_4AE660(ret_str_ptr, 0xDE1F64);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &comp_data->ClubCompName[0], 0x7d0, (DWORD)comp_data);
+				return 1;
+			}
+			else {
+				sub_66F4E0(0xDE1F64, (DWORD)&qualified_rd2_title_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
+					&club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+				sub_4AE660(ret_str_ptr, 0xDE1F64);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &comp_data->ClubCompNameShort[0], 0x7d0, (DWORD)comp_data);
+				return 1;
+			}
+		}
+		else if (fate == Eliminated) return sub_4B4590(club_idx, (WORD)stage_name_idx, (DWORD)comp_data, fate, show_body_text, ret_str_ptr);
+	}
+	else if (stage_id == 7) return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
+
+	return 0;
+}
+
+void __declspec(naked) sco_league_cup_stage_news_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x28]
+		push dword ptr[eax + 0x24]
+		push dword ptr[eax + 0x20]
+		push dword ptr[eax + 0x1c]
+		push dword ptr[eax + 0x18]
+		push dword ptr[eax + 0x14]
+		push dword ptr[eax + 0x10]
+		push dword ptr[eax + 0xc]
+		push dword ptr[eax + 0x8]
+		push dword ptr[eax + 0x4]
+		push ecx
+		call sco_league_cup_stage_news
+		add esp, 0x2c
+		ret 0x28
 	}
 }
 
@@ -679,11 +725,11 @@ void sco_league_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	sco_league_cup_vtable->SetPointer(VTableClubLandmarks, 0x48cab0);
 	sco_league_cup_vtable->SetPointer(VTableFixtures, (DWORD)&sco_league_cup_fixture_caller);
 	sco_league_cup_vtable->SetPointer(VTableTableFates, (DWORD)&sco_league_cup_set_table_fate);
-	sco_league_cup_vtable->SetPointer(VTableStageNews, 0x48C6D0);
+	sco_league_cup_vtable->SetPointer(VTableStageNews, (DWORD)&sco_league_cup_stage_news_c);
 	sco_league_cup_vtable->SetPointer(VTableReputationSetup, (DWORD)&sco_league_cup_reputation_setup_c);
 	sco_league_cup_vtable->SetPointer(VTableReputationCalc, (DWORD)&sco_league_cup_reputation_calc_c);
 	sco_league_cup_vtable->SetPointer(VTableSubsRounds, (DWORD)&sco_league_cup_subs_c);
-	sco_league_cup_vtable->SetPointer(VTableLeagueSplit, (DWORD)0x6847c0);
+	sco_league_cup_vtable->SetPointer(VTableLeagueSplit, 0x6847c0);
 	data->rules = 0x19;
 	data->f81 = 0xc;
 	int loaded = sub_687B10(_this, 1);

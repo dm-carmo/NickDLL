@@ -37,14 +37,13 @@ void hol_second_subs(BYTE* _this)
 	*(BYTE*)(_this + 0xF0) = 0;
 	*(BYTE*)(_this + 0xF1) = 0;
 
-	//call vtable +3C which is actually add fixtures function
 	DWORD v1 = *(DWORD*)_this;
 	comp_data->fixtures_table = (DWORD*)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0xA9, _this + 0x3A, 0);
 
 	return;
 }
 
-void __declspec(naked) hol_second_subs_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) hol_second_subs_c()
 {
 	__asm
 	{
@@ -287,7 +286,7 @@ DWORD hol_second_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 	return 0;
 }
 
-void __declspec(naked) hol_second_fixtures_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) hol_second_fixtures_c()
 {
 	__asm
 	{
@@ -384,7 +383,6 @@ void __fastcall hol_second_create_periods(BYTE* _this, char stage_idx) {
 				team_league_stats period_tls = period_table[j];
 				if (tls.club == period_tls.club) {
 					period_table[j].league_fate = Eliminated;
-					//break;
 				}
 			}
 		}
@@ -418,7 +416,7 @@ int hol_second_vtable2(BYTE* _this, BYTE* round_data, int a3) {
 	return 1;
 }
 
-void __declspec(naked) hol_second_vtable2_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) hol_second_vtable2_c()
 {
 	__asm
 	{
@@ -466,7 +464,7 @@ char hol_second_update(BYTE* _this) {
 	return sub_79CEE0((BYTE*)*b74340, (BYTE*)(data->competition_db));
 }
 
-void __declspec(naked) hol_second_update_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) hol_second_update_c()
 {
 	__asm
 	{
@@ -495,7 +493,7 @@ void hol_second_reputation_calc(BYTE* _this, BYTE* club, char stage, char curren
 	ret[0x75] = ret_max;
 }
 
-void __declspec(naked) hol_second_reputation_calc_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) hol_second_reputation_calc_c()
 {
 	__asm
 	{
@@ -577,7 +575,7 @@ void hol_second_playoffs_c(BYTE* _this) {
 	}
 }
 
-void __declspec(naked) hol_second_playoffs_create()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) hol_second_playoffs_create()
 {
 	__asm
 	{
@@ -642,7 +640,7 @@ int hol_second_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char st
 	return 0;
 }
 
-void __declspec(naked) hol_second_set_table_fate()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) hol_second_set_table_fate()
 {
 	__asm
 	{
@@ -669,5 +667,5 @@ void setup_hol_second()
 	WriteVTablePtr(hol_second_vtable, VTableReputationCalc, (DWORD)&hol_second_reputation_calc_c);
 	WriteVTablePtr(hol_second_vtable, VTablePlayoffQual, (DWORD)&hol_second_playoffs_create);
 	WriteVTablePtr(hol_second_vtable, VTableTableFates, (DWORD)&hol_second_set_table_fate);
-	WriteVTablePtr(hol_second_vtable, VTableStageNews, (DWORD)0x48c6d0);
+	WriteVTablePtr(hol_second_vtable, VTableStageNews, 0x48c6d0);
 }

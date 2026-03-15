@@ -135,7 +135,7 @@ DWORD eng_league_2_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD*
 	return 0;
 }
 
-void __declspec(naked) eng_league_2_fixture_caller()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) eng_league_2_fixture_caller()
 {
 	__asm
 	{
@@ -186,7 +186,7 @@ char eng_league_2_update(BYTE* _this) {
 	return sub_79CEE0((BYTE*)*b74340, (BYTE*)(data->competition_db));
 }
 
-void __declspec(naked) eng_league_2_update_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) eng_league_2_update_c()
 {
 	__asm
 	{
@@ -230,7 +230,7 @@ void eng_league_2_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	reputation_setup_generic_68A850(_this);
 }
 
-void __declspec(naked) eng_league_2_init_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) eng_league_2_init_c()
 {
 	__asm
 	{

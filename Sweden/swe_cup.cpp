@@ -14,7 +14,7 @@ int swe_cup_set_champion(BYTE* _this) {
 	return (*(int(__thiscall**)(BYTE*))(v1 + 0x30))(stage_data_for_history);
 }
 
-void __declspec(naked) swe_cup_set_champion_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) swe_cup_set_champion_c()
 {
 	__asm
 	{
@@ -74,7 +74,7 @@ void swe_cup_free(BYTE* _this, BYTE a2) {
 	}
 }
 
-void __declspec(naked) swe_cup_free_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) swe_cup_free_c()
 {
 	__asm
 	{
@@ -160,7 +160,7 @@ DWORD swe_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 	return 0;
 }
 
-void __declspec(naked) swe_cup_fixture_caller()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) swe_cup_fixture_caller()
 {
 	__asm
 	{
@@ -315,7 +315,7 @@ char swe_cup_update(BYTE* _this) {
 	return (*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
 }
 
-void __declspec(naked) swe_cup_update_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) swe_cup_update_c()
 {
 	__asm
 	{
@@ -367,7 +367,7 @@ void swe_cup_group_stage_setup(BYTE* _this) {
 		WORD year = data->year;
 		BYTE* pStage = (BYTE*)sub_944CF1_operator_new(0xEE);
 		create_league_stage_data(pStage, _this, group_teams, pTeams, 1, (DWORD)(data->competition_db), pFixtures, num_rounds,
-			3, 1, 2, &tiebreaks[0], &prom_rel[0], year, i, stage_name_id, data->f81, 1, 0, 8, -1, 0, 2);
+			3, 1, 2, &tiebreaks[0], &prom_rel[0], year, i, stage_name_id, data->f81, 1, 0, 0x28, -1, 0, 2);
 		DWORD* stages_arr = data->stages;
 		*((DWORD*)(&stages_arr[i])) = (DWORD)pStage;
 		sub_9452CA_free(pTeams);
@@ -420,7 +420,7 @@ void swe_cup_stages_create(BYTE* _this) {
 	}
 }
 
-void __declspec(naked) swe_cup_stages_create_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) swe_cup_stages_create_c()
 {
 	__asm
 	{
@@ -441,7 +441,6 @@ int swe_cup_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE*
 		switch (fate) {
 		case TopPlayoff:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, GroupStage, 0x1E);
-			//*a5 = 1;
 			return 0;
 		case Promoted:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
@@ -471,7 +470,6 @@ int swe_cup_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE*
 		switch (fate) {
 		case TopPlayoff:
 			staff_history_comp_winner_86A800(staff_hist_ptr, club, round_data, a7);
-			//*a5 = 1;
 			return 0;
 		case Promoted:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
@@ -489,7 +487,7 @@ int swe_cup_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE*
 	return 0;
 }
 
-void __declspec(naked) swe_cup_set_table_fate()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) swe_cup_set_table_fate()
 {
 	__asm
 	{
@@ -547,7 +545,7 @@ void swe_cup_reputation_setup(BYTE* _this) {
 	}
 }
 
-void __declspec(naked) swe_cup_reputation_setup_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) swe_cup_reputation_setup_c()
 {
 	__asm
 	{
@@ -586,7 +584,7 @@ void swe_cup_reputation_calc(BYTE* _this, BYTE* club, char stage, char current, 
 	ret[0x75] = ret_max;
 }
 
-void __declspec(naked) swe_cup_reputation_calc_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) swe_cup_reputation_calc_c()
 {
 	__asm
 	{
@@ -600,6 +598,71 @@ void __declspec(naked) swe_cup_reputation_calc_c()		// used as a __thiscall -> _
 		call swe_cup_reputation_calc
 		add esp, 0x18
 		ret 0x14
+	}
+}
+
+int swe_cup_stage_news(BYTE* _this, int club_idx, char fate, char stage_id, int stage_name_idx, int round_data, __int16 a7, int a8, char a9, int show_body_text, LPVOID* ret_str_ptr) {
+	comp_stats* data = (comp_stats*)_this;
+	cm3_club_comps* comp_data = data->competition_db;
+	cm3_clubs* club_data = get_club(club_idx);
+	if (stage_id == -1)
+	{
+		if (show_body_text) return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
+		if (fate == 1) {
+			sub_66F4E0(0xDE1F64, (DWORD)&qualified_grp_title_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
+				&club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+			sub_4AE660(ret_str_ptr, 0xDE1F64);
+			sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+			sub_4AE8A0((BYTE*)ret_str_ptr, &comp_data->ClubCompNameShort[0], 0x7d0, (DWORD)comp_data);
+			return 1;
+		}
+		else return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
+	}
+	else if (stage_id < 8) {
+		if (fate == Qualified1) {
+			if (show_body_text) {
+				sub_66F4E0(0xDE1F64, (DWORD)&qualified_qtr_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderName, comp_data->ClubCompGenderName,
+					&club_data->ClubNameShort[0], &comp_data->ClubCompName[0]);
+				sub_4AE660(ret_str_ptr, 0xDE1F64);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &comp_data->ClubCompName[0], 0x7d0, (DWORD)comp_data);
+				return 1;
+			}
+			else {
+				sub_66F4E0(0xDE1F64, (DWORD)&qualified_qtr_title_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
+					&club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+				sub_4AE660(ret_str_ptr, 0xDE1F64);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &comp_data->ClubCompNameShort[0], 0x7d0, (DWORD)comp_data);
+				return 1;
+			}
+		}
+		else if (fate == Eliminated) return sub_4B4590(club_idx, (WORD)stage_name_idx, (DWORD)comp_data, fate, show_body_text, ret_str_ptr);
+	}
+	else if (stage_id == 8) return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
+
+	return 0;
+}
+
+void __declspec(naked) swe_cup_stage_news_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x28]
+		push dword ptr[eax + 0x24]
+		push dword ptr[eax + 0x20]
+		push dword ptr[eax + 0x1c]
+		push dword ptr[eax + 0x18]
+		push dword ptr[eax + 0x14]
+		push dword ptr[eax + 0x10]
+		push dword ptr[eax + 0xc]
+		push dword ptr[eax + 0x8]
+		push dword ptr[eax + 0x4]
+		push ecx
+		call swe_cup_stage_news
+		add esp, 0x2c
+		ret 0x28
 	}
 }
 
@@ -642,7 +705,7 @@ void setup_swe_cup()
 	WriteVTablePtr(swe_cup_vtable, VTablePlayoffQual, (DWORD)&swe_cup_stages_create_c);
 	WriteVTablePtr(swe_cup_vtable, VTableSetChampion, (DWORD)&swe_cup_set_champion_c);
 	WriteVTablePtr(swe_cup_vtable, VTableTableFates, (DWORD)&swe_cup_set_table_fate);
-	WriteVTablePtr(swe_cup_vtable, VTableStageNews, 0x48C6D0);
+	WriteVTablePtr(swe_cup_vtable, VTableStageNews, (DWORD)&swe_cup_stage_news_c);
 	WriteVTablePtr(swe_cup_vtable, VTableReputationSetup, (DWORD)&swe_cup_reputation_setup_c);
 	WriteVTablePtr(swe_cup_vtable, VTableReputationCalc, (DWORD)&swe_cup_reputation_calc_c);
 	WriteVTablePtr(swe_cup_vtable, VTableSubsRounds, 0x858e70);

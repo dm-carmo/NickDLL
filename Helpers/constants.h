@@ -1,88 +1,41 @@
 #pragma once
-const int playoff_dates_sz = 104;
-const int fixture_dates_sz = 65;
-const int league_team_list_sz = 59;
+#include <vector>
+#include <string>
 
-const vector<string> asia_east = {
-	"Japan",
-	"South Korea",
-	"China",
-	"Thailand",
-	"Australia",
-	"Malaysia",
-	"Vietnam",
-	"Hong Kong",
-	"Singapore",
-	"The Philippines",
-	"Indonesia",
-	"North Korea",
-	"Cambodia",
-	"Myanmar",
-	"Chinese Taipei",
-	"Mongolia",
-	"Macau",
-	"Laos",
-	"Brunei Darussalam",
-	"Guam",
-	//"Northern Mariana Islands",
-	"Timor",
-};
+using namespace std;
 
-const vector<string> asia_west = {
-	"Saudi Arabia",
-	"United Arab Emirates",
-	"Qatar",
-	"Iran",
-	"Uzbekistan",
-	"Iraq",
-	"Jordan",
-	"Bahrain",
-	"India",
-	"Tajikistan",
-	"Turkmenistan",
-	"Oman",
-	"Lebanon",
-	"Kuwait",
-	"Bangladesh",
-	"Syria",
-	"Kyrgyzstan",
-	"Maldives",
-	"Palestine",
-	"Nepal",
-	"Sri Lanka",
-	"Bhutan",
-	"Afghanistan",
-	"Pakistan",
-	"Yemen",
-};
+extern int playoff_dates_sz;
+extern int fixture_dates_sz;
+extern int league_team_list_sz;
 
-const vector<string> caf_top12 = {
-	"Egypt",
-	"Morocco",
-	"South Africa",
-	"Algeria",
-	"Tanzania",
-	"Tunisia",
-	"Angola",
-	"Democratic Republic of Congo",
-	"Sudan",
-	"Ivory Coast",
-	"Libya",
-	"Nigeria",
-};
+extern vector<string> asia_east;
+extern vector<string> asia_west;
+extern vector<string> caf_top12;
+extern vector<string> caf_worst;
+extern vector<string> ofc_worst;
 
-const vector<string> caf_worst = {
-	"Chad",
-	"Eritrea",
-	"São Tomé & Principe",
-	"Somalia",
-	"Djibouti",
-	"Seychelles",
-};
+extern char* qualified_grp_msg;
+extern char* qualified_grp_title_msg;
+extern char* drop_down_title_msg;
+extern char* drop_down_grp_title_msg;
+extern char* qualified_r16_msg;
+extern char* qualified_r16_title_msg;
+extern char* qualified_r32_msg;
+extern char* qualified_r32_title_msg;
+extern char* qualified_rd2_msg;
+extern char* qualified_rd2_title_msg;
+extern char* qualified_qtr_msg;
+extern char* qualified_qtr_title_msg;
+extern char* qualified_semi_msg;
+extern char* qualified_semi_title_msg;
+extern char* qualified_playoff_msg;
+extern char* qualified_playoff_title_msg;
+extern char* qualified_champ_grp_msg;
+extern char* qualified_champ_grp_title_msg;
+extern char* qualified_rel_grp_msg;
+extern char* qualified_rel_grp_title_msg;
+extern char* uel_playoff_msg;
 
-const vector<string> ofc_worst = {
-	"American Samoa",
-	"Cook Islands",
-	"Samoa",
-	"Tonga",
-};
+extern char* register_msg1;
+extern char* register_msg2;
+extern char* register_msg3;

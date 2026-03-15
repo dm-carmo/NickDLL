@@ -50,7 +50,7 @@ DWORD concacaf_champions_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rou
 	return 0;
 }
 
-void __declspec(naked) concacaf_champions_cup_fixture_caller()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) concacaf_champions_cup_fixture_caller()
 {
 	__asm
 	{
@@ -437,7 +437,7 @@ char concacaf_champions_cup_update(BYTE* _this) {
 	return (*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
 }
 
-void __declspec(naked) concacaf_champions_cup_update_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) concacaf_champions_cup_update_c()
 {
 	__asm
 	{
@@ -461,7 +461,6 @@ int concacaf_champions_cup_set_fates(BYTE* _this, cm3_clubs* club, char fate, ch
 		case TopPlayoff:
 			staff_history_comp_winner_86A800(staff_hist_ptr, club, round_data, a7);
 			club->ClubEuroFlag = -1;
-			//*a5 = 1;
 			return 0;
 		case Promoted:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
@@ -481,7 +480,7 @@ int concacaf_champions_cup_set_fates(BYTE* _this, cm3_clubs* club, char fate, ch
 	return 0;
 }
 
-void __declspec(naked) concacaf_champions_cup_set_table_fate()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) concacaf_champions_cup_set_table_fate()
 {
 	__asm
 	{

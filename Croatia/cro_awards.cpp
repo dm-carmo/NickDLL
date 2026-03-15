@@ -52,7 +52,7 @@ void croatia_awards(BYTE* _this, int a2) {
 	awards_list[i++] = (DWORD)pMem;
 }
 
-void __declspec(naked) cro_awards_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) cro_awards_c()
 {
 	__asm
 	{
@@ -84,7 +84,7 @@ char cro_awards_2(BYTE* _this, DWORD current_date) {
 	return sub_768310(_this, current_date);
 }
 
-void __declspec(naked) cro_awards_2_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) cro_awards_2_c()
 {
 	__asm
 	{
@@ -113,7 +113,7 @@ void cro_awards_team_of_week(BYTE* _this, DWORD award_addr) {
 	}
 }
 
-void __declspec(naked) cro_awards_team_of_week_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) cro_awards_team_of_week_c()
 {
 	__asm
 	{

@@ -32,14 +32,13 @@ void irl_premier_subs(BYTE* _this)
 	comp_data->max_bench = 7;
 	comp_data->max_subs = 3;
 
-	//call vtable +3C which is actually add fixtures function
 	DWORD v1 = *(DWORD*)_this;
 	comp_data->fixtures_table = (DWORD*)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0xA9, _this + 0x3A, 0);
 
 	return;
 }
 
-void __declspec(naked) irl_premier_subs_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) irl_premier_subs_c()
 {
 	__asm
 	{
@@ -61,7 +60,7 @@ void irl_premier_prom_rel_update(BYTE* _this, int a2) {
 	sub_689C80(_this, _this, irl_first, 1, a2, -1, -1);
 }
 
-void __declspec(naked) irl_premier_prom_rel_update_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) irl_premier_prom_rel_update_c()
 {
 	__asm
 	{
@@ -118,7 +117,7 @@ char irl_premier_update(BYTE* _this) {
 	return sub_79CEE0((BYTE*)*b74340, (BYTE*)(data->competition_db));
 }
 
-void __declspec(naked) irl_premier_update_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) irl_premier_update_c()
 {
 	__asm
 	{
@@ -168,7 +167,7 @@ void irl_premier_free(BYTE* _this, BYTE a2) {
 	}
 }
 
-void __declspec(naked) irl_premier_free_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) irl_premier_free_c()
 {
 	__asm
 	{
@@ -304,7 +303,7 @@ DWORD irl_premier_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* 
 	return 0;
 }
 
-void __declspec(naked) irl_premier_fixtures_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) irl_premier_fixtures_c()
 {
 	__asm
 	{
@@ -402,7 +401,6 @@ void irl_premier_playoffs_c(BYTE* _this) {
 			DWORD v1 = *(DWORD*)prom_playoff;
 			char ret = (*(int(__thiscall**)(BYTE*, int, int))(v1 + 0x10))(prom_playoff, 0, 1);
 			if (ret != 0) {
-				//(*(void(__thiscall**)(BYTE*))(v1 + 0x94))(prom_playoff);
 				current++;
 				if (current == 0) {
 					comp_data->current_stage = current;
@@ -413,7 +411,7 @@ void irl_premier_playoffs_c(BYTE* _this) {
 	}
 }
 
-void __declspec(naked) irl_premier_playoffs_create()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) irl_premier_playoffs_create()
 {
 	__asm
 	{
@@ -503,7 +501,7 @@ int irl_premier_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char s
 	return 0;
 }
 
-void __declspec(naked) irl_premier_set_table_fate()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) irl_premier_set_table_fate()
 {
 	__asm
 	{
@@ -549,7 +547,7 @@ void irl_premier_reputation_calc(BYTE* _this, BYTE* club, char stage, char curre
 	ret[0x75] = ret_max;
 }
 
-void __declspec(naked) irl_premier_reputation_calc_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) irl_premier_reputation_calc_c()
 {
 	__asm
 	{

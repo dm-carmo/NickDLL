@@ -28,7 +28,7 @@ DWORD irl_presidents_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WOR
 	return 0;
 }
 
-void __declspec(naked) irl_presidents_fixture_caller()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) irl_presidents_fixture_caller()
 {
 	__asm
 	{

@@ -64,7 +64,7 @@ int eng_fa_trophy_teams(BYTE* _this) {
 	return 1;
 }
 
-void __declspec(naked) eng_fa_trophy_teams_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) eng_fa_trophy_teams_c()
 {
 	__asm
 	{
@@ -126,7 +126,7 @@ DWORD eng_fa_trophy_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD
 	return 0;
 }
 
-void __declspec(naked) eng_fa_trophy_fixture_caller()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) eng_fa_trophy_fixture_caller()
 {
 	__asm
 	{

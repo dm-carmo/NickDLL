@@ -29,7 +29,7 @@ DWORD caf_super_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD
 	return 0;
 }
 
-void __declspec(naked) caf_super_cup_fixture_caller()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) caf_super_cup_fixture_caller()
 {
 	__asm
 	{
@@ -81,7 +81,7 @@ int caf_super_cup_teams(BYTE* _this) {
 	return 1;
 }
 
-void __declspec(naked) caf_super_cup_teams_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) caf_super_cup_teams_c()
 {
 	__asm
 	{
@@ -126,7 +126,7 @@ char caf_super_cup_update(BYTE* _this) {
 	return (*(int(__thiscall**)(BYTE*))(v1 + 0x94))(_this);
 }
 
-void __declspec(naked) caf_super_cup_update_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) caf_super_cup_update_c()
 {
 	__asm
 	{

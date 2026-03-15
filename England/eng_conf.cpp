@@ -45,7 +45,7 @@ void eng_conf_free(BYTE* _this, BYTE a2) {
 	}
 }
 
-void __declspec(naked) eng_conf_free_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) eng_conf_free_c()
 {
 	__asm
 	{
@@ -82,7 +82,6 @@ int eng_conf_subs(BYTE* _this)
 	comp_data->max_bench = 5;
 	comp_data->max_subs = 3;
 
-	//call vtable +3C which is actually add fixtures function
 	DWORD v1 = *(DWORD*)_this;
 	comp_data->fixtures_table = (DWORD*)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0xA9, _this + 0x3A, 0);
 
@@ -120,7 +119,7 @@ void eng_conf_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	reputation_setup_generic_68A850(_this);
 }
 
-void __declspec(naked) eng_conf_init_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) eng_conf_init_c()
 {
 	__asm
 	{
@@ -168,7 +167,7 @@ char eng_conf_update(BYTE* _this) {
 	return sub_79CEE0((BYTE*)*b74340, (BYTE*)(data->competition_db));
 }
 
-void __declspec(naked) eng_conf_update_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) eng_conf_update_c()
 {
 	__asm
 	{
@@ -216,7 +215,7 @@ void create_playoffs_c(BYTE* _this) {
 	}
 }
 
-void __declspec(naked) eng_playoffs_create()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) eng_playoffs_create()
 {
 	__asm
 	{
@@ -228,7 +227,7 @@ void __declspec(naked) eng_playoffs_create()		// used as a __thiscall -> __cdecl
 	}
 }
 
-void __declspec(naked) eng_conf_subs_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) eng_conf_subs_c()
 {
 	__asm
 	{
@@ -419,7 +418,7 @@ int eng_conf_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char stag
 	return 0;
 }
 
-void __declspec(naked) eng_conf_set_table_fate()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) eng_conf_set_table_fate()
 {
 	__asm
 	{
@@ -437,7 +436,7 @@ void __declspec(naked) eng_conf_set_table_fate()		// used as a __thiscall -> __c
 	}
 }
 
-void __declspec(naked) eng_conf_fixtures_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) eng_conf_fixtures_c()
 {
 	__asm
 	{
@@ -470,7 +469,7 @@ void eng_conf_reputation_calc(BYTE* _this, BYTE* club, char stage, char current,
 	ret[0x75] = ret_max;
 }
 
-void __declspec(naked) eng_conf_reputation_calc_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) eng_conf_reputation_calc_c()
 {
 	__asm
 	{

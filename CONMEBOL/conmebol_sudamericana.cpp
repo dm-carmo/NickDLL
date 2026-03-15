@@ -14,7 +14,7 @@ using namespace std;
 DWORD* conmebol_sudamericana_vtable = (DWORD*)0x968CA8;
 
 // prize money for group stage win/draw and coefficient updates
-int sudam_583B10(BYTE* _this, BYTE* a2, int a3) {
+int sudam_money_after_match(BYTE* _this, BYTE* a2, int a3) {
 	comp_stats* comp_data = (comp_stats*)_this;
 	BYTE* ae2a38_ptr = (BYTE*)*ae2a38;
 	char al, bl, cl;
@@ -43,7 +43,7 @@ int sudam_583B10(BYTE* _this, BYTE* a2, int a3) {
 	return sub_51A150(_this, a2, a3);
 }
 
-void __declspec(naked) sudam_583B10_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) sudam_money_after_match_c()
 {
 	__asm
 	{
@@ -51,7 +51,7 @@ void __declspec(naked) sudam_583B10_c()		// used as a __thiscall -> __cdecl conv
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call sudam_583B10
+		call sudam_money_after_match
 		add esp, 0xc
 		ret 8
 	}
@@ -105,7 +105,7 @@ void conmebol_sudamericana_free(BYTE* _this, BYTE a2) {
 	}
 }
 
-void __declspec(naked) conmebol_sudamericana_free_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) conmebol_sudamericana_free_c()
 {
 	__asm
 	{
@@ -218,7 +218,7 @@ DWORD conmebol_sudamericana_fixtures(BYTE* _this, char stage_idx, WORD* num_roun
 	return 0;
 }
 
-void __declspec(naked) conmebol_sudamericana_fixture_caller()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) conmebol_sudamericana_fixture_caller()
 {
 	__asm
 	{
@@ -241,7 +241,7 @@ int conmebol_sudamericana_set_champion(BYTE* _this) {
 	return (*(int(__thiscall**)(BYTE*))(v1 + 0x30))(stage_data_for_history);
 }
 
-void __declspec(naked) conmebol_sudamericana_set_champion_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) conmebol_sudamericana_set_champion_c()
 {
 	__asm
 	{
@@ -500,7 +500,7 @@ void conmebol_sudamericana_reputation_setup(BYTE* _this) {
 	}
 }
 
-void __declspec(naked) conmebol_sudamericana_reputation_setup_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) conmebol_sudamericana_reputation_setup_c()
 {
 	__asm
 	{
@@ -548,7 +548,7 @@ void conmebol_sudamericana_reputation_calc(BYTE* _this, BYTE* club, char stage, 
 	ret[0x75] = ret_max;
 }
 
-void __declspec(naked) conmebol_sudamericana_reputation_calc_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) conmebol_sudamericana_reputation_calc_c()
 {
 	__asm
 	{
@@ -616,7 +616,7 @@ char conmebol_sudamericana_update(BYTE* _this) {
 	return (*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
 }
 
-void __declspec(naked) conmebol_sudamericana_update_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) conmebol_sudamericana_update_c()
 {
 	__asm
 	{
@@ -675,7 +675,7 @@ void conmebol_sudamericana_group_stage_setup(BYTE* _this) {
 		WORD year = comp_data->year;
 		BYTE* pStage = (BYTE*)sub_944CF1_operator_new(0xEE);
 		create_league_stage_data(pStage, _this, group_teams, pTeams, 2, (DWORD)(comp_data->competition_db), pFixtures, num_rounds,
-			3, 1, 8, &tiebreaks[0], &prom_rel[0], year, i + stage_num, stage_name_id, 0xf, 2, 0, 8, -1, 0, 2);
+			3, 1, 8, &tiebreaks[0], &prom_rel[0], year, i + stage_num, stage_name_id, 0xf, 2, 0, 0x28, -1, 0, 2);
 		DWORD* stages_arr = comp_data->stages;
 		*((DWORD*)(&stages_arr[i + stage_num])) = (DWORD)pStage;
 		sub_684230(pStage);
@@ -737,11 +737,9 @@ void conmebol_sudamericana_playoff_stage_setup(BYTE* _this) {
 	for (char al = 0; al < 8; al++) {
 		comp_stats* curr_stage = (comp_stats*)(comp_data->stages[al]);
 		team_league_stats t = ((team_league_stats*)(curr_stage->team_league_table))[2];
-		staff_history_knocked_out_86C000(staff_hist_ptr, t.club, (DWORD)(comp_data->competition_db), None, GroupStage, 0xF);
 		t.club->ClubEuroFlag = -1;
 
 		t = ((team_league_stats*)(curr_stage->team_league_table))[3];
-		staff_history_knocked_out_86C000(staff_hist_ptr, t.club, (DWORD)(comp_data->competition_db), None, GroupStage, 0xF);
 		t.club->ClubEuroFlag = -1;
 	}
 }
@@ -802,7 +800,6 @@ void conmebol_sudamericana_stages_create(BYTE* _this) {
 				DWORD v1 = *(DWORD*)liber_bytes;
 				char ret = (*(int(__thiscall**)(BYTE*, int, int))(v1 + 0x10))(liber_bytes, 0, 1);
 				if (ret != 0) {
-					//(*(void(__thiscall**)(BYTE*))(v1 + 0x94))(liber_bytes);
 					comp_data->current_stage = current;
 					conmebol_sudamericana_group_stage_setup(_this);
 				}
@@ -819,7 +816,7 @@ void conmebol_sudamericana_stages_create(BYTE* _this) {
 	}
 }
 
-void __declspec(naked) conmebol_sudamericana_stages_create_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) conmebol_sudamericana_stages_create_c()
 {
 	__asm
 	{
@@ -840,7 +837,6 @@ int conmebol_sudamericana_set_fates(BYTE* _this, cm3_clubs* club, char fate, cha
 		switch (fate) {
 		case TopPlayoff:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, GroupStage, 0x1E);
-			//*a5 = 1;
 			return 0;
 		case Promoted:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
@@ -863,7 +859,6 @@ int conmebol_sudamericana_set_fates(BYTE* _this, cm3_clubs* club, char fate, cha
 			return 0;
 		default:
 			staff_history_knocked_out_86C000(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, GroupStage, 0xF);
-			club->ClubEuroFlag = -1;
 			return 0;
 		}
 	}
@@ -876,7 +871,6 @@ int conmebol_sudamericana_set_fates(BYTE* _this, cm3_clubs* club, char fate, cha
 		switch (fate) {
 		case TopPlayoff:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, EleventhRound, 0x1E);
-			//*a5 = 1;
 			return 0;
 		case Promoted:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
@@ -899,7 +893,6 @@ int conmebol_sudamericana_set_fates(BYTE* _this, cm3_clubs* club, char fate, cha
 		case TopPlayoff:
 			staff_history_comp_winner_86A800(staff_hist_ptr, club, round_data, a7);
 			club->ClubEuroFlag = -1;
-			//*a5 = 1;
 			return 0;
 		case Promoted:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
@@ -919,7 +912,7 @@ int conmebol_sudamericana_set_fates(BYTE* _this, cm3_clubs* club, char fate, cha
 	return 0;
 }
 
-void __declspec(naked) conmebol_sudamericana_set_table_fate()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) conmebol_sudamericana_set_table_fate()
 {
 	__asm
 	{
@@ -934,6 +927,90 @@ void __declspec(naked) conmebol_sudamericana_set_table_fate()		// used as a __th
 		call conmebol_sudamericana_set_fates
 		add esp, 0x1c
 		ret 0x18
+	}
+}
+
+int sudam_stage_news(BYTE* _this, int club_idx, char fate, char stage_id, int stage_name_idx, int round_data, __int16 a7, int a8, char a9, int show_body_text, LPVOID* ret_str_ptr) {
+	comp_stats* data = (comp_stats*)_this;
+	cm3_club_comps* comp_data = data->competition_db;
+	cm3_clubs* club_data = get_club(club_idx);
+	if (stage_id == -1)
+	{
+		if (show_body_text) return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
+		if (fate == 1) {
+			sub_66F4E0(0xDE1F64, (DWORD)&qualified_grp_title_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
+				&club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+			sub_4AE660(ret_str_ptr, 0xDE1F64);
+			sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+			sub_4AE8A0((BYTE*)ret_str_ptr, &comp_data->ClubCompNameShort[0], 0x7d0, (DWORD)comp_data);
+			return 1;
+		}
+		else return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
+	}
+	else if (stage_id < 8) {
+		if (fate == Qualified1) {
+			if (show_body_text) {
+				sub_66F4E0(0xDE1F64, (DWORD)&qualified_r16_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderName, comp_data->ClubCompGenderName,
+					&club_data->ClubNameShort[0], &comp_data->ClubCompName[0]);
+				sub_4AE660(ret_str_ptr, 0xDE1F64);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &comp_data->ClubCompName[0], 0x7d0, (DWORD)comp_data);
+				return 1;
+			}
+			else {
+				sub_66F4E0(0xDE1F64, (DWORD)&qualified_r16_title_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
+					&club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+				sub_4AE660(ret_str_ptr, 0xDE1F64);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &comp_data->ClubCompNameShort[0], 0x7d0, (DWORD)comp_data);
+				return 1;
+			}
+		}
+		else if (fate == TopPlayoff) {
+			if (show_body_text) {
+				sub_66F4E0(0xDE1F64, (DWORD)&qualified_r32_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderName, comp_data->ClubCompGenderName,
+					&club_data->ClubNameShort[0], &comp_data->ClubCompName[0]);
+				sub_4AE660(ret_str_ptr, 0xDE1F64);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &comp_data->ClubCompName[0], 0x7d0, (DWORD)comp_data);
+				return 1;
+			}
+			else {
+				sub_66F4E0(0xDE1F64, (DWORD)&qualified_r32_title_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
+					&club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+				sub_4AE660(ret_str_ptr, 0xDE1F64);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &comp_data->ClubCompNameShort[0], 0x7d0, (DWORD)comp_data);
+				return 1;
+			}
+		}
+		else if (fate == Eliminated) return sub_4B4590(club_idx, (WORD)stage_name_idx, (DWORD)comp_data, fate, show_body_text, ret_str_ptr);
+	}
+	else if (stage_id == 8) return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
+	else if (stage_id == 9) return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
+
+	return 0;
+}
+
+void __declspec(naked) sudam_stage_news_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x28]
+		push dword ptr[eax + 0x24]
+		push dword ptr[eax + 0x20]
+		push dword ptr[eax + 0x1c]
+		push dword ptr[eax + 0x18]
+		push dword ptr[eax + 0x14]
+		push dword ptr[eax + 0x10]
+		push dword ptr[eax + 0xc]
+		push dword ptr[eax + 0x8]
+		push dword ptr[eax + 0x4]
+		push ecx
+		call sudam_stage_news
+		add esp, 0x2c
+		ret 0x28
 	}
 }
 
@@ -976,14 +1053,14 @@ void conmebol_sudamericana_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 
 void setup_conmebol_sudamericana() {
 	WriteVTablePtr(conmebol_sudamericana_vtable, VTableInitFree, (DWORD)&conmebol_sudamericana_free_c);
-	WriteVTablePtr(conmebol_sudamericana_vtable, VTablePostMatchUpdate, (DWORD)&sudam_583B10_c);
+	WriteVTablePtr(conmebol_sudamericana_vtable, VTablePostMatchUpdate, (DWORD)&sudam_money_after_match_c);
 	WriteVTablePtr(conmebol_sudamericana_vtable, VTableEoSUpdate, (DWORD)&conmebol_sudamericana_update_c);
 	WriteVTablePtr(conmebol_sudamericana_vtable, VTablePlayoffQual, (DWORD)&conmebol_sudamericana_stages_create_c);
 	WriteVTablePtr(conmebol_sudamericana_vtable, VTableSetChampion, (DWORD)&conmebol_sudamericana_set_champion_c);
 	WriteVTablePtr(conmebol_sudamericana_vtable, VTableClubLandmarks, 0x48cab0); // review? -> 586fa0
 	WriteVTablePtr(conmebol_sudamericana_vtable, VTableFixtures, (DWORD)&conmebol_sudamericana_fixture_caller);
 	WriteVTablePtr(conmebol_sudamericana_vtable, VTableTableFates, (DWORD)&conmebol_sudamericana_set_table_fate);
-	WriteVTablePtr(conmebol_sudamericana_vtable, VTableStageNews, 0x48C6D0); // review? -> 584550
+	WriteVTablePtr(conmebol_sudamericana_vtable, VTableStageNews, (DWORD)&sudam_stage_news_c);
 	WriteVTablePtr(conmebol_sudamericana_vtable, VTableReputationSetup, (DWORD)&conmebol_sudamericana_reputation_setup_c);
 	WriteVTablePtr(conmebol_sudamericana_vtable, VTableReputationCalc, (DWORD)&conmebol_sudamericana_reputation_calc_c);
 

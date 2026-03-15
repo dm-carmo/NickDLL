@@ -38,14 +38,13 @@ void por_third_subs(BYTE* _this)
 	comp_data->max_bench = 7;
 	comp_data->max_subs = 3;
 
-	//call vtable +3C which is actually add fixtures function
 	DWORD v1 = *(DWORD*)_this;
 	comp_data->fixtures_table = (DWORD*)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0xA9, _this + 0x3A, 0);
 
 	return;
 }
 
-void __declspec(naked) por_third_subs_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) por_third_subs_c()
 {
 	__asm
 	{
@@ -157,7 +156,7 @@ DWORD por_third_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 	return 0;
 }
 
-void __declspec(naked) por_third_fixtures_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) por_third_fixtures_c()
 {
 	__asm
 	{
@@ -230,7 +229,7 @@ void por_third_reputation_setup(BYTE* _this) {
 	}
 }
 
-void __declspec(naked) por_third_reputation_setup_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) por_third_reputation_setup_c()
 {
 	__asm
 	{
@@ -278,7 +277,7 @@ char por_third_update(BYTE* _this) {
 	return sub_79CEE0((BYTE*)*b74340, (BYTE*)(data->competition_db));
 }
 
-void __declspec(naked) por_third_update_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) por_third_update_c()
 {
 	__asm
 	{
@@ -471,7 +470,7 @@ void por_third_playoffs_create(BYTE* _this) {
 	}
 }
 
-void __declspec(naked) por_third_playoffs_create_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) por_third_playoffs_create_c()
 {
 	__asm
 	{
@@ -518,7 +517,7 @@ int por_third_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char sta
 			}
 			team_league_stats* table = (team_league_stats*)(curr_stage->team_league_table);
 			for (int i = 0; i < num_teams; i++) {
-					if (table[i].club != club) continue;
+				if (table[i].club != club) continue;
 				switch (fate) {
 				case Champions:
 					staff_history_champion_868C50(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));
@@ -555,7 +554,7 @@ int por_third_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char sta
 			}
 			team_league_stats* table = (team_league_stats*)(curr_stage->team_league_table);
 			for (int i = 0; i < num_teams; i++) {
-					if (table[i].club != club) continue;
+				if (table[i].club != club) continue;
 				switch (fate) {
 				case Relegated:
 					staff_history_relegated_86A1C0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));
@@ -577,7 +576,7 @@ int por_third_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char sta
 	return 0;
 }
 
-void __declspec(naked) por_third_set_table_fate()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) por_third_set_table_fate()
 {
 	__asm
 	{
@@ -602,7 +601,7 @@ int por_third_set_champion(BYTE* _this) {
 	return (*(int(__thiscall**)(BYTE*))(v1 + 0x30))(stage_data_for_history);
 }
 
-void __declspec(naked) por_third_set_champion_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) por_third_set_champion_c()
 {
 	__asm
 	{
@@ -633,7 +632,7 @@ void por_7D2B80(BYTE* _this, DWORD** team_list, WORD* total_teams) {
 	}
 }
 
-void __declspec(naked) por_7D2B80_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) por_7D2B80_c()
 {
 	__asm
 	{
@@ -674,7 +673,7 @@ void por_third_reputation_calc(BYTE* _this, BYTE* club, char stage, char current
 	ret[0x75] = ret_max;
 }
 
-void __declspec(naked) por_third_reputation_calc_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) por_third_reputation_calc_c()
 {
 	__asm
 	{
@@ -691,6 +690,70 @@ void __declspec(naked) por_third_reputation_calc_c()		// used as a __thiscall ->
 	}
 }
 
+int por_third_stage_news(BYTE* _this, int club_idx, char fate, char stage_id, int stage_name_idx, int round_data, __int16 a7, int a8, char a9, int show_body_text, LPVOID* ret_str_ptr) {
+	comp_stats* data = (comp_stats*)_this;
+	cm3_club_comps* comp_data = data->competition_db;
+	cm3_clubs* club_data = get_club(club_idx);
+	if (stage_id < 1) {
+		if (fate == TopPlayoff) {
+			if (show_body_text) {
+				sub_66F4E0(0xDE1F64, (DWORD)&qualified_champ_grp_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderName, comp_data->ClubCompGenderName,
+					&club_data->ClubNameShort[0], &comp_data->ClubCompName[0]);
+				sub_4AE660(ret_str_ptr, 0xDE1F64);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &comp_data->ClubCompName[0], 0x7d0, (DWORD)comp_data);
+				return 1;
+			}
+			else {
+				sub_66F4E0(0xDE1F64, (DWORD)&qualified_champ_grp_title_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0]);
+				sub_4AE660(ret_str_ptr, 0xDE1F64);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+				return 1;
+			}
+		}
+		else if (fate == BottomPlayoff) {
+			if (show_body_text) {
+				sub_66F4E0(0xDE1F64, (DWORD)&qualified_rel_grp_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderName, comp_data->ClubCompGenderName,
+					&club_data->ClubNameShort[0], &comp_data->ClubCompName[0]);
+				sub_4AE660(ret_str_ptr, 0xDE1F64);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &comp_data->ClubCompName[0], 0x7d0, (DWORD)comp_data);
+				return 1;
+			}
+			else {
+				sub_66F4E0(0xDE1F64, (DWORD)&qualified_rel_grp_title_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0]);
+				sub_4AE660(ret_str_ptr, 0xDE1F64);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+				return 1;
+			}
+		}
+		else return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
+	}
+	else return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
+}
+
+void __declspec(naked) por_third_stage_news_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x28]
+		push dword ptr[eax + 0x24]
+		push dword ptr[eax + 0x20]
+		push dword ptr[eax + 0x1c]
+		push dword ptr[eax + 0x18]
+		push dword ptr[eax + 0x14]
+		push dword ptr[eax + 0x10]
+		push dword ptr[eax + 0xc]
+		push dword ptr[eax + 0x8]
+		push dword ptr[eax + 0x4]
+		push ecx
+		call por_third_stage_news
+		add esp, 0x2c
+		ret 0x28
+	}
+}
+
 void setup_por_third()
 {
 	WriteVTablePtr(por_third_vtable, VTableEoSUpdate, (DWORD)&por_third_update_c);
@@ -701,6 +764,7 @@ void setup_por_third()
 	WriteVTablePtr(por_third_vtable, VTableAwardTeamsSetup, (DWORD)&por_7D2B80_c);
 	WriteVTablePtr(por_third_vtable, VTableSubsRounds, (DWORD)&por_third_subs_c);
 	WriteVTablePtr(por_third_vtable, VTableTableFates, (DWORD)&por_third_set_table_fate);
+	WriteVTablePtr(por_third_vtable, VTableStageNews, (DWORD)&por_third_stage_news_c);
 	WriteVTablePtr(por_third_vtable, VTablePlayoffQual, (DWORD)&por_third_playoffs_create_c);
 	char* rel_grp_a_text = "Relegation Group A";
 	char* rel_grp_a_text_short = "Rel. Grp A";

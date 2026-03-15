@@ -31,6 +31,9 @@ static char  (*sub_669340)(int a1) = (char(*)(int a1))(0x669340);
 static int   (*sub_66F4E0)(DWORD dest_ptr, DWORD src_ptr, ...) = (int(*)(DWORD dest_ptr, DWORD src_ptr, ...))(0x66F4E0);
 static char* (*sub_4AFCE0_add_history_entry)(BYTE* _this, cm3_clubs* first, cm3_clubs* second, cm3_clubs* third, cm3_clubs* host) =
 (char* (*)(BYTE * _this, cm3_clubs * first, cm3_clubs * second, cm3_clubs * third, cm3_clubs * host))(0x4AFCE0);
+static int   (*sub_4B0870)(int a1) = (int(*)(int a1))(0x4B0870);
+static bool  (*sub_4B4590)(int a1, unsigned __int16 a2, int a3, char a4, int a5, LPVOID* a6) =
+(bool(*)(int a1, unsigned __int16 a2, int a3, char a4, int a5, LPVOID * a6))(0x4B4590);
 
 static int(__thiscall* add_team_call)(BYTE* _this, BYTE teamNo, cm3_clubs* club, BYTE a3, DWORD* a4) =
 (int(__thiscall*)(BYTE * _this, BYTE teamNo, cm3_clubs * club, BYTE a3, DWORD * a4))(0x687430);
@@ -114,6 +117,12 @@ static void* (__thiscall* sub_4A4850)(BYTE* _this, BYTE* club) = (void* (__thisc
 static DWORD* (__thiscall* sub_54C770)(BYTE* _this, BYTE* date_ret, char a3) = (DWORD * (__thiscall*)(BYTE * _this, BYTE * date_ret, char a3))(0x54C770);
 static int(__thiscall* sub_685D30)(BYTE* _this, BYTE* round_data, int a3) =
 (int(__thiscall*)(BYTE * _this, BYTE * round_data, int a3))(0x685D30);
+static int(__thiscall* sub_48C6D0)(BYTE* _this, int a2, char a3, char a4, int a5, int a6, __int16 a7, int a8, char a9, int a10, LPVOID* a11) =
+(int(__thiscall*)(BYTE * _this, int a2, char a3, char a4, int a5, int a6, __int16 a7, int a8, char a9, int a10, LPVOID * a11))(0x48C6D0);
+static bool(__thiscall* sub_4AE8A0)(BYTE* _this, const char* a2, int a3, int a4) =
+(bool(__thiscall*)(BYTE * _this, const char* a2, int a3, int a4))(0x4AE8A0);
+static int(__thiscall* sub_4AE660)(LPVOID* _this, int a2) =
+(int(__thiscall*)(LPVOID * _this, int a2))(0x4AE660);
 
 static void(__thiscall* staff_history_qualified_86BDD0)(BYTE* _this, cm3_clubs* club, DWORD comp_id, WORD stage_main, DWORD stage_sub, char a6) =
 (void(__thiscall*)(BYTE * _this, cm3_clubs * club, DWORD comp_id, WORD stage_main, DWORD stage_sub, char a6))(0x86BDD0);

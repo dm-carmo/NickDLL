@@ -32,7 +32,7 @@ int aus_league_last_positions(BYTE* _this) {
 	return 1;
 }
 
-void __declspec(naked) aus_league_last_positions_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) aus_league_last_positions_c()
 {
 	__asm
 	{
@@ -49,7 +49,7 @@ void aus_league_prom_rel_update(BYTE* _this, int a2) {
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(_this);
 }
 
-void __declspec(naked) aus_league_prom_rel_update_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) aus_league_prom_rel_update_c()
 {
 	__asm
 	{
@@ -87,14 +87,13 @@ void aus_league_subs(BYTE* _this)
 	comp_data->max_bench = 7;
 	comp_data->max_subs = 3;
 
-	//call vtable +3C which is actually add fixtures function
 	DWORD v1 = *(DWORD*)_this;
 	comp_data->fixtures_table = (DWORD*)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0xA9, _this + 0x3A, 0);
 
 	return;
 }
 
-void __declspec(naked) aus_league_subs_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) aus_league_subs_c()
 {
 	__asm
 	{
@@ -122,7 +121,7 @@ char* aus_league_set_champion(BYTE* _this) {
 	return sub_4AFCE0_add_history_entry(_this, first, second, third, 0);
 }
 
-void __declspec(naked) aus_league_set_champion_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) aus_league_set_champion_c()
 {
 	__asm
 	{
@@ -175,7 +174,7 @@ char aus_league_update(BYTE* _this) {
 	return sub_79CEE0((BYTE*)*b74340, (BYTE*)(data->competition_db));
 }
 
-void __declspec(naked) aus_league_update_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) aus_league_update_c()
 {
 	__asm
 	{
@@ -225,7 +224,7 @@ void aus_league_free(BYTE* _this, BYTE a2) {
 	}
 }
 
-void __declspec(naked) aus_league_free_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) aus_league_free_c()
 {
 	__asm
 	{
@@ -425,7 +424,7 @@ DWORD aus_league_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 	return 0;
 }
 
-void __declspec(naked) aus_league_fixtures_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) aus_league_fixtures_c()
 {
 	__asm
 	{
@@ -509,7 +508,7 @@ void aus_league_playoffs_c(BYTE* _this) {
 	}
 }
 
-void __declspec(naked) aus_league_playoffs_create()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) aus_league_playoffs_create()
 {
 	__asm
 	{
@@ -579,7 +578,7 @@ int aus_league_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char st
 	return 0;
 }
 
-void __declspec(naked) aus_league_set_table_fate()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) aus_league_set_table_fate()
 {
 	__asm
 	{
@@ -612,7 +611,7 @@ void aus_league_reputation_calc(BYTE* _this, BYTE* club, char stage, char curren
 	ret[0x75] = ret_max;
 }
 
-void __declspec(naked) aus_league_reputation_calc_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) aus_league_reputation_calc_c()
 {
 	__asm
 	{
@@ -632,10 +631,8 @@ void __declspec(naked) aus_league_reputation_calc_c()		// used as a __thiscall -
 void setup_aus_league()
 {
 	WriteVTablePtr(aus_league_vtable, VTableSubsRounds, (DWORD)&aus_league_subs_c);
-	//WriteVTablePtr(aus_league_vtable, VTableInitFree, (DWORD)&aus_league_free_c);
 	WriteVTablePtr(aus_league_vtable, VTableEoSUpdate, (DWORD)&aus_league_update_c);
 	WriteVTablePtr(aus_league_vtable, VTableFixtures, (DWORD)&aus_league_fixtures_c);
-	//WriteVTablePtr(aus_league_vtable, VTableReputationCalc, (DWORD)&aus_league_reputation_calc_c);
 	WriteVTablePtr(aus_league_vtable, VTablePlayoffQual, (DWORD)&aus_league_playoffs_create);
 	WriteVTablePtr(aus_league_vtable, VTableTableFates, (DWORD)&aus_league_set_table_fate);
 	WriteVTablePtr(aus_league_vtable, VTableStageNews, 0x48c6d0);

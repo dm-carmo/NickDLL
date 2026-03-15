@@ -33,14 +33,13 @@ void fin_third_subs(BYTE* _this)
 	comp_data->max_bench = 7;
 	comp_data->max_subs = 3;
 
-	//call vtable +3C which is actually add fixtures function
 	DWORD v1 = *(DWORD*)_this;
 	comp_data->fixtures_table = (DWORD*)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0xA9, _this + 0x3A, 0);
 
 	return;
 }
 
-void __declspec(naked) fin_third_subs_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) fin_third_subs_c()
 {
 	__asm
 	{
@@ -122,7 +121,7 @@ DWORD fin_third_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 	return 0;
 }
 
-void __declspec(naked) fin_third_fixtures_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) fin_third_fixtures_c()
 {
 	__asm
 	{
@@ -195,7 +194,7 @@ void fin_third_reputation_setup(BYTE* _this) {
 	}
 }
 
-void __declspec(naked) fin_third_reputation_setup_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) fin_third_reputation_setup_c()
 {
 	__asm
 	{
@@ -257,13 +256,12 @@ char fin_third_update(BYTE* _this) {
 	for (BYTE i = 0; i < 2; i++) {
 		fin_third_setup_groups(_this, i);
 	}
-	//block_reserve_promotion_fin_third(_this);
 	DWORD v1 = *(DWORD*)_this;
 	(DWORD*)(*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
 	return sub_79CEE0((BYTE*)*b74340, (BYTE*)(data->competition_db));
 }
 
-void __declspec(naked) fin_third_update_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) fin_third_update_c()
 {
 	__asm
 	{
@@ -302,7 +300,6 @@ void fin_third_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	for (BYTE i = 0; i < 2; i++) {
 		fin_third_setup_groups(_this, i);
 	}
-	//block_reserve_promotion_fin_third(_this);
 	fin_third_reputation_setup(_this);
 }
 
@@ -390,7 +387,7 @@ void fin_third_playoffs_create(BYTE* _this) {
 	}
 }
 
-void __declspec(naked) fin_third_playoffs_create_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) fin_third_playoffs_create_c()
 {
 	__asm
 	{
@@ -463,7 +460,7 @@ int fin_third_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char sta
 	return 0;
 }
 
-void __declspec(naked) fin_third_set_table_fate()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) fin_third_set_table_fate()
 {
 	__asm
 	{
@@ -503,7 +500,7 @@ void fin_third_reputation_calc(BYTE* _this, BYTE* club, char stage, char current
 	ret[0x75] = ret_max;
 }
 
-void __declspec(naked) fin_third_reputation_calc_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) fin_third_reputation_calc_c()
 {
 	__asm
 	{

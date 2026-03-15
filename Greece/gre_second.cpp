@@ -45,7 +45,7 @@ void gre_second_free(BYTE* _this, BYTE a2) {
 	}
 }
 
-void __declspec(naked) gre_second_free_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) gre_second_free_c()
 {
 	__asm
 	{
@@ -83,14 +83,13 @@ void gre_second_subs(BYTE* _this)
 	comp_data->max_bench = 7;
 	comp_data->max_subs = 3;
 
-	//call vtable +3C which is actually add fixtures function
 	DWORD v1 = *(DWORD*)_this;
 	comp_data->fixtures_table = (DWORD*)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0xA9, _this + 0x3A, 0);
 
 	return;
 }
 
-void __declspec(naked) gre_second_subs_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) gre_second_subs_c()
 {
 	__asm
 	{
@@ -233,7 +232,7 @@ DWORD gre_second_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 	return 0;
 }
 
-void __declspec(naked) gre_second_fixtures_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) gre_second_fixtures_c()
 {
 	__asm
 	{
@@ -305,7 +304,7 @@ void gre_second_reputation_setup(BYTE* _this) {
 	}
 }
 
-void __declspec(naked) gre_second_reputation_setup_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) gre_second_reputation_setup_c()
 {
 	__asm
 	{
@@ -372,7 +371,7 @@ char gre_second_update(BYTE* _this) {
 	return sub_79CEE0((BYTE*)*b74340, (BYTE*)(data->competition_db));
 }
 
-void __declspec(naked) gre_second_update_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) gre_second_update_c()
 {
 	__asm
 	{
@@ -411,7 +410,7 @@ int gre_second_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char st
 	return 0;
 }
 
-void __declspec(naked) gre_second_set_table_fate()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) gre_second_set_table_fate()
 {
 	__asm
 	{
@@ -448,7 +447,7 @@ void gre_second_awards(BYTE* _this, DWORD** team_list, WORD* total_teams) {
 	}
 }
 
-void __declspec(naked) gre_second_awards_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) gre_second_awards_c()
 {
 	__asm
 	{
@@ -479,7 +478,7 @@ void gre_second_reputation_calc(BYTE* _this, BYTE* club, char stage, char curren
 	ret[0x75] = ret_max;
 }
 
-void __declspec(naked) gre_second_reputation_calc_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) gre_second_reputation_calc_c()
 {
 	__asm
 	{

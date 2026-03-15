@@ -28,7 +28,7 @@ DWORD ger_super_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 	return 0;
 }
 
-void __declspec(naked) ger_super_fixture_caller()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) ger_super_fixture_caller()
 {
 	__asm
 	{

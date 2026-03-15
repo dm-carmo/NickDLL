@@ -10,7 +10,7 @@ void england_awards(BYTE* _this, int a2) {
 		*(WORD*)(_this + 0x8) = 26;
 	}
 	else {
-		*(WORD*)(_this + 0x8) = 44; // was 32
+		*(WORD*)(_this + 0x8) = 44;
 	}
 	DWORD* awards_list = (DWORD*)sub_944E46_malloc(*(WORD*)(_this + 0x8) * 4);
 	*(DWORD*)(_this + 0x4) = (DWORD)awards_list;
@@ -204,7 +204,7 @@ void england_awards(BYTE* _this, int a2) {
 	}
 }
 
-void __declspec(naked) eng_awards_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) eng_awards_c()
 {
 	__asm
 	{
@@ -292,7 +292,7 @@ char eng_awards_2(BYTE* _this, DWORD current_date) {
 	return sub_768310(_this, current_date);
 }
 
-void __declspec(naked) eng_awards_2_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) eng_awards_2_c()
 {
 	__asm
 	{
@@ -359,7 +359,7 @@ void eng_awards_staff_history(BYTE* _this) {
 	}
 }
 
-void __declspec(naked) eng_awards_staff_history_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) eng_awards_staff_history_c()
 {
 	__asm
 	{
@@ -407,7 +407,7 @@ void eng_awards_team_of_week(BYTE* _this, DWORD award_addr) {
 	}
 }
 
-void __declspec(naked) eng_awards_team_of_week_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) eng_awards_team_of_week_c()
 {
 	__asm
 	{

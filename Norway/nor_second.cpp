@@ -45,7 +45,7 @@ void nor_second_free(BYTE* _this, BYTE a2) {
 	}
 }
 
-void __declspec(naked) nor_second_free_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) nor_second_free_c()
 {
 	__asm
 	{
@@ -89,14 +89,13 @@ void nor_second_subs(BYTE* _this)
 	comp_data->max_bench = 7;
 	comp_data->max_subs = 3;
 
-	//call vtable +3C which is actually add fixtures function
 	DWORD v1 = *(DWORD*)_this;
 	comp_data->fixtures_table = (DWORD*)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0xA9, _this + 0x3A, 0);
 
 	return;
 }
 
-void __declspec(naked) nor_second_subs_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) nor_second_subs_c()
 {
 	__asm
 	{
@@ -246,7 +245,7 @@ DWORD nor_second_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 	return 0;
 }
 
-void __declspec(naked) nor_second_fixtures_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) nor_second_fixtures_c()
 {
 	__asm
 	{
@@ -319,7 +318,7 @@ void nor_second_reputation_setup(BYTE* _this) {
 	}
 }
 
-void __declspec(naked) nor_second_reputation_setup_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) nor_second_reputation_setup_c()
 {
 	__asm
 	{
@@ -387,7 +386,7 @@ char nor_second_update(BYTE* _this) {
 	return sub_79CEE0((BYTE*)*b74340, (BYTE*)(data->competition_db));
 }
 
-void __declspec(naked) nor_second_update_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) nor_second_update_c()
 {
 	__asm
 	{
@@ -446,7 +445,7 @@ void nor_second_playoffs_create(BYTE* _this) {
 	}
 }
 
-void __declspec(naked) nor_second_playoffs_create_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) nor_second_playoffs_create_c()
 {
 	__asm
 	{
@@ -525,7 +524,7 @@ int nor_second_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char st
 	return 0;
 }
 
-void __declspec(naked) nor_second_set_table_fate()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) nor_second_set_table_fate()
 {
 	__asm
 	{
@@ -562,7 +561,7 @@ void nor_second_awards(BYTE* _this, DWORD** team_list, WORD* total_teams) {
 	}
 }
 
-void __declspec(naked) nor_second_awards_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) nor_second_awards_c()
 {
 	__asm
 	{
@@ -598,7 +597,7 @@ void nor_second_reputation_calc(BYTE* _this, BYTE* club, char stage, char curren
 	ret[0x75] = ret_max;
 }
 
-void __declspec(naked) nor_second_reputation_calc_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) nor_second_reputation_calc_c()
 {
 	__asm
 	{
@@ -630,9 +629,9 @@ void nor_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	nor_second_vtable->SetPointer(VTableSubsRounds, (DWORD)&nor_second_subs_c);
 	nor_second_vtable->SetPointer(VTableTableFates, (DWORD)&nor_second_set_table_fate);
 	nor_second_vtable->SetPointer(VTablePlayoffQual, (DWORD)&nor_second_playoffs_create_c);
-	nor_second_vtable->SetPointer(VTableStageNews, (DWORD)0x48c6d0);
-	nor_second_vtable->SetPointer(VTable9, (DWORD)0x48ceb0);
-	nor_second_vtable->SetPointer(VTable10, (DWORD)0x48cea0);
+	nor_second_vtable->SetPointer(VTableStageNews, 0x48c6d0);
+	nor_second_vtable->SetPointer(VTable9, 0x48ceb0);
+	nor_second_vtable->SetPointer(VTable10, 0x48cea0);
 	data->year = year;
 	data->rules = 0x15;
 	int loaded = sub_687B10(_this, 1);

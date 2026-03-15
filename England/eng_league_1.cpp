@@ -135,7 +135,7 @@ DWORD eng_league_1_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD*
 	return 0;
 }
 
-void __declspec(naked) eng_league_1_fixture_caller()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) eng_league_1_fixture_caller()
 {
 	__asm
 	{
@@ -216,7 +216,7 @@ char eng_league_1_update(BYTE* _this) {
 	return sub_79CEE0((BYTE*)*b74340, (BYTE*)(data->competition_db));
 }
 
-void __declspec(naked) eng_league_1_update_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) eng_league_1_update_c()
 {
 	__asm
 	{

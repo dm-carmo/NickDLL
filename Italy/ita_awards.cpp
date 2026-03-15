@@ -6,7 +6,6 @@
 void italy_awards(BYTE* _this, int a2) {
 	DWORD edi = *(DWORD*)(_this + 0x13);
 	BYTE selected = ((cm3_nations*)*(DWORD*)(_this + 0xE))->NationLeagueSelected;
-	// expand to 20 later
 	if ((selected & 4) == 0) {
 		// not used for now
 		*(WORD*)(_this + 0x8) = 20;
@@ -102,7 +101,7 @@ void italy_awards(BYTE* _this, int a2) {
 	awards_list[i++] = (DWORD)pMem;
 }
 
-void __declspec(naked) ita_awards_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) ita_awards_c()
 {
 	__asm
 	{
@@ -146,7 +145,7 @@ char ita_awards_2(BYTE* _this, DWORD current_date) {
 	return sub_768310(_this, current_date);
 }
 
-void __declspec(naked) ita_awards_2_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) ita_awards_2_c()
 {
 	__asm
 	{
@@ -177,7 +176,7 @@ void ita_awards_team_of_week(BYTE* _this, DWORD award_addr) {
 	}
 }
 
-void __declspec(naked) ita_awards_team_of_week_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) ita_awards_team_of_week_c()
 {
 	__asm
 	{

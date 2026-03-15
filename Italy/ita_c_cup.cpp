@@ -41,7 +41,7 @@ void ita_c_cup_free(BYTE* _this, BYTE a2) {
 	}
 }
 
-void __declspec(naked) ita_c_cup_free_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) ita_c_cup_free_c()
 {
 	__asm
 	{
@@ -96,7 +96,7 @@ DWORD ita_c_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 	return 0;
 }
 
-void __declspec(naked) ita_c_cup_fixture_caller()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) ita_c_cup_fixture_caller()
 {
 	__asm
 	{
@@ -256,7 +256,7 @@ char ita_c_cup_update(BYTE* _this) {
 	return (*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
 }
 
-void __declspec(naked) ita_c_cup_update_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) ita_c_cup_update_c()
 {
 	__asm
 	{

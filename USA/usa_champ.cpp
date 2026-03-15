@@ -46,7 +46,7 @@ void usa_champ_free(BYTE* _this, BYTE a2) {
 	}
 }
 
-void __declspec(naked) usa_champ_free_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) usa_champ_free_c()
 {
 	__asm
 	{
@@ -84,7 +84,7 @@ void usa_champ_reputation_calc(BYTE* _this, BYTE* club, char stage, char current
 	ret[0x75] = ret_max;
 }
 
-void __declspec(naked) usa_champ_reputation_calc_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) usa_champ_reputation_calc_c()
 {
 	__asm
 	{
@@ -130,7 +130,7 @@ void usa_champ_reputation_setup(BYTE* _this) {
 	}
 }
 
-void __declspec(naked) usa_champ_reputation_setup_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) usa_champ_reputation_setup_c()
 {
 	__asm
 	{
@@ -149,7 +149,7 @@ int usa_champ_set_champion(BYTE* _this) {
 	return (*(int(__thiscall**)(BYTE*))(v1 + 0x30))(stage_data_for_history);
 }
 
-void __declspec(naked) usa_champ_set_champion_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) usa_champ_set_champion_c()
 {
 	__asm
 	{
@@ -237,14 +237,13 @@ void usa_champ_subs(BYTE* _this)
 	comp_data->max_bench = 7;
 	comp_data->max_subs = 3;
 
-	//call vtable +3C which is actually add fixtures function
 	DWORD v1 = *(DWORD*)_this;
 	comp_data->fixtures_table = (DWORD*)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0xA9, _this + 0x3A, 0);
 
 	return;
 }
 
-void __declspec(naked) usa_champ_subs_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) usa_champ_subs_c()
 {
 	__asm
 	{
@@ -340,7 +339,7 @@ DWORD usa_champ_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 	return 0;
 }
 
-void __declspec(naked) usa_champ_fixtures_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) usa_champ_fixtures_c()
 {
 	__asm
 	{
@@ -392,7 +391,7 @@ char usa_champ_update(BYTE* _this) {
 	return sub_79CEE0((BYTE*)*b74340, (BYTE*)(data->competition_db));
 }
 
-void __declspec(naked) usa_champ_update_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) usa_champ_update_c()
 {
 	__asm
 	{
@@ -467,7 +466,7 @@ int usa_champ_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYT
 	return 0;
 }
 
-void __declspec(naked) usa_champ_set_table_fate()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) usa_champ_set_table_fate()
 {
 	__asm
 	{
@@ -537,7 +536,7 @@ void usa_champ_playoffs_c(BYTE* _this) {
 	}
 }
 
-void __declspec(naked) usa_champ_playoffs_create()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) usa_champ_playoffs_create()
 {
 	__asm
 	{
@@ -568,7 +567,7 @@ void usa_d2_awards_teams(BYTE* _this, DWORD** team_list, WORD* total_teams) {
 	}
 }
 
-void __declspec(naked) usa_d2_awards_teams_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) usa_d2_awards_teams_c()
 {
 	__asm
 	{
@@ -596,9 +595,9 @@ void usa_champ_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	usa_champ_vtable->SetPointer(VTableReputationCalc, (DWORD)&usa_champ_reputation_calc_c);
 	usa_champ_vtable->SetPointer(VTableSetChampion, (DWORD)&usa_champ_set_champion_c);
 	usa_champ_vtable->SetPointer(VTableTableFates, (DWORD)&usa_champ_set_table_fate);
-	usa_champ_vtable->SetPointer(VTableStageNews, (DWORD)0x48c6d0);
+	usa_champ_vtable->SetPointer(VTableStageNews, 0x48c6d0);
 	usa_champ_vtable->SetPointer(VTablePlayoffQual, (DWORD)&usa_champ_playoffs_create);
-	usa_champ_vtable->SetPointer(VTablePostMatchUpdate, (DWORD)0x685d30);
+	usa_champ_vtable->SetPointer(VTablePostMatchUpdate, 0x685d30);
 	usa_champ_vtable->SetPointer(VTableAwardTeamsSetup, (DWORD)&usa_d2_awards_teams_c);
 	data->year = year;
 	data->rules = 0x1e;

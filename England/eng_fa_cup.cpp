@@ -41,7 +41,7 @@ void eng_fa_cup_free(BYTE* _this, BYTE a2) {
 	}
 }
 
-void __declspec(naked) eng_fa_cup_free_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) eng_fa_cup_free_c()
 {
 	__asm
 	{
@@ -197,7 +197,7 @@ DWORD eng_fa_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 	return 0;
 }
 
-void __declspec(naked) eng_fa_cup_fixture_caller()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) eng_fa_cup_fixture_caller()
 {
 	__asm
 	{
@@ -226,7 +226,6 @@ void eng_fa_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->comp_type = CLUB_DOMESTIC;
 	data->rules = 0x9;
 	*((BYTE*)(_this + 0xB1)) = 0;
-	//data->f69 = 0;
 	int loaded = sub_51FC00(_this, 1);
 	if (loaded) return;
 	comp->ClubCompBackgroundColour = get_colour(COLOUR_RED_2_9CF());
@@ -240,11 +239,12 @@ void eng_fa_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	sub_49EE70(pMem2, _this);
 	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
-	//data->max_bench = 7;
+	data->max_bench = 7;
+	data->max_subs = 3;
 	sub_5223A0(_this);
 }
 
-void __declspec(naked) eng_fa_cup_init_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) eng_fa_cup_init_c()
 {
 	__asm
 	{
@@ -292,7 +292,7 @@ char eng_fa_cup_update(BYTE* _this) {
 	return (*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
 }
 
-void __declspec(naked) eng_fa_cup_update_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) eng_fa_cup_update_c()
 {
 	__asm
 	{

@@ -61,7 +61,7 @@ void fifa_intercontinental_cup_free(BYTE* _this, BYTE a2) {
 	}
 }
 
-void __declspec(naked) fifa_intercontinental_cup_free_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) fifa_intercontinental_cup_free_c()
 {
 	__asm
 	{
@@ -81,7 +81,7 @@ int fifa_intercontinental_cup_set_champion(BYTE* _this) {
 	return (*(int(__thiscall**)(BYTE*))(v1 + 0x30))(stage_data_for_history);
 }
 
-void __declspec(naked) fifa_intercontinental_cup_set_champion_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) fifa_intercontinental_cup_set_champion_c()
 {
 	__asm
 	{
@@ -148,7 +148,7 @@ DWORD fifa_intercontinental_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_
 	return 0;
 }
 
-void __declspec(naked) fifa_intercontinental_cup_fixture_caller()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) fifa_intercontinental_cup_fixture_caller()
 {
 	__asm
 	{
@@ -190,7 +190,7 @@ void fifa_intercontinental_cup_reputation_setup(BYTE* _this) {
 	}
 }
 
-void __declspec(naked) fifa_intercontinental_cup_reputation_setup_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) fifa_intercontinental_cup_reputation_setup_c()
 {
 	__asm
 	{
@@ -234,7 +234,7 @@ void fifa_intercontinental_cup_reputation_calc(BYTE* _this, BYTE* club, char sta
 	ret[0x75] = ret_max;
 }
 
-void __declspec(naked) fifa_intercontinental_cup_reputation_calc_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) fifa_intercontinental_cup_reputation_calc_c()
 {
 	__asm
 	{
@@ -345,7 +345,7 @@ void fifa_intercontinental_cup_qualifier_teams(BYTE* _this) {
 	teams_seeded* teams = (teams_seeded*)data->teams_list;
 	teams_seeded* qualifiers = (teams_seeded*)data->special_teams_seedings;
 	for (WORD i = 0; i < 3; i++) {
-		teams[i].club = qualifiers[abs((year % 2) * 2 - i)].club;
+		teams[i].club = qualifiers[abs(((year + 1) % 2) * 2 - i)].club;
 		teams[i].f5 = 0;
 		teams[i].f6 = 0;
 	}
@@ -411,7 +411,6 @@ int fifa_intercontinental_cup_set_fates(BYTE* _this, cm3_clubs* club, char fate,
 		switch (fate) {
 		case TopPlayoff:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, Playoff, 0x1E);
-			//*a5 = 1;
 			return 0;
 		case Promoted:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
@@ -432,7 +431,6 @@ int fifa_intercontinental_cup_set_fates(BYTE* _this, cm3_clubs* club, char fate,
 		switch (fate) {
 		case TopPlayoff:
 			staff_history_comp_winner_86A800(staff_hist_ptr, club, round_data, a7);
-			//*a5 = 1;
 			return 0;
 		case Promoted:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
@@ -450,7 +448,7 @@ int fifa_intercontinental_cup_set_fates(BYTE* _this, cm3_clubs* club, char fate,
 	return 0;
 }
 
-void __declspec(naked) fifa_intercontinental_cup_set_table_fate()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) fifa_intercontinental_cup_set_table_fate()
 {
 	__asm
 	{
@@ -514,7 +512,7 @@ char fifa_intercontinental_cup_update(BYTE* _this) {
 	return 1;
 }
 
-void __declspec(naked) fifa_intercontinental_cup_update_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) fifa_intercontinental_cup_update_c()
 {
 	__asm
 	{
@@ -551,7 +549,6 @@ void fifa_intercontinental_cup_init2(BYTE* _this, DWORD current_date, int a3) {
 			DWORD v1 = *(DWORD*)liber_final;
 			char ret = (*(int(__thiscall**)(BYTE*, int, int))(v1 + 0x10))(liber_final, 0, 1);
 			if (ret != 0) {
-				//(*(void(__thiscall**)(BYTE*))(v1 + 0x94))(liber_final);
 				data->current_stage = 0;
 				fifa_intercontinental_cup_final_stage_setup(_this);
 			}
@@ -560,7 +557,7 @@ void fifa_intercontinental_cup_init2(BYTE* _this, DWORD current_date, int a3) {
 	sub_51F890(_this, current_date, a3);
 }
 
-void __declspec(naked) fifa_intercontinental_cup_init2_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) fifa_intercontinental_cup_init2_c()
 {
 	__asm
 	{
@@ -582,7 +579,6 @@ void fifa_intercontinental_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp
 	fifa_intercontinental_cup_vtable->SetPointer(VTableInitFree, (DWORD)&fifa_intercontinental_cup_free_c);
 	fifa_intercontinental_cup_vtable->SetPointer(VTableEoSUpdate, (DWORD)&fifa_intercontinental_cup_update_c);
 	fifa_intercontinental_cup_vtable->SetPointer(VTableLeagueSplit, (DWORD)&fifa_intercontinental_cup_init2_c);
-	//fifa_intercontinental_cup_vtable->SetPointer( VTablePlayoffQual, (DWORD)&fifa_intercontinental_cup_stages_create_c);
 	fifa_intercontinental_cup_vtable->SetPointer(VTableSetChampion, (DWORD)&fifa_intercontinental_cup_set_champion_c);
 	fifa_intercontinental_cup_vtable->SetPointer(VTableFixtures, (DWORD)&fifa_intercontinental_cup_fixture_caller);
 	fifa_intercontinental_cup_vtable->SetPointer(VTableTableFates, (DWORD)&fifa_intercontinental_cup_set_table_fate);

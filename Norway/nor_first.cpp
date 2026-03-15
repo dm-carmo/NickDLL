@@ -46,7 +46,7 @@ void nor_first_free(BYTE* _this, BYTE a2) {
 	}
 }
 
-void __declspec(naked) nor_first_free_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) nor_first_free_c()
 {
 	__asm
 	{
@@ -83,14 +83,13 @@ void nor_first_subs(BYTE* _this)
 	comp_data->max_bench = 7;
 	comp_data->max_subs = 3;
 
-	//call vtable +3C which is actually add fixtures function
 	DWORD v1 = *(DWORD*)_this;
 	comp_data->fixtures_table = (DWORD*)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0xA9, _this + 0x3A, 0);
 
 	return;
 }
 
-void __declspec(naked) nor_first_subs_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) nor_first_subs_c()
 {
 	__asm
 	{
@@ -260,7 +259,7 @@ DWORD nor_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 	return 0;
 }
 
-void __declspec(naked) nor_first_fixtures_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) nor_first_fixtures_c()
 {
 	__asm
 	{
@@ -414,7 +413,7 @@ void nor_first_playoffs_c(BYTE* _this) {
 	}
 }
 
-void __declspec(naked) nor_first_playoffs_create()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) nor_first_playoffs_create()
 {
 	__asm
 	{
@@ -536,7 +535,7 @@ int nor_first_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char sta
 	return 0;
 }
 
-void __declspec(naked) nor_first_set_table_fate()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) nor_first_set_table_fate()
 {
 	__asm
 	{
@@ -590,7 +589,7 @@ char nor_first_update(BYTE* _this) {
 	return sub_79CEE0((BYTE*)*b74340, (BYTE*)(data->competition_db));
 }
 
-void __declspec(naked) nor_first_update_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) nor_first_update_c()
 {
 	__asm
 	{
@@ -635,7 +634,7 @@ void nor_first_reputation_calc(BYTE* _this, BYTE* club, char stage, char current
 	ret[0x75] = ret_max;
 }
 
-void __declspec(naked) nor_first_reputation_calc_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) nor_first_reputation_calc_c()
 {
 	__asm
 	{

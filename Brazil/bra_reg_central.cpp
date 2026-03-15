@@ -15,7 +15,7 @@ int bra_reg_central_set_champion(BYTE* _this) {
 	return (*(int(__thiscall**)(BYTE*))(v1 + 0x30))(stage_data_for_history);
 }
 
-void __declspec(naked) bra_reg_central_set_champion_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) bra_reg_central_set_champion_c()
 {
 	__asm
 	{
@@ -44,7 +44,7 @@ void bra_reg_central_reputation_calc(BYTE* _this, BYTE* club, char stage, char c
 	ret[0x75] = ret_max;
 }
 
-void __declspec(naked) bra_reg_central_reputation_calc_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) bra_reg_central_reputation_calc_c()
 {
 	__asm
 	{
@@ -87,14 +87,13 @@ void bra_reg_central_subs(BYTE* _this)
 	comp_data->max_bench = 7;
 	comp_data->max_subs = 3;
 
-	//call vtable +3C which is actually add fixtures function
 	DWORD v1 = *(DWORD*)_this;
 	comp_data->fixtures_table = (DWORD*)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0xA9, _this + 0x3A, 0);
 
 	return;
 }
 
-void __declspec(naked) bra_reg_central_subs_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) bra_reg_central_subs_c()
 {
 	__asm
 	{
@@ -210,7 +209,7 @@ DWORD bra_reg_central_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WO
 	return 0;
 }
 
-void __declspec(naked) bra_reg_central_fixtures_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) bra_reg_central_fixtures_c()
 {
 	__asm
 	{
@@ -282,7 +281,7 @@ int bra_reg_central_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stag
 	return 0;
 }
 
-void __declspec(naked) bra_reg_central_set_table_fate()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) bra_reg_central_set_table_fate()
 {
 	__asm
 	{
@@ -333,7 +332,7 @@ char bra_reg_central_update(BYTE* _this) {
 	return sub_79CEE0((BYTE*)*b74340, (BYTE*)(data->competition_db));
 }
 
-void __declspec(naked) bra_reg_central_update_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) bra_reg_central_update_c()
 {
 	__asm
 	{
@@ -383,7 +382,7 @@ void bra_reg_central_playoffs_c(BYTE* _this) {
 	}
 }
 
-void __declspec(naked) bra_reg_central_playoffs_create()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) bra_reg_central_playoffs_create()
 {
 	__asm
 	{
@@ -423,7 +422,7 @@ void bra_reg_central_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 
 void setup_bra_reg_central() {
 	WriteVTablePtr(bra_reg_central_vtable, VTableSubsRounds, (DWORD)&bra_reg_central_subs_c);
-	WriteVTablePtr(bra_reg_central_vtable, VTableReputationSetup, (DWORD)0x68a850);
+	WriteVTablePtr(bra_reg_central_vtable, VTableReputationSetup, 0x68a850);
 	WriteVTablePtr(bra_reg_central_vtable, VTableFixtures, (DWORD)&bra_reg_central_fixtures_c);
 	WriteVTablePtr(bra_reg_central_vtable, VTableEoSUpdate, (DWORD)&bra_reg_central_update_c);
 	WriteVTablePtr(bra_reg_central_vtable, VTableReputationCalc, (DWORD)&bra_reg_central_reputation_calc_c);

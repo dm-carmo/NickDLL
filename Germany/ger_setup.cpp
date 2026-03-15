@@ -16,12 +16,12 @@ static DWORD(__thiscall* ger_super_setup)(BYTE* _this, WORD year, cm3_club_comps
 (DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x92B4B0);
 
 DWORD ger_setup_c(playable_nation_data* nation_data) {
-	// contract start date?
+	
 	nation_data->contract_start_day = 21;
 	nation_data->contract_start_month = July;
 	nation_data->contract_start_year = *current_year;
 	nation_data->f55 = 5;
-	// contract end date?
+	
 	nation_data->contract_end_day = 31;
 	nation_data->contract_end_month = May;
 	nation_data->contract_end_year = *current_year + 1;
@@ -35,7 +35,7 @@ DWORD ger_setup_c(playable_nation_data* nation_data) {
 	}
 	DWORD* nation_comps = (DWORD*)sub_944E46_malloc(nation_data->num_of_comps * 4);
 	nation_data->comps_list = (DWORD)nation_comps;
-	// start calling each league's functions
+	
 	BYTE i = 0;
 	// Bundesliga
 	BYTE* pMem = (BYTE*)sub_944CF1_operator_new(0xEE);

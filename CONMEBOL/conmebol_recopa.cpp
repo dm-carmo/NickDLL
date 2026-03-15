@@ -30,7 +30,7 @@ DWORD conmebol_recopa_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WO
 	return 0;
 }
 
-void __declspec(naked) conmebol_recopa_fixture_caller()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) conmebol_recopa_fixture_caller()
 {
 	__asm
 	{

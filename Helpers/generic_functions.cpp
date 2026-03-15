@@ -16,7 +16,7 @@ int AddTeams(BYTE* _this)
 
 	// Now let's add the teams
 	comp_data->n_teams = numberOfLeagueTeams; // number of teams
-	comp_data->team_league_table = (DWORD*)sub_944E46_malloc(numberOfLeagueTeams * league_team_list_sz); // number of teams * 59 (0x3B) - was 0x2FF
+	comp_data->team_league_table = (DWORD*)sub_944E46_malloc(numberOfLeagueTeams * league_team_list_sz); // number of teams * 59 (0x3B)
 	BYTE teamsAdded = 0;
 	for (DWORD i = 0; i < *clubs_count; i++)
 	{
@@ -38,7 +38,7 @@ int AddTeamsReserveDivision(BYTE* _this)
 
 	// Now let's add the teams
 	comp_data->n_teams = numberOfLeagueTeams; // number of teams
-	comp_data->team_league_table = (DWORD*)sub_944E46_malloc(numberOfLeagueTeams * league_team_list_sz); // number of teams * 59 (0x3B) - was 0x2FF
+	comp_data->team_league_table = (DWORD*)sub_944E46_malloc(numberOfLeagueTeams * league_team_list_sz); // number of teams * 59 (0x3B)
 	BYTE teamsAdded = 0;
 	for (DWORD i = 0; i < *clubs_count; i++)
 	{
@@ -60,7 +60,7 @@ int AddTeamsGroupLeague(BYTE* _this, DWORD first_group_id)
 
 	// Now let's add the teams
 	comp_data->n_teams = numberOfLeagueTeams; // number of teams
-	comp_data->team_league_table = (DWORD*)sub_944E46_malloc(numberOfLeagueTeams * league_team_list_sz); // number of teams * 59 (0x3B) - was 0x2FF
+	comp_data->team_league_table = (DWORD*)sub_944E46_malloc(numberOfLeagueTeams * league_team_list_sz); // number of teams * 59 (0x3B)
 	BYTE teamsAdded = 0;
 	for (DWORD i = 0; i < *clubs_count; i++)
 	{

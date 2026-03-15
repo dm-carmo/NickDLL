@@ -260,7 +260,7 @@ DWORD den_premier_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* 
 	return 0;
 }
 
-void __declspec(naked) den_premier_fixtures_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) den_premier_fixtures_c()
 {
 	__asm
 	{
@@ -302,14 +302,13 @@ void den_premier_subs(BYTE* _this)
 	comp_data->max_bench = 7;
 	comp_data->max_subs = 3;
 
-	//call vtable +3C which is actually add fixtures function
 	DWORD v1 = *(DWORD*)_this;
 	comp_data->fixtures_table = (DWORD*)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0xA9, _this + 0x3A, 0);
 
 	return;
 }
 
-void __declspec(naked) den_premier_subs_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) den_premier_subs_c()
 {
 	__asm
 	{
@@ -423,7 +422,7 @@ char den_premier_update(BYTE* _this) {
 	return sub_79CEE0((BYTE*)*b74340, (BYTE*)(data->competition_db));
 }
 
-void __declspec(naked) den_premier_update_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) den_premier_update_c()
 {
 	__asm
 	{
@@ -539,7 +538,7 @@ char den_premier_table_split(BYTE* _this, DWORD current_date, int a2) {
 	return sub_6847C0(_this, current_date, a2);
 }
 
-void __declspec(naked) den_premier_table_split_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) den_premier_table_split_c()
 {
 	__asm
 	{
@@ -559,5 +558,5 @@ void setup_den_premier()
 	WriteVTablePtr(den_premier_vtable, VTableEoSUpdate, (DWORD)&den_premier_update_c);
 	WriteVTablePtr(den_premier_vtable, VTableFixtures, (DWORD)&den_premier_fixtures_c);
 	WriteVTablePtr(den_premier_vtable, VTableLeagueSplit, (DWORD)&den_premier_table_split_c);
-	WriteVTablePtr(den_premier_vtable, VTableStageNews, (DWORD)0x7f3080); // Scotland stage news contains champ/rel group news
+	WriteVTablePtr(den_premier_vtable, VTableStageNews, 0x7f3080); // Scotland stage news contains champ/rel group news
 }

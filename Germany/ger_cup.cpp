@@ -49,7 +49,7 @@ DWORD ger_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 	return 0;
 }
 
-void __declspec(naked) ger_cup_fixture_caller()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) ger_cup_fixture_caller()
 {
 	__asm
 	{

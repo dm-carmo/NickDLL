@@ -6,7 +6,7 @@
 #include "Helpers\constants.h"
 #include <Helpers\9cf_constants.h>
 
-DWORD* wal_premier_vtable = (DWORD*)0x9696E4;
+DWORD* wal_premier_vtable = (DWORD*)0x970F80;
 
 int wal_premier_7F3220(DWORD a1, DWORD a2) {
 	BYTE split_pos = 6;
@@ -36,7 +36,7 @@ void wal_premier_prom_rel_update(BYTE* _this, int a2) {
 	sub_689C80(_this, _this, wal_first_s, 1, a2, -1, -1);
 }
 
-void __declspec(naked) wal_premier_prom_rel_update_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) wal_premier_prom_rel_update_c()
 {
 	__asm
 	{
@@ -223,7 +223,7 @@ DWORD wal_premier_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* 
 	return 0;
 }
 
-void __declspec(naked) wal_premier_fixtures_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) wal_premier_fixtures_c()
 {
 	__asm
 	{
@@ -265,14 +265,13 @@ void wal_premier_subs(BYTE* _this)
 	comp_data->max_bench = 7;
 	comp_data->max_subs = 3;
 
-	//call vtable +3C which is actually add fixtures function
 	DWORD v1 = *(DWORD*)_this;
 	comp_data->fixtures_table = (DWORD*)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0xA9, _this + 0x3A, 0);
 
 	return;
 }
 
-void __declspec(naked) wal_premier_subs_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) wal_premier_subs_c()
 {
 	__asm
 	{
@@ -408,7 +407,7 @@ char wal_premier_update(BYTE* _this) {
 	return sub_79CEE0((BYTE*)*b74340, (BYTE*)(data->competition_db));
 }
 
-void __declspec(naked) wal_premier_update_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) wal_premier_update_c()
 {
 	__asm
 	{
@@ -524,7 +523,7 @@ char wal_premier_table_split(BYTE* _this, DWORD current_date, int a2) {
 	return sub_6847C0(_this, current_date, a2);
 }
 
-void __declspec(naked) wal_premier_table_split_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) wal_premier_table_split_c()
 {
 	__asm
 	{
@@ -544,6 +543,6 @@ void setup_wal_premier()
 	WriteVTablePtr(wal_premier_vtable, VTableEoSUpdate, (DWORD)&wal_premier_update_c);
 	WriteVTablePtr(wal_premier_vtable, VTableFixtures, (DWORD)&wal_premier_fixtures_c);
 	WriteVTablePtr(wal_premier_vtable, VTableLeagueSplit, (DWORD)&wal_premier_table_split_c);
-	WriteVTablePtr(wal_premier_vtable, VTableStageNews, (DWORD)0x7f3080); // Scotland stage news contains champ/rel group news
+	WriteVTablePtr(wal_premier_vtable, VTableStageNews, 0x7f3080); // Scotland stage news contains champ/rel group news
 	WriteVTablePtr(wal_premier_vtable, VTablePromRelUpdate, (DWORD)&wal_premier_prom_rel_update_c);
 }

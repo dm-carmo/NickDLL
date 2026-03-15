@@ -46,7 +46,7 @@ void eng_conf_s_free(BYTE* _this, BYTE a2) {
 	}
 }
 
-void __declspec(naked) eng_conf_s_free_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) eng_conf_s_free_c()
 {
 	__asm
 	{
@@ -83,7 +83,6 @@ int eng_conf_s_subs(BYTE* _this)
 	comp_data->max_bench = 5;
 	comp_data->max_subs = 3;
 
-	//call vtable +3C which is actually add fixtures function
 	DWORD v1 = *(DWORD*)_this;
 	comp_data->fixtures_table = (DWORD*)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0xA9, _this + 0x3A, 0);
 
@@ -124,7 +123,7 @@ char eng_conf_s_update(BYTE* _this) {
 	return sub_79CEE0((BYTE*)*b74340, (BYTE*)(data->competition_db));
 }
 
-void __declspec(naked) eng_conf_s_update_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) eng_conf_s_update_c()
 {
 	__asm
 	{
@@ -136,7 +135,7 @@ void __declspec(naked) eng_conf_s_update_c()		// used as a __thiscall -> __cdecl
 	}
 }
 
-void __declspec(naked) eng_conf_s_subs_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) eng_conf_s_subs_c()
 {
 	__asm
 	{
@@ -148,7 +147,7 @@ void __declspec(naked) eng_conf_s_subs_c()		// used as a __thiscall -> __cdecl c
 	}
 }
 
-void __declspec(naked) eng_conf_s_reputation_calc_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) eng_conf_s_reputation_calc_c()
 {
 	__asm
 	{

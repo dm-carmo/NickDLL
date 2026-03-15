@@ -188,7 +188,7 @@ int show_extra_leagues_in_start(BYTE* nation, DWORD dest_ptr, int a3) {
 	return 0;
 }
 
-void __declspec(naked) show_extra_leagues_in_start_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) show_extra_leagues_in_start_c()
 {
 	__asm
 	{
@@ -246,11 +246,50 @@ void __declspec(naked) aus_minor_premier_in_history()
 	}
 }
 
+void club_pro_status_with_continental_comp(BYTE* _this) {
+	cm3_clubs* club = (cm3_clubs*)_this;
+	char continental_comp[64];
+	if (club->ClubEuroFlag >= 0) {
+		cm3_club_comps* comp = get_comp(club->ClubEuroFlag);
+		sprintf(continental_comp, " (in %s)", comp->ClubCompName);
+	}
+	else {
+		sprintf(continental_comp, "");
+	}
+	char pro_status[128];
+	if (club->ClubProfessionalStatus == 1) {
+		sprintf(pro_status, "%s%s", "Professional", continental_comp);
+	}
+	else if (club->ClubProfessionalStatus == 2) {
+		sprintf(pro_status, "%s%s", "Semi-Professional", continental_comp);
+	}
+	else if (club->ClubProfessionalStatus == 3) {
+		sprintf(pro_status, "%s%s", "Amateuer", continental_comp);
+	}
+	else {
+		sprintf(pro_status, "%s%s", "Unknown", continental_comp);
+	}
+	sub_66F4E0(0xDE1F64, (DWORD)&pro_status[0]);
+}
+
+void __declspec(naked) club_pro_status_with_continental_comp_c() {
+	__asm
+	{
+		mov eax, esp
+		push esi
+		call club_pro_status_with_continental_comp
+		add esp, 0x4
+		push 0x460F28
+		ret
+	}
+}
+
 void setup_misc_functions()
 {
 	if (configFile.GetBool("competitionColoursPatch", true)) PatchFunction(0x53b7c0, (DWORD)&comp_colours_in_header);
 	PatchFunction(0x669f50, (DWORD)&show_extra_leagues_in_start);
 	PatchFunction(0x46B71E, (DWORD)&aus_minor_premier_in_history);
+	PatchFunction(0x460ec6, (DWORD)&club_pro_status_with_continental_comp_c);
 
 	// Move August 30's international friendlies forward one week
 	for (DWORD d : friendly_aug_30plus4) {

@@ -26,7 +26,7 @@ int usa_mls_last_positions(BYTE* _this) {
 	return 1;
 }
 
-void __declspec(naked) usa_mls_last_positions_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) usa_mls_last_positions_c()
 {
 	__asm
 	{
@@ -41,11 +41,9 @@ void __declspec(naked) usa_mls_last_positions_c()		// used as a __thiscall -> __
 void usa_mls_prom_rel_update(BYTE* _this, int a2) {
 	comp_stats* data = (comp_stats*)_this;
 	DWORD v1 = *(DWORD*)_this;
-	//(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(_this);
 
 	BYTE* mls_conf = (BYTE*)data->stages[0];
 	v1 = *(DWORD*)mls_conf;
-	//(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(mls_conf);
 	usa_mls_last_positions(_this);
 
 	BYTE* usa_champ = get_loaded_league(USA_SECOND_9CF());
@@ -62,7 +60,7 @@ void usa_mls_prom_rel_update(BYTE* _this, int a2) {
 	sub_689C80(_this, mls_conf, champ_conf, 1, a2, -1, -1);
 }
 
-void __declspec(naked) usa_mls_prom_rel_update_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) usa_mls_prom_rel_update_c()
 {
 	__asm
 	{
@@ -105,7 +103,7 @@ void usa_mls_reputation_calc(BYTE* _this, BYTE* club, char stage, char current, 
 	ret[0x75] = ret_max;
 }
 
-void __declspec(naked) usa_mls_reputation_calc_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) usa_mls_reputation_calc_c()
 {
 	__asm
 	{
@@ -157,7 +155,7 @@ void usa_mls_reputation_setup(BYTE* _this) {
 	}
 }
 
-void __declspec(naked) usa_mls_reputation_setup_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) usa_mls_reputation_setup_c()
 {
 	__asm
 	{
@@ -176,7 +174,7 @@ int usa_mls_set_champion(BYTE* _this) {
 	return (*(int(__thiscall**)(BYTE*))(v1 + 0x30))(stage_data_for_history);
 }
 
-void __declspec(naked) usa_mls_set_champion_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) usa_mls_set_champion_c()
 {
 	__asm
 	{
@@ -267,14 +265,13 @@ void usa_mls_subs(BYTE* _this)
 	comp_data->max_bench = 7;
 	comp_data->max_subs = 3;
 
-	//call vtable +3C which is actually add fixtures function
 	DWORD v1 = *(DWORD*)_this;
 	comp_data->fixtures_table = (DWORD*)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0xA9, _this + 0x3A, 0);
 
 	return;
 }
 
-void __declspec(naked) usa_mls_subs_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) usa_mls_subs_c()
 {
 	__asm
 	{
@@ -384,7 +381,7 @@ DWORD usa_mls_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 	return 0;
 }
 
-void __declspec(naked) usa_mls_fixtures_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) usa_mls_fixtures_c()
 {
 	__asm
 	{
@@ -474,7 +471,7 @@ char usa_mls_update(BYTE* _this) {
 	return sub_79CEE0((BYTE*)*b74340, (BYTE*)(data->competition_db));
 }
 
-void __declspec(naked) usa_mls_update_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) usa_mls_update_c()
 {
 	__asm
 	{
@@ -583,7 +580,7 @@ int usa_mls_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE*
 	return 0;
 }
 
-void __declspec(naked) usa_mls_set_table_fate()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) usa_mls_set_table_fate()
 {
 	__asm
 	{
@@ -690,7 +687,7 @@ void usa_mls_playoffs_c(BYTE* _this) {
 	}
 }
 
-void __declspec(naked) usa_mls_playoffs_create()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) usa_mls_playoffs_create()
 {
 	__asm
 	{
@@ -721,7 +718,7 @@ void usa_awards_teams(BYTE* _this, DWORD** team_list, WORD* total_teams) {
 	}
 }
 
-void __declspec(naked) usa_awards_teams_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) usa_awards_teams_c()
 {
 	__asm
 	{
@@ -743,9 +740,9 @@ void setup_usa_mls() {
 	WriteVTablePtr(usa_mls_vtable, VTableReputationCalc, (DWORD)&usa_mls_reputation_calc_c);
 	WriteVTablePtr(usa_mls_vtable, VTableSetChampion, (DWORD)&usa_mls_set_champion_c);
 	WriteVTablePtr(usa_mls_vtable, VTableTableFates, (DWORD)&usa_mls_set_table_fate);
-	WriteVTablePtr(usa_mls_vtable, VTableStageNews, (DWORD)0x48c6d0);
+	WriteVTablePtr(usa_mls_vtable, VTableStageNews, 0x48c6d0);
 	WriteVTablePtr(usa_mls_vtable, VTablePlayoffQual, (DWORD)&usa_mls_playoffs_create);
-	WriteVTablePtr(usa_mls_vtable, VTablePostMatchUpdate, (DWORD)0x685d30);
+	WriteVTablePtr(usa_mls_vtable, VTablePostMatchUpdate, 0x685d30);
 	WriteVTablePtr(usa_mls_vtable, VTableAwardTeamsSetup, (DWORD)&usa_awards_teams_c);
 	WriteVTablePtr(usa_mls_vtable, VTablePromRelUpdate, (DWORD)&usa_mls_prom_rel_update_c);
 	WriteVTablePtr(usa_mls_vtable, VTableUpdateLastDivision, (DWORD)&usa_mls_last_positions_c);

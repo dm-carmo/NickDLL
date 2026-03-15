@@ -28,7 +28,7 @@ DWORD nir_charity_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* 
 	return 0;
 }
 
-void __declspec(naked) nir_charity_fixture_caller()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) nir_charity_fixture_caller()
 {
 	__asm
 	{

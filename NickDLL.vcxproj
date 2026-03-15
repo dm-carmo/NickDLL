@@ -231,6 +231,7 @@
     <ClCompile Include="Greece\gre_setup.cpp" />
     <ClCompile Include="Greece\gre_super.cpp" />
     <ClCompile Include="Helpers\9cf_constants.cpp" />
+    <ClCompile Include="Helpers\constants.cpp" />
     <ClCompile Include="Helpers\generic_functions.cpp" />
     <ClCompile Include="Helpers\Helper.cpp" />
     <ClCompile Include="Holland\hol_awards.cpp" />

@@ -43,8 +43,7 @@ DWORD eng_champ_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Monday, Evening);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year, 8, 30), year, Saturday); // doesn't work with CM0102 schedule
-		//AddFixture(pMem, fixture_id, Date(year, 9, 6), year, Saturday);
+		AddFixture(pMem, fixture_id, Date(year, 8, 30), year, Saturday); ;
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Monday, Evening);
@@ -339,7 +338,7 @@ DWORD eng_champ_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 	return 0;
 }
 
-void __declspec(naked) eng_champ_fixture_caller()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) eng_champ_fixture_caller()
 {
 	__asm
 	{
@@ -454,7 +453,7 @@ char eng_champ_update(BYTE* _this) {
 	return sub_79CEE0((BYTE*)*b74340, (BYTE*)(data->competition_db));
 }
 
-void __declspec(naked) eng_champ_update_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) eng_champ_update_c()
 {
 	__asm
 	{

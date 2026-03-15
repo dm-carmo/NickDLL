@@ -69,7 +69,7 @@ void germany_awards(BYTE* _this, int a2) {
 	awards_list[i++] = (DWORD)pMem;
 }
 
-void __declspec(naked) ger_awards_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) ger_awards_c()
 {
 	__asm
 	{
@@ -100,7 +100,7 @@ char ger_awards_2(BYTE* _this, DWORD current_date) {
 		yearly_staff_award_nominate_768940(_this, current_date, awards_list[11], GER_THIRD_9CF());
 	}
 	BYTE sub_669340_ret = sub_669340(nation);
-	WORD nation_day = pnd_list[sub_669340_ret].update_day; //b6423d germany
+	WORD nation_day = pnd_list[sub_669340_ret].update_day;
 	if (*(WORD*)(current_date) == nation_day) {
 		monthly_person_award_nominate_7672E0((BYTE*)awards_list[2], *(WORD*)(current_date + 2));
 		monthly_person_award_nominate_7672E0((BYTE*)awards_list[6], *(WORD*)(current_date + 2));
@@ -109,7 +109,7 @@ char ger_awards_2(BYTE* _this, DWORD current_date) {
 	return sub_768310(_this, current_date);
 }
 
-void __declspec(naked) ger_awards_2_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) ger_awards_2_c()
 {
 	__asm
 	{
@@ -138,7 +138,7 @@ void ger_awards_team_of_week(BYTE* _this, DWORD award_addr) {
 	}
 }
 
-void __declspec(naked) ger_awards_team_of_week_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) ger_awards_team_of_week_c()
 {
 	__asm
 	{
@@ -159,7 +159,7 @@ void ger_awards_staff_history(BYTE* _this) {
 	sub_767150((BYTE*)awards_list[10], arg1, -1);
 }
 
-void __declspec(naked) ger_awards_staff_history_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) ger_awards_staff_history_c()
 {
 	__asm
 	{

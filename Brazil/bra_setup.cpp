@@ -56,12 +56,12 @@ DWORD bra_setup_c(playable_nation_data* nation_data) {
 	BYTE* start_date = new BYTE[8];
 	sub_54C770((BYTE*)dd6ec8, start_date, 4);
 	WORD start_year = *(WORD*)(start_date + 2);
-	// contract start date?
+	
 	nation_data->contract_start_day = 3;
 	nation_data->contract_start_month = January;
 	nation_data->contract_start_year = start_year;
 	nation_data->f55 = 6;
-	// contract end date?
+	
 	nation_data->contract_end_day = 14;
 	nation_data->contract_end_month = December;
 	nation_data->contract_end_year = start_year;
@@ -69,7 +69,7 @@ DWORD bra_setup_c(playable_nation_data* nation_data) {
 	nation_data->num_of_comps = 18;
 	DWORD* nation_comps = (DWORD*)sub_944E46_malloc(nation_data->num_of_comps * 4);
 	nation_data->comps_list = (DWORD)nation_comps;
-	// start calling each league's functions
+	
 	BYTE i = 0;
 	// Série A
 	BYTE* pMem = (BYTE*)sub_944CF1_operator_new(0xEE);

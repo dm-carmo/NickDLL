@@ -15,12 +15,12 @@ static DWORD(__thiscall* ita_supercup_setup)(BYTE* _this, WORD year, cm3_club_co
 (DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x65F670);
 
 DWORD ita_setup_c(playable_nation_data* nation_data) {
-	// contract start date?
+	
 	nation_data->contract_start_day = 6;
 	nation_data->contract_start_month = August;
 	nation_data->contract_start_year = *current_year;
 	nation_data->f55 = 6;
-	// contract end date?
+	
 	nation_data->contract_end_day = 8;
 	nation_data->contract_end_month = June;
 	nation_data->contract_end_year = *current_year + 1;
@@ -34,7 +34,7 @@ DWORD ita_setup_c(playable_nation_data* nation_data) {
 	}
 	DWORD* nation_comps = (DWORD*)sub_944E46_malloc(nation_data->num_of_comps * 4);
 	nation_data->comps_list = (DWORD)nation_comps;
-	// start calling each league's functions
+	
 	BYTE i = 0;
 	// Serie A
 	BYTE* pMem = (BYTE*)sub_944CF1_operator_new(0xEE);

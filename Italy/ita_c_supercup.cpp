@@ -44,7 +44,7 @@ void ita_c_supercup_free(BYTE* _this, BYTE a2) {
 	}
 }
 
-void __declspec(naked) ita_c_supercup_free_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) ita_c_supercup_free_c()
 {
 	__asm
 	{
@@ -81,14 +81,13 @@ void ita_c_supercup_subs(BYTE* _this)
 	comp_data->max_bench = 7;
 	comp_data->max_subs = 3;
 
-	//call vtable +3C which is actually add fixtures function
 	DWORD v1 = *(DWORD*)_this;
 	comp_data->fixtures_table = (DWORD*)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0xA9, _this + 0x3A, 0);
 
 	return;
 }
 
-void __declspec(naked) ita_c_supercup_subs_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) ita_c_supercup_subs_c()
 {
 	__asm
 	{
@@ -127,7 +126,7 @@ char ita_c_supercup_update(BYTE* _this) {
 	return 1;
 }
 
-void __declspec(naked) ita_c_supercup_update_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) ita_c_supercup_update_c()
 {
 	__asm
 	{
@@ -167,7 +166,7 @@ DWORD ita_c_supercup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WOR
 	return 0;
 }
 
-void __declspec(naked) ita_c_supercup_fixtures_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) ita_c_supercup_fixtures_c()
 {
 	__asm
 	{
@@ -225,7 +224,7 @@ void ita_c_supercup_63B300(BYTE* _this, DWORD current_date, int a3) {
 	sub_6847C0(_this, current_date, a3);
 }
 
-void __declspec(naked) ita_c_supercup_63B300_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) ita_c_supercup_63B300_c()
 {
 	__asm
 	{
@@ -250,7 +249,7 @@ void ita_c_supercup_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	ita_c_supercup_vtable->SetPointer(VTableLeagueSplit, (DWORD)&ita_c_supercup_63B300_c);
 	ita_c_supercup_vtable->SetPointer(VTableFixtures, (DWORD)&ita_c_supercup_fixtures_c);
 	ita_c_supercup_vtable->SetPointer(VTableSubsRounds, (DWORD)&ita_c_supercup_subs_c);
-	ita_c_supercup_vtable->SetPointer(VTableTableFates, (DWORD)0x686940);
+	ita_c_supercup_vtable->SetPointer(VTableTableFates, 0x686940);
 	data->year = year;
 	data->rules = 0x11;
 	int loaded = sub_687B10(_this, 1);

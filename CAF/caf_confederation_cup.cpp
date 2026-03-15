@@ -61,7 +61,7 @@ void caf_confederation_cup_free(BYTE* _this, BYTE a2) {
 	}
 }
 
-void __declspec(naked) caf_confederation_cup_free_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) caf_confederation_cup_free_c()
 {
 	__asm
 	{
@@ -145,7 +145,7 @@ DWORD caf_confederation_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_roun
 	return 0;
 }
 
-void __declspec(naked) caf_confederation_cup_fixture_caller()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) caf_confederation_cup_fixture_caller()
 {
 	__asm
 	{
@@ -168,7 +168,7 @@ int caf_confederation_cup_set_champion(BYTE* _this) {
 	return (*(int(__thiscall**)(BYTE*))(v1 + 0x30))(stage_data_for_history);
 }
 
-void __declspec(naked) caf_confederation_cup_set_champion_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) caf_confederation_cup_set_champion_c()
 {
 	__asm
 	{
@@ -370,7 +370,7 @@ void caf_confederation_cup_reputation_setup(BYTE* _this) {
 	}
 }
 
-void __declspec(naked) caf_confederation_cup_reputation_setup_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) caf_confederation_cup_reputation_setup_c()
 {
 	__asm
 	{
@@ -408,7 +408,7 @@ void caf_confederation_cup_reputation_calc(BYTE* _this, BYTE* club, char stage, 
 	ret[0x75] = ret_max;
 }
 
-void __declspec(naked) caf_confederation_cup_reputation_calc_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) caf_confederation_cup_reputation_calc_c()
 {
 	__asm
 	{
@@ -476,7 +476,7 @@ char caf_confederation_cup_update(BYTE* _this) {
 	return (*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
 }
 
-void __declspec(naked) caf_confederation_cup_update_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) caf_confederation_cup_update_c()
 {
 	__asm
 	{
@@ -531,7 +531,7 @@ void caf_confederation_cup_group_stage_setup(BYTE* _this) {
 		WORD year = comp_data->year;
 		BYTE* pStage = (BYTE*)sub_944CF1_operator_new(0xEE);
 		create_league_stage_data(pStage, _this, group_teams, pTeams, 2, (DWORD)(comp_data->competition_db), pFixtures, num_rounds,
-			3, 1, 8, &tiebreaks[0], &prom_rel[0], year, i + stage_num, stage_name_id, 0xf, 2, 0, 8, -1, 0, 2);
+			3, 1, 8, &tiebreaks[0], &prom_rel[0], year, i + stage_num, stage_name_id, 0xf, 2, 0, 0x28, -1, 0, 2);
 		DWORD* stages_arr = comp_data->stages;
 		*((DWORD*)(&stages_arr[i + stage_num])) = (DWORD)pStage;
 		sub_684230(pStage);
@@ -590,7 +590,6 @@ void caf_confederation_cup_final_stage_setup(BYTE* _this) {
 		for (int i = 0; i < total_teams; i++) {
 			team_league_stats tls = table_teams[i];
 			if (tls.league_fate != Qualified1) {
-				staff_history_knocked_out_86C000(staff_hist_ptr, tls.club, (DWORD)(comp_data->competition_db), None, GroupStage, 0xF);
 				tls.club->ClubEuroFlag = -1;
 				int ret = sub_5A0590(ae2a38_ptr, (BYTE*)tls.club);
 				AddToClubIncome((BYTE*)ret, 297398);
@@ -616,7 +615,7 @@ void caf_confederation_cup_stages_create(BYTE* _this) {
 	}
 }
 
-void __declspec(naked) caf_confederation_cup_stages_create_c()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) caf_confederation_cup_stages_create_c()
 {
 	__asm
 	{
@@ -637,7 +636,6 @@ int caf_confederation_cup_set_fates(BYTE* _this, cm3_clubs* club, char fate, cha
 		switch (fate) {
 		case TopPlayoff:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, GroupStage, 0x1E);
-			//*a5 = 1;
 			return 0;
 		case Promoted:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
@@ -655,12 +653,8 @@ int caf_confederation_cup_set_fates(BYTE* _this, cm3_clubs* club, char fate, cha
 		case Qualified1:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, QuarterFinal, 0x1E);
 			return 0;
-		case TopPlayoff:
-			//staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, TenthRound, 0x1E);
-			return 0;
 		default:
 			staff_history_knocked_out_86C000(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, GroupStage, 0xF);
-			club->ClubEuroFlag = -1;
 			return 0;
 		}
 	}
@@ -674,7 +668,6 @@ int caf_confederation_cup_set_fates(BYTE* _this, cm3_clubs* club, char fate, cha
 		case TopPlayoff:
 			staff_history_comp_winner_86A800(staff_hist_ptr, club, round_data, a7);
 			club->ClubEuroFlag = -1;
-			//*a5 = 1;
 			return 0;
 		case Promoted:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
@@ -694,7 +687,7 @@ int caf_confederation_cup_set_fates(BYTE* _this, cm3_clubs* club, char fate, cha
 	return 0;
 }
 
-void __declspec(naked) caf_confederation_cup_set_table_fate()		// used as a __thiscall -> __cdecl converter
+void __declspec(naked) caf_confederation_cup_set_table_fate()
 {
 	__asm
 	{
@@ -712,6 +705,71 @@ void __declspec(naked) caf_confederation_cup_set_table_fate()		// used as a __th
 	}
 }
 
+int caf_confed_stage_news(BYTE* _this, int club_idx, char fate, char stage_id, int stage_name_idx, int round_data, __int16 a7, int a8, char a9, int show_body_text, LPVOID* ret_str_ptr) {
+	comp_stats* data = (comp_stats*)_this;
+	cm3_club_comps* comp_data = data->competition_db;
+	cm3_clubs* club_data = get_club(club_idx);
+	if (stage_id == -1)
+	{
+		if (show_body_text) return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
+		if (fate == 1) {
+			sub_66F4E0(0xDE1F64, (DWORD)&qualified_grp_title_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
+				&club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+			sub_4AE660(ret_str_ptr, 0xDE1F64);
+			sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+			sub_4AE8A0((BYTE*)ret_str_ptr, &comp_data->ClubCompNameShort[0], 0x7d0, (DWORD)comp_data);
+			return 1;
+		}
+		else return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
+	}
+	else if (stage_id < 4) {
+		if (fate == Qualified1) {
+			if (show_body_text) {
+				sub_66F4E0(0xDE1F64, (DWORD)&qualified_qtr_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderName, comp_data->ClubCompGenderName,
+					&club_data->ClubNameShort[0], &comp_data->ClubCompName[0]);
+				sub_4AE660(ret_str_ptr, 0xDE1F64);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &comp_data->ClubCompName[0], 0x7d0, (DWORD)comp_data);
+				return 1;
+			}
+			else {
+				sub_66F4E0(0xDE1F64, (DWORD)&qualified_qtr_title_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
+					&club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+				sub_4AE660(ret_str_ptr, 0xDE1F64);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &comp_data->ClubCompNameShort[0], 0x7d0, (DWORD)comp_data);
+				return 1;
+			}
+		}
+		else if (fate == Eliminated) return sub_4B4590(club_idx, (WORD)stage_name_idx, (DWORD)comp_data, fate, show_body_text, ret_str_ptr);
+	}
+	else if (stage_id == 4) return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
+
+	return 0;
+}
+
+void __declspec(naked) caf_confed_stage_news_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x28]
+		push dword ptr[eax + 0x24]
+		push dword ptr[eax + 0x20]
+		push dword ptr[eax + 0x1c]
+		push dword ptr[eax + 0x18]
+		push dword ptr[eax + 0x14]
+		push dword ptr[eax + 0x10]
+		push dword ptr[eax + 0xc]
+		push dword ptr[eax + 0x8]
+		push dword ptr[eax + 0x4]
+		push ecx
+		call caf_confed_stage_news
+		add esp, 0x2c
+		ret 0x28
+	}
+}
+
 void caf_confederation_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	sub_518640(_this);
 	comp_stats* data = (comp_stats*)_this;
@@ -724,7 +782,7 @@ void caf_confederation_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	caf_confederation_cup_vtable->SetPointer(VTableClubLandmarks, 0x48cab0);
 	caf_confederation_cup_vtable->SetPointer(VTableFixtures, (DWORD)&caf_confederation_cup_fixture_caller);
 	caf_confederation_cup_vtable->SetPointer(VTableTableFates, (DWORD)&caf_confederation_cup_set_table_fate);
-	caf_confederation_cup_vtable->SetPointer(VTableStageNews, 0x48C6D0);
+	caf_confederation_cup_vtable->SetPointer(VTableStageNews, (DWORD)&caf_confed_stage_news_c);
 	caf_confederation_cup_vtable->SetPointer(VTableReputationSetup, (DWORD)&caf_confederation_cup_reputation_setup_c);
 	caf_confederation_cup_vtable->SetPointer(VTableReputationCalc, (DWORD)&caf_confederation_cup_reputation_calc_c);
 	caf_confederation_cup_vtable->SetPointer(VTableSubsRounds, 0x858e70);
