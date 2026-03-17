@@ -17,12 +17,19 @@ void gre_first_prom_rel_update(BYTE* _this, int a2) {
 	v1 = *(DWORD*)gre_second;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(gre_second);
 
-	BYTE* gre_second_grp = (BYTE*)gre_second_data->stages[0];
-	v1 = *(DWORD*)gre_second_grp;
-	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(gre_second_grp);
+	if (gre_second_data->year == 2025)
+	{
+		BYTE* gre_second_grp = (BYTE*)gre_second_data->stages[0];
+		v1 = *(DWORD*)gre_second_grp;
+		(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(gre_second_grp);
+	}
 
 	sub_689C80(_this, _this, gre_second, 1, a2, -1, -1);
-	sub_689C80(_this, _this, gre_second_grp, 1, a2, -1, -1);
+	if (gre_second_data->year == 2025)
+	{
+		BYTE* gre_second_grp = (BYTE*)gre_second_data->stages[0];
+		sub_689C80(_this, _this, gre_second_grp, 1, a2, -1, -1);
+	}
 }
 
 void __declspec(naked) gre_first_prom_rel_update_c()
@@ -300,13 +307,24 @@ void __fastcall gre_second_relegation(BYTE* _this)
 	vector<cm3_clubs*> relegated_clubs;
 
 	comp_stats* comp_data = (comp_stats*)get_loaded_league(GRE_SECOND_9CF());
-	comp_stats* curr_stage = comp_data;
-	for (char al = -1; al < 1; al++) {
-		if (al >= 0) {
-			curr_stage = (comp_stats*)(comp_data->stages[al]);
+	if (comp_data->year == 2025)
+	{
+		comp_stats* curr_stage = comp_data;
+		for (char al = -1; al < 1; al++) {
+			if (al >= 0) {
+				curr_stage = (comp_stats*)(comp_data->stages[al]);
+			}
+			for (WORD num = 0; num < curr_stage->n_teams; num++) {
+				team_league_stats table_pos = ((team_league_stats*)curr_stage->team_league_table)[num];
+				if (table_pos.league_fate == Relegated) {
+					relegated_clubs.push_back(table_pos.club);
+				}
+			}
 		}
-		for (WORD num = 0; num < curr_stage->n_teams; num++) {
-			team_league_stats table_pos = ((team_league_stats*)curr_stage->team_league_table)[num];
+	}
+	else {
+		for (WORD num = 0; num < comp_data->n_teams; num++) {
+			team_league_stats table_pos = ((team_league_stats*)comp_data->team_league_table)[num];
 			if (table_pos.league_fate == Relegated) {
 				relegated_clubs.push_back(table_pos.club);
 			}
@@ -333,30 +351,40 @@ void __fastcall gre_second_relegation(BYTE* _this)
 
 	sort(available_clubs.begin(), available_clubs.end(), compareClubRep);
 	int max_to_check = (available_clubs.size() > 6 ? 6 : available_clubs.size());
-	for (unsigned int i = 0; i < relegated_clubs.size(); i++)
-	{
-		int availableIdx = rand() % (max_to_check - i);
-		cm3_clubs* clubToRelegate = relegated_clubs[i];
-		cm3_clubs* available = available_clubs[availableIdx];
+	if (comp_data->year == 2025) {
+		cm3_club_comps* topDivision = get_comp(GRE_SECOND_9CF());
+		cm3_club_comps* bottomDivision = get_comp(GRE_LOWER_9CF());
+		int num_to_promote = 4;
+		for (int i = 0; i < num_to_promote; i++)
+		{
+			int availableIdx = rand() % (max_to_check - i);
+			cm3_clubs* available = available_clubs[availableIdx];
+			promote_club_6830B0((BYTE*)available, (DWORD)topDivision, 1);
+			available_clubs.erase(available_clubs.begin() + availableIdx);
+		}
 
-		cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
-		cm3_club_comps* bottomDivision = available->ClubDivision;
-		relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
-		promote_club_6830B0((BYTE*)available, (DWORD)topDivision, 1);
-		clubToRelegate->ClubReserveDivision = 0;
-
-		available_clubs.erase(available_clubs.begin() + availableIdx);
+		for (unsigned int i = 0; i < relegated_clubs.size(); i++)
+		{
+			cm3_clubs* clubToRelegate = relegated_clubs[i];
+			relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
+			clubToRelegate->ClubReserveDivision = 0;
+		}
 	}
-}
+	else {
+		for (unsigned int i = 0; i < relegated_clubs.size(); i++)
+		{
+			int availableIdx = rand() % (max_to_check - i);
+			cm3_clubs* clubToRelegate = relegated_clubs[i];
+			cm3_clubs* available = available_clubs[availableIdx];
 
-void sort_gre_second_clubs() {
-	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(GRE_SECOND_9CF());
-	sort(available_clubs.begin(), available_clubs.end(), compareClubLatitude);
+			cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
+			cm3_club_comps* bottomDivision = available->ClubDivision;
+			relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
+			promote_club_6830B0((BYTE*)available, (DWORD)topDivision, 1);
+			clubToRelegate->ClubReserveDivision = 0;
 
-	for (size_t i = 0; i < available_clubs.size(); i++)
-	{
-		if (i < 10) available_clubs[i]->ClubReserveDivision = get_comp(GRE_SECOND_NORTH_9CF());
-		else available_clubs[i]->ClubReserveDivision = get_comp(GRE_SECOND_SOUTH_9CF());
+			available_clubs.erase(available_clubs.begin() + availableIdx);
+		}
 	}
 }
 
@@ -367,7 +395,6 @@ char gre_first_update(BYTE* _this) {
 	DWORD v1 = *(DWORD*)_this;
 	gre_first_prom_rel_update(_this, 1);
 	gre_second_relegation(_this);
-	sort_gre_second_clubs();
 
 	sub_687970(_this, ebx);
 	if (data->fixtures_table) {

@@ -215,9 +215,13 @@ int gre_cup_teams(BYTE* _this) {
 	{
 		int availableIdx = rand() % division_clubs.size();
 		cm3_clubs* lower_club = division_clubs[availableIdx];
-		vec.push_back(lower_club);
+		DWORD is_main_club;
+		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)lower_club, &is_main_club, 1);
+		if (!ret_club || is_main_club) {
+			vec.push_back(lower_club);
+			d2_count++;
+		}
 		division_clubs.erase(division_clubs.begin() + availableIdx);
-		d2_count++;
 	}
 	// D1
 	division_clubs = find_clubs_of_comp(GRE_FIRST_9CF());
@@ -287,8 +291,9 @@ char gre_cup_update(BYTE* _this) {
 			}
 		}
 	}
-	data->year++;
 	data->current_stage = -1;
+	if (data->f8) sub_4A1C50((BYTE*)(data->f8), 1);
+	data->year++;
 	data->f171 = 0;
 	*((BYTE*)(_this + 0xB1)) = 0;
 	gre_cup_teams(_this);

@@ -1986,6 +1986,10 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 	if (_strcmpi(to_check->ClubName, "Glasgow Celtic") == 0 && find_club("Glasgow Celtic B")) return (BYTE*)find_club("Glasgow Celtic B");
 	if (_strcmpi(to_check->ClubName, "Heart of Midlothian FC") == 0 && find_club("Heart of Midlothian FC B")) return (BYTE*)find_club("Heart of Midlothian FC B");
 	if (_strcmpi(to_check->ClubName, "Girona FC") == 0 && find_club("Girona FC B")) return (BYTE*)find_club("Girona FC B");
+	if (_strcmpi(to_check->ClubName, "Asteras Aktor") == 0 && find_club("Asteras Aktor B")) return (BYTE*)find_club("Asteras Aktor B");
+	if (_strcmpi(to_check->ClubName, "AEK Athens") == 0 && find_club("AEK Athens B")) return (BYTE*)find_club("AEK Athens B");
+	if (_strcmpi(to_check->ClubName, "Olympiacos Piraeus") == 0 && find_club("Olympiacos Piraeus B")) return (BYTE*)find_club("Olympiacos Piraeus B");
+	if (_strcmpi(to_check->ClubName, "PAOK Thessaloniki") == 0 && find_club("PAOK Thessaloniki B")) return (BYTE*)find_club("PAOK Thessaloniki B");
 
 	// Reserve teams check
 	if (is_main_club) *is_main_club = 0;
@@ -2149,6 +2153,10 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 	if (_strcmpi(to_check->ClubName, "Glasgow Celtic B") == 0 && find_club("Glasgow Celtic")) return (BYTE*)find_club("Glasgow Celtic");
 	if (_strcmpi(to_check->ClubName, "Heart of Midlothian FC B") == 0 && find_club("Heart of Midlothian FC")) return (BYTE*)find_club("Heart of Midlothian FC");
 	if (_strcmpi(to_check->ClubName, "Girona FC B") == 0 && find_club("Girona FC")) return (BYTE*)find_club("Girona FC");
+	if (_strcmpi(to_check->ClubName, "Asteras Aktor B") == 0 && find_club("Asteras Aktor")) return (BYTE*)find_club("Asteras Aktor");
+	if (_strcmpi(to_check->ClubName, "AEK Athens B") == 0 && find_club("AEK Athens")) return (BYTE*)find_club("AEK Athens");
+	if (_strcmpi(to_check->ClubName, "Olympiacos Piraeus B") == 0 && find_club("Olympiacos Piraeus")) return (BYTE*)find_club("Olympiacos Piraeus");
+	if (_strcmpi(to_check->ClubName, "PAOK Thessaloniki B") == 0 && find_club("PAOK Thessaloniki")) return (BYTE*)find_club("PAOK Thessaloniki");
 
 	// default case if none found
 	to_check->ClubHasLinkedClub = 0;

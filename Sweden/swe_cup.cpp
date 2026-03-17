@@ -304,8 +304,9 @@ char swe_cup_update(BYTE* _this) {
 			}
 		}
 	}
-	data->year++;
 	data->current_stage = -1;
+	if (data->f8) sub_4A1C50((BYTE*)(data->f8), 1);
+	data->year++;
 	data->f171 = 0;
 	*((BYTE*)(_this + 0xB1)) = 0;
 	swe_cup_teams(_this);

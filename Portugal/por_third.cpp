@@ -521,7 +521,7 @@ int por_third_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char sta
 				switch (fate) {
 				case Champions:
 					staff_history_champion_868C50(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));
-					table[i].league_fate = Champions;
+					if (table[i].league_fate != CantBePromoted) table[i].league_fate = Champions;
 					return 0;
 				case Promoted:
 					staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), 0x32);
