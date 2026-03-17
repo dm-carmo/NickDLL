@@ -132,7 +132,7 @@ DWORD bra_third_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		WORD year = data->year;
 		DWORD CompID = data->competition_db->ClubCompID;
 		BYTE numberOfLeagueTeams = (BYTE)CountNumberOfTeamsInComp(CompID);
-		*num_rounds = (numberOfLeagueTeams - 1) * ((comp_stats*)_this)->n_rounds;
+		*num_rounds = (numberOfLeagueTeams - 1) * data->n_rounds;
 		*stage_name_id = FirstStage;
 
 		pMem = (BYTE*)sub_944E46_malloc(fixture_dates_sz * (*num_rounds));
@@ -221,7 +221,7 @@ DWORD bra_third_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		if (a5)
 			*a5 = 1;
 		BYTE* pMem = NULL;
-		comp_stats* data = ((comp_stats*)_this);
+		comp_stats* data = (comp_stats*)_this;
 		WORD year = data->year;
 		WORD numberOfLeagueTeams = 4;
 		*num_rounds = (numberOfLeagueTeams - 1) * 2;

@@ -481,6 +481,7 @@ void den_third_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	den_third_vtable->SetPointer(VTableFixtures, (DWORD)&den_third_fixtures_c);
 	den_third_vtable->SetPointer(VTableLeagueSplit, (DWORD)&den_third_table_split_c);
 	den_third_vtable->SetPointer(VTableStageNews, 0x7f3080); // Scotland stage news contains champ/rel group news
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) den_third_vtable->SetPointer(VTable21, 0x4110b0);
 	data->year = year;
 	data->rules = 0x8;
 	int loaded = sub_687B10(_this, 1);

@@ -696,4 +696,5 @@ void setup_kor_first()
 	WriteVTablePtr(kor_first_vtable, VTableReputationCalc, (DWORD)&kor_first_reputation_calc_c);
 	WriteVTablePtr(kor_first_vtable, VTablePlayoffQual, (DWORD)&kor_first_playoffs_create);
 	WriteVTablePtr(kor_first_vtable, VTableTableFates, (DWORD)&kor_first_set_table_fate);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(kor_first_vtable, VTable21, 0x4110b0);
 }

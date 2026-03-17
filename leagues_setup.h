@@ -20,6 +20,7 @@
 #include "Portugal\por_setup.h"
 #include "Scotland\sco_setup.h"
 #include "South Korea\kor_setup.h"
+#include "Spain\spa_setup.h"
 #include "Sweden\swe_setup.h"
 #include "USA\usa_setup.h"
 #include "Wales\wal_setup.h"

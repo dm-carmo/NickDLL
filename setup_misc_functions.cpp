@@ -82,13 +82,14 @@ int show_extra_leagues_in_start(BYTE* nation, DWORD dest_ptr, int a3) {
 		return 1;
 	}
 	if (cm3_nation->NationID == NATION_SCOTLAND_9CF()) {
-		if (configFile.GetBool("applyNorway", true)) league_str = "Highland/Lowland";
+		if (configFile.GetBool("applyScotland", true)) league_str = "Highland/Lowland";
 		else return 0;
 		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
 		return 1;
 	}
 	if (cm3_nation->NationID == NATION_SPAIN_9CF()) {
-		league_str = "Primera Federación";
+		if (configFile.GetBool("applySpain", true)) league_str = "Segunda Federación";
+		else league_str = "Primera Federación";
 		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
 		return 1;
 	}
@@ -111,11 +112,6 @@ int show_extra_leagues_in_start(BYTE* nation, DWORD dest_ptr, int a3) {
 	}
 	if (cm3_nation->NationID == NATION_BELGIUM_9CF()) {
 		league_str = "Division 2";
-		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
-		return 1;
-	}
-	if (cm3_nation->NationID == NATION_BRAZIL_9CF()) {
-		league_str = "Série D";
 		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
 		return 1;
 	}
@@ -144,18 +140,8 @@ int show_extra_leagues_in_start(BYTE* nation, DWORD dest_ptr, int a3) {
 		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
 		return 1;
 	}
-	if (cm3_nation->NationID == NATION_NORTHERN_IRELAND_9CF()) {
-		league_str = "Intermediate League";
-		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
-		return 1;
-	}
 	if (cm3_nation->NationID == NATION_POLAND_9CF()) {
 		league_str = "III liga";
-		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
-		return 1;
-	}
-	if (cm3_nation->NationID == NATION_IRELAND_9CF()) {
-		league_str = "Senior Leagues";
 		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
 		return 1;
 	}
@@ -171,16 +157,6 @@ int show_extra_leagues_in_start(BYTE* nation, DWORD dest_ptr, int a3) {
 	}
 	if (cm3_nation->NationID == NATION_TURKEY_9CF()) {
 		league_str = "3. Lig";
-		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
-		return 1;
-	}
-	if (cm3_nation->NationID == NATION_USA_9CF()) {
-		league_str = "USL Championship";
-		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
-		return 1;
-	}
-	if (cm3_nation->NationID == NATION_WALES_9CF()) {
-		league_str = "Cymru North/South";
 		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
 		return 1;
 	}

@@ -249,7 +249,7 @@ DWORD eng_conf_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* sta
 		WORD year = data->year;
 		DWORD CompID = data->competition_db->ClubCompID;
 		BYTE numberOfLeagueTeams = (BYTE)CountNumberOfTeamsInComp(CompID);
-		*num_rounds = (numberOfLeagueTeams - 1) * ((comp_stats*)_this)->n_rounds;
+		*num_rounds = (numberOfLeagueTeams - 1) * data->n_rounds;
 		*stage_name_id = None;
 
 		pMem = (BYTE*)sub_944E46_malloc(fixture_dates_sz * (*num_rounds));
@@ -494,4 +494,5 @@ void setup_eng_conf() {
 	WriteVTablePtr(eng_conf_vtable, VTableTableFates, (DWORD)&eng_conf_set_table_fate);
 	WriteVTablePtr(eng_conf_vtable, VTableSubsRounds, (DWORD)&eng_conf_subs_c);
 	WriteVTablePtr(eng_conf_vtable, VTableReputationCalc, (DWORD)&eng_conf_reputation_calc_c);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(eng_conf_vtable, VTable21, 0x4110b0);
 }

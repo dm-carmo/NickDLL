@@ -57,8 +57,7 @@ void block_reserve_promotion_pol_third(BYTE* _this) {
 	for (int i = 0; i < total_teams; i++) {
 		DWORD is_main_club;
 		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)table_teams[i].club, &is_main_club, 1);
-		if (ret_club && !is_main_club && (!ret_club->ClubDivision || ret_club->ClubDivision->ClubCompID != POL_FIRST_9CF()
-			|| ret_club->ClubDivision->ClubCompID != POL_SECOND_9CF())) {
+		if (ret_club && !is_main_club && (!ret_club->ClubDivision || ret_club->ClubDivision->ClubCompID != POL_FIRST_9CF())) {
 			table_teams[i].league_fate = CantBePromoted;
 		}
 	}
@@ -171,7 +170,7 @@ DWORD pol_third_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		WORD year = data->year;
 		DWORD CompID = data->competition_db->ClubCompID;
 		BYTE numberOfLeagueTeams = (BYTE)CountNumberOfTeamsInComp(CompID);
-		*num_rounds = (numberOfLeagueTeams - 1) * ((comp_stats*)_this)->n_rounds;
+		*num_rounds = (numberOfLeagueTeams - 1) * data->n_rounds;
 		*stage_name_id = None;
 
 		pMem = (BYTE*)sub_944E46_malloc(fixture_dates_sz * (*num_rounds));
@@ -594,6 +593,7 @@ void pol_third_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	pol_third_vtable->SetPointer(VTableTableFates, (DWORD)&pol_third_set_table_fate);
 	pol_third_vtable->SetPointer(VTableReputationCalc, (DWORD)&pol_third_reputation_calc_c);
 	pol_third_vtable->SetPointer(VTablePlayoffQual, (DWORD)&pol_third_playoffs_create);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) pol_third_vtable->SetPointer(VTable21, 0x4110b0);
 	data->year = year;
 	data->rules = 0x1f;
 	int loaded = sub_687B10(_this, 1);

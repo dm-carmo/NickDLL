@@ -117,7 +117,7 @@ DWORD jpn_third_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		WORD year = data->year;
 		DWORD CompID = data->competition_db->ClubCompID;
 		BYTE numberOfLeagueTeams = (BYTE)CountNumberOfTeamsInComp(CompID);
-		*num_rounds = (numberOfLeagueTeams - 1) * ((comp_stats*)_this)->n_rounds;
+		*num_rounds = (numberOfLeagueTeams - 1) * data->n_rounds;
 		*stage_name_id = None;
 
 		pMem = (BYTE*)sub_944E46_malloc(fixture_dates_sz * (*num_rounds));
@@ -692,6 +692,7 @@ void jpn_third_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	jpn_third_vtable->SetPointer(VTablePlayoffQual, (DWORD)&jpn_third_playoffs_create);
 	jpn_third_vtable->SetPointer(VTableTableFates, (DWORD)&jpn_third_set_table_fate);
 	jpn_third_vtable->SetPointer(VTableReputationCalc, (DWORD)&jpn_third_reputation_calc_c);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) jpn_third_vtable->SetPointer(VTable21, 0x4110b0);
 	data->year = year;
 	data->rules = 0x13;
 	int loaded = sub_687B10(_this, 1);

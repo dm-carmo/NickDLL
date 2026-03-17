@@ -164,7 +164,7 @@ enum StadiumType {
 	LargestStadium7 = 0x1000,
 	LargestStadium8 = 0x2000,
 	LargestStadium9 = 0x4000,
-	StadeLouisII = 0x8000
+	AhAhliKSAStadium = 0x8000
 };
 
 typedef struct cm3_continents CM3_CONTINENTS;

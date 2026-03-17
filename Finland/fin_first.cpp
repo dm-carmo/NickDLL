@@ -111,7 +111,7 @@ DWORD fin_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		WORD year = data->year;
 		DWORD CompID = data->competition_db->ClubCompID;
 		BYTE numberOfLeagueTeams = (BYTE)CountNumberOfTeamsInComp(CompID);
-		*num_rounds = (numberOfLeagueTeams - 1) * ((comp_stats*)_this)->n_rounds;
+		*num_rounds = (numberOfLeagueTeams - 1) * data->n_rounds;
 		*stage_name_id = None;
 
 		pMem = (BYTE*)sub_944E46_malloc(fixture_dates_sz * (*num_rounds));
@@ -544,6 +544,7 @@ void fin_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	fin_first_vtable->SetPointer(VTableReputationCalc, (DWORD)&fin_first_reputation_calc_c);
 	fin_first_vtable->SetPointer(VTablePlayoffQual, (DWORD)&fin_first_playoffs_create);
 	fin_first_vtable->SetPointer(VTableTableFates, (DWORD)&fin_first_set_table_fate);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) fin_first_vtable->SetPointer(VTable21, 0x4110b0);
 	data->year = year;
 	data->rules = 0xa;
 	int loaded = sub_687B10(_this, 1);

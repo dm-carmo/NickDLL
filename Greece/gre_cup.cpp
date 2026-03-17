@@ -117,7 +117,7 @@ DWORD gre_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		if (a5)
 			*a5 = 1;
 		BYTE* pMem = NULL;
-		comp_stats* data = ((comp_stats*)_this);
+		comp_stats* data = (comp_stats*)_this;
 		WORD year = data->year;
 		WORD numberOfLeagueTeams = 5;
 		*num_rounds = 5;

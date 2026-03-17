@@ -574,4 +574,5 @@ void setup_irl_premier()
 	WriteVTablePtr(irl_premier_vtable, VTablePlayoffQual, (DWORD)&irl_premier_playoffs_create);
 	WriteVTablePtr(irl_premier_vtable, VTableTableFates, (DWORD)&irl_premier_set_table_fate);
 	WriteVTablePtr(irl_premier_vtable, VTablePromRelUpdate, (DWORD)&irl_premier_prom_rel_update_c);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(irl_premier_vtable, VTable21, 0x4110b0);
 }

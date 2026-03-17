@@ -137,6 +137,14 @@ map<string, char*> leagues_rename_long_scotland = {
 	{"South African First Division Coastal", "Scottish Lowland Football League"},
 };
 
+map<string, char*> leagues_rename_long_spain = {
+	{"Turkish 2. Division Group 3", "Spanish Segunda Federación Group 1"},
+	{"Turkish 2. Division Group 4", "Spanish Segunda Federación Group 2"},
+	{"Turkish 2. Division Group 5", "Spanish Segunda Federación Group 3"},
+	{"PrepreLibertadores Cup", "Spanish Segunda Federación Group 4"},
+	{"PreLibertadores", "Spanish Segunda Federación Group 5"},
+};
+
 map<string, char*> leagues_rename_long_sweden = {
 	{"Swedish Division 2 Middle Gotaland", "Swedish Division 2"},
 	{"Swedish Division 2 North Norrland", "Swedish Division 2 Norrland"},
@@ -253,6 +261,14 @@ map<string, char*> leagues_rename_short_scotland = {
 	{"South African First Division Coastal", "Lowland League"},
 };
 
+map<string, char*> leagues_rename_short_spain = {
+	{"Turkish 2. Division Group 3", "Segunda Federación G1"},
+	{"Turkish 2. Division Group 4", "Segunda Federación G2"},
+	{"Turkish 2. Division Group 5", "Segunda Federación G3"},
+	{"PrepreLibertadores Cup", "Segunda Federación G4"},
+	{"PreLibertadores", "Segunda Federación G5"},
+};
+
 map<string, char*> leagues_rename_short_sweden = {
 	{"Swedish Division 2 Middle Gotaland", "Division 2"},
 	{"Swedish Division 2 North Norrland", "Division 2 N"},
@@ -345,6 +361,14 @@ map<string, char*> leagues_rename_tla_portugal = {
 map<string, char*> leagues_rename_tla_scotland = {
 	{"South African First Division Inland", "HFL"},
 	{"South African First Division Coastal", "LFL"},
+};
+
+map<string, char*> leagues_rename_tla_spain = {
+	{"Turkish 2. Division Group 3", "SF1"},
+	{"Turkish 2. Division Group 4", "SF2"},
+	{"Turkish 2. Division Group 5", "SF3"},
+	{"PrepreLibertadores Cup", "SF4"},
+	{"PreLibertadores", "SF5"},
 };
 
 map<string, char*> leagues_rename_tla_wales = {
@@ -716,7 +740,7 @@ map<string, DWORD> club_dword_match = {
 	{"Valencia C.F. B", 0x9d0258},
 	{"Brighton and Hove Albion", 0x9d025c},
 	{"Southampton", 0x9d0260},
-	{"AS Monaco", 0x9d0264},
+	{"Al-Ahli SFC", 0x9d0264},
 	{"FC Metz", 0x9d0268},
 	{"Cruzeiro Esporte Clube", 0x9d026c},
 	{"São Paulo Futebol Clube", 0x9d0270},
@@ -979,8 +1003,8 @@ map<string, DWORD> league_dword_match = {
 	{"Spanish La Liga 2", 0x9CF628},
 	{"Spanish Primera Federación Group 1", 0x9CF62C},
 	{"Spanish Primera Federación Group 2", 0x9CF630},
-	{"Spanish Primera Federación Group 3", 0x9CF634},
-	{"Spanish Primera Federación Group 4", 0x9CF638},
+	{"PrepreLibertadores Cup", 0x9CF634}, // Segunda Federación group
+	{"PreLibertadores", 0x9CF638}, // Segunda Federación group
 	{"Copa Libertadores de América", 0x9CF63C},
 	{"Korean High School League", 0x9CF640}, // Campeonato de Portugal group
 	{"Copa CONMEBOL", 0x9CF644},
@@ -1939,6 +1963,7 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 	if (_strcmpi(to_check->ClubName, "Zaglebie Lubin") == 0 && find_club("Zaglebie Lubin II")) return (BYTE*)find_club("Zaglebie Lubin II");
 	if (_strcmpi(to_check->ClubName, "Glasgow Celtic") == 0 && find_club("Glasgow Celtic B")) return (BYTE*)find_club("Glasgow Celtic B");
 	if (_strcmpi(to_check->ClubName, "Heart of Midlothian FC") == 0 && find_club("Heart of Midlothian FC B")) return (BYTE*)find_club("Heart of Midlothian FC B");
+	if (_strcmpi(to_check->ClubName, "Girona FC") == 0 && find_club("Girona FC B")) return (BYTE*)find_club("Girona FC B");
 
 	// Reserve teams check
 	if (is_main_club) *is_main_club = 0;
@@ -2101,6 +2126,7 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 	if (_strcmpi(to_check->ClubName, "Zaglebie Lubin II") == 0 && find_club("Zaglebie Lubin")) return (BYTE*)find_club("Zaglebie Lubin");
 	if (_strcmpi(to_check->ClubName, "Glasgow Celtic B") == 0 && find_club("Glasgow Celtic")) return (BYTE*)find_club("Glasgow Celtic");
 	if (_strcmpi(to_check->ClubName, "Heart of Midlothian FC B") == 0 && find_club("Heart of Midlothian FC")) return (BYTE*)find_club("Heart of Midlothian FC");
+	if (_strcmpi(to_check->ClubName, "Girona FC B") == 0 && find_club("Girona FC")) return (BYTE*)find_club("Girona FC");
 
 	// default case if none found
 	to_check->ClubHasLinkedClub = 0;
@@ -2213,6 +2239,12 @@ void setup_name_injection()
 		leagues_rename_long.insert(leagues_rename_long_scotland.begin(), leagues_rename_long_scotland.end());
 		leagues_rename_short.insert(leagues_rename_short_scotland.begin(), leagues_rename_short_scotland.end());
 		leagues_rename_tla.insert(leagues_rename_tla_scotland.begin(), leagues_rename_tla_scotland.end());
+	}
+
+	if (configFile.GetBool("applySpain", true)) {
+		leagues_rename_long.insert(leagues_rename_long_spain.begin(), leagues_rename_long_spain.end());
+		leagues_rename_short.insert(leagues_rename_short_spain.begin(), leagues_rename_short_spain.end());
+		leagues_rename_tla.insert(leagues_rename_tla_spain.begin(), leagues_rename_tla_spain.end());
 	}
 
 	if (configFile.GetBool("applySweden", true)) {

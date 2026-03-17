@@ -545,4 +545,5 @@ void setup_wal_premier()
 	WriteVTablePtr(wal_premier_vtable, VTableLeagueSplit, (DWORD)&wal_premier_table_split_c);
 	WriteVTablePtr(wal_premier_vtable, VTableStageNews, 0x7f3080); // Scotland stage news contains champ/rel group news
 	WriteVTablePtr(wal_premier_vtable, VTablePromRelUpdate, (DWORD)&wal_premier_prom_rel_update_c);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(wal_premier_vtable, VTable21, 0x4110b0);
 }

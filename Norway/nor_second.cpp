@@ -7,6 +7,35 @@
 
 vtable* nor_second_vtable = new vtable((BYTE*)0x9702A0, 0xB4);
 
+int nor_second_set_champion(BYTE* _this) {
+	comp_stats* data = (comp_stats*)_this;
+	comp_stats* curr_stage = data;
+	DWORD comp_ids[2] = { NOR_SECOND_G1_9CF(), NOR_SECOND_G2_9CF() };
+	for (char al = -1; al < 1; al++) {
+		if (al >= 0) {
+			curr_stage = (comp_stats*)(data->stages[al]);
+		}
+		WORD total_teams = curr_stage->n_teams;
+		team_league_stats* table_teams = (team_league_stats*)(curr_stage->team_league_table);
+		DWORD tmp[2] = { 0, (DWORD)get_comp(comp_ids[al + 1]) };
+		sub_4AFCE0_add_history_entry((BYTE*)tmp, table_teams[0].club, table_teams[1].club, table_teams[2].club, 0);
+	}
+
+	return 0;
+}
+
+void __declspec(naked) nor_second_set_champion_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push ecx
+		call nor_second_set_champion
+		add esp, 0x4
+		ret 0
+	}
+}
+
 void nor_second_free_under(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	data->comp_vtable = (DWORD*)(nor_second_vtable->vtable_ptr);
@@ -117,7 +146,7 @@ DWORD nor_second_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 		WORD year = data->year;
 		DWORD CompID = data->competition_db->ClubCompID;
 		BYTE numberOfLeagueTeams = 14;
-		*num_rounds = (numberOfLeagueTeams - 1) * ((comp_stats*)_this)->n_rounds;
+		*num_rounds = (numberOfLeagueTeams - 1) * data->n_rounds;
 		*stage_name_id = NumericGroupStage + stage_idx;
 
 		pMem = (BYTE*)sub_944E46_malloc(fixture_dates_sz * (*num_rounds));
@@ -630,6 +659,7 @@ void nor_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	nor_second_vtable->SetPointer(VTableTableFates, (DWORD)&nor_second_set_table_fate);
 	nor_second_vtable->SetPointer(VTablePlayoffQual, (DWORD)&nor_second_playoffs_create_c);
 	nor_second_vtable->SetPointer(VTableStageNews, 0x48c6d0);
+	nor_second_vtable->SetPointer(VTableSetChampion, (DWORD)&nor_second_set_champion_c);
 	nor_second_vtable->SetPointer(VTable9, 0x48ceb0);
 	nor_second_vtable->SetPointer(VTable10, 0x48cea0);
 	data->year = year;

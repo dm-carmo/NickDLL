@@ -145,7 +145,7 @@ DWORD uefa_europa_league_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds,
 		if (a5)
 			*a5 = 1;
 		BYTE* pMem = NULL;
-		comp_stats* data = ((comp_stats*)_this);
+		comp_stats* data = (comp_stats*)_this;
 		WORD year = data->year;
 		WORD numberOfLeagueTeams = 9;
 		*num_rounds = 9;

@@ -465,6 +465,23 @@ bool compareClubEWDiagNS(cm3_clubs* c1, cm3_clubs* c2)
 	return atan2(lon1, lat1) > atan2(lon2, lat2);
 }
 
+bool compareClubWEDiagNS(cm3_clubs* c1, cm3_clubs* c2)
+{
+	double lat1 = 0, lat2 = 0;
+	double lon1 = 0, lon2 = 0;
+	if (c1->ClubStadium && c1->ClubStadium->StadiumCity)
+	{
+		lat1 = c1->ClubStadium->StadiumCity->CityLatitude;
+		lon1 = c1->ClubStadium->StadiumCity->CityLongitude;
+	}
+	if (c2->ClubStadium && c2->ClubStadium->StadiumCity)
+	{
+		lat2 = c2->ClubStadium->StadiumCity->CityLatitude;
+		lon2 = c2->ClubStadium->StadiumCity->CityLongitude;
+	}
+	return atan2(-lon1, lat1) > atan2(-lon2, lat2);
+}
+
 bool compareClubNation(cm3_clubs* c1, cm3_clubs* c2)
 {
 	long n1 = -1, n2 = -1;

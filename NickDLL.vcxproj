@@ -315,6 +315,13 @@
     <ClCompile Include="South Korea\kor_second.cpp" />
     <ClCompile Include="South Korea\kor_setup.cpp" />
     <ClCompile Include="South Korea\kor_super.cpp" />
+    <ClCompile Include="Spain\spa_cup.cpp" />
+    <ClCompile Include="Spain\spa_first.cpp" />
+    <ClCompile Include="Spain\spa_fourth.cpp" />
+    <ClCompile Include="Spain\spa_second.cpp" />
+    <ClCompile Include="Spain\spa_setup.cpp" />
+    <ClCompile Include="Spain\spa_super.cpp" />
+    <ClCompile Include="Spain\spa_third.cpp" />
     <ClCompile Include="Structures\CMHeader.cpp" />
     <ClCompile Include="Sweden\swe_cup.cpp" />
     <ClCompile Include="Sweden\swe_first.cpp" />
@@ -526,6 +533,13 @@
     <ClInclude Include="South Korea\kor_second.h" />
     <ClInclude Include="South Korea\kor_setup.h" />
     <ClInclude Include="South Korea\kor_super.h" />
+    <ClInclude Include="Spain\spa_cup.h" />
+    <ClInclude Include="Spain\spa_first.h" />
+    <ClInclude Include="Spain\spa_fourth.h" />
+    <ClInclude Include="Spain\spa_second.h" />
+    <ClInclude Include="Spain\spa_setup.h" />
+    <ClInclude Include="Spain\spa_super.h" />
+    <ClInclude Include="Spain\spa_third.h" />
     <ClInclude Include="Structures\CMHeader.h" />
     <ClInclude Include="Structures\Date.h" />
     <ClInclude Include="Structures\vtable.h" />

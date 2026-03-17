@@ -377,7 +377,7 @@ DWORD swe_premier_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* 
 		WORD year = data->year;
 		DWORD CompID = data->competition_db->ClubCompID;
 		BYTE numberOfLeagueTeams = (BYTE)CountNumberOfTeamsInComp(CompID);
-		*num_rounds = (numberOfLeagueTeams - 1) * ((comp_stats*)_this)->n_rounds;
+		*num_rounds = (numberOfLeagueTeams - 1) * data->n_rounds;
 		*stage_name_id = None;
 
 		pMem = (BYTE*)sub_944E46_malloc(fixture_dates_sz * (*num_rounds));
@@ -817,4 +817,5 @@ void setup_swe_premier()
 	WriteVTablePtr(swe_premier_vtable, VTablePlayoffQual, (DWORD)&swe_premier_playoffs_create);
 	WriteVTablePtr(swe_premier_vtable, VTableTableFates, (DWORD)&swe_premier_set_table_fate);
 	WriteVTablePtr(swe_premier_vtable, VTablePromRelUpdate, (DWORD)&swe_premier_prom_rel_update_c);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(swe_premier_vtable, VTable21, 0x4110b0);
 }

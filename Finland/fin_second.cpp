@@ -500,6 +500,7 @@ void fin_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	fin_second_vtable->SetPointer(VTableTableFates, (DWORD)&fin_second_set_table_fate);
 	fin_second_vtable->SetPointer(VTableLeagueSplit, (DWORD)&fin_second_table_split_c);
 	fin_second_vtable->SetPointer(VTableStageNews, 0x7f3080); // Scotland stage news contains champ/rel group news
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) fin_second_vtable->SetPointer(VTable21, 0x4110b0);
 	data->year = year;
 	data->rules = 0xa;
 	int loaded = sub_687B10(_this, 1);

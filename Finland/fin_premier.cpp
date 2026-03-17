@@ -978,4 +978,5 @@ void setup_fin_premier()
 	WriteVTablePtr(fin_premier_vtable, VTablePlayoffQual, (DWORD)&fin_premier_playoffs_create);
 	WriteVTablePtr(fin_premier_vtable, VTableTableFates, (DWORD)&fin_premier_set_table_fate);
 	WriteVTablePtr(fin_premier_vtable, VTablePromRelUpdate, (DWORD)&fin_premier_prom_rel_update_c);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(fin_premier_vtable, VTable21, 0x4110b0);
 }

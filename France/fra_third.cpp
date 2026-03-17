@@ -61,7 +61,7 @@ DWORD fra_third_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		WORD year = data->year;
 		DWORD CompID = data->competition_db->ClubCompID;
 		BYTE numberOfLeagueTeams = (BYTE)CountNumberOfTeamsInComp(CompID);
-		*num_rounds = (numberOfLeagueTeams - 1 + numberOfLeagueTeams % 2) * ((comp_stats*)_this)->n_rounds;
+		*num_rounds = (numberOfLeagueTeams - 1 + numberOfLeagueTeams % 2) * data->n_rounds;
 		*stage_name_id = None;
 
 		pMem = (BYTE*)sub_944E46_malloc(fixture_dates_sz * (*num_rounds));
@@ -251,4 +251,5 @@ void setup_fra_third()
 	WriteVTablePtr(fra_third_vtable, VTableEoSUpdate, (DWORD)&fra_third_update_c);
 	WriteVTablePtr(fra_third_vtable, VTableFixtures, (DWORD)&fra_third_fixtures_c);
 	WriteVTablePtr(fra_third_vtable, VTableTableFates, (DWORD)&fra_third_set_table_fate);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(fra_third_vtable, VTable21, 0x4110b0);
 }

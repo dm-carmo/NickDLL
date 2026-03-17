@@ -19,7 +19,7 @@ DWORD ita_ser_a_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		WORD year = data->year;
 		DWORD CompID = data->competition_db->ClubCompID;
 		BYTE numberOfLeagueTeams = (BYTE)CountNumberOfTeamsInComp(CompID);
-		*num_rounds = (numberOfLeagueTeams - 1) * ((comp_stats*)_this)->n_rounds;
+		*num_rounds = (numberOfLeagueTeams - 1) * data->n_rounds;
 		*stage_name_id = None;
 
 		pMem = (BYTE*)sub_944E46_malloc(fixture_dates_sz * (*num_rounds));
@@ -486,4 +486,5 @@ void setup_ita_ser_a()
 	WriteVTablePtr(ita_ser_a_vtable, VTableEoSUpdate, (DWORD)&ita_ser_a_update_c);
 	WriteVTablePtr(ita_ser_a_vtable, VTablePromRelUpdate, (DWORD)&ita_ser_a_prom_rel_update_c);
 	WriteVTablePtr(ita_ser_a_vtable, VTableFixtures, (DWORD)&ita_ser_a_fixtures_c);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(ita_ser_a_vtable, VTable21, 0x4110b0);
 }

@@ -98,7 +98,7 @@ DWORD wal_first_n_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* 
 		WORD year = data->year;
 		DWORD CompID = data->competition_db->ClubCompID;
 		BYTE numberOfLeagueTeams = (BYTE)CountNumberOfTeamsInComp(CompID);
-		*num_rounds = (numberOfLeagueTeams - 1) * ((comp_stats*)_this)->n_rounds;
+		*num_rounds = (numberOfLeagueTeams - 1) * data->n_rounds;
 		*stage_name_id = None;
 
 		pMem = (BYTE*)sub_944E46_malloc(fixture_dates_sz * (*num_rounds));
@@ -225,6 +225,7 @@ void wal_first_n_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	wal_first_n_vtable->SetPointer(VTableEoSUpdate, (DWORD)&wal_first_n_update_c);
 	wal_first_n_vtable->SetPointer(VTableFixtures, (DWORD)&wal_first_n_fixtures_c);
 	wal_first_n_vtable->SetPointer(VTableSubsRounds, (DWORD)&wal_first_n_subs_c);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) wal_first_n_vtable->SetPointer(VTable21, 0x4110b0);
 	data->year = year;
 	data->rules = 0x28;
 	int loaded = sub_687B10(_this, 1);

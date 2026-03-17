@@ -4,11 +4,11 @@
 #include "Structures\vtable.h"
 #include <Helpers\9cf_constants.h>
 
-vtable* ita_c_supercup_vtable = new vtable((BYTE*)0x96C0C8, 0xB4);
+DWORD* ita_c_supercup_vtable = (DWORD*)0x96C0C8;
 
 void ita_c_supercup_free_under(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
-	data->comp_vtable = (DWORD*)(ita_c_supercup_vtable->vtable_ptr);
+	data->comp_vtable = ita_c_supercup_vtable;
 	DWORD x = 0;
 	sub_687970(_this, 0);
 	if (data->fixtures_table) {
@@ -144,9 +144,11 @@ DWORD ita_c_supercup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WOR
 		if (a5)
 			*a5 = 1;
 		BYTE* pMem = NULL;
-		WORD year = ((comp_stats*)_this)->year;
+		comp_stats* data = (comp_stats*)_this;
+		WORD year = data->year;
 		BYTE numberOfLeagueTeams = 3;
-		*num_rounds = (numberOfLeagueTeams) * ((comp_stats*)_this)->n_rounds;
+		*num_rounds = numberOfLeagueTeams * data->n_rounds;
+		*num_rounds = numberOfLeagueTeams * data->n_rounds;
 		*stage_name_id = None;
 
 		pMem = (BYTE*)sub_944E46_malloc(fixture_dates_sz * (*num_rounds));
@@ -210,7 +212,7 @@ void ita_c_supercup_63B300(BYTE* _this, DWORD current_date, int a3) {
 	comp_stats* data = (comp_stats*)_this;
 	if (!data->f69) {
 		comp_stats* ita_ser_c_data = (comp_stats*)get_loaded_league(ITA_SERIE_C_9CF());
-		if(ita_ser_c_data->current_stage > 1) {
+		if (ita_ser_c_data->current_stage > 1) {
 			if (!a3) {
 				ita_c_supercup_teams(_this);
 				sub_6835C0(_this);
@@ -243,13 +245,7 @@ void ita_c_supercup_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	sub_682200(_this);
 	comp_stats* data = (comp_stats*)_this;
 	data->competition_db = comp;
-	data->comp_vtable = (DWORD*)(ita_c_supercup_vtable->vtable_ptr);
-	ita_c_supercup_vtable->SetPointer(VTableInitFree, (DWORD)&ita_c_supercup_free_c);
-	ita_c_supercup_vtable->SetPointer(VTableEoSUpdate, (DWORD)&ita_c_supercup_update_c);
-	ita_c_supercup_vtable->SetPointer(VTableLeagueSplit, (DWORD)&ita_c_supercup_63B300_c);
-	ita_c_supercup_vtable->SetPointer(VTableFixtures, (DWORD)&ita_c_supercup_fixtures_c);
-	ita_c_supercup_vtable->SetPointer(VTableSubsRounds, (DWORD)&ita_c_supercup_subs_c);
-	ita_c_supercup_vtable->SetPointer(VTableTableFates, 0x686940);
+	data->comp_vtable = ita_c_supercup_vtable;
 	data->year = year;
 	data->rules = 0x11;
 	int loaded = sub_687B10(_this, 1);
@@ -270,4 +266,11 @@ void ita_c_supercup_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 
 void setup_ita_c_supercup()
 {
+	WriteVTablePtr(ita_c_supercup_vtable, VTableInitFree, (DWORD)&ita_c_supercup_free_c);
+	WriteVTablePtr(ita_c_supercup_vtable, VTableEoSUpdate, (DWORD)&ita_c_supercup_update_c);
+	WriteVTablePtr(ita_c_supercup_vtable, VTableLeagueSplit, (DWORD)&ita_c_supercup_63B300_c);
+	WriteVTablePtr(ita_c_supercup_vtable, VTableFixtures, (DWORD)&ita_c_supercup_fixtures_c);
+	WriteVTablePtr(ita_c_supercup_vtable, VTableSubsRounds, (DWORD)&ita_c_supercup_subs_c);
+	WriteVTablePtr(ita_c_supercup_vtable, VTableTableFates, 0x686940);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(ita_c_supercup_vtable, VTable21, 0x4110b0);
 }

@@ -857,4 +857,5 @@ void setup_sco_premier()
 	WriteVTablePtr(sco_premier_vtable, VTablePlayoffQual, (DWORD)&sco_premier_playoffs_create);
 	WriteVTablePtr(sco_premier_vtable, VTableTableFates, (DWORD)&sco_premier_set_table_fate);
 	WriteVTablePtr(sco_premier_vtable, VTablePromRelUpdate, (DWORD)&sco_premier_prom_rel_update_c);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(sco_premier_vtable, VTable21, 0x4110b0);
 }

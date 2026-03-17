@@ -176,6 +176,7 @@ void eng_conf_s_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	eng_conf_s_vtable->SetPointer(VTableTableFates, (DWORD)&eng_conf_set_table_fate);
 	eng_conf_s_vtable->SetPointer(VTableSubsRounds, (DWORD)&eng_conf_s_subs_c);
 	eng_conf_s_vtable->SetPointer(VTableReputationCalc, (DWORD)&eng_conf_s_reputation_calc_c);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) eng_conf_s_vtable->SetPointer(VTable21, 0x4110b0);
 	data->year = year;
 	data->rules = 0x9;
 	int loaded = sub_687B10(_this, 1);

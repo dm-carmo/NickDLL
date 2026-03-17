@@ -7,6 +7,35 @@
 
 vtable* swe_third_vtable = new vtable((BYTE*)0x9702A0, 0xB4);
 
+int swe_third_set_champion(BYTE* _this) {
+	comp_stats* data = (comp_stats*)_this;
+	comp_stats* curr_stage = data;
+	DWORD comp_ids[6] = { SWE_THIRD_NORRLAND_9CF(), SWE_THIRD_NORTH_SVEALAND_9CF(), SWE_THIRD_SOUTH_SVEALAND_9CF(), SWE_THIRD_NORTH_GOTALAND_9CF(), SWE_THIRD_WEST_GOTALAND_9CF(), SWE_THIRD_SOUTH_GOTALAND_9CF() };
+	for (char al = -1; al < 5; al++) {
+		if (al >= 0) {
+			curr_stage = (comp_stats*)(data->stages[al]);
+		}
+		WORD total_teams = curr_stage->n_teams;
+		team_league_stats* table_teams = (team_league_stats*)(curr_stage->team_league_table);
+		DWORD tmp[2] = { 0, (DWORD)get_comp(comp_ids[al + 1]) };
+		sub_4AFCE0_add_history_entry((BYTE*)tmp, table_teams[0].club, table_teams[1].club, table_teams[2].club, 0);
+	}
+
+	return 0;
+}
+
+void __declspec(naked) swe_third_set_champion_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push ecx
+		call swe_third_set_champion
+		add esp, 0x4
+		ret 0
+	}
+}
+
 void swe_third_subs(BYTE* _this)
 {
 	comp_stats* comp_data = (comp_stats*)_this;
@@ -148,7 +177,7 @@ DWORD swe_third_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		WORD year = data->year;
 		DWORD CompID = data->competition_db->ClubCompID;
 		BYTE numberOfLeagueTeams = 14;
-		*num_rounds = (numberOfLeagueTeams - 1) * ((comp_stats*)_this)->n_rounds;
+		*num_rounds = (numberOfLeagueTeams - 1) * data->n_rounds;
 		if (stage_idx == -1) *stage_name_id = North;
 		else *stage_name_id = EastSvealand + stage_idx;
 
@@ -313,7 +342,7 @@ int swe_third_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char sta
 			}
 			team_league_stats* table = (team_league_stats*)(curr_stage->team_league_table);
 			for (int i = 0; i < num_teams; i++) {
-					if (table[i].club != club) continue;
+				if (table[i].club != club) continue;
 				switch (fate) {
 				case Champions:
 					staff_history_champion_868C50(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));
@@ -352,7 +381,7 @@ int swe_third_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char sta
 			}
 			team_league_stats* table = (team_league_stats*)(curr_stage->team_league_table);
 			for (int i = 0; i < num_teams; i++) {
-					if (table[i].club != club) continue;
+				if (table[i].club != club) continue;
 				switch (fate) {
 				case BottomPlayoff:
 					staff_history_relegated_86A1C0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));

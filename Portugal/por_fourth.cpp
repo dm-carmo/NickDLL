@@ -8,8 +8,20 @@
 vtable* por_fourth_vtable = new vtable((BYTE*)0x96E858, 0xB4);
 
 int por_fourth_set_champion(BYTE* _this) {
-	comp_stats* comp_data = (comp_stats*)_this;
-	BYTE* stage_data_for_history = (BYTE*)comp_data->stages[5];
+	comp_stats* data = (comp_stats*)_this;
+	comp_stats* curr_stage = data;
+	DWORD comp_ids[4] = { POR_FOURTH_A_9CF(), POR_FOURTH_B_9CF(), POR_FOURTH_C_9CF(), POR_FOURTH_D_9CF() };
+	for (char al = -1; al < 3; al++) {
+		if (al >= 0) {
+			curr_stage = (comp_stats*)(data->stages[al]);
+		}
+		WORD total_teams = curr_stage->n_teams;
+		team_league_stats* table_teams = (team_league_stats*)(curr_stage->team_league_table);
+		DWORD tmp[2] = { 0, (DWORD)get_comp(comp_ids[al + 1]) };
+		sub_4AFCE0_add_history_entry((BYTE*)tmp, table_teams[0].club, table_teams[1].club, table_teams[2].club, 0);
+	}
+
+	BYTE* stage_data_for_history = (BYTE*)data->stages[5];
 	DWORD v1 = *(DWORD*)stage_data_for_history;
 	return (*(int(__thiscall**)(BYTE*))(v1 + 0x30))(stage_data_for_history);
 }
@@ -163,9 +175,10 @@ DWORD por_fourth_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 		if (a5)
 			*a5 = 1;
 		BYTE* pMem = NULL;
-		WORD year = ((comp_stats*)_this)->year;
+		comp_stats* data = (comp_stats*)_this;
+		WORD year = data->year;
 		BYTE numberOfLeagueTeams = 14;
-		*num_rounds = (numberOfLeagueTeams - 1) * ((comp_stats*)_this)->n_rounds;
+		*num_rounds = (numberOfLeagueTeams - 1) * data->n_rounds;
 		*stage_name_id = AlphabeticGroupStage + stage_idx;
 
 		pMem = (BYTE*)sub_944E46_malloc(fixture_dates_sz * (*num_rounds));

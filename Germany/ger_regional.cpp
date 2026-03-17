@@ -7,6 +7,35 @@
 
 DWORD* ger_regional_vtable = (DWORD*)0x96B250;
 
+int ger_regional_set_champion(BYTE* _this) {
+	comp_stats* data = (comp_stats*)_this;
+	comp_stats* curr_stage = data;
+	DWORD comp_ids[5] = { GER_REGIONAL_NORTH_9CF(), GER_REGIONAL_NORTHEAST_9CF(), GER_REGIONAL_WEST_9CF(), GER_REGIONAL_SOUTHWEST_9CF(), GER_REGIONAL_BAYERN_9CF() };
+	for (char al = -1; al < 4; al++) {
+		if (al >= 0) {
+			curr_stage = (comp_stats*)(data->stages[al]);
+		}
+		WORD total_teams = curr_stage->n_teams;
+		team_league_stats* table_teams = (team_league_stats*)(curr_stage->team_league_table);
+		DWORD tmp[2] = { 0, (DWORD)get_comp(comp_ids[al + 1]) };
+		sub_4AFCE0_add_history_entry((BYTE*)tmp, table_teams[0].club, table_teams[1].club, table_teams[2].club, 0);
+	}
+
+	return 0;
+}
+
+void __declspec(naked) ger_regional_set_champion_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push ecx
+		call ger_regional_set_champion
+		add esp, 0x4
+		ret 0
+	}
+}
+
 void ger_regional_subs(BYTE* _this)
 {
 	comp_stats* comp_data = (comp_stats*)_this;
@@ -65,9 +94,10 @@ DWORD ger_regional_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD*
 		if (a5)
 			*a5 = 1;
 		BYTE* pMem = NULL;
-		WORD year = ((comp_stats*)_this)->year;
+		comp_stats* data = (comp_stats*)_this;
+		WORD year = data->year;
 		BYTE numberOfLeagueTeams = 18;
-		*num_rounds = (numberOfLeagueTeams - 1) * ((comp_stats*)_this)->n_rounds;
+		*num_rounds = (numberOfLeagueTeams - 1) * data->n_rounds;
 		if (stage_idx == -1) *stage_name_id = North;
 		else if (stage_idx == 0) *stage_name_id = Northeast;
 		else if (stage_idx == 1) *stage_name_id = EastWest + 1;
@@ -521,6 +551,7 @@ void setup_ger_regional()
 	WriteVTablePtr(ger_regional_vtable, VTableSubsRounds, (DWORD)&ger_regional_subs_c);
 	WriteVTablePtr(ger_regional_vtable, VTableTableFates, (DWORD)&ger_regional_set_table_fate);
 	WriteVTablePtr(ger_regional_vtable, VTablePlayoffQual, (DWORD)&ger_regional_playoffs_create_c);
+	WriteVTablePtr(ger_regional_vtable, VTableSetChampion, (DWORD)&ger_regional_set_champion_c);
 	char* bayern_text = "Bayern";
 	char* bayern_text_short = "Bay";
 	WriteDWORD(0x4B627E + 1, (DWORD)&bayern_text[0]);

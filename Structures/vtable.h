@@ -25,7 +25,7 @@ enum VTablePointers {
 	VTableTableFates = 18, // Sets table information (champions, promoted etc)
 	VTableStageNews = 19, // Sends out news (champions, promoted etc)
 	VTable20 = 20,
-	VTable21 = 21,
+	VTable21 = 21, // returns AL=3 to show third-place teams in history, AL=2 only shows winner and runner-up
 	VTable22 = 22,
 	VTable23 = 23,
 	VTableReputationSetup = 24, // Called during setup and update, is connected to club reputation update

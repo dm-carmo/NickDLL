@@ -538,4 +538,5 @@ void setup_gre_first()
 	WriteVTablePtr(gre_first_vtable, VTableLeagueSplit, (DWORD)&gre_first_table_split_c);
 	WriteVTablePtr(gre_first_vtable, VTableStageNews, 0x7f3080); // Scotland stage news contains champ/rel group news
 	WriteVTablePtr(gre_first_vtable, VTablePromRelUpdate, (DWORD)&gre_first_prom_rel_update_c);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(gre_first_vtable, VTable21, 0x4110b0);
 }

@@ -579,7 +579,7 @@ DWORD por_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		WORD year = data->year;
 		DWORD CompID = data->competition_db->ClubCompID;
 		BYTE numberOfLeagueTeams = (BYTE)CountNumberOfTeamsInComp(CompID);
-		*num_rounds = (numberOfLeagueTeams - 1) * ((comp_stats*)_this)->n_rounds;
+		*num_rounds = (numberOfLeagueTeams - 1) * data->n_rounds;
 		*stage_name_id = None;
 
 		pMem = (BYTE*)sub_944E46_malloc(fixture_dates_sz * (*num_rounds));
@@ -1076,4 +1076,5 @@ void setup_por_first()
 	WriteVTablePtr(por_first_vtable, VTablePlayoffQual, (DWORD)&por_first_playoffs_create);
 	WriteVTablePtr(por_first_vtable, VTableTableFates, (DWORD)&por_first_set_table_fate);
 	WriteVTablePtr(por_first_vtable, VTablePromRelUpdate, (DWORD)&por_first_prom_rel_update_c);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(por_first_vtable, VTable21, 0x4110b0);
 }

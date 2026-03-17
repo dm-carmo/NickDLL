@@ -7,6 +7,35 @@
 
 vtable* ita_ser_c_vtable = new vtable((BYTE*)0x96E858, 0xB4);
 
+int ita_ser_c_set_champion(BYTE* _this) {
+	comp_stats* data = (comp_stats*)_this;
+	comp_stats* curr_stage = data;
+	DWORD comp_ids[3] = { ITA_SERIE_C_A_9CF(), ITA_SERIE_C_B_9CF(), ITA_SERIE_C_C_9CF() };
+	for (char al = -1; al < 2; al++) {
+		if (al >= 0) {
+			curr_stage = (comp_stats*)(data->stages[al]);
+		}
+		WORD total_teams = curr_stage->n_teams;
+		team_league_stats* table_teams = (team_league_stats*)(curr_stage->team_league_table);
+		DWORD tmp[2] = { 0, (DWORD)get_comp(comp_ids[al + 1]) };
+		sub_4AFCE0_add_history_entry((BYTE*)tmp, table_teams[0].club, table_teams[1].club, table_teams[2].club, 0);
+	}
+
+	return 0;
+}
+
+void __declspec(naked) ita_ser_c_set_champion_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push ecx
+		call ita_ser_c_set_champion
+		add esp, 0x4
+		ret 0
+	}
+}
+
 void ita_ser_c_free_under(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	data->comp_vtable = (DWORD*)(ita_ser_c_vtable->vtable_ptr);
@@ -107,9 +136,10 @@ DWORD ita_ser_c_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		if (a5)
 			*a5 = 1;
 		BYTE* pMem = NULL;
-		WORD year = ((comp_stats*)_this)->year;
+		comp_stats* data = (comp_stats*)_this;
+		WORD year = data->year;
 		BYTE numberOfLeagueTeams = 20;
-		*num_rounds = (numberOfLeagueTeams - 1) * ((comp_stats*)_this)->n_rounds;
+		*num_rounds = (numberOfLeagueTeams - 1) * data->n_rounds;
 		*stage_name_id = AlphabeticGroupStage + stage_idx;
 
 		pMem = (BYTE*)sub_944E46_malloc(fixture_dates_sz * (*num_rounds));
@@ -863,6 +893,7 @@ void ita_ser_c_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	ita_ser_c_vtable->SetPointer(VTableReputationCalc, (DWORD)&ita_ser_c_reputation_calc_c);
 	ita_ser_c_vtable->SetPointer(VTableAwardTeamsSetup, (DWORD)&ita_7D2B80_c);
 	ita_ser_c_vtable->SetPointer(VTableSubsRounds, (DWORD)&ita_ser_c_subs_c);
+	ita_ser_c_vtable->SetPointer(VTableSetChampion, (DWORD)&ita_ser_c_set_champion_c);
 	data->year = year;
 	data->rules = 0x11;
 	int loaded = sub_687B10(_this, 1);

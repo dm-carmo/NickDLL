@@ -7,6 +7,35 @@
 
 DWORD* gre_second_vtable = (DWORD*)0x96B61C;
 
+int gre_second_set_champion(BYTE* _this) {
+	comp_stats* data = (comp_stats*)_this;
+	comp_stats* curr_stage = data;
+	DWORD comp_ids[2] = { GRE_SECOND_NORTH_9CF(), GRE_SECOND_SOUTH_9CF() };
+	for (char al = -1; al < 1; al++) {
+		if (al >= 0) {
+			curr_stage = (comp_stats*)(data->stages[al]);
+		}
+		WORD total_teams = curr_stage->n_teams;
+		team_league_stats* table_teams = (team_league_stats*)(curr_stage->team_league_table);
+		DWORD tmp[2] = { 0, (DWORD)get_comp(comp_ids[al + 1]) };
+		sub_4AFCE0_add_history_entry((BYTE*)tmp, table_teams[0].club, table_teams[1].club, table_teams[2].club, 0);
+	}
+
+	return 0;
+}
+
+void __declspec(naked) gre_second_set_champion_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push ecx
+		call gre_second_set_champion
+		add esp, 0x4
+		ret 0
+	}
+}
+
 void gre_second_free_under(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	data->comp_vtable = gre_second_vtable;
@@ -111,7 +140,7 @@ DWORD gre_second_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 		WORD year = data->year;
 		DWORD CompID = data->competition_db->ClubCompID;
 		BYTE numberOfLeagueTeams = 10;
-		*num_rounds = (numberOfLeagueTeams - 1) * ((comp_stats*)_this)->n_rounds;
+		*num_rounds = (numberOfLeagueTeams - 1) * data->n_rounds;
 		*stage_name_id = NorthernSouthernSection + stage_idx;
 
 		pMem = (BYTE*)sub_944E46_malloc(fixture_dates_sz * (*num_rounds));
@@ -536,4 +565,5 @@ void setup_gre_second()
 	WriteVTablePtr(gre_second_vtable, VTableAwardTeamsSetup, (DWORD)&gre_second_awards_c);
 	WriteVTablePtr(gre_second_vtable, VTableSubsRounds, (DWORD)&gre_second_subs_c);
 	WriteVTablePtr(gre_second_vtable, VTableTableFates, (DWORD)&gre_second_set_table_fate);
+	WriteVTablePtr(gre_second_vtable, VTableSetChampion, (DWORD)&gre_second_set_champion_c);
 }

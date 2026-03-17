@@ -117,7 +117,7 @@ DWORD ger_third_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		WORD year = data->year;
 		DWORD CompID = data->competition_db->ClubCompID;
 		BYTE numberOfLeagueTeams = (BYTE)CountNumberOfTeamsInComp(CompID);
-		*num_rounds = (numberOfLeagueTeams - 1) * ((comp_stats*)_this)->n_rounds;
+		*num_rounds = (numberOfLeagueTeams - 1) * data->n_rounds;
 		*stage_name_id = None;
 
 		pMem = (BYTE*)sub_944E46_malloc(fixture_dates_sz * (*num_rounds));
@@ -445,6 +445,7 @@ void ger_third_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	ger_third_vtable->SetPointer(VTableFixtures, (DWORD)&ger_third_fixtures_c);
 	ger_third_vtable->SetPointer(VTableSubsRounds, (DWORD)&ger_third_subs_c);
 	ger_third_vtable->SetPointer(VTableTableFates, (DWORD)&ger_third_set_table_fate);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) ger_third_vtable->SetPointer(VTable21, 0x4110b0);
 	data->year = year;
 	data->rules = 0x0D;
 	int loaded = sub_687B10(_this, 1);

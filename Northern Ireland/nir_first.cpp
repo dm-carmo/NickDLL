@@ -700,4 +700,5 @@ void setup_nir_first()
 	WriteVTablePtr(nir_first_vtable, VTableReputationCalc, (DWORD)&nir_first_reputation_calc_c);
 	WriteVTablePtr(nir_first_vtable, VTablePlayoffQual, (DWORD)&nir_first_playoffs_create);
 	WriteVTablePtr(nir_first_vtable, VTableTableFates, (DWORD)&nir_first_set_table_fate);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(nir_first_vtable, VTable21, 0x4110b0);
 }
