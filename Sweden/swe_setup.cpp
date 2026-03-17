@@ -15,12 +15,12 @@ DWORD swe_setup_c(playable_nation_data* nation_data) {
 	BYTE* start_date = new BYTE[8];
 	sub_54C770((BYTE*)dd6ec8, start_date, 4);
 	WORD start_year = *(WORD*)(start_date + 2);
-	
+
 	nation_data->contract_start_day = 1;
 	nation_data->contract_start_month = March;
 	nation_data->contract_start_year = start_year;
 	nation_data->f55 = 6;
-	
+
 	nation_data->contract_end_day = 30;
 	nation_data->contract_end_month = November;
 	nation_data->contract_end_year = start_year;
@@ -34,7 +34,7 @@ DWORD swe_setup_c(playable_nation_data* nation_data) {
 	}
 	DWORD* nation_comps = (DWORD*)sub_944E46_malloc(nation_data->num_of_comps * 4);
 	nation_data->comps_list = (DWORD)nation_comps;
-	
+
 	BYTE i = 0;
 	// Allsvenskan
 	BYTE* pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
@@ -45,12 +45,12 @@ DWORD swe_setup_c(playable_nation_data* nation_data) {
 	swe_first_init(pMem, start_year, get_comp(SWE_FIRST_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Ettan
-	pMem = (BYTE*)sub_944CF1_operator_new(0x106);
+	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
 	swe_second_init(pMem, start_year, get_comp(SWE_SECOND_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	if ((selected & 4) != 0) {
 		// Division 2
-		pMem = (BYTE*)sub_944CF1_operator_new(0x11E);
+		pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
 		swe_third_init(pMem, start_year, get_comp(SWE_THIRD_9CF()));
 		nation_comps[i++] = (DWORD)pMem;
 	}
@@ -103,34 +103,30 @@ void sweden_restructure() {
 	swe_third_wg->ClubCompReputation = 2;
 	cm3_club_comps* swe_lower = get_comp(SWE_LOWER_9CF());
 
-	vector<string> move_to_lower = {
-		"Swedish Division 2 East Svealand",
-		"Swedish Division 2 Middle Gotaland",
-		"Swedish Division 2 Middle Norrland",
-		"Swedish Division 2 North Norrland",
-		"Swedish Division 2 North Svealand",
-		"Swedish Division 2 Northeast Gotaland",
-		"Swedish Division 2 Northwest Gotaland",
-		"Swedish Division 2 South Gotaland",
-		"Swedish Division 2 South Norrland",
-		"Swedish Division 2 Southeast Gotaland",
-		"Swedish Division 2 Southwest Gotaland",
-		"Swedish Division 2 West Svealand",
-		"Swedish Ettan East Gotaland",
-		"Swedish Ettan East Svealand",
-		"Swedish Ettan North",
-		"Swedish Ettan South Gotaland",
-		"Swedish Ettan West Gotaland",
-		"Swedish Ettan West Svealand",
+	vector<DWORD> move_to_lower = {
+		0x28,
+		0x29,
+		0x2A,
+		0x2B,
+		0x2C,
+		0x2D,
+		0x1A1,
+		0x1A2,
+		0x1A3,
+		0x1A4,
+		0x1A5,
+		0x1A6,
+		0x1A7,
+		0x1A8,
+		0x1A9,
+		0x1AA,
+		0x1AB,
+		0x1AC,
 	};
-	for (string s : move_to_lower) {
-		cm3_club_comps* comp = find_club_comp(s.c_str());
-		if (comp)
-		{
-			vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(comp->ClubCompID);
-			for (cm3_clubs* c : lower_clubs) {
-				c->ClubDivision = swe_lower;
-			}
+	for (DWORD id : move_to_lower) {
+		vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(id);
+		for (cm3_clubs* c : lower_clubs) {
+			c->ClubDivision = swe_lower;
 		}
 	}
 

@@ -475,15 +475,12 @@ void swe_second_playoffs_under(BYTE* _this) {
 	}
 	else { // league is not loaded
 		vector<cm3_clubs*> available_clubs = find_clubs_of_comp(SWE_THIRD_9CF());
-		vector<cm3_clubs*> promoted;
 		sort(available_clubs.begin(), available_clubs.end(), compareClubRep);
 		// Promoted clubs
 		int max_to_check = (available_clubs.size() > 12 ? 12 : available_clubs.size());
 		for (int i = 0; i < 6; i++)
 		{
 			int availableIdx = rand() % (max_to_check - i);
-			cm3_clubs* available = available_clubs[availableIdx];
-			promoted.push_back(available);
 			available_clubs.erase(available_clubs.begin() + availableIdx);
 		}
 		// Playoff clubs
@@ -494,11 +491,6 @@ void swe_second_playoffs_under(BYTE* _this) {
 			cm3_clubs* available = available_clubs[availableIdx];
 			playoff_clubs.push_back(available);
 			available_clubs.erase(available_clubs.begin() + availableIdx);
-		}
-
-		for (int i = 0; i < 6; i++)
-		{
-			*(DWORD*)(_this + 0xEE + 4 * i) = (DWORD)promoted[i]->ClubID;
 		}
 	}
 

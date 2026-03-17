@@ -206,7 +206,7 @@ void sort_spa_third_clubs() {
 	}
 }
 
-void sort_spa_fourth_clubs(WORD year) {
+void sort_spa_fourth_clubs() {
 	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(SPA_FOURTH_9CF());
 	sort(available_clubs.begin(), available_clubs.end(), compareClubWEDiagNS);
 	for (size_t i = 0; i < available_clubs.size(); i++)
@@ -515,7 +515,7 @@ char spa_first_update(BYTE* _this) {
 	BYTE* spa_fourth = get_loaded_league(SPA_FOURTH_9CF());
 	if (spa_fourth) {
 		spa_non_league_promotion(_this);
-		sort_spa_fourth_clubs(data->year + 1);
+		sort_spa_fourth_clubs();
 	}
 	else {
 		spa_third_relegation(_this);

@@ -596,7 +596,7 @@ void fifa_intercontinental_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp
 	data->f82 = 3;
 	data->max_bench = 9;
 	data->max_subs = 5;
-	data->rules = -1;
+	data->rules = 0x0;
 	data->f81 = 0xf;
 	*((BYTE*)(_this + 0xB1)) = 0;
 	int loaded = sub_51FC00(_this, 1);

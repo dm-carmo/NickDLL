@@ -132,14 +132,15 @@ void __fastcall swe_second_relegation(BYTE* _this)
 		}
 	}
 
-	vector<cm3_clubs*> available_clubs;
+	vector<cm3_clubs*> in_playoffs;
 	comp_stats* playoff_stage = (comp_stats*)comp_data->stages[1];
 	WORD promoted_teams = 0;
 	for (WORD i = 0; i < playoff_stage->n_teams; i++) {
 		teams_seeded t = ((teams_seeded*)playoff_stage->teams_list)[i];
-		if (t.f6 == 1) {
-			cm3_clubs* promote = t.club;
-			if (promote->ClubDivision && promote->ClubDivision != comp_data->competition_db) {
+		cm3_clubs* promote = t.club;
+		if (promote->ClubDivision && promote->ClubDivision != comp_data->competition_db) {
+			in_playoffs.push_back(promote);
+			if (t.f6 == 1) {
 				//dprintf("Promoting club to Ettan (playoff): %s\n", promote->ClubNameShort);
 				promote_club_6830B0((BYTE*)promote, (DWORD)comp_data->competition_db, 1);
 				promoted_teams++;
@@ -147,12 +148,20 @@ void __fastcall swe_second_relegation(BYTE* _this)
 		}
 	}
 
-	for (int i = 0; i < 6; i++) {
-		cm3_clubs* c = get_club(*(DWORD*)(comp_bytes + 0xEE + 4 * i));
-		//dprintf("Promoting club to Ettan (simulated winner): %s\n", c->ClubNameShort);
-		promote_club_6830B0((BYTE*)c, (DWORD)comp_data->competition_db, 1);
-		promoted_teams++;
-		*(DWORD*)(comp_bytes + 0xEE + 4 * i) = -1;
+	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(SWE_THIRD_9CF());
+	sort(available_clubs.begin(), available_clubs.end(), compareClubRep);
+	int max_to_check = (available_clubs.size() > 12 ? 12 : available_clubs.size());
+	for (int i = 0; i < 6; i++)
+	{
+		int availableIdx = rand() % (max_to_check - i);
+		cm3_clubs* available = available_clubs[availableIdx];
+		if (vector_contains_club(in_playoffs, available))
+			i--;
+		else {
+			promote_club_6830B0((BYTE*)available, (DWORD)comp_data->competition_db, 1);
+			promoted_teams++;
+		}
+		available_clubs.erase(available_clubs.begin() + availableIdx);
 	}
 
 	if (promoted_teams != relegated_clubs.size()) create_message_box("Error", "Promoted and relegated club count does not match for swe_second", false);
@@ -184,14 +193,15 @@ void __fastcall swe_non_league_promotion(BYTE* _this)
 		}
 	}
 
-	vector<cm3_clubs*> available_clubs;
+	vector<cm3_clubs*> in_playoffs;
 	comp_stats* playoff_stage = (comp_stats*)comp_data->stages[7];
 	WORD promoted_teams = 0;
 	for (WORD i = 0; i < playoff_stage->n_teams; i++) {
 		teams_seeded t = ((teams_seeded*)playoff_stage->teams_list)[i];
-		if (t.f6 == 1) {
-			cm3_clubs* promote = t.club;
-			if (promote->ClubDivision && promote->ClubDivision != comp_data->competition_db) {
+		cm3_clubs* promote = t.club;
+		if (promote->ClubDivision && promote->ClubDivision != comp_data->competition_db) {
+			in_playoffs.push_back(promote);
+			if (t.f6 == 1) {
 				//dprintf("Promoting club to Division 2 (playoff): %s\n", promote->ClubNameShort);
 				promote_club_6830B0((BYTE*)promote, (DWORD)comp_data->competition_db, 1);
 				promoted_teams++;
@@ -199,12 +209,20 @@ void __fastcall swe_non_league_promotion(BYTE* _this)
 		}
 	}
 
-	for (int i = 0; i < 12; i++) {
-		cm3_clubs* c = get_club(*(DWORD*)(comp_bytes + 0xEE + 4 * i));
-		//dprintf("Promoting club to Division 2 (simulated winner): %s\n", c->ClubNameShort);
-		promote_club_6830B0((BYTE*)c, (DWORD)comp_data->competition_db, 1);
-		promoted_teams++;
-		*(DWORD*)(comp_bytes + 0xEE + 4 * i) = -1;
+	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(SWE_LOWER_9CF());
+	sort(available_clubs.begin(), available_clubs.end(), compareClubRep);
+	int max_to_check = (available_clubs.size() > 24 ? 24 : available_clubs.size());
+	for (int i = 0; i < 12; i++)
+	{
+		int availableIdx = rand() % (max_to_check - i);
+		cm3_clubs* available = available_clubs[availableIdx];
+		if (vector_contains_club(in_playoffs, available))
+			i--;
+		else {
+			promote_club_6830B0((BYTE*)available, (DWORD)comp_data->competition_db, 1);
+			promoted_teams++;
+		}
+		available_clubs.erase(available_clubs.begin() + availableIdx);
 	}
 
 	if (promoted_teams != relegated_clubs.size()) create_message_box("Error", "Promoted and relegated club count does not match for swe_third", false);
@@ -680,7 +698,7 @@ int swe_premier_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char s
 			team_league_stats* table = (team_league_stats*)(swe_first_data->team_league_table);
 			WORD current_round = *(WORD*)(round_data + 0x34);
 			for (int i = 0; i < num_teams; i++) {
-					if (table[i].club != club) continue;
+				if (table[i].club != club) continue;
 				switch (fate) {
 				case TopPlayoff:
 					staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)swe_first, 0x32);
@@ -703,7 +721,7 @@ int swe_premier_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char s
 			team_league_stats* table = (team_league_stats*)(comp_data->team_league_table);
 			WORD current_round = *(WORD*)(round_data + 0x34);
 			for (int i = 0; i < num_teams; i++) {
-					if (table[i].club != club) continue;
+				if (table[i].club != club) continue;
 				switch (fate) {
 				case BottomPlayoff:
 					staff_history_relegated_86A1C0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));

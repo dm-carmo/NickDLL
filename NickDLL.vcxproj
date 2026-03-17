@@ -331,6 +331,13 @@
     <ClCompile Include="Sweden\swe_third.cpp" />
     <ClCompile Include="tiny-json.c" />
     <ClCompile Include="Helpers\YearChanger.cpp" />
+    <ClCompile Include="Turkey\tur_cup.cpp" />
+    <ClCompile Include="Turkey\tur_first.cpp" />
+    <ClCompile Include="Turkey\tur_fourth.cpp" />
+    <ClCompile Include="Turkey\tur_second.cpp" />
+    <ClCompile Include="Turkey\tur_setup.cpp" />
+    <ClCompile Include="Turkey\tur_super.cpp" />
+    <ClCompile Include="Turkey\tur_third.cpp" />
     <ClCompile Include="UEFA\uefa_champions_league.cpp" />
     <ClCompile Include="UEFA\uefa_conference_league.cpp" />
     <ClCompile Include="UEFA\uefa_europa_league.cpp" />
@@ -550,6 +557,13 @@
     <ClInclude Include="Sweden\swe_setup.h" />
     <ClInclude Include="Sweden\swe_third.h" />
     <ClInclude Include="tiny-json.h" />
+    <ClInclude Include="Turkey\tur_cup.h" />
+    <ClInclude Include="Turkey\tur_first.h" />
+    <ClInclude Include="Turkey\tur_fourth.h" />
+    <ClInclude Include="Turkey\tur_second.h" />
+    <ClInclude Include="Turkey\tur_setup.h" />
+    <ClInclude Include="Turkey\tur_super.h" />
+    <ClInclude Include="Turkey\tur_third.h" />
     <ClInclude Include="UEFA\uefa_champions_league.h" />
     <ClInclude Include="UEFA\uefa_conference_league.h" />
     <ClInclude Include="UEFA\uefa_europa_league.h" />

@@ -549,15 +549,12 @@ void swe_third_playoffs_rele(BYTE* _this) {
 
 	vector<cm3_clubs*> playoff_clubs;
 	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(SWE_LOWER_9CF());
-	vector<cm3_clubs*> promoted;
 	sort(available_clubs.begin(), available_clubs.end(), compareClubRep);
 	// Promoted clubs
 	int max_to_check = (available_clubs.size() > 24 ? 24 : available_clubs.size());
 	for (int i = 0; i < 12; i++)
 	{
 		int availableIdx = rand() % (max_to_check - i);
-		cm3_clubs* available = available_clubs[availableIdx];
-		promoted.push_back(available);
 		available_clubs.erase(available_clubs.begin() + availableIdx);
 	}
 	// Playoff clubs
@@ -575,11 +572,6 @@ void swe_third_playoffs_rele(BYTE* _this) {
 	for (cm3_clubs* c : playoff_clubs) {
 		*((DWORD*)(&pTeams[1 + 2 * j])) = (DWORD)c;
 		j++;
-	}
-
-	for (int i = 0; i < 12; i++)
-	{
-		*(DWORD*)(_this + 0xEE + 4 * i) = (DWORD)promoted[i]->ClubID;
 	}
 
 	WORD num_rounds = 0;
@@ -639,9 +631,15 @@ void swe_third_reputation_calc(BYTE* _this, BYTE* club, char stage, char current
 		ret_max = 7 + 2 * (max - 1);
 	}
 	else if (stage == 7) {
-		ret_current = 12;
-		ret_min = 12;
-		ret_max = 12;
+		cm3_clubs* club_data = (cm3_clubs*)club;
+		if (club_data->ClubDivision == comp_data->competition_db) {
+			ret_current = 12;
+			ret_min = 12;
+			ret_max = 12;
+		}
+		else {
+			return;
+		}
 	}
 	ret[0x73] = ret_current;
 	ret[0x74] = ret_min;
@@ -679,6 +677,7 @@ void swe_third_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	swe_third_vtable->SetPointer(VTableSubsRounds, (DWORD)&swe_third_subs_c);
 	swe_third_vtable->SetPointer(VTableTableFates, (DWORD)&swe_third_set_table_fate);
 	swe_third_vtable->SetPointer(VTablePlayoffQual, (DWORD)&swe_third_playoffs_create_c);
+	swe_third_vtable->SetPointer(VTableSetChampion, (DWORD)&swe_third_set_champion_c);
 	data->year = year;
 	data->rules = 0x1c;
 	int loaded = sub_687B10(_this, 1);

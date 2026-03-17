@@ -181,6 +181,11 @@ void Setup()
 		setup_swe_nation();
 	}
 
+	if (configFile.GetBool("applyTurkey", true)) {
+		dprintf("Applying Turkey changes\n");
+		setup_tur_nation();
+	}
+
 	if (configFile.GetBool("applyUSA", true)) {
 		dprintf("Applying USA changes\n");
 		setup_usa_nation();

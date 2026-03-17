@@ -99,6 +99,12 @@ int show_extra_leagues_in_start(BYTE* nation, DWORD dest_ptr, int a3) {
 		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
 		return 1;
 	}
+	if (cm3_nation->NationID == NATION_TURKEY_9CF()) {
+		if (configFile.GetBool("applyTurkey", true)) league_str = "3. Lig";
+		else return 0;
+		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
+		return 1;
+	}
 	/* Unused for now :)
 	if (cm3_nation->NationID == NATION_ARGENTINA_9CF()) {
 		league_str = "Primera B/Torneo Federal";
@@ -152,11 +158,6 @@ int show_extra_leagues_in_start(BYTE* nation, DWORD dest_ptr, int a3) {
 	}
 	if (cm3_nation->NationID == NATION_SOUTH_KOREA_9CF()) {
 		league_str = "K3 League";
-		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
-		return 1;
-	}
-	if (cm3_nation->NationID == NATION_TURKEY_9CF()) {
-		league_str = "3. Lig";
 		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
 		return 1;
 	}
@@ -302,4 +303,24 @@ void setup_misc_functions()
 	}
 	WriteBytes(0x5cb872 + 1, 1, 31);
 	WriteBytes(0x5cb8b7 + 1, 1, 31);
+
+	// Change player search filters
+	if (configFile.GetBool("changePlayerSearchFilters", true)) {
+		WriteBytes(0x80775C + 2, 1, 18);
+		WriteBytes(0xA7FFF6, 2, 0x31, 0x38);
+		WriteBytes(0x807772 + 2, 1, 19);
+		WriteBytes(0xA7FFEC, 2, 0x31, 0x39);
+		WriteBytes(0x80777B + 2, 1, 25);
+		WriteBytes(0xA7FFEF, 2, 0x32, 0x35);
+		WriteBytes(0x807791 + 2, 1, 26);
+		WriteBytes(0xA7FFE4, 2, 0x32, 0x36);
+		WriteBytes(0x80779A + 2, 1, 30);
+		WriteBytes(0xA7FFE7, 2, 0x33, 0x30);
+		WriteBytes(0x8077B0 + 2, 1, 31);
+		WriteBytes(0xA7FFDC, 2, 0x33, 0x31);
+		WriteBytes(0x8077B9 + 2, 1, 35);
+		WriteBytes(0xA7FFDF, 2, 0x33, 0x35);
+		WriteBytes(0x8077CF + 2, 1, 36);
+		WriteBytes(0xA7FFD8, 2, 0x33, 0x36);
+	}
 }
