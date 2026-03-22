@@ -51,6 +51,9 @@ map<string, char*> leagues_rename_long = {
 	{"NIFL Cup", "Irish Football League Cup"},
 	{"Korean FA Cup", "Korea Cup"},
 	{"Korean Super Cup", "K League Super Cup"},
+	// temp
+	{"Swedish Division 2 North Svealand", "EXTINCT 1"},
+	{"Swedish Division 2 South Gotaland", "EXTINCT 2"},
 };
 
 map<string, char*> leagues_rename_long_australia = {
@@ -129,7 +132,7 @@ map<string, char*> leagues_rename_long_portugal = {
 	{"Korean University League", "Campeonato de Portugal Série B"},
 	{"Korean High School League", "Campeonato de Portugal Série C"},
 	{"Korean President Cup", "Campeonato de Portugal Série D"},
-	{"Argentine Interior Zone", "Taça da Liga"},
+	{"Singaporean Prime League", "Taça da Liga"},
 };
 
 map<string, char*> leagues_rename_long_scotland = {
@@ -146,11 +149,14 @@ map<string, char*> leagues_rename_long_spain = {
 };
 
 map<string, char*> leagues_rename_long_sweden = {
-	{"Swedish Division 2 Middle Gotaland", "Swedish Division 2"},
-	{"Swedish Division 2 North Norrland", "Swedish Division 2 Norrland"},
-	{"Swedish Division 2 Northwest Gotaland", "Swedish Division 2 North Gotaland"},
-	{"Swedish Division 2 Northeast Gotaland", "Swedish Division 2 West Gotaland"},
-	{"Swedish Division 2 South Norrland", "Swedish Division 2 South Svealand"},
+	{"Swedish Ettan South Gotaland", "Swedish Ettan South"},
+	{"Swedish Lower Division", "Swedish Division 2"},
+	{"Swedish Ettan West Svealand", "Swedish Division 2 Norrland"},
+	{"Swedish Ettan East Gotaland", "Swedish Division 2 North Götaland"},
+	{"Swedish Ettan West Gotaland", "Swedish Division 2 West Götaland"},
+	{"Swedish Ettan East Svealand", "Swedish Division 2 South Svealand"},
+	{"Turkish 2. Division Group 2", "Swedish Division 2 North Svealand"},
+	{"MLS All-Stars", "Swedish Division 2 South Götaland"},
 };
 
 map<string, char*> leagues_rename_long_turkey = {
@@ -160,13 +166,13 @@ map<string, char*> leagues_rename_long_turkey = {
 	{"TFF 2. Lig G4", "TFF 3. Lig Group 2"},
 	{"TFF 2. Lig G5", "TFF 3. Lig Group 3"},
 	{"Turkish 2. Division Group 1", "TFF 3. Lig Group 4"},
-	{"Turkish 2. Division Group 2", "Turkish Super Cup"},
+	{"Turkish 2. Division", "Turkish Super Cup"},
 	{"Turkish Lower Division", "TFF 3. Lig"},
 };
 
 map<string, char*> leagues_rename_long_wales = {
 	{"Welsh Lower Division", "Welsh Cymru North"},
-	{"Hong Kong Senior Challenge Shield", "Welsh Cymru South"},
+	{"Irish Shield", "Welsh Cymru South"},
 };
 
 map<string, char*> leagues_rename_short = {
@@ -264,7 +270,7 @@ map<string, char*> leagues_rename_short_portugal = {
 	{"Korean University League", "Campeonato de Portugal B"},
 	{"Korean High School League", "Campeonato de Portugal C"},
 	{"Korean President Cup", "Campeonato de Portugal D"},
-	{"Argentine Interior Zone", "Taça da Liga"},
+	{"Singaporean Prime League", "Taça da Liga"},
 };
 
 map<string, char*> leagues_rename_short_scotland = {
@@ -281,11 +287,14 @@ map<string, char*> leagues_rename_short_spain = {
 };
 
 map<string, char*> leagues_rename_short_sweden = {
-	{"Swedish Division 2 Middle Gotaland", "Division 2"},
-	{"Swedish Division 2 North Norrland", "Division 2 N"},
-	{"Swedish Division 2 Northwest Gotaland", "Division 2 NG"},
-	{"Swedish Division 2 Northeast Gotaland", "Division 2 WG"},
-	{"Swedish Division 2 South Norrland", "Division 2 SS"},
+	{"Swedish Ettan South Gotaland", "Ettan S"},
+	{"Swedish Lower Division", "Division 2"},
+	{"Swedish Ettan West Svealand", "Division 2 N"},
+	{"Swedish Ettan East Gotaland", "Division 2 NG"},
+	{"Swedish Ettan West Gotaland", "Division 2 WG"},
+	{"Swedish Ettan East Svealand", "Division 2 SS"},
+	{"Turkish 2. Division Group 2", "Division 2 NS"},
+	{"MLS All-Stars", "Division 2 SG"},
 };
 
 map<string, char*> leagues_rename_short_turkey = {
@@ -295,13 +304,13 @@ map<string, char*> leagues_rename_short_turkey = {
 	{"TFF 2. Lig G4", "3. Lig G2"},
 	{"TFF 2. Lig G5", "3. Lig G3"},
 	{"Turkish 2. Division Group 1", "3. Lig G4"},
-	{"Turkish 2. Division Group 2", "Super Cup"},
+	{"Turkish 2. Division", "Super Cup"},
 	{"Turkish Lower Division", "3. Lig"},
 };
 
 map<string, char*> leagues_rename_short_wales = {
 	{"Welsh Lower Division", "Cymru North"},
-	{"Hong Kong Senior Challenge Shield", "Cymru South"},
+	{"Irish Shield", "Cymru South"},
 };
 
 map<string, char*> leagues_rename_tla = {
@@ -393,9 +402,13 @@ map<string, char*> leagues_rename_tla_spain = {
 	{"PreLibertadores", "SF5"},
 };
 
+map<string, char*> leagues_rename_tla_sweden = {
+	{"Swedish Lower Division", "D2"},
+};
+
 map<string, char*> leagues_rename_tla_wales = {
 	{"Welsh Lower Division", "D1N"},
-	{"Hong Kong Senior Challenge Shield", "D1S"},
+	{"Irish Shield", "D1S"},
 };
 
 map<string, char*> awards_rename_short = {
@@ -1193,7 +1206,7 @@ map<string, DWORD> league_dword_match = {
 	{"NIFL Cup", 0x9CF8C8},
 	{"Turkish Lower Division", 0x9CF8CC},
 	{"Turkish 2. Division Group 1", 0x9CF8D0},
-	//{"TFF 2. Lig", 0x9CF8D4},
+	//{"Turkish 2. Division Group 2", 0x9CF8D4},
 	{"Turkish Süper Lig", 0x9CF8D8},
 	{"TFF 1. Lig", 0x9CF8DC},
 	{"TFF 2. Lig", 0x9CF8E0},
@@ -1203,7 +1216,7 @@ map<string, DWORD> league_dword_match = {
 	{"TFF 2. Lig G4", 0x9CF8F0},
 	{"TFF 2. Lig G5", 0x9CF8F4},
 	{"Türkiye Kupasi", 0x9CF8F8},
-	{"Turkish 2. Division Group 2", 0x9CF8FC},
+	{"Turkish 2. Division", 0x9CF8FC},
 	{"English Northern Premier League Premier Division", 0x9CF900},
 	{"English Southern League Premier Division", 0x9CF904},
 	{"Indian Chennai League", 0x9CF908}, // new Serie C
@@ -2280,6 +2293,7 @@ void setup_name_injection()
 	if (configFile.GetBool("applySweden", true)) {
 		leagues_rename_long.insert(leagues_rename_long_sweden.begin(), leagues_rename_long_sweden.end());
 		leagues_rename_short.insert(leagues_rename_short_sweden.begin(), leagues_rename_short_sweden.end());
+		leagues_rename_tla.insert(leagues_rename_tla_sweden.begin(), leagues_rename_tla_sweden.end());
 	}
 
 	if (configFile.GetBool("applyTurkey", true)) {

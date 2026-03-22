@@ -10,15 +10,12 @@ vtable* swe_third_vtable = new vtable((BYTE*)0x9702A0, 0xB4);
 int swe_third_set_champion(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	comp_stats* curr_stage = data;
-	DWORD comp_ids[6] = { SWE_THIRD_NORRLAND_9CF(), SWE_THIRD_NORTH_SVEALAND_9CF(), SWE_THIRD_SOUTH_SVEALAND_9CF(), SWE_THIRD_NORTH_GOTALAND_9CF(), SWE_THIRD_WEST_GOTALAND_9CF(), SWE_THIRD_SOUTH_GOTALAND_9CF() };
 	for (char al = -1; al < 5; al++) {
 		if (al >= 0) {
 			curr_stage = (comp_stats*)(data->stages[al]);
 		}
-		WORD total_teams = curr_stage->n_teams;
 		team_league_stats* table_teams = (team_league_stats*)(curr_stage->team_league_table);
-		DWORD tmp[2] = { 0, (DWORD)get_comp(comp_ids[al + 1]) };
-		sub_4AFCE0_add_history_entry((BYTE*)tmp, table_teams[0].club, table_teams[1].club, table_teams[2].club, 0);
+		sub_4AFCE0_add_history_entry(_this, table_teams[0].club, table_teams[1].club, table_teams[2].club, 0);
 	}
 
 	return 0;
@@ -96,6 +93,7 @@ void swe_third_free_under(BYTE* _this) {
 				DWORD v1 = *(DWORD*)stage;
 				(DWORD*)(*(int(__thiscall**)(BYTE*, int a2))(v1))((BYTE*)stage, 1);
 			}
+			data->stages[i] = 0;
 		}
 	}
 	if (data->stages) {
@@ -443,6 +441,7 @@ char swe_third_update(BYTE* _this) {
 				DWORD v1 = *(DWORD*)stage;
 				(DWORD*)(*(int(__thiscall**)(BYTE*, int a2))(v1))((BYTE*)stage, 1);
 			}
+			data->stages[i] = 0;
 		}
 	}
 	data->year++;
@@ -548,7 +547,7 @@ void swe_third_playoffs_rele(BYTE* _this) {
 	}
 
 	vector<cm3_clubs*> playoff_clubs;
-	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(SWE_LOWER_9CF());
+	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_SWEDEN_9CF());
 	sort(available_clubs.begin(), available_clubs.end(), compareClubRep);
 	// Promoted clubs
 	int max_to_check = (available_clubs.size() > 24 ? 24 : available_clubs.size());
@@ -678,6 +677,8 @@ void swe_third_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	swe_third_vtable->SetPointer(VTableTableFates, (DWORD)&swe_third_set_table_fate);
 	swe_third_vtable->SetPointer(VTablePlayoffQual, (DWORD)&swe_third_playoffs_create_c);
 	swe_third_vtable->SetPointer(VTableSetChampion, (DWORD)&swe_third_set_champion_c);
+	swe_third_vtable->SetPointer(VTable9, 0x48ceb0);
+	swe_third_vtable->SetPointer(VTable10, 0x48cea0);
 	data->year = year;
 	data->rules = 0x1c;
 	int loaded = sub_687B10(_this, 1);

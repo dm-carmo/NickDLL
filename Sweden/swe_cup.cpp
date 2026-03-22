@@ -53,6 +53,7 @@ void swe_cup_free_under(BYTE* _this) {
 				DWORD v1 = *(DWORD*)stage;
 				(DWORD*)(*(int(__thiscall**)(BYTE*, int a2))(v1))((BYTE*)stage, 1);
 			}
+			data->stages[i] = 0;
 		}
 	}
 	if (data->stages) {
@@ -201,7 +202,7 @@ int swe_cup_teams(BYTE* _this) {
 			}
 		}
 		// extra lower
-		division_clubs = find_clubs_of_comp(SWE_LOWER_9CF());
+		division_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_SWEDEN_9CF());
 		sort(division_clubs.begin(), division_clubs.end(), compareClubRep);
 		while (d2_count < 32)
 		{
@@ -302,6 +303,7 @@ char swe_cup_update(BYTE* _this) {
 				DWORD v1 = *(DWORD*)stage;
 				(DWORD*)(*(int(__thiscall**)(BYTE*, int a2))(v1))((BYTE*)stage, 1);
 			}
+			data->stages[i] = 0;
 		}
 	}
 	data->current_stage = -1;

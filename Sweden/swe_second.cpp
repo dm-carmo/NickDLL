@@ -10,15 +10,12 @@ DWORD* swe_second_vtable = (DWORD*)0x9702A0;
 int swe_second_set_champion(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	comp_stats* curr_stage = data;
-	DWORD comp_ids[2] = { SWE_SECOND_NORTH_9CF(), SWE_SECOND_SOUTH_9CF() };
 	for (char al = -1; al < 1; al++) {
 		if (al >= 0) {
 			curr_stage = (comp_stats*)(data->stages[al]);
 		}
-		WORD total_teams = curr_stage->n_teams;
 		team_league_stats* table_teams = (team_league_stats*)(curr_stage->team_league_table);
-		DWORD tmp[2] = { 0, (DWORD)get_comp(comp_ids[al + 1]) };
-		sub_4AFCE0_add_history_entry((BYTE*)tmp, table_teams[0].club, table_teams[1].club, table_teams[2].club, 0);
+		sub_4AFCE0_add_history_entry(_this, table_teams[0].club, table_teams[1].club, table_teams[2].club, 0);
 	}
 
 	return 0;
@@ -373,6 +370,7 @@ char swe_second_update(BYTE* _this) {
 				DWORD v1 = *(DWORD*)stage;
 				(DWORD*)(*(int(__thiscall**)(BYTE*, int a2))(v1))((BYTE*)stage, 1);
 			}
+			data->stages[i] = 0;
 		}
 	}
 	data->year++;
@@ -799,4 +797,7 @@ void setup_swe_second()
 	WriteVTablePtr(swe_second_vtable, VTableTableFates, (DWORD)&swe_second_set_table_fate);
 	WriteVTablePtr(swe_second_vtable, VTablePlayoffQual, (DWORD)&swe_second_playoffs_create_c);
 	WriteVTablePtr(swe_second_vtable, VTableSetChampion, (DWORD)&swe_second_set_champion_c);
+	WriteVTablePtr(swe_second_vtable, VTable21, 0x48ce70);
+	WriteVTablePtr(swe_second_vtable, VTable9, 0x48ceb0);
+	WriteVTablePtr(swe_second_vtable, VTable10, 0x48cea0);
 }

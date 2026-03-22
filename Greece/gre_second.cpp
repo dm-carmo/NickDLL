@@ -7,7 +7,6 @@
 
 DWORD* gre_second_vtable = (DWORD*)0x96B61C;
 
-char* (__thiscall* sub_684640)(BYTE* _this) = (char* (__thiscall*)(BYTE * _this))(0x684640);
 char* gre_second_set_champion(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	if (data->year == 2025)
@@ -60,6 +59,7 @@ void gre_second_free_under(BYTE* _this) {
 				DWORD v1 = *(DWORD*)stage;
 				(DWORD*)(*(int(__thiscall**)(BYTE*, int a2))(v1))((BYTE*)stage, 1);
 			}
+			data->stages[i] = 0;
 		}
 	}
 	if (data->stages) {
@@ -568,6 +568,7 @@ char gre_second_update(BYTE* _this) {
 				DWORD v1 = *(DWORD*)stage;
 				(DWORD*)(*(int(__thiscall**)(BYTE*, int a2))(v1))((BYTE*)stage, 1);
 			}
+			data->stages[i] = 0;
 		}
 	}
 	data->year++;
@@ -833,6 +834,8 @@ void gre_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->rules = 0x20;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
+	comp->ClubCompBackgroundColour = 0;
+	comp->ClubCompForegroundColour = 0;
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 2;

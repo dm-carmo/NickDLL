@@ -10,15 +10,12 @@ vtable* nor_third_vtable = new vtable((BYTE*)0x9702A0, 0xB4);
 int nor_third_set_champion(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	comp_stats* curr_stage = data;
-	DWORD comp_ids[6] = { NOR_THIRD_G1_9CF(), NOR_THIRD_G2_9CF(), NOR_THIRD_G3_9CF(), NOR_THIRD_G4_9CF(), NOR_THIRD_G5_9CF(), NOR_THIRD_G6_9CF() };
 	for (char al = -1; al < 5; al++) {
 		if (al >= 0) {
 			curr_stage = (comp_stats*)(data->stages[al]);
 		}
-		WORD total_teams = curr_stage->n_teams;
 		team_league_stats* table_teams = (team_league_stats*)(curr_stage->team_league_table);
-		DWORD tmp[2] = { 0, (DWORD)get_comp(comp_ids[al + 1]) };
-		sub_4AFCE0_add_history_entry((BYTE*)tmp, table_teams[0].club, table_teams[1].club, table_teams[2].club, 0);
+		sub_4AFCE0_add_history_entry(_this, table_teams[0].club, table_teams[1].club, table_teams[2].club, 0);
 	}
 
 	return 0;
@@ -96,6 +93,7 @@ void nor_third_free_under(BYTE* _this) {
 				DWORD v1 = *(DWORD*)stage;
 				(DWORD*)(*(int(__thiscall**)(BYTE*, int a2))(v1))((BYTE*)stage, 1);
 			}
+			data->stages[i] = 0;
 		}
 	}
 	if (data->stages) {
@@ -351,6 +349,7 @@ char nor_third_update(BYTE* _this) {
 				DWORD v1 = *(DWORD*)stage;
 				(DWORD*)(*(int(__thiscall**)(BYTE*, int a2))(v1))((BYTE*)stage, 1);
 			}
+			data->stages[i] = 0;
 		}
 	}
 	data->year++;

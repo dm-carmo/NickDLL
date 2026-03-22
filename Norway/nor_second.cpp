@@ -10,15 +10,12 @@ vtable* nor_second_vtable = new vtable((BYTE*)0x9702A0, 0xB4);
 int nor_second_set_champion(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	comp_stats* curr_stage = data;
-	DWORD comp_ids[2] = { NOR_SECOND_G1_9CF(), NOR_SECOND_G2_9CF() };
 	for (char al = -1; al < 1; al++) {
 		if (al >= 0) {
 			curr_stage = (comp_stats*)(data->stages[al]);
 		}
-		WORD total_teams = curr_stage->n_teams;
 		team_league_stats* table_teams = (team_league_stats*)(curr_stage->team_league_table);
-		DWORD tmp[2] = { 0, (DWORD)get_comp(comp_ids[al + 1]) };
-		sub_4AFCE0_add_history_entry((BYTE*)tmp, table_teams[0].club, table_teams[1].club, table_teams[2].club, 0);
+		sub_4AFCE0_add_history_entry(_this, table_teams[0].club, table_teams[1].club, table_teams[2].club, 0);
 	}
 
 	return 0;
@@ -53,6 +50,7 @@ void nor_second_free_under(BYTE* _this) {
 				DWORD v1 = *(DWORD*)stage;
 				(DWORD*)(*(int(__thiscall**)(BYTE*, int a2))(v1))((BYTE*)stage, 1);
 			}
+			data->stages[i] = 0;
 		}
 	}
 	if (data->stages) {
@@ -396,6 +394,7 @@ char nor_second_update(BYTE* _this) {
 				DWORD v1 = *(DWORD*)stage;
 				(DWORD*)(*(int(__thiscall**)(BYTE*, int a2))(v1))((BYTE*)stage, 1);
 			}
+			data->stages[i] = 0;
 		}
 	}
 	data->year++;
@@ -672,6 +671,7 @@ void nor_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->current_stage = -1;
 	data->num_stages = 2;
 	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
+	data->stages[1] = 0;
 	nor_second_subs(_this);
 	AddTeamsGroupLeague(_this, NOR_SECOND_G1_9CF());
 	SetupTVMoney(_this, 42670, 0);

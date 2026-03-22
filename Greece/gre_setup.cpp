@@ -72,7 +72,7 @@ void greece_restructure() {
 	gre_second_s->ClubCompNation = greece;
 	gre_second_s->ClubCompReputation = 8;
 	cm3_club_comps* gre_lower = get_comp(GRE_LOWER_9CF());
-	cm3_club_comps* swe_lower = get_comp(SWE_LOWER_9CF());
+	cm3_club_comps* a_lower = get_comp(A_LOWER_9CF());
 
 	vector<cm3_clubs*> clubs = find_clubs_of_comp(gre_second->ClubCompID);
 	for (cm3_clubs* c : clubs) {
@@ -80,11 +80,11 @@ void greece_restructure() {
 	}
 	clubs = find_clubs_of_comp(gre_second_n->ClubCompID);
 	for (cm3_clubs* c : clubs) {
-		c->ClubDivision = swe_lower;
+		c->ClubDivision = a_lower;
 	}
 	clubs = find_clubs_of_comp(gre_second_s->ClubCompID);
 	for (cm3_clubs* c : clubs) {
-		c->ClubDivision = swe_lower;
+		c->ClubDivision = a_lower;
 	}
 
 	vector<string> d2n_clubs = {

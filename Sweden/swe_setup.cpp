@@ -80,6 +80,7 @@ void setup_swe_nation()
 }
 
 void sweden_restructure() {
+	cm3_nations* sweden = get_country(NATION_SWEDEN_9CF());
 	cm3_club_comps* swe_premier = get_comp(SWE_PREMIER_9CF());
 	cm3_club_comps* swe_first = get_comp(SWE_FIRST_9CF());
 	cm3_club_comps* swe_second = get_comp(SWE_SECOND_9CF());
@@ -92,16 +93,19 @@ void sweden_restructure() {
 	cm3_club_comps* swe_third_ng = get_comp(SWE_THIRD_NORTH_GOTALAND_9CF());
 	swe_third_ng->ClubCompReputation = 2;
 	cm3_club_comps* swe_third_ns = get_comp(SWE_THIRD_NORTH_SVEALAND_9CF());
+	swe_third_ns->ClubCompNation = sweden;
 	swe_third_ns->ClubCompReputation = 2;
 	cm3_club_comps* swe_third_n = get_comp(SWE_THIRD_NORRLAND_9CF());
 	swe_third_n->ClubCompReputation = 2;
 	cm3_club_comps* swe_third_sg = get_comp(SWE_THIRD_SOUTH_GOTALAND_9CF());
+	swe_third_sg->ClubCompNation = sweden;
+	swe_third_sg->ClubCompContinent = find_continent("Europe");
 	swe_third_sg->ClubCompReputation = 2;
 	cm3_club_comps* swe_third_ss = get_comp(SWE_THIRD_SOUTH_SVEALAND_9CF());
 	swe_third_ss->ClubCompReputation = 2;
 	cm3_club_comps* swe_third_wg = get_comp(SWE_THIRD_WEST_GOTALAND_9CF());
 	swe_third_wg->ClubCompReputation = 2;
-	cm3_club_comps* swe_lower = get_comp(SWE_LOWER_9CF());
+	cm3_club_comps* a_lower = get_comp(A_LOWER_9CF());
 
 	vector<DWORD> move_to_lower = {
 		0x28,
@@ -126,11 +130,10 @@ void sweden_restructure() {
 	for (DWORD id : move_to_lower) {
 		vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(id);
 		for (cm3_clubs* c : lower_clubs) {
-			c->ClubDivision = swe_lower;
+			c->ClubDivision = a_lower;
 		}
 	}
 
-	cm3_nations* sweden = get_country(NATION_SWEDEN_9CF());
 	cm3_clubs* tidaholms_goif = find_club("Tidaholms GoIF");
 	if (tidaholms_goif) {
 		tidaholms_goif->ClubNation = sweden;

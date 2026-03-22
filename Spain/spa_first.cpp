@@ -9,6 +9,58 @@
 DWORD* spa_first_vtable = (DWORD*)0x96FA68;
 static DWORD(__thiscall* spa_first_subs)(BYTE* _this) = (DWORD(__thiscall*)(BYTE * _this))(0x84FDF0);
 
+void spa_first_free_under(BYTE* _this) {
+	comp_stats* data = (comp_stats*)_this;
+	data->comp_vtable = spa_first_vtable;
+	DWORD x = 0;
+	sub_687970(_this, 0);
+	if (data->fixtures_table) {
+		sub_9452CA_free(data->fixtures_table);
+		data->fixtures_table = 0;
+	}
+	long current = data->current_stage;
+	if (current >= 0) {
+		for (long i = 0; i <= current; i++) {
+			DWORD stage = data->stages[i];
+			if (stage) {
+				DWORD v1 = *(DWORD*)stage;
+				(DWORD*)(*(int(__thiscall**)(BYTE*, int a2))(v1))((BYTE*)stage, 1);
+			}
+			data->stages[i] = 0;
+		}
+	}
+	if (data->stages) {
+		sub_9452CA_free((BYTE*)(data->stages));
+		data->stages = 0;
+	}
+	if (data->f8) {
+		sub_49F450((BYTE*)(data->f8));
+		sub_944C94_free((BYTE*)(data->f8));
+	}
+	DWORD y = -1;
+	sub_682300(_this);
+}
+
+void spa_first_free(BYTE* _this, BYTE a2) {
+	spa_first_free_under(_this);
+	if (a2 & 1) {
+		sub_944C94_free(_this);
+	}
+}
+
+void __declspec(naked) spa_first_free_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x4]
+		push ecx
+		call spa_first_free
+		add esp, 0x8
+		ret 4
+	}
+}
+
 void spa_first_prom_rel_update(BYTE* _this, int a2) {
 	DWORD v1 = *(DWORD*)_this;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(_this);
@@ -536,6 +588,7 @@ char spa_first_update(BYTE* _this) {
 				DWORD v1 = *(DWORD*)stage;
 				(DWORD*)(*(int(__thiscall**)(BYTE*, int a2))(v1))((BYTE*)stage, 1);
 			}
+			data->stages[i] = 0;
 		}
 	}
 	data->year++;
@@ -862,7 +915,10 @@ void spa_first_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 void setup_spa_first()
 {
 	WriteVTablePtr(spa_first_vtable, VTableEoSUpdate, (DWORD)&spa_first_update_c);
+	WriteVTablePtr(spa_first_vtable, VTableInitFree, (DWORD)&spa_first_free_c);
 	WriteVTablePtr(spa_first_vtable, VTableFixtures, (DWORD)&spa_first_fixture_caller);
 	WriteVTablePtr(spa_first_vtable, VTablePromRelUpdate, (DWORD)&spa_first_prom_rel_update_c);
+	WriteVTablePtr(spa_first_vtable, VTable9, 0x48CEB0);
+	WriteVTablePtr(spa_first_vtable, VTable10, 0x48CEA0);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(spa_first_vtable, VTable21, 0x4110b0);
 }

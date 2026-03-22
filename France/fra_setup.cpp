@@ -68,8 +68,6 @@ void setup_fra_nation()
 	WriteDWORD(0x667FB5 + 6, (DWORD)&fra_setup_c);
 	// Removes reference to League Cup in nation table
 	WriteNOP(0x6680b2, 6);
-	// disable an offset related to the inactive French lower leagues
-	WriteBytes(0x7E62BE, 1, 0xeb);
 	setup_fra_first();
 	setup_fra_second();
 	setup_fra_third();
@@ -77,6 +75,18 @@ void setup_fra_nation()
 	setup_fra_super();
 
 	WriteNOP(0x5ba202, 7);
+	// disable offsets related to the inactive French lower leagues
+	WriteBytes(0x7E62BE, 1, 0xeb);
+	WriteNOP(0x7e6f52, 2);
+	WriteBytes(0x7e6f5a, 1, 0xeb);
+	WriteNOP(0x7e6b00, 2);
+	WriteBytes(0x7e6b08, 1, 0xeb);
+	WriteNOP(0x4b0714, 2);
+	WriteNOP(0x4b071c, 2);
+	WriteNOP(0x4c0381, 2);
+	WriteNOP(0x4c0389, 2);
+	WriteNOP(0x4c03e4, 2);
+	WriteNOP(0x4c03ec, 2);
 }
 
 void france_restructure() {

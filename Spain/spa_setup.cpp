@@ -79,9 +79,12 @@ void setup_spa_nation()
 	setup_spa_super();
 
 	WriteNOP(0x84d036, 7);
-	// disable an offset related to the inactive Spanish lower leagues
+	// disable offsets related to the inactive Spanish lower leagues
 	WriteBytes(0x7E62FC, 1, 0xeb);
 	WriteNOP(0x7e6f4a, 2);
+	WriteNOP(0x4b070c, 2);
+	WriteNOP(0x4c037d, 2);
+	WriteNOP(0x4c03e0, 2);
 }
 
 void spain_restructure() {

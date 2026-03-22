@@ -106,7 +106,7 @@ void japan_restructure() {
 	cm3_club_comps* jpn_jfl = get_comp(JPN_JFL_9CF());
 	cm3_club_comps* jpn_reg = get_comp(JPN_REGIONAL_9CF());
 
-	cm3_clubs* morioka = find_club("Morioka Zejpn");
+	cm3_clubs* morioka = find_club("Morioka Zebra");
 	if (morioka) {
 		morioka->ClubDivision = 0;
 		morioka->ClubNation = 0;

@@ -69,16 +69,17 @@ int replacement_667150() {
 		pnd_list[idx].setup_function_addr = (DWORD)&concacaf_setup_c;
 		convert_to_cm_date(cm_date, 2, January, 2025, -1);
 		pnd_list[idx].update_day = *(WORD*)(cm_date);
+		pnd_list[idx].updates_in_june = 0;
 	}
 	else
 	{
 		pnd_list[idx].setup_function_addr = 0x831650;
 		convert_to_cm_date(cm_date, 1, February, 2025, -1);
 		pnd_list[idx].update_day = *(WORD*)(cm_date);
+		pnd_list[idx].updates_in_june = 1;
 	}
 	convert_to_cm_date(pnd_list[idx].start_date, 1, July, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 1, July, *current_year, -1);
-	pnd_list[idx].updates_in_june = 1;
 	pnd_list[idx].main_cup = get_comp(CONCACAF_CHAMPIONS_CUP_9CF());
 	idx++;
 
@@ -89,16 +90,17 @@ int replacement_667150() {
 		pnd_list[idx].setup_function_addr = (DWORD)&conmebol_setup_c;
 		convert_to_cm_date(cm_date, 2, January, 2025, -1);
 		pnd_list[idx].update_day = *(WORD*)(cm_date);
+		pnd_list[idx].updates_in_june = 0;
 	}
 	else
 	{
 		pnd_list[idx].setup_function_addr = 0x8318F0;
 		convert_to_cm_date(cm_date, 21, December, 2025, -1);
 		pnd_list[idx].update_day = *(WORD*)(cm_date);
+		pnd_list[idx].updates_in_june = 1;
 	}
 	convert_to_cm_date(pnd_list[idx].start_date, 1, July, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 1, July, *current_year, -1);
-	pnd_list[idx].updates_in_june = 1;
 	pnd_list[idx].main_cup = get_comp(COPA_LIBERTADORES_9CF());
 	idx++;
 
@@ -129,16 +131,17 @@ int replacement_667150() {
 		pnd_list[idx].setup_function_addr = (DWORD)&ofc_setup_c;
 		convert_to_cm_date(cm_date, 2, January, 2025, -1);
 		pnd_list[idx].update_day = *(WORD*)(cm_date);
+		pnd_list[idx].updates_in_june = 0;
 	}
 	else
 	{
 		pnd_list[idx].setup_function_addr = 0x831EB0;
 		convert_to_cm_date(cm_date, 21, July, 2025, -1);
 		pnd_list[idx].update_day = *(WORD*)(cm_date);
+		pnd_list[idx].updates_in_june = 1;
 	}
 	convert_to_cm_date(pnd_list[idx].start_date, 1, July, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 1, July, *current_year, -1);
-	pnd_list[idx].updates_in_june = 1;
 	pnd_list[idx].main_cup = get_comp(OFC_CHAMPIONS_LEAGUE_9CF());
 	idx++;
 

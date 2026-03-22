@@ -7,6 +7,32 @@
 
 DWORD* fin_third_vtable = (DWORD*)0x96A400;
 
+int fin_third_set_champion(BYTE* _this) {
+	comp_stats* data = (comp_stats*)_this;
+	comp_stats* curr_stage = data;
+	for (char al = -1; al < 2; al++) {
+		if (al >= 0) {
+			curr_stage = (comp_stats*)(data->stages[al]);
+		}
+		team_league_stats* table_teams = (team_league_stats*)(curr_stage->team_league_table);
+		sub_4AFCE0_add_history_entry(_this, table_teams[0].club, table_teams[1].club, table_teams[2].club, 0);
+	}
+
+	return 0;
+}
+
+void __declspec(naked) fin_third_set_champion_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push ecx
+		call fin_third_set_champion
+		add esp, 0x4
+		ret 0
+	}
+}
+
 void fin_third_subs(BYTE* _this)
 {
 	comp_stats* comp_data = (comp_stats*)_this;
@@ -245,6 +271,7 @@ char fin_third_update(BYTE* _this) {
 				DWORD v1 = *(DWORD*)stage;
 				(DWORD*)(*(int(__thiscall**)(BYTE*, int a2))(v1))((BYTE*)stage, 1);
 			}
+			data->stages[i] = 0;
 		}
 	}
 	data->year++;
@@ -527,4 +554,5 @@ void setup_fin_third()
 	WriteVTablePtr(fin_third_vtable, VTableSubsRounds, (DWORD)&fin_third_subs_c);
 	WriteVTablePtr(fin_third_vtable, VTableTableFates, (DWORD)&fin_third_set_table_fate);
 	WriteVTablePtr(fin_third_vtable, VTablePlayoffQual, (DWORD)&fin_third_playoffs_create_c);
+	WriteVTablePtr(fin_third_vtable, VTableSetChampion, (DWORD)&fin_third_set_champion_c);
 }

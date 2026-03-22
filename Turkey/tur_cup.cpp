@@ -34,7 +34,7 @@ int tur_cup_money_after_match(BYTE* _this, BYTE* a2, int a3) {
 		club_loss = (cm3_clubs*)*(DWORD*)(a2 + 0x1c);
 	}
 	// group stage indexes
-	if (bl > 0 && bl < 4) {
+	if (bl > -1 && bl < 4) {
 		if (club_win && club_loss) {
 			int ret = sub_5A0590(ae2a38_ptr, (BYTE*)club_win);
 			AddToClubIncome((BYTE*)ret, 112288);
@@ -117,6 +117,7 @@ void tur_cup_free_under(BYTE* _this) {
 				DWORD v1 = *(DWORD*)stage;
 				(DWORD*)(*(int(__thiscall**)(BYTE*, int a2))(v1))((BYTE*)stage, 1);
 			}
+			data->stages[i] = 0;
 		}
 	}
 	if (data->stages) {
@@ -367,6 +368,7 @@ char tur_cup_update(BYTE* _this) {
 				DWORD v1 = *(DWORD*)stage;
 				(DWORD*)(*(int(__thiscall**)(BYTE*, int a2))(v1))((BYTE*)stage, 1);
 			}
+			data->stages[i] = 0;
 		}
 	}
 	data->current_stage = -1;

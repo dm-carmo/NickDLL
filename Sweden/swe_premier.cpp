@@ -209,7 +209,7 @@ void __fastcall swe_non_league_promotion(BYTE* _this)
 		}
 	}
 
-	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(SWE_LOWER_9CF());
+	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_SWEDEN_9CF());
 	sort(available_clubs.begin(), available_clubs.end(), compareClubRep);
 	int max_to_check = (available_clubs.size() > 24 ? 24 : available_clubs.size());
 	for (int i = 0; i < 12; i++)
@@ -229,7 +229,7 @@ void __fastcall swe_non_league_promotion(BYTE* _this)
 
 	for (unsigned int i = 0; i < relegated_clubs.size(); i++)
 	{
-		relegate_club_6831A0((BYTE*)relegated_clubs[i], (DWORD)get_comp(SWE_LOWER_9CF()), 1);
+		relegate_club_6831A0((BYTE*)relegated_clubs[i], (DWORD)get_comp(A_LOWER_9CF()), 1);
 		relegated_clubs[i]->ClubReserveDivision = 0;
 	}
 }
@@ -290,6 +290,7 @@ char swe_premier_update(BYTE* _this) {
 				DWORD v1 = *(DWORD*)stage;
 				(DWORD*)(*(int(__thiscall**)(BYTE*, int a2))(v1))((BYTE*)stage, 1);
 			}
+			data->stages[i] = 0;
 		}
 	}
 	data->year++;
@@ -351,6 +352,7 @@ void swe_premier_free_under(BYTE* _this) {
 				DWORD v1 = *(DWORD*)stage;
 				(DWORD*)(*(int(__thiscall**)(BYTE*, int a2))(v1))((BYTE*)stage, 1);
 			}
+			data->stages[i] = 0;
 		}
 	}
 	if (data->stages) {

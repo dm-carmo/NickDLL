@@ -71,6 +71,28 @@ void Setup()
 	// Shows more teams in Team Stats, up to 127
 	WriteBytes(0x495976, 1, 0x7F);
 
+	// removes all-star game from USA
+	WriteBytes(0x838195, 1, 8);
+	WriteBytes(0x8381a8, 1, 2);
+	WriteBytes(0x83832a, 1, 0xeb);
+	WriteBytes(0x5ae103, 1, 0xeb);
+	WriteBytes(0x7759eb, 6, 0xE9, 0xE9, 0x00, 0x00, 0x00, 0x90);
+	WriteNOP(0x90ba86, 2);
+
+	// WC qualifiers calendar changes
+	WriteBytes(0x9153e7, 1, 1);
+	WriteBytes(0x9153e9, 1, 5);
+	WriteBytes(0x9153ee, 1, 12);
+
+	WriteBytes(0x9207c9, 1, 8);
+	WriteBytes(0x9207cb, 1, 6);
+	WriteBytes(0x9207f5, 1, 1);
+	WriteBytes(0x9207f7, 1, 5);
+	WriteBytes(0x920801, 1, 10);
+	WriteBytes(0x920950, 1, 1);
+	WriteBytes(0x920956, 1, 5);
+	WriteBytes(0x92095c, 1, 12);
+
 	configFile.LoadConfig("NickDLL_config.json");
 
 	if (configFile.GetBool("applyAustralia", true)) {

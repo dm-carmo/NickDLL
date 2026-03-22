@@ -24,6 +24,7 @@ void wal_first_s_free_under(BYTE* _this) {
 				DWORD v1 = *(DWORD*)stage;
 				(DWORD*)(*(int(__thiscall**)(BYTE*, int a2))(v1))((BYTE*)stage, 1);
 			}
+			data->stages[i] = 0;
 		}
 	}
 	if (data->stages) {
@@ -176,6 +177,7 @@ char wal_first_s_update(BYTE* _this) {
 				DWORD v1 = *(DWORD*)stage;
 				(DWORD*)(*(int(__thiscall**)(BYTE*, int a2))(v1))((BYTE*)stage, 1);
 			}
+			data->stages[i] = 0;
 		}
 	}
 	data->year++;
@@ -230,6 +232,8 @@ void wal_first_s_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->rules = 0x28;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
+	comp->ClubCompBackgroundColour = 0;
+	comp->ClubCompForegroundColour = 0;
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 0;
