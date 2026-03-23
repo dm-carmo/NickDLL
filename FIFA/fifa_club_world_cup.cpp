@@ -1004,7 +1004,7 @@ void fifa_club_world_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	fifa_club_world_cup_vtable->SetPointer(VTableSubsRounds, (DWORD)&fifa_club_world_cup_subs_c);
 	fifa_club_world_cup_vtable->SetPointer(VTablePostMatchUpdate, (DWORD)&cwc_money_after_match_c);
 	fifa_club_world_cup_vtable->SetPointer(VTableLeagueSplit, (DWORD)&fifa_club_world_cup_init2_c);
-	data->rules = 0x0;
+	data->rules = RulesInternational;
 	data->f81 = 0xf;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;

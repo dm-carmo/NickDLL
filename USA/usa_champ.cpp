@@ -603,7 +603,7 @@ void usa_champ_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	usa_champ_vtable->SetPointer(VTablePostMatchUpdate, 0x685d30);
 	usa_champ_vtable->SetPointer(VTableAwardTeamsSetup, (DWORD)&usa_d2_awards_teams_c);
 	data->year = year;
-	data->rules = 0x1e;
+	data->rules = RulesUSA;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
 	data->f68 = -1;

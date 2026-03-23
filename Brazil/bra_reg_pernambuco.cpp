@@ -382,7 +382,7 @@ void bra_reg_pernambuco_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->competition_db = comp;
 	data->comp_vtable = bra_reg_pernambuco_vtable;
 	data->year = year;
-	data->rules = 0x7;
+	data->rules = RulesBrazilRegional;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
 	comp->ClubCompBackgroundColour = get_colour(COLOUR_BLUE_1_9CF());

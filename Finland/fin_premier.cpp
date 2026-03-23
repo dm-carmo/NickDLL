@@ -617,7 +617,7 @@ void fin_premier_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->competition_db = comp;
 	data->comp_vtable = fin_premier_vtable;
 	data->year = year;
-	data->rules = 0xa;
+	data->rules = RulesFinlandLeague;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) {
 		if (data->n_rounds != 4) return;

@@ -463,7 +463,7 @@ void spa_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->competition_db = comp;
 	data->comp_vtable = spa_second_vtable;
 	data->year = year;
-	data->rules = 0x1a;
+	data->rules = RulesSpainLeague;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
 	comp->ClubCompBackgroundColour = get_colour(COLOUR_CYAN_1_9CF());

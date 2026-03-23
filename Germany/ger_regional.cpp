@@ -334,7 +334,7 @@ void ger_regional_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->competition_db = comp;
 	data->comp_vtable = ger_regional_vtable;
 	data->year = year;
-	data->rules = 0x0D;
+	data->rules = RulesGermanyLeague;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
 	data->f68 = -1;

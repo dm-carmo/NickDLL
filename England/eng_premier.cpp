@@ -482,7 +482,7 @@ void eng_premier_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->competition_db = comp;
 	data->comp_vtable = eng_premier_vtable;
 	data->year = year;
-	data->rules = 0x9;
+	data->rules = RulesEngland;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
 	comp->ClubCompBackgroundColour = get_colour(COLOUR_PURPLE_2_9CF());

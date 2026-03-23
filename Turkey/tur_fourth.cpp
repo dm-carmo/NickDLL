@@ -569,7 +569,7 @@ void tur_fourth_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	tur_fourth_vtable->SetPointer(VTableUpdateLastDivision, (DWORD)&tur_fourth_last_positions_c);
 	tur_fourth_vtable->SetPointer(VTableStageNews, 0x48c6d0);
 	data->year = year;
-	data->rules = 0x25;
+	data->rules = RulesTurkeyLeague;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
 	data->f68 = -1;

@@ -526,7 +526,7 @@ void kor_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	kor_second_vtable->SetPointer(VTableReputationCalc, (DWORD)&kor_second_reputation_calc_c);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) kor_second_vtable->SetPointer(VTable21, 0x4110b0);
 	data->year = year;
-	data->rules = 0x2a;
+	data->rules = RulesSouthKorea;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
 	data->f68 = -1;

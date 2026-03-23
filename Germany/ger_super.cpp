@@ -46,6 +46,6 @@ void __declspec(naked) ger_super_fixture_caller()
 
 void setup_ger_super()
 {
-	WriteBytes(0x92b525 + 3, 1, 0x0D);
+	WriteBytes(0x92b525 + 3, 1, RulesGermanyCup);
 	WriteVTablePtr(ger_super_vtable, VTableFixtures, (DWORD)&ger_super_fixture_caller);
 }

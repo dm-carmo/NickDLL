@@ -180,7 +180,7 @@ void eng_conf_n_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	eng_conf_n_vtable->SetPointer(VTableReputationCalc, (DWORD)&eng_conf_n_reputation_calc_c);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) eng_conf_n_vtable->SetPointer(VTable21, 0x4110b0);
 	data->year = year;
-	data->rules = 0x9;
+	data->rules = RulesEngland;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
 	comp->ClubCompBackgroundColour = get_colour(COLOUR_GREEN_1_9CF());

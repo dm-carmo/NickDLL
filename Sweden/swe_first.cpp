@@ -310,7 +310,7 @@ void swe_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->competition_db = comp;
 	data->comp_vtable = swe_first_vtable;
 	data->year = year;
-	data->rules = 0x1c;
+	data->rules = RulesSwedenLeague;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
 	data->f68 = -1;

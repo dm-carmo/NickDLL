@@ -247,7 +247,7 @@ void sco_highland_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	sco_highland_vtable->SetPointer(VTableSubsRounds, (DWORD)&sco_highland_subs_c);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) sco_highland_vtable->SetPointer(VTable21, 0x4110b0);
 	data->year = year;
-	data->rules = 0x18;
+	data->rules = RulesScotlandLeague;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
 	comp->ClubCompBackgroundColour = 0;

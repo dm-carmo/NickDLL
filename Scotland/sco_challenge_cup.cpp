@@ -703,7 +703,7 @@ void sco_challenge_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	sco_challenge_cup_vtable->SetPointer(VTableReputationCalc, (DWORD)&sco_challenge_cup_reputation_calc_c);
 	sco_challenge_cup_vtable->SetPointer(VTableSubsRounds, (DWORD)&sco_challenge_cup_subs_c);
 	sco_challenge_cup_vtable->SetPointer(VTableLeagueSplit, 0x6847c0);
-	data->rules = 0x19;
+	data->rules = RulesScotlandCup;
 	data->f81 = 0xc;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;

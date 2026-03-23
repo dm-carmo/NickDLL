@@ -355,7 +355,7 @@ void kor_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->competition_db = comp;
 	data->comp_vtable = kor_first_vtable;
 	data->year = year;
-	data->rules = 0x2a;
+	data->rules = RulesSouthKorea;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) {
 		if (data->n_rounds != 4) return;

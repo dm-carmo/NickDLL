@@ -207,7 +207,7 @@ void eng_league_2_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->year = year;
 	//data->min_stadium_capacity = 4000;
 	//data->min_stadium_seats = 500;
-	data->rules = 0x9;
+	data->rules = RulesEngland;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
 	comp->ClubCompBackgroundColour = get_colour(COLOUR_WHITE_9CF());

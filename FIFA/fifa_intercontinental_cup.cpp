@@ -555,6 +555,17 @@ void fifa_intercontinental_cup_init2(BYTE* _this, DWORD current_date, int a3) {
 				fifa_intercontinental_cup_final_stage_setup(_this);
 			}
 		}
+		// when starting in 2026
+		else if (liber_data->year != data->year) {
+			BYTE* cm_date = new BYTE[8];
+			convert_to_cm_date(cm_date, 1, December, data->year, -1);
+			WORD date_day = *(WORD*)(cm_date);
+			WORD date_year = *(WORD*)(cm_date + 2);
+			if (date_day == *(WORD*)(current_date) && *(WORD*)(current_date + 2) == data->year) {
+				data->current_stage = 0;
+				fifa_intercontinental_cup_final_stage_setup(_this);
+			}
+		}
 	}
 	sub_51F890(_this, current_date, a3);
 }
@@ -598,7 +609,7 @@ void fifa_intercontinental_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp
 	data->f82 = 3;
 	data->max_bench = 9;
 	data->max_subs = 5;
-	data->rules = 0x0;
+	data->rules = RulesInternational;
 	data->f81 = 0xf;
 	*((BYTE*)(_this + 0xB1)) = 0;
 	int loaded = sub_51FC00(_this, 1);

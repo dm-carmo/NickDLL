@@ -468,7 +468,7 @@ void nor_third_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	nor_third_vtable->SetPointer(VTable9, 0x48ceb0);
 	nor_third_vtable->SetPointer(VTable10, 0x48cea0);
 	data->year = year;
-	data->rules = 0x15;
+	data->rules = RulesNorwayLeague;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
 	data->f68 = -1;

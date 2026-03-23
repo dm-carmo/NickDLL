@@ -429,7 +429,7 @@ void nir_premier_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->competition_db = comp;
 	data->comp_vtable = nir_premier_vtable;
 	data->year = year;
-	data->rules = 0x24;
+	data->rules = RulesNorthernIreland;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) {
 		if (data->n_rounds != 4) return;

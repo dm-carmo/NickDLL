@@ -607,7 +607,7 @@ void bra_third_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	bra_third_vtable->SetPointer(VTableReputationCalc, (DWORD)&bra_third_reputation_calc_c);
 	bra_third_vtable->SetPointer(VTable37, 0x68aad0);
 	data->year = year;
-	data->rules = 0x7;
+	data->rules = RulesBrazilNational;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
 	comp->ClubCompBackgroundColour = get_colour(COLOUR_YELLOW_1_9CF());

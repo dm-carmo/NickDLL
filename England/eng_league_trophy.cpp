@@ -708,7 +708,7 @@ void eng_league_trophy_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	eng_league_trophy_vtable->SetPointer(VTableSubsRounds, (DWORD)&eng_league_trophy_subs_c);
 	eng_league_trophy_vtable->SetPointer(VTableLeagueSplit, 0x6847c0);
 	eng_league_trophy_vtable->SetPointer(VTablePostMatchUpdate, (DWORD)&league_trophy_money_after_match_c);
-	data->rules = 0x9;
+	data->rules = RulesEngland;
 	data->f81 = 0xc;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;

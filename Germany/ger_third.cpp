@@ -449,7 +449,7 @@ void ger_third_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	ger_third_vtable->SetPointer(VTableTableFates, (DWORD)&ger_third_set_table_fate);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) ger_third_vtable->SetPointer(VTable21, 0x4110b0);
 	data->year = year;
-	data->rules = 0x0D;
+	data->rules = RulesGermanyLeague;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
 	comp->ClubCompBackgroundColour = get_colour(COLOUR_BLACK_9CF());

@@ -725,7 +725,7 @@ void spa_fourth_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	spa_fourth_vtable->SetPointer(VTableSetChampion, (DWORD)&spa_fourth_set_champion_c);
 	spa_fourth_vtable->SetPointer(VTableStageNews, 0x48c6d0);
 	data->year = year;
-	data->rules = 0x1a;
+	data->rules = RulesSpainLeague;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
 	data->f68 = -1;

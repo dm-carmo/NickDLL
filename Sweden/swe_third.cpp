@@ -680,7 +680,7 @@ void swe_third_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	swe_third_vtable->SetPointer(VTable9, 0x48ceb0);
 	swe_third_vtable->SetPointer(VTable10, 0x48cea0);
 	data->year = year;
-	data->rules = 0x1c;
+	data->rules = RulesSwedenLeague;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
 	data->f68 = -1;
