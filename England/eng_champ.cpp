@@ -298,14 +298,23 @@ DWORD eng_champ_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		tv_id = 0;
 		AddFixture(pMem, fixture_id, Date(year + 1, 4, 22), year, Wednesday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Tuesday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Thursday, Evening);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
-		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year + 1, 4, 25), year, Saturday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Monday, Evening);
-		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		easter_test = Date(year + 1, 4, 25);
+		diff = abs(easter_test.DayOfYear() - easter_day.DayOfYear());
+		if (diff < 4) {
+			easter_test.addDays(-1);
+			AddFixtureNoTV(pMem, fixture_id++, easter_test, year, Friday, Evening);
+			easter_test.addDays(3);
+			AddFixtureNoTV(pMem, fixture_id++, easter_test, year, Monday, Evening);
+		}
+		else {
+			tv_id = 0;
+			AddFixture(pMem, fixture_id, easter_test, year, Saturday);
+			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
+			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
+			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Monday, Evening);
+			AddFixtureTV(pMem, fixture_id++, tv_id++);
+		}
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 5, 2), year, Saturday);
 
 		check_number_of_fixtures(_this, fixture_id, *num_rounds);

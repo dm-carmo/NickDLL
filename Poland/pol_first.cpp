@@ -553,14 +553,14 @@ void __declspec(naked) pol_first_fixtures_c()
 void pol_first_points_deductions(BYTE* _this, WORD current_year)
 {
 	if (current_year > 2025) return;
-	cm3_clubs* sheff_wed = find_club("Lechia Gdansk");
-	if (sheff_wed) {
+	cm3_clubs* lechia = find_club("Lechia Gdansk");
+	if (lechia) {
 		comp_stats* data = (comp_stats*)_this;
 		WORD total_teams = data->n_teams;
 		team_league_stats* table_teams = (team_league_stats*)(data->team_league_table);
 		for (int i = 0; i < total_teams; i++) {
 			team_league_stats* tls = &table_teams[i];
-			if (tls->club == sheff_wed) {
+			if (tls->club == lechia) {
 				tls->points = -5;
 				tls->points_away = -5;
 				return;

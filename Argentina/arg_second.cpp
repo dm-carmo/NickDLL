@@ -345,6 +345,7 @@ void arg_second_setup_groups(BYTE* _this, BYTE idx) {
 	*((DWORD*)(&stages_arr[idx])) = (DWORD)pStage;
 	sub_9452CA_free(pTeams);
 	sub_9452CA_free(pFixtures);
+	SetupTVMoney(pStage, 150000, 0);
 	data->current_stage = idx;
 }
 
@@ -416,6 +417,7 @@ int arg_second_add_teams(BYTE* _this)
 		cm3_clubs* club = (cm3_clubs*)(comp_data->teams2[i]);
 		add_team_call(_this, teamsAdded++, club, 0, 0);
 	}
+	SetupTVMoney(_this, 150000, 0);
 	return 1;
 }
 

@@ -777,10 +777,10 @@ void ita_ser_c_points_deductions(BYTE* _this, WORD current_year)
 		{find_club("US Triestina"), -23},
 		{find_club("Campobasso FC"), -2},
 		{find_club("Ternana Calcio"), -5},
-		{find_club("FC Trapani 1905"), -15}
+		{find_club("FC Trapani 1905"), -20},
+		{find_club("Siracusa Calcio"), -6},
 	};
 	comp_stats* data = (comp_stats*)_this;
-
 
 	comp_stats* curr_stage = data;
 	vector<cm3_clubs*> clubs;

@@ -487,6 +487,39 @@ void __declspec(naked) fin_second_set_table_fate()
 	}
 }
 
+void fin_second_points_deductions(BYTE* _this, WORD current_year)
+{
+	if (current_year > 2025) return;
+	cm3_clubs* atlantis = find_club("Atlantis FC");
+	if (atlantis) {
+		comp_stats* data = (comp_stats*)_this;
+		WORD total_teams = data->n_teams;
+		team_league_stats* table_teams = (team_league_stats*)(data->team_league_table);
+		for (int i = 0; i < total_teams; i++) {
+			team_league_stats* tls = &table_teams[i];
+			if (tls->club == atlantis) {
+				tls->points = -2;
+				tls->points_away = -2;
+				break;
+			}
+		}
+	}
+	cm3_clubs* jazz = find_club("FC Jazz");
+	if (jazz) {
+		comp_stats* data = (comp_stats*)_this;
+		WORD total_teams = data->n_teams;
+		team_league_stats* table_teams = (team_league_stats*)(data->team_league_table);
+		for (int i = 0; i < total_teams; i++) {
+			team_league_stats* tls = &table_teams[i];
+			if (tls->club == jazz) {
+				tls->points = -3;
+				tls->points_away = -3;
+				break;
+			}
+		}
+	}
+}
+
 void fin_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 {
 	sub_682200(_this);
@@ -526,6 +559,7 @@ void fin_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->f8 = (DWORD*)pMem2;
 	block_reserve_promotion_fin_second(_this);
 	reputation_setup_generic_68A850(_this);
+	fin_second_points_deductions(_this, year);
 }
 
 void setup_fin_second()

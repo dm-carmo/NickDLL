@@ -684,6 +684,9 @@
     <ClCompile Include="Argentina\arg_second.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Argentina\arg_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -1365,6 +1368,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Argentina\arg_second.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Argentina\arg_cup.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -214,6 +214,25 @@ void __declspec(naked) nir_second_subs_c()
 	}
 }
 
+void nir_second_points_deductions(BYTE* _this, WORD current_year)
+{
+	if (current_year > 2025) return;
+	cm3_clubs* banbridge = find_club("Banbridge Town FC");
+	if (banbridge) {
+		comp_stats* data = (comp_stats*)_this;
+		WORD total_teams = data->n_teams;
+		team_league_stats* table_teams = (team_league_stats*)(data->team_league_table);
+		for (int i = 0; i < total_teams; i++) {
+			team_league_stats* tls = &table_teams[i];
+			if (tls->club == banbridge) {
+				tls->points = -12;
+				tls->points_away = -12;
+				break;
+			}
+		}
+	}
+}
+
 void nir_second_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	sub_682200(_this);
 	comp_stats* data = (comp_stats*)_this;
@@ -243,6 +262,7 @@ void nir_second_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
 	reputation_setup_generic_68A850(_this);
+	nir_second_points_deductions(_this, year);
 }
 
 void setup_nir_second() {

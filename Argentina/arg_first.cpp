@@ -33,7 +33,7 @@ int arg_first_set_champion(BYTE* _this) {
 	DWORD v1 = *(DWORD*)stage_data_for_history;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x30))(stage_data_for_history);
 
-	stage_data_for_history = (BYTE*)data->stages[1];
+	stage_data_for_history = (BYTE*)data->stages[3];
 	v1 = *(DWORD*)stage_data_for_history;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x30))(stage_data_for_history);
 
@@ -58,7 +58,7 @@ int arg_first_last_positions(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	vector<cm3_clubs*> clubs;
 
-	comp_stats* open_playoff = (comp_stats*)data->stages[1];
+	comp_stats* open_playoff = (comp_stats*)data->stages[3];
 	teams_seeded* open_teams = (teams_seeded*)open_playoff->teams_list;
 	for (WORD i = 0; i < open_playoff->n_teams; i++) {
 		if (open_teams[i].f6 == 1 && !vector_contains_club(clubs, open_teams[i].club))
@@ -245,7 +245,7 @@ void arg_first_setup_groups_close(BYTE* _this, BYTE idx) {
 	DWORD* all_teams = data->teams2;
 	for (DWORD i = 0; i < n_teams; i++)
 	{
-		cm3_clubs* club = (cm3_clubs*)all_teams[n_teams * (idx - 2) + i];
+		cm3_clubs* club = (cm3_clubs*)all_teams[n_teams * (idx - 1) + i];
 		*((DWORD*)(&pTeams[i])) = (DWORD)club;
 	}
 	WORD year = data->year;
@@ -321,7 +321,7 @@ void __declspec(naked) arg_first_prom_rel_update_c()
 }
 
 void arg_first_open_playoff(BYTE* _this) {
-	char stage_num = 1;
+	char stage_num = 3;
 	comp_stats* comp_data = (comp_stats*)_this;
 	BYTE playoff_teams = 16;
 	WORD total_teams = comp_data->n_teams;
@@ -440,9 +440,8 @@ char arg_first_update(BYTE* _this) {
 	data->current_stage = -1;
 	arg_first_subs(_this);
 	arg_first_add_teams(_this);
-	data->prize_money_pool = SetupPrizeMoney(_this, 10796);
-	data->f225 = 1;
-	SetupTVMoney(_this, 25911, 0);
+	SetupTVMoney(_this, 800000, get_comp(ARG_FIRST_9CF()));
+	SetupTVMoney(_this, 650000, get_comp(ARG_SECOND_9CF()));
 	BYTE* edx = 0;
 	sub_6827D0(_this, edx);
 	sub_6835C0(_this);
@@ -451,11 +450,11 @@ char arg_first_update(BYTE* _this) {
 	}
 	DWORD v1 = *(DWORD*)_this;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
-	arg_first_open_playoff(_this);
 	arg_first_add_teams_close(_this);
-	for (BYTE i = 2; i < 4; i++) {
+	for (BYTE i = 1; i < 3; i++) {
 		arg_first_setup_groups_close(_this, i);
 	}
+	arg_first_open_playoff(_this);
 	arg_first_close_playoff(_this);
 	arg_first_league_table(_this);
 
@@ -536,8 +535,8 @@ int arg_first_vtable2(BYTE* _this, BYTE* round_data, int a3) {
 	comp_stats* comp_data = (comp_stats*)_this;
 	sub_685D30(_this, round_data, a3);
 
-	BYTE curr_stage = *(BYTE*)(round_data + 0x42);
-	if (curr_stage == 0 || curr_stage == 0xff || curr_stage == 3 || curr_stage == 2)
+	char curr_stage = *(char*)(round_data + 0x42);
+	if (curr_stage < 3)
 	{
 		DWORD* f8 = comp_data->f8;
 		comp_data->f8 = 0;
@@ -653,43 +652,14 @@ DWORD arg_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 
 		return (DWORD)pMem;
 	}
-	else if (stage_idx == 1) {
-		if (a5)
-			*a5 = 0;
-		BYTE* pMem = NULL;
-		WORD year = ((comp_stats*)_this)->year;
-		*num_rounds = 4;
-		*stage_name_id = OpeningStage;
-
-		pMem = (BYTE*)sub_944E46_malloc(playoff_dates_sz * (*num_rounds));
-
-		int fixture_id = 0;
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 5, 4), year, Sunday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 5, 10), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, EleventhRound, 0, FixedTeamOrderInCup + PenaltiesNoExtraTime_1, NoTiebreaker, 5, 16, 8, 16, 0, 0, 1, 0);
-
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 5, 11), year, Sunday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 5, 17), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup + PenaltiesNoExtraTime_1, NoTiebreaker, 5, 8, 4, 0, 0, 0, 1, 0);
-
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 5, 18), year, Sunday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 5, 24), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + PenaltiesNoExtraTime_1, NoTiebreaker, 5, 4, 2, 0, 0, 0, 1, 0);
-
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 5, 25), year, Sunday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 6, 1), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, PenaltiesNoExtraTime_1, NoTiebreaker, 5, 2, 1, 0, 0, 0, 1, 0);
-
-		return (DWORD)pMem;
-	}
-	else if (stage_idx < 4) {
+	else if (stage_idx < 3) {
 		if (a5)
 			*a5 = 1;
 		BYTE* pMem = NULL;
 		comp_stats* data = (comp_stats*)_this;
 		WORD year = data->year;
 		*num_rounds = 15;
-		*stage_name_id = Phase2GroupAtoD + stage_idx - 2;
+		*stage_name_id = Phase2GroupAtoD + stage_idx - 1;
 
 		pMem = (BYTE*)sub_944E46_malloc(fixture_dates_sz * (*num_rounds));
 
@@ -770,6 +740,35 @@ DWORD arg_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 
 		return (DWORD)pMem;
 	}
+	else if (stage_idx == 3) {
+		if (a5)
+			*a5 = 0;
+		BYTE* pMem = NULL;
+		WORD year = ((comp_stats*)_this)->year;
+		*num_rounds = 4;
+		*stage_name_id = OpeningStage;
+
+		pMem = (BYTE*)sub_944E46_malloc(playoff_dates_sz * (*num_rounds));
+
+		int fixture_id = 0;
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 5, 4), year, Sunday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 5, 10), year, Saturday);
+		FillFixtureDetails(pMem, fixture_id++, EleventhRound, 0, FixedTeamOrderInCup + PenaltiesNoExtraTime_1, NoTiebreaker, 5, 16, 8, 16, 0, 0, 1, 0);
+
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 5, 11), year, Sunday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 5, 17), year, Saturday);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup + PenaltiesNoExtraTime_1, NoTiebreaker, 5, 8, 4, 0, 0, 0, 1, 0);
+
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 5, 18), year, Sunday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 5, 24), year, Saturday);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + PenaltiesNoExtraTime_1, NoTiebreaker, 5, 4, 2, 0, 0, 0, 1, 0);
+
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 5, 25), year, Sunday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 6, 1), year, Saturday);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, PenaltiesNoExtraTime_1, NoTiebreaker, 5, 2, 1, 0, 0, 0, 1, 0, 0, 373776, 0);
+
+		return (DWORD)pMem;
+	}
 	else if (stage_idx == 4) {
 		if (a5)
 			*a5 = 0;
@@ -795,7 +794,7 @@ DWORD arg_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 7), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 13), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, PenaltiesNoExtraTime_1, NoTiebreaker, 5, 2, 1, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, PenaltiesNoExtraTime_1, NoTiebreaker, 5, 2, 1, 0, 0, 0, 1, 0, 0, 373776, 0);
 
 		return (DWORD)pMem;
 	}
@@ -871,9 +870,8 @@ void arg_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
 	arg_first_subs(_this);
 	arg_first_add_teams(_this);
-	data->prize_money_pool = SetupPrizeMoney(_this, 10796);
-	data->f225 = 1;
-	SetupTVMoney(_this, 25911, 0);
+	SetupTVMoney(_this, 800000, get_comp(ARG_FIRST_9CF()));
+	SetupTVMoney(_this, 650000, get_comp(ARG_SECOND_9CF()));
 	BYTE* ebx = 0;
 	sub_6827D0(_this, ebx);
 	BYTE* pMem2 = (BYTE*)sub_944CF1_operator_new(0x5CE);
@@ -886,17 +884,17 @@ void arg_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 		arg_first_setup_groups_open(_this, i);
 	}
 	arg_first_reputation_setup(_this);
-	arg_first_open_playoff(_this);
 	arg_first_add_teams_close(_this);
-	for (BYTE i = 2; i < 4; i++) {
+	for (BYTE i = 1; i < 3; i++) {
 		arg_first_setup_groups_close(_this, i);
 	}
+	arg_first_open_playoff(_this);
 	arg_first_close_playoff(_this);
 	arg_first_league_table(_this);
 }
 
 void arg_first_open_playoff_teams(BYTE* _this) {
-	char stage_num = 1;
+	char stage_num = 3;
 	comp_stats* comp_data = (comp_stats*)_this;
 	comp_stats* playoff = (comp_stats*)comp_data->stages[stage_num];
 	teams_seeded* teams = (teams_seeded*)playoff->teams_list;
@@ -904,7 +902,7 @@ void arg_first_open_playoff_teams(BYTE* _this) {
 
 	vector<cm3_clubs*> clubs;
 	comp_stats* curr_stage = comp_data;
-	for (char al = stage_num - 2; al < stage_num; al++) {
+	for (char al = -1; al < 1; al++) {
 		if (al >= 0) {
 			curr_stage = (comp_stats*)(comp_data->stages[al]);
 		}
@@ -933,7 +931,7 @@ void arg_first_close_playoff_teams(BYTE* _this) {
 
 	vector<cm3_clubs*> clubs;
 	comp_stats* curr_stage = comp_data;
-	for (char al = stage_num - 2; al < stage_num; al++) {
+	for (char al = 1; al < 3; al++) {
 		if (al >= 0) {
 			curr_stage = (comp_stats*)(comp_data->stages[al]);
 		}
@@ -977,7 +975,28 @@ int arg_first_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char sta
 			return 0;
 		}
 	}
-	else if (stage == 1) {
+	else if (stage < 3) {
+		switch (fate) {
+		case Champions:
+			staff_history_champion_868C50(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));
+			return 0;
+		case Promoted:
+			staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), 0x64);
+			return 0;
+		case TopPlayoff:
+			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), ClosingStage, EleventhRound, 0x1E);
+			return 0;
+		case BottomPlayoff:
+			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, RelegationPlayoff, 0x1E);
+			return 0;
+		case Relegated:
+			staff_history_relegated_86A1C0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));
+			return 0;
+		default:
+			return 0;
+		}
+	}
+	else if (stage == 3) {
 		WORD num_teams = comp_data->n_teams;
 		if (num_teams <= 0) return 0;
 		BYTE* rounds = ((comp_stats*)(comp_data->stages[stage]))->rounds_list;
@@ -1013,34 +1032,13 @@ int arg_first_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char sta
 			}
 		}
 	}
-	if (stage < 4) {
-		switch (fate) {
-		case Champions:
-			staff_history_champion_868C50(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));
-			return 0;
-		case Promoted:
-			staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), 0x64);
-			return 0;
-		case TopPlayoff:
-			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), ClosingStage, EleventhRound, 0x1E);
-			return 0;
-		case BottomPlayoff:
-			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, RelegationPlayoff, 0x1E);
-			return 0;
-		case Relegated:
-			staff_history_relegated_86A1C0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));
-			return 0;
-		default:
-			return 0;
-		}
-	}
 	else if (stage == 4) {
 		WORD num_teams = comp_data->n_teams;
 		if (num_teams <= 0) return 0;
 		BYTE* rounds = ((comp_stats*)(comp_data->stages[stage]))->rounds_list;
 		WORD current_round = *(WORD*)(round_data + 0x34);
 		comp_stats* curr_stage = comp_data;
-		for (char al = 2; al < 4; al++) {
+		for (char al = 1; al < 3; al++) {
 			if (al >= 0) {
 				curr_stage = (comp_stats*)(comp_data->stages[al]);
 			}
@@ -1098,7 +1096,7 @@ void arg_first_reputation_calc(BYTE* _this, BYTE* club, char stage, char current
 	char ret_current = current;
 	char ret_min = min;
 	char ret_max = max;
-	if (stage < 1 || stage == 2 || stage == 3) {
+	if (stage < 3) {
 		ret_current = 1 + 2 * (current - 1);
 		if (min < 9) ret_min = 1;
 		else ret_min = 1 + 2 * (min - 1);
@@ -1131,7 +1129,7 @@ void __declspec(naked) arg_first_reputation_calc_c()
 char arg_first_table_split(BYTE* _this, DWORD current_date, int a2) {
 	if (a2) {
 		comp_stats* comp_data = (comp_stats*)_this;
-		comp_stats* open_playoff = (comp_stats*)comp_data->stages[1];
+		comp_stats* open_playoff = (comp_stats*)comp_data->stages[3];
 		teams_seeded* open_teams = (teams_seeded*)open_playoff->teams_list;
 		if (!open_teams[0].club) {
 			comp_stats* curr_stage = comp_data;
@@ -1159,7 +1157,7 @@ char arg_first_table_split(BYTE* _this, DWORD current_date, int a2) {
 		if (!close_teams[0].club) {
 			comp_stats* curr_stage = comp_data;
 			bool is_finished = true;
-			for (char al = 2; al < 4; al++) {
+			for (char al = 1; al < 3; al++) {
 				if (al >= 0) {
 					curr_stage = (comp_stats*)(comp_data->stages[al]);
 				}
