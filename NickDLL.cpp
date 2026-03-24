@@ -95,6 +95,11 @@ void Setup()
 
 	configFile.LoadConfig("NickDLL_config.json");
 
+	if (configFile.GetBool("applyArgentina", true)) {
+		dprintf("Applying Argentina changes\n");
+		setup_arg_nation();
+	}
+
 	if (configFile.GetBool("applyAustralia", true)) {
 		dprintf("Applying Australia changes\n");
 		setup_aus_nation();

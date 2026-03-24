@@ -131,7 +131,7 @@ DWORD uefa_conference_league_fixtures(BYTE* _this, char stage_idx, WORD* num_rou
 		BYTE* pMem = NULL;
 		WORD year = ((comp_stats*)_this)->year;
 		*num_rounds = 3;
-		*stage_name_id = Phase1;
+		*stage_name_id = EastQuarterFinal; // Champions Path
 
 		pMem = (BYTE*)sub_944E46_malloc(playoff_dates_sz * (*num_rounds));
 

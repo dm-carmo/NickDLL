@@ -683,14 +683,14 @@ typedef struct COMP_STATS
 	DWORD* stages;									//12
 	DWORD f16;										//16
 	DWORD* special_teams_seedings;					//20
-	DWORD f24;										//24
+	DWORD* avg_points_table;						//24
 	long promotes_to;								//28
 	long relegates_to;								//32
 	long f36;										//36
 	long prize_money_pool;							//40
 	long num_stages;								//44
 	long current_stage;								//48
-	WORD f52;										//52
+	WORD n_teams_avg_table;							//52
 	WORD special_nteams_seedings;					//54
 	WORD f56;										//56
 	WORD n_games;									//58
@@ -705,7 +705,7 @@ typedef struct COMP_STATS
 	char max_subs;									//74
 	char f75;										//75
 	DWORD* f76;										//76
-	char rules;										//80
+	CompetitionRules rules;							//80
 	char f81;										//81
 	char f82;										//82
 	char tmp_file_name[80];							//83
@@ -788,6 +788,21 @@ typedef struct TEAM_LEAGUE_STATS
 	char highest_possible_pos;	// 57
 	char lowest_possible_pos;	// 58
 } team_league_stats;
+#pragma pack(pop)
+
+#pragma pack(push, 1)
+typedef struct AVG_POINTS_STATS
+{
+	CM3_CLUBS* club;
+	DWORD f4;
+	WORD year;
+	WORD pts1;
+	BYTE games1;
+	WORD pts2;
+	BYTE games2;
+	WORD pts3;
+	BYTE games3;
+} avg_points_stats;
 #pragma pack(pop)
 
 #pragma pack(push, 1)

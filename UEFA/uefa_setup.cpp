@@ -98,12 +98,12 @@ void setup_uefa_continent() {
 
 	char* champions_path = "Champions Path";
 	char* champions_path_short = "C.Path";
-	WriteDWORD(0x4B646C + 1, (DWORD)&champions_path[0]);
-	WriteDWORD(0x4B8F59 + 1, (DWORD)&champions_path_short[0]);
+	WriteDWORD(0x4B6903+ 1, (DWORD)&champions_path[0]);
+	WriteDWORD(0x4B8489+ 1, (DWORD)&champions_path_short[0]);
 	char* league_path = "League Path";
 	char* league_path_short = "L.Path";
-	WriteDWORD(0x4B6486 + 1, (DWORD)&league_path[0]);
-	WriteDWORD(0x4B8F73 + 1, (DWORD)&league_path_short[0]);
+	WriteDWORD(0x4B691D+ 1, (DWORD)&league_path[0]);
+	WriteDWORD(0x4B84A3+ 1, (DWORD)&league_path_short[0]);
 	char* main_path = "Main Path";
 	char* main_path_short = "M.Path";
 	WriteDWORD(0x4B6298 + 1, (DWORD)&main_path[0]);

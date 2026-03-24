@@ -131,7 +131,7 @@ DWORD uefa_europa_league_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds,
 		BYTE* pMem = NULL;
 		WORD year = ((comp_stats*)_this)->year;
 		*num_rounds = 1;
-		*stage_name_id = Phase1;
+		*stage_name_id = EastQuarterFinal; // Champions Path
 
 		pMem = (BYTE*)sub_944E46_malloc(playoff_dates_sz * (*num_rounds));
 
@@ -1045,7 +1045,7 @@ int uefa_europa_league_set_fates(BYTE* _this, cm3_clubs* club, char fate, char s
 				teams[insert_idx].f5 = 2;
 				teams[insert_idx].f6 = 0;
 
-				staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(uecl_data->competition_db), Phase1,
+				staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(uecl_data->competition_db), EastQuarterFinal,
 					*(WORD*)(rounds + playoff_dates_sz * (current_round + 1) + 7), 0x1E);
 				(*(int(__thiscall**)(BYTE*))(v3 + 0x5C))(uecl_bytes);
 			}
@@ -1097,7 +1097,7 @@ int uefa_europa_league_set_fates(BYTE* _this, cm3_clubs* club, char fate, char s
 				teams[insert_idx].f5 = 2;
 				teams[insert_idx].f6 = 0;
 
-				staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(uecl_data->competition_db), Phase1, Playoff, 0x1E);
+				staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(uecl_data->competition_db), EastQuarterFinal, Playoff, 0x1E);
 				(*(int(__thiscall**)(BYTE*))(v3 + 0x5C))(uecl_bytes);
 			}
 			else club->ClubEuroFlag = -1;
@@ -1398,7 +1398,7 @@ static void(__thiscall* sub_48CAB0)(BYTE* _this, char* a1, int a2, __int16 a3, _
 (void(__thiscall*)(BYTE * _this, char* a1, int a2, __int16 a3, __int16 a4, char a5, int a6))(0x48CAB0);
 void uel_48CAB0(BYTE* _this, char* a1, int a2, __int16 a3, __int16 a4, char a5, int a6) {
 	// Shows the right text in club's Competitions history if they win in the Champions Third Qualifying Round then lose in the Playoff
-	if (a3 == Phase1 && a4 == ThirdQualifyingPhase && a5 == 1)
+	if (a3 == EastQuarterFinal && a4 == ThirdQualifyingPhase && a5 == 1)
 		sub_48CAB0(_this, a1, a2, MetropolitanZone, Playoff, 2, a6);
 	else sub_48CAB0(_this, a1, a2, a3, a4, a5, a6);
 }

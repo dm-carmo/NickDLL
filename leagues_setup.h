@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Argentina\arg_setup.h"
 #include "Australia\aus_setup.h"
 #include "Brazil\bra_setup.h"
 #include "Croatia\cro_setup.h"

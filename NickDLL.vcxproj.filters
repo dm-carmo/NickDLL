@@ -675,6 +675,15 @@
     <ClCompile Include="Turkey\tur_super.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Argentina\arg_setup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Argentina\arg_first.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Argentina\arg_second.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -1347,6 +1356,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Turkey\tur_super.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Argentina\arg_setup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Argentina\arg_first.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Argentina\arg_second.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -102,7 +102,7 @@ DWORD uefa_champions_league_fixtures(BYTE* _this, char stage_idx, WORD* num_roun
 		BYTE* pMem = NULL;
 		WORD year = ((comp_stats*)_this)->year;
 		*num_rounds = 4;
-		*stage_name_id = Phase1;
+		*stage_name_id = EastQuarterFinal; // Champions Path
 
 		pMem = (BYTE*)sub_944E46_malloc(playoff_dates_sz * (*num_rounds));
 
@@ -131,7 +131,7 @@ DWORD uefa_champions_league_fixtures(BYTE* _this, char stage_idx, WORD* num_roun
 		BYTE* pMem = NULL;
 		WORD year = ((comp_stats*)_this)->year;
 		*num_rounds = 3;
-		*stage_name_id = Phase2;
+		*stage_name_id = WestQuarterFinal; // League Path
 
 		pMem = (BYTE*)sub_944E46_malloc(playoff_dates_sz * (*num_rounds));
 
@@ -1059,7 +1059,7 @@ int uefa_champions_league_set_fates(BYTE* _this, cm3_clubs* club, char fate, cha
 				teams[insert_idx].f5 = 2;
 				teams[insert_idx].f6 = 0;
 
-				staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(uel_data->competition_db), Phase1, ThirdQualifyingPhase, 0x1E);
+				staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(uel_data->competition_db), EastQuarterFinal, ThirdQualifyingPhase, 0x1E);
 				(*(int(__thiscall**)(BYTE*))(v2 + 0x5C))(uel_bytes);
 			}
 			// Playoff (all) to Europa League groups (handled in Europa League)
@@ -1098,7 +1098,7 @@ int uefa_champions_league_set_fates(BYTE* _this, cm3_clubs* club, char fate, cha
 				teams[insert_idx].f5 = 2;
 				teams[insert_idx].f6 = 0;
 
-				staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(uecl_data->competition_db), Phase1, SecondQualifyingPhase, 0x1E);
+				staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(uecl_data->competition_db), EastQuarterFinal, SecondQualifyingPhase, 0x1E);
 				(*(int(__thiscall**)(BYTE*))(v3 + 0x5C))(uecl_bytes);
 			}
 			else club->ClubEuroFlag = -1;

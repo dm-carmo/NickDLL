@@ -160,12 +160,25 @@ int replacement_667150() {
 
 	cm_date = new BYTE[8];
 	pnd_list[idx].nation = get_country(NATION_ARGENTINA_9CF());
-	pnd_list[idx].setup_function_addr = 0x832100;
-	convert_to_cm_date(pnd_list[idx].start_date, 9, August, *current_year, -1);
-	convert_to_cm_date(pnd_list[idx].end_date, 19, July, *current_year, -1);
-	pnd_list[idx].updates_in_june = 1;
-	convert_to_cm_date(cm_date, 1, August, 2025, -1);
-	pnd_list[idx].update_day = *(WORD*)(cm_date);
+	if (configFile.GetBool("applyArgentina", true))
+	{
+		pnd_list[idx].setup_function_addr = (DWORD)&arg_setup_c;
+		convert_to_cm_date(pnd_list[idx].start_date, 1, February, *current_year + 1, -1);
+		convert_to_cm_date(pnd_list[idx].end_date, 17, December, *current_year + 1, -1);
+		convert_to_cm_date(cm_date, 1, January, 2025, -1);
+		pnd_list[idx].update_day = *(WORD*)(cm_date);
+		pnd_list[idx].main_cup = get_comp(ARG_CUP_9CF());
+		pnd_list[idx].updates_in_june = 0;
+	}
+	else
+	{
+		pnd_list[idx].setup_function_addr = 0x832100;
+		convert_to_cm_date(pnd_list[idx].start_date, 9, August, *current_year, -1);
+		convert_to_cm_date(pnd_list[idx].end_date, 19, July, *current_year, -1);
+		convert_to_cm_date(cm_date, 1, August, 2025, -1);
+		pnd_list[idx].update_day = *(WORD*)(cm_date);
+		pnd_list[idx].updates_in_june = 1;
+	}
 	idx++;
 
 	cm_date = new BYTE[8];
@@ -787,6 +800,7 @@ vector<DWORD> pnd_countminus2_dword = {
 
 void league_restructure_init()
 {
+	if (configFile.GetBool("applyArgentina", true)) argentina_restructure();
 	if (configFile.GetBool("applyAustralia", true)) australia_restructure();
 	if (configFile.GetBool("applyBrazil", true)) brazil_restructure();
 	if (configFile.GetBool("applyCroatia", true)) croatia_restructure();
