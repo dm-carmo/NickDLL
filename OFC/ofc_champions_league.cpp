@@ -164,12 +164,13 @@ void ofc_cl_team_selection() {
 
 	vector<cm3_nations*> ofc_nations = get_countries_of_continent(OCEANIA_9CF());
 	for (cm3_nations* ofc_nation : ofc_nations) {
-		bool in_prelim = find(ofc_worst.begin(), ofc_worst.end(), ofc_nation->NationName) != ofc_worst.end();
+		bool in_prelim = find(ofc_worst.begin(), ofc_worst.end(), get_db_nation_name(ofc_nation)) != ofc_worst.end();
 		BYTE j = 0;
 		if (filesystem::exists("Data/ofc.cfg") && *current_year == (WORD)2025) {
 			ifstream in("Data/ofc.cfg", ios_base::in);
 			string name;
 			char nation[LONG_TXT_LENGTH];
+			cm3_nations* nation_ptr;
 			int required = -1;
 			while (std::getline(in, name))
 			{
@@ -179,7 +180,8 @@ void ofc_cl_team_selection() {
 				}
 				if (name[0] == '*') {
 					strcpy_s(nation, name.substr(1).c_str());
-					if (_strcmpi(nation, ofc_nation->NationName) == 0)
+					nation_ptr = find_country(nation);
+					if (ofc_nation == nation_ptr)
 					{
 						required = 1;
 						//dprintf("[CL] Getting clubs from ofc.cfg: %s - max %d\n", nation, required);
@@ -189,7 +191,7 @@ void ofc_cl_team_selection() {
 					}
 					continue;
 				}
-				if (_strcmpi(nation, ofc_nation->NationName) != 0) continue;
+				if (ofc_nation != nation_ptr) continue;
 				if (j >= required) continue;
 				cm3_clubs* ofc_club = find_club(name.c_str());
 				if (!ofc_club || !ofc_club->ClubNation || ofc_club->ClubNation != ofc_nation) {

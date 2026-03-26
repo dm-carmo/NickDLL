@@ -94,7 +94,7 @@ void setup_ger_nation()
 void germany_restructure() {
 	cm3_club_comps* ger_regional = get_comp(GER_REGIONAL_9CF());
 	ger_regional->ClubCompNation = get_country(NATION_GERMANY_9CF());
-	ger_regional->ClubCompContinent = find_continent("Europe");
+	ger_regional->ClubCompContinent = get_continent(EUROPE_9CF());
 	ger_regional->ClubCompReputation = 4;
 
 	cm3_club_comps* ger_third = get_comp(GER_THIRD_9CF());
@@ -104,7 +104,7 @@ void germany_restructure() {
 	cm3_club_comps* ger_reg_sw = get_comp(GER_REGIONAL_SOUTHWEST_9CF());
 	cm3_club_comps* ger_reg_bayern = get_comp(GER_REGIONAL_BAYERN_9CF());
 	ger_reg_bayern->ClubCompNation = get_country(NATION_GERMANY_9CF());
-	ger_reg_bayern->ClubCompContinent = find_continent("Europe");
+	ger_reg_bayern->ClubCompContinent = get_continent(EUROPE_9CF());
 	ger_reg_bayern->ClubCompReputation = 4;
 	cm3_club_comps* a_lower = get_comp(A_LOWER_9CF());
 

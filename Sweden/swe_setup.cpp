@@ -99,7 +99,7 @@ void sweden_restructure() {
 	swe_third_n->ClubCompReputation = 2;
 	cm3_club_comps* swe_third_sg = get_comp(SWE_THIRD_SOUTH_GOTALAND_9CF());
 	swe_third_sg->ClubCompNation = sweden;
-	swe_third_sg->ClubCompContinent = find_continent("Europe");
+	swe_third_sg->ClubCompContinent = get_continent(EUROPE_9CF());
 	swe_third_sg->ClubCompReputation = 2;
 	cm3_club_comps* swe_third_ss = get_comp(SWE_THIRD_SOUTH_SVEALAND_9CF());
 	swe_third_ss->ClubCompReputation = 2;

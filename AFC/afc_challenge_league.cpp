@@ -911,7 +911,7 @@ void afc_challenge_league_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	*((BYTE*)(_this + 0xB1)) = 0;
 	int loaded = sub_51FC00(_this, 1);
 	if (loaded) return;
-	comp->ClubCompContinent = find_continent("Asia");
+	comp->ClubCompContinent = get_continent(ASIA_9CF());
 	comp->ClubCompBackgroundColour = get_colour(COLOUR_PURPLE_3_9CF());
 	comp->ClubCompForegroundColour = get_colour(COLOUR_ORANGE_1_9CF());
 	afc_challenge_league_all_teams(_this);

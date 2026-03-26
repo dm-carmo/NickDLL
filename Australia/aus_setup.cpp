@@ -71,6 +71,6 @@ void australia_restructure() {
 
 	cm3_club_comps* aus_cup = get_comp(AUS_CUP_9CF());
 	aus_cup->ClubCompNation = get_country(NATION_AUSTRALIA_9CF());
-	aus_cup->ClubCompContinent = find_continent("Asia");
+	aus_cup->ClubCompContinent = get_continent(ASIA_9CF());
 	aus_cup->ClubCompReputation = 6;
 }

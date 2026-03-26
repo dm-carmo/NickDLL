@@ -103,11 +103,11 @@ void setup_sco_nation() {
 void scotland_restructure() {
 	cm3_club_comps* sco_highland = get_comp(SCO_HIGHLAND_9CF());
 	sco_highland->ClubCompNation = get_country(NATION_SCOTLAND_9CF());
-	sco_highland->ClubCompContinent = find_continent("Europe");
+	sco_highland->ClubCompContinent = get_continent(EUROPE_9CF());
 	sco_highland->ClubCompReputation = 1;
 	cm3_club_comps* sco_lowland = get_comp(SCO_LOWLAND_9CF());
 	sco_lowland->ClubCompNation = get_country(NATION_SCOTLAND_9CF());
-	sco_lowland->ClubCompContinent = find_continent("Europe");
+	sco_lowland->ClubCompContinent = get_continent(EUROPE_9CF());
 	sco_lowland->ClubCompReputation = 1;
 	cm3_club_comps* a_lower = get_comp(A_LOWER_9CF());
 

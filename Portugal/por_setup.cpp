@@ -98,7 +98,7 @@ void portugal_restructure() {
 	cm3_staff_comps* data = &(*awards)[POR_THIRD_MANAGER_OF_YEAR_9CF()];
 	if (data) {
 		data->StaffCompNation = get_country(NATION_PORTUGAL_9CF());
-		data->StaffCompContinent = find_continent("Europe");
+		data->StaffCompContinent = get_continent(EUROPE_9CF());
 		data->StaffCompReputation = 2;
 	}
 
@@ -113,15 +113,15 @@ void portugal_restructure() {
 	por_fourth_a->ClubCompReputation = 3;
 	cm3_club_comps* por_fourth_b = get_comp(POR_FOURTH_B_9CF());
 	por_fourth_b->ClubCompNation = get_country(NATION_PORTUGAL_9CF());
-	por_fourth_b->ClubCompContinent = find_continent("Europe");
+	por_fourth_b->ClubCompContinent = get_continent(EUROPE_9CF());
 	por_fourth_b->ClubCompReputation = 3;
 	cm3_club_comps* por_fourth_c = get_comp(POR_FOURTH_C_9CF());
 	por_fourth_c->ClubCompNation = get_country(NATION_PORTUGAL_9CF());
-	por_fourth_c->ClubCompContinent = find_continent("Europe");
+	por_fourth_c->ClubCompContinent = get_continent(EUROPE_9CF());
 	por_fourth_c->ClubCompReputation = 3;
 	cm3_club_comps* por_fourth_d = get_comp(POR_FOURTH_D_9CF());
 	por_fourth_d->ClubCompNation = get_country(NATION_PORTUGAL_9CF());
-	por_fourth_d->ClubCompContinent = find_continent("Europe");
+	por_fourth_d->ClubCompContinent = get_continent(EUROPE_9CF());
 	por_fourth_d->ClubCompReputation = 3;
 	cm3_club_comps* a_lower = get_comp(A_LOWER_9CF());
 
@@ -288,6 +288,6 @@ void portugal_restructure() {
 
 	cm3_club_comps* por_league_cup = get_comp(POR_LEAGUE_CUP_9CF());
 	por_league_cup->ClubCompNation = get_country(NATION_PORTUGAL_9CF());
-	por_league_cup->ClubCompContinent = find_continent("Europe");
+	por_league_cup->ClubCompContinent = get_continent(EUROPE_9CF());
 	por_league_cup->ClubCompReputation = 7;
 }

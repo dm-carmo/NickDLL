@@ -73,7 +73,7 @@ void wales_restructure() {
 	cm3_club_comps* wal_first_n = get_comp(WAL_FIRST_NORTH_9CF());
 	cm3_club_comps* wal_first_s = get_comp(WAL_FIRST_SOUTH_9CF());
 	wal_first_s->ClubCompNation = get_country(NATION_WALES_9CF());
-	wal_first_s->ClubCompContinent = find_continent("Europe");
+	wal_first_s->ClubCompContinent = get_continent(EUROPE_9CF());
 	wal_first_s->ClubCompReputation = 1;
 	cm3_club_comps* a_lower = get_comp(A_LOWER_9CF());
 

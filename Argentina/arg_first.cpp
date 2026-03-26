@@ -760,11 +760,11 @@ DWORD arg_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup + PenaltiesNoExtraTime_1, NoTiebreaker, 5, 8, 4, 0, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 5, 18), year, Sunday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 5, 24), year, Saturday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 5, 24), year, Saturday, Afternoon, NeutralStadium);
 		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + PenaltiesNoExtraTime_1, NoTiebreaker, 5, 4, 2, 0, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 5, 25), year, Sunday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 6, 1), year, Saturday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 6, 1), year, Saturday, Afternoon, NeutralStadium);
 		FillFixtureDetails(pMem, fixture_id++, Final, 0, PenaltiesNoExtraTime_1, NoTiebreaker, 5, 2, 1, 0, 0, 0, 1, 0, 0, 373776, 0);
 
 		return (DWORD)pMem;
@@ -789,11 +789,11 @@ DWORD arg_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup + PenaltiesNoExtraTime_1, NoTiebreaker, 5, 8, 4, 0, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 30), year, Sunday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 6), year, Saturday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 6), year, Saturday, Afternoon, NeutralStadium);
 		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + PenaltiesNoExtraTime_1, NoTiebreaker, 5, 4, 2, 0, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 7), year, Sunday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 13), year, Saturday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 13), year, Saturday, Afternoon, NeutralStadium);
 		FillFixtureDetails(pMem, fixture_id++, Final, 0, PenaltiesNoExtraTime_1, NoTiebreaker, 5, 2, 1, 0, 0, 0, 1, 0, 0, 373776, 0);
 
 		return (DWORD)pMem;

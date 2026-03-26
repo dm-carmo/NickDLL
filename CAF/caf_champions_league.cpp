@@ -205,10 +205,10 @@ void caf_cl_team_selection() {
 	BYTE excluded_count = 0;
 	for (cm3_nations* caf_nation : caf_nations) {
 		BYTE count = 1;
-		if (find(caf_top12.begin(), caf_top12.end(), caf_nation->NationName) != caf_top12.end()) {
+		if (find(caf_top12.begin(), caf_top12.end(), get_db_nation_name(caf_nation)) != caf_top12.end()) {
 			count = 2;
 		}
-		else if (excluded_count < 3 && find(caf_worst.begin(), caf_worst.end(), caf_nation->NationName) != caf_worst.end()) {
+		else if (excluded_count < 3 && find(caf_worst.begin(), caf_worst.end(), get_db_nation_name(caf_nation)) != caf_worst.end()) {
 			excluded_count++;
 			continue;
 		}

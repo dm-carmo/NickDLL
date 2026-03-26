@@ -68,6 +68,9 @@ void Setup()
 	// Fixes a slight bug where B-teams can't qualify for relegation playoffs if they have the "CantBePromoted" flag set
 	WriteBytes(0x68527E, 1, 0xFC);
 
+	// Fix for all clubs appearing in the Select Team screen, when only one league is set as foreground
+	WriteNOP(0x822696, 2);
+
 	// Shows more teams in Team Stats, up to 127
 	WriteBytes(0x495976, 1, 0x7F);
 
@@ -103,6 +106,11 @@ void Setup()
 	if (configFile.GetBool("applyAustralia", true)) {
 		dprintf("Applying Australia changes\n");
 		setup_aus_nation();
+	}
+
+	if (configFile.GetBool("applyBelgium", true)) {
+		dprintf("Applying Belgium changes\n");
+		setup_bel_nation();
 	}
 
 	if (configFile.GetBool("applyBrazil", true)) {

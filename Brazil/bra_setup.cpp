@@ -198,7 +198,7 @@ void brazil_restructure() {
 	cm3_club_comps* bra_third = get_comp(BRA_THIRD_9CF());
 	cm3_club_comps* bra_fourth = get_comp(BRA_FOURTH_9CF());
 	bra_fourth->ClubCompNation = brazil;
-	bra_fourth->ClubCompContinent = find_continent("South America");
+	bra_fourth->ClubCompContinent = get_continent(SOUTH_AMERICA_9CF());
 	bra_fourth->ClubCompReputation = 3;
 	cm3_club_comps* bra_reg_bahia = get_comp(BRA_BAHIA_STATE_9CF());
 	cm3_club_comps* bra_lower_bahia = get_comp(BRA_BAHIA_LOWER_9CF());

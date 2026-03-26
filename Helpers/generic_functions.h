@@ -188,6 +188,9 @@ static __int16(__thiscall* sub_9035A0)(BYTE* _this, int a2) =
 static int(__thiscall* sub_9058B0)(BYTE* _this, BYTE* a2, char a3) =
 (int(__thiscall*)(BYTE * _this, BYTE * a2, char a3))(0x9058B0);
 
+static char* (*get_db_nation_name)(cm3_nations* nation) = (char* (*)(cm3_nations * nation))(0x5453F0);
+static char* (*get_db_club_name)(cm3_clubs* club) = (char* (*)(cm3_clubs * club))(0x545880);
+
 int AddTeams(BYTE* _this);
 int AddTeamsReserveDivision(BYTE* _this);
 int AddTeamsGroupLeague(BYTE* _this, DWORD first_group_id);

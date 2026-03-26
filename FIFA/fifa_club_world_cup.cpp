@@ -1039,4 +1039,8 @@ void __declspec(naked) fifa_cwc_hosts_adjustment()
 void setup_fifa_club_world_cup() {
 	WriteDWORD(0x5fa424 + 1, 2025);
 	PatchFunction(0x5fa453, (DWORD)&fifa_cwc_hosts_adjustment);
+	// first host to USA
+	WriteDWORD(0x5fa460 + 2, 0x9cf4f8);
+	// replace duplicate UAE with Saudi Arabia
+	WriteDWORD(0x5fa4a6 + 1, 0x9cf458);
 }

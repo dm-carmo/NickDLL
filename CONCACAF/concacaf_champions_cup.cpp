@@ -67,9 +67,9 @@ void __declspec(naked) concacaf_champions_cup_fixture_caller()
 }
 
 // Function that will add numbereOfClubs from szNation to vec
-void add_clubs_for_concacaf_comps(const char* szNation, int numberOfClubs, char seeding = 0)
+void add_clubs_for_concacaf_comps(long nation_id, int numberOfClubs, char seeding = 0)
 {
-	cm3_nations* nation = find_country(szNation);
+	cm3_nations* nation = get_country(nation_id);
 
 	// If nation has any active leagues, sort clubs by last division & position and pick top clubs from the list
 	// May redo at a later point to better check if we're getting clubs from the top division, currently assumes top division has the highest reputation
@@ -100,7 +100,7 @@ void add_clubs_for_concacaf_comps(const char* szNation, int numberOfClubs, char 
 		if (TeamsToSelectFrom < numberOfClubs)
 		{
 			// If we can't get this country's clubs - then just get some more USA or Mexico ones
-			add_clubs_for_concacaf_comps(((rand() % 2) == 0) ? "United States" : "Mexico", numberOfClubs, seeding);
+			add_clubs_for_concacaf_comps(((rand() % 2) == 0) ? NATION_USA_9CF() : NATION_MEXICO_9CF(), numberOfClubs, seeding);
 			return;
 		}
 
@@ -139,7 +139,7 @@ void add_central_american_clubs(int numberOfCountries, int clubsPerCountry = 1, 
 		if (TeamsToSelectFrom < clubsPerCountry)
 		{
 			// If we can't get this countries clubs - then just get some more USA or Mexico ones
-			add_clubs_for_concacaf_comps(((rand() % 2) == 0) ? "United States" : "Mexico", clubsPerCountry, seeding);
+			add_clubs_for_concacaf_comps(((rand() % 2) == 0) ? NATION_USA_9CF() : NATION_MEXICO_9CF(), clubsPerCountry, seeding);
 			return;
 		}
 
@@ -179,7 +179,7 @@ void add_caribbean_clubs(int numberOfCountries, int clubsPerCountry = 1, char se
 		if (TeamsToSelectFrom < clubsPerCountry)
 		{
 			// If we can't get this countries clubs - then just get some more USA or Mexico ones
-			add_clubs_for_concacaf_comps(((rand() % 2) == 0) ? "United States" : "Mexico", clubsPerCountry, seeding);
+			add_clubs_for_concacaf_comps(((rand() % 2) == 0) ? NATION_USA_9CF() : NATION_MEXICO_9CF(), clubsPerCountry, seeding);
 			return;
 		}
 
@@ -199,26 +199,26 @@ void add_caribbean_clubs(int numberOfCountries, int clubsPerCountry = 1, char se
 }
 
 // Similar to get_cup_winner_for_concacaf, but will search for the runner-up instead
-void get_cup_loser_for_concacaf(const char* szNation, long comp_id, char seeding = 0)
+void get_cup_loser_for_concacaf(long nation_id, long comp_id, char seeding = 0)
 {
-	cm3_nations* nation = find_country(szNation);
+	cm3_nations* nation = get_country(nation_id);
 
 	if (nation->NationLeagueSelected) {
 		cm3_club_comps* comp = &(*club_comps)[comp_id];
 		if (!comp) {
 			//dprintf("Competition %ld not found, getting backup club\n", comp_id);
-			add_clubs_for_concacaf_comps(szNation, 1, seeding);
+			add_clubs_for_concacaf_comps(nation_id, 1, seeding);
 		}
 		else {
 			cm3_clubs* last_runner_up = get_last_comp_runner_up(comp);
 			if (!last_runner_up || !last_runner_up->ClubNation) {
 				//dprintf("Last runner-up of %s not found or invalid, getting backup club\n", comp->ClubCompName);
-				add_clubs_for_concacaf_comps(szNation, 1, seeding);
+				add_clubs_for_concacaf_comps(nation_id, 1, seeding);
 			}
 			else {
 				if (last_runner_up->ClubEuroFlag != -1) {
 					//dprintf("Last runner-up of %s (%s) is already qualified, getting backup club\n", comp->ClubCompName, (last_runner_up->ClubName));
-					add_clubs_for_concacaf_comps(szNation, 1, seeding);
+					add_clubs_for_concacaf_comps(nation_id, 1, seeding);
 				}
 				else {
 					//dprintf("Setting club %s to CONCACAF Champions Cup (last runner-up of %s)\n", (last_runner_up->ClubName), comp->ClubCompName);
@@ -230,16 +230,16 @@ void get_cup_loser_for_concacaf(const char* szNation, long comp_id, char seeding
 	}
 	else {
 		//dprintf("Country %s is inactive, getting backup club\n", szNation);
-		add_clubs_for_concacaf_comps(szNation, 1, seeding);
+		add_clubs_for_concacaf_comps(nation_id, 1, seeding);
 	}
 }
 
 // Tries to find the latest cup winner from comp_id to add to the competition
 // szNation is provided as a backup in case the competition can't be found, or there is no available club in the history
 // loser_backup decides if the cup loser can be used when the winner has already been qualified, or if the place should go to the best available club in the league instead
-void get_cup_winner_for_concacaf(const char* szNation, long comp_id, bool loser_backup = true, char seeding = 0)
+void get_cup_winner_for_concacaf(long nation_id, long comp_id, bool loser_backup = true, char seeding = 0)
 {
-	cm3_nations* nation = find_country(szNation);
+	cm3_nations* nation = get_country(nation_id);
 
 	// Only search for history if the nation has active competitions, otherwise it will always use the same club
 	// May redo at a later point to check if the actual competition is active instead
@@ -247,19 +247,19 @@ void get_cup_winner_for_concacaf(const char* szNation, long comp_id, bool loser_
 		cm3_club_comps* comp = &(*club_comps)[comp_id];
 		if (!comp) {
 			//dprintf("Competition %ld not found, getting backup club\n", comp_id);
-			add_clubs_for_concacaf_comps(szNation, 1, seeding);
+			add_clubs_for_concacaf_comps(nation_id, 1, seeding);
 		}
 		else {
 			cm3_clubs* last_winner = get_last_comp_winner(comp);
 			if (!last_winner || !last_winner->ClubNation) {
 				//dprintf("Last winner of %s not found or invalid, getting backup club\n", comp->ClubCompName);
-				add_clubs_for_concacaf_comps(szNation, 1, seeding);
+				add_clubs_for_concacaf_comps(nation_id, 1, seeding);
 			}
 			else {
 				if (last_winner->ClubEuroFlag != -1) {
 					//dprintf("Last winner of %s (%s) is already qualified, getting backup club\n", comp->ClubCompName, (last_winner->ClubName));
-					if (loser_backup) get_cup_loser_for_concacaf(szNation, comp_id, seeding);
-					else add_clubs_for_concacaf_comps(szNation, 1, seeding);
+					if (loser_backup) get_cup_loser_for_concacaf(nation_id, comp_id, seeding);
+					else add_clubs_for_concacaf_comps(nation_id, 1, seeding);
 				}
 				else {
 					//dprintf("Setting club %s to CONCACAF Champions Cup (last winners of %s)\n", (last_winner->ClubName), comp->ClubCompName);
@@ -272,7 +272,7 @@ void get_cup_winner_for_concacaf(const char* szNation, long comp_id, bool loser_
 	// If nation has no active competitions, get a random top club instead
 	else {
 		//dprintf("Country %s is inactive, getting backup club\n", szNation);
-		add_clubs_for_concacaf_comps(szNation, 1, seeding);
+		add_clubs_for_concacaf_comps(nation_id, 1, seeding);
 	}
 }
 
@@ -286,6 +286,7 @@ void concacaf_cup_team_selection() {
 		ifstream in("Data/concacaf.cfg", ios_base::in);
 		string name;
 		char nation[LONG_TXT_LENGTH];
+		cm3_nations* nation_ptr;
 		int count = 0;
 		while (std::getline(in, name))
 		{
@@ -294,16 +295,17 @@ void concacaf_cup_team_selection() {
 			}
 			if (name[0] == '*') {
 				strcpy_s(nation, name.substr(1).c_str());
+				nation_ptr = find_country(nation);
 				continue;
 			}
 			cm3_clubs* club = find_club(name.c_str());
 			if (!club || !club->ClubNation) {
 				//dprintf("Club %s not found, getting backup from %s\n", name.c_str(), nation);
-				add_clubs_for_concacaf_comps(nation, 1, count >= 22);
+				add_clubs_for_concacaf_comps(nation_ptr->NationID, 1, count >= 22);
 			}
 			else if (club->ClubEuroFlag != -1) {
 				//dprintf("Club %s already qualified, getting backup from %s\n", name.c_str(), nation);
-				add_clubs_for_concacaf_comps(nation, 1, count >= 22);
+				add_clubs_for_concacaf_comps(nation_ptr->NationID, 1, count >= 22);
 			}
 			else {
 				//dprintf("Setting club %s to CONCACAF Champions Cup\n", (club->ClubName));
@@ -320,16 +322,16 @@ void concacaf_cup_team_selection() {
 		int rnd = rand() % 2;
 
 		// Since the MLS has playoffs to decide the winner, I used the functions to get cup winners/losers first
-		get_cup_winner_for_concacaf("United States", USA_MLS_9CF(), false, 1); // USA champions
-		get_cup_loser_for_concacaf("United States", USA_MLS_9CF()); // USA runner-up
-		get_cup_winner_for_concacaf("United States", USA_OPEN_CUP_9CF(), true); // USA cup winner
-		add_clubs_for_concacaf_comps("United States", 1, 1); // Leagues Cup
-		add_clubs_for_concacaf_comps("United States", 3); // USA
-		add_clubs_for_concacaf_comps("United States", 1); // Leagues Cup
-		add_clubs_for_concacaf_comps("Mexico", 1, 1); // Mexico champions
-		add_clubs_for_concacaf_comps("Mexico", 1); // Leagues Cup
-		add_clubs_for_concacaf_comps("Mexico", 5); // Mexico
-		add_clubs_for_concacaf_comps("Canada", 3); // Canada
+		get_cup_winner_for_concacaf(NATION_USA_9CF(), USA_MLS_9CF(), false, 1); // USA champions
+		get_cup_loser_for_concacaf(NATION_USA_9CF(), USA_MLS_9CF()); // USA runner-up
+		get_cup_winner_for_concacaf(NATION_USA_9CF(), USA_OPEN_CUP_9CF(), true); // USA cup winner
+		add_clubs_for_concacaf_comps(NATION_USA_9CF(), 1, 1); // Leagues Cup
+		add_clubs_for_concacaf_comps(NATION_USA_9CF(), 3); // USA
+		add_clubs_for_concacaf_comps(NATION_USA_9CF(), 1); // Leagues Cup
+		add_clubs_for_concacaf_comps(NATION_MEXICO_9CF(), 1, 1); // Mexico champions
+		add_clubs_for_concacaf_comps(NATION_MEXICO_9CF(), 1); // Leagues Cup
+		add_clubs_for_concacaf_comps(NATION_MEXICO_9CF(), 5); // Mexico
+		add_clubs_for_concacaf_comps(NATION_CANADA_9CF(), 3); // Canada
 		add_central_american_clubs(1, 1, 1); // Central America winner
 		add_central_american_clubs(5, 1); // Central America
 		add_caribbean_clubs(1, 1, 1); // Caribbean winner

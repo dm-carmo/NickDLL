@@ -203,7 +203,7 @@ void afc_cl_2_team_selection() {
 	else {
 		chal_lge_winner->ClubEuroFlag = AFC_CHAMPIONS_LEAGUE_TWO_9CF();
 		chal_lge_winner->ClubEuroSeeding = 1;
-		extra_v = find(asia_west.begin(), asia_west.end(), chal_lge_winner->ClubNation->NationName) == asia_west.end();
+		extra_v = find(asia_west.begin(), asia_west.end(), get_db_nation_name(chal_lge_winner->ClubNation)) == asia_west.end();
 	}
 
 	// Remaining teams

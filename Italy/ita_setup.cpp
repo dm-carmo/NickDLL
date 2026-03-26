@@ -97,7 +97,7 @@ void setup_ita_nation() {
 void italy_restructure() {
 	cm3_club_comps* serie_c = get_comp(ITA_SERIE_C_9CF());
 	serie_c->ClubCompNation = get_country(NATION_ITALY_9CF());
-	serie_c->ClubCompContinent = find_continent("Europe");
+	serie_c->ClubCompContinent = get_continent(EUROPE_9CF());
 	serie_c->ClubCompReputation = 7;
 
 	cm3_club_comps* serie_c_a = get_comp(ITA_SERIE_C_A_9CF());
@@ -108,7 +108,7 @@ void italy_restructure() {
 
 	cm3_club_comps* serie_c_c = get_comp(ITA_SERIE_C_C_9CF());
 	serie_c_c->ClubCompNation = get_country(NATION_ITALY_9CF());
-	serie_c_c->ClubCompContinent = find_continent("Europe");
+	serie_c_c->ClubCompContinent = get_continent(EUROPE_9CF());
 	serie_c_c->ClubCompReputation = 7;
 
 	vector<cm3_clubs*> orig_clubs = find_clubs_of_comp(ITA_SERIE_C_A_9CF());

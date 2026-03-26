@@ -687,6 +687,12 @@
     <ClCompile Include="Argentina\arg_cup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Belgium\bel_setup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Belgium\bel_first.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -1371,6 +1377,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Argentina\arg_cup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Belgium\bel_setup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Belgium\bel_first.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

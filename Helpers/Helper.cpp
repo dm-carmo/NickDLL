@@ -114,7 +114,8 @@ cm3_nations* find_country(const char* szCountry)
 {
 	for (DWORD i = 0; i < *nations_count; i++)
 	{
-		if (_stricmp((*nations)[i].NationName, szCountry) == 0)
+		char* nation_db_name = get_db_nation_name(&(*nations)[i]);
+		if (_stricmp(nation_db_name, szCountry) == 0)
 			return &(*nations)[i];
 	}
 	return NULL;
@@ -125,14 +126,9 @@ cm3_nations* get_country(DWORD countryID)
 	return (countryID != -1L) ? &(*nations)[countryID] : NULL;
 }
 
-cm3_continents* find_continent(const char* szContinent)
+cm3_continents* get_continent(DWORD continentID)
 {
-	for (DWORD i = 0; i < *continents_count; i++)
-	{
-		if (_stricmp((*continents)[i].ContinentName, szContinent) == 0)
-			return &(*continents)[i];
-	}
-	return NULL;
+	return (continentID != -1L) ? &(*continents)[continentID] : NULL;
 }
 
 cm3_colours* get_colour(DWORD colourID) {
@@ -144,9 +140,9 @@ vector<cm3_nations*> central_america_countries()
 	vector<cm3_nations*> ret;
 	for (DWORD i = 0; i < *nations_count; i++)
 	{
-		if (_stricmp((*nations)[i].NationName, "Mexico") == 0 ||
-			_stricmp((*nations)[i].NationName, "United States") == 0 ||
-			_stricmp((*nations)[i].NationName, "Canada") == 0)
+		if ((*nations)[i].NationID == NATION_MEXICO_9CF() ||
+			(*nations)[i].NationID == NATION_USA_9CF() ||
+			(*nations)[i].NationID == NATION_CANADA_9CF())
 			continue;
 		if ((*nations)[i].NationContinent != NULL && (*nations)[i].NationRegion == 7)
 			ret.push_back(&(*nations)[i]);
@@ -179,7 +175,8 @@ cm3_clubs* find_club(const char* szClub)
 {
 	for (DWORD i = 0; i < *clubs_count; i++)
 	{
-		if (_stricmp((*clubs)[i].ClubName, szClub) == 0)
+		char* club_db_name = get_db_club_name(&(*clubs)[i]);
+		if (_stricmp(club_db_name, szClub) == 0)
 			return &(*clubs)[i];
 	}
 	return NULL;
@@ -404,12 +401,12 @@ bool compareClubRepInv(cm3_clubs* c1, cm3_clubs* c2)
 
 bool compareClubLastDivPos(cm3_clubs* c1, cm3_clubs* c2)
 {
-	if (!c1->ClubLastDivision)
-		return (c2->ClubLastPosition > 0 && c1->ClubLastPosition < c2->ClubLastPosition);
-	if (!c2->ClubLastDivision)
-		return (c1->ClubLastPosition > 0 && c1->ClubLastPosition < c2->ClubLastPosition);
-	if (c1->ClubLastDivision->ClubCompReputation != c2->ClubLastDivision->ClubCompReputation)
-		return (c1->ClubLastDivision->ClubCompReputation > c2->ClubLastDivision->ClubCompReputation);
+	short c1_comp_rep = 0;
+	short c2_comp_rep = 0;
+	if (c1->ClubLastDivision) c1_comp_rep = c1->ClubLastDivision->ClubCompReputation;
+	if (c2->ClubLastDivision) c2_comp_rep = c2->ClubLastDivision->ClubCompReputation;
+	if (c1_comp_rep != c2_comp_rep)
+		return (c1_comp_rep > c2_comp_rep);
 	return (c1->ClubLastPosition < c2->ClubLastPosition);
 }
 
@@ -500,8 +497,8 @@ bool compareClubAsiaWestEast(cm3_clubs* c1, cm3_clubs* c2)
 {
 	bool c1_west = false, c2_west = false;
 	if (!c1->ClubNation || !c2->ClubNation) return compareClubLongitude(c1, c2);
-	c1_west = find(asia_west.begin(), asia_west.end(), c1->ClubNation->NationName) != asia_west.end();
-	c2_west = find(asia_west.begin(), asia_west.end(), c2->ClubNation->NationName) != asia_west.end();
+	c1_west = find(asia_west.begin(), asia_west.end(), get_db_nation_name(c1->ClubNation)) != asia_west.end();
+	c2_west = find(asia_west.begin(), asia_west.end(), get_db_nation_name(c2->ClubNation)) != asia_west.end();
 	if (c1_west != c2_west) return c1_west;
 	else return compareClubLongitude(c1, c2);
 }

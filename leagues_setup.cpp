@@ -45,7 +45,7 @@ int replacement_667150() {
 	idx++;
 
 	cm_date = new BYTE[8];
-	pnd_list[idx].continent = find_continent("Europe");
+	pnd_list[idx].continent = get_continent(EUROPE_9CF());
 	if (configFile.GetBool("applyUEFA", true))
 	{
 		pnd_list[idx].setup_function_addr = (DWORD)&uefa_setup_c;
@@ -63,7 +63,7 @@ int replacement_667150() {
 	idx++;
 
 	cm_date = new BYTE[8];
-	pnd_list[idx].continent = find_continent("North America");
+	pnd_list[idx].continent = get_continent(NORTH_AMERICA_9CF());
 	if (configFile.GetBool("applyCONCACAF", true))
 	{
 		pnd_list[idx].setup_function_addr = (DWORD)&concacaf_setup_c;
@@ -84,7 +84,7 @@ int replacement_667150() {
 	idx++;
 
 	cm_date = new BYTE[8];
-	pnd_list[idx].continent = find_continent("South America");
+	pnd_list[idx].continent = get_continent(SOUTH_AMERICA_9CF());
 	if (configFile.GetBool("applyCONMEBOL", true))
 	{
 		pnd_list[idx].setup_function_addr = (DWORD)&conmebol_setup_c;
@@ -105,7 +105,7 @@ int replacement_667150() {
 	idx++;
 
 	cm_date = new BYTE[8];
-	pnd_list[idx].continent = find_continent("Asia");
+	pnd_list[idx].continent = get_continent(ASIA_9CF());
 	if (configFile.GetBool("applyAFC", true))
 	{
 		pnd_list[idx].setup_function_addr = (DWORD)&afc_setup_c;
@@ -125,7 +125,7 @@ int replacement_667150() {
 	idx++;
 
 	cm_date = new BYTE[8];
-	pnd_list[idx].continent = find_continent("Oceania");
+	pnd_list[idx].continent = get_continent(OCEANIA_9CF());
 	if (configFile.GetBool("applyOFC", true))
 	{
 		pnd_list[idx].setup_function_addr = (DWORD)&ofc_setup_c;
@@ -147,7 +147,7 @@ int replacement_667150() {
 
 	if (configFile.GetBool("applyCAF", true)) {
 		cm_date = new BYTE[8];
-		pnd_list[idx].continent = find_continent("Africa");
+		pnd_list[idx].continent = get_continent(AFRICA_9CF());
 		pnd_list[idx].setup_function_addr = (DWORD)&caf_setup_c;
 		convert_to_cm_date(pnd_list[idx].start_date, 1, July, *current_year, -1);
 		convert_to_cm_date(pnd_list[idx].end_date, 1, July, *current_year, -1);
@@ -206,9 +206,19 @@ int replacement_667150() {
 
 	cm_date = new BYTE[8];
 	pnd_list[idx].nation = get_country(NATION_BELGIUM_9CF());
-	pnd_list[idx].setup_function_addr = 0x8325D0;
-	convert_to_cm_date(pnd_list[idx].start_date, 7, August, *current_year, -1);
-	convert_to_cm_date(pnd_list[idx].end_date, 1, June, *current_year, -1);
+	if (configFile.GetBool("applyBelgium", true))
+	{
+		pnd_list[idx].setup_function_addr = (DWORD)&bel_setup_c;
+		//convert_to_cm_date(pnd_list[idx].start_date, 7, August, *current_year, -1);
+		convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
+		convert_to_cm_date(pnd_list[idx].end_date, 6, June, *current_year, -1);
+	}
+	else
+	{
+		pnd_list[idx].setup_function_addr = 0x8325D0;
+		convert_to_cm_date(pnd_list[idx].start_date, 7, August, *current_year, -1);
+		convert_to_cm_date(pnd_list[idx].end_date, 1, June, *current_year, -1);
+	}
 	pnd_list[idx].updates_in_june = 1;
 	convert_to_cm_date(cm_date, 20, June, 2025, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
@@ -802,6 +812,7 @@ void league_restructure_init()
 {
 	if (configFile.GetBool("applyArgentina", true)) argentina_restructure();
 	if (configFile.GetBool("applyAustralia", true)) australia_restructure();
+	if (configFile.GetBool("applyBelgium", true)) belgium_restructure();
 	if (configFile.GetBool("applyBrazil", true)) brazil_restructure();
 	if (configFile.GetBool("applyCroatia", true)) croatia_restructure();
 	if (configFile.GetBool("applyDenmark", true)) denmark_restructure();
