@@ -8,6 +8,19 @@
 
 DWORD* hol_second_vtable = (DWORD*)0x96B86C;
 
+void hol_second_block_promotion(BYTE* _this) {
+	comp_stats* data = (comp_stats*)_this;
+	WORD total_teams = data->n_teams;
+	team_league_stats* table_teams = (team_league_stats*)(data->team_league_table);
+	for (int i = 0; i < total_teams; i++) {
+		DWORD is_main_club;
+		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)table_teams[i].club, &is_main_club, 1);
+		if (ret_club && !is_main_club) {
+			table_teams[i].league_fate = CantBePromoted;
+		}
+	}
+}
+
 void hol_second_subs(BYTE* _this)
 {
 	comp_stats* comp_data = (comp_stats*)_this;
@@ -338,6 +351,7 @@ void hol_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	hol_second_subs(_this);
 	AddTeams(_this);
 	SetupTVMoney(_this, 1903220, 0);
+	hol_second_block_promotion(_this);
 	sub_6835C0(_this);
 	BYTE* ebx = 0;
 	sub_6827D0(_this, ebx);
@@ -454,6 +468,7 @@ char hol_second_update(BYTE* _this) {
 	hol_second_subs(_this);
 	AddTeams(_this);
 	SetupTVMoney(_this, 1903220, 0);
+	hol_second_block_promotion(_this);
 	sub_6835C0(_this);
 	BYTE* edx = 0;
 	sub_6827D0(_this, edx);

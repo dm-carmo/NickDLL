@@ -170,7 +170,8 @@ void __fastcall spa_third_relegation(BYTE* _this)
 
 		DWORD is_main_club;
 		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)available, &is_main_club, 1);
-		if (ret_club && !is_main_club && ret_club->ClubDivision->ClubCompID == SPA_THIRD_9CF())
+		if (ret_club && !is_main_club && ret_club->ClubDivision->ClubCompID != SPA_FIRST_9CF()
+			&& ret_club->ClubDivision->ClubCompID != SPA_SECOND_9CF())
 			i--;
 		else
 		{
@@ -232,7 +233,8 @@ void __fastcall spa_non_league_promotion(BYTE* _this)
 
 		DWORD is_main_club;
 		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)available, &is_main_club, 1);
-		if (ret_club && !is_main_club && ret_club->ClubDivision->ClubCompID == SPA_FOURTH_9CF())
+		if (ret_club && !is_main_club && ret_club->ClubDivision->ClubCompID != SPA_FIRST_9CF()
+			&& ret_club->ClubDivision->ClubCompID != SPA_SECOND_9CF() && ret_club->ClubDivision->ClubCompID != SPA_THIRD_9CF())
 			i--;
 		else
 		{

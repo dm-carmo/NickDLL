@@ -146,7 +146,8 @@ void __fastcall ger_non_league_promotion(BYTE* _this)
 		//dprintf("Swapping Teams: %s (%s) <-> %s (%s)\n", clubToRelegate->ClubName, clubToRelegate->ClubDivision->ClubCompName, available->ClubName, available->ClubDivision->ClubCompName);
 		DWORD is_main_club;
 		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)available, &is_main_club, 1);
-		if (ret_club && !is_main_club && ret_club->ClubDivision->ClubCompID == GER_REGIONAL_9CF())
+		if (ret_club && !is_main_club && ret_club->ClubDivision->ClubCompID != GER_FIRST_9CF()
+			&& ret_club->ClubDivision->ClubCompID != GER_SECOND_9CF() && ret_club->ClubDivision->ClubCompID != GER_THIRD_9CF())
 			i--;
 		else
 		{
@@ -203,7 +204,8 @@ void __fastcall ger_liga_3_relegation(BYTE* _this)
 		//dprintf("Swapping Teams: %s (%s) <-> %s (%s)\n", clubToRelegate->ClubName, clubToRelegate->ClubDivision->ClubCompName, available->ClubName, available->ClubDivision->ClubCompName);
 		DWORD is_main_club;
 		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)available, &is_main_club, 1);
-		if (ret_club && !is_main_club && ret_club->ClubDivision->ClubCompID == GER_THIRD_9CF())
+		if (ret_club && !is_main_club && ret_club->ClubDivision->ClubCompID != GER_FIRST_9CF()
+			&& ret_club->ClubDivision->ClubCompID != GER_SECOND_9CF())
 			i--;
 		else
 		{

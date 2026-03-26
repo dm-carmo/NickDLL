@@ -321,12 +321,85 @@ void __declspec(naked) hol_first_fixtures_c()
 	}
 }
 
+void __fastcall hol_check_reserve_teams(BYTE* _this) {
+	comp_stats* hol_second_data = (comp_stats*)get_loaded_league(HOL_SECOND_9CF());
+	// Check teams from L2: main team relegated from L1 - add relegation
+	for (WORD num = 0; num < hol_second_data->n_teams; num++) {
+		team_league_stats* table_teams = (team_league_stats*)hol_second_data->team_league_table;
+		DWORD is_main_club;
+		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)table_teams[num].club, &is_main_club, 1);
+		// If it is a reserve team
+		if (ret_club && !is_main_club)
+		{
+			// If reserve team was not relegated
+			if (table_teams[num].league_fate != Relegated) {
+				// If main team is in the first league
+				if (ret_club->ClubDivision->ClubCompID == HOL_FIRST_9CF()) {
+					team_league_stats* main_club_data = get_team_league_stats(HOL_FIRST_9CF(), ret_club);
+					// If the main team was relegated
+					if (main_club_data->league_fate == Relegated) table_teams[num].league_fate = Relegated;
+				}
+			}
+		}
+	}
+}
+
+void __fastcall hol_non_league_promotion(BYTE* _this)
+{
+	vector<cm3_clubs*> relegated_clubs = get_relegated_teams(HOL_SECOND_9CF());
+	if (relegated_clubs.size() < 1) return;
+
+	vector<cm3_clubs*> available_clubs;
+	for (DWORD i = 0; i < *clubs_count; i++)
+	{
+		cm3_clubs* club = get_club(i);
+		if (club)
+		{
+			if (club->ClubDivision && club->ClubNation)
+			{
+				DWORD compID = club->ClubDivision->ClubCompID;
+				DWORD nationID = club->ClubNation->NationID;
+				if (nationID == NATION_HOLLAND_9CF() && compID == A_LOWER_9CF())
+				{
+					available_clubs.push_back(club);
+				}
+			}
+		}
+	}
+
+	sort(available_clubs.begin(), available_clubs.end(), compareClubRep);
+	int max_to_check = (available_clubs.size() > 4 ? 4 : available_clubs.size());
+	for (unsigned int i = 0; i < relegated_clubs.size(); i++)
+	{
+		int availableIdx = rand() % (max_to_check - i);
+		cm3_clubs* clubToRelegate = relegated_clubs[i];
+		cm3_clubs* available = available_clubs[availableIdx];
+
+		DWORD is_main_club;
+		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)available, &is_main_club, 1);
+		if (ret_club && !is_main_club && ret_club->ClubDivision->ClubCompID != HOL_FIRST_9CF())
+			i--;
+		else
+		{
+			cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
+			cm3_club_comps* bottomDivision = available->ClubDivision;
+			relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
+			promote_club_6830B0((BYTE*)available, (DWORD)topDivision, 1);
+			clubToRelegate->ClubReserveDivision = 0;
+		}
+
+		available_clubs.erase(available_clubs.begin() + availableIdx);
+	}
+}
+
 char hol_first_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
 	data->f76 = 0;
 	DWORD v1 = *(DWORD*)_this;
+	hol_check_reserve_teams(_this);
 	(*(void(__thiscall**)(BYTE*, int))(v1 + 0xB0))(_this, 1);
+	hol_non_league_promotion(_this);
 
 	sub_687970(_this, ebx);
 	if (data->fixtures_table) {

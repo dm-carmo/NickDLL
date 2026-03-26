@@ -22,7 +22,7 @@ map<string, char*> clubs_rename_long = {
 	{"Extremadura C.F.", "CD Extremadura"},
 	{"Merthyr Tydfil", "Merthyr Town"},
 	{"Bra", "AC Bra"},
-	{"AZ", "AZ Alkmaar"},
+	//{"AZ", "AZ Alkmaar"},
 	{"GD Chaves Satelite", "GD Chaves B"},
 	{"Bor. M'gladbach Amateure", "Borussia M'gladbach II"},
 	{"SC Paderborn 07 Reserves", "SC Paderborn 07 II"},
@@ -43,12 +43,6 @@ map<string, char*> leagues_rename_long = {
 	{"UEFA Europa League Qualifying", "UEFA Intertoto Cup"},
 	{"CONCACAF Champions League", "CONCACAF Champions Cup"},
 	{"Cup Winners Cup", "CONCACAF Cup Winners Cup"},
-	{"Belgian National Division 1 A", "Belgian Division 1 VV"},
-	{"Belgian National Division 1 B", "Belgian Division 1 ACFF"},
-	{"Belgian Fourth Division  A", "Belgian Division 2 VV"},
-	{"Belgian Fourth Division  B", "Belgian Division 2 VV A"},
-	{"Belgian Fourth Division  C", "Belgian Division 2 VV B"},
-	{"Belgian Fourth Division  D", "Belgian Division 2 ACFF"},
 	{"Northern Irish League Lower Division", "NIFL Premier Intermediate League"},
 	{"NIFL Cup", "Irish Football League Cup"},
 	{"Korean FA Cup", "Korea Cup"},
@@ -60,6 +54,15 @@ map<string, char*> leagues_rename_long = {
 
 map<string, char*> leagues_rename_long_australia = {
 	{"Hong Kong Viceroy Cup", "Australia Cup"},
+};
+
+map<string, char*> leagues_rename_long_belgium = {
+	{"Belgian National Division 1 A", "Belgian Division 1 VV"},
+	{"Belgian National Division 1 B", "Belgian Division 1 ACFF"},
+	{"Belgian Fourth Division  A", "Belgian Division 2 VV"},
+	{"Belgian Fourth Division  B", "Belgian Division 2 VV A"},
+	{"Belgian Fourth Division  C", "Belgian Division 2 VV B"},
+	{"Belgian Fourth Division  D", "Belgian Division 2 ACFF"},
 };
 
 map<string, char*> leagues_rename_long_brazil = {
@@ -190,12 +193,6 @@ map<string, char*> leagues_rename_short = {
 	{"Cup Winners' Cup", "Conference League"},
 	{"UEFA Europa League Qualifying", "Intertoto Cup"},
 	{"CONCACAF Champions League", "Champions Cup"},
-	{"Belgian National Division 1 A", "Division 1 VV"},
-	{"Belgian National Division 1 B", "Division 1 ACFF"},
-	{"Belgian Fourth Division  A", "Division 2 VV"},
-	{"Belgian Fourth Division  B", "Division 2 VV A"},
-	{"Belgian Fourth Division  C", "Division 2 VV B"},
-	{"Belgian Fourth Division  D", "Division 2 ACFF"},
 	{"Coppa Italia Serie C", "Coppa Serie C"},
 	{"Supercoppa Serie C", "Supercoppa Serie C"},
 	{"Korean FA Cup", "Korea Cup"},
@@ -203,6 +200,15 @@ map<string, char*> leagues_rename_short = {
 
 map<string, char*> leagues_rename_short_australia = {
 	{"Hong Kong Viceroy Cup", "Australia Cup"},
+};
+
+map<string, char*> leagues_rename_short_belgium = {
+	{"Belgian National Division 1 A", "Division 1 VV"},
+	{"Belgian National Division 1 B", "Division 1 ACFF"},
+	{"Belgian Fourth Division  A", "Division 2 VV"},
+	{"Belgian Fourth Division  B", "Division 2 VV A"},
+	{"Belgian Fourth Division  C", "Division 2 VV B"},
+	{"Belgian Fourth Division  D", "Division 2 ACFF"},
 };
 
 map<string, char*> leagues_rename_short_brazil = {
@@ -318,15 +324,18 @@ map<string, char*> leagues_rename_short_wales = {
 };
 
 map<string, char*> leagues_rename_tla = {
+	{"English Northern Premier League Premier Division", "NLN"},
+	{"English Southern League Premier Division", "NLS"},
+	{"Polish Ekstraklasa", "EKS"},
+};
+
+map<string, char*> leagues_rename_tla_belgium = {
 	{"Belgian National Division 1 A", "D1V"},
 	{"Belgian National Division 1 B", "D1A"},
 	{"Belgian Fourth Division  A", "D2V"},
 	{"Belgian Fourth Division  B", "D2V"},
 	{"Belgian Fourth Division  C", "D2V"},
 	{"Belgian Fourth Division  D", "D2A"},
-	{"English Northern Premier League Premier Division", "NLN"},
-	{"English Southern League Premier Division", "NLS"},
-	{"Polish Ekstraklasa", "EKS"},
 };
 
 map<string, char*> leagues_rename_tla_brazil = {
@@ -2014,6 +2023,28 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 	if (_strcmpi(db_club_name, "AEK Athens") == 0 && find_club("AEK Athens B")) return (BYTE*)find_club("AEK Athens B");
 	if (_strcmpi(db_club_name, "Olympiacos Piraeus") == 0 && find_club("Olympiacos Piraeus B")) return (BYTE*)find_club("Olympiacos Piraeus B");
 	if (_strcmpi(db_club_name, "PAOK Thessaloniki") == 0 && find_club("PAOK Thessaloniki B")) return (BYTE*)find_club("PAOK Thessaloniki B");
+	if (_strcmpi(db_club_name, "AZ") == 0 && find_club("AZ Alkmaar U21")) return (BYTE*)find_club("AZ Alkmaar U21");
+	if (_strcmpi(db_club_name, "Ajax Amsterdam") == 0 && find_club("Ajax Amsterdam U21")) return (BYTE*)find_club("Ajax Amsterdam U21");
+	if (_strcmpi(db_club_name, "Almere City FC") == 0 && find_club("Jong Almere City FC")) return (BYTE*)find_club("Jong Almere City FC");
+	if (_strcmpi(db_club_name, "PSV Eindhoven") == 0 && find_club("PSV Eindhoven U21")) return (BYTE*)find_club("PSV Eindhoven U21");
+	if (_strcmpi(db_club_name, "Sparta Rotterdam") == 0 && find_club("Sparta Rotterdam U21")) return (BYTE*)find_club("Sparta Rotterdam U21");
+	if (_strcmpi(db_club_name, "FC Utrecht") == 0 && find_club("FC Utrecht U21")) return (BYTE*)find_club("FC Utrecht U21");
+	if (_strcmpi(db_club_name, "RSC Anderlecht") == 0 && find_club("RSC Anderlecht B")) return (BYTE*)find_club("RSC Anderlecht B");
+	if (_strcmpi(db_club_name, "Royal Antwerp FC") == 0 && find_club("Royal Antwerp FC B")) return (BYTE*)find_club("Royal Antwerp FC B");
+	if (_strcmpi(db_club_name, "Beerschot VA") == 0 && find_club("Beerschot VA U21")) return (BYTE*)find_club("Beerschot VA U21");
+	if (_strcmpi(db_club_name, "Cercle Brugge") == 0 && find_club("Cercle Brugge B")) return (BYTE*)find_club("Cercle Brugge B");
+	if (_strcmpi(db_club_name, "Royal Charleroi SC") == 0 && find_club("RSC Charleroi B")) return (BYTE*)find_club("RSC Charleroi B");
+	if (_strcmpi(db_club_name, "Club Brugge KV") == 0 && find_club("Club Brugge KV II")) return (BYTE*)find_club("Club Brugge KV II");
+	if (_strcmpi(db_club_name, "KAS Eupen") == 0 && find_club("KAS Eupen U23")) return (BYTE*)find_club("KAS Eupen U23");
+	if (_strcmpi(db_club_name, "KRC Genk") == 0 && find_club("KRC Genk B")) return (BYTE*)find_club("KRC Genk B");
+	if (_strcmpi(db_club_name, "KAA Gent") == 0 && find_club("KAA Gent B")) return (BYTE*)find_club("KAA Gent B");
+	if (_strcmpi(db_club_name, "KV Mechelen") == 0 && find_club("KV Mechelen U23")) return (BYTE*)find_club("KV Mechelen U23");
+	if (_strcmpi(db_club_name, "Oud-Heverlee Leuven") == 0 && find_club("Oud-Heverlee Leuven U23")) return (BYTE*)find_club("Oud-Heverlee Leuven U23");
+	if (_strcmpi(db_club_name, "Sint-Truidense VV") == 0 && find_club("STVV Youth")) return (BYTE*)find_club("STVV Youth");
+	if (_strcmpi(db_club_name, "Standard Liège") == 0 && find_club("Standard de Liège 16 FC")) return (BYTE*)find_club("Standard de Liège 16 FC");
+	if (_strcmpi(db_club_name, "Union Saint-Gilloise") == 0 && find_club("Union Saint-Gilloise U23")) return (BYTE*)find_club("Union Saint-Gilloise U23");
+	if (_strcmpi(db_club_name, "Zulte Waregem") == 0 && find_club("Zulte-Waregem B")) return (BYTE*)find_club("Zulte-Waregem B");
+
 
 	// Reserve teams check
 	if (is_main_club) *is_main_club = 0;
@@ -2181,6 +2212,28 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 	if (_strcmpi(db_club_name, "AEK Athens B") == 0 && find_club("AEK Athens")) return (BYTE*)find_club("AEK Athens");
 	if (_strcmpi(db_club_name, "Olympiacos Piraeus B") == 0 && find_club("Olympiacos Piraeus")) return (BYTE*)find_club("Olympiacos Piraeus");
 	if (_strcmpi(db_club_name, "PAOK Thessaloniki B") == 0 && find_club("PAOK Thessaloniki")) return (BYTE*)find_club("PAOK Thessaloniki");
+	if (_strcmpi(db_club_name, "AZ Alkmaar U21") == 0 && find_club("AZ")) return (BYTE*)find_club("AZ");
+	if (_strcmpi(db_club_name, "Ajax Amsterdam U21") == 0 && find_club("Ajax Amsterdam")) return (BYTE*)find_club("Ajax Amsterdam");
+	if (_strcmpi(db_club_name, "Jong Almere City FC") == 0 && find_club("Almere City FC")) return (BYTE*)find_club("Almere City FC");
+	if (_strcmpi(db_club_name, "PSV Eindhoven U21") == 0 && find_club("PSV Eindhoven")) return (BYTE*)find_club("PSV Eindhoven");
+	if (_strcmpi(db_club_name, "Sparta Rotterdam U21") == 0 && find_club("Sparta Rotterdam")) return (BYTE*)find_club("Sparta Rotterdam");
+	if (_strcmpi(db_club_name, "FC Utrecht U21") == 0 && find_club("FC Utrecht")) return (BYTE*)find_club("FC Utrecht");
+	if (_strcmpi(db_club_name, "RSC Anderlecht B") == 0 && find_club("RSC Anderlecht")) return (BYTE*)find_club("RSC Anderlecht");
+	if (_strcmpi(db_club_name, "Royal Antwerp FC B") == 0 && find_club("Royal Antwerp FC")) return (BYTE*)find_club("Royal Antwerp FC");
+	if (_strcmpi(db_club_name, "Beerschot VA U21") == 0 && find_club("Beerschot VA")) return (BYTE*)find_club("Beerschot VA");
+	if (_strcmpi(db_club_name, "Cercle Brugge B") == 0 && find_club("Cercle Brugge")) return (BYTE*)find_club("Cercle Brugge");
+	if (_strcmpi(db_club_name, "RSC Charleroi B") == 0 && find_club("Royal Charleroi SC")) return (BYTE*)find_club("Royal Charleroi SC");
+	if (_strcmpi(db_club_name, "Club Brugge KV II") == 0 && find_club("Club Brugge KV")) return (BYTE*)find_club("Club Brugge KV");
+	if (_strcmpi(db_club_name, "KAS Eupen U23") == 0 && find_club("KAS Eupen")) return (BYTE*)find_club("KAS Eupen");
+	if (_strcmpi(db_club_name, "KRC Genk B") == 0 && find_club("KRC Genk")) return (BYTE*)find_club("KRC Genk");
+	if (_strcmpi(db_club_name, "KAA Gent B") == 0 && find_club("KAA Gent")) return (BYTE*)find_club("KAA Gent");
+	if (_strcmpi(db_club_name, "KV Mechelen U23") == 0 && find_club("KV Mechelen")) return (BYTE*)find_club("KV Mechelen");
+	if (_strcmpi(db_club_name, "Oud-Heverlee Leuven U23") == 0 && find_club("Oud-Heverlee Leuven")) return (BYTE*)find_club("Oud-Heverlee Leuven");
+	if (_strcmpi(db_club_name, "STVV Youth") == 0 && find_club("Sint-Truidense VV")) return (BYTE*)find_club("Sint-Truidense VV");
+	if (_strcmpi(db_club_name, "Standard de Liège 16 FC") == 0 && find_club("Standard Liège")) return (BYTE*)find_club("Standard Liège");
+	if (_strcmpi(db_club_name, "Union Saint-Gilloise U23") == 0 && find_club("Union Saint-Gilloise")) return (BYTE*)find_club("Union Saint-Gilloise");
+	if (_strcmpi(db_club_name, "Zulte-Waregem B") == 0 && find_club("Zulte Waregem")) return (BYTE*)find_club("Zulte Waregem");
+
 
 	// default case if none found
 	to_check->ClubHasLinkedClub = 0;
@@ -2214,6 +2267,12 @@ void setup_name_injection()
 	if (configFile.GetBool("applyAustralia", true)) {
 		leagues_rename_long.insert(leagues_rename_long_australia.begin(), leagues_rename_long_australia.end());
 		leagues_rename_short.insert(leagues_rename_short_australia.begin(), leagues_rename_short_australia.end());
+	}
+
+	if (configFile.GetBool("applyBelgium", true)) {
+		leagues_rename_long.insert(leagues_rename_long_belgium.begin(), leagues_rename_long_belgium.end());
+		leagues_rename_short.insert(leagues_rename_short_belgium.begin(), leagues_rename_short_belgium.end());
+		leagues_rename_tla.insert(leagues_rename_tla_belgium.begin(), leagues_rename_tla_belgium.end());
 	}
 
 	if (configFile.GetBool("applyBrazil", true)) {

@@ -708,6 +708,12 @@
     <ClCompile Include="Belgium\bel_fourth_ac.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Belgium\bel_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Belgium\bel_super.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -1413,6 +1419,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Belgium\bel_fourth_ac.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Belgium\bel_cup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Belgium\bel_super.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -339,6 +339,20 @@ void __declspec(naked) bel_third_ac_subs_c()
 	}
 }
 
+void block_reserve_promotion_bel_third_ac(BYTE* _this) {
+	comp_stats* comp_data = (comp_stats*)_this;
+	WORD total_teams = comp_data->n_teams;
+	team_league_stats* table_teams = (team_league_stats*)(comp_data->team_league_table);
+	for (int i = 0; i < total_teams; i++) {
+		DWORD is_main_club;
+		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)table_teams[i].club, &is_main_club, 1);
+		if (ret_club && !is_main_club) {
+			if (ret_club->ClubDivision->ClubCompID != BEL_FIRST_9CF())
+				table_teams[i].league_fate = CantBePromoted;
+		}
+	}
+}
+
 char bel_third_ac_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
@@ -364,10 +378,12 @@ char bel_third_ac_update(BYTE* _this) {
 	data->current_stage = -1;
 	bel_third_ac_subs(_this);
 	AddTeams(_this);
+	SetupTVMoney(_this, 43260, 0);
 	sub_6835C0(_this);
 	BYTE* edx = 0;
 	sub_6827D0(_this, edx);
 	DWORD v1 = *(DWORD*)_this;
+	block_reserve_promotion_bel_third_ac(_this);
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
 	sub_68AA80(_this);
 	return sub_79CEE0((BYTE*)*b74340, (BYTE*)(data->competition_db));
@@ -496,6 +512,7 @@ void bel_third_ac_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->num_stages = 0;
 	bel_third_ac_subs(_this);
 	AddTeams(_this);
+	SetupTVMoney(_this, 43260, 0);
 	sub_6835C0(_this);
 	BYTE* ebx = 0;
 	sub_6827D0(_this, ebx);
@@ -504,6 +521,7 @@ void bel_third_ac_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	sub_49EE70(pMem2, _this);
 	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
+	block_reserve_promotion_bel_third_ac(_this);
 	reputation_setup_generic_68A850(_this);
 }
 

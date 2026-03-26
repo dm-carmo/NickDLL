@@ -270,7 +270,11 @@ vector<cm3_clubs*> find_clubs_of_country_for_euro_playable(DWORD nation_id)
 			// Don't add Lower Division Clubs
 			if (!club->ClubDivision || club->ClubDivision->ClubCompID != A_LOWER_9CF() || club->ClubDivision->ClubCompID != A_LOWER_B_9CF())
 				if (club->ClubEuroFlag == -1 && club->ClubLastDivision)
-					ret.push_back(club);
+				{
+					DWORD is_main_club;
+					cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)club, &is_main_club, 1);
+					if (!ret_club || is_main_club) ret.push_back(club);
+				}
 		}
 	}
 	return ret;
@@ -289,7 +293,11 @@ vector<cm3_clubs*> find_clubs_of_country_for_euro(DWORD nation_id)
 			//dprintf("Club Division: %s\n", (club->ClubDivision)->ClubCompName);
 
 			if (club->ClubEuroFlag == -1)
-				ret.push_back(club);
+			{
+				DWORD is_main_club;
+				cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)club, &is_main_club, 1);
+				if (!ret_club || is_main_club) ret.push_back(club);
+			}
 		}
 	}
 	return ret;

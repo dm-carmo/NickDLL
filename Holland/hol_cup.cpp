@@ -61,35 +61,43 @@ DWORD hol_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 			*a5 = 0;
 		BYTE* pMem = NULL;
 		WORD year = ((comp_stats*)_this)->year;
-		*num_rounds = 6;
+		*num_rounds = 8;
 		*stage_name_id = None;
 
 		pMem = (BYTE*)sub_944E46_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 16), year, Saturday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 3), year, Wednesday, Evening);
+		FillFixtureDetails(pMem, fixture_id++, FirstPreliminaryRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 64, 32, 64, 0, 0, 1, 0);
+
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 5), year, Friday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 24), year, Wednesday, Evening);
+		FillFixtureDetails(pMem, fixture_id++, SecondPreliminaryRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 40, 20, 8, 64, 0, 1, 0, 0, 0, 3461);
+
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 26), year, Friday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 29), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 52, 26, 52, 0, 0, 1, 0, 10814);
+		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 52, 26, 32, 72, 0, 1, 0, 0, 0, 11680);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 31), year, Friday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 17), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SecondRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 32, 16, 6, 52, 0, 1, 0, 25953);
+		FillFixtureDetails(pMem, fixture_id++, SecondRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 32, 16, 6, 104, 0, 1, 0, 0, 0, 32012);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 19), year, Friday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 1, 14), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 16, 8, 0, 0, 0, 1, 0, 43255);
+		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 16, 8, 0, 0, 0, 1, 0, 0, 0, 60564);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 1, 16), year, Friday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 2, 4), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 8, 4, 0, 0, 0, 1, 0, 69208);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 8, 4, 0, 0, 0, 1, 0, 0, 0, 95172);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 2, 6), year, Friday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 4), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 4, 2, 0, 0, 0, 1, 0, 112463);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 4, 2, 0, 0, 0, 1, 0, 0, 0, 168714);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 6), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 19), year, Sunday, Afternoon, NationalStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0, 0, 302785, 173020);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0, 0, 432600, 250908);
 
 		return (DWORD)pMem;
 	}
@@ -116,7 +124,7 @@ int hol_cup_teams(BYTE* _this) {
 	vector<cm3_clubs*> vec;
 	vector<cm3_clubs*> vec_uefa;
 	comp_stats* comp_data = (comp_stats*)_this;
-	WORD total_teams = 58;
+	WORD total_teams = 110;
 	BYTE* pMem = (BYTE*)sub_944E46_malloc(6 * total_teams);
 
 	comp_data->n_teams = total_teams;
@@ -131,14 +139,27 @@ int hol_cup_teams(BYTE* _this) {
 	}
 	sort(vec_uefa.begin(), vec_uefa.end(), compareClubLastDivPosInv);
 
+	WORD main_teams = CountNumberOfTeamsInComp(HOL_FIRST_9CF()) + CountNumberOfTeamsInCompNoReserve(HOL_SECOND_9CF());
+	WORD lower_teams = total_teams - main_teams;
+
 	// Lower
 	division_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_HOLLAND_9CF());
+	vector<cm3_clubs*> lower_clubs2 = find_clubs_of_comp(A_LOWER_B_9CF(), NATION_HOLLAND_9CF());
+	move(lower_clubs2.begin(), lower_clubs2.end(), back_inserter(division_clubs));
 	sort(division_clubs.begin(), division_clubs.end(), compareClubRep);
-	for (unsigned int i = 0; i < 20; i++)
+	for (unsigned int i = 0; i < lower_teams; i++)
 	{
 		int availableIdx = rand() % division_clubs.size();
 		cm3_clubs* lower_club = division_clubs[availableIdx];
-		if (!vector_contains_club(vec_uefa, lower_club)) vec.push_back(lower_club);
+		if (!vector_contains_club(vec_uefa, lower_club))
+		{
+			DWORD is_main_club;
+			cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)lower_club, &is_main_club, 1);
+			if (ret_club && !is_main_club)
+				i--;
+			else
+				vec.push_back(lower_club);
+		}
 
 		division_clubs.erase(division_clubs.begin() + availableIdx);
 	}
@@ -147,7 +168,12 @@ int hol_cup_teams(BYTE* _this) {
 	sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPosInv);
 	for (cm3_clubs* club : division_clubs)
 	{
-		if (!vector_contains_club(vec_uefa, club)) vec.push_back(club);
+		if (!vector_contains_club(vec_uefa, club))
+		{
+			DWORD is_main_club;
+			cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)club, &is_main_club, 1);
+			if (!ret_club || is_main_club) vec.push_back(club);
+		}
 	}
 	// Eredivisie
 	division_clubs = find_clubs_of_comp(HOL_FIRST_9CF());

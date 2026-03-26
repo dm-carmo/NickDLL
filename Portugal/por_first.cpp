@@ -159,7 +159,8 @@ void __fastcall por_liga_3_relegation(BYTE* _this)
 
 		DWORD is_main_club;
 		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)available, &is_main_club, 1);
-		if (ret_club && !is_main_club && ret_club->ClubDivision->ClubCompID == POR_THIRD_9CF())
+		if (ret_club && !is_main_club && ret_club->ClubDivision->ClubCompID != POR_FIRST_9CF()
+			&& ret_club->ClubDivision->ClubCompID != POR_SECOND_9CF())
 			i--;
 		else
 		{
@@ -221,7 +222,8 @@ void __fastcall por_non_league_promotion(BYTE* _this)
 
 		DWORD is_main_club;
 		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)available, &is_main_club, 1);
-		if (ret_club && !is_main_club && ret_club->ClubDivision->ClubCompID == POR_FOURTH_9CF())
+		if (ret_club && !is_main_club && ret_club->ClubDivision->ClubCompID != POR_FIRST_9CF()
+			&& ret_club->ClubDivision->ClubCompID != POR_SECOND_9CF() && ret_club->ClubDivision->ClubCompID != POR_THIRD_9CF())
 			i--;
 		else
 		{

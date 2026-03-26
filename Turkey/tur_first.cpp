@@ -175,12 +175,12 @@ void tur_first_prom_rel_update(BYTE* _this, int a2) {
 	BYTE* tur_fourth = get_loaded_league(TUR_FOURTH_9CF());
 	if (tur_fourth) {
 		comp_stats* tur_fourth_data = (comp_stats*)tur_fourth;
+		v1 = *(DWORD*)tur_fourth;
+		(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(tur_fourth);
 		if (tur_fourth_data->year == 2025) {
 			tur_d3_d4_relegation_2025(_this);
 		}
 		else {
-			v1 = *(DWORD*)tur_fourth;
-			(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(tur_fourth);
 			sub_689C80(_this, tur_third, tur_fourth, 1, a2, -1, -1);
 
 			for (int i = 0; i < 3; i++)

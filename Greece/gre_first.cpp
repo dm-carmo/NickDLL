@@ -377,13 +377,59 @@ void __fastcall gre_second_relegation(BYTE* _this)
 			cm3_clubs* clubToRelegate = relegated_clubs[i];
 			cm3_clubs* available = available_clubs[availableIdx];
 
-			cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
-			cm3_club_comps* bottomDivision = available->ClubDivision;
-			relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
-			promote_club_6830B0((BYTE*)available, (DWORD)topDivision, 1);
-			clubToRelegate->ClubReserveDivision = 0;
+			DWORD is_main_club;
+			cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)available, &is_main_club, 1);
+			if (ret_club && !is_main_club && ret_club->ClubDivision->ClubCompID != GRE_FIRST_9CF())
+				i--;
+			else
+			{
+				cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
+				cm3_club_comps* bottomDivision = available->ClubDivision;
+				relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
+				promote_club_6830B0((BYTE*)available, (DWORD)topDivision, 1);
+				clubToRelegate->ClubReserveDivision = 0;
+			}
 
 			available_clubs.erase(available_clubs.begin() + availableIdx);
+		}
+	}
+}
+
+void __fastcall gre_check_reserve_teams(BYTE* _this) {
+	comp_stats* gre_second_data = (comp_stats*)get_loaded_league(GRE_SECOND_9CF());
+	// Check teams from L2: main team relegated from L1 - add relegation + remove one relegation
+	comp_stats* curr_stage = gre_second_data;
+	for (char al = -1; al < 1; al++) {
+		if (al >= 0) {
+			curr_stage = (comp_stats*)(gre_second_data->stages[al]);
+		}
+		for (WORD num = 0; num < curr_stage->n_teams; num++) {
+			team_league_stats* table_teams = (team_league_stats*)curr_stage->team_league_table;
+			DWORD is_main_club;
+			cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)table_teams[num].club, &is_main_club, 1);
+			// If it is a reserve team
+			if (ret_club && !is_main_club)
+			{
+				// If reserve team was not relegated
+				if (table_teams[num].league_fate != Relegated) {
+					// If main team is in the first league
+					if (ret_club->ClubDivision->ClubCompID == GRE_FIRST_9CF()) {
+						team_league_stats* main_club_data = get_team_league_stats(GRE_FIRST_9CF(), ret_club);
+						// If the main team was relegated
+						if (main_club_data->league_fate == Relegated) {
+							table_teams[num].league_fate = Relegated;
+							// Relegate the reserve team, and relegate one less team from the second league
+							team_league_stats* d2_table = (team_league_stats*)curr_stage->team_league_table;
+							for (WORD i = curr_stage->n_teams - curr_stage->relegations - curr_stage->rele_playoff; i < curr_stage->n_teams; i++) {
+								if (d2_table[i].league_fate == Relegated) {
+									d2_table[i].league_fate = Eliminated;
+									break;
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 }
@@ -393,6 +439,7 @@ char gre_first_update(BYTE* _this) {
 	BYTE* ebx = 0;
 	data->f76 = 0;
 	DWORD v1 = *(DWORD*)_this;
+	gre_check_reserve_teams(_this);
 	gre_first_prom_rel_update(_this, 1);
 	gre_second_relegation(_this);
 

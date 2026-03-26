@@ -382,6 +382,26 @@ void __declspec(naked) bel_fourth_vv_reputation_setup_c()
 	}
 }
 
+void block_reserve_promotion_bel_fourth_vv(BYTE* _this) {
+	comp_stats* data = (comp_stats*)_this;
+	comp_stats* curr_stage = data;
+	for (char al = -1; al < 1; al++) {
+		if (al >= 0) {
+			curr_stage = (comp_stats*)(data->stages[al]);
+		}
+		WORD total_teams = curr_stage->n_teams;
+		team_league_stats* table_teams = (team_league_stats*)(curr_stage->team_league_table);
+		for (int i = 0; i < total_teams; i++) {
+			DWORD is_main_club;
+			cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)table_teams[i].club, &is_main_club, 1);
+			if (ret_club && !is_main_club) {
+				if (ret_club->ClubDivision->ClubCompID != BEL_FIRST_9CF() || ret_club->ClubDivision->ClubCompID != BEL_SECOND_9CF())
+					table_teams[i].league_fate = CantBePromoted;
+			}
+		}
+	}
+}
+
 void bel_fourth_vv_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 {
 	sub_682200(_this);
@@ -409,6 +429,7 @@ void bel_fourth_vv_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	for (BYTE i = 0; i < 1; i++) {
 		bel_fourth_vv_setup_groups(_this, i);
 	}
+	block_reserve_promotion_bel_fourth_vv(_this);
 	bel_fourth_vv_reputation_setup(_this);
 }
 
@@ -444,6 +465,7 @@ char bel_fourth_vv_update(BYTE* _this) {
 		bel_fourth_vv_setup_groups(_this, i);
 	}
 	DWORD v1 = *(DWORD*)_this;
+	block_reserve_promotion_bel_fourth_vv(_this);
 	(DWORD*)(*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
 	return sub_79CEE0((BYTE*)*b74340, (BYTE*)(data->competition_db));
 }

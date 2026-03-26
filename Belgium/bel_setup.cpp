@@ -8,12 +8,14 @@
 #include "bel_third_ac.h"
 #include "bel_fourth_vv.h"
 #include "bel_fourth_ac.h"
-//#include "bel_cup.h"
-//#include "bel_super.h"
+#include "bel_cup.h"
+#include "bel_super.h"
 //#include "bel_awards.h"
 
+static DWORD(__thiscall* bel_cup_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
+(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x41d050);
 static DWORD(__thiscall* bel_super_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x5F8820);
+(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x420ef0);
 
 DWORD bel_setup_c(playable_nation_data* nation_data) {
 
@@ -28,10 +30,10 @@ DWORD bel_setup_c(playable_nation_data* nation_data) {
 	nation_data->f70 = 5;
 	BYTE selected = nation_data->nation->NationLeagueSelected;
 	if ((selected & 4) == 0) {
-		nation_data->num_of_comps = 4;
+		nation_data->num_of_comps = 6;
 	}
 	else {
-		nation_data->num_of_comps = 6;
+		nation_data->num_of_comps = 8;
 	}
 	DWORD* nation_comps = (DWORD*)sub_944E46_malloc(nation_data->num_of_comps * 4);
 	nation_data->comps_list = (DWORD)nation_comps;
@@ -63,13 +65,14 @@ DWORD bel_setup_c(playable_nation_data* nation_data) {
 		bel_fourth_ac_init(pMem, *current_year, get_comp(BEL_FOURTH_ACFF_9CF()));
 		nation_comps[i++] = (DWORD)pMem;
 	}
-	//pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
-	//bel_cup_init(pMem, *current_year, get_comp(BEL_CUP_9CF()));
-	//nation_comps[i++] = (DWORD)pMem;
 
-	//pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
-	//bel_super_setup(pMem, *current_year, get_comp(BEL_SUPER_CUP_9CF()));
-	//nation_comps[i++] = (DWORD)pMem;
+	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
+	bel_cup_setup(pMem, *current_year, get_comp(BEL_CUP_9CF()));
+	nation_comps[i++] = (DWORD)pMem;
+
+	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
+	bel_super_setup(pMem, *current_year, get_comp(BEL_SUPER_CUP_9CF()));
+	nation_comps[i++] = (DWORD)pMem;
 
 	BYTE* cm_date = new BYTE[8];
 	convert_to_cm_date(cm_date, 20, June, 2025, -1);
@@ -88,8 +91,8 @@ void setup_bel_nation() {
 	setup_bel_third_ac();
 	setup_bel_fourth_vv();
 	setup_bel_fourth_ac();
-	//setup_bel_cup();
-	//setup_bel_super();
+	setup_bel_cup();
+	setup_bel_super();
 	//setup_bel_awards();
 }
 
@@ -117,6 +120,10 @@ void belgium_restructure() {
 		for (cm3_clubs* c : lower_clubs) {
 			c->ClubDivision = a_lower;
 		}
+	}
+	cm3_clubs* bel_reserve = find_club("Beerschot VA U21");
+	if (bel_reserve) {
+		bel_reserve->ClubDivision = a_lower;
 	}
 
 	vector<string> d2_clubs = {

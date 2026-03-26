@@ -73,9 +73,14 @@ void bel_second_subs(BYTE* _this)
 	comp_data->tiebreaker_2 = GoalDifferenceTiebreaker;
 	comp_data->tiebreaker_3 = GoalsForTiebreaker;
 	comp_data->promotions = 2;
-	comp_data->prom_playoff = 4;
+	comp_data->prom_playoff = 0;
 	comp_data->rele_playoff = 0;
 	comp_data->relegations = 2;
+	if (comp_data->year == 2025)
+	{
+		comp_data->prom_playoff = 4;
+		comp_data->relegations = 1;
+	}
 
 	comp_data->promotes_to = BEL_FIRST_9CF();
 	comp_data->relegates_to = BEL_THIRD_VV_9CF();
@@ -148,10 +153,12 @@ DWORD bel_second_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
-		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year, 9, 24), year, Wednesday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Tuesday, Evening);
-		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		if (year == 2025) {
+			tv_id = 0;
+			AddFixture(pMem, fixture_id, Date(year, 9, 24), year, Wednesday, Evening);
+			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Tuesday, Evening);
+			AddFixtureTV(pMem, fixture_id++, tv_id++);
+		}
 		tv_id = 0;
 		AddFixture(pMem, fixture_id, Date(year, 9, 27), year, Saturday);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
@@ -202,10 +209,12 @@ DWORD bel_second_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
-		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year, 12, 17), year, Wednesday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Tuesday, Evening);
-		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		if (year == 2025) {
+			tv_id = 0;
+			AddFixture(pMem, fixture_id, Date(year, 12, 17), year, Wednesday, Evening);
+			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Tuesday, Evening);
+			AddFixtureTV(pMem, fixture_id++, tv_id++);
+		}
 		tv_id = 0;
 		AddFixture(pMem, fixture_id, Date(year, 12, 20), year, Saturday);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
@@ -221,10 +230,12 @@ DWORD bel_second_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
-		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year + 1, 1, 28), year, Wednesday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Tuesday, Evening);
-		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		if (year == 2025) {
+			tv_id = 0;
+			AddFixture(pMem, fixture_id, Date(year + 1, 1, 28), year, Wednesday, Evening);
+			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Tuesday, Evening);
+			AddFixtureTV(pMem, fixture_id++, tv_id++);
+		}
 		tv_id = 0;
 		AddFixture(pMem, fixture_id, Date(year + 1, 1, 31), year, Saturday);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
@@ -255,10 +266,12 @@ DWORD bel_second_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
-		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year + 1, 3, 11), year, Wednesday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Tuesday, Evening);
-		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		if (year == 2025) {
+			tv_id = 0;
+			AddFixture(pMem, fixture_id, Date(year + 1, 3, 11), year, Wednesday, Evening);
+			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Tuesday, Evening);
+			AddFixtureTV(pMem, fixture_id++, tv_id++);
+		}
 		tv_id = 0;
 		AddFixture(pMem, fixture_id, Date(year + 1, 3, 14), year, Saturday);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
@@ -325,6 +338,19 @@ void __declspec(naked) bel_second_fixtures_c()
 	}
 }
 
+void block_reserve_promotion_bel_second(BYTE* _this) {
+	comp_stats* comp_data = (comp_stats*)_this;
+	WORD total_teams = comp_data->n_teams;
+	team_league_stats* table_teams = (team_league_stats*)(comp_data->team_league_table);
+	for (int i = 0; i < total_teams; i++) {
+		DWORD is_main_club;
+		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)table_teams[i].club, &is_main_club, 1);
+		if (ret_club && !is_main_club) {
+			table_teams[i].league_fate = CantBePromoted;
+		}
+	}
+}
+
 void bel_second_points_deductions(BYTE* _this, WORD current_year)
 {
 	if (current_year > 2025) return;
@@ -374,6 +400,7 @@ void bel_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
 	bel_second_subs(_this);
 	AddTeams(_this);
+	SetupTVMoney(_this, 432600, 0);
 	sub_6835C0(_this);
 	BYTE* ebx = 0;
 	sub_6827D0(_this, ebx);
@@ -382,6 +409,7 @@ void bel_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	sub_49EE70(pMem2, _this);
 	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
+	block_reserve_promotion_bel_second(_this);
 	reputation_setup_generic_68A850(_this);
 	bel_second_points_deductions(_this, year);
 }
@@ -537,12 +565,17 @@ char bel_second_update(BYTE* _this) {
 	}
 	data->year++;
 	data->current_stage = -1;
+	data->num_stages = 0;
+	data->stages = 0;
+	*((DWORD*)(_this + 0xA7)) = -1;
 	bel_second_subs(_this);
 	AddTeams(_this);
+	SetupTVMoney(_this, 432600, 0);
 	sub_6835C0(_this);
 	BYTE* edx = 0;
 	sub_6827D0(_this, edx);
 	DWORD v1 = *(DWORD*)_this;
+	block_reserve_promotion_bel_second(_this);
 	(DWORD*)(*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
 	sub_68AA80(_this);
 	return sub_79CEE0((BYTE*)*b74340, (BYTE*)(data->competition_db));
