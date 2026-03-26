@@ -39,6 +39,12 @@ int show_extra_leagues_in_start(BYTE* nation, DWORD dest_ptr, int a3) {
 	if (!nation || !dest_ptr || a3 < 20) return 0;
 	cm3_nations* cm3_nation = (cm3_nations*)nation;
 	char* league_str;
+	if (cm3_nation->NationID == NATION_BELGIUM_9CF()) {
+		if (configFile.GetBool("applyBelgium", true)) league_str = "Division 2";
+		else return 0;
+		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
+		return 1;
+	}
 	if (cm3_nation->NationID == NATION_ENGLAND_9CF()) {
 		if (configFile.GetBool("applyEngland", true)) league_str = "National Leagues";
 		else league_str = "National League";
@@ -46,7 +52,7 @@ int show_extra_leagues_in_start(BYTE* nation, DWORD dest_ptr, int a3) {
 		return 1;
 	}
 	if (cm3_nation->NationID == NATION_FINLAND_9CF()) {
-		if (configFile.GetBool("applyJapan", true)) league_str = "Kakkonen";
+		if (configFile.GetBool("applyFinland", true)) league_str = "Kakkonen";
 		else return 0;
 		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
 		return 1;
@@ -113,11 +119,6 @@ int show_extra_leagues_in_start(BYTE* nation, DWORD dest_ptr, int a3) {
 	}
 	if (cm3_nation->NationID == NATION_AUSTRALIA_9CF()) {
 		league_str = "National Premier Leagues";
-		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
-		return 1;
-	}
-	if (cm3_nation->NationID == NATION_BELGIUM_9CF()) {
-		league_str = "Division 2";
 		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
 		return 1;
 	}

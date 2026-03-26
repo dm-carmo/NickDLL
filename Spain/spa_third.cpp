@@ -9,18 +9,6 @@ DWORD* spa_third_vtable = (DWORD*)0x96FC84;
 
 int spa_third_set_champion(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
-	comp_stats* curr_stage = data;
-	DWORD comp_ids[2] = { SPA_THIRD_G1_9CF(), SPA_THIRD_G2_9CF() };
-	for (char al = -1; al < 1; al++) {
-		if (al >= 0) {
-			curr_stage = (comp_stats*)(data->stages[al]);
-		}
-		WORD total_teams = curr_stage->n_teams;
-		team_league_stats* table_teams = (team_league_stats*)(curr_stage->team_league_table);
-		DWORD tmp[2] = { 0, (DWORD)get_comp(comp_ids[al + 1]) };
-		sub_4AFCE0_add_history_entry((BYTE*)tmp, table_teams[0].club, table_teams[1].club, table_teams[2].club, 0);
-	}
-
 	BYTE* stage_data_for_history = (BYTE*)data->stages[2];
 	DWORD v1 = *(DWORD*)stage_data_for_history;
 	return (*(int(__thiscall**)(BYTE*))(v1 + 0x30))(stage_data_for_history);

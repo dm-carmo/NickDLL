@@ -6,11 +6,11 @@
 #include "Helpers\constants.h"
 #include <Helpers\9cf_constants.h>
 
-vtable* ger_third_vtable = new vtable((BYTE*)0x96B304, 0xB4);
+vtable* bel_third_vv_vtable = new vtable((BYTE*)0x96B304, 0xB4);
 
-void ger_third_free_under(BYTE* _this) {
+void bel_third_vv_free_under(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
-	data->comp_vtable = (DWORD*)(ger_third_vtable->vtable_ptr);
+	data->comp_vtable = (DWORD*)(bel_third_vv_vtable->vtable_ptr);
 	DWORD x = 0;
 	sub_687970(_this, 0);
 	if (data->fixtures_table) {
@@ -40,27 +40,27 @@ void ger_third_free_under(BYTE* _this) {
 	sub_682300(_this);
 }
 
-void ger_third_free(BYTE* _this, BYTE a2) {
-	ger_third_free_under(_this);
+void bel_third_vv_free(BYTE* _this, BYTE a2) {
+	bel_third_vv_free_under(_this);
 	if (a2 & 1) {
 		sub_944C94_free(_this);
 	}
 }
 
-void __declspec(naked) ger_third_free_c()
+void __declspec(naked) bel_third_vv_free_c()
 {
 	__asm
 	{
 		mov eax, esp
 		push dword ptr[eax + 0x4]
 		push ecx
-		call ger_third_free
+		call bel_third_vv_free
 		add esp, 0x8
 		ret 4
 	}
 }
 
-void ger_third_subs(BYTE* _this)
+void bel_third_vv_subs(BYTE* _this)
 {
 	comp_stats* comp_data = (comp_stats*)_this;
 
@@ -69,22 +69,16 @@ void ger_third_subs(BYTE* _this)
 	comp_data->pts_for_draw = 1;
 	comp_data->f196 = 2;
 	comp_data->comp_type = CLUB_DOMESTIC;
-	comp_data->tiebreaker_1 = GoalDifferenceTiebreaker;
-	comp_data->tiebreaker_2 = GoalsForTiebreaker;
-	comp_data->tiebreaker_3 = GamesWonTiebreaker;
-	comp_data->promotions = 2;
-	comp_data->prom_playoff = 1;
+	comp_data->tiebreaker_1 = GamesWonTiebreaker;
+	comp_data->tiebreaker_2 = GoalDifferenceTiebreaker;
+	comp_data->tiebreaker_3 = GoalsForTiebreaker;
+	comp_data->promotions = 1;
+	comp_data->prom_playoff = 0;
 	comp_data->rele_playoff = 0;
-	comp_data->relegations = 4;
+	comp_data->relegations = 3;
 
-	comp_data->promotes_to = GER_SECOND_9CF();
-	BYTE selected = get_country(NATION_GERMANY_9CF())->NationLeagueSelected;
-	if ((selected & 4) == 0) {
-		comp_data->relegates_to = -1;
-	}
-	else {
-		comp_data->relegates_to = GER_REGIONAL_9CF();
-	}
+	comp_data->promotes_to = BEL_SECOND_9CF();
+	comp_data->relegates_to = BEL_THIRD_ACFF_9CF();
 
 	comp_data->f82 = 2;
 	comp_data->max_bench = 7;
@@ -96,19 +90,19 @@ void ger_third_subs(BYTE* _this)
 	return;
 }
 
-void __declspec(naked) ger_third_subs_c()
+void __declspec(naked) bel_third_vv_subs_c()
 {
 	__asm
 	{
 		mov eax, esp
 		push ecx
-		call ger_third_subs
+		call bel_third_vv_subs
 		add esp, 0x4
 		ret
 	}
 }
 
-DWORD ger_third_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
+DWORD bel_third_vv_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
 {
 	if (stage_idx == -1) {
 		if (a5)
@@ -125,22 +119,12 @@ DWORD ger_third_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 
 		int fixture_id = 0;
 		int tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year, 8, 2), year, Saturday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
-		AddFixtureTV(pMem, fixture_id++, tv_id++);
-		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year, 8, 9), year, Saturday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
-		AddFixtureTV(pMem, fixture_id++, tv_id++);
-		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year, 8, 23), year, Saturday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
-		AddFixtureTV(pMem, fixture_id++, tv_id++);
-		tv_id = 0;
 		AddFixture(pMem, fixture_id, Date(year, 8, 30), year, Saturday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
+		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		tv_id = 0;
+		AddFixture(pMem, fixture_id, Date(year, 9, 6), year, Saturday);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
@@ -148,10 +132,6 @@ DWORD ger_third_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		AddFixture(pMem, fixture_id, Date(year, 9, 13), year, Saturday);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
-		AddFixtureTV(pMem, fixture_id++, tv_id++);
-		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year, 9, 17), year, Wednesday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Tuesday, Evening);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
 		AddFixture(pMem, fixture_id, Date(year, 9, 20), year, Saturday);
@@ -164,11 +144,12 @@ DWORD ger_third_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year, 10, 1), year, Wednesday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Tuesday, Evening);
+		AddFixture(pMem, fixture_id, Date(year, 10, 4), year, Saturday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year, 10, 4), year, Saturday);
+		AddFixture(pMem, fixture_id, Date(year, 10, 11), year, Saturday);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
@@ -193,6 +174,11 @@ DWORD ger_third_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
+		AddFixture(pMem, fixture_id, Date(year, 11, 15), year, Saturday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
+		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		tv_id = 0;
 		AddFixture(pMem, fixture_id, Date(year, 11, 22), year, Saturday);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
@@ -209,11 +195,6 @@ DWORD ger_third_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
 		AddFixture(pMem, fixture_id, Date(year, 12, 13), year, Saturday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
-		AddFixtureTV(pMem, fixture_id++, tv_id++);
-		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year, 12, 20), year, Saturday);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
@@ -253,10 +234,6 @@ DWORD ger_third_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year + 1, 3, 4), year, Wednesday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Tuesday, Evening);
-		AddFixtureTV(pMem, fixture_id++, tv_id++);
-		tv_id = 0;
 		AddFixture(pMem, fixture_id, Date(year + 1, 3, 7), year, Saturday);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
@@ -272,13 +249,9 @@ DWORD ger_third_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year + 1, 4, 4), year, Saturday);
+		AddFixture(pMem, fixture_id, Date(year + 1, 3, 28), year, Saturday);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
-		AddFixtureTV(pMem, fixture_id++, tv_id++);
-		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year + 1, 4, 8), year, Wednesday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Tuesday, Evening);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
 		AddFixture(pMem, fixture_id, Date(year + 1, 4, 11), year, Saturday);
@@ -290,22 +263,7 @@ DWORD ger_third_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
-		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year + 1, 4, 25), year, Saturday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
-		AddFixtureTV(pMem, fixture_id++, tv_id++);
-		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year + 1, 5, 2), year, Saturday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
-		AddFixtureTV(pMem, fixture_id++, tv_id++);
-		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year + 1, 5, 9), year, Saturday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
-		AddFixtureTV(pMem, fixture_id++, tv_id++);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 5, 16), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 25), year, Saturday);
 
 		check_number_of_fixtures(_this, fixture_id, *num_rounds);
 
@@ -314,7 +272,7 @@ DWORD ger_third_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 	return 0;
 }
 
-void __declspec(naked) ger_third_fixtures_c()
+void __declspec(naked) bel_third_vv_fixtures_c()
 {
 	__asm
 	{
@@ -324,26 +282,13 @@ void __declspec(naked) ger_third_fixtures_c()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call ger_third_fixtures
+		call bel_third_vv_fixtures
 		add esp, 0x14
 		ret 0x10
 	}
 }
 
-void ger_third_block_promotion(BYTE* _this) {
-	comp_stats* data = (comp_stats*)_this;
-	WORD total_teams = data->n_teams;
-	team_league_stats* table_teams = (team_league_stats*)(data->team_league_table);
-	for (int i = 0; i < total_teams; i++) {
-		DWORD is_main_club;
-		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)table_teams[i].club, &is_main_club, 1);
-		if (ret_club && !is_main_club) {
-			table_teams[i].league_fate = CantBePromoted;
-		}
-	}
-}
-
-char ger_third_update(BYTE* _this) {
+char bel_third_vv_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
 	data->f76 = 0;
@@ -366,10 +311,8 @@ char ger_third_update(BYTE* _this) {
 	}
 	data->year++;
 	data->current_stage = -1;
-	ger_third_subs(_this);
+	bel_third_vv_subs(_this);
 	AddTeams(_this);
-	SetupTVMoney(_this, 1019953, 0);
-	ger_third_block_promotion(_this);
 	sub_6835C0(_this);
 	BYTE* edx = 0;
 	sub_6827D0(_this, edx);
@@ -379,19 +322,19 @@ char ger_third_update(BYTE* _this) {
 	return sub_79CEE0((BYTE*)*b74340, (BYTE*)(data->competition_db));
 }
 
-void __declspec(naked) ger_third_update_c()
+void __declspec(naked) bel_third_vv_update_c()
 {
 	__asm
 	{
 		mov eax, esp
 		push ecx
-		call ger_third_update
+		call bel_third_vv_update
 		add esp, 0x4
 		ret
 	}
 }
 
-int ger_third_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int bel_third_vv_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	cm3_club_comps* ger_second = get_comp(GER_SECOND_9CF());
@@ -418,7 +361,7 @@ int ger_third_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char sta
 	return 0;
 }
 
-void __declspec(naked) ger_third_set_table_fate()
+void __declspec(naked) bel_third_vv_set_table_fate()
 {
 	__asm
 	{
@@ -430,37 +373,33 @@ void __declspec(naked) ger_third_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call ger_third_table_indicators
+		call bel_third_vv_table_indicators
 		add esp, 0x1c
 		ret 0x18
 	}
 }
 
-void ger_third_init(BYTE* _this, WORD year, cm3_club_comps* comp)
+void bel_third_vv_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 {
 	sub_682200(_this);
 	comp_stats* data = (comp_stats*)_this;
 	data->competition_db = comp;
-	data->comp_vtable = (DWORD*)(ger_third_vtable->vtable_ptr);
-	ger_third_vtable->SetPointer(VTableInitFree, (DWORD)&ger_third_free_c);
-	ger_third_vtable->SetPointer(VTableEoSUpdate, (DWORD)&ger_third_update_c);
-	ger_third_vtable->SetPointer(VTableFixtures, (DWORD)&ger_third_fixtures_c);
-	ger_third_vtable->SetPointer(VTableSubsRounds, (DWORD)&ger_third_subs_c);
-	ger_third_vtable->SetPointer(VTableTableFates, (DWORD)&ger_third_set_table_fate);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) ger_third_vtable->SetPointer(VTable21, 0x4110b0);
+	data->comp_vtable = (DWORD*)(bel_third_vv_vtable->vtable_ptr);
+	bel_third_vv_vtable->SetPointer(VTableInitFree, (DWORD)&bel_third_vv_free_c);
+	bel_third_vv_vtable->SetPointer(VTableEoSUpdate, (DWORD)&bel_third_vv_update_c);
+	bel_third_vv_vtable->SetPointer(VTableFixtures, (DWORD)&bel_third_vv_fixtures_c);
+	bel_third_vv_vtable->SetPointer(VTableSubsRounds, (DWORD)&bel_third_vv_subs_c);
+	bel_third_vv_vtable->SetPointer(VTableTableFates, (DWORD)&bel_third_vv_set_table_fate);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) bel_third_vv_vtable->SetPointer(VTable21, 0x4110b0);
 	data->year = year;
-	data->rules = RulesGermanyLeague;
+	data->rules = RulesBelgiumLeague;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
-	comp->ClubCompBackgroundColour = get_colour(COLOUR_BLACK_9CF());
-	comp->ClubCompForegroundColour = get_colour(COLOUR_WHITE_9CF());
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 0;
-	ger_third_subs(_this);
+	bel_third_vv_subs(_this);
 	AddTeams(_this);
-	SetupTVMoney(_this, 1019953, 0);
-	ger_third_block_promotion(_this);
 	sub_6835C0(_this);
 	BYTE* ebx = 0;
 	sub_6827D0(_this, ebx);
@@ -472,6 +411,6 @@ void ger_third_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	reputation_setup_generic_68A850(_this);
 }
 
-void setup_ger_third()
+void setup_bel_third_vv()
 {
 }

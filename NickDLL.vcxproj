@@ -146,7 +146,12 @@
     <ClCompile Include="Australia\aus_league.cpp" />
     <ClCompile Include="Australia\aus_setup.cpp" />
     <ClCompile Include="Belgium\bel_first.cpp" />
+    <ClCompile Include="Belgium\bel_fourth_ac.cpp" />
+    <ClCompile Include="Belgium\bel_fourth_vv.cpp" />
+    <ClCompile Include="Belgium\bel_second.cpp" />
     <ClCompile Include="Belgium\bel_setup.cpp" />
+    <ClCompile Include="Belgium\bel_third_ac.cpp" />
+    <ClCompile Include="Belgium\bel_third_vv.cpp" />
     <ClCompile Include="Brazil\bra_awards.cpp" />
     <ClCompile Include="Brazil\bra_cup.cpp" />
     <ClCompile Include="Brazil\bra_first.cpp" />
@@ -374,7 +379,12 @@
     <ClInclude Include="Australia\aus_league.h" />
     <ClInclude Include="Australia\aus_setup.h" />
     <ClInclude Include="Belgium\bel_first.h" />
+    <ClInclude Include="Belgium\bel_fourth_ac.h" />
+    <ClInclude Include="Belgium\bel_fourth_vv.h" />
+    <ClInclude Include="Belgium\bel_second.h" />
     <ClInclude Include="Belgium\bel_setup.h" />
+    <ClInclude Include="Belgium\bel_third_ac.h" />
+    <ClInclude Include="Belgium\bel_third_vv.h" />
     <ClInclude Include="Brazil\bra_awards.h" />
     <ClInclude Include="Brazil\bra_cup.h" />
     <ClInclude Include="Brazil\bra_fourth.h" />

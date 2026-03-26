@@ -172,9 +172,9 @@ DWORD hol_second_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Sunday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year, 12, 19), year, Tuesday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Monday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Wednesday, Evening);
+		AddFixture(pMem, fixture_id, Date(year, 12, 19), year, Friday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Sunday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
 		AddFixture(pMem, fixture_id, Date(year + 1, 1, 13), year, Tuesday, Evening);
@@ -331,8 +331,6 @@ void hol_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->rules = RulesHolland;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
-	comp->ClubCompBackgroundColour = get_colour(COLOUR_RED_1_9CF());
-	comp->ClubCompForegroundColour = get_colour(COLOUR_WHITE_9CF());
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 5;

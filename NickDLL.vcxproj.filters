@@ -693,6 +693,21 @@
     <ClCompile Include="Belgium\bel_first.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Belgium\bel_second.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Belgium\bel_third_vv.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Belgium\bel_third_ac.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Belgium\bel_fourth_vv.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Belgium\bel_fourth_ac.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -1383,6 +1398,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Belgium\bel_first.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Belgium\bel_second.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Belgium\bel_third_vv.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Belgium\bel_third_ac.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Belgium\bel_fourth_vv.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Belgium\bel_fourth_ac.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
