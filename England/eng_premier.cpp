@@ -64,33 +64,8 @@ void __fastcall eng_non_league_promotion(BYTE* _this)
 {
 	vector<cm3_clubs*> northern_relegated_clubs = get_relegated_teams(ENG_CONFERENCE_NORTH_9CF());
 	vector<cm3_clubs*> southern_relegated_clubs = get_relegated_teams(ENG_CONFERENCE_SOUTH_9CF());
-	vector<cm3_clubs*> available_clubs;
 
-	for (DWORD i = 0; i < *clubs_count; i++)
-	{
-		cm3_clubs* club = get_club(i);
-		if (club)
-		{
-			if (club->ClubDivision && club->ClubNation)
-			{
-				DWORD compID = club->ClubDivision->ClubCompID;
-				DWORD nationID = club->ClubNation->NationID;
-				if (nationID == NATION_ENGLAND_9CF() &&		// England
-					compID != ENG_PREMIER_9CF() &&		// Premier Division
-					compID != ENG_CHAMP_9CF() &&		// First Division
-					compID != ENG_LEAGUE_1_9CF() &&		// Second Division
-					compID != ENG_LEAGUE_2_9CF() &&		// Third Division
-					compID != ENG_CONFERENCE_9CF() &&		// Conference
-					compID != A_LOWER_B_9CF() &&		// A Lower Division B
-					compID != ENG_CONFERENCE_NORTH_9CF() &&		// Northern Premier
-					compID != ENG_CONFERENCE_SOUTH_9CF())		// Southern Premier
-				{
-					available_clubs.push_back(club);
-				}
-			}
-		}
-	}
-
+	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_ENGLAND_9CF());
 	sort(available_clubs.begin(), available_clubs.end(), compareClubRep);
 	int max_to_check = (available_clubs.size() > 12 ? 12 : available_clubs.size());
 	unsigned int i;

@@ -154,6 +154,8 @@ static void(__thiscall* yearly_player_award_nominate_769380)(BYTE* _this, DWORD 
 (void(__thiscall*)(BYTE * _this, DWORD date_addr, DWORD award_addr, DWORD nation_based, DWORD nationality, int a5, int a6, char a7, unsigned __int16 a8, int a9))(0x769380);
 static void(__thiscall* yearly_player_award_nominate_7683C0)(BYTE* _this, DWORD date_addr, DWORD award_addr, int a4, DWORD nation_id, int a6, int a7, int a8, int a9, char a10, char a11) =
 (void(__thiscall*)(BYTE * _this, DWORD date_addr, DWORD award_addr, int a4, DWORD nation_id, int a6, int a7, int a8, int a9, char a10, char a11))(0x7683C0);
+static void(__thiscall* yearly_player_award_nominate_768720)(BYTE* _this, DWORD date_addr, DWORD award_addr, int a4, DWORD continent_id, unsigned __int16 a6, char a7, int a8) =
+(void(__thiscall*)(BYTE * _this, DWORD date_addr, DWORD award_addr, int a4, DWORD continent_id, unsigned __int16 a6, char a7, int a8))(0x768720);
 
 static void(__thiscall* yearly_team_award_nominate_7698F0)(BYTE* _this, DWORD comp_id, DWORD award_addr) =
 (void(__thiscall*)(BYTE * _this, DWORD comp_id, DWORD award_addr))(0x7698F0);

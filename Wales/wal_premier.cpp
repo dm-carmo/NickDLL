@@ -287,28 +287,8 @@ void __fastcall wal_non_league_promotion(BYTE* _this)
 {
 	vector<cm3_clubs*> northern_relegated_clubs = get_relegated_teams(WAL_FIRST_NORTH_9CF());
 	vector<cm3_clubs*> southern_relegated_clubs = get_relegated_teams(WAL_FIRST_SOUTH_9CF());
-	vector<cm3_clubs*> available_clubs;
 
-	for (DWORD i = 0; i < *clubs_count; i++)
-	{
-		cm3_clubs* club = get_club(i);
-		if (club)
-		{
-			if (club->ClubDivision && club->ClubNation)
-			{
-				DWORD compID = club->ClubDivision->ClubCompID;
-				DWORD nationID = club->ClubNation->NationID;
-				if (nationID == NATION_WALES_9CF() &&
-					compID != WAL_PREMIER_9CF() &&
-					compID != WAL_FIRST_NORTH_9CF() &&
-					compID != WAL_FIRST_SOUTH_9CF())
-				{
-					available_clubs.push_back(club);
-				}
-			}
-		}
-	}
-
+	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_WALES_9CF());
 	sort(available_clubs.begin(), available_clubs.end(), compareClubRep);
 	int max_to_check = (available_clubs.size() > 6 ? 6 : available_clubs.size());
 	unsigned int i;

@@ -130,25 +130,7 @@ void __fastcall por_liga_3_relegation(BYTE* _this)
 		}
 	}
 
-	vector<cm3_clubs*> available_clubs;
-
-	for (DWORD i = 0; i < *clubs_count; i++)
-	{
-		cm3_clubs* club = get_club(i);
-		if (club)
-		{
-			if (club->ClubDivision && club->ClubNation)
-			{
-				DWORD compID = club->ClubDivision->ClubCompID;
-				DWORD nationID = club->ClubNation->NationID;
-				if (nationID == NATION_PORTUGAL_9CF() && compID == POR_FOURTH_9CF())
-				{
-					available_clubs.push_back(club);
-				}
-			}
-		}
-	}
-
+	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(POR_FOURTH_9CF(), NATION_PORTUGAL_9CF());
 	sort(available_clubs.begin(), available_clubs.end(), compareClubRep);
 	int max_to_check = (available_clubs.size() > 8 ? 8 : available_clubs.size());
 	for (unsigned int i = 0; i < relegated_clubs.size(); i++)
@@ -193,25 +175,7 @@ void __fastcall por_non_league_promotion(BYTE* _this)
 		}
 	}
 
-	vector<cm3_clubs*> available_clubs;
-
-	for (DWORD i = 0; i < *clubs_count; i++)
-	{
-		cm3_clubs* club = get_club(i);
-		if (club)
-		{
-			if (club->ClubDivision && club->ClubNation)
-			{
-				DWORD compID = club->ClubDivision->ClubCompID;
-				DWORD nationID = club->ClubNation->NationID;
-				if (nationID == NATION_PORTUGAL_9CF() && compID == A_LOWER_9CF())
-				{
-					available_clubs.push_back(club);
-				}
-			}
-		}
-	}
-
+	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_PORTUGAL_9CF());
 	sort(available_clubs.begin(), available_clubs.end(), compareClubRep);
 	int max_to_check = (available_clubs.size() > 30 ? 30 : available_clubs.size());
 	for (unsigned int i = 0; i < relegated_clubs.size(); i++)

@@ -51,7 +51,7 @@ DWORD jpn_setup_c(playable_nation_data* nation_data) {
 	jpn_second_init(pMem, start_year, get_comp(JPN_SECOND_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// J3
-	pMem = (BYTE*)sub_944CF1_operator_new(0xF2);
+	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
 	jpn_third_init(pMem, start_year, get_comp(JPN_THIRD_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	if ((selected & 4) != 0) {

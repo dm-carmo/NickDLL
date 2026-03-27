@@ -39,6 +39,12 @@ int show_extra_leagues_in_start(BYTE* nation, DWORD dest_ptr, int a3) {
 	if (!nation || !dest_ptr || a3 < 20) return 0;
 	cm3_nations* cm3_nation = (cm3_nations*)nation;
 	char* league_str;
+	if (cm3_nation->NationID == NATION_ARGENTINA_9CF()) {
+		if (configFile.GetBool("applyArgentina", true)) league_str = "Primera B/Torneo Federal";
+		else return 0;
+		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
+		return 1;
+	}
 	if (cm3_nation->NationID == NATION_BELGIUM_9CF()) {
 		if (configFile.GetBool("applyBelgium", true)) league_str = "Division 2";
 		else return 0;
@@ -112,11 +118,6 @@ int show_extra_leagues_in_start(BYTE* nation, DWORD dest_ptr, int a3) {
 		return 1;
 	}
 	/* Unused for now :)
-	if (cm3_nation->NationID == NATION_ARGENTINA_9CF()) {
-		league_str = "Primera B/Torneo Federal";
-		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
-		return 1;
-	}
 	if (cm3_nation->NationID == NATION_AUSTRALIA_9CF()) {
 		league_str = "National Premier Leagues";
 		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
@@ -166,16 +167,25 @@ int show_extra_leagues_in_start(BYTE* nation, DWORD dest_ptr, int a3) {
 	return 0;
 }
 
-void __declspec(naked) show_extra_leagues_in_start_c()
-{
-	__asm
-	{
-		mov eax, esp
-		push ecx
-		call show_extra_leagues_in_start
-		add esp, 0x4
-		ret 0
-	}
+int parent_child_stages(int child_stage_id) {
+	if (child_stage_id >= 0x3e8 && child_stage_id <= 0x3fb) return GroupStage;
+	if (child_stage_id >= 0x41f && child_stage_id <= 0x42e) return GroupStage;
+	if (child_stage_id == EasternConference) return GroupStage;
+	if (child_stage_id == WesternConference) return GroupStage;
+	if (child_stage_id == CentralConference) return GroupStage;
+	if (child_stage_id == SecondPlacedTeams) return GroupStage;
+	if (child_stage_id >= 0x473 && child_stage_id <= 0x474) return CentralAmericanZone;
+	if (child_stage_id >= 0x475 && child_stage_id <= 0x479) return ClassificationGroup;
+	if (child_stage_id >= 0x3fd && child_stage_id <= 0x406) return FirstRound;
+	if ((child_stage_id >= 0x407 && child_stage_id <= 0x40B) || child_stage_id == SecondRoundGroup6) return SecondRound;
+	if (child_stage_id >= 0x47e && child_stage_id <= 0x47f) return ThirdRound;
+	if (child_stage_id >= 0x40c && child_stage_id <= 0x40e) return SemiFinal;
+	if (child_stage_id >= 0x43d && child_stage_id <= 0x444) return Phase1;
+	if (child_stage_id >= 0x445 && child_stage_id <= 0x448) return Phase2;
+	if (child_stage_id >= 0x44d && child_stage_id <= 0x450) return PromotionGroupStage;
+	if (configFile.GetBool("applyArgentina", true) && configFile.GetBool("applyPortugal", true))
+		if (child_stage_id >= 0x47c && child_stage_id <= 0x47d) return FourthPromotionPlayoff; // Relegation Group Stage
+	return -1;
 }
 
 int comp_colours_in_header(BYTE* club_comp, WORD* fg_titlebar, WORD* bg_titlebar) {
@@ -229,7 +239,7 @@ void club_pro_status_with_continental_comp(BYTE* _this) {
 	char continental_comp[64];
 	if (club->ClubEuroFlag >= 0) {
 		cm3_club_comps* comp = get_comp(club->ClubEuroFlag);
-		sprintf(continental_comp, " (in %s)", comp->ClubCompName);
+		sprintf(continental_comp, " (%s)", comp->ClubCompName);
 	}
 	else {
 		sprintf(continental_comp, "");
@@ -266,6 +276,7 @@ void setup_misc_functions()
 {
 	if (configFile.GetBool("competitionColoursPatch", true)) PatchFunction(0x53b7c0, (DWORD)&comp_colours_in_header);
 	PatchFunction(0x669f50, (DWORD)&show_extra_leagues_in_start);
+	PatchFunction(0x4B01D0, (DWORD)&parent_child_stages);
 	PatchFunction(0x46B71E, (DWORD)&aus_minor_premier_in_history);
 	PatchFunction(0x460ec6, (DWORD)&club_pro_status_with_continental_comp_c);
 

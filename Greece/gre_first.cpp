@@ -331,24 +331,7 @@ void __fastcall gre_second_relegation(BYTE* _this)
 		}
 	}
 
-	vector<cm3_clubs*> available_clubs;
-	for (DWORD i = 0; i < *clubs_count; i++)
-	{
-		cm3_clubs* club = get_club(i);
-		if (club)
-		{
-			if (club->ClubDivision && club->ClubNation)
-			{
-				DWORD compID = club->ClubDivision->ClubCompID;
-				DWORD nationID = club->ClubNation->NationID;
-				if (nationID == NATION_GREECE_9CF() && compID == GRE_LOWER_9CF())
-				{
-					available_clubs.push_back(club);
-				}
-			}
-		}
-	}
-
+	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(GRE_LOWER_9CF(), NATION_GREECE_9CF());
 	sort(available_clubs.begin(), available_clubs.end(), compareClubRep);
 	int max_to_check = (available_clubs.size() > 6 ? 6 : available_clubs.size());
 	if (comp_data->year == 2025) {

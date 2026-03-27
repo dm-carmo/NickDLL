@@ -230,25 +230,7 @@ void __fastcall tur_third_relegation(BYTE* _this)
 		}
 	}
 
-	vector<cm3_clubs*> available_clubs;
-
-	for (DWORD i = 0; i < *clubs_count; i++)
-	{
-		cm3_clubs* club = get_club(i);
-		if (club)
-		{
-			if (club->ClubDivision && club->ClubNation)
-			{
-				DWORD compID = club->ClubDivision->ClubCompID;
-				DWORD nationID = club->ClubNation->NationID;
-				if (nationID == NATION_TURKEY_9CF() && compID == TUR_FOURTH_9CF())
-				{
-					available_clubs.push_back(club);
-				}
-			}
-		}
-	}
-
+	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(TUR_FOURTH_9CF(), NATION_TURKEY_9CF());
 	sort(available_clubs.begin(), available_clubs.end(), compareClubRep);
 	cm3_club_comps* topDivision = get_comp(TUR_THIRD_9CF());
 	cm3_club_comps* bottomDivision = get_comp(TUR_FOURTH_9CF());
@@ -289,24 +271,7 @@ void __fastcall tur_non_league_promotion(BYTE* _this)
 		}
 	}
 
-	vector<cm3_clubs*> available_clubs;
-	for (DWORD i = 0; i < *clubs_count; i++)
-	{
-		cm3_clubs* club = get_club(i);
-		if (club)
-		{
-			if (club->ClubDivision && club->ClubNation)
-			{
-				DWORD compID = club->ClubDivision->ClubCompID;
-				DWORD nationID = club->ClubNation->NationID;
-				if (nationID == NATION_TURKEY_9CF() && compID == A_LOWER_9CF())
-				{
-					available_clubs.push_back(club);
-				}
-			}
-		}
-	}
-
+	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_TURKEY_9CF());
 	sort(available_clubs.begin(), available_clubs.end(), compareClubRep);
 	cm3_club_comps* topDivision = get_comp(TUR_FOURTH_9CF());
 	cm3_club_comps* bottomDivision = get_comp(A_LOWER_9CF());

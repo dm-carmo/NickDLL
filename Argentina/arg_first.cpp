@@ -169,7 +169,22 @@ int arg_first_add_teams(BYTE* _this)
 		cm3_clubs* club = &(*clubs)[i];
 		if (club->ClubDivision && club->ClubDivision->ClubCompID == CompID) d1_clubs.push_back(club);
 	}
-	shuffle(d1_clubs.begin(), d1_clubs.end(), rng);
+	sort(d1_clubs.begin(), d1_clubs.end(), compareClubRep);
+	shuffle(d1_clubs.begin(), d1_clubs.begin() + 2, rng);
+	shuffle(d1_clubs.begin() + 2, d1_clubs.begin() + 4, rng);
+	shuffle(d1_clubs.begin() + 4, d1_clubs.begin() + 6, rng);
+	shuffle(d1_clubs.begin() + 6, d1_clubs.begin() + 8, rng);
+	shuffle(d1_clubs.begin() + 8, d1_clubs.begin() + 10, rng);
+	shuffle(d1_clubs.begin() + 10, d1_clubs.begin() + 12, rng);
+	shuffle(d1_clubs.begin() + 12, d1_clubs.begin() + 14, rng);
+	shuffle(d1_clubs.begin() + 14, d1_clubs.begin() + 16, rng);
+	shuffle(d1_clubs.begin() + 16, d1_clubs.begin() + 18, rng);
+	shuffle(d1_clubs.begin() + 18, d1_clubs.begin() + 20, rng);
+	shuffle(d1_clubs.begin() + 20, d1_clubs.begin() + 22, rng);
+	shuffle(d1_clubs.begin() + 22, d1_clubs.begin() + 24, rng);
+	shuffle(d1_clubs.begin() + 24, d1_clubs.begin() + 26, rng);
+	shuffle(d1_clubs.begin() + 26, d1_clubs.begin() + 28, rng);
+	shuffle(d1_clubs.begin() + 28, d1_clubs.end(), rng);
 	for (DWORD i = 0; i < d1_clubs.size(); i++)
 	{
 		*((DWORD*)(&comp_data->teams2[i])) = (DWORD)d1_clubs[i];
@@ -183,25 +198,6 @@ int arg_first_add_teams(BYTE* _this)
 	{
 		cm3_clubs* club = (cm3_clubs*)(comp_data->teams2[i]);
 		add_team_call(_this, teamsAdded++, club, 0, 0);
-	}
-	return 1;
-}
-
-int arg_first_add_teams_close(BYTE* _this)
-{
-	comp_stats* comp_data = (comp_stats*)_this;
-	DWORD CompID = comp_data->competition_db->ClubCompID;
-
-	vector<cm3_clubs*> d1_clubs;
-	for (DWORD i = 0; i < 30; i++)
-	{
-		cm3_clubs* club = (cm3_clubs*)comp_data->teams2[i];
-		d1_clubs.push_back(club);
-	}
-	shuffle(d1_clubs.begin(), d1_clubs.end(), rng);
-	for (DWORD i = 0; i < d1_clubs.size(); i++)
-	{
-		*((DWORD*)(&comp_data->teams2[i])) = (DWORD)d1_clubs[i];
 	}
 	return 1;
 }
@@ -305,6 +301,35 @@ void arg_first_prom_rel_update(BYTE* _this, int a2) {
 	comp_stats* data = (comp_stats*)_this;
 	sub_689C80(_this, (BYTE*)data->stages[5], arg_second, 1, a2, -1, -1);
 	sub_689C80(_this, (BYTE*)data->stages[5], arg_second_grp, 1, a2, -1, -1);
+
+	BYTE* arg_third_metro = get_loaded_league(ARG_THIRD_METRO_9CF());
+	if (arg_third_metro) {
+		v1 = *(DWORD*)arg_third_metro;
+		(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(arg_third_metro);
+		sub_689C80(_this, arg_second, arg_third_metro, 1, a2, -1, -1);
+		sub_689C80(_this, arg_second_grp, arg_third_metro, 1, a2, -1, -1);
+	}
+
+	BYTE* arg_third_int = get_loaded_league(ARG_THIRD_INTERIOR_9CF());
+	if (arg_third_int) {
+		comp_stats* arg_third_int_data = (comp_stats*)arg_third_int;
+		v1 = *(DWORD*)arg_third_int;
+		(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(arg_third_int);
+
+		sub_689C80(_this, arg_second, arg_third_int, 1, a2, -1, -1);
+		for (int i = 0; i < 3; i++)
+		{
+			BYTE* arg_third_int_grp = (BYTE*)arg_third_int_data->stages[i];
+			sub_689C80(_this, arg_second, arg_third_int_grp, 1, a2, -1, -1);
+		}
+
+		sub_689C80(_this, arg_second_grp, arg_third_int, 1, a2, -1, -1);
+		for (int i = 0; i < 3; i++)
+		{
+			BYTE* arg_third_int_grp = (BYTE*)arg_third_int_data->stages[i];
+			sub_689C80(_this, arg_second_grp, arg_third_int_grp, 1, a2, -1, -1);
+		}
+	}
 }
 
 void __declspec(naked) arg_first_prom_rel_update_c()
@@ -376,39 +401,126 @@ void __fastcall arg_second_relegation(BYTE* _this)
 		}
 	}
 
-	vector<cm3_clubs*> available_clubs;
-	for (DWORD i = 0; i < *clubs_count; i++)
-	{
-		cm3_clubs* club = get_club(i);
-		if (club)
-		{
-			if (club->ClubDivision && club->ClubNation)
-			{
-				DWORD compID = club->ClubDivision->ClubCompID;
-				DWORD nationID = club->ClubNation->NationID;
-				if (nationID == NATION_ARGENTINA_9CF() && compID == ARG_THIRD_9CF())
-				{
-					available_clubs.push_back(club);
-				}
-			}
-		}
-	}
-
+	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(ARG_THIRD_METRO_9CF(), NATION_ARGENTINA_9CF());
 	sort(available_clubs.begin(), available_clubs.end(), compareClubRep);
-	int max_to_check = (available_clubs.size() > 8 ? 8 : available_clubs.size());
-	for (unsigned int i = 0; i < relegated_clubs.size(); i++)
+	int max_to_check = (available_clubs.size() > 4 ? 4 : available_clubs.size());
+	for (unsigned int i = 0; i < 2; i++)
 	{
 		int availableIdx = rand() % (max_to_check - i);
 		cm3_clubs* clubToRelegate = relegated_clubs[i];
 		cm3_clubs* available = available_clubs[availableIdx];
 
 		cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
-		cm3_club_comps* bottomDivision = available->ClubDivision;
+		cm3_club_comps* bottomDivision = clubToRelegate->ClubReserveDivision;
 		relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
 		promote_club_6830B0((BYTE*)available, (DWORD)topDivision, 1);
-		clubToRelegate->ClubReserveDivision = 0;
 
 		available_clubs.erase(available_clubs.begin() + availableIdx);
+	}
+
+	available_clubs = find_clubs_of_comp(ARG_THIRD_INTERIOR_9CF(), NATION_ARGENTINA_9CF());
+	sort(available_clubs.begin(), available_clubs.end(), compareClubRep);
+	max_to_check = (available_clubs.size() > 4 ? 4 : available_clubs.size());
+	for (unsigned int i = 2; i < 4; i++)
+	{
+		int availableIdx = rand() % (max_to_check - i);
+		cm3_clubs* clubToRelegate = relegated_clubs[i];
+		cm3_clubs* available = available_clubs[availableIdx];
+
+		cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
+		cm3_club_comps* bottomDivision = clubToRelegate->ClubReserveDivision;
+		relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
+		promote_club_6830B0((BYTE*)available, (DWORD)topDivision, 1);
+
+		available_clubs.erase(available_clubs.begin() + availableIdx);
+	}
+}
+
+void __fastcall arg_third_relegation(BYTE* _this)
+{
+	// Count relegated clubs from D2 for each area (metropolitan and interior)
+	vector<cm3_clubs*> d2_rel_metro;
+	vector<cm3_clubs*> d2_rel_int;
+	vector<cm3_clubs*> d2_last_div = find_clubs_of_comp_last_division(ARG_SECOND_9CF(), NATION_ARGENTINA_9CF());
+	for (cm3_clubs* club : d2_last_div) {
+		if (club->ClubDivision && (club->ClubDivision->ClubCompID == ARG_THIRD_METRO_9CF() || club->ClubDivision->ClubCompID == ARG_THIRD_INTERIOR_9CF())) {
+			if (club->ClubReserveDivision && club->ClubReserveDivision->ClubCompID == ARG_THIRD_METRO_9CF())
+			{
+				d2_rel_metro.push_back(club);
+				club->ClubDivision = get_comp(ARG_THIRD_METRO_9CF());
+			}
+			else
+			{
+				d2_rel_int.push_back(club);
+				club->ClubDivision = get_comp(ARG_THIRD_INTERIOR_9CF());
+			}
+		}
+	}
+
+	// Get relegated clubs from each third tier and relegate them
+	vector<cm3_clubs*> d3_rel_metro = get_relegated_teams(ARG_THIRD_METRO_9CF());
+	for (unsigned int i = 0; i < d3_rel_metro.size(); i++)
+	{
+		cm3_clubs* clubToRelegate = d3_rel_metro[i];
+		relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)get_comp(A_LOWER_9CF()), 1);
+	}
+	vector<cm3_clubs*> d3_rel_int;
+	comp_stats* comp_data = (comp_stats*)get_loaded_league(ARG_THIRD_INTERIOR_9CF());
+	comp_stats* curr_stage = comp_data;
+	for (char al = -1; al < 3; al++) {
+		if (al >= 0) {
+			curr_stage = (comp_stats*)(comp_data->stages[al]);
+		}
+		for (WORD num = 0; num < curr_stage->n_teams; num++) {
+			team_league_stats table_pos = ((team_league_stats*)curr_stage->team_league_table)[num];
+			if (table_pos.league_fate == Relegated) {
+				d3_rel_int.push_back(table_pos.club);
+			}
+		}
+	}
+	for (unsigned int i = 0; i < d3_rel_int.size(); i++)
+	{
+		cm3_clubs* clubToRelegate = d3_rel_int[i];
+		relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)get_comp(A_LOWER_9CF()), 1);
+	}
+
+	// Get lower league clubs and split them between metropolitan and interior
+	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_ARGENTINA_9CF());
+	vector<cm3_clubs*> available_clubs_metro;
+	vector<cm3_clubs*> available_clubs_int;
+	for (unsigned int i = 0; i < available_clubs.size(); i++)
+	{
+		cm3_clubs* club = available_clubs[i];
+		if (club->ClubReserveDivision && club->ClubReserveDivision->ClubCompID == ARG_THIRD_METRO_9CF())
+			available_clubs_metro.push_back(club);
+		else available_clubs_int.push_back(club);
+	}
+
+	// Promote clubs
+	sort(available_clubs_metro.begin(), available_clubs_metro.end(), compareClubRep);
+	unsigned int to_promote_metro = 4 - d2_rel_metro.size();
+	comp_data = (comp_stats*)get_loaded_league(ARG_THIRD_METRO_9CF());
+	if (comp_data->n_teams == 21) to_promote_metro++;
+	int max_to_check = (available_clubs_metro.size() > 6 ? 6 : available_clubs_metro.size());
+	for (unsigned int i = 0; i < to_promote_metro; i++)
+	{
+		int availableIdx = rand() % (max_to_check - i);
+		cm3_clubs* available = available_clubs_metro[availableIdx];
+		promote_club_6830B0((BYTE*)available, (DWORD)get_comp(ARG_THIRD_METRO_9CF()), 1);
+
+		available_clubs_metro.erase(available_clubs_metro.begin() + availableIdx);
+	}
+
+	sort(available_clubs_int.begin(), available_clubs_int.end(), compareClubRep);
+	unsigned int to_promote_int = 6 - d2_rel_int.size();
+	max_to_check = (available_clubs_int.size() > 8 ? 8 : available_clubs_int.size());
+	for (unsigned int i = 0; i < to_promote_int; i++)
+	{
+		int availableIdx = rand() % (max_to_check - i);
+		cm3_clubs* available = available_clubs_int[availableIdx];
+		promote_club_6830B0((BYTE*)available, (DWORD)get_comp(ARG_THIRD_INTERIOR_9CF()), 1);
+
+		available_clubs_int.erase(available_clubs_int.begin() + availableIdx);
 	}
 }
 
@@ -417,7 +529,14 @@ char arg_first_update(BYTE* _this) {
 	BYTE* ebx = 0;
 	data->f76 = 0;
 	arg_first_prom_rel_update(_this, 1);
-	arg_second_relegation(_this);
+	BYTE* arg_third_metro = get_loaded_league(ARG_THIRD_METRO_9CF());
+	BYTE* arg_third_int = get_loaded_league(ARG_THIRD_INTERIOR_9CF());
+	if (arg_third_metro && arg_third_int) {
+		arg_third_relegation(_this);
+	}
+	else {
+		arg_second_relegation(_this);
+	}
 
 	sub_687970(_this, ebx);
 	if (data->fixtures_table) {
@@ -450,7 +569,6 @@ char arg_first_update(BYTE* _this) {
 	}
 	DWORD v1 = *(DWORD*)_this;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
-	arg_first_add_teams_close(_this);
 	for (BYTE i = 1; i < 3; i++) {
 		arg_first_setup_groups_close(_this, i);
 	}
@@ -462,6 +580,16 @@ char arg_first_update(BYTE* _this) {
 
 	v1 = *(DWORD*)arg_second;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(arg_second);
+
+	if (arg_third_metro) {
+		v1 = *(DWORD*)arg_third_metro;
+		(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(arg_third_metro);
+	}
+
+	if (arg_third_int) {
+		v1 = *(DWORD*)arg_third_int;
+		(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(arg_third_int);
+	}
 
 	sub_68AA80(_this);
 	return sub_79CEE0((BYTE*)*b74340, (BYTE*)(data->competition_db));
@@ -884,7 +1012,6 @@ void arg_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 		arg_first_setup_groups_open(_this, i);
 	}
 	arg_first_reputation_setup(_this);
-	arg_first_add_teams_close(_this);
 	for (BYTE i = 1; i < 3; i++) {
 		arg_first_setup_groups_close(_this, i);
 	}

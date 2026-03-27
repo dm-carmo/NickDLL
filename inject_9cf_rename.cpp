@@ -47,9 +47,16 @@ map<string, char*> leagues_rename_long = {
 	{"NIFL Cup", "Irish Football League Cup"},
 	{"Korean FA Cup", "Korea Cup"},
 	{"Korean Super Cup", "K League Super Cup"},
+	{"Argentine Interior Zone", "Argentine Torneo Federal A"},
+	{"Argentine Third Division", "Argentine Primera División B"},
 	// temp
 	{"Swedish Division 2 North Svealand", "EXTINCT 1"},
 	{"Swedish Division 2 South Gotaland", "EXTINCT 2"},
+};
+
+map<string, char*> leagues_rename_long_argentina= {
+	{"Argentine Interior Zone", "Argentine Torneo Federal A"},
+	{"Argentine Third Division", "Argentine Primera División B"},
 };
 
 map<string, char*> leagues_rename_long_australia = {
@@ -198,6 +205,11 @@ map<string, char*> leagues_rename_short = {
 	{"Korean FA Cup", "Korea Cup"},
 };
 
+map<string, char*> leagues_rename_short_argentina = {
+	{"Argentine Interior Zone", "Torneo Federal A"},
+	{"Argentine Third Division", "Primera B"},
+};
+
 map<string, char*> leagues_rename_short_australia = {
 	{"Hong Kong Viceroy Cup", "Australia Cup"},
 };
@@ -329,6 +341,11 @@ map<string, char*> leagues_rename_tla = {
 	{"Polish Ekstraklasa", "EKS"},
 };
 
+map<string, char*> leagues_rename_tla_argentina = {
+	{"Argentine Interior Zone", "TFA"},
+	{"Argentine Third Division", "D1B"},
+};
+
 map<string, char*> leagues_rename_tla_belgium = {
 	{"Belgian National Division 1 A", "D1V"},
 	{"Belgian National Division 1 B", "D1A"},
@@ -448,6 +465,10 @@ map<string, char*> awards_rename_short = {
 	{"South Korean Fair Play of the Year", "Young Player of the Month"}, //20F
 	{"South Korean Goalkeeper of the Month", "Manager of the Month"},
 	{"South African Young Player of the Year", "Young Player of the Month"}, //1AC
+	{ "Belgian Third Division Player of the Year", "Revelation of the Year" },
+	{ "Belgian First Division Fair Play Award", "Revelation of the Year" },
+	{ "Belgian Man of the Season", "Team of the Week" },
+	{ "Belgian Rookie of the Year", "Top Goalscorer" },
 };
 
 map<string, char*> awards_rename_short_croatia = {
@@ -638,6 +659,19 @@ map<string, char*> awards_rename_long = {
 	{ "N. Irish First Division Top Goalscorer", "NIFL Championship Top Goalscorer" },
 	{ "N. Irish First Division Young Player of the Year", "NIFL Championship Young Player of the Year" },
 	{ "N. Irish Player of the Year", "NIFL Player of the Year" },
+	{ "Belgian First Division Goalkeeper of the Year", "Belgian Pro League Goalkeeper of the Year" },
+	{ "Belgian First Division Revelation of the Year", "Belgian Pro League Revelation of the Year" },
+	{ "Belgian First Division Team of the Week", "Belgian Pro League Team of the Week" },
+	{ "Belgian First Division Top Goalscorer", "Belgian Pro League Top Goalscorer" },
+	{ "Belgian Second Division Revelation of the Year", "Belgian Challenger League Revelation of the Year" },
+	{ "Belgian Second Division Team of the Week", "Belgian Challenger League Team of the Week" },
+	{ "Belgian Second Division Top Goalscorer", "Belgian Challenger League Top Goalscorer" },
+	{ "Belgian Third Division Player of the Year", "Belgian Division 1 VV Revelation of the Year" },
+	{ "Belgian Third Division Team of the Week", "Belgian Division 1 VV Team of the Week" },
+	{ "Belgian Third Division Top Goalscorer", "Belgian Division 1 VV Top Goalscorer" },
+	{ "Belgian First Division Fair Play Award", "Belgian Division 1 ACFF Revelation of the Year" },
+	{ "Belgian Man of the Season", "Belgian Division 1 ACFF Team of the Week" },
+	{ "Belgian Rookie of the Year", "Belgian Division 1 ACFF Top Goalscorer" },
 };
 
 map<string, char*> awards_rename_long_croatia = {
@@ -2263,6 +2297,12 @@ void setup_name_injection()
 	PatchFunction(0x6146B0, (DWORD)setup_9cf_clubs);
 
 	PatchFunction(0x540A50, (DWORD)check_if_reserve_team_new);
+
+	if (configFile.GetBool("applyArgentina", true)) {
+		leagues_rename_long.insert(leagues_rename_long_argentina.begin(), leagues_rename_long_argentina.end());
+		leagues_rename_short.insert(leagues_rename_short_argentina.begin(), leagues_rename_short_argentina.end());
+		leagues_rename_tla.insert(leagues_rename_tla_argentina.begin(), leagues_rename_tla_argentina.end());
+	}
 
 	if (configFile.GetBool("applyAustralia", true)) {
 		leagues_rename_long.insert(leagues_rename_long_australia.begin(), leagues_rename_long_australia.end());

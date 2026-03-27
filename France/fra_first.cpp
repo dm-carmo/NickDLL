@@ -59,7 +59,7 @@ void fra_first_prom_rel_update(BYTE* _this, int a2) {
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(fra_second);
 	sub_689C80(_this, _this, fra_second, 1, a2, -1, -1);
 
-	BYTE* fra_third = get_loaded_league(FRA_NATIONAL_9CF());
+	BYTE* fra_third = get_loaded_league(FRA_NATIONAL_1_9CF());
 	v1 = *(DWORD*)fra_third;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(fra_third);
 	sub_689C80(_this, fra_second, fra_third, 1, a2, -1, -1);
@@ -82,7 +82,7 @@ void __fastcall fra_national_relegation(BYTE* _this)
 {
 	vector<cm3_clubs*> relegated_clubs;
 
-	comp_stats* comp_data = (comp_stats*)get_loaded_league(FRA_NATIONAL_9CF());
+	comp_stats* comp_data = (comp_stats*)get_loaded_league(FRA_NATIONAL_1_9CF());
 	for (WORD num = 0; num < comp_data->n_teams; num++) {
 		team_league_stats table_pos = ((team_league_stats*)comp_data->team_league_table)[num];
 		if (table_pos.league_fate == Relegated) {
@@ -90,25 +90,7 @@ void __fastcall fra_national_relegation(BYTE* _this)
 		}
 	}
 
-	vector<cm3_clubs*> available_clubs;
-
-	for (DWORD i = 0; i < *clubs_count; i++)
-	{
-		cm3_clubs* club = get_club(i);
-		if (club)
-		{
-			if (club->ClubDivision && club->ClubNation)
-			{
-				DWORD compID = club->ClubDivision->ClubCompID;
-				DWORD nationID = club->ClubNation->NationID;
-				if (nationID == NATION_FRANCE_9CF() && compID == FRA_CFA_9CF())
-				{
-					available_clubs.push_back(club);
-				}
-			}
-		}
-	}
-
+	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(FRA_NATIONAL_2_9CF(), NATION_FRANCE_9CF());
 	sort(available_clubs.begin(), available_clubs.end(), compareClubRep);
 	int max_to_check = (available_clubs.size() > 8 ? 8 : available_clubs.size());
 	for (unsigned int i = 0; i < relegated_clubs.size(); i++)
@@ -182,7 +164,7 @@ char fra_first_update(BYTE* _this) {
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
 
 	BYTE* fra_second = get_loaded_league(FRA_SECOND_9CF());
-	BYTE* fra_third = get_loaded_league(FRA_NATIONAL_9CF());
+	BYTE* fra_third = get_loaded_league(FRA_NATIONAL_1_9CF());
 
 	v1 = *(DWORD*)fra_second;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(fra_second);

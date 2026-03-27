@@ -142,9 +142,12 @@
     <ClCompile Include="Argentina\arg_first.cpp" />
     <ClCompile Include="Argentina\arg_second.cpp" />
     <ClCompile Include="Argentina\arg_setup.cpp" />
+    <ClCompile Include="Argentina\arg_third_interior.cpp" />
+    <ClCompile Include="Argentina\arg_third_metro.cpp" />
     <ClCompile Include="Australia\aus_cup.cpp" />
     <ClCompile Include="Australia\aus_league.cpp" />
     <ClCompile Include="Australia\aus_setup.cpp" />
+    <ClCompile Include="Belgium\bel_awards.cpp" />
     <ClCompile Include="Belgium\bel_cup.cpp" />
     <ClCompile Include="Belgium\bel_first.cpp" />
     <ClCompile Include="Belgium\bel_fourth_ac.cpp" />
@@ -377,9 +380,12 @@
     <ClInclude Include="Argentina\arg_first.h" />
     <ClInclude Include="Argentina\arg_second.h" />
     <ClInclude Include="Argentina\arg_setup.h" />
+    <ClInclude Include="Argentina\arg_third_interior.h" />
+    <ClInclude Include="Argentina\arg_third_metro.h" />
     <ClInclude Include="Australia\aus_cup.h" />
     <ClInclude Include="Australia\aus_league.h" />
     <ClInclude Include="Australia\aus_setup.h" />
+    <ClInclude Include="Belgium\bel_awards.h" />
     <ClInclude Include="Belgium\bel_cup.h" />
     <ClInclude Include="Belgium\bel_first.h" />
     <ClInclude Include="Belgium\bel_fourth_ac.h" />

@@ -45,7 +45,13 @@ void arg_second_subs(BYTE* _this)
 	comp_data->relegations = 2;
 
 	comp_data->promotes_to = ARG_FIRST_9CF();
-	comp_data->relegates_to = -1;
+	BYTE selected = get_country(NATION_ARGENTINA_9CF())->NationLeagueSelected;
+	if ((selected & 4) == 0) {
+		comp_data->relegates_to = -1;
+	}
+	else {
+		comp_data->relegates_to = ARG_THIRD_METRO_9CF();
+	}
 
 	comp_data->f217 = 0x2;
 	comp_data->max_bench = 7;

@@ -98,25 +98,7 @@ void __fastcall jpn_jfl_relegation(BYTE* _this)
 		}
 	}
 
-	vector<cm3_clubs*> available_clubs;
-
-	for (DWORD i = 0; i < *clubs_count; i++)
-	{
-		cm3_clubs* club = get_club(i);
-		if (club)
-		{
-			if (club->ClubDivision && club->ClubNation)
-			{
-				DWORD compID = club->ClubDivision->ClubCompID;
-				DWORD nationID = club->ClubNation->NationID;
-				if (nationID == NATION_JAPAN_9CF() && compID == JPN_REGIONAL_9CF())
-				{
-					available_clubs.push_back(club);
-				}
-			}
-		}
-	}
-
+	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(JPN_REGIONAL_9CF(), NATION_JAPAN_9CF());
 	sort(available_clubs.begin(), available_clubs.end(), compareClubRep);
 	int max_to_check = (available_clubs.size() > 5 ? 5 : available_clubs.size());
 	for (unsigned int i = 0; i < relegated_clubs.size(); i++)
@@ -147,25 +129,35 @@ void __fastcall jpn_third_relegation(BYTE* _this)
 		}
 	}
 
-	vector<cm3_clubs*> available_clubs;
+	vector<cm3_clubs*> in_playoffs;
 	comp_stats* playoff_stage = (comp_stats*)comp_data->stages[1];
 	WORD promoted_teams = 0;
 	for (WORD i = 0; i < playoff_stage->n_teams; i++) {
 		teams_seeded t = ((teams_seeded*)playoff_stage->teams_list)[i];
-		if (t.f6 == 1) {
-			cm3_clubs* promote = t.club;
-			if (promote->ClubDivision && promote->ClubDivision != comp_data->competition_db) {
+		cm3_clubs* promote = t.club;
+		if (promote->ClubDivision && promote->ClubDivision != comp_data->competition_db) {
+			in_playoffs.push_back(promote);
+			if (t.f6 == 1) {
 				promote_club_6830B0((BYTE*)promote, (DWORD)comp_data->competition_db, 1);
 				promoted_teams++;
 			}
 		}
 	}
 
-	cm3_clubs* jfl_club = get_club(*(DWORD*)(comp_bytes + 0xEE));
-	if (jfl_club) {
-		promote_club_6830B0((BYTE*)jfl_club, (DWORD)comp_data->competition_db, 1);
-		promoted_teams++;
-		*(DWORD*)(comp_bytes + 0xEE) = -1;
+	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(JPN_JFL_9CF(), NATION_JAPAN_9CF());
+	sort(available_clubs.begin(), available_clubs.end(), compareClubRep);
+	int max_to_check = (available_clubs.size() > 4 ? 4 : available_clubs.size());
+	for (int i = 0; i < 1; i++)
+	{
+		int availableIdx = rand() % (max_to_check - i);
+		cm3_clubs* available = available_clubs[availableIdx];
+		if (vector_contains_club(in_playoffs, available))
+			i--;
+		else {
+			promote_club_6830B0((BYTE*)available, (DWORD)comp_data->competition_db, 1);
+			promoted_teams++;
+		}
+		available_clubs.erase(available_clubs.begin() + availableIdx);
 	}
 
 	if (promoted_teams != relegated_clubs.size()) create_message_box("Error", "Promoted and relegated club count does not match for jpn_third", false);

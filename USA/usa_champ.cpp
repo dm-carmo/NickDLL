@@ -73,12 +73,7 @@ void usa_champ_reputation_calc(BYTE* _this, BYTE* club, char stage, char current
 		ret_max = 1 + 2 * (max - 1);
 	}
 	else if (stage == 1) {
-		if (current < 4) ret_current = current;
-		else ret_current = (char)pow(2, current - 2) + 1;
-		if (min < 4) ret_min = min;
-		else ret_min = (char)pow(2, min - 2) + 1;
-		if (max < 4) ret_max = max;
-		else ret_max = (char)pow(2, max - 2) + 1;
+		// do nothing
 	}
 	ret[0x73] = ret_current;
 	ret[0x74] = ret_min;
@@ -177,7 +172,7 @@ int usa_champ_add_teams(BYTE* _this)
 	}
 
 	comp_data->n_teams = 12; // number of teams per group in this case
-	comp_data->team_league_table = (DWORD*)sub_944E46_malloc(15 * league_team_list_sz);
+	comp_data->team_league_table = (DWORD*)sub_944E46_malloc(12 * league_team_list_sz);
 	BYTE teamsAdded = 0;
 	for (DWORD i = 0; i < comp_data->n_teams; i++)
 	{

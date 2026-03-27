@@ -78,7 +78,7 @@ void fra_second_subs(BYTE* _this)
 	comp_data->relegations = 2;
 
 	comp_data->promotes_to = FRA_FIRST_9CF();
-	comp_data->relegates_to = FRA_NATIONAL_9CF();
+	comp_data->relegates_to = FRA_NATIONAL_1_9CF();
 
 	comp_data->f82 = 2;
 	comp_data->max_bench = 7;
@@ -403,7 +403,7 @@ void fra_second_playoff_rele(BYTE* _this) {
 		}
 	}
 
-	comp_stats* fra_third_data = (comp_stats*)get_loaded_league(FRA_NATIONAL_9CF());
+	comp_stats* fra_third_data = (comp_stats*)get_loaded_league(FRA_NATIONAL_1_9CF());
 	total_teams = fra_third_data->n_teams;
 	table_teams = (team_league_stats*)(fra_third_data->team_league_table);
 	for (int i = 0; i < total_teams; i++) {
@@ -465,7 +465,7 @@ void fra_second_playoffs_c(BYTE* _this) {
 		}
 		else if (current == 1)
 		{
-			BYTE* fra_national = get_loaded_league(FRA_NATIONAL_9CF());
+			BYTE* fra_national = get_loaded_league(FRA_NATIONAL_1_9CF());
 			DWORD v1 = *(DWORD*)fra_national;
 			char ret = (*(int(__thiscall**)(BYTE*, int, int))(v1 + 0x10))(fra_national, 0, 1);
 			if (ret != 0) {
@@ -520,11 +520,11 @@ int fra_second_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char st
 	}
 	else if (stage == 1) {
 		cm3_clubs* club_ptr = (cm3_clubs*)club;
-		cm3_club_comps* fra_national = get_comp(FRA_NATIONAL_9CF());
+		cm3_club_comps* fra_national = get_comp(FRA_NATIONAL_1_9CF());
 		BYTE* rounds = ((comp_stats*)(comp_data->stages[stage]))->rounds_list;
 		if (club_ptr->ClubDivision == fra_national) {
 			WORD current_round = *(WORD*)(round_data + 0x34);
-			comp_stats* fra_national_data = (comp_stats*)get_loaded_league(FRA_NATIONAL_9CF());
+			comp_stats* fra_national_data = (comp_stats*)get_loaded_league(FRA_NATIONAL_1_9CF());
 			WORD num_teams = fra_national_data->n_teams;
 			team_league_stats* table = (team_league_stats*)(fra_national_data->team_league_table);
 			for (int i = 0; i < num_teams; i++) {
@@ -670,9 +670,9 @@ void fra_second_reputation_calc(BYTE* _this, BYTE* club, char stage, char curren
 		ret_max = 2 + max;
 	}
 	else if (stage == 1) {
-		comp_stats* d3_comp_data = (comp_stats*)get_loaded_league(FRA_NATIONAL_9CF());
+		comp_stats* d3_comp_data = (comp_stats*)get_loaded_league(FRA_NATIONAL_1_9CF());
 		cm3_clubs* club_data = (cm3_clubs*)club;
-		if (club_data->ClubDivision->ClubCompID == FRA_NATIONAL_9CF()) {
+		if (club_data->ClubDivision->ClubCompID == FRA_NATIONAL_1_9CF()) {
 			ret = (BYTE*)sub_4A4850((BYTE*)d3_comp_data->f8, club);
 			if (!ret) return;
 			ret_current = 3;

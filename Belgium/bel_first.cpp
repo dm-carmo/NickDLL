@@ -751,24 +751,7 @@ void __fastcall bel_third_vv_relegation(BYTE* _this)
 		}
 	}
 
-	vector<cm3_clubs*> available_clubs;
-	for (DWORD i = 0; i < *clubs_count; i++)
-	{
-		cm3_clubs* club = get_club(i);
-		if (club)
-		{
-			if (club->ClubDivision && club->ClubNation)
-			{
-				DWORD compID = club->ClubDivision->ClubCompID;
-				DWORD nationID = club->ClubNation->NationID;
-				if (nationID == NATION_BELGIUM_9CF() && compID == BEL_FOURTH_VV_9CF())
-				{
-					available_clubs.push_back(club);
-				}
-			}
-		}
-	}
-
+	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(BEL_FOURTH_VV_9CF(), NATION_BELGIUM_9CF());
 	sort(available_clubs.begin(), available_clubs.end(), compareClubRep);
 	int max_to_check = (available_clubs.size() > 6 ? 6 : available_clubs.size());
 	for (unsigned int i = 0; i < relegated_clubs.size(); i++)
@@ -824,24 +807,7 @@ void __fastcall bel_third_ac_relegation(BYTE* _this)
 		}
 	}
 
-	vector<cm3_clubs*> available_clubs;
-	for (DWORD i = 0; i < *clubs_count; i++)
-	{
-		cm3_clubs* club = get_club(i);
-		if (club)
-		{
-			if (club->ClubDivision && club->ClubNation)
-			{
-				DWORD compID = club->ClubDivision->ClubCompID;
-				DWORD nationID = club->ClubNation->NationID;
-				if (nationID == NATION_BELGIUM_9CF() && compID == BEL_FOURTH_ACFF_9CF())
-				{
-					available_clubs.push_back(club);
-				}
-			}
-		}
-	}
-
+	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(BEL_FOURTH_ACFF_9CF(), NATION_BELGIUM_9CF());
 	sort(available_clubs.begin(), available_clubs.end(), compareClubRep);
 	int max_to_check = (available_clubs.size() > 6 ? 6 : available_clubs.size());
 	for (unsigned int i = 0; i < relegated_clubs.size(); i++)
@@ -886,25 +852,8 @@ void __fastcall bel_non_league_promotion(BYTE* _this)
 		}
 	}
 	vector<cm3_clubs*> relegated_clubs_ac = get_relegated_teams(BEL_FOURTH_ACFF_9CF());
-	vector<cm3_clubs*> available_clubs;
 
-	for (DWORD i = 0; i < *clubs_count; i++)
-	{
-		cm3_clubs* club = get_club(i);
-		if (club)
-		{
-			if (club->ClubDivision && club->ClubNation)
-			{
-				DWORD compID = club->ClubDivision->ClubCompID;
-				DWORD nationID = club->ClubNation->NationID;
-				if (nationID == NATION_BELGIUM_9CF() && compID == A_LOWER_9CF())
-				{
-					available_clubs.push_back(club);
-				}
-			}
-		}
-	}
-
+	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_BELGIUM_9CF());
 	sort(available_clubs.begin(), available_clubs.end(), compareClubRep);
 	int max_to_check = (available_clubs.size() > 15 ? 15 : available_clubs.size());
 	unsigned int i;

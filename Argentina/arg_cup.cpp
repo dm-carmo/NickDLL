@@ -71,17 +71,34 @@ int arg_cup_teams(BYTE* _this) {
 	{
 		vec.push_back(club);
 	}
-	// Primera B
+	// Primera Nacional
 	division_clubs = find_clubs_of_comp(ARG_SECOND_9CF());
 	sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPos);
 	for (size_t i = 0; i < 16; i++)
 	{
 		vec.push_back(division_clubs[i]);
 	}
+	BYTE selected = get_country(NATION_ARGENTINA_9CF())->NationLeagueSelected;
+	// Primera B
+	division_clubs = find_clubs_of_comp(ARG_THIRD_METRO_9CF());
+	if ((selected & 4) != 0) sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPos);
+	else sort(division_clubs.begin(), division_clubs.end(), compareClubRep);
+	for (size_t i = 0; i < 5; i++)
+	{
+		vec.push_back(division_clubs[i]);
+	}
+	// Federal A
+	division_clubs = find_clubs_of_comp(ARG_THIRD_INTERIOR_9CF());
+	if ((selected & 4) != 0) sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPos);
+	else sort(division_clubs.begin(), division_clubs.end(), compareClubRep);
+	for (size_t i = 0; i < 10; i++)
+	{
+		vec.push_back(division_clubs[i]);
+	}
 	// Lower
-	division_clubs = find_clubs_of_comp(ARG_THIRD_9CF());
+	division_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_ARGENTINA_9CF());
 	sort(division_clubs.begin(), division_clubs.end(), compareClubRep);
-	for (unsigned int i = 0; i < 18; i++)
+	for (unsigned int i = 0; i < 3; i++)
 	{
 		int availableIdx = rand() % division_clubs.size();
 		cm3_clubs* lower_club = division_clubs[availableIdx];

@@ -300,7 +300,6 @@ void __fastcall cro_non_league_promotion(BYTE* _this)
 		}
 	}
 
-	vector<cm3_clubs*> available_clubs;
 	comp_stats* playoff_stage = (comp_stats*)comp_data->stages[0];
 	WORD promoted_teams = 0;
 	for (WORD i = 0; i < playoff_stage->n_teams; i++) {
@@ -324,7 +323,6 @@ void __fastcall cro_non_league_promotion(BYTE* _this)
 
 void sort_cro_non_league_clubs() {
 	vector<cm3_clubs*> available_clubs;
-
 	for (DWORD i = 0; i < *clubs_count; i++)
 	{
 		cm3_clubs* club = get_club(i);

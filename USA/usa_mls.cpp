@@ -91,12 +91,7 @@ void usa_mls_reputation_calc(BYTE* _this, BYTE* club, char stage, char current, 
 		ret_max = 15 + max * 2;
 	}
 	else if (stage == 2) {
-		if (current < 4) ret_current = current;
-		else ret_current = (char)pow(2, current - 2) + 1;
-		if (min < 4) ret_min = min;
-		else ret_min = (char)pow(2, min - 2) + 1;
-		if (max < 4) ret_max = max;
-		else ret_max = (char)pow(2, max - 2) + 1;
+		// do nothing
 	}
 	ret[0x73] = ret_current;
 	ret[0x74] = ret_min;

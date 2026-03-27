@@ -40,7 +40,7 @@ DWORD fra_setup_c(playable_nation_data* nation_data) {
 	nation_comps[i++] = (DWORD)pMem;
 	// National
 	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
-	fra_third_init(pMem, *current_year, get_comp(FRA_NATIONAL_9CF()));
+	fra_third_init(pMem, *current_year, get_comp(FRA_NATIONAL_1_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Cup
 	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
@@ -90,8 +90,8 @@ void setup_fra_nation()
 }
 
 void france_restructure() {
-	cm3_club_comps* fra_third = get_comp(FRA_NATIONAL_9CF());
-	cm3_club_comps* fra_fourth = get_comp(FRA_CFA_9CF());
+	cm3_club_comps* fra_third = get_comp(FRA_NATIONAL_1_9CF());
+	cm3_club_comps* fra_fourth = get_comp(FRA_NATIONAL_2_9CF());
 
 	vector<string> d3_clubs = {
 		"SM Caen",

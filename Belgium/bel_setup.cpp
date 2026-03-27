@@ -10,7 +10,7 @@
 #include "bel_fourth_ac.h"
 #include "bel_cup.h"
 #include "bel_super.h"
-//#include "bel_awards.h"
+#include "bel_awards.h"
 
 static DWORD(__thiscall* bel_cup_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
 (DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x41d050);
@@ -93,7 +93,7 @@ void setup_bel_nation() {
 	setup_bel_fourth_ac();
 	setup_bel_cup();
 	setup_bel_super();
-	//setup_bel_awards();
+	setup_bel_awards();
 }
 
 void belgium_restructure() {

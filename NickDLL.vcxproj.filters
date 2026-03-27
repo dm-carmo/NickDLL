@@ -714,6 +714,15 @@
     <ClCompile Include="Belgium\bel_super.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Belgium\bel_awards.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Argentina\arg_third_metro.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Argentina\arg_third_interior.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -1425,6 +1434,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Belgium\bel_super.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Belgium\bel_awards.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Argentina\arg_third_metro.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Argentina\arg_third_interior.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -324,32 +324,8 @@ void __fastcall sco_non_league_promotion(BYTE* _this)
 {
 	vector<cm3_clubs*> highland_relegated_clubs = get_relegated_teams(SCO_HIGHLAND_9CF());
 	vector<cm3_clubs*> lowland_relegated_clubs = get_relegated_teams(SCO_LOWLAND_9CF());
-	vector<cm3_clubs*> available_clubs;
 
-	for (DWORD i = 0; i < *clubs_count; i++)
-	{
-		cm3_clubs* club = get_club(i);
-		if (club)
-		{
-			if (club->ClubDivision && club->ClubNation)
-			{
-				DWORD compID = club->ClubDivision->ClubCompID;
-				DWORD nationID = club->ClubNation->NationID;
-				if (nationID == NATION_SCOTLAND_9CF() &&		// Scotland
-					compID != SCO_PREMIER_9CF() &&		// Premier Division
-					compID != SCO_CHAMP_9CF() &&		// First Division
-					compID != SCO_LEAGUE_1_9CF() &&		// Second Division
-					compID != SCO_LEAGUE_2_9CF() &&		// Third Division
-					compID != SCO_HIGHLAND_9CF() &&		// Highland
-					compID != SCO_LOWLAND_9CF() &&		// Lowland
-					compID != RESERVE_9CF())		// Lowland
-				{
-					available_clubs.push_back(club);
-				}
-			}
-		}
-	}
-
+	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_SCOTLAND_9CF());
 	sort(available_clubs.begin(), available_clubs.end(), compareClubRep);
 	int max_to_check = (available_clubs.size() > 4 ? 4 : available_clubs.size());
 	unsigned int i;
