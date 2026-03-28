@@ -46,8 +46,6 @@ DWORD afc_setup_c(playable_nation_data* nation_data) {
 }
 
 void setup_afc_continent() {
-	WriteDWORD(0x66769f + 6, (DWORD)&afc_setup_c);
-
 	setup_afc_champions_league_elite();
 	setup_afc_champions_league_2();
 	setup_afc_challenge_league();

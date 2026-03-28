@@ -52,36 +52,19 @@ DWORD usa_setup_c(playable_nation_data* nation_data) {
 }
 
 void setup_usa_nation() {
-	WriteDWORD(0x668F51 + 6, (DWORD)&usa_setup_c);
 	setup_usa_mls();
 	setup_usa_champ();
 	setup_usa_cup();
 	setup_usa_awards();
-	// Start date
-	WriteBytes(0x668fa0, 1, February);
-	WriteBytes(0x668fa2, 1, 20);
-	WriteBytes(0x66900f, 3, 0x6a, 0x0, 0x57);
+	// disables some offsets related to the all-star game
+	WriteBytes(0x5ae103, 1, 0xeb);
+	WriteBytes(0x7759eb, 6, 0xE9, 0xE9, 0x00, 0x00, 0x00, 0x90);
+	WriteNOP(0x90ba86, 2);
 
 	WriteNOP(0x90af7a, 7);
 }
 
 void usa_restructure() {
-	cm3_club_comps* usa_mls = get_comp(USA_MLS_9CF());
-	cm3_club_comps* usa_champ = get_comp(USA_SECOND_9CF());
-	usa_champ->ClubCompReputation = 7;
-	cm3_club_comps* usa_l1 = get_comp(USA_THIRD_9CF());
-	usa_l1->ClubCompReputation = 6;
-	cm3_club_comps* a_lower = get_comp(A_LOWER_9CF());
-
-	vector<cm3_clubs*> club_list = find_clubs_of_comp(USA_MLS_9CF());
-
-	club_list = find_clubs_of_comp(USA_SECOND_9CF());
-	for (cm3_clubs* c : club_list) c->ClubDivision = usa_mls;
-	club_list = find_clubs_of_comp(USA_THIRD_9CF());
-	for (cm3_clubs* c : club_list) c->ClubDivision = usa_champ;
-	club_list = find_clubs_of_comp(A_LOWER_9CF(), NATION_USA_9CF());
-	for (cm3_clubs* c : club_list) c->ClubDivision = usa_l1;
-
 	cm3_cities* austin = find_city("Austin");
 	if (austin && austin->CityLongitude > 0) austin->CityLongitude = -austin->CityLongitude;
 	cm3_cities* seaside = find_city("Seaside");

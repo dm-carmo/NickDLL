@@ -53,7 +53,6 @@ DWORD gre_setup_c(playable_nation_data* nation_data) {
 }
 
 void setup_gre_nation() {
-	WriteDWORD(0x66817D + 6, (DWORD)&gre_setup_c);
 	setup_gre_first();
 	setup_gre_second();
 	setup_gre_cup();
@@ -63,71 +62,15 @@ void setup_gre_nation() {
 }
 
 void greece_restructure() {
-	cm3_nations* greece = get_country(NATION_GREECE_9CF());
-	cm3_club_comps* gre_second = get_comp(GRE_SECOND_9CF());
-	cm3_club_comps* gre_second_n = get_comp(GRE_SECOND_NORTH_9CF());
-	gre_second_n->ClubCompNation = greece;
-	gre_second_n->ClubCompReputation = 8;
-	cm3_club_comps* gre_second_s = get_comp(GRE_SECOND_SOUTH_9CF());
-	gre_second_s->ClubCompNation = greece;
-	gre_second_s->ClubCompReputation = 8;
-	cm3_club_comps* gre_lower = get_comp(GRE_LOWER_9CF());
-	cm3_club_comps* a_lower = get_comp(A_LOWER_9CF());
-
-	vector<cm3_clubs*> clubs = find_clubs_of_comp(gre_second->ClubCompID);
-	for (cm3_clubs* c : clubs) {
-		c->ClubDivision = gre_lower;
+	cm3_club_comps* d2 = get_comp(GRE_SECOND_9CF());
+	vector<cm3_clubs*> d2_n = find_clubs_of_comp(GRE_SECOND_NORTH_9CF());
+	for (cm3_clubs* club : d2_n) {
+		club->ClubReserveDivision = club->ClubDivision;
+		club->ClubDivision = d2;
 	}
-	clubs = find_clubs_of_comp(gre_second_n->ClubCompID);
-	for (cm3_clubs* c : clubs) {
-		c->ClubDivision = a_lower;
-	}
-	clubs = find_clubs_of_comp(gre_second_s->ClubCompID);
-	for (cm3_clubs* c : clubs) {
-		c->ClubDivision = a_lower;
-	}
-
-	vector<string> d2n_clubs = {
-		"Anagennisi Karditsas",
-		"Asteras Aktor B",
-		"POT Iraklis Thessaloniki",
-		"Kampaniakos",
-		"AO Kavala",
-		"Makedonikos Neapolis",
-		"Nestos Chrysoupolis",
-		"Niki Volou",
-		"PAOK Thessaloniki B",
-		"PAS Giannina",
-	};
-	vector<string> d2s_clubs = {
-		"Athens Kallithea",
-		"PAE Chania",
-		"AO Egaleo",
-		"Ellas Syrou",
-		"GS Ilioupolis",
-		"PS Kalamata",
-		"GS Marko",
-		"Olympiacos Piraeus B",
-		"Panargiakos APO",
-		"Panionios Athens",
-	};
-
-	for (string s : d2n_clubs) {
-		cm3_clubs* club = find_club(s.c_str());
-		if (!club) {
-			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
-			continue;
-		}
-		club->ClubDivision = gre_second;
-		club->ClubReserveDivision = gre_second_n;
-	}
-	for (string s : d2s_clubs) {
-		cm3_clubs* club = find_club(s.c_str());
-		if (!club) {
-			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
-			continue;
-		}
-		club->ClubDivision = gre_second;
-		club->ClubReserveDivision = gre_second_s;
+	vector<cm3_clubs*> d2_s = find_clubs_of_comp(GRE_SECOND_SOUTH_9CF());
+	for (cm3_clubs* club : d2_s) {
+		club->ClubReserveDivision = club->ClubDivision;
+		club->ClubDivision = d2;
 	}
 }

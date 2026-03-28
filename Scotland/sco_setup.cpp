@@ -86,7 +86,6 @@ DWORD sco_setup_c(playable_nation_data* nation_data) {
 }
 
 void setup_sco_nation() {
-	WriteDWORD(0x668AD6 + 6, (DWORD)&sco_setup_c);
 	setup_sco_premier();
 	setup_sco_champ();
 	setup_sco_league_1();
@@ -98,81 +97,4 @@ void setup_sco_nation() {
 	setup_sco_challenge_cup();
 
 	WriteNOP(0x7ed3e2, 7);
-}
-
-void scotland_restructure() {
-	cm3_club_comps* sco_highland = get_comp(SCO_HIGHLAND_9CF());
-	sco_highland->ClubCompNation = get_country(NATION_SCOTLAND_9CF());
-	sco_highland->ClubCompContinent = get_continent(EUROPE_9CF());
-	sco_highland->ClubCompReputation = 1;
-	cm3_club_comps* sco_lowland = get_comp(SCO_LOWLAND_9CF());
-	sco_lowland->ClubCompNation = get_country(NATION_SCOTLAND_9CF());
-	sco_lowland->ClubCompContinent = get_continent(EUROPE_9CF());
-	sco_lowland->ClubCompReputation = 1;
-	cm3_club_comps* a_lower = get_comp(A_LOWER_9CF());
-
-	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(A_LOWER_B_9CF(), NATION_SCOTLAND_9CF());
-	for (cm3_clubs* c : lower_clubs) {
-		c->ClubDivision = a_lower;
-	}
-
-	vector<string> highland_clubs = {
-		"Banks O' Dee FC",
-		"Brechin City FC",
-		"Brora Rangers FC",
-		"Buckie Thistle FC",
-		"Clachnacuddin FC",
-		"Deveronvale FC",
-		"Formartine United FC",
-		"Forres Mechanics FC",
-		"Fraserburgh FC",
-		"Huntly FC",
-		"Inverurie Loco Works FC",
-		"Keith FC",
-		"Lossiemouth FC",
-		"Nairn County FC",
-		"Rothes FC",
-		"Strathspey Thistle FC",
-		"Turriff United FC",
-		"Wick Academy FC",
-	};
-
-	vector<string> lowland_clubs = {
-		"Albion Rovers FC",
-		"Berwick Rangers FC",
-		"Bo'ness United FC",
-		"Bonnyrigg Rose FC",
-		"Broxburn Athletic FC",
-		"Caledonian Braves FC",
-		"Glasgow Celtic B",
-		"Civil Service Strollers FC",
-		"Clydebank FC",
-		"Cowdenbeath FC",
-		"Cumbernauld Colts FC",
-		"East Stirlingshire FC",
-		"Gala Fairydean Rovers FC",
-		"Gretna FC 2008",
-		"Heart of Midlothian FC B",
-		"Linlithgow Rose FC",
-		"Tranent FC",
-		"University of Stirling FC",
-	};
-
-	for (string s : highland_clubs) {
-		cm3_clubs* club = find_club(s.c_str());
-		if (!club) {
-			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
-			continue;
-		}
-		club->ClubDivision = sco_highland;
-	}
-
-	for (string s : lowland_clubs) {
-		cm3_clubs* club = find_club(s.c_str());
-		if (!club) {
-			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
-			continue;
-		}
-		club->ClubDivision = sco_lowland;
-	}
 }

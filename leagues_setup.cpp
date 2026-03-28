@@ -25,35 +25,17 @@ int replacement_667150() {
 	BYTE* cm_date = new BYTE[8];
 	pnd_list[idx].nation = 0;
 	pnd_list[idx].continent = 0;
-	if (configFile.GetBool("applyFIFAclubs", true))
-	{
-		pnd_list[idx].setup_function_addr = (DWORD)&fifa_club_setup_c;
-		convert_to_cm_date(pnd_list[idx].start_date, 1, July, *current_year, -1);
-		convert_to_cm_date(pnd_list[idx].end_date, 1, July, *current_year, -1);
-		pnd_list[idx].updates_in_june = 1;
-		convert_to_cm_date(cm_date, 2, January, 2025, -1);
-	}
-	else
-	{
-		pnd_list[idx].setup_function_addr = 0x830FE0;
-		convert_to_cm_date(pnd_list[idx].start_date, 22, June, *current_year, -1);
-		convert_to_cm_date(pnd_list[idx].end_date, 20, May, *current_year, -1);
-		pnd_list[idx].updates_in_june = 1;
-		convert_to_cm_date(cm_date, 21, June, 2025, -1);
-	}
+	pnd_list[idx].setup_function_addr = (DWORD)&fifa_club_setup_c;
+	convert_to_cm_date(pnd_list[idx].start_date, 1, July, *current_year, -1);
+	convert_to_cm_date(pnd_list[idx].end_date, 1, July, *current_year, -1);
+	pnd_list[idx].updates_in_june = 1;
+	convert_to_cm_date(cm_date, 2, January, 2025, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	idx++;
 
 	cm_date = new BYTE[8];
 	pnd_list[idx].continent = get_continent(EUROPE_9CF());
-	if (configFile.GetBool("applyUEFA", true))
-	{
-		pnd_list[idx].setup_function_addr = (DWORD)&uefa_setup_c;
-	}
-	else
-	{
-		pnd_list[idx].setup_function_addr = 0x8312E0;
-	}
+	pnd_list[idx].setup_function_addr = (DWORD)&uefa_setup_c;
 	convert_to_cm_date(pnd_list[idx].start_date, 23, June, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 20, May, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
@@ -64,20 +46,10 @@ int replacement_667150() {
 
 	cm_date = new BYTE[8];
 	pnd_list[idx].continent = get_continent(NORTH_AMERICA_9CF());
-	if (configFile.GetBool("applyCONCACAF", true))
-	{
-		pnd_list[idx].setup_function_addr = (DWORD)&concacaf_setup_c;
-		convert_to_cm_date(cm_date, 2, January, 2025, -1);
-		pnd_list[idx].update_day = *(WORD*)(cm_date);
-		pnd_list[idx].updates_in_june = 0;
-	}
-	else
-	{
-		pnd_list[idx].setup_function_addr = 0x831650;
-		convert_to_cm_date(cm_date, 1, February, 2025, -1);
-		pnd_list[idx].update_day = *(WORD*)(cm_date);
-		pnd_list[idx].updates_in_june = 1;
-	}
+	pnd_list[idx].setup_function_addr = (DWORD)&concacaf_setup_c;
+	convert_to_cm_date(cm_date, 2, January, 2025, -1);
+	pnd_list[idx].update_day = *(WORD*)(cm_date);
+	pnd_list[idx].updates_in_june = 0;
 	convert_to_cm_date(pnd_list[idx].start_date, 1, July, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 1, July, *current_year, -1);
 	pnd_list[idx].main_cup = get_comp(CONCACAF_CHAMPIONS_CUP_9CF());
@@ -85,20 +57,10 @@ int replacement_667150() {
 
 	cm_date = new BYTE[8];
 	pnd_list[idx].continent = get_continent(SOUTH_AMERICA_9CF());
-	if (configFile.GetBool("applyCONMEBOL", true))
-	{
-		pnd_list[idx].setup_function_addr = (DWORD)&conmebol_setup_c;
-		convert_to_cm_date(cm_date, 2, January, 2025, -1);
-		pnd_list[idx].update_day = *(WORD*)(cm_date);
-		pnd_list[idx].updates_in_june = 0;
-	}
-	else
-	{
-		pnd_list[idx].setup_function_addr = 0x8318F0;
-		convert_to_cm_date(cm_date, 21, December, 2025, -1);
-		pnd_list[idx].update_day = *(WORD*)(cm_date);
-		pnd_list[idx].updates_in_june = 1;
-	}
+	pnd_list[idx].setup_function_addr = (DWORD)&conmebol_setup_c;
+	convert_to_cm_date(cm_date, 2, January, 2025, -1);
+	pnd_list[idx].update_day = *(WORD*)(cm_date);
+	pnd_list[idx].updates_in_june = 0;
 	convert_to_cm_date(pnd_list[idx].start_date, 1, July, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 1, July, *current_year, -1);
 	pnd_list[idx].main_cup = get_comp(COPA_LIBERTADORES_9CF());
@@ -106,18 +68,9 @@ int replacement_667150() {
 
 	cm_date = new BYTE[8];
 	pnd_list[idx].continent = get_continent(ASIA_9CF());
-	if (configFile.GetBool("applyAFC", true))
-	{
-		pnd_list[idx].setup_function_addr = (DWORD)&afc_setup_c;
-		convert_to_cm_date(cm_date, 21, June, 2025, -1);
-		pnd_list[idx].update_day = *(WORD*)(cm_date);
-	}
-	else
-	{
-		pnd_list[idx].setup_function_addr = 0x831BA0;
-		convert_to_cm_date(cm_date, 21, February, 2025, -1);
-		pnd_list[idx].update_day = *(WORD*)(cm_date);
-	}
+	pnd_list[idx].setup_function_addr = (DWORD)&afc_setup_c;
+	convert_to_cm_date(cm_date, 21, June, 2025, -1);
+	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	convert_to_cm_date(pnd_list[idx].start_date, 1, July, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 1, July, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
@@ -126,99 +79,53 @@ int replacement_667150() {
 
 	cm_date = new BYTE[8];
 	pnd_list[idx].continent = get_continent(OCEANIA_9CF());
-	if (configFile.GetBool("applyOFC", true))
-	{
-		pnd_list[idx].setup_function_addr = (DWORD)&ofc_setup_c;
-		convert_to_cm_date(cm_date, 2, January, 2025, -1);
-		pnd_list[idx].update_day = *(WORD*)(cm_date);
-		pnd_list[idx].updates_in_june = 0;
-	}
-	else
-	{
-		pnd_list[idx].setup_function_addr = 0x831EB0;
-		convert_to_cm_date(cm_date, 21, July, 2025, -1);
-		pnd_list[idx].update_day = *(WORD*)(cm_date);
-		pnd_list[idx].updates_in_june = 1;
-	}
+	pnd_list[idx].setup_function_addr = (DWORD)&ofc_setup_c;
+	convert_to_cm_date(cm_date, 2, January, 2025, -1);
+	pnd_list[idx].update_day = *(WORD*)(cm_date);
+	pnd_list[idx].updates_in_june = 0;
 	convert_to_cm_date(pnd_list[idx].start_date, 1, July, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 1, July, *current_year, -1);
 	pnd_list[idx].main_cup = get_comp(OFC_CHAMPIONS_LEAGUE_9CF());
 	idx++;
 
-	if (configFile.GetBool("applyCAF", true)) {
-		cm_date = new BYTE[8];
-		pnd_list[idx].continent = get_continent(AFRICA_9CF());
-		pnd_list[idx].setup_function_addr = (DWORD)&caf_setup_c;
-		convert_to_cm_date(pnd_list[idx].start_date, 1, July, *current_year, -1);
-		convert_to_cm_date(pnd_list[idx].end_date, 1, July, *current_year, -1);
-		pnd_list[idx].updates_in_june = 1;
-		convert_to_cm_date(cm_date, 21, June, 2025, -1);
-		pnd_list[idx].update_day = *(WORD*)(cm_date);
-		pnd_list[idx].main_cup = get_comp(CAF_CHAMPIONS_LEAGUE_9CF());
-		idx++;
-	}
+	cm_date = new BYTE[8];
+	pnd_list[idx].continent = get_continent(AFRICA_9CF());
+	pnd_list[idx].setup_function_addr = (DWORD)&caf_setup_c;
+	convert_to_cm_date(pnd_list[idx].start_date, 1, July, *current_year, -1);
+	convert_to_cm_date(pnd_list[idx].end_date, 1, July, *current_year, -1);
+	pnd_list[idx].updates_in_june = 1;
+	convert_to_cm_date(cm_date, 21, June, 2025, -1);
+	pnd_list[idx].update_day = *(WORD*)(cm_date);
+	pnd_list[idx].main_cup = get_comp(CAF_CHAMPIONS_LEAGUE_9CF());
+	idx++;
 
 	cm_date = new BYTE[8];
 	pnd_list[idx].nation = get_country(NATION_ARGENTINA_9CF());
-	if (configFile.GetBool("applyArgentina", true))
-	{
-		pnd_list[idx].setup_function_addr = (DWORD)&arg_setup_c;
-		convert_to_cm_date(pnd_list[idx].start_date, 1, February, *current_year + 1, -1);
-		convert_to_cm_date(pnd_list[idx].end_date, 17, December, *current_year + 1, -1);
-		convert_to_cm_date(cm_date, 1, January, 2025, -1);
-		pnd_list[idx].update_day = *(WORD*)(cm_date);
-		pnd_list[idx].main_cup = get_comp(ARG_CUP_9CF());
-		pnd_list[idx].updates_in_june = 0;
-	}
-	else
-	{
-		pnd_list[idx].setup_function_addr = 0x832100;
-		convert_to_cm_date(pnd_list[idx].start_date, 9, August, *current_year, -1);
-		convert_to_cm_date(pnd_list[idx].end_date, 19, July, *current_year, -1);
-		convert_to_cm_date(cm_date, 1, August, 2025, -1);
-		pnd_list[idx].update_day = *(WORD*)(cm_date);
-		pnd_list[idx].updates_in_june = 1;
-	}
+	pnd_list[idx].setup_function_addr = (DWORD)&arg_setup_c;
+	convert_to_cm_date(pnd_list[idx].start_date, 1, February, *current_year + 1, -1);
+	convert_to_cm_date(pnd_list[idx].end_date, 17, December, *current_year + 1, -1);
+	convert_to_cm_date(cm_date, 1, January, 2025, -1);
+	pnd_list[idx].update_day = *(WORD*)(cm_date);
+	pnd_list[idx].main_cup = get_comp(ARG_CUP_9CF());
+	pnd_list[idx].updates_in_june = 0;
 	idx++;
 
 	cm_date = new BYTE[8];
 	pnd_list[idx].nation = get_country(NATION_AUSTRALIA_9CF());
-	if (configFile.GetBool("applyAustralia", true))
-	{
-		pnd_list[idx].setup_function_addr = (DWORD)&aus_setup_c;
-		//convert_to_cm_date(pnd_list[idx].start_date, 18, August, *current_year, -1);
-		convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
-		convert_to_cm_date(pnd_list[idx].end_date, 6, June, *current_year, -1);
-		convert_to_cm_date(cm_date, 20, June, 2025, -1);
-		pnd_list[idx].update_day = *(WORD*)(cm_date);
-		pnd_list[idx].main_cup = get_comp(AUS_CUP_9CF());
-	}
-	else
-	{
-		pnd_list[idx].setup_function_addr = 0x832380;
-		convert_to_cm_date(pnd_list[idx].start_date, 2, October, *current_year, -1);
-		convert_to_cm_date(pnd_list[idx].end_date, 10, June, *current_year, -1);
-		convert_to_cm_date(cm_date, 1, August, 2025, -1);
-		pnd_list[idx].update_day = *(WORD*)(cm_date);
-	}
+	pnd_list[idx].setup_function_addr = (DWORD)&aus_setup_c;
+	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
+	convert_to_cm_date(pnd_list[idx].end_date, 6, June, *current_year, -1);
+	convert_to_cm_date(cm_date, 20, June, 2025, -1);
+	pnd_list[idx].update_day = *(WORD*)(cm_date);
+	pnd_list[idx].main_cup = get_comp(AUS_CUP_9CF());
 	pnd_list[idx].updates_in_june = 1;
 	idx++;
 
 	cm_date = new BYTE[8];
 	pnd_list[idx].nation = get_country(NATION_BELGIUM_9CF());
-	if (configFile.GetBool("applyBelgium", true))
-	{
-		pnd_list[idx].setup_function_addr = (DWORD)&bel_setup_c;
-		//convert_to_cm_date(pnd_list[idx].start_date, 7, August, *current_year, -1);
-		convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
-		convert_to_cm_date(pnd_list[idx].end_date, 6, June, *current_year, -1);
-	}
-	else
-	{
-		pnd_list[idx].setup_function_addr = 0x8325D0;
-		convert_to_cm_date(pnd_list[idx].start_date, 7, August, *current_year, -1);
-		convert_to_cm_date(pnd_list[idx].end_date, 1, June, *current_year, -1);
-	}
+	pnd_list[idx].setup_function_addr = (DWORD)&bel_setup_c;
+	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
+	convert_to_cm_date(pnd_list[idx].end_date, 6, June, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
 	convert_to_cm_date(cm_date, 20, June, 2025, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
@@ -227,18 +134,9 @@ int replacement_667150() {
 
 	cm_date = new BYTE[8];
 	pnd_list[idx].nation = get_country(NATION_BRAZIL_9CF());
-	if (configFile.GetBool("applyBrazil", true))
-	{
-		pnd_list[idx].setup_function_addr = (DWORD)&bra_setup_c;
-		convert_to_cm_date(pnd_list[idx].start_date, 31, January, *current_year + 1, -1);
-		convert_to_cm_date(pnd_list[idx].end_date, 17, December, *current_year + 1, -1);
-	}
-	else
-	{
-		pnd_list[idx].setup_function_addr = 0x832980;
-		convert_to_cm_date(pnd_list[idx].start_date, 18, January, *current_year + 1, -1);
-		convert_to_cm_date(pnd_list[idx].end_date, 14, December, *current_year + 1, -1);
-	}
+	pnd_list[idx].setup_function_addr = (DWORD)&bra_setup_c;
+	convert_to_cm_date(pnd_list[idx].start_date, 31, January, *current_year + 1, -1);
+	convert_to_cm_date(pnd_list[idx].end_date, 17, December, *current_year + 1, -1);
 	pnd_list[idx].updates_in_june = 0;
 	convert_to_cm_date(cm_date, 1, January, 2025, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
@@ -247,18 +145,9 @@ int replacement_667150() {
 
 	cm_date = new BYTE[8];
 	pnd_list[idx].nation = get_country(NATION_CROATIA_9CF());
-	if (configFile.GetBool("applyCroatia", true))
-	{
-		pnd_list[idx].setup_function_addr = (DWORD)&cro_setup_c;
-		convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
-		convert_to_cm_date(pnd_list[idx].end_date, 6, June, *current_year, -1);
-	}
-	else
-	{
-		pnd_list[idx].setup_function_addr = 0x8330B0;
-		convert_to_cm_date(pnd_list[idx].start_date, 24, July, *current_year, -1);
-		convert_to_cm_date(pnd_list[idx].end_date, 28, May, *current_year, -1);
-	}
+	pnd_list[idx].setup_function_addr = (DWORD)&cro_setup_c;
+	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
+	convert_to_cm_date(pnd_list[idx].end_date, 6, June, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
 	convert_to_cm_date(cm_date, 20, June, 2025, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
@@ -267,18 +156,9 @@ int replacement_667150() {
 
 	cm_date = new BYTE[8];
 	pnd_list[idx].nation = get_country(NATION_DENMARK_9CF());
-	if (configFile.GetBool("applyDenmark", true))
-	{
-		pnd_list[idx].setup_function_addr = (DWORD)&den_setup_c;
-		convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
-		convert_to_cm_date(pnd_list[idx].end_date, 31, May, *current_year, -1);
-	}
-	else
-	{
-		pnd_list[idx].setup_function_addr = 0x833400;
-		convert_to_cm_date(pnd_list[idx].start_date, 27, July, *current_year, -1);
-		convert_to_cm_date(pnd_list[idx].end_date, 14, June, *current_year, -1);
-	}
+	pnd_list[idx].setup_function_addr = (DWORD)&den_setup_c;
+	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
+	convert_to_cm_date(pnd_list[idx].end_date, 31, May, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
 	convert_to_cm_date(cm_date, 20, June, 2025, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
@@ -287,16 +167,8 @@ int replacement_667150() {
 
 	cm_date = new BYTE[8];
 	pnd_list[idx].nation = get_country(NATION_ENGLAND_9CF());
-	if (configFile.GetBool("applyEngland", true))
-	{
-		pnd_list[idx].setup_function_addr = (DWORD)&eng_setup_c;
-		convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
-	}
-	else
-	{
-		pnd_list[idx].setup_function_addr = 0x833750;
-		convert_to_cm_date(pnd_list[idx].start_date, 10, August, *current_year, -1);
-	}
+	pnd_list[idx].setup_function_addr = (DWORD)&eng_setup_c;
+	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 31, May, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
 	convert_to_cm_date(cm_date, 20, June, 2025, -1);
@@ -307,18 +179,9 @@ int replacement_667150() {
 
 	cm_date = new BYTE[8];
 	pnd_list[idx].nation = get_country(NATION_FINLAND_9CF());
-	if (configFile.GetBool("applyFinland", true))
-	{
-		pnd_list[idx].setup_function_addr = (DWORD)&fin_setup_c;
-		convert_to_cm_date(pnd_list[idx].start_date, 5, April, *current_year + 1, -1);
-		convert_to_cm_date(cm_date, 1, January, 2025, -1);
-	}
-	else
-	{
-		pnd_list[idx].setup_function_addr = 0x833CF0;
-		convert_to_cm_date(pnd_list[idx].start_date, 29, April, *current_year + 1, -1);
-		convert_to_cm_date(cm_date, 27, December, 2025, -1);
-	}
+	pnd_list[idx].setup_function_addr = (DWORD)&fin_setup_c;
+	convert_to_cm_date(pnd_list[idx].start_date, 5, April, *current_year + 1, -1);
+	convert_to_cm_date(cm_date, 1, January, 2025, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 12, November, *current_year + 1, -1);
 	pnd_list[idx].updates_in_june = 0;
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
@@ -327,16 +190,8 @@ int replacement_667150() {
 
 	cm_date = new BYTE[8];
 	pnd_list[idx].nation = get_country(NATION_FRANCE_9CF());
-	if (configFile.GetBool("applyFrance", true))
-	{
-		pnd_list[idx].setup_function_addr = (DWORD)&fra_setup_c;
-		convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
-	}
-	else
-	{
-		pnd_list[idx].setup_function_addr = 0x833FF0;
-		convert_to_cm_date(pnd_list[idx].start_date, 9, August, *current_year, -1);
-	}
+	pnd_list[idx].setup_function_addr = (DWORD)&fra_setup_c;
+	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 24, May, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
 	convert_to_cm_date(cm_date, 20, June, 2025, -1);
@@ -346,18 +201,9 @@ int replacement_667150() {
 
 	cm_date = new BYTE[8];
 	pnd_list[idx].nation = get_country(NATION_GERMANY_9CF());
-	if (configFile.GetBool("applyGermany", true))
-	{
-		pnd_list[idx].setup_function_addr = (DWORD)&ger_setup_c;
-		convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
-		convert_to_cm_date(pnd_list[idx].end_date, 31, May, *current_year, -1);
-	}
-	else
-	{
-		pnd_list[idx].setup_function_addr = 0x8343F0;
-		convert_to_cm_date(pnd_list[idx].start_date, 29, July, *current_year, -1);
-		convert_to_cm_date(pnd_list[idx].end_date, 26, May, *current_year, -1);
-	}
+	pnd_list[idx].setup_function_addr = (DWORD)&ger_setup_c;
+	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
+	convert_to_cm_date(pnd_list[idx].end_date, 31, May, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
 	convert_to_cm_date(cm_date, 20, June, 2025, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
@@ -366,19 +212,9 @@ int replacement_667150() {
 
 	cm_date = new BYTE[8];
 	pnd_list[idx].nation = get_country(NATION_GREECE_9CF());
-	if (configFile.GetBool("applyGreece", true))
-	{
-		pnd_list[idx].setup_function_addr = (DWORD)&gre_setup_c;
-		//convert_to_cm_date(pnd_list[idx].start_date, 23, August, *current_year, -1);
-		convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
-		convert_to_cm_date(pnd_list[idx].end_date, 28, May, *current_year, -1);
-	}
-	else
-	{
-		pnd_list[idx].setup_function_addr = 0x8347C0;
-		convert_to_cm_date(pnd_list[idx].start_date, 15, August, *current_year, -1);
-		convert_to_cm_date(pnd_list[idx].end_date, 21, May, *current_year, -1);
-	}
+	pnd_list[idx].setup_function_addr = (DWORD)&gre_setup_c;
+	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
+	convert_to_cm_date(pnd_list[idx].end_date, 28, May, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
 	convert_to_cm_date(cm_date, 20, June, 2025, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
@@ -387,19 +223,9 @@ int replacement_667150() {
 
 	cm_date = new BYTE[8];
 	pnd_list[idx].nation = get_country(NATION_HOLLAND_9CF());
-	if (configFile.GetBool("applyHolland", true))
-	{
-		pnd_list[idx].setup_function_addr = (DWORD)&hol_setup_c;
-		//convert_to_cm_date(pnd_list[idx].start_date, 9, August, *current_year, -1);
-		convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
-		convert_to_cm_date(pnd_list[idx].end_date, 28, May, *current_year, -1);
-	}
-	else
-	{
-		pnd_list[idx].setup_function_addr = 0x834B10;
-		convert_to_cm_date(pnd_list[idx].start_date, 16, August, *current_year, -1);
-		convert_to_cm_date(pnd_list[idx].end_date, 7, June, *current_year, -1);
-	}
+	pnd_list[idx].setup_function_addr = (DWORD)&hol_setup_c;
+	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
+	convert_to_cm_date(pnd_list[idx].end_date, 28, May, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
 	convert_to_cm_date(cm_date, 20, June, 2025, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
@@ -408,42 +234,20 @@ int replacement_667150() {
 
 	cm_date = new BYTE[8];
 	pnd_list[idx].nation = get_country(NATION_IRELAND_9CF());
-	if (configFile.GetBool("applyIreland", true))
-	{
-		pnd_list[idx].setup_function_addr = (DWORD)&irl_setup_c;
-		convert_to_cm_date(pnd_list[idx].start_date, 14, February, *current_year + 1, -1);
-		convert_to_cm_date(pnd_list[idx].end_date, 14, November, *current_year + 1, -1);
-		pnd_list[idx].updates_in_june = 0;
-		convert_to_cm_date(cm_date, 1, January, 2025, -1);
-		pnd_list[idx].update_day = *(WORD*)(cm_date);
-	}
-	else
-	{
-		pnd_list[idx].setup_function_addr = 0x834E60;
-		convert_to_cm_date(pnd_list[idx].start_date, 1, August, *current_year, -1);
-		convert_to_cm_date(pnd_list[idx].end_date, 18, May, *current_year, -1);
-		pnd_list[idx].updates_in_june = 1;
-		convert_to_cm_date(cm_date, 20, June, 2025, -1);
-		pnd_list[idx].update_day = *(WORD*)(cm_date);
-	}
+	pnd_list[idx].setup_function_addr = (DWORD)&irl_setup_c;
+	convert_to_cm_date(pnd_list[idx].start_date, 14, February, *current_year + 1, -1);
+	convert_to_cm_date(pnd_list[idx].end_date, 14, November, *current_year + 1, -1);
+	pnd_list[idx].updates_in_june = 0;
+	convert_to_cm_date(cm_date, 1, January, 2025, -1);
+	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].main_cup = get_comp(IRL_CHALLENGE_CUP_9CF());
 	idx++;
 
 	cm_date = new BYTE[8];
 	pnd_list[idx].nation = get_country(NATION_ITALY_9CF());
-	if (configFile.GetBool("applyItaly", true))
-	{
-		pnd_list[idx].setup_function_addr = (DWORD)&ita_setup_c;
-		//convert_to_cm_date(pnd_list[idx].start_date, 16, August, *current_year, -1);
-		convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
-		convert_to_cm_date(pnd_list[idx].end_date, 10, June, *current_year, -1);
-	}
-	else
-	{
-		pnd_list[idx].setup_function_addr = 0x835320;
-		convert_to_cm_date(pnd_list[idx].start_date, 25, August, *current_year, -1);
-		convert_to_cm_date(pnd_list[idx].end_date, 8, June, *current_year, -1);
-	}
+	pnd_list[idx].setup_function_addr = (DWORD)&ita_setup_c;
+	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
+	convert_to_cm_date(pnd_list[idx].end_date, 10, June, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
 	convert_to_cm_date(cm_date, 20, June, 2025, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
@@ -452,20 +256,10 @@ int replacement_667150() {
 
 	cm_date = new BYTE[8];
 	pnd_list[idx].nation = get_country(NATION_JAPAN_9CF());
-	if (configFile.GetBool("applyJapan", true))
-	{
-		pnd_list[idx].setup_function_addr = (DWORD)&jpn_setup_c;
-		convert_to_cm_date(pnd_list[idx].start_date, 14, February, *current_year + 1, -1);
-		convert_to_cm_date(pnd_list[idx].end_date, 9, December, *current_year + 1, -1);
-		convert_to_cm_date(cm_date, 1, January, 2025, -1);
-	}
-	else
-	{
-		pnd_list[idx].setup_function_addr = 0x835900;
-		convert_to_cm_date(pnd_list[idx].start_date, 6, March, *current_year + 1, -1);
-		convert_to_cm_date(pnd_list[idx].end_date, 28, November, *current_year + 1, -1);
-		convert_to_cm_date(cm_date, 25, January, 2025, -1);
-	}
+	pnd_list[idx].setup_function_addr = (DWORD)&jpn_setup_c;
+	convert_to_cm_date(pnd_list[idx].start_date, 14, February, *current_year + 1, -1);
+	convert_to_cm_date(pnd_list[idx].end_date, 9, December, *current_year + 1, -1);
+	convert_to_cm_date(cm_date, 1, January, 2025, -1);
 	pnd_list[idx].updates_in_june = 0;
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].main_cup = get_comp(JPN_EMPEROR_CUP_9CF());
@@ -473,17 +267,8 @@ int replacement_667150() {
 
 	cm_date = new BYTE[8];
 	pnd_list[idx].nation = get_country(NATION_NORTHERN_IRELAND_9CF());
-	if (configFile.GetBool("applyNorthernIreland", true))
-	{
-		pnd_list[idx].setup_function_addr = (DWORD)&nir_setup_c;
-		//convert_to_cm_date(pnd_list[idx].start_date, 8, August, *current_year, -1);
-		convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
-	}
-	else
-	{
-		pnd_list[idx].setup_function_addr = 0x835C90;
-		convert_to_cm_date(pnd_list[idx].start_date, 12, August, *current_year, -1);
-	}
+	pnd_list[idx].setup_function_addr = (DWORD)&nir_setup_c;
+	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 8, May, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
 	convert_to_cm_date(cm_date, 20, June, 2025, -1);
@@ -493,20 +278,10 @@ int replacement_667150() {
 
 	cm_date = new BYTE[8];
 	pnd_list[idx].nation = get_country(NATION_NORWAY_9CF());
-	if (configFile.GetBool("applyNorway", true))
-	{
-		pnd_list[idx].setup_function_addr = (DWORD)&nor_setup_c;
-		convert_to_cm_date(pnd_list[idx].start_date, 30, March, *current_year + 1, -1);
-		convert_to_cm_date(pnd_list[idx].end_date, 14, December, *current_year + 1, -1);
-		convert_to_cm_date(cm_date, 1, January, 2025, -1);
-	}
-	else
-	{
-		pnd_list[idx].setup_function_addr = 0x836050;
-		convert_to_cm_date(pnd_list[idx].start_date, 12, April, *current_year + 1, -1);
-		convert_to_cm_date(pnd_list[idx].end_date, 31, October, *current_year + 1, -1);
-		convert_to_cm_date(cm_date, 27, November, 2025, -1);
-	}
+	pnd_list[idx].setup_function_addr = (DWORD)&nor_setup_c;
+	convert_to_cm_date(pnd_list[idx].start_date, 30, March, *current_year + 1, -1);
+	convert_to_cm_date(pnd_list[idx].end_date, 14, December, *current_year + 1, -1);
+	convert_to_cm_date(cm_date, 1, January, 2025, -1);
 	pnd_list[idx].updates_in_june = 0;
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].main_cup = get_comp(NOR_CUP_9CF());
@@ -514,17 +289,8 @@ int replacement_667150() {
 
 	cm_date = new BYTE[8];
 	pnd_list[idx].nation = get_country(NATION_POLAND_9CF());
-	if (configFile.GetBool("applyPoland", true))
-	{
-		pnd_list[idx].setup_function_addr = (DWORD)&pol_setup_c;
-		//convert_to_cm_date(pnd_list[idx].start_date, 20, July, *current_year, -1);
-		convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
-	}
-	else
-	{
-		pnd_list[idx].setup_function_addr = 0x836350;
-		convert_to_cm_date(pnd_list[idx].start_date, 17, July, *current_year, -1);
-	}
+	pnd_list[idx].setup_function_addr = (DWORD)&pol_setup_c;
+	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 5, June, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
 	convert_to_cm_date(cm_date, 20, June, 2025, -1);
@@ -534,19 +300,9 @@ int replacement_667150() {
 
 	cm_date = new BYTE[8];
 	pnd_list[idx].nation = get_country(NATION_PORTUGAL_9CF());
-	if (configFile.GetBool("applyPortugal", true))
-	{
-		pnd_list[idx].setup_function_addr = (DWORD)&por_setup_c;
-		//convert_to_cm_date(pnd_list[idx].start_date, 3, August, *current_year, -1);
-		convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
-		convert_to_cm_date(pnd_list[idx].end_date, 10, June, *current_year, -1);
-	}
-	else
-	{
-		pnd_list[idx].setup_function_addr = 0x8366E0;
-		convert_to_cm_date(pnd_list[idx].start_date, 25, August, *current_year, -1);
-		convert_to_cm_date(pnd_list[idx].end_date, 8, June, *current_year, -1);
-	}
+	pnd_list[idx].setup_function_addr = (DWORD)&por_setup_c;
+	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
+	convert_to_cm_date(pnd_list[idx].end_date, 10, June, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
 	convert_to_cm_date(cm_date, 20, June, 2025, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
@@ -566,19 +322,9 @@ int replacement_667150() {
 
 	cm_date = new BYTE[8];
 	pnd_list[idx].nation = get_country(NATION_SCOTLAND_9CF());
-	if (configFile.GetBool("applyScotland", true))
-	{
-		pnd_list[idx].setup_function_addr = (DWORD)&sco_setup_c;
-		//convert_to_cm_date(pnd_list[idx].start_date, 2, August, *current_year, -1);
-		convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
-		convert_to_cm_date(pnd_list[idx].end_date, 31, May, *current_year, -1);
-	}
-	else
-	{
-		pnd_list[idx].setup_function_addr = 0x836DC0;
-		convert_to_cm_date(pnd_list[idx].start_date, 2, August, *current_year, -1);
-		convert_to_cm_date(pnd_list[idx].end_date, 24, May, *current_year, -1);
-	}
+	pnd_list[idx].setup_function_addr = (DWORD)&sco_setup_c;
+	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
+	convert_to_cm_date(pnd_list[idx].end_date, 31, May, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
 	convert_to_cm_date(cm_date, 20, June, 2025, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
@@ -587,20 +333,10 @@ int replacement_667150() {
 
 	cm_date = new BYTE[8];
 	pnd_list[idx].nation = get_country(NATION_SOUTH_KOREA_9CF());
-	if (configFile.GetBool("applySouthKorea", true))
-	{
-		pnd_list[idx].setup_function_addr = (DWORD)&kor_setup_c;
-		convert_to_cm_date(pnd_list[idx].start_date, 15, February, *current_year + 1, -1);
-		convert_to_cm_date(pnd_list[idx].end_date, 8, December, *current_year + 1, -1);
-		convert_to_cm_date(cm_date, 1, January, 2025, -1);
-	}
-	else
-	{
-		pnd_list[idx].setup_function_addr = 0x837200;
-		convert_to_cm_date(pnd_list[idx].start_date, 25, March, *current_year + 1, -1);
-		convert_to_cm_date(pnd_list[idx].end_date, 25, November, *current_year + 1, -1);
-		convert_to_cm_date(cm_date, 14, January, 2025, -1);
-	}
+	pnd_list[idx].setup_function_addr = (DWORD)&kor_setup_c;
+	convert_to_cm_date(pnd_list[idx].start_date, 15, February, *current_year + 1, -1);
+	convert_to_cm_date(pnd_list[idx].end_date, 8, December, *current_year + 1, -1);
+	convert_to_cm_date(cm_date, 1, January, 2025, -1);
 	pnd_list[idx].updates_in_june = 0;
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].main_cup = get_comp(KOR_CUP_9CF());
@@ -608,17 +344,8 @@ int replacement_667150() {
 
 	cm_date = new BYTE[8];
 	pnd_list[idx].nation = get_country(NATION_SPAIN_9CF());
-	if (configFile.GetBool("applySpain", true))
-	{
-		pnd_list[idx].setup_function_addr = (DWORD)&spa_setup_c;
-		//convert_to_cm_date(pnd_list[idx].start_date, 20, August, *current_year, -1);
-		convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
-	}
-	else
-	{
-		pnd_list[idx].setup_function_addr = 0x837560;
-		convert_to_cm_date(pnd_list[idx].start_date, 20, August, *current_year, -1);
-	}
+	pnd_list[idx].setup_function_addr = (DWORD)&spa_setup_c;
+	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 14, June, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
 	convert_to_cm_date(cm_date, 20, June, 2025, -1);
@@ -628,20 +355,10 @@ int replacement_667150() {
 
 	cm_date = new BYTE[8];
 	pnd_list[idx].nation = get_country(NATION_SWEDEN_9CF());
-	if (configFile.GetBool("applySweden", true))
-	{
-		pnd_list[idx].setup_function_addr = (DWORD)&swe_setup_c;
-		convert_to_cm_date(pnd_list[idx].start_date, 30, March, *current_year + 1, -1);
-		convert_to_cm_date(pnd_list[idx].end_date, 30, November, *current_year + 1, -1);
-		convert_to_cm_date(cm_date, 1, January, 2025, -1);
-	}
-	else
-	{
-		pnd_list[idx].setup_function_addr = 0x8379F0;
-		convert_to_cm_date(pnd_list[idx].start_date, 6, April, *current_year + 1, -1);
-		convert_to_cm_date(pnd_list[idx].end_date, 26, October, *current_year + 1, -1);
-		convert_to_cm_date(cm_date, 27, December, 2025, -1);
-	}
+	pnd_list[idx].setup_function_addr = (DWORD)&swe_setup_c;
+	convert_to_cm_date(pnd_list[idx].start_date, 30, March, *current_year + 1, -1);
+	convert_to_cm_date(pnd_list[idx].end_date, 30, November, *current_year + 1, -1);
+	convert_to_cm_date(cm_date, 1, January, 2025, -1);
 	pnd_list[idx].updates_in_june = 0;
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].main_cup = get_comp(SWE_CUP_9CF());
@@ -649,19 +366,9 @@ int replacement_667150() {
 
 	cm_date = new BYTE[8];
 	pnd_list[idx].nation = get_country(NATION_TURKEY_9CF());
-	if (configFile.GetBool("applyTurkey", true))
-	{
-		pnd_list[idx].setup_function_addr = (DWORD)&tur_setup_c;
-		//convert_to_cm_date(pnd_list[idx].start_date, 8, August, *current_year, -1);
-		convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
-		convert_to_cm_date(pnd_list[idx].end_date, 31, May, *current_year, -1);
-	}
-	else
-	{
-		pnd_list[idx].setup_function_addr = 0x837D70;
-		convert_to_cm_date(pnd_list[idx].start_date, 8, August, *current_year, -1);
-		convert_to_cm_date(pnd_list[idx].end_date, 20, May, *current_year, -1);
-	}
+	pnd_list[idx].setup_function_addr = (DWORD)&tur_setup_c;
+	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
+	convert_to_cm_date(pnd_list[idx].end_date, 31, May, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
 	convert_to_cm_date(cm_date, 20, June, 2025, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
@@ -670,20 +377,10 @@ int replacement_667150() {
 
 	cm_date = new BYTE[8];
 	pnd_list[idx].nation = get_country(NATION_USA_9CF());
-	if (configFile.GetBool("applyUSA", true))
-	{
-		pnd_list[idx].setup_function_addr = (DWORD)&usa_setup_c;
-		convert_to_cm_date(pnd_list[idx].start_date, 22, February, *current_year + 1, -1);
-		convert_to_cm_date(pnd_list[idx].end_date, 10, December, *current_year + 1, -1);
-		convert_to_cm_date(cm_date, 1, January, 2025, -1);
-	}
-	else
-	{
-		pnd_list[idx].setup_function_addr = 0x8380C0;
-		convert_to_cm_date(pnd_list[idx].start_date, 22, March, *current_year + 1, -1);
-		convert_to_cm_date(pnd_list[idx].end_date, 6, January, *current_year + 1, -1);
-		convert_to_cm_date(cm_date, 20, February, 2025, -1);
-	}
+	pnd_list[idx].setup_function_addr = (DWORD)&usa_setup_c;
+	convert_to_cm_date(pnd_list[idx].start_date, 22, February, *current_year + 1, -1);
+	convert_to_cm_date(pnd_list[idx].end_date, 10, December, *current_year + 1, -1);
+	convert_to_cm_date(cm_date, 1, January, 2025, -1);
 	pnd_list[idx].updates_in_june = 0;
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].main_cup = get_comp(USA_OPEN_CUP_9CF());
@@ -691,16 +388,8 @@ int replacement_667150() {
 
 	cm_date = new BYTE[8];
 	pnd_list[idx].nation = get_country(NATION_WALES_9CF());
-	if (configFile.GetBool("applyWales", true))
-	{
-		pnd_list[idx].setup_function_addr = (DWORD)&wal_setup_c;
-		convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
-	}
-	else
-	{
-		pnd_list[idx].setup_function_addr = 0x8383B0;
-		convert_to_cm_date(pnd_list[idx].start_date, 19, August, *current_year, -1);
-	}
+	pnd_list[idx].setup_function_addr = (DWORD)&wal_setup_c;
+	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 6, May, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
 	convert_to_cm_date(cm_date, 20, June, 2025, -1);
@@ -810,32 +499,18 @@ vector<DWORD> pnd_countminus2_dword = {
 
 void league_restructure_init()
 {
-	if (configFile.GetBool("applyArgentina", true)) argentina_restructure();
-	if (configFile.GetBool("applyAustralia", true)) australia_restructure();
-	if (configFile.GetBool("applyBelgium", true)) belgium_restructure();
-	if (configFile.GetBool("applyBrazil", true)) brazil_restructure();
-	if (configFile.GetBool("applyCroatia", true)) croatia_restructure();
-	if (configFile.GetBool("applyDenmark", true)) denmark_restructure();
-	if (configFile.GetBool("applyEngland", true)) england_restructure();
-	if (configFile.GetBool("applyFinland", true)) finland_restructure();
-	if (configFile.GetBool("applyFrance", true)) france_restructure();
-	if (configFile.GetBool("applyGermany", true)) germany_restructure();
-	if (configFile.GetBool("applyGreece", true)) greece_restructure();
-	if (configFile.GetBool("applyHolland", true)) holland_restructure();
-	if (configFile.GetBool("applyIreland", true)) ireland_restructure();
-	if (configFile.GetBool("applyItaly", true)) italy_restructure();
-	if (configFile.GetBool("applyJapan", true)) japan_restructure();
-	if (configFile.GetBool("applyNorthernIreland", true)) n_ireland_restructure();
-	if (configFile.GetBool("applyNorway", true)) norway_restructure();
-	if (configFile.GetBool("applyPoland", true)) poland_restructure();
-	if (configFile.GetBool("applyPortugal", true)) portugal_restructure();
-	if (configFile.GetBool("applyScotland", true)) scotland_restructure();
-	if (configFile.GetBool("applySouthKorea", true)) korea_restructure();
-	if (configFile.GetBool("applySpain", true)) spain_restructure();
-	if (configFile.GetBool("applySweden", true)) sweden_restructure();
-	if (configFile.GetBool("applyTurkey", true)) turkey_restructure();
-	if (configFile.GetBool("applyUSA", true)) usa_restructure();
-	if (configFile.GetBool("applyWales", true)) wales_restructure();
+	belgium_restructure();
+	england_restructure();
+	finland_restructure();
+	germany_restructure();
+	greece_restructure();
+	italy_restructure();
+	norway_restructure();
+	portugal_restructure();
+	spain_restructure();
+	sweden_restructure();
+	turkey_restructure();
+	usa_restructure();
 }
 
 extern "C" _declspec(naked) void inject_league_restructure_init()
@@ -857,22 +532,20 @@ extern "C" _declspec(naked) void inject_league_restructure_init()
 void setup_leagues_setup() {
 	PatchFunction(0x667150, (DWORD)&replacement_667150);
 	PatchFunction(0x828389, (DWORD)inject_league_restructure_init);
-	// fix if Africa added
-	if (configFile.GetBool("applyCAF", true)) {
-		WriteBytes(0x48df27, 1, 8);
-		WriteBytes(0x5accb2, 1, 9);
-		WriteBytes(0x5acccf, 1, 9);
-		WriteBytes(0x5accdb, 1, 8);
-		WriteBytes(0x718174, 1, 8);
-		WriteBytes(0x718175, 1, 0x7e);
-		WriteBytes(0x72408C, 1, 6);
-		WriteBytes(0x724091, 1, 8);
-		WriteBytes(0x724092, 1, 0x7e);
-		WriteBytes(0x8d305e, 1, 8);
-		WriteBytes(0x8d305f, 1, 0x7e);
-	}
+	// fix for the extra continent (Africa)
+	WriteBytes(0x48df27, 1, 8);
+	WriteBytes(0x5accb2, 1, 9);
+	WriteBytes(0x5acccf, 1, 9);
+	WriteBytes(0x5accdb, 1, 8);
+	WriteBytes(0x718174, 1, 8);
+	WriteBytes(0x718175, 1, 0x7e);
+	WriteBytes(0x72408C, 1, 6);
+	WriteBytes(0x724091, 1, 8);
+	WriteBytes(0x724092, 1, 0x7e);
+	WriteBytes(0x8d305e, 1, 8);
+	WriteBytes(0x8d305f, 1, 0x7e);
 
-	DWORD pnd_count_calc = pnd_count - !(configFile.GetBool("applyCAF", true));
+	DWORD pnd_count_calc = pnd_count;// -!(configFile.GetBool("applyCAF", true));
 
 	for (DWORD d : pnd_order_addr) {
 		WriteDWORD(d, (DWORD)&pnd_order[0]);

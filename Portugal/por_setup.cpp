@@ -81,7 +81,6 @@ DWORD por_setup_c(playable_nation_data* nation_data) {
 
 void setup_por_nation()
 {
-	WriteDWORD(0x6688D6 + 6, (DWORD)&por_setup_c);
 	setup_por_first();
 	setup_por_second();
 	setup_por_third();
@@ -95,199 +94,36 @@ void setup_por_nation()
 }
 
 void portugal_restructure() {
-	cm3_staff_comps* data = &(*awards)[POR_THIRD_MANAGER_OF_YEAR_9CF()];
-	if (data) {
-		data->StaffCompNation = get_country(NATION_PORTUGAL_9CF());
-		data->StaffCompContinent = get_continent(EUROPE_9CF());
-		data->StaffCompReputation = 2;
+	cm3_club_comps* l3 = get_comp(POR_THIRD_9CF());
+	vector<cm3_clubs*> l3_a = find_clubs_of_comp(POR_THIRD_A_9CF());
+	for (cm3_clubs* club : l3_a) {
+		club->ClubReserveDivision = club->ClubDivision;
+		club->ClubDivision = l3;
 	}
-
-	cm3_club_comps* por_third = get_comp(POR_THIRD_9CF());
-	por_third->ClubCompReputation = 6;
-	cm3_club_comps* por_third_a = get_comp(POR_THIRD_A_9CF());
-	por_third_a->ClubCompReputation = 6;
-	cm3_club_comps* por_third_b = get_comp(POR_THIRD_B_9CF());
-	por_third_b->ClubCompReputation = 6;
-	cm3_club_comps* por_fourth = get_comp(POR_FOURTH_9CF());
-	cm3_club_comps* por_fourth_a = get_comp(POR_FOURTH_A_9CF());
-	por_fourth_a->ClubCompReputation = 3;
-	cm3_club_comps* por_fourth_b = get_comp(POR_FOURTH_B_9CF());
-	por_fourth_b->ClubCompNation = get_country(NATION_PORTUGAL_9CF());
-	por_fourth_b->ClubCompContinent = get_continent(EUROPE_9CF());
-	por_fourth_b->ClubCompReputation = 3;
-	cm3_club_comps* por_fourth_c = get_comp(POR_FOURTH_C_9CF());
-	por_fourth_c->ClubCompNation = get_country(NATION_PORTUGAL_9CF());
-	por_fourth_c->ClubCompContinent = get_continent(EUROPE_9CF());
-	por_fourth_c->ClubCompReputation = 3;
-	cm3_club_comps* por_fourth_d = get_comp(POR_FOURTH_D_9CF());
-	por_fourth_d->ClubCompNation = get_country(NATION_PORTUGAL_9CF());
-	por_fourth_d->ClubCompContinent = get_continent(EUROPE_9CF());
-	por_fourth_d->ClubCompReputation = 3;
-	cm3_club_comps* a_lower = get_comp(A_LOWER_9CF());
-
-	vector<cm3_clubs*> club_list = find_clubs_of_comp(POR_THIRD_A_9CF());
-	for (cm3_clubs* c : club_list) {
-		c->ClubDivision = a_lower;
+	vector<cm3_clubs*> l3_b = find_clubs_of_comp(POR_THIRD_B_9CF());
+	for (cm3_clubs* club : l3_b) {
+		club->ClubReserveDivision = club->ClubDivision;
+		club->ClubDivision = l3;
 	}
-	club_list = find_clubs_of_comp(POR_THIRD_B_9CF());
-	for (cm3_clubs* c : club_list) {
-		c->ClubDivision = a_lower;
+	cm3_club_comps* cdp = get_comp(POR_FOURTH_9CF());
+	vector<cm3_clubs*> cdp_a = find_clubs_of_comp(POR_FOURTH_A_9CF());
+	for (cm3_clubs* club : cdp_a) {
+		club->ClubReserveDivision = club->ClubDivision;
+		club->ClubDivision = cdp;
 	}
-	club_list = find_clubs_of_comp(POR_FOURTH_9CF());
-	for (cm3_clubs* c : club_list) {
-		c->ClubDivision = a_lower;
+	vector<cm3_clubs*> cdp_b = find_clubs_of_comp(POR_FOURTH_B_9CF());
+	for (cm3_clubs* club : cdp_b) {
+		club->ClubReserveDivision = club->ClubDivision;
+		club->ClubDivision = cdp;
 	}
-	club_list = find_clubs_of_comp(POR_FOURTH_A_9CF());
-	for (cm3_clubs* c : club_list) {
-		c->ClubDivision = a_lower;
+	vector<cm3_clubs*> cdp_c = find_clubs_of_comp(POR_FOURTH_C_9CF());
+	for (cm3_clubs* club : cdp_c) {
+		club->ClubReserveDivision = club->ClubDivision;
+		club->ClubDivision = cdp;
 	}
-
-	vector<string> liga3a_clubs = {
-		"CD Trofense",
-		"Amarante FC",
-		"Vitória Guimarães SC B",
-		"Sporting Clube de Braga B",
-		"Varzim SC",
-		"USC Paredes",
-		"AD Fafe",
-		"AD Marco 09",
-		"AD Sanjoanense",
-		"SC São João de Ver",
-	};
-	vector<string> liga3b_clubs = {
-		"CF Os Belenenses",
-		"CD Mafra",
-		"Académica Coimbra",
-		"Atlético CP",
-		"Caldas SC",
-		"Amora FC",
-		"UD Santarém",
-		"SU 1º Dezembro",
-		"Associação Lusitano de Évora 1911",
-		"SC Covilhã",
-	};
-	vector<string> cdpa_clubs = {
-		"AD Limianos",
-		"GD Bragança",
-		"GD Chaves Satelite",
-		"FC Tirsense",
-		"SC Mirandela",
-		"CD Celoricense",
-		"SC Vianense",
-		"AR São Martinho",
-		"AD Camacha",
-		"Brito SC",
-		"Vilaverdense FC",
-		"AD Machico",
-		"Desportivo Monção",
-		"Clube Sport Marítimo B", // Ribeira Brava
-	};
-	vector<string> cdpb_clubs = {
-		"Rebordosa AC",
-		"Leça FC",
-		"AC Vila Meã",
-		"FC Alpendorada",
-		"SC Salgueiros",
-		"Florgrade FC",
-		"CF União Lamas",
-		"CD Cinfães",
-		"SC Beira-Mar",
-		"SC Vila Real",
-		"Anadia FC",
-		"Aparecida FC",
-		"GD Resende",
-		"CD Gouveia",
-	};
-	vector<string> cdpc_clubs = {
-		"GD Vitória Sernache",
-		"Benfica Castelo Branco",
-		"Associação Naval 1893",
-		"FC Oliveira do Hospital",
-		"UD Serra",
-		"Mortágua FC",
-		"GD Peniche",
-		"JD Lajense",
-		"CD Fátima",
-		"CF Os Marialvas",
-		"Eléctrico FC",
-		"SC Lusitânia dos Açores",
-		"AC Marinhense",
-		"GD Samora Correia",
-	};
-	vector<string> cdpd_clubs = {
-		"AC Malveira",
-		"Juventude Évora SC",
-		"FC Alverca B",
-		"GC Alcochetense",
-		"FC Serpa",
-		"Louletano DC",
-		"Clube Oriental Lissabon",
-		"O Elvas CAD",
-		"GD Lagoa",
-		"Portimonense SC",
-		"SU Sintrense",
-		"LGC Moncarapachense",
-		"CF Vasco da Gama",
-		"UF Comércio e Indústria",
-	};
-
-	for (string s : liga3a_clubs) {
-		cm3_clubs* club = find_club(s.c_str());
-		if (!club) {
-			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
-			continue;
-		}
-		club->ClubDivision = por_third;
-		club->ClubReserveDivision = por_third_a;
+	vector<cm3_clubs*> cdp_d = find_clubs_of_comp(POR_FOURTH_D_9CF());
+	for (cm3_clubs* club : cdp_d) {
+		club->ClubReserveDivision = club->ClubDivision;
+		club->ClubDivision = cdp;
 	}
-	for (string s : liga3b_clubs) {
-		cm3_clubs* club = find_club(s.c_str());
-		if (!club) {
-			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
-			continue;
-		}
-		club->ClubDivision = por_third;
-		club->ClubReserveDivision = por_third_b;
-	}
-	for (string s : cdpa_clubs) {
-		cm3_clubs* club = find_club(s.c_str());
-		if (!club) {
-			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
-			continue;
-		}
-		club->ClubDivision = por_fourth;
-		club->ClubReserveDivision = por_fourth_a;
-	}
-	for (string s : cdpb_clubs) {
-		cm3_clubs* club = find_club(s.c_str());
-		if (!club) {
-			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
-			continue;
-		}
-		club->ClubDivision = por_fourth;
-		club->ClubReserveDivision = por_fourth_b;
-	}
-	for (string s : cdpc_clubs) {
-		cm3_clubs* club = find_club(s.c_str());
-		if (!club) {
-			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
-			continue;
-		}
-		club->ClubDivision = por_fourth;
-		club->ClubReserveDivision = por_fourth_c;
-	}
-	for (string s : cdpd_clubs) {
-		cm3_clubs* club = find_club(s.c_str());
-		if (!club) {
-			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
-			continue;
-		}
-		club->ClubDivision = por_fourth;
-		club->ClubReserveDivision = por_fourth_d;
-	}
-
-	cm3_club_comps* por_league_cup = get_comp(POR_LEAGUE_CUP_9CF());
-	por_league_cup->ClubCompNation = get_country(NATION_PORTUGAL_9CF());
-	por_league_cup->ClubCompContinent = get_continent(EUROPE_9CF());
-	por_league_cup->ClubCompReputation = 7;
 }

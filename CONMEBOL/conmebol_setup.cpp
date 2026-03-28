@@ -54,8 +54,6 @@ DWORD conmebol_setup_c(playable_nation_data* nation_data) {
 }
 
 void setup_conmebol_continent() {
-	WriteDWORD(0x6675b7 + 6, (DWORD)&conmebol_setup_c);
-
 	setup_conmebol_libertadores();
 	setup_conmebol_sudamericana();
 	setup_conmebol_recopa();

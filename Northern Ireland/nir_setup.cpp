@@ -66,69 +66,10 @@ DWORD nir_setup_c(playable_nation_data* nation_data) {
 
 void setup_nir_nation()
 {
-	WriteDWORD(0x668629 + 6, (DWORD)&nir_setup_c);
 	setup_nir_premier();
 	setup_nir_first();
 	setup_nir_second();
 	setup_nir_cup();
 	setup_nir_league_cup();
 	setup_nir_charity();
-}
-
-void n_ireland_restructure() {
-	cm3_club_comps* nir_premier = get_comp(NIR_PREMIER_9CF());
-	cm3_club_comps* nir_first = get_comp(NIR_FIRST_9CF());
-	cm3_club_comps* nir_second = get_comp(NIR_SECOND_9CF());
-	cm3_club_comps* a_lower = get_comp(A_LOWER_9CF());
-
-	vector<string> d1_clubs = {
-		"Bangor FC",
-		"Carrick Rangers FC",
-	};
-	vector<string> d2_clubs = {
-		"Ballinamallard United FC",
-		"Newington FC",
-		"Queen's University Belfast AFC",
-		"Warrenpoint Town FC",
-	};
-	vector<string> d3_clubs = {
-		"Strabane Athletic FC",
-	};
-	vector<string> lower_clubs = {
-		"Tobermore United FC",
-		"Lurgan Celtic FC",
-	};
-
-	for (string s : d1_clubs) {
-		cm3_clubs* club = find_club(s.c_str());
-		if (!club) {
-			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
-			continue;
-		}
-		club->ClubDivision = nir_premier;
-	}
-	for (string s : d2_clubs) {
-		cm3_clubs* club = find_club(s.c_str());
-		if (!club) {
-			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
-			continue;
-		}
-		club->ClubDivision = nir_first;
-	}
-	for (string s : d3_clubs) {
-		cm3_clubs* club = find_club(s.c_str());
-		if (!club) {
-			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
-			continue;
-		}
-		club->ClubDivision = nir_second;
-	}
-	for (string s : lower_clubs) {
-		cm3_clubs* club = find_club(s.c_str());
-		if (!club) {
-			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
-			continue;
-		}
-		club->ClubDivision = a_lower;
-	}
 }

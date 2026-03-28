@@ -58,7 +58,6 @@ DWORD wal_setup_c(playable_nation_data* nation_data) {
 
 void setup_wal_nation()
 {
-	WriteDWORD(0x669047 + 6, (DWORD)&wal_setup_c);
 	setup_wal_premier();
 	setup_wal_first_n();
 	setup_wal_first_s();
@@ -66,100 +65,4 @@ void setup_wal_nation()
 	setup_wal_league_cup();
 
 	WriteNOP(0x9244ea, 7);
-}
-
-void wales_restructure() {
-	cm3_club_comps* wal_premier = get_comp(WAL_PREMIER_9CF());
-	cm3_club_comps* wal_first_n = get_comp(WAL_FIRST_NORTH_9CF());
-	cm3_club_comps* wal_first_s = get_comp(WAL_FIRST_SOUTH_9CF());
-	wal_first_s->ClubCompNation = get_country(NATION_WALES_9CF());
-	wal_first_s->ClubCompContinent = get_continent(EUROPE_9CF());
-	wal_first_s->ClubCompReputation = 1;
-	cm3_club_comps* a_lower = get_comp(A_LOWER_9CF());
-
-
-	vector<cm3_clubs*> clubs = find_clubs_of_comp(wal_premier->ClubCompID);
-	for (cm3_clubs* c : clubs) {
-		c->ClubDivision = a_lower;
-	}
-	clubs = find_clubs_of_comp(wal_first_n->ClubCompID);
-	for (cm3_clubs* c : clubs) {
-		c->ClubDivision = a_lower;
-	}
-
-	vector<string> d1_clubs = {
-		"Bala Town",
-		"Barry Town United",
-		"Briton Ferry Llansawel",
-		"Caernarfon Town",
-		"Cardiff Metropolitan University",
-		"Colwyn Bay",
-		"Connah's Quay Nomads",
-		"Flint Town United",
-		"Haverfordwest County",
-		"Llanelli Town AFC",
-		"Penybont FC",
-		"The New Saints",
-	};
-	vector<string> d2n_clubs = {
-		"Airbus UK Broughton",
-		"Brickfield Rangers",
-		"Buckley Town",
-		"Caersws FC",
-		"Denbigh Town",
-		"Flint Mountain",
-		"Gresford Athletic",
-		"Guilsfield FC",
-		"Holyhead Hotspur",
-		"Holywell Town",
-		"Llandudno FC",
-		"Mold Alexandra",
-		"Newtown AFC",
-		"Penrhyncoch FC",
-		"Y Rhyl 1879",
-		"Ruthin Town",
-	};
-	vector<string> d2s_clubs = {
-		"Aberystwyth Town",
-		"Afan Lido",
-		"Ammanford AFC",
-		"Baglan Dragons",
-		"Caerau Ely",
-		"Cambrian United",
-		"Cardiff Draconians",
-		"Carmarthen Town",
-		"Cwmbran Celtic",
-		"Llantwit Major",
-		"Newport City",
-		"Pontypridd United",
-		"Trefelin Boys & Girls Club",
-		"Treowen Stars",
-		"Trethomas Bluebirds",
-		"Ynyshir Albions",
-	};
-
-	for (string s : d1_clubs) {
-		cm3_clubs* club = find_club(s.c_str());
-		if (!club) {
-			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
-			continue;
-		}
-		club->ClubDivision = wal_premier;
-	}
-	for (string s : d2n_clubs) {
-		cm3_clubs* club = find_club(s.c_str());
-		if (!club) {
-			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
-			continue;
-		}
-		club->ClubDivision = wal_first_n;
-	}
-	for (string s : d2s_clubs) {
-		cm3_clubs* club = find_club(s.c_str());
-		if (!club) {
-			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
-			continue;
-		}
-		club->ClubDivision = wal_first_s;
-	}
 }

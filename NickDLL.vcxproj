@@ -233,7 +233,6 @@
     <ClCompile Include="France\fra_super.cpp" />
     <ClCompile Include="France\fra_third.cpp" />
     <ClCompile Include="Germany\ger_awards.cpp" />
-    <ClCompile Include="Germany\ger_awards_default.cpp" />
     <ClCompile Include="Germany\ger_cup.cpp" />
     <ClCompile Include="Germany\ger_first.cpp" />
     <ClCompile Include="Germany\ger_regional.cpp" />
@@ -473,7 +472,6 @@
     <ClInclude Include="France\fra_super.h" />
     <ClInclude Include="France\fra_third.h" />
     <ClInclude Include="Germany\ger_awards.h" />
-    <ClInclude Include="Germany\ger_awards_default.h" />
     <ClInclude Include="Germany\ger_cup.h" />
     <ClInclude Include="Germany\ger_first.h" />
     <ClInclude Include="Germany\ger_regional.h" />

@@ -56,27 +56,9 @@ DWORD hol_setup_c(playable_nation_data* nation_data) {
 }
 
 void setup_hol_nation() {
-	WriteDWORD(0x668273 + 6, (DWORD)&hol_setup_c);
 	setup_hol_first();
 	setup_hol_second();
 	setup_hol_cup();
 	setup_hol_super();
 	setup_hol_awards();
-}
-
-void holland_restructure() {
-	cm3_club_comps* hol_second = get_comp(HOL_SECOND_9CF());
-
-	vector<string> d2_clubs = {
-		"AZ Alkmaar U21",
-		"FC Utrecht U21"
-	};
-	for (string s : d2_clubs) {
-		cm3_clubs* club = find_club(s.c_str());
-		if (!club) {
-			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
-			continue;
-		}
-		club->ClubDivision = hol_second;
-	}
 }

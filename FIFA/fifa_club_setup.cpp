@@ -40,9 +40,8 @@ DWORD fifa_club_setup_c(playable_nation_data* nation_data) {
 }
 
 void setup_fifa_club_comps() {
-	WriteDWORD(0x667356 + 6, (DWORD)&fifa_club_setup_c);
-	WriteNOP(0x5ad939, 2);
-
 	setup_fifa_club_world_cup();
 	setup_fifa_intercontinental_cup();
+
+	WriteNOP(0x5ad939, 2);
 }

@@ -55,7 +55,6 @@ DWORD uefa_setup_c(playable_nation_data* nation_data) {
 }
 
 void setup_uefa_continent() {
-	WriteDWORD(0x667404 + 6, (DWORD)&uefa_setup_c);
 	char* ucl = "Champions League";
 	char* uel = "Europa League";
 	WriteDWORD(0x494EA6 + 1, (DWORD)&ucl[0]);

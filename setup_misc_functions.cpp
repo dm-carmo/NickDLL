@@ -40,80 +40,62 @@ int show_extra_leagues_in_start(BYTE* nation, DWORD dest_ptr, int a3) {
 	cm3_nations* cm3_nation = (cm3_nations*)nation;
 	char* league_str;
 	if (cm3_nation->NationID == NATION_ARGENTINA_9CF()) {
-		if (configFile.GetBool("applyArgentina", true)) league_str = "Primera B/Torneo Federal";
-		else return 0;
+		league_str = "Primera B/Torneo Federal";
 		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
 		return 1;
 	}
 	if (cm3_nation->NationID == NATION_BELGIUM_9CF()) {
-		if (configFile.GetBool("applyBelgium", true)) league_str = "Division 2";
-		else return 0;
+		league_str = "Division 2";
 		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
 		return 1;
 	}
 	if (cm3_nation->NationID == NATION_ENGLAND_9CF()) {
-		if (configFile.GetBool("applyEngland", true)) league_str = "National Leagues";
-		else league_str = "National League";
+		league_str = "National Leagues";
 		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
 		return 1;
 	}
 	if (cm3_nation->NationID == NATION_FINLAND_9CF()) {
-		if (configFile.GetBool("applyFinland", true)) league_str = "Kakkonen";
-		else return 0;
+		league_str = "Kakkonen";
 		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
 		return 1;
 	}
 	if (cm3_nation->NationID == NATION_GERMANY_9CF()) {
-		if (configFile.GetBool("applyGermany", true)) league_str = "Regionalliga";
-		else league_str = "3. Liga";
-		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
-		return 1;
-	}
-	if (cm3_nation->NationID == NATION_ITALY_9CF()) {
-		if (configFile.GetBool("applyItaly", true)) return 0;
-		else league_str = "Serie C2";
+		league_str = "Regionalliga";
 		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
 		return 1;
 	}
 	if (cm3_nation->NationID == NATION_JAPAN_9CF()) {
-		if (configFile.GetBool("applyJapan", true)) league_str = "JFL";
-		else return 0;
+		league_str = "JFL";
 		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
 		return 1;
 	}
 	if (cm3_nation->NationID == NATION_NORWAY_9CF()) {
-		if (configFile.GetBool("applyNorway", true)) league_str = "3. Divisjon";
-		else return 0;
+		league_str = "3. Divisjon";
 		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
 		return 1;
 	}
 	if (cm3_nation->NationID == NATION_PORTUGAL_9CF()) {
-		if (configFile.GetBool("applyPortugal", true)) league_str = "Campeonato de Portugal";
-		else league_str = "Liga 3";
+		league_str = "Campeonato de Portugal";
 		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
 		return 1;
 	}
 	if (cm3_nation->NationID == NATION_SCOTLAND_9CF()) {
-		if (configFile.GetBool("applyScotland", true)) league_str = "Highland/Lowland";
-		else return 0;
+		league_str = "Highland/Lowland";
 		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
 		return 1;
 	}
 	if (cm3_nation->NationID == NATION_SPAIN_9CF()) {
-		if (configFile.GetBool("applySpain", true)) league_str = "Segunda Federación";
-		else league_str = "Primera Federación";
+		league_str = "Segunda Federación";
 		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
 		return 1;
 	}
 	if (cm3_nation->NationID == NATION_SWEDEN_9CF()) {
-		if (configFile.GetBool("applySweden", true)) league_str = "Division 2";
-		else league_str = "Ettan";
+		league_str = "Division 2";
 		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
 		return 1;
 	}
 	if (cm3_nation->NationID == NATION_TURKEY_9CF()) {
-		if (configFile.GetBool("applyTurkey", true)) league_str = "3. Lig";
-		else return 0;
+		league_str = "3. Lig";
 		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
 		return 1;
 	}
@@ -145,6 +127,11 @@ int show_extra_leagues_in_start(BYTE* nation, DWORD dest_ptr, int a3) {
 	}
 	if (cm3_nation->NationID == NATION_HOLLAND_9CF()) {
 		league_str = "Tweede Divisie";
+		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
+		return 1;
+	}
+	if (cm3_nation->NationID == NATION_ITALY_9CF()) {
+		league_str = "Serie D";
 		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
 		return 1;
 	}

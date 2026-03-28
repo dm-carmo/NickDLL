@@ -61,72 +61,12 @@ DWORD pol_setup_c(playable_nation_data* nation_data) {
 
 void setup_pol_nation()
 {
-	WriteDWORD(0x6687E0 + 6, (DWORD)&pol_setup_c);
 	setup_pol_first();
 	setup_pol_second();
 	setup_pol_third();
 	setup_pol_cup();
 	setup_pol_super();
 	setup_pol_awards();
-	// Start date
-	WriteBytes(0x66882C, 1, 27);
 
 	WriteNOP(0x7c7e52, 7);
-}
-
-void poland_restructure() {
-	cm3_club_comps* pol_first = get_comp(POL_FIRST_9CF());
-	cm3_club_comps* pol_third = get_comp(POL_THIRD_9CF());
-	pol_third->ClubCompReputation = 4;
-	cm3_club_comps* pol_lower = get_comp(POL_LOWER_9CF());
-	pol_lower->ClubCompNation = get_country(NATION_POLAND_9CF());
-	pol_lower->ClubCompContinent = get_continent(EUROPE_9CF());
-	pol_lower->ClubCompReputation = 2;
-
-	vector<cm3_clubs*> clubs = find_clubs_of_comp(pol_third->ClubCompID);
-	for (cm3_clubs* c : clubs) {
-		c->ClubDivision = pol_lower;
-	}
-
-	vector<string> d1_clubs = {
-		"Bruk-Bet Termalica Nieciecza",
-		"Piast Gliwice",
-	};
-	vector<string> d3_clubs = {
-		"Chojniczanka Chojnice",
-		"GKS Jastrzebie",
-		"Hutnik Krakow",
-		"KKS 1925 Kalisz",
-		"LKS Lodz II",
-		"Olimpia Grudziadz",
-		"Podbeskidzie Bielsko-Biala",
-		"Podhale Nowy Targ",
-		"Rekord Bielsko-Biala",
-		"Resovia Rzeszow",
-		"Sandecja Nowy Sacz",
-		"Slask Wroclaw II",
-		"Sokol Kleczew",
-		"Stal Stalowa Wola",
-		"Swit Szczecin",
-		"Unia Skierniewice",
-		"Warta Poznan",
-		"Zaglebie Sosnowiec",
-	};
-
-	for (string s : d1_clubs) {
-		cm3_clubs* club = find_club(s.c_str());
-		if (!club) {
-			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
-			continue;
-		}
-		club->ClubDivision = pol_first;
-	}
-	for (string s : d3_clubs) {
-		cm3_clubs* club = find_club(s.c_str());
-		if (!club) {
-			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
-			continue;
-		}
-		club->ClubDivision = pol_third;
-	}
 }

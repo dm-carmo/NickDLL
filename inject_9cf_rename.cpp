@@ -29,692 +29,6 @@ map<string, char*> clubs_rename_long = {
 	{"SJK Seinäjoki II", "SJK Seinäjoki Akatemia"},
 };
 
-map<string, char*> leagues_rename_long = {
-	{"English Northern Premier League Premier Division", "English National League North"},
-	{"English Southern League Premier Division", "English National League South"},
-	{"Danish 1st Division", "Danish First Division"},
-	{"Danish 2nd Division", "Danish Second Division"},
-	{"Danish 3rd Division", "Danish Third Division"},
-	{"AFC Champions League", "AFC Champions League Elite"},
-	{"Asian Cup Winners' Cup", "AFC Champions League Two"},
-	{"Afro-Asian Champions Cup", "AFC Challenge League"},
-	{"African CAF Cup", "CAF Confederation Cup"},
-	{"Cup Winners' Cup", "UEFA Conference League"},
-	{"UEFA Europa League Qualifying", "UEFA Intertoto Cup"},
-	{"CONCACAF Champions League", "CONCACAF Champions Cup"},
-	{"Cup Winners Cup", "CONCACAF Cup Winners Cup"},
-	{"Northern Irish League Lower Division", "NIFL Premier Intermediate League"},
-	{"NIFL Cup", "Irish Football League Cup"},
-	{"Korean FA Cup", "Korea Cup"},
-	{"Korean Super Cup", "K League Super Cup"},
-	{"Argentine Interior Zone", "Argentine Torneo Federal A"},
-	{"Argentine Third Division", "Argentine Primera División B"},
-	// temp
-	{"Swedish Division 2 North Svealand", "EXTINCT 1"},
-	{"Swedish Division 2 South Gotaland", "EXTINCT 2"},
-};
-
-map<string, char*> leagues_rename_long_argentina= {
-	{"Argentine Interior Zone", "Argentine Torneo Federal A"},
-	{"Argentine Third Division", "Argentine Primera División B"},
-};
-
-map<string, char*> leagues_rename_long_australia = {
-	{"Hong Kong Viceroy Cup", "Australia Cup"},
-};
-
-map<string, char*> leagues_rename_long_belgium = {
-	{"Belgian National Division 1 A", "Belgian Division 1 VV"},
-	{"Belgian National Division 1 B", "Belgian Division 1 ACFF"},
-	{"Belgian Fourth Division  A", "Belgian Division 2 VV"},
-	{"Belgian Fourth Division  B", "Belgian Division 2 VV A"},
-	{"Belgian Fourth Division  C", "Belgian Division 2 VV B"},
-	{"Belgian Fourth Division  D", "Belgian Division 2 ACFF"},
-};
-
-map<string, char*> leagues_rename_long_brazil = {
-	{"Brazilian Campeonato Série A", "Campeonato Brasileiro Série A"},
-	{"Brazilian Campeonato Série B", "Campeonato Brasileiro Série B"},
-	{"Brazilian Campeonato Série C", "Campeonato Brasileiro Série C"},
-	{"CIS Champions Cup", "Campeonato Brasileiro Série D"},
-	{"Brazilian Copa dos Campeões", "Brazilian Supercopa Rei"},
-};
-
-map<string, char*> leagues_rename_long_germany = {
-	{"Turkish 2. Divison Category B Group 1", "German Regionalliga"},
-	{"Indian Guwahati Lower Division", "German Regionalliga Bayern"},
-	{"German 3. Liga Süd", "German Regionalliga Südwest"},
-	{"German 3. Liga Osten", "German Regionalliga Nordost"},
-	{"German 3. Liga Nord", "German Regionalliga Nord"},
-	{"German 3. Liga West", "German Regionalliga West"},
-};
-
-map<string, char*> leagues_rename_long_greece = {
-	{"Swedish Division 2 East Svealand", "Greek Super League 2 North Group"},
-	{"Swedish Division 2 West Svealand", "Greek Super League 2 South Group"},
-};
-
-map<string, char*> leagues_rename_long_croatia = {
-	{"Croatian Treca NL", "Croatian Druga NL"},
-	{"Croatian Druga NL Central", "Croatian Treca NL"},
-	//{"Croatian Druga NL North", "Croatian Treca NL North"},
-	//{"Croatian Druga NL South", "Croatian Treca NL South"},
-	//{"Croatian Druga NL East", "Croatian Treca NL East"},
-	//{"Croatian Druga NL West", "Croatian Treca NL West"},
-};
-
-map<string, char*> leagues_rename_long_finland = {
-	{"Finnish Ykkösliiga North", "Finnish Ykkönen"},
-	{"Finnish Ykkösliiga South", "Finnish Kolmonen"}, // possibly remove later
-	{"Finnish Ykkönen North", "Finnish Kakkonen Group A"},
-	{"Finnish Ykkönen West", "Finnish Kakkonen Group B"},
-	{"Finnish Ykkönen South", "Finnish Kakkonen Group C"},
-};
-
-map<string, char*> leagues_rename_long_italy = {
-	{"Indian Chennai League", "Italian Serie C"},
-	{"Italian Serie C1/A", "Italian Serie C/A"},
-	{"Italian Serie C1/B", "Italian Serie C/B"},
-	{"Indian Haryana State Championship", "Italian Serie C/C"},
-};
-
-map<string, char*> leagues_rename_long_japan = {
-	{"Japanese Regional Leagues", "Japanese Football League"},
-	{"Japanese University League", "Japanese Regional Championships"},
-};
-
-map<string, char*> leagues_rename_long_norway = {
-	{"Swedish Fourth Division", "Norwegian 2. Divisjon"},
-	{"Norwegian 2. Divisjon Group 3", "Norwegian 3. Divisjon Group 1"},
-	{"Norwegian 2. Divisjon Group 4", "Norwegian 3. Divisjon Group 2"},
-	{"Norwegian 2. Divisjon Group 5", "Norwegian 3. Divisjon Group 3"},
-	{"Norwegian 2. Divisjon Group 6", "Norwegian 3. Divisjon Group 4"},
-	{"Norwegian 2. Divisjon Group 7", "Norwegian 3. Divisjon Group 5"},
-	{"Norwegian 2. Divisjon Group 8", "Norwegian 3. Divisjon Group 6"},
-};
-
-map<string, char*> leagues_rename_long_poland = {
-	{"Irish Super Cup", "Polish III Liga"},
-};
-
-map<string, char*> leagues_rename_long_portugal = {
-	{"Liga 3 North", "Liga 3 Série A"},
-	{"Liga 3 South", "Liga 3 Série B"},
-	{"Liga 3 Central", "Campeonato de Portugal Série A"},
-	{"Korean University League", "Campeonato de Portugal Série B"},
-	{"Korean High School League", "Campeonato de Portugal Série C"},
-	{"Korean President Cup", "Campeonato de Portugal Série D"},
-	{"Singaporean Prime League", "Taça da Liga"},
-};
-
-map<string, char*> leagues_rename_long_scotland = {
-	{"South African First Division Inland", "Scottish Highland Football League"},
-	{"South African First Division Coastal", "Scottish Lowland Football League"},
-};
-
-map<string, char*> leagues_rename_long_spain = {
-	{"Turkish 2. Division Group 3", "Spanish Segunda Federación Group 1"},
-	{"Turkish 2. Division Group 4", "Spanish Segunda Federación Group 2"},
-	{"Turkish 2. Division Group 5", "Spanish Segunda Federación Group 3"},
-	{"PrepreLibertadores Cup", "Spanish Segunda Federación Group 4"},
-	{"PreLibertadores", "Spanish Segunda Federación Group 5"},
-};
-
-map<string, char*> leagues_rename_long_sweden = {
-	{"Swedish Ettan South Gotaland", "Swedish Ettan South"},
-	{"Swedish Lower Division", "Swedish Division 2"},
-	{"Swedish Ettan West Svealand", "Swedish Division 2 Norrland"},
-	{"Swedish Ettan East Gotaland", "Swedish Division 2 North Götaland"},
-	{"Swedish Ettan West Gotaland", "Swedish Division 2 West Götaland"},
-	{"Swedish Ettan East Svealand", "Swedish Division 2 South Svealand"},
-	{"Turkish 2. Division Group 2", "Swedish Division 2 North Svealand"},
-	{"MLS All-Stars", "Swedish Division 2 South Götaland"},
-};
-
-map<string, char*> leagues_rename_long_turkey = {
-	{"TFF 2. Lig G1", "TFF 2. Lig Group 1"},
-	{"TFF 2. Lig G2", "TFF 2. Lig Group 2"},
-	{"TFF 2. Lig G3", "TFF 3. Lig Group 1"},
-	{"TFF 2. Lig G4", "TFF 3. Lig Group 2"},
-	{"TFF 2. Lig G5", "TFF 3. Lig Group 3"},
-	{"Turkish 2. Division Group 1", "TFF 3. Lig Group 4"},
-	{"Turkish 2. Division", "Turkish Super Cup"},
-	{"Turkish Lower Division", "TFF 3. Lig"},
-};
-
-map<string, char*> leagues_rename_long_wales = {
-	{"Welsh Lower Division", "Welsh Cymru North"},
-	{"Irish Shield", "Welsh Cymru South"},
-};
-
-map<string, char*> leagues_rename_short = {
-	{"English Northern Premier League Premier Division", "National League North"},
-	{"English Southern League Premier Division", "National League South"},
-	{"Danish 1st Division", "First Division"},
-	{"Danish 2nd Division", "Second Division"},
-	{"Danish 3rd Division", "Third Division"},
-	{"AFC Champions League", "Champions League Elite"},
-	{"Asian Cup Winners' Cup", "Champions League Two"},
-	{"Afro-Asian Champions Cup", "Challenge League"},
-	{"African CAF Cup", "Confederation Cup"},
-	{"Cup Winners' Cup", "Conference League"},
-	{"UEFA Europa League Qualifying", "Intertoto Cup"},
-	{"CONCACAF Champions League", "Champions Cup"},
-	{"Coppa Italia Serie C", "Coppa Serie C"},
-	{"Supercoppa Serie C", "Supercoppa Serie C"},
-	{"Korean FA Cup", "Korea Cup"},
-};
-
-map<string, char*> leagues_rename_short_argentina = {
-	{"Argentine Interior Zone", "Torneo Federal A"},
-	{"Argentine Third Division", "Primera B"},
-};
-
-map<string, char*> leagues_rename_short_australia = {
-	{"Hong Kong Viceroy Cup", "Australia Cup"},
-};
-
-map<string, char*> leagues_rename_short_belgium = {
-	{"Belgian National Division 1 A", "Division 1 VV"},
-	{"Belgian National Division 1 B", "Division 1 ACFF"},
-	{"Belgian Fourth Division  A", "Division 2 VV"},
-	{"Belgian Fourth Division  B", "Division 2 VV A"},
-	{"Belgian Fourth Division  C", "Division 2 VV B"},
-	{"Belgian Fourth Division  D", "Division 2 ACFF"},
-};
-
-map<string, char*> leagues_rename_short_brazil = {
-	{"CIS Champions Cup", "Série D"},
-	{"Brazilian Copa dos Campeões", "Supercopa Rei"},
-};
-
-map<string, char*> leagues_rename_short_germany = {
-	{"Turkish 2. Divison Category B Group 1", "Regionalliga"},
-	{"Indian Guwahati Lower Division", "Regionalliga Bayern"},
-	{"German 3. Liga Süd", "Regionalliga Südwest"},
-	{"German 3. Liga Osten", "Regionalliga Nordost"},
-	{"German 3. Liga Nord", "Regionalliga Nord"},
-	{"German 3. Liga West", "Regionalliga West"},
-};
-
-map<string, char*> leagues_rename_short_greece = {
-	{"Swedish Division 2 East Svealand", "Super League 2 North"},
-	{"Swedish Division 2 West Svealand", "Super League 2 South"},
-};
-
-map<string, char*> leagues_rename_short_croatia = {
-	{"Croatian Treca NL", "2. NL"},
-	{"Croatian Druga NL Central", "3. NL"},
-	//{"Croatian Druga NL North", "3. NL North"},
-	//{"Croatian Druga NL South", "3. NL South"},
-	//{"Croatian Druga NL East", "3. NL East"},
-	//{"Croatian Druga NL West", "3. NL West"},
-};
-
-map<string, char*> leagues_rename_short_finland = {
-	{"Finnish Ykkösliiga North", "Ykkönen"},
-	{"Finnish Ykkösliiga South", "Kolmonen"},
-	{"Finnish Ykkönen North", "Kakkonen Group A"},
-	{"Finnish Ykkönen West", "Kakkonen Group B"},
-	{"Finnish Ykkönen South", "Kakkonen Group C"},
-};
-
-map<string, char*> leagues_rename_short_italy = {
-	{"Indian Chennai League", "Serie C"},
-	{"Italian Serie C1/A", "Serie C/A"},
-	{"Italian Serie C1/B", "Serie C/B"},
-	{"Indian Haryana State Championship", "Serie C/C"},
-};
-
-map<string, char*> leagues_rename_short_japan = {
-	{"Japanese Regional Leagues", "JFL"},
-	{"Japanese University League", "Regional Ch'ships"},
-};
-
-map<string, char*> leagues_rename_short_norway = {
-	{"Swedish Fourth Division", "2. Divisjon"},
-	{"Norwegian 2. Divisjon Group 3", "3. Divisjon Group 1"},
-	{"Norwegian 2. Divisjon Group 4", "3. Divisjon Group 2"},
-	{"Norwegian 2. Divisjon Group 5", "3. Divisjon Group 3"},
-	{"Norwegian 2. Divisjon Group 6", "3. Divisjon Group 4"},
-	{"Norwegian 2. Divisjon Group 7", "3. Divisjon Group 5"},
-	{"Norwegian 2. Divisjon Group 8", "3. Divisjon Group 6"},
-};
-
-map<string, char*> leagues_rename_short_poland = {
-	{"Irish Super Cup", "III Liga"},
-};
-
-map<string, char*> leagues_rename_short_portugal = {
-	{"Liga 3 North", "Liga 3 A"},
-	{"Liga 3 South", "Liga 3 B"},
-	{"Liga 3 Central", "Campeonato de Portugal A"},
-	{"Korean University League", "Campeonato de Portugal B"},
-	{"Korean High School League", "Campeonato de Portugal C"},
-	{"Korean President Cup", "Campeonato de Portugal D"},
-	{"Singaporean Prime League", "Taça da Liga"},
-};
-
-map<string, char*> leagues_rename_short_scotland = {
-	{"South African First Division Inland", "Highland League"},
-	{"South African First Division Coastal", "Lowland League"},
-};
-
-map<string, char*> leagues_rename_short_spain = {
-	{"Turkish 2. Division Group 3", "Segunda Federación G1"},
-	{"Turkish 2. Division Group 4", "Segunda Federación G2"},
-	{"Turkish 2. Division Group 5", "Segunda Federación G3"},
-	{"PrepreLibertadores Cup", "Segunda Federación G4"},
-	{"PreLibertadores", "Segunda Federación G5"},
-};
-
-map<string, char*> leagues_rename_short_sweden = {
-	{"Swedish Ettan South Gotaland", "Ettan S"},
-	{"Swedish Lower Division", "Division 2"},
-	{"Swedish Ettan West Svealand", "Division 2 N"},
-	{"Swedish Ettan East Gotaland", "Division 2 NG"},
-	{"Swedish Ettan West Gotaland", "Division 2 WG"},
-	{"Swedish Ettan East Svealand", "Division 2 SS"},
-	{"Turkish 2. Division Group 2", "Division 2 NS"},
-	{"MLS All-Stars", "Division 2 SG"},
-};
-
-map<string, char*> leagues_rename_short_turkey = {
-	{"TFF 2. Lig G1", "2. Lig G1"},
-	{"TFF 2. Lig G2", "2. Lig G2"},
-	{"TFF 2. Lig G3", "3. Lig G1"},
-	{"TFF 2. Lig G4", "3. Lig G2"},
-	{"TFF 2. Lig G5", "3. Lig G3"},
-	{"Turkish 2. Division Group 1", "3. Lig G4"},
-	{"Turkish 2. Division", "Super Cup"},
-	{"Turkish Lower Division", "3. Lig"},
-};
-
-map<string, char*> leagues_rename_short_wales = {
-	{"Welsh Lower Division", "Cymru North"},
-	{"Irish Shield", "Cymru South"},
-};
-
-map<string, char*> leagues_rename_tla = {
-	{"English Northern Premier League Premier Division", "NLN"},
-	{"English Southern League Premier Division", "NLS"},
-	{"Polish Ekstraklasa", "EKS"},
-};
-
-map<string, char*> leagues_rename_tla_argentina = {
-	{"Argentine Interior Zone", "TFA"},
-	{"Argentine Third Division", "D1B"},
-};
-
-map<string, char*> leagues_rename_tla_belgium = {
-	{"Belgian National Division 1 A", "D1V"},
-	{"Belgian National Division 1 B", "D1A"},
-	{"Belgian Fourth Division  A", "D2V"},
-	{"Belgian Fourth Division  B", "D2V"},
-	{"Belgian Fourth Division  C", "D2V"},
-	{"Belgian Fourth Division  D", "D2A"},
-};
-
-map<string, char*> leagues_rename_tla_brazil = {
-	{"CIS Champions Cup", "D"},
-};
-
-map<string, char*> leagues_rename_tla_germany = {
-	{"Turkish 2. Divison Category B Group 1", "Reg"},
-	{"Indian Guwahati Lower Division", "Reg"},
-	{"German 3. Liga Süd", "Reg"},
-	{"German 3. Liga Osten", "Reg"},
-	{"German 3. Liga Nord", "Reg"},
-	{"German 3. Liga West", "Reg"},
-};
-
-map<string, char*> leagues_rename_tla_greece = {
-	{"Swedish Division 2 East Svealand", "SL2"},
-	{"Swedish Division 2 West Svealand", "SL2"},
-};
-
-map<string, char*> leagues_rename_tla_croatia = {
-	{"Croatian Treca NL", "2NL"},
-	{"Croatian Druga NL Central", "3NL"},
-	//{"Croatian Druga NL North", "3LN"},
-	//{"Croatian Druga NL South", "3LS"},
-	//{"Croatian Druga NL East", "3LE"},
-	//{"Croatian Druga NL West", "3LW"},
-};
-
-map<string, char*> leagues_rename_tla_finland = {
-	{"Finnish Ykkösliiga North", "Ykk"},
-	{"Finnish Ykkösliiga South", "Kol"},
-	{"Finnish Ykkönen North", "Kak"},
-	{"Finnish Ykkönen West", "Kak"},
-	{"Finnish Ykkönen South", "Kak"},
-};
-
-map<string, char*> leagues_rename_tla_italy = {
-	{"Indian Chennai League", "C"},
-	{"Italian Serie C1/A", "C/A"},
-	{"Italian Serie C1/B", "C/B"},
-	{"Indian Haryana State Championship", "C/C"},
-};
-
-map<string, char*> leagues_rename_tla_japan = {
-	{"Japanese Regional Leagues", "JFL"},
-	{"Japanese University League", "Reg"},
-};
-
-map<string, char*> leagues_rename_tla_norway = {
-	{"Swedish Fourth Division", "D2"},
-	{"Norwegian 2. Divisjon Group 3", "D3"},
-	{"Norwegian 2. Divisjon Group 4", "D3"},
-	{"Norwegian 2. Divisjon Group 5", "D3"},
-	{"Norwegian 2. Divisjon Group 6", "D3"},
-	{"Norwegian 2. Divisjon Group 7", "D3"},
-	{"Norwegian 2. Divisjon Group 8", "D3"},
-};
-
-map<string, char*> leagues_rename_tla_poland = {
-	{"Irish Super Cup", "L3"},
-};
-
-map<string, char*> leagues_rename_tla_portugal = {
-	{"Liga 3 North", "L3A"},
-	{"Liga 3 South", "L3B"},
-	{"Liga 3 Central", "CPA"},
-	{"Korean University League", "CPB"},
-	{"Korean High School League", "CPC"},
-	{"Korean President Cup", "CPD"},
-};
-
-map<string, char*> leagues_rename_tla_scotland = {
-	{"South African First Division Inland", "HFL"},
-	{"South African First Division Coastal", "LFL"},
-};
-
-map<string, char*> leagues_rename_tla_spain = {
-	{"Turkish 2. Division Group 3", "SF1"},
-	{"Turkish 2. Division Group 4", "SF2"},
-	{"Turkish 2. Division Group 5", "SF3"},
-	{"PrepreLibertadores Cup", "SF4"},
-	{"PreLibertadores", "SF5"},
-};
-
-map<string, char*> leagues_rename_tla_sweden = {
-	{"Swedish Lower Division", "D2"},
-};
-
-map<string, char*> leagues_rename_tla_wales = {
-	{"Welsh Lower Division", "D1N"},
-	{"Irish Shield", "D1S"},
-};
-
-map<string, char*> awards_rename_short = {
-	{"German Defender of the Year", "Manager of the Year"},
-	{"German Goalkeeper of the Year", "Player of the Month"},
-	{"German Midfielder of the Year", "Team of the Week"},
-	{"German Striker of the Year", "Top Goalscorer"},
-	{"German Sweeper of the Year", "Manager of the Year"},
-	{"English Footballer of the Year", "Manager of the Year"},
-	{"Asian Assistant Referee of the Year", "Manager of the Month"}, //200
-	{"Asian Referee of the Year", "Manager of the Month"}, //1FF
-	{"Belgian Referee of the Year", "Player of the Month"}, //1E9
-	{"Chinese Golden Whistle", "Player of the Month"}, //193
-	{"Mexican Physio of the Year", "Team of the Week"}, //184
-	{"South Korean Referee of the Month", "Team of the Week"}, //20A
-	{"South Korean Referee of the Year", "Players Team of the Year"}, //211
-	{"South Korean Fair Play of the Month", "Players Team of the Year"}, //20B
-	{"South Korean Fair Play of the Year", "Young Player of the Month"}, //20F
-	{"South Korean Goalkeeper of the Month", "Manager of the Month"},
-	{"South African Young Player of the Year", "Young Player of the Month"}, //1AC
-	{ "Belgian Third Division Player of the Year", "Revelation of the Year" },
-	{ "Belgian First Division Fair Play Award", "Revelation of the Year" },
-	{ "Belgian Man of the Season", "Team of the Week" },
-	{ "Belgian Rookie of the Year", "Top Goalscorer" },
-};
-
-map<string, char*> awards_rename_short_croatia = {
-
-};
-
-map<string, char*> awards_rename_short_holland = {
-	{ "Dutch Premier Division Golden Boot", "Manager of the Year" },
-	{ "Dutch First Division Golden Boot", "Manager of the Year" },
-	{ "Dutch Manager of the Year", "Young Player of the Year" },
-};
-
-map<string, char*> awards_rename_short_italy = {
-
-};
-
-map<string, char*> awards_rename_short_portugal = {
-	{ "Asian All Star XI", "Manager of the Year" },
-};
-
-map<string, char*> awards_rename_short_poland = {
-	{ "Polish First Division Manager of the Month", "Team of the Year" },
-	{ "Polish Second Division Manager of the Month", "Team of the Year" },
-};
-
-map<string, char*> awards_rename_long = {
-	{"EFL Championship Team of the Year", "English Championship Team of the Year"},
-	{"EFL One Team of the Year", "English League One Team of the Year"},
-	{"EFL Two Team of the Year", "English League Two Team of the Year"},
-	{"EFL Championship Player of the Month", "English Championship Player of the Month"},
-	{"EFL One Player of the Month", "English League One Player of the Month"},
-	{"EFL Two Player of the Month", "English League Two Player of the Month"},
-	{"EFL Championship Young Player of the Month", "English Championship Young Player of the Month"},
-	{"EFL One Young Player of the Month", "English League One Young Player of the Month"},
-	{"EFL Two Young Player of the Month", "English League Two Young Player of the Month"},
-	{"EFL Championship Team of the Week", "English Championship Team of the Week"},
-	{"EFL One Team of the Week", "English League One Team of the Week"},
-	{"EFL Two Team of the Week", "English League Two Team of the Week"},
-	{"EFL Championship Manager of the Year", "English Championship Manager of the Year"},
-	{"EFL Championship Manager of the Month", "English Championship Manager of the Month"},
-	{"EFL One Manager of the Year", "English League One Manager of the Year"},
-	{"EFL One Manager of the Month", "English League One Manager of the Month"},
-	{"EFL Two Manager of the Year", "English League Two Manager of the Year"},
-	{"EFL Two Manager of the Month", "English League Two Manager of the Month"},
-	{"German Defender of the Year", "German 3. Liga Manager of the Year"},
-	{"German Goalkeeper of the Year", "German 3. Liga Player of the Month"},
-	{"German Midfielder of the Year", "German 3. Liga Team of the Week"},
-	{"German Striker of the Year", "German 3. Liga Top Goalscorer"},
-	{"German Sweeper of the Year", "English National North Manager of the Year"},
-	{"English Footballer of the Year", "English National South Manager of the Year"},
-	{"Asian Assistant Referee of the Year", "English National North Manager of the Month"}, //200
-	{"Asian Referee of the Year", "English National South Manager of the Month"}, //1FF
-	{"Belgian Referee of the Year", "English National North Player of the Month"}, //1E9
-	{"Chinese Golden Whistle", "English National South Player of the Month"}, //193
-	{"Mexican Physio of the Year", "English National North Team of the Week"}, //184
-	{"South Korean Referee of the Month", "English National South Team of the Week"}, //20A
-	{"South Korean Referee of the Year", "English National North Team of the Year"}, //211
-	{"South Korean Fair Play of the Month", "English National South Team of the Year"}, //20B
-	{"South Korean Fair Play of the Year", "English National North Young Player of the Month"}, //20F
-	{"South Korean Goalkeeper of the Month", "South Korean Manager of the Month"},
-	{"South African Young Player of the Year", "English National South Young Player of the Month"}, //1AC
-	{"Portuguese Premier League Manager of the Year", "Liga Portugal 1 Manager of the Year"},
-	{"Portuguese Premier League Most Man of the Match", "Liga Portugal 1 Most Man of the Match"},
-	{"Portuguese Premier League Player of the Year", "Liga Portugal 1 Player of the Year"},
-	{"Portuguese Premier League Team of the Week", "Liga Portugal 1 Team of the Week"},
-	{"Portuguese Premier League Team of the Year", "Liga Portugal 1 Team of the Year"},
-	{"Portuguese Premier League Top Goalscorer", "Liga Portugal 1 Top Goalscorer"},
-	{"Portuguese Second League Manager of the Year", "Liga Portugal 2 Manager of the Year"},
-	{"Portuguese Second League Most Man of the Match", "Liga Portugal 2 Most Man of the Match"},
-	{"Portuguese Second League Player of the Year", "Liga Portugal 2 Player of the Year"},
-	{"Portuguese Second League Team of the Week", "Liga Portugal 2 Team of the Week"},
-	{"Portuguese Second League Team of the Year", "Liga Portugal 2 Team of the Year"},
-	{"Portuguese Second League Top Goalscorer", "Liga Portugal 2 Top Goalscorer"},
-	{"Brazilian 1st Division Player of the Year", "Brazilian Série A Player of the Year"},
-	{"Brazilian 1st Division Team of the Week", "Brazilian Série A Team of the Week"},
-	{"Brazilian 1st Division Team of the Year", "Brazilian Série A Team of the Year"},
-	{"Brazilian 1st Division Top Goalscorer", "Brazilian Série A Top Goalscorer"},
-	{"Brazilian 1st Division Young Player of the Year", "Brazilian Série A Young Player of the Year"},
-	{"Brazilian 2nd Division Player of the Year", "Brazilian Série B Player of the Year"},
-	{"Brazilian 2nd Division Team of the Week", "Brazilian Série B Team of the Week"},
-	{"Brazilian 2nd Division Team of the Year", "Brazilian Série B Team of the Year"},
-	{"Brazilian 2nd Division Top Goalscorer", "Brazilian Série B Top Goalscorer"},
-	{"Brazilian 2nd Division Young Player of the Year", "Brazilian Série B Young Player of the Year"},
-	{"Brazilian 3rd Division Player of the Year", "Brazilian Série C Player of the Year"},
-	{"Brazilian 3rd Division Team of the Week", "Brazilian Série C Team of the Week"},
-	{"Brazilian 3rd Division Team of the Year", "Brazilian Série C Team of the Year"},
-	{"Brazilian 3rd Division Top Goalscorer", "Brazilian Série C Top Goalscorer"},
-	{"Brazilian 3rd Division Young Player of the Year", "Série C Division Young Player of the Year"},
-	{"Brazilian Bahia Best Goalkeeper", "Campeonato Baiano Best Goalkeeper"},
-	{"Brazilian Bahia Best Player", "Campeonato Baiano Best Player"},
-	{"Brazilian Bahia Team of the Week", "Campeonato Baiano Team of the Week"},
-	{"Brazilian Bahia Top Goalscorer", "Campeonato Baiano Top Goalscorer"},
-	{"Brazilian Central Best Goalkeeper", "Campeonato Central Best Goalkeeper"},
-	{"Brazilian Central Best Player", "Campeonato Central Best Player"},
-	{"Brazilian Central Team of the Week", "Campeonato Central Team of the Week"},
-	{"Brazilian Central Top Goalscorer", "Campeonato Central Top Goalscorer"},
-	{"Brazilian Gaúcho Best Goalkeeper", "Campeonato Gaúcho Best Goalkeeper"},
-	{"Brazilian Gaúcho Best Player", "Campeonato Gaúcho Best Player"},
-	{"Brazilian Gaúcho Team of the Week", "Campeonato Gaúcho Team of the Week"},
-	{"Brazilian Gaúcho Top Goalscorer", "Campeonato Gaúcho Top Goalscorer"},
-	{"Brazilian Goiás Best Goalkeeper", "Campeonato Goiano Best Goalkeeper"},
-	{"Brazilian Goiás Best Player", "Campeonato Goiano Best Player"},
-	{"Brazilian Goiás Team of the Week", "Campeonato Goiano Team of the Week"},
-	{"Brazilian Goiás Top Goalscorer", "Campeonato Goiano Top Goalscorer"},
-	{"Brazilian Minas Gerais Best Goalkeeper", "Campeonato Mineiro Best Goalkeeper"},
-	{"Brazilian Minas Gerais Best Player", "Campeonato Mineiro Best Player"},
-	{"Brazilian Minas Gerais Team of the Week", "Campeonato Mineiro Team of the Week"},
-	{"Brazilian Minas Gerais Top Goalscorer", "Campeonato Mineiro Top Goalscorer"},
-	{"Brazilian North Best Goalkeeper", "Campeonato do Norte Best Goalkeeper"},
-	{"Brazilian North Best Player", "Campeonato do Norte Best Player"},
-	{"Brazilian North Team of the Week", "Campeonato do Norte Team of the Week"},
-	{"Brazilian North Top Goalscorer", "Campeonato do Norte Top Goalscorer"},
-	{"Brazilian Northeast Best Goalkeeper", "Campeonato do Nordeste Best Goalkeeper"},
-	{"Brazilian Northeast Best Player", "Campeonato do Nordeste Best Player"},
-	{"Brazilian Northeast Team of the Week", "Campeonato do Nordeste Team of the Week"},
-	{"Brazilian Northeast Top Goalscorer", "Campeonato do Nordeste Top Goalscorer"},
-	{"Brazilian Paraná Best Goalkeeper", "Campeonato Paranaense Best Goalkeeper"},
-	{"Brazilian Paraná Best Player", "Campeonato Paranaense Best Player"},
-	{"Brazilian Paraná Team of the Week", "Campeonato Paranaense Team of the Week"},
-	{"Brazilian Paraná Top Goalscorer", "Campeonato Paranaense Top Goalscorer"},
-	{"Brazilian Pernambuco Best Goalkeeper", "Campeonato Pernambucano Best Goalkeeper"},
-	{"Brazilian Pernambuco Best Player", "Campeonato Pernambucano Best Player"},
-	{"Brazilian Pernambuco Team of the Week", "Campeonato Pernambucano Team of the Week"},
-	{"Brazilian Pernambuco Top Goalscorer", "Campeonato Pernambucano Top Goalscorer"},
-	{"Brazilian Rio de Janeiro Best Goalkeeper", "Campeonato Carioca Best Goalkeeper"},
-	{"Brazilian Rio de Janeiro Best Player", "Campeonato Carioca Best Player"},
-	{"Brazilian Rio de Janeiro Team of the Week", "Campeonato Carioca Team of the Week"},
-	{"Brazilian Rio de Janeiro Top Goalscorer", "Campeonato Carioca Top Goalscorer"},
-	{"Brazilian Santa Catarina Best Goalkeeper", "Campeonato Catarinense Best Goalkeeper"},
-	{"Brazilian Santa Catarina Best Player", "Campeonato Catarinense Best Player"},
-	{"Brazilian Santa Catarina Team of the Week", "Campeonato Catarinense Team of the Week"},
-	{"Brazilian Santa Catarina Top Goalscorer", "Campeonato Catarinense Top Goalscorer"},
-	{"Brazilian São Paulo Best Goalkeeper", "Campeonato Paulista Best Goalkeeper"},
-	{"Brazilian São Paulo Best Player", "Campeonato Paulista Best Player"},
-	{"Brazilian São Paulo Team of the Week", "Campeonato Paulista Team of the Week"},
-	{"Brazilian São Paulo Top Goalscorer", "Campeonato Paulista Top Goalscorer"},
-	{"Danish Premier Division Player of the Year", "Danish Superliga Player of the Year"},
-	{"Danish Premier Division Young Player of the Year", "Danish Superliga Young Player of the Year"},
-	{"Danish Kvalifikationsrækken Player of the Year", "Danish Third Division Player of the Year"},
-	{"Danish Kvalifikationsrækken Young Player of Year", "Danish Third Division Young Player of Year"},
-	{"Danish Premier Division Team of the Week", "Danish Superliga Team of the Week"},
-	{ "Finnish Ykkönen Manager of the Month", "Finnish Ykkösliiga Manager of the Month" },
-	{ "Finnish Ykkönen Player of the Month", "Finnish Ykkösliiga Player of the Month" },
-	{ "Finnish Ykkönen Team of the Week", "Finnish Ykkösliiga Team of the Week" },
-	{ "Finnish Ykkönen Team of the Year", "Finnish Ykkösliiga Team of the Year" },
-	{ "Finnish Ykkönen Top Goalscorer", "Finnish Ykkösliiga Top Goalscorer" },
-	{ "Greek Football League Manager of the Year", "Greek Super League 2 Manager of the Year" },
-	{ "Greek Football League Player of the Year", "Greek Super League 2 Player of the Year" },
-	{ "Greek Football League Team of the Week", "Greek Super League 2 Team of the Week" },
-	{ "Greek Football League Top Goalscorer", "Greek Super League 2 Top Goalscorer" },
-	{ "Greek Superleague Manager of the Year", "Greek Super League Manager of the Year" },
-	{ "Greek Superleague Player of the Year", "Greek Super League Player of the Year" },
-	{ "Greek Superleague Team of the Week", "Greek Super League Team of the Week" },
-	{ "Greek Superleague Top Goalscorer", "Greek Super League Top Goalscorer" },
-	{ "Swedish First Division Team of the Week", "Swedish Superettan Team of the Week" },
-	{ "Swedish Premier Division Team of the Week", "Swedish Allsvenskan Team of the Week" },
-	{ "Swedish Premier Division Top Goalscorer", "Swedish Allsvenskan Top Goalscorer" },
-	{ "Polish First Division Manager of the Year", "Polish Ekstraklasa Manager of the Year" },
-	{ "Polish First Division Player of the Year", "Polish Ekstraklasa Player of the Year" },
-	{ "Polish First Division Team of the Week", "Polish Ekstraklasa Team of the Week" },
-	{ "Polish First Division Young Player of the Year", "Polish Ekstraklasa Young Player of the Year" },
-	{ "Polish Second Division Manager of the Year", "Polish I Liga Manager of the Year" },
-	{ "Polish Second Division Player of the Year", "Polish I Liga Player of the Year" },
-	{ "Polish Second Division Team of the Week", "Polish I Liga Team of the Week" },
-	{ "Polish Second Division Young Player of the Year", "Polish I Liga Young Player of the Year" },
-	{ "Norwegian First Division Manager of the Month", "Norwegian 1. Divisjon Manager of the Month" },
-	{ "Norwegian First Division Player of the Month", "Norwegian 1. Divisjon Player of the Month" },
-	{ "Norwegian First Division Team of the Week", "Norwegian 1. Divisjon Team of the Week" },
-	{ "Norwegian Premier Division Manager of the Month", "Norwegian Eliteserien Manager of the Month" },
-	{ "Norwegian Premier Division Player of the Month", "Norwegian Eliteserien Player of the Month" },
-	{ "Norwegian Premier Division Team of the Week", "Norwegian Eliteserien Team of the Week" },
-	{ "Dutch First Division Player of the Year", "Dutch Eerste Divisie Player of the Year" },
-	{ "Dutch First Division Team of the Week", "Dutch Eerste Divisie Team of the Week" },
-	{ "Dutch First Division Top Goalscorer", "Dutch Eerste Divisie Top Goalscorer" },
-	{ "Dutch Premier Division Player of the Year", "Dutch Eredivisie Player of the Year" },
-	{ "Dutch Premier Division Team of the Week", "Dutch Eredivisie Team of the Week" },
-	{ "Dutch Premier Division Top Goalscorer", "Dutch Eredivisie Top Goalscorer" },
-	{ "N. Irish Premier Division Manager of the Month", "NIFL Premiership Manager of the Month" },
-	{ "N. Irish Premier Division Manager of the Year", "NIFL Premiership Manager of the Year" },
-	{ "N. Irish Premier Division Player of the Year", "NIFL Premiership Player of the Year" },
-	{ "N. Irish Premier Division Team of the Week", "NIFL Premiership Team of the Week" },
-	{ "N. Irish Premier Division Top Goalscorer", "NIFL Premiership Top Goalscorer" },
-	{ "N. Irish Premier Division Young Player of the Year", "NIFL Premiership Young Player of the Year" },
-	{ "N. Irish First Division Manager of the Month", "NIFL Championship Manager of the Month" },
-	{ "N. Irish First Division Manager of the Year", "NIFL Championship Manager of the Year" },
-	{ "N. Irish First Division Player of the Year", "NIFL Championship Player of the Year" },
-	{ "N. Irish First Division Team of the Week", "NIFL Championship Team of the Week" },
-	{ "N. Irish First Division Top Goalscorer", "NIFL Championship Top Goalscorer" },
-	{ "N. Irish First Division Young Player of the Year", "NIFL Championship Young Player of the Year" },
-	{ "N. Irish Player of the Year", "NIFL Player of the Year" },
-	{ "Belgian First Division Goalkeeper of the Year", "Belgian Pro League Goalkeeper of the Year" },
-	{ "Belgian First Division Revelation of the Year", "Belgian Pro League Revelation of the Year" },
-	{ "Belgian First Division Team of the Week", "Belgian Pro League Team of the Week" },
-	{ "Belgian First Division Top Goalscorer", "Belgian Pro League Top Goalscorer" },
-	{ "Belgian Second Division Revelation of the Year", "Belgian Challenger League Revelation of the Year" },
-	{ "Belgian Second Division Team of the Week", "Belgian Challenger League Team of the Week" },
-	{ "Belgian Second Division Top Goalscorer", "Belgian Challenger League Top Goalscorer" },
-	{ "Belgian Third Division Player of the Year", "Belgian Division 1 VV Revelation of the Year" },
-	{ "Belgian Third Division Team of the Week", "Belgian Division 1 VV Team of the Week" },
-	{ "Belgian Third Division Top Goalscorer", "Belgian Division 1 VV Top Goalscorer" },
-	{ "Belgian First Division Fair Play Award", "Belgian Division 1 ACFF Revelation of the Year" },
-	{ "Belgian Man of the Season", "Belgian Division 1 ACFF Team of the Week" },
-	{ "Belgian Rookie of the Year", "Belgian Division 1 ACFF Top Goalscorer" },
-};
-
-map<string, char*> awards_rename_long_croatia = {
-	{ "Croatian First Division Player of the Year", "Croatian HNL Player of the Year" },
-	{ "Croatian First Division Team of the Week", "Croatian HNL Team of the Week" },
-	{ "Croatian First Division Top Goalscorer", "Croatian HNL Top Goalscorer" },
-	{ "Croatian Second Division A Player of the Year", "Croatian 1. NL Player of the Year" },
-	{ "Croatian Second Division A Team of the Week", "Croatian 1. NL Team of the Week" },
-	{ "Croatian Second Division A Top Goalscorer", "Croatian 1. NL Top Goalscorer" },
-	{ "Croatian Second Division B Player of the Year", "Croatian 2. NL Player of the Year" },
-	{ "Croatian Second Division B Team of the Week", "Croatian 2. NL Team of the Week" },
-	{ "Croatian Second Division B Top Goalscorer", "Croatian 2. NL Top Goalscorer" },
-};
-
-map<string, char*> awards_rename_long_holland = {
-	{ "Dutch Premier Division Golden Boot", "Dutch Eredivisie Manager of the Year" },
-	{ "Dutch First Division Golden Boot", "Dutch Eerste Divisie Manager of the Year" },
-	{ "Dutch Manager of the Year", "Dutch Eredivisie Young Player of the Year" },
-	{ "Dutch Young Player of the Year", "Dutch Eerste Divisie Young Player of the Year" },
-};
-
-map<string, char*> awards_rename_long_italy = {
-	{ "Italian Serie C1/A Player of the Year", "Italian Serie C Player of the Year" },
-	{ "Italian Serie C1/A Manager of the Year", "Italian Serie C Manager of the Year" },
-	{ "Italian Serie C1/A Team of the Week", "Italian Serie C Team of the Week" },
-	{ "Italian Serie C1/A Team of the Year", "Italian Serie C Team of the Year" },
-	{ "Italian Serie C1/A Top Goalscorer", "Italian Serie C Top Goalscorer" },
-};
-
-map<string, char*> awards_rename_long_portugal = {
-	{ "Portuguese Second Division B Most Man of the Match", "Liga 3 Most Man of the Match" },
-	{ "Portuguese Second Division B Player of the Year", "Liga 3 Player of the Year" },
-	{ "Portuguese Second Division B Team of the Week", "Liga 3 Team of the Week" },
-	{ "Portuguese Second Division B Team of the Year", "Liga 3 Team of the Year" },
-	{ "Portuguese Second Division B Top Goalscorer", "Liga 3 Top Goalscorer" },
-	{ "Asian All Star XI", "Liga 3 Manager of the Year" },
-};
-
-map<string, char*> awards_rename_long_poland = {
-	{ "Polish First Division Manager of the Month", "Polish Ekstraklasa Team of the Year" },
-	{ "Polish Second Division Manager of the Month", "Polish I Liga Team of the Year" },
-};
-
 map<string, DWORD> club_dword_match = {
 	{"MLS All Stars East", 0x9d00a4},
 	{"MLS All Stars West", 0x9d00a8},
@@ -1035,17 +349,17 @@ map<string, DWORD> league_dword_match = {
 	{"French Championnat National 3", 0x9CF548},
 	{"German Bundesliga", 0x9CF54C},
 	{"German 2. Bundesliga", 0x9CF550},
-	{"German 3. Liga West", 0x9CF554},
-	{"German 3. Liga Osten", 0x9CF558},
-	{"German 3. Liga Nord", 0x9CF55C},
-	{"German 3. Liga Süd", 0x9CF560},
+	{"German Regionalliga West", 0x9CF554},
+	{"German Regionalliga Nordost", 0x9CF558},
+	{"German Regionalliga Nord", 0x9CF55C},
+	{"German Regionalliga Südwest", 0x9CF560},
 	{"German 3. Liga", 0x9CF564},
 	{"Dutch Eredivisie", 0x9CF568},
 	{"Dutch Eerste Divisie", 0x9CF56C},
 	{"Italian Serie A", 0x9CF570},
 	{"Italian Serie B", 0x9CF574},
-	{"Italian Serie C1/A", 0x9CF578},
-	{"Italian Serie C1/B", 0x9CF57C},
+	{"Italian Serie C/A", 0x9CF578},
+	{"Italian Serie C/B", 0x9CF57C},
 	{"Italian Serie C2/A", 0x9CF580},
 	{"Italian Serie C2/B", 0x9CF584},
 	{"Italian Serie C2/C", 0x9CF588},
@@ -1055,12 +369,12 @@ map<string, DWORD> league_dword_match = {
 	{"American USL League One", 0x9CF598},
 	{"Belgian Pro League", 0x9CF59C},
 	{"Belgian Challenger Pro League", 0x9CF5A0},
-	{"Belgian National Division 1 A", 0x9CF5A4},
-	{"Belgian National Division 1 B", 0x9CF5A8},
+	{"Belgian Division 1 VV", 0x9CF5A4},
+	{"Belgian Division 1 ACFF", 0x9CF5A8},
 	{"Danish Superliga", 0x9CF5AC},
-	{"Danish 1st Division", 0x9CF5B0},
-	{"Danish 2nd Division", 0x9CF5B4},
-	{"Danish 3rd Division", 0x9CF5B8},
+	{"Danish First Division", 0x9CF5B0},
+	{"Danish Second Division", 0x9CF5B4},
+	{"Danish Third Division", 0x9CF5B8},
 	{"English Premier League", 0x9CF5BC},
 	{"English Football League Championship", 0x9CF5C0},
 	{"English Football League One", 0x9CF5C4},
@@ -1075,30 +389,30 @@ map<string, DWORD> league_dword_match = {
 	{"Scottish League Two", 0x9CF5E8},
 	{"Swedish Allsvenskan", 0x9CF5EC},
 	{"Swedish Superettan", 0x9CF5F0},
-	{"Swedish Ettan South Gotaland", 0x9CF5F4},
+	{"Swedish Ettan South", 0x9CF5F4},
 	{"Swedish Ettan North", 0x9CF5F8},
-	{"Swedish Ettan East Svealand", 0x9CF5FC},
-	{"Swedish Ettan East Gotaland", 0x9CF600},
-	{"Swedish Ettan West Svealand", 0x9CF604},
-	{"Swedish Ettan West Gotaland", 0x9CF608},
+	{"Swedish Division 2 South Svealand", 0x9CF5FC},
+	{"Swedish Division 2 North Götaland", 0x9CF600},
+	{"Swedish Division 2 Norrland", 0x9CF604},
+	{"Swedish Division 2 West Götaland", 0x9CF608},
 	{"Liga Portugal 1", 0x9CF60C},
 	{"Liga Portugal 2", 0x9CF610},
-	{"Liga 3 North", 0x9CF614},
-	{"Liga 3 Central", 0x9CF618},
-	{"Liga 3 South", 0x9CF61C},
+	{"Liga 3 Série A", 0x9CF614},
+	{"Campeonato de Portugal Série A", 0x9CF618},
+	{"Liga 3 Série B", 0x9CF61C},
 	{"Campeonato de Portugal", 0x9CF620},
 	{"Spanish La Liga", 0x9CF624},
 	{"Spanish La Liga 2", 0x9CF628},
 	{"Spanish Primera Federación Group 1", 0x9CF62C},
 	{"Spanish Primera Federación Group 2", 0x9CF630},
-	{"PrepreLibertadores Cup", 0x9CF634}, // Segunda Federación group
-	{"PreLibertadores", 0x9CF638}, // Segunda Federación group
+	{"Spanish Segunda Federación Group 4", 0x9CF634},
+	{"Spanish Segunda Federación Group 5", 0x9CF638},
 	{"Copa Libertadores de América", 0x9CF63C},
-	{"Korean High School League", 0x9CF640}, // Campeonato de Portugal group
+	{"Campeonato de Portugal Série C", 0x9CF640},
 	{"Copa CONMEBOL", 0x9CF644},
 	{"Recopa Sudamericana", 0x9CF648},
-	{"AFC Champions League", 0x9CF64C},
-	{"Asian Cup Winners' Cup", 0x9CF650},
+	{"AFC Champions League Elite", 0x9CF64C},
+	{"AFC Champions League Two", 0x9CF650},
 	{"Argentine Primera División", 0x9CF654},
 	{"Argentine Primera Nacional", 0x9CF658},
 	{"Japanese J1 League", 0x9CF65C},
@@ -1106,22 +420,22 @@ map<string, DWORD> league_dword_match = {
 	{"Japanese J.League Cup", 0x9CF664},
 	{"Friendly", 0x9CF668},
 	{"Japanese Super Cup", 0x9CF66C},
-	{"Japanese Regional Leagues", 0x9CF670},
-	{"Japanese University League", 0x9CF674},
+	{"Japanese Football League", 0x9CF670},
+	{"Japanese Regional Championships", 0x9CF674},
 	{"Japanese J3 League", 0x9CF678},
 	{"Copa Argentina", 0x9CF67C},
-	{"Argentine Interior Zone", 0x9CF680},
+	{"Argentine Torneo Federal A", 0x9CF680},
 	{"Reserve", 0x9CF684},
-	{"Argentine Third Division", 0x9CF688},
-	{"CIS Champions Cup", 0x9CF68C},
-	{"MLS All-Stars", 0x9CF690},
+	{"Argentine Primera División B", 0x9CF688},
+	{"Campeonato Brasileiro Série D", 0x9CF68C},
+	{"Swedish Division 2 South Götaland", 0x9CF690},
 	{"German DFL-Supercup", 0x9CF694},
 	{"Copa Sudamericana", 0x9CF698},
 	{"English National League", 0x9CF69C},
 	{"English FA Trophy", 0x9CF6A0},
 	{"Conference League Cup", 0x9CF6A4},
 	{"Trophée des Champions", 0x9CF6A8},
-	{"Swedish Lower Division", 0x9CF6AC},
+	{"Swedish Division 2", 0x9CF6AC},
 	{"Spanish Segunda Federación", 0x9CF6B0},
 	{"Supertaça Cândido de Oliveira", 0x9CF6B4},
 	{"A Premier Division", 0x9CF6B8},
@@ -1129,21 +443,21 @@ map<string, DWORD> league_dword_match = {
 	{"Norwegian 1. Divisjon", 0x9CF6C0},
 	{"Norwegian 2. Divisjon Group 1", 0x9CF6C4},
 	{"Norwegian 2. Divisjon Group 2", 0x9CF6C8},
-	{"Norwegian 2. Divisjon Group 3", 0x9CF6CC},
-	{"Norwegian 2. Divisjon Group 4", 0x9CF6D0},
-	{"Norwegian 2. Divisjon Group 5", 0x9CF6D4},
-	{"Norwegian 2. Divisjon Group 6", 0x9CF6D8},
-	{"Norwegian 2. Divisjon Group 7", 0x9CF6DC},
-	{"Norwegian 2. Divisjon Group 8", 0x9CF6E0},
+	{"Norwegian 3. Divisjon Group 1", 0x9CF6CC},
+	{"Norwegian 3. Divisjon Group 2", 0x9CF6D0},
+	{"Norwegian 3. Divisjon Group 3", 0x9CF6D4},
+	{"Norwegian 3. Divisjon Group 4", 0x9CF6D8},
+	{"Norwegian 3. Divisjon Group 5", 0x9CF6DC},
+	{"Norwegian 3. Divisjon Group 6", 0x9CF6E0},
 	{"Intercontinental Cup", 0x9CF6E4},
 	{"UEFA Champions League", 0x9CF6E8},
-	{"Cup Winners' Cup", 0x9CF6EC},
+	{"UEFA Conference League", 0x9CF6EC},
 	{"UEFA Europa League", 0x9CF6F0},
 	{"UEFA Super Cup", 0x9CF6F4},
-	{"UEFA Europa League Qualifying", 0x9CF6F8},
+	{"UEFA Intertoto Cup", 0x9CF6F8},
 	{"Supercoupe de Belgique", 0x9CF6FC},
 	{"Coupe de Belgique", 0x9CF700},
-	{"Korean University League", 0x9CF704}, // Campeonato de Portugal group
+	{"Campeonato de Portugal Série B", 0x9CF704},
 	{"DBU Pokalen", 0x9CF708},
 	{"Coupe de France", 0x9CF70C},
 	{"Coupe de la Ligue", 0x9CF710},
@@ -1153,8 +467,8 @@ map<string, DWORD> league_dword_match = {
 	{"Coppa Italia Serie C", 0x9CF720},
 	{"Supercoppa Italiana", 0x9CF724},
 	{"Lamar Hunt U.S. Open Cup", 0x9CF728},
-	{"CONCACAF Champions League", 0x9CF72C},
-	{"Korean President Cup", 0x9CF730}, // Campeonato de Portugal group
+	{"CONCACAF Champions Cup", 0x9CF72C},
+	{"Campeonato de Portugal Série D", 0x9CF730},
 	{"Norwegian Cupen", 0x9CF734},
 	{"Norwegian 3. Divisjon", 0x9CF738},
 	{"Taça de Portugal", 0x9CF73C},
@@ -1177,7 +491,6 @@ map<string, DWORD> league_dword_match = {
 	{"World Cup European Qualifying Section", 0x9CF780},
 	{"UEFA European Championship Qualifying", 0x9CF784},
 	{"Asian Cup Qualifying", 0x9CF788},
-	//{ "Asian Games Football Tournament", 0x9CF78C },
 	{ "CONCACAF Gold Cup", 0x9CF78C },
 	{"AFC Asian Cup", 0x9CF790},
 	{"\'B\' International", 0x9CF794},
@@ -1196,19 +509,19 @@ map<string, DWORD> league_dword_match = {
 	{"Swedish Ettan", 0x9CF7C8},
 	{"OFC Champions League", 0x9CF7CC},
 	{"CAF Super Cup", 0x9CF7D0},
-	{"Belgian Fourth Division  A", 0x9CF7D4},
-	{"Belgian Fourth Division  B", 0x9CF7D8},
-	{"Belgian Fourth Division  C", 0x9CF7DC},
-	{"Belgian Fourth Division  D", 0x9CF7E0},
+	{"Belgian Division 2 VV", 0x9CF7D4},
+	{"Belgian Division 2 VV A", 0x9CF7D8},
+	{"Belgian Division 2 VV B", 0x9CF7DC},
+	{"Belgian Division 2 ACFF", 0x9CF7E0},
 	{"Suomen Cup", 0x9CF7E4},
 	{"Finnish Veikkausliiga", 0x9CF7E8},
-	{"Finnish Ykkösliiga North", 0x9CF7EC},
-	{"Finnish Ykkösliiga South", 0x9CF7F0},
+	{"Finnish Ykkönen", 0x9CF7EC},
+	{"Finnish Kolmonen", 0x9CF7F0},
 	{"Finnish Kakkonen", 0x9CF7F4},
 	{"Finnish Ykkösliiga", 0x9CF7F8},
-	{"Finnish Ykkönen North", 0x9CF7FC},
-	{"Finnish Ykkönen West", 0x9CF800},
-	{"Finnish Ykkönen South", 0x9CF804},
+	{"Finnish Kakkonen Group A", 0x9CF7FC},
+	{"Finnish Kakkonen Group B", 0x9CF800},
+	{"Finnish Kakkonen Group C", 0x9CF804},
 	{"Finnish Ykkönen East", 0x9CF808},
 	{"League of Ireland Premier Division", 0x9CF80C},
 	{"League of Ireland First Division", 0x9CF810},
@@ -1230,7 +543,7 @@ map<string, DWORD> league_dword_match = {
 	{"Irish Leinster Senior League Premier", 0x9CF854},
 	{"Polish Ekstraklasa", 0x9CF858},
 	{"Polish I Liga", 0x9CF85C},
-	{"Irish Super Cup", 0x9CF860},
+	{"Polish III Liga", 0x9CF860},
 	{"Puchar Polski", 0x9CF864},
 	{"Polish II Liga", 0x9CF868},
 	{"Greek Super League", 0x9CF86C},
@@ -1239,7 +552,7 @@ map<string, DWORD> league_dword_match = {
 	{"Kypello Elladas", 0x9CF878},
 	{"Croatian HNL", 0x9CF87C},
 	{"Croatian Prva NL", 0x9CF880},
-	{"Croatian Druga NL Central", 0x9CF884},
+	{"Croatian Treca NL", 0x9CF884},
 	{"Croatian Druga NL North", 0x9CF888},
 	{"Croatian Druga NL South", 0x9CF88C},
 	{"Croatian Druga NL East", 0x9CF890},
@@ -1247,34 +560,34 @@ map<string, DWORD> league_dword_match = {
 	{"Hrvatski Kup", 0x9CF898},
 	{"Australian A-League", 0x9CF89C},
 	{"OFC Nations Cup", 0x9CF8A0},
-	{"Croatian Treca NL", 0x9CF8A4},
+	{"Croatian Druga NL", 0x9CF8A4},
 	{"Croatian Prva NL North", 0x9CF8A8},
 	{"Croatian Prva NL South", 0x9CF8AC},
 	{"NIFL Premiership", 0x9CF8B0},
 	{"NIFL Championship", 0x9CF8B4},
-	{"Northern Irish League Lower Division", 0x9CF8B8},
+	{"NIFL Premier Intermediate League", 0x9CF8B8},
 	{"NIFL Charity Shield", 0x9CF8BC},
 	{"Irish Football Association Challenge Cup", 0x9CF8C0},
-	{"Indian Guwahati Lower Division", 0x9CF8C4}, // new German Regionalliga Bayern
-	{"NIFL Cup", 0x9CF8C8},
-	{"Turkish Lower Division", 0x9CF8CC},
+	{"German Regionalliga Bayern", 0x9CF8C4},
+	{"Irish Football League Cup", 0x9CF8C8},
+	{"TFF 3. Lig", 0x9CF8CC},
 	{"Turkish 2. Division Group 1", 0x9CF8D0},
 	//{"Turkish 2. Division Group 2", 0x9CF8D4},
 	{"Turkish Süper Lig", 0x9CF8D8},
 	{"TFF 1. Lig", 0x9CF8DC},
 	{"TFF 2. Lig", 0x9CF8E0},
-	{"TFF 2. Lig G1", 0x9CF8E4},
-	{"TFF 2. Lig G2", 0x9CF8E8},
-	{"TFF 2. Lig G3", 0x9CF8EC},
-	{"TFF 2. Lig G4", 0x9CF8F0},
-	{"TFF 2. Lig G5", 0x9CF8F4},
+	{"TFF 2. Lig Group 1", 0x9CF8E4},
+	{"TFF 2. Lig Group 2", 0x9CF8E8},
+	{"TFF 3. Lig Group 1", 0x9CF8EC},
+	{"TFF 3. Lig Group 2", 0x9CF8F0},
+	{"TFF 3. Lig Group 3", 0x9CF8F4},
 	{"Türkiye Kupasi", 0x9CF8F8},
-	{"Turkish 2. Division", 0x9CF8FC},
-	{"English Northern Premier League Premier Division", 0x9CF900},
-	{"English Southern League Premier Division", 0x9CF904},
-	{"Indian Chennai League", 0x9CF908}, // new Serie C
-	{"Indian Haryana State Championship", 0x9CF90C}, // new Serie C/C
-	{"Turkish 2. Divison Category B Group 1", 0x9CF910}, // new German Regionalliga
+	{"Turkish Super Cup", 0x9CF8FC},
+	{"English National League North", 0x9CF900},
+	{"English National League South", 0x9CF904},
+	{"Italian Serie C", 0x9CF908},
+	{"Italian Serie C/C", 0x9CF90C},
+	{"German Regionalliga", 0x9CF910},
 	{"Russian Second Division - West", 0x9CF914},
 	{"Russian Second Division - Central", 0x9CF918},
 	{"Russian Second Division - South", 0x9CF91C},
@@ -1294,7 +607,7 @@ map<string, DWORD> league_dword_match = {
 	{"Welsh Cup", 0x9CF954},
 	{"Welsh Premier Cup", 0x9CF958},
 	{"Copa Interamericana", 0x9CF95C},
-	{"Welsh Lower Division", 0x9CF960},
+	{"Welsh Cymru North", 0x9CF960},
 	{"FIFA Confederations Cup", 0x9CF964},
 	{"Brazilian Bahia Lower Division", 0x9CF968},
 	{"Brazilian Central Lower Division", 0x9CF96C},
@@ -1313,10 +626,10 @@ map<string, DWORD> league_dword_match = {
 	{"Brazilian Central Regional Cup", 0x9CF9A0},
 	{"Brazilian Campeonato Nordeste", 0x9CF9A4},
 	{"Brazilian North Regional Cup", 0x9CF9A8},
-	{"Brazilian Campeonato Série C", 0x9CF9AC},
+	{"Campeonato Brasileiro Série C", 0x9CF9AC},
 	{"Brazilian Campeonato Catarinense", 0x9CF9B0},
 	{"Brazilian Campeonato Goiano", 0x9CF9B4},
-	{"Brazilian Copa dos Campeões", 0x9CF9B8},
+	{"Brazilian Supercopa Rei", 0x9CF9B8},
 	{"Brazilian Campeonato Pernambucano", 0x9CF9BC},
 	{"Brazilian Campeonato Baiano", 0x9CF9C0},
 	{"Brazilian Northeast Regional Cup", 0x9CF9C4},
@@ -1326,16 +639,16 @@ map<string, DWORD> league_dword_match = {
 	{"Brazilian Campeonato Mineiro", 0x9CF9D4},
 	{"Brazilian Rio-São Paulo Tournement", 0x9CF9D8},
 	{"Brazilian Campeonato Carioca", 0x9CF9DC},
-	{"Brazilian Campeonato Série B", 0x9CF9E0},
+	{"Campeonato Brasileiro Série B", 0x9CF9E0},
 	{"Brazilian Campeonato Paulista", 0x9CF9E4},
 	{"Copa do Brasil", 0x9CF9E8},
-	{"Brazilian Campeonato Série A", 0x9CF9EC},
+	{"Campeonato Brasileiro Série A", 0x9CF9EC},
 	{"Irish Munster Senior Cup", 0x9CF9F0},
 	{"Irish Leinster Senior Cup", 0x9CF9F4},
-	{"Korean Super Cup", 0x9CF9F8},
+	{"K League Super Cup", 0x9CF9F8},
 	{"K League 2", 0x9CF9FC},
 	{"K League 1", 0x9CFA00},
-	{"Korean FA Cup", 0x9CFA04},
+	{"Korea Cup", 0x9CFA04},
 };
 
 map<string, DWORD> award_dword_match = {
@@ -1347,21 +660,21 @@ map<string, DWORD> award_dword_match = {
 	{"English PFA Players' Player of the Year", 0x9CFA34},
 	{"English PFA Young Player of the Year", 0x9CFA38},
 	{"English Premier League Team of the Year", 0x9CFA3C},
-	{"EFL Championship Team of the Year", 0x9CFA40},
-	{"EFL One Team of the Year", 0x9CFA44},
-	{"EFL Two Team of the Year", 0x9CFA48},
+	{"English Championship Team of the Year", 0x9CFA40},
+	{"English League One Team of the Year", 0x9CFA44},
+	{"English League Two Team of the Year", 0x9CFA48},
 	{"English Premier League Player of the Month", 0x9CFA4C},
-	{"EFL Championship Player of the Month", 0x9CFA50},
-	{"EFL One Player of the Month", 0x9CFA54},
-	{"EFL Two Player of the Month", 0x9CFA58},
+	{"English Championship Player of the Month", 0x9CFA50},
+	{"English League One Player of the Month", 0x9CFA54},
+	{"English League Two Player of the Month", 0x9CFA58},
 	{"English Premier League Young Player of the Month", 0x9CFA5C},
-	{"EFL Championship Young Player of the Month", 0x9CFA60},
-	{"EFL One Young Player of the Month", 0x9CFA64},
-	{"EFL Two Young Player of the Month", 0x9CFA68},
+	{"English Championship Young Player of the Month", 0x9CFA60},
+	{"English League One Young Player of the Month", 0x9CFA64},
+	{"English League Two Young Player of the Month", 0x9CFA68},
 	{"English Premier League Team of the Week", 0x9CFA6C},
-	{"EFL Championship Team of the Week", 0x9CFA70},
-	{"EFL One Team of the Week", 0x9CFA74},
-	{"EFL Two Team of the Week", 0x9CFA78},
+	{"English Championship Team of the Week", 0x9CFA70},
+	{"English League One Team of the Week", 0x9CFA74},
+	{"English League Two Team of the Week", 0x9CFA78},
 	{"PFA Scotland Players' Player of the Year", 0x9CFA7C},
 	{"PFA Scotland Young Player of the Year", 0x9CFA80},
 	{"SPFL Premiership Player of the Month", 0x9CFA84},
@@ -1373,17 +686,17 @@ map<string, DWORD> award_dword_match = {
 	{"SPFL League One Team of the Week", 0x9CFA9C},
 	{"SPFL League Two Team of the Week", 0x9CFAA0},
 	{"Belgian Golden Boot", 0x9CFAA4},
-	{"Belgian First Division Player of the Year", 0x9CFAA8},
-	{"Belgian First Division Goalkeeper of the Year", 0x9CFAAC},
+	{"Belgian Pro League Player of the Year", 0x9CFAA8},
+	{"Belgian Pro League Goalkeeper of the Year", 0x9CFAAC},
 	{"Belgian Second Division Player of the Year", 0x9CFAB0},
 	{"Danish Player of the Year", 0x9CFAB4},
-	{"Danish Premier Division Player of the Year", 0x9CFAB8},
-	{"Danish Premier Division Young Player of the Year", 0x9CFABC},
+	{"Danish Superliga Player of the Year", 0x9CFAB8},
+	{"Danish Superliga Young Player of the Year", 0x9CFABC},
 	{"Danish First Division Player of the Year", 0x9CFAC0},
 	{"Danish First Division Young Player of the Year", 0x9CFAC4},
-	{"Danish Kvalifikationsrækken Player of the Year", 0x9CFAC8},
+	{"Danish Third Division Player of the Year", 0x9CFAC8},
 	{"Danish Second Division Player of the Year", 0x9CFACC},
-	{"Danish Kvalifikationsrækken Young Player of Year", 0x9CFAD0},
+	{"Danish Third Division Young Player of Year", 0x9CFAD0},
 	{"Danish Second Division Young Player of Year", 0x9CFAD4},
 	{"French Player of the Year", 0x9CFAD8},
 	{"French Foreign Player of the Year", 0x9CFADC},
@@ -1400,13 +713,13 @@ map<string, DWORD> award_dword_match = {
 	{"German Bundesliga Player of the Month", 0x9CFB08},
 	{"German 2. Bundesliga Player of the Month", 0x9CFB0C},
 	{"Dutch Goalkeeper of the Year", 0x9CFB10},
-	{"Dutch Young Player of the Year", 0x9CFB14},
-	{"Dutch Premier Division Player of the Year", 0x9CFB18},
-	{"Dutch Premier Division Top Goalscorer", 0x9CFB1C},
-	{"Dutch Premier Division Golden Boot", 0x9CFB20},
-	{"Dutch First Division Player of the Year", 0x9CFB24},
-	{"Dutch First Division Top Goalscorer", 0x9CFB28},
-	{"Dutch First Division Golden Boot", 0x9CFB2C},
+	{"Dutch Eerste Divisie Young Player of the Year", 0x9CFB14},
+	{"Dutch Eredivisie Player of the Year", 0x9CFB18},
+	{"Dutch Eredivisie Top Goalscorer", 0x9CFB1C},
+	{"Dutch Eredivisie Manager of the Year", 0x9CFB20},
+	{"Dutch Eerste Divisie Player of the Year", 0x9CFB24},
+	{"Dutch Eerste Divisie Top Goalscorer", 0x9CFB28},
+	{"Dutch Eerste Divisie Manager of the Year", 0x9CFB2C},
 	{"Italian Serie A Young Player of the Year", 0x9CFB30},
 	{"Italian Serie A Player of the Year", 0x9CFB34},
 	{"Italian Serie A Italian Player of the Year", 0x9CFB38},
@@ -1414,23 +727,23 @@ map<string, DWORD> award_dword_match = {
 	{"Italian Serie A Defender of the Year", 0x9CFB40},
 	{"Italian Serie A Goalkeeper of the Year", 0x9CFB44},
 	{"Italian Serie B Player of the Year", 0x9CFB48},
-	{"Italian Serie C1/A Player of the Year", 0x9CFB4C},
+	{"Italian Serie C Player of the Year", 0x9CFB4C},
 	{"Italian Serie C1/B Player of the Year", 0x9CFB50},
 	{"Norwegian Player of the Year", 0x9CFB54},
 	{"Norwegian Goalkeeper of the Year", 0x9CFB58},
 	{"Norwegian Defender of the Year", 0x9CFB5C},
 	{"Norwegian Midfielder of the Year", 0x9CFB60},
 	{"Norwegian Attacker of the Year", 0x9CFB64},
-	{"Norwegian Premier Division Team of the Week", 0x9CFB68},
-	{"Norwegian First Division Team of the Week", 0x9CFB6C},
-	{"Portuguese Premier League Most Man of the Match", 0x9CFB70},
-	{"Portuguese Premier League Top Goalscorer", 0x9CFB74},
-	{"Portuguese Second League Player of the Year", 0x9CFB78},
+	{"Norwegian Eliteserien Team of the Week", 0x9CFB68},
+	{"Norwegian 1. Divisjon Team of the Week", 0x9CFB6C},
+	{"Liga Portugal 1 Most Man of the Match", 0x9CFB70},
+	{"Liga Portugal 1 Top Goalscorer", 0x9CFB74},
+	{"Liga Portugal 2 Player of the Year", 0x9CFB78},
 	{"Spanish First Division Goalkeeper of the Year", 0x9CFB7C},
 	{"Spanish Player of the Year", 0x9CFB80},
 	{"Spanish First Division Top Goalscorer", 0x9CFB84},
 	{"Swedish Player of the Year", 0x9CFB88},
-	{"Swedish Premier Division Top Goalscorer", 0x9CFB8C},
+	{"Swedish Allsvenskan Top Goalscorer", 0x9CFB8C},
 	{"Swedish Fans Player of the Year", 0x9CFB90},
 	{"MLS Goalkeeper of the Year", 0x9CFB94},
 	{"MLS Defender of the Year", 0x9CFB98},
@@ -1450,19 +763,19 @@ map<string, DWORD> award_dword_match = {
 	{"Belgian Manager of the Year", 0x9CFBD0},
 	{"English Premier League Manager of the Year", 0x9CFBD4},
 	{"English Premier League Manager of the Month", 0x9CFBD8},
-	{"EFL Championship Manager of the Year", 0x9CFBDC},
-	{"EFL Championship Manager of the Month", 0x9CFBE0},
-	{"EFL One Manager of the Year", 0x9CFBE4},
-	{"EFL One Manager of the Month", 0x9CFBE8},
-	{"EFL Two Manager of the Year", 0x9CFBEC},
-	{"EFL Two Manager of the Month", 0x9CFBF0},
+	{"English Championship Manager of the Year", 0x9CFBDC},
+	{"English Championship Manager of the Month", 0x9CFBE0},
+	{"English League One Manager of the Year", 0x9CFBE4},
+	{"English League One Manager of the Month", 0x9CFBE8},
+	{"English League Two Manager of the Year", 0x9CFBEC},
+	{"English League Two Manager of the Month", 0x9CFBF0},
 	{"French Manager of the Year", 0x9CFBF4},
 	{"German Bundesliga Manager of the Year", 0x9CFBF8},
 	{"German 2. Bundesliga Manager of the Year", 0x9CFBFC},
-	{"Dutch Manager of the Year", 0x9CFC00},
+	{"Dutch Eredivisie Young Player of the Year", 0x9CFC00},
 	{"Italian Serie A Panchina d'Oro", 0x9CFC04},
 	{"Italian Serie B Panchina d'Argento", 0x9CFC08},
-	{"Italian Serie C1/A Manager of the Year", 0x9CFC0C},
+	{"Italian Serie C Manager of the Year", 0x9CFC0C},
 	{"Italian Serie C1/B Manager of the Year", 0x9CFC10},
 	{"SPFL Premiership Manager of the Year", 0x9CFC14},
 	{"SPFL Premiership Manager of the Month", 0x9CFC18},
@@ -1485,47 +798,47 @@ map<string, DWORD> award_dword_match = {
 	{"Japanese J-League 1 Team of the Year", 0x9CFC5C},
 	{"World Cup Golden Boot", 0x9CFC60},
 	{"World Cup Dream Team", 0x9CFC64},
-	{"German Goalkeeper of the Year", 0x9CFC68},
-	{"German Sweeper of the Year", 0x9CFC6C},
-	{"German Defender of the Year", 0x9CFC70},
-	{"German Midfielder of the Year", 0x9CFC74},
-	{"German Striker of the Year", 0x9CFC78},
+	{"German 3. Liga Player of the Month", 0x9CFC68},
+	{"English National North Manager of the Year", 0x9CFC6C},
+	{"German 3. Liga Manager of the Year", 0x9CFC70},
+	{"German 3. Liga Team of the Week", 0x9CFC74},
+	{"German 3. Liga Top Goalscorer", 0x9CFC78},
 	{"German Bundesliga Top Goalscorer", 0x9CFC7C},
-	{"English Footballer of the Year", 0x9CFC80},
+	{"English National South Manager of the Year", 0x9CFC80},
 	{"English National League Manager of the Month", 0x9CFC84},
 	{"English National League Team of the Year", 0x9CFC88},
 	{"English National League Manager of the Year", 0x9CFC8C},
 	{"English National League Player of the Month", 0x9CFC90},
 	{"English National League Team of the Week", 0x9CFC94},
 	{"English National League Young Player of the Month", 0x9CFC98},
-	{"Portuguese Premier League Team of the Year", 0x9CFC9C},
-	{"Portuguese Second League Team of the Year", 0x9CFCA0},
-	{"Portuguese Premier League Team of the Week", 0x9CFCA4},
-	{"Portuguese Second League Team of the Week", 0x9CFCA8},
+	{"Liga Portugal 1 Team of the Year", 0x9CFC9C},
+	{"Liga Portugal 2 Team of the Year", 0x9CFCA0},
+	{"Liga Portugal 1 Team of the Week", 0x9CFCA4},
+	{"Liga Portugal 2 Team of the Week", 0x9CFCA8},
 	{"Japanese J-League 1 Team of the Week", 0x9CFCAC},
 	{"Japanese J-League 2 Team of the Week", 0x9CFCB0},
-	{"Swedish Premier Division Team of the Week", 0x9CFCB4},
-	{"Swedish First Division Team of the Week", 0x9CFCB8},
+	{"Swedish Allsvenskan Team of the Week", 0x9CFCB4},
+	{"Swedish Superettan Team of the Week", 0x9CFCB8},
 	{"Spanish First Division Team of the Week", 0x9CFCBC},
 	{"Spanish Second Division Team of the Week", 0x9CFCC0},
 	{"Italian Serie A Team of the Week", 0x9CFCC4},
 	{"Italian Serie B Team of the Week", 0x9CFCC8},
-	{"Italian Serie C1/A Team of the Week", 0x9CFCCC},
+	{"Italian Serie C Team of the Week", 0x9CFCCC},
 	{"Italian Serie C1/B Team of the Week", 0x9CFCD0},
-	{"Dutch Premier Division Team of the Week", 0x9CFCD4},
-	{"Dutch First Division Team of the Week", 0x9CFCD8},
+	{"Dutch Eredivisie Team of the Week", 0x9CFCD4},
+	{"Dutch Eerste Divisie Team of the Week", 0x9CFCD8},
 	{"German Bundesliga Team of the Week", 0x9CFCDC},
 	{"German 2. Bundesliga Team of the Week", 0x9CFCE0},
 	{"French Ligue 1 Team of the Week", 0x9CFCE4},
 	{"French Ligue 2 Team of the Week", 0x9CFCE8},
-	{"Danish Premier Division Team of the Week", 0x9CFCEC},
+	{"Danish Superliga Team of the Week", 0x9CFCEC},
 	{"Danish First Division Team of the Week", 0x9CFCF0},
 	{"Danish Second Division Team of the Week", 0x9CFCF4},
-	{"Belgian First Division Team of the Week", 0x9CFCF8},
-	{"Belgian Second Division Team of the Week", 0x9CFCFC},
-	{"Portuguese Premier League Player of the Year", 0x9CFD00},
-	{"Portuguese Second League Most Man of the Match", 0x9CFD04},
-	{"Portuguese Second League Top Goalscorer", 0x9CFD08},
+	{"Belgian Pro League Team of the Week", 0x9CFCF8},
+	{"Belgian Challenger League Team of the Week", 0x9CFCFC},
+	{"Liga Portugal 1 Player of the Year", 0x9CFD00},
+	{"Liga Portugal 2 Most Man of the Match", 0x9CFD04},
+	{"Liga Portugal 2 Top Goalscorer", 0x9CFD08},
 	{"German 2. Bundesliga Top Goalscorer", 0x9CFD0C},
 	{"Swedish Goalkeeper of the Year", 0x9CFD10},
 	{"Swedish Defender of the Year", 0x9CFD14},
@@ -1544,36 +857,36 @@ map<string, DWORD> award_dword_match = {
 	{"Italian Serie C2/C Manager of the Year", 0x9CFD48},
 	{"Italian Serie C2/C Player of the Year", 0x9CFD4C},
 	{"Italian Serie C2/C Team of the Week", 0x9CFD50},
-	{"Belgian First Division Top Goalscorer", 0x9CFD54},
-	{"Belgian First Division Revelation of the Year", 0x9CFD58},
-	{"Belgian Second Division Top Goalscorer", 0x9CFD5C},
-	{"Belgian Third Division Team of the Week", 0x9CFD60},
-	{"Belgian Third Division Player of the Year", 0x9CFD64},
-	{"Belgian Third Division Top Goalscorer", 0x9CFD68},
+	{"Belgian Pro League Top Goalscorer", 0x9CFD54},
+	{"Belgian Pro League Revelation of the Year", 0x9CFD58},
+	{"Belgian Challenger League Top Goalscorer", 0x9CFD5C},
+	{"Belgian Division 1 VV Team of the Week", 0x9CFD60},
+	{"Belgian Division 1 VV Revelation of the Year", 0x9CFD64},
+	{"Belgian Division 1 VV Top Goalscorer", 0x9CFD68},
 	{"European Goalkeeper of the Year", 0x9CFD6C},
 	{"European Defender of the Year", 0x9CFD70},
 	{"European Midfielder of the Year", 0x9CFD74},
 	{"European Striker of the Year", 0x9CFD78},
 	{"Italian Serie A Team of the Year", 0x9CFD7C},
 	{"Italian Serie B Team of the Year", 0x9CFD80},
-	{"Italian Serie C1/A Team of the Year", 0x9CFD84},
+	{"Italian Serie C Team of the Year", 0x9CFD84},
 	{"Italian Serie C1/B Team of the Year", 0x9CFD88},
 	{"Italian Serie C2/A Team of the Year", 0x9CFD8C},
 	{"Italian Serie C2/B Team of the Year", 0x9CFD90},
 	{"Italian Serie C2/C Team of the Year", 0x9CFD94},
 	{"Italian Serie A Capocannoniere", 0x9CFD98},
 	{"Italian Serie B Top Goalscorer", 0x9CFD9C},
-	{"Italian Serie C1/A Top Goalscorer", 0x9CFDA0},
+	{"Italian Serie C Top Goalscorer", 0x9CFDA0},
 	{"Italian Serie C1/B Top Goalscorer", 0x9CFDA4},
 	{"Italian Serie C2/A Top Goalscorer", 0x9CFDA8},
 	{"Italian Serie C2/B Top Goalscorer", 0x9CFDAC},
 	{"Italian Serie C2/C Top Goalscorer", 0x9CFDB0},
-	{"Norwegian Premier Division Manager of the Month", 0x9CFDB4},
-	{"Norwegian Premier Division Player of the Month", 0x9CFDB8},
-	{"Norwegian First Division Manager of the Month", 0x9CFDBC},
-	{"Norwegian First Division Player of the Month", 0x9CFDC0},
-	{"Portuguese Premier League Manager of the Year", 0x9CFDC4},
-	{"Portuguese Second League Manager of the Year", 0x9CFDC8},
+	{"Norwegian Eliteserien Manager of the Month", 0x9CFDB4},
+	{"Norwegian Eliteserien Player of the Month", 0x9CFDB8},
+	{"Norwegian 1. Divisjon Manager of the Month", 0x9CFDBC},
+	{"Norwegian 1. Divisjon Player of the Month", 0x9CFDC0},
+	{"Liga Portugal 1 Manager of the Year", 0x9CFDC4},
+	{"Liga Portugal 2 Manager of the Year", 0x9CFDC8},
 	{"Finnish Player of the Year", 0x9CFDCC},
 	{"Finnish Young Player of the Year", 0x9CFDD0},
 	{"Finnish Goalkeeper of the Year", 0x9CFDD4},
@@ -1582,9 +895,9 @@ map<string, DWORD> award_dword_match = {
 	{"Finnish Veikkausliiga Player of the Month", 0x9CFDE0},
 	{"Finnish Veikkausliiga Team of the Year", 0x9CFDE4},
 	{"Finnish Veikkausliiga Team of the Week", 0x9CFDE8},
-	{"Finnish Ykkönen Top Goalscorer", 0x9CFDEC},
-	{"Finnish Ykkönen Team of the Year", 0x9CFDF0},
-	{"Finnish Ykkönen Team of the Week", 0x9CFDF4},
+	{"Finnish Ykkösliiga Top Goalscorer", 0x9CFDEC},
+	{"Finnish Ykkösliiga Team of the Year", 0x9CFDF0},
+	{"Finnish Ykkösliiga Team of the Week", 0x9CFDF4},
 	{"Irish Player of the Year", 0x9CFDF8},
 	{"Irish Young Player of the Year", 0x9CFDFC},
 	{"Irish Premier Division Team of the Week", 0x9CFE00},
@@ -1599,25 +912,25 @@ map<string, DWORD> award_dword_match = {
 	{"Irish Premier Division Manager of the Month", 0x9CFE24},
 	{"Irish First Division Manager of the Year", 0x9CFE28},
 	{"Irish First Division Manager of the Month", 0x9CFE2C},
-	{"Polish First Division Team of the Week", 0x9CFE30},
-	{"Polish First Division Player of the Year", 0x9CFE34},
-	{"Polish First Division Young Player of the Year", 0x9CFE38},
-	{"Polish First Division Manager of the Year", 0x9CFE3C},
-	{"Polish First Division Manager of the Month", 0x9CFE40},
-	{"Polish Second Division Team of the Week", 0x9CFE44},
-	{"Polish Second Division Player of the Year", 0x9CFE48},
-	{"Polish Second Division Young Player of the Year", 0x9CFE4C},
-	{"Polish Second Division Manager of the Year", 0x9CFE50},
-	{"Polish Second Division Manager of the Month", 0x9CFE54},
-	{"Croatian First Division Player of the Year", 0x9CFE58},
-	{"Croatian First Division Team of the Week", 0x9CFE5C},
-	{"Croatian First Division Top Goalscorer", 0x9CFE60},
-	{"Croatian Second Division A Player of the Year", 0x9CFE64},
-	{"Croatian Second Division A Team of the Week", 0x9CFE68},
-	{"Croatian Second Division A Top Goalscorer", 0x9CFE6C},
-	{"Croatian Second Division B Player of the Year", 0x9CFE70},
-	{"Croatian Second Division B Team of the Week", 0x9CFE74},
-	{"Croatian Second Division B Top Goalscorer", 0x9CFE78},
+	{"Polish Ekstraklasa Team of the Week", 0x9CFE30},
+	{"Polish Ekstraklasa Player of the Year", 0x9CFE34},
+	{"Polish Ekstraklasa Young Player of the Year", 0x9CFE38},
+	{"Polish Ekstraklasa Manager of the Year", 0x9CFE3C},
+	{"Polish Ekstraklasa Team of the Year", 0x9CFE40},
+	{"Polish I Liga Team of the Week", 0x9CFE44},
+	{"Polish I Liga Player of the Year", 0x9CFE48},
+	{"Polish I Liga Young Player of the Year", 0x9CFE4C},
+	{"Polish I Liga Manager of the Year", 0x9CFE50},
+	{"Polish I Liga Team of the Year", 0x9CFE54},
+	{"Croatian HNL Player of the Year", 0x9CFE58},
+	{"Croatian HNL Team of the Week", 0x9CFE5C},
+	{"Croatian HNL Top Goalscorer", 0x9CFE60},
+	{"Croatian 1. NL Player of the Year", 0x9CFE64},
+	{"Croatian 1. NL Team of the Week", 0x9CFE68},
+	{"Croatian 1. NL Top Goalscorer", 0x9CFE6C},
+	{"Croatian 2. NL Player of the Year", 0x9CFE70},
+	{"Croatian 2. NL Team of the Week", 0x9CFE74},
+	{"Croatian 2. NL Top Goalscorer", 0x9CFE78},
 	{"Australian NSL Team of the Week", 0x9CFE7C},
 	{"Australian NSL Manager of the Month", 0x9CFE80},
 	{"Australian NSL Player of the Month", 0x9CFE84},
@@ -1629,14 +942,14 @@ map<string, DWORD> award_dword_match = {
 	{"Australian NSL Manager of the Year", 0x9CFE9C},
 	{"Greek Player of the Year", 0x9CFEA0},
 	{"Greek Foreign Player of the Year", 0x9CFEA4},
-	{"Greek Superleague Team of the Week", 0x9CFEA8},
-	{"Greek Superleague Player of the Year", 0x9CFEAC},
-	{"Greek Superleague Manager of the Year", 0x9CFEB0},
-	{"Greek Superleague Top Goalscorer", 0x9CFEB4},
-	{"Greek Football League Team of the Week", 0x9CFEB8},
-	{"Greek Football League Player of the Year", 0x9CFEBC},
-	{"Greek Football League Manager of the Year", 0x9CFEC0},
-	{"Greek Football League Top Goalscorer", 0x9CFEC4},
+	{"Greek Super League Team of the Week", 0x9CFEA8},
+	{"Greek Super League Player of the Year", 0x9CFEAC},
+	{"Greek Super League Manager of the Year", 0x9CFEB0},
+	{"Greek Super League Top Goalscorer", 0x9CFEB4},
+	{"Greek Super League 2 Team of the Week", 0x9CFEB8},
+	{"Greek Super League 2 Player of the Year", 0x9CFEBC},
+	{"Greek Super League 2 Manager of the Year", 0x9CFEC0},
+	{"Greek Super League 2 Top Goalscorer", 0x9CFEC4},
 	{"Turkish Player of the Year", 0x9CFEC8},
 	{"Turkish Manager of the Year", 0x9CFECC},
 	{"Turkish Süper Lig Team of the Week", 0x9CFED0},
@@ -1651,22 +964,22 @@ map<string, DWORD> award_dword_match = {
 	{"Russian First Division Team of the Year", 0x9CFEF4},
 	{"Russian First Division Player of the Month", 0x9CFEF8},
 	{"Irish Personality of the Year", 0x9CFEFC},
-	{"N. Irish Player of the Year", 0x9CFF00},
-	{"N. Irish Premier Division Team of the Week", 0x9CFF04},
-	{"N. Irish Premier Division Player of the Year", 0x9CFF08},
-	{"N. Irish Premier Division Young Player of the Year", 0x9CFF0C},
-	{"N. Irish Premier Division Top Goalscorer", 0x9CFF10},
-	{"N. Irish Premier Division Manager of the Year", 0x9CFF14},
-	{"N. Irish Premier Division Manager of the Month", 0x9CFF18},
-	{"N. Irish First Division Team of the Week", 0x9CFF1C},
-	{"N. Irish First Division Player of the Year", 0x9CFF20},
-	{"N. Irish First Division Young Player of the Year", 0x9CFF24},
-	{"N. Irish First Division Top Goalscorer", 0x9CFF28},
-	{"N. Irish First Division Manager of the Year", 0x9CFF2C},
-	{"N. Irish First Division Manager of the Month", 0x9CFF30},
+	{"NIFL Player of the Year", 0x9CFF00},
+	{"NIFL Premiership Team of the Week", 0x9CFF04},
+	{"NIFL Premiership Player of the Year", 0x9CFF08},
+	{"NIFL Premiership Young Player of the Year", 0x9CFF0C},
+	{"NIFL Premiership Top Goalscorer", 0x9CFF10},
+	{"NIFL Premiership Manager of the Year", 0x9CFF14},
+	{"NIFL Premiership Manager of the Month", 0x9CFF18},
+	{"NIFL Championship Team of the Week", 0x9CFF1C},
+	{"NIFL Championship Player of the Year", 0x9CFF20},
+	{"NIFL Championship Young Player of the Year", 0x9CFF24},
+	{"NIFL Championship Top Goalscorer", 0x9CFF28},
+	{"NIFL Championship Manager of the Year", 0x9CFF2C},
+	{"NIFL Championship Manager of the Month", 0x9CFF30},
 	{"Irish League Golden Boot", 0x9CFF34},
 	{"Irish League Bronze Boot", 0x9CFF38},
-	{"Belgian Second Division Revelation of the Year", 0x9CFF3C},
+	{"Belgian Challenger League Revelation of the Year", 0x9CFF3C},
 	{"Welsh Team of the Week", 0x9CFF40},
 	{"Welsh Player of the Year", 0x9CFF44},
 	{"Welsh Young Player of the Year", 0x9CFF48},
@@ -1682,74 +995,74 @@ map<string, DWORD> award_dword_match = {
 	{"Irish Player of the Month", 0x9CFF70},
 	{"French National Players' Player of the Year", 0x9CFF74},
 	{"Oceania Footballer of the Year", 0x9CFF78},
-	{"Finnish Ykkönen Player of the Month", 0x9CFF7C},
+	{"Finnish Ykkösliiga Player of the Month", 0x9CFF7C},
 	{"Finnish Veikkausliiga Manager of the Month", 0x9CFF80},
-	{"Finnish Ykkönen Manager of the Month", 0x9CFF84},
-	{"Brazilian 1st Division Player of the Year", 0x9CFF88},
-	{"Brazilian 1st Division Team of the Week", 0x9CFF8C},
-	{"Brazilian 1st Division Team of the Year", 0x9CFF90},
-	{"Brazilian 1st Division Top Goalscorer", 0x9CFF94},
-	{"Brazilian 1st Division Young Player of the Year", 0x9CFF98},
-	{"Brazilian 2nd Division Player of the Year", 0x9CFF9C},
-	{"Brazilian 2nd Division Team of the Week", 0x9CFFA0},
-	{"Brazilian 2nd Division Team of the Year", 0x9CFFA4},
-	{"Brazilian 2nd Division Top Goalscorer", 0x9CFFA8},
-	{"Brazilian 2nd Division Young Player of the Year", 0x9CFFAC},
-	{"Brazilian 3rd Division Player of the Year", 0x9CFFB0},
-	{"Brazilian 3rd Division Team of the Week", 0x9CFFB4},
-	{"Brazilian 3rd Division Team of the Year", 0x9CFFB8},
-	{"Brazilian 3rd Division Top Goalscorer", 0x9CFFBC},
-	{"Brazilian 3rd Division Young Player of the Year", 0x9CFFC0},
-	{"Brazilian Bahia Best Goalkeeper", 0x9CFFC4},
-	{"Brazilian Bahia Best Player", 0x9CFFC8},
-	{"Brazilian Bahia Team of the Week", 0x9CFFCC},
-	{"Brazilian Bahia Top Goalscorer", 0x9CFFD0},
-	{"Brazilian Central Best Goalkeeper", 0x9CFFD4},
-	{"Brazilian Central Best Player", 0x9CFFD8},
-	{"Brazilian Central Team of the Week", 0x9CFFDC},
-	{"Brazilian Central Top Goalscorer", 0x9CFFE0},
-	{"Brazilian Gaúcho Best Goalkeeper", 0x9CFFE4},
-	{"Brazilian Gaúcho Best Player", 0x9CFFE8},
-	{"Brazilian Gaúcho Team of the Week", 0x9CFFEC},
-	{"Brazilian Gaúcho Top Goalscorer", 0x9CFFF0},
-	{"Brazilian Goiás Best Goalkeeper", 0x9CFFF4},
-	{"Brazilian Goiás Best Player", 0x9CFFF8},
-	{"Brazilian Goiás Team of the Week", 0x9CFFFC},
-	{"Brazilian Goiás Top Goalscorer", 0x9D0000},
-	{"Brazilian Minas Gerais Best Goalkeeper", 0x9D0004},
-	{"Brazilian Minas Gerais Best Player", 0x9D0008},
-	{"Brazilian Minas Gerais Team of the Week", 0x9D000C},
-	{"Brazilian Minas Gerais Top Goalscorer", 0x9D0010},
-	{"Brazilian North Best Goalkeeper", 0x9D0014},
-	{"Brazilian North Best Player", 0x9D0018},
-	{"Brazilian North Team of the Week", 0x9D001C},
-	{"Brazilian North Top Goalscorer", 0x9D0020},
-	{"Brazilian Northeast Best Goalkeeper", 0x9D0024},
-	{"Brazilian Northeast Best Player", 0x9D0028},
-	{"Brazilian Northeast Team of the Week", 0x9D002C},
-	{"Brazilian Northeast Top Goalscorer", 0x9D0030},
-	{"Brazilian Paraná Best Goalkeeper", 0x9D0034},
-	{"Brazilian Paraná Best Player", 0x9D0038},
-	{"Brazilian Paraná Team of the Week", 0x9D003C},
-	{"Brazilian Paraná Top Goalscorer", 0x9D0040},
-	{"Brazilian Pernambuco Best Goalkeeper", 0x9D0044},
-	{"Brazilian Pernambuco Best Player", 0x9D0048},
-	{"Brazilian Pernambuco Team of the Week", 0x9D004C},
-	{"Brazilian Pernambuco Top Goalscorer", 0x9D0050},
-	{"Brazilian Rio de Janeiro Best Goalkeeper", 0x9D0054},
-	{"Brazilian Rio de Janeiro Best Player", 0x9D0058},
-	{"Brazilian Rio de Janeiro Team of the Week", 0x9D005C},
-	{"Brazilian Rio de Janeiro Top Goalscorer", 0x9D0060},
-	{"Brazilian Santa Catarina Best Goalkeeper", 0x9D0064},
-	{"Brazilian Santa Catarina Best Player", 0x9D0068},
-	{"Brazilian Santa Catarina Team of the Week", 0x9D006C},
-	{"Brazilian Santa Catarina Top Goalscorer", 0x9D0070},
-	{"Brazilian São Paulo Best Goalkeeper", 0x9D0074},
-	{"Brazilian São Paulo Best Player", 0x9D0078},
-	{"Brazilian São Paulo Team of the Week", 0x9D007C},
-	{"Brazilian São Paulo Top Goalscorer", 0x9D0080},
+	{"Finnish Ykkösliiga Manager of the Month", 0x9CFF84},
+	{"Brazilian Série A Player of the Year", 0x9CFF88},
+	{"Brazilian Série A Team of the Week", 0x9CFF8C},
+	{"Brazilian Série A Team of the Year", 0x9CFF90},
+	{"Brazilian Série A Top Goalscorer", 0x9CFF94},
+	{"Brazilian Série A Young Player of the Year", 0x9CFF98},
+	{"Brazilian Série B Player of the Year", 0x9CFF9C},
+	{"Brazilian Série B Team of the Week", 0x9CFFA0},
+	{"Brazilian Série B Team of the Year", 0x9CFFA4},
+	{"Brazilian Série B Top Goalscorer", 0x9CFFA8},
+	{"Brazilian Série B Young Player of the Year", 0x9CFFAC},
+	{"Brazilian Série C Player of the Year", 0x9CFFB0},
+	{"Brazilian Série C Team of the Week", 0x9CFFB4},
+	{"Brazilian Série C Team of the Year", 0x9CFFB8},
+	{"Brazilian Série C Top Goalscorer", 0x9CFFBC},
+	{"Brazilian Série C Young Player of the Year", 0x9CFFC0},
+	{"Campeonato Baiano Best Goalkeeper", 0x9CFFC4},
+	{"Campeonato Baiano Best Player", 0x9CFFC8},
+	{"Campeonato Baiano Team of the Week", 0x9CFFCC},
+	{"Campeonato Baiano Top Goalscorer", 0x9CFFD0},
+	{"Campeonato Central Best Goalkeeper", 0x9CFFD4},
+	{"Campeonato Central Best Player", 0x9CFFD8},
+	{"Campeonato Central Team of the Week", 0x9CFFDC},
+	{"Campeonato Central Top Goalscorer", 0x9CFFE0},
+	{"Campeonato Gaúcho Best Goalkeeper", 0x9CFFE4},
+	{"Campeonato Gaúcho Best Player", 0x9CFFE8},
+	{"Campeonato Gaúcho Team of the Week", 0x9CFFEC},
+	{"Campeonato Gaúcho Top Goalscorer", 0x9CFFF0},
+	{"Campeonato Goiano Best Goalkeeper", 0x9CFFF4},
+	{"Campeonato Goiano Best Player", 0x9CFFF8},
+	{"Campeonato Goiano Team of the Week", 0x9CFFFC},
+	{"Campeonato Goiano Top Goalscorer", 0x9D0000},
+	{"Campeonato Mineiro Best Goalkeeper", 0x9D0004},
+	{"Campeonato Mineiro Best Player", 0x9D0008},
+	{"Campeonato Mineiro Team of the Week", 0x9D000C},
+	{"Campeonato Mineiro Top Goalscorer", 0x9D0010},
+	{"Campeonato do Norte Best Goalkeeper", 0x9D0014},
+	{"Campeonato do Norte Best Player", 0x9D0018},
+	{"Campeonato do Norte Team of the Week", 0x9D001C},
+	{"Campeonato do Norte Top Goalscorer", 0x9D0020},
+	{"Campeonato do Nordeste Best Goalkeeper", 0x9D0024},
+	{"Campeonato do Nordeste Best Player", 0x9D0028},
+	{"Campeonato do Nordeste Team of the Week", 0x9D002C},
+	{"Campeonato do Nordeste Top Goalscorer", 0x9D0030},
+	{"Campeonato Paranaense Best Goalkeeper", 0x9D0034},
+	{"Campeonato Paranaense Best Player", 0x9D0038},
+	{"Campeonato Paranaense Team of the Week", 0x9D003C},
+	{"Campeonato Paranaense Top Goalscorer", 0x9D0040},
+	{"Campeonato Pernambucano Best Goalkeeper", 0x9D0044},
+	{"Campeonato Pernambucano Best Player", 0x9D0048},
+	{"Campeonato Pernambucano Team of the Week", 0x9D004C},
+	{"Campeonato Pernambucano Top Goalscorer", 0x9D0050},
+	{"Campeonato Carioca Best Goalkeeper", 0x9D0054},
+	{"Campeonato Carioca Best Player", 0x9D0058},
+	{"Campeonato Carioca Team of the Week", 0x9D005C},
+	{"Campeonato Carioca Top Goalscorer", 0x9D0060},
+	{"Campeonato Catarinense Best Goalkeeper", 0x9D0064},
+	{"Campeonato Catarinense Best Player", 0x9D0068},
+	{"Campeonato Catarinense Team of the Week", 0x9D006C},
+	{"Campeonato Catarinense Top Goalscorer", 0x9D0070},
+	{"Campeonato Paulista Best Goalkeeper", 0x9D0074},
+	{"Campeonato Paulista Best Player", 0x9D0078},
+	{"Campeonato Paulista Team of the Week", 0x9D007C},
+	{"Campeonato Paulista Top Goalscorer", 0x9D0080},
 	{"South Korean Best 11 of the Year", 0x9D0084},
-	{"South Korean Goalkeeper of the Month", 0x9D0088},
+	{"South Korean Manager of the Month", 0x9D0088},
 	{"South Korean Manager of the Year", 0x9D008C},
 	{"South Korean Most Assisted Player of the Year", 0x9D0090},
 	{"South Korean Player of the Month", 0x9D0094},
@@ -1758,40 +1071,13 @@ map<string, DWORD> award_dword_match = {
 	{"South Korean Young Player of the Year", 0x9D00A0},
 };
 
-int setup_9cf_leagues_sub(char* league_name, DWORD league_id, map<string, char*> new_names_map) {
+int setup_9cf_leagues(char* league_name, DWORD league_id) {
+	// Fill out 9CF codes
 	auto it = league_dword_match.find(string(league_name));
 	if (it != league_dword_match.end()) {
 		WriteDWORD(it->second, league_id);
 	}
-	else {
-		for (const auto& [key, value] : new_names_map) {
-			auto find_name_edited = league_dword_match.find(key);
-			if (find_name_edited != league_dword_match.end() && _strcmpi(value, league_name) == 0) {
-				WriteDWORD(find_name_edited->second, league_id);
-			}
-		}
-	}
 	return 1;
-}
-
-int setup_9cf_leagues(char* league_name, DWORD league_id) {
-	// Change database names
-	cm3_club_comps* comp_data = &(*club_comps)[league_id];
-	string League_name_str = string(league_name);
-	auto new_val_long = leagues_rename_long.find(League_name_str);
-	if (new_val_long != leagues_rename_long.end()) {
-		strcpy_s(comp_data->ClubCompName, new_val_long->second);
-	}
-	auto new_val_short = leagues_rename_short.find(League_name_str);
-	if (new_val_short != leagues_rename_short.end()) {
-		strcpy_s(comp_data->ClubCompNameShort, new_val_short->second);
-	}
-	auto new_val_tla = leagues_rename_tla.find(League_name_str);
-	if (new_val_tla != leagues_rename_tla.end()) {
-		strcpy_s(comp_data->ClubCompNameThreeLetter, new_val_tla->second);
-	}
-	// Fill out 9CF codes
-	return setup_9cf_leagues_sub(league_name, league_id, leagues_rename_long);
 }
 
 int setup_9cf_clubs(char* club_name, DWORD club_id) {
@@ -1852,37 +1138,13 @@ extern "C" _declspec(naked) int inject_club_names()
 	}
 }
 
-int setup_9cf_awards_sub(char* award_name, DWORD award_id, map<string, char*> new_names_map) {
+int setup_9cf_awards(char* award_name, DWORD award_id) {
 	// Fill out 9CF codes
 	auto it = award_dword_match.find(string(award_name));
 	if (it != award_dword_match.end()) {
 		WriteDWORD(it->second, award_id);
 	}
-	else {
-		for (const auto& [key, value] : new_names_map) {
-			auto find_name_edited = award_dword_match.find(key);
-			if (find_name_edited != award_dword_match.end() && _strcmpi(value, award_name) == 0) {
-				WriteDWORD(find_name_edited->second, award_id);
-			}
-		}
-	}
 	return 1;
-}
-
-int setup_9cf_awards(char* award_name, DWORD award_id) {
-	// Change database names
-	cm3_staff_comps* comp_data = &(*awards)[award_id];
-	string award_name_str = string(award_name);
-	auto new_val_long = awards_rename_long.find(award_name_str);
-	if (new_val_long != awards_rename_long.end()) {
-		strcpy_s(comp_data->StaffCompName, new_val_long->second);
-	}
-	auto new_val_short = awards_rename_short.find(award_name_str);
-	if (new_val_short != awards_rename_short.end()) {
-		strcpy_s(comp_data->StaffCompNameShort, new_val_short->second);
-	}
-	// Fill out 9CF codes
-	return setup_9cf_awards_sub(award_name, award_id, awards_rename_long);
 }
 
 // a bit ugly and lengthy but works with no issues
@@ -2297,123 +1559,4 @@ void setup_name_injection()
 	PatchFunction(0x6146B0, (DWORD)setup_9cf_clubs);
 
 	PatchFunction(0x540A50, (DWORD)check_if_reserve_team_new);
-
-	if (configFile.GetBool("applyArgentina", true)) {
-		leagues_rename_long.insert(leagues_rename_long_argentina.begin(), leagues_rename_long_argentina.end());
-		leagues_rename_short.insert(leagues_rename_short_argentina.begin(), leagues_rename_short_argentina.end());
-		leagues_rename_tla.insert(leagues_rename_tla_argentina.begin(), leagues_rename_tla_argentina.end());
-	}
-
-	if (configFile.GetBool("applyAustralia", true)) {
-		leagues_rename_long.insert(leagues_rename_long_australia.begin(), leagues_rename_long_australia.end());
-		leagues_rename_short.insert(leagues_rename_short_australia.begin(), leagues_rename_short_australia.end());
-	}
-
-	if (configFile.GetBool("applyBelgium", true)) {
-		leagues_rename_long.insert(leagues_rename_long_belgium.begin(), leagues_rename_long_belgium.end());
-		leagues_rename_short.insert(leagues_rename_short_belgium.begin(), leagues_rename_short_belgium.end());
-		leagues_rename_tla.insert(leagues_rename_tla_belgium.begin(), leagues_rename_tla_belgium.end());
-	}
-
-	if (configFile.GetBool("applyBrazil", true)) {
-		leagues_rename_long.insert(leagues_rename_long_brazil.begin(), leagues_rename_long_brazil.end());
-		leagues_rename_short.insert(leagues_rename_short_brazil.begin(), leagues_rename_short_brazil.end());
-		leagues_rename_tla.insert(leagues_rename_tla_brazil.begin(), leagues_rename_tla_brazil.end());
-	}
-
-	if (configFile.GetBool("applyCroatia", true)) {
-		awards_rename_long.insert(awards_rename_long_croatia.begin(), awards_rename_long_croatia.end());
-		awards_rename_short.insert(awards_rename_short_croatia.begin(), awards_rename_short_croatia.end());
-		leagues_rename_long.insert(leagues_rename_long_croatia.begin(), leagues_rename_long_croatia.end());
-		leagues_rename_short.insert(leagues_rename_short_croatia.begin(), leagues_rename_short_croatia.end());
-		leagues_rename_tla.insert(leagues_rename_tla_croatia.begin(), leagues_rename_tla_croatia.end());
-	}
-
-	if (configFile.GetBool("applyGermany", true)) {
-		leagues_rename_long.insert(leagues_rename_long_germany.begin(), leagues_rename_long_germany.end());
-		leagues_rename_short.insert(leagues_rename_short_germany.begin(), leagues_rename_short_germany.end());
-		leagues_rename_tla.insert(leagues_rename_tla_germany.begin(), leagues_rename_tla_germany.end());
-	}
-
-	if (configFile.GetBool("applyGreece", true)) {
-		leagues_rename_long.insert(leagues_rename_long_greece.begin(), leagues_rename_long_greece.end());
-		leagues_rename_short.insert(leagues_rename_short_greece.begin(), leagues_rename_short_greece.end());
-		leagues_rename_tla.insert(leagues_rename_tla_greece.begin(), leagues_rename_tla_greece.end());
-	}
-
-	if (configFile.GetBool("applyFinland", true)) {
-		leagues_rename_long.insert(leagues_rename_long_finland.begin(), leagues_rename_long_finland.end());
-		leagues_rename_short.insert(leagues_rename_short_finland.begin(), leagues_rename_short_finland.end());
-		leagues_rename_tla.insert(leagues_rename_tla_finland.begin(), leagues_rename_tla_finland.end());
-	}
-
-	if (configFile.GetBool("applyHolland", true)) {
-		awards_rename_long.insert(awards_rename_long_holland.begin(), awards_rename_long_holland.end());
-		awards_rename_short.insert(awards_rename_short_holland.begin(), awards_rename_short_holland.end());
-	}
-
-	if (configFile.GetBool("applyItaly", true)) {
-		awards_rename_long.insert(awards_rename_long_italy.begin(), awards_rename_long_italy.end());
-		awards_rename_short.insert(awards_rename_short_italy.begin(), awards_rename_short_italy.end());
-		leagues_rename_long.insert(leagues_rename_long_italy.begin(), leagues_rename_long_italy.end());
-		leagues_rename_short.insert(leagues_rename_short_italy.begin(), leagues_rename_short_italy.end());
-		leagues_rename_tla.insert(leagues_rename_tla_italy.begin(), leagues_rename_tla_italy.end());
-	}
-
-	if (configFile.GetBool("applyJapan", true)) {
-		leagues_rename_long.insert(leagues_rename_long_japan.begin(), leagues_rename_long_japan.end());
-		leagues_rename_short.insert(leagues_rename_short_japan.begin(), leagues_rename_short_japan.end());
-		leagues_rename_tla.insert(leagues_rename_tla_japan.begin(), leagues_rename_tla_japan.end());
-	}
-
-	if (configFile.GetBool("applyNorway", true)) {
-		leagues_rename_long.insert(leagues_rename_long_norway.begin(), leagues_rename_long_norway.end());
-		leagues_rename_short.insert(leagues_rename_short_norway.begin(), leagues_rename_short_norway.end());
-		leagues_rename_tla.insert(leagues_rename_tla_norway.begin(), leagues_rename_tla_norway.end());
-	}
-
-	if (configFile.GetBool("applyPoland", true)) {
-		awards_rename_long.insert(awards_rename_long_poland.begin(), awards_rename_long_poland.end());
-		awards_rename_short.insert(awards_rename_short_poland.begin(), awards_rename_short_poland.end());
-		leagues_rename_long.insert(leagues_rename_long_poland.begin(), leagues_rename_long_poland.end());
-		leagues_rename_short.insert(leagues_rename_short_poland.begin(), leagues_rename_short_poland.end());
-		leagues_rename_tla.insert(leagues_rename_tla_poland.begin(), leagues_rename_tla_poland.end());
-	}
-
-	if (configFile.GetBool("applyPortugal", true)) {
-		awards_rename_long.insert(awards_rename_long_portugal.begin(), awards_rename_long_portugal.end());
-		awards_rename_short.insert(awards_rename_short_portugal.begin(), awards_rename_short_portugal.end());
-		leagues_rename_long.insert(leagues_rename_long_portugal.begin(), leagues_rename_long_portugal.end());
-		leagues_rename_short.insert(leagues_rename_short_portugal.begin(), leagues_rename_short_portugal.end());
-		leagues_rename_tla.insert(leagues_rename_tla_portugal.begin(), leagues_rename_tla_portugal.end());
-	}
-
-	if (configFile.GetBool("applyScotland", true)) {
-		leagues_rename_long.insert(leagues_rename_long_scotland.begin(), leagues_rename_long_scotland.end());
-		leagues_rename_short.insert(leagues_rename_short_scotland.begin(), leagues_rename_short_scotland.end());
-		leagues_rename_tla.insert(leagues_rename_tla_scotland.begin(), leagues_rename_tla_scotland.end());
-	}
-
-	if (configFile.GetBool("applySpain", true)) {
-		leagues_rename_long.insert(leagues_rename_long_spain.begin(), leagues_rename_long_spain.end());
-		leagues_rename_short.insert(leagues_rename_short_spain.begin(), leagues_rename_short_spain.end());
-		leagues_rename_tla.insert(leagues_rename_tla_spain.begin(), leagues_rename_tla_spain.end());
-	}
-
-	if (configFile.GetBool("applySweden", true)) {
-		leagues_rename_long.insert(leagues_rename_long_sweden.begin(), leagues_rename_long_sweden.end());
-		leagues_rename_short.insert(leagues_rename_short_sweden.begin(), leagues_rename_short_sweden.end());
-		leagues_rename_tla.insert(leagues_rename_tla_sweden.begin(), leagues_rename_tla_sweden.end());
-	}
-
-	if (configFile.GetBool("applyTurkey", true)) {
-		leagues_rename_long.insert(leagues_rename_long_turkey.begin(), leagues_rename_long_turkey.end());
-		leagues_rename_short.insert(leagues_rename_short_turkey.begin(), leagues_rename_short_turkey.end());
-	}
-
-	if (configFile.GetBool("applyWales", true)) {
-		leagues_rename_long.insert(leagues_rename_long_wales.begin(), leagues_rename_long_wales.end());
-		leagues_rename_short.insert(leagues_rename_short_wales.begin(), leagues_rename_short_wales.end());
-		leagues_rename_tla.insert(leagues_rename_tla_wales.begin(), leagues_rename_tla_wales.end());
-	}
 }

@@ -59,7 +59,6 @@ DWORD irl_setup_c(playable_nation_data* nation_data) {
 }
 
 void setup_irl_nation() {
-	WriteDWORD(0x668B99 + 6, (DWORD)&irl_setup_c);
 	setup_irl_premier();
 	setup_irl_first();
 	setup_irl_cup();
@@ -67,35 +66,4 @@ void setup_irl_nation() {
 	setup_irl_awards();
 
 	WriteNOP(0x634172, 7);
-}
-
-void ireland_restructure() {
-	cm3_club_comps* irl_first = get_comp(IRL_FIRST_9CF());
-	cm3_club_comps* a_lower = get_comp(A_LOWER_9CF());
-
-	vector<string> d2_clubs = {
-		"Cobh Ramblers",
-		"Dundalk FC",
-	};
-	vector<string> lower_clubs = {
-		"Kilkenny City A.F.C.",
-		"Limerick F.C.",
-	};
-
-	for (string s : d2_clubs) {
-		cm3_clubs* club = find_club(s.c_str());
-		if (!club) {
-			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
-			continue;
-		}
-		club->ClubDivision = irl_first;
-	}
-	for (string s : lower_clubs) {
-		cm3_clubs* club = find_club(s.c_str());
-		if (!club) {
-			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
-			continue;
-		}
-		club->ClubDivision = a_lower;
-	}
 }

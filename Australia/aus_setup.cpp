@@ -41,36 +41,6 @@ DWORD aus_setup_c(playable_nation_data* nation_data) {
 }
 
 void setup_aus_nation() {
-	WriteDWORD(0x66792a + 6, (DWORD)&aus_setup_c);
 	setup_aus_league();
 	setup_aus_cup();
-}
-
-void australia_restructure() {
-	cm3_club_comps* a_lower = get_comp(A_LOWER_9CF());
-
-	vector<cm3_clubs*> aus_clubs = find_clubs_of_comp(AUS_NSW_2_9CF());
-	for (cm3_clubs* c : aus_clubs) {
-		c->ClubDivision = a_lower;
-	}
-	aus_clubs = find_clubs_of_comp(AUS_SOUTH_2_9CF());
-	for (cm3_clubs* c : aus_clubs) {
-		c->ClubDivision = a_lower;
-	}
-	aus_clubs = find_clubs_of_comp(AUS_VICTORIA_2_9CF());
-	for (cm3_clubs* c : aus_clubs) {
-		c->ClubDivision = a_lower;
-	}
-	aus_clubs = find_clubs_of_comp(AUS_WESTERN_2_9CF());
-	for (cm3_clubs* c : aus_clubs) {
-		c->ClubDivision = a_lower;
-	}
-
-	cm3_clubs* western = find_club("Western United FC");
-	if (western) western->ClubDivision = a_lower;
-
-	cm3_club_comps* aus_cup = get_comp(AUS_CUP_9CF());
-	aus_cup->ClubCompNation = get_country(NATION_AUSTRALIA_9CF());
-	aus_cup->ClubCompContinent = get_continent(ASIA_9CF());
-	aus_cup->ClubCompReputation = 6;
 }

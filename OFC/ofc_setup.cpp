@@ -39,7 +39,5 @@ DWORD ofc_setup_c(playable_nation_data* nation_data) {
 }
 
 void setup_ofc_continent() {
-	WriteDWORD(0x667794 + 6, (DWORD)&ofc_setup_c);
-
 	setup_ofc_champions_league();
 }

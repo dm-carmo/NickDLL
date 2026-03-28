@@ -74,14 +74,6 @@ void Setup()
 	// Shows more teams in Team Stats, up to 127
 	WriteBytes(0x495976, 1, 0x7F);
 
-	// removes all-star game from USA
-	WriteBytes(0x838195, 1, 8);
-	WriteBytes(0x8381a8, 1, 2);
-	WriteBytes(0x83832a, 1, 0xeb);
-	WriteBytes(0x5ae103, 1, 0xeb);
-	WriteBytes(0x7759eb, 6, 0xE9, 0xE9, 0x00, 0x00, 0x00, 0x90);
-	WriteNOP(0x90ba86, 2);
-
 	// WC qualifiers calendar changes
 	WriteBytes(0x9153e7, 1, 1);
 	WriteBytes(0x9153e9, 1, 5);
@@ -98,175 +90,75 @@ void Setup()
 
 	configFile.LoadConfig("NickDLL_config.json");
 
-	if (configFile.GetBool("applyArgentina", true)) {
-		dprintf("Applying Argentina changes\n");
-		setup_arg_nation();
-	}
-
-	if (configFile.GetBool("applyAustralia", true)) {
-		dprintf("Applying Australia changes\n");
-		setup_aus_nation();
-	}
-
-	if (configFile.GetBool("applyBelgium", true)) {
-		dprintf("Applying Belgium changes\n");
-		setup_bel_nation();
-	}
-
-	if (configFile.GetBool("applyBrazil", true)) {
-		dprintf("Applying Brazil changes\n");
-		setup_bra_nation();
-	}
-
-	if (configFile.GetBool("applyCroatia", true)) {
-		dprintf("Applying Croatia changes\n");
-		setup_cro_nation();
-	}
-
-	if (configFile.GetBool("applyDenmark", true)) {
-		dprintf("Applying Denmark changes\n");
-		setup_den_nation();
-	}
-
-	if (configFile.GetBool("applyEngland", true)) {
-		dprintf("Applying England changes\n");
-		setup_eng_nation();
-	}
-
-	if (configFile.GetBool("applyFinland", true)) {
-		dprintf("Applying Finland changes\n");
-		setup_fin_nation();
-	}
-
-	if (configFile.GetBool("applyFrance", true)) {
-		dprintf("Applying France changes\n");
-		setup_fra_nation();
-	}
-
-	if (configFile.GetBool("applyGermany", true)) {
-		dprintf("Applying Germany changes\n");
-		setup_ger_nation();
-	}
-	else {
-		setup_ger_awards_default();
-	}
-
-	if (configFile.GetBool("applyGreece", true)) {
-		dprintf("Applying Greece changes\n");
-		setup_gre_nation();
-	}
-
-	if (configFile.GetBool("applyHolland", true)) {
-		dprintf("Applying Holland changes\n");
-		setup_hol_nation();
-	}
-
-	if (configFile.GetBool("applyIreland", true)) {
-		dprintf("Applying Ireland changes\n");
-		setup_irl_nation();
-	}
-
-	if (configFile.GetBool("applyItaly", true)) {
-		dprintf("Applying Italy changes\n");
-		setup_ita_nation();
-	}
-
-	if (configFile.GetBool("applyJapan", true)) {
-		dprintf("Applying Japan changes\n");
-		setup_jpn_nation();
-	}
-
-	if (configFile.GetBool("applyNorthernIreland", true)) {
-		dprintf("Applying Northern Ireland changes\n");
-		setup_nir_nation();
-	}
-
-	if (configFile.GetBool("applyNorway", true)) {
-		dprintf("Applying Norway changes\n");
-		setup_nor_nation();
-	}
-
-	if (configFile.GetBool("applyPoland", true)) {
-		dprintf("Applying Poland changes\n");
-		setup_pol_nation();
-	}
-
-	if (configFile.GetBool("applyPortugal", true)) {
-		dprintf("Applying Portugal changes\n");
-		setup_por_nation();
-	}
-
-	if (configFile.GetBool("applyScotland", true)) {
-		dprintf("Applying Scotland changes\n");
-		setup_sco_nation();
-	}
-
-	if (configFile.GetBool("applySouthKorea", true)) {
-		dprintf("Applying South Korea changes\n");
-		setup_kor_nation();
-	}
-
-	if (configFile.GetBool("applySpain", true)) {
-		dprintf("Applying Spain changes\n");
-		setup_spa_nation();
-	}
-
-	if (configFile.GetBool("applySweden", true)) {
-		dprintf("Applying Sweden changes\n");
-		setup_swe_nation();
-	}
-
-	if (configFile.GetBool("applyTurkey", true)) {
-		dprintf("Applying Turkey changes\n");
-		setup_tur_nation();
-	}
-
-	if (configFile.GetBool("applyUSA", true)) {
-		dprintf("Applying USA changes\n");
-		setup_usa_nation();
-	}
-
-	if (configFile.GetBool("applyWales", true)) {
-		dprintf("Applying Wales changes\n");
-		setup_wal_nation();
-	}
+	dprintf("Applying Argentina changes\n");
+	setup_arg_nation();
+	dprintf("Applying Australia changes\n");
+	setup_aus_nation();
+	dprintf("Applying Belgium changes\n");
+	setup_bel_nation();
+	dprintf("Applying Brazil changes\n");
+	setup_bra_nation();
+	dprintf("Applying Croatia changes\n");
+	setup_cro_nation();
+	dprintf("Applying Denmark changes\n");
+	setup_den_nation();
+	dprintf("Applying England changes\n");
+	setup_eng_nation();
+	dprintf("Applying Finland changes\n");
+	setup_fin_nation();
+	dprintf("Applying France changes\n");
+	setup_fra_nation();
+	dprintf("Applying Germany changes\n");
+	setup_ger_nation();
+	dprintf("Applying Greece changes\n");
+	setup_gre_nation();
+	dprintf("Applying Holland changes\n");
+	setup_hol_nation();
+	dprintf("Applying Ireland changes\n");
+	setup_irl_nation();
+	dprintf("Applying Italy changes\n");
+	setup_ita_nation();
+	dprintf("Applying Japan changes\n");
+	setup_jpn_nation();
+	dprintf("Applying Northern Ireland changes\n");
+	setup_nir_nation();
+	dprintf("Applying Norway changes\n");
+	setup_nor_nation();
+	dprintf("Applying Poland changes\n");
+	setup_pol_nation();
+	dprintf("Applying Portugal changes\n");
+	setup_por_nation();
+	dprintf("Applying Scotland changes\n");
+	setup_sco_nation();
+	dprintf("Applying South Korea changes\n");
+	setup_kor_nation();
+	dprintf("Applying Spain changes\n");
+	setup_spa_nation();
+	dprintf("Applying Sweden changes\n");
+	setup_swe_nation();
+	dprintf("Applying Turkey changes\n");
+	setup_tur_nation();
+	dprintf("Applying USA changes\n");
+	setup_usa_nation();
+	dprintf("Applying Wales changes\n");
+	setup_wal_nation();
 
 	dprintf("------------------------------\n");
 
-	if (configFile.GetBool("applyFIFAclubs", true)) {
-		dprintf("Applying FIFA changes (club comps)\n");
-		setup_fifa_club_comps();
-	}
-
-	if (configFile.GetBool("applyAFC", true)) {
-		dprintf("Applying AFC changes\n");
-		setup_afc_continent();
-	}
-
-	if (configFile.GetBool("applyCAF", true)) {
-		dprintf("Applying CAF changes\n");
-		setup_caf_continent();
-	}
-
-	if (configFile.GetBool("applyCONCACAF", true)) {
-		dprintf("Applying CONCACAF changes\n");
-		setup_concacaf_continent();
-	}
-
-	if (configFile.GetBool("applyCONMEBOL", true)) {
-		dprintf("Applying CONMEBOL changes\n");
-		setup_conmebol_continent();
-	}
-
-	if (configFile.GetBool("applyOFC", true)) {
-		dprintf("Applying OFC changes\n");
-		setup_ofc_continent();
-	}
-
-	if (configFile.GetBool("applyUEFA", true)) {
-		dprintf("Applying UEFA changes\n");
-		setup_uefa_continent();
-	}
+	dprintf("Applying FIFA changes (club comps)\n");
+	setup_fifa_club_comps();
+	dprintf("Applying AFC changes\n");
+	setup_afc_continent();
+	dprintf("Applying CAF changes\n");
+	setup_caf_continent();
+	dprintf("Applying CONCACAF changes\n");
+	setup_concacaf_continent();
+	dprintf("Applying CONMEBOL changes\n");
+	setup_conmebol_continent();
+	dprintf("Applying OFC changes\n");
+	setup_ofc_continent();
+	dprintf("Applying UEFA changes\n");
+	setup_uefa_continent();
 
 	dprintf("------------------------------\n");
 

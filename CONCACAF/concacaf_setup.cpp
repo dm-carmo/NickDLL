@@ -39,7 +39,5 @@ DWORD concacaf_setup_c(playable_nation_data* nation_data) {
 }
 
 void setup_concacaf_continent() {
-	WriteDWORD(0x6674c8 + 6, (DWORD)&concacaf_setup_c);
-
 	setup_concacaf_champions_cup();
 }

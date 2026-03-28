@@ -65,9 +65,6 @@ DWORD fra_setup_c(playable_nation_data* nation_data) {
 
 void setup_fra_nation()
 {
-	WriteDWORD(0x667FB5 + 6, (DWORD)&fra_setup_c);
-	// Removes reference to League Cup in nation table
-	WriteNOP(0x6680b2, 6);
 	setup_fra_first();
 	setup_fra_second();
 	setup_fra_third();
@@ -87,39 +84,4 @@ void setup_fra_nation()
 	WriteNOP(0x4c0389, 2);
 	WriteNOP(0x4c03e4, 2);
 	WriteNOP(0x4c03ec, 2);
-}
-
-void france_restructure() {
-	cm3_club_comps* fra_third = get_comp(FRA_NATIONAL_1_9CF());
-	cm3_club_comps* fra_fourth = get_comp(FRA_NATIONAL_2_9CF());
-
-	vector<string> d3_clubs = {
-		"SM Caen",
-		"Dijon FCO",
-	};
-	vector<string> d4_clubs = {
-		"Nîmes Olympique",
-		"FC Martigues",
-		"AS Cannes",
-		"Chamois Niortais FC",
-		"AC Ajaccio",
-	};
-
-	for (string s : d3_clubs) {
-		cm3_clubs* club = find_club(s.c_str());
-		if (!club) {
-			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
-			continue;
-		}
-		club->ClubDivision = fra_third;
-	}
-
-	for (string s : d4_clubs) {
-		cm3_clubs* club = find_club(s.c_str());
-		if (!club) {
-			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
-			continue;
-		}
-		club->ClubDivision = fra_fourth;
-	}
 }
