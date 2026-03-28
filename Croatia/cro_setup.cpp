@@ -74,11 +74,7 @@ void croatia_restructure() {
 	cm3_club_comps* cro_first = get_comp(CRO_FIRST_9CF());
 	cm3_club_comps* cro_second = get_comp(CRO_SECOND_9CF());
 	cm3_club_comps* cro_third = get_comp(CRO_THIRD_9CF());
-	cm3_club_comps* cro_reg_e = get_comp(CRO_FOURTH_EAST_9CF());
-	cm3_club_comps* cro_reg_w = get_comp(CRO_FOURTH_WEST_9CF());
-	cm3_club_comps* cro_reg_n = get_comp(CRO_FOURTH_NORTH_9CF());
-	cm3_club_comps* cro_reg_s = get_comp(CRO_FOURTH_SOUTH_9CF());
-	cm3_club_comps* cro_reg_c = get_comp(CRO_FOURTH_CENTRAL_9CF());
+	cm3_club_comps* cro_reg_c = get_comp(CRO_FOURTH_9CF());
 	cm3_club_comps* a_lower = get_comp(A_LOWER_9CF());
 
 	cro_third->ClubCompReputation = 4;
@@ -252,7 +248,7 @@ void croatia_restructure() {
 			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
 			continue;
 		}
-		club->ClubDivision = cro_reg_n;
+		club->ClubDivision = cro_reg_c;
 	}
 	for (string s : d4s_clubs) {
 		cm3_clubs* club = find_club(s.c_str());
@@ -260,7 +256,7 @@ void croatia_restructure() {
 			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
 			continue;
 		}
-		club->ClubDivision = cro_reg_s;
+		club->ClubDivision = cro_reg_c;
 	}
 	for (string s : d4e_clubs) {
 		cm3_clubs* club = find_club(s.c_str());
@@ -268,7 +264,7 @@ void croatia_restructure() {
 			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
 			continue;
 		}
-		club->ClubDivision = cro_reg_e;
+		club->ClubDivision = cro_reg_c;
 	}
 	for (string s : d4w_clubs) {
 		cm3_clubs* club = find_club(s.c_str());
@@ -276,7 +272,7 @@ void croatia_restructure() {
 			create_message_box("Error", (string("Could not find club: ") + s).c_str(), false);
 			continue;
 		}
-		club->ClubDivision = cro_reg_w;
+		club->ClubDivision = cro_reg_c;
 	}
 	for (string s : d4c_clubs) {
 		cm3_clubs* club = find_club(s.c_str());

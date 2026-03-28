@@ -7,11 +7,25 @@
 
 DWORD* arg_second_vtable = (DWORD*)0x9673D8;
 
-int arg_second_set_champion(BYTE* _this) {
+char* arg_second_set_champion(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
-	BYTE* stage_data_for_history = (BYTE*)data->stages[1];
-	DWORD v1 = *(DWORD*)stage_data_for_history;
-	return (*(int(__thiscall**)(BYTE*))(v1 + 0x30))(stage_data_for_history);
+	BYTE* finals_bytes = (BYTE*)data->stages[1];
+	comp_stats* finals_data = (comp_stats*)finals_bytes;
+	cm3_clubs* first = 0;
+	cm3_clubs* second = 0;
+	teams_seeded* teams = (teams_seeded*)finals_data->teams_list;
+	for (WORD i = 0; i < finals_data->n_teams; i++) {
+		if (teams[i].f6 == 1) first = teams[i].club;
+		else if (teams[i].f6 == 2) second = teams[i].club;
+	}
+	BYTE* prom_bytes = (BYTE*)data->stages[2];
+	comp_stats* prom_data = (comp_stats*)prom_bytes;
+	cm3_clubs* third = 0;
+	teams = (teams_seeded*)prom_data->teams_list;
+	for (WORD i = 0; i < prom_data->n_teams; i++) {
+		if (teams[i].f6 == 1) third = teams[i].club;
+	}
+	return sub_4AFCE0_add_history_entry(_this, first, second, third, 0);
 }
 
 void __declspec(naked) arg_second_set_champion_c()

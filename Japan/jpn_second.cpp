@@ -8,6 +8,33 @@
 
 DWORD* jpn_second_vtable = (DWORD*)0x96CAF4;
 
+char* jpn_second_set_champion(BYTE* _this) {
+	comp_stats* comp_data = (comp_stats*)_this;
+	BYTE* playoff_bytes = (BYTE*)comp_data->stages[0];
+	comp_stats* playoff_data = (comp_stats*)playoff_bytes;
+	cm3_clubs* third = 0;
+	teams_seeded* teams = (teams_seeded*)playoff_data->teams_list;
+	for (WORD i = 0; i < playoff_data->n_teams; i++) {
+		if (teams[i].f6 == 1) third = teams[i].club;
+	}
+	team_league_stats* table = (team_league_stats*)(comp_data->team_league_table);
+	cm3_clubs* first = table[0].club;
+	cm3_clubs* second = table[1].club;
+	return sub_4AFCE0_add_history_entry(_this, first, second, third, 0);
+}
+
+void __declspec(naked) jpn_second_set_champion_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push ecx
+		call jpn_second_set_champion
+		add esp, 0x4
+		ret 0
+	}
+}
+
 void jpn_second_free_under(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	data->comp_vtable = jpn_second_vtable;
@@ -543,5 +570,6 @@ void setup_jpn_second()
 	WriteVTablePtr(jpn_second_vtable, VTablePlayoffQual, (DWORD)&jpn_second_playoffs_create);
 	WriteVTablePtr(jpn_second_vtable, VTableTableFates, (DWORD)&jpn_second_set_table_fate);
 	WriteVTablePtr(jpn_second_vtable, VTableReputationCalc, (DWORD)&jpn_second_reputation_calc_c);
+	WriteVTablePtr(jpn_second_vtable, VTableSetChampion, (DWORD)&jpn_second_set_champion_c);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(jpn_second_vtable, VTable21, 0x4110b0);
 }

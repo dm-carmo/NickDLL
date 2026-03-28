@@ -8,6 +8,33 @@
 
 DWORD* irl_first_vtable = (DWORD*)0x96BCCC;
 
+char* irl_first_set_champion(BYTE* _this) {
+	comp_stats* comp_data = (comp_stats*)_this;
+	BYTE* playoff_bytes = (BYTE*)comp_data->stages[0];
+	comp_stats* playoff_data = (comp_stats*)playoff_bytes;
+	cm3_clubs* third = 0;
+	teams_seeded* teams = (teams_seeded*)playoff_data->teams_list;
+	for (WORD i = 0; i < playoff_data->n_teams; i++) {
+		if (teams[i].f6 == 1) third = teams[i].club;
+	}
+	team_league_stats* table = (team_league_stats*)(comp_data->team_league_table);
+	cm3_clubs* first = table[0].club;
+	cm3_clubs* second = table[1].club;
+	return sub_4AFCE0_add_history_entry(_this, first, second, third, 0);
+}
+
+void __declspec(naked) irl_first_set_champion_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push ecx
+		call irl_first_set_champion
+		add esp, 0x4
+		ret 0
+	}
+}
+
 void irl_first_free_under(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	data->comp_vtable = irl_first_vtable;
@@ -508,5 +535,6 @@ void setup_irl_first()
 	WriteVTablePtr(irl_first_vtable, VTableReputationCalc, (DWORD)&irl_first_reputation_calc_c);
 	WriteVTablePtr(irl_first_vtable, VTablePlayoffQual, (DWORD)&irl_first_playoffs_create);
 	WriteVTablePtr(irl_first_vtable, VTableTableFates, (DWORD)&irl_first_set_table_fate);
+	WriteVTablePtr(irl_first_vtable, VTableSetChampion, (DWORD)&irl_first_set_champion_c);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(irl_first_vtable, VTable21, 0x4110b0);
 }

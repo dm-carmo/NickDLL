@@ -8,6 +8,33 @@
 DWORD* eng_league_1_vtable = (DWORD*)0x969DD0;
 static DWORD(__thiscall* eng_league_1_subs)(BYTE* _this) = (DWORD(__thiscall*)(BYTE * _this))(0x576780);
 
+char* eng_league_1_set_champion(BYTE* _this) {
+	comp_stats* comp_data = (comp_stats*)_this;
+	BYTE* playoff_bytes = (BYTE*)comp_data->stages[0];
+	comp_stats* playoff_data = (comp_stats*)playoff_bytes;
+	cm3_clubs* third = 0;
+	teams_seeded* teams = (teams_seeded*)playoff_data->teams_list;
+	for (WORD i = 0; i < playoff_data->n_teams; i++) {
+		if (teams[i].f6 == 1) third = teams[i].club;
+	}
+	team_league_stats* table = (team_league_stats*)(comp_data->team_league_table);
+	cm3_clubs* first = table[0].club;
+	cm3_clubs* second = table[1].club;
+	return sub_4AFCE0_add_history_entry(_this, first, second, third, 0);
+}
+
+void __declspec(naked) eng_league_1_set_champion_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push ecx
+		call eng_league_1_set_champion
+		add esp, 0x4
+		ret 0
+	}
+}
+
 DWORD eng_league_1_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
 {
 	if (stage_idx < 0) {
@@ -232,5 +259,6 @@ void __declspec(naked) eng_league_1_update_c()
 void setup_eng_league_1() {
 	WriteVTablePtr(eng_league_1_vtable, VTableEoSUpdate, (DWORD)&eng_league_1_update_c);
 	WriteVTablePtr(eng_league_1_vtable, VTableFixtures, (DWORD)&eng_league_1_fixture_caller);
+	WriteVTablePtr(eng_league_1_vtable, VTableSetChampion, (DWORD)&eng_league_1_set_champion_c);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(eng_league_1_vtable, VTable21, 0x4110b0);
 }

@@ -317,43 +317,7 @@ void __fastcall cro_non_league_promotion(BYTE* _this)
 
 	for (unsigned int i = 0; i < relegated_clubs.size(); i++)
 	{
-		relegate_club_6831A0((BYTE*)relegated_clubs[i], (DWORD)get_comp(CRO_FOURTH_NORTH_9CF()), 1);
-	}
-}
-
-void sort_cro_non_league_clubs() {
-	vector<cm3_clubs*> available_clubs;
-	for (DWORD i = 0; i < *clubs_count; i++)
-	{
-		cm3_clubs* club = get_club(i);
-		if (club)
-		{
-			if (club->ClubDivision && club->ClubNation)
-			{
-				DWORD compID = club->ClubDivision->ClubCompID;
-				DWORD nationID = club->ClubNation->NationID;
-				if (nationID == NATION_CROATIA_9CF() &&		// Croatia
-					(compID == CRO_FOURTH_CENTRAL_9CF() ||		// Non-leagues
-						compID == CRO_FOURTH_NORTH_9CF() ||
-						compID == CRO_FOURTH_SOUTH_9CF() ||
-						compID == CRO_FOURTH_EAST_9CF() ||
-						compID == CRO_FOURTH_WEST_9CF()))
-				{
-					available_clubs.push_back(club);
-				}
-			}
-		}
-	}
-	sort(available_clubs.begin(), available_clubs.end(), compareClubLatitude);
-	sort(available_clubs.begin() + 10, available_clubs.end() - 10, compareClubLongitude);
-
-	for (size_t i = 0; i < available_clubs.size(); i++)
-	{
-		if (i < 10) available_clubs[i]->ClubDivision = get_comp(CRO_FOURTH_NORTH_9CF());
-		else if (i < 20) available_clubs[i]->ClubDivision = get_comp(CRO_FOURTH_EAST_9CF());
-		else if (i < 30) available_clubs[i]->ClubDivision = get_comp(CRO_FOURTH_CENTRAL_9CF());
-		else if (i < 40) available_clubs[i]->ClubDivision = get_comp(CRO_FOURTH_WEST_9CF());
-		else available_clubs[i]->ClubDivision = get_comp(CRO_FOURTH_SOUTH_9CF());
+		relegate_club_6831A0((BYTE*)relegated_clubs[i], (DWORD)get_comp(CRO_FOURTH_9CF()), 1);
 	}
 }
 
@@ -364,7 +328,6 @@ char cro_first_update(BYTE* _this) {
 	DWORD v1 = *(DWORD*)_this;
 	(*(void(__thiscall**)(BYTE*, int))(v1 + 0xB0))(_this, 1);
 	cro_non_league_promotion(_this);
-	sort_cro_non_league_clubs();
 
 	sub_687970(_this, ebx);
 	if (data->fixtures_table) {

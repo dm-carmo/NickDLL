@@ -278,12 +278,15 @@ void cro_third_playoff_under(BYTE* _this) {
 		}
 	}
 
-	vector<DWORD> non_league_9cf = { CRO_FOURTH_CENTRAL_9CF(), CRO_FOURTH_NORTH_9CF(), CRO_FOURTH_SOUTH_9CF(), CRO_FOURTH_EAST_9CF(), CRO_FOURTH_WEST_9CF() };
-	for (size_t i = 0; i < non_league_9cf.size(); i++) {
-		vector<cm3_clubs*> club_list = find_clubs_of_comp(non_league_9cf[i]);
-		sort(club_list.begin(), club_list.end(), compareClubRep);
-		cm3_clubs* selected = club_list[rand() % 3];
-		*((DWORD*)(&pTeams[i])) = (DWORD)selected;
+	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(CRO_FOURTH_9CF());
+	sort(available_clubs.begin(), available_clubs.end(), compareClubRep);
+	int max_to_check = (available_clubs.size() > 15 ? 15 : available_clubs.size());
+	for (int i = 0; i < 5; i++)
+	{
+		int availableIdx = rand() % (max_to_check - i);
+		cm3_clubs* available = available_clubs[availableIdx];
+		*((DWORD*)(&pTeams[i])) = (DWORD)available;
+		available_clubs.erase(available_clubs.begin() + availableIdx);
 	}
 
 	WORD num_rounds = 0;
@@ -336,7 +339,7 @@ int cro_third_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char sta
 			BYTE* rounds = ((comp_stats*)(comp_data->stages[stage]))->rounds_list;
 			WORD current_round = *(WORD*)(round_data + 0x34);
 			for (int i = 0; i < num_teams; i++) {
-					if (table[i].club != club) continue;
+				if (table[i].club != club) continue;
 				switch (fate) {
 				case BottomPlayoff:
 					staff_history_relegated_86A1C0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));

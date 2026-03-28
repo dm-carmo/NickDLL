@@ -96,16 +96,16 @@ map<string, char*> leagues_rename_long_greece = {
 
 map<string, char*> leagues_rename_long_croatia = {
 	{"Croatian Treca NL", "Croatian Druga NL"},
-	{"Croatian Druga NL Central", "Croatian Treca NL Central"},
-	{"Croatian Druga NL North", "Croatian Treca NL North"},
-	{"Croatian Druga NL South", "Croatian Treca NL South"},
-	{"Croatian Druga NL East", "Croatian Treca NL East"},
-	{"Croatian Druga NL West", "Croatian Treca NL West"},
+	{"Croatian Druga NL Central", "Croatian Treca NL"},
+	//{"Croatian Druga NL North", "Croatian Treca NL North"},
+	//{"Croatian Druga NL South", "Croatian Treca NL South"},
+	//{"Croatian Druga NL East", "Croatian Treca NL East"},
+	//{"Croatian Druga NL West", "Croatian Treca NL West"},
 };
 
 map<string, char*> leagues_rename_long_finland = {
 	{"Finnish Ykkösliiga North", "Finnish Ykkönen"},
-	{"Finnish Ykkösliiga South", "Finnish Kolmonen"},
+	{"Finnish Ykkösliiga South", "Finnish Kolmonen"}, // possibly remove later
 	{"Finnish Ykkönen North", "Finnish Kakkonen Group A"},
 	{"Finnish Ykkönen West", "Finnish Kakkonen Group B"},
 	{"Finnish Ykkönen South", "Finnish Kakkonen Group C"},
@@ -244,11 +244,11 @@ map<string, char*> leagues_rename_short_greece = {
 
 map<string, char*> leagues_rename_short_croatia = {
 	{"Croatian Treca NL", "2. NL"},
-	{"Croatian Druga NL Central", "3. NL Central"},
-	{"Croatian Druga NL North", "3. NL North"},
-	{"Croatian Druga NL South", "3. NL South"},
-	{"Croatian Druga NL East", "3. NL East"},
-	{"Croatian Druga NL West", "3. NL West"},
+	{"Croatian Druga NL Central", "3. NL"},
+	//{"Croatian Druga NL North", "3. NL North"},
+	//{"Croatian Druga NL South", "3. NL South"},
+	//{"Croatian Druga NL East", "3. NL East"},
+	//{"Croatian Druga NL West", "3. NL West"},
 };
 
 map<string, char*> leagues_rename_short_finland = {
@@ -375,11 +375,11 @@ map<string, char*> leagues_rename_tla_greece = {
 
 map<string, char*> leagues_rename_tla_croatia = {
 	{"Croatian Treca NL", "2NL"},
-	{"Croatian Druga NL Central", "3LC"},
-	{"Croatian Druga NL North", "3LN"},
-	{"Croatian Druga NL South", "3LS"},
-	{"Croatian Druga NL East", "3LE"},
-	{"Croatian Druga NL West", "3LW"},
+	{"Croatian Druga NL Central", "3NL"},
+	//{"Croatian Druga NL North", "3LN"},
+	//{"Croatian Druga NL South", "3LS"},
+	//{"Croatian Druga NL East", "3LE"},
+	//{"Croatian Druga NL West", "3LW"},
 };
 
 map<string, char*> leagues_rename_tla_finland = {

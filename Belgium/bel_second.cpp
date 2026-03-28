@@ -8,6 +8,37 @@
 
 DWORD* bel_second_vtable = (DWORD*)0x9679F4;
 
+char* bel_second_set_champion(BYTE* _this) {
+	comp_stats* comp_data = (comp_stats*)_this;
+	if (comp_data->year == 2025)
+	{
+		BYTE* playoff_bytes = (BYTE*)comp_data->stages[0];
+		comp_stats* playoff_data = (comp_stats*)playoff_bytes;
+		cm3_clubs* third = 0;
+		teams_seeded* teams = (teams_seeded*)playoff_data->teams_list;
+		for (WORD i = 0; i < playoff_data->n_teams; i++) {
+			if (teams[i].f6 == 1) third = teams[i].club;
+		}
+		team_league_stats* table = (team_league_stats*)(comp_data->team_league_table);
+		cm3_clubs* first = table[0].club;
+		cm3_clubs* second = table[1].club;
+		return sub_4AFCE0_add_history_entry(_this, first, second, third, 0);
+	}
+	else return sub_684640(_this);
+}
+
+void __declspec(naked) bel_second_set_champion_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push ecx
+		call bel_second_set_champion
+		add esp, 0x4
+		ret 0
+	}
+}
+
 void bel_second_free_under(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	data->comp_vtable = bel_second_vtable;
@@ -636,6 +667,7 @@ void setup_bel_second()
 	WriteVTablePtr(bel_second_vtable, VTableReputationCalc, (DWORD)&bel_second_reputation_calc_c);
 	WriteVTablePtr(bel_second_vtable, VTablePlayoffQual, (DWORD)&bel_second_playoffs_create);
 	WriteVTablePtr(bel_second_vtable, VTableTableFates, (DWORD)&bel_second_set_table_fate);
+	WriteVTablePtr(bel_second_vtable, VTableSetChampion, (DWORD)&bel_second_set_champion_c);
 	WriteVTablePtr(bel_second_vtable, VTablePostMatchUpdate, 0x685d30);
 	WriteVTablePtr(bel_second_vtable, VTable9, 0x48CEB0);
 	WriteVTablePtr(bel_second_vtable, VTable10, 0x48CEA0);

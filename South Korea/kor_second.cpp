@@ -8,6 +8,33 @@
 
 vtable* kor_second_vtable = new vtable((BYTE*)0x96CDD0, 0xB4);
 
+char* kor_second_set_champion(BYTE* _this) {
+	comp_stats* comp_data = (comp_stats*)_this;
+	BYTE* playoff_bytes = (BYTE*)comp_data->stages[0];
+	comp_stats* playoff_data = (comp_stats*)playoff_bytes;
+	cm3_clubs* third = 0;
+	teams_seeded* teams = (teams_seeded*)playoff_data->teams_list;
+	for (WORD i = 0; i < playoff_data->n_teams; i++) {
+		if (teams[i].f6 == 1) third = teams[i].club;
+	}
+	team_league_stats* table = (team_league_stats*)(comp_data->team_league_table);
+	cm3_clubs* first = table[0].club;
+	cm3_clubs* second = table[1].club;
+	return sub_4AFCE0_add_history_entry(_this, first, second, third, 0);
+}
+
+void __declspec(naked) kor_second_set_champion_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push ecx
+		call kor_second_set_champion
+		add esp, 0x4
+		ret 0
+	}
+}
+
 void kor_second_free_under(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	data->comp_vtable = (DWORD*)(kor_second_vtable->vtable_ptr);
@@ -524,6 +551,7 @@ void kor_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	kor_second_vtable->SetPointer(VTablePlayoffQual, (DWORD)&kor_second_playoffs_create);
 	kor_second_vtable->SetPointer(VTableTableFates, (DWORD)&kor_second_set_table_fate);
 	kor_second_vtable->SetPointer(VTableReputationCalc, (DWORD)&kor_second_reputation_calc_c);
+	kor_second_vtable->SetPointer(VTableSetChampion, (DWORD)&kor_second_set_champion_c);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) kor_second_vtable->SetPointer(VTable21, 0x4110b0);
 	data->year = year;
 	data->rules = RulesSouthKorea;

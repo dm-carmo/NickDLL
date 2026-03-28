@@ -8,6 +8,33 @@
 
 DWORD* fra_second_vtable = (DWORD*)0x96AC2C;
 
+char* fra_second_set_champion(BYTE* _this) {
+	comp_stats* comp_data = (comp_stats*)_this;
+	BYTE* playoff_bytes = (BYTE*)comp_data->stages[0];
+	comp_stats* playoff_data = (comp_stats*)playoff_bytes;
+	cm3_clubs* third = 0;
+	teams_seeded* teams = (teams_seeded*)playoff_data->teams_list;
+	for (WORD i = 0; i < playoff_data->n_teams; i++) {
+		if (teams[i].f6 == 1) third = teams[i].club;
+	}
+	team_league_stats* table = (team_league_stats*)(comp_data->team_league_table);
+	cm3_clubs* first = table[0].club;
+	cm3_clubs* second = table[1].club;
+	return sub_4AFCE0_add_history_entry(_this, first, second, third, 0);
+}
+
+void __declspec(naked) fra_second_set_champion_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push ecx
+		call fra_second_set_champion
+		add esp, 0x4
+		ret 0
+	}
+}
+
 void fra_second_free_under(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	data->comp_vtable = fra_second_vtable;
@@ -716,5 +743,6 @@ void setup_fra_second()
 	WriteVTablePtr(fra_second_vtable, VTableReputationCalc, (DWORD)&fra_second_reputation_calc_c);
 	WriteVTablePtr(fra_second_vtable, VTablePlayoffQual, (DWORD)&fra_second_playoffs_create);
 	WriteVTablePtr(fra_second_vtable, VTableTableFates, (DWORD)&fra_second_set_table_fate);
+	WriteVTablePtr(fra_second_vtable, VTableSetChampion, (DWORD)&fra_second_set_champion_c);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(fra_second_vtable, VTable21, 0x4110b0);
 }

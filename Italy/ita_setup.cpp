@@ -154,7 +154,7 @@ void italy_restructure() {
 		"Guidonia Montecelio 1937 FC",
 		"Juventus Next Gen",
 		"US Livorno 1915",
-		"Milan Futuro",
+		"Milan Futuro", // replacing Rimini
 		"AC Perugia Calcio",
 		"US Pianese",
 		"Pineto Calcio",

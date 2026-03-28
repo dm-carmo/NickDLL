@@ -72,6 +72,22 @@ void setup_arg_nation() {
 	setup_arg_third_metro();
 	setup_arg_third_interior();
 	setup_arg_cup();
+
+	// transfer window adjustment
+	//WriteBytes(0x40a6af, 1, 0xd);
+	//WriteBytes(0x40a6b4, 1, 0x0);
+	//WriteBytes(0x40a6ca, 1, 0x9);
+	//WriteBytes(0x40a6cf, 1, 0x2);
+	WriteBytes(0x40a6ae, 1, Saturday);
+	WriteBytes(0x40a6af, 1, 0x14);
+	WriteBytes(0x40a6b4, 1, 0xb);
+	WriteBytes(0x40a6c9, 1, Tuesday);
+	WriteBytes(0x40a6ca, 1, 0x1b);
+	WriteBytes(0x40a6cf, 1, 0x0);
+	WriteBytes(0x40a6e4, 1, 0x6);
+	WriteBytes(0x40a6e6, 4, 0xc6, 0x40, 0x4, 0x6);
+	WriteBytes(0x40a701, 1, 0x1e);
+	WriteBytes(0x40a706, 1, 0x7);
 }
 
 void argentina_restructure() {
