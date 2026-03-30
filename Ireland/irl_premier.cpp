@@ -19,7 +19,7 @@ void irl_premier_subs(BYTE* _this)
 	comp_data->comp_type = CLUB_DOMESTIC;
 	comp_data->tiebreaker_1 = GoalDifferenceTiebreaker;
 	comp_data->tiebreaker_2 = GoalsForTiebreaker;
-	comp_data->tiebreaker_3 = GamesWonTiebreaker;
+	comp_data->tiebreaker_3 = NoTiebreaker;
 	comp_data->promotions = 0;
 	comp_data->prom_playoff = 0;
 	comp_data->rele_playoff = 1;
@@ -77,6 +77,18 @@ char irl_premier_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
 	data->f76 = 0;
+
+	BYTE* irl_first = get_loaded_league(IRL_FIRST_9CF());
+
+	// All teams that were in D1 must be professional
+	sub_68A980(_this, Professional, Relegated, -3, 1);
+	sub_68A980(_this, Professional, -3, Relegated, 1);
+	// All teams that were in D2 must be semi-professional
+	sub_68A980(_this, SemiProfessional, Relegated, -3, 1);
+	sub_68A980(_this, SemiProfessional, Relegated, -3, 0);
+	sub_68A980(_this, SemiProfessional, -3, Relegated, 1);
+	sub_68A980(_this, SemiProfessional, -3, Relegated, 0);
+
 	irl_premier_prom_rel_update(_this, 1);
 
 	sub_687970(_this, ebx);
@@ -108,8 +120,6 @@ char irl_premier_update(BYTE* _this) {
 	sub_6827D0(_this, edx);
 	DWORD v1 = *(DWORD*)_this;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
-
-	BYTE* irl_first = get_loaded_league(IRL_FIRST_9CF());
 
 	v1 = *(DWORD*)irl_first;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(irl_first);

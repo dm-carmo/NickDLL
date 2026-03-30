@@ -338,7 +338,7 @@ void swe_cup_group_stage_setup(BYTE* _this) {
 	DWORD* stages_arr = comp_data->stages;
 
 	BYTE prom_rel[4] = { 1, 0, 0, 0 };
-	BYTE tiebreaks[4] = { GoalDifferenceTiebreaker, GoalsForTiebreaker, NoTiebreaker, NoTiebreaker };
+	BYTE tiebreaks[4] = { GoalDifferenceTiebreaker, GoalsForTiebreaker, CurrentPositionTiebreaker, NoTiebreaker };
 
 	vector<cm3_clubs*> clubs;
 	for (WORD i = 0; i < comp_data->n_teams; i++) {

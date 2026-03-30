@@ -6,7 +6,48 @@
 #include "Structures\vtable.h"
 
 DWORD* eng_league_1_vtable = (DWORD*)0x969DD0;
-static DWORD(__thiscall* eng_league_1_subs)(BYTE* _this) = (DWORD(__thiscall*)(BYTE * _this))(0x576780);
+
+int eng_league_1_subs(BYTE* _this)
+{
+	comp_stats* comp_data = (comp_stats*)_this;
+
+	comp_data->n_rounds = 2;
+	comp_data->pts_for_win = 3;
+	comp_data->pts_for_draw = 1;
+	comp_data->f196 = 2;
+	comp_data->tiebreaker_1 = GoalDifferenceTiebreaker;
+	comp_data->tiebreaker_2 = GoalsForTiebreaker;
+	comp_data->tiebreaker_3 = CurrentPositionTiebreaker;
+	comp_data->comp_type = CLUB_DOMESTIC;
+	comp_data->promotions = 2;
+	comp_data->prom_playoff = 4;
+	comp_data->rele_playoff = 0;
+	comp_data->relegations = 4;
+
+	comp_data->promotes_to = ENG_CHAMP_9CF();
+	comp_data->relegates_to = ENG_LEAGUE_2_9CF();
+
+	comp_data->f82 = 2;
+	comp_data->max_bench = 5;
+	comp_data->max_subs = 3;
+
+	DWORD v1 = *(DWORD*)_this;
+	comp_data->fixtures_table = (DWORD*)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0xA9, _this + 0x3A, 0);
+
+	return 1;
+}
+
+void __declspec(naked) eng_league_1_subs_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push ecx
+		call eng_league_1_subs
+		add esp, 0x4
+		ret
+	}
+}
 
 char* eng_league_1_set_champion(BYTE* _this) {
 	comp_stats* comp_data = (comp_stats*)_this;
@@ -189,6 +230,8 @@ void eng_league_1_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	if (loaded) return;
 	comp->ClubCompBackgroundColour = get_colour(COLOUR_WHITE_9CF());
 	comp->ClubCompForegroundColour = get_colour(COLOUR_GREY_2_9CF());
+	data->min_stadium_capacity = 5000;
+	data->min_stadium_seats = 2000;
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 1;
@@ -260,5 +303,6 @@ void setup_eng_league_1() {
 	WriteVTablePtr(eng_league_1_vtable, VTableEoSUpdate, (DWORD)&eng_league_1_update_c);
 	WriteVTablePtr(eng_league_1_vtable, VTableFixtures, (DWORD)&eng_league_1_fixture_caller);
 	WriteVTablePtr(eng_league_1_vtable, VTableSetChampion, (DWORD)&eng_league_1_set_champion_c);
+	WriteVTablePtr(eng_league_1_vtable, VTableSubsRounds, (DWORD)&eng_league_1_subs_c);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(eng_league_1_vtable, VTable21, 0x4110b0);
 }

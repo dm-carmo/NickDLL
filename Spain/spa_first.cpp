@@ -7,7 +7,48 @@
 #include <Helpers\9cf_constants.h>
 
 DWORD* spa_first_vtable = (DWORD*)0x96FA68;
-static DWORD(__thiscall* spa_first_subs)(BYTE* _this) = (DWORD(__thiscall*)(BYTE * _this))(0x84FDF0);
+
+int spa_first_subs(BYTE* _this)
+{
+	comp_stats* comp_data = (comp_stats*)_this;
+
+	comp_data->n_rounds = 2;
+	comp_data->pts_for_win = 3;
+	comp_data->pts_for_draw = 1;
+	comp_data->f196 = 2;
+	comp_data->tiebreaker_1 = CurrentPositionTiebreaker;
+	comp_data->tiebreaker_2 = GoalDifferenceTiebreaker;
+	comp_data->tiebreaker_3 = GoalsForTiebreaker;
+	comp_data->comp_type = CLUB_DOMESTIC;
+	comp_data->promotions = 0;
+	comp_data->prom_playoff = 0;
+	comp_data->rele_playoff = 0;
+	comp_data->relegations = 3;
+
+	comp_data->promotes_to = -1;
+	comp_data->relegates_to = SPA_SECOND_9CF();
+
+	comp_data->f82 = 2;
+	comp_data->max_bench = 7;
+	comp_data->max_subs = 3;
+
+	DWORD v1 = *(DWORD*)_this;
+	comp_data->fixtures_table = (DWORD*)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0xA9, _this + 0x3A, 0);
+
+	return 1;
+}
+
+void __declspec(naked) spa_first_subs_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push ecx
+		call spa_first_subs
+		add esp, 0x4
+		ret
+	}
+}
 
 void spa_first_free_under(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
@@ -526,11 +567,40 @@ char spa_first_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
 	data->f76 = 0;
+
+	BYTE* spa_second = get_loaded_league(SPA_SECOND_9CF());
+	BYTE* spa_third = get_loaded_league(SPA_THIRD_9CF());
+	comp_stats* spa_third_data = (comp_stats*)spa_third;
+	BYTE* spa_fourth = get_loaded_league(SPA_FOURTH_9CF());
+
+	// All teams that were in D1 must be professional
+	sub_68A980(_this, Professional, Relegated, -3, 1);
+	sub_68A980(_this, Professional, -3, Relegated, 1);
+	// All teams that were in D2 must be professional
+	sub_68A980(spa_second, Professional, Relegated, -3, 1);
+	sub_68A980(spa_second, Professional, -3, Relegated, 1);
+	// All teams that were not relegated from D3 must be semi-professional or higher
+	BYTE* spa_third_grp = (BYTE*)spa_third_data->stages[0];
+	sub_68A980(spa_third, SemiProfessional, Relegated, -3, 1);
+	sub_68A980(spa_third_grp, SemiProfessional, Relegated, -3, 1);
+	if (spa_fourth)
+	{
+		comp_stats* spa_fourth_data = (comp_stats*)spa_fourth;
+		// All teams that were not relegated from D4 must be semi-professional
+		sub_68A980(spa_fourth, SemiProfessional, Relegated, -3, 1);
+		sub_68A980(spa_fourth, SemiProfessional, Relegated, -3, 0);
+		for (int i = 0; i < 4; i++)
+		{
+			BYTE* spa_fourth_grp = (BYTE*)spa_fourth_data->stages[i];
+			sub_68A980(spa_fourth_grp, SemiProfessional, Relegated, -3, 1);
+			sub_68A980(spa_fourth_grp, SemiProfessional, Relegated, -3, 0);
+		}
+	}
+
 	spa_qualify_teams_for_cup(_this);
 	spa_check_reserve_teams(_this);
 	spa_first_prom_rel_update(_this, 1);
 
-	BYTE* spa_fourth = get_loaded_league(SPA_FOURTH_9CF());
 	if (spa_fourth) {
 		spa_non_league_promotion(_this);
 		sort_spa_fourth_clubs();
@@ -569,9 +639,6 @@ char spa_first_update(BYTE* _this) {
 	sub_6827D0(_this, edx);
 	DWORD v1 = *(DWORD*)_this;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
-
-	BYTE* spa_second = get_loaded_league(SPA_SECOND_9CF());
-	BYTE* spa_third = get_loaded_league(SPA_THIRD_9CF());
 
 	v1 = *(DWORD*)spa_second;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(spa_second);
@@ -859,6 +926,8 @@ void spa_first_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	if (loaded) return;
 	comp->ClubCompBackgroundColour = get_colour(COLOUR_RED_1_9CF());
 	comp->ClubCompForegroundColour = get_colour(COLOUR_WHITE_9CF());
+	data->min_stadium_capacity = 15000;
+	data->min_stadium_seats = 15000;
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 0;
@@ -886,5 +955,6 @@ void setup_spa_first()
 	WriteVTablePtr(spa_first_vtable, VTablePromRelUpdate, (DWORD)&spa_first_prom_rel_update_c);
 	WriteVTablePtr(spa_first_vtable, VTable9, 0x48CEB0);
 	WriteVTablePtr(spa_first_vtable, VTable10, 0x48CEA0);
+	WriteVTablePtr(spa_first_vtable, VTableSubsRounds, (DWORD)&spa_first_subs_c);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(spa_first_vtable, VTable21, 0x4110b0);
 }

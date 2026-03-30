@@ -19,7 +19,8 @@ void por_first_subs(BYTE* _this)
 	comp_data->comp_type = CLUB_DOMESTIC;
 	comp_data->tiebreaker_1 = CurrentPositionTiebreaker;
 	comp_data->tiebreaker_2 = GoalDifferenceTiebreaker;
-	comp_data->tiebreaker_3 = GoalsForTiebreaker;
+	comp_data->tiebreaker_3 = GamesWonTiebreaker;
+	comp_data->tiebreaker_4 = GoalsForTiebreaker;
 	comp_data->promotions = 0;
 	comp_data->prom_playoff = 0;
 	comp_data->rele_playoff = 1;
@@ -413,10 +414,46 @@ char por_first_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
 	data->f76 = 0;
+
+	BYTE* por_second = get_loaded_league(POR_SECOND_9CF());
+	BYTE* por_third = get_loaded_league(POR_THIRD_9CF());
+	BYTE* por_fourth = get_loaded_league(POR_FOURTH_9CF());
+
+	// All teams that were in D1 must be professional
+	sub_68A980(_this, Professional, Relegated, -3, 1);
+	sub_68A980(_this, Professional, -3, Relegated, 1);
+	// All teams that were in D2 must be professional
+	sub_68A980(por_second, Professional, Relegated, -3, 1);
+	sub_68A980(por_second, Professional, -3, Relegated, 1);
+	// All teams that were not relegated from D3 must be professional
+	comp_stats* por_third_data = (comp_stats*)por_third;
+	BYTE* por_third_grp = (BYTE*)por_third_data->stages[0];
+	sub_68A980(por_third, Professional, Relegated, -3, 1);
+	sub_68A980(por_third_grp, Professional, Relegated, -3, 1);
+	if (por_fourth)
+	{
+		comp_stats* por_fourth_data = (comp_stats*)por_fourth;
+		// All teams that were not relegated from D4 must be semi-professional
+		// All teams that were relegated from D4 must be amateur
+		sub_68A980(por_fourth, SemiProfessional, Promoted, -3, 1);
+		sub_68A980(por_fourth, SemiProfessional, Promoted, -3, 0);
+		sub_68A980(por_fourth, SemiProfessional, -3, Champions, 1);
+		sub_68A980(por_fourth, SemiProfessional, -3, Promoted, 1);
+		sub_68A980(por_fourth, Amateur, -3, Relegated, 0);
+		for (int i = 0; i < 3; i++)
+		{
+			BYTE* por_fourth_grp = (BYTE*)por_fourth_data->stages[i];
+			sub_68A980(por_fourth_grp, SemiProfessional, Promoted, -3, 1);
+			sub_68A980(por_fourth_grp, SemiProfessional, Promoted, -3, 0);
+			sub_68A980(por_fourth_grp, SemiProfessional, -3, Champions, 1);
+			sub_68A980(por_fourth_grp, SemiProfessional, -3, Promoted, 1);
+			sub_68A980(por_fourth_grp, Amateur, -3, Relegated, 0);
+		}
+	}
+
 	por_check_reserve_teams(_this);
 	por_first_prom_rel_update(_this, 1);
 
-	BYTE* por_fourth = get_loaded_league(POR_FOURTH_9CF());
 	if (por_fourth) {
 		por_non_league_promotion(_this);
 		sort_por_fourth_clubs(data->year + 1);
@@ -454,9 +491,6 @@ char por_first_update(BYTE* _this) {
 	sub_6827D0(_this, edx);
 	DWORD v1 = *(DWORD*)_this;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
-
-	BYTE* por_second = get_loaded_league(POR_SECOND_9CF());
-	BYTE* por_third = get_loaded_league(POR_THIRD_9CF());
 
 	v1 = *(DWORD*)por_second;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(por_second);
@@ -805,6 +839,8 @@ void por_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	if (loaded) return;
 	comp->ClubCompBackgroundColour = get_colour(COLOUR_WHITE_9CF());
 	comp->ClubCompForegroundColour = get_colour(COLOUR_BLUE_2_9CF());
+	data->min_stadium_capacity = 4000;
+	data->min_stadium_seats = 4000;
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 1;

@@ -19,7 +19,7 @@ void nor_premier_subs(BYTE* _this)
 	comp_data->comp_type = CLUB_DOMESTIC;
 	comp_data->tiebreaker_1 = GoalDifferenceTiebreaker;
 	comp_data->tiebreaker_2 = GoalsForTiebreaker;
-	comp_data->tiebreaker_3 = GamesWonTiebreaker;
+	comp_data->tiebreaker_3 = CurrentPositionTiebreaker;
 	comp_data->promotions = 0;
 	comp_data->prom_playoff = 0;
 	comp_data->rele_playoff = 1;
@@ -307,10 +307,39 @@ char nor_premier_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
 	data->f76 = 0;
+
+	BYTE* nor_first = get_loaded_league(NOR_FIRST_9CF());
+	BYTE* nor_second = get_loaded_league(NOR_SECOND_9CF());
+	BYTE* nor_third = get_loaded_league(NOR_THIRD_9CF());
+
+	// All teams that were in D1 must be professional
+	sub_68A980(_this, Professional, Relegated, -3, 1);
+	sub_68A980(_this, Professional, -3, Relegated, 1);
+	// All teams that were not relegated from D2 must be semi-professional or higher
+	// All teams that were relegated from D2 must be semi-professional
+	sub_68A980(nor_first, SemiProfessional, Relegated, -3, 1);
+	sub_68A980(nor_first, SemiProfessional, -3, Relegated, 0);
+	// All teams that were not relegated from D3 must be semi-professional
+	comp_stats* nor_second_data = (comp_stats*)nor_second;
+	BYTE* nor_second_grp = (BYTE*)nor_second_data->stages[0];
+	sub_68A980(nor_second, SemiProfessional, Relegated, -3, 1);
+	sub_68A980(nor_second, SemiProfessional, Relegated, -3, 0);
+	sub_68A980(nor_second_grp, SemiProfessional, Relegated, -3, 1);
+	sub_68A980(nor_second_grp, SemiProfessional, Relegated, -3, 0);
+	if (nor_third) {
+		comp_stats* nor_third_data = (comp_stats*)nor_third;
+		// All teams that were relegated from D4 must be amateur
+		sub_68A980(nor_third, Amateur, -3, Relegated, 0);
+		for (int i = 0; i < 5; i++)
+		{
+			BYTE* nor_third_grp = (BYTE*)nor_third_data->stages[i];
+			sub_68A980(nor_third_grp, Amateur, -3, Relegated, 0);
+		}
+	}
+
 	nor_check_reserve_teams(_this);
 	nor_premier_prom_rel_update(_this, 1);
 
-	BYTE* nor_third = get_loaded_league(NOR_THIRD_9CF());
 	if (nor_third) {
 		nor_non_league_promotion(_this);
 		sort_nor_third_clubs();
@@ -349,9 +378,6 @@ char nor_premier_update(BYTE* _this) {
 	sub_6827D0(_this, edx);
 	DWORD v1 = *(DWORD*)_this;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
-
-	BYTE* nor_first = get_loaded_league(NOR_FIRST_9CF());
-	BYTE* nor_second = get_loaded_league(NOR_SECOND_9CF());
 
 	v1 = *(DWORD*)nor_first;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(nor_first);
@@ -618,6 +644,7 @@ void nor_premier_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->rules = RulesNorwayLeague;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
+	data->min_stadium_capacity = 3000;
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 1;
@@ -724,7 +751,7 @@ int nor_premier_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char s
 			team_league_stats* table = (team_league_stats*)(nor_first_data->team_league_table);
 			WORD current_round = *(WORD*)(round_data + 0x34);
 			for (int i = 0; i < num_teams; i++) {
-					if (table[i].club != club) continue;
+				if (table[i].club != club) continue;
 				switch (fate) {
 				case TopPlayoff:
 					staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)nor_first, 0x32);
@@ -747,7 +774,7 @@ int nor_premier_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char s
 			team_league_stats* table = (team_league_stats*)(comp_data->team_league_table);
 			WORD current_round = *(WORD*)(round_data + 0x34);
 			for (int i = 0; i < num_teams; i++) {
-					if (table[i].club != club) continue;
+				if (table[i].club != club) continue;
 				switch (fate) {
 				case BottomPlayoff:
 					staff_history_relegated_86A1C0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));

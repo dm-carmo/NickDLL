@@ -17,8 +17,9 @@ void por_third_subs(BYTE* _this)
 	comp_data->f196 = 2;
 	comp_data->comp_type = CLUB_DOMESTIC;
 	comp_data->tiebreaker_1 = CurrentPositionTiebreaker;
-	comp_data->tiebreaker_2 = GoalsForTiebreaker;
-	comp_data->tiebreaker_3 = GoalDifferenceTiebreaker;
+	comp_data->tiebreaker_2 = GoalDifferenceTiebreaker;
+	comp_data->tiebreaker_3 = GamesWonTiebreaker;
+	comp_data->tiebreaker_4 = GoalsForTiebreaker;
 	comp_data->f82 = 2;
 	comp_data->promotions = 0;
 	comp_data->prom_playoff = 4;
@@ -319,6 +320,8 @@ void por_third_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	if (loaded) return;
 	comp->ClubCompBackgroundColour = get_colour(COLOUR_PURPLE_2_9CF());
 	comp->ClubCompForegroundColour = get_colour(COLOUR_YELLOW_1_9CF());
+	data->min_stadium_capacity = 1000;
+	data->min_stadium_seats = 1000;
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 4;

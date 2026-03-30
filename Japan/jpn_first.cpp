@@ -172,10 +172,30 @@ char jpn_first_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
 	data->f76 = 0;
+
+	BYTE* jpn_second = get_loaded_league(JPN_SECOND_9CF());
+	BYTE* jpn_third = get_loaded_league(JPN_THIRD_9CF());
+	BYTE* jpn_jfl = get_loaded_league(JPN_JFL_9CF());
+
+	// All teams that were in D1 must be professional
+	sub_68A980(_this, Professional, Relegated, -3, 1);
+	sub_68A980(_this, Professional, -3, Relegated, 1);
+	// All teams that were in D2 must be professional
+	sub_68A980(jpn_second, Professional, Relegated, -3, 1);
+	sub_68A980(jpn_second, Professional, -3, Relegated, 1);
+	// All teams that were not relegated from D3 must be professional
+	sub_68A980(jpn_third, Professional, Relegated, -3, 1);
+	if (jpn_jfl) {
+		// All teams that were not relegated from D4 must be semi-professional or higher
+		// All teams that were relegated from D4 must be semi-professional
+		sub_68A980(jpn_jfl, SemiProfessional, Relegated, -3, 1);
+		sub_68A980(jpn_jfl, SemiProfessional, -3, Relegated, 1);
+		sub_68A980(jpn_jfl, SemiProfessional, -3, Relegated, 0);
+	}
+
 	DWORD v1 = *(DWORD*)_this;
 	jpn_first_prom_rel_update(_this, 1);
 
-	BYTE* jpn_jfl = get_loaded_league(JPN_JFL_9CF());
 	if (jpn_jfl) {
 		jpn_jfl_relegation(_this);
 	}
@@ -211,9 +231,6 @@ char jpn_first_update(BYTE* _this) {
 	BYTE* edx = 0;
 	sub_6827D0(_this, edx);
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
-
-	BYTE* jpn_second = get_loaded_league(JPN_SECOND_9CF());
-	BYTE* jpn_third = get_loaded_league(JPN_THIRD_9CF());
 
 	v1 = *(DWORD*)jpn_second;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(jpn_second);
@@ -454,6 +471,8 @@ void jpn_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->rules = RulesJapanLeague;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
+	data->min_stadium_capacity = 15000;
+	data->min_stadium_seats = 10000;
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 0;

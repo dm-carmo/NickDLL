@@ -18,8 +18,9 @@ void fra_first_subs(BYTE* _this)
 	comp_data->f196 = 2;
 	comp_data->comp_type = CLUB_DOMESTIC;
 	comp_data->tiebreaker_1 = GoalDifferenceTiebreaker;
-	comp_data->tiebreaker_2 = GoalsForTiebreaker;
-	comp_data->tiebreaker_3 = GamesWonTiebreaker;
+	comp_data->tiebreaker_2 = CurrentPositionTiebreaker;
+	comp_data->tiebreaker_3 = GoalsForTiebreaker;
+	comp_data->tiebreaker_4 = GoalsForAwayTiebreaker;
 	comp_data->promotions = 0;
 	comp_data->prom_playoff = 0;
 	comp_data->rele_playoff = 1;
@@ -130,6 +131,23 @@ char fra_first_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
 	data->f76 = 0;
+
+	BYTE* fra_second = get_loaded_league(FRA_SECOND_9CF());
+	BYTE* fra_third = get_loaded_league(FRA_NATIONAL_1_9CF());
+
+	// All teams that were in D1 must be professional
+	sub_68A980(_this, Professional, Relegated, -3, 1);
+	sub_68A980(_this, Professional, -3, Relegated, 1);
+	// All teams that were in D2 must be professional
+	sub_68A980(fra_second, Professional, Relegated, -3, 1);
+	sub_68A980(fra_second, Professional, -3, Relegated, 1);
+	// All teams that were not promoted from D3 must be semi-professional
+	sub_68A980(fra_third, SemiProfessional, Promoted, -3, 1);
+	sub_68A980(fra_third, SemiProfessional, Promoted, -3, 0);
+	// All teams that were promoted from D3 must be professional
+	sub_68A980(fra_third, Professional, -3, Champions, 1);
+	sub_68A980(fra_third, Professional, -3, Promoted, 1);
+
 	fra_first_prom_rel_update(_this, 1);
 	fra_national_relegation(_this);
 
@@ -162,9 +180,6 @@ char fra_first_update(BYTE* _this) {
 	sub_6827D0(_this, edx);
 	DWORD v1 = *(DWORD*)_this;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
-
-	BYTE* fra_second = get_loaded_league(FRA_SECOND_9CF());
-	BYTE* fra_third = get_loaded_league(FRA_NATIONAL_1_9CF());
 
 	v1 = *(DWORD*)fra_second;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(fra_second);

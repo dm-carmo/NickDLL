@@ -7,7 +7,48 @@
 #include <Helpers\9cf_constants.h>
 
 DWORD* ita_ser_a_vtable = (DWORD*)0x96C3CC;
-static DWORD(__thiscall* ita_ser_a_subs)(BYTE* _this) = (DWORD(__thiscall*)(BYTE * _this))(0x641640);
+
+int ita_ser_a_subs(BYTE* _this)
+{
+	comp_stats* comp_data = (comp_stats*)_this;
+
+	comp_data->n_rounds = 2;
+	comp_data->pts_for_win = 3;
+	comp_data->pts_for_draw = 1;
+	comp_data->f196 = 2;
+	comp_data->tiebreaker_1 = CurrentPositionTiebreaker;
+	comp_data->tiebreaker_2 = GoalDifferenceTiebreaker;
+	comp_data->tiebreaker_3 = GoalsForTiebreaker;
+	comp_data->comp_type = CLUB_DOMESTIC;
+	comp_data->promotions = 0;
+	comp_data->prom_playoff = 0;
+	comp_data->rele_playoff = 0;
+	comp_data->relegations = 3;
+
+	comp_data->promotes_to = -1;
+	comp_data->relegates_to = ITA_SERIE_B_9CF();
+
+	comp_data->f82 = 2;
+	comp_data->max_bench = 7;
+	comp_data->max_subs = 3;
+
+	DWORD v1 = *(DWORD*)_this;
+	comp_data->fixtures_table = (DWORD*)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0xA9, _this + 0x3A, 0);
+
+	return 1;
+}
+
+void __declspec(naked) ita_ser_a_subs_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push ecx
+		call ita_ser_a_subs
+		add esp, 0x4
+		ret
+	}
+}
 
 DWORD ita_ser_a_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
 {
@@ -375,6 +416,30 @@ char ita_ser_a_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
 	data->f76 = 0;
+
+	BYTE* ita_ser_b = get_loaded_league(ITA_SERIE_B_9CF());
+	BYTE* ita_ser_c = get_loaded_league(ITA_SERIE_C_9CF());
+
+	// All teams that were in D1 must be professional
+	sub_68A980(_this, Professional, Relegated, -3, 1);
+	sub_68A980(_this, Professional, -3, Relegated, 1);
+	// All teams that were in D2 must be professional
+	sub_68A980(ita_ser_b, Professional, Relegated, -3, 1);
+	sub_68A980(ita_ser_b, Professional, -3, Relegated, 1);
+	// All teams that were not relegated from D3 must be professional
+	// All teams that were relegated from D3 must be semi-professional
+	sub_68A980(ita_ser_c, Professional, Relegated, -3, 1);
+	sub_68A980(ita_ser_c, SemiProfessional, -3, Relegated, 1);
+	sub_68A980(ita_ser_c, SemiProfessional, -3, Relegated, 0);
+	comp_stats* ita_ser_c_data = (comp_stats*)ita_ser_c;
+	for (int i = 0; i < 2; i++)
+	{
+		BYTE* ita_ser_c_grp = (BYTE*)ita_ser_c_data->stages[i];
+		sub_68A980(ita_ser_c_grp, Professional, Relegated, -3, 1);
+		sub_68A980(ita_ser_c_grp, SemiProfessional, -3, Relegated, 1);
+		sub_68A980(ita_ser_c_grp, SemiProfessional, -3, Relegated, 0);
+	}
+
 	ita_ser_a_prom_rel_update(_this, 1);
 	serie_d_promotion(_this);
 	sort_serie_c_clubs();
@@ -407,9 +472,6 @@ char ita_ser_a_update(BYTE* _this) {
 	sub_6827D0(_this, edx);
 	DWORD v1 = *(DWORD*)_this;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
-
-	BYTE* ita_ser_b = get_loaded_league(ITA_SERIE_B_9CF());
-	BYTE* ita_ser_c = get_loaded_league(ITA_SERIE_C_9CF());
 
 	v1 = *(DWORD*)ita_ser_b;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(ita_ser_b);
@@ -445,6 +507,7 @@ void ita_ser_a_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	if (loaded) return;
 	comp->ClubCompBackgroundColour = get_colour(COLOUR_BLUE_4_9CF());
 	comp->ClubCompForegroundColour = get_colour(COLOUR_WHITE_9CF());
+	data->min_stadium_capacity = 12000;
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 0;
@@ -468,5 +531,6 @@ void setup_ita_ser_a()
 	WriteVTablePtr(ita_ser_a_vtable, VTableEoSUpdate, (DWORD)&ita_ser_a_update_c);
 	WriteVTablePtr(ita_ser_a_vtable, VTablePromRelUpdate, (DWORD)&ita_ser_a_prom_rel_update_c);
 	WriteVTablePtr(ita_ser_a_vtable, VTableFixtures, (DWORD)&ita_ser_a_fixtures_c);
+	WriteVTablePtr(ita_ser_a_vtable, VTableSubsRounds, (DWORD)&ita_ser_a_subs_c);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(ita_ser_a_vtable, VTable21, 0x4110b0);
 }

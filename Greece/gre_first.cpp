@@ -269,9 +269,10 @@ void gre_first_subs(BYTE* _this)
 	comp_data->pts_for_draw = 1;
 	comp_data->f196 = 2;
 	comp_data->comp_type = CLUB_DOMESTIC;
-	comp_data->tiebreaker_1 = GoalDifferenceTiebreaker;
-	comp_data->tiebreaker_2 = GoalsForTiebreaker;
-	comp_data->tiebreaker_3 = GamesWonTiebreaker;
+	comp_data->tiebreaker_1 = CurrentPositionTiebreaker;
+	comp_data->tiebreaker_2 = GoalDifferenceTiebreaker;
+	comp_data->tiebreaker_3 = GoalsForTiebreaker;
+	comp_data->tiebreaker_4 = GamesWonTiebreaker;
 	comp_data->promotions = 0;
 	comp_data->prom_playoff = 0;
 	comp_data->rele_playoff = 0;
@@ -421,6 +422,26 @@ char gre_first_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
 	data->f76 = 0;
+
+	BYTE* gre_second = get_loaded_league(GRE_SECOND_9CF());
+
+	// All teams that were in D1 must be professional
+	sub_68A980(_this, Professional, Relegated, -3, 1);
+	sub_68A980(_this, Professional, -3, Relegated, 1);
+	// All teams that were not relegated from D2 must be professional
+	// All teams that were relegated from D2 must be semi-professional
+	sub_68A980(gre_second, Professional, Relegated, -3, 1);
+	sub_68A980(gre_second, SemiProfessional, -3, Relegated, 1);
+	sub_68A980(gre_second, SemiProfessional, -3, Relegated, 0);
+	if (data->year == 2025)
+	{
+		comp_stats* gre_second_data = (comp_stats*)gre_second;
+		BYTE* gre_second_grp = (BYTE*)gre_second_data->stages[0];
+		sub_68A980(gre_second_grp, Professional, Relegated, -3, 1);
+		sub_68A980(gre_second_grp, SemiProfessional, -3, Relegated, 1);
+		sub_68A980(gre_second_grp, SemiProfessional, -3, Relegated, 0);
+	}
+
 	DWORD v1 = *(DWORD*)_this;
 	gre_check_reserve_teams(_this);
 	gre_first_prom_rel_update(_this, 1);
@@ -451,8 +472,6 @@ char gre_first_update(BYTE* _this) {
 	BYTE* edx = 0;
 	sub_6827D0(_this, edx);
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
-
-	BYTE* gre_second = get_loaded_league(GRE_SECOND_9CF());
 
 	v1 = *(DWORD*)gre_second;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(gre_second);
@@ -487,6 +506,8 @@ void gre_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 		*((DWORD*)(_this + 0xA3)) = (DWORD)&gre_first_7F3220;
 		return;
 	}
+	data->min_stadium_capacity = 3000;
+	data->min_stadium_seats = 3000;
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 0;

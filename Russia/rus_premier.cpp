@@ -17,9 +17,10 @@ void rus_premier_subs(BYTE* _this)
 	comp_data->pts_for_draw = 1;
 	comp_data->f196 = 2;
 	comp_data->comp_type = CLUB_DOMESTIC;
-	comp_data->tiebreaker_1 = GamesWonTiebreaker;
-	comp_data->tiebreaker_2 = CurrentPositionTiebreaker;
+	comp_data->tiebreaker_1 = CurrentPositionTiebreaker;
+	comp_data->tiebreaker_2 = GamesWonTiebreaker;
 	comp_data->tiebreaker_3 = GoalDifferenceTiebreaker;
+	comp_data->tiebreaker_4 = GoalsForTiebreaker;
 	comp_data->promotions = 0;
 	comp_data->prom_playoff = 0;
 	comp_data->rele_playoff = 2;
@@ -261,6 +262,27 @@ char rus_premier_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
 	data->f76 = 0;
+
+	BYTE* rus_first = get_loaded_league(RUS_FIRST_9CF());
+	BYTE* rus_second_a = get_loaded_league(RUS_SECOND_A_9CF());
+
+	// All teams that were in D1 must be professional
+	sub_68A980(_this, Professional, Relegated, -3, 1);
+	sub_68A980(_this, Professional, -3, Relegated, 1);
+	// All teams that were in D2 must be professional
+	sub_68A980(rus_first, Professional, Relegated, -3, 1);
+	sub_68A980(rus_first, Professional, -3, Relegated, 1);
+	// All teams that were not relegated from D3 must be professional
+	// All teams that were relegated from D3 must be semi-professional
+	sub_68A980(rus_second_a, Professional, Relegated, -3, 1);
+	sub_68A980(rus_second_a, SemiProfessional, -3, Relegated, 1);
+	sub_68A980(rus_second_a, SemiProfessional, -3, Relegated, 0);
+	comp_stats* rus_second_a_data = (comp_stats*)rus_second_a;
+	BYTE* rus_second_a_grp = (BYTE*)rus_second_a_data->stages[0];
+	sub_68A980(rus_second_a_grp, Professional, Relegated, -3, 1);
+	sub_68A980(rus_second_a_grp, SemiProfessional, -3, Relegated, 1);
+	sub_68A980(rus_second_a_grp, SemiProfessional, -3, Relegated, 0);
+
 	rus_check_reserve_teams(_this);
 	DWORD v1 = *(DWORD*)_this;
 	rus_premier_prom_rel_update(_this, 1);
@@ -294,9 +316,6 @@ char rus_premier_update(BYTE* _this) {
 	BYTE* edx = 0;
 	sub_6827D0(_this, edx);
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
-
-	BYTE* rus_first = get_loaded_league(RUS_FIRST_9CF());
-	BYTE* rus_second_a = get_loaded_league(RUS_SECOND_A_9CF());
 
 	v1 = *(DWORD*)rus_first;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(rus_first);
@@ -585,6 +604,7 @@ void rus_premier_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->rules = RulesRussia;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
+	data->min_stadium_capacity = 10000;
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 1;

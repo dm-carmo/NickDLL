@@ -98,7 +98,7 @@ void nor_first_subs(BYTE* _this)
 	comp_data->comp_type = CLUB_DOMESTIC;
 	comp_data->tiebreaker_1 = GoalDifferenceTiebreaker;
 	comp_data->tiebreaker_2 = GoalsForTiebreaker;
-	comp_data->tiebreaker_3 = GamesWonTiebreaker;
+	comp_data->tiebreaker_3 = CurrentPositionTiebreaker;
 	comp_data->promotions = 2;
 	comp_data->prom_playoff = 4;
 	comp_data->rele_playoff = 1;
@@ -313,6 +313,7 @@ void nor_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->rules = RulesNorwayLeague;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
+	data->min_stadium_capacity = 800;
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 2;
@@ -498,7 +499,7 @@ int nor_first_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char sta
 				WORD num_teams = curr_stage->n_teams;
 				team_league_stats* table = (team_league_stats*)(curr_stage->team_league_table);
 				for (int i = 0; i < num_teams; i++) {
-							if (table[i].club != club) continue;
+					if (table[i].club != club) continue;
 					switch (fate) {
 					case TopPlayoff:
 						staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)nor_second, 0x32);
@@ -522,7 +523,7 @@ int nor_first_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char sta
 			team_league_stats* table = (team_league_stats*)(comp_data->team_league_table);
 			WORD current_round = *(WORD*)(round_data + 0x34);
 			for (int i = 0; i < num_teams; i++) {
-					if (table[i].club != club) continue;
+				if (table[i].club != club) continue;
 				switch (fate) {
 				case BottomPlayoff:
 					staff_history_relegated_86A1C0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));

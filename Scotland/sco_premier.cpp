@@ -289,7 +289,7 @@ void sco_premier_subs(BYTE* _this)
 	comp_data->comp_type = CLUB_DOMESTIC;
 	comp_data->tiebreaker_1 = GoalDifferenceTiebreaker;
 	comp_data->tiebreaker_2 = GoalsForTiebreaker;
-	comp_data->tiebreaker_3 = GamesWonTiebreaker;
+	comp_data->tiebreaker_3 = CurrentPositionTiebreaker;
 	comp_data->promotions = 0;
 	comp_data->prom_playoff = 0;
 	comp_data->rele_playoff = 1;
@@ -411,10 +411,35 @@ char sco_premier_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
 	data->f76 = 0;
-	DWORD v1 = *(DWORD*)_this;
-	sco_premier_prom_rel_update(_this, 1);
+
+	BYTE* sco_champ = get_loaded_league(SCO_CHAMP_9CF());
+	BYTE* sco_league_1 = get_loaded_league(SCO_LEAGUE_1_9CF());
+	BYTE* sco_league_2 = get_loaded_league(SCO_LEAGUE_2_9CF());
 	BYTE* sco_highland = get_loaded_league(SCO_HIGHLAND_9CF());
 	BYTE* sco_lowland = get_loaded_league(SCO_LOWLAND_9CF());
+
+	// All teams that were in D1 must be professional
+	sub_68A980(_this, Professional, Relegated, -3, 1);
+	sub_68A980(_this, Professional, -3, Relegated, 1);
+	// All teams that were in D2 must be semi-professional or higher
+	sub_68A980(sco_champ, SemiProfessional, Relegated, -3, 1);
+	sub_68A980(sco_champ, SemiProfessional, -3, Relegated, 1);
+	// All teams that were in D3 must be semi-professional or higher
+	sub_68A980(sco_league_1, SemiProfessional, Relegated, -3, 1);
+	sub_68A980(sco_league_1, SemiProfessional, -3, Relegated, 1);
+	// All teams that were not relegated from D4 must be semi-professional or higher
+	sub_68A980(sco_league_2, SemiProfessional, Relegated, -3, 1);
+	// All teams that were relegated from D4 must be semi-professional or lower
+	sub_68A980(sco_league_2, SemiProfessional, -3, Relegated, 0);
+	if (sco_highland && sco_lowland)
+	{
+		// All teams that were relegated from D5 must be amateur
+		sub_68A980(sco_highland, Amateur, -3, Relegated, 0);
+		sub_68A980(sco_lowland, Amateur, -3, Relegated, 0);
+	}
+
+	DWORD v1 = *(DWORD*)_this;
+	sco_premier_prom_rel_update(_this, 1);
 	if (sco_highland && sco_lowland) {
 		sco_non_league_promotion(_this);
 	}
@@ -451,10 +476,6 @@ char sco_premier_update(BYTE* _this) {
 	BYTE* edx = 0;
 	sub_6827D0(_this, edx);
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
-
-	BYTE* sco_champ = get_loaded_league(SCO_CHAMP_9CF());
-	BYTE* sco_league_1 = get_loaded_league(SCO_LEAGUE_1_9CF());
-	BYTE* sco_league_2 = get_loaded_league(SCO_LEAGUE_2_9CF());
 
 	v1 = *(DWORD*)sco_champ;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(sco_champ);

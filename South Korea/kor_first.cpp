@@ -258,9 +258,10 @@ void kor_first_subs(BYTE* _this)
 	comp_data->pts_for_draw = 1;
 	comp_data->f196 = 2;
 	comp_data->comp_type = CLUB_DOMESTIC;
-	comp_data->tiebreaker_1 = GoalDifferenceTiebreaker;
-	comp_data->tiebreaker_2 = GoalsForTiebreaker;
+	comp_data->tiebreaker_1 = GoalsForTiebreaker;
+	comp_data->tiebreaker_2 = GoalDifferenceTiebreaker;
 	comp_data->tiebreaker_3 = GamesWonTiebreaker;
+	comp_data->tiebreaker_4 = CurrentPositionTiebreaker;
 	comp_data->promotions = 0;
 	comp_data->prom_playoff = 0;
 	comp_data->rele_playoff = 2;
@@ -295,6 +296,18 @@ char kor_first_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
 	data->f76 = 0;
+
+	BYTE* kor_second = get_loaded_league(KOR_SECOND_9CF());
+
+	// All teams that were in D1 must be professional
+	sub_68A980(_this, Professional, Relegated, -3, 1);
+	sub_68A980(_this, Professional, -3, Relegated, 1);
+	// All teams that were not relegated from D2 must be professional
+	// All teams that were relegated from D2 must be semi-professional
+	sub_68A980(kor_second, Professional, Relegated, -3, 1);
+	sub_68A980(kor_second, SemiProfessional, -3, Relegated, 1);
+	sub_68A980(kor_second, SemiProfessional, -3, Relegated, 0);
+
 	DWORD v1 = *(DWORD*)_this;
 	(*(void(__thiscall**)(BYTE*, int))(v1 + 0xB0))(_this, 1);
 
@@ -326,8 +339,6 @@ char kor_first_update(BYTE* _this) {
 	BYTE* edx = 0;
 	sub_6827D0(_this, edx);
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
-
-	BYTE* kor_second = get_loaded_league(KOR_SECOND_9CF());
 
 	v1 = *(DWORD*)kor_second;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(kor_second);
@@ -362,6 +373,7 @@ void kor_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 		*((DWORD*)(_this + 0xA3)) = (DWORD)&kor_first_7F3220;
 		return;
 	}
+	data->min_stadium_capacity = 10000;
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 1;

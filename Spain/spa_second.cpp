@@ -495,6 +495,8 @@ void spa_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	if (loaded) return;
 	comp->ClubCompBackgroundColour = get_colour(COLOUR_CYAN_1_9CF());
 	comp->ClubCompForegroundColour = get_colour(COLOUR_WHITE_9CF());
+	data->min_stadium_capacity = 6000;
+	data->min_stadium_seats = 6000;
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 1;

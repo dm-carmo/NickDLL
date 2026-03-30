@@ -59,7 +59,7 @@ void hol_second_subs(BYTE* _this)
 	comp_data->comp_type = CLUB_DOMESTIC;
 	comp_data->tiebreaker_1 = GoalDifferenceTiebreaker;
 	comp_data->tiebreaker_2 = GoalsForTiebreaker;
-	comp_data->tiebreaker_3 = NoTiebreaker;
+	comp_data->tiebreaker_3 = CurrentPositionTiebreaker;
 	comp_data->promotions = 2;
 	comp_data->prom_playoff = 0;
 	comp_data->rele_playoff = 0;
@@ -371,6 +371,8 @@ void hol_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->rules = RulesHolland;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
+	comp->ClubCompBackgroundColour = get_colour(COLOUR_RED_1_9CF());
+	comp->ClubCompForegroundColour = get_colour(COLOUR_WHITE_9CF());
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 5;

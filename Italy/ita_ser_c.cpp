@@ -94,9 +94,10 @@ void ita_ser_c_subs(BYTE* _this)
 	comp_data->pts_for_draw = 1;
 	comp_data->f196 = 2;
 	comp_data->comp_type = CLUB_DOMESTIC;
-	comp_data->tiebreaker_1 = GoalDifferenceTiebreaker;
-	comp_data->tiebreaker_2 = GoalsForTiebreaker;
-	comp_data->tiebreaker_3 = NoTiebreaker;
+	comp_data->tiebreaker_1 = CurrentPositionTiebreaker;
+	comp_data->tiebreaker_2 = GoalDifferenceTiebreaker;
+	comp_data->tiebreaker_3 = GoalsForTiebreaker;
+	comp_data->tiebreaker_4 = GamesWonTiebreaker;
 	comp_data->promotions = 1;
 	comp_data->prom_playoff = 9;
 	comp_data->rele_playoff = 4;
@@ -899,6 +900,7 @@ void ita_ser_c_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	if (loaded) return;
 	comp->ClubCompBackgroundColour = get_colour(COLOUR_PURPLE_2_9CF());
 	comp->ClubCompForegroundColour = get_colour(COLOUR_GOLD_9CF());
+	data->min_stadium_capacity = 1500;
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 4;

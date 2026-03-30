@@ -47,6 +47,7 @@ void pol_third_subs(BYTE* _this)
 	comp_data->tiebreaker_1 = CurrentPositionTiebreaker;
 	comp_data->tiebreaker_2 = GoalDifferenceTiebreaker;
 	comp_data->tiebreaker_3 = GoalsForTiebreaker;
+	comp_data->tiebreaker_4 = GamesWonTiebreaker;
 	comp_data->promotions = 2;
 	comp_data->prom_playoff = 4;
 	comp_data->rele_playoff = 0;

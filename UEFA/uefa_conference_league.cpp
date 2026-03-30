@@ -749,7 +749,7 @@ void uefa_conference_league_group_stage_setup(BYTE* _this) {
 	DWORD* stages_arr = comp_data->stages;
 
 	BYTE prom_rel[4] = { 2, 4, 0, 0 };
-	BYTE tiebreaks[4] = { GoalDifferenceTiebreaker, GoalsForTiebreaker, GamesWonTiebreaker, NoTiebreaker };
+	BYTE tiebreaks[4] = { GoalDifferenceTiebreaker, GoalsForTiebreaker, GoalsForAwayTiebreaker, GamesWonTiebreaker };
 	teams_seeded* teams = (teams_seeded*)comp_data->special_teams_seedings;
 
 	comp_stats* uel_data = (comp_stats*)get_loaded_league(UEFA_EUROPA_LEAGUE_9CF());

@@ -92,9 +92,9 @@ void gre_second_subs(BYTE* _this)
 	comp_data->pts_for_draw = 1;
 	comp_data->f196 = 2;
 	comp_data->comp_type = CLUB_DOMESTIC;
-	comp_data->tiebreaker_1 = GoalDifferenceTiebreaker;
-	comp_data->tiebreaker_2 = GoalsForTiebreaker;
-	comp_data->tiebreaker_3 = GamesWonTiebreaker;
+	comp_data->tiebreaker_1 = CurrentPositionTiebreaker;
+	comp_data->tiebreaker_2 = GoalDifferenceTiebreaker;
+	comp_data->tiebreaker_3 = GoalsForTiebreaker;
 	comp_data->f82 = 2;
 	if (comp_data->year == 2025) comp_data->promotions = 1;
 	else comp_data->promotions = 2;
@@ -824,6 +824,8 @@ void gre_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	if (loaded) return;
 	comp->ClubCompBackgroundColour = 0;
 	comp->ClubCompForegroundColour = 0;
+	data->min_stadium_capacity = 500;
+	data->min_stadium_seats = 500;
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 2;

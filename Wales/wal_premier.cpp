@@ -252,7 +252,8 @@ void wal_premier_subs(BYTE* _this)
 	comp_data->comp_type = CLUB_DOMESTIC;
 	comp_data->tiebreaker_1 = GoalDifferenceTiebreaker;
 	comp_data->tiebreaker_2 = GoalsForTiebreaker;
-	comp_data->tiebreaker_3 = GamesWonTiebreaker;
+	comp_data->tiebreaker_3 = CurrentPositionTiebreaker;
+	comp_data->tiebreaker_4 = GamesWonTiebreaker;
 	comp_data->promotions = 0;
 	comp_data->prom_playoff = 0;
 	comp_data->rele_playoff = 0;
@@ -341,6 +342,24 @@ char wal_premier_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
 	data->f76 = 0;
+
+	BYTE* wal_first_n = get_loaded_league(WAL_FIRST_NORTH_9CF());
+	BYTE* wal_first_s = get_loaded_league(WAL_FIRST_SOUTH_9CF());
+
+	// All teams that were not relegated from D1 must be semi-professional or higher
+	// All teams that were relegated from D1 must be semi-professional
+	sub_68A980(_this, SemiProfessional, Relegated, -3, 1);
+	sub_68A980(_this, SemiProfessional, -3, Relegated, 1);
+	sub_68A980(_this, SemiProfessional, -3, Relegated, 0);
+	// All teams that were promoted from D2 must be semi-professional
+	// All teams that were relegated from D2 must be amateur
+	sub_68A980(wal_first_n, SemiProfessional, -3, Champions, 1);
+	sub_68A980(wal_first_n, SemiProfessional, -3, Promoted, 1);
+	sub_68A980(wal_first_n, Amateur, -3, Relegated, 0);
+	sub_68A980(wal_first_s, SemiProfessional, -3, Champions, 1);
+	sub_68A980(wal_first_s, SemiProfessional, -3, Promoted, 1);
+	sub_68A980(wal_first_s, Amateur, -3, Relegated, 0);
+
 	DWORD v1 = *(DWORD*)_this;
 	wal_premier_prom_rel_update(_this, 1);
 	wal_non_league_promotion(_this);
@@ -374,9 +393,6 @@ char wal_premier_update(BYTE* _this) {
 	BYTE* edx = 0;
 	sub_6827D0(_this, edx);
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
-
-	BYTE* wal_first_n = get_loaded_league(WAL_FIRST_NORTH_9CF());
-	BYTE* wal_first_s = get_loaded_league(WAL_FIRST_SOUTH_9CF());
 
 	v1 = *(DWORD*)wal_first_n;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(wal_first_n);
@@ -414,6 +430,8 @@ void wal_premier_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 		*((DWORD*)(_this + 0xA3)) = (DWORD)&wal_premier_7F3220;
 		return;
 	}
+	data->min_stadium_capacity = 1500;
+	data->min_stadium_seats = 500;
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 0;

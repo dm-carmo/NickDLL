@@ -71,7 +71,7 @@ void hol_first_subs(BYTE* _this)
 	comp_data->comp_type = CLUB_DOMESTIC;
 	comp_data->tiebreaker_1 = GoalDifferenceTiebreaker;
 	comp_data->tiebreaker_2 = GoalsForTiebreaker;
-	comp_data->tiebreaker_3 = NoTiebreaker;
+	comp_data->tiebreaker_3 = CurrentPositionTiebreaker;
 	comp_data->promotions = 0;
 	comp_data->prom_playoff = 0;
 	comp_data->rele_playoff = 1;
@@ -379,6 +379,16 @@ char hol_first_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
 	data->f76 = 0;
+
+	BYTE* hol_second = get_loaded_league(HOL_SECOND_9CF());
+
+	// All teams that were in D1 must be professional
+	sub_68A980(_this, Professional, Relegated, -3, 1);
+	sub_68A980(_this, Professional, -3, Relegated, 1);
+	// All teams that were in D2 must be professional
+	sub_68A980(hol_second, Professional, Relegated, -3, 1);
+	sub_68A980(hol_second, Professional, -3, Relegated, 1);
+
 	DWORD v1 = *(DWORD*)_this;
 	hol_check_reserve_teams(_this);
 	(*(void(__thiscall**)(BYTE*, int))(v1 + 0xB0))(_this, 1);
@@ -413,7 +423,6 @@ char hol_first_update(BYTE* _this) {
 	sub_6827D0(_this, edx);
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
 
-	BYTE* hol_second = get_loaded_league(HOL_SECOND_9CF());
 	v1 = *(DWORD*)hol_second;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(hol_second);
 

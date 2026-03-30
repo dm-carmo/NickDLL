@@ -19,7 +19,8 @@ void ger_first_subs(BYTE* _this)
 	comp_data->comp_type = CLUB_DOMESTIC;
 	comp_data->tiebreaker_1 = GoalDifferenceTiebreaker;
 	comp_data->tiebreaker_2 = GoalsForTiebreaker;
-	comp_data->tiebreaker_3 = GamesWonTiebreaker;
+	comp_data->tiebreaker_3 = CurrentPositionTiebreaker;
+	comp_data->tiebreaker_4 = GoalsForAwayTiebreaker;
 	comp_data->promotions = 0;
 	comp_data->prom_playoff = 0;
 	comp_data->rele_playoff = 1;
@@ -288,10 +289,44 @@ char ger_first_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
 	data->f76 = 0;
+
+	BYTE* ger_second = get_loaded_league(GER_SECOND_9CF());
+	BYTE* ger_third = get_loaded_league(GER_THIRD_9CF());
+	BYTE* ger_regional = get_loaded_league(GER_REGIONAL_9CF());
+
+	// All teams that were in D1 must be professional
+	sub_68A980(_this, Professional, Relegated, -3, 1);
+	sub_68A980(_this, Professional, -3, Relegated, 1);
+	// All teams that were in D2 must be professional
+	sub_68A980(ger_second, Professional, Relegated, -3, 1);
+	sub_68A980(ger_second, Professional, -3, Relegated, 1);
+	// All teams that were not relegated from D3 must be professional
+	sub_68A980(ger_third, Professional, Relegated, -3, 1);
+	if (ger_regional)
+	{
+		comp_stats* ger_regional_data = (comp_stats*)ger_regional;
+		// All teams that were promoted from D4 must be prfessional
+		// All teams that were not relegated from D4 must be semi-professional
+		// All teams that were relegated from D4 must be amateur
+		sub_68A980(ger_regional, SemiProfessional, Promoted, -3, 1);
+		sub_68A980(ger_regional, SemiProfessional, Promoted, -3, 0);
+		sub_68A980(ger_regional, Professional, -3, Champions, 1);
+		sub_68A980(ger_regional, Professional, -3, Promoted, 1);
+		sub_68A980(ger_regional, Amateur, -3, Relegated, 0);
+		for (int i = 0; i < 4; i++)
+		{
+			BYTE* ger_regional_grp = (BYTE*)ger_regional_data->stages[i];
+			sub_68A980(ger_regional_grp, SemiProfessional, Promoted, -3, 1);
+			sub_68A980(ger_regional_grp, SemiProfessional, Promoted, -3, 0);
+			sub_68A980(ger_regional_grp, Professional, -3, Champions, 1);
+			sub_68A980(ger_regional_grp, Professional, -3, Promoted, 1);
+			sub_68A980(ger_regional_grp, Amateur, -3, Relegated, 0);
+		}
+	}
+
 	ger_check_reserve_teams(_this);
 	ger_first_prom_rel_update(_this, 1);
 
-	BYTE* ger_regional = get_loaded_league(GER_REGIONAL_9CF());
 	if (ger_regional) {
 		ger_non_league_promotion(_this);
 		sort_regional_clubs();
@@ -329,9 +364,6 @@ char ger_first_update(BYTE* _this) {
 	sub_6827D0(_this, edx);
 	DWORD v1 = *(DWORD*)_this;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
-
-	BYTE* ger_second = get_loaded_league(GER_SECOND_9CF());
-	BYTE* ger_third = get_loaded_league(GER_THIRD_9CF());
 
 	v1 = *(DWORD*)ger_second;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(ger_second);
@@ -647,6 +679,8 @@ void ger_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	if (loaded) return;
 	comp->ClubCompBackgroundColour = get_colour(COLOUR_RED_2_9CF());
 	comp->ClubCompForegroundColour = get_colour(COLOUR_WHITE_9CF());
+	data->min_stadium_capacity = 15000;
+	data->min_stadium_seats = 3000;
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 1;
@@ -750,7 +784,7 @@ int ger_first_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char sta
 			team_league_stats* table = (team_league_stats*)(ger_second_data->team_league_table);
 			WORD current_round = *(WORD*)(round_data + 0x34);
 			for (int i = 0; i < num_teams; i++) {
-					if (table[i].club != club) continue;
+				if (table[i].club != club) continue;
 				switch (fate) {
 				case TopPlayoff:
 					staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)ger_second, 0x32);
@@ -773,7 +807,7 @@ int ger_first_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char sta
 			team_league_stats* table = (team_league_stats*)(comp_data->team_league_table);
 			WORD current_round = *(WORD*)(round_data + 0x34);
 			for (int i = 0; i < num_teams; i++) {
-					if (table[i].club != club) continue;
+				if (table[i].club != club) continue;
 				switch (fate) {
 				case BottomPlayoff:
 					staff_history_relegated_86A1C0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));

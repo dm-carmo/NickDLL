@@ -96,9 +96,10 @@ void kor_second_subs(BYTE* _this)
 	comp_data->pts_for_draw = 1;
 	comp_data->f196 = 2;
 	comp_data->comp_type = CLUB_DOMESTIC;
-	comp_data->tiebreaker_1 = GoalDifferenceTiebreaker;
-	comp_data->tiebreaker_2 = GoalsForTiebreaker;
+	comp_data->tiebreaker_1 = GoalsForTiebreaker;
+	comp_data->tiebreaker_2 = GoalDifferenceTiebreaker;
 	comp_data->tiebreaker_3 = GamesWonTiebreaker;
+	comp_data->tiebreaker_4 = CurrentPositionTiebreaker;
 	comp_data->promotions = 1;
 	comp_data->prom_playoff = 4;
 	comp_data->rele_playoff = 0;
@@ -557,6 +558,7 @@ void kor_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->rules = RulesSouthKorea;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
+	data->min_stadium_capacity = 5000;
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 1;

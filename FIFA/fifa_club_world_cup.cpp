@@ -93,9 +93,9 @@ void fifa_club_world_cup_subs(BYTE* _this)
 	comp_data->pts_for_draw = 1;
 	comp_data->f196 = 8;
 	comp_data->comp_type = CLUB_INTERNATIONAL;
-	comp_data->tiebreaker_1 = GoalDifferenceTiebreaker;
-	comp_data->tiebreaker_2 = GoalsForTiebreaker;
-	comp_data->tiebreaker_3 = CurrentPositionTiebreaker;
+	comp_data->tiebreaker_1 = CurrentPositionTiebreaker;
+	comp_data->tiebreaker_2 = GoalDifferenceTiebreaker;
+	comp_data->tiebreaker_3 = GoalsForTiebreaker;
 	comp_data->f82 = 3;
 
 	comp_data->promotions = 2;

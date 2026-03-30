@@ -350,6 +350,8 @@ void den_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 		*((DWORD*)(_this + 0xA3)) = (DWORD)&den_first_7F3220;
 		return;
 	}
+	data->min_stadium_capacity = 4000;
+	data->min_stadium_seats = 300;
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 0;

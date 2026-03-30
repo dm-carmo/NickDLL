@@ -47,6 +47,7 @@ void pol_second_subs(BYTE* _this)
 	comp_data->tiebreaker_1 = CurrentPositionTiebreaker;
 	comp_data->tiebreaker_2 = GoalDifferenceTiebreaker;
 	comp_data->tiebreaker_3 = GoalsForTiebreaker;
+	comp_data->tiebreaker_4 = GamesWonTiebreaker;
 	comp_data->promotions = 2;
 	comp_data->prom_playoff = 4;
 	comp_data->rele_playoff = 0;
@@ -460,6 +461,8 @@ void pol_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->rules = RulesPoland;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
+	data->min_stadium_capacity = 2000;
+	data->min_stadium_seats = 2000;
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 1;

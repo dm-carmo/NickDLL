@@ -86,6 +86,7 @@ void bel_first_subs(BYTE* _this)
 	comp_data->tiebreaker_1 = GamesWonTiebreaker;
 	comp_data->tiebreaker_2 = GoalDifferenceTiebreaker;
 	comp_data->tiebreaker_3 = GoalsForTiebreaker;
+	comp_data->tiebreaker_4 = GoalsForAwayTiebreaker;
 	comp_data->promotions = 0;
 	comp_data->prom_playoff = 0;
 	comp_data->rele_playoff = 0;
@@ -1209,12 +1210,37 @@ char bel_first_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
 	data->f76 = 0;
+
+	BYTE* bel_second = get_loaded_league(BEL_SECOND_9CF());
+	BYTE* bel_third_vv = get_loaded_league(BEL_THIRD_VV_9CF());
+	BYTE* bel_third_ac = get_loaded_league(BEL_THIRD_ACFF_9CF());
+	BYTE* bel_fourth_vv = get_loaded_league(BEL_FOURTH_VV_9CF());
+	BYTE* bel_fourth_ac = get_loaded_league(BEL_FOURTH_ACFF_9CF());
+
+	// All teams that were in D1 must be professional
+	sub_68A980(_this, Professional, Relegated, -3, 1);
+	sub_68A980(_this, Professional, -3, Relegated, 1);
+	// All teams that were in D2 must be professional
+	sub_68A980(bel_second, Professional, Relegated, -3, 1);
+	sub_68A980(bel_second, Professional, -3, Relegated, 1);
+	// All teams that were not relegated from D3 must be semi-professional
+	sub_68A980(bel_third_vv, SemiProfessional, Relegated, -3, 1);
+	sub_68A980(bel_third_vv, SemiProfessional, Relegated, -3, 0);
+	sub_68A980(bel_third_ac, SemiProfessional, Relegated, -3, 1);
+	sub_68A980(bel_third_ac, SemiProfessional, Relegated, -3, 0);
+	if (bel_fourth_vv && bel_fourth_ac) {
+		comp_stats* bel_fourth_vv_data = (comp_stats*)bel_fourth_vv;
+		BYTE* bel_fourth_vv_grp = (BYTE*)bel_fourth_vv_data->stages[0];
+		// All teams that were not promoted from D4 must be amateur
+		sub_68A980(bel_fourth_vv, Amateur, Promoted, -3, 0);
+		sub_68A980(bel_fourth_vv_grp, Amateur, Promoted, -3, 0);
+		sub_68A980(bel_fourth_ac, Amateur, Promoted, -3, 0);
+	}
+
 	DWORD v1 = *(DWORD*)_this;
 	bel_check_reserve_teams(_this);
 	bel_first_prom_rel_update(_this, 1);
 
-	BYTE* bel_fourth_vv = get_loaded_league(BEL_FOURTH_VV_9CF());
-	BYTE* bel_fourth_ac = get_loaded_league(BEL_FOURTH_ACFF_9CF());
 	if (bel_fourth_vv && bel_fourth_ac) {
 		bel_non_league_promotion(_this);
 	}
@@ -1257,15 +1283,12 @@ char bel_first_update(BYTE* _this) {
 	sub_6827D0(_this, edx);
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
 
-	BYTE* bel_second = get_loaded_league(BEL_SECOND_9CF());
 	v1 = *(DWORD*)bel_second;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(bel_second);
 
-	BYTE* bel_third_vv = get_loaded_league(BEL_THIRD_VV_9CF());
 	v1 = *(DWORD*)bel_third_vv;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(bel_third_vv);
 
-	BYTE* bel_third_ac = get_loaded_league(BEL_THIRD_ACFF_9CF());
 	v1 = *(DWORD*)bel_third_ac;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(bel_third_ac);
 
@@ -1309,6 +1332,8 @@ void bel_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 		*((DWORD*)(_this + 0xA3)) = (DWORD)&bel_first_7F3220;
 		return;
 	}
+	data->min_stadium_capacity = 8000;
+	data->min_stadium_seats = 5000;
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 1;

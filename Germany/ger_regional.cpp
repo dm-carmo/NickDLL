@@ -44,7 +44,8 @@ void ger_regional_subs(BYTE* _this)
 	comp_data->comp_type = CLUB_DOMESTIC;
 	comp_data->tiebreaker_1 = GoalDifferenceTiebreaker;
 	comp_data->tiebreaker_2 = GoalsForTiebreaker;
-	comp_data->tiebreaker_3 = GamesWonTiebreaker;
+	comp_data->tiebreaker_3 = CurrentPositionTiebreaker;
+	comp_data->tiebreaker_4 = GoalsForAwayTiebreaker;
 	comp_data->f82 = 2;
 
 	WORD check = comp_data->year % 3;

@@ -20,6 +20,7 @@ void pol_first_subs(BYTE* _this)
 	comp_data->tiebreaker_1 = CurrentPositionTiebreaker;
 	comp_data->tiebreaker_2 = GoalDifferenceTiebreaker;
 	comp_data->tiebreaker_3 = GoalsForTiebreaker;
+	comp_data->tiebreaker_4 = GamesWonTiebreaker;
 	comp_data->promotions = 0;
 	comp_data->prom_playoff = 0;
 	comp_data->rele_playoff = 0;
@@ -183,6 +184,22 @@ char pol_first_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
 	data->f76 = 0;
+
+	BYTE* pol_second = get_loaded_league(POL_SECOND_9CF());
+	BYTE* pol_third = get_loaded_league(POL_THIRD_9CF());
+
+	// All teams that were in D1 must be professional
+	sub_68A980(_this, Professional, Relegated, -3, 1);
+	sub_68A980(_this, Professional, -3, Relegated, 1);
+	// All teams that were in D2 must be professional
+	sub_68A980(pol_second, Professional, Relegated, -3, 1);
+	sub_68A980(pol_second, Professional, -3, Relegated, 1);
+	// All teams that were not relegated from D3 must be professional
+	// All teams that were relegated from D3 must be semi-professional
+	sub_68A980(pol_third, Professional, Relegated, -3, 1);
+	sub_68A980(pol_third, SemiProfessional, -3, Relegated, 1);
+	sub_68A980(pol_third, SemiProfessional, -3, Relegated, 0);
+
 	pol_check_reserve_teams(_this);
 	pol_first_prom_rel_update(_this, 1);
 	pol_d3_relegation(_this);
@@ -216,9 +233,6 @@ char pol_first_update(BYTE* _this) {
 	sub_6827D0(_this, edx);
 	DWORD v1 = *(DWORD*)_this;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
-
-	BYTE* pol_second = get_loaded_league(POL_SECOND_9CF());
-	BYTE* pol_third = get_loaded_league(POL_THIRD_9CF());
 
 	v1 = *(DWORD*)pol_second;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(pol_second);
@@ -561,6 +575,8 @@ void pol_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->rules = RulesPoland;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
+	data->min_stadium_capacity = 4500;
+	data->min_stadium_seats = 4500;
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 0;

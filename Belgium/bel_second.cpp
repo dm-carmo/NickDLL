@@ -103,6 +103,7 @@ void bel_second_subs(BYTE* _this)
 	comp_data->tiebreaker_1 = GamesWonTiebreaker;
 	comp_data->tiebreaker_2 = GoalDifferenceTiebreaker;
 	comp_data->tiebreaker_3 = GoalsForTiebreaker;
+	comp_data->tiebreaker_4 = GoalsForAwayTiebreaker;
 	comp_data->promotions = 2;
 	comp_data->prom_playoff = 0;
 	comp_data->rele_playoff = 0;
@@ -425,6 +426,8 @@ void bel_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->rules = RulesBelgiumLeague;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
+	data->min_stadium_capacity = 4000;
+	data->min_stadium_seats = 1200;
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 1;

@@ -286,7 +286,7 @@ void nir_first_subs(BYTE* _this)
 	comp_data->comp_type = CLUB_DOMESTIC;
 	comp_data->tiebreaker_1 = GoalDifferenceTiebreaker;
 	comp_data->tiebreaker_2 = GoalsForTiebreaker;
-	comp_data->tiebreaker_3 = GamesWonTiebreaker;
+	comp_data->tiebreaker_3 = CurrentPositionTiebreaker;
 	comp_data->promotions = 1;
 	comp_data->prom_playoff = 1;
 	comp_data->rele_playoff = 1;
@@ -378,6 +378,7 @@ void nir_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 		*((DWORD*)(_this + 0xA3)) = (DWORD)&nir_first_7F3220;
 		return;
 	}
+	data->min_stadium_capacity = 500;
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 1;

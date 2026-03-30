@@ -299,6 +299,7 @@ void bra_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	if (loaded) return;
 	comp->ClubCompBackgroundColour = get_colour(COLOUR_BROWN_2_9CF());
 	comp->ClubCompForegroundColour = get_colour(COLOUR_BLUE_1_9CF());
+	data->min_stadium_capacity = 12000;
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 0;
@@ -533,6 +534,31 @@ char bra_first_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
 	data->f76 = 0;
+
+	BYTE* bra_second = get_loaded_league(BRA_SECOND_9CF());
+	BYTE* bra_third = get_loaded_league(BRA_THIRD_9CF());
+	BYTE* bra_fourth = get_loaded_league(BRA_FOURTH_9CF());
+
+	// All teams that were in D1 must be professional
+	sub_68A980(_this, Professional, Relegated, -3, 1);
+	sub_68A980(_this, Professional, -3, Relegated, 1);
+	// All teams that were in D2 must be professional
+	sub_68A980(bra_second, Professional, Relegated, -3, 1);
+	sub_68A980(bra_second, Professional, -3, Relegated, 1);
+	// All teams that were iin D3 must be professional
+	sub_68A980(bra_third, Professional, Relegated, -3, 1);
+	sub_68A980(bra_third, Professional, -3, Relegated, 1);
+	comp_stats* bra_fourth_data = (comp_stats*)bra_fourth;
+	// All teams that were in D4 must be professional
+	sub_68A980(bra_fourth, Professional, Relegated, -3, 1);
+	sub_68A980(bra_fourth, Professional, -3, Relegated, 1);
+	for (int i = 0; i < 7; i++)
+	{
+		BYTE* bra_fourth_grp = (BYTE*)bra_fourth_data->stages[i];
+		sub_68A980(bra_fourth_grp, Professional, Relegated, -3, 1);
+		sub_68A980(bra_fourth_grp, Professional, -3, Relegated, 1);
+	}
+
 	DWORD v1 = *(DWORD*)_this;
 	(*(void(__thiscall**)(BYTE*, int))(v1 + 0xB0))(_this, 1);
 	bra_qualify_teams_for_cup(_this);
@@ -569,10 +595,6 @@ char bra_first_update(BYTE* _this) {
 	BYTE* edx = 0;
 	sub_6827D0(_this, edx);
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
-
-	BYTE* bra_second = get_loaded_league(BRA_SECOND_9CF());
-	BYTE* bra_third = get_loaded_league(BRA_THIRD_9CF());
-	BYTE* bra_fourth = get_loaded_league(BRA_FOURTH_9CF());
 
 	v1 = *(DWORD*)bra_second;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(bra_second);

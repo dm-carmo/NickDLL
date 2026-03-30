@@ -46,6 +46,7 @@ void bel_fourth_vv_subs(BYTE* _this)
 	comp_data->tiebreaker_1 = GamesWonTiebreaker;
 	comp_data->tiebreaker_2 = GoalDifferenceTiebreaker;
 	comp_data->tiebreaker_3 = GoalsForTiebreaker;
+	comp_data->tiebreaker_4 = GoalsForAwayTiebreaker;
 	comp_data->promotions = 1;
 	comp_data->prom_playoff = 0;
 	comp_data->rele_playoff = 2;

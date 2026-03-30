@@ -96,7 +96,7 @@ int eng_conf_subs(BYTE* _this)
 	comp_data->f196 = 2;
 	comp_data->tiebreaker_1 = GoalDifferenceTiebreaker;
 	comp_data->tiebreaker_2 = GoalsForTiebreaker;
-	comp_data->tiebreaker_3 = GamesWonTiebreaker;
+	comp_data->tiebreaker_3 = CurrentPositionTiebreaker;
 	comp_data->comp_type = CLUB_DOMESTIC;
 	comp_data->promotions = 1;
 	comp_data->prom_playoff = 6;
@@ -116,19 +116,31 @@ int eng_conf_subs(BYTE* _this)
 	return 1;
 }
 
+void __declspec(naked) eng_conf_subs_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push ecx
+		call eng_conf_subs
+		add esp, 0x4
+		ret
+	}
+}
+
 void eng_conf_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	sub_682200(_this);
 	comp_stats* data = (comp_stats*)_this;
 	data->competition_db = comp;
 	data->comp_vtable = eng_conf_vtable;
 	data->year = year;
-	//data->min_stadium_capacity = 0;
-	//data->min_stadium_seats = 0;
 	data->rules = RulesEngland;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
 	comp->ClubCompBackgroundColour = get_colour(COLOUR_GREEN_1_9CF());
 	comp->ClubCompForegroundColour = get_colour(COLOUR_BLACK_9CF());
+	data->min_stadium_capacity = 4000;
+	data->min_stadium_seats = 500;
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 1;
@@ -145,20 +157,6 @@ void eng_conf_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
 	reputation_setup_generic_68A850(_this);
-}
-
-void __declspec(naked) eng_conf_init_c()
-{
-	__asm
-	{
-		mov eax, esp
-		push dword ptr[eax + 0x8]
-		push dword ptr[eax + 0x4]
-		push ecx
-		call eng_conf_init
-		add esp, 0xc
-		ret 8
-	}
 }
 
 char eng_conf_update(BYTE* _this) {
@@ -251,18 +249,6 @@ void __declspec(naked) eng_playoffs_create()
 		mov eax, esp
 		push ecx
 		call create_playoffs_c
-		add esp, 0x4
-		ret
-	}
-}
-
-void __declspec(naked) eng_conf_subs_c()
-{
-	__asm
-	{
-		mov eax, esp
-		push ecx
-		call eng_conf_subs
 		add esp, 0x4
 		ret
 	}
@@ -397,6 +383,22 @@ DWORD eng_conf_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* sta
 	return 0;
 }
 
+void __declspec(naked) eng_conf_fixtures_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x10]
+		push dword ptr[eax + 0xC]
+		push dword ptr[eax + 0x8]
+		push dword ptr[eax + 0x4]
+		push ecx
+		call eng_conf_fixtures
+		add esp, 0x14
+		ret 0x10
+	}
+}
+
 int eng_conf_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
@@ -462,22 +464,6 @@ void __declspec(naked) eng_conf_set_table_fate()
 		call eng_conf_table_indicators
 		add esp, 0x1c
 		ret 0x18
-	}
-}
-
-void __declspec(naked) eng_conf_fixtures_c()
-{
-	__asm
-	{
-		mov eax, esp
-		push dword ptr[eax + 0x10]
-		push dword ptr[eax + 0xC]
-		push dword ptr[eax + 0x8]
-		push dword ptr[eax + 0x4]
-		push ecx
-		call eng_conf_fixtures
-		add esp, 0x14
-		ret 0x10
 	}
 }
 

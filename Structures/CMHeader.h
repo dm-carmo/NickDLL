@@ -224,6 +224,13 @@ enum StadiumType {
 	AhAhliKSAStadium = 0x8000
 };
 
+enum ClubStatus : char {
+	UnknownStatus = 0,
+	Professional = 1,
+	SemiProfessional = 2,
+	Amateur = 3
+};
+
 typedef struct cm3_continents CM3_CONTINENTS;
 typedef struct cm3_club_comps CM3_CLUB_COMPS;
 typedef struct cm3_club_comp_history CM3_CLUB_COMP_HISTORY;

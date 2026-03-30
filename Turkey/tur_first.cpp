@@ -323,9 +323,45 @@ char tur_first_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
 	data->f76 = 0;
+
+	BYTE* tur_second = get_loaded_league(TUR_SECOND_9CF());
+	BYTE* tur_third = get_loaded_league(TUR_THIRD_9CF());
+	BYTE* tur_fourth = get_loaded_league(TUR_FOURTH_9CF());
+
+	// All teams that were in D1 must be professional
+	sub_68A980(_this, Professional, Relegated, -3, 1);
+	sub_68A980(_this, Professional, -3, Relegated, 1);
+	// All teams that were in D2 must be professional
+	sub_68A980(tur_second, Professional, Relegated, -3, 1);
+	sub_68A980(tur_second, Professional, -3, Relegated, 1);
+	// All teams that were not relegated from D3 must be professional
+	comp_stats* tur_third_data = (comp_stats*)tur_third;
+	BYTE* tur_third_grp = (BYTE*)tur_third_data->stages[0];
+	sub_68A980(tur_third, Professional, Relegated, -3, 1);
+	sub_68A980(tur_third_grp, Professional, Relegated, -3, 1);
+	if (tur_fourth)
+	{
+		comp_stats* tur_fourth_data = (comp_stats*)tur_fourth;
+		// All teams that were not relegated from D4 must be semi-professional
+		// All teams that were relegated from D4 must be amateur
+		sub_68A980(tur_fourth, SemiProfessional, Promoted, -3, 1);
+		sub_68A980(tur_fourth, SemiProfessional, Promoted, -3, 0);
+		sub_68A980(tur_fourth, SemiProfessional, -3, Champions, 1);
+		sub_68A980(tur_fourth, SemiProfessional, -3, Promoted, 1);
+		sub_68A980(tur_fourth, Amateur, -3, Relegated, 0);
+		for (int i = 0; i < 3; i++)
+		{
+			BYTE* tur_fourth_grp = (BYTE*)tur_fourth_data->stages[i];
+			sub_68A980(tur_fourth_grp, SemiProfessional, Promoted, -3, 1);
+			sub_68A980(tur_fourth_grp, SemiProfessional, Promoted, -3, 0);
+			sub_68A980(tur_fourth_grp, SemiProfessional, -3, Champions, 1);
+			sub_68A980(tur_fourth_grp, SemiProfessional, -3, Promoted, 1);
+			sub_68A980(tur_fourth_grp, Amateur, -3, Relegated, 0);
+		}
+	}
+
 	tur_first_prom_rel_update(_this, 1);
 
-	BYTE* tur_fourth = get_loaded_league(TUR_FOURTH_9CF());
 	if (tur_fourth) {
 		tur_non_league_promotion(_this);
 		sort_tur_fourth_clubs();
@@ -361,9 +397,6 @@ char tur_first_update(BYTE* _this) {
 	sub_6827D0(_this, edx);
 	DWORD v1 = *(DWORD*)_this;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
-
-	BYTE* tur_second = get_loaded_league(TUR_SECOND_9CF());
-	BYTE* tur_third = get_loaded_league(TUR_THIRD_9CF());
 
 	v1 = *(DWORD*)tur_second;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(tur_second);
@@ -638,6 +671,8 @@ void tur_first_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->rules = RulesTurkeyLeague;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
+	data->min_stadium_capacity = 10000;
+	data->min_stadium_seats = 10000;
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 0;

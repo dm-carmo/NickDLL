@@ -272,6 +272,8 @@ void cro_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->rules = RulesCroatia;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
+	data->min_stadium_capacity = 3000;
+	data->min_stadium_seats = 3000;
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 0;
@@ -325,6 +327,23 @@ char cro_first_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
 	data->f76 = 0;
+
+	BYTE* cro_second = get_loaded_league(CRO_SECOND_9CF());
+	BYTE* cro_third = get_loaded_league(CRO_THIRD_9CF());
+
+	// All teams that were in D1 must be professional
+	sub_68A980(_this, Professional, Relegated, -3, 1);
+	sub_68A980(_this, Professional, -3, Relegated, 1);
+	// All teams that were not relegated from D2 must be professional
+	// All teams that were relegated from D2 must be semi-professional
+	sub_68A980(cro_second, Professional, Relegated, -3, 1);
+	sub_68A980(cro_second, SemiProfessional, -3, Relegated, 0);
+	// All teams that were in D3 must be semi-professional
+	sub_68A980(cro_third, SemiProfessional, Promoted, -3, 1);
+	sub_68A980(cro_third, SemiProfessional, Promoted, -3, 0);
+	sub_68A980(cro_third, SemiProfessional, -3, Champions, 1);
+	sub_68A980(cro_third, SemiProfessional, -3, Promoted, 1);
+
 	DWORD v1 = *(DWORD*)_this;
 	(*(void(__thiscall**)(BYTE*, int))(v1 + 0xB0))(_this, 1);
 	cro_non_league_promotion(_this);
@@ -354,9 +373,6 @@ char cro_first_update(BYTE* _this) {
 	BYTE* edx = 0;
 	sub_6827D0(_this, edx);
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
-
-	BYTE* cro_second = get_loaded_league(CRO_SECOND_9CF());
-	BYTE* cro_third = get_loaded_league(CRO_THIRD_9CF());
 
 	v1 = *(DWORD*)cro_second;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(cro_second);

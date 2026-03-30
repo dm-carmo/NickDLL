@@ -528,9 +528,39 @@ char arg_first_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
 	data->f76 = 0;
-	arg_first_prom_rel_update(_this, 1);
+
+	BYTE* arg_second = get_loaded_league(ARG_SECOND_9CF());
+	comp_stats* arg_second_data = (comp_stats*)arg_second;
 	BYTE* arg_third_metro = get_loaded_league(ARG_THIRD_METRO_9CF());
 	BYTE* arg_third_int = get_loaded_league(ARG_THIRD_INTERIOR_9CF());
+
+	// All teams that were in D1 must be professional
+	sub_68A980((BYTE*)data->stages[5], Professional, Relegated, -3, 1);
+	sub_68A980((BYTE*)data->stages[5], Professional, -3, Relegated, 1);
+	// All teams that were in D2 must be professional
+	sub_68A980(arg_second, Professional, Relegated, -3, 1);
+	sub_68A980(arg_second, Professional, -3, Relegated, 1);
+	BYTE* arg_second_grp = (BYTE*)arg_second_data->stages[0];
+	sub_68A980(arg_second_grp, Professional, Relegated, -3, 1);
+	sub_68A980(arg_second_grp, Professional, -3, Relegated, 1);
+	if (arg_third_metro && arg_third_int)
+	{
+		// All teams that were not relegated from D3 must be professional
+		// All teams that were relegated from D3 must be semi-professional
+		sub_68A980(arg_third_metro, Professional, Relegated, -3, 1);
+		sub_68A980(arg_third_metro, SemiProfessional, -3, Relegated, 0);
+		comp_stats* arg_third_int_data = (comp_stats*)arg_third_int;
+		sub_68A980(arg_third_int, Professional, Relegated, -3, 1);
+		sub_68A980(arg_third_int, SemiProfessional, -3, Relegated, 0);
+		for (int i = 0; i < 2; i++)
+		{
+			BYTE* arg_third_int_grp = (BYTE*)arg_third_int_data->stages[i];
+			sub_68A980(arg_third_int_grp, Professional, Relegated, -3, 1);
+			sub_68A980(arg_third_int_grp, SemiProfessional, -3, Relegated, 0);
+		}
+	}
+
+	arg_first_prom_rel_update(_this, 1);
 	if (arg_third_metro && arg_third_int) {
 		arg_third_relegation(_this);
 	}
@@ -576,7 +606,6 @@ char arg_first_update(BYTE* _this) {
 	arg_first_close_playoff(_this);
 	arg_first_league_table(_this);
 
-	BYTE* arg_second = get_loaded_league(ARG_SECOND_9CF());
 
 	v1 = *(DWORD*)arg_second;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(arg_second);

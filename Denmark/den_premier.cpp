@@ -356,6 +356,28 @@ char den_premier_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
 	data->f76 = 0;
+
+	BYTE* den_first = get_loaded_league(DEN_FIRST_9CF());
+	BYTE* den_second = get_loaded_league(DEN_SECOND_9CF());
+	BYTE* den_third = get_loaded_league(DEN_THIRD_9CF());
+
+	// All teams that were in D1 must be professional
+	sub_68A980(_this, Professional, Relegated, -3, 1);
+	sub_68A980(_this, Professional, -3, Relegated, 1);
+	// All teams that were in D2 must be professional
+	sub_68A980(den_first, Professional, Relegated, -3, 1);
+	sub_68A980(den_first, Professional, -3, Relegated, 1);
+	// All teams that were in D3 must be semi-professional
+	sub_68A980(den_second, SemiProfessional, Relegated, -3, 1);
+	sub_68A980(den_second, SemiProfessional, Relegated, -3, 0);
+	sub_68A980(den_second, SemiProfessional, -3, Relegated, 1);
+	sub_68A980(den_second, SemiProfessional, -3, Relegated, 0);
+	// All teams that were not relegated from D4 must be semi-professional
+	// All teams that were relegated from D4 must be amateur
+	sub_68A980(den_third, SemiProfessional, Relegated, -3, 1);
+	sub_68A980(den_third, SemiProfessional, Relegated, -3, 0);
+	sub_68A980(den_third, Amateur, -3, Relegated, 0);
+
 	DWORD v1 = *(DWORD*)_this;
 	(*(void(__thiscall**)(BYTE*, int))(v1 + 0xB0))(_this, 1);
 	den_third_relegation(_this);
@@ -388,10 +410,6 @@ char den_premier_update(BYTE* _this) {
 	BYTE* edx = 0;
 	sub_6827D0(_this, edx);
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
-
-	BYTE* den_first = get_loaded_league(DEN_FIRST_9CF());
-	BYTE* den_second = get_loaded_league(DEN_SECOND_9CF());
-	BYTE* den_third = get_loaded_league(DEN_THIRD_9CF());
 
 	v1 = *(DWORD*)den_first;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(den_first);
@@ -432,6 +450,8 @@ void den_premier_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 		*((DWORD*)(_this + 0xA3)) = (DWORD)&den_premier_7F3220;
 		return;
 	}
+	data->min_stadium_capacity = 10000;
+	data->min_stadium_seats = 3000;
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 0;

@@ -728,6 +728,7 @@ void spa_fourth_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->rules = RulesSpainLeague;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
+	data->min_stadium_capacity = 2000;
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 6;

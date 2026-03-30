@@ -278,7 +278,7 @@ void nir_premier_subs(BYTE* _this)
 	comp_data->comp_type = CLUB_DOMESTIC;
 	comp_data->tiebreaker_1 = GoalDifferenceTiebreaker;
 	comp_data->tiebreaker_2 = GoalsForTiebreaker;
-	comp_data->tiebreaker_3 = GamesWonTiebreaker;
+	comp_data->tiebreaker_3 = CurrentPositionTiebreaker;
 	comp_data->promotions = 0;
 	comp_data->prom_playoff = 0;
 	comp_data->rele_playoff = 1;
@@ -346,6 +346,26 @@ char nir_premier_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
 	data->f76 = 0;
+
+	BYTE* nir_first = get_loaded_league(NIR_FIRST_9CF());
+	BYTE* nir_second = get_loaded_league(NIR_SECOND_9CF());
+
+	// All teams that were not relegated from D1 must be semi-professional or higher
+	// All teams that were relegated from D1 must be semi-professional
+	sub_68A980(_this, SemiProfessional, Relegated, -3, 1);
+	sub_68A980(_this, SemiProfessional, -3, Relegated, 1);
+	sub_68A980(_this, SemiProfessional, -3, Relegated, 0);
+	// All teams that were in D2 must be semi-professional
+	sub_68A980(nir_first, SemiProfessional, Relegated, -3, 1);
+	sub_68A980(nir_first, SemiProfessional, Relegated, -3, 0);
+	sub_68A980(nir_first, SemiProfessional, -3, Relegated, 1);
+	sub_68A980(nir_first, SemiProfessional, -3, Relegated, 0);
+	// All teams that were promoted from D3 must be semi-professional
+	// All teams that were relegated from D3 must be amateur
+	sub_68A980(nir_second, SemiProfessional, -3, Champions, 1);
+	sub_68A980(nir_second, SemiProfessional, -3, Promoted, 1);
+	sub_68A980(nir_second, Amateur, -3, Relegated, 0);
+
 	DWORD v1 = *(DWORD*)_this;
 	(*(void(__thiscall**)(BYTE*, int))(v1 + 0xB0))(_this, 1);
 	nir_second_relegation(_this);
@@ -379,9 +399,6 @@ char nir_premier_update(BYTE* _this) {
 	BYTE* edx = 0;
 	sub_6827D0(_this, edx);
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
-
-	BYTE* nir_first = get_loaded_league(NIR_FIRST_9CF());
-	BYTE* nir_second = get_loaded_league(NIR_SECOND_9CF());
 
 	v1 = *(DWORD*)nir_first;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(nir_first);
@@ -419,6 +436,7 @@ void nir_premier_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 		*((DWORD*)(_this + 0xA3)) = (DWORD)&nir_premier_7F3220;
 		return;
 	}
+	data->min_stadium_capacity = 2000;
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 1;

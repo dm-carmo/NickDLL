@@ -233,14 +233,14 @@ void club_pro_status_with_continental_comp(BYTE* _this) {
 		sprintf(continental_comp, "");
 	}
 	char pro_status[128];
-	if (club->ClubProfessionalStatus == 1) {
+	if (club->ClubProfessionalStatus == Professional) {
 		sprintf(pro_status, "%s%s", "Professional", continental_comp);
 	}
-	else if (club->ClubProfessionalStatus == 2) {
+	else if (club->ClubProfessionalStatus == SemiProfessional) {
 		sprintf(pro_status, "%s%s", "Semi-Professional", continental_comp);
 	}
-	else if (club->ClubProfessionalStatus == 3) {
-		sprintf(pro_status, "%s%s", "Amateuer", continental_comp);
+	else if (club->ClubProfessionalStatus == Amateur) {
+		sprintf(pro_status, "%s%s", "Amateur", continental_comp);
 	}
 	else {
 		sprintf(pro_status, "%s%s", "Unknown", continental_comp);

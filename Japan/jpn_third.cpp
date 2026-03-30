@@ -725,6 +725,8 @@ void jpn_third_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->rules = RulesJapanLeague;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
+	data->min_stadium_capacity = 5000;
+	data->min_stadium_seats = 3000;
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 2;
