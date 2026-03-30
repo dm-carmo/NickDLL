@@ -128,6 +128,8 @@ void Setup()
 	setup_pol_nation();
 	dprintf("Applying Portugal changes\n");
 	setup_por_nation();
+	dprintf("Applying Russia changes\n");
+	setup_rus_nation();
 	dprintf("Applying Scotland changes\n");
 	setup_sco_nation();
 	dprintf("Applying South Korea changes\n");

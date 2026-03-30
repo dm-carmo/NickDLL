@@ -102,7 +102,7 @@ DWORD uefa_europa_league_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds,
 		BYTE* pMem = NULL;
 		WORD year = ((comp_stats*)_this)->year;
 		*num_rounds = 4;
-		*stage_name_id = MetropolitanZone; // Main Path
+		*stage_name_id = MainPath;
 
 		pMem = (BYTE*)sub_944E46_malloc(playoff_dates_sz * (*num_rounds));
 
@@ -131,7 +131,7 @@ DWORD uefa_europa_league_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds,
 		BYTE* pMem = NULL;
 		WORD year = ((comp_stats*)_this)->year;
 		*num_rounds = 1;
-		*stage_name_id = EastQuarterFinal; // Champions Path
+		*stage_name_id = ChampionsPath;
 
 		pMem = (BYTE*)sub_944E46_malloc(playoff_dates_sz * (*num_rounds));
 
@@ -184,7 +184,7 @@ DWORD uefa_europa_league_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds,
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 1, 30), year, Friday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 2, 19), year, Thursday, Evening);
 		AddPlayoffTVFixture(pMem, fixture_id, 0);
-		FillFixtureDetails(pMem, fixture_id++, TenthRound, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 16, 8, 16, 0, 0, 2, 7, 259695);
+		FillFixtureDetails(pMem, fixture_id++, KnockoutPlayoff, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 16, 8, 16, 0, 0, 2, 7, 259695);
 
 		return (DWORD)pMem;
 	}
@@ -203,7 +203,7 @@ DWORD uefa_europa_league_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds,
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 2, 27), year, Friday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 12), year, Thursday, Evening);
 		AddPlayoffTVFixture(pMem, fixture_id, 0);
-		FillFixtureDetails(pMem, fixture_id++, EleventhRound, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 16, 8, 16, 0, 0, 2, 7, 1514888);
+		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 16, 8, 16, 0, 0, 2, 7, 1514888);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 19), year, Friday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 9), year, Thursday, Evening);
@@ -876,7 +876,7 @@ void uefa_europa_league_playoff_stage_setup(BYTE* _this) {
 		{
 			int ret = sub_5A0590(ae2a38_ptr, (BYTE*)club);
 			AddToClubIncome((BYTE*)ret, 259695);
-			AddMoneyFromComp(_this, (BYTE*)club, 259695, 0, -1, TenthRound, 0, -2);
+			AddMoneyFromComp(_this, (BYTE*)club, 259695, 0, -1, KnockoutPlayoff, 0, -2);
 		}
 	}
 
@@ -944,7 +944,7 @@ void uefa_europa_league_final_stage_setup(BYTE* _this) {
 		{
 			int ret = sub_5A0590(ae2a38_ptr, (BYTE*)club);
 			AddToClubIncome((BYTE*)ret, 519390);
-			AddMoneyFromComp(_this, (BYTE*)club, 519390, 0, -1, EleventhRound, 0, -2);
+			AddMoneyFromComp(_this, (BYTE*)club, 519390, 0, -1, RoundOf16, 0, -2);
 			sub_9058B0((BYTE*)*uefa_seeding_list, (BYTE*)(club->ClubNation), 2);
 		}
 	}
@@ -1045,7 +1045,7 @@ int uefa_europa_league_set_fates(BYTE* _this, cm3_clubs* club, char fate, char s
 				teams[insert_idx].f5 = 2;
 				teams[insert_idx].f6 = 0;
 
-				staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(uecl_data->competition_db), EastQuarterFinal,
+				staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(uecl_data->competition_db), ChampionsPath,
 					*(WORD*)(rounds + playoff_dates_sz * (current_round + 1) + 7), 0x1E);
 				(*(int(__thiscall**)(BYTE*))(v3 + 0x5C))(uecl_bytes);
 			}
@@ -1065,7 +1065,7 @@ int uefa_europa_league_set_fates(BYTE* _this, cm3_clubs* club, char fate, char s
 		WORD insert_idx = 0;
 		switch (fate) {
 		case TopPlayoff:
-			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), MetropolitanZone, Playoff, 0x1E);
+			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), MainPath, Playoff, 0x1E);
 			while (teams[insert_idx].club) insert_idx++;
 			teams[insert_idx].club = club;
 			teams[insert_idx].f5 = 2;
@@ -1097,7 +1097,7 @@ int uefa_europa_league_set_fates(BYTE* _this, cm3_clubs* club, char fate, char s
 				teams[insert_idx].f5 = 2;
 				teams[insert_idx].f6 = 0;
 
-				staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(uecl_data->competition_db), EastQuarterFinal, Playoff, 0x1E);
+				staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(uecl_data->competition_db), ChampionsPath, Playoff, 0x1E);
 				(*(int(__thiscall**)(BYTE*))(v3 + 0x5C))(uecl_bytes);
 			}
 			else club->ClubEuroFlag = -1;
@@ -1107,10 +1107,10 @@ int uefa_europa_league_set_fates(BYTE* _this, cm3_clubs* club, char fate, char s
 	else if (stage < 5) {
 		switch (fate) {
 		case Qualified1:
-			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, EleventhRound, 0x1E);
+			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, RoundOf16, 0x1E);
 			return 0;
 		case TopPlayoff:
-			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, TenthRound, 0x1E);
+			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, KnockoutPlayoff, 0x1E);
 			return 0;
 		default:
 			staff_history_knocked_out_86C000(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, GroupStage, 0xF);
@@ -1125,7 +1125,7 @@ int uefa_europa_league_set_fates(BYTE* _this, cm3_clubs* club, char fate, char s
 		WORD current_round = *(WORD*)(round_data + 0x34);
 		switch (fate) {
 		case TopPlayoff:
-			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, EleventhRound, 0x1E);
+			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, RoundOf16, 0x1E);
 			return 0;
 		case Promoted:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
@@ -1398,8 +1398,8 @@ static void(__thiscall* sub_48CAB0)(BYTE* _this, char* a1, int a2, __int16 a3, _
 (void(__thiscall*)(BYTE * _this, char* a1, int a2, __int16 a3, __int16 a4, char a5, int a6))(0x48CAB0);
 void uel_48CAB0(BYTE* _this, char* a1, int a2, __int16 a3, __int16 a4, char a5, int a6) {
 	// Shows the right text in club's Competitions history if they win in the Champions Third Qualifying Round then lose in the Playoff
-	if (a3 == EastQuarterFinal && a4 == ThirdQualifyingPhase && a5 == 1)
-		sub_48CAB0(_this, a1, a2, MetropolitanZone, Playoff, 2, a6);
+	if (a3 == ChampionsPath && a4 == ThirdQualifyingPhase && a5 == 1)
+		sub_48CAB0(_this, a1, a2, MainPath, Playoff, 2, a6);
 	else sub_48CAB0(_this, a1, a2, a3, a4, a5, a6);
 }
 
@@ -1506,7 +1506,7 @@ int uel_stage_news(BYTE* _this, int club_idx, char fate, char stage_id, int stag
 		}
 		else if (fate == TopPlayoff) {
 			if (show_body_text) {
-				sub_66F4E0(0xDE1F64, (DWORD)&qualified_r32_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderName, comp_data->ClubCompGenderName,
+				sub_66F4E0(0xDE1F64, (DWORD)&qualified_knockout_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderName, comp_data->ClubCompGenderName,
 					&club_data->ClubNameShort[0], &comp_data->ClubCompName[0]);
 				sub_4AE660(ret_str_ptr, 0xDE1F64);
 				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
@@ -1514,7 +1514,7 @@ int uel_stage_news(BYTE* _this, int club_idx, char fate, char stage_id, int stag
 				return 1;
 			}
 			else {
-				sub_66F4E0(0xDE1F64, (DWORD)&qualified_r32_title_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
+				sub_66F4E0(0xDE1F64, (DWORD)&qualified_knockout_title_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
 					&club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
 				sub_4AE660(ret_str_ptr, 0xDE1F64);
 				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);

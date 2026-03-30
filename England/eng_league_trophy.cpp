@@ -214,11 +214,11 @@ DWORD eng_league_trophy_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 12), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 2), year, Tuesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, TenthRound, 0, FixedTeamOrderInCup2 + PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 32, 16, 32, 0, 0, 1, 0, 0, 20000, 0);
+		FillFixtureDetails(pMem, fixture_id++, RoundOf32, 0, FixedTeamOrderInCup2 + PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 32, 16, 32, 0, 0, 1, 0, 0, 20000, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 3), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 1, 13), year, Tuesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, EleventhRound, 0, FixedTeamOrderInCup2 + PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 16, 8, 0, 0, 0, 1, 0, 0, 40000, 0);
+		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, FixedTeamOrderInCup2 + PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 16, 8, 0, 0, 0, 1, 0, 0, 40000, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 1, 14), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 2, 10), year, Tuesday, Evening);
@@ -506,7 +506,7 @@ int eng_league_trophy_set_fates(BYTE* _this, cm3_clubs* club, char fate, char st
 	if (stage < 15) {
 		switch (fate) {
 		case Qualified1:
-			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, TenthRound, 0x1E);
+			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, RoundOf32, 0x1E);
 			return 0;
 		default:
 			staff_history_knocked_out_86C000(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, GroupStage, 0xF);

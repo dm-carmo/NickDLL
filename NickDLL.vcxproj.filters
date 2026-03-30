@@ -720,6 +720,27 @@
     <ClCompile Include="Argentina\arg_third_interior.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Russia\rus_setup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Russia\rus_premier.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Russia\rus_first.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Russia\rus_second_a.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Russia\rus_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Russia\rus_super.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Russia\rus_awards.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -1437,6 +1458,27 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Argentina\arg_third_interior.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Russia\rus_setup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Russia\rus_premier.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Russia\rus_first.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Russia\rus_second_a.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Russia\rus_cup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Russia\rus_super.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Russia\rus_awards.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

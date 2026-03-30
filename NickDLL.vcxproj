@@ -313,6 +313,13 @@
     <ClCompile Include="Portugal\por_setup.cpp" />
     <ClCompile Include="Portugal\por_super.cpp" />
     <ClCompile Include="Portugal\por_third.cpp" />
+    <ClCompile Include="Russia\rus_awards.cpp" />
+    <ClCompile Include="Russia\rus_cup.cpp" />
+    <ClCompile Include="Russia\rus_first.cpp" />
+    <ClCompile Include="Russia\rus_premier.cpp" />
+    <ClCompile Include="Russia\rus_second_a.cpp" />
+    <ClCompile Include="Russia\rus_setup.cpp" />
+    <ClCompile Include="Russia\rus_super.cpp" />
     <ClCompile Include="Scotland\sco_challenge_cup.cpp" />
     <ClCompile Include="Scotland\sco_champ.cpp" />
     <ClCompile Include="Scotland\sco_cup.cpp" />
@@ -553,6 +560,13 @@
     <ClInclude Include="Portugal\por_setup.h" />
     <ClInclude Include="Portugal\por_super.h" />
     <ClInclude Include="Portugal\por_third.h" />
+    <ClInclude Include="Russia\rus_awards.h" />
+    <ClInclude Include="Russia\rus_cup.h" />
+    <ClInclude Include="Russia\rus_first.h" />
+    <ClInclude Include="Russia\rus_premier.h" />
+    <ClInclude Include="Russia\rus_second_a.h" />
+    <ClInclude Include="Russia\rus_setup.h" />
+    <ClInclude Include="Russia\rus_super.h" />
     <ClInclude Include="Scotland\sco_challenge_cup.h" />
     <ClInclude Include="Scotland\sco_champ.h" />
     <ClInclude Include="Scotland\sco_cup.h" />

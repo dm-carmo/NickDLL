@@ -31,7 +31,7 @@ DWORD concacaf_champions_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rou
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 2, 27), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 3, 5), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, EleventhRound, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 2, 16, 8, 5, 22, 0, 2, 7);
+		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 2, 16, 8, 5, 22, 0, 2, 7);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 3, 13), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 4, 2), year, Wednesday, Evening);

@@ -177,15 +177,15 @@ DWORD arg_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 1, 30), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 3, 19), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, NinthRound, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 64, 32, 64, 0, 0, 1, 0, 0, 6728, 0);
+		FillFixtureDetails(pMem, fixture_id++, RoundOf64, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 64, 32, 64, 0, 0, 1, 0, 0, 6728, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 3, 20), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 1), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, TenthRound, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 32, 16, 0, 0, 0, 1, 0, 0, 14951, 0);
+		FillFixtureDetails(pMem, fixture_id++, RoundOf32, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 32, 16, 0, 0, 0, 1, 0, 0, 14951, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 2), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 13), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, EleventhRound, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 16, 8, 0, 0, 0, 1, 0, 0, 19885, 0);
+		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 16, 8, 0, 0, 0, 1, 0, 0, 19885, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 14), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 17), year, Wednesday, Evening);

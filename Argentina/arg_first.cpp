@@ -700,7 +700,7 @@ DWORD arg_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		comp_stats* data = (comp_stats*)_this;
 		WORD year = data->year;
 		*num_rounds = 15;
-		*stage_name_id = Phase1GroupAtoH + stage_idx + 1;
+		*stage_name_id = AperturaGroupsAtoB + stage_idx + 1;
 
 		pMem = (BYTE*)sub_944E46_malloc(fixture_dates_sz * (*num_rounds));
 
@@ -787,7 +787,7 @@ DWORD arg_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		comp_stats* data = (comp_stats*)_this;
 		WORD year = data->year;
 		*num_rounds = 15;
-		*stage_name_id = Phase2GroupAtoD + stage_idx - 1;
+		*stage_name_id = ClausuraGroupsAtoB + stage_idx - 1;
 
 		pMem = (BYTE*)sub_944E46_malloc(fixture_dates_sz * (*num_rounds));
 
@@ -874,14 +874,14 @@ DWORD arg_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		BYTE* pMem = NULL;
 		WORD year = ((comp_stats*)_this)->year;
 		*num_rounds = 4;
-		*stage_name_id = OpeningStage;
+		*stage_name_id = AperturaPlayoffs;
 
 		pMem = (BYTE*)sub_944E46_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 5, 4), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 5, 10), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, EleventhRound, 0, FixedTeamOrderInCup + PenaltiesNoExtraTime_1, NoTiebreaker, 5, 16, 8, 16, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, FixedTeamOrderInCup + PenaltiesNoExtraTime_1, NoTiebreaker, 5, 16, 8, 16, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 5, 11), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 5, 17), year, Saturday);
@@ -903,14 +903,14 @@ DWORD arg_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		BYTE* pMem = NULL;
 		WORD year = ((comp_stats*)_this)->year;
 		*num_rounds = 4;
-		*stage_name_id = ClosingStage;
+		*stage_name_id = ClausuraPlayoffs;
 
 		pMem = (BYTE*)sub_944E46_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 16), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 22), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, EleventhRound, 0, FixedTeamOrderInCup + PenaltiesNoExtraTime_1, NoTiebreaker, 5, 16, 8, 16, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, FixedTeamOrderInCup + PenaltiesNoExtraTime_1, NoTiebreaker, 5, 16, 8, 16, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 23), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 29), year, Saturday);
@@ -1090,7 +1090,7 @@ int arg_first_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char sta
 			staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), 0x64);
 			return 0;
 		case TopPlayoff:
-			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), OpeningStage, EleventhRound, 0x1E);
+			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), AperturaPlayoffs, RoundOf16, 0x1E);
 			return 0;
 		case BottomPlayoff:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, RelegationPlayoff, 0x1E);
@@ -1111,7 +1111,7 @@ int arg_first_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char sta
 			staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), 0x64);
 			return 0;
 		case TopPlayoff:
-			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), ClosingStage, EleventhRound, 0x1E);
+			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), ClausuraPlayoffs, RoundOf16, 0x1E);
 			return 0;
 		case BottomPlayoff:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, RelegationPlayoff, 0x1E);

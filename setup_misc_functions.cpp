@@ -162,16 +162,17 @@ int parent_child_stages(int child_stage_id) {
 	if (child_stage_id == CentralConference) return GroupStage;
 	if (child_stage_id == SecondPlacedTeams) return GroupStage;
 	if (child_stage_id >= 0x473 && child_stage_id <= 0x474) return CentralAmericanZone;
-	if (child_stage_id >= 0x475 && child_stage_id <= 0x479) return ClassificationGroup;
+	if (child_stage_id >= 0x475 && child_stage_id <= 0x479) return ClassificationGroups;
 	if (child_stage_id >= 0x3fd && child_stage_id <= 0x406) return FirstRound;
 	if ((child_stage_id >= 0x407 && child_stage_id <= 0x40B) || child_stage_id == SecondRoundGroup6) return SecondRound;
 	if (child_stage_id >= 0x47e && child_stage_id <= 0x47f) return ThirdRound;
 	if (child_stage_id >= 0x40c && child_stage_id <= 0x40e) return SemiFinal;
-	if (child_stage_id >= 0x43d && child_stage_id <= 0x444) return Phase1;
-	if (child_stage_id >= 0x445 && child_stage_id <= 0x448) return Phase2;
+	if (child_stage_id >= 0x43d && child_stage_id <= 0x43e) return AperturaGroupStage;
+	if (child_stage_id >= 0x445 && child_stage_id <= 0x446) return ClausuraGroupStage;
 	if (child_stage_id >= 0x44d && child_stage_id <= 0x450) return PromotionGroupStage;
-	if (configFile.GetBool("applyArgentina", true) && configFile.GetBool("applyPortugal", true))
-		if (child_stage_id >= 0x47c && child_stage_id <= 0x47d) return FourthPromotionPlayoff; // Relegation Group Stage
+	if (child_stage_id >= 0x47c && child_stage_id <= 0x47d) return RelegationGroupStage;
+	if (child_stage_id >= 0x43f && child_stage_id <= 0x440) return FirstStage;
+	if (child_stage_id >= 0x441 && child_stage_id <= 0x442) return SecondStage;
 	return -1;
 }
 

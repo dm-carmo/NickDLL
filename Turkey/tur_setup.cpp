@@ -77,6 +77,14 @@ void setup_tur_nation() {
 	//setup_tur_awards();
 
 	WriteNOP(0x8fc482, 7);
+
+	// foreign player limits
+	WriteBytes(0x90220e, 1, 11);
+	WriteBytes(0x902230, 1, 0);
+	WriteBytes(0x902238, 1, 5);
+	WriteDWORD(0x9021eb, 0x9CF8E0); // 2.Lig
+	WriteDWORD(0x9021f5, 0x9CF8CC); // 3.Lig
+	WriteDWORD(0x9021fd, 0x9CF8DC); // 1.Lig
 }
 
 void turkey_restructure() {

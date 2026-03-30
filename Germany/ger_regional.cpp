@@ -98,8 +98,8 @@ DWORD ger_regional_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD*
 		if (stage_idx == -1) *stage_name_id = North;
 		else if (stage_idx == 0) *stage_name_id = Northeast;
 		else if (stage_idx == 1) *stage_name_id = EastWest + 1;
-		else if (stage_idx == 2) *stage_name_id = WestSouthwest;
-		else if (stage_idx == 3) *stage_name_id = InteriorZone; // Bayern
+		else if (stage_idx == 2) *stage_name_id = Southwest;
+		else if (stage_idx == 3) *stage_name_id = Bayern;
 		else *stage_name_id = 0;
 
 		pMem = (BYTE*)sub_944E46_malloc(fixture_dates_sz * (*num_rounds));

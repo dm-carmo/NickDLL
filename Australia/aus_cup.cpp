@@ -158,11 +158,11 @@ DWORD aus_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 8), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 22), year, Tuesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, TenthRound, 4, ExtraTimePenalties_1, NoTiebreak_2, 4, 32, 16, 32, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, RoundOf32, 4, ExtraTimePenalties_1, NoTiebreak_2, 4, 32, 16, 32, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 23), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 12), year, Tuesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, EleventhRound, 4, ExtraTimePenalties_1, NoTiebreak_2, 4, 16, 8, 0, 0, 0, 1, 0, 0, 0, 1059);
+		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 4, ExtraTimePenalties_1, NoTiebreak_2, 4, 16, 8, 0, 0, 0, 1, 0, 0, 0, 1059);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 13), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 19), year, Tuesday, Evening);

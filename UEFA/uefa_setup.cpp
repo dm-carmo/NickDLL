@@ -12,12 +12,12 @@ static DWORD(__thiscall* uefa_super_cup_setup)(BYTE* _this, WORD year, cm3_club_
 (DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x57A100);
 
 DWORD uefa_setup_c(playable_nation_data* nation_data) {
-	
+
 	nation_data->contract_start_day = 23;
 	nation_data->contract_start_month = June;
 	nation_data->contract_start_year = *current_year;
 	nation_data->f55 = -1;
-	
+
 	nation_data->contract_end_day = 20;
 	nation_data->contract_end_month = May;
 	nation_data->contract_end_year = *current_year;
@@ -26,7 +26,7 @@ DWORD uefa_setup_c(playable_nation_data* nation_data) {
 	nation_data->num_of_comps = 4;
 	DWORD* nation_comps = (DWORD*)sub_944E46_malloc(nation_data->num_of_comps * 4);
 	nation_data->comps_list = (DWORD)nation_comps;
-	
+
 	BYTE i = 0;
 
 	BYTE* pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
@@ -97,14 +97,26 @@ void setup_uefa_continent() {
 
 	char* champions_path = "Champions Path";
 	char* champions_path_short = "C.Path";
-	WriteDWORD(0x4B6903+ 1, (DWORD)&champions_path[0]);
-	WriteDWORD(0x4B8489+ 1, (DWORD)&champions_path_short[0]);
+	WriteDWORD(0x4B6903 + 1, (DWORD)&champions_path[0]);
+	WriteDWORD(0x4B8489 + 1, (DWORD)&champions_path_short[0]);
 	char* league_path = "League Path";
 	char* league_path_short = "L.Path";
-	WriteDWORD(0x4B691D+ 1, (DWORD)&league_path[0]);
-	WriteDWORD(0x4B84A3+ 1, (DWORD)&league_path_short[0]);
+	WriteDWORD(0x4B691D + 1, (DWORD)&league_path[0]);
+	WriteDWORD(0x4B84A3 + 1, (DWORD)&league_path_short[0]);
 	char* main_path = "Main Path";
 	char* main_path_short = "M.Path";
 	WriteDWORD(0x4B6298 + 1, (DWORD)&main_path[0]);
 	WriteDWORD(0x4B8D85 + 1, (DWORD)&main_path_short[0]);
+	char* knockout_text = "Knockout Phase Playoff";
+	char* knockout_text_short = "Knockout Playoff";
+	WriteDWORD(0x4B586a + 1, (DWORD)&knockout_text[0]);
+	WriteDWORD(0x4B86f6 + 1, (DWORD)&knockout_text_short[0]);
+	char* knockout_text_l1 = "Knockout Phase Playoff First Leg";
+	char* knockout_text_l1_short = "KO Playoff Leg 1";
+	WriteDWORD(0x4B5884 + 1, (DWORD)&knockout_text_l1[0]);
+	WriteDWORD(0x4B8700 + 1, (DWORD)&knockout_text_l1_short[0]);
+	char* knockout_text_l2 = "Knockout Phase Playoff Second Leg";
+	char* knockout_text_l2_short = "KO Playoff Leg 2";
+	WriteDWORD(0x4B589e + 1, (DWORD)&knockout_text_l2[0]);
+	WriteDWORD(0x4B870a + 1, (DWORD)&knockout_text_l2_short[0]);
 }

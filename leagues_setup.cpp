@@ -311,11 +311,11 @@ int replacement_667150() {
 
 	cm_date = new BYTE[8];
 	pnd_list[idx].nation = get_country(NATION_RUSSIA_9CF());
-	pnd_list[idx].setup_function_addr = 0x836AC0;
-	convert_to_cm_date(pnd_list[idx].start_date, 25, March, *current_year + 1, -1);
-	convert_to_cm_date(pnd_list[idx].end_date, 12, November, *current_year + 1, -1);
-	pnd_list[idx].updates_in_june = 0;
-	convert_to_cm_date(cm_date, 27, December, 2025, -1);
+	pnd_list[idx].setup_function_addr = (DWORD)&rus_setup_c;
+	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
+	convert_to_cm_date(pnd_list[idx].end_date, 15, June, *current_year, -1);
+	pnd_list[idx].updates_in_june = 1;
+	convert_to_cm_date(cm_date, 20, June, 2025, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].main_cup = get_comp(RUS_CUP_9CF());
 	idx++;
@@ -507,6 +507,7 @@ void league_restructure_init()
 	italy_restructure();
 	norway_restructure();
 	portugal_restructure();
+	russia_restructure();
 	spain_restructure();
 	sweden_restructure();
 	turkey_restructure();

@@ -280,7 +280,7 @@ DWORD fifa_club_world_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Monday, Morning, LargestStadium6);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Sunday, Morning, NationalStadium);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Saturday, Morning, LargestStadium2);
-		FillFixtureDetails(pMem, fixture_id++, EleventhRound, 0, FixedTeamOrderInCup2 + ExtraTimePenalties_1, NoTiebreak_2, 23, 16, 8, 16, 0, 0, 1, 0, 5570408);
+		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, FixedTeamOrderInCup2 + ExtraTimePenalties_1, NoTiebreak_2, 23, 16, 8, 16, 0, 0, 1, 0, 5570408);
 		tv_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 2), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 4), year, Friday, Afternoon, VenueUnknown_1);
@@ -778,7 +778,7 @@ int fifa_club_world_cup_set_fates(BYTE* _this, cm3_clubs* club, char fate, char 
 	if (stage < 7) {
 		switch (fate) {
 		case Qualified1:
-			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, EleventhRound, 0x1E);
+			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, RoundOf16, 0x1E);
 			return 0;
 		default:
 			staff_history_knocked_out_86C000(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, GroupStage, 0xF);

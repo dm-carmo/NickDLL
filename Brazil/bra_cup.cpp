@@ -46,7 +46,7 @@ DWORD bra_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, NoTiebreak_1, PenaltiesNoExtraTime_1, 6, 4, 2, 0, 0, 0, 2, 21, 731250);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 30), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 10), year, Wednesday, Evening);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 3), year, Wednesday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, Final, 0, NoTiebreak_1, PenaltiesNoExtraTime_1, 6, 2, 1, 0, 0, 0, 2, 7, 0, 5819000, 2909500);
 
 		return (DWORD)pMem;
