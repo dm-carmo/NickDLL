@@ -57,7 +57,7 @@ void irl_premier_prom_rel_update(BYTE* _this, int a2) {
 	BYTE* irl_first = get_loaded_league(IRL_FIRST_9CF());
 	v1 = *(DWORD*)irl_first;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(irl_first);
-	sub_689C80(_this, _this, irl_first, 1, a2, -1, -1);
+	process_promotion_relegation_689C80(_this, _this, irl_first, 1, a2, -1, -1);
 }
 
 void __declspec(naked) irl_premier_prom_rel_update_c()
@@ -81,13 +81,13 @@ char irl_premier_update(BYTE* _this) {
 	BYTE* irl_first = get_loaded_league(IRL_FIRST_9CF());
 
 	// All teams that were in D1 must be professional
-	sub_68A980(_this, Professional, Relegated, -3, 1);
-	sub_68A980(_this, Professional, -3, Relegated, 1);
+	update_club_pro_status_68A980(_this, Professional, Relegated, -3, 1);
+	update_club_pro_status_68A980(_this, Professional, -3, Relegated, 1);
 	// All teams that were in D2 must be semi-professional
-	sub_68A980(_this, SemiProfessional, Relegated, -3, 1);
-	sub_68A980(_this, SemiProfessional, Relegated, -3, 0);
-	sub_68A980(_this, SemiProfessional, -3, Relegated, 1);
-	sub_68A980(_this, SemiProfessional, -3, Relegated, 0);
+	update_club_pro_status_68A980(_this, SemiProfessional, Relegated, -3, 1);
+	update_club_pro_status_68A980(_this, SemiProfessional, Relegated, -3, 0);
+	update_club_pro_status_68A980(_this, SemiProfessional, -3, Relegated, 1);
+	update_club_pro_status_68A980(_this, SemiProfessional, -3, Relegated, 0);
 
 	irl_premier_prom_rel_update(_this, 1);
 
@@ -360,7 +360,7 @@ void irl_premier_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	sub_49EE70(pMem2, _this);
 	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
-	reputation_setup_generic_68A850(_this);
+	league_reputation_setup_generic_68A850(_this);
 }
 
 void irl_premier_playoff_under(BYTE* _this) {

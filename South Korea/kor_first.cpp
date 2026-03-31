@@ -300,13 +300,13 @@ char kor_first_update(BYTE* _this) {
 	BYTE* kor_second = get_loaded_league(KOR_SECOND_9CF());
 
 	// All teams that were in D1 must be professional
-	sub_68A980(_this, Professional, Relegated, -3, 1);
-	sub_68A980(_this, Professional, -3, Relegated, 1);
+	update_club_pro_status_68A980(_this, Professional, Relegated, -3, 1);
+	update_club_pro_status_68A980(_this, Professional, -3, Relegated, 1);
 	// All teams that were not relegated from D2 must be professional
 	// All teams that were relegated from D2 must be semi-professional
-	sub_68A980(kor_second, Professional, Relegated, -3, 1);
-	sub_68A980(kor_second, SemiProfessional, -3, Relegated, 1);
-	sub_68A980(kor_second, SemiProfessional, -3, Relegated, 0);
+	update_club_pro_status_68A980(kor_second, Professional, Relegated, -3, 1);
+	update_club_pro_status_68A980(kor_second, SemiProfessional, -3, Relegated, 1);
+	update_club_pro_status_68A980(kor_second, SemiProfessional, -3, Relegated, 0);
 
 	DWORD v1 = *(DWORD*)_this;
 	(*(void(__thiscall**)(BYTE*, int))(v1 + 0xB0))(_this, 1);
@@ -391,7 +391,7 @@ void kor_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	sub_49EE70(pMem2, _this);
 	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
-	reputation_setup_generic_68A850(_this);
+	league_reputation_setup_generic_68A850(_this);
 }
 
 void kor_first_split_under(BYTE* _this) {

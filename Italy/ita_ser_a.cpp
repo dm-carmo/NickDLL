@@ -331,7 +331,7 @@ void ita_ser_a_prom_rel_update(BYTE* _this, int a2) {
 	BYTE* ita_ser_b = get_loaded_league(ITA_SERIE_B_9CF());
 	v1 = *(DWORD*)ita_ser_b;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(ita_ser_b);
-	sub_689C80(_this, _this, ita_ser_b, 1, a2, -1, -1);
+	process_promotion_relegation_689C80(_this, _this, ita_ser_b, 1, a2, -1, -1);
 
 	BYTE* ita_ser_c = get_loaded_league(ITA_SERIE_C_9CF());
 	comp_stats* ita_ser_c_data = (comp_stats*)ita_ser_c;
@@ -343,9 +343,9 @@ void ita_ser_a_prom_rel_update(BYTE* _this, int a2) {
 	BYTE* ita_ser_c_c = (BYTE*)ita_ser_c_data->stages[1];
 	v1 = *(DWORD*)ita_ser_c_c;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(ita_ser_c_c);
-	sub_689C80(_this, ita_ser_b, ita_ser_c, 1, a2, -1, -1);
-	sub_689C80(_this, ita_ser_b, ita_ser_c_b, 1, a2, -1, -1);
-	sub_689C80(_this, ita_ser_b, ita_ser_c_c, 1, a2, -1, -1);
+	process_promotion_relegation_689C80(_this, ita_ser_b, ita_ser_c, 1, a2, -1, -1);
+	process_promotion_relegation_689C80(_this, ita_ser_b, ita_ser_c_b, 1, a2, -1, -1);
+	process_promotion_relegation_689C80(_this, ita_ser_b, ita_ser_c_c, 1, a2, -1, -1);
 }
 
 void __declspec(naked) ita_ser_a_prom_rel_update_c()
@@ -421,23 +421,23 @@ char ita_ser_a_update(BYTE* _this) {
 	BYTE* ita_ser_c = get_loaded_league(ITA_SERIE_C_9CF());
 
 	// All teams that were in D1 must be professional
-	sub_68A980(_this, Professional, Relegated, -3, 1);
-	sub_68A980(_this, Professional, -3, Relegated, 1);
+	update_club_pro_status_68A980(_this, Professional, Relegated, -3, 1);
+	update_club_pro_status_68A980(_this, Professional, -3, Relegated, 1);
 	// All teams that were in D2 must be professional
-	sub_68A980(ita_ser_b, Professional, Relegated, -3, 1);
-	sub_68A980(ita_ser_b, Professional, -3, Relegated, 1);
+	update_club_pro_status_68A980(ita_ser_b, Professional, Relegated, -3, 1);
+	update_club_pro_status_68A980(ita_ser_b, Professional, -3, Relegated, 1);
 	// All teams that were not relegated from D3 must be professional
 	// All teams that were relegated from D3 must be semi-professional
-	sub_68A980(ita_ser_c, Professional, Relegated, -3, 1);
-	sub_68A980(ita_ser_c, SemiProfessional, -3, Relegated, 1);
-	sub_68A980(ita_ser_c, SemiProfessional, -3, Relegated, 0);
+	update_club_pro_status_68A980(ita_ser_c, Professional, Relegated, -3, 1);
+	update_club_pro_status_68A980(ita_ser_c, SemiProfessional, -3, Relegated, 1);
+	update_club_pro_status_68A980(ita_ser_c, SemiProfessional, -3, Relegated, 0);
 	comp_stats* ita_ser_c_data = (comp_stats*)ita_ser_c;
 	for (int i = 0; i < 2; i++)
 	{
 		BYTE* ita_ser_c_grp = (BYTE*)ita_ser_c_data->stages[i];
-		sub_68A980(ita_ser_c_grp, Professional, Relegated, -3, 1);
-		sub_68A980(ita_ser_c_grp, SemiProfessional, -3, Relegated, 1);
-		sub_68A980(ita_ser_c_grp, SemiProfessional, -3, Relegated, 0);
+		update_club_pro_status_68A980(ita_ser_c_grp, Professional, Relegated, -3, 1);
+		update_club_pro_status_68A980(ita_ser_c_grp, SemiProfessional, -3, Relegated, 1);
+		update_club_pro_status_68A980(ita_ser_c_grp, SemiProfessional, -3, Relegated, 0);
 	}
 
 	ita_ser_a_prom_rel_update(_this, 1);
@@ -523,7 +523,7 @@ void ita_ser_a_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	sub_49EE70(pMem2, _this);
 	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
-	reputation_setup_generic_68A850(_this);
+	league_reputation_setup_generic_68A850(_this);
 }
 
 void setup_ita_ser_a()

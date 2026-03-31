@@ -684,7 +684,7 @@ void bel_first_prom_rel_update(BYTE* _this, int a2) {
 		bel_d1_d2_relegation_2025(_this);
 	}
 	else {
-		sub_689C80(_this, _this, bel_second, 1, a2, -1, -1);
+		process_promotion_relegation_689C80(_this, _this, bel_second, 1, a2, -1, -1);
 	}
 
 	BYTE* bel_third_vv = get_loaded_league(BEL_THIRD_VV_9CF());
@@ -697,8 +697,8 @@ void bel_first_prom_rel_update(BYTE* _this, int a2) {
 		bel_d2_d3_relegation_2025(_this);
 	}
 	else {
-		sub_689C80(_this, bel_second, bel_third_vv, 1, a2, -1, -1);
-		sub_689C80(_this, bel_second, bel_third_ac, 1, a2, -1, -1);
+		process_promotion_relegation_689C80(_this, bel_second, bel_third_vv, 1, a2, -1, -1);
+		process_promotion_relegation_689C80(_this, bel_second, bel_third_ac, 1, a2, -1, -1);
 	}
 
 	BYTE* bel_fourth_vv = get_loaded_league(BEL_FOURTH_VV_9CF());
@@ -713,8 +713,8 @@ void bel_first_prom_rel_update(BYTE* _this, int a2) {
 			bel_d3_d4_relegation_2025(_this);
 		}
 		else {
-			sub_689C80(_this, bel_third_vv, bel_fourth_vv, 1, a2, -1, -1);
-			sub_689C80(_this, bel_third_vv, bel_fourth_vv_grp, 1, a2, -1, -1);
+			process_promotion_relegation_689C80(_this, bel_third_vv, bel_fourth_vv, 1, a2, -1, -1);
+			process_promotion_relegation_689C80(_this, bel_third_vv, bel_fourth_vv_grp, 1, a2, -1, -1);
 		}
 	}
 
@@ -724,7 +724,7 @@ void bel_first_prom_rel_update(BYTE* _this, int a2) {
 		v1 = *(DWORD*)bel_fourth_ac;
 		(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(bel_fourth_ac);
 
-		sub_689C80(_this, bel_third_ac, bel_fourth_ac, 1, a2, -1, -1);
+		process_promotion_relegation_689C80(_this, bel_third_ac, bel_fourth_ac, 1, a2, -1, -1);
 	}
 }
 
@@ -1218,23 +1218,23 @@ char bel_first_update(BYTE* _this) {
 	BYTE* bel_fourth_ac = get_loaded_league(BEL_FOURTH_ACFF_9CF());
 
 	// All teams that were in D1 must be professional
-	sub_68A980(_this, Professional, Relegated, -3, 1);
-	sub_68A980(_this, Professional, -3, Relegated, 1);
+	update_club_pro_status_68A980(_this, Professional, Relegated, -3, 1);
+	update_club_pro_status_68A980(_this, Professional, -3, Relegated, 1);
 	// All teams that were in D2 must be professional
-	sub_68A980(bel_second, Professional, Relegated, -3, 1);
-	sub_68A980(bel_second, Professional, -3, Relegated, 1);
+	update_club_pro_status_68A980(bel_second, Professional, Relegated, -3, 1);
+	update_club_pro_status_68A980(bel_second, Professional, -3, Relegated, 1);
 	// All teams that were not relegated from D3 must be semi-professional
-	sub_68A980(bel_third_vv, SemiProfessional, Relegated, -3, 1);
-	sub_68A980(bel_third_vv, SemiProfessional, Relegated, -3, 0);
-	sub_68A980(bel_third_ac, SemiProfessional, Relegated, -3, 1);
-	sub_68A980(bel_third_ac, SemiProfessional, Relegated, -3, 0);
+	update_club_pro_status_68A980(bel_third_vv, SemiProfessional, Relegated, -3, 1);
+	update_club_pro_status_68A980(bel_third_vv, SemiProfessional, Relegated, -3, 0);
+	update_club_pro_status_68A980(bel_third_ac, SemiProfessional, Relegated, -3, 1);
+	update_club_pro_status_68A980(bel_third_ac, SemiProfessional, Relegated, -3, 0);
 	if (bel_fourth_vv && bel_fourth_ac) {
 		comp_stats* bel_fourth_vv_data = (comp_stats*)bel_fourth_vv;
 		BYTE* bel_fourth_vv_grp = (BYTE*)bel_fourth_vv_data->stages[0];
 		// All teams that were not promoted from D4 must be amateur
-		sub_68A980(bel_fourth_vv, Amateur, Promoted, -3, 0);
-		sub_68A980(bel_fourth_vv_grp, Amateur, Promoted, -3, 0);
-		sub_68A980(bel_fourth_ac, Amateur, Promoted, -3, 0);
+		update_club_pro_status_68A980(bel_fourth_vv, Amateur, Promoted, -3, 0);
+		update_club_pro_status_68A980(bel_fourth_vv_grp, Amateur, Promoted, -3, 0);
+		update_club_pro_status_68A980(bel_fourth_ac, Amateur, Promoted, -3, 0);
 	}
 
 	DWORD v1 = *(DWORD*)_this;
@@ -1351,7 +1351,7 @@ void bel_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	sub_49EE70(pMem2, _this);
 	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
-	reputation_setup_generic_68A850(_this);
+	league_reputation_setup_generic_68A850(_this);
 }
 
 void bel_first_split_under(BYTE* _this) {

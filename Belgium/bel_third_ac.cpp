@@ -525,7 +525,7 @@ void bel_third_ac_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
 	block_reserve_promotion_bel_third_ac(_this);
-	reputation_setup_generic_68A850(_this);
+	league_reputation_setup_generic_68A850(_this);
 }
 
 void setup_bel_third_ac()

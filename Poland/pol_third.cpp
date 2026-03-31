@@ -663,7 +663,7 @@ void pol_third_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
 	block_reserve_promotion_pol_third(_this);
-	reputation_setup_generic_68A850(_this);
+	league_reputation_setup_generic_68A850(_this);
 	pol_third_points_deductions(_this, year);
 }
 

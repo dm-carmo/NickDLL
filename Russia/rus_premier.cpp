@@ -206,16 +206,16 @@ void rus_premier_prom_rel_update(BYTE* _this, int a2) {
 	BYTE* rus_first = get_loaded_league(RUS_FIRST_9CF());
 	v1 = *(DWORD*)rus_first;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(rus_first);
-	sub_689C80(_this, _this, rus_first, 1, a2, -1, -1);
+	process_promotion_relegation_689C80(_this, _this, rus_first, 1, a2, -1, -1);
 
 	BYTE* rus_second_a = get_loaded_league(RUS_SECOND_A_9CF());
 	comp_stats* rus_second_a_data = (comp_stats*)rus_second_a;
 	v1 = *(DWORD*)rus_second_a;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(rus_second_a);
 
-	sub_689C80(_this, rus_first, rus_second_a, 1, a2, -1, -1);
+	process_promotion_relegation_689C80(_this, rus_first, rus_second_a, 1, a2, -1, -1);
 	BYTE* rus_second_a_grp = (BYTE*)rus_second_a_data->stages[0];
-	sub_689C80(_this, rus_first, rus_second_a_grp, 1, a2, -1, -1);
+	process_promotion_relegation_689C80(_this, rus_first, rus_second_a_grp, 1, a2, -1, -1);
 }
 
 void __declspec(naked) rus_premier_prom_rel_update_c()
@@ -267,21 +267,21 @@ char rus_premier_update(BYTE* _this) {
 	BYTE* rus_second_a = get_loaded_league(RUS_SECOND_A_9CF());
 
 	// All teams that were in D1 must be professional
-	sub_68A980(_this, Professional, Relegated, -3, 1);
-	sub_68A980(_this, Professional, -3, Relegated, 1);
+	update_club_pro_status_68A980(_this, Professional, Relegated, -3, 1);
+	update_club_pro_status_68A980(_this, Professional, -3, Relegated, 1);
 	// All teams that were in D2 must be professional
-	sub_68A980(rus_first, Professional, Relegated, -3, 1);
-	sub_68A980(rus_first, Professional, -3, Relegated, 1);
+	update_club_pro_status_68A980(rus_first, Professional, Relegated, -3, 1);
+	update_club_pro_status_68A980(rus_first, Professional, -3, Relegated, 1);
 	// All teams that were not relegated from D3 must be professional
 	// All teams that were relegated from D3 must be semi-professional
-	sub_68A980(rus_second_a, Professional, Relegated, -3, 1);
-	sub_68A980(rus_second_a, SemiProfessional, -3, Relegated, 1);
-	sub_68A980(rus_second_a, SemiProfessional, -3, Relegated, 0);
+	update_club_pro_status_68A980(rus_second_a, Professional, Relegated, -3, 1);
+	update_club_pro_status_68A980(rus_second_a, SemiProfessional, -3, Relegated, 1);
+	update_club_pro_status_68A980(rus_second_a, SemiProfessional, -3, Relegated, 0);
 	comp_stats* rus_second_a_data = (comp_stats*)rus_second_a;
 	BYTE* rus_second_a_grp = (BYTE*)rus_second_a_data->stages[0];
-	sub_68A980(rus_second_a_grp, Professional, Relegated, -3, 1);
-	sub_68A980(rus_second_a_grp, SemiProfessional, -3, Relegated, 1);
-	sub_68A980(rus_second_a_grp, SemiProfessional, -3, Relegated, 0);
+	update_club_pro_status_68A980(rus_second_a_grp, Professional, Relegated, -3, 1);
+	update_club_pro_status_68A980(rus_second_a_grp, SemiProfessional, -3, Relegated, 1);
+	update_club_pro_status_68A980(rus_second_a_grp, SemiProfessional, -3, Relegated, 0);
 
 	rus_check_reserve_teams(_this);
 	DWORD v1 = *(DWORD*)_this;
@@ -621,7 +621,7 @@ void rus_premier_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	sub_49EE70(pMem2, _this);
 	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
-	reputation_setup_generic_68A850(_this);
+	league_reputation_setup_generic_68A850(_this);
 }
 
 void rus_premier_playoff_under(BYTE* _this) {

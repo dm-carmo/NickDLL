@@ -57,19 +57,19 @@ void jpn_first_prom_rel_update(BYTE* _this, int a2) {
 	BYTE* jpn_second = get_loaded_league(JPN_SECOND_9CF());
 	v1 = *(DWORD*)jpn_second;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(jpn_second);
-	sub_689C80(_this, _this, jpn_second, 1, a2, -1, -1);
+	process_promotion_relegation_689C80(_this, _this, jpn_second, 1, a2, -1, -1);
 
 	BYTE* jpn_third = get_loaded_league(JPN_THIRD_9CF());
 	v1 = *(DWORD*)jpn_third;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(jpn_third);
-	sub_689C80(_this, jpn_second, jpn_third, 1, a2, -1, -1);
+	process_promotion_relegation_689C80(_this, jpn_second, jpn_third, 1, a2, -1, -1);
 
 	BYTE* jpn_jfl = get_loaded_league(JPN_JFL_9CF());
 	if (jpn_jfl)
 	{
 		v1 = *(DWORD*)jpn_jfl;
 		(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(jpn_jfl);
-		sub_689C80(_this, jpn_third, jpn_jfl, 1, a2, -1, -1);
+		process_promotion_relegation_689C80(_this, jpn_third, jpn_jfl, 1, a2, -1, -1);
 	}
 }
 
@@ -178,19 +178,19 @@ char jpn_first_update(BYTE* _this) {
 	BYTE* jpn_jfl = get_loaded_league(JPN_JFL_9CF());
 
 	// All teams that were in D1 must be professional
-	sub_68A980(_this, Professional, Relegated, -3, 1);
-	sub_68A980(_this, Professional, -3, Relegated, 1);
+	update_club_pro_status_68A980(_this, Professional, Relegated, -3, 1);
+	update_club_pro_status_68A980(_this, Professional, -3, Relegated, 1);
 	// All teams that were in D2 must be professional
-	sub_68A980(jpn_second, Professional, Relegated, -3, 1);
-	sub_68A980(jpn_second, Professional, -3, Relegated, 1);
+	update_club_pro_status_68A980(jpn_second, Professional, Relegated, -3, 1);
+	update_club_pro_status_68A980(jpn_second, Professional, -3, Relegated, 1);
 	// All teams that were not relegated from D3 must be professional
-	sub_68A980(jpn_third, Professional, Relegated, -3, 1);
+	update_club_pro_status_68A980(jpn_third, Professional, Relegated, -3, 1);
 	if (jpn_jfl) {
 		// All teams that were not relegated from D4 must be semi-professional or higher
 		// All teams that were relegated from D4 must be semi-professional
-		sub_68A980(jpn_jfl, SemiProfessional, Relegated, -3, 1);
-		sub_68A980(jpn_jfl, SemiProfessional, -3, Relegated, 1);
-		sub_68A980(jpn_jfl, SemiProfessional, -3, Relegated, 0);
+		update_club_pro_status_68A980(jpn_jfl, SemiProfessional, Relegated, -3, 1);
+		update_club_pro_status_68A980(jpn_jfl, SemiProfessional, -3, Relegated, 1);
+		update_club_pro_status_68A980(jpn_jfl, SemiProfessional, -3, Relegated, 0);
 	}
 
 	DWORD v1 = *(DWORD*)_this;
@@ -489,7 +489,7 @@ void jpn_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	sub_49EE70(pMem2, _this);
 	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
-	reputation_setup_generic_68A850(_this);
+	league_reputation_setup_generic_68A850(_this);
 }
 
 void setup_jpn_first()

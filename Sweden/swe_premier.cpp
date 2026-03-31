@@ -57,7 +57,7 @@ void swe_premier_prom_rel_update(BYTE* _this, int a2) {
 	BYTE* swe_first = get_loaded_league(SWE_FIRST_9CF());
 	v1 = *(DWORD*)swe_first;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(swe_first);
-	sub_689C80(_this, _this, swe_first, 1, a2, -1, -1);
+	process_promotion_relegation_689C80(_this, _this, swe_first, 1, a2, -1, -1);
 
 	BYTE* swe_second = get_loaded_league(SWE_SECOND_9CF());
 	comp_stats* swe_second_data = (comp_stats*)swe_second;
@@ -68,8 +68,8 @@ void swe_premier_prom_rel_update(BYTE* _this, int a2) {
 	v1 = *(DWORD*)swe_second_grp;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(swe_second_grp);
 
-	sub_689C80(_this, swe_first, swe_second, 1, a2, -1, -1);
-	sub_689C80(_this, swe_first, swe_second_grp, 1, a2, -1, -1);
+	process_promotion_relegation_689C80(_this, swe_first, swe_second, 1, a2, -1, -1);
+	process_promotion_relegation_689C80(_this, swe_first, swe_second_grp, 1, a2, -1, -1);
 
 	BYTE* swe_third = get_loaded_league(SWE_THIRD_9CF());
 	if (swe_third) {
@@ -83,18 +83,18 @@ void swe_premier_prom_rel_update(BYTE* _this, int a2) {
 			(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(swe_third_grp);
 		}
 
-		sub_689C80(_this, swe_second, swe_third, 1, a2, -1, -1);
+		process_promotion_relegation_689C80(_this, swe_second, swe_third, 1, a2, -1, -1);
 		for (int i = 0; i < 5; i++)
 		{
 			BYTE* swe_third_grp = (BYTE*)swe_third_data->stages[i];
-			sub_689C80(_this, swe_second, swe_third_grp, 1, a2, -1, -1);
+			process_promotion_relegation_689C80(_this, swe_second, swe_third_grp, 1, a2, -1, -1);
 		}
 
-		sub_689C80(_this, swe_second_grp, swe_third, 1, a2, -1, -1);
+		process_promotion_relegation_689C80(_this, swe_second_grp, swe_third, 1, a2, -1, -1);
 		for (int i = 0; i < 5; i++)
 		{
 			BYTE* swe_third_grp = (BYTE*)swe_third_data->stages[i];
-			sub_689C80(_this, swe_second_grp, swe_third_grp, 1, a2, -1, -1);
+			process_promotion_relegation_689C80(_this, swe_second_grp, swe_third_grp, 1, a2, -1, -1);
 		}
 	}
 }
@@ -270,38 +270,38 @@ char swe_premier_update(BYTE* _this) {
 	BYTE* swe_third = get_loaded_league(SWE_THIRD_9CF());
 
 	// All teams that were in D1 must be professional
-	sub_68A980(_this, Professional, Relegated, -3, 1);
-	sub_68A980(_this, Professional, -3, Relegated, 1);
+	update_club_pro_status_68A980(_this, Professional, Relegated, -3, 1);
+	update_club_pro_status_68A980(_this, Professional, -3, Relegated, 1);
 	// All teams that were in D2 must be professional
-	sub_68A980(swe_first, Professional, Relegated, -3, 1);
-	sub_68A980(swe_first, Professional, -3, Relegated, 1);
+	update_club_pro_status_68A980(swe_first, Professional, Relegated, -3, 1);
+	update_club_pro_status_68A980(swe_first, Professional, -3, Relegated, 1);
 	// All teams that were in D3 must be semi-professional
 	comp_stats* swe_third_data = (comp_stats*)swe_third;
 	BYTE* swe_third_grp = (BYTE*)swe_third_data->stages[0];
-	sub_68A980(swe_third, SemiProfessional, Relegated, -3, 1);
-	sub_68A980(swe_third, SemiProfessional, -3, Relegated, 1);
-	sub_68A980(swe_third, SemiProfessional, -3, Relegated, 0);
-	sub_68A980(swe_third_grp, SemiProfessional, Relegated, -3, 1);
-	sub_68A980(swe_third_grp, SemiProfessional, -3, Relegated, 1);
-	sub_68A980(swe_third_grp, SemiProfessional, -3, Relegated, 0);
+	update_club_pro_status_68A980(swe_third, SemiProfessional, Relegated, -3, 1);
+	update_club_pro_status_68A980(swe_third, SemiProfessional, -3, Relegated, 1);
+	update_club_pro_status_68A980(swe_third, SemiProfessional, -3, Relegated, 0);
+	update_club_pro_status_68A980(swe_third_grp, SemiProfessional, Relegated, -3, 1);
+	update_club_pro_status_68A980(swe_third_grp, SemiProfessional, -3, Relegated, 1);
+	update_club_pro_status_68A980(swe_third_grp, SemiProfessional, -3, Relegated, 0);
 	if (swe_third)
 	{
 		comp_stats* swe_third_data = (comp_stats*)swe_third;
 		// All teams that were not relegated from D4 must be semi-professional
 		// All teams that were relegated from D4 must be amateur
-		sub_68A980(swe_third, SemiProfessional, Promoted, -3, 1);
-		sub_68A980(swe_third, SemiProfessional, Promoted, -3, 0);
-		sub_68A980(swe_third, SemiProfessional, -3, Champions, 1);
-		sub_68A980(swe_third, SemiProfessional, -3, Promoted, 1);
-		sub_68A980(swe_third, Amateur, -3, Relegated, 0);
+		update_club_pro_status_68A980(swe_third, SemiProfessional, Promoted, -3, 1);
+		update_club_pro_status_68A980(swe_third, SemiProfessional, Promoted, -3, 0);
+		update_club_pro_status_68A980(swe_third, SemiProfessional, -3, Champions, 1);
+		update_club_pro_status_68A980(swe_third, SemiProfessional, -3, Promoted, 1);
+		update_club_pro_status_68A980(swe_third, Amateur, -3, Relegated, 0);
 		for (int i = 0; i < 5; i++)
 		{
 			BYTE* swe_third_grp = (BYTE*)swe_third_data->stages[i];
-			sub_68A980(swe_third_grp, SemiProfessional, Promoted, -3, 1);
-			sub_68A980(swe_third_grp, SemiProfessional, Promoted, -3, 0);
-			sub_68A980(swe_third_grp, SemiProfessional, -3, Champions, 1);
-			sub_68A980(swe_third_grp, SemiProfessional, -3, Promoted, 1);
-			sub_68A980(swe_third_grp, Amateur, -3, Relegated, 0);
+			update_club_pro_status_68A980(swe_third_grp, SemiProfessional, Promoted, -3, 1);
+			update_club_pro_status_68A980(swe_third_grp, SemiProfessional, Promoted, -3, 0);
+			update_club_pro_status_68A980(swe_third_grp, SemiProfessional, -3, Champions, 1);
+			update_club_pro_status_68A980(swe_third_grp, SemiProfessional, -3, Promoted, 1);
+			update_club_pro_status_68A980(swe_third_grp, Amateur, -3, Relegated, 0);
 		}
 	}
 
@@ -651,7 +651,7 @@ void swe_premier_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	sub_49EE70(pMem2, _this);
 	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
-	reputation_setup_generic_68A850(_this);
+	league_reputation_setup_generic_68A850(_this);
 }
 
 void swe_premier_playoff_under(BYTE* _this) {

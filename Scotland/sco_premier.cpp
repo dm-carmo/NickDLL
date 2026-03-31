@@ -28,17 +28,17 @@ void sco_premier_prom_rel_update(BYTE* _this, int a2) {
 	BYTE* sco_champ = get_loaded_league(SCO_CHAMP_9CF());
 	v1 = *(DWORD*)sco_champ;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(sco_champ);
-	sub_689C80(_this, _this, sco_champ, 1, a2, -1, -1);
+	process_promotion_relegation_689C80(_this, _this, sco_champ, 1, a2, -1, -1);
 
 	BYTE* sco_league_1 = get_loaded_league(SCO_LEAGUE_1_9CF());
 	v1 = *(DWORD*)sco_league_1;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(sco_league_1);
-	sub_689C80(_this, sco_champ, sco_league_1, 1, a2, -1, -1);
+	process_promotion_relegation_689C80(_this, sco_champ, sco_league_1, 1, a2, -1, -1);
 
 	BYTE* sco_league_2 = get_loaded_league(SCO_LEAGUE_2_9CF());
 	v1 = *(DWORD*)sco_league_2;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(sco_league_2);
-	sub_689C80(_this, sco_league_1, sco_league_2, 1, a2, -1, -1);
+	process_promotion_relegation_689C80(_this, sco_league_1, sco_league_2, 1, a2, -1, -1);
 
 	BYTE* sco_highland = get_loaded_league(SCO_HIGHLAND_9CF());
 	if (sco_highland) {
@@ -419,23 +419,23 @@ char sco_premier_update(BYTE* _this) {
 	BYTE* sco_lowland = get_loaded_league(SCO_LOWLAND_9CF());
 
 	// All teams that were in D1 must be professional
-	sub_68A980(_this, Professional, Relegated, -3, 1);
-	sub_68A980(_this, Professional, -3, Relegated, 1);
+	update_club_pro_status_68A980(_this, Professional, Relegated, -3, 1);
+	update_club_pro_status_68A980(_this, Professional, -3, Relegated, 1);
 	// All teams that were in D2 must be semi-professional or higher
-	sub_68A980(sco_champ, SemiProfessional, Relegated, -3, 1);
-	sub_68A980(sco_champ, SemiProfessional, -3, Relegated, 1);
+	update_club_pro_status_68A980(sco_champ, SemiProfessional, Relegated, -3, 1);
+	update_club_pro_status_68A980(sco_champ, SemiProfessional, -3, Relegated, 1);
 	// All teams that were in D3 must be semi-professional or higher
-	sub_68A980(sco_league_1, SemiProfessional, Relegated, -3, 1);
-	sub_68A980(sco_league_1, SemiProfessional, -3, Relegated, 1);
+	update_club_pro_status_68A980(sco_league_1, SemiProfessional, Relegated, -3, 1);
+	update_club_pro_status_68A980(sco_league_1, SemiProfessional, -3, Relegated, 1);
 	// All teams that were not relegated from D4 must be semi-professional or higher
-	sub_68A980(sco_league_2, SemiProfessional, Relegated, -3, 1);
+	update_club_pro_status_68A980(sco_league_2, SemiProfessional, Relegated, -3, 1);
 	// All teams that were relegated from D4 must be semi-professional or lower
-	sub_68A980(sco_league_2, SemiProfessional, -3, Relegated, 0);
+	update_club_pro_status_68A980(sco_league_2, SemiProfessional, -3, Relegated, 0);
 	if (sco_highland && sco_lowland)
 	{
 		// All teams that were relegated from D5 must be amateur
-		sub_68A980(sco_highland, Amateur, -3, Relegated, 0);
-		sub_68A980(sco_lowland, Amateur, -3, Relegated, 0);
+		update_club_pro_status_68A980(sco_highland, Amateur, -3, Relegated, 0);
+		update_club_pro_status_68A980(sco_lowland, Amateur, -3, Relegated, 0);
 	}
 
 	DWORD v1 = *(DWORD*)_this;
@@ -544,7 +544,7 @@ void sco_premier_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	sub_49EE70(pMem2, _this);
 	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
-	reputation_setup_generic_68A850(_this);
+	league_reputation_setup_generic_68A850(_this);
 }
 
 void sco_premier_split_under(BYTE* _this) {

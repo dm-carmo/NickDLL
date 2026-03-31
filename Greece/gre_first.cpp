@@ -24,11 +24,11 @@ void gre_first_prom_rel_update(BYTE* _this, int a2) {
 		(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(gre_second_grp);
 	}
 
-	sub_689C80(_this, _this, gre_second, 1, a2, -1, -1);
+	process_promotion_relegation_689C80(_this, _this, gre_second, 1, a2, -1, -1);
 	if (gre_second_data->year == 2025)
 	{
 		BYTE* gre_second_grp = (BYTE*)gre_second_data->stages[0];
-		sub_689C80(_this, _this, gre_second_grp, 1, a2, -1, -1);
+		process_promotion_relegation_689C80(_this, _this, gre_second_grp, 1, a2, -1, -1);
 	}
 }
 
@@ -426,20 +426,20 @@ char gre_first_update(BYTE* _this) {
 	BYTE* gre_second = get_loaded_league(GRE_SECOND_9CF());
 
 	// All teams that were in D1 must be professional
-	sub_68A980(_this, Professional, Relegated, -3, 1);
-	sub_68A980(_this, Professional, -3, Relegated, 1);
+	update_club_pro_status_68A980(_this, Professional, Relegated, -3, 1);
+	update_club_pro_status_68A980(_this, Professional, -3, Relegated, 1);
 	// All teams that were not relegated from D2 must be professional
 	// All teams that were relegated from D2 must be semi-professional
-	sub_68A980(gre_second, Professional, Relegated, -3, 1);
-	sub_68A980(gre_second, SemiProfessional, -3, Relegated, 1);
-	sub_68A980(gre_second, SemiProfessional, -3, Relegated, 0);
+	update_club_pro_status_68A980(gre_second, Professional, Relegated, -3, 1);
+	update_club_pro_status_68A980(gre_second, SemiProfessional, -3, Relegated, 1);
+	update_club_pro_status_68A980(gre_second, SemiProfessional, -3, Relegated, 0);
 	if (data->year == 2025)
 	{
 		comp_stats* gre_second_data = (comp_stats*)gre_second;
 		BYTE* gre_second_grp = (BYTE*)gre_second_data->stages[0];
-		sub_68A980(gre_second_grp, Professional, Relegated, -3, 1);
-		sub_68A980(gre_second_grp, SemiProfessional, -3, Relegated, 1);
-		sub_68A980(gre_second_grp, SemiProfessional, -3, Relegated, 0);
+		update_club_pro_status_68A980(gre_second_grp, Professional, Relegated, -3, 1);
+		update_club_pro_status_68A980(gre_second_grp, SemiProfessional, -3, Relegated, 1);
+		update_club_pro_status_68A980(gre_second_grp, SemiProfessional, -3, Relegated, 0);
 	}
 
 	DWORD v1 = *(DWORD*)_this;
@@ -521,7 +521,7 @@ void gre_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	sub_49EE70(pMem2, _this);
 	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
-	reputation_setup_generic_68A850(_this);
+	league_reputation_setup_generic_68A850(_this);
 }
 
 void gre_first_split_under(BYTE* _this) {

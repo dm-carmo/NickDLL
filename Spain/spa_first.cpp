@@ -109,7 +109,7 @@ void spa_first_prom_rel_update(BYTE* _this, int a2) {
 	BYTE* spa_second = get_loaded_league(SPA_SECOND_9CF());
 	v1 = *(DWORD*)spa_second;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(spa_second);
-	sub_689C80(_this, _this, spa_second, 1, a2, -1, -1);
+	process_promotion_relegation_689C80(_this, _this, spa_second, 1, a2, -1, -1);
 
 	BYTE* spa_third = get_loaded_league(SPA_THIRD_9CF());
 	comp_stats* spa_third_data = (comp_stats*)spa_third;
@@ -120,8 +120,8 @@ void spa_first_prom_rel_update(BYTE* _this, int a2) {
 	v1 = *(DWORD*)spa_third_grp;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(spa_third_grp);
 
-	sub_689C80(_this, spa_second, spa_third, 1, a2, -1, -1);
-	sub_689C80(_this, spa_second, spa_third_grp, 1, a2, -1, -1);
+	process_promotion_relegation_689C80(_this, spa_second, spa_third, 1, a2, -1, -1);
+	process_promotion_relegation_689C80(_this, spa_second, spa_third_grp, 1, a2, -1, -1);
 
 	BYTE* spa_fourth = get_loaded_league(SPA_FOURTH_9CF());
 	if (spa_fourth) {
@@ -135,18 +135,18 @@ void spa_first_prom_rel_update(BYTE* _this, int a2) {
 			(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(spa_fourth_grp);
 		}
 
-		sub_689C80(_this, spa_third, spa_fourth, 1, a2, -1, -1);
+		process_promotion_relegation_689C80(_this, spa_third, spa_fourth, 1, a2, -1, -1);
 		for (int i = 0; i < 4; i++)
 		{
 			BYTE* spa_fourth_grp = (BYTE*)spa_fourth_data->stages[i];
-			sub_689C80(_this, spa_third, spa_fourth_grp, 1, a2, -1, -1);
+			process_promotion_relegation_689C80(_this, spa_third, spa_fourth_grp, 1, a2, -1, -1);
 		}
 
-		sub_689C80(_this, spa_third_grp, spa_fourth, 1, a2, -1, -1);
+		process_promotion_relegation_689C80(_this, spa_third_grp, spa_fourth, 1, a2, -1, -1);
 		for (int i = 0; i < 4; i++)
 		{
 			BYTE* spa_fourth_grp = (BYTE*)spa_fourth_data->stages[i];
-			sub_689C80(_this, spa_third_grp, spa_fourth_grp, 1, a2, -1, -1);
+			process_promotion_relegation_689C80(_this, spa_third_grp, spa_fourth_grp, 1, a2, -1, -1);
 		}
 	}
 }
@@ -574,26 +574,26 @@ char spa_first_update(BYTE* _this) {
 	BYTE* spa_fourth = get_loaded_league(SPA_FOURTH_9CF());
 
 	// All teams that were in D1 must be professional
-	sub_68A980(_this, Professional, Relegated, -3, 1);
-	sub_68A980(_this, Professional, -3, Relegated, 1);
+	update_club_pro_status_68A980(_this, Professional, Relegated, -3, 1);
+	update_club_pro_status_68A980(_this, Professional, -3, Relegated, 1);
 	// All teams that were in D2 must be professional
-	sub_68A980(spa_second, Professional, Relegated, -3, 1);
-	sub_68A980(spa_second, Professional, -3, Relegated, 1);
+	update_club_pro_status_68A980(spa_second, Professional, Relegated, -3, 1);
+	update_club_pro_status_68A980(spa_second, Professional, -3, Relegated, 1);
 	// All teams that were not relegated from D3 must be semi-professional or higher
 	BYTE* spa_third_grp = (BYTE*)spa_third_data->stages[0];
-	sub_68A980(spa_third, SemiProfessional, Relegated, -3, 1);
-	sub_68A980(spa_third_grp, SemiProfessional, Relegated, -3, 1);
+	update_club_pro_status_68A980(spa_third, SemiProfessional, Relegated, -3, 1);
+	update_club_pro_status_68A980(spa_third_grp, SemiProfessional, Relegated, -3, 1);
 	if (spa_fourth)
 	{
 		comp_stats* spa_fourth_data = (comp_stats*)spa_fourth;
 		// All teams that were not relegated from D4 must be semi-professional
-		sub_68A980(spa_fourth, SemiProfessional, Relegated, -3, 1);
-		sub_68A980(spa_fourth, SemiProfessional, Relegated, -3, 0);
+		update_club_pro_status_68A980(spa_fourth, SemiProfessional, Relegated, -3, 1);
+		update_club_pro_status_68A980(spa_fourth, SemiProfessional, Relegated, -3, 0);
 		for (int i = 0; i < 4; i++)
 		{
 			BYTE* spa_fourth_grp = (BYTE*)spa_fourth_data->stages[i];
-			sub_68A980(spa_fourth_grp, SemiProfessional, Relegated, -3, 1);
-			sub_68A980(spa_fourth_grp, SemiProfessional, Relegated, -3, 0);
+			update_club_pro_status_68A980(spa_fourth_grp, SemiProfessional, Relegated, -3, 1);
+			update_club_pro_status_68A980(spa_fourth_grp, SemiProfessional, Relegated, -3, 0);
 		}
 	}
 
@@ -944,7 +944,7 @@ void spa_first_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	sub_49EE70(pMem2, _this);
 	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
-	reputation_setup_generic_68A850(_this);
+	league_reputation_setup_generic_68A850(_this);
 }
 
 void setup_spa_first()

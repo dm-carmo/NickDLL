@@ -490,7 +490,7 @@ void gre_second_reputation_setup(BYTE* _this) {
 			}
 		}
 	}
-	else reputation_setup_generic_68A850(_this);
+	else league_reputation_setup_generic_68A850(_this);
 }
 
 void __declspec(naked) gre_second_reputation_setup_c()

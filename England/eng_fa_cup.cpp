@@ -241,7 +241,7 @@ void eng_fa_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->f8 = (DWORD*)pMem2;
 	data->max_bench = 7;
 	data->max_subs = 3;
-	sub_5223A0(_this);
+	cup_reputation_setup_generic_5223A0(_this);
 }
 
 void __declspec(naked) eng_fa_cup_init_c()

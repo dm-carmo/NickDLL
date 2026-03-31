@@ -50,14 +50,14 @@ void usa_mls_prom_rel_update(BYTE* _this, int a2) {
 	comp_stats* usa_champ_data = (comp_stats*)usa_champ;
 	v1 = *(DWORD*)usa_champ;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(usa_champ);
-	sub_689C80(_this, _this, usa_champ, 1, a2, -1, -1);
-	sub_689C80(_this, mls_conf, usa_champ, 1, a2, -1, -1);
+	process_promotion_relegation_689C80(_this, _this, usa_champ, 1, a2, -1, -1);
+	process_promotion_relegation_689C80(_this, mls_conf, usa_champ, 1, a2, -1, -1);
 
 	BYTE* champ_conf = (BYTE*)usa_champ_data->stages[0];
 	v1 = *(DWORD*)champ_conf;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(champ_conf);
-	sub_689C80(_this, _this, champ_conf, 1, a2, -1, -1);
-	sub_689C80(_this, mls_conf, champ_conf, 1, a2, -1, -1);
+	process_promotion_relegation_689C80(_this, _this, champ_conf, 1, a2, -1, -1);
+	process_promotion_relegation_689C80(_this, mls_conf, champ_conf, 1, a2, -1, -1);
 }
 
 void __declspec(naked) usa_mls_prom_rel_update_c()

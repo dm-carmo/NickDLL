@@ -32,8 +32,8 @@ void wal_premier_prom_rel_update(BYTE* _this, int a2) {
 	v1 = *(DWORD*)wal_first_s;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(wal_first_s);
 
-	sub_689C80(_this, _this, wal_first_n, 1, a2, -1, -1);
-	sub_689C80(_this, _this, wal_first_s, 1, a2, -1, -1);
+	process_promotion_relegation_689C80(_this, _this, wal_first_n, 1, a2, -1, -1);
+	process_promotion_relegation_689C80(_this, _this, wal_first_s, 1, a2, -1, -1);
 }
 
 void __declspec(naked) wal_premier_prom_rel_update_c()
@@ -348,17 +348,17 @@ char wal_premier_update(BYTE* _this) {
 
 	// All teams that were not relegated from D1 must be semi-professional or higher
 	// All teams that were relegated from D1 must be semi-professional
-	sub_68A980(_this, SemiProfessional, Relegated, -3, 1);
-	sub_68A980(_this, SemiProfessional, -3, Relegated, 1);
-	sub_68A980(_this, SemiProfessional, -3, Relegated, 0);
+	update_club_pro_status_68A980(_this, SemiProfessional, Relegated, -3, 1);
+	update_club_pro_status_68A980(_this, SemiProfessional, -3, Relegated, 1);
+	update_club_pro_status_68A980(_this, SemiProfessional, -3, Relegated, 0);
 	// All teams that were promoted from D2 must be semi-professional
 	// All teams that were relegated from D2 must be amateur
-	sub_68A980(wal_first_n, SemiProfessional, -3, Champions, 1);
-	sub_68A980(wal_first_n, SemiProfessional, -3, Promoted, 1);
-	sub_68A980(wal_first_n, Amateur, -3, Relegated, 0);
-	sub_68A980(wal_first_s, SemiProfessional, -3, Champions, 1);
-	sub_68A980(wal_first_s, SemiProfessional, -3, Promoted, 1);
-	sub_68A980(wal_first_s, Amateur, -3, Relegated, 0);
+	update_club_pro_status_68A980(wal_first_n, SemiProfessional, -3, Champions, 1);
+	update_club_pro_status_68A980(wal_first_n, SemiProfessional, -3, Promoted, 1);
+	update_club_pro_status_68A980(wal_first_n, Amateur, -3, Relegated, 0);
+	update_club_pro_status_68A980(wal_first_s, SemiProfessional, -3, Champions, 1);
+	update_club_pro_status_68A980(wal_first_s, SemiProfessional, -3, Promoted, 1);
+	update_club_pro_status_68A980(wal_first_s, Amateur, -3, Relegated, 0);
 
 	DWORD v1 = *(DWORD*)_this;
 	wal_premier_prom_rel_update(_this, 1);
@@ -448,7 +448,7 @@ void wal_premier_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	sub_49EE70(pMem2, _this);
 	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
-	reputation_setup_generic_68A850(_this);
+	league_reputation_setup_generic_68A850(_this);
 }
 
 void wal_premier_split_under(BYTE* _this) {

@@ -58,12 +58,12 @@ void fra_first_prom_rel_update(BYTE* _this, int a2) {
 	BYTE* fra_second = get_loaded_league(FRA_SECOND_9CF());
 	v1 = *(DWORD*)fra_second;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(fra_second);
-	sub_689C80(_this, _this, fra_second, 1, a2, -1, -1);
+	process_promotion_relegation_689C80(_this, _this, fra_second, 1, a2, -1, -1);
 
 	BYTE* fra_third = get_loaded_league(FRA_NATIONAL_1_9CF());
 	v1 = *(DWORD*)fra_third;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(fra_third);
-	sub_689C80(_this, fra_second, fra_third, 1, a2, -1, -1);
+	process_promotion_relegation_689C80(_this, fra_second, fra_third, 1, a2, -1, -1);
 }
 
 void __declspec(naked) fra_first_prom_rel_update_c()
@@ -136,17 +136,17 @@ char fra_first_update(BYTE* _this) {
 	BYTE* fra_third = get_loaded_league(FRA_NATIONAL_1_9CF());
 
 	// All teams that were in D1 must be professional
-	sub_68A980(_this, Professional, Relegated, -3, 1);
-	sub_68A980(_this, Professional, -3, Relegated, 1);
+	update_club_pro_status_68A980(_this, Professional, Relegated, -3, 1);
+	update_club_pro_status_68A980(_this, Professional, -3, Relegated, 1);
 	// All teams that were in D2 must be professional
-	sub_68A980(fra_second, Professional, Relegated, -3, 1);
-	sub_68A980(fra_second, Professional, -3, Relegated, 1);
+	update_club_pro_status_68A980(fra_second, Professional, Relegated, -3, 1);
+	update_club_pro_status_68A980(fra_second, Professional, -3, Relegated, 1);
 	// All teams that were not promoted from D3 must be semi-professional
-	sub_68A980(fra_third, SemiProfessional, Promoted, -3, 1);
-	sub_68A980(fra_third, SemiProfessional, Promoted, -3, 0);
+	update_club_pro_status_68A980(fra_third, SemiProfessional, Promoted, -3, 1);
+	update_club_pro_status_68A980(fra_third, SemiProfessional, Promoted, -3, 0);
 	// All teams that were promoted from D3 must be professional
-	sub_68A980(fra_third, Professional, -3, Champions, 1);
-	sub_68A980(fra_third, Professional, -3, Promoted, 1);
+	update_club_pro_status_68A980(fra_third, Professional, -3, Champions, 1);
+	update_club_pro_status_68A980(fra_third, Professional, -3, Promoted, 1);
 
 	fra_first_prom_rel_update(_this, 1);
 	fra_national_relegation(_this);
@@ -538,7 +538,7 @@ void fra_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	sub_49EE70(pMem2, _this);
 	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
-	reputation_setup_generic_68A850(_this);
+	league_reputation_setup_generic_68A850(_this);
 }
 
 void fra_first_playoff_under(BYTE* _this) {

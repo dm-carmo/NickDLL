@@ -120,12 +120,12 @@ void pol_first_prom_rel_update(BYTE* _this, int a2) {
 	BYTE* pol_second = get_loaded_league(POL_SECOND_9CF());
 	v1 = *(DWORD*)pol_second;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(pol_second);
-	sub_689C80(_this, _this, pol_second, 1, a2, -1, -1);
+	process_promotion_relegation_689C80(_this, _this, pol_second, 1, a2, -1, -1);
 
 	BYTE* pol_third = get_loaded_league(POL_THIRD_9CF());
 	v1 = *(DWORD*)pol_third;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(pol_third);
-	sub_689C80(_this, pol_second, pol_third, 1, a2, -1, -1);
+	process_promotion_relegation_689C80(_this, pol_second, pol_third, 1, a2, -1, -1);
 }
 
 void __declspec(naked) pol_first_prom_rel_update_c()
@@ -189,16 +189,16 @@ char pol_first_update(BYTE* _this) {
 	BYTE* pol_third = get_loaded_league(POL_THIRD_9CF());
 
 	// All teams that were in D1 must be professional
-	sub_68A980(_this, Professional, Relegated, -3, 1);
-	sub_68A980(_this, Professional, -3, Relegated, 1);
+	update_club_pro_status_68A980(_this, Professional, Relegated, -3, 1);
+	update_club_pro_status_68A980(_this, Professional, -3, Relegated, 1);
 	// All teams that were in D2 must be professional
-	sub_68A980(pol_second, Professional, Relegated, -3, 1);
-	sub_68A980(pol_second, Professional, -3, Relegated, 1);
+	update_club_pro_status_68A980(pol_second, Professional, Relegated, -3, 1);
+	update_club_pro_status_68A980(pol_second, Professional, -3, Relegated, 1);
 	// All teams that were not relegated from D3 must be professional
 	// All teams that were relegated from D3 must be semi-professional
-	sub_68A980(pol_third, Professional, Relegated, -3, 1);
-	sub_68A980(pol_third, SemiProfessional, -3, Relegated, 1);
-	sub_68A980(pol_third, SemiProfessional, -3, Relegated, 0);
+	update_club_pro_status_68A980(pol_third, Professional, Relegated, -3, 1);
+	update_club_pro_status_68A980(pol_third, SemiProfessional, -3, Relegated, 1);
+	update_club_pro_status_68A980(pol_third, SemiProfessional, -3, Relegated, 0);
 
 	pol_check_reserve_teams(_this);
 	pol_first_prom_rel_update(_this, 1);
@@ -593,7 +593,7 @@ void pol_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	sub_49EE70(pMem2, _this);
 	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
-	reputation_setup_generic_68A850(_this);
+	league_reputation_setup_generic_68A850(_this);
 	pol_first_points_deductions(_this, year);
 }
 

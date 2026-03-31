@@ -362,21 +362,21 @@ char den_premier_update(BYTE* _this) {
 	BYTE* den_third = get_loaded_league(DEN_THIRD_9CF());
 
 	// All teams that were in D1 must be professional
-	sub_68A980(_this, Professional, Relegated, -3, 1);
-	sub_68A980(_this, Professional, -3, Relegated, 1);
+	update_club_pro_status_68A980(_this, Professional, Relegated, -3, 1);
+	update_club_pro_status_68A980(_this, Professional, -3, Relegated, 1);
 	// All teams that were in D2 must be professional
-	sub_68A980(den_first, Professional, Relegated, -3, 1);
-	sub_68A980(den_first, Professional, -3, Relegated, 1);
+	update_club_pro_status_68A980(den_first, Professional, Relegated, -3, 1);
+	update_club_pro_status_68A980(den_first, Professional, -3, Relegated, 1);
 	// All teams that were in D3 must be semi-professional
-	sub_68A980(den_second, SemiProfessional, Relegated, -3, 1);
-	sub_68A980(den_second, SemiProfessional, Relegated, -3, 0);
-	sub_68A980(den_second, SemiProfessional, -3, Relegated, 1);
-	sub_68A980(den_second, SemiProfessional, -3, Relegated, 0);
+	update_club_pro_status_68A980(den_second, SemiProfessional, Relegated, -3, 1);
+	update_club_pro_status_68A980(den_second, SemiProfessional, Relegated, -3, 0);
+	update_club_pro_status_68A980(den_second, SemiProfessional, -3, Relegated, 1);
+	update_club_pro_status_68A980(den_second, SemiProfessional, -3, Relegated, 0);
 	// All teams that were not relegated from D4 must be semi-professional
 	// All teams that were relegated from D4 must be amateur
-	sub_68A980(den_third, SemiProfessional, Relegated, -3, 1);
-	sub_68A980(den_third, SemiProfessional, Relegated, -3, 0);
-	sub_68A980(den_third, Amateur, -3, Relegated, 0);
+	update_club_pro_status_68A980(den_third, SemiProfessional, Relegated, -3, 1);
+	update_club_pro_status_68A980(den_third, SemiProfessional, Relegated, -3, 0);
+	update_club_pro_status_68A980(den_third, Amateur, -3, Relegated, 0);
 
 	DWORD v1 = *(DWORD*)_this;
 	(*(void(__thiscall**)(BYTE*, int))(v1 + 0xB0))(_this, 1);
@@ -468,7 +468,7 @@ void den_premier_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	sub_49EE70(pMem2, _this);
 	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
-	reputation_setup_generic_68A850(_this);
+	league_reputation_setup_generic_68A850(_this);
 }
 
 void den_premier_split_under(BYTE* _this) {

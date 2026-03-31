@@ -299,15 +299,15 @@ void arg_first_prom_rel_update(BYTE* _this, int a2) {
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(arg_second_grp);
 
 	comp_stats* data = (comp_stats*)_this;
-	sub_689C80(_this, (BYTE*)data->stages[5], arg_second, 1, a2, -1, -1);
-	sub_689C80(_this, (BYTE*)data->stages[5], arg_second_grp, 1, a2, -1, -1);
+	process_promotion_relegation_689C80(_this, (BYTE*)data->stages[5], arg_second, 1, a2, -1, -1);
+	process_promotion_relegation_689C80(_this, (BYTE*)data->stages[5], arg_second_grp, 1, a2, -1, -1);
 
 	BYTE* arg_third_metro = get_loaded_league(ARG_THIRD_METRO_9CF());
 	if (arg_third_metro) {
 		v1 = *(DWORD*)arg_third_metro;
 		(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(arg_third_metro);
-		sub_689C80(_this, arg_second, arg_third_metro, 1, a2, -1, -1);
-		sub_689C80(_this, arg_second_grp, arg_third_metro, 1, a2, -1, -1);
+		process_promotion_relegation_689C80(_this, arg_second, arg_third_metro, 1, a2, -1, -1);
+		process_promotion_relegation_689C80(_this, arg_second_grp, arg_third_metro, 1, a2, -1, -1);
 	}
 
 	BYTE* arg_third_int = get_loaded_league(ARG_THIRD_INTERIOR_9CF());
@@ -316,18 +316,18 @@ void arg_first_prom_rel_update(BYTE* _this, int a2) {
 		v1 = *(DWORD*)arg_third_int;
 		(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(arg_third_int);
 
-		sub_689C80(_this, arg_second, arg_third_int, 1, a2, -1, -1);
+		process_promotion_relegation_689C80(_this, arg_second, arg_third_int, 1, a2, -1, -1);
 		for (int i = 0; i < 3; i++)
 		{
 			BYTE* arg_third_int_grp = (BYTE*)arg_third_int_data->stages[i];
-			sub_689C80(_this, arg_second, arg_third_int_grp, 1, a2, -1, -1);
+			process_promotion_relegation_689C80(_this, arg_second, arg_third_int_grp, 1, a2, -1, -1);
 		}
 
-		sub_689C80(_this, arg_second_grp, arg_third_int, 1, a2, -1, -1);
+		process_promotion_relegation_689C80(_this, arg_second_grp, arg_third_int, 1, a2, -1, -1);
 		for (int i = 0; i < 3; i++)
 		{
 			BYTE* arg_third_int_grp = (BYTE*)arg_third_int_data->stages[i];
-			sub_689C80(_this, arg_second_grp, arg_third_int_grp, 1, a2, -1, -1);
+			process_promotion_relegation_689C80(_this, arg_second_grp, arg_third_int_grp, 1, a2, -1, -1);
 		}
 	}
 }
@@ -535,28 +535,28 @@ char arg_first_update(BYTE* _this) {
 	BYTE* arg_third_int = get_loaded_league(ARG_THIRD_INTERIOR_9CF());
 
 	// All teams that were in D1 must be professional
-	sub_68A980((BYTE*)data->stages[5], Professional, Relegated, -3, 1);
-	sub_68A980((BYTE*)data->stages[5], Professional, -3, Relegated, 1);
+	update_club_pro_status_68A980((BYTE*)data->stages[5], Professional, Relegated, -3, 1);
+	update_club_pro_status_68A980((BYTE*)data->stages[5], Professional, -3, Relegated, 1);
 	// All teams that were in D2 must be professional
-	sub_68A980(arg_second, Professional, Relegated, -3, 1);
-	sub_68A980(arg_second, Professional, -3, Relegated, 1);
+	update_club_pro_status_68A980(arg_second, Professional, Relegated, -3, 1);
+	update_club_pro_status_68A980(arg_second, Professional, -3, Relegated, 1);
 	BYTE* arg_second_grp = (BYTE*)arg_second_data->stages[0];
-	sub_68A980(arg_second_grp, Professional, Relegated, -3, 1);
-	sub_68A980(arg_second_grp, Professional, -3, Relegated, 1);
+	update_club_pro_status_68A980(arg_second_grp, Professional, Relegated, -3, 1);
+	update_club_pro_status_68A980(arg_second_grp, Professional, -3, Relegated, 1);
 	if (arg_third_metro && arg_third_int)
 	{
 		// All teams that were not relegated from D3 must be professional
 		// All teams that were relegated from D3 must be semi-professional
-		sub_68A980(arg_third_metro, Professional, Relegated, -3, 1);
-		sub_68A980(arg_third_metro, SemiProfessional, -3, Relegated, 0);
+		update_club_pro_status_68A980(arg_third_metro, Professional, Relegated, -3, 1);
+		update_club_pro_status_68A980(arg_third_metro, SemiProfessional, -3, Relegated, 0);
 		comp_stats* arg_third_int_data = (comp_stats*)arg_third_int;
-		sub_68A980(arg_third_int, Professional, Relegated, -3, 1);
-		sub_68A980(arg_third_int, SemiProfessional, -3, Relegated, 0);
+		update_club_pro_status_68A980(arg_third_int, Professional, Relegated, -3, 1);
+		update_club_pro_status_68A980(arg_third_int, SemiProfessional, -3, Relegated, 0);
 		for (int i = 0; i < 2; i++)
 		{
 			BYTE* arg_third_int_grp = (BYTE*)arg_third_int_data->stages[i];
-			sub_68A980(arg_third_int_grp, Professional, Relegated, -3, 1);
-			sub_68A980(arg_third_int_grp, SemiProfessional, -3, Relegated, 0);
+			update_club_pro_status_68A980(arg_third_int_grp, Professional, Relegated, -3, 1);
+			update_club_pro_status_68A980(arg_third_int_grp, SemiProfessional, -3, Relegated, 0);
 		}
 	}
 
