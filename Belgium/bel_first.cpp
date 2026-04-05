@@ -1231,10 +1231,10 @@ char bel_first_update(BYTE* _this) {
 	if (bel_fourth_vv && bel_fourth_ac) {
 		comp_stats* bel_fourth_vv_data = (comp_stats*)bel_fourth_vv;
 		BYTE* bel_fourth_vv_grp = (BYTE*)bel_fourth_vv_data->stages[0];
-		// All teams that were not promoted from D4 must be amateur
-		update_club_pro_status_68A980(bel_fourth_vv, Amateur, Promoted, -3, 0);
-		update_club_pro_status_68A980(bel_fourth_vv_grp, Amateur, Promoted, -3, 0);
-		update_club_pro_status_68A980(bel_fourth_ac, Amateur, Promoted, -3, 0);
+		// All teams that were relegated from D4 must be amateur
+		update_club_pro_status_68A980(bel_fourth_vv, Amateur, -3, Relegated, 0);
+		update_club_pro_status_68A980(bel_fourth_vv_grp, Amateur, -3, Relegated, 0);
+		update_club_pro_status_68A980(bel_fourth_ac, Amateur, -3, Relegated, 0);
 	}
 
 	DWORD v1 = *(DWORD*)_this;
@@ -1338,6 +1338,7 @@ void bel_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->current_stage = -1;
 	data->num_stages = 1;
 	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
+	for (int i = 0; i < data->num_stages; i++) data->stages[i] = 0;
 	bel_first_subs(_this);
 	AddTeams(_this);
 	data->prize_money_pool = SetupPrizeMoney(_this, 336500);

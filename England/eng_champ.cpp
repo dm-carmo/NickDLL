@@ -481,6 +481,7 @@ void eng_champ_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->current_stage = -1;
 	data->num_stages = 1;
 	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
+	for (int i = 0; i < data->num_stages; i++) data->stages[i] = 0;
 	eng_champ_subs(_this);
 	AddTeams(_this);
 	SetupTVMoney(_this, 4825353, get_comp(ENG_PREMIER_9CF()));

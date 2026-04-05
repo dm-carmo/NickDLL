@@ -788,11 +788,6 @@ void caf_confederation_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	caf_confederation_cup_vtable->SetPointer(VTableReputationSetup, (DWORD)&caf_confederation_cup_reputation_setup_c);
 	caf_confederation_cup_vtable->SetPointer(VTableReputationCalc, (DWORD)&caf_confederation_cup_reputation_calc_c);
 	caf_confederation_cup_vtable->SetPointer(VTableSubsRounds, 0x858e70);
-	data->f171 = 0;
-	data->f68 = -1;
-	data->current_stage = -1;
-	data->num_stages = 5;
-	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
 	data->competition_db = comp;
 	data->comp_type = CLUB_INTERNATIONAL;
 	data->promotes_to = -1;
@@ -807,6 +802,12 @@ void caf_confederation_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	if (loaded) return;
 	comp->ClubCompBackgroundColour = get_colour(COLOUR_GREY_2_9CF());
 	comp->ClubCompForegroundColour = get_colour(COLOUR_YELLOW_1_9CF());
+	data->f171 = 0;
+	data->f68 = -1;
+	data->current_stage = -1;
+	data->num_stages = 5;
+	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
+	for (int i = 0; i < data->num_stages; i++) data->stages[i] = 0;
 	caf_confederation_cup_all_teams(_this);
 	caf_confederation_cup_qualifier_teams(_this);
 	DWORD v1 = *(DWORD*)_this;

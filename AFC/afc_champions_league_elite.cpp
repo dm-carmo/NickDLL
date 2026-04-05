@@ -915,11 +915,6 @@ void afc_champions_league_elite_init(BYTE* _this, WORD year, cm3_club_comps* com
 	comp_stats* data = (comp_stats*)_this;
 	data->year = year;
 	data->comp_vtable = afc_champions_league_elite_vtable;
-	data->f171 = 0;
-	data->f68 = -1;
-	data->current_stage = -1;
-	data->num_stages = 5;
-	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
 	data->competition_db = comp;
 	data->comp_type = CLUB_INTERNATIONAL;
 	data->promotes_to = -1;
@@ -934,6 +929,12 @@ void afc_champions_league_elite_init(BYTE* _this, WORD year, cm3_club_comps* com
 	if (loaded) return;
 	comp->ClubCompBackgroundColour = get_colour(COLOUR_PURPLE_2_9CF());
 	comp->ClubCompForegroundColour = get_colour(COLOUR_GOLD_9CF());
+	data->f171 = 0;
+	data->f68 = -1;
+	data->current_stage = -1;
+	data->num_stages = 5;
+	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
+	for (int i = 0; i < data->num_stages; i++) data->stages[i] = 0;
 	afc_champions_league_elite_all_teams(_this);
 	afc_champions_league_elite_qualifier_teams(_this);
 	DWORD v1 = *(DWORD*)_this;

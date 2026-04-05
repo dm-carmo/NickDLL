@@ -711,6 +711,7 @@ void sco_challenge_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->current_stage = -1;
 	data->num_stages = 5;
 	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
+	for (int i = 0; i < data->num_stages; i++) data->stages[i] = 0;
 	sco_challenge_cup_all_teams(_this);
 	BYTE* pMem2 = (BYTE*)sub_944CF1_operator_new(0x5CE);
 	BYTE unk1 = 1;

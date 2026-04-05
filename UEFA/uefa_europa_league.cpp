@@ -717,11 +717,6 @@ void uefa_europa_league_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	comp_stats* data = (comp_stats*)_this;
 	data->year = year;
 	data->comp_vtable = uefa_europa_league_vtable;
-	data->f171 = 0;
-	data->f68 = -1;
-	data->current_stage = -1;
-	data->num_stages = 7;
-	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
 	data->competition_db = comp;
 	data->comp_type = CLUB_INTERNATIONAL;
 	data->promotes_to = -1;
@@ -736,6 +731,12 @@ void uefa_europa_league_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	if (loaded) return;
 	comp->ClubCompBackgroundColour = get_colour(COLOUR_ORANGE_2_9CF());
 	comp->ClubCompForegroundColour = get_colour(COLOUR_BLACK_9CF());
+	data->f171 = 0;
+	data->f68 = -1;
+	data->current_stage = -1;
+	data->num_stages = 7;
+	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
+	for (int i = 0; i < data->num_stages; i++) data->stages[i] = 0;
 	sub_9035A0((BYTE*)*uefa_seeding_list, 0);
 	uefa_europa_league_all_teams(_this);
 	uefa_europa_league_main_path_teams(_this);

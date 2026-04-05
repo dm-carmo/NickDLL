@@ -409,12 +409,23 @@ bool compareClubRepInv(cm3_clubs* c1, cm3_clubs* c2)
 
 bool compareClubLastDivPos(cm3_clubs* c1, cm3_clubs* c2)
 {
-	short c1_comp_rep = 0;
-	short c2_comp_rep = 0;
-	if (c1->ClubLastDivision) c1_comp_rep = c1->ClubLastDivision->ClubCompReputation;
-	if (c2->ClubLastDivision) c2_comp_rep = c2->ClubLastDivision->ClubCompReputation;
-	if (c1_comp_rep != c2_comp_rep)
-		return (c1_comp_rep > c2_comp_rep);
+	short c1_comp_rep = -3;
+	short c2_comp_rep = -3;
+	if (c1->ClubLastDivision)
+	{
+		if (c1->ClubLastDivision->ClubCompID == A_PREMIER_9CF()) c1_comp_rep = 0;
+		else if (c1->ClubLastDivision->ClubCompID == A_LOWER_9CF()) c1_comp_rep = -1;
+		else if (c1->ClubLastDivision->ClubCompID == A_LOWER_B_9CF()) c1_comp_rep = -2;
+		else c1_comp_rep = c1->ClubLastDivision->ClubCompReputation;
+	}
+	if (c2->ClubLastDivision)
+	{
+		if (c2->ClubLastDivision->ClubCompID == A_PREMIER_9CF()) c2_comp_rep = 0;
+		else if (c2->ClubLastDivision->ClubCompID == A_LOWER_9CF()) c2_comp_rep = -1;
+		else if (c2->ClubLastDivision->ClubCompID == A_LOWER_B_9CF()) c2_comp_rep = -2;
+		else c2_comp_rep = c2->ClubLastDivision->ClubCompReputation;
+	}
+	if (c1_comp_rep != c2_comp_rep) return (c1_comp_rep > c2_comp_rep);
 	return (c1->ClubLastPosition < c2->ClubLastPosition);
 }
 

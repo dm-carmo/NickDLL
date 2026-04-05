@@ -888,11 +888,6 @@ void conmebol_libertadores_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	comp_stats* data = (comp_stats*)_this;
 	data->year = year;
 	data->comp_vtable = conmebol_libertadores_vtable;
-	data->f171 = 0;
-	data->f68 = -1;
-	data->current_stage = -1;
-	data->num_stages = 9;
-	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
 	data->competition_db = comp;
 	data->comp_type = CLUB_INTERNATIONAL;
 	data->promotes_to = -1;
@@ -907,6 +902,12 @@ void conmebol_libertadores_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	if (loaded) return;
 	comp->ClubCompBackgroundColour = get_colour(COLOUR_BLACK_9CF());
 	comp->ClubCompForegroundColour = get_colour(COLOUR_ORANGE_2_9CF());
+	data->f171 = 0;
+	data->f68 = -1;
+	data->current_stage = -1;
+	data->num_stages = 9;
+	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
+	for (int i = 0; i < data->num_stages; i++) data->stages[i] = 0;
 	conmebol_libertadores_all_teams(_this);
 	conmebol_libertadores_qualifier_teams(_this);
 	DWORD v1 = *(DWORD*)_this;

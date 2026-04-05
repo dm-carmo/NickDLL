@@ -905,6 +905,7 @@ void ita_ser_c_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->current_stage = -1;
 	data->num_stages = 4;
 	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
+	for (int i = 0; i < data->num_stages; i++) data->stages[i] = 0;
 	ita_ser_c_subs(_this);
 	AddTeamsGroupLeague(_this, ITA_SERIE_C_A_9CF());
 	BYTE* ebx = 0;

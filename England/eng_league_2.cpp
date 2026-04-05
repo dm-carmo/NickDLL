@@ -290,6 +290,7 @@ void eng_league_2_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->current_stage = -1;
 	data->num_stages = 1;
 	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
+	for (int i = 0; i < data->num_stages; i++) data->stages[i] = 0;
 	eng_league_2_subs(_this);
 	AddTeams(_this);
 	SetupTVMoney(_this, 482535, get_comp(ENG_LEAGUE_1_9CF()));

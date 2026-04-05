@@ -305,7 +305,7 @@ char ger_first_update(BYTE* _this) {
 	if (ger_regional)
 	{
 		comp_stats* ger_regional_data = (comp_stats*)ger_regional;
-		// All teams that were promoted from D4 must be prfessional
+		// All teams that were promoted from D4 must be professional
 		// All teams that were not relegated from D4 must be semi-professional
 		// All teams that were relegated from D4 must be amateur
 		update_club_pro_status_68A980(ger_regional, SemiProfessional, Promoted, -3, 1);
@@ -685,6 +685,7 @@ void ger_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->current_stage = -1;
 	data->num_stages = 1;
 	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
+	for (int i = 0; i < data->num_stages; i++) data->stages[i] = 0;
 	ger_first_subs(_this);
 	AddTeams(_this);
 	data->prize_money_pool = SetupPrizeMoney(_this, 3026704);

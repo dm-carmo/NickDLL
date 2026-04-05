@@ -161,14 +161,9 @@ int arg_first_add_teams(BYTE* _this)
 	if (all_teams) sub_9452CA_free(all_teams);
 
 	// Count the number of teams first, as the code really expects us to know up front
-	WORD numberOfLeagueTeams = CountNumberOfTeamsInComp(CompID);
-	comp_data->teams2 = (DWORD*)sub_944E46_malloc(numberOfLeagueTeams * 4);
-	vector<cm3_clubs*> d1_clubs;
-	for (DWORD i = 0; i < *clubs_count; i++)
-	{
-		cm3_clubs* club = &(*clubs)[i];
-		if (club->ClubDivision && club->ClubDivision->ClubCompID == CompID) d1_clubs.push_back(club);
-	}
+	vector<cm3_clubs*> d1_clubs = find_clubs_of_comp(CompID);
+	comp_data->teams2 = (DWORD*)sub_944E46_malloc(d1_clubs.size() * 4);
+	comp_data->n_teams2 = d1_clubs.size();
 	sort(d1_clubs.begin(), d1_clubs.end(), compareClubRep);
 	shuffle(d1_clubs.begin(), d1_clubs.begin() + 2, rng);
 	shuffle(d1_clubs.begin() + 2, d1_clubs.begin() + 4, rng);
@@ -185,14 +180,14 @@ int arg_first_add_teams(BYTE* _this)
 	shuffle(d1_clubs.begin() + 24, d1_clubs.begin() + 26, rng);
 	shuffle(d1_clubs.begin() + 26, d1_clubs.begin() + 28, rng);
 	shuffle(d1_clubs.begin() + 28, d1_clubs.end(), rng);
-	for (DWORD i = 0; i < d1_clubs.size(); i++)
+	for (DWORD i = 0; i < comp_data->n_teams2; i++)
 	{
 		*((DWORD*)(&comp_data->teams2[i])) = (DWORD)d1_clubs[i];
 	}
 
 	// Now let's add the teams
 	comp_data->n_teams = 15; // number of teams per group in this case
-	comp_data->team_league_table = (DWORD*)sub_944E46_malloc(numberOfLeagueTeams * league_team_list_sz); // number of teams * 59 (0x3B) - was 0x2FF
+	comp_data->team_league_table = (DWORD*)sub_944E46_malloc(comp_data->n_teams * league_team_list_sz);
 	BYTE teamsAdded = 0;
 	for (DWORD i = 0; i < comp_data->n_teams; i++)
 	{
@@ -257,17 +252,16 @@ void arg_first_setup_groups_close(BYTE* _this, BYTE idx) {
 }
 
 void arg_first_league_table(BYTE* _this) {
+	comp_stats* data = (comp_stats*)_this;
 	DWORD v1 = *(DWORD*)_this;
 	WORD num_rounds = 0;
 	WORD stage_name_id = 0;
 	BYTE idx = 5;
-	WORD n_teams = 30;
 	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, int, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, idx, &num_rounds, &stage_name_id, 0);
-	comp_stats* data = (comp_stats*)_this;
-	DWORD* pTeams = (DWORD*)sub_944E46_malloc(n_teams * 4);
+	DWORD* pTeams = (DWORD*)sub_944E46_malloc(data->n_teams2 * 4);
 
 	DWORD* all_teams = data->teams2;
-	for (DWORD i = 0; i < n_teams; i++)
+	for (DWORD i = 0; i < data->n_teams2; i++)
 	{
 		*((DWORD*)(&pTeams[i])) = all_teams[i];
 	}
@@ -275,7 +269,7 @@ void arg_first_league_table(BYTE* _this) {
 	BYTE* pStage = (BYTE*)sub_944CF1_operator_new(0xEE);
 	BYTE prom_rel[4] = { 0, 0, 0, 0 };
 	short f217 = 0;
-	create_league_stage_data(pStage, _this, n_teams, pTeams, 0, (DWORD)(data->competition_db), pFixtures, 28,
+	create_league_stage_data(pStage, _this, (short)data->n_teams2, pTeams, 0, (DWORD)(data->competition_db), pFixtures, 28,
 		data->pts_for_win, data->pts_for_draw, data->f196, (BYTE*)(_this + 0xC5), &prom_rel[0],
 		year, idx, stage_name_id, data->f81, 1, 0, f217, -1, 0, data->f225);
 	DWORD* stages_arr = data->stages;
@@ -1025,6 +1019,7 @@ void arg_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->current_stage = -1;
 	data->num_stages = 6;
 	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
+	for (int i = 0; i < data->num_stages; i++) data->stages[i] = 0;
 	arg_first_subs(_this);
 	arg_first_add_teams(_this);
 	SetupTVMoney(_this, 800000, get_comp(ARG_FIRST_9CF()));

@@ -653,6 +653,7 @@ void ofc_champions_league_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->current_stage = -1;
 	data->num_stages = 3;
 	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
+	for (int i = 0; i < data->num_stages; i++) data->stages[i] = 0;
 	ofc_champions_league_subs(_this);
 	ofc_champions_league_all_teams(_this);
 	ofc_champions_league_qualifier_teams(_this);

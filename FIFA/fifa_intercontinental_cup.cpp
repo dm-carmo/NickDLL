@@ -597,11 +597,6 @@ void fifa_intercontinental_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp
 	fifa_intercontinental_cup_vtable->SetPointer(VTableTableFates, (DWORD)&fifa_intercontinental_cup_set_table_fate);
 	fifa_intercontinental_cup_vtable->SetPointer(VTableReputationSetup, (DWORD)&fifa_intercontinental_cup_reputation_setup_c);
 	fifa_intercontinental_cup_vtable->SetPointer(VTableReputationCalc, (DWORD)&fifa_intercontinental_cup_reputation_calc_c);
-	data->f171 = 0;
-	data->f68 = -1;
-	data->current_stage = -1;
-	data->num_stages = 1;
-	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
 	data->competition_db = comp;
 	data->comp_type = CLUB_INTERNATIONAL;
 	data->promotes_to = -1;
@@ -616,6 +611,12 @@ void fifa_intercontinental_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp
 	if (loaded) return;
 	comp->ClubCompBackgroundColour = get_colour(COLOUR_BLUE_1_9CF());
 	comp->ClubCompForegroundColour = get_colour(COLOUR_AMBER_9CF());
+	data->f171 = 0;
+	data->f68 = -1;
+	data->current_stage = -1;
+	data->num_stages = 1;
+	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
+	for (int i = 0; i < data->num_stages; i++) data->stages[i] = 0;
 	DWORD v1 = *(DWORD*)_this;
 	*((DWORD*)(_this + 0xA3)) = (DWORD)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0x3c, _this + 0x3a, 0);
 	cup_map_fixture_tree_518790(_this);

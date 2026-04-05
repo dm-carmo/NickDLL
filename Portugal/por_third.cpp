@@ -326,6 +326,7 @@ void por_third_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->current_stage = -1;
 	data->num_stages = 4;
 	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
+	for (int i = 0; i < data->num_stages; i++) data->stages[i] = 0;
 	por_third_subs(_this);
 	AddTeamsGroupLeague(_this, POR_THIRD_A_9CF());
 	SetupTVMoney(_this, 259485, 0);

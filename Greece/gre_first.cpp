@@ -385,7 +385,8 @@ void __fastcall gre_check_reserve_teams(BYTE* _this) {
 	comp_stats* curr_stage = gre_second_data;
 	for (char al = -1; al < 1; al++) {
 		if (al >= 0) {
-			curr_stage = (comp_stats*)(gre_second_data->stages[al]);
+			if (gre_second_data->year == 2025) curr_stage = (comp_stats*)(gre_second_data->stages[al]);
+			else return;
 		}
 		for (WORD num = 0; num < curr_stage->n_teams; num++) {
 			team_league_stats* table_teams = (team_league_stats*)curr_stage->team_league_table;

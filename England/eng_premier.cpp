@@ -181,7 +181,7 @@ char eng_premier_update(BYTE* _this) {
 	update_club_pro_status_68A980(eng_league_2, Professional, -3, Relegated, 1);
 	if (eng_conf)
 	{
-		// All teams that were not relegated from D5 must be semi-professional
+		// All teams that were not relegated from D5 must be semi-professional or higher
 		update_club_pro_status_68A980(eng_conf, SemiProfessional, Relegated, -3, 1);
 		// All teams that were in D6 must be semi-professional
 		update_club_pro_status_68A980(eng_conf_n, SemiProfessional, Relegated, -3, 1);

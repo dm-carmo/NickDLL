@@ -671,6 +671,7 @@ void nor_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->current_stage = -1;
 	data->num_stages = 2;
 	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
+	for (int i = 0; i < data->num_stages; i++) data->stages[i] = 0;
 	data->stages[1] = 0;
 	nor_second_subs(_this);
 	AddTeamsGroupLeague(_this, NOR_SECOND_G1_9CF());

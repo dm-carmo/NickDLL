@@ -268,41 +268,41 @@ void setup_misc_functions()
 	PatchFunction(0x46B71E, (DWORD)&aus_minor_premier_in_history);
 	PatchFunction(0x460ec6, (DWORD)&club_pro_status_with_continental_comp_c);
 
-	// Move August 30's international friendlies forward one week
+	// Move August 30's international friendlies forward two weeks
 	for (DWORD d : friendly_aug_30plus4) {
-		WriteBytes(d + 4, 1, 9);
+		WriteBytes(d + 4, 1, 3);
 	}
 	for (DWORD d : friendly_aug_30plus3) {
-		WriteBytes(d + 3, 1, 9);
+		WriteBytes(d + 3, 1, 3);
 	}
-	WriteBytes(0x5cb892 + 1, 1, 9);
-	WriteBytes(0x5cb8dc + 1, 1, 9);
+	WriteBytes(0x5cb892 + 1, 1, 3);
+	WriteBytes(0x5cb8dc + 1, 1, 3);
 	// Move September 3's international friendlies forward one week
 	for (DWORD d : friendly_sept_3plus4) {
-		WriteBytes(d + 4, 1, 13);
+		WriteBytes(d + 4, 1, 6);
 	}
 	for (DWORD d : friendly_sept_3plus3) {
-		WriteBytes(d + 3, 1, 13);
+		WriteBytes(d + 3, 1, 6);
 	}
-	WriteBytes(0x5caba1, 7, 0x66, 0xC7, 0x40, 0x01, 0x0D, 0x08, 0x90);
-	WriteBytes(0x5cad0e, 7, 0x66, 0xC7, 0x40, 0x01, 0x0D, 0x08, 0x90);
-	WriteBytes(0x5cb459, 7, 0x66, 0xC7, 0x40, 0x01, 0x0D, 0x08, 0x90);
+	WriteBytes(0x5caba1, 7, 0x66, 0xC7, 0x40, 0x01, 0x06, 0x08, 0x90);
+	WriteBytes(0x5cad0e, 7, 0x66, 0xC7, 0x40, 0x01, 0x06, 0x08, 0x90);
+	WriteBytes(0x5cb459, 7, 0x66, 0xC7, 0x40, 0x01, 0x06, 0x08, 0x90);
 	// Move October 4's international friendlies forward one week
 	for (DWORD d : friendly_oct_4plus4) {
-		WriteBytes(d + 4, 1, 14);
+		WriteBytes(d + 4, 1, 11);
 	}
 	for (DWORD d : friendly_oct_4plus3) {
-		WriteBytes(d + 3, 1, 14);
+		WriteBytes(d + 3, 1, 11);
 	}
 	// Move March 21's international friendlies forward one week
 	for (DWORD d : friendly_march_21plus4) {
-		WriteBytes(d + 4, 1, 31);
+		WriteBytes(d + 4, 1, 28);
 	}
 	for (DWORD d : friendly_march_21plus3) {
-		WriteBytes(d + 3, 1, 31);
+		WriteBytes(d + 3, 1, 28);
 	}
-	WriteBytes(0x5cb872 + 1, 1, 31);
-	WriteBytes(0x5cb8b7 + 1, 1, 31);
+	WriteBytes(0x5cb872 + 1, 1, 28);
+	WriteBytes(0x5cb8b7 + 1, 1, 28);
 
 	// Change player search filters
 	if (configFile.GetBool("changePlayerSearchFilters", true)) {

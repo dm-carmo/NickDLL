@@ -676,11 +676,6 @@ void swe_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->competition_db = comp;
 	data->comp_vtable = swe_cup_vtable;
 	data->year = year;
-	data->f171 = 0;
-	data->f68 = -1;
-	data->current_stage = -1;
-	data->num_stages = 9;
-	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
 	data->comp_type = CLUB_DOMESTIC;
 	data->max_bench = 9;
 	data->max_subs = 5;
@@ -688,6 +683,12 @@ void swe_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	*((BYTE*)(_this + 0xB1)) = 0;
 	int loaded = sub_51FC00(_this, 1);
 	if (loaded) return;
+	data->f171 = 0;
+	data->f68 = -1;
+	data->current_stage = -1;
+	data->num_stages = 9;
+	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
+	for (int i = 0; i < data->num_stages; i++) data->stages[i] = 0;
 	swe_cup_teams(_this);
 	DWORD v1 = *(DWORD*)_this;
 	*((DWORD*)(_this + 0xA3)) = (DWORD)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0x3c, _this + 0x3a, 0);

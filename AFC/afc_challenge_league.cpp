@@ -894,11 +894,6 @@ void afc_challenge_league_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	afc_challenge_league_vtable->SetPointer(VTableReputationSetup, (DWORD)&afc_challenge_league_reputation_setup_c);
 	afc_challenge_league_vtable->SetPointer(VTableReputationCalc, (DWORD)&afc_challenge_league_reputation_calc_c);
 	afc_challenge_league_vtable->SetPointer(VTableSubsRounds, 0x858e70);
-	data->f171 = 0;
-	data->f68 = -1;
-	data->current_stage = -1;
-	data->num_stages = 6;
-	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
 	data->competition_db = comp;
 	data->comp_type = CLUB_INTERNATIONAL;
 	data->promotes_to = -1;
@@ -914,6 +909,12 @@ void afc_challenge_league_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	comp->ClubCompContinent = get_continent(ASIA_9CF());
 	comp->ClubCompBackgroundColour = get_colour(COLOUR_PURPLE_3_9CF());
 	comp->ClubCompForegroundColour = get_colour(COLOUR_ORANGE_1_9CF());
+	data->f171 = 0;
+	data->f68 = -1;
+	data->current_stage = -1;
+	data->num_stages = 6;
+	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
+	for (int i = 0; i < data->num_stages; i++) data->stages[i] = 0;
 	afc_challenge_league_all_teams(_this);
 	afc_challenge_league_qualifier_teams(_this);
 	DWORD v1 = *(DWORD*)_this;
