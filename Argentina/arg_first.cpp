@@ -6,6 +6,9 @@
 #include "Helpers\constants.h"
 #include <Helpers\9cf_constants.h>
 
+// Apertura/Clausura home and away games sync
+// Promoted teams always go in group B
+// higher placed teams play at home in playoffs
 DWORD* arg_first_vtable = (DWORD*)0x967324;
 
 void arg_first_aggregate_relegation(BYTE* _this) {
@@ -1066,7 +1069,7 @@ void arg_first_open_playoff_teams(BYTE* _this) {
 			}
 		}
 	}
-	BYTE team_order[16] = { 0,6,4,2,3,5,7,1,8,14,12,10,11,13,15,9 };
+	BYTE team_order[16] = { 0,2,4,6,8,10,12,14,15,13,11,9,7,5,3,1 };
 
 	for (char i = 0; i < playoff_teams; i++) {
 		teams[team_order[i]].club = clubs[i];

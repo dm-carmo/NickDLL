@@ -11,6 +11,7 @@
 
 using namespace std;
 
+// Possible idea for later: add the two spots for the countries with the highest coefficient
 DWORD* uefa_champions_league_vtable = (DWORD*)0x96A1D0;
 
 void uefa_champions_league_free_under(BYTE* _this) {

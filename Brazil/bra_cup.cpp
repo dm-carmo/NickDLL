@@ -31,23 +31,23 @@ DWORD bra_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 3, 13), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 4, 30), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 4, NoTiebreak_1, PenaltiesNoExtraTime_1, 4, 32, 16, 12, 80, 0, 2, 21, 171000);
+		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 4, Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 4, 32, 16, 12, 80, 0, 2, 21, 171000);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 5, 22), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 30), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, FourthRound, 0, NoTiebreak_1, PenaltiesNoExtraTime_1, 4, 16, 8, 0, 0, 0, 2, 7, 267750);
+		FillFixtureDetails(pMem, fixture_id++, FourthRound, 0, Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 4, 16, 8, 0, 0, 0, 2, 7, 267750);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 7), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 27), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, NoTiebreak_1, PenaltiesNoExtraTime_1, 4, 8, 4, 0, 0, 0, 2, 15, 348750);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 4, 8, 4, 0, 0, 0, 2, 15, 348750);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 12), year, Friday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 8), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, NoTiebreak_1, PenaltiesNoExtraTime_1, 6, 4, 2, 0, 0, 0, 2, 21, 731250);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 6, 4, 2, 0, 0, 0, 2, 21, 731250);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 30), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 3), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, NoTiebreak_1, PenaltiesNoExtraTime_1, 6, 2, 1, 0, 0, 0, 2, 7, 0, 5819000, 2909500);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 6, 2, 1, 0, 0, 0, 2, 7, 0, 5819000, 2909500);
 
 		return (DWORD)pMem;
 	}

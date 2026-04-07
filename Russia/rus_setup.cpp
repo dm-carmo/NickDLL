@@ -55,6 +55,33 @@ DWORD rus_setup_c(playable_nation_data* nation_data) {
 	return 1;
 }
 
+void __declspec(naked) russia_foreign_rules()
+{
+	__asm
+	{
+		mov eax, dword ptr ds : [eax]
+		cmp eax, dword ptr ds : [0x9CF930]
+		je rus_prm_fgn
+		cmp eax, dword ptr ds : [0x9CF92C]
+		je rus_first_fgn
+		cmp eax, dword ptr ds : [0x9CF918]
+		je rus_second_fgn
+		cmp eax, dword ptr ds : [0x9CF934]
+		je rus_prm_fgn
+		mov byte ptr ds : [edx + 2] , -1
+		ret 8
+		rus_prm_fgn :
+		mov byte ptr ds : [edx + 2] , 8
+		ret 8
+		rus_first_fgn :
+		mov byte ptr ds : [edx + 2] , 4
+		ret 8
+		rus_second_fgn :
+		mov byte ptr ds : [edx + 2] , 0
+		ret 8
+	}
+}
+
 void setup_rus_nation() {
 	setup_rus_premier();
 	setup_rus_first();
@@ -62,6 +89,8 @@ void setup_rus_nation() {
 	setup_rus_cup();
 	setup_rus_super();
 	setup_rus_awards();
+
+	PatchFunction(0x7ec96c, (DWORD)&russia_foreign_rules);
 }
 
 void russia_restructure() {

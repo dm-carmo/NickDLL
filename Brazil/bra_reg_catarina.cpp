@@ -190,7 +190,7 @@ DWORD bra_reg_catarina_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, W
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 3, 10), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 3, 15), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, NoTiebreak_1, AwayGoalsPenaltiesNoExtraTime_2, 5, 2, 1, 0, 0, 0, 2, 7, 0, 28132, 7213);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 5, 2, 1, 0, 0, 0, 2, 7, 0, 28132, 7213);
 
 		return (DWORD)pMem;
 	}
