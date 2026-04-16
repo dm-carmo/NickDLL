@@ -753,6 +753,12 @@
     <ClCompile Include="rules_setup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Czech Republic\cze_second.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Czech Republic\cze_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -1503,6 +1509,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="rules_setup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Czech Republic\cze_second.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Czech Republic\cze_cup.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -148,7 +148,7 @@ void eng_conf_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	for (int i = 0; i < data->num_stages; i++) data->stages[i] = 0;
 	eng_conf_subs(_this);
 	AddTeams(_this);
-	SetupTVMoney(_this, 5000, 0);
+	SetupTVMoney(_this, prizeMoneyFile.GetInt("eng_conf_tv_money"), 0);
 	sub_6835C0(_this);
 	BYTE* ebx = 0;
 	sub_6827D0(_this, ebx);
@@ -185,7 +185,7 @@ char eng_conf_update(BYTE* _this) {
 	data->current_stage = -1;
 	eng_conf_subs(_this);
 	AddTeams(_this);
-	SetupTVMoney(_this, 5000, 0);
+	SetupTVMoney(_this, prizeMoneyFile.GetInt("eng_conf_tv_money"), 0);
 	sub_6835C0(_this);
 	BYTE* edx = 0;
 	sub_6827D0(_this, edx);

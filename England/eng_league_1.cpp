@@ -239,8 +239,8 @@ void eng_league_1_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	for (int i = 0; i < data->num_stages; i++) data->stages[i] = 0;
 	eng_league_1_subs(_this);
 	AddTeams(_this);
-	SetupTVMoney(_this, 723803, get_comp(ENG_CHAMP_9CF()));
-	SetupTVMoney(_this, 444000, 0);
+	SetupTVMoney(_this, prizeMoneyFile.GetInt("eng_l1_tv_money_relegated"), get_comp(ENG_CHAMP_9CF()));
+	SetupTVMoney(_this, prizeMoneyFile.GetInt("eng_l1_tv_money_all"), 0);
 	sub_6835C0(_this);
 	BYTE* ebx = 0;
 	sub_6827D0(_this, ebx);
@@ -277,8 +277,8 @@ char eng_league_1_update(BYTE* _this) {
 	data->current_stage = -1;
 	eng_league_1_subs(_this);
 	AddTeams(_this);
-	SetupTVMoney(_this, 723803, get_comp(ENG_CHAMP_9CF()));
-	SetupTVMoney(_this, 444000, 0);
+	SetupTVMoney(_this, prizeMoneyFile.GetInt("eng_l1_tv_money_relegated"), get_comp(ENG_CHAMP_9CF()));
+	SetupTVMoney(_this, prizeMoneyFile.GetInt("eng_l1_tv_money_all"), 0);
 	sub_6835C0(_this);
 	BYTE* edx = 0;
 	sub_6827D0(_this, edx);

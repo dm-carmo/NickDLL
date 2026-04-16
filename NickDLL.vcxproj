@@ -196,7 +196,9 @@
     <ClCompile Include="Croatia\cro_super.cpp" />
     <ClCompile Include="Croatia\cro_third.cpp" />
     <ClCompile Include="currency.cpp" />
+    <ClCompile Include="Czech Republic\cze_cup.cpp" />
     <ClCompile Include="Czech Republic\cze_first.cpp" />
+    <ClCompile Include="Czech Republic\cze_second.cpp" />
     <ClCompile Include="Czech Republic\cze_setup.cpp" />
     <ClCompile Include="Denmark\den_awards.cpp" />
     <ClCompile Include="Denmark\den_cup.cpp" />
@@ -446,7 +448,9 @@
     <ClInclude Include="Croatia\cro_super.h" />
     <ClInclude Include="Croatia\cro_third.h" />
     <ClInclude Include="currency.h" />
+    <ClInclude Include="Czech Republic\cze_cup.h" />
     <ClInclude Include="Czech Republic\cze_first.h" />
+    <ClInclude Include="Czech Republic\cze_second.h" />
     <ClInclude Include="Czech Republic\cze_setup.h" />
     <ClInclude Include="Denmark\den_awards.h" />
     <ClInclude Include="Denmark\den_cup.h" />

@@ -155,18 +155,18 @@ int cwc_money_after_match(BYTE* _this, BYTE* a2, int a3) {
 	if (bl < 7) {
 		if (club_check) {
 			int ret = sub_5A0590(ae2a38_ptr, (BYTE*)club_check);
-			AddToClubIncome((BYTE*)ret, 1485442);
-			AddMoneyFromComp(_this, (BYTE*)club_check, 1485442, 0, -1, 0, a2, -2);
+			AddToClubIncome((BYTE*)ret, prizeMoneyFile.GetInt("fifa_cwc_groups_per_win"));
+			AddMoneyFromComp(_this, (BYTE*)club_check, prizeMoneyFile.GetInt("fifa_cwc_groups_per_win"), 0, -1, 0, a2, -2);
 		}
 		else {
 			cm3_clubs* club1 = (cm3_clubs*)*(DWORD*)(a2 + 0x1c);
 			int ret = sub_5A0590(ae2a38_ptr, (BYTE*)club1);
-			AddToClubIncome((BYTE*)ret, 742721);
+			AddToClubIncome((BYTE*)ret, prizeMoneyFile.GetInt("fifa_cwc_groups_per_draw"));
 			cm3_clubs* club2 = (cm3_clubs*)*(DWORD*)(a2 + 0x20);
 			ret = sub_5A0590(ae2a38_ptr, (BYTE*)club2);
-			AddToClubIncome((BYTE*)ret, 742721);
-			AddMoneyFromComp(_this, (BYTE*)club1, 742721, 0, -1, 0, a2, -2);
-			AddMoneyFromComp(_this, (BYTE*)club2, 742721, 0, -1, 0, a2, -2);
+			AddToClubIncome((BYTE*)ret, prizeMoneyFile.GetInt("fifa_cwc_groups_per_draw"));
+			AddMoneyFromComp(_this, (BYTE*)club1, prizeMoneyFile.GetInt("fifa_cwc_groups_per_draw"), 0, -1, 0, a2, -2);
+			AddMoneyFromComp(_this, (BYTE*)club2, prizeMoneyFile.GetInt("fifa_cwc_groups_per_draw"), 0, -1, 0, a2, -2);
 		}
 	}
 	return sub_685D30(_this, a2, a3);
@@ -280,7 +280,7 @@ DWORD fifa_club_world_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Monday, Morning, LargestStadium6);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Sunday, Morning, NationalStadium);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Saturday, Morning, LargestStadium2);
-		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, FixedTeamOrderInCup2 + ExtraTimePenalties_1, NoTiebreak_2, 23, 16, 8, 16, 0, 0, 1, 0, 5570408);
+		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, FixedTeamOrderInCup2 + ExtraTimePenalties_1, NoTiebreak_2, 23, 16, 8, 16, 0, 0, 1, 0, prizeMoneyFile.GetInt("fifa_cwc_r16_qualify"));
 		tv_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 2), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 4), year, Friday, Afternoon, VenueUnknown_1);
@@ -289,18 +289,18 @@ DWORD fifa_club_world_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Saturday, Morning, LargestStadium3);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Friday, Morning, LargestStadium5);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup2 + ExtraTimePenalties_1, NoTiebreak_2, 23, 8, 4, 0, 0, 0, 1, 0, 9748213);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup2 + ExtraTimePenalties_1, NoTiebreak_2, 23, 8, 4, 0, 0, 0, 1, 0, prizeMoneyFile.GetInt("fifa_cwc_qtr_qualify"));
 		tv_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 6), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 8), year, Tuesday, Afternoon, VenueUnknown_1);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Wednesday, Afternoon, NationalStadium);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Tuesday, Afternoon, LargestStadium1);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup2 + ExtraTimePenalties_1, NoTiebreak_2, 23, 4, 2, 0, 0, 0, 1, 0, 15597141);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup2 + ExtraTimePenalties_1, NoTiebreak_2, 23, 4, 2, 0, 0, 0, 1, 0, prizeMoneyFile.GetInt("fifa_cwc_semi_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 10), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 13), year, Sunday, Afternoon, NationalStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 23, 2, 1, 0, 0, 0, 1, 0, 0, 29708840, 22281630);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 23, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("fifa_cwc_final_win"), prizeMoneyFile.GetInt("fifa_cwc_final_lose"));
 
 		return (DWORD)pMem;
 	}
@@ -576,15 +576,15 @@ void fifa_club_world_cup_all_teams(BYTE* _this) {
 		teams[i].f5 = 10;
 		teams[i].f6 = 0;
 		int ret = sub_5A0590(ae2a38_ptr, (BYTE*)uefa_clubs[i]);
-		AddToClubIncome((BYTE*)ret, 11296786);
-		AddMoneyFromComp(_this, (BYTE*)uefa_clubs[i], 11296786, 0, -1, GroupStage, 0, -2);
+		AddToClubIncome((BYTE*)ret, prizeMoneyFile.GetInt("fifa_cwc_uefa_participation_money"));
+		AddMoneyFromComp(_this, (BYTE*)uefa_clubs[i], prizeMoneyFile.GetInt("fifa_cwc_uefa_participation_money"), 0, -1, GroupStage, 0, -2);
 
 		teams[i + 4].club = conmebol_clubs[i];
 		teams[i + 4].f5 = 10;
 		teams[i + 4].f6 = 0;
 		ret = sub_5A0590(ae2a38_ptr, (BYTE*)conmebol_clubs[i]);
-		AddToClubIncome((BYTE*)ret, 11296786);
-		AddMoneyFromComp(_this, (BYTE*)conmebol_clubs[i], 11296786, 0, -1, GroupStage, 0, -2);
+		AddToClubIncome((BYTE*)ret, prizeMoneyFile.GetInt("fifa_cwc_conmebol_participation_money"));
+		AddMoneyFromComp(_this, (BYTE*)conmebol_clubs[i], prizeMoneyFile.GetInt("fifa_cwc_conmebol_participation_money"), 0, -1, GroupStage, 0, -2);
 	}
 	// Pot 2: The remaining eight teams from UEFA
 	for (int i = 0; i < 8; i++) {
@@ -592,8 +592,8 @@ void fifa_club_world_cup_all_teams(BYTE* _this) {
 		teams[i + 8].f5 = 11;
 		teams[i + 8].f6 = 0;
 		int ret = sub_5A0590(ae2a38_ptr, (BYTE*)uefa_clubs[i + 4]);
-		AddToClubIncome((BYTE*)ret, 11296786);
-		AddMoneyFromComp(_this, (BYTE*)uefa_clubs[i + 4], 11296786, 0, -1, GroupStage, 0, -2);
+		AddToClubIncome((BYTE*)ret, prizeMoneyFile.GetInt("fifa_cwc_uefa_participation_money"));
+		AddMoneyFromComp(_this, (BYTE*)uefa_clubs[i + 4], prizeMoneyFile.GetInt("fifa_cwc_uefa_participation_money"), 0, -1, GroupStage, 0, -2);
 	}
 	// Pot 3: The two top-ranked teams from each of AFC, CAF and CONCACAF, and the remaining two teams from CONMEBOL
 	for (int i = 0; i < 2; i++) {
@@ -601,29 +601,29 @@ void fifa_club_world_cup_all_teams(BYTE* _this) {
 		teams[i + 16].f5 = 12;
 		teams[i + 16].f6 = 0;
 		int ret = sub_5A0590(ae2a38_ptr, (BYTE*)afc_clubs[i]);
-		AddToClubIncome((BYTE*)ret, 7092986);
-		AddMoneyFromComp(_this, (BYTE*)afc_clubs[i], 7092986, 0, -1, GroupStage, 0, -2);
+		AddToClubIncome((BYTE*)ret, prizeMoneyFile.GetInt("fifa_cwc_afc_participation_money"));
+		AddMoneyFromComp(_this, (BYTE*)afc_clubs[i], prizeMoneyFile.GetInt("fifa_cwc_afc_participation_money"), 0, -1, GroupStage, 0, -2);
 
 		teams[i + 18].club = caf_clubs[i];
 		teams[i + 18].f5 = 12;
 		teams[i + 18].f6 = 0;
 		ret = sub_5A0590(ae2a38_ptr, (BYTE*)caf_clubs[i]);
-		AddToClubIncome((BYTE*)ret, 7092986);
-		AddMoneyFromComp(_this, (BYTE*)caf_clubs[i], 7092986, 0, -1, GroupStage, 0, -2);
+		AddToClubIncome((BYTE*)ret, prizeMoneyFile.GetInt("fifa_cwc_caf_participation_money"));
+		AddMoneyFromComp(_this, (BYTE*)caf_clubs[i], prizeMoneyFile.GetInt("fifa_cwc_caf_participation_money"), 0, -1, GroupStage, 0, -2);
 
 		teams[i + 20].club = concacaf_clubs[i];
 		teams[i + 20].f5 = 12;
 		teams[i + 20].f6 = 0;
 		ret = sub_5A0590(ae2a38_ptr, (BYTE*)concacaf_clubs[i]);
-		AddToClubIncome((BYTE*)ret, 7092986);
-		AddMoneyFromComp(_this, (BYTE*)concacaf_clubs[i], 7092986, 0, -1, GroupStage, 0, -2);
+		AddToClubIncome((BYTE*)ret, prizeMoneyFile.GetInt("fifa_cwc_concacaf_participation_money"));
+		AddMoneyFromComp(_this, (BYTE*)concacaf_clubs[i], prizeMoneyFile.GetInt("fifa_cwc_concacaf_participation_money"), 0, -1, GroupStage, 0, -2);
 
 		teams[i + 22].club = conmebol_clubs[i + 4];
 		teams[i + 22].f5 = 12;
 		teams[i + 22].f6 = 0;
 		ret = sub_5A0590(ae2a38_ptr, (BYTE*)conmebol_clubs[i + 4]);
-		AddToClubIncome((BYTE*)ret, 11296786);
-		AddMoneyFromComp(_this, (BYTE*)conmebol_clubs[i + 4], 11296786, 0, -1, GroupStage, 0, -2);
+		AddToClubIncome((BYTE*)ret, prizeMoneyFile.GetInt("fifa_cwc_conmebol_participation_money"));
+		AddMoneyFromComp(_this, (BYTE*)conmebol_clubs[i + 4], prizeMoneyFile.GetInt("fifa_cwc_conmebol_participation_money"), 0, -1, GroupStage, 0, -2);
 	}
 	// Pot 4: The remaining teams from AFC, CAF, CONCACAF, OFC and host country
 	for (int i = 0; i < 2; i++) {
@@ -631,30 +631,30 @@ void fifa_club_world_cup_all_teams(BYTE* _this) {
 		teams[i + 24].f5 = 13;
 		teams[i + 24].f6 = 0;
 		int ret = sub_5A0590(ae2a38_ptr, (BYTE*)afc_clubs[i + 2]);
-		AddToClubIncome((BYTE*)ret, 7092986);
-		AddMoneyFromComp(_this, (BYTE*)afc_clubs[i + 2], 7092986, 0, -1, GroupStage, 0, -2);
+		AddToClubIncome((BYTE*)ret, prizeMoneyFile.GetInt("fifa_cwc_afc_participation_money"));
+		AddMoneyFromComp(_this, (BYTE*)afc_clubs[i + 2], prizeMoneyFile.GetInt("fifa_cwc_afc_participation_money"), 0, -1, GroupStage, 0, -2);
 
 		teams[i + 26].club = caf_clubs[i + 2];
 		teams[i + 26].f5 = 13;
 		teams[i + 26].f6 = 0;
 		ret = sub_5A0590(ae2a38_ptr, (BYTE*)caf_clubs[i + 2]);
-		AddToClubIncome((BYTE*)ret, 7092986);
-		AddMoneyFromComp(_this, (BYTE*)caf_clubs[i + 2], 7092986, 0, -1, GroupStage, 0, -2);
+		AddToClubIncome((BYTE*)ret, prizeMoneyFile.GetInt("fifa_cwc_caf_participation_money"));
+		AddMoneyFromComp(_this, (BYTE*)caf_clubs[i + 2], prizeMoneyFile.GetInt("fifa_cwc_caf_participation_money"), 0, -1, GroupStage, 0, -2);
 
 		teams[i + 28].club = concacaf_clubs[i + 2];
 		teams[i + 28].f5 = 13;
 		teams[i + 28].f6 = 0;
 		ret = sub_5A0590(ae2a38_ptr, (BYTE*)concacaf_clubs[i + 2]);
-		AddToClubIncome((BYTE*)ret, 7092986);
-		AddMoneyFromComp(_this, (BYTE*)concacaf_clubs[i + 2], 7092986, 0, -1, GroupStage, 0, -2);
+		AddToClubIncome((BYTE*)ret, prizeMoneyFile.GetInt("fifa_cwc_concacaf_participation_money"));
+		AddMoneyFromComp(_this, (BYTE*)concacaf_clubs[i + 2], prizeMoneyFile.GetInt("fifa_cwc_concacaf_participation_money"), 0, -1, GroupStage, 0, -2);
 	}
 
 	teams[30].club = ofc_club;
 	teams[30].f5 = 13;
 	teams[30].f6 = 0;
 	int ret = sub_5A0590(ae2a38_ptr, (BYTE*)ofc_club);
-	AddToClubIncome((BYTE*)ret, 2658941);
-	AddMoneyFromComp(_this, (BYTE*)ofc_club, 2658941, 0, -1, GroupStage, 0, -2);
+	AddToClubIncome((BYTE*)ret, prizeMoneyFile.GetInt("fifa_cwc_ofc_participation_money"));
+	AddMoneyFromComp(_this, (BYTE*)ofc_club, prizeMoneyFile.GetInt("fifa_cwc_ofc_participation_money"), 0, -1, GroupStage, 0, -2);
 
 	teams[31].club = host_club;
 	teams[31].f5 = 13;
@@ -662,17 +662,23 @@ void fifa_club_world_cup_all_teams(BYTE* _this) {
 	if (host_club)
 	{
 		int prize = 0;
-		if (host_club->ClubNation->NationContinent->ContinentID == EUROPE_9CF() ||
-			host_club->ClubNation->NationContinent->ContinentID == SOUTH_AMERICA_9CF()) {
-			prize = 11296786;
+		if (host_club->ClubNation->NationContinent->ContinentID == EUROPE_9CF()) {
+			prize = prizeMoneyFile.GetInt("fifa_cwc_uefa_participation_money");
 		}
-		else if (host_club->ClubNation->NationContinent->ContinentID == NORTH_AMERICA_9CF() ||
-			host_club->ClubNation->NationContinent->ContinentID == ASIA_9CF() ||
-			host_club->ClubNation->NationContinent->ContinentID == AFRICA_9CF()) {
-			prize = 7092986;
+		else if (host_club->ClubNation->NationContinent->ContinentID == SOUTH_AMERICA_9CF()) {
+			prize = prizeMoneyFile.GetInt("fifa_cwc_conmebol_participation_money");
+		}
+		else if (host_club->ClubNation->NationContinent->ContinentID == NORTH_AMERICA_9CF()) {
+			prize = prizeMoneyFile.GetInt("fifa_cwc_concacaf_participation_money");
+		}
+		else if (host_club->ClubNation->NationContinent->ContinentID == ASIA_9CF()) {
+			prize = prizeMoneyFile.GetInt("fifa_cwc_afc_participation_money");
+		}
+		else if (host_club->ClubNation->NationContinent->ContinentID == AFRICA_9CF()) {
+			prize = prizeMoneyFile.GetInt("fifa_cwc_caf_participation_money");
 		}
 		else if (host_club->ClubNation->NationContinent->ContinentID == OCEANIA_9CF()) {
-			prize = 2658941;
+			prize = prizeMoneyFile.GetInt("fifa_cwc_ofc_participation_money");
 		}
 		ret = sub_5A0590(ae2a38_ptr, (BYTE*)ofc_club);
 		AddToClubIncome((BYTE*)ret, prize);

@@ -177,6 +177,9 @@ void Setup()
 	setup_leagues_setup();
 	setup_discipline_setup();
 	setup_rules_setup();
+
+	// temporary: suppresses hall_of_fame 315 error
+	WriteNOP(0x5ef93b, 5);
 }
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved)

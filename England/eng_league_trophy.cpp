@@ -87,18 +87,18 @@ int league_trophy_money_after_match(BYTE* _this, BYTE* a2, int a3) {
 	if (bl < 15) {
 		if (club_check) {
 			int ret = sub_5A0590(ae2a38_ptr, (BYTE*)club_check);
-			AddToClubIncome((BYTE*)ret, 20000);
-			AddMoneyFromComp(_this, (BYTE*)club_check, 20000, 0, -1, 0, a2, -2);
+			AddToClubIncome((BYTE*)ret, prizeMoneyFile.GetInt("eng_league_trophy_groups_per_win"));
+			AddMoneyFromComp(_this, (BYTE*)club_check, prizeMoneyFile.GetInt("eng_league_trophy_groups_per_win"), 0, -1, 0, a2, -2);
 		}
 		else {
 			cm3_clubs* club1 = (cm3_clubs*)*(DWORD*)(a2 + 0x1c);
 			int ret = sub_5A0590(ae2a38_ptr, (BYTE*)club1);
-			AddToClubIncome((BYTE*)ret, 10000);
+			AddToClubIncome((BYTE*)ret, prizeMoneyFile.GetInt("eng_league_trophy_groups_per_draw"));
 			cm3_clubs* club2 = (cm3_clubs*)*(DWORD*)(a2 + 0x20);
 			ret = sub_5A0590(ae2a38_ptr, (BYTE*)club2);
-			AddToClubIncome((BYTE*)ret, 10000);
-			AddMoneyFromComp(_this, (BYTE*)club1, 10000, 0, -1, 0, a2, -2);
-			AddMoneyFromComp(_this, (BYTE*)club2, 10000, 0, -1, 0, a2, -2);
+			AddToClubIncome((BYTE*)ret, prizeMoneyFile.GetInt("eng_league_trophy_groups_per_draw"));
+			AddMoneyFromComp(_this, (BYTE*)club1, prizeMoneyFile.GetInt("eng_league_trophy_groups_per_draw"), 0, -1, 0, a2, -2);
+			AddMoneyFromComp(_this, (BYTE*)club2, prizeMoneyFile.GetInt("eng_league_trophy_groups_per_draw"), 0, -1, 0, a2, -2);
 		}
 	}
 	return sub_685D30(_this, a2, a3);
@@ -214,23 +214,23 @@ DWORD eng_league_trophy_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 12), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 2), year, Tuesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, RoundOf32, 0, FixedTeamOrderInCup2 + PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 32, 16, 32, 0, 0, 1, 0, 0, 20000, 0);
+		FillFixtureDetails(pMem, fixture_id++, RoundOf32, 0, FixedTeamOrderInCup2 + PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 32, 16, 32, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("eng_league_trophy_r32_win"), 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 3), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 1, 13), year, Tuesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, FixedTeamOrderInCup2 + PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 16, 8, 0, 0, 0, 1, 0, 0, 40000, 0);
+		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, FixedTeamOrderInCup2 + PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 16, 8, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("eng_league_trophy_r16_win"), 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 1, 14), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 2, 10), year, Tuesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup2 + PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 8, 4, 0, 0, 0, 1, 0, 0, 50000, 0);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup2 + PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 8, 4, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("eng_league_trophy_qtr_win"), 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 2, 11), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 3), year, Tuesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup2 + PenaltiesNoExtraTime_1, NoTiebreak_2, 6, 4, 2, 0, 0, 0, 1, 0, 0, 50000, 0);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup2 + PenaltiesNoExtraTime_1, NoTiebreak_2, 6, 4, 2, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("eng_league_trophy_semi_win"), 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 4), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 12), year, Sunday, Afternoon, NationalStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0, 0, 50000, 0);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("eng_league_trophy_final_win"), 0);
 
 		return (DWORD)pMem;
 	}
@@ -418,7 +418,7 @@ void eng_league_trophy_setup_first_group(BYTE* _this) {
 	BYTE teamsAdded = 0;
 	for (WORD i = 0; i < total_teams; i++)
 		add_team_call(_this, teamsAdded++, (cm3_clubs*)teams[i], 0, 0);
-	SetupTVMoney(_this, 20000, 0);
+	SetupTVMoney(_this, prizeMoneyFile.GetInt("eng_league_trophy_tv_money"), 0);
 	sub_684230(_this);
 }
 
@@ -445,7 +445,7 @@ void eng_league_trophy_setup_groups(BYTE* _this, BYTE idx) {
 	*((DWORD*)(&stages_arr[idx])) = (DWORD)pStage;
 	sub_9452CA_free(pTeams);
 	sub_9452CA_free(pFixtures);
-	SetupTVMoney(pStage, 20000, 0);
+	SetupTVMoney(pStage, prizeMoneyFile.GetInt("eng_league_trophy_tv_money"), 0);
 	sub_684230(pStage);
 	data->current_stage = idx;
 }
