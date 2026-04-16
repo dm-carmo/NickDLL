@@ -316,6 +316,11 @@ DWORD CRO_SECOND_NORTH_9CF() { return Get9CF(0x9CF8A8); }
 DWORD CRO_SECOND_SOUTH_9CF() { return Get9CF(0x9CF8AC); }
 DWORD CRO_SUPER_CUP_9CF() { return Get9CF(0x9CF940); }
 DWORD CRO_THIRD_9CF() { return Get9CF(0x9CF8A4); }
+DWORD CZE_FIRST_9CF() { return 0xce; }
+DWORD CZE_SECOND_9CF() { return 0xcf; }
+DWORD CZE_THIRD_CFL_9CF() { return 0xdd; }
+DWORD CZE_THIRD_MFL_9CF() { return 0xde; }
+DWORD CZE_CUP_9CF() { return 0xdc; }
 DWORD DEN_CUP_9CF() { return Get9CF(0x9CF708); }
 DWORD DEN_FIRST_9CF() { return Get9CF(0x9CF5B0); }
 DWORD DEN_PREMIER_9CF() { return Get9CF(0x9CF5AC); }

@@ -135,19 +135,19 @@ DWORD afc_champions_league_elite_fixtures(BYTE* _this, char stage_idx, WORD* num
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 2, 12), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 3), year, Tuesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 16, 8, 16, 0, 0, 2, 7, 148699);
+		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 16, 8, 16, 0, 0, 2, 7, prizeMoneyFile.GetInt("afc_cl_elite_r16_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 11), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 16), year, Thursday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 8, 8, 4, 0, 0, 0, 1, 0, 297398);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 8, 8, 4, 0, 0, 0, 1, 0, prizeMoneyFile.GetInt("afc_cl_elite_qtr_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 4, 17), year, Friday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 21), year, Tuesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 8, 4, 2, 0, 0, 0, 1, 0, 446096);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 8, 4, 2, 0, 0, 0, 1, 0, prizeMoneyFile.GetInt("afc_cl_elite_semi_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 4, 22), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 25), year, Saturday, Afternoon, NationalStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 8, 2, 1, 0, 0, 0, 1, 0, 0, 7434940, 2973976);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 8, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("afc_cl_elite_final_win"), prizeMoneyFile.GetInt("afc_cl_elite_final_lose"));
 
 		return (DWORD)pMem;
 	}
@@ -641,14 +641,14 @@ void afc_champions_league_elite_group_stage_setup(BYTE* _this) {
 			cm3_clubs* club = clubs[idx + 4 * j];
 			*((DWORD*)(&pTeams[j])) = (DWORD)club;
 			int ret = sub_5A0590(ae2a38_ptr, (BYTE*)club);
-			AddToClubIncome((BYTE*)ret, 594795);
-			AddMoneyFromComp(_this, (BYTE*)club, 594795, 0, -1, GroupStage, 0, -2);
+			AddToClubIncome((BYTE*)ret, prizeMoneyFile.GetInt("afc_cl_elite_groups_qualify"));
+			AddMoneyFromComp(_this, (BYTE*)club, prizeMoneyFile.GetInt("afc_cl_elite_groups_qualify"), 0, -1, GroupStage, 0, -2);
 
 			club = clubs[idx + 4 * j + 2];
 			*((DWORD*)(&pTeams[j + 3])) = (DWORD)club;
 			ret = sub_5A0590(ae2a38_ptr, (BYTE*)club);
-			AddToClubIncome((BYTE*)ret, 594795);
-			AddMoneyFromComp(_this, (BYTE*)club, 594795, 0, -1, GroupStage, 0, -2);
+			AddToClubIncome((BYTE*)ret, prizeMoneyFile.GetInt("afc_cl_elite_groups_qualify"));
+			AddMoneyFromComp(_this, (BYTE*)club, prizeMoneyFile.GetInt("afc_cl_elite_groups_qualify"), 0, -1, GroupStage, 0, -2);
 		}
 
 		WORD year = comp_data->year;

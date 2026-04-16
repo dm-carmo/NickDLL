@@ -9,6 +9,7 @@ using namespace std;
 
 extern char* szDebugFile;
 extern Config configFile;
+extern Config prizeMoneyFile;
 extern std::default_random_engine rng;
 
 void dprintf(const char* fmt, ...);

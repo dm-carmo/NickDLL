@@ -21,7 +21,7 @@ DWORD bel_super_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 6, 29), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 20), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, None, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 6, 2, 1, 2, 0, 0, 1, 0, 16839);
+		FillFixtureDetails(pMem, fixture_id++, None, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 6, 2, 1, 2, 0, 0, 1, 0, prizeMoneyFile.GetInt("bel_super_qualify"));
 
 		return (DWORD)pMem;
 	}

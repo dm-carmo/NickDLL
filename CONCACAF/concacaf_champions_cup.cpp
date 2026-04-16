@@ -39,11 +39,11 @@ DWORD concacaf_champions_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rou
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 4, 10), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 4, 23), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 2, 4, 2, 0, 0, 0, 2, 7, 0, 0, 1486988);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 2, 4, 2, 0, 0, 0, 2, 7, 0, 0, prizeMoneyFile.GetInt("concacaf_cl_semi_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 5, 1), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 6, 1), year, Sunday, Afternoon, NationalStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 0, 2, 1, 0, 0, 0, 1, 0, 0, 3717470, 2230482);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 0, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("concacaf_cl_final_win"), prizeMoneyFile.GetInt("concacaf_cl_final_lose"));
 
 		return (DWORD)pMem;
 	}

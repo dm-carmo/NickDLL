@@ -91,6 +91,9 @@ void setup_por_nation()
 	setup_por_awards();
 
 	WriteNOP(0x7cda4a, 7);
+	// loans adjustment - only full season loans + can't loan outside transfer window
+	WriteDWORD(0x96e9e0, 0x412dd0);
+	WriteDWORD(0x96e9e8, 0x90f1a0);
 }
 
 void portugal_restructure() {

@@ -304,7 +304,7 @@ char bra_third_update(BYTE* _this) {
 	data->current_stage = -1;
 	bra_third_subs(_this);
 	AddTeams(_this);
-	SetupTVMoney(_this, 79347, 0);
+	SetupTVMoney(_this, prizeMoneyFile.GetInt("bra_third_tv_money"), 0);
 	sub_6835C0(_this);
 	BYTE* edx = 0;
 	sub_6827D0(_this, edx);
@@ -619,7 +619,7 @@ void bra_third_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	for (int i = 0; i < data->num_stages; i++) data->stages[i] = 0;
 	bra_third_subs(_this);
 	AddTeams(_this);
-	SetupTVMoney(_this, 79347, 0);
+	SetupTVMoney(_this, prizeMoneyFile.GetInt("bra_third_tv_money"), 0);
 	sub_6835C0(_this);
 	BYTE* ebx = 0;
 	sub_6827D0(_this, ebx);

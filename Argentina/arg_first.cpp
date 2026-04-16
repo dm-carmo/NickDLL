@@ -586,8 +586,8 @@ char arg_first_update(BYTE* _this) {
 	data->current_stage = -1;
 	arg_first_subs(_this);
 	arg_first_add_teams(_this);
-	SetupTVMoney(_this, 800000, get_comp(ARG_FIRST_9CF()));
-	SetupTVMoney(_this, 650000, get_comp(ARG_SECOND_9CF()));
+	SetupTVMoney(_this, prizeMoneyFile.GetInt("arg_prm_tv_money_normal"), get_comp(ARG_FIRST_9CF()));
+	SetupTVMoney(_this, prizeMoneyFile.GetInt("arg_prm_tv_money_promoted"), get_comp(ARG_SECOND_9CF()));
 	BYTE* edx = 0;
 	sub_6827D0(_this, edx);
 	sub_6835C0(_this);
@@ -919,7 +919,7 @@ DWORD arg_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 5, 25), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 6, 1), year, Saturday, Afternoon, NeutralStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, PenaltiesNoExtraTime_1, NoTiebreaker, 5, 2, 1, 0, 0, 0, 1, 0, 0, 373776, 0);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, PenaltiesNoExtraTime_1, NoTiebreaker, 5, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("arg_prm_playoff_winner_money"), prizeMoneyFile.GetInt("arg_prm_playoff_runner_up_money"));
 
 		return (DWORD)pMem;
 	}
@@ -948,7 +948,7 @@ DWORD arg_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 7), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 13), year, Saturday, Afternoon, NeutralStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, PenaltiesNoExtraTime_1, NoTiebreaker, 5, 2, 1, 0, 0, 0, 1, 0, 0, 373776, 0);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, PenaltiesNoExtraTime_1, NoTiebreaker, 5, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("arg_prm_playoff_winner_money"), prizeMoneyFile.GetInt("arg_prm_playoff_runner_up_money"));
 
 		return (DWORD)pMem;
 	}
@@ -1025,8 +1025,8 @@ void arg_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	for (int i = 0; i < data->num_stages; i++) data->stages[i] = 0;
 	arg_first_subs(_this);
 	arg_first_add_teams(_this);
-	SetupTVMoney(_this, 800000, get_comp(ARG_FIRST_9CF()));
-	SetupTVMoney(_this, 650000, get_comp(ARG_SECOND_9CF()));
+	SetupTVMoney(_this, prizeMoneyFile.GetInt("arg_prm_tv_money_normal"), get_comp(ARG_FIRST_9CF()));
+	SetupTVMoney(_this, prizeMoneyFile.GetInt("arg_prm_tv_money_promoted"), get_comp(ARG_SECOND_9CF()));
 	BYTE* ebx = 0;
 	sub_6827D0(_this, ebx);
 	BYTE* pMem2 = (BYTE*)sub_944CF1_operator_new(0x5CE);

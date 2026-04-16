@@ -5,6 +5,7 @@
 #include "Belgium\bel_setup.h"
 #include "Brazil\bra_setup.h"
 #include "Croatia\cro_setup.h"
+#include "Czech Republic\cze_setup.h"
 #include "Denmark\den_setup.h"
 #include "England\eng_setup.h"
 #include "Finland\fin_setup.h"

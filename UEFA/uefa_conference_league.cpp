@@ -909,9 +909,9 @@ void uefa_conference_league_final_stage_setup(BYTE* _this) {
 		if (al == 2) idx1 = 5;
 		else if (al == 3) idx1 = 4;
 		else if (al == 4) idx1 = 1;
-		*((DWORD*)(&pTeams[idx1 * 2])) = (DWORD)table_teams[0].club;
+		*((DWORD*)(&pTeams[idx1 * 2 + 1])) = (DWORD)table_teams[0].club;
 		sub_9058B0((BYTE*)*uefa_seeding_list, (BYTE*)(table_teams[0].club->ClubNation), 8);
-		*((DWORD*)(&pTeams[idx1 * 2 + 4])) = (DWORD)table_teams[1].club;
+		*((DWORD*)(&pTeams[idx1 * 2 + 4 + 1])) = (DWORD)table_teams[1].club;
 		sub_9058B0((BYTE*)*uefa_seeding_list, (BYTE*)(table_teams[1].club->ClubNation), 6);
 	}
 
@@ -928,7 +928,7 @@ void uefa_conference_league_final_stage_setup(BYTE* _this) {
 		}
 	}
 
-	char playoff_idx = 1;
+	char playoff_idx = 0;
 	comp_stats* stage5_data = (comp_stats*)comp_data->stages[5];
 	for (WORD j = 0; j < stage5_data->n_teams; j++) {
 		teams_seeded t = ((teams_seeded*)stage5_data->teams_list)[j];
@@ -1212,7 +1212,7 @@ char uecl_team_selection(BYTE* _this, BYTE* club_list, int club_count) {
 							u->num_teams_in_comps += 2;
 							j++;
 						}
-						else {
+						else if (configFile.GetBool("cupRunnerUpsInUEFA", false)) {
 							cm3_clubs* cup_loser = get_last_comp_runner_up(playable.league_cup);
 							if (cup_loser && cup_loser->ClubNation == euro_country && cup_loser->ClubEuroFlag == -1) {
 								cup_loser->ClubEuroFlag = UEFA_CONFERENCE_LEAGUE_9CF();

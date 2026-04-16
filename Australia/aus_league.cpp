@@ -166,7 +166,7 @@ char aus_league_update(BYTE* _this) {
 	*((DWORD*)(_this + 0xA7)) = -1;
 	aus_league_subs(_this);
 	AddTeams(_this);
-	SetupTVMoney(_this, 1879452, 0);
+	SetupTVMoney(_this, prizeMoneyFile.GetInt("aus_league_tv_money"), 0);
 	sub_6835C0(_this);
 	BYTE* edx = 0;
 	sub_6827D0(_this, edx);
@@ -462,7 +462,7 @@ void aus_league_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	for (int i = 0; i < data->num_stages; i++) data->stages[i] = 0;
 	aus_league_subs(_this);
 	AddTeams(_this);
-	SetupTVMoney(_this, 1879452, 0);
+	SetupTVMoney(_this, prizeMoneyFile.GetInt("aus_league_tv_money"), 0);
 	sub_6835C0(_this);
 	BYTE* ebx = 0;
 	sub_6827D0(_this, ebx);

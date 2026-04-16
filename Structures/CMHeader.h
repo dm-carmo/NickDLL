@@ -62,6 +62,8 @@ enum CompetitionRules : BYTE {
 	RulesWales,
 	RulesAsia,
 	RulesSouthKorea,
+	RulesCzech,
+	CompetitionRules_LENGTH
 };
 
 enum CompetitionTiebreakers : char {

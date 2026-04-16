@@ -178,7 +178,7 @@ DWORD bra_reg_bahia_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 3, 10), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 3, 16), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 5, 2, 1, 0, 0, 0, 2, 7, 0, 21640, 14427);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 5, 2, 1, 0, 0, 0, 2, 7, 0, prizeMoneyFile.GetInt("bra_ba_playoff_winner_money"), prizeMoneyFile.GetInt("bra_ba_playoff_runner_up_money"));
 
 		return (DWORD)pMem;
 	}
@@ -300,7 +300,7 @@ char bra_reg_bahia_update(BYTE* _this) {
 	data->current_stage = -1;
 	bra_reg_bahia_subs(_this);
 	AddTeamsReserveDivision(_this);
-	SetupTVMoney(_this, 17601, 0);
+	SetupTVMoney(_this, prizeMoneyFile.GetInt("bra_ba_tv_money"), 0);
 	sub_6835C0(_this);
 	BYTE* edx = 0;
 	sub_6827D0(_this, edx);
@@ -390,7 +390,7 @@ void bra_reg_bahia_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	for (int i = 0; i < data->num_stages; i++) data->stages[i] = 0;
 	bra_reg_bahia_subs(_this);
 	AddTeamsReserveDivision(_this);
-	SetupTVMoney(_this, 17601, 0);
+	SetupTVMoney(_this, prizeMoneyFile.GetInt("bra_ba_tv_money"), 0);
 	sub_6835C0(_this);
 	BYTE* ebx = 0;
 	sub_6827D0(_this, ebx);

@@ -190,7 +190,7 @@ DWORD bra_reg_goias_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 3, 17), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 3, 23), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 5, 2, 1, 0, 0, 0, 2, 3, 0, 57707, 7213);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 5, 2, 1, 0, 0, 0, 2, 3, 0, prizeMoneyFile.GetInt("bra_go_playoff_winner_money"), prizeMoneyFile.GetInt("bra_go_playoff_runner_up_money"));
 
 		return (DWORD)pMem;
 	}

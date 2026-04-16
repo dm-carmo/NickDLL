@@ -3,7 +3,7 @@
 #include "Helpers\Helper.h"
 #include "NString.h"
 
-#define MAX_FIELDS 100
+#define MAX_FIELDS 256
 
 Config::Config()
 {

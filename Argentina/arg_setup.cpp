@@ -87,4 +87,7 @@ void setup_arg_nation() {
 	WriteBytes(0x40a6e6, 4, 0xc6, 0x40, 0x4, 0x6);
 	WriteBytes(0x40a701, 1, 0x1e);
 	WriteBytes(0x40a706, 1, 0x7);
+	// loans adjustment - only full season loans + can't loan outside transfer window
+	WriteDWORD(0x9674c0, 0x412dd0);
+	WriteDWORD(0x9674c8, 0x90f1a0);
 }

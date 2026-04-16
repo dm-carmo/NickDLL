@@ -17,6 +17,8 @@
 #include "setup_misc_functions.h"
 #include <leagues_setup.h>
 #include <currency.h>
+#include <discipline_setup.h>
+#include <rules_setup.h>
 
 using namespace std;
 
@@ -88,7 +90,8 @@ void Setup()
 	WriteBytes(0x920956, 1, 5);
 	WriteBytes(0x92095c, 1, 12);
 
-	configFile.LoadConfig("NickDLL_config.json");
+	bool result = configFile.LoadConfig("NickDLL_config.json");
+	result = prizeMoneyFile.LoadConfig("NickDLL_prize_money.json");
 
 	dprintf("Applying Argentina changes\n");
 	setup_arg_nation();
@@ -146,6 +149,9 @@ void Setup()
 	setup_wal_nation();
 
 	dprintf("------------------------------\n");
+	dprintf("New nation: Czech Republic\n");
+	setup_cze_nation();
+	dprintf("------------------------------\n");
 
 	dprintf("Applying FIFA changes (club comps)\n");
 	setup_fifa_club_comps();
@@ -169,6 +175,8 @@ void Setup()
 	setup_currency();
 
 	setup_leagues_setup();
+	setup_discipline_setup();
+	setup_rules_setup();
 }
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved)

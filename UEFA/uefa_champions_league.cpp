@@ -919,10 +919,10 @@ void uefa_champions_league_final_stage_setup(BYTE* _this) {
 		if (al == 2) idx1 = 5;
 		else if (al == 3) idx1 = 4;
 		else if (al == 4) idx1 = 1;
-		*((DWORD*)(&pTeams[idx1 * 2])) = (DWORD)table_teams[0].club;
+		*((DWORD*)(&pTeams[idx1 * 2 + 1])) = (DWORD)table_teams[0].club;
 		sub_9058B0((BYTE*)*uefa_seeding_list, (BYTE*)(table_teams[0].club->ClubNation), 6);
 		sub_9058B0((BYTE*)*uefa_seeding_list, (BYTE*)(table_teams[0].club->ClubNation), 3);
-		*((DWORD*)(&pTeams[idx1 * 2 + 4])) = (DWORD)table_teams[1].club;
+		*((DWORD*)(&pTeams[idx1 * 2 + 4 + 1])) = (DWORD)table_teams[1].club;
 		sub_9058B0((BYTE*)*uefa_seeding_list, (BYTE*)(table_teams[1].club->ClubNation), 5);
 		sub_9058B0((BYTE*)*uefa_seeding_list, (BYTE*)(table_teams[1].club->ClubNation), 3);
 	}
@@ -939,7 +939,7 @@ void uefa_champions_league_final_stage_setup(BYTE* _this) {
 		}
 	}
 
-	char playoff_idx = 1;
+	char playoff_idx = 0;
 	comp_stats* stage5_data = (comp_stats*)comp_data->stages[5];
 	for (WORD j = 0; j < stage5_data->n_teams; j++) {
 		teams_seeded t = ((teams_seeded*)stage5_data->teams_list)[j];
@@ -1309,6 +1309,8 @@ char ucl_team_selection(BYTE* _this, BYTE* club_list, int club_count) {
 		//if (j < u->ucl_spots) dprintf("[UCL] Getting clubs from database - best\n");
 		vector<cm3_clubs*> clubs;
 		bool playable = euro_country->NationLeagueSelected;
+		//dprintf("[UCL] Getting clubs from nation: %s\n", euro_country->NationName);
+		//dprintf("[UCL] playable: %d\n", euro_country->NationLeagueSelected);
 		if (playable) {
 			// playable
 			clubs = find_clubs_of_country_for_euro_playable(u->id);
@@ -1325,7 +1327,7 @@ char ucl_team_selection(BYTE* _this, BYTE* club_list, int club_count) {
 			int idx = 0;
 			if (!playable) idx = rand() % max_count;
 			cm3_clubs* euro_club = clubs[idx];
-			//dprintf("Setting club %s to Champions League\n", (euro_club->ClubName));
+			//dprintf("Setting club %s to Champions League, idx=%d\n", (euro_club->ClubName), j);
 			euro_club->ClubEuroFlag = UEFA_CHAMPIONS_LEAGUE_9CF();
 			if (j >= count) {
 				for (int x = curr_seeding; x < 5; x++) {

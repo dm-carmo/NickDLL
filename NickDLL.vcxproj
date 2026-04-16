@@ -196,6 +196,8 @@
     <ClCompile Include="Croatia\cro_super.cpp" />
     <ClCompile Include="Croatia\cro_third.cpp" />
     <ClCompile Include="currency.cpp" />
+    <ClCompile Include="Czech Republic\cze_first.cpp" />
+    <ClCompile Include="Czech Republic\cze_setup.cpp" />
     <ClCompile Include="Denmark\den_awards.cpp" />
     <ClCompile Include="Denmark\den_cup.cpp" />
     <ClCompile Include="Denmark\den_first.cpp" />
@@ -203,6 +205,7 @@
     <ClCompile Include="Denmark\den_second.cpp" />
     <ClCompile Include="Denmark\den_setup.cpp" />
     <ClCompile Include="Denmark\den_third.cpp" />
+    <ClCompile Include="discipline_setup.cpp" />
     <ClCompile Include="England\eng_awards.cpp" />
     <ClCompile Include="England\eng_conf.cpp" />
     <ClCompile Include="England\eng_conf_n.cpp" />
@@ -313,6 +316,7 @@
     <ClCompile Include="Portugal\por_setup.cpp" />
     <ClCompile Include="Portugal\por_super.cpp" />
     <ClCompile Include="Portugal\por_third.cpp" />
+    <ClCompile Include="rules_setup.cpp" />
     <ClCompile Include="Russia\rus_awards.cpp" />
     <ClCompile Include="Russia\rus_cup.cpp" />
     <ClCompile Include="Russia\rus_first.cpp" />
@@ -442,6 +446,8 @@
     <ClInclude Include="Croatia\cro_super.h" />
     <ClInclude Include="Croatia\cro_third.h" />
     <ClInclude Include="currency.h" />
+    <ClInclude Include="Czech Republic\cze_first.h" />
+    <ClInclude Include="Czech Republic\cze_setup.h" />
     <ClInclude Include="Denmark\den_awards.h" />
     <ClInclude Include="Denmark\den_cup.h" />
     <ClInclude Include="Denmark\den_first.h" />
@@ -449,6 +455,7 @@
     <ClInclude Include="Denmark\den_second.h" />
     <ClInclude Include="Denmark\den_setup.h" />
     <ClInclude Include="Denmark\den_third.h" />
+    <ClInclude Include="discipline_setup.h" />
     <ClInclude Include="England\eng_awards.h" />
     <ClInclude Include="England\eng_conf.h" />
     <ClInclude Include="England\eng_conf_n.h" />
@@ -560,6 +567,7 @@
     <ClInclude Include="Portugal\por_setup.h" />
     <ClInclude Include="Portugal\por_super.h" />
     <ClInclude Include="Portugal\por_third.h" />
+    <ClInclude Include="rules_setup.h" />
     <ClInclude Include="Russia\rus_awards.h" />
     <ClInclude Include="Russia\rus_cup.h" />
     <ClInclude Include="Russia\rus_first.h" />

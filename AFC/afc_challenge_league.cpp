@@ -130,15 +130,15 @@ DWORD afc_challenge_league_fixtures(BYTE* _this, char stage_idx, WORD* num_round
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 2), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 5), year, Thursday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 8, 4, 8, 0, 0, 2, 7, 59480);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 8, 4, 8, 0, 0, 2, 7, prizeMoneyFile.GetInt("afc_challenge_qtr_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 13), year, Friday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 9), year, Thursday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 4, 2, 0, 0, 0, 2, 7, 89219);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 4, 2, 0, 0, 0, 2, 7, prizeMoneyFile.GetInt("afc_challenge_semi_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 4, 17), year, Friday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 9), year, Saturday, Afternoon, NationalStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 8, 2, 1, 0, 0, 0, 1, 0, 0, 743494, 371747);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 8, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("afc_challenge_final_win"), prizeMoneyFile.GetInt("afc_challenge_final_lose"));
 
 		return (DWORD)pMem;
 	}
@@ -607,8 +607,8 @@ void afc_challenge_league_group_stage_setup(BYTE* _this) {
 			cm3_clubs* club = clubs[idx + mult * j];
 			*((DWORD*)(&pTeams[j])) = (DWORD)club;
 			int ret = sub_5A0590(ae2a38_ptr, (BYTE*)club);
-			AddToClubIncome((BYTE*)ret, 74349);
-			AddMoneyFromComp(_this, (BYTE*)club, 74349, 0, -1, GroupStage, 0, -2);
+			AddToClubIncome((BYTE*)ret, prizeMoneyFile.GetInt("afc_challenge_groups_qualify"));
+			AddMoneyFromComp(_this, (BYTE*)club, prizeMoneyFile.GetInt("afc_challenge_groups_qualify"), 0, -1, GroupStage, 0, -2);
 		}
 
 		WORD year = comp_data->year;

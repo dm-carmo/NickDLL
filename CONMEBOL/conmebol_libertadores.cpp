@@ -36,8 +36,8 @@ int liber_money_after_match(BYTE* _this, BYTE* a2, int a3) {
 	if (bl > -1 && bl < 8) {
 		if (club_check) {
 			int ret = sub_5A0590(ae2a38_ptr, (BYTE*)club_check);
-			AddToClubIncome((BYTE*)ret, 245353);
-			AddMoneyFromComp(_this, (BYTE*)club_check, 245353, 0, -1, 0, a2, -2);
+			AddToClubIncome((BYTE*)ret, prizeMoneyFile.GetInt("conmebol_liber_groups_win"));
+			AddMoneyFromComp(_this, (BYTE*)club_check, prizeMoneyFile.GetInt("conmebol_liber_groups_win"), 0, -1, 0, a2, -2);
 		}
 	}
 	return sub_51A150(_this, a2, a3);
@@ -134,15 +134,15 @@ DWORD conmebol_libertadores_fixtures(BYTE* _this, char stage_idx, WORD* num_roun
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 1, 5), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 2, 5), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, FirstRound, 4, Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 6, 3, 6, 0, 0, 2, 7, 297398);
+		FillFixtureDetails(pMem, fixture_id++, FirstRound, 4, Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 6, 3, 6, 0, 0, 2, 7, prizeMoneyFile.GetInt("conmebol_liber_r1_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 2, 13), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 2, 19), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SecondRound, 4, Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 16, 8, 13, 6, 0, 2, 7, 371747);
+		FillFixtureDetails(pMem, fixture_id++, SecondRound, 4, Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 16, 8, 13, 6, 0, 2, 7, prizeMoneyFile.GetInt("conmebol_liber_r2_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 2, 27), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 3, 5), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 4, Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 8, 4, 0, 0, 0, 2, 7, 446096);
+		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 4, Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 8, 4, 0, 0, 0, 2, 7, prizeMoneyFile.GetInt("conmebol_liber_r3_qualify"));
 
 		return (DWORD)pMem;
 	}
@@ -189,19 +189,19 @@ DWORD conmebol_libertadores_fixtures(BYTE* _this, char stage_idx, WORD* num_roun
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 5, 29), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 13), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, FixedTeamOrderInCup + Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 16, 8, 16, 0, 0, 2, 7, 929368);
+		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, FixedTeamOrderInCup + Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 16, 8, 16, 0, 0, 2, 7, prizeMoneyFile.GetInt("conmebol_liber_r16_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 21), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 17), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup + Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 8, 4, 0, 0, 0, 2, 7, 1263940);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup + Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 8, 4, 0, 0, 0, 2, 7, prizeMoneyFile.GetInt("conmebol_liber_qtr_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 25), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 22), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 4, 2, 0, 0, 0, 2, 7, 1710036);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 4, 2, 0, 0, 0, 2, 7, prizeMoneyFile.GetInt("conmebol_liber_semi_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 29), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 29), year, Saturday, Afternoon, NationalStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 8, 2, 1, 0, 0, 0, 1, 0, 0, 17843856, 5204458);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 8, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("conmebol_liber_final_win"), prizeMoneyFile.GetInt("conmebol_liber_final_lose"));
 
 		return (DWORD)pMem;
 	}
@@ -695,8 +695,8 @@ void conmebol_libertadores_group_stage_setup(BYTE* _this) {
 			cm3_clubs* club = clubs[i + 8 * j];
 			*((DWORD*)(&pTeams[j])) = (DWORD)club;
 			int ret = sub_5A0590(ae2a38_ptr, (BYTE*)club);
-			AddToClubIncome((BYTE*)ret, 2230482);
-			AddMoneyFromComp(_this, (BYTE*)club, 2230482, 0, -1, GroupStage, 0, -2);
+			AddToClubIncome((BYTE*)ret, prizeMoneyFile.GetInt("conmebol_liber_groups_qualify"));
+			AddMoneyFromComp(_this, (BYTE*)club, prizeMoneyFile.GetInt("conmebol_liber_groups_qualify"), 0, -1, GroupStage, 0, -2);
 		}
 
 		WORD year = comp_data->year;

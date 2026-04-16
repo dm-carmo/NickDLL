@@ -162,19 +162,19 @@ DWORD aus_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 23), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 12), year, Tuesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 4, ExtraTimePenalties_1, NoTiebreak_2, 4, 16, 8, 0, 0, 0, 1, 0, 0, 0, 1059);
+		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 4, ExtraTimePenalties_1, NoTiebreak_2, 4, 16, 8, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("aus_cup_r2_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 13), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 19), year, Tuesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 4, ExtraTimePenalties_1, NoTiebreak_2, 4, 8, 4, 0, 0, 0, 1, 0, 0, 0, 2647);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 4, ExtraTimePenalties_1, NoTiebreak_2, 4, 8, 4, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("aus_cup_qtr_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 20), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 30), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 4, 2, 0, 0, 0, 1, 0, 0, 0, 5294);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 4, 2, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("aus_cup_semi_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 31), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 4), year, Saturday, Afternoon, NeutralStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0, 0, 26471, 13236);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("aus_cup_final_win"), prizeMoneyFile.GetInt("aus_cup_final_lose"));
 
 		return (DWORD)pMem;
 	}

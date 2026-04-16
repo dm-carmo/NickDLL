@@ -90,11 +90,11 @@ DWORD caf_confederation_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_roun
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 6, 28), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 21), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, FirstQualifyingPhase, 0, NoTiebreak_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 64, 32, 64, 0, 0, 2, 7, 0, 0, 74349);
+		FillFixtureDetails(pMem, fixture_id++, FirstQualifyingPhase, 0, NoTiebreak_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 64, 32, 64, 0, 0, 2, 7, 0, 0, prizeMoneyFile.GetInt("caf_confed_qr1_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 29), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 19), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, SecondQualifyingPhase, 0, NoTiebreak_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 32, 16, 0, 0, 0, 2, 7, 0, 0, 74349);
+		FillFixtureDetails(pMem, fixture_id++, SecondQualifyingPhase, 0, NoTiebreak_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 32, 16, 0, 0, 0, 2, 7, 0, 0, prizeMoneyFile.GetInt("caf_confed_qr2_lose"));
 
 		return (DWORD)pMem;
 	}
@@ -131,15 +131,15 @@ DWORD caf_confederation_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_roun
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 2, 16), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 15), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 8, 4, 8, 0, 0, 2, 7, 0, 0, 408922);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 8, 4, 8, 0, 0, 2, 7, 0, 0, prizeMoneyFile.GetInt("caf_confed_qtr_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 23), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 12), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 4, 2, 0, 0, 0, 2, 7, 0, 0, 557621);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 4, 2, 0, 0, 0, 2, 7, 0, 0, prizeMoneyFile.GetInt("caf_confed_semi_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 4, 20), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 9), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, NoTiebreak_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 2, 1, 0, 0, 0, 2, 7, 0, 2973976, 743494);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, NoTiebreak_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 2, 1, 0, 0, 0, 2, 7, 0, prizeMoneyFile.GetInt("caf_confed_final_win"), prizeMoneyFile.GetInt("caf_confed_final_lose"));
 
 		return (DWORD)pMem;
 	}
@@ -594,8 +594,8 @@ void caf_confederation_cup_final_stage_setup(BYTE* _this) {
 			if (tls.league_fate != Qualified1) {
 				tls.club->ClubEuroFlag = -1;
 				int ret = sub_5A0590(ae2a38_ptr, (BYTE*)tls.club);
-				AddToClubIncome((BYTE*)ret, 297398);
-				AddMoneyFromComp(_this, (BYTE*)tls.club, 297398, 0, -1, GroupStage, 0, -2);
+				AddToClubIncome((BYTE*)ret, prizeMoneyFile.GetInt("caf_confed_groups_eliminated"));
+				AddMoneyFromComp(_this, (BYTE*)tls.club, prizeMoneyFile.GetInt("caf_confed_groups_eliminated"), 0, -1, GroupStage, 0, -2);
 			}
 		}
 	}

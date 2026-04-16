@@ -69,7 +69,7 @@ DWORD bra_super_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 1, 5), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 2, 2), year, Sunday, Afternoon, Neutral50k_20);
-		FillFixtureDetails(pMem, fixture_id++, None, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 2, 0, 0, 1, 0, 0, 886500, 443250);
+		FillFixtureDetails(pMem, fixture_id++, None, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 2, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("bra_super_win"), prizeMoneyFile.GetInt("bra_super_lose"));
 
 		return (DWORD)pMem;
 	}
