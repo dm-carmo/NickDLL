@@ -109,19 +109,19 @@ DWORD uefa_conference_league_fixtures(BYTE* _this, char stage_idx, WORD* num_rou
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 6, 28), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 10), year, Thursday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, FirstQualifyingPhase, 4, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 50, 25, 50, 0, 0, 2, 7, 0, 0, 129848);
+		FillFixtureDetails(pMem, fixture_id++, FirstQualifyingPhase, 4, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 50, 25, 50, 0, 0, 2, 7, 0, 0, prizeMoneyFile.GetInt("uefa_uecl_qr1_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 6, 29), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 24), year, Thursday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SecondQualifyingPhase, 4, FixedTeamOrderInCup3 + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 86, 43, 61, 50, 0, 2, 7, 0, 0, 302978);
+		FillFixtureDetails(pMem, fixture_id++, SecondQualifyingPhase, 4, FixedTeamOrderInCup3 + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 86, 43, 61, 50, 0, 2, 7, 0, 0, prizeMoneyFile.GetInt("uefa_uecl_qr2_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 21), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 7), year, Thursday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, ThirdQualifyingPhase, 4, FixedTeamOrderInCup3 + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 52, 26, 9, 111, 0, 2, 7, 0, 0, 476108);
+		FillFixtureDetails(pMem, fixture_id++, ThirdQualifyingPhase, 4, FixedTeamOrderInCup3 + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 52, 26, 9, 111, 0, 2, 7, 0, 0, prizeMoneyFile.GetInt("uefa_uecl_qr3_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 4), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 21), year, Thursday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, Playoff, 4, FixedTeamOrderInCup3 + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 38, 19, 12, 120, 0, 2, 7, 0, 0, 649238);
+		FillFixtureDetails(pMem, fixture_id++, Playoff, 4, FixedTeamOrderInCup3 + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 38, 19, 12, 120, 0, 2, 7, 0, 0, prizeMoneyFile.GetInt("uefa_uecl_po_lose"));
 
 		return (DWORD)pMem;
 	}
@@ -138,15 +138,15 @@ DWORD uefa_conference_league_fixtures(BYTE* _this, char stage_idx, WORD* num_rou
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 6, 29), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 24), year, Thursday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SecondQualifyingPhase, 4, FixedTeamOrderInCup3 + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 12, 6, 12, 0, 0, 2, 7, 0, 0, 302978);
+		FillFixtureDetails(pMem, fixture_id++, SecondQualifyingPhase, 4, FixedTeamOrderInCup3 + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 12, 6, 12, 0, 0, 2, 7, 0, 0, prizeMoneyFile.GetInt("uefa_uecl_qr2_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 21), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 7), year, Thursday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, ThirdQualifyingPhase, 4, FixedTeamOrderInCup3 + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 8, 4, 2, 12, 0, 2, 7, 0, 0, 476108);
+		FillFixtureDetails(pMem, fixture_id++, ThirdQualifyingPhase, 4, FixedTeamOrderInCup3 + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 8, 4, 2, 12, 0, 2, 7, 0, 0, prizeMoneyFile.GetInt("uefa_uecl_qr3_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 4), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 21), year, Thursday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, Playoff, 4, FixedTeamOrderInCup3 + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 10, 5, 6, 14, 0, 2, 7, 0, 0, 649238);
+		FillFixtureDetails(pMem, fixture_id++, Playoff, 4, FixedTeamOrderInCup3 + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 10, 5, 6, 14, 0, 2, 7, 0, 0, prizeMoneyFile.GetInt("uefa_uecl_po_lose"));
 
 		return (DWORD)pMem;
 	}
@@ -192,7 +192,7 @@ DWORD uefa_conference_league_fixtures(BYTE* _this, char stage_idx, WORD* num_rou
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 1, 30), year, Friday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 2, 19), year, Thursday, Evening);
 		AddPlayoffTVFixture(pMem, fixture_id, 0);
-		FillFixtureDetails(pMem, fixture_id++, KnockoutPlayoff, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 16, 8, 16, 0, 0, 2, 7, 173130);
+		FillFixtureDetails(pMem, fixture_id++, KnockoutPlayoff, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 16, 8, 16, 0, 0, 2, 7, 0, 0, prizeMoneyFile.GetInt("uefa_uecl_ko_lose"));
 
 		return (DWORD)pMem;
 	}
@@ -211,22 +211,22 @@ DWORD uefa_conference_league_fixtures(BYTE* _this, char stage_idx, WORD* num_rou
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 2, 27), year, Friday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 12), year, Thursday, Evening);
 		AddPlayoffTVFixture(pMem, fixture_id, 0);
-		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 16, 8, 16, 0, 0, 2, 7, 692520);
+		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 16, 8, 16, 0, 0, 2, 7, prizeMoneyFile.GetInt("uefa_uecl_r16_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 19), year, Friday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 9), year, Thursday, Evening);
 		AddPlayoffTVFixture(pMem, fixture_id, 0);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 8, 4, 0, 0, 0, 2, 7, 1125345);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 8, 4, 0, 0, 0, 2, 7, prizeMoneyFile.GetInt("uefa_uecl_qtr_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 4, 17), year, Friday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 30), year, Thursday, Evening);
 		AddPlayoffTVFixture(pMem, fixture_id, 0);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 4, 2, 0, 0, 0, 2, 7, 2164125);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 4, 2, 0, 0, 0, 2, 7, prizeMoneyFile.GetInt("uefa_uecl_semi_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 8), year, Friday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 27), year, Wednesday, Evening, NationalStadium);
 		AddPlayoffTVFixture(pMem, fixture_id, 0);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 8, 2, 1, 0, 0, 0, 1, 0, 0, 2596950, 3462600);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 8, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("uefa_uecl_final_win"), prizeMoneyFile.GetInt("uefa_uecl_final_lose"));
 
 		return (DWORD)pMem;
 	}
@@ -541,18 +541,18 @@ int uecl_money_after_match(BYTE* _this, BYTE* a2, int a3) {
 	if (bl > 0 && bl < 5) {
 		if (club_check) {
 			int ret = sub_5A0590(ae2a38_ptr, (BYTE*)club_check);
-			AddToClubIncome((BYTE*)ret, 346260);
-			AddMoneyFromComp(_this, (BYTE*)club_check, 346260, 0, -1, 0, a2, -2);
+			AddToClubIncome((BYTE*)ret, prizeMoneyFile.GetInt("uefa_uecl_groups_win"));
+			AddMoneyFromComp(_this, (BYTE*)club_check, prizeMoneyFile.GetInt("uefa_uecl_groups_win"), 0, -1, 0, a2, -2);
 		}
 		else {
 			cm3_clubs* club1 = (cm3_clubs*)*(DWORD*)(a2 + 0x1c);
 			int ret = sub_5A0590(ae2a38_ptr, (BYTE*)club1);
-			AddToClubIncome((BYTE*)ret, 115131);
+			AddToClubIncome((BYTE*)ret, prizeMoneyFile.GetInt("uefa_uecl_groups_draw"));
 			cm3_clubs* club2 = (cm3_clubs*)*(DWORD*)(a2 + 0x20);
 			ret = sub_5A0590(ae2a38_ptr, (BYTE*)club2);
-			AddToClubIncome((BYTE*)ret, 115131);
-			AddMoneyFromComp(_this, (BYTE*)club1, 115131, 0, -1, 0, a2, -2);
-			AddMoneyFromComp(_this, (BYTE*)club2, 115131, 0, -1, 0, a2, -2);
+			AddToClubIncome((BYTE*)ret, prizeMoneyFile.GetInt("uefa_uecl_groups_draw"));
+			AddMoneyFromComp(_this, (BYTE*)club1, prizeMoneyFile.GetInt("uefa_uecl_groups_draw"), 0, -1, 0, a2, -2);
+			AddMoneyFromComp(_this, (BYTE*)club2, prizeMoneyFile.GetInt("uefa_uecl_groups_draw"), 0, -1, 0, a2, -2);
 		}
 	}
 	return sub_51A150(_this, a2, a3);
@@ -800,8 +800,8 @@ void uefa_conference_league_group_stage_setup(BYTE* _this) {
 			cm3_clubs* club = clubs[i + 4 * j];
 			*((DWORD*)(&pTeams[j])) = (DWORD)club;
 			int ret = sub_5A0590(ae2a38_ptr, (BYTE*)club);
-			AddToClubIncome((BYTE*)ret, 2744111);
-			AddMoneyFromComp(_this, (BYTE*)club, 2744111, 0, -1, GroupStage, 0, -2);
+			AddToClubIncome((BYTE*)ret, prizeMoneyFile.GetInt("uefa_uecl_groups_qualify"));
+			AddMoneyFromComp(_this, (BYTE*)club, prizeMoneyFile.GetInt("uefa_uecl_groups_qualify"), 0, -1, GroupStage, 0, -2);
 		}
 
 		WORD year = comp_data->year;
@@ -854,8 +854,8 @@ void uefa_conference_league_playoff_stage_setup(BYTE* _this) {
 		if (club)
 		{
 			int ret = sub_5A0590(ae2a38_ptr, (BYTE*)club);
-			AddToClubIncome((BYTE*)ret, 173130);
-			AddMoneyFromComp(_this, (BYTE*)club, 173130, 0, -1, KnockoutPlayoff, 0, -2);
+			AddToClubIncome((BYTE*)ret, prizeMoneyFile.GetInt("uefa_uecl_ko_qualify"));
+			AddMoneyFromComp(_this, (BYTE*)club, prizeMoneyFile.GetInt("uefa_uecl_ko_qualify"), 0, -1, KnockoutPlayoff, 0, -2);
 		}
 	}
 
@@ -922,8 +922,8 @@ void uefa_conference_league_final_stage_setup(BYTE* _this) {
 		if (club)
 		{
 			int ret = sub_5A0590(ae2a38_ptr, (BYTE*)club);
-			AddToClubIncome((BYTE*)ret, 346260);
-			AddMoneyFromComp(_this, (BYTE*)club, 346260, 0, -1, RoundOf16, 0, -2);
+			AddToClubIncome((BYTE*)ret, prizeMoneyFile.GetInt("uefa_uecl_r16_qualify2"));
+			AddMoneyFromComp(_this, (BYTE*)club, prizeMoneyFile.GetInt("uefa_uecl_r16_qualify2"), 0, -1, RoundOf16, 0, -2);
 			sub_9058B0((BYTE*)*uefa_seeding_list, (BYTE*)(club->ClubNation), 1);
 		}
 	}

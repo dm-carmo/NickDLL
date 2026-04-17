@@ -296,7 +296,7 @@ char rus_first_update(BYTE* _this) {
 	rus_first_subs(_this);
 	AddTeams(_this);
 	rus_first_block_promotion(_this);
-	data->prize_money_pool = SetupPrizeMoney(_this, 10280);
+	data->prize_money_pool = SetupPrizeMoney(_this, prizeMoneyFile.GetInt("rus_first_prize_money"));
 	data->f225 = 1;
 	sub_6835C0(_this);
 	BYTE* edx = 0;
@@ -335,7 +335,7 @@ void rus_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	rus_first_subs(_this);
 	AddTeams(_this);
 	rus_first_block_promotion(_this);
-	data->prize_money_pool = SetupPrizeMoney(_this, 10280);
+	data->prize_money_pool = SetupPrizeMoney(_this, prizeMoneyFile.GetInt("rus_first_prize_money"));
 	data->f225 = 1;
 	sub_6835C0(_this);
 	BYTE* ebx = 0;

@@ -246,6 +246,19 @@ void __declspec(naked) cze_second_reputation_calc_c()
 	}
 }
 
+void cze_second_block_promotion(BYTE* _this) {
+	comp_stats* data = (comp_stats*)_this;
+	WORD total_teams = data->n_teams;
+	team_league_stats* table_teams = (team_league_stats*)(data->team_league_table);
+	for (int i = 0; i < total_teams; i++) {
+		DWORD is_main_club;
+		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)table_teams[i].club, &is_main_club, 1);
+		if (ret_club && !is_main_club) {
+			table_teams[i].league_fate = CantBePromoted;
+		}
+	}
+}
+
 char cze_second_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
@@ -271,9 +284,10 @@ char cze_second_update(BYTE* _this) {
 	data->current_stage = -1;
 	cze_second_subs(_this);
 	AddTeams(_this);
-	data->prize_money_pool = SetupPrizeMoney(_this, 2500);
+	data->prize_money_pool = SetupPrizeMoney(_this, prizeMoneyFile.GetInt("cze_second_prize_money"));
 	data->f225 = 1;
-	SetupTVMoney(_this, 120000, 0);
+	SetupTVMoney(_this, prizeMoneyFile.GetInt("cze_second_tv_money"), 0);
+	cze_second_block_promotion(_this);
 	sub_6835C0(_this);
 	BYTE* edx = 0;
 	sub_6827D0(_this, edx);
@@ -317,9 +331,10 @@ void cze_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->num_stages = 0;
 	cze_second_subs(_this);
 	AddTeams(_this);
-	data->prize_money_pool = SetupPrizeMoney(_this, 2500);
+	data->prize_money_pool = SetupPrizeMoney(_this, prizeMoneyFile.GetInt("cze_second_prize_money"));
 	data->f225 = 1;
-	SetupTVMoney(_this, 120000, 0);
+	SetupTVMoney(_this, prizeMoneyFile.GetInt("cze_second_tv_money"), 0);
+	cze_second_block_promotion(_this);
 	sub_6835C0(_this);
 	BYTE* ebx = 0;
 	sub_6827D0(_this, ebx);

@@ -46,7 +46,7 @@ DWORD fin_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 22), year, Friday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 20), year, Saturday, Evening, NationalStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0, 0, 43255, 8651);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("fin_cup_final_win"), prizeMoneyFile.GetInt("fin_cup_final_lose"));
 
 		return (DWORD)pMem;
 	}

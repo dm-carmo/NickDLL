@@ -72,11 +72,11 @@ DWORD tur_super_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 1, 5), year, Monday, Evening, NeutralStadium);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Tuesday, Evening, NeutralStadium);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup2 + PenaltiesNoExtraTime_1, NoTiebreak_2, 6, 4, 2, 4, 0, 0, 1, 0, 0, 0, 431975);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup2 + PenaltiesNoExtraTime_1, NoTiebreak_2, 6, 4, 2, 4, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("tur_super_semi_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 1, 7), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 1, 10), year, Saturday, Afternoon, NationalStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0, 0, 863950, 647963);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("tur_super_final_win"), prizeMoneyFile.GetInt("tur_super_final_lose"));
 
 		return (DWORD)pMem;
 	}

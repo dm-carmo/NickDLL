@@ -25,11 +25,11 @@ DWORD spa_super_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 1, 7), year, Wednesday, Evening, AhAhliKSAStadium);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Thursday, Evening, AhAhliKSAStadium);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup2 + PenaltiesNoExtraTime_1, NoTiebreak_2, 6, 4, 2, 4, 0, 0, 1, 0, 1729600, 864800, 0);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup2 + PenaltiesNoExtraTime_1, NoTiebreak_2, 6, 4, 2, 4, 0, 0, 1, 0, prizeMoneyFile.GetInt("spa_super_semi_qualify"), prizeMoneyFile.GetInt("spa_super_semi_win"), 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 1, 9), year, Friday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 1, 11), year, Sunday, Afternoon, AhAhliKSAStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0, 0, 1729600, 0);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("spa_super_final_win"), 0);
 
 		return (DWORD)pMem;
 	}

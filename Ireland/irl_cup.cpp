@@ -87,27 +87,27 @@ DWORD irl_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 4, 8), year, Tuesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 5, 17), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 24, 12, 24, 0, 0, 1, 0, 0, 0, 432);
+		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 24, 12, 24, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("irl_cup_r1_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 5, 18), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 18), year, Friday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SecondRound, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 32, 16, 20, 24, 0, 1, 0, 0, 0, 864);
+		FillFixtureDetails(pMem, fixture_id++, SecondRound, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 32, 16, 20, 24, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("irl_cup_r2_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 19), year, Saturday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 15), year, Friday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 16, 8, 0, 0, 0, 1, 0, 0, 0, 1727);
+		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 16, 8, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("irl_cup_r3_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 16), year, Saturday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 12), year, Friday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 6, 8, 4, 0, 0, 0, 1, 0, 0, 0, 3455);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 6, 8, 4, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("irl_cup_qtr_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 13), year, Saturday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 3), year, Friday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 6, 4, 2, 0, 0, 0, 1, 0, 0, 0, 6910);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 6, 4, 2, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("irl_cup_semi_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 4), year, Saturday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 9), year, Sunday, Afternoon, NationalStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0, 0, 27638, 13819);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("irl_cup_final_win"), prizeMoneyFile.GetInt("irl_cup_final_lose"));
 
 		return (DWORD)pMem;
 	}

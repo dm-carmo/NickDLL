@@ -116,9 +116,9 @@ char pol_second_update(BYTE* _this) {
 	data->current_stage = -1;
 	pol_second_subs(_this);
 	AddTeams(_this);
-	data->prize_money_pool = SetupPrizeMoney(_this, 1130);
+	data->prize_money_pool = SetupPrizeMoney(_this, prizeMoneyFile.GetInt("pol_second_prize_money"));
 	data->f225 = 1;
-	SetupTVMoney(_this, 142215, 0);
+	SetupTVMoney(_this, prizeMoneyFile.GetInt("pol_second_tv_money"), 0);
 	sub_6835C0(_this);
 	BYTE* edx = 0;
 	sub_6827D0(_this, edx);
@@ -470,9 +470,9 @@ void pol_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	for (int i = 0; i < data->num_stages; i++) data->stages[i] = 0;
 	pol_second_subs(_this);
 	AddTeams(_this);
-	data->prize_money_pool = SetupPrizeMoney(_this, 1130);
+	data->prize_money_pool = SetupPrizeMoney(_this, prizeMoneyFile.GetInt("pol_second_prize_money"));
 	data->f225 = 1;
-	SetupTVMoney(_this, 142215, 0);
+	SetupTVMoney(_this, prizeMoneyFile.GetInt("pol_second_tv_money"), 0);
 	sub_6835C0(_this);
 	BYTE* ebx = 0;
 	sub_6827D0(_this, ebx);

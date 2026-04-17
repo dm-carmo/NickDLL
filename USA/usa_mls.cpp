@@ -204,7 +204,7 @@ int usa_mls_add_teams(BYTE* _this)
 		cm3_clubs* club = (cm3_clubs*)(comp_data->teams2[i]);
 		add_team_call(_this, teamsAdded++, club, 0, 0);
 	}
-	SetupTVMoney(_this, 2679368, 0);
+	SetupTVMoney(_this, prizeMoneyFile.GetInt("usa_mls_tv_money"), 0);
 	return 1;
 }
 
@@ -227,7 +227,7 @@ void usa_mls_setup_groups(BYTE* _this, BYTE idx) {
 	create_league_stage_data(pStage, _this, data->n_teams, pTeams, 2, (DWORD)(data->competition_db), pFixtures, num_rounds,
 		data->pts_for_win, data->pts_for_draw, data->f196, (BYTE*)(_this + 0xC5), (BYTE*)(_this + 0xBE),
 		year, idx, stage_name_id, data->f81, 1, 0, data->f217, -1, 0, 2);
-	SetupTVMoney(pStage, 2679368, 0);
+	SetupTVMoney(pStage, prizeMoneyFile.GetInt("usa_mls_tv_money"), 0);
 	DWORD* stages_arr = data->stages;
 	*((DWORD*)(&stages_arr[idx])) = (DWORD)pStage;
 	sub_9452CA_free(pTeams);
@@ -370,7 +370,7 @@ DWORD usa_mls_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 30), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 6), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, MLSCup, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 5, 2, 1, 0, 0, 0, 1, 0, 0, 198000, 108000);
+		FillFixtureDetails(pMem, fixture_id++, MLSCup, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 5, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("usa_mls_final_win"), prizeMoneyFile.GetInt("usa_mls_final_lose"));
 
 		return (DWORD)pMem;
 	}

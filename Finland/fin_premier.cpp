@@ -576,7 +576,7 @@ char fin_premier_update(BYTE* _this) {
 	data->current_stage = -1;
 	fin_premier_subs(_this);
 	AddTeams(_this);
-	SetupTVMoney(_this, 86510, 0);
+	SetupTVMoney(_this, prizeMoneyFile.GetInt("fin_prm_tv_money"), 0);
 	sub_6835C0(_this);
 	BYTE* edx = 0;
 	sub_6827D0(_this, edx);
@@ -631,7 +631,7 @@ void fin_premier_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	for (int i = 0; i < data->num_stages; i++) data->stages[i] = 0;
 	fin_premier_subs(_this);
 	AddTeams(_this);
-	SetupTVMoney(_this, 86510, 0);
+	SetupTVMoney(_this, prizeMoneyFile.GetInt("fin_prm_tv_money"), 0);
 	sub_6835C0(_this);
 	BYTE* ebx = 0;
 	sub_6827D0(_this, ebx);

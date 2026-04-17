@@ -198,7 +198,7 @@ void usa_champ_setup_groups(BYTE* _this, BYTE idx) {
 	}
 	WORD year = data->year;
 	BYTE* pStage = (BYTE*)sub_944CF1_operator_new(0xEE);
-	create_league_stage_data(pStage, _this, data->n_teams, pTeams, 2, (DWORD)(data->competition_db), pFixtures, num_rounds,
+	create_league_stage_data(pStage, _this, data->n_teams, pTeams, 3, (DWORD)(data->competition_db), pFixtures, num_rounds,
 		data->pts_for_win, data->pts_for_draw, data->f196, (BYTE*)(_this + 0xC5), (BYTE*)(_this + 0xBE),
 		year, idx, stage_name_id, data->f81, 1, 0, data->f217, -1, 0, 2);
 	DWORD* stages_arr = data->stages;

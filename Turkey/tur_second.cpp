@@ -63,21 +63,21 @@ int tur_second_money_after_match(BYTE* _this, BYTE* a2, int a3) {
 	}
 	if (club_win && club_loss) {
 		int ret = sub_5A0590(ae2a38_ptr, (BYTE*)club_win);
-		AddToClubIncome((BYTE*)ret, 89830);
-		AddMoneyFromComp(_this, (BYTE*)club_win, 89830, 0, -1, 0, a2, -2);
+		AddToClubIncome((BYTE*)ret, prizeMoneyFile.GetInt("tur_second_prize_per_win"));
+		AddMoneyFromComp(_this, (BYTE*)club_win, prizeMoneyFile.GetInt("tur_second_prize_per_win"), 0, -1, 0, a2, -2);
 		ret = sub_5A0590(ae2a38_ptr, (BYTE*)club_loss);
-		AddToClubIncome((BYTE*)ret, 59887);
-		AddMoneyFromComp(_this, (BYTE*)club_loss, 59887, 0, -1, 0, a2, -2);
+		AddToClubIncome((BYTE*)ret, prizeMoneyFile.GetInt("tur_second_prize_per_loss"));
+		AddMoneyFromComp(_this, (BYTE*)club_loss, prizeMoneyFile.GetInt("tur_second_prize_per_loss"), 0, -1, 0, a2, -2);
 	}
 	else {
 		cm3_clubs* club1 = (cm3_clubs*)*(DWORD*)(a2 + 0x1c);
 		int ret = sub_5A0590(ae2a38_ptr, (BYTE*)club1);
-		AddToClubIncome((BYTE*)ret, 74859);
-		AddMoneyFromComp(_this, (BYTE*)club1, 74859, 0, -1, 0, a2, -2);
+		AddToClubIncome((BYTE*)ret, prizeMoneyFile.GetInt("tur_second_prize_per_draw"));
+		AddMoneyFromComp(_this, (BYTE*)club1, prizeMoneyFile.GetInt("tur_second_prize_per_draw"), 0, -1, 0, a2, -2);
 		cm3_clubs* club2 = (cm3_clubs*)*(DWORD*)(a2 + 0x20);
 		ret = sub_5A0590(ae2a38_ptr, (BYTE*)club2);
-		AddToClubIncome((BYTE*)ret, 74859);
-		AddMoneyFromComp(_this, (BYTE*)club2, 74859, 0, -1, 0, a2, -2);
+		AddToClubIncome((BYTE*)ret, prizeMoneyFile.GetInt("tur_second_prize_per_draw"));
+		AddMoneyFromComp(_this, (BYTE*)club2, prizeMoneyFile.GetInt("tur_second_prize_per_draw"), 0, -1, 0, a2, -2);
 	}
 	return sub_685D30(_this, a2, a3);
 }

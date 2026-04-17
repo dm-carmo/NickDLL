@@ -172,9 +172,9 @@ char fra_first_update(BYTE* _this) {
 	data->current_stage = -1;
 	fra_first_subs(_this);
 	AddTeams(_this);
-	data->prize_money_pool = SetupPrizeMoney(_this, 934465);
+	data->prize_money_pool = SetupPrizeMoney(_this, prizeMoneyFile.GetInt("fra_first_prize_money"));
 	data->f225 = 1;
-	SetupTVMoney(_this, 35381334, 0);
+	SetupTVMoney(_this, prizeMoneyFile.GetInt("fra_first_tv_money"), 0);
 	sub_6835C0(_this);
 	BYTE* edx = 0;
 	sub_6827D0(_this, edx);
@@ -528,9 +528,9 @@ void fra_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	for (int i = 0; i < data->num_stages; i++) data->stages[i] = 0;
 	fra_first_subs(_this);
 	AddTeams(_this);
-	data->prize_money_pool = SetupPrizeMoney(_this, 934465);
+	data->prize_money_pool = SetupPrizeMoney(_this, prizeMoneyFile.GetInt("fra_first_prize_money"));
 	data->f225 = 1;
-	SetupTVMoney(_this, 35381334, 0);
+	SetupTVMoney(_this, prizeMoneyFile.GetInt("fra_first_tv_money"), 0);
 	sub_6835C0(_this);
 	BYTE* ebx = 0;
 	sub_6827D0(_this, ebx);

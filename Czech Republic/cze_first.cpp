@@ -398,6 +398,103 @@ void __declspec(naked) cze_first_prom_rel_update_c()
 	}
 }
 
+void __fastcall cze_check_reserve_teams(BYTE* _this) {
+	comp_stats* cze_second_data = (comp_stats*)get_loaded_league(CZE_SECOND_9CF());
+	// Check teams from L2: main team relegated from L1 - add relegation
+	for (WORD num = 0; num < cze_second_data->n_teams; num++) {
+		team_league_stats* table_teams = (team_league_stats*)cze_second_data->team_league_table;
+		DWORD is_main_club;
+		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)table_teams[num].club, &is_main_club, 1);
+		// If it is a reserve team
+		if (ret_club && !is_main_club)
+		{
+			// If reserve team was not relegated
+			if (table_teams[num].league_fate != Relegated) {
+				// If main team is in the first league
+				if (ret_club->ClubDivision->ClubCompID == CZE_FIRST_9CF()) {
+					team_league_stats* main_club_data = get_team_league_stats(CZE_FIRST_9CF(), ret_club);
+					// If the main team was relegated
+					if (main_club_data->league_fate == Relegated) {
+						table_teams[num].league_fate = Relegated;
+						// Relegate the reserve team, and relegate one less team from L2
+						team_league_stats* d3_table = (team_league_stats*)cze_second_data->team_league_table;
+						for (WORD i = cze_second_data->n_teams - cze_second_data->relegations; i < cze_second_data->n_teams; i++) {
+							if (d3_table[i].league_fate == Relegated) {
+								d3_table[i].league_fate = Eliminated;
+								break;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+void __fastcall cze_non_league_promotion(BYTE* _this)
+{
+	vector<cm3_clubs*> relegated_clubs;
+
+	comp_stats* comp_data = (comp_stats*)get_loaded_league(CZE_SECOND_9CF());
+	for (WORD num = 0; num < comp_data->n_teams; num++) {
+		team_league_stats table_pos = ((team_league_stats*)comp_data->team_league_table)[num];
+		if (table_pos.league_fate == Relegated) {
+			relegated_clubs.push_back(table_pos.club);
+		}
+	}
+
+	vector<cm3_clubs*> available_clubs_a = find_clubs_of_comp(CZE_THIRD_CFL_9CF(), NATION_CZECH_REPUBLIC_9CF());
+	vector<cm3_clubs*> available_clubs_b = find_clubs_of_comp(CZE_THIRD_MFL_9CF(), NATION_CZECH_REPUBLIC_9CF());
+	sort(available_clubs_a.begin(), available_clubs_a.end(), compareClubRep);
+	sort(available_clubs_b.begin(), available_clubs_b.end(), compareClubRep);
+	int max_to_check_a = (available_clubs_a.size() > 3 ? 3 : available_clubs_a.size());
+	int max_to_check_b = (available_clubs_b.size() > 3 ? 3 : available_clubs_b.size());
+
+	int max_to_check;
+	vector<cm3_clubs*> available_clubs;
+	for (unsigned int i = 0; i < relegated_clubs.size(); i++)
+	{
+		if (i % 2) {
+			max_to_check = max_to_check_a;
+			available_clubs = available_clubs_a;
+		}
+		else {
+			max_to_check = max_to_check_b;
+			available_clubs = available_clubs_b;
+		}
+		int availableIdx = rand() % (max_to_check - i);
+		cm3_clubs* clubToRelegate = relegated_clubs[i];
+		cm3_clubs* available = available_clubs[availableIdx];
+
+		DWORD is_main_club;
+		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)available, &is_main_club, 1);
+		if (ret_club && !is_main_club && ret_club->ClubDivision->ClubCompID != CZE_FIRST_9CF())
+			i--;
+		else
+		{
+			cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
+			cm3_club_comps* bottomDivision = available->ClubDivision;
+			relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
+			promote_club_6830B0((BYTE*)available, (DWORD)topDivision, 1);
+		}
+
+		available_clubs.erase(available_clubs.begin() + availableIdx);
+	}
+}
+
+void sort_cze_third_clubs() {
+	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(CZE_THIRD_CFL_9CF());
+	vector<cm3_clubs*> d3_mfl_clubs = find_clubs_of_comp(CZE_THIRD_MFL_9CF());
+	move(d3_mfl_clubs.begin(), d3_mfl_clubs.end(), back_inserter(available_clubs));
+	sort(available_clubs.begin(), available_clubs.end(), compareClubLongitudeInv);
+
+	for (size_t i = 0; i < available_clubs.size(); i++)
+	{
+		if (i < 34) available_clubs[i]->ClubDivision = get_comp(CZE_THIRD_CFL_9CF());
+		else available_clubs[i]->ClubDivision = get_comp(CZE_THIRD_MFL_9CF());
+	}
+}
+
 char cze_first_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
@@ -405,8 +502,20 @@ char cze_first_update(BYTE* _this) {
 
 	BYTE* cze_second = get_loaded_league(CZE_SECOND_9CF());
 
+	// All teams that were in D1 must be professional
+	update_club_pro_status_68A980(_this, Professional, Relegated, -3, 1);
+	update_club_pro_status_68A980(_this, Professional, -3, Relegated, 1);
+	// All teams that were not relegated from D2 must be professional
+	// All teams that were relegated from D2 must be semi-professional
+	update_club_pro_status_68A980(cze_second, Professional, Relegated, -3, 1);
+	update_club_pro_status_68A980(cze_second, SemiProfessional, -3, Relegated, 1);
+
 	DWORD v1 = *(DWORD*)_this;
+	cze_check_reserve_teams(_this);
 	cze_first_prom_rel_update(_this, 1);
+
+	cze_non_league_promotion(_this);
+	sort_cze_third_clubs();
 
 	sub_687970(_this, ebx);
 	if (data->fixtures_table) {
@@ -432,9 +541,9 @@ char cze_first_update(BYTE* _this) {
 	*((DWORD*)(_this + 0xA7)) = -1;
 	cze_first_subs(_this);
 	AddTeams(_this);
-	data->prize_money_pool = SetupPrizeMoney(_this, 43750);
+	data->prize_money_pool = SetupPrizeMoney(_this, prizeMoneyFile.GetInt("cze_first_prize_money"));
 	data->f225 = 1;
-	SetupTVMoney(_this, 937500, 0);
+	SetupTVMoney(_this, prizeMoneyFile.GetInt("cze_first_tv_money"), 0);
 	sub_6835C0(_this);
 	BYTE* edx = 0;
 	sub_6827D0(_this, edx);
@@ -480,9 +589,9 @@ void cze_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	for (int i = 0; i < data->num_stages; i++) data->stages[i] = 0;
 	cze_first_subs(_this);
 	AddTeams(_this);
-	data->prize_money_pool = SetupPrizeMoney(_this, 43750);
+	data->prize_money_pool = SetupPrizeMoney(_this, prizeMoneyFile.GetInt("cze_first_prize_money"));
 	data->f225 = 1;
-	SetupTVMoney(_this, 937500, 0);
+	SetupTVMoney(_this, prizeMoneyFile.GetInt("cze_first_tv_money"), 0);
 	sub_6835C0(_this);
 	BYTE* ebx = 0;
 	sub_6827D0(_this, ebx);

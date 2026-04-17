@@ -391,7 +391,7 @@ void por_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	for (int i = 0; i < data->num_stages; i++) data->stages[i] = 0;
 	por_second_subs(_this);
 	AddTeams(_this);
-	SetupTVMoney(_this, 259485, 0);
+	SetupTVMoney(_this, prizeMoneyFile.GetInt("por_second_tv_money"), 0);
 	por_second_block_promotion(_this);
 	sub_6835C0(_this);
 	BYTE* ebx = 0;
@@ -627,7 +627,7 @@ char por_second_update(BYTE* _this) {
 	data->current_stage = -1;
 	por_second_subs(_this);
 	AddTeams(_this);
-	SetupTVMoney(_this, 259485, 0);
+	SetupTVMoney(_this, prizeMoneyFile.GetInt("por_second_tv_money"), 0);
 	por_second_block_promotion(_this);
 	sub_6835C0(_this);
 	BYTE* edx = 0;

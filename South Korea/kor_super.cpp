@@ -21,7 +21,7 @@ DWORD kor_super_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 1, 11), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 2, 21), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, None, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 2, 0, 0, 1, 0, 0, 101072, 50536);
+		FillFixtureDetails(pMem, fixture_id++, None, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 2, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("kor_super_final_win"), prizeMoneyFile.GetInt("kor_super_final_lose"));
 
 		return (DWORD)pMem;
 	}

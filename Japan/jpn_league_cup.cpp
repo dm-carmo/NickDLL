@@ -42,11 +42,11 @@ DWORD jpn_league_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WOR
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 8), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 8), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 1, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 6, 4, 2, 0, 0, 0, 2, 4, 0, 0, 94199);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 1, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 6, 4, 2, 0, 0, 0, 2, 4, 0, 0, prizeMoneyFile.GetInt("jpn_league_cup_semi_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 13), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 1), year, Saturday, Evening, NationalStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0, 0, 706490, 235497);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("jpn_league_cup_final_win"), prizeMoneyFile.GetInt("jpn_league_cup_final_lose"));
 
 		return (DWORD)pMem;
 	}

@@ -322,9 +322,9 @@ void nor_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->stages[1] = 0;
 	nor_first_subs(_this);
 	AddTeams(_this);
-	data->prize_money_pool = SetupPrizeMoney(_this, 29839);
+	data->prize_money_pool = SetupPrizeMoney(_this, prizeMoneyFile.GetInt("nor_first_prize_money"));
 	data->f225 = 1;
-	SetupTVMoney(_this, 139647, 0);
+	SetupTVMoney(_this, prizeMoneyFile.GetInt("nor_first_tv_money"), 0);
 	sub_6835C0(_this);
 	BYTE* ebx = 0;
 	sub_6827D0(_this, ebx);
@@ -609,9 +609,9 @@ char nor_first_update(BYTE* _this) {
 	data->current_stage = -1;
 	nor_first_subs(_this);
 	AddTeams(_this);
-	data->prize_money_pool = SetupPrizeMoney(_this, 29839);
+	data->prize_money_pool = SetupPrizeMoney(_this, prizeMoneyFile.GetInt("nor_first_prize_money"));
 	data->f225 = 1;
-	SetupTVMoney(_this, 139647, 0);
+	SetupTVMoney(_this, prizeMoneyFile.GetInt("nor_first_tv_money"), 0);
 	sub_6835C0(_this);
 	BYTE* edx = 0;
 	sub_6827D0(_this, edx);

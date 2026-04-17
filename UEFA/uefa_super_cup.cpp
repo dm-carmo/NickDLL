@@ -23,7 +23,7 @@ DWORD uefa_super_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WOR
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 6, 28), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 13), year, Wednesday, Evening, NationalStadium);
-		FillFixtureDetails(pMem, fixture_id++, None, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 6, 2, 1, 2, 0, 0, 1, 0, 0, 2250000, 1800000);
+		FillFixtureDetails(pMem, fixture_id++, None, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 6, 2, 1, 2, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("uefa_super_final_win"), prizeMoneyFile.GetInt("uefa_super_final_lose"));
 
 		return (DWORD)pMem;
 	}

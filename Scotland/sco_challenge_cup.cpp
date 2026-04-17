@@ -162,23 +162,23 @@ DWORD sco_challenge_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 12), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 9), year, Tuesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SecondRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 32, 16, 32, 0, 0, 1, 0, 0, 0, 30000);
+		FillFixtureDetails(pMem, fixture_id++, SecondRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 32, 16, 32, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("sco_chal_cup_r2_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 10), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 1, 6), year, Tuesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 16, 8, 0, 0, 0, 1, 0, 0, 0, 40000);
+		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 16, 8, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("sco_chal_cup_r3_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 1, 7), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 1, 27), year, Tuesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 8, 4, 0, 0, 0, 1, 0, 0, 0, 50000);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 8, 4, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("sco_chal_cup_qtr_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 1, 28), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 2, 24), year, Tuesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 4, 2, 0, 0, 0, 1, 0, 0, 0, 75000);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 4, 2, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("sco_chal_cup_semi_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 2, 25), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 5), year, Sunday, Afternoon, FACupSemiFinals);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0, 0, 150000, 100000);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("sco_chal_cup_final_win"), prizeMoneyFile.GetInt("sco_chal_cup_final_lose"));
 
 		return (DWORD)pMem;
 	}
@@ -601,8 +601,8 @@ void sco_challenge_cup_final_stage_setup(BYTE* _this) {
 			if (t.league_fate != Qualified1) {
 				staff_history_knocked_out_86C000(staff_hist_ptr, t.club, (DWORD)(comp_data->competition_db), None, GroupStage, 0xF);
 				int ret = sub_5A0590(ae2a38_ptr, (BYTE*)t.club);
-				AddToClubIncome((BYTE*)ret, 15000);
-				AddMoneyFromComp(_this, (BYTE*)t.club, 15000, 0, -1, GroupStage, 0, -2);
+				AddToClubIncome((BYTE*)ret, prizeMoneyFile.GetInt("sco_chal_cup_groups_prize_eliminated"));
+				AddMoneyFromComp(_this, (BYTE*)t.club, prizeMoneyFile.GetInt("sco_chal_cup_groups_prize_eliminated"), 0, -1, GroupStage, 0, -2);
 			}
 		}
 	}

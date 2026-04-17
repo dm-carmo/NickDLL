@@ -468,10 +468,9 @@ char sco_premier_update(BYTE* _this) {
 	data->current_stage = -1;
 	sco_premier_subs(_this);
 	AddTeams(_this);
-	data->prize_money_pool = SetupPrizeMoney(_this, 195833);
+	data->prize_money_pool = SetupPrizeMoney(_this, prizeMoneyFile.GetInt("sco_prm_prize_money"));
 	data->f225 = 1;
-	SetupTVMoney(_this, 1000000, 0);
-	SetupTVMoney(_this, 600000, 0);
+	SetupTVMoney(_this, prizeMoneyFile.GetInt("sco_prm_tv_money"), 0);
 	sub_6835C0(_this);
 	BYTE* edx = 0;
 	sub_6827D0(_this, edx);
@@ -533,10 +532,9 @@ void sco_premier_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	for (int i = 0; i < data->num_stages; i++) data->stages[i] = 0;
 	sco_premier_subs(_this);
 	AddTeams(_this);
-	data->prize_money_pool = SetupPrizeMoney(_this, 195833);
+	data->prize_money_pool = SetupPrizeMoney(_this, prizeMoneyFile.GetInt("sco_prm_prize_money"));
 	data->f225 = 1;
-	SetupTVMoney(_this, 1000000, 0);
-	SetupTVMoney(_this, 600000, 0);
+	SetupTVMoney(_this, prizeMoneyFile.GetInt("sco_prm_tv_money"), 0);
 	sub_6835C0(_this);
 	BYTE* ebx = 0;
 	sub_6827D0(_this, ebx);
