@@ -172,6 +172,10 @@ void replacement_8D26B0(BYTE* _this) {
 	if (dMem) sub_518500(dMem, idx, NATION_CZECH_REPUBLIC_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
+	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
+	if (dMem) sub_518500(dMem, idx, NATION_AUSTRIA_9CF(), -1, 1, 0);
+	rules_array[idx++] = (DWORD)dMem;
+
 	*((DWORD*)(_this + 0x8ac)) = (DWORD)rules_array;
 
 	DWORD unknown_8a8 = 0;

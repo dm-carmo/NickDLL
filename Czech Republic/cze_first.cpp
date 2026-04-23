@@ -568,41 +568,6 @@ void __declspec(naked) cze_first_update_c()
 	}
 }
 
-void cze_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
-{
-	sub_682200(_this);
-	comp_stats* data = (comp_stats*)_this;
-	data->competition_db = comp;
-	data->comp_vtable = (DWORD*)(cze_first_vtable->vtable_ptr);
-	data->year = year;
-	data->rules = RulesCzech;
-	int loaded = sub_687B10(_this, 1);
-	if (loaded) {
-		if (data->n_rounds != 3) return;
-		*((DWORD*)(_this + 0xA3)) = (DWORD)&cze_first_7F3220;
-		return;
-	}
-	data->f68 = -1;
-	data->current_stage = -1;
-	data->num_stages = 1;
-	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
-	for (int i = 0; i < data->num_stages; i++) data->stages[i] = 0;
-	cze_first_subs(_this);
-	AddTeams(_this);
-	data->prize_money_pool = SetupPrizeMoney(_this, prizeMoneyFile.GetInt("cze_first_prize_money"));
-	data->f225 = 1;
-	SetupTVMoney(_this, prizeMoneyFile.GetInt("cze_first_tv_money"), 0);
-	sub_6835C0(_this);
-	BYTE* ebx = 0;
-	sub_6827D0(_this, ebx);
-	BYTE* pMem2 = (BYTE*)sub_944CF1_operator_new(0x5CE);
-	BYTE unk1 = 1;
-	sub_49EE70(pMem2, _this);
-	unk1 = 0;
-	data->f8 = (DWORD*)pMem2;
-	league_reputation_setup_generic_68A850(_this);
-}
-
 void cze_first_split_under(BYTE* _this) {
 	comp_stats* comp_data = (comp_stats*)_this;
 	BYTE playoff_teams = 8;
@@ -902,8 +867,12 @@ void __declspec(naked) cze_first_reputation_calc_c()
 	}
 }
 
-void setup_cze_first()
+void cze_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 {
+	sub_682200(_this);
+	comp_stats* data = (comp_stats*)_this;
+	data->competition_db = comp;
+	data->comp_vtable = (DWORD*)(cze_first_vtable->vtable_ptr);
 	cze_first_vtable->SetPointer(VTableSubsRounds, (DWORD)&cze_first_subs_c);
 	cze_first_vtable->SetPointer(VTableInitFree, (DWORD)&cze_first_free_c);
 	cze_first_vtable->SetPointer(VTableEoSUpdate, (DWORD)&cze_first_update_c);
@@ -914,4 +883,37 @@ void setup_cze_first()
 	cze_first_vtable->SetPointer(VTableTableFates, (DWORD)&cze_first_set_table_fate);
 	cze_first_vtable->SetPointer(VTablePromRelUpdate, (DWORD)&cze_first_prom_rel_update_c);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) cze_first_vtable->SetPointer(VTable21, 0x4110b0);
+	data->year = year;
+	data->rules = RulesCzech;
+	int loaded = sub_687B10(_this, 1);
+	if (loaded) {
+		if (data->n_rounds != 3) return;
+		*((DWORD*)(_this + 0xA3)) = (DWORD)&cze_first_7F3220;
+		return;
+	}
+	data->min_stadium_capacity = 3500;
+	data->min_stadium_seats = 3500;
+	data->f68 = -1;
+	data->current_stage = -1;
+	data->num_stages = 1;
+	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
+	for (int i = 0; i < data->num_stages; i++) data->stages[i] = 0;
+	cze_first_subs(_this);
+	AddTeams(_this);
+	data->prize_money_pool = SetupPrizeMoney(_this, prizeMoneyFile.GetInt("cze_first_prize_money"));
+	data->f225 = 1;
+	SetupTVMoney(_this, prizeMoneyFile.GetInt("cze_first_tv_money"), 0);
+	sub_6835C0(_this);
+	BYTE* ebx = 0;
+	sub_6827D0(_this, ebx);
+	BYTE* pMem2 = (BYTE*)sub_944CF1_operator_new(0x5CE);
+	BYTE unk1 = 1;
+	sub_49EE70(pMem2, _this);
+	unk1 = 0;
+	data->f8 = (DWORD*)pMem2;
+	league_reputation_setup_generic_68A850(_this);
+}
+
+void setup_cze_first()
+{
 }

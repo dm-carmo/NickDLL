@@ -1,14 +1,14 @@
 #include <windows.h>
 #include "Structures\CMHeader.h"
 #include "Helpers\generic_functions.h"
-#include "cze_first.h"
-#include "cze_second.h"
-#include "cze_cup.h"
+#include "aut_first.h"
+#include "aut_second.h"
+#include "aut_cup.h"
 #include <Helpers\9cf_constants.h>
 
-DWORD cze_setup_c(playable_nation_data* nation_data) {
+DWORD aut_setup_c(playable_nation_data* nation_data) {
 
-	nation_data->contract_start_day = 8;
+	nation_data->contract_start_day = 15;
 	nation_data->contract_start_month = July;
 	nation_data->contract_start_year = *current_year;
 	nation_data->f55 = 5;
@@ -24,15 +24,15 @@ DWORD cze_setup_c(playable_nation_data* nation_data) {
 	BYTE i = 0;
 
 	BYTE* pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
-	cze_first_init(pMem, *current_year, get_comp(CZE_FIRST_9CF()));
+	aut_first_init(pMem, *current_year, get_comp(AUT_FIRST_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
-	cze_second_init(pMem, *current_year, get_comp(CZE_SECOND_9CF()));
+	aut_second_init(pMem, *current_year, get_comp(AUT_SECOND_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
-	cze_cup_init(pMem, *current_year, get_comp(CZE_CUP_9CF()));
+	aut_cup_init(pMem, *current_year, get_comp(AUT_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
 	BYTE* cm_date = new BYTE[8];
@@ -44,16 +44,16 @@ DWORD cze_setup_c(playable_nation_data* nation_data) {
 	return 1;
 }
 
-BYTE* rb_czech_init(BYTE* _this, int* a2) {
-	rb_croatia_setup ( _this, a2);
-	*((DWORD*)(_this + 0x17)) = NATION_CZECH_REPUBLIC_9CF();
-	*((BYTE*)(_this + 0x5)) = RulesCzech;
-	*((BYTE*)(_this + 0x1F)) = RulesCzech;
+BYTE* rb_austria_init(BYTE* _this, int* a2) {
+	rb_croatia_setup(_this, a2);
+	*((DWORD*)(_this + 0x17)) = NATION_AUSTRIA_9CF();
+	*((BYTE*)(_this + 0x5)) = RulesAustria;
+	*((BYTE*)(_this + 0x1F)) = RulesAustria;
 	return _this;
 }
 
-void setup_cze_nation() {
-	setup_cze_first();
-	setup_cze_second();
-	setup_cze_cup();
+void setup_aut_nation() {
+	setup_aut_first();
+	setup_aut_second();
+	setup_aut_cup();
 }

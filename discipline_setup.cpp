@@ -363,6 +363,16 @@ void replacement_55D420(BYTE* _this, int* a2) {
 	{
 		pMem[idx++] = 0;
 	}
+
+	if (get_country(NATION_AUSTRIA_9CF())->NationLeagueSelected) {
+		dMem = (BYTE*)sub_944CF1_operator_new(0x23);
+		if (dMem) rb_austria_init(dMem, a2);
+		pMem[idx++] = (DWORD)dMem;
+	}
+	else
+	{
+		pMem[idx++] = 0;
+	}
 }
 
 void __declspec(naked) replacement_55D420_c()
