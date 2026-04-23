@@ -26,6 +26,7 @@
 #include "South Korea\kor_setup.h"
 #include "Spain\spa_setup.h"
 #include "Sweden\swe_setup.h"
+#include "Switzerland\sui_setup.h"
 #include "Turkey\tur_setup.h"
 #include "USA\usa_setup.h"
 #include "Wales\wal_setup.h"

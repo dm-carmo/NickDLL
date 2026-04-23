@@ -146,7 +146,7 @@ int hol_cup_teams(BYTE* _this) {
 	division_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_HOLLAND_9CF());
 	vector<cm3_clubs*> lower_clubs2 = find_clubs_of_comp(A_LOWER_B_9CF(), NATION_HOLLAND_9CF());
 	move(lower_clubs2.begin(), lower_clubs2.end(), back_inserter(division_clubs));
-	sort(division_clubs.begin(), division_clubs.end(), compareClubRep);
+	sort(division_clubs.begin(), division_clubs.end(), compareClubRepInv);
 	for (unsigned int i = 0; i < lower_teams; i++)
 	{
 		int availableIdx = rand() % division_clubs.size();

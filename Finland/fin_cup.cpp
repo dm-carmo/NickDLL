@@ -90,7 +90,7 @@ int fin_cup_teams(BYTE* _this) {
 
 	// Lower
 	division_clubs = find_clubs_of_comp(FIN_LOWER_9CF());
-	sort(division_clubs.begin(), division_clubs.end(), compareClubRep);
+	sort(division_clubs.begin(), division_clubs.end(), compareClubRepInv);
 	for (unsigned int i = 0; i < 52; i++)
 	{
 		int availableIdx = rand() % division_clubs.size();

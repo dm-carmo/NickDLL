@@ -153,6 +153,8 @@ void Setup()
 	setup_cze_nation();
 	dprintf("New nation: Austria\n");
 	setup_aut_nation();
+	dprintf("New nation: Switzerland\n");
+	setup_sui_nation();
 	dprintf("------------------------------\n");
 
 	dprintf("Applying FIFA changes (club comps)\n");

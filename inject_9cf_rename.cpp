@@ -492,7 +492,7 @@ map<string, DWORD> league_dword_match = {
 	{"World Cup European Qualifying Section", 0x9CF780},
 	{"UEFA European Championship Qualifying", 0x9CF784},
 	{"Asian Cup Qualifying", 0x9CF788},
-	{ "CONCACAF Gold Cup", 0x9CF78C },
+	{"CONCACAF Gold Cup", 0x9CF78C},
 	{"AFC Asian Cup", 0x9CF790},
 	{"\'B\' International", 0x9CF794},
 	{"Under 21 International", 0x9CF798},
@@ -526,18 +526,18 @@ map<string, DWORD> league_dword_match = {
 	{"Finnish Ykkönen East", 0x9CF808},
 	{"League of Ireland Premier Division", 0x9CF80C},
 	{"League of Ireland First Division", 0x9CF810},
-	{"Irish Group A", 0x9CF814},
-	{"Irish Group B", 0x9CF818},
-	{"Irish Group C", 0x9CF81C},
-	{"Irish Group D", 0x9CF820},
-	{"Irish Group E", 0x9CF824},
-	{"Northern Irish Group A", 0x9CF82C},
-	{"Northern Irish Group B", 0x9CF830},
-	{"Northern Irish Group C", 0x9CF834},
-	{"Northern Irish Group D", 0x9CF838},
+	{"Irish Group A", 0x9CF814}, // remove
+	{"Irish Group B", 0x9CF818}, // remove
+	{"Irish Group C", 0x9CF81C}, // remove
+	{"Irish Group D", 0x9CF820}, // remove
+	{"Irish Group E", 0x9CF824}, // remove
+	{"Northern Irish Group A", 0x9CF82C}, // remove
+	{"Northern Irish Group B", 0x9CF830}, // remove
+	{"Northern Irish Group C", 0x9CF834}, // remove
+	{"Northern Irish Group D", 0x9CF838}, // remove
 	{"League of Ireland Cup", 0x9CF83C},
 	{"FAI Cup", 0x9CF840},
-	{"Korean All-Star Cup", 0x9CF844},
+	{"Korean All-Star Cup", 0x9CF844}, // remove (there are exe references, check)
 	{"Irish Connacht Senior League", 0x9CF848},
 	{"Irish Ulster Senior League", 0x9CF84C},
 	{"Irish Munster Senior League", 0x9CF850},
@@ -554,10 +554,10 @@ map<string, DWORD> league_dword_match = {
 	{"Croatian HNL", 0x9CF87C},
 	{"Croatian Prva NL", 0x9CF880},
 	{"Croatian Treca NL", 0x9CF884},
-	{"Croatian Druga NL North", 0x9CF888},
-	{"Croatian Druga NL South", 0x9CF88C},
-	{"Croatian Druga NL East", 0x9CF890},
-	{"Croatian Druga NL West", 0x9CF894},
+	{"Croatian Druga NL North", 0x9CF888}, // remove
+	{"Croatian Druga NL South", 0x9CF88C}, // remove
+	{"Croatian Druga NL East", 0x9CF890}, // remove
+	{"Croatian Druga NL West", 0x9CF894}, // remove
 	{"Hrvatski Kup", 0x9CF898},
 	{"Australian A-League", 0x9CF89C},
 	{"OFC Nations Cup", 0x9CF8A0},
@@ -594,7 +594,7 @@ map<string, DWORD> league_dword_match = {
 	{"Russian Second League Division B", 0x9CF91C},
 	{"Russian Second League Division A Gold", 0x9CF920},
 	{"Russian Second League Division A Silver", 0x9CF924},
-	{"Russian Second Division - East", 0x9CF928},
+	{"Russian Second Division - East", 0x9CF928}, // remove
 	{"Russian First League", 0x9CF92C},
 	{"Russian Premier League", 0x9CF930},
 	{"Russian Cup", 0x9CF934},
@@ -1421,6 +1421,18 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 		if (_strcmpi(db_club_name, "Wolfsberger AC") == 0) { cm3_clubs* ret = find_club("Wolfsberger AC II"); if (ret) return (BYTE*)ret; }
 		if (_strcmpi(db_club_name, "WSG Tirol") == 0) { cm3_clubs* ret = find_club("WSG Tirol II"); if (ret) return (BYTE*)ret; }
 	}
+	else if (to_check->ClubNation->NationID == NATION_SWITZERLAND_9CF()) {
+		if (_strcmpi(db_club_name, "BSC Young Boys") == 0) { cm3_clubs* ret = find_club("BSC Young Boys U21"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "FC Basel 1893") == 0) { cm3_clubs* ret = find_club("FC Basel 1893 U21"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "FC Lausanne-Sport") == 0) { cm3_clubs* ret = find_club("FC Lausanne-Sport II "); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "FC Lugano") == 0) { cm3_clubs* ret = find_club("FC Lugano II"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "FC Luzern") == 0) { cm3_clubs* ret = find_club("FC Luzern U21"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Sion") == 0) { cm3_clubs* ret = find_club("FC Sion U21"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "FC St. Gallen 1879") == 0) { cm3_clubs* ret = find_club("FC St. Gallen 1879 U21"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "FC Winterthur") == 0) { cm3_clubs* ret = find_club("FC Winterthur U21"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "FC Zürich") == 0) { cm3_clubs* ret = find_club("FC Zürich U21"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Servette FC") == 0) { cm3_clubs* ret = find_club("Servette FC U21"); if (ret) return (BYTE*)ret; }
+	}
 
 	// Reserve teams check
 	if (is_main_club) *is_main_club = 0;
@@ -1688,6 +1700,18 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 		if (_strcmpi(db_club_name, "SV Ried II") == 0) { cm3_clubs* ret = find_club("SV Ried"); if (ret) return (BYTE*)ret; }
 		if (_strcmpi(db_club_name, "Wolfsberger AC II") == 0) { cm3_clubs* ret = find_club("Wolfsberger AC"); if (ret) return (BYTE*)ret; }
 		if (_strcmpi(db_club_name, "WSG Tirol II") == 0) { cm3_clubs* ret = find_club("WSG Tirol"); if (ret) return (BYTE*)ret; }
+	}
+	else if (to_check->ClubNation->NationID == NATION_SWITZERLAND_9CF()) {
+		if (_strcmpi(db_club_name, "BSC Young Boys U21") == 0) { cm3_clubs* ret = find_club("BSC Young Boys"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "FC Basel 1893 U21") == 0) { cm3_clubs* ret = find_club("FC Basel 1893"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "FC Lausanne-Sport II ") == 0) { cm3_clubs* ret = find_club("FC Lausanne-Sport"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "FC Lugano II") == 0) { cm3_clubs* ret = find_club("FC Lugano"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "FC Luzern U21") == 0) { cm3_clubs* ret = find_club("FC Luzern"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "FC Sion U21") == 0) { cm3_clubs* ret = find_club("Sion"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "FC St. Gallen 1879 U21") == 0) { cm3_clubs* ret = find_club("FC St. Gallen 1879"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "FC Winterthur U21") == 0) { cm3_clubs* ret = find_club("FC Winterthur"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "FC Zürich U21") == 0) { cm3_clubs* ret = find_club("FC Zürich"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Servette FC U21") == 0) { cm3_clubs* ret = find_club("Servette FC"); if (ret) return (BYTE*)ret; }
 	}
 
 	// default case if none found

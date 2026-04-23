@@ -111,7 +111,7 @@ int rus_cup_all_teams(BYTE* _this) {
 	}
 	// Second B
 	division_clubs = find_clubs_of_comp(RUS_SECOND_B_9CF());
-	sort(division_clubs.begin(), division_clubs.end(), compareClubRepInv);
+	sort(division_clubs.begin(), division_clubs.end(), compareClubRep);
 	for (cm3_clubs* club : division_clubs)
 	{
 		DWORD is_main_club;

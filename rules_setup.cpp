@@ -173,7 +173,11 @@ void replacement_8D26B0(BYTE* _this) {
 	rules_array[idx++] = (DWORD)dMem;
 
 	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
-	if (dMem) sub_518500(dMem, idx, NATION_AUSTRIA_9CF(), -1, 1, 0);
+	if (dMem) sub_5DFF70(dMem, idx, NATION_AUSTRIA_9CF(), -1, 1, 0);
+	rules_array[idx++] = (DWORD)dMem;
+
+	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
+	if (dMem) sub_5DFF70(dMem, idx, NATION_SWITZERLAND_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
 	*((DWORD*)(_this + 0x8ac)) = (DWORD)rules_array;

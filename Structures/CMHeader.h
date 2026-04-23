@@ -64,6 +64,7 @@ enum CompetitionRules : BYTE {
 	RulesSouthKorea,
 	RulesCzech,
 	RulesAustria,
+	RulesSwitzerland,
 	CompetitionRules_LENGTH
 };
 

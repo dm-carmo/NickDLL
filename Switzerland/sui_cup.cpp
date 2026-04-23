@@ -5,11 +5,11 @@
 #include <map>
 #include <Helpers\9cf_constants.h>
 
-vtable* aut_cup_vtable = new vtable((BYTE*)0x96E650, 0xA0);
+vtable* sui_cup_vtable = new vtable((BYTE*)0x96E650, 0xA0);
 
-void aut_cup_free_under(BYTE* _this) {
+void sui_cup_free_under(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
-	data->comp_vtable = (DWORD*)aut_cup_vtable->vtable_ptr;
+	data->comp_vtable = (DWORD*)sui_cup_vtable->vtable_ptr;
 	DWORD x = 0;
 	if (data->teams_list) {
 		sub_9452CA_free(data->teams_list);
@@ -34,27 +34,27 @@ void aut_cup_free_under(BYTE* _this) {
 	sub_518690(_this);
 }
 
-void aut_cup_free(BYTE* _this, BYTE a2) {
-	aut_cup_free_under(_this);
+void sui_cup_free(BYTE* _this, BYTE a2) {
+	sui_cup_free_under(_this);
 	if (a2 & 1) {
 		sub_944C94_free(_this);
 	}
 }
 
-void __declspec(naked) aut_cup_free_c()
+void __declspec(naked) sui_cup_free_c()
 {
 	__asm
 	{
 		mov eax, esp
 		push dword ptr[eax + 0x4]
 		push ecx
-		call aut_cup_free
+		call sui_cup_free
 		add esp, 0x8
 		ret 4
 	}
 }
 
-int aut_cup_teams(BYTE* _this) {
+int sui_cup_teams(BYTE* _this) {
 	vector<cm3_clubs*> vec;
 	comp_stats* comp_data = (comp_stats*)_this;
 	WORD total_teams = 64;
@@ -66,13 +66,14 @@ int aut_cup_teams(BYTE* _this) {
 	teams_seeded* teams = (teams_seeded*)comp_data->teams_list;
 
 	// D1
-	vector<cm3_clubs*> division_clubs = find_clubs_of_comp(AUT_FIRST_9CF());
+	vector<cm3_clubs*> division_clubs = find_clubs_of_comp(SUI_PREMIER_9CF());
+	sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPosInv);
 	for (cm3_clubs* club : division_clubs)
 	{
 		vec.push_back(club);
 	}
 	// D2
-	division_clubs = find_clubs_of_comp(AUT_SECOND_9CF());
+	division_clubs = find_clubs_of_comp(SUI_FIRST_9CF());
 	for (cm3_clubs* club : division_clubs)
 	{
 		DWORD is_main_club;
@@ -80,17 +81,15 @@ int aut_cup_teams(BYTE* _this) {
 		if (!ret_club || is_main_club) vec.push_back(club);
 	}
 	// D3
-	division_clubs = find_clubs_of_comp(AUT_REGIONAL_9CF());
-	sort(division_clubs.begin(), division_clubs.end(), compareClubRep);
+	division_clubs = find_clubs_of_comp(SUI_SECOND_9CF());
 	for (cm3_clubs* club : division_clubs)
 	{
-		if (vec.size() >= total_teams) break;
 		DWORD is_main_club;
 		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)club, &is_main_club, 1);
 		if (!ret_club || is_main_club) vec.push_back(club);
 	}
 	// Lower
-	division_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_AUSTRIA_9CF());
+	division_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_SWITZERLAND_9CF());
 	sort(division_clubs.begin(), division_clubs.end(), compareClubRep);
 	for (cm3_clubs* club : division_clubs)
 	{
@@ -110,7 +109,7 @@ int aut_cup_teams(BYTE* _this) {
 	return 1;
 }
 
-char aut_cup_update(BYTE* _this) {
+char sui_cup_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
 	data->f76 = 0;
@@ -137,26 +136,26 @@ char aut_cup_update(BYTE* _this) {
 	data->year++;
 	data->f171 = 0;
 	*((BYTE*)(_this + 0xB1)) = 0;
-	aut_cup_teams(_this);
+	sui_cup_teams(_this);
 	DWORD v1 = *(DWORD*)_this;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x8C))(_this);
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x94))(_this);
 	return (*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
 }
 
-void __declspec(naked) aut_cup_update_c()
+void __declspec(naked) sui_cup_update_c()
 {
 	__asm
 	{
 		mov eax, esp
 		push ecx
-		call aut_cup_update
+		call sui_cup_update
 		add esp, 0x4
 		ret
 	}
 }
 
-DWORD aut_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
+DWORD sui_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
 {
 	if (stage_idx == -1) {
 		if (a5)
@@ -170,36 +169,35 @@ DWORD aut_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 8), year, Sunday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 26), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, FirstRound, 1, ExtraTimePenalties_1, NoTiebreak_2, 4, 64, 32, 64, 0, 0, 1, 0, prizeMoneyFile.GetInt("aut_cup_r1_qualify"));
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 16), year, Saturday);
+		FillFixtureDetails(pMem, fixture_id++, FirstRound, 1, ExtraTimePenalties_1, NoTiebreak_2, 4, 64, 32, 64, 0, 0, 1, 0);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 27), year, Sunday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 27), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SecondRound, 1, ExtraTimePenalties_1, NoTiebreak_2, 4, 32, 16, 0, 0, 0, 1, 0, prizeMoneyFile.GetInt("aut_cup_r2_qualify"));
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 17), year, Sunday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 20), year, Saturday);
+		FillFixtureDetails(pMem, fixture_id++, SecondRound, 1, ExtraTimePenalties_1, NoTiebreak_2, 4, 32, 16, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("sui_cup_r2_lose"));
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 28), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 29), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 16, 8, 0, 0, 0, 1, 0, prizeMoneyFile.GetInt("aut_cup_r3_qualify"));
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 21), year, Sunday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 3), year, Wednesday, Evening);
+		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 1, ExtraTimePenalties_1, NoTiebreak_2, 4, 16, 8, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("sui_cup_r3_lose"));
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 30), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 1, 31), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 8, 4, 0, 0, 0, 1, 0, prizeMoneyFile.GetInt("aut_cup_qtr_qualify"));
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 4), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 2, 4), year, Wednesday, Evening);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 1, ExtraTimePenalties_1, NoTiebreak_2, 6, 8, 4, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("sui_cup_qtr_lose"));
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 2, 1), year, Sunday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 4), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 4, 2, 0, 0, 0, 1, 0, prizeMoneyFile.GetInt("aut_cup_semi_qualify"));
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 2, 5), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 18), year, Saturday);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 1, ExtraTimePenalties_1, NoTiebreak_2, 6, 4, 2, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("sui_cup_semi_lose"));
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 5), year, Thursday);
-		Date labor_day = Date(year + 1, 5, 1);
-		AddPlayoffFixture(pMem, fixture_id, labor_day, year, (Day)labor_day.DayOfWeek(), Evening, LargestStadium2);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0, prizeMoneyFile.GetInt("aut_cup_final_qualify"), prizeMoneyFile.GetInt("aut_cup_final_win"), prizeMoneyFile.GetInt("aut_cup_final_lose"));
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 4, 19), year, Sunday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 24), year, Sunday, Afternoon, NationalStadium);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("sui_cup_final_win"), prizeMoneyFile.GetInt("sui_cup_final_lose"));
 
 		return (DWORD)pMem;
 	}
 	return 0;
 }
 
-void __declspec(naked) aut_cup_fixture_caller()
+void __declspec(naked) sui_cup_fixture_caller()
 {
 	__asm
 	{
@@ -209,21 +207,21 @@ void __declspec(naked) aut_cup_fixture_caller()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call aut_cup_fixtures
+		call sui_cup_fixtures
 		add esp, 0x14
 		ret 0x10
 	}
 }
 
-void aut_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp)
+void sui_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 {
 	sub_518640(_this);
 	comp_stats* data = (comp_stats*)_this;
 	data->competition_db = comp;
-	data->comp_vtable = (DWORD*)(aut_cup_vtable->vtable_ptr);
-	aut_cup_vtable->SetPointer(VTableInitFree, (DWORD)&aut_cup_free_c);
-	aut_cup_vtable->SetPointer(VTableEoSUpdate, (DWORD)&aut_cup_update_c);
-	aut_cup_vtable->SetPointer(VTableFixtures, (DWORD)&aut_cup_fixture_caller);
+	data->comp_vtable = (DWORD*)(sui_cup_vtable->vtable_ptr);
+	sui_cup_vtable->SetPointer(VTableInitFree, (DWORD)&sui_cup_free_c);
+	sui_cup_vtable->SetPointer(VTableEoSUpdate, (DWORD)&sui_cup_update_c);
+	sui_cup_vtable->SetPointer(VTableFixtures, (DWORD)&sui_cup_fixture_caller);
 	data->year = year;
 	data->f171 = 0;
 	data->f68 = -1;
@@ -232,11 +230,11 @@ void aut_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->comp_type = CLUB_DOMESTIC;
 	data->max_bench = 9;
 	data->max_subs = 5;
-	data->rules = RulesAustria;
+	data->rules = RulesSwitzerland;
 	*((BYTE*)(_this + 0xB1)) = 0;;
 	int loaded = sub_51FC00(_this, 1);
 	if (loaded) return;
-	aut_cup_teams(_this);
+	sui_cup_teams(_this);
 	DWORD v1 = *(DWORD*)_this;
 	*((DWORD*)(_this + 0xA3)) = (DWORD)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0x3c, _this + 0x3a, 0);
 	cup_map_fixture_tree_518790(_this);
@@ -248,6 +246,6 @@ void aut_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	cup_reputation_setup_generic_5223A0(_this);
 }
 
-void setup_aut_cup() {
+void setup_sui_cup() {
 
 }

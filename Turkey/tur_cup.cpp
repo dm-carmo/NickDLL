@@ -272,7 +272,7 @@ int tur_cup_teams(BYTE* _this) {
 
 	// Lower
 	division_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_TURKEY_9CF());
-	sort(division_clubs.begin(), division_clubs.end(), compareClubRep);
+	sort(division_clubs.begin(), division_clubs.end(), compareClubRepInv);
 	for (int i = 0; i < 16 + (comp_data->year > 2025); i++)
 	{
 		int availableIdx = rand() % division_clubs.size();

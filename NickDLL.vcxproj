@@ -361,6 +361,11 @@
     <ClCompile Include="Sweden\swe_second.cpp" />
     <ClCompile Include="Sweden\swe_setup.cpp" />
     <ClCompile Include="Sweden\swe_third.cpp" />
+    <ClCompile Include="Switzerland\sui_cup.cpp" />
+    <ClCompile Include="Switzerland\sui_first.cpp" />
+    <ClCompile Include="Switzerland\sui_premier.cpp" />
+    <ClCompile Include="Switzerland\sui_second.cpp" />
+    <ClCompile Include="Switzerland\sui_setup.cpp" />
     <ClCompile Include="tiny-json.c" />
     <ClCompile Include="Helpers\YearChanger.cpp" />
     <ClCompile Include="Turkey\tur_cup.cpp" />
@@ -620,6 +625,11 @@
     <ClInclude Include="Sweden\swe_second.h" />
     <ClInclude Include="Sweden\swe_setup.h" />
     <ClInclude Include="Sweden\swe_third.h" />
+    <ClInclude Include="Switzerland\sui_cup.h" />
+    <ClInclude Include="Switzerland\sui_first.h" />
+    <ClInclude Include="Switzerland\sui_premier.h" />
+    <ClInclude Include="Switzerland\sui_second.h" />
+    <ClInclude Include="Switzerland\sui_setup.h" />
     <ClInclude Include="tiny-json.h" />
     <ClInclude Include="Turkey\tur_cup.h" />
     <ClInclude Include="Turkey\tur_first.h" />
