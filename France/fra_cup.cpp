@@ -85,26 +85,25 @@ int fra_cup_teams(BYTE* _this) {
 	teams_seeded* teams = (teams_seeded*)comp_data->teams_list;
 
 	// Lower
-	vector<cm3_clubs*> division_clubs = find_clubs_of_comp(FRA_NATIONAL_2_9CF());
-	vector<cm3_clubs*> division_clubs2 = find_clubs_of_comp(FRA_LOWER_9CF());
-	move(division_clubs2.begin(), division_clubs2.end(), back_inserter(division_clubs));
-	division_clubs2 = find_clubs_of_comp(A_LOWER_9CF(), NATION_FRANCE_9CF());
-	move(division_clubs2.begin(), division_clubs2.end(), back_inserter(division_clubs));
-	sort(division_clubs.begin(), division_clubs.end(), compareClubRep);
-
-	vector<cm3_clubs*> lower_clubs;
-	std::copy_if(division_clubs.begin(), division_clubs.end(), std::back_inserter(lower_clubs),
-		[](cm3_clubs* c) {
-			string s = string(c->ClubName);
-			return s.size() < 3 || s.substr(s.size() - 2) != " B";
-		});
-	for (int i = 0; i < 148 + (comp_data->year == 2025 ? 1 : 0); i++)
+	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(FRA_NATIONAL_2_9CF(), NATION_FRANCE_9CF());
+	vector<cm3_clubs*> lower_clubs2 = find_clubs_of_comp(FRA_LOWER_9CF(), NATION_FRANCE_9CF());
+	move(lower_clubs2.begin(), lower_clubs2.end(), back_inserter(lower_clubs));
+	lower_clubs2 = find_clubs_of_comp(A_LOWER_9CF(), NATION_FRANCE_9CF());
+	move(lower_clubs2.begin(), lower_clubs2.end(), back_inserter(lower_clubs));
+	for (size_t i = 0; i < lower_clubs.size(); i++) {
+		cm3_clubs* c = lower_clubs[i];
+		DWORD is_main_club;
+		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)c, &is_main_club, 1);
+		if (ret_club && !is_main_club)
+		{
+			lower_clubs.erase(lower_clubs.begin() + i);
+			i--;
+		}
+	}
+	vector<cm3_clubs*> division_clubs = get_random_weighted_clubs(lower_clubs, 148 + (comp_data->year == 2025 ? 1 : 0), true);
+	for (cm3_clubs* club : division_clubs)
 	{
-		int availableIdx = rand() % lower_clubs.size();
-		cm3_clubs* lower_club = lower_clubs[availableIdx];
-		vec.push_back(lower_club);
-
-		lower_clubs.erase(lower_clubs.begin() + availableIdx);
+		vec.push_back(club);
 	}
 	// National
 	division_clubs = find_clubs_of_comp(FRA_NATIONAL_1_9CF());

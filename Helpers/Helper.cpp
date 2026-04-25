@@ -692,3 +692,80 @@ bool sortTLS(team_league_stats s1, team_league_stats s2)
 	if (s1.goals_against != s2.goals_against) return s1.goals_against < s2.goals_against;
 	return s1.club->ClubReputation > s2.club->ClubReputation;
 }
+
+vector<cm3_clubs*> weighted_reservoir_sampling(vector<cm3_clubs*> population, unsigned int sample_size) {
+	unsigned int i = 0;
+	vector<cm3_clubs*> reservoir;
+	vector<double> keys;
+	for (; i < sample_size; i++) {
+		cm3_clubs* c = population[i];
+		reservoir.push_back(c);
+		keys.push_back(pow(((double)rand() / (RAND_MAX)), 1.0f / c->ClubReputation));
+	}
+	for (; i < population.size(); i++) {
+		cm3_clubs* c = population[i];
+		auto threshold = min_element(keys.begin(), keys.end());
+		int member_idx = distance(begin(keys), threshold);
+		double new_key = pow(((double)rand() / (RAND_MAX)), 1.0f / c->ClubReputation);
+		if (new_key > *threshold) {
+			keys[member_idx] = new_key;
+			reservoir[member_idx] = c;
+		}
+	}
+	return reservoir;
+}
+
+vector<cm3_clubs*> weighted_reservoir_sampling_invert_weights(vector<cm3_clubs*> population, unsigned int sample_size) {
+	unsigned int i = 0;
+	vector<cm3_clubs*> reservoir;
+	vector<double> keys;
+	for (; i < sample_size; i++) {
+		cm3_clubs* c = population[i];
+		reservoir.push_back(c);
+		keys.push_back(pow(((double)rand() / (RAND_MAX)), 1.0f / (10000 - c->ClubReputation)));
+	}
+	for (; i < population.size(); i++) {
+		cm3_clubs* c = population[i];
+		auto threshold = min_element(keys.begin(), keys.end());
+		int member_idx = distance(begin(keys), threshold);
+		double new_key = pow(((double)rand() / (RAND_MAX)), 1.0f / (10000 - c->ClubReputation));
+		if (new_key > *threshold) {
+			keys[member_idx] = new_key;
+			reservoir[member_idx] = c;
+		}
+	}
+	return reservoir;
+}
+
+vector<cm3_clubs*> get_random_weighted_clubs(vector<cm3_clubs*> list, unsigned int amount, bool to_promote) {
+	if (to_promote) return weighted_reservoir_sampling(list, amount);
+	else return weighted_reservoir_sampling_invert_weights(list, amount);
+}
+
+void generic_prom_rel(DWORD nation_id, DWORD promote_from, DWORD relegate_from, int num_child_comps, ...) {
+	vector<cm3_clubs*> relegated_clubs = get_relegated_teams(relegate_from);
+
+	va_list valist;
+	va_start(valist, num_child_comps);
+	for (int i = 0; i < num_child_comps; i++)
+	{
+		DWORD comp_id = va_arg(valist, DWORD);
+		vector<cm3_clubs*> relegated_clubs2 = get_relegated_teams(comp_id);
+		move(relegated_clubs2.begin(), relegated_clubs2.end(), back_inserter(relegated_clubs));
+	}
+	va_end(valist);
+
+	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(promote_from, nation_id);
+	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(available_clubs, relegated_clubs.size(), true);
+
+	for (unsigned int j = 0; j < promoted_clubs.size(); j++) {
+		cm3_clubs* clubToRelegate = relegated_clubs[j];
+		cm3_clubs* clubToPromote = promoted_clubs[j];
+		dprintf("Swapping Teams: %s (%s) %d <-> %s (%s) %d\n", clubToRelegate->ClubName, clubToRelegate->ClubDivision->ClubCompName, clubToRelegate->ClubReputation, clubToPromote->ClubName, clubToPromote->ClubDivision->ClubCompName, clubToPromote->ClubReputation);
+
+		cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
+		cm3_club_comps* bottomDivision = clubToPromote->ClubDivision;
+		relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
+		promote_club_6830B0((BYTE*)clubToPromote, (DWORD)topDivision, 1);
+	}
+}

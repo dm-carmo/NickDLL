@@ -67,23 +67,13 @@ int eng_fa_cup_teams(BYTE* _this) {
 	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_ENGLAND_9CF());
 	vector<cm3_clubs*> lower_clubs2 = find_clubs_of_comp(A_LOWER_B_9CF(), NATION_ENGLAND_9CF());
 	move(lower_clubs2.begin(), lower_clubs2.end(), back_inserter(lower_clubs));
-	sort(lower_clubs.begin(), lower_clubs.end(), compareClubRep);
-
-	int TeamsToSelectFrom = (lower_clubs.size() < 150) ? lower_clubs.size() : 150;
-
-	for (int i = 0; i < 112; i++)
+	vector<cm3_clubs*> division_clubs = get_random_weighted_clubs(lower_clubs, 112, true);
+	for (cm3_clubs* club : division_clubs)
 	{
-		cm3_clubs* club = lower_clubs[rand() % TeamsToSelectFrom];
-
-		if (!vector_contains_club(vec, club)) {
-			//dprintf("Qualifying club %s to the FA Cup\n", (club->ClubName));
-			vec.push_back(club);
-		}
-		else
-			i--;	// Else do again as the club selected was already picked
+		vec.push_back(club);
 	}
 	// National League North
-	vector<cm3_clubs*> division_clubs = find_clubs_of_comp(ENG_CONFERENCE_NORTH_9CF());
+	division_clubs = find_clubs_of_comp(ENG_CONFERENCE_NORTH_9CF());
 	for (cm3_clubs* club : division_clubs)
 	{
 		vec.push_back(club);

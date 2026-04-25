@@ -22,34 +22,34 @@ vector<DWORD> rules_count_byte_arr_plus1 = {
 
 static int(*sub_8E5590)(const void* a1, const void* a2) = (int(*)(const void* a1, const void* a2))(0x8E5590);
 
-static BYTE* (__thiscall* sub_583280)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x583280);
-static BYTE* (__thiscall* sub_40A580)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x40A580);
-static BYTE* (__thiscall* sub_412C80)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x412C80);
-static BYTE* (__thiscall* sub_424B90)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x424B90);
-static BYTE* (__thiscall* sub_43F0E0)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x43F0E0);
-static BYTE* (__thiscall* sub_518500)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x518500);
-static BYTE* (__thiscall* sub_555460)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x555460);
-static BYTE* (__thiscall* sub_579B30)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x579B30);
-static BYTE* (__thiscall* sub_5A9950)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x5A9950);
-static BYTE* (__thiscall* sub_5C1570)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x5C1570);
-static BYTE* (__thiscall* sub_5DFF70)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x5DFF70);
-static BYTE* (__thiscall* sub_5ECEB0)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x5ECEB0);
-static BYTE* (__thiscall* sub_5F9690)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x5F9690);
-static BYTE* (__thiscall* sub_63C210)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x63C210);
-static BYTE* (__thiscall* sub_661380)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x661380);
-static BYTE* (__thiscall* sub_666BD0)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x666BD0);
-static BYTE* (__thiscall* sub_7944F0)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x7944F0);
-static BYTE* (__thiscall* sub_7936D0)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x7936D0);
-static BYTE* (__thiscall* sub_7CD830)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x7CD830);
-static BYTE* (__thiscall* sub_7D3D80)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x7D3D80);
-static BYTE* (__thiscall* sub_7EC770)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x7EC770);
-static BYTE* (__thiscall* sub_7F6390)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x7F6390);
-static BYTE* (__thiscall* sub_859400)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x859400);
-static BYTE* (__thiscall* sub_893D80)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x893D80);
-static BYTE* (__thiscall* sub_9020A0)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x9020A0);
-static BYTE* (__thiscall* sub_90B940)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x90B940);
-static BYTE* (__thiscall* sub_90F080)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x90F080);
-static BYTE* (__thiscall* sub_66E630)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x66E630);
+static BYTE* (__thiscall* europe_rules_583280)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x583280);
+static BYTE* (__thiscall* argentina_rules_40A580)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x40A580);
+static BYTE* (__thiscall* australia_rules_412C80)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x412C80);
+static BYTE* (__thiscall* belgium_rules_424B90)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x424B90);
+static BYTE* (__thiscall* brazil_rules_43F0E0)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x43F0E0);
+static BYTE* (__thiscall* croatia_rules_518500)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x518500);
+static BYTE* (__thiscall* denmark_rules_555460)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x555460);
+static BYTE* (__thiscall* england_rules_579B30)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x579B30);
+static BYTE* (__thiscall* finland_rules_5A9950)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x5A9950);
+static BYTE* (__thiscall* france_rules_5C1570)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x5C1570);
+static BYTE* (__thiscall* germany_rules_5DFF70)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x5DFF70);
+static BYTE* (__thiscall* greece_rules_5ECEB0)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x5ECEB0);
+static BYTE* (__thiscall* holland_rules_5F9690)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x5F9690);
+static BYTE* (__thiscall* ireland_rules_63C210)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x63C210);
+static BYTE* (__thiscall* italy_rules_661380)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x661380);
+static BYTE* (__thiscall* japan_rules_666BD0)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x666BD0);
+static BYTE* (__thiscall* norway_rules_7944F0)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x7944F0);
+static BYTE* (__thiscall* n_ireland_rules_7936D0)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x7936D0);
+static BYTE* (__thiscall* poland_rules_7CD830)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x7CD830);
+static BYTE* (__thiscall* portugal_rules_7D3D80)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x7D3D80);
+static BYTE* (__thiscall* russia_rules_7EC770)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x7EC770);
+static BYTE* (__thiscall* scotland_rules_7F6390)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x7F6390);
+static BYTE* (__thiscall* spain_rules_859400)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x859400);
+static BYTE* (__thiscall* sweden_rules_893D80)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x893D80);
+static BYTE* (__thiscall* turkey_rules_9020A0)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x9020A0);
+static BYTE* (__thiscall* usa_rules_90B940)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x90B940);
+static BYTE* (__thiscall* wales_rules_90F080)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x90F080);
+static BYTE* (__thiscall* s_korea_rules_66E630)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x66E630);
 
 void replacement_8D26B0(BYTE* _this) {
 	DWORD rules_count = pnd_count - 8;
@@ -57,127 +57,127 @@ void replacement_8D26B0(BYTE* _this) {
 	int idx = 0;
 
 	BYTE* dMem = (BYTE*)sub_944CF1_operator_new(0x19);
-	if (dMem) sub_583280(dMem, idx, -1, EUROPE_9CF(), 2, 0);
+	if (dMem) europe_rules_583280(dMem, idx, -1, EUROPE_9CF(), 2, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
 	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
-	if (dMem) sub_40A580(dMem, idx, NATION_ARGENTINA_9CF(), -1, 1, 0);
+	if (dMem) argentina_rules_40A580(dMem, idx, NATION_ARGENTINA_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
 	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
-	if (dMem) sub_412C80(dMem, idx, NATION_AUSTRALIA_9CF(), -1, 1, 0);
+	if (dMem) australia_rules_412C80(dMem, idx, NATION_AUSTRALIA_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
 	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
-	if (dMem) sub_424B90(dMem, idx, NATION_BELGIUM_9CF(), -1, 1, 0);
+	if (dMem) belgium_rules_424B90(dMem, idx, NATION_BELGIUM_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
 	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
-	if (dMem) sub_43F0E0(dMem, idx, NATION_BRAZIL_9CF(), -1, 1, 0);
+	if (dMem) brazil_rules_43F0E0(dMem, idx, NATION_BRAZIL_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
 	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
-	if (dMem) sub_518500(dMem, idx, NATION_CROATIA_9CF(), -1, 1, 0);
+	if (dMem) croatia_rules_518500(dMem, idx, NATION_CROATIA_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
 	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
-	if (dMem) sub_555460(dMem, idx, NATION_DENMARK_9CF(), -1, 1, 0);
+	if (dMem) denmark_rules_555460(dMem, idx, NATION_DENMARK_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
 	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
-	if (dMem) sub_579B30(dMem, idx, NATION_ENGLAND_9CF(), -1, 1, 0);
+	if (dMem) england_rules_579B30(dMem, idx, NATION_ENGLAND_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
 	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
-	if (dMem) sub_5A9950(dMem, idx, NATION_FINLAND_9CF(), -1, 1, 0);
+	if (dMem) finland_rules_5A9950(dMem, idx, NATION_FINLAND_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
 	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
-	if (dMem) sub_5C1570(dMem, idx, NATION_FRANCE_9CF(), -1, 1, 0);
+	if (dMem) france_rules_5C1570(dMem, idx, NATION_FRANCE_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
 	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
-	if (dMem) sub_5DFF70(dMem, idx, NATION_GERMANY_9CF(), -1, 1, 0);
+	if (dMem) germany_rules_5DFF70(dMem, idx, NATION_GERMANY_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
 	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
-	if (dMem) sub_5ECEB0(dMem, idx, NATION_GREECE_9CF(), -1, 1, 0);
+	if (dMem) greece_rules_5ECEB0(dMem, idx, NATION_GREECE_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
 	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
-	if (dMem) sub_5F9690(dMem, idx, NATION_HOLLAND_9CF(), -1, 1, 0);
+	if (dMem) holland_rules_5F9690(dMem, idx, NATION_HOLLAND_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
 	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
-	if (dMem) sub_63C210(dMem, idx, NATION_IRELAND_9CF(), -1, 1, 0);
+	if (dMem) ireland_rules_63C210(dMem, idx, NATION_IRELAND_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
 	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
-	if (dMem) sub_661380(dMem, idx, NATION_ITALY_9CF(), -1, 1, 0);
+	if (dMem) italy_rules_661380(dMem, idx, NATION_ITALY_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
 	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
-	if (dMem) sub_666BD0(dMem, idx, NATION_JAPAN_9CF(), -1, 1, 0);
+	if (dMem) japan_rules_666BD0(dMem, idx, NATION_JAPAN_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
 	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
-	if (dMem) sub_7944F0(dMem, idx, NATION_NORWAY_9CF(), -1, 1, 0);
+	if (dMem) norway_rules_7944F0(dMem, idx, NATION_NORWAY_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
 	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
-	if (dMem) sub_7936D0(dMem, idx, NATION_NORTHERN_IRELAND_9CF(), -1, 1, 0);
+	if (dMem) n_ireland_rules_7936D0(dMem, idx, NATION_NORTHERN_IRELAND_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
 	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
-	if (dMem) sub_7CD830(dMem, idx, NATION_POLAND_9CF(), -1, 1, 0);
+	if (dMem) poland_rules_7CD830(dMem, idx, NATION_POLAND_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
 	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
-	if (dMem) sub_7D3D80(dMem, idx, NATION_PORTUGAL_9CF(), -1, 1, 0);
+	if (dMem) portugal_rules_7D3D80(dMem, idx, NATION_PORTUGAL_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
 	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
-	if (dMem) sub_7EC770(dMem, idx, NATION_RUSSIA_9CF(), -1, 1, 0);
+	if (dMem) russia_rules_7EC770(dMem, idx, NATION_RUSSIA_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
 	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
-	if (dMem) sub_7F6390(dMem, idx, NATION_SCOTLAND_9CF(), -1, 1, 0);
+	if (dMem) scotland_rules_7F6390(dMem, idx, NATION_SCOTLAND_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
 	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
-	if (dMem) sub_859400(dMem, idx, NATION_SPAIN_9CF(), -1, 1, 0);
+	if (dMem) spain_rules_859400(dMem, idx, NATION_SPAIN_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
 	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
-	if (dMem) sub_893D80(dMem, idx, NATION_SWEDEN_9CF(), -1, 1, 0);
+	if (dMem) sweden_rules_893D80(dMem, idx, NATION_SWEDEN_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
 	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
-	if (dMem) sub_9020A0(dMem, idx, NATION_TURKEY_9CF(), -1, 1, 0);
+	if (dMem) turkey_rules_9020A0(dMem, idx, NATION_TURKEY_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
 	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
-	if (dMem) sub_90B940(dMem, idx, NATION_USA_9CF(), -1, 1, 0);
+	if (dMem) usa_rules_90B940(dMem, idx, NATION_USA_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
 	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
-	if (dMem) sub_90F080(dMem, idx, NATION_WALES_9CF(), -1, 1, 0);
+	if (dMem) wales_rules_90F080(dMem, idx, NATION_WALES_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
 	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
-	if (dMem) sub_66E630(dMem, idx, NATION_SOUTH_KOREA_9CF(), -1, 1, 0);
+	if (dMem) s_korea_rules_66E630(dMem, idx, NATION_SOUTH_KOREA_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
 	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
-	if (dMem) sub_518500(dMem, idx, NATION_CZECH_REPUBLIC_9CF(), -1, 1, 0);
+	if (dMem) croatia_rules_518500(dMem, idx, NATION_CZECH_REPUBLIC_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
 	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
-	if (dMem) sub_5DFF70(dMem, idx, NATION_AUSTRIA_9CF(), -1, 1, 0);
+	if (dMem) germany_rules_5DFF70(dMem, idx, NATION_AUSTRIA_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
 	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
-	if (dMem) sub_5DFF70(dMem, idx, NATION_SWITZERLAND_9CF(), -1, 1, 0);
+	if (dMem) germany_rules_5DFF70(dMem, idx, NATION_SWITZERLAND_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
 	*((DWORD*)(_this + 0x8ac)) = (DWORD)rules_array;
@@ -208,9 +208,9 @@ void replacement_8D26B0(BYTE* _this) {
 			}
 		}
 	}
-	*((DWORD*)(_this + 0x8a4)) = (DWORD)pMem;
 
 	qsort(pMem, unknown_8a8, 4, sub_8E5590);
+	*((DWORD*)(_this + 0x8a4)) = (DWORD)pMem;
 }
 
 void __declspec(naked) replacement_8D26B0_c()

@@ -118,69 +118,103 @@ void __fastcall ger_non_league_promotion(BYTE* _this)
 	}
 
 	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_GERMANY_9CF());
-	sort(available_clubs.begin(), available_clubs.end(), compareClubRep);
-	int max_to_check = (available_clubs.size() > 21 ? 21 : available_clubs.size());
-	for (unsigned int i = 0; i < relegated_clubs.size(); i++)
-	{
-		int availableIdx = rand() % (max_to_check - i);
-		cm3_clubs* clubToRelegate = relegated_clubs[i];
-		cm3_clubs* available = available_clubs[availableIdx];
-
-		//dprintf("Swapping Teams: %s (%s) <-> %s (%s)\n", clubToRelegate->ClubName, clubToRelegate->ClubDivision->ClubCompName, available->ClubName, available->ClubDivision->ClubCompName);
+	for (size_t i = 0; i < available_clubs.size(); i++) {
+		cm3_clubs* c = available_clubs[i];
 		DWORD is_main_club;
-		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)available, &is_main_club, 1);
-		if (ret_club && !is_main_club && ret_club->ClubDivision->ClubCompID != GER_FIRST_9CF()
-			&& ret_club->ClubDivision->ClubCompID != GER_SECOND_9CF() && ret_club->ClubDivision->ClubCompID != GER_THIRD_9CF())
-			i--;
-		else
+		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)c, &is_main_club, 1);
+		if (ret_club && !is_main_club && ret_club->ClubDivision->ClubCompID != GER_FIRST_9CF() && ret_club->ClubDivision->ClubCompID != GER_SECOND_9CF()
+			&& ret_club->ClubDivision->ClubCompID != GER_THIRD_9CF())
 		{
-			cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
-			cm3_club_comps* bottomDivision = available->ClubDivision;
-			relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
-			promote_club_6830B0((BYTE*)available, (DWORD)topDivision, 1);
-			clubToRelegate->ClubReserveDivision = 0;
+			available_clubs.erase(available_clubs.begin() + i);
+			i--;
 		}
+	}
+	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(available_clubs, relegated_clubs.size(), true);
 
-		available_clubs.erase(available_clubs.begin() + availableIdx);
+	for (unsigned int j = 0; j < promoted_clubs.size(); j++) {
+		cm3_clubs* clubToRelegate = relegated_clubs[j];
+		cm3_clubs* clubToPromote = promoted_clubs[j];
+		dprintf("Swapping Teams: %s (%s) %d <-> %s (%s) %d\n", clubToRelegate->ClubName, clubToRelegate->ClubDivision->ClubCompName, clubToRelegate->ClubReputation, clubToPromote->ClubName, clubToPromote->ClubDivision->ClubCompName, clubToPromote->ClubReputation);
+
+		cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
+		cm3_club_comps* bottomDivision = clubToPromote->ClubDivision;
+		relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
+		promote_club_6830B0((BYTE*)clubToPromote, (DWORD)topDivision, 1);
+		clubToRelegate->ClubReserveDivision = 0;
 	}
 }
 
 void __fastcall ger_liga_3_relegation(BYTE* _this)
 {
-	vector<cm3_clubs*> relegated_clubs;
+	vector<cm3_clubs*> relegated_clubs = get_relegated_teams(GER_THIRD_9CF());
 
-	comp_stats* comp_data = (comp_stats*)get_loaded_league(GER_THIRD_9CF());
-	for (WORD num = 0; num < comp_data->n_teams; num++) {
-		team_league_stats table_pos = ((team_league_stats*)comp_data->team_league_table)[num];
-		if (table_pos.league_fate == Relegated) {
-			relegated_clubs.push_back(table_pos.club);
+	vector<cm3_clubs*> promoted_clubs;
+	vector<DWORD> d4_groups = { GER_REGIONAL_NORTH_9CF(), GER_REGIONAL_SOUTHWEST_9CF(), GER_REGIONAL_WEST_9CF(), GER_REGIONAL_NORTHEAST_9CF(), GER_REGIONAL_BAYERN_9CF() };
+	shuffle(d4_groups.begin(), d4_groups.end(), rng);
+	for (int i = 0; i < 4; i++) {
+		DWORD id = d4_groups[i];
+		vector<cm3_clubs*> available_clubs = find_clubs_of_comp_reserve_division(id, NATION_GERMANY_9CF());
+		for (size_t i = 0; i < available_clubs.size(); i++) {
+			cm3_clubs* c = available_clubs[i];
+			DWORD is_main_club;
+			cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)c, &is_main_club, 1);
+			if (ret_club && !is_main_club && ret_club->ClubDivision->ClubCompID != GER_FIRST_9CF() && ret_club->ClubDivision->ClubCompID != GER_SECOND_9CF())
+			{
+				available_clubs.erase(available_clubs.begin() + i);
+				i--;
+			}
 		}
+		vector<cm3_clubs*> ret = get_random_weighted_clubs(available_clubs, 1, true);
+		move(ret.begin(), ret.end(), back_inserter(promoted_clubs));
 	}
 
-	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(GER_REGIONAL_9CF(), NATION_GERMANY_9CF());
-	sort(available_clubs.begin(), available_clubs.end(), compareClubRep);
-	int max_to_check = (available_clubs.size() > 8 ? 8 : available_clubs.size());
-	for (unsigned int i = 0; i < relegated_clubs.size(); i++)
-	{
-		int availableIdx = rand() % (max_to_check - i);
-		cm3_clubs* clubToRelegate = relegated_clubs[i];
-		cm3_clubs* available = available_clubs[availableIdx];
+	for (unsigned int j = 0; j < promoted_clubs.size(); j++) {
+		cm3_clubs* clubToRelegate = relegated_clubs[j];
+		cm3_clubs* clubToPromote = promoted_clubs[j];
+		dprintf("Swapping Teams: %s (%s) %d <-> %s (%s) %d\n", clubToRelegate->ClubName, clubToRelegate->ClubDivision->ClubCompName, clubToRelegate->ClubReputation, clubToPromote->ClubName, clubToPromote->ClubDivision->ClubCompName, clubToPromote->ClubReputation);
 
-		//dprintf("Swapping Teams: %s (%s) <-> %s (%s)\n", clubToRelegate->ClubName, clubToRelegate->ClubDivision->ClubCompName, available->ClubName, available->ClubDivision->ClubCompName);
+		cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
+		cm3_club_comps* bottomDivision = clubToPromote->ClubDivision;
+		relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
+		promote_club_6830B0((BYTE*)clubToPromote, (DWORD)topDivision, 1);
+		clubToPromote->ClubReserveDivision = 0;
+	}
+}
+
+void __fastcall ger_d4_inactive_relegation(BYTE* _this)
+{
+	vector<cm3_clubs*> relegated_clubs;
+	vector<DWORD> d4_groups = { GER_REGIONAL_NORTH_9CF(), GER_REGIONAL_SOUTHWEST_9CF(), GER_REGIONAL_WEST_9CF(), GER_REGIONAL_NORTHEAST_9CF(), GER_REGIONAL_BAYERN_9CF() };
+	for (DWORD id : d4_groups) {
+		vector<cm3_clubs*> available_clubs = find_clubs_of_comp_reserve_division(id, NATION_GERMANY_9CF());
+		vector<cm3_clubs*> ret = get_random_weighted_clubs(available_clubs, 3, false);
+		move(ret.begin(), ret.end(), back_inserter(relegated_clubs));
+	}
+
+	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_GERMANY_9CF());
+	for (size_t i = 0; i < available_clubs.size(); i++) {
+		cm3_clubs* c = available_clubs[i];
 		DWORD is_main_club;
-		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)available, &is_main_club, 1);
-		if (ret_club && !is_main_club && ret_club->ClubDivision->ClubCompID != GER_FIRST_9CF()
-			&& ret_club->ClubDivision->ClubCompID != GER_SECOND_9CF())
-			i--;
-		else
+		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)c, &is_main_club, 1);
+		if (ret_club && !is_main_club && ret_club->ClubDivision->ClubCompID != GER_FIRST_9CF() && ret_club->ClubDivision->ClubCompID != GER_SECOND_9CF()
+			&& ret_club->ClubDivision->ClubCompID != GER_THIRD_9CF())
 		{
-			cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
-			cm3_club_comps* bottomDivision = available->ClubDivision;
-			relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
-			promote_club_6830B0((BYTE*)available, (DWORD)topDivision, 1);
+			available_clubs.erase(available_clubs.begin() + i);
+			i--;
 		}
+	}
+	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(available_clubs, relegated_clubs.size(), true);
 
-		available_clubs.erase(available_clubs.begin() + availableIdx);
+	for (unsigned int j = 0; j < promoted_clubs.size(); j++) {
+		cm3_clubs* clubToRelegate = relegated_clubs[j];
+		cm3_clubs* clubToPromote = promoted_clubs[j];
+		dprintf("Swapping Teams: %s (%s) %d <-> %s (%s) %d\n", clubToRelegate->ClubName, clubToRelegate->ClubDivision->ClubCompName, clubToRelegate->ClubReputation, clubToPromote->ClubName, clubToPromote->ClubDivision->ClubCompName, clubToPromote->ClubReputation);
+
+		cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
+		cm3_club_comps* bottomDivision = clubToPromote->ClubDivision;
+		relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
+		promote_club_6830B0((BYTE*)clubToPromote, (DWORD)topDivision, 1);
+		clubToRelegate->ClubReserveDivision = 0;
 	}
 }
 
@@ -329,11 +363,12 @@ char ger_first_update(BYTE* _this) {
 
 	if (ger_regional) {
 		ger_non_league_promotion(_this);
-		sort_regional_clubs();
 	}
 	else {
 		ger_liga_3_relegation(_this);
+		ger_d4_inactive_relegation(_this);
 	}
+	sort_regional_clubs();
 
 	sub_687970(_this, ebx);
 	if (data->fixtures_table) {

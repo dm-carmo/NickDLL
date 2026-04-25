@@ -1433,6 +1433,59 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 		if (_strcmpi(db_club_name, "FC Zürich") == 0) { cm3_clubs* ret = find_club("FC Zürich U21"); if (ret) return (BYTE*)ret; }
 		if (_strcmpi(db_club_name, "Servette FC") == 0) { cm3_clubs* ret = find_club("Servette FC U21"); if (ret) return (BYTE*)ret; }
 	}
+	else if (to_check->ClubNation->NationID == NATION_FRANCE_9CF()) {
+		if (_strcmpi(db_club_name, "AC Ajaccio") == 0) { cm3_clubs* ret = find_club("AC Ajaccio B"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Le Havre AC") == 0) { cm3_clubs* ret = find_club("AC Le Havre B"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "AJ Auxerre") == 0) { cm3_clubs* ret = find_club("AJ Auxerre B"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Amiens SC") == 0) { cm3_clubs* ret = find_club("Amiens SC B"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Angers SCO") == 0) { cm3_clubs* ret = find_club("Angers SCO B"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "AS Monaco") == 0) { cm3_clubs* ret = find_club("AS Monaco B"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "AS Nancy-Lorraine") == 0) { cm3_clubs* ret = find_club("AS Nancy-Lorraine B"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "AS Saint-Étienne") == 0) { cm3_clubs* ret = find_club("AS Saint-Étienne B"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Bourges Foot 18") == 0) { cm3_clubs* ret = find_club("Bourges Foot 18 B"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "C'Chartres Football") == 0) { cm3_clubs* ret = find_club("C'Chartres Football B"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Clermont Foot 63") == 0) { cm3_clubs* ret = find_club("Clermont Foot 63 B"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "CS Sedan-Ardennes") == 0) { cm3_clubs* ret = find_club("CS Sedan-Ardennes B"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Dijon FCO") == 0) { cm3_clubs* ret = find_club("Dijon FCO B"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "EA Guingamp") == 0) { cm3_clubs* ret = find_club("EA Guingamp B"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "ESTAC Troyes") == 0) { cm3_clubs* ret = find_club("ESTAC Troyes B"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Chamois Niortais FC") == 0) { cm3_clubs* ret = find_club("FC Chamois Niort B"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "FC Girondins Bordeaux") == 0) { cm3_clubs* ret = find_club("FC Girondins Bordeaux B"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Le Mans FC") == 0) { cm3_clubs* ret = find_club("FC Le Mans B"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "FC Lorient") == 0) { cm3_clubs* ret = find_club("FC Lorient B"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "FC Metz") == 0) { cm3_clubs* ret = find_club("FC Metz B"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "FC Nantes") == 0) { cm3_clubs* ret = find_club("FC Nantes B"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "FC Sochaux-Montbéliard") == 0) { cm3_clubs* ret = find_club("FC Sochaux-Montbéliard B"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "LB Châteauroux") == 0) { cm3_clubs* ret = find_club("LB Châteauroux B"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Le Puy Foot 43 Auvergne") == 0) { cm3_clubs* ret = find_club("Le Puy Foot 43 Auvergne B"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Les Herbiers VF") == 0) { cm3_clubs* ret = find_club("Les Herbiers VF B"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "LOSC Lille") == 0) { cm3_clubs* ret = find_club("LOSC Lille B"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Lyon - La Duchère") == 0) { cm3_clubs* ret = find_club("Lyon - La Duchère B"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Marignane-Gignac-Côte-Bleue FC") == 0) { cm3_clubs* ret = find_club("Marignane-Gignac-Côte Bleue FC B"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Montpellier HSC") == 0) { cm3_clubs* ret = find_club("Montpellier HSC B"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "OGC Nice") == 0) { cm3_clubs* ret = find_club("OGC Nice B"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Olympique Marseille") == 0) { cm3_clubs* ret = find_club("Olympique de Marseille B"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Olympique Lyon") == 0) { cm3_clubs* ret = find_club("Olympique Lyon B"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Paris FC") == 0) { cm3_clubs* ret = find_club("Paris FC B"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Paris Saint-Germain") == 0) { cm3_clubs* ret = find_club("Paris Saint-Germain B"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Pau FC") == 0) { cm3_clubs* ret = find_club("Pau FC B"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Quevilly - Rouen Métropole") == 0) { cm3_clubs* ret = find_club("Quevilly - Rouen Métropole B"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "RC Strasbourg Alsace") == 0) { cm3_clubs* ret = find_club("Racing Strasbourg B"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "RC Lens") == 0) { cm3_clubs* ret = find_club("RC Lens B"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Rodez AF") == 0) { cm3_clubs* ret = find_club("Rodez Aveyron Football B"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "SC Bastia") == 0) { cm3_clubs* ret = find_club("SC Bastia B"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "SM Caen") == 0) { cm3_clubs* ret = find_club("SM Caen B"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Stade Brestois 29") == 0) { cm3_clubs* ret = find_club("Stade Brest 29 B"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Stade Briochin") == 0) { cm3_clubs* ret = find_club("Stade Briochin B"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Stade Lavallois") == 0) { cm3_clubs* ret = find_club("Stade Laval B"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Stade Reims") == 0) { cm3_clubs* ret = find_club("Stade Reims B"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Stade Rennais FC") == 0) { cm3_clubs* ret = find_club("Stade Rennais FC B"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "FC Toulouse") == 0) { cm3_clubs* ret = find_club("Toulouse FC B"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "US Avranches") == 0) { cm3_clubs* ret = find_club("US Avranches B"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "US Boulogne") == 0) { cm3_clubs* ret = find_club("US Boulogne II"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "US Orléans") == 0) { cm3_clubs* ret = find_club("US Orléans B"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Valenciennes FC") == 0) { cm3_clubs* ret = find_club("Valenciennes FC B"); if (ret) return (BYTE*)ret; }
+	}
 
 	// Reserve teams check
 	if (is_main_club) *is_main_club = 0;
@@ -1712,6 +1765,59 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 		if (_strcmpi(db_club_name, "FC Winterthur U21") == 0) { cm3_clubs* ret = find_club("FC Winterthur"); if (ret) return (BYTE*)ret; }
 		if (_strcmpi(db_club_name, "FC Zürich U21") == 0) { cm3_clubs* ret = find_club("FC Zürich"); if (ret) return (BYTE*)ret; }
 		if (_strcmpi(db_club_name, "Servette FC U21") == 0) { cm3_clubs* ret = find_club("Servette FC"); if (ret) return (BYTE*)ret; }
+	}
+	else if (to_check->ClubNation->NationID == NATION_FRANCE_9CF()) {
+		if (_strcmpi(db_club_name, "AC Ajaccio B") == 0) { cm3_clubs* ret = find_club("AC Ajaccio"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "AC Le Havre B") == 0) { cm3_clubs* ret = find_club("Le Havre AC"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "AJ Auxerre B") == 0) { cm3_clubs* ret = find_club("AJ Auxerre"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Amiens SC B") == 0) { cm3_clubs* ret = find_club("Amiens SC"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Angers SCO B") == 0) { cm3_clubs* ret = find_club("Angers SCO"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "AS Monaco B") == 0) { cm3_clubs* ret = find_club("AS Monaco"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "AS Nancy-Lorraine B") == 0) { cm3_clubs* ret = find_club("AS Nancy-Lorraine"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "AS Saint-Étienne B") == 0) { cm3_clubs* ret = find_club("AS Saint-Étienne"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Bourges Foot 18 B") == 0) { cm3_clubs* ret = find_club("Bourges Foot 18"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "C'Chartres Football B") == 0) { cm3_clubs* ret = find_club("C'Chartres Football"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Clermont Foot 63 B") == 0) { cm3_clubs* ret = find_club("Clermont Foot 63"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "CS Sedan-Ardennes B") == 0) { cm3_clubs* ret = find_club("CS Sedan-Ardennes"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Dijon FCO B") == 0) { cm3_clubs* ret = find_club("Dijon FCO"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "EA Guingamp B") == 0) { cm3_clubs* ret = find_club("EA Guingamp"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "ESTAC Troyes B") == 0) { cm3_clubs* ret = find_club("ESTAC Troyes"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "FC Chamois Niort B") == 0) { cm3_clubs* ret = find_club("Chamois Niortais FC"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "FC Girondins Bordeaux B") == 0) { cm3_clubs* ret = find_club("FC Girondins Bordeaux"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "FC Le Mans B") == 0) { cm3_clubs* ret = find_club("Le Mans FC"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "FC Lorient B") == 0) { cm3_clubs* ret = find_club("FC Lorient"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "FC Metz B") == 0) { cm3_clubs* ret = find_club("FC Metz"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "FC Nantes B") == 0) { cm3_clubs* ret = find_club("FC Nantes"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "FC Sochaux-Montbéliard B") == 0) { cm3_clubs* ret = find_club("FC Sochaux-Montbéliard"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "LB Châteauroux B") == 0) { cm3_clubs* ret = find_club("LB Châteauroux"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Le Puy Foot 43 Auvergne B") == 0) { cm3_clubs* ret = find_club("Le Puy Foot 43 Auvergne"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Les Herbiers VF B") == 0) { cm3_clubs* ret = find_club("Les Herbiers VF"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "LOSC Lille B") == 0) { cm3_clubs* ret = find_club("LOSC Lille"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Lyon - La Duchère B") == 0) { cm3_clubs* ret = find_club("Lyon - La Duchère"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Marignane-Gignac-Côte Bleue FC B") == 0) { cm3_clubs* ret = find_club("Marignane-Gignac-Côte-Bleue FC"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Montpellier HSC B") == 0) { cm3_clubs* ret = find_club("Montpellier HSC"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "OGC Nice B") == 0) { cm3_clubs* ret = find_club("OGC Nice"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Olympique de Marseille B") == 0) { cm3_clubs* ret = find_club("Olympique Marseille"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Olympique Lyon B") == 0) { cm3_clubs* ret = find_club("Olympique Lyon"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Paris FC B") == 0) { cm3_clubs* ret = find_club("Paris FC"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Paris Saint-Germain B") == 0) { cm3_clubs* ret = find_club("Paris Saint-Germain"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Pau FC B") == 0) { cm3_clubs* ret = find_club("Pau FC"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Quevilly - Rouen Métropole B") == 0) { cm3_clubs* ret = find_club("Quevilly - Rouen Métropole"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Racing Strasbourg B") == 0) { cm3_clubs* ret = find_club("RC Strasbourg Alsace"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "RC Lens B") == 0) { cm3_clubs* ret = find_club("RC Lens"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Rodez Aveyron Football B") == 0) { cm3_clubs* ret = find_club("Rodez AF"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "SC Bastia B") == 0) { cm3_clubs* ret = find_club("SC Bastia"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "SM Caen B") == 0) { cm3_clubs* ret = find_club("SM Caen"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Stade Brest 29 B") == 0) { cm3_clubs* ret = find_club("Stade Brestois 29"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Stade Briochin B") == 0) { cm3_clubs* ret = find_club("Stade Briochin"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Stade Laval B") == 0) { cm3_clubs* ret = find_club("Stade Lavallois"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Stade Reims B") == 0) { cm3_clubs* ret = find_club("Stade Reims"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Stade Rennais FC B") == 0) { cm3_clubs* ret = find_club("Stade Rennais FC"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Toulouse FC B") == 0) { cm3_clubs* ret = find_club("FC Toulouse"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "US Avranches B") == 0) { cm3_clubs* ret = find_club("US Avranches"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "US Boulogne II") == 0) { cm3_clubs* ret = find_club("US Boulogne"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "US Orléans B") == 0) { cm3_clubs* ret = find_club("US Orléans"); if (ret) return (BYTE*)ret; }
+		if (_strcmpi(db_club_name, "Valenciennes FC B") == 0) { cm3_clubs* ret = find_club("Valenciennes FC"); if (ret) return (BYTE*)ret; }
 	}
 
 	// default case if none found

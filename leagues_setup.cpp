@@ -678,5 +678,5 @@ void setup_leagues_setup() {
 		WriteDWORD(d, pnd_count_calc - 2);
 	}
 
-	dprintf("Added %d playable nations/continents!\n", pnd_count_calc);
+	dprintf("Added %d playable nations!\n", pnd_count_calc - 9);
 }
