@@ -22,6 +22,8 @@ int GetKey();
 
 DWORD Get9CF(DWORD id);
 cm3_clubs* get_club(DWORD clubID);
+cm3_clubs* get_national_team(DWORD nationID);
+vector<cm3_clubs*>  get_all_national_teams();
 BYTE* get_loaded_league(DWORD compID);
 cm3_nations* find_country(const char* szCountry);
 cm3_nations* get_country(DWORD countryID);

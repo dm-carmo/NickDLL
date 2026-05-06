@@ -128,8 +128,8 @@ DWORD ita_ser_b_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 14), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 21), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 28), year, Saturday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 3), year, Tuesday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 7), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 10), year, Tuesday, Evening); // delayed from March 3 due to cup clash
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 14), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 17), year, Tuesday, Evening);
 

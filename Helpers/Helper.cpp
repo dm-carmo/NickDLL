@@ -106,6 +106,22 @@ cm3_clubs* get_club(DWORD clubID)
 	return (clubID != -1L) ? &(*clubs)[clubID] : NULL;
 }
 
+cm3_clubs* get_national_team(DWORD nationID)
+{
+	return (nationID != -1L) ? &(*clubs)[*clubs_count + (nationID - 2 * *nations_count)] : NULL;
+}
+
+vector<cm3_clubs*>  get_all_national_teams() {
+	vector<cm3_clubs*> ret;
+	for (DWORD i = 0; i < *nations_count; i++)
+	{
+		cm3_clubs* c = &(*clubs)[*clubs_count + (i - 2 * *nations_count)];
+		if (c->ClubNation && c->ClubNation->NationContinent)
+			ret.push_back(c);
+	}
+	return ret;
+}
+
 BYTE* get_loaded_league(DWORD compID)
 {
 	return (BYTE*)*&(*comp_stats_list)[compID];

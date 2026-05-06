@@ -409,8 +409,6 @@ void __declspec(naked) fifa_club_world_cup_reputation_calc_c()
 	}
 }
 
-static char(__thiscall* get_host_ids_5FA730)(BYTE* _this, long comp_id, WORD year, DWORD* host1_ptr, DWORD* host2_ptr, int a6) =
-(char(__thiscall*)(BYTE * _this, long comp_id, WORD year, DWORD * host1_ptr, DWORD * host2_ptr, int a6))(0x5FA730);
 void fifa_club_world_cup_all_teams(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	WORD year = data->year;
