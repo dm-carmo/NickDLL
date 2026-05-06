@@ -157,6 +157,8 @@ void Setup()
 	setup_sui_nation();
 	dprintf("------------------------------\n");
 
+	dprintf("Applying FIFA changes (World Cup)\n");
+	setup_world_cup_comps();
 	dprintf("Applying FIFA changes (club comps)\n");
 	setup_fifa_club_comps();
 	dprintf("Applying AFC changes\n");

@@ -31,6 +31,8 @@
 #include "USA\usa_setup.h"
 #include "Wales\wal_setup.h"
 
+#include "FIFA\world_cup_setup.h"
+
 #include "FIFA\fifa_club_setup.h"
 #include "AFC\afc_setup.h"
 #include "CAF\caf_setup.h"

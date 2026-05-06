@@ -8,7 +8,7 @@ int replacement_667150() {
 	int idx = 0;
 	pnd_list[idx].nation = 0;
 	pnd_list[idx].continent = 0;
-	pnd_list[idx].setup_function_addr = 0x830620;
+	pnd_list[idx].setup_function_addr = (DWORD)&world_cup_setup_c;
 	convert_to_cm_date(pnd_list[idx].start_date, 1, July, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 1, July, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
