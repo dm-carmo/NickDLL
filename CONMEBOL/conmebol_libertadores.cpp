@@ -900,8 +900,6 @@ void conmebol_libertadores_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	*((BYTE*)(_this + 0xB1)) = 0;
 	int loaded = sub_51FC00(_this, 1);
 	if (loaded) return;
-	comp->ClubCompBackgroundColour = get_colour(COLOUR_BLACK_9CF());
-	comp->ClubCompForegroundColour = get_colour(COLOUR_ORANGE_2_9CF());
 	data->f171 = 0;
 	data->f68 = -1;
 	data->current_stage = -1;

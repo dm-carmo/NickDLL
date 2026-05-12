@@ -221,8 +221,6 @@ void eng_fa_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	*((BYTE*)(_this + 0xB1)) = 0;
 	int loaded = sub_51FC00(_this, 1);
 	if (loaded) return;
-	comp->ClubCompBackgroundColour = get_colour(COLOUR_RED_2_9CF());
-	comp->ClubCompForegroundColour = get_colour(COLOUR_WHITE_9CF());
 	eng_fa_cup_teams(_this);
 	DWORD v1 = *(DWORD*)_this;
 	*((DWORD*)(_this + 0xA3)) = (DWORD)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0x3c, _this + 0x3a, 0);

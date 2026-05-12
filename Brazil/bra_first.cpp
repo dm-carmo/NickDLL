@@ -27,7 +27,7 @@ void bra_first_prom_rel_update(BYTE* _this, int a2) {
 	comp_stats* bra_fourth_data = (comp_stats*)bra_fourth;
 	v1 = *(DWORD*)bra_fourth;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(bra_fourth);
-	for (int i = 0; i < 7; i++)
+	for (int i = 0; i < 15; i++)
 	{
 		BYTE* bra_fourth_grp = (BYTE*)bra_fourth_data->stages[i];
 		v1 = *(DWORD*)bra_fourth_grp;
@@ -35,7 +35,7 @@ void bra_first_prom_rel_update(BYTE* _this, int a2) {
 	}
 
 	process_promotion_relegation_689C80(_this, bra_third, bra_fourth, 1, a2, -1, -1);
-	for (int i = 0; i < 7; i++)
+	for (int i = 0; i < 15; i++)
 	{
 		BYTE* bra_fourth_grp = (BYTE*)bra_fourth_data->stages[i];
 		process_promotion_relegation_689C80(_this, bra_third, bra_fourth_grp, 1, a2, -1, -1);
@@ -297,8 +297,6 @@ void bra_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->rules = RulesBrazilNational;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
-	comp->ClubCompBackgroundColour = get_colour(COLOUR_BROWN_2_9CF());
-	comp->ClubCompForegroundColour = get_colour(COLOUR_BLUE_1_9CF());
 	data->min_stadium_capacity = 12000;
 	data->f68 = -1;
 	data->current_stage = -1;
@@ -322,24 +320,34 @@ void bra_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 void __fastcall bra_promotion_to_fourth(BYTE* _this) {
 	cm3_club_comps* bra_fourth = get_comp(BRA_FOURTH_9CF());
 	vector<cm3_clubs*> d_clubs = find_clubs_of_comp(BRA_FOURTH_9CF());
-	for (cm3_clubs* c : d_clubs) {
-		if (!c->ClubLastDivision || c->ClubLastDivision->ClubCompID != BRA_THIRD_9CF()) {
-			c->ClubDivision = get_comp(A_LOWER_9CF());
+	comp_stats* comp_data = (comp_stats*)get_loaded_league(BRA_FOURTH_9CF());
+	comp_stats* curr_stage = comp_data;
+	for (char al = -1; al < 15; al++) {
+		if (al >= 0) {
+			curr_stage = (comp_stats*)(comp_data->stages[al]);
 		}
-		//else dprintf("Club %s was relegated from Série C, they will play in Série D next season!\n", c->ClubNameShort);
+		team_league_stats* table = (team_league_stats*)(curr_stage->team_league_table);
+		for (int i = 0; i < comp_data->n_teams; i++) {
+			if (table[i].club->ClubDivision == bra_fourth && (table[i].league_fate == Eliminated || table[i].league_fate == NoFate))
+			{
+				dprintf("Club %s will not play in Série D next season!\n", table[i].club->ClubNameShort);
+				table[i].club->ClubDivision = get_comp(A_LOWER_9CF());
+			}
+			else if (table[i].league_fate == TopPlayoff) dprintf("Club %s will play in Série D next season!\n", table[i].club->ClubNameShort);
+		}
 	}
-	BYTE state_counts[12] = { 4,4,4,9,4,4,4,9,6,4,4,4 };
+	BYTE state_counts[12] = { 4,5,4,9,5,4,5,9,6,4,5,4 };
 	for (size_t i = 0; i < state_leagues.size(); i++) {
 		comp_stats* league = (comp_stats*)get_loaded_league(state_leagues[i]);
 		cm3_club_comps* lower = get_comp(state_lower[i]);
 		BYTE count = state_counts[i];
 		if (league && lower) {
-			//dprintf("Getting %d teams from league: %s\n", count, league->competition_db->ClubCompNameShort);
+			dprintf("Getting %d teams from league: %s\n", count, league->competition_db->ClubCompNameShort);
 			team_league_stats* table = (team_league_stats*)league->team_league_table;
 			for (WORD j = 0; j < league->n_teams && count > 0; j++) {
 				cm3_clubs* club = table[j].club;
 				if (!club->ClubDivision || club->ClubDivision->ClubCompID == A_LOWER_9CF()) {
-					//dprintf("- Club %s has qualified to Série D! (finished %d)\n", club->ClubNameShort, j + 1);
+					dprintf("- Club %s has qualified to Série D! (finished %d)\n", club->ClubNameShort, j + 1);
 					club->ClubDivision = bra_fourth;
 					count--;
 				}
@@ -350,22 +358,22 @@ void __fastcall bra_promotion_to_fourth(BYTE* _this) {
 				for (WORD j = 0; j < lower_teams.size() && count > 0; j++) {
 					cm3_clubs* club = lower_teams[j];
 					if (!club->ClubDivision || club->ClubDivision->ClubCompID == A_LOWER_9CF()) {
-						//dprintf("- Club %s has qualified to Série D! (from lower leagues)\n", club->ClubNameShort);
+						dprintf("- Club %s has qualified to Série D! (from lower leagues)\n", club->ClubNameShort);
 						club->ClubDivision = bra_fourth;
 						count--;
 					}
 				}
 			}
 		}
-		//else dprintf("State league %d not found!\n", i);
+		else dprintf("State league %d not found!\n", i);
 	}
 	WORD current_team_count = CountNumberOfTeamsInComp(BRA_FOURTH_9CF());
 	sort(d_clubs.begin(), d_clubs.end(), compareClubRep);
 	int k = 0;
-	while (current_team_count < 64) {
+	while (current_team_count < 96) {
 		cm3_clubs* backup = d_clubs[k++];
 		if (!backup->ClubDivision || backup->ClubDivision->ClubCompID == A_LOWER_9CF()) {
-			//dprintf("Not enough teams from state leagues, club %s was selected to stay in Série D\n", backup->ClubNameShort);
+			dprintf("Not enough teams from state leagues, club %s was selected to stay in Série D\n", backup->ClubNameShort);
 			backup->ClubDivision = bra_fourth;
 			current_team_count++;
 		}
@@ -551,7 +559,7 @@ char bra_first_update(BYTE* _this) {
 	// All teams that were in D4 must be professional
 	update_club_pro_status_68A980(bra_fourth, Professional, Relegated, -3, 1);
 	update_club_pro_status_68A980(bra_fourth, Professional, -3, Relegated, 1);
-	for (int i = 0; i < 7; i++)
+	for (int i = 0; i < 15; i++)
 	{
 		BYTE* bra_fourth_grp = (BYTE*)bra_fourth_data->stages[i];
 		update_club_pro_status_68A980(bra_fourth_grp, Professional, Relegated, -3, 1);
@@ -559,7 +567,8 @@ char bra_first_update(BYTE* _this) {
 	}
 
 	DWORD v1 = *(DWORD*)_this;
-	(*(void(__thiscall**)(BYTE*, int))(v1 + 0xB0))(_this, 1);
+	bra_first_prom_rel_update(_this, 1);
+
 	bra_qualify_teams_for_cup(_this);
 	bra_promotion_to_fourth(_this);
 	bra_state_leagues_update(_this);

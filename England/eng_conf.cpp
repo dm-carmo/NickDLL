@@ -137,8 +137,6 @@ void eng_conf_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->rules = RulesEngland;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
-	comp->ClubCompBackgroundColour = get_colour(COLOUR_GREEN_1_9CF());
-	comp->ClubCompForegroundColour = get_colour(COLOUR_BLACK_9CF());
 	data->min_stadium_capacity = 4000;
 	data->min_stadium_seats = 500;
 	data->f68 = -1;

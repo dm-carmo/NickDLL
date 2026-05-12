@@ -89,7 +89,7 @@ int usa_cup_teams(BYTE* _this) {
 	// D3
 	vector<cm3_clubs*> division_clubs = find_clubs_of_comp(USA_THIRD_9CF());
 	sort(division_clubs.begin(), division_clubs.end(), compareClubRep);
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 9; i++)
 	{
 		int availableIdx = rand() % division_clubs.size();
 		cm3_clubs* lower_club = division_clubs[availableIdx];

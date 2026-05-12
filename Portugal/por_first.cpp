@@ -880,8 +880,6 @@ void por_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->rules = RulesPortugal;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
-	comp->ClubCompBackgroundColour = get_colour(COLOUR_WHITE_9CF());
-	comp->ClubCompForegroundColour = get_colour(COLOUR_BLUE_2_9CF());
 	data->min_stadium_capacity = 4000;
 	data->min_stadium_seats = 4000;
 	data->f68 = -1;

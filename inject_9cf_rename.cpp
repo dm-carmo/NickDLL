@@ -492,7 +492,7 @@ map<string, DWORD> league_dword_match = {
 	{"World Cup European Qualifying Section", 0x9CF780},
 	{"UEFA European Championship Qualifying", 0x9CF784},
 	{"Asian Cup Qualifying", 0x9CF788},
-	{"CONCACAF Gold Cup", 0x9CF78C},
+	{"Gold Cup", 0x9CF78C},
 	{"AFC Asian Cup", 0x9CF790},
 	{"\'B\' International", 0x9CF794},
 	{"Under 21 International", 0x9CF798},
@@ -537,7 +537,7 @@ map<string, DWORD> league_dword_match = {
 	{"Northern Irish Group D", 0x9CF838}, // remove
 	{"League of Ireland Cup", 0x9CF83C},
 	{"FAI Cup", 0x9CF840},
-	{"Korean All-Star Cup", 0x9CF844}, // remove (there are exe references, check)
+	{"African Cup Winners' Cup", 0x9CF844}, // remove (there are exe references, check)
 	{"Irish Connacht Senior League", 0x9CF848},
 	{"Irish Ulster Senior League", 0x9CF84C},
 	{"Irish Munster Senior League", 0x9CF850},

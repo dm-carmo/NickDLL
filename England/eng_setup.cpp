@@ -87,15 +87,11 @@ DWORD eng_setup_c(playable_nation_data* nation_data) {
 	// Charity Shield
 	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
 	eng_charity_setup(pMem, *current_year, get_comp(ENG_CHARITY_SHIELD_9CF()));
-	get_comp(ENG_CHARITY_SHIELD_9CF())->ClubCompForegroundColour = 0;
-	get_comp(ENG_CHARITY_SHIELD_9CF())->ClubCompBackgroundColour = 0;
 	nation_comps[i++] = (DWORD)pMem;
 	// FA Trophy
 	if ((selected & 4) != 0) {
 		pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
 		eng_fa_trophy_setup(pMem, *current_year, get_comp(ENG_FA_TROPHY_9CF()));
-		get_comp(ENG_FA_TROPHY_9CF())->ClubCompBackgroundColour = get_colour(COLOUR_RED_1_9CF());
-		get_comp(ENG_FA_TROPHY_9CF())->ClubCompForegroundColour = get_colour(COLOUR_GREEN_4_9CF());
 		nation_comps[i++] = (DWORD)pMem;
 	}
 	BYTE* cm_date = new BYTE[8];

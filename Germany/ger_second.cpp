@@ -336,8 +336,6 @@ void ger_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->rules = RulesGermanyLeague;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
-	comp->ClubCompBackgroundColour = get_colour(COLOUR_GREY_2_9CF());
-	comp->ClubCompForegroundColour = get_colour(COLOUR_WHITE_9CF());
 	data->min_stadium_capacity = 15000;
 	data->min_stadium_seats = 3000;
 	data->f68 = -1;

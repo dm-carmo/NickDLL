@@ -11,7 +11,7 @@ DWORD* bra_fourth_vtable = (DWORD*)0x967F00;
 
 int bra_fourth_set_champion(BYTE* _this) {
 	comp_stats* comp_data = (comp_stats*)_this;
-	BYTE* stage_data_for_history = (BYTE*)comp_data->stages[7];
+	BYTE* stage_data_for_history = (BYTE*)comp_data->stages[15];
 	DWORD v1 = *(DWORD*)stage_data_for_history;
 	return (*(int(__thiscall**)(BYTE*))(v1 + 0x30))(stage_data_for_history);
 }
@@ -79,7 +79,6 @@ int bra_fourth_add_teams(BYTE* _this)
 	DWORD* all_teams = comp_data->teams2;
 	if (all_teams) sub_9452CA_free(all_teams);
 
-	// Count the number of teams first, as the code really expects us to know up front
 	WORD numberOfLeagueTeams = CountNumberOfTeamsInComp(CompID);
 	comp_data->teams2 = (DWORD*)sub_944E46_malloc(numberOfLeagueTeams * 4);
 	vector<cm3_clubs*> d4_clubs;
@@ -94,9 +93,8 @@ int bra_fourth_add_teams(BYTE* _this)
 		*((DWORD*)(&comp_data->teams2[i])) = (DWORD)d4_clubs[i];
 	}
 
-	// Now let's add the teams
-	comp_data->n_teams = 8; // number of teams per group in this case
-	comp_data->team_league_table = (DWORD*)sub_944E46_malloc(8 * league_team_list_sz); // number of teams * 59 (0x3B) - was 0x2FF
+	comp_data->n_teams = 6; // number of teams per group in this case
+	comp_data->team_league_table = (DWORD*)sub_944E46_malloc(8 * league_team_list_sz);
 	BYTE teamsAdded = 0;
 	for (DWORD i = 0; i < comp_data->n_teams; i++)
 	{
@@ -139,15 +137,15 @@ void bra_fourth_reputation_calc(BYTE* _this, BYTE* club, char stage, char curren
 	char ret_current = current;
 	char ret_min = min;
 	char ret_max = max;
-	if (stage < 7) {
-		ret_current = 1 + 8 * (current - 1);
+	if (stage < 15) {
+		ret_current = 1 + 16 * (current - 1);
 		if (min < 5) ret_min = 1;
-		else ret_min = 1 + 8 * (min - 1);
+		else ret_min = 1 + 16 * (min - 1);
 		if (max < 5) ret_max = 17;
-		else ret_max = 1 + 8 * (max - 1);
+		else ret_max = 1 + 16 * (max - 1);
 		if (ret_current > ret_max) ret_current = ret_max;
 	}
-	else if (stage == 7) {
+	else if (stage == 15) {
 		// do nothing
 	}
 	ret[0x73] = ret_current;
@@ -174,15 +172,15 @@ void __declspec(naked) bra_fourth_reputation_calc_c()
 
 DWORD bra_fourth_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
 {
-	if (stage_idx < 7) {
+	if (stage_idx < 15) {
 		if (a5)
 			*a5 = 1;
 		BYTE* pMem = NULL;
 		comp_stats* data = (comp_stats*)_this;
 		WORD year = data->year;
-		BYTE numberOfLeagueTeams = 8;
+		BYTE numberOfLeagueTeams = 6;
 		*num_rounds = (numberOfLeagueTeams - 1) * data->n_rounds;
-		*stage_name_id = FirstRoundNumericGroup + (stage_idx + 1);
+		*stage_name_id = NumericGroupStage + stage_idx;
 
 		pMem = (BYTE*)sub_944E46_malloc(fixture_dates_sz * (*num_rounds));
 
@@ -197,33 +195,33 @@ DWORD bra_fourth_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 6, 8), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 6, 15), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 6, 29), year, Sunday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 7, 6), year, Sunday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 7, 13), year, Sunday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 7, 20), year, Sunday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 7, 27), year, Sunday);
 
 		check_number_of_fixtures(_this, fixture_id, *num_rounds);
 
 		return (DWORD)pMem;
 	}
-	else if (stage_idx == 7) {
+	else if (stage_idx == 15) {
 		if (a5)
 			*a5 = 0;
 		BYTE* pMem = NULL;
 		WORD year = ((comp_stats*)_this)->year;
-		*num_rounds = 5;
+		*num_rounds = 6;
 		*stage_name_id = None;
 
 		pMem = (BYTE*)sub_944E46_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 28), year, Monday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 6, 30), year, Monday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 13), year, Sunday);
+		FillFixtureDetails(pMem, fixture_id++, SecondRound, 0, FixedTeamOrderInCup + Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 5, 64, 32, 64, 0, 0, 2, 7);
+
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 21), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 3), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, SecondRound, 0, FixedTeamOrderInCup + Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 5, 32, 16, 32, 0, 0, 2, 7);
+		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 0, FixedTeamOrderInCup + Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 5, 32, 16, 0, 0, 0, 2, 7);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 11), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 17), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 0, FixedTeamOrderInCup + Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 5, 16, 8, 0, 0, 0, 2, 7);
+		FillFixtureDetails(pMem, fixture_id++, FourthRound, 0, FixedTeamOrderInCup + Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 5, 16, 8, 0, 0, 0, 2, 7);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 25), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 31), year, Sunday);
@@ -266,7 +264,7 @@ void bra_fourth_reputation_setup(BYTE* _this) {
 		comp_stats* curr_stage = comp_data;
 		DWORD* all_teams = comp_data->teams2;
 		vector<cm3_clubs*> clubs;
-		for (int i = 0; i < 64; i++) clubs.push_back((cm3_clubs*)all_teams[i]);
+		for (int i = 0; i < 96; i++) clubs.push_back((cm3_clubs*)all_teams[i]);
 		sort(clubs.begin(), clubs.end(), compareClubRep);
 
 		sub_4A2540((BYTE*)comp_data->f8, clubs[0], 1);
@@ -283,17 +281,14 @@ void bra_fourth_reputation_setup(BYTE* _this) {
 		for (int i = 16; i < 32; i++) {
 			sub_4A2540((BYTE*)comp_data->f8, clubs[i], 17);
 		}
-		for (int i = 32; i < 40; i++) {
+		for (int i = 32; i < 64; i++) {
 			sub_4A2540((BYTE*)comp_data->f8, clubs[i], 33);
 		}
-		for (int i = 40; i < 48; i++) {
-			sub_4A2540((BYTE*)comp_data->f8, clubs[i], 41);
+		for (int i = 64; i < 80; i++) {
+			sub_4A2540((BYTE*)comp_data->f8, clubs[i], 65);
 		}
-		for (int i = 48; i < 56; i++) {
-			sub_4A2540((BYTE*)comp_data->f8, clubs[i], 49);
-		}
-		for (int i = 56; i < 64; i++) {
-			sub_4A2540((BYTE*)comp_data->f8, clubs[i], 57);
+		for (int i = 80; i < 96; i++) {
+			sub_4A2540((BYTE*)comp_data->f8, clubs[i], 81);
 		}
 	}
 }
@@ -320,11 +315,9 @@ void bra_fourth_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->rules = RulesBrazilNational;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
-	comp->ClubCompBackgroundColour = get_colour(COLOUR_YELLOW_1_9CF());
-	comp->ClubCompForegroundColour = get_colour(COLOUR_GREEN_5_9CF());
 	data->f68 = -1;
 	data->current_stage = -1;
-	data->num_stages = 8;
+	data->num_stages = 16;
 	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
 	for (int i = 0; i < data->num_stages; i++) data->stages[i] = 0;
 	bra_fourth_subs(_this);
@@ -337,7 +330,7 @@ void bra_fourth_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	sub_49EE70(pMem2, _this);
 	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
-	for (BYTE i = 0; i < 7; i++) {
+	for (BYTE i = 0; i < 15; i++) {
 		bra_fourth_setup_groups(_this, i);
 	}
 	bra_fourth_reputation_setup(_this);
@@ -371,7 +364,7 @@ char bra_fourth_update(BYTE* _this) {
 	BYTE* edx = 0;
 	sub_6827D0(_this, edx);
 	sub_6835C0(_this);
-	for (BYTE i = 0; i < 7; i++) {
+	for (BYTE i = 0; i < 15; i++) {
 		bra_fourth_setup_groups(_this, i);
 	}
 	DWORD v1 = *(DWORD*)_this;
@@ -394,7 +387,7 @@ void __declspec(naked) bra_fourth_update_c()
 int bra_fourth_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
-	if (stage < 7) {
+	if (stage < 15) {
 		switch (fate) {
 		case Champions:
 			staff_history_champion_868C50(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));
@@ -414,7 +407,7 @@ int bra_fourth_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BY
 			return 0;
 		}
 	}
-	else if (stage == 7) {
+	else if (stage == 15) {
 		WORD num_teams = comp_data->n_teams;
 		if (num_teams <= 0) return 0;
 		BYTE* rounds = ((comp_stats*)(comp_data->stages[stage]))->rounds_list;
@@ -422,7 +415,7 @@ int bra_fourth_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BY
 		team_league_stats* table = (team_league_stats*)(comp_data->team_league_table);
 
 		comp_stats* curr_stage = comp_data;
-		for (char al = -1; al < 7; al++) {
+		for (char al = -1; al < 15; al++) {
 			if (al >= 0) {
 				curr_stage = (comp_stats*)(comp_data->stages[al]);
 			}
@@ -438,7 +431,10 @@ int bra_fourth_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BY
 				case Promoted:
 					staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
 						*(WORD*)(rounds + playoff_dates_sz * (current_round + 1) + 7), 0xF);
-					if (current_round == 2) {
+					if (current_round == 0) {
+						staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, None, 0x1E);
+					}
+					else if (current_round == 3) {
 						staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), 0x64);
 						table[i].league_fate = Promoted;
 					}
@@ -450,6 +446,9 @@ int bra_fourth_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BY
 				default:
 					staff_history_knocked_out_86C000(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
 						*(WORD*)(rounds + playoff_dates_sz * current_round + 7), 0xF);
+					if (current_round == 0) {
+						table[i].league_fate = Eliminated;
+					}
 					//table[i].league_fate = Eliminated;
 					return 0;
 				}
@@ -478,14 +477,14 @@ void __declspec(naked) bra_fourth_set_table_fate()
 }
 
 void bra_fourth_playoff_under(BYTE* _this) {
-	char stage_num = 7;
+	char stage_num = 15;
 	comp_stats* comp_data = (comp_stats*)_this;
-	BYTE playoff_teams = 32;
+	BYTE playoff_teams = 64;
 	DWORD* pTeams = (DWORD*)sub_944E46_malloc(playoff_teams * 4);
 
 	vector<cm3_clubs*> clubs;
 	comp_stats* curr_stage = comp_data;
-	for (char al = -1; al < 7; al++) {
+	for (char al = -1; al < 15; al++) {
 		if (al >= 0) {
 			curr_stage = (comp_stats*)(comp_data->stages[al]);
 		}
@@ -547,6 +546,53 @@ void bra_fourth_playoff_under(BYTE* _this) {
 
 	*((DWORD*)(&pTeams[team_idx++])) = (DWORD)clubs[28];
 	*((DWORD*)(&pTeams[team_idx++])) = (DWORD)clubs[27];
+	*((DWORD*)(&pTeams[team_idx++])) = (DWORD)clubs[32];
+	*((DWORD*)(&pTeams[team_idx++])) = (DWORD)clubs[39];
+
+	*((DWORD*)(&pTeams[team_idx++])) = (DWORD)clubs[45];
+	*((DWORD*)(&pTeams[team_idx++])) = (DWORD)clubs[42];
+
+	*((DWORD*)(&pTeams[team_idx++])) = (DWORD)clubs[37];
+	*((DWORD*)(&pTeams[team_idx++])) = (DWORD)clubs[34];
+
+	*((DWORD*)(&pTeams[team_idx++])) = (DWORD)clubs[33];
+	*((DWORD*)(&pTeams[team_idx++])) = (DWORD)clubs[38];
+
+	*((DWORD*)(&pTeams[team_idx++])) = (DWORD)clubs[44];
+	*((DWORD*)(&pTeams[team_idx++])) = (DWORD)clubs[43];
+
+	*((DWORD*)(&pTeams[team_idx++])) = (DWORD)clubs[40];
+	*((DWORD*)(&pTeams[team_idx++])) = (DWORD)clubs[47];
+
+	*((DWORD*)(&pTeams[team_idx++])) = (DWORD)clubs[36];
+	*((DWORD*)(&pTeams[team_idx++])) = (DWORD)clubs[35];
+
+	*((DWORD*)(&pTeams[team_idx++])) = (DWORD)clubs[41];
+	*((DWORD*)(&pTeams[team_idx++])) = (DWORD)clubs[46];
+
+	*((DWORD*)(&pTeams[team_idx++])) = (DWORD)clubs[48];
+	*((DWORD*)(&pTeams[team_idx++])) = (DWORD)clubs[55];
+
+	*((DWORD*)(&pTeams[team_idx++])) = (DWORD)clubs[61];
+	*((DWORD*)(&pTeams[team_idx++])) = (DWORD)clubs[58];
+
+	*((DWORD*)(&pTeams[team_idx++])) = (DWORD)clubs[53];
+	*((DWORD*)(&pTeams[team_idx++])) = (DWORD)clubs[50];
+
+	*((DWORD*)(&pTeams[team_idx++])) = (DWORD)clubs[56];
+	*((DWORD*)(&pTeams[team_idx++])) = (DWORD)clubs[63];
+
+	*((DWORD*)(&pTeams[team_idx++])) = (DWORD)clubs[52];
+	*((DWORD*)(&pTeams[team_idx++])) = (DWORD)clubs[51];
+
+	*((DWORD*)(&pTeams[team_idx++])) = (DWORD)clubs[57];
+	*((DWORD*)(&pTeams[team_idx++])) = (DWORD)clubs[62];
+
+	*((DWORD*)(&pTeams[team_idx++])) = (DWORD)clubs[49];
+	*((DWORD*)(&pTeams[team_idx++])) = (DWORD)clubs[54];
+
+	*((DWORD*)(&pTeams[team_idx++])) = (DWORD)clubs[60];
+	*((DWORD*)(&pTeams[team_idx++])) = (DWORD)clubs[59];
 
 	WORD num_rounds = 0;
 	WORD stage_name_id = 0;
@@ -567,7 +613,7 @@ void bra_fourth_playoffs_c(BYTE* _this) {
 	if (current < max - 1) {
 		current++;
 		comp_data->current_stage = current;
-		if (current == 7) {
+		if (current == 15) {
 			bra_fourth_playoff_under(_this);
 		}
 	}
