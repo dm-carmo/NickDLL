@@ -149,10 +149,12 @@ void Setup()
 	setup_wal_nation();
 
 	dprintf("------------------------------\n");
-	dprintf("New nation: Czech Republic\n");
-	setup_cze_nation();
 	dprintf("New nation: Austria\n");
 	setup_aut_nation();
+	dprintf("New nation: Czech Republic\n");
+	setup_cze_nation();
+	dprintf("New nation: Saudi Arabia\n");
+	setup_ksa_nation();
 	dprintf("New nation: Switzerland\n");
 	setup_sui_nation();
 	dprintf("------------------------------\n");

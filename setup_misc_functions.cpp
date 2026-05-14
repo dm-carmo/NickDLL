@@ -99,58 +99,6 @@ int show_extra_leagues_in_start(BYTE* nation, DWORD dest_ptr, int a3) {
 		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
 		return 1;
 	}
-	/* Unused for now :)
-	if (cm3_nation->NationID == NATION_AUSTRALIA_9CF()) {
-		league_str = "National Premier Leagues";
-		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
-		return 1;
-	}
-	if (cm3_nation->NationID == NATION_CROATIA_9CF()) {
-		league_str = "3. NL";
-		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
-		return 1;
-	}
-	if (cm3_nation->NationID == NATION_DENMARK_9CF()) {
-		league_str = "Danmarksserien";
-		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
-		return 1;
-	}
-	if (cm3_nation->NationID == NATION_FRANCE_9CF()) {
-		league_str = "National 2";
-		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
-		return 1;
-	}
-	if (cm3_nation->NationID == NATION_GREECE_9CF()) {
-		league_str = "Gamma Ethniki";
-		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
-		return 1;
-	}
-	if (cm3_nation->NationID == NATION_HOLLAND_9CF()) {
-		league_str = "Tweede Divisie";
-		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
-		return 1;
-	}
-	if (cm3_nation->NationID == NATION_ITALY_9CF()) {
-		league_str = "Serie D";
-		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
-		return 1;
-	}
-	if (cm3_nation->NationID == NATION_POLAND_9CF()) {
-		league_str = "III liga";
-		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
-		return 1;
-	}
-	if (cm3_nation->NationID == NATION_RUSSIA_9CF()) {
-		league_str = "Second League";
-		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
-		return 1;
-	}
-	if (cm3_nation->NationID == NATION_SOUTH_KOREA_9CF()) {
-		league_str = "K3 League";
-		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
-		return 1;
-	}
-	*/
 	return 0;
 }
 

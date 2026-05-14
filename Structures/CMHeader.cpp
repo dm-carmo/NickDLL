@@ -43,7 +43,7 @@ DWORD* staff_history = (DWORD*)0xDD7F00;
 DWORD* dd6ec8 = (DWORD*)0xDD6EC8;
 
 //const DWORD pnd_count = 36;
-const DWORD pnd_count = 39;
+const DWORD pnd_count = 40;
 playable_nation_data* pnd_list = new playable_nation_data[pnd_count]; //0xB63D60
 playable_nation_data** pnd_list_default = (playable_nation_data**)0xB63D60;
 BYTE* pnd_order = new BYTE[pnd_count];
