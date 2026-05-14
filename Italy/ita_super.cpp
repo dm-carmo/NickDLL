@@ -71,7 +71,11 @@ int ita_super_teams(BYTE* _this) {
 	cm3_clubs* runner_up = get_last_comp_runner_up(ita_cup);
 	if (runner_up) vec.push_back(runner_up);
 
-	for (cm3_clubs* c : ser_a_clubs) {
+	if (comp_data->year == 2025) {
+		vec.push_back(find_club("SSC Napoli"));
+		vec.push_back(find_club("Internazionale"));
+	}
+	else for (cm3_clubs* c : ser_a_clubs) {
 		if (!vector_contains_club(vec, c)) vec.push_back(c);
 		if (vec.size() >= 4) break;
 	}

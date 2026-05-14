@@ -89,17 +89,20 @@ int pol_cup_teams(BYTE* _this) {
 	sort(vec_uefa.begin(), vec_uefa.end(), compareClubLastDivPosInv);
 
 	// Lower
-	division_clubs = find_clubs_of_comp(POL_LOWER_9CF());
-	sort(division_clubs.begin(), division_clubs.end(), compareClubRepInv);
-	for (unsigned int i = 0; i < 16; i++)
-	{
-		int availableIdx = rand() % division_clubs.size();
-		cm3_clubs* lower_club = division_clubs[availableIdx];
-		if (!vector_contains_club(vec_uefa, lower_club)) vec.push_back(lower_club);
-
-		division_clubs.erase(division_clubs.begin() + availableIdx);
+	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(POL_LOWER_9CF());
+	for (size_t i = 0; i < lower_clubs.size(); i++) {
+		cm3_clubs* c = lower_clubs[i];
+		if (vector_contains_club(vec_uefa, c))
+		{
+			lower_clubs.erase(lower_clubs.begin() + i);
+			i--;
+		}
 	}
-
+	division_clubs = get_random_weighted_clubs(lower_clubs, 16, true);
+	for (cm3_clubs* club : division_clubs)
+	{
+		vec.push_back(club);
+	}
 	// II Liga
 	division_clubs = find_clubs_of_comp(POL_THIRD_9CF());
 	sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPosInv);

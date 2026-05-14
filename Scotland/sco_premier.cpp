@@ -407,6 +407,29 @@ void sort_high_low_clubs() {
 	}
 }
 
+void __fastcall sco_extra_non_playable_swaps(BYTE* _this)
+{
+	vector<cm3_clubs*> high_clubs = find_clubs_of_comp(SCO_HIGHLAND_9CF());
+	vector<cm3_clubs*> low_clubs = find_clubs_of_comp(SCO_LOWLAND_9CF());
+	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_SCOTLAND_9CF());
+
+	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(lower_clubs, 2, true);
+	vector<cm3_clubs*> relegated_clubs = get_random_weighted_clubs(high_clubs, 1, false);
+	vector<cm3_clubs*> relegated_clubs2 = get_random_weighted_clubs(low_clubs, 1, false);
+	move(relegated_clubs2.begin(), relegated_clubs2.end(), back_inserter(relegated_clubs));
+
+	for (unsigned int j = 0; j < 2; j++) {
+		cm3_clubs* clubToRelegate = relegated_clubs[j];
+		cm3_clubs* clubToPromote = promoted_clubs[j];
+		//dprintf("Swapping Teams: %s (%s) %d <-> %s (%s) %d\n", clubToRelegate->ClubName, clubToRelegate->ClubDivision->ClubCompName, clubToRelegate->ClubReputation, clubToPromote->ClubName, clubToPromote->ClubDivision->ClubCompName, clubToPromote->ClubReputation);
+
+		cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
+		cm3_club_comps* bottomDivision = clubToPromote->ClubDivision;
+		relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
+		promote_club_6830B0((BYTE*)clubToPromote, (DWORD)topDivision, 1);
+	}
+}
+
 char sco_premier_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
@@ -441,7 +464,10 @@ char sco_premier_update(BYTE* _this) {
 	DWORD v1 = *(DWORD*)_this;
 	sco_premier_prom_rel_update(_this, 1);
 	if (sco_highland && sco_lowland) {
-		sco_non_league_promotion(_this);
+		generic_prom_rel(NATION_SCOTLAND_9CF(), A_LOWER_9CF(), SCO_HIGHLAND_9CF(), 1, SCO_LOWLAND_9CF());
+	}
+	else {
+		sco_extra_non_playable_swaps(_this);
 	}
 
 	sco_league_2_relegation();

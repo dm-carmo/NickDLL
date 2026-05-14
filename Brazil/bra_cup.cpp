@@ -15,7 +15,7 @@ DWORD bra_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 			*a5 = 0;
 		BYTE* pMem = NULL;
 		WORD year = ((comp_stats*)_this)->year;
-		*num_rounds = 7;
+		*num_rounds = 9;
 		*stage_name_id = None;
 
 		pMem = (BYTE*)sub_944E46_malloc(playoff_dates_sz * (*num_rounds));
@@ -23,31 +23,39 @@ DWORD bra_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 1, 5), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 2, 19), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 80, 40, 80, 0, 0, 1, 0, prizeMoneyFile.GetInt("bra_cup_r1_qualify"));
+		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 28, 14, 28, 0, 0, 1, 0, prizeMoneyFile.GetInt("bra_cup_r1_qualify"));
+
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 2, 20), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 2, 26), year, Wednesday, Evening);
+		FillFixtureDetails(pMem, fixture_id++, SecondRound, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 88, 44, 74, 28, 0, 1, 0, prizeMoneyFile.GetInt("bra_cup_r2_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 2, 27), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 3, 5), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SecondRound, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 40, 20, 0, 80, 0, 1, 0, prizeMoneyFile.GetInt("bra_cup_r2_qualify"));
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 3, 12), year, Wednesday, Evening);
+		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 48, 24, 4, 102, 0, 1, 0, prizeMoneyFile.GetInt("bra_cup_r3_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 3, 13), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 4, 30), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 4, Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 4, 32, 16, 12, 80, 0, 2, 21, prizeMoneyFile.GetInt("bra_cup_r3_qualify"));
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 3, 19), year, Wednesday, Evening);
+		FillFixtureDetails(pMem, fixture_id++, FourthRound, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 24, 12, 0, 0, 0, 1, 0, prizeMoneyFile.GetInt("bra_cup_r4_qualify"));
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 5, 22), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 30), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, FourthRound, 0, Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 4, 16, 8, 0, 0, 0, 2, 7, prizeMoneyFile.GetInt("bra_cup_r4_qualify"));
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 3, 20), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 4, 23), year, Wednesday, Evening);
+		FillFixtureDetails(pMem, fixture_id++, FifthRound, 4, Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 4, 32, 16, 20, 106, 0, 2, 21, prizeMoneyFile.GetInt("bra_cup_r5_qualify"));
+
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 5, 15), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 3), year, Sunday);
+		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 4, 16, 8, 0, 0, 0, 2, 3, prizeMoneyFile.GetInt("bra_cup_r6_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 7), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 27), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 4, 8, 4, 0, 0, 0, 2, 15, prizeMoneyFile.GetInt("bra_cup_qtr_qualify"));
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 4, 8, 4, 0, 0, 0, 2, 7, prizeMoneyFile.GetInt("bra_cup_qtr_qualify"));
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 12), year, Friday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 8), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 6, 4, 2, 0, 0, 0, 2, 21, prizeMoneyFile.GetInt("bra_cup_semi_qualify"));
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 4), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 2), year, Sunday);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 6, 4, 2, 0, 0, 0, 2, 7, prizeMoneyFile.GetInt("bra_cup_semi_qualify"));
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 30), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 3), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 6, 2, 1, 0, 0, 0, 2, 7, 0, prizeMoneyFile.GetInt("bra_cup_final_win"), prizeMoneyFile.GetInt("bra_cup_final_lose"));
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 10), year, Monday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 7), year, Sunday, Evening, Neutral50k_20);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("bra_cup_final_win"), prizeMoneyFile.GetInt("bra_cup_final_lose"));
 
 		return (DWORD)pMem;
 	}
@@ -73,7 +81,7 @@ void __declspec(naked) bra_cup_fixture_caller()
 int bra_cup_teams(BYTE* _this) {
 	vector<cm3_clubs*> vec;
 	comp_stats* comp_data = (comp_stats*)_this;
-	WORD total_teams = 92;
+	WORD total_teams = 126;
 	BYTE* pMem = (BYTE*)sub_944E46_malloc(6 * total_teams);
 
 	comp_data->n_teams = total_teams;
@@ -95,90 +103,65 @@ int bra_cup_teams(BYTE* _this) {
 }
 
 void bra_cup_first_year_teams(BYTE* _this) {
-	WORD total_teams = 92;
+	WORD total_teams = 126;
 	comp_stats* cup_data = (comp_stats*)_this;
 	if (!cup_data) return;
 	//cup_data->special_nteams_seedings = total_teams;
-	// third phase: libertadores teams + winner d2 +  winner cup + best d1
-	vector<cm3_clubs*> third_phase;
-	vector<cm3_clubs*> first_phase;
-	vector<cm3_clubs*> bra_clubs = find_clubs_of_country(NATION_BRAZIL_9CF());
-	for (cm3_clubs* c : bra_clubs) {
-		if (c->ClubEuroFlag == COPA_LIBERTADORES_9CF()) {
-			//dprintf("Club %s has qualified for Copa do Brasil third round! (in Libertadores)\n", c->ClubNameShort);
-			third_phase.push_back(c);
-		}
+	vector<cm3_clubs*> all_clubs;
+	// Série D
+	vector<cm3_clubs*> division_clubs = find_clubs_of_comp(BRA_FOURTH_9CF());
+	sort(division_clubs.begin(), division_clubs.end(), compareClubRep);
+	for (WORD i = 0; i < 32; i++) {
+		//dprintf("Club %s has qualified for Copa do Brasil! (from Série D)\n", division_clubs[i]->ClubNameShort);
+		all_clubs.push_back(division_clubs[i]);
 	}
-	cm3_clubs* cup_winner = get_last_comp_winner(get_comp(BRA_CUP_9CF()));
-	if (cup_winner && !vector_contains_club(third_phase, cup_winner))
-	{
-		//dprintf("Club %s has qualified for Copa do Brasil third round! (last cup winner)\n", cup_winner->ClubNameShort);
-		third_phase.push_back(cup_winner);
-	}
-	cm3_clubs* b_winner = get_last_comp_winner(get_comp(BRA_SECOND_9CF()));
-	if (b_winner && !vector_contains_club(third_phase, b_winner))
-	{
-		//dprintf("Club %s has qualified for Copa do Brasil third round! (Série B winner)\n", b_winner->ClubNameShort);
-		third_phase.push_back(b_winner);
-	}
-	// Serie A
-	vector<cm3_clubs*> division_clubs = find_clubs_of_comp(BRA_FIRST_9CF());
-	sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPos);
-	for (WORD i = 0; i < division_clubs.size(); i++) {
-		if (vector_contains_club(third_phase, division_clubs[i])) continue;
-		if (third_phase.size() < 12)
-		{
-			//dprintf("Club %s has qualified for Copa do Brasil third round! (from Série A)\n", division_clubs[i]->ClubNameShort);
-			third_phase.push_back(division_clubs[i]);
-		}
-		else
-		{
-			//dprintf("Club %s has qualified for Copa do Brasil first round! (from Série A)\n", division_clubs[i]->ClubNameShort);
-			first_phase.push_back(division_clubs[i]);
-		}
-	}
-	// Serie B
-	division_clubs = find_clubs_of_comp(BRA_SECOND_9CF());
-	sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPos);
-	for (WORD i = 0; i < division_clubs.size(); i++) {
-		if (vector_contains_club(third_phase, division_clubs[i])) continue;
-		//dprintf("Club %s has qualified for Copa do Brasil first round! (from Série B)\n", division_clubs[i]->ClubNameShort);
-		first_phase.push_back(division_clubs[i]);
-	}
-	// Serie C
+	// Série C
 	division_clubs = find_clubs_of_comp(BRA_THIRD_9CF());
-	sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPos);
 	for (WORD i = 0; i < division_clubs.size(); i++) {
-		if (vector_contains_club(third_phase, division_clubs[i])) continue;
-		//dprintf("Club %s has qualified for Copa do Brasil first round! (from Série C)\n", division_clubs[i]->ClubNameShort);
-		first_phase.push_back(division_clubs[i]);
+		//dprintf("Club %s has qualified for Copa do Brasil! (from Série C)\n", division_clubs[i]->ClubNameShort);
+		all_clubs.push_back(division_clubs[i]);
 	}
-	BYTE state_counts[12] = { 2,2,2,6,2,2,2,5,3,2,2,2 };
+	// Série B
+	division_clubs = find_clubs_of_comp(BRA_SECOND_9CF());
+	sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPosInv);
+	for (WORD i = 0; i < division_clubs.size(); i++) {
+		//dprintf("Club %s has qualified for Copa do Brasil! (from Série B)\n", division_clubs[i]->ClubNameShort);
+		all_clubs.push_back(division_clubs[i]);
+	}
+	// Série A
+	division_clubs = find_clubs_of_comp(BRA_FIRST_9CF());
+	for (WORD i = 0; i < division_clubs.size(); i++) {
+		//dprintf("Club %s has qualified for Copa do Brasil! (from Série A)\n", division_clubs[i]->ClubNameShort);
+		all_clubs.push_back(division_clubs[i]);
+	}
+	// State teams
+	vector<cm3_clubs*> first_phase;
+	BYTE state_counts[12] = { 2,3,2,6,2,2,2,5,3,2,3,2 };
 	for (size_t i = 0; i < state_leagues.size(); i++) {
 		cm3_club_comps* lower = get_comp(state_lower[i]);
-		division_clubs = find_clubs_of_comp_reserve_division(state_leagues[i]);
-		sort(division_clubs.begin(), division_clubs.end(), compareClubRep);
+		vector<cm3_clubs*> state_clubs = find_clubs_of_comp_reserve_division(state_leagues[i]);
+		sort(state_clubs.begin(), state_clubs.end(), compareClubRep);
 		BYTE count = state_counts[i];
 		//dprintf("Getting %d teams from league: %s\n", count, get_comp(state_leagues[i])->ClubCompNameShort);
-		for (WORD j = 0; j < division_clubs.size() && count > 0; j++) {
-			if (vector_contains_club(third_phase, division_clubs[j]) ||
-				vector_contains_club(first_phase, division_clubs[j])) continue;
-			//dprintf("- Club %s has qualified to Copa do Brasil! (from state league)\n", division_clubs[j]->ClubNameShort, j + 1);
-			first_phase.push_back(division_clubs[j]);
+		for (WORD j = 0; j < state_clubs.size() && count > 0; j++) {
+			if (vector_contains_club(all_clubs, state_clubs[j])) continue;
+			//dprintf("- Club %s has qualified to Copa do Brasil! (from state league)\n", state_clubs[j]->ClubNameShort, j + 1);
+			first_phase.push_back(state_clubs[j]);
 			count--;
 		}
 		if (count > 0) {
-			division_clubs = find_clubs_of_comp_reserve_division(state_lower[i]);
-			sort(division_clubs.begin(), division_clubs.end(), compareClubRep);
-			for (WORD j = 0; j < division_clubs.size() && count > 0; j++) {
-				if (vector_contains_club(third_phase, division_clubs[j]) ||
-					vector_contains_club(first_phase, division_clubs[j])) continue;
-				//dprintf("- Club %s has qualified to Copa do Brasil! (from lower leagues)\n", division_clubs[j]->ClubNameShort);
-				first_phase.push_back(division_clubs[j]);
+			state_clubs = find_clubs_of_comp_reserve_division(state_lower[i]);
+			sort(state_clubs.begin(), state_clubs.end(), compareClubRep);
+			for (WORD j = 0; j < state_clubs.size() && count > 0; j++) {
+				if (vector_contains_club(all_clubs, state_clubs[j])) continue;
+				//dprintf("- Club %s has qualified to Copa do Brasil! (from lower leagues)\n", state_clubs[j]->ClubNameShort);
+				first_phase.push_back(state_clubs[j]);
 				count--;
 			}
 		}
 	}
+	sort(first_phase.begin(), first_phase.end(), compareClubRepInv);
+
 	BYTE* pMem = (BYTE*)sub_944E46_malloc(6 * total_teams);
 	cup_data->special_teams_seedings = (DWORD*)pMem;
 	teams_seeded* teams = (teams_seeded*)cup_data->special_teams_seedings;
@@ -190,13 +173,13 @@ void bra_cup_first_year_teams(BYTE* _this) {
 		teams[i].f5 = 0;
 		teams[i].f6 = 0;
 	}
-	for (size_t j = 0; i < total_teams && j < third_phase.size(); i++, j++)
+	WORD d1_teams = 20;
+	for (size_t j = 0; i < total_teams && j < all_clubs.size(); i++, j++)
 	{
-		teams[i].club = third_phase[j];
-		teams[i].f5 = 3;
+		teams[i].club = all_clubs[j];
+		teams[i].f5 = 0 + 3 * (j >= (all_clubs.size() - d1_teams));
 		teams[i].f6 = 0;
 	}
-
 }
 
 void bra_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp)

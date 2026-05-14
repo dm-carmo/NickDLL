@@ -38,16 +38,11 @@ int wal_cup_teams(BYTE* _this) {
 
 	WORD curr_teams = (WORD)vec.size();
 	// Lower
-	division_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_WALES_9CF());
-	sort(division_clubs.begin(), division_clubs.end(), compareClubRep);
-	for (WORD i = 0; i < total_teams - curr_teams; i++)
+	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_WALES_9CF());
+	division_clubs = get_random_weighted_clubs(lower_clubs, total_teams - curr_teams, true);
+	for (cm3_clubs* club : division_clubs)
 	{
-		int availableIdx = rand() % division_clubs.size();
-		cm3_clubs* lower_club = division_clubs[availableIdx];
-
-		vec.push_back(lower_club);
-
-		division_clubs.erase(division_clubs.begin() + availableIdx);
+		vec.push_back(club);
 	}
 
 	for (DWORD i = 0; i < vec.size(); i++)

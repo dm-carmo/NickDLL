@@ -89,15 +89,21 @@ int fin_cup_teams(BYTE* _this) {
 	sort(vec_uefa.begin(), vec_uefa.end(), compareClubLastDivPosInv);
 
 	// Lower
-	division_clubs = find_clubs_of_comp(FIN_LOWER_9CF());
-	sort(division_clubs.begin(), division_clubs.end(), compareClubRepInv);
-	for (unsigned int i = 0; i < 52; i++)
+	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(FIN_LOWER_9CF(), NATION_FINLAND_9CF());
+	for (size_t i = 0; i < lower_clubs.size(); i++) {
+		cm3_clubs* c = lower_clubs[i];
+		DWORD is_main_club;
+		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)c, &is_main_club, 1);
+		if (vector_contains_club(vec_uefa, c))
+		{
+			lower_clubs.erase(lower_clubs.begin() + i);
+			i--;
+		}
+	}
+	division_clubs = get_random_weighted_clubs(lower_clubs, 52, true);
+	for (cm3_clubs* club : division_clubs)
 	{
-		int availableIdx = rand() % division_clubs.size();
-		cm3_clubs* lower_club = division_clubs[availableIdx];
-		if (!vector_contains_club(vec_uefa, lower_club)) vec.push_back(lower_club);
-
-		division_clubs.erase(division_clubs.begin() + availableIdx);
+		vec.push_back(club);
 	}
 	// Kakkonen
 	division_clubs = find_clubs_of_comp(FIN_THIRD_9CF());

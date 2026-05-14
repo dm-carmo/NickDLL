@@ -330,10 +330,10 @@ void __fastcall bra_promotion_to_fourth(BYTE* _this) {
 		for (int i = 0; i < comp_data->n_teams; i++) {
 			if (table[i].club->ClubDivision == bra_fourth && (table[i].league_fate == Eliminated || table[i].league_fate == NoFate))
 			{
-				dprintf("Club %s will not play in Série D next season!\n", table[i].club->ClubNameShort);
+				//dprintf("Club %s will not play in Série D next season!\n", table[i].club->ClubNameShort);
 				table[i].club->ClubDivision = get_comp(A_LOWER_9CF());
 			}
-			else if (table[i].league_fate == TopPlayoff) dprintf("Club %s will play in Série D next season!\n", table[i].club->ClubNameShort);
+			//else if (table[i].league_fate == TopPlayoff) dprintf("Club %s will play in Série D next season!\n", table[i].club->ClubNameShort);
 		}
 	}
 	BYTE state_counts[12] = { 4,5,4,9,5,4,5,9,6,4,5,4 };
@@ -342,12 +342,12 @@ void __fastcall bra_promotion_to_fourth(BYTE* _this) {
 		cm3_club_comps* lower = get_comp(state_lower[i]);
 		BYTE count = state_counts[i];
 		if (league && lower) {
-			dprintf("Getting %d teams from league: %s\n", count, league->competition_db->ClubCompNameShort);
+			//dprintf("Getting %d teams from league: %s\n", count, league->competition_db->ClubCompNameShort);
 			team_league_stats* table = (team_league_stats*)league->team_league_table;
 			for (WORD j = 0; j < league->n_teams && count > 0; j++) {
 				cm3_clubs* club = table[j].club;
 				if (!club->ClubDivision || club->ClubDivision->ClubCompID == A_LOWER_9CF()) {
-					dprintf("- Club %s has qualified to Série D! (finished %d)\n", club->ClubNameShort, j + 1);
+					//dprintf("- Club %s has qualified to Série D! (finished %d)\n", club->ClubNameShort, j + 1);
 					club->ClubDivision = bra_fourth;
 					count--;
 				}
@@ -358,14 +358,14 @@ void __fastcall bra_promotion_to_fourth(BYTE* _this) {
 				for (WORD j = 0; j < lower_teams.size() && count > 0; j++) {
 					cm3_clubs* club = lower_teams[j];
 					if (!club->ClubDivision || club->ClubDivision->ClubCompID == A_LOWER_9CF()) {
-						dprintf("- Club %s has qualified to Série D! (from lower leagues)\n", club->ClubNameShort);
+						//dprintf("- Club %s has qualified to Série D! (from lower leagues)\n", club->ClubNameShort);
 						club->ClubDivision = bra_fourth;
 						count--;
 					}
 				}
 			}
 		}
-		else dprintf("State league %d not found!\n", i);
+		//else dprintf("State league %d not found!\n", i);
 	}
 	WORD current_team_count = CountNumberOfTeamsInComp(BRA_FOURTH_9CF());
 	sort(d_clubs.begin(), d_clubs.end(), compareClubRep);
@@ -373,7 +373,7 @@ void __fastcall bra_promotion_to_fourth(BYTE* _this) {
 	while (current_team_count < 96) {
 		cm3_clubs* backup = d_clubs[k++];
 		if (!backup->ClubDivision || backup->ClubDivision->ClubCompID == A_LOWER_9CF()) {
-			dprintf("Not enough teams from state leagues, club %s was selected to stay in Série D\n", backup->ClubNameShort);
+			//dprintf("Not enough teams from state leagues, club %s was selected to stay in Série D\n", backup->ClubNameShort);
 			backup->ClubDivision = bra_fourth;
 			current_team_count++;
 		}
@@ -425,7 +425,7 @@ void __fastcall bra_update_managers(BYTE* _this) {
 }
 
 void __fastcall bra_qualify_teams_for_cup(BYTE* _this) {
-	WORD total_teams = 92;
+	WORD total_teams = 126;
 	comp_stats* cup_data = (comp_stats*)get_loaded_league(BRA_CUP_9CF());
 	if (!cup_data) return;
 	if (cup_data->special_teams_seedings) {
@@ -433,61 +433,54 @@ void __fastcall bra_qualify_teams_for_cup(BYTE* _this) {
 		cup_data->special_teams_seedings = 0;
 	}
 	//cup_data->special_nteams_seedings = total_teams;
-	// third phase: libertadores teams + winner d2 +  winner cup + best d1
-	vector<cm3_clubs*> third_phase;
-	vector<cm3_clubs*> first_phase;
-	vector<cm3_clubs*> bra_clubs = find_clubs_of_country(NATION_BRAZIL_9CF());
-	for (cm3_clubs* c : bra_clubs) {
-		if (c->ClubEuroFlag == COPA_LIBERTADORES_9CF()) {
-			//dprintf("Club %s has qualified for Copa do Brasil third round! (in Libertadores)\n", c->ClubNameShort);
-			third_phase.push_back(c);
-		}
-	}
-	cm3_clubs* cup_winner = get_last_comp_winner(get_comp(BRA_CUP_9CF()));
-	if (cup_winner && !vector_contains_club(third_phase, cup_winner))
-	{
-		//dprintf("Club %s has qualified for Copa do Brasil third round! (last cup winner)\n", cup_winner->ClubNameShort);
-		third_phase.push_back(cup_winner);
-	}
-	cm3_clubs* b_winner = get_last_comp_winner(get_comp(BRA_SECOND_9CF()));
-	if (b_winner && !vector_contains_club(third_phase, b_winner))
-	{
-		//dprintf("Club %s has qualified for Copa do Brasil third round! (Série B winner)\n", b_winner->ClubNameShort);
-		third_phase.push_back(b_winner);
-	}
-	// Serie A
-	vector<cm3_clubs*> division_clubs = find_clubs_of_comp(BRA_FIRST_9CF());
-	sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPos);
-	for (WORD i = 0; i < division_clubs.size(); i++) {
-		if (vector_contains_club(third_phase, division_clubs[i])) continue;
-		if (third_phase.size() < 12)
+	vector<cm3_clubs*> all_clubs;
+	// Série D (relegated from C)
+	vector<cm3_clubs*> division_clubs = find_clubs_of_comp_last_division(BRA_THIRD_9CF());
+	for (cm3_clubs* c : division_clubs) {
+		if(c->ClubDivision && c->ClubDivision->ClubCompID == BRA_FOURTH_9CF()) 
 		{
-			//dprintf("Club %s has qualified for Copa do Brasil third round! (from Série A)\n", division_clubs[i]->ClubNameShort);
-			third_phase.push_back(division_clubs[i]);
-		}
-		else
-		{
-			//dprintf("Club %s has qualified for Copa do Brasil first round! (from Série A)\n", division_clubs[i]->ClubNameShort);
-			first_phase.push_back(division_clubs[i]);
+			//dprintf("Club %s has qualified for Copa do Brasil! (from Série D)\n", c->ClubNameShort);
+			all_clubs.push_back(c);
 		}
 	}
-	// Serie B
-	division_clubs = find_clubs_of_comp(BRA_SECOND_9CF());
-	sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPos);
-	for (WORD i = 0; i < division_clubs.size(); i++) {
-		if (vector_contains_club(third_phase, division_clubs[i])) continue;
-		//dprintf("Club %s has qualified for Copa do Brasil first round! (from Série B)\n", division_clubs[i]->ClubNameShort);
-		first_phase.push_back(division_clubs[i]);
+	// Série D (from playoffs)
+	comp_stats* comp_data = (comp_stats*)get_loaded_league(BRA_FOURTH_9CF());
+	comp_stats* curr_stage = comp_data;
+	for (char al = -1; al < 15; al++) {
+		if (al >= 0) {
+			curr_stage = (comp_stats*)(comp_data->stages[al]);
+		}
+		team_league_stats* table = (team_league_stats*)(curr_stage->team_league_table);
+		for (int i = 0; i < comp_data->n_teams; i++) {
+			if (table[i].league_fate == TopPlayoff)
+			{
+				//dprintf("Club %s has qualified for Copa do Brasil! (from Série D)\n", table[i].club->ClubNameShort);
+				all_clubs.push_back(table[i].club);
+			}
+		}
 	}
-	// Serie C
+	// Série C
 	division_clubs = find_clubs_of_comp(BRA_THIRD_9CF());
-	sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPos);
 	for (WORD i = 0; i < division_clubs.size(); i++) {
-		if (vector_contains_club(third_phase, division_clubs[i])) continue;
-		//dprintf("Club %s has qualified for Copa do Brasil first round! (from Série C)\n", division_clubs[i]->ClubNameShort);
-		first_phase.push_back(division_clubs[i]);
+		//dprintf("Club %s has qualified for Copa do Brasil! (from Série C)\n", division_clubs[i]->ClubNameShort);
+		all_clubs.push_back(division_clubs[i]);
 	}
-	BYTE state_counts[12] = { 2,2,2,6,2,2,2,5,3,2,2,2 };
+	// Série B
+	division_clubs = find_clubs_of_comp(BRA_SECOND_9CF());
+	sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPosInv);
+	for (WORD i = 0; i < division_clubs.size(); i++) {
+		//dprintf("Club %s has qualified for Copa do Brasil! (from Série B)\n", division_clubs[i]->ClubNameShort);
+		all_clubs.push_back(division_clubs[i]);
+	}
+	// Série A
+	division_clubs = find_clubs_of_comp(BRA_FIRST_9CF());
+	for (WORD i = 0; i < division_clubs.size(); i++) {
+		//dprintf("Club %s has qualified for Copa do Brasil! (from Série A)\n", division_clubs[i]->ClubNameShort);
+		all_clubs.push_back(division_clubs[i]);
+	}
+	// State teams
+	vector<cm3_clubs*> first_phase;
+	BYTE state_counts[12] = { 2,3,2,6,2,2,2,5,3,2,3,2 };
 	for (size_t i = 0; i < state_leagues.size(); i++) {
 		comp_stats* league = (comp_stats*)get_loaded_league(state_leagues[i]);
 		cm3_club_comps* lower = get_comp(state_lower[i]);
@@ -497,8 +490,7 @@ void __fastcall bra_qualify_teams_for_cup(BYTE* _this) {
 			team_league_stats* table = (team_league_stats*)league->team_league_table;
 			for (WORD j = 0; j < league->n_teams && count > 0; j++) {
 				cm3_clubs* club = table[j].club;
-				if (vector_contains_club(third_phase, club) ||
-					vector_contains_club(first_phase, club)) continue;
+				if (vector_contains_club(all_clubs, club)) continue;
 				//dprintf("- Club %s has qualified to Copa do Brasil! (finished %d)\n", club->ClubNameShort, j + 1);
 				first_phase.push_back(club);
 				count--;
@@ -508,16 +500,16 @@ void __fastcall bra_qualify_teams_for_cup(BYTE* _this) {
 				sort(lower_teams.begin(), lower_teams.end(), compareClubRep);
 				for (WORD j = 0; j < lower_teams.size() && count > 0; j++) {
 					cm3_clubs* club = lower_teams[j];
-					if (vector_contains_club(third_phase, club) ||
-						vector_contains_club(first_phase, club)) continue;
+					if (vector_contains_club(all_clubs, club)) continue;
 					//dprintf("- Club %s has qualified to Copa do Brasil! (from lower leagues)\n", club->ClubNameShort);
 					first_phase.push_back(club);
 					count--;
 				}
 			}
 		}
-		//else dprintf("State league %d not found!\n", i);
 	}
+	sort(first_phase.begin(), first_phase.end(), compareClubRepInv);
+
 	BYTE* pMem = (BYTE*)sub_944E46_malloc(6 * total_teams);
 	cup_data->special_teams_seedings = (DWORD*)pMem;
 	teams_seeded* teams = (teams_seeded*)cup_data->special_teams_seedings;
@@ -529,10 +521,11 @@ void __fastcall bra_qualify_teams_for_cup(BYTE* _this) {
 		teams[i].f5 = 0;
 		teams[i].f6 = 0;
 	}
-	for (size_t j = 0; i < total_teams && j < third_phase.size(); i++, j++)
+	WORD d1_teams = 20;
+	for (size_t j = 0; i < total_teams && j < all_clubs.size(); i++, j++)
 	{
-		teams[i].club = third_phase[j];
-		teams[i].f5 = 3;
+		teams[i].club = all_clubs[j];
+		teams[i].f5 = 0 + 3 * (i >= (total_teams - d1_teams));
 		teams[i].f6 = 0;
 	}
 }
@@ -552,7 +545,7 @@ char bra_first_update(BYTE* _this) {
 	// All teams that were in D2 must be professional
 	update_club_pro_status_68A980(bra_second, Professional, Relegated, -3, 1);
 	update_club_pro_status_68A980(bra_second, Professional, -3, Relegated, 1);
-	// All teams that were iin D3 must be professional
+	// All teams that were in D3 must be professional
 	update_club_pro_status_68A980(bra_third, Professional, Relegated, -3, 1);
 	update_club_pro_status_68A980(bra_third, Professional, -3, Relegated, 1);
 	comp_stats* bra_fourth_data = (comp_stats*)bra_fourth;

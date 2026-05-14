@@ -21,15 +21,19 @@ int sco_cup_teams(BYTE* _this) {
 	vector<cm3_clubs*> division_clubs = find_clubs_of_comp(SCO_HIGHLAND_9CF());
 	vector<cm3_clubs*> division_clubs2 = find_clubs_of_comp(SCO_LOWLAND_9CF());
 	move(division_clubs2.begin(), division_clubs2.end(), back_inserter(division_clubs));
+	for (size_t i = 0; i < division_clubs.size(); i++) {
+		cm3_clubs* c = division_clubs[i];
+		DWORD is_main_club;
+		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)c, &is_main_club, 1);
+		if (ret_club && !is_main_club)
+		{
+			division_clubs.erase(division_clubs.begin() + i);
+			i--;
+		}
+	}
 	BYTE selected = get_country(NATION_SCOTLAND_9CF())->NationLeagueSelected;
 	if ((selected & 4) != 0) sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPosInv);
 	else sort(division_clubs.begin(), division_clubs.end(), compareClubRepInv);
-	cm3_clubs* celtic_b = find_club("Glasgow Celtic B");
-	cm3_clubs* hearts_b = find_club("Heart of Midlothian FC B");
-	auto find_club = find(division_clubs.begin(), division_clubs.end(), celtic_b);
-	if (find_club != division_clubs.end()) division_clubs.erase(find_club);
-	find_club = find(division_clubs.begin(), division_clubs.end(), hearts_b);
-	if (find_club != division_clubs.end()) division_clubs.erase(find_club);
 	for (cm3_clubs* club : division_clubs)
 	{
 		vec.push_back(club);

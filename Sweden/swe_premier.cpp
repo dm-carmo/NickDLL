@@ -149,19 +149,14 @@ void __fastcall swe_second_relegation(BYTE* _this)
 	}
 
 	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(SWE_THIRD_9CF());
-	sort(available_clubs.begin(), available_clubs.end(), compareClubRep);
-	int max_to_check = (available_clubs.size() > 12 ? 12 : available_clubs.size());
-	for (int i = 0; i < 6; i++)
-	{
-		int availableIdx = rand() % (max_to_check - i);
-		cm3_clubs* available = available_clubs[availableIdx];
-		if (vector_contains_club(in_playoffs, available))
-			i--;
-		else {
-			promote_club_6830B0((BYTE*)available, (DWORD)comp_data->competition_db, 1);
+	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(available_clubs, 8, true);
+	int i = 0;
+	for (cm3_clubs* c : promoted_clubs) {
+		if (!vector_contains_club(in_playoffs, c)) {
+			promote_club_6830B0((BYTE*)c, (DWORD)comp_data->competition_db, 1);
 			promoted_teams++;
+			if (++i == 6) break;
 		}
-		available_clubs.erase(available_clubs.begin() + availableIdx);
 	}
 
 	if (promoted_teams != relegated_clubs.size()) create_message_box("Error", "Promoted and relegated club count does not match for swe_second", false);
@@ -210,19 +205,14 @@ void __fastcall swe_non_league_promotion(BYTE* _this)
 	}
 
 	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_SWEDEN_9CF());
-	sort(available_clubs.begin(), available_clubs.end(), compareClubRep);
-	int max_to_check = (available_clubs.size() > 24 ? 24 : available_clubs.size());
-	for (int i = 0; i < 12; i++)
-	{
-		int availableIdx = rand() % (max_to_check - i);
-		cm3_clubs* available = available_clubs[availableIdx];
-		if (vector_contains_club(in_playoffs, available))
-			i--;
-		else {
-			promote_club_6830B0((BYTE*)available, (DWORD)comp_data->competition_db, 1);
+	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(available_clubs, 18, true);
+	int i = 0;
+	for (cm3_clubs* c : promoted_clubs) {
+		if (!vector_contains_club(in_playoffs, c)) {
+			promote_club_6830B0((BYTE*)c, (DWORD)comp_data->competition_db, 1);
 			promoted_teams++;
+			if (++i == 12) break;
 		}
-		available_clubs.erase(available_clubs.begin() + availableIdx);
 	}
 
 	if (promoted_teams != relegated_clubs.size()) create_message_box("Error", "Promoted and relegated club count does not match for swe_third", false);
@@ -257,6 +247,28 @@ void sort_swe_third_clubs() {
 		else if (i < 56) available_clubs[i]->ClubReserveDivision = get_comp(SWE_THIRD_NORTH_GOTALAND_9CF());
 		else if (i < 70) available_clubs[i]->ClubReserveDivision = get_comp(SWE_THIRD_WEST_GOTALAND_9CF());
 		else available_clubs[i]->ClubReserveDivision = get_comp(SWE_THIRD_SOUTH_GOTALAND_9CF());
+	}
+}
+
+void __fastcall swe_fake_lower_relegation(BYTE* _this)
+{
+	comp_stats* comp_data = (comp_stats*)_this;
+
+	vector<cm3_clubs*> d3_clubs = find_clubs_of_comp(SWE_THIRD_9CF(), NATION_SWEDEN_9CF());
+	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_SWEDEN_9CF());
+
+	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(lower_clubs, 12 + (rand() % 7), true);
+	vector<cm3_clubs*> relegated_clubs = get_random_weighted_clubs(d3_clubs, promoted_clubs.size(), false);
+
+	for (cm3_clubs* c : relegated_clubs) {
+		cm3_club_comps* bottomDivision = get_comp(A_LOWER_9CF());
+		relegate_club_6831A0((BYTE*)c, (DWORD)bottomDivision, 1);
+		c->ClubReserveDivision = 0;
+	}
+
+	for (cm3_clubs* c : promoted_clubs) {
+		cm3_club_comps* topDivision = get_comp(SWE_THIRD_9CF());
+		promote_club_6830B0((BYTE*)c, (DWORD)topDivision, 1);
 	}
 }
 
@@ -313,6 +325,7 @@ char swe_premier_update(BYTE* _this) {
 	}
 	else {
 		swe_second_relegation(_this);
+		swe_fake_lower_relegation(_this);
 	}
 	sort_swe_second_clubs();
 

@@ -474,22 +474,12 @@ void swe_second_playoffs_under(BYTE* _this) {
 	}
 	else { // league is not loaded
 		vector<cm3_clubs*> available_clubs = find_clubs_of_comp(SWE_THIRD_9CF());
-		sort(available_clubs.begin(), available_clubs.end(), compareClubRep);
-		// Promoted clubs
-		int max_to_check = (available_clubs.size() > 12 ? 12 : available_clubs.size());
-		for (int i = 0; i < 6; i++)
-		{
-			int availableIdx = rand() % (max_to_check - i);
-			available_clubs.erase(available_clubs.begin() + availableIdx);
-		}
+		vector<cm3_clubs*> random_lower = get_random_weighted_clubs(available_clubs, 8, true);
 		// Playoff clubs
-		max_to_check = (available_clubs.size() > 6 ? 6 : available_clubs.size());
 		for (int i = 0; i < 2; i++)
 		{
-			int availableIdx = rand() % (max_to_check - i);
-			cm3_clubs* available = available_clubs[availableIdx];
+			cm3_clubs* available = random_lower[i + 6];
 			playoff_clubs.push_back(available);
-			available_clubs.erase(available_clubs.begin() + availableIdx);
 		}
 	}
 
@@ -600,7 +590,7 @@ int swe_second_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char st
 					WORD num_teams = curr_stage->n_teams;
 					team_league_stats* table = (team_league_stats*)(curr_stage->team_league_table);
 					for (int i = 0; i < num_teams; i++) {
-									if (table[i].club != club) continue;
+						if (table[i].club != club) continue;
 						switch (fate) {
 						case TopPlayoff:
 							staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)swe_third, 0x32);
@@ -627,7 +617,7 @@ int swe_second_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char st
 					WORD num_teams = curr_stage->n_teams;
 					team_league_stats* table = (team_league_stats*)(curr_stage->team_league_table);
 					for (int i = 0; i < num_teams; i++) {
-									if (table[i].club != club) continue;
+						if (table[i].club != club) continue;
 						switch (fate) {
 						case TopPlayoff:
 							//staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)swe_third, 0x32);
@@ -657,7 +647,7 @@ int swe_second_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char st
 				}
 				team_league_stats* table = (team_league_stats*)(curr_stage->team_league_table);
 				for (int i = 0; i < num_teams; i++) {
-							if (table[i].club != club) continue;
+					if (table[i].club != club) continue;
 					switch (fate) {
 					case BottomPlayoff:
 						staff_history_relegated_86A1C0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));

@@ -385,7 +385,7 @@ void __fastcall serie_d_promotion(BYTE* _this)
 	for (unsigned int j = 0; j < promoted_clubs.size(); j++) {
 		cm3_clubs* clubToRelegate = relegated_clubs[j];
 		cm3_clubs* clubToPromote = promoted_clubs[j];
-		dprintf("Swapping Teams: %s (%s) %d <-> %s (%s) %d\n", clubToRelegate->ClubName, clubToRelegate->ClubDivision->ClubCompName, clubToRelegate->ClubReputation, clubToPromote->ClubName, clubToPromote->ClubDivision->ClubCompName, clubToPromote->ClubReputation);
+		//dprintf("Swapping Teams: %s (%s) %d <-> %s (%s) %d\n", clubToRelegate->ClubName, clubToRelegate->ClubDivision->ClubCompName, clubToRelegate->ClubReputation, clubToPromote->ClubName, clubToPromote->ClubDivision->ClubCompName, clubToPromote->ClubReputation);
 
 		cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
 		cm3_club_comps* bottomDivision = clubToPromote->ClubDivision;

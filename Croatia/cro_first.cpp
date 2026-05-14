@@ -292,15 +292,8 @@ void cro_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 
 void __fastcall cro_non_league_promotion(BYTE* _this)
 {
-	vector<cm3_clubs*> relegated_clubs;
-
 	comp_stats* comp_data = (comp_stats*)get_loaded_league(CRO_THIRD_9CF());
-	for (WORD num = 0; num < comp_data->n_teams; num++) {
-		team_league_stats table_pos = ((team_league_stats*)comp_data->team_league_table)[num];
-		if (table_pos.league_fate == Relegated) {
-			relegated_clubs.push_back(table_pos.club);
-		}
-	}
+	vector<cm3_clubs*> relegated_clubs = get_relegated_teams(CRO_THIRD_9CF());
 
 	comp_stats* playoff_stage = (comp_stats*)comp_data->stages[0];
 	WORD promoted_teams = 0;
@@ -320,6 +313,28 @@ void __fastcall cro_non_league_promotion(BYTE* _this)
 	for (unsigned int i = 0; i < relegated_clubs.size(); i++)
 	{
 		relegate_club_6831A0((BYTE*)relegated_clubs[i], (DWORD)get_comp(CRO_FOURTH_9CF()), 1);
+	}
+}
+
+void __fastcall cro_fake_lower_relegation(BYTE* _this)
+{
+	vector<cm3_clubs*> d4_clubs = find_clubs_of_comp(CRO_FOURTH_9CF(), NATION_CROATIA_9CF());
+	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_CROATIA_9CF());
+	unsigned int num_to_swap = d4_clubs.size() / 8;
+	if (lower_clubs.size() < num_to_swap) num_to_swap = lower_clubs.size();
+
+	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(lower_clubs, num_to_swap, true);
+	vector<cm3_clubs*> relegated_clubs = get_random_weighted_clubs(d4_clubs, num_to_swap, false);
+
+	for (unsigned int j = 0; j < num_to_swap; j++) {
+		cm3_clubs* clubToRelegate = relegated_clubs[j];
+		cm3_clubs* clubToPromote = promoted_clubs[j];
+		//dprintf("Swapping Teams: %s (%s) %d <-> %s (%s) %d\n", clubToRelegate->ClubName, clubToRelegate->ClubDivision->ClubCompName, clubToRelegate->ClubReputation, clubToPromote->ClubName, clubToPromote->ClubDivision->ClubCompName, clubToPromote->ClubReputation);
+
+		cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
+		cm3_club_comps* bottomDivision = clubToPromote->ClubDivision;
+		relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
+		promote_club_6830B0((BYTE*)clubToPromote, (DWORD)topDivision, 1);
 	}
 }
 

@@ -385,31 +385,33 @@ void sco_league_2_playoff_rele(BYTE* _this) {
 		}
 	}
 
-	cm3_clubs* celtic_b = find_club("Glasgow Celtic B");
-	cm3_clubs* hearts_b = find_club("Heart of Midlothian FC B");
-
 	comp_stats* sco_highland_data = (comp_stats*)get_loaded_league(SCO_HIGHLAND_9CF());
 	if (sco_highland_data) {
 		total_teams = sco_highland_data->n_teams;
 		table_teams = (team_league_stats*)(sco_highland_data->team_league_table);
 		for (int i = 0; i < total_teams; i++) {
 			team_league_stats tls = table_teams[i];
-			if (tls.club != celtic_b && tls.club != hearts_b) {
-				*((DWORD*)(&pTeams[0])) = (DWORD)tls.club;
-				break;
-			}
+			DWORD is_main_club;
+			cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)tls.club, &is_main_club, 1);
+			if (ret_club && !is_main_club) continue;
+			*((DWORD*)(&pTeams[0])) = (DWORD)tls.club;
+			break;
 		}
 	}
 	else {
 		vector<cm3_clubs*> available_clubs = find_clubs_of_comp(SCO_HIGHLAND_9CF());
-		sort(available_clubs.begin(), available_clubs.end(), compareClubRep);
-		auto find_club = find(available_clubs.begin(), available_clubs.end(), celtic_b);
-		if (find_club != available_clubs.end()) available_clubs.erase(find_club);
-		find_club = find(available_clubs.begin(), available_clubs.end(), hearts_b);
-		if (find_club != available_clubs.end()) available_clubs.erase(find_club);
-		int max_to_check = (available_clubs.size() > 3 ? 3 : available_clubs.size());
-		int availableIdx = rand() % max_to_check;
-		*((DWORD*)(&pTeams[0])) = (DWORD)available_clubs[availableIdx];
+		for (size_t i = 0; i < available_clubs.size(); i++) {
+			cm3_clubs* c = available_clubs[i];
+			DWORD is_main_club;
+			cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)c, &is_main_club, 1);
+			if (ret_club && !is_main_club)
+			{
+				available_clubs.erase(available_clubs.begin() + i);
+				i--;
+			}
+		}
+		vector<cm3_clubs*> playoff_club = get_random_weighted_clubs(available_clubs, 1, true);
+		*((DWORD*)(&pTeams[0])) = (DWORD)playoff_club[0];
 	}
 
 	comp_stats* sco_lowland_data = (comp_stats*)get_loaded_league(SCO_LOWLAND_9CF());
@@ -418,22 +420,27 @@ void sco_league_2_playoff_rele(BYTE* _this) {
 		table_teams = (team_league_stats*)(sco_lowland_data->team_league_table);
 		for (int i = 0; i < total_teams; i++) {
 			team_league_stats tls = table_teams[i];
-			if (tls.club != celtic_b && tls.club != hearts_b) {
-				*((DWORD*)(&pTeams[1])) = (DWORD)tls.club;
-				break;
-			}
+			DWORD is_main_club;
+			cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)tls.club, &is_main_club, 1);
+			if (ret_club && !is_main_club) continue;
+			*((DWORD*)(&pTeams[1])) = (DWORD)tls.club;
+			break;
 		}
 	}
 	else {
 		vector<cm3_clubs*> available_clubs = find_clubs_of_comp(SCO_LOWLAND_9CF());
-		sort(available_clubs.begin(), available_clubs.end(), compareClubRep);
-		auto find_club = find(available_clubs.begin(), available_clubs.end(), celtic_b);
-		if (find_club != available_clubs.end()) available_clubs.erase(find_club);
-		find_club = find(available_clubs.begin(), available_clubs.end(), hearts_b);
-		if (find_club != available_clubs.end()) available_clubs.erase(find_club);
-		int max_to_check = (available_clubs.size() > 3 ? 3 : available_clubs.size());
-		int availableIdx = rand() % max_to_check;
-		*((DWORD*)(&pTeams[1])) = (DWORD)available_clubs[availableIdx];
+		for (size_t i = 0; i < available_clubs.size(); i++) {
+			cm3_clubs* c = available_clubs[i];
+			DWORD is_main_club;
+			cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)c, &is_main_club, 1);
+			if (ret_club && !is_main_club)
+			{
+				available_clubs.erase(available_clubs.begin() + i);
+				i--;
+			}
+		}
+		vector<cm3_clubs*> playoff_club = get_random_weighted_clubs(available_clubs, 1, true);
+		*((DWORD*)(&pTeams[1])) = (DWORD)playoff_club[0];
 	}
 
 	WORD num_rounds = 0;

@@ -81,16 +81,12 @@ int jpn_cup_teams(BYTE* _this) {
 	teams_seeded* teams = (teams_seeded*)comp_data->teams_list;
 
 	// Regionals
-	vector<cm3_clubs*> division_clubs = find_clubs_of_comp(JPN_REGIONAL_9CF());
-	for (int i = 0; i < 12; i++)
+	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(JPN_REGIONAL_9CF());
+	vector<cm3_clubs*> division_clubs = get_random_weighted_clubs(lower_clubs, 12, true);
+	for (cm3_clubs* club : division_clubs)
 	{
-		int availableIdx = rand() % division_clubs.size();
-		cm3_clubs* lower_club = division_clubs[availableIdx];
-		vec.push_back(lower_club);
-
-		division_clubs.erase(division_clubs.begin() + availableIdx);
+		vec.push_back(club);
 	}
-
 	// JFL
 	division_clubs = find_clubs_of_comp(JPN_JFL_9CF());
 	for (cm3_clubs* club : division_clubs)

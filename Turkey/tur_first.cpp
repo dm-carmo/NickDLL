@@ -231,25 +231,17 @@ void __fastcall tur_third_relegation(BYTE* _this)
 	}
 
 	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(TUR_FOURTH_9CF(), NATION_TURKEY_9CF());
-	sort(available_clubs.begin(), available_clubs.end(), compareClubRep);
-	cm3_club_comps* topDivision = get_comp(TUR_THIRD_9CF());
-	cm3_club_comps* bottomDivision = get_comp(TUR_FOURTH_9CF());
-	int max_to_check = (available_clubs.size() > 10 ? 10 : available_clubs.size());
-	int num_to_promote = relegated_clubs.size();
-	if (comp_data->year == 2025) num_to_promote--;
-	for (int i = 0; i < num_to_promote; i++)
-	{
-		int availableIdx = rand() % (max_to_check - i);
-		cm3_clubs* available = available_clubs[availableIdx];
-		promote_club_6830B0((BYTE*)available, (DWORD)topDivision, 1);
-		available_clubs.erase(available_clubs.begin() + availableIdx);
+	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(available_clubs, relegated_clubs.size() - (comp_data->year == 2025 ? 1 : 0), true);
+
+	for (cm3_clubs* c : relegated_clubs) {
+		cm3_club_comps* bottomDivision = get_comp(TUR_FOURTH_9CF());
+		relegate_club_6831A0((BYTE*)c, (DWORD)bottomDivision, 1);
+		c->ClubReserveDivision = 0;
 	}
 
-	for (unsigned int i = 0; i < relegated_clubs.size(); i++)
-	{
-		cm3_clubs* clubToRelegate = relegated_clubs[i];
-		relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
-		clubToRelegate->ClubReserveDivision = 0;
+	for (cm3_clubs* c : promoted_clubs) {
+		cm3_club_comps* topDivision = get_comp(TUR_THIRD_9CF());
+		promote_club_6830B0((BYTE*)c, (DWORD)topDivision, 1);
 	}
 }
 
@@ -272,25 +264,17 @@ void __fastcall tur_non_league_promotion(BYTE* _this)
 	}
 
 	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_TURKEY_9CF());
-	sort(available_clubs.begin(), available_clubs.end(), compareClubRep);
-	cm3_club_comps* topDivision = get_comp(TUR_FOURTH_9CF());
-	cm3_club_comps* bottomDivision = get_comp(A_LOWER_9CF());
-	int max_to_check = (available_clubs.size() > 24 ? 24 : available_clubs.size());
-	int num_to_promote = relegated_clubs.size();
-	if (comp_data->year == 2025) num_to_promote--;
-	for (int i = 0; i < num_to_promote; i++)
-	{
-		int availableIdx = rand() % (max_to_check - i);
-		cm3_clubs* available = available_clubs[availableIdx];
-		promote_club_6830B0((BYTE*)available, (DWORD)topDivision, 1);
-		available_clubs.erase(available_clubs.begin() + availableIdx);
+	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(available_clubs, relegated_clubs.size() - (comp_data->year == 2025 ? 1 : 0), true);
+
+	for (cm3_clubs* c : relegated_clubs) {
+		cm3_club_comps* bottomDivision = get_comp(A_LOWER_9CF());
+		relegate_club_6831A0((BYTE*)c, (DWORD)bottomDivision, 1);
+		c->ClubReserveDivision = 0;
 	}
 
-	for (unsigned int i = 0; i < relegated_clubs.size(); i++)
-	{
-		cm3_clubs* clubToRelegate = relegated_clubs[i];
-		relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
-		clubToRelegate->ClubReserveDivision = 0;
+	for (cm3_clubs* c : promoted_clubs) {
+		cm3_club_comps* topDivision = get_comp(TUR_FOURTH_9CF());
+		promote_club_6830B0((BYTE*)c, (DWORD)topDivision, 1);
 	}
 }
 
@@ -316,6 +300,28 @@ void sort_tur_fourth_clubs() {
 		else if (i < 32) available_clubs[i]->ClubReserveDivision = get_comp(TUR_FOURTH_G4_9CF());
 		else if (i < 48) available_clubs[i]->ClubReserveDivision = get_comp(TUR_FOURTH_G2_9CF());
 		else available_clubs[i]->ClubReserveDivision = get_comp(TUR_FOURTH_G3_9CF());
+	}
+}
+
+void __fastcall tur_fake_lower_relegation(BYTE* _this)
+{
+	comp_stats* comp_data = (comp_stats*)_this;
+
+	vector<cm3_clubs*> d4_clubs = find_clubs_of_comp(TUR_FOURTH_9CF(), NATION_TURKEY_9CF());
+	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_TURKEY_9CF());
+
+	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(lower_clubs, 16 - (comp_data->year == 2025 ? 1 : 0), true);
+	vector<cm3_clubs*> relegated_clubs = get_random_weighted_clubs(d4_clubs, 16, false);
+
+	for (cm3_clubs* c : relegated_clubs) {
+		cm3_club_comps* bottomDivision = get_comp(A_LOWER_9CF());
+		relegate_club_6831A0((BYTE*)c, (DWORD)bottomDivision, 1);
+		c->ClubReserveDivision = 0;
+	}
+
+	for (cm3_clubs* c : promoted_clubs) {
+		cm3_club_comps* topDivision = get_comp(TUR_FOURTH_9CF());
+		promote_club_6830B0((BYTE*)c, (DWORD)topDivision, 1);
 	}
 }
 
@@ -368,6 +374,7 @@ char tur_first_update(BYTE* _this) {
 	}
 	else {
 		tur_third_relegation(_this);
+		tur_fake_lower_relegation(_this);
 	}
 	sort_tur_third_clubs();
 

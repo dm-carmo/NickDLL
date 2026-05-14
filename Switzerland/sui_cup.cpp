@@ -88,15 +88,24 @@ int sui_cup_teams(BYTE* _this) {
 		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)club, &is_main_club, 1);
 		if (!ret_club || is_main_club) vec.push_back(club);
 	}
+	WORD curr_teams = (WORD)vec.size();
+
 	// Lower
-	division_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_SWITZERLAND_9CF());
-	sort(division_clubs.begin(), division_clubs.end(), compareClubRep);
+	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_SWITZERLAND_9CF());
+	for (size_t i = 0; i < lower_clubs.size(); i++) {
+		cm3_clubs* c = lower_clubs[i];
+		DWORD is_main_club;
+		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)c, &is_main_club, 1);
+		if (ret_club && !is_main_club)
+		{
+			lower_clubs.erase(lower_clubs.begin() + i);
+			i--;
+		}
+	}
+	division_clubs = get_random_weighted_clubs(lower_clubs, total_teams - curr_teams, true);
 	for (cm3_clubs* club : division_clubs)
 	{
-		if (vec.size() >= total_teams) break;
-		DWORD is_main_club;
-		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)club, &is_main_club, 1);
-		if (!ret_club || is_main_club) vec.push_back(club);
+		vec.push_back(club);
 	}
 
 	for (DWORD i = 0; i < vec.size(); i++)

@@ -280,14 +280,11 @@ void cro_third_playoff_under(BYTE* _this) {
 	}
 
 	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(CRO_FOURTH_9CF());
-	sort(available_clubs.begin(), available_clubs.end(), compareClubRep);
-	int max_to_check = (available_clubs.size() > 15 ? 15 : available_clubs.size());
-	for (int i = 0; i < 5; i++)
+	vector<cm3_clubs*> playoff_clubs = get_random_weighted_clubs(available_clubs, playoff_teams - 1, true);
+	for (int i = 0; i < playoff_teams - 1; i++)
 	{
-		int availableIdx = rand() % (max_to_check - i);
-		cm3_clubs* available = available_clubs[availableIdx];
+		cm3_clubs* available = playoff_clubs[i];
 		*((DWORD*)(&pTeams[i])) = (DWORD)available;
-		available_clubs.erase(available_clubs.begin() + availableIdx);
 	}
 
 	WORD num_rounds = 0;

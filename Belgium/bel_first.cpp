@@ -571,17 +571,10 @@ void __declspec(naked) bel_first_fixtures_c()
 
 void __fastcall bel_d1_d2_relegation_2025(BYTE* _this)
 {
-	vector<cm3_clubs*> relegated_clubs;
-	comp_stats* comp_data = (comp_stats*)get_loaded_league(BEL_FIRST_9CF());
-	for (WORD num = 0; num < comp_data->n_teams; num++) {
-		team_league_stats table_pos = ((team_league_stats*)comp_data->team_league_table)[num];
-		if (table_pos.league_fate == Relegated) {
-			relegated_clubs.push_back(table_pos.club);
-		}
-	}
+	vector<cm3_clubs*> relegated_clubs = get_relegated_teams(BEL_FIRST_9CF());
 
 	vector<cm3_clubs*> promoted_clubs;
-	comp_data = (comp_stats*)get_loaded_league(BEL_SECOND_9CF());
+	comp_stats* comp_data = (comp_stats*)get_loaded_league(BEL_SECOND_9CF());
 	for (WORD num = 0; num < comp_data->n_teams; num++) {
 		team_league_stats table_pos = ((team_league_stats*)comp_data->team_league_table)[num];
 		if (table_pos.league_fate == Promoted || table_pos.league_fate == Champions) {
@@ -601,17 +594,10 @@ void __fastcall bel_d1_d2_relegation_2025(BYTE* _this)
 
 void __fastcall bel_d2_d3_relegation_2025(BYTE* _this)
 {
-	vector<cm3_clubs*> relegated_clubs;
-	comp_stats* comp_data = (comp_stats*)get_loaded_league(BEL_SECOND_9CF());
-	for (WORD num = 0; num < comp_data->n_teams; num++) {
-		team_league_stats table_pos = ((team_league_stats*)comp_data->team_league_table)[num];
-		if (table_pos.league_fate == Relegated) {
-			relegated_clubs.push_back(table_pos.club);
-		}
-	}
+	vector<cm3_clubs*> relegated_clubs= get_relegated_teams(BEL_SECOND_9CF());
 
 	vector<cm3_clubs*> promoted_clubs;
-	comp_data = (comp_stats*)get_loaded_league(BEL_THIRD_VV_9CF());
+	comp_stats* comp_data = (comp_stats*)get_loaded_league(BEL_THIRD_VV_9CF());
 	for (WORD num = 0; num < comp_data->n_teams; num++) {
 		team_league_stats table_pos = ((team_league_stats*)comp_data->team_league_table)[num];
 		if (table_pos.league_fate == Promoted || table_pos.league_fate == Champions) {
@@ -638,17 +624,10 @@ void __fastcall bel_d2_d3_relegation_2025(BYTE* _this)
 
 void __fastcall bel_d3_d4_relegation_2025(BYTE* _this)
 {
-	vector<cm3_clubs*> relegated_clubs;
-	comp_stats* comp_data = (comp_stats*)get_loaded_league(BEL_THIRD_VV_9CF());
-	for (WORD num = 0; num < comp_data->n_teams; num++) {
-		team_league_stats table_pos = ((team_league_stats*)comp_data->team_league_table)[num];
-		if (table_pos.league_fate == Relegated) {
-			relegated_clubs.push_back(table_pos.club);
-		}
-	}
+	vector<cm3_clubs*> relegated_clubs = get_relegated_teams(BEL_THIRD_VV_9CF());
 
 	vector<cm3_clubs*> promoted_clubs;
-	comp_data = (comp_stats*)get_loaded_league(BEL_FOURTH_VV_9CF());
+	comp_stats* comp_data = (comp_stats*)get_loaded_league(BEL_FOURTH_VV_9CF());
 	comp_stats* curr_stage = comp_data;
 	for (char al = -1; al < 1; al++) {
 		if (al >= 0) {
@@ -743,14 +722,8 @@ void __declspec(naked) bel_first_prom_rel_update_c()
 
 void __fastcall bel_third_vv_relegation(BYTE* _this)
 {
-	vector<cm3_clubs*> relegated_clubs;
-	comp_stats* comp_data = (comp_stats*)get_loaded_league(BEL_THIRD_VV_9CF());
-	for (WORD num = 0; num < comp_data->n_teams; num++) {
-		team_league_stats table_pos = ((team_league_stats*)comp_data->team_league_table)[num];
-		if (table_pos.league_fate == Relegated) {
-			relegated_clubs.push_back(table_pos.club);
-		}
-	}
+	comp_stats* comp_data = (comp_stats*)_this;
+	vector<cm3_clubs*> relegated_clubs = get_relegated_teams(BEL_THIRD_VV_9CF());
 
 	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(BEL_FOURTH_VV_9CF(), NATION_BELGIUM_9CF());
 	sort(available_clubs.begin(), available_clubs.end(), compareClubRep);
@@ -799,14 +772,7 @@ void __fastcall bel_third_vv_relegation(BYTE* _this)
 
 void __fastcall bel_third_ac_relegation(BYTE* _this)
 {
-	vector<cm3_clubs*> relegated_clubs;
-	comp_stats* comp_data = (comp_stats*)get_loaded_league(BEL_THIRD_ACFF_9CF());
-	for (WORD num = 0; num < comp_data->n_teams; num++) {
-		team_league_stats table_pos = ((team_league_stats*)comp_data->team_league_table)[num];
-		if (table_pos.league_fate == Relegated) {
-			relegated_clubs.push_back(table_pos.club);
-		}
-	}
+	vector<cm3_clubs*> relegated_clubs = get_relegated_teams(BEL_THIRD_ACFF_9CF());
 
 	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(BEL_FOURTH_ACFF_9CF(), NATION_BELGIUM_9CF());
 	sort(available_clubs.begin(), available_clubs.end(), compareClubRep);
@@ -855,76 +821,73 @@ void __fastcall bel_non_league_promotion(BYTE* _this)
 	vector<cm3_clubs*> relegated_clubs_ac = get_relegated_teams(BEL_FOURTH_ACFF_9CF());
 
 	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_BELGIUM_9CF());
-	sort(available_clubs.begin(), available_clubs.end(), compareClubRep);
-	int max_to_check = (available_clubs.size() > 15 ? 15 : available_clubs.size());
-	unsigned int i;
-	for (i = 0; i < relegated_clubs_vv.size(); i++)
-	{
-		int availableIdx = rand() % (max_to_check - i);
-		cm3_clubs* clubToRelegate = relegated_clubs_vv[i];
-		cm3_clubs* available = available_clubs[availableIdx];
-
+	for (size_t i = 0; i < available_clubs.size(); i++) {
+		cm3_clubs* c = available_clubs[i];
 		DWORD is_main_club;
-		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)available, &is_main_club, 1);
+		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)c, &is_main_club, 1);
 		if (ret_club && !is_main_club && ret_club->ClubDivision->ClubCompID != BEL_FIRST_9CF()
 			&& ret_club->ClubDivision->ClubCompID != BEL_SECOND_9CF() && ret_club->ClubDivision->ClubCompID != BEL_THIRD_VV_9CF()
 			&& ret_club->ClubDivision->ClubCompID != BEL_THIRD_ACFF_9CF())
-			i--;
-		else
 		{
-			cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
-			cm3_club_comps* bottomDivision = available->ClubDivision;
-			relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
-			promote_club_6830B0((BYTE*)available, (DWORD)topDivision, 1);
-			clubToRelegate->ClubReserveDivision = 0;
+			available_clubs.erase(available_clubs.begin() + i);
+			i--;
 		}
-
-		available_clubs.erase(available_clubs.begin() + availableIdx);
 	}
-	int k;
-	for (k = 0; k < (comp_data->year == 2025 ? 1 : 0); k++)
-	{
-		int availableIdx = rand() % (max_to_check - relegated_clubs_vv.size());
-		cm3_clubs* available = available_clubs[availableIdx];
+	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(available_clubs, relegated_clubs_vv.size() + relegated_clubs_ac.size() + (comp_data->year == 2025 ? 1 : 0), true);
 
-		DWORD is_main_club;
-		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)available, &is_main_club, 1);
-		if (ret_club && !is_main_club && ret_club->ClubDivision->ClubCompID != BEL_FIRST_9CF()
-			&& ret_club->ClubDivision->ClubCompID != BEL_SECOND_9CF() && ret_club->ClubDivision->ClubCompID != BEL_THIRD_VV_9CF()
-			&& ret_club->ClubDivision->ClubCompID != BEL_THIRD_ACFF_9CF())
-			i--;
-		else
-		{
-			cm3_club_comps* topDivision = comp_data->competition_db;
-			promote_club_6830B0((BYTE*)available, (DWORD)topDivision, 1);
-		}
-
-		available_clubs.erase(available_clubs.begin() + availableIdx);
+	for (cm3_clubs* c : relegated_clubs_vv) {
+		cm3_club_comps* bottomDivision = get_comp(A_LOWER_9CF());
+		relegate_club_6831A0((BYTE*)c, (DWORD)bottomDivision, 1);
+		c->ClubReserveDivision = 0;
 	}
-	i += k;
 
-	for (unsigned int j = 0; j < relegated_clubs_ac.size(); j++)
-	{
-		int availableIdx = rand() % (max_to_check - i - j);
-		cm3_clubs* clubToRelegate = relegated_clubs_ac[j];
-		cm3_clubs* available = available_clubs[availableIdx];
+	for (cm3_clubs* c : relegated_clubs_ac) {
+		cm3_club_comps* bottomDivision = get_comp(A_LOWER_9CF());
+		relegate_club_6831A0((BYTE*)c, (DWORD)bottomDivision, 1);
+		c->ClubReserveDivision = 0;
+	}
 
+	for (cm3_clubs* c : promoted_clubs) {
+		cm3_club_comps* topDivision = comp_data->competition_db;
+		promote_club_6830B0((BYTE*)c, (DWORD)topDivision, 1);
+	}
+}
+
+void __fastcall fake_bel_non_league_promotion(BYTE* _this)
+{
+	comp_stats* comp_data = (comp_stats*)_this;
+
+	vector<cm3_clubs*> vv_clubs = find_clubs_of_comp(BEL_FOURTH_VV_9CF());
+	vector<cm3_clubs*> ac_clubs = find_clubs_of_comp(BEL_FOURTH_ACFF_9CF());
+
+	vector<cm3_clubs*> relegated_clubs = get_random_weighted_clubs(vv_clubs, 6, false);
+	vector<cm3_clubs*> relegated_clubs2 = get_random_weighted_clubs(ac_clubs, 3, false);
+	move(relegated_clubs2.begin(), relegated_clubs2.end(), back_inserter(relegated_clubs));
+
+	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_BELGIUM_9CF());
+	for (size_t i = 0; i < available_clubs.size(); i++) {
+		cm3_clubs* c = available_clubs[i];
 		DWORD is_main_club;
-		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)available, &is_main_club, 1);
+		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)c, &is_main_club, 1);
 		if (ret_club && !is_main_club && ret_club->ClubDivision->ClubCompID != BEL_FIRST_9CF()
 			&& ret_club->ClubDivision->ClubCompID != BEL_SECOND_9CF() && ret_club->ClubDivision->ClubCompID != BEL_THIRD_VV_9CF()
 			&& ret_club->ClubDivision->ClubCompID != BEL_THIRD_ACFF_9CF())
-			i--;
-		else
 		{
-			cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
-			cm3_club_comps* bottomDivision = available->ClubDivision;
-			relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
-			promote_club_6830B0((BYTE*)available, (DWORD)topDivision, 1);
-			clubToRelegate->ClubReserveDivision = 0;
+			available_clubs.erase(available_clubs.begin() + i);
+			i--;
 		}
+	}
+	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(available_clubs, relegated_clubs.size() + (comp_data->year == 2025 ? 1 : 0), true);
 
-		available_clubs.erase(available_clubs.begin() + availableIdx);
+	for (cm3_clubs* c : relegated_clubs) {
+		cm3_club_comps* bottomDivision = get_comp(A_LOWER_9CF());
+		relegate_club_6831A0((BYTE*)c, (DWORD)bottomDivision, 1);
+		c->ClubReserveDivision = 0;
+	}
+
+	for (cm3_clubs* c : promoted_clubs) {
+		cm3_club_comps* topDivision = get_comp(BEL_FOURTH_VV_9CF());
+		promote_club_6830B0((BYTE*)c, (DWORD)topDivision, 1);
 	}
 }
 
@@ -1247,6 +1210,7 @@ char bel_first_update(BYTE* _this) {
 	else {
 		bel_third_vv_relegation(_this);
 		bel_third_ac_relegation(_this);
+		fake_bel_non_league_promotion(_this);
 	}
 	sort_bel_third_clubs();
 	sort_bel_fourth_clubs();

@@ -415,13 +415,8 @@ void jpn_third_playoffs_rele(BYTE* _this) {
 	}
 	else { // league is not loaded
 		vector<cm3_clubs*> club_list = find_clubs_of_comp(JPN_JFL_9CF());
-		sort(club_list.begin(), club_list.end(), compareClubRep);
-		int idx = rand() % 5;
-		// pick team to be promoted
-		club_list.erase(club_list.begin() + idx);
-		// pick team for playoff
-		cm3_clubs* playoff = club_list[rand() % 4];
-		*((DWORD*)(&pTeams[1])) = (DWORD)playoff;
+		vector<cm3_clubs*> random_lower = get_random_weighted_clubs(club_list, 2, true);
+		*((DWORD*)(&pTeams[1])) = (DWORD)random_lower[1];
 	}
 
 	WORD num_rounds = 0;

@@ -96,14 +96,11 @@ int arg_cup_teams(BYTE* _this) {
 		vec.push_back(division_clubs[i]);
 	}
 	// Lower
-	division_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_ARGENTINA_9CF());
-	sort(division_clubs.begin(), division_clubs.end(), compareClubRep);
-	for (unsigned int i = 0; i < 3; i++)
+	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_ARGENTINA_9CF());
+	division_clubs = get_random_weighted_clubs(lower_clubs, 3, true);
+	for (cm3_clubs* club : division_clubs)
 	{
-		int availableIdx = rand() % division_clubs.size();
-		cm3_clubs* lower_club = division_clubs[availableIdx];
-		vec.push_back(lower_club);
-		division_clubs.erase(division_clubs.begin() + availableIdx);
+		vec.push_back(club);
 	}
 
 	for (DWORD i = 0; i < total_teams; i++)

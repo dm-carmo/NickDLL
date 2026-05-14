@@ -145,21 +145,21 @@ int spa_cup_first_year_teams(BYTE* _this) {
 	}
 
 	// Lower
-	division_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_SPAIN_9CF());
-	sort(division_clubs.begin(), division_clubs.end(), compareClubRep);
-	for (unsigned int i = 0; i < lower_teams; i++)
-	{
-		int availableIdx = rand() % division_clubs.size();
-		cm3_clubs* lower_club = division_clubs[availableIdx];
-
+	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_SPAIN_9CF());
+	for (size_t i = 0; i < lower_clubs.size(); i++) {
+		cm3_clubs* c = lower_clubs[i];
 		DWORD is_main_club;
-		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)lower_club, &is_main_club, 1);
-		if (ret_club && !is_main_club)
+		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)c, &is_main_club, 1);
+		if ((ret_club && !is_main_club) || vector_contains_club(vec_super, c))
+		{
+			lower_clubs.erase(lower_clubs.begin() + i);
 			i--;
-		else if (!vector_contains_club(vec_super, lower_club))
-			vec.push_back(lower_club);
-
-		division_clubs.erase(division_clubs.begin() + availableIdx);
+		}
+	}
+	division_clubs = get_random_weighted_clubs(lower_clubs, lower_teams, true);
+	for (cm3_clubs* club : division_clubs)
+	{
+		vec.push_back(club);
 	}
 	// Segunda Federación
 	BYTE selected = get_country(NATION_SPAIN_9CF())->NationLeagueSelected;

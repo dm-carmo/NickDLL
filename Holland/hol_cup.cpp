@@ -143,25 +143,23 @@ int hol_cup_teams(BYTE* _this) {
 	WORD lower_teams = total_teams - main_teams;
 
 	// Lower
-	division_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_HOLLAND_9CF());
+	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_HOLLAND_9CF());
 	vector<cm3_clubs*> lower_clubs2 = find_clubs_of_comp(A_LOWER_B_9CF(), NATION_HOLLAND_9CF());
-	move(lower_clubs2.begin(), lower_clubs2.end(), back_inserter(division_clubs));
-	sort(division_clubs.begin(), division_clubs.end(), compareClubRepInv);
-	for (unsigned int i = 0; i < lower_teams; i++)
-	{
-		int availableIdx = rand() % division_clubs.size();
-		cm3_clubs* lower_club = division_clubs[availableIdx];
-		if (!vector_contains_club(vec_uefa, lower_club))
+	move(lower_clubs2.begin(), lower_clubs2.end(), back_inserter(lower_clubs));
+	for (size_t i = 0; i < lower_clubs.size(); i++) {
+		cm3_clubs* c = lower_clubs[i];
+		DWORD is_main_club;
+		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)c, &is_main_club, 1);
+		if ((ret_club && !is_main_club) || vector_contains_club(vec_uefa, c))
 		{
-			DWORD is_main_club;
-			cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)lower_club, &is_main_club, 1);
-			if (ret_club && !is_main_club)
-				i--;
-			else
-				vec.push_back(lower_club);
+			lower_clubs.erase(lower_clubs.begin() + i);
+			i--;
 		}
-
-		division_clubs.erase(division_clubs.begin() + availableIdx);
+	}
+	division_clubs = get_random_weighted_clubs(lower_clubs, lower_teams, true);
+	for (cm3_clubs* club : division_clubs)
+	{
+		vec.push_back(club);
 	}
 	// Eerste Divisie
 	division_clubs = find_clubs_of_comp(HOL_SECOND_9CF());

@@ -18,16 +18,11 @@ int nir_cup_teams(BYTE* _this) {
 
 	teams_seeded* teams = (teams_seeded*)comp_data->teams_list;
 	// Lower
-	vector<cm3_clubs*> division_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_NORTHERN_IRELAND_9CF());
-	sort(division_clubs.begin(), division_clubs.end(), compareClubRep);
-	for (WORD i = 0; i < 2; i++)
+	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_NORTHERN_IRELAND_9CF());
+	vector<cm3_clubs*> division_clubs = get_random_weighted_clubs(lower_clubs, 2, true);
+	for (cm3_clubs* club : division_clubs)
 	{
-		int availableIdx = rand() % division_clubs.size();
-		cm3_clubs* lower_club = division_clubs[availableIdx];
-
-		vec.push_back(lower_club);
-
-		division_clubs.erase(division_clubs.begin() + availableIdx);
+		vec.push_back(club);
 	}
 	// NIFL Intermediate
 	division_clubs = find_clubs_of_comp(NIR_SECOND_9CF());

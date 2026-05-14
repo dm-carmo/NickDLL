@@ -93,21 +93,21 @@ int rus_cup_all_teams(BYTE* _this) {
 	WORD lower_teams = total_teams - main_teams;
 
 	// Lower
-	vector<cm3_clubs*> division_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_RUSSIA_9CF());
-	sort(division_clubs.begin(), division_clubs.end(), compareClubRep);
-	for (unsigned int i = 0; i < lower_teams; i++)
-	{
-		int availableIdx = rand() % division_clubs.size();
-		cm3_clubs* lower_club = division_clubs[availableIdx];
-
+	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_RUSSIA_9CF());
+	for (size_t i = 0; i < lower_clubs.size(); i++) {
+		cm3_clubs* c = lower_clubs[i];
 		DWORD is_main_club;
-		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)lower_club, &is_main_club, 1);
+		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)c, &is_main_club, 1);
 		if (ret_club && !is_main_club)
+		{
+			lower_clubs.erase(lower_clubs.begin() + i);
 			i--;
-		else
-			vec.push_back(lower_club);
-
-		division_clubs.erase(division_clubs.begin() + availableIdx);
+		}
+	}
+	vector<cm3_clubs*> division_clubs = get_random_weighted_clubs(lower_clubs, lower_teams, true);
+	for (cm3_clubs* club : division_clubs)
+	{
+		vec.push_back(club);
 	}
 	// Second B
 	division_clubs = find_clubs_of_comp(RUS_SECOND_B_9CF());

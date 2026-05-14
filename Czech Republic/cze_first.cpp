@@ -433,52 +433,43 @@ void __fastcall cze_check_reserve_teams(BYTE* _this) {
 
 void __fastcall cze_non_league_promotion(BYTE* _this)
 {
-	vector<cm3_clubs*> relegated_clubs;
-
-	comp_stats* comp_data = (comp_stats*)get_loaded_league(CZE_SECOND_9CF());
-	for (WORD num = 0; num < comp_data->n_teams; num++) {
-		team_league_stats table_pos = ((team_league_stats*)comp_data->team_league_table)[num];
-		if (table_pos.league_fate == Relegated) {
-			relegated_clubs.push_back(table_pos.club);
-		}
-	}
+	vector<cm3_clubs*> relegated_clubs = get_relegated_teams(CZE_SECOND_9CF());
 
 	vector<cm3_clubs*> available_clubs_a = find_clubs_of_comp(CZE_THIRD_CFL_9CF(), NATION_CZECH_REPUBLIC_9CF());
-	vector<cm3_clubs*> available_clubs_b = find_clubs_of_comp(CZE_THIRD_MFL_9CF(), NATION_CZECH_REPUBLIC_9CF());
-	sort(available_clubs_a.begin(), available_clubs_a.end(), compareClubRep);
-	sort(available_clubs_b.begin(), available_clubs_b.end(), compareClubRep);
-	int max_to_check_a = (available_clubs_a.size() > 3 ? 3 : available_clubs_a.size());
-	int max_to_check_b = (available_clubs_b.size() > 3 ? 3 : available_clubs_b.size());
-
-	int max_to_check;
-	vector<cm3_clubs*> available_clubs;
-	for (unsigned int i = 0; i < relegated_clubs.size(); i++)
-	{
-		if (i % 2) {
-			max_to_check = max_to_check_a;
-			available_clubs = available_clubs_a;
-		}
-		else {
-			max_to_check = max_to_check_b;
-			available_clubs = available_clubs_b;
-		}
-		int availableIdx = rand() % (max_to_check - i);
-		cm3_clubs* clubToRelegate = relegated_clubs[i];
-		cm3_clubs* available = available_clubs[availableIdx];
-
+	for (size_t i = 0; i < available_clubs_a.size(); i++) {
+		cm3_clubs* c = available_clubs_a[i];
 		DWORD is_main_club;
-		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)available, &is_main_club, 1);
+		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)c, &is_main_club, 1);
 		if (ret_club && !is_main_club && ret_club->ClubDivision->ClubCompID != CZE_FIRST_9CF())
-			i--;
-		else
 		{
-			cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
-			cm3_club_comps* bottomDivision = available->ClubDivision;
-			relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
-			promote_club_6830B0((BYTE*)available, (DWORD)topDivision, 1);
+			available_clubs_a.erase(available_clubs_a.begin() + i);
+			i--;
 		}
+	}
+	vector<cm3_clubs*> available_clubs_b = find_clubs_of_comp(CZE_THIRD_MFL_9CF(), NATION_CZECH_REPUBLIC_9CF());
+	for (size_t i = 0; i < available_clubs_b.size(); i++) {
+		cm3_clubs* c = available_clubs_b[i];
+		DWORD is_main_club;
+		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)c, &is_main_club, 1);
+		if (ret_club && !is_main_club && ret_club->ClubDivision->ClubCompID != CZE_FIRST_9CF())
+		{
+			available_clubs_b.erase(available_clubs_b.begin() + i);
+			i--;
+		}
+	}
+	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(available_clubs_a, 1, true);
+	vector<cm3_clubs*> promoted_clubs2 = get_random_weighted_clubs(available_clubs_b, 1, true);
+	move(promoted_clubs2.begin(), promoted_clubs2.end(), back_inserter(promoted_clubs));
 
-		available_clubs.erase(available_clubs.begin() + availableIdx);
+	for (unsigned int j = 0; j < promoted_clubs.size(); j++) {
+		cm3_clubs* clubToRelegate = relegated_clubs[j];
+		cm3_clubs* clubToPromote = promoted_clubs[j];
+		//dprintf("Swapping Teams: %s (%s) %d <-> %s (%s) %d\n", clubToRelegate->ClubName, clubToRelegate->ClubDivision->ClubCompName, clubToRelegate->ClubReputation, clubToPromote->ClubName, clubToPromote->ClubDivision->ClubCompName, clubToPromote->ClubReputation);
+
+		cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
+		cm3_club_comps* bottomDivision = clubToPromote->ClubDivision;
+		relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
+		promote_club_6830B0((BYTE*)clubToPromote, (DWORD)topDivision, 1);
 	}
 }
 
@@ -492,6 +483,43 @@ void sort_cze_third_clubs() {
 	{
 		if (i < 34) available_clubs[i]->ClubDivision = get_comp(CZE_THIRD_CFL_9CF());
 		else available_clubs[i]->ClubDivision = get_comp(CZE_THIRD_MFL_9CF());
+	}
+}
+
+void __fastcall fake_cze_non_league_relegation(BYTE* _this)
+{
+	comp_stats* comp_data = (comp_stats*)_this;
+
+	vector<cm3_clubs*> cfl_clubs = find_clubs_of_comp(CZE_THIRD_CFL_9CF());
+	vector<cm3_clubs*> mfl_clubs = find_clubs_of_comp(CZE_THIRD_MFL_9CF());
+
+	vector<cm3_clubs*> relegated_clubs = get_random_weighted_clubs(cfl_clubs, 6, false);
+	vector<cm3_clubs*> relegated_clubs2 = get_random_weighted_clubs(mfl_clubs, 2, false);
+	move(relegated_clubs2.begin(), relegated_clubs2.end(), back_inserter(relegated_clubs));
+
+	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_CZECH_REPUBLIC_9CF());
+	for (size_t i = 0; i < available_clubs.size(); i++) {
+		cm3_clubs* c = available_clubs[i];
+		DWORD is_main_club;
+		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)c, &is_main_club, 1);
+		if (ret_club && !is_main_club && ret_club->ClubDivision->ClubCompID != CZE_FIRST_9CF()
+			&& ret_club->ClubDivision->ClubCompID != CZE_SECOND_9CF())
+		{
+			available_clubs.erase(available_clubs.begin() + i);
+			i--;
+		}
+	}
+	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(available_clubs, relegated_clubs.size(), true);
+
+	for (cm3_clubs* c : relegated_clubs) {
+		cm3_club_comps* bottomDivision = get_comp(A_LOWER_9CF());
+		relegate_club_6831A0((BYTE*)c, (DWORD)bottomDivision, 1);
+		c->ClubReserveDivision = 0;
+	}
+
+	for (cm3_clubs* c : promoted_clubs) {
+		cm3_club_comps* topDivision = get_comp(CZE_THIRD_CFL_9CF());
+		promote_club_6830B0((BYTE*)c, (DWORD)topDivision, 1);
 	}
 }
 
@@ -515,6 +543,7 @@ char cze_first_update(BYTE* _this) {
 	cze_first_prom_rel_update(_this, 1);
 
 	cze_non_league_promotion(_this);
+	fake_cze_non_league_relegation(_this);
 	sort_cze_third_clubs();
 
 	sub_687970(_this, ebx);
