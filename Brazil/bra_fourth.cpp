@@ -81,12 +81,7 @@ int bra_fourth_add_teams(BYTE* _this)
 
 	WORD numberOfLeagueTeams = CountNumberOfTeamsInComp(CompID);
 	comp_data->teams2 = (DWORD*)sub_944E46_malloc(numberOfLeagueTeams * 4);
-	vector<cm3_clubs*> d4_clubs;
-	for (DWORD i = 0; i < *clubs_count; i++)
-	{
-		cm3_clubs* club = &(*clubs)[i];
-		if (club->ClubDivision && club->ClubDivision->ClubCompID == CompID) d4_clubs.push_back(club);
-	}
+	vector<cm3_clubs*> d4_clubs = find_clubs_of_comp(CompID);
 	sort(d4_clubs.begin(), d4_clubs.end(), compareClubEWDiagNS);
 	for (DWORD i = 0; i < d4_clubs.size(); i++)
 	{
@@ -94,7 +89,7 @@ int bra_fourth_add_teams(BYTE* _this)
 	}
 
 	comp_data->n_teams = 6; // number of teams per group in this case
-	comp_data->team_league_table = (DWORD*)sub_944E46_malloc(8 * league_team_list_sz);
+	comp_data->team_league_table = (DWORD*)sub_944E46_malloc(comp_data->n_teams * league_team_list_sz);
 	BYTE teamsAdded = 0;
 	for (DWORD i = 0; i < comp_data->n_teams; i++)
 	{
@@ -185,16 +180,16 @@ DWORD bra_fourth_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 		pMem = (BYTE*)sub_944E46_malloc(fixture_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 4, 20), year, Sunday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 4, 27), year, Sunday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 5, 4), year, Sunday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 5, 11), year, Sunday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 5, 18), year, Sunday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 5, 25), year, Sunday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 6, 1), year, Sunday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 6, 8), year, Sunday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 6, 15), year, Sunday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 6, 29), year, Sunday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 4, 5), year, Sunday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 4, 12), year, Sunday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 4, 19), year, Sunday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 4, 26), year, Sunday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 5, 3), year, Sunday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 5, 10), year, Sunday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 5, 17), year, Sunday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 5, 24), year, Sunday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 5, 31), year, Sunday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 6, 14), year, Sunday);
 
 		check_number_of_fixtures(_this, fixture_id, *num_rounds);
 
@@ -211,28 +206,28 @@ DWORD bra_fourth_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 		pMem = (BYTE*)sub_944E46_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 6, 30), year, Monday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 13), year, Sunday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 6, 15), year, Monday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 6, 21), year, Sunday);
 		FillFixtureDetails(pMem, fixture_id++, SecondRound, 0, FixedTeamOrderInCup + Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 5, 64, 32, 64, 0, 0, 2, 7);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 21), year, Monday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 3), year, Sunday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 6, 29), year, Monday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 5), year, Sunday);
 		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 0, FixedTeamOrderInCup + Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 5, 32, 16, 0, 0, 0, 2, 7);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 11), year, Monday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 17), year, Sunday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 13), year, Monday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 19), year, Sunday);
 		FillFixtureDetails(pMem, fixture_id++, FourthRound, 0, FixedTeamOrderInCup + Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 5, 16, 8, 0, 0, 0, 2, 7);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 25), year, Monday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 31), year, Sunday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 27), year, Monday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 9), year, Sunday);
 		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup + Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 5, 8, 4, 0, 0, 0, 2, 7);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 8), year, Monday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 14), year, Sunday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 17), year, Monday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 23), year, Sunday);
 		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 5, 4, 2, 0, 0, 0, 2, 7);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 22), year, Monday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 28), year, Sunday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 31), year, Monday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 6), year, Sunday);
 		FillFixtureDetails(pMem, fixture_id++, Final, 0, FixedTeamOrderInCup + Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 5, 2, 1, 0, 0, 0, 2, 7);
 
 		return (DWORD)pMem;

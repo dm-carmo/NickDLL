@@ -167,8 +167,8 @@ int parent_child_stages(int child_stage_id) {
 	if ((child_stage_id >= 0x407 && child_stage_id <= 0x40B) || child_stage_id == SecondRoundGroup6) return SecondRound;
 	if (child_stage_id >= 0x47e && child_stage_id <= 0x47f) return ThirdRound;
 	if (child_stage_id >= 0x40c && child_stage_id <= 0x40e) return SemiFinal;
-	if (child_stage_id >= 0x43d && child_stage_id <= 0x43e) return AperturaGroupStage;
-	if (child_stage_id >= 0x445 && child_stage_id <= 0x446) return ClausuraGroupStage;
+	//if (child_stage_id >= 0x43d && child_stage_id <= 0x43e) return AperturaGroupStage;
+	//if (child_stage_id >= 0x445 && child_stage_id <= 0x446) return ClausuraGroupStage;
 	if (child_stage_id >= 0x44d && child_stage_id <= 0x450) return PromotionGroupStage;
 	if (child_stage_id >= 0x47c && child_stage_id <= 0x47d) return RelegationGroupStage;
 	if (child_stage_id >= 0x43f && child_stage_id <= 0x440) return FirstStage;

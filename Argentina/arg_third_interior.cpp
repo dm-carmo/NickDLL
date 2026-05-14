@@ -339,7 +339,7 @@ DWORD arg_third_interior_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds,
 
 		return (DWORD)pMem;
 	}
-	if (stage_idx < 7) {
+	else if (stage_idx < 7) {
 		if (a5)
 			*a5 = 1;
 		BYTE* pMem = NULL;
