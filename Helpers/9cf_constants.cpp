@@ -567,6 +567,11 @@ DWORD KSA_PREMIER_9CF() { return 0xc4; }
 DWORD KSA_FIRST_9CF() { return 0x18c; }
 DWORD KSA_CUP_9CF() { return 0x179; }
 DWORD KSA_SUPER_9CF() { return 0x18d; }
+DWORD CHI_PREMIER_9CF() { return 0x181; }
+DWORD CHI_FIRST_9CF() { return 0xf7; }
+DWORD CHI_CUP_9CF() { return 0x177; }
+DWORD CHI_LEAGUE_CUP_9CF() { return 0x1a1; }
+DWORD CHI_SUPER_9CF() { return 0x194; }
 
 // Clubs
 DWORD CLUB_1860_MUNICH_9CF() { return Get9CF(0xb63cc8); }

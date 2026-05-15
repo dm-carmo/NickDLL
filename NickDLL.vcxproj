@@ -185,6 +185,12 @@
     <ClCompile Include="CAF\caf_confederation_cup.cpp" />
     <ClCompile Include="CAF\caf_setup.cpp" />
     <ClCompile Include="CAF\caf_super_cup.cpp" />
+    <ClCompile Include="Chile\chi_cup.cpp" />
+    <ClCompile Include="Chile\chi_first.cpp" />
+    <ClCompile Include="Chile\chi_league_cup.cpp" />
+    <ClCompile Include="Chile\chi_premier.cpp" />
+    <ClCompile Include="Chile\chi_setup.cpp" />
+    <ClCompile Include="Chile\chi_super.cpp" />
     <ClCompile Include="CONCACAF\concacaf_champions_cup.cpp" />
     <ClCompile Include="CONCACAF\concacaf_setup.cpp" />
     <ClCompile Include="Config.cpp" />
@@ -451,6 +457,12 @@
     <ClInclude Include="CAF\caf_confederation_cup.h" />
     <ClInclude Include="CAF\caf_setup.h" />
     <ClInclude Include="CAF\caf_super_cup.h" />
+    <ClInclude Include="Chile\chi_cup.h" />
+    <ClInclude Include="Chile\chi_first.h" />
+    <ClInclude Include="Chile\chi_league_cup.h" />
+    <ClInclude Include="Chile\chi_premier.h" />
+    <ClInclude Include="Chile\chi_setup.h" />
+    <ClInclude Include="Chile\chi_super.h" />
     <ClInclude Include="CONCACAF\concacaf_champions_cup.h" />
     <ClInclude Include="CONCACAF\concacaf_setup.h" />
     <ClInclude Include="Config.h" />

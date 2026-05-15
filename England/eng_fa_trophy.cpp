@@ -13,7 +13,7 @@ int eng_fa_trophy_teams(BYTE* _this) {
 	WORD total_teams = 136;
 	BYTE* pMem = (BYTE*)sub_944E46_malloc(6 * total_teams);
 
-	comp_data->n_teams = total_teams;;
+	comp_data->n_teams = total_teams;
 	comp_data->teams_list = (DWORD*)pMem;
 
 	teams_seeded* teams = (teams_seeded*)comp_data->teams_list;

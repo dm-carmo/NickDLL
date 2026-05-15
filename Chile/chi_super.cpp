@@ -5,11 +5,11 @@
 #include "Helpers\constants.h"
 #include <Helpers\9cf_constants.h>
 
-vtable* tur_super_vtable = new vtable((BYTE*)0x96C8B8, 0xA0);
+vtable* chi_super_vtable = new vtable((BYTE*)0x96C8B8, 0xA0);
 
-void tur_super_free_under(BYTE* _this) {
+void chi_super_free_under(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
-	data->comp_vtable = (DWORD*)(tur_super_vtable->vtable_ptr);
+	data->comp_vtable = (DWORD*)(chi_super_vtable->vtable_ptr);
 	DWORD x = 0;
 	if (data->teams_list) {
 		sub_9452CA_free(data->teams_list);
@@ -34,27 +34,27 @@ void tur_super_free_under(BYTE* _this) {
 	sub_518690(_this);
 }
 
-void tur_super_free(BYTE* _this, BYTE a2) {
-	tur_super_free_under(_this);
+void chi_super_free(BYTE* _this, BYTE a2) {
+	chi_super_free_under(_this);
 	if (a2 & 1) {
 		sub_944C94_free(_this);
 	}
 }
 
-void __declspec(naked) tur_super_free_c()
+void __declspec(naked) chi_super_free_c()
 {
 	__asm
 	{
 		mov eax, esp
 		push dword ptr[eax + 0x4]
 		push ecx
-		call tur_super_free
+		call chi_super_free
 		add esp, 0x8
 		ret 4
 	}
 }
 
-DWORD tur_super_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
+DWORD chi_super_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
 {
 	if (stage_idx == -1) {
 		if (a5)
@@ -68,22 +68,22 @@ DWORD tur_super_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 
 		int fixture_id = 0;
 		int tv_id = 0;
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 6, 29), year, Sunday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 1, 5), year, Monday, Evening, NeutralStadium);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Tuesday, Evening, NeutralStadium);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 1, 9), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 1, 20), year, Tuesday, Evening, NeutralStadium);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Wednesday, Evening, NeutralStadium);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup2 + PenaltiesNoExtraTime_1, NoTiebreak_2, 6, 4, 2, 4, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("tur_super_semi_lose"));
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup2 + PenaltiesNoExtraTime_1, NoTiebreak_2, 6, 4, 2, 4, 0, 0, 1, 0);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 1, 7), year, Wednesday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 1, 10), year, Saturday, Afternoon, NationalStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("tur_super_final_win"), prizeMoneyFile.GetInt("tur_super_final_lose"));
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 1, 22), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 1, 25), year, Sunday, Afternoon, NeutralStadium);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0);
 
 		return (DWORD)pMem;
 	}
 	return 0;
 }
 
-void __declspec(naked) tur_super_fixture_caller()
+void __declspec(naked) chi_super_fixture_caller()
 {
 	__asm
 	{
@@ -93,13 +93,13 @@ void __declspec(naked) tur_super_fixture_caller()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call tur_super_fixtures
+		call chi_super_fixtures
 		add esp, 0x14
 		ret 0x10
 	}
 }
 
-int tur_super_teams(BYTE* _this) {
+int chi_super_teams_first_year(BYTE* _this) {
 	vector<cm3_clubs*> vec;
 	comp_stats* comp_data = (comp_stats*)_this;
 	WORD total_teams = 4;
@@ -107,15 +107,39 @@ int tur_super_teams(BYTE* _this) {
 
 	comp_data->n_teams = total_teams;
 	comp_data->teams_list = (DWORD*)pMem;
-
 	teams_seeded* teams = (teams_seeded*)comp_data->teams_list;
-	vector<cm3_clubs*> d1_clubs = find_clubs_of_comp_last_division(TUR_FIRST_9CF());
+
+	vec.push_back(find_club("Huachipato FC"));
+	vec.push_back(find_club("Club Deportivo Universidad Católica"));
+	vec.push_back(find_club("Coquimbo Unido"));
+	vec.push_back(find_club("Deportes Limache"));
+
+	for (DWORD i = 0; i < vec.size(); i++)
+	{
+		teams[i].club = vec[i];
+		teams[i].f5 = 0;
+		teams[i].f6 = 0;
+	}
+
+	return 1;
+}
+
+int chi_super_teams(BYTE* _this) {
+	vector<cm3_clubs*> vec;
+	comp_stats* comp_data = (comp_stats*)_this;
+	WORD total_teams = 4;
+	BYTE* pMem = (BYTE*)sub_944E46_malloc(6 * total_teams);
+
+	comp_data->n_teams = total_teams;
+	comp_data->teams_list = (DWORD*)pMem;
+	teams_seeded* teams = (teams_seeded*)comp_data->teams_list;
+	vector<cm3_clubs*> d1_clubs = find_clubs_of_comp_last_division(CHI_PREMIER_9CF());
 	sort(d1_clubs.begin(), d1_clubs.end(), compareClubLastDivPos);
 
-	cm3_club_comps* tur_cup = get_comp(TUR_CUP_9CF());
-	cm3_clubs* winner = get_last_comp_winner(tur_cup);
+	cm3_club_comps* chi_cup = get_comp(CHI_CUP_9CF());
+	cm3_clubs* winner = get_last_comp_winner(chi_cup);
 	if (winner) vec.push_back(winner);
-	cm3_clubs* runner_up = get_last_comp_runner_up(tur_cup);
+	cm3_clubs* runner_up = get_last_comp_runner_up(chi_cup);
 	if (runner_up) vec.push_back(runner_up);
 
 	for (cm3_clubs* c : d1_clubs) {
@@ -133,7 +157,7 @@ int tur_super_teams(BYTE* _this) {
 	return 1;
 }
 
-char tur_super_update(BYTE* _this) {
+char chi_super_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
 	data->f76 = 0;
@@ -160,33 +184,33 @@ char tur_super_update(BYTE* _this) {
 	data->year++;
 	data->f171 = 0;
 	*((BYTE*)(_this + 0xB1)) = 0;
-	tur_super_teams(_this);
+	chi_super_teams(_this);
 	DWORD v1 = *(DWORD*)_this;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x8C))(_this);
 	return (*(int(__thiscall**)(BYTE*))(v1 + 0x94))(_this);
 }
 
-void __declspec(naked) tur_super_update_c()
+void __declspec(naked) chi_super_update_c()
 {
 	__asm
 	{
 		mov eax, esp
 		push ecx
-		call tur_super_update
+		call chi_super_update
 		add esp, 0x4
 		ret
 	}
 }
 
-void tur_super_init(BYTE* _this, WORD year, cm3_club_comps* comp)
+void chi_super_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 {
 	sub_518640(_this);
 	comp_stats* data = (comp_stats*)_this;
 	data->competition_db = comp;
-	data->comp_vtable = (DWORD*)(tur_super_vtable->vtable_ptr);
-	tur_super_vtable->SetPointer(VTableInitFree, (DWORD)&tur_super_free_c);
-	tur_super_vtable->SetPointer(VTableEoSUpdate, (DWORD)&tur_super_update_c);
-	tur_super_vtable->SetPointer(VTableFixtures, (DWORD)&tur_super_fixture_caller);
+	data->comp_vtable = (DWORD*)(chi_super_vtable->vtable_ptr);
+	chi_super_vtable->SetPointer(VTableInitFree, (DWORD)&chi_super_free_c);
+	chi_super_vtable->SetPointer(VTableEoSUpdate, (DWORD)&chi_super_update_c);
+	chi_super_vtable->SetPointer(VTableFixtures, (DWORD)&chi_super_fixture_caller);
 	data->year = year;
 	data->f171 = 0;
 	data->f68 = -1;
@@ -195,11 +219,11 @@ void tur_super_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->comp_type = CLUB_DOMESTIC;
 	data->max_bench = 9;
 	data->max_subs = 5;
-	data->rules = RulesTurkeyCup;
+	data->rules = RulesChile;
 	*((BYTE*)(_this + 0xB1)) = 0;
 	int loaded = sub_51FC00(_this, 1);
 	if (loaded) return;
-	tur_super_teams(_this);
+	chi_super_teams_first_year(_this);
 	DWORD v1 = *(DWORD*)_this;
 	*((DWORD*)(_this + 0xA3)) = (DWORD)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0x3c, _this + 0x3a, 0);
 	cup_map_fixture_tree_518790(_this);
@@ -210,6 +234,6 @@ void tur_super_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->f8 = (DWORD*)pMem2;
 }
 
-void setup_tur_super()
+void setup_chi_super()
 {
 }

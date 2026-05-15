@@ -323,6 +323,48 @@ void sudam_team_selection() {
 				}
 			}
 		}
+		else
+		{
+			// Get secondary cup winners if country is playable, only from second season onwards
+			if (conmebol_nation->NationLeagueSelected) {
+				DWORD max_playables = pnd_count;
+				for (DWORD i = 0; i < max_playables; i++) {
+					playable_nation_data playable = pnd_list[i];
+					if (playable.nation == conmebol_nation && playable.league_cup) {
+						cm3_clubs* cup_winner = get_last_comp_winner(playable.league_cup);
+						if (cup_winner && cup_winner->ClubNation == conmebol_nation && cup_winner->ClubEuroFlag == -1) {
+							cup_winner->ClubEuroFlag = COPA_SUDAMERICANA_9CF();
+							if (j >= count) {
+								for (int x = curr_seeding; x < 2; x++) {
+									count += quals[x];
+									curr_seeding = x + 1;
+									if (quals[x] > 0) break;
+								}
+								if (curr_seeding > 2) break;
+							}
+							cup_winner->ClubEuroSeeding = curr_seeding;
+							j++;
+						}
+						else {
+							cm3_clubs* cup_loser = get_last_comp_runner_up(playable.league_cup);
+							if (cup_loser && cup_loser->ClubNation == conmebol_nation && cup_loser->ClubEuroFlag == -1) {
+								cup_loser->ClubEuroFlag = COPA_SUDAMERICANA_9CF();
+								if (j >= count) {
+									for (int x = curr_seeding; x < 2; x++) {
+										count += quals[x];
+										curr_seeding = x + 1;
+										if (quals[x] > 0) break;
+									}
+									if (curr_seeding > 2) break;
+								}
+								cup_loser->ClubEuroSeeding = curr_seeding;
+								j++;
+							}
+						}
+					}
+				}
+			}
+		}
 
 		if (conmebol_nation->NationID == NATION_ARGENTINA_9CF() || conmebol_nation->NationID == NATION_BRAZIL_9CF()) required = 6;
 		else required = 4;

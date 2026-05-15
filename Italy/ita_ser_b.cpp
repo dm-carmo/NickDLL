@@ -391,7 +391,7 @@ void ita_ser_b_rele_playoffs(BYTE* _this) {
 	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)(comp_data->competition_db), pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, 0);
 	DWORD* stages_arr = comp_data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
-	sub_51C800(new_stage, 0);;
+	sub_51C800(new_stage, 0);
 	comp_data->current_stage = (long)stage_num;
 }
 

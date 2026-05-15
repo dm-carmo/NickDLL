@@ -801,6 +801,24 @@
     <ClCompile Include="Saudi Arabia\ksa_super.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Chile\chi_setup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Chile\chi_premier.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Chile\chi_first.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Chile\chi_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Chile\chi_league_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Chile\chi_super.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -1599,6 +1617,24 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Saudi Arabia\ksa_super.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Chile\chi_setup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Chile\chi_premier.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Chile\chi_first.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Chile\chi_cup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Chile\chi_league_cup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Chile\chi_super.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

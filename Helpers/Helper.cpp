@@ -193,7 +193,7 @@ cm3_clubs* find_club(const char* szClub)
 	for (DWORD i = 0; i < *clubs_count; i++)
 	{
 		char* club_db_name = get_db_club_name(&(*clubs)[i]);
-		if (_stricmp(club_db_name, szClub) == 0)
+		if (strcmp(club_db_name, szClub) == 0)
 			return &(*clubs)[i];
 	}
 	return NULL;

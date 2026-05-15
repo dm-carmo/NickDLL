@@ -220,7 +220,7 @@ void por_league_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->max_bench = 9;
 	data->max_subs = 5;
 	data->rules = RulesPortugal;
-	*((BYTE*)(_this + 0xB1)) = 0;;
+	*((BYTE*)(_this + 0xB1)) = 0;
 	int loaded = sub_51FC00(_this, 1);
 	if (loaded) return;
 	por_league_cup_teams(_this);
