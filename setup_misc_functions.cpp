@@ -271,4 +271,9 @@ void setup_misc_functions()
 		WriteBytes(0x8077CF + 2, 1, 36);
 		WriteBytes(0xA7FFD8, 2, 0x33, 0x36);
 	}
+
+	// Show hosts for some other comps
+	WriteDWORD(0x96769C, 0x404480); // Asian Cup
+	WriteDWORD(0x96B488, 0x404480); // Copa América
+	WriteDWORD(0x9672F8, 0x404480); // AFCON
 }

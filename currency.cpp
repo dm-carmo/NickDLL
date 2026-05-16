@@ -1,11 +1,11 @@
 #include <Helpers/Helper.h>
 
 double inflation_mult = 1.;
+double general_mult = 1.;
 
 void setup_currency() {
-	inflation_mult = configFile.GetDouble("inflationMultiplier", 0.);
+	general_mult = configFile.GetDouble("prizeMoneyMultiplier", 1.);
 	if (*(BYTE*)0x9196C1 != 0x90) inflation_mult = *(double*)0x9196C1;
-	if (inflation_mult == 0.) inflation_mult = 1.;
 	// 1 GBP = 1.16 EUR;
 	WriteDWORD(0x43FF23 + 6, 0x28F5C28F);
 	WriteDWORD(0x43FF33 + 6, 0x3FF28F5C);

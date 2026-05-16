@@ -145,9 +145,9 @@ void FillFixtureDetails(BYTE* pMem, int fixture, WORD stage_name, WORD draw_type
 	*(BYTE*)(pMem + (fixture * playoff_dates_sz) + 0x20) = replays;
 	*(BYTE*)(pMem + (fixture * playoff_dates_sz) + 0x21) = legs;
 	*(BYTE*)(pMem + (fixture * playoff_dates_sz) + 0x22) = days_between_games;
-	*(DWORD*)(pMem + (fixture * playoff_dates_sz) + 0x5C) = (DWORD)(prize_reach / inflation_mult);
-	*(DWORD*)(pMem + (fixture * playoff_dates_sz) + 0x60) = (DWORD)(prize_win / inflation_mult);
-	*(DWORD*)(pMem + (fixture * playoff_dates_sz) + 0x64) = (DWORD)(prize_lose / inflation_mult);
+	*(DWORD*)(pMem + (fixture * playoff_dates_sz) + 0x5C) = (DWORD)(prize_reach / inflation_mult * general_mult);
+	*(DWORD*)(pMem + (fixture * playoff_dates_sz) + 0x60) = (DWORD)(prize_win / inflation_mult * general_mult);
+	*(DWORD*)(pMem + (fixture * playoff_dates_sz) + 0x64) = (DWORD)(prize_lose / inflation_mult * general_mult);
 }
 
 void WriteVTablePtr(DWORD* addr, int pos, DWORD data) {
@@ -155,17 +155,17 @@ void WriteVTablePtr(DWORD* addr, int pos, DWORD data) {
 }
 
 int SetupPrizeMoney(BYTE* _this, int base_amount) {
-	return add_prize_money_682F70(_this, (int)(base_amount / inflation_mult));
+	return add_prize_money_682F70(_this, (int)(base_amount / inflation_mult * general_mult));
 }
 
 int SetupTVMoney(BYTE* _this, int amount, cm3_club_comps* last_division) {
-	return add_tv_money_683010(_this, (int)(amount / inflation_mult), last_division);
+	return add_tv_money_683010(_this, (int)(amount / inflation_mult * general_mult), last_division);
 }
 
 int AddMoneyFromComp(BYTE* _this, BYTE* club, int money, int a4, char position, WORD stage_name_idx, BYTE* a7, char a8) {
-	return add_money_to_club_from_comp_48E3E0(_this, club, (int)(money / inflation_mult), a4, position, stage_name_idx, a7, a8);
+	return add_money_to_club_from_comp_48E3E0(_this, club, (int)(money / inflation_mult * general_mult), a4, position, stage_name_idx, a7, a8);
 }
 
 int AddToClubIncome(BYTE* _this, int money) {
-	return add_to_income_prize_money_5999A0(_this, (int)(money / inflation_mult));
+	return add_to_income_prize_money_5999A0(_this, (int)(money / inflation_mult * general_mult));
 }

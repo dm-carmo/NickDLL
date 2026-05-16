@@ -166,7 +166,10 @@ int arg_first_add_teams(BYTE* _this, bool first_season)
 	comp_data->teams2 = (DWORD*)sub_944E46_malloc(d1_clubs.size() * 4);
 	comp_data->n_teams2 = d1_clubs.size();
 	if (first_season) sort(d1_clubs.begin(), d1_clubs.end(), compareClubRep);
-	else sort(d1_clubs.begin(), d1_clubs.end(), compareClubLastDivPos);
+	else {
+		sort(d1_clubs.begin(), d1_clubs.end(), compareClubLastDivPos);
+		sort(d1_clubs.begin(), d1_clubs.begin() + 28, compareClubRep);
+	}
 	shuffle(d1_clubs.begin(), d1_clubs.begin() + 2, rng);
 	shuffle(d1_clubs.begin() + 2, d1_clubs.begin() + 4, rng);
 	shuffle(d1_clubs.begin() + 4, d1_clubs.begin() + 6, rng);
@@ -182,18 +185,21 @@ int arg_first_add_teams(BYTE* _this, bool first_season)
 	shuffle(d1_clubs.begin() + 24, d1_clubs.begin() + 26, rng);
 	shuffle(d1_clubs.begin() + 26, d1_clubs.begin() + 28, rng);
 	shuffle(d1_clubs.begin() + 28, d1_clubs.end(), rng);
-	for (DWORD i = 0; i < comp_data->n_teams2; i++)
+
+	comp_data->n_teams = 15; // number of teams per group
+	for (WORD i = 0; i < comp_data->n_teams; i++)
 	{
-		*((DWORD*)(&comp_data->teams2[i])) = (DWORD)d1_clubs[i];
+		dprintf("[%d | %d] %s -> group A\n", i, i * 2, d1_clubs[i * 2]->ClubNameShort);
+		*((DWORD*)(&comp_data->teams2[i])) = (DWORD)d1_clubs[i * 2];
+		dprintf("[%d | %d] %s -> group B\n", comp_data->n_teams + i, i * 2 + 1, d1_clubs[i * 2 + 1]->ClubNameShort);
+		*((DWORD*)(&comp_data->teams2[comp_data->n_teams + i])) = (DWORD)d1_clubs[i * 2 + 1];
 	}
 	if (!first_season) {
 		// dirty fix to make sure the 2 promoted teams go into group B
-		*((DWORD*)(&comp_data->teams2[27])) = (DWORD)d1_clubs[28];
-		*((DWORD*)(&comp_data->teams2[28])) = (DWORD)d1_clubs[27];
+		*((DWORD*)(&comp_data->teams2[28])) = (DWORD)d1_clubs[28];
+		*((DWORD*)(&comp_data->teams2[14])) = (DWORD)d1_clubs[27];
 	}
 
-	// Now let's add the teams
-	comp_data->n_teams = 15; // number of teams per group in this case
 	comp_data->team_league_table = (DWORD*)sub_944E46_malloc(comp_data->n_teams * league_team_list_sz);
 	BYTE teamsAdded = 0;
 	for (DWORD i = 0; i < comp_data->n_teams; i++)

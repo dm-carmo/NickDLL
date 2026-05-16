@@ -1,5 +1,5 @@
 {
-  "inflationMultiplier": 2.5,
+  "prizeMoneyMultiplier": 1.0,
   "cupRunnerUpsInUEFA": false,
   "useEnglandAcademyTeams": false,
   "competitionColoursPatch": true,
