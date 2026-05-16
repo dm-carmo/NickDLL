@@ -9,6 +9,7 @@
 #include "Croatia\cro_setup.h"
 #include "Czech Republic\cze_setup.h"
 #include "Denmark\den_setup.h"
+#include "Egypt\egy_setup.h"
 #include "England\eng_setup.h"
 #include "Finland\fin_setup.h"
 #include "France\fra_setup.h"

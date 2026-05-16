@@ -453,6 +453,18 @@ int replacement_667150() {
 	pnd_list[idx].updates_in_june = 0;
 	idx++;
 
+	cm_date = new BYTE[8];
+	pnd_list[idx].nation = get_country(NATION_EGYPT_9CF());
+	pnd_list[idx].setup_function_addr = (DWORD)&egy_setup_c;
+	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
+	convert_to_cm_date(pnd_list[idx].end_date, 25, May, *current_year, -1);
+	pnd_list[idx].updates_in_june = 1;
+	convert_to_cm_date(cm_date, 20, June, 2025, -1);
+	pnd_list[idx].update_day = *(WORD*)(cm_date);
+	pnd_list[idx].main_cup = get_comp(EGY_CUP_9CF());
+	pnd_list[idx].league_cup = get_comp(EGY_LEAGUE_CUP_9CF());
+	idx++;
+
 	return 1;
 }
 
@@ -601,6 +613,8 @@ void setup_leagues_setup() {
 	WriteBytes(0x724092, 1, 0x7e);
 	WriteBytes(0x8d305e, 1, 8);
 	WriteBytes(0x8d305f, 1, 0x7e);
+	// this stop OFC competition games from showing in playable clubs' calendars so AFC competition games can show instead
+	WriteBytes(0x5acc80, 1, 0x8);
 
 	DWORD pnd_count_calc = pnd_count;
 

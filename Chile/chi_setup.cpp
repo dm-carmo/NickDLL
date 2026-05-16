@@ -45,7 +45,7 @@ DWORD chi_setup_c(playable_nation_data* nation_data) {
 	nation_comps[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
-	chi_super_init(pMem, start_year, get_comp(CHI_SUPER_9CF()));
+	chi_super_init(pMem, start_year, get_comp(CHI_SUPER_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
 	BYTE* cm_date = new BYTE[8];
@@ -53,7 +53,7 @@ DWORD chi_setup_c(playable_nation_data* nation_data) {
 	nation_data->update_day = *(WORD*)cm_date;
 	nation_data->update_year = start_year;
 	nation_data->f29 = 1;
-	nation_data->super_cup = get_comp(CHI_SUPER_9CF());
+	nation_data->super_cup = get_comp(CHI_SUPER_CUP_9CF());
 	return 1;
 }
 

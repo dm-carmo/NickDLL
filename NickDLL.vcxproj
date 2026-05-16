@@ -218,6 +218,12 @@
     <ClCompile Include="Denmark\den_setup.cpp" />
     <ClCompile Include="Denmark\den_third.cpp" />
     <ClCompile Include="discipline_setup.cpp" />
+    <ClCompile Include="Egypt\egy_cup.cpp" />
+    <ClCompile Include="Egypt\egy_first.cpp" />
+    <ClCompile Include="Egypt\egy_league_cup.cpp" />
+    <ClCompile Include="Egypt\egy_second.cpp" />
+    <ClCompile Include="Egypt\egy_setup.cpp" />
+    <ClCompile Include="Egypt\egy_super.cpp" />
     <ClCompile Include="England\eng_awards.cpp" />
     <ClCompile Include="England\eng_conf.cpp" />
     <ClCompile Include="England\eng_conf_n.cpp" />
@@ -490,6 +496,12 @@
     <ClInclude Include="Denmark\den_setup.h" />
     <ClInclude Include="Denmark\den_third.h" />
     <ClInclude Include="discipline_setup.h" />
+    <ClInclude Include="Egypt\egy_cup.h" />
+    <ClInclude Include="Egypt\egy_first.h" />
+    <ClInclude Include="Egypt\egy_league_cup.h" />
+    <ClInclude Include="Egypt\egy_second.h" />
+    <ClInclude Include="Egypt\egy_setup.h" />
+    <ClInclude Include="Egypt\egy_super.h" />
     <ClInclude Include="England\eng_awards.h" />
     <ClInclude Include="England\eng_conf.h" />
     <ClInclude Include="England\eng_conf_n.h" />

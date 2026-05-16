@@ -1,4 +1,5 @@
 {
+  "inflationMultiplier": 2.5,
   "cupRunnerUpsInUEFA": false,
   "useEnglandAcademyTeams": false,
   "competitionColoursPatch": true,

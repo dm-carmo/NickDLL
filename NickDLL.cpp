@@ -155,6 +155,8 @@ void Setup()
 	setup_chi_nation();
 	dprintf("New nation: Czech Republic\n");
 	setup_cze_nation();
+	dprintf("New nation: Egypt\n");
+	setup_egy_nation();
 	dprintf("New nation: Saudi Arabia\n");
 	setup_ksa_nation();
 	dprintf("New nation: Switzerland\n");

@@ -390,9 +390,6 @@ char ksa_premier_update(BYTE* _this) {
 	}
 	data->year++;
 	data->current_stage = -1;
-	data->num_stages = 0;
-	data->stages = 0;
-	*((DWORD*)(_this + 0xA7)) = -1;
 	ksa_premier_subs(_this);
 	AddTeams(_this);
 	data->prize_money_pool = SetupPrizeMoney(_this, prizeMoneyFile.GetInt("ksa_premier_prize_money"));
