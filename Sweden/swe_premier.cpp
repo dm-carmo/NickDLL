@@ -288,14 +288,14 @@ char swe_premier_update(BYTE* _this) {
 	update_club_pro_status_68A980(swe_first, Professional, Relegated, -3, 1);
 	update_club_pro_status_68A980(swe_first, Professional, -3, Relegated, 1);
 	// All teams that were in D3 must be semi-professional
-	comp_stats* swe_third_data = (comp_stats*)swe_third;
-	BYTE* swe_third_grp = (BYTE*)swe_third_data->stages[0];
-	update_club_pro_status_68A980(swe_third, SemiProfessional, Relegated, -3, 1);
-	update_club_pro_status_68A980(swe_third, SemiProfessional, -3, Relegated, 1);
-	update_club_pro_status_68A980(swe_third, SemiProfessional, -3, Relegated, 0);
-	update_club_pro_status_68A980(swe_third_grp, SemiProfessional, Relegated, -3, 1);
-	update_club_pro_status_68A980(swe_third_grp, SemiProfessional, -3, Relegated, 1);
-	update_club_pro_status_68A980(swe_third_grp, SemiProfessional, -3, Relegated, 0);
+	comp_stats* swe_second_data = (comp_stats*)swe_second;
+	BYTE* swe_second_grp = (BYTE*)swe_second_data->stages[0];
+	update_club_pro_status_68A980(swe_second, SemiProfessional, Relegated, -3, 1);
+	update_club_pro_status_68A980(swe_second, SemiProfessional, -3, Relegated, 1);
+	update_club_pro_status_68A980(swe_second, SemiProfessional, -3, Relegated, 0);
+	update_club_pro_status_68A980(swe_second_grp, SemiProfessional, Relegated, -3, 1);
+	update_club_pro_status_68A980(swe_second_grp, SemiProfessional, -3, Relegated, 1);
+	update_club_pro_status_68A980(swe_second_grp, SemiProfessional, -3, Relegated, 0);
 	if (swe_third)
 	{
 		comp_stats* swe_third_data = (comp_stats*)swe_third;

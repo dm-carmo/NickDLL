@@ -6,7 +6,6 @@
 #include "Helpers\constants.h"
 #include <Helpers\9cf_constants.h>
 
-// Promoted teams always go in group B
 DWORD* arg_first_vtable = (DWORD*)0x967324;
 
 void arg_first_aggregate_relegation(BYTE* _this) {
@@ -25,20 +24,61 @@ void arg_first_aggregate_relegation(BYTE* _this) {
 
 int arg_first_set_champion(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
+	cm3_clubs* open_winner = 0;
+	cm3_clubs* close_winner = 0;
 
+	// add aggregate champions to history
 	comp_stats* aggregate = (comp_stats*)(data->stages[5]);
 	team_league_stats* table_teams = (team_league_stats*)(aggregate->team_league_table);
 	sub_4AFCE0_add_history_entry(_this, table_teams[0].club, table_teams[1].club, table_teams[2].club, 0);
 
-	BYTE* stage_data_for_history = (BYTE*)data->stages[4];
-	DWORD v1 = *(DWORD*)stage_data_for_history;
-	(*(int(__thiscall**)(BYTE*))(v1 + 0x30))(stage_data_for_history);
+	// add closing stage winners to history
+	BYTE* close_playoff = (BYTE*)data->stages[4];
+	comp_stats* close_playoff_data = (comp_stats*)(close_playoff);
+	DWORD v1 = *(DWORD*)close_playoff;
+	(*(int(__thiscall**)(BYTE*))(v1 + 0x30))(close_playoff);
 
-	stage_data_for_history = (BYTE*)data->stages[3];
-	v1 = *(DWORD*)stage_data_for_history;
-	(*(int(__thiscall**)(BYTE*))(v1 + 0x30))(stage_data_for_history);
+	teams_seeded* close_teams = (teams_seeded*)close_playoff_data->teams_list;
+	for (WORD i = 0; i < close_playoff_data->n_teams; i++) {
+		if (close_teams[i].f6 == 1)
+		{
+			close_winner = close_teams[i].club;
+			break;
+		}
+	}
 
+	// add opening stage winners to history
+	BYTE* open_playoff = (BYTE*)data->stages[3];
+	comp_stats* open_playoff_data = (comp_stats*)(open_playoff);
+	v1 = *(DWORD*)open_playoff;
+	(*(int(__thiscall**)(BYTE*))(v1 + 0x30))(open_playoff);
+
+	teams_seeded* open_teams = (teams_seeded*)open_playoff_data->teams_list;
+	for (WORD i = 0; i < open_playoff_data->n_teams; i++) {
+		if (open_teams[i].f6 == 1)
+		{
+			open_winner = open_teams[i].club;
+			break;
+		}
+	}
+
+	// set relegated teams
 	arg_first_aggregate_relegation(_this);
+
+	// qualify teams for champions trophy
+	comp_stats* champions_cup = (comp_stats*)get_loaded_league(ARG_CHAMPIONS_CUP_9CF());
+	teams_seeded* teams = (teams_seeded*)champions_cup->teams_list;
+	teams[0].club = open_winner;
+	// if the same team won both opening and closing stage, get the best placed team in the aggregate table
+	if (open_winner == close_winner) {
+		for (WORD i = 0; i < aggregate->n_teams; i++) {
+			if (table_teams[i].club != close_winner) {
+				close_winner = table_teams[i].club;
+				break;
+			}
+		}
+	}
+	teams[1].club = close_winner;
 
 	return 0;
 }
@@ -189,9 +229,7 @@ int arg_first_add_teams(BYTE* _this, bool first_season)
 	comp_data->n_teams = 15; // number of teams per group
 	for (WORD i = 0; i < comp_data->n_teams; i++)
 	{
-		dprintf("[%d | %d] %s -> group A\n", i, i * 2, d1_clubs[i * 2]->ClubNameShort);
 		*((DWORD*)(&comp_data->teams2[i])) = (DWORD)d1_clubs[i * 2];
-		dprintf("[%d | %d] %s -> group B\n", comp_data->n_teams + i, i * 2 + 1, d1_clubs[i * 2 + 1]->ClubNameShort);
 		*((DWORD*)(&comp_data->teams2[comp_data->n_teams + i])) = (DWORD)d1_clubs[i * 2 + 1];
 	}
 	if (!first_season) {
@@ -511,7 +549,6 @@ void __fastcall arg_third_inactive_relegation(BYTE* _this)
 	vector<cm3_clubs*> d2_rel_metro;
 	vector<cm3_clubs*> d2_rel_int;
 
-
 	comp_stats* comp_data = (comp_stats*)get_loaded_league(ARG_SECOND_9CF());
 	comp_stats* curr_stage = comp_data;
 	for (char al = -1; al < 1; al++) {
@@ -522,13 +559,8 @@ void __fastcall arg_third_inactive_relegation(BYTE* _this)
 			team_league_stats table_pos = ((team_league_stats*)curr_stage->team_league_table)[num];
 			if (table_pos.league_fate == Relegated) {
 				if (table_pos.club->ClubReserveDivision && table_pos.club->ClubReserveDivision->ClubCompID == ARG_THIRD_METRO_9CF())
-				{
 					d2_rel_metro.push_back(table_pos.club);
-				}
-				else
-				{
-					d2_rel_int.push_back(table_pos.club);
-				}
+				else d2_rel_int.push_back(table_pos.club);
 			}
 		}
 	}

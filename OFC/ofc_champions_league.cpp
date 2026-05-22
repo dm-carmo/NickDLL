@@ -166,7 +166,7 @@ void ofc_cl_team_selection() {
 	for (cm3_nations* ofc_nation : ofc_nations) {
 		bool in_prelim = find(ofc_worst.begin(), ofc_worst.end(), get_db_nation_name(ofc_nation)) != ofc_worst.end();
 		BYTE j = 0;
-		if (filesystem::exists("Data/ofc.cfg") && *current_year == (WORD)2025) {
+		if (filesystem::exists("Data/ofc.cfg") && *current_year == (WORD)START_YEAR) {
 			ifstream in("Data/ofc.cfg", ios_base::in);
 			string name;
 			char nation[LONG_TXT_LENGTH];

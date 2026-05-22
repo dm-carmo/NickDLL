@@ -138,10 +138,12 @@
     <ClCompile Include="AFC\afc_champions_league_2.cpp" />
     <ClCompile Include="AFC\afc_champions_league_elite.cpp" />
     <ClCompile Include="AFC\afc_setup.cpp" />
+    <ClCompile Include="Argentina\arg_champ_cup.cpp" />
     <ClCompile Include="Argentina\arg_cup.cpp" />
     <ClCompile Include="Argentina\arg_first.cpp" />
     <ClCompile Include="Argentina\arg_second.cpp" />
     <ClCompile Include="Argentina\arg_setup.cpp" />
+    <ClCompile Include="Argentina\arg_super.cpp" />
     <ClCompile Include="Argentina\arg_third_interior.cpp" />
     <ClCompile Include="Argentina\arg_third_metro.cpp" />
     <ClCompile Include="Australia\aus_cup.cpp" />
@@ -414,10 +416,12 @@
     <ClInclude Include="AFC\afc_champions_league_2.h" />
     <ClInclude Include="AFC\afc_champions_league_elite.h" />
     <ClInclude Include="AFC\afc_setup.h" />
+    <ClInclude Include="Argentina\arg_champ_cup.h" />
     <ClInclude Include="Argentina\arg_cup.h" />
     <ClInclude Include="Argentina\arg_first.h" />
     <ClInclude Include="Argentina\arg_second.h" />
     <ClInclude Include="Argentina\arg_setup.h" />
+    <ClInclude Include="Argentina\arg_super.h" />
     <ClInclude Include="Argentina\arg_third_interior.h" />
     <ClInclude Include="Argentina\arg_third_metro.h" />
     <ClInclude Include="Australia\aus_cup.h" />

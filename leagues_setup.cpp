@@ -29,7 +29,7 @@ int replacement_667150() {
 	convert_to_cm_date(pnd_list[idx].start_date, 1, July, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 1, July, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
-	convert_to_cm_date(cm_date, 2, January, 2025, -1);
+	convert_to_cm_date(cm_date, 2, January, START_YEAR, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	idx++;
 
@@ -39,7 +39,7 @@ int replacement_667150() {
 	convert_to_cm_date(pnd_list[idx].start_date, 23, June, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 20, May, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
-	convert_to_cm_date(cm_date, 21, June, 2025, -1);
+	convert_to_cm_date(cm_date, 21, June, START_YEAR, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].main_cup = get_comp(UEFA_CHAMPIONS_LEAGUE_9CF());
 	idx++;
@@ -47,7 +47,7 @@ int replacement_667150() {
 	cm_date = new BYTE[8];
 	pnd_list[idx].continent = get_continent(NORTH_AMERICA_9CF());
 	pnd_list[idx].setup_function_addr = (DWORD)&concacaf_setup_c;
-	convert_to_cm_date(cm_date, 2, January, 2025, -1);
+	convert_to_cm_date(cm_date, 2, January, START_YEAR, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].updates_in_june = 0;
 	convert_to_cm_date(pnd_list[idx].start_date, 1, July, *current_year, -1);
@@ -58,7 +58,7 @@ int replacement_667150() {
 	cm_date = new BYTE[8];
 	pnd_list[idx].continent = get_continent(SOUTH_AMERICA_9CF());
 	pnd_list[idx].setup_function_addr = (DWORD)&conmebol_setup_c;
-	convert_to_cm_date(cm_date, 2, January, 2025, -1);
+	convert_to_cm_date(cm_date, 2, January, START_YEAR, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].updates_in_june = 0;
 	convert_to_cm_date(pnd_list[idx].start_date, 1, July, *current_year, -1);
@@ -69,7 +69,7 @@ int replacement_667150() {
 	cm_date = new BYTE[8];
 	pnd_list[idx].continent = get_continent(ASIA_9CF());
 	pnd_list[idx].setup_function_addr = (DWORD)&afc_setup_c;
-	convert_to_cm_date(cm_date, 21, June, 2025, -1);
+	convert_to_cm_date(cm_date, 21, June, START_YEAR, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	convert_to_cm_date(pnd_list[idx].start_date, 1, July, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 1, July, *current_year, -1);
@@ -80,7 +80,7 @@ int replacement_667150() {
 	cm_date = new BYTE[8];
 	pnd_list[idx].continent = get_continent(OCEANIA_9CF());
 	pnd_list[idx].setup_function_addr = (DWORD)&ofc_setup_c;
-	convert_to_cm_date(cm_date, 2, January, 2025, -1);
+	convert_to_cm_date(cm_date, 2, January, START_YEAR, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].updates_in_june = 0;
 	convert_to_cm_date(pnd_list[idx].start_date, 1, July, *current_year, -1);
@@ -94,7 +94,7 @@ int replacement_667150() {
 	convert_to_cm_date(pnd_list[idx].start_date, 1, July, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 1, July, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
-	convert_to_cm_date(cm_date, 21, June, 2025, -1);
+	convert_to_cm_date(cm_date, 21, June, START_YEAR, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].main_cup = get_comp(CAF_CHAMPIONS_LEAGUE_9CF());
 	idx++;
@@ -104,7 +104,7 @@ int replacement_667150() {
 	pnd_list[idx].setup_function_addr = (DWORD)&arg_setup_c;
 	convert_to_cm_date(pnd_list[idx].start_date, 1, February, *current_year + 1, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 17, December, *current_year + 1, -1);
-	convert_to_cm_date(cm_date, 1, January, 2025, -1);
+	convert_to_cm_date(cm_date, 1, January, START_YEAR, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].main_cup = get_comp(ARG_CUP_9CF());
 	pnd_list[idx].updates_in_june = 0;
@@ -115,7 +115,7 @@ int replacement_667150() {
 	pnd_list[idx].setup_function_addr = (DWORD)&aus_setup_c;
 	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 6, June, *current_year, -1);
-	convert_to_cm_date(cm_date, 20, June, 2025, -1);
+	convert_to_cm_date(cm_date, 20, June, START_YEAR, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].main_cup = get_comp(AUS_CUP_9CF());
 	pnd_list[idx].updates_in_june = 1;
@@ -127,7 +127,7 @@ int replacement_667150() {
 	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 6, June, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
-	convert_to_cm_date(cm_date, 20, June, 2025, -1);
+	convert_to_cm_date(cm_date, 20, June, START_YEAR, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].main_cup = get_comp(BEL_CUP_9CF());
 	idx++;
@@ -138,7 +138,7 @@ int replacement_667150() {
 	convert_to_cm_date(pnd_list[idx].start_date, 31, January, *current_year + 1, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 17, December, *current_year + 1, -1);
 	pnd_list[idx].updates_in_june = 0;
-	convert_to_cm_date(cm_date, 1, January, 2025, -1);
+	convert_to_cm_date(cm_date, 1, January, START_YEAR, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].main_cup = get_comp(BRA_CUP_9CF());
 	idx++;
@@ -149,7 +149,7 @@ int replacement_667150() {
 	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 6, June, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
-	convert_to_cm_date(cm_date, 20, June, 2025, -1);
+	convert_to_cm_date(cm_date, 20, June, START_YEAR, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].main_cup = get_comp(CRO_CUP_9CF());
 	idx++;
@@ -160,7 +160,7 @@ int replacement_667150() {
 	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 31, May, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
-	convert_to_cm_date(cm_date, 20, June, 2025, -1);
+	convert_to_cm_date(cm_date, 20, June, START_YEAR, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].main_cup = get_comp(DEN_CUP_9CF());
 	idx++;
@@ -171,7 +171,7 @@ int replacement_667150() {
 	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 31, May, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
-	convert_to_cm_date(cm_date, 20, June, 2025, -1);
+	convert_to_cm_date(cm_date, 20, June, START_YEAR, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].main_cup = get_comp(ENG_FA_CUP_9CF());
 	pnd_list[idx].league_cup = get_comp(ENG_LEAGUE_CUP_9CF());
@@ -181,7 +181,7 @@ int replacement_667150() {
 	pnd_list[idx].nation = get_country(NATION_FINLAND_9CF());
 	pnd_list[idx].setup_function_addr = (DWORD)&fin_setup_c;
 	convert_to_cm_date(pnd_list[idx].start_date, 5, April, *current_year + 1, -1);
-	convert_to_cm_date(cm_date, 1, January, 2025, -1);
+	convert_to_cm_date(cm_date, 1, January, START_YEAR, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 12, November, *current_year + 1, -1);
 	pnd_list[idx].updates_in_june = 0;
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
@@ -194,7 +194,7 @@ int replacement_667150() {
 	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 24, May, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
-	convert_to_cm_date(cm_date, 20, June, 2025, -1);
+	convert_to_cm_date(cm_date, 20, June, START_YEAR, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].main_cup = get_comp(FRA_CUP_9CF());
 	idx++;
@@ -205,7 +205,7 @@ int replacement_667150() {
 	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 31, May, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
-	convert_to_cm_date(cm_date, 20, June, 2025, -1);
+	convert_to_cm_date(cm_date, 20, June, START_YEAR, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].main_cup = get_comp(GER_CUP_9CF());
 	idx++;
@@ -216,7 +216,7 @@ int replacement_667150() {
 	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 28, May, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
-	convert_to_cm_date(cm_date, 20, June, 2025, -1);
+	convert_to_cm_date(cm_date, 20, June, START_YEAR, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].main_cup = get_comp(GRE_CUP_9CF());
 	idx++;
@@ -227,7 +227,7 @@ int replacement_667150() {
 	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 28, May, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
-	convert_to_cm_date(cm_date, 20, June, 2025, -1);
+	convert_to_cm_date(cm_date, 20, June, START_YEAR, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].main_cup = get_comp(HOL_CUP_9CF());
 	idx++;
@@ -238,7 +238,7 @@ int replacement_667150() {
 	convert_to_cm_date(pnd_list[idx].start_date, 14, February, *current_year + 1, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 14, November, *current_year + 1, -1);
 	pnd_list[idx].updates_in_june = 0;
-	convert_to_cm_date(cm_date, 1, January, 2025, -1);
+	convert_to_cm_date(cm_date, 1, January, START_YEAR, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].main_cup = get_comp(IRL_CHALLENGE_CUP_9CF());
 	idx++;
@@ -249,7 +249,7 @@ int replacement_667150() {
 	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 10, June, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
-	convert_to_cm_date(cm_date, 20, June, 2025, -1);
+	convert_to_cm_date(cm_date, 20, June, START_YEAR, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].main_cup = get_comp(ITA_CUP_9CF());
 	idx++;
@@ -259,7 +259,7 @@ int replacement_667150() {
 	pnd_list[idx].setup_function_addr = (DWORD)&jpn_setup_c;
 	convert_to_cm_date(pnd_list[idx].start_date, 14, February, *current_year + 1, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 9, December, *current_year + 1, -1);
-	convert_to_cm_date(cm_date, 1, January, 2025, -1);
+	convert_to_cm_date(cm_date, 1, January, START_YEAR, -1);
 	pnd_list[idx].updates_in_june = 0;
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].main_cup = get_comp(JPN_EMPEROR_CUP_9CF());
@@ -271,7 +271,7 @@ int replacement_667150() {
 	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 8, May, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
-	convert_to_cm_date(cm_date, 20, June, 2025, -1);
+	convert_to_cm_date(cm_date, 20, June, START_YEAR, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].main_cup = get_comp(NIR_CUP_9CF());
 	idx++;
@@ -281,7 +281,7 @@ int replacement_667150() {
 	pnd_list[idx].setup_function_addr = (DWORD)&nor_setup_c;
 	convert_to_cm_date(pnd_list[idx].start_date, 30, March, *current_year + 1, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 14, December, *current_year + 1, -1);
-	convert_to_cm_date(cm_date, 1, January, 2025, -1);
+	convert_to_cm_date(cm_date, 1, January, START_YEAR, -1);
 	pnd_list[idx].updates_in_june = 0;
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].main_cup = get_comp(NOR_CUP_9CF());
@@ -293,7 +293,7 @@ int replacement_667150() {
 	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 5, June, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
-	convert_to_cm_date(cm_date, 20, June, 2025, -1);
+	convert_to_cm_date(cm_date, 20, June, START_YEAR, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].main_cup = get_comp(POL_CUP_9CF());
 	idx++;
@@ -304,7 +304,7 @@ int replacement_667150() {
 	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 10, June, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
-	convert_to_cm_date(cm_date, 20, June, 2025, -1);
+	convert_to_cm_date(cm_date, 20, June, START_YEAR, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].main_cup = get_comp(POR_CUP_9CF());
 	idx++;
@@ -315,7 +315,7 @@ int replacement_667150() {
 	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 15, June, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
-	convert_to_cm_date(cm_date, 20, June, 2025, -1);
+	convert_to_cm_date(cm_date, 20, June, START_YEAR, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].main_cup = get_comp(RUS_CUP_9CF());
 	idx++;
@@ -326,7 +326,7 @@ int replacement_667150() {
 	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 31, May, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
-	convert_to_cm_date(cm_date, 20, June, 2025, -1);
+	convert_to_cm_date(cm_date, 20, June, START_YEAR, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].main_cup = get_comp(SCO_CUP_9CF());
 	idx++;
@@ -336,7 +336,7 @@ int replacement_667150() {
 	pnd_list[idx].setup_function_addr = (DWORD)&kor_setup_c;
 	convert_to_cm_date(pnd_list[idx].start_date, 15, February, *current_year + 1, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 8, December, *current_year + 1, -1);
-	convert_to_cm_date(cm_date, 1, January, 2025, -1);
+	convert_to_cm_date(cm_date, 1, January, START_YEAR, -1);
 	pnd_list[idx].updates_in_june = 0;
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].main_cup = get_comp(KOR_CUP_9CF());
@@ -348,7 +348,7 @@ int replacement_667150() {
 	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 14, June, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
-	convert_to_cm_date(cm_date, 20, June, 2025, -1);
+	convert_to_cm_date(cm_date, 20, June, START_YEAR, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].main_cup = get_comp(SPA_CUP_9CF());
 	idx++;
@@ -358,7 +358,7 @@ int replacement_667150() {
 	pnd_list[idx].setup_function_addr = (DWORD)&swe_setup_c;
 	convert_to_cm_date(pnd_list[idx].start_date, 30, March, *current_year + 1, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 30, November, *current_year + 1, -1);
-	convert_to_cm_date(cm_date, 1, January, 2025, -1);
+	convert_to_cm_date(cm_date, 1, January, START_YEAR, -1);
 	pnd_list[idx].updates_in_june = 0;
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].main_cup = get_comp(SWE_CUP_9CF());
@@ -370,7 +370,7 @@ int replacement_667150() {
 	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 31, May, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
-	convert_to_cm_date(cm_date, 20, June, 2025, -1);
+	convert_to_cm_date(cm_date, 20, June, START_YEAR, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].main_cup = get_comp(TUR_CUP_9CF());
 	idx++;
@@ -380,7 +380,7 @@ int replacement_667150() {
 	pnd_list[idx].setup_function_addr = (DWORD)&usa_setup_c;
 	convert_to_cm_date(pnd_list[idx].start_date, 22, February, *current_year + 1, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 10, December, *current_year + 1, -1);
-	convert_to_cm_date(cm_date, 1, January, 2025, -1);
+	convert_to_cm_date(cm_date, 1, January, START_YEAR, -1);
 	pnd_list[idx].updates_in_june = 0;
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].main_cup = get_comp(USA_OPEN_CUP_9CF());
@@ -392,7 +392,7 @@ int replacement_667150() {
 	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 6, May, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
-	convert_to_cm_date(cm_date, 20, June, 2025, -1);
+	convert_to_cm_date(cm_date, 20, June, START_YEAR, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].main_cup = get_comp(WAL_CUP_9CF());
 	idx++;
@@ -403,7 +403,7 @@ int replacement_667150() {
 	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 6, June, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
-	convert_to_cm_date(cm_date, 20, June, 2025, -1);
+	convert_to_cm_date(cm_date, 20, June, START_YEAR, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].main_cup = get_comp(CZE_CUP_9CF());
 	idx++;
@@ -414,7 +414,7 @@ int replacement_667150() {
 	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 25, May, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
-	convert_to_cm_date(cm_date, 20, June, 2025, -1);
+	convert_to_cm_date(cm_date, 20, June, START_YEAR, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].main_cup = get_comp(AUT_CUP_9CF());
 	idx++;
@@ -425,7 +425,7 @@ int replacement_667150() {
 	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 25, May, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
-	convert_to_cm_date(cm_date, 20, June, 2025, -1);
+	convert_to_cm_date(cm_date, 20, June, START_YEAR, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].main_cup = get_comp(SUI_CUP_9CF());
 	idx++;
@@ -436,7 +436,7 @@ int replacement_667150() {
 	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 25, May, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
-	convert_to_cm_date(cm_date, 20, June, 2025, -1);
+	convert_to_cm_date(cm_date, 20, June, START_YEAR, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].main_cup = get_comp(KSA_CUP_9CF());
 	idx++;
@@ -446,7 +446,7 @@ int replacement_667150() {
 	pnd_list[idx].setup_function_addr = (DWORD)&chi_setup_c;
 	convert_to_cm_date(pnd_list[idx].start_date, 1, February, *current_year + 1, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 17, December, *current_year + 1, -1);
-	convert_to_cm_date(cm_date, 1, January, 2025, -1);
+	convert_to_cm_date(cm_date, 1, January, START_YEAR, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].main_cup = get_comp(CHI_CUP_9CF());
 	pnd_list[idx].league_cup = get_comp(CHI_LEAGUE_CUP_9CF());
@@ -459,7 +459,7 @@ int replacement_667150() {
 	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 25, May, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
-	convert_to_cm_date(cm_date, 20, June, 2025, -1);
+	convert_to_cm_date(cm_date, 20, June, START_YEAR, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].main_cup = get_comp(EGY_CUP_9CF());
 	pnd_list[idx].league_cup = get_comp(EGY_LEAGUE_CUP_9CF());

@@ -519,18 +519,18 @@ map<string, DWORD> league_dword_match = {
 	{"Finnish Ykkönen East", 0x9CF808},
 	{"League of Ireland Premier Division", 0x9CF80C},
 	{"League of Ireland First Division", 0x9CF810},
-	{"Irish Group A", 0x9CF814}, // remove
-	{"Irish Group B", 0x9CF818}, // remove
-	{"Irish Group C", 0x9CF81C}, // remove
-	{"Irish Group D", 0x9CF820}, // remove
-	{"Irish Group E", 0x9CF824}, // remove
+	{"African Cup of Nations Qualifying", 0x9CF814}, // remove
+	{"UEFA Nations League", 0x9CF818}, // remove
+	{"CONCACAF Nations League", 0x9CF81C}, // remove
+	{"Irish Group A", 0x9CF820}, // remove
+	{"Irish Group B", 0x9CF824}, // remove
 	{"Northern Irish Group A", 0x9CF82C}, // remove
 	{"Northern Irish Group B", 0x9CF830}, // remove
 	{"Northern Irish Group C", 0x9CF834}, // remove
 	{"Northern Irish Group D", 0x9CF838}, // remove
 	{"League of Ireland Cup", 0x9CF83C},
 	{"FAI Cup", 0x9CF840},
-	{"African Cup Winners' Cup", 0x9CF844}, // remove (there are exe references, check)
+	{"Irish National League", 0x9CF844},
 	{"Irish Connacht Senior League", 0x9CF848},
 	{"Irish Ulster Senior League", 0x9CF84C},
 	{"Irish Munster Senior League", 0x9CF850},

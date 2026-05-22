@@ -355,7 +355,7 @@ void hol_second_points_deductions(BYTE* _this, WORD current_year)
 			if (tls->club == vitesse) {
 				tls->points = -12;
 				tls->points_away = -12;
-				return;
+				break;
 			}
 		}
 	}

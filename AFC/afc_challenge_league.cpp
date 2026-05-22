@@ -205,7 +205,7 @@ void afc_challenge_team_selection() {
 			}
 			BYTE j = 0;
 			int required;
-			if (filesystem::exists("Data/afc.cfg") && *current_year == (WORD)2025) {
+			if (filesystem::exists("Data/afc.cfg") && *current_year == (WORD)START_YEAR) {
 				ifstream in("Data/afc.cfg", ios_base::in);
 				string name;
 				char nation[LONG_TXT_LENGTH];

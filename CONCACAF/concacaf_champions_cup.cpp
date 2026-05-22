@@ -281,7 +281,7 @@ void concacaf_cup_team_selection() {
 
 	// If there is a .cfg file, uses it to get preset teams for the first year
 	// Includes failsafes in case any of the clubs can't be found or are already qualified for some reason
-	if (std::filesystem::exists("Data/concacaf.cfg") && *current_year == 2025) {
+	if (std::filesystem::exists("Data/concacaf.cfg") && *current_year == START_YEAR) {
 		//dprintf("Getting preset teams for CONCACAF\n");
 		ifstream in("Data/concacaf.cfg", ios_base::in);
 		string name;

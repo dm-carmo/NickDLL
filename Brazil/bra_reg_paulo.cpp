@@ -207,7 +207,7 @@ DWORD bra_reg_paulo_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 2, 23), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 3, 1), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup2 + PenaltiesNoExtraTime_1, NoTiebreak_2, 5, 4, 2, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + PenaltiesNoExtraTime_1, NoTiebreak_2, 5, 4, 2, 0, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 3, 2), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 3, 5), year, Wednesday, Evening);

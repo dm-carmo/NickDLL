@@ -990,7 +990,7 @@ void fifa_club_world_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	comp_stats* data = (comp_stats*)_this;
 	data->competition_db = comp;
 	WORD start_year = year;
-	while ((start_year - 2025) % 4 != 0) {
+	while ((start_year - START_YEAR) % 4 != 0) {
 		start_year++;
 	}
 	data->year = start_year;

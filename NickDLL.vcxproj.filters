@@ -837,6 +837,12 @@
     <ClCompile Include="Egypt\egy_league_cup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Argentina\arg_super.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Argentina\arg_champ_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -1671,6 +1677,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Egypt\egy_league_cup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Argentina\arg_super.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Argentina\arg_champ_cup.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

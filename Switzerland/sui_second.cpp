@@ -321,7 +321,7 @@ void sui_second_points_deductions(BYTE* _this, WORD current_year)
 			if (tls->club == vevey) {
 				tls->points = -3;
 				tls->points_away = -3;
-				return;
+				break;
 			}
 		}
 	}

@@ -712,6 +712,7 @@ bool sortTLS(team_league_stats s1, team_league_stats s2)
 vector<cm3_clubs*> weighted_reservoir_sampling(vector<cm3_clubs*> population, unsigned int sample_size) {
 	unsigned int i = 0;
 	vector<cm3_clubs*> reservoir;
+	if (sample_size < 1) return reservoir;
 	vector<double> keys;
 	for (; i < sample_size; i++) {
 		cm3_clubs* c = population[i];
@@ -734,6 +735,7 @@ vector<cm3_clubs*> weighted_reservoir_sampling(vector<cm3_clubs*> population, un
 vector<cm3_clubs*> weighted_reservoir_sampling_invert_weights(vector<cm3_clubs*> population, unsigned int sample_size) {
 	unsigned int i = 0;
 	vector<cm3_clubs*> reservoir;
+	if (sample_size < 1) return reservoir;
 	vector<double> keys;
 	for (; i < sample_size; i++) {
 		cm3_clubs* c = population[i];
@@ -777,7 +779,7 @@ void generic_prom_rel(DWORD nation_id, DWORD promote_from, DWORD relegate_from, 
 	for (unsigned int j = 0; j < promoted_clubs.size(); j++) {
 		cm3_clubs* clubToRelegate = relegated_clubs[j];
 		cm3_clubs* clubToPromote = promoted_clubs[j];
-		dprintf("Swapping Teams: %s (%s) %d <-> %s (%s) %d\n", clubToRelegate->ClubName, clubToRelegate->ClubDivision->ClubCompName, clubToRelegate->ClubReputation, clubToPromote->ClubName, clubToPromote->ClubDivision->ClubCompName, clubToPromote->ClubReputation);
+		//dprintf("Swapping Teams: %s (%s) %d <-> %s (%s) %d\n", clubToRelegate->ClubName, clubToRelegate->ClubDivision->ClubCompName, clubToRelegate->ClubReputation, clubToPromote->ClubName, clubToPromote->ClubDivision->ClubCompName, clubToPromote->ClubReputation);
 
 		cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
 		cm3_club_comps* bottomDivision = clubToPromote->ClubDivision;

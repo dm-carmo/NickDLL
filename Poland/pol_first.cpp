@@ -574,7 +574,7 @@ void pol_first_points_deductions(BYTE* _this, WORD current_year)
 			if (tls->club == lechia) {
 				tls->points = -5;
 				tls->points_away = -5;
-				return;
+				break;
 			}
 		}
 	}

@@ -197,7 +197,7 @@ void caf_confed_team_selection() {
 		}
 		BYTE j = 0;
 		int required;
-		if (filesystem::exists("Data/caf.cfg") && *current_year == (WORD)2025) {
+		if (filesystem::exists("Data/caf.cfg") && *current_year == (WORD)START_YEAR) {
 			ifstream in("Data/caf.cfg", ios_base::in);
 			string name;
 			char nation[LONG_TXT_LENGTH];

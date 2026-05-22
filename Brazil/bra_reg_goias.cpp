@@ -204,7 +204,7 @@ DWORD bra_reg_goias_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 2, 9), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 2, 15), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup2 + Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 5, 4, 2, 0, 0, 0, 2, 7);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 5, 4, 2, 0, 0, 0, 2, 7);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 2, 23), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 3, 1), year, Saturday);
