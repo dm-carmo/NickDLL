@@ -525,17 +525,17 @@ int uecl_money_after_match(BYTE* _this, BYTE* a2, int a3) {
 	else cl = *(char*)(a2 + 0x48);
 	if (al == cl) {
 		cm3_clubs* club1 = (cm3_clubs*)*(DWORD*)(a2 + 0x1c);
-		sub_9058B0((BYTE*)*uefa_seeding_list, (BYTE*)(club1->ClubNation), draw_coef);
+		UpdateCountryCoefficient(club1, draw_coef);
 		cm3_clubs* club2 = (cm3_clubs*)*(DWORD*)(a2 + 0x20);
-		sub_9058B0((BYTE*)*uefa_seeding_list, (BYTE*)(club2->ClubNation), draw_coef);
+		UpdateCountryCoefficient(club2, draw_coef);
 	}
 	else if (al > cl) {
 		club_check = (cm3_clubs*)*(DWORD*)(a2 + 0x1c);
-		sub_9058B0((BYTE*)*uefa_seeding_list, (BYTE*)(club_check->ClubNation), win_coef);
+		UpdateCountryCoefficient(club_check, win_coef);
 	}
 	else {
 		club_check = (cm3_clubs*)*(DWORD*)(a2 + 0x20);
-		sub_9058B0((BYTE*)*uefa_seeding_list, (BYTE*)(club_check->ClubNation), win_coef);
+		UpdateCountryCoefficient(club_check, win_coef);
 	}
 	// group stage indexes
 	if (bl > 0 && bl < 5) {
@@ -711,8 +711,8 @@ void uefa_conference_league_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->promotes_to = -1;
 	data->relegates_to = -1;
 	data->f82 = 3;
-	data->max_bench = 9;
-	data->max_subs = 5;
+	data->max_bench = 7;
+	data->max_subs = 3;
 	data->rules = RulesEurope;
 	data->f81 = 0xa;
 	*((BYTE*)(_this + 0xB1)) = 0;
@@ -836,13 +836,13 @@ void uefa_conference_league_playoff_stage_setup(BYTE* _this) {
 		else if (al == 3) idx2 = 2;
 		else if (al == 4) idx2 = 0;
 		*((DWORD*)(&pTeams[idx1 * 4])) = (DWORD)table_teams[2].club;
-		sub_9058B0((BYTE*)*uefa_seeding_list, (BYTE*)(table_teams[2].club->ClubNation), 4);
+		UpdateCountryCoefficient(table_teams[2].club, 4);
 		*((DWORD*)(&pTeams[idx2 * 4 + 1])) = (DWORD)table_teams[5].club;
-		sub_9058B0((BYTE*)*uefa_seeding_list, (BYTE*)(table_teams[5].club->ClubNation), 1);
+		UpdateCountryCoefficient(table_teams[5].club, 1);
 		*((DWORD*)(&pTeams[idx2 * 4 + 2])) = (DWORD)table_teams[4].club;
-		sub_9058B0((BYTE*)*uefa_seeding_list, (BYTE*)(table_teams[4].club->ClubNation), 2);
+		UpdateCountryCoefficient(table_teams[4].club, 2);
 		*((DWORD*)(&pTeams[idx1 * 4 + 3])) = (DWORD)table_teams[3].club;
-		sub_9058B0((BYTE*)*uefa_seeding_list, (BYTE*)(table_teams[3].club->ClubNation), 3);
+		UpdateCountryCoefficient(table_teams[3].club, 3);
 	}
 
 	BYTE* ae2a38_ptr = (BYTE*)*ae2a38;
@@ -908,9 +908,9 @@ void uefa_conference_league_final_stage_setup(BYTE* _this) {
 		else if (al == 3) idx1 = 4;
 		else if (al == 4) idx1 = 1;
 		*((DWORD*)(&pTeams[idx1 * 2 + 1])) = (DWORD)table_teams[0].club;
-		sub_9058B0((BYTE*)*uefa_seeding_list, (BYTE*)(table_teams[0].club->ClubNation), 8);
+		UpdateCountryCoefficient(table_teams[0].club, 8);
 		*((DWORD*)(&pTeams[idx1 * 2 + 4 + 1])) = (DWORD)table_teams[1].club;
-		sub_9058B0((BYTE*)*uefa_seeding_list, (BYTE*)(table_teams[1].club->ClubNation), 6);
+		UpdateCountryCoefficient(table_teams[1].club, 6);
 	}
 
 	BYTE* ae2a38_ptr = (BYTE*)*ae2a38;
@@ -922,7 +922,7 @@ void uefa_conference_league_final_stage_setup(BYTE* _this) {
 			int ret = sub_5A0590(ae2a38_ptr, (BYTE*)club);
 			AddToClubIncome((BYTE*)ret, prizeMoneyFile.GetInt("uefa_uecl_r16_qualify2"));
 			AddMoneyFromComp(_this, (BYTE*)club, prizeMoneyFile.GetInt("uefa_uecl_r16_qualify2"), 0, -1, RoundOf16, 0, -2);
-			sub_9058B0((BYTE*)*uefa_seeding_list, (BYTE*)(club->ClubNation), 1);
+			UpdateCountryCoefficient(club, 1);
 		}
 	}
 
@@ -932,7 +932,7 @@ void uefa_conference_league_final_stage_setup(BYTE* _this) {
 		teams_seeded t = ((teams_seeded*)stage5_data->teams_list)[j];
 		if (t.f6 == 1) {
 			*((DWORD*)(&pTeams[playoff_idx])) = (DWORD)t.club;
-			sub_9058B0((BYTE*)*uefa_seeding_list, (BYTE*)(t.club->ClubNation), 1);
+			UpdateCountryCoefficient(t.club, 1);
 			playoff_idx += 2;
 		}
 	}
@@ -1054,7 +1054,7 @@ int uefa_conference_league_set_fates(BYTE* _this, cm3_clubs* club, char fate, ch
 		case Promoted:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
 				*(WORD*)(rounds + playoff_dates_sz * (current_round + 1) + 7), 0xF);
-			sub_9058B0((BYTE*)*uefa_seeding_list, (BYTE*)(club->ClubNation), 1);
+			UpdateCountryCoefficient(club, 1);
 			return 0;
 		case BottomPlayoff:
 			staff_history_comp_runner_up_86B0B0(staff_hist_ptr, club, round_data, a7);
@@ -1110,12 +1110,39 @@ char uecl_team_selection(BYTE* _this, BYTE* club_list, int club_count) {
 
 		// Liechtenstein treated separately
 		if (euro_country->NationID == NATION_LIECHTENSTEIN_9CF()) {
-			vector<cm3_clubs*> lie_clubs = find_clubs_of_country_for_euro(u->id);
-			sort(lie_clubs.begin(), lie_clubs.end(), compareClubRep);
-			cm3_clubs* euro_club = lie_clubs[rand() % lie_clubs.size()];
-			euro_club->ClubEuroFlag = UEFA_CONFERENCE_LEAGUE_9CF();
-			euro_club->ClubEuroSeeding = 4;
-			u->num_teams_in_comps += 2;
+			if (get_country(NATION_SWITZERLAND_9CF())->NationLeagueSelected) {
+				if (*current_year == (WORD)START_YEAR) {
+					cm3_clubs* euro_club = get_club(CLUB_VADUZ_9CF());
+					euro_club->ClubEuroFlag = UEFA_CONFERENCE_LEAGUE_9CF();
+					euro_club->ClubEuroSeeding = 4;
+					u->num_teams_in_comps += 2;
+				}
+				else {
+					cm3_club_comps* lie_cup = get_comp(LIE_CUP_9CF());
+					cm3_clubs* cup_winner = get_last_comp_winner(lie_cup);
+					if (cup_winner && cup_winner->ClubNation && cup_winner->ClubEuroFlag == -1) {
+						cup_winner->ClubEuroFlag = UEFA_CONFERENCE_LEAGUE_9CF();
+						cup_winner->ClubEuroSeeding = 4;
+						u->num_teams_in_comps += 2;
+					}
+					else if (configFile.GetBool("cupRunnerUpsInUEFA", false)) {
+						cm3_clubs* cup_loser = get_last_comp_runner_up(lie_cup);
+						if (cup_loser && cup_loser->ClubNation && cup_loser->ClubEuroFlag == -1) {
+							cup_loser->ClubEuroFlag = UEFA_CONFERENCE_LEAGUE_9CF();
+							cup_loser->ClubEuroSeeding = 4;
+							u->num_teams_in_comps += 2;
+						}
+					}
+				}
+			}
+			if (u->num_teams_in_comps < 2) {
+				vector<cm3_clubs*> lie_clubs = find_clubs_of_country_for_euro(u->id);
+				vector<cm3_clubs*> lie_pick = get_random_weighted_clubs(lie_clubs, 1, true);
+				cm3_clubs* euro_club = lie_pick[0];
+				euro_club->ClubEuroFlag = UEFA_CONFERENCE_LEAGUE_9CF();
+				euro_club->ClubEuroSeeding = 4;
+				u->num_teams_in_comps += 2;
+			}
 			continue;
 		}
 

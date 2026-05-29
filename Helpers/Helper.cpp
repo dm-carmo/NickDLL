@@ -294,6 +294,27 @@ vector<cm3_clubs*> find_clubs_of_country_for_euro_playable(DWORD nation_id)
 				}
 		}
 	}
+	// Special case: Switzerland
+	if (nation_id == NATION_SWITZERLAND_9CF()) {
+		if (CLUB_VADUZ_9CF() >= 0)
+		{
+			cm3_clubs* vaduz = &(*clubs)[CLUB_VADUZ_9CF()];
+			auto it = find(ret.begin(), ret.end(), vaduz);
+			if (it != ret.end()) ret.erase(it);
+		}
+		if (CLUB_BALZERS_9CF() >= 0)
+		{
+			cm3_clubs* balzers = &(*clubs)[CLUB_BALZERS_9CF()];
+			auto it = find(ret.begin(), ret.end(), balzers);
+			if (it != ret.end()) ret.erase(it);
+		}
+		if (CLUB_ESCHEN_MAUREN_9CF() >= 0)
+		{
+			cm3_clubs* eschen = &(*clubs)[CLUB_ESCHEN_MAUREN_9CF()];
+			auto it = find(ret.begin(), ret.end(), eschen);
+			if (it != ret.end()) ret.erase(it);
+		}
+	}
 	return ret;
 }
 
@@ -315,6 +336,45 @@ vector<cm3_clubs*> find_clubs_of_country_for_euro(DWORD nation_id)
 				cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)club, &is_main_club, 1);
 				if (!ret_club || is_main_club) ret.push_back(club);
 			}
+		}
+	}
+	// Special case: Switzerland
+	if (nation_id == NATION_SWITZERLAND_9CF()) {
+		if (CLUB_VADUZ_9CF() >= 0)
+		{
+			cm3_clubs* vaduz = &(*clubs)[CLUB_VADUZ_9CF()];
+			auto it = find(ret.begin(), ret.end(), vaduz);
+			if (it != ret.end()) ret.erase(it);
+		}
+		if (CLUB_BALZERS_9CF() >= 0)
+		{
+			cm3_clubs* balzers = &(*clubs)[CLUB_BALZERS_9CF()];
+			auto it = find(ret.begin(), ret.end(), balzers);
+			if (it != ret.end()) ret.erase(it);
+		}
+		if (CLUB_ESCHEN_MAUREN_9CF() >= 0)
+		{
+			cm3_clubs* eschen = &(*clubs)[CLUB_ESCHEN_MAUREN_9CF()];
+			auto it = find(ret.begin(), ret.end(), eschen);
+			if (it != ret.end()) ret.erase(it);
+		}
+	}
+	// Special case: Liechtenstein
+	if (nation_id == NATION_LIECHTENSTEIN_9CF()) {
+		if (CLUB_VADUZ_9CF() >= 0)
+		{
+			cm3_clubs* vaduz = &(*clubs)[CLUB_VADUZ_9CF()];
+			if (vaduz->ClubEuroFlag == -1) ret.push_back(vaduz);
+		}
+		if (CLUB_BALZERS_9CF() >= 0)
+		{
+			cm3_clubs* balzers = &(*clubs)[CLUB_BALZERS_9CF()];
+			if (balzers->ClubEuroFlag == -1) ret.push_back(balzers);
+		}
+		if (CLUB_ESCHEN_MAUREN_9CF() >= 0)
+		{
+			cm3_clubs* eschen = &(*clubs)[CLUB_ESCHEN_MAUREN_9CF()];
+			if (eschen->ClubEuroFlag == -1) ret.push_back(eschen);
 		}
 	}
 	return ret;
@@ -786,4 +846,11 @@ void generic_prom_rel(DWORD nation_id, DWORD promote_from, DWORD relegate_from, 
 		relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
 		promote_club_6830B0((BYTE*)clubToPromote, (DWORD)topDivision, 1);
 	}
+}
+
+int UpdateCountryCoefficient(cm3_clubs* club, char coeff) {
+	cm3_nations* nation = club->ClubNation;
+	if (club->ClubID == CLUB_VADUZ_9CF() || club->ClubID == CLUB_ESCHEN_MAUREN_9CF() || club->ClubID == CLUB_BALZERS_9CF())
+		nation = get_country(NATION_LIECHTENSTEIN_9CF());
+	return sub_9058B0((BYTE*)*uefa_seeding_list, nation, coeff);
 }

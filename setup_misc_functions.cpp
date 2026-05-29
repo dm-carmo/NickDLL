@@ -216,6 +216,20 @@ void setup_misc_functions()
 	PatchFunction(0x46B71E, (DWORD)&aus_minor_premier_in_history);
 	PatchFunction(0x460ec6, (DWORD)&club_pro_status_with_continental_comp_c);
 
+	// Finance changes
+	if (configFile.GetBool("financeTweaks", false)) {
+		WriteWORD(0x59dc6d, 5000);
+		WriteWORD(0x59dcd0, 5000);
+
+		//WriteDWORD(0x59dc89, 1500);
+
+		WriteDWORD(0x59dbf9, 3500);
+		WriteDWORD(0x59dca5, 3500);
+
+		WriteBytes(0x59dce0, 1, 3);
+		WriteBytes(0x59dce7, 1, 6);
+	}
+
 	// Move August 30's international friendlies forward two weeks
 	for (DWORD d : friendly_aug_30plus4) {
 		WriteBytes(d + 4, 1, 3);

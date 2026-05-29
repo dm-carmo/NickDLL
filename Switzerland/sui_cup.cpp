@@ -66,14 +66,14 @@ int sui_cup_teams(BYTE* _this) {
 	teams_seeded* teams = (teams_seeded*)comp_data->teams_list;
 
 	// D1
-	vector<cm3_clubs*> division_clubs = find_clubs_of_comp(SUI_PREMIER_9CF());
+	vector<cm3_clubs*> division_clubs = find_clubs_of_comp(SUI_PREMIER_9CF(), NATION_SWITZERLAND_9CF());
 	sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPosInv);
 	for (cm3_clubs* club : division_clubs)
 	{
 		vec.push_back(club);
 	}
 	// D2
-	division_clubs = find_clubs_of_comp(SUI_FIRST_9CF());
+	division_clubs = find_clubs_of_comp(SUI_FIRST_9CF(), NATION_SWITZERLAND_9CF());
 	for (cm3_clubs* club : division_clubs)
 	{
 		DWORD is_main_club;
@@ -81,12 +81,31 @@ int sui_cup_teams(BYTE* _this) {
 		if (!ret_club || is_main_club) vec.push_back(club);
 	}
 	// D3
-	division_clubs = find_clubs_of_comp(SUI_SECOND_9CF());
+	division_clubs = find_clubs_of_comp(SUI_SECOND_9CF(), NATION_SWITZERLAND_9CF());
 	for (cm3_clubs* club : division_clubs)
 	{
 		DWORD is_main_club;
 		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)club, &is_main_club, 1);
 		if (!ret_club || is_main_club) vec.push_back(club);
+	}
+	// remove the Liechtenstein clubs
+	if (CLUB_VADUZ_9CF() >= 0)
+	{
+		cm3_clubs* vaduz = &(*clubs)[CLUB_VADUZ_9CF()];
+		auto it = find(vec.begin(), vec.end(), vaduz);
+		if (it != vec.end()) vec.erase(it);
+	}
+	if (CLUB_BALZERS_9CF() >= 0)
+	{
+		cm3_clubs* balzers = &(*clubs)[CLUB_BALZERS_9CF()];
+		auto it = find(vec.begin(), vec.end(), balzers);
+		if (it != vec.end()) vec.erase(it);
+	}
+	if (CLUB_ESCHEN_MAUREN_9CF() >= 0)
+	{
+		cm3_clubs* eschen = &(*clubs)[CLUB_ESCHEN_MAUREN_9CF()];
+		auto it = find(vec.begin(), vec.end(), eschen);
+		if (it != vec.end()) vec.erase(it);
 	}
 	WORD curr_teams = (WORD)vec.size();
 
@@ -97,6 +116,13 @@ int sui_cup_teams(BYTE* _this) {
 		DWORD is_main_club;
 		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)c, &is_main_club, 1);
 		if (ret_club && !is_main_club)
+		{
+			lower_clubs.erase(lower_clubs.begin() + i);
+			i--;
+		}
+		// remove the Liechtenstein clubs
+		else if (c->ClubID == CLUB_VADUZ_9CF() || c->ClubID == CLUB_BALZERS_9CF()
+			|| c->ClubID == CLUB_ESCHEN_MAUREN_9CF())
 		{
 			lower_clubs.erase(lower_clubs.begin() + i);
 			i--;
@@ -237,8 +263,8 @@ void sui_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->current_stage = -1;
 	data->num_stages = 0;
 	data->comp_type = CLUB_DOMESTIC;
-	data->max_bench = 9;
-	data->max_subs = 5;
+	data->max_bench = 7;
+	data->max_subs = 3;
 	data->rules = RulesSwitzerland;
 	*((BYTE*)(_this + 0xB1)) = 0;
 	int loaded = sub_51FC00(_this, 1);

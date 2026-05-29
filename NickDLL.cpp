@@ -1,4 +1,5 @@
 #pragma warning (disable : 4786 4996 6031)  // Stops all the weird STL warnings
+
 #include <windows.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -10,6 +11,7 @@
 #include <algorithm>
 
 #include "Structures\CMHeader.h"
+#include "Helpers\generic_functions.h"
 #include "Helpers\Helper.h"
 #include "Helpers\YearChanger.h"
 
@@ -75,6 +77,11 @@ void Setup()
 
 	// Shows more teams in Team Stats, up to 127
 	WriteBytes(0x495976, 1, 0x7F);
+
+	// Change manager's starting age
+	WriteDWORD(0x820e01, (START_YEAR - 34));
+	WriteBytes(0x820e09, 1, July);
+	WriteBytes(0x820e0e, 1, 1);
 
 	// WC qualifiers calendar changes
 	WriteBytes(0x9153e7, 1, 1);

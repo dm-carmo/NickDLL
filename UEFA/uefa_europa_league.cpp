@@ -536,17 +536,17 @@ int uel_money_after_match(BYTE* _this, BYTE* a2, int a3) {
 	else cl = *(char*)(a2 + 0x48);
 	if (al == cl) {
 		cm3_clubs* club1 = (cm3_clubs*)*(DWORD*)(a2 + 0x1c);
-		sub_9058B0((BYTE*)*uefa_seeding_list, (BYTE*)(club1->ClubNation), draw_coef);
+		UpdateCountryCoefficient(club1, draw_coef);
 		cm3_clubs* club2 = (cm3_clubs*)*(DWORD*)(a2 + 0x20);
-		sub_9058B0((BYTE*)*uefa_seeding_list, (BYTE*)(club2->ClubNation), draw_coef);
+		UpdateCountryCoefficient(club2, draw_coef);
 	}
 	else if (al > cl) {
 		club_check = (cm3_clubs*)*(DWORD*)(a2 + 0x1c);
-		sub_9058B0((BYTE*)*uefa_seeding_list, (BYTE*)(club_check->ClubNation), win_coef);
+		UpdateCountryCoefficient(club_check, win_coef);
 	}
 	else {
 		club_check = (cm3_clubs*)*(DWORD*)(a2 + 0x20);
-		sub_9058B0((BYTE*)*uefa_seeding_list, (BYTE*)(club_check->ClubNation), win_coef);
+		UpdateCountryCoefficient(club_check, win_coef);
 	}
 	// group stage indexes
 	if (bl > 0 && bl < 5) {
@@ -722,8 +722,8 @@ void uefa_europa_league_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->promotes_to = -1;
 	data->relegates_to = -1;
 	data->f82 = 3;
-	data->max_bench = 9;
-	data->max_subs = 5;
+	data->max_bench = 7;
+	data->max_subs = 3;
 	data->rules = RulesEurope;
 	data->f81 = 0xa;
 	*((BYTE*)(_this + 0xB1)) = 0;
@@ -858,13 +858,13 @@ void uefa_europa_league_playoff_stage_setup(BYTE* _this) {
 		else if (al == 3) idx2 = 2;
 		else if (al == 4) idx2 = 0;
 		*((DWORD*)(&pTeams[idx1 * 4])) = (DWORD)table_teams[2].club;
-		sub_9058B0((BYTE*)*uefa_seeding_list, (BYTE*)(table_teams[2].club->ClubNation), 8);
+		UpdateCountryCoefficient(table_teams[2].club, 8);
 		*((DWORD*)(&pTeams[idx2 * 4 + 1])) = (DWORD)table_teams[5].club;
-		sub_9058B0((BYTE*)*uefa_seeding_list, (BYTE*)(table_teams[5].club->ClubNation), 2);
+		UpdateCountryCoefficient(table_teams[5].club, 2);
 		*((DWORD*)(&pTeams[idx2 * 4 + 2])) = (DWORD)table_teams[4].club;
-		sub_9058B0((BYTE*)*uefa_seeding_list, (BYTE*)(table_teams[4].club->ClubNation), 4);
+		UpdateCountryCoefficient(table_teams[4].club, 4);
 		*((DWORD*)(&pTeams[idx1 * 4 + 3])) = (DWORD)table_teams[3].club;
-		sub_9058B0((BYTE*)*uefa_seeding_list, (BYTE*)(table_teams[3].club->ClubNation), 6);
+		UpdateCountryCoefficient(table_teams[3].club, 6);
 	}
 
 	BYTE* ae2a38_ptr = (BYTE*)*ae2a38;
@@ -930,9 +930,9 @@ void uefa_europa_league_final_stage_setup(BYTE* _this) {
 		else if (al == 3) idx1 = 4;
 		else if (al == 4) idx1 = 1;
 		*((DWORD*)(&pTeams[idx1 * 2 + 1])) = (DWORD)table_teams[0].club;
-		sub_9058B0((BYTE*)*uefa_seeding_list, (BYTE*)(table_teams[0].club->ClubNation), 12);
+		UpdateCountryCoefficient(table_teams[0].club, 12);
 		*((DWORD*)(&pTeams[idx1 * 2 + 4 + 1])) = (DWORD)table_teams[1].club;
-		sub_9058B0((BYTE*)*uefa_seeding_list, (BYTE*)(table_teams[1].club->ClubNation), 10);
+		UpdateCountryCoefficient(table_teams[1].club, 10);
 	}
 
 	BYTE* ae2a38_ptr = (BYTE*)*ae2a38;
@@ -944,7 +944,7 @@ void uefa_europa_league_final_stage_setup(BYTE* _this) {
 			int ret = sub_5A0590(ae2a38_ptr, (BYTE*)club);
 			AddToClubIncome((BYTE*)ret, prizeMoneyFile.GetInt("uefa_uel_r16_qualify2"));
 			AddMoneyFromComp(_this, (BYTE*)club, prizeMoneyFile.GetInt("uefa_uel_r16_qualify2"), 0, -1, RoundOf16, 0, -2);
-			sub_9058B0((BYTE*)*uefa_seeding_list, (BYTE*)(club->ClubNation), 2);
+			UpdateCountryCoefficient(club, 2);
 		}
 	}
 
@@ -954,7 +954,7 @@ void uefa_europa_league_final_stage_setup(BYTE* _this) {
 		teams_seeded t = ((teams_seeded*)stage5_data->teams_list)[j];
 		if (t.f6 == 1) {
 			*((DWORD*)(&pTeams[playoff_idx])) = (DWORD)t.club;
-			sub_9058B0((BYTE*)*uefa_seeding_list, (BYTE*)(t.club->ClubNation), 2);
+			UpdateCountryCoefficient(t.club, 2);
 			playoff_idx += 2;
 		}
 	}
@@ -1151,7 +1151,7 @@ int uefa_europa_league_set_fates(BYTE* _this, cm3_clubs* club, char fate, char s
 		case Promoted:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
 				*(WORD*)(rounds + playoff_dates_sz * (current_round + 1) + 7), 0xF);
-			sub_9058B0((BYTE*)*uefa_seeding_list, (BYTE*)(club->ClubNation), 2);
+			UpdateCountryCoefficient(club, 2);
 			return 0;
 		case BottomPlayoff:
 			staff_history_comp_runner_up_86B0B0(staff_hist_ptr, club, round_data, a7);

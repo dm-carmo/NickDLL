@@ -34,7 +34,7 @@ int eng_league_2_subs(BYTE* _this)
 	}
 
 	comp_data->f82 = 2;
-	comp_data->max_bench = 5;
+	comp_data->max_bench = 7;
 	comp_data->max_subs = 3;
 
 	DWORD v1 = *(DWORD*)_this;

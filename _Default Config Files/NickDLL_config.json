@@ -5,5 +5,6 @@
   "competitionColoursPatch": true,
   "changePlayerSearchFilters": true,
   "showThirdPlaceInHistory": true,
+  "financeTweaks": true,
   "russiaBan": true,
 }

@@ -76,3 +76,4 @@ vector<cm3_clubs*> get_relegated_teams(DWORD compID);
 bool sortTLS(team_league_stats s1, team_league_stats s2);
 vector<cm3_clubs*> get_random_weighted_clubs(vector<cm3_clubs*> list, unsigned int amount, bool to_promote);
 void generic_prom_rel(DWORD nation_id, DWORD promote_from, DWORD relegate_from, int num_child_comps, ...);
+int UpdateCountryCoefficient(cm3_clubs* club, char coeff);

@@ -843,6 +843,9 @@
     <ClCompile Include="Argentina\arg_champ_cup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Switzerland\lie_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -1683,6 +1686,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Argentina\arg_champ_cup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Switzerland\lie_cup.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

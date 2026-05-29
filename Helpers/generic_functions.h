@@ -182,8 +182,8 @@ static void(__thiscall* sub_684230)(BYTE* _this) =
 (void(__thiscall*)(BYTE * _this))(0x684230);
 static __int16(__thiscall* sub_9035A0)(BYTE* _this, int a2) =
 (__int16(__thiscall*)(BYTE * _this, int a2))(0x9035A0);
-static int(__thiscall* sub_9058B0)(BYTE* _this, BYTE* a2, char a3) =
-(int(__thiscall*)(BYTE * _this, BYTE * a2, char a3))(0x9058B0);
+static int(__thiscall* sub_9058B0)(BYTE* _this, cm3_nations* nation, char a3) =
+(int(__thiscall*)(BYTE * _this, cm3_nations * nation, char a3))(0x9058B0);
 static char(__thiscall* get_host_ids_5FA730)(BYTE* _this, long comp_id, WORD year, DWORD* host1_ptr, DWORD* host2_ptr, int a6) =
 (char(__thiscall*)(BYTE * _this, long comp_id, WORD year, DWORD * host1_ptr, DWORD * host2_ptr, int a6))(0x5FA730);
 

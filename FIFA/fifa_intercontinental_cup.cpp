@@ -602,8 +602,8 @@ void fifa_intercontinental_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp
 	data->promotes_to = -1;
 	data->relegates_to = -1;
 	data->f82 = 3;
-	data->max_bench = 9;
-	data->max_subs = 5;
+	data->max_bench = 7;
+	data->max_subs = 3;
 	data->rules = RulesInternational;
 	data->f81 = 0xf;
 	*((BYTE*)(_this + 0xB1)) = 0;
