@@ -205,7 +205,7 @@ void __declspec(naked) eng_conf_update_c()
 	}
 }
 
-void create_playoffs_c_under(BYTE* _this) {
+void eng_conf_playoffs_under(BYTE* _this) {
 	char stage_num = 0;
 	comp_stats* comp_data = (comp_stats*)_this;
 	BYTE playoff_teams = comp_data->prom_playoff;
@@ -230,24 +230,24 @@ void create_playoffs_c_under(BYTE* _this) {
 	sub_51C800(new_stage, 0);
 }
 
-void create_playoffs_c(BYTE* _this) {
+void eng_conf_playoffs(BYTE* _this) {
 	comp_stats* comp_data = (comp_stats*)_this;
 	long current = comp_data->current_stage;
 	long max = comp_data->num_stages;
 	if (current < max - 1) {
 		current++;
 		comp_data->current_stage = current;
-		if (current == 0) create_playoffs_c_under(_this);
+		if (current == 0) eng_conf_playoffs_under(_this);
 	}
 }
 
-void __declspec(naked) eng_playoffs_create()
+void __declspec(naked) eng_conf_playoffs_c()
 {
 	__asm
 	{
 		mov eax, esp
 		push ecx
-		call create_playoffs_c
+		call eng_conf_playoffs
 		add esp, 0x4
 		ret
 	}
@@ -503,7 +503,7 @@ void __declspec(naked) eng_conf_reputation_calc_c()
 void setup_eng_conf() {
 	WriteVTablePtr(eng_conf_vtable, VTableInitFree, (DWORD)&eng_conf_free_c);
 	WriteVTablePtr(eng_conf_vtable, VTableEoSUpdate, (DWORD)&eng_conf_update_c);
-	WriteVTablePtr(eng_conf_vtable, VTablePlayoffQual, (DWORD)&eng_playoffs_create);
+	WriteVTablePtr(eng_conf_vtable, VTablePlayoffQual, (DWORD)&eng_conf_playoffs_c);
 	WriteVTablePtr(eng_conf_vtable, VTableFixtures, (DWORD)&eng_conf_fixtures_c);
 	WriteVTablePtr(eng_conf_vtable, VTableTableFates, (DWORD)&eng_conf_set_table_fate);
 	WriteVTablePtr(eng_conf_vtable, VTableSubsRounds, (DWORD)&eng_conf_subs_c);

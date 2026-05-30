@@ -200,7 +200,7 @@ void eng_conf_s_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->comp_vtable = (DWORD*)(eng_conf_s_vtable->vtable_ptr);
 	eng_conf_s_vtable->SetPointer(VTableInitFree, (DWORD)&eng_conf_s_free_c);
 	eng_conf_s_vtable->SetPointer(VTableEoSUpdate, (DWORD)&eng_conf_s_update_c);
-	eng_conf_s_vtable->SetPointer(VTablePlayoffQual, (DWORD)&eng_playoffs_create);
+	eng_conf_s_vtable->SetPointer(VTablePlayoffQual, (DWORD)&eng_conf_playoffs_c);
 	eng_conf_s_vtable->SetPointer(VTableFixtures, (DWORD)&eng_conf_fixtures_c);
 	eng_conf_s_vtable->SetPointer(VTableTableFates, (DWORD)&eng_conf_set_table_fate);
 	eng_conf_s_vtable->SetPointer(VTableSubsRounds, (DWORD)&eng_conf_s_subs_c);

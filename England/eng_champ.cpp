@@ -21,6 +21,7 @@ int eng_champ_subs(BYTE* _this)
 	comp_data->comp_type = CLUB_DOMESTIC;
 	comp_data->promotions = 2;
 	comp_data->prom_playoff = 4;
+	if (comp_data->year > 2025) comp_data->prom_playoff = 6;
 	comp_data->rele_playoff = 0;
 	comp_data->relegations = 3;
 
@@ -396,19 +397,41 @@ DWORD eng_champ_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 			*a5 = 0;
 		BYTE* pMem = NULL;
 		WORD year = ((comp_stats*)_this)->year;
-		*num_rounds = 2;
-		*stage_name_id = Playoff;
+		if (year == 2025)
+		{
+			*num_rounds = 2;
+			*stage_name_id = Playoff;
 
-		pMem = (BYTE*)sub_944E46_malloc(playoff_dates_sz * (*num_rounds));
+			pMem = (BYTE*)sub_944E46_malloc(playoff_dates_sz * (*num_rounds));
 
-		int fixture_id = 0;
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 3), year, Sunday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 7), year, Thursday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup3 + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 5, 4, 2, 4, 0, 0, 2, 4);
+			int fixture_id = 0;
+			AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 3), year, Sunday);
+			AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 7), year, Thursday, Evening);
+			FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 5, 4, 2, 4, 0, 0, 2, 4);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 12), year, Tuesday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 23), year, Saturday, Afternoon, NationalStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 0, 2, 1, 0, 0, 0, 1, 0);
+			AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 12), year, Tuesday);
+			AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 23), year, Saturday, Afternoon, NationalStadium);
+			FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 0, 2, 1, 0, 0, 0, 1, 0);
+		}
+		else {
+			*num_rounds = 3;
+			*stage_name_id = Playoff;
+
+			pMem = (BYTE*)sub_944E46_malloc(playoff_dates_sz * (*num_rounds));
+
+			int fixture_id = 0;
+			AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 3), year, Sunday);
+			AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 7), year, Thursday, Evening);
+			FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 5, 4, 2, 4, 0, 0, 1, 0);
+
+			AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 8), year, Friday);
+			AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 14), year, Thursday, Evening);
+			FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup3 + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 5, 4, 2, 2, 4, 0, 2, 4);
+
+			AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 19), year, Tuesday);
+			AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 23), year, Saturday, Afternoon, NationalStadium);
+			FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 0, 2, 1, 0, 0, 0, 1, 0);
+		}
 
 		return (DWORD)pMem;
 	}
@@ -544,10 +567,106 @@ void __declspec(naked) eng_champ_update_c()
 	}
 }
 
+void eng_champ_playoffs_under(BYTE* _this) {
+	char stage_num = 0;
+	comp_stats* comp_data = (comp_stats*)_this;
+	BYTE playoff_teams = comp_data->prom_playoff;
+	WORD total_teams = comp_data->n_teams;
+	DWORD* pTeams = (DWORD*)sub_944E46_malloc(playoff_teams * 4);
+	WORD year = comp_data->year;
+
+	if (year == 2025) {
+		BYTE team_order[4] = { 0,3,2,1 };
+
+		team_league_stats* table_teams = (team_league_stats*)(comp_data->team_league_table);
+		for (char i = comp_data->promotions, j = 0; i < total_teams && j < playoff_teams; i++) {
+			*((DWORD*)(&pTeams[team_order[j++]])) = (DWORD)table_teams[i].club;
+		}
+	}
+	else
+	{
+		BYTE team_order[6] = { 4,5,0,3,2,1 };
+
+		team_league_stats* table_teams = (team_league_stats*)(comp_data->team_league_table);
+		for (char i = comp_data->promotions, j = 0; i < total_teams && j < playoff_teams; i++) {
+			*((DWORD*)(&pTeams[team_order[j++]])) = (DWORD)table_teams[i].club;
+		}
+	}
+
+	WORD num_rounds = 0;
+	WORD stage_name_id = 0;
+	DWORD v1 = *(DWORD*)_this;
+	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, char, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
+	BYTE* new_stage = (BYTE*)sub_944CF1_operator_new(0xB2);
+	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)comp_data->competition_db, pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, 0);
+	DWORD* stages_arr = comp_data->stages;
+	*((DWORD*)(&stages_arr[stage_num * 4])) = (DWORD)new_stage;
+	sub_51C800(new_stage, 0);
+}
+
+void eng_champ_playoffs(BYTE* _this) {
+	comp_stats* comp_data = (comp_stats*)_this;
+	long current = comp_data->current_stage;
+	long max = comp_data->num_stages;
+	if (current < max - 1) {
+		current++;
+		comp_data->current_stage = current;
+		if (current == 0) eng_champ_playoffs_under(_this);
+	}
+}
+
+void __declspec(naked) eng_champ_playoffs_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push ecx
+		call eng_champ_playoffs
+		add esp, 0x4
+		ret
+	}
+}
+
+void eng_champ_reputation_calc(BYTE* _this, BYTE* club, char stage, char current, char min, char max) {
+	comp_stats* comp_data = (comp_stats*)_this;
+	BYTE* ret = (BYTE*)sub_4A4850((BYTE*)comp_data->f8, club);
+	if (!ret) return;
+	char ret_current = current;
+	char ret_min = min;
+	char ret_max = max;
+	if (stage == 0) {
+		ret_current = 1 + current;
+		ret_min = 1 + min;
+		ret_max = 1 + max;
+	}
+	ret[0x73] = ret_current;
+	ret[0x74] = ret_min;
+	ret[0x75] = ret_max;
+}
+
+void __declspec(naked) eng_champ_reputation_calc_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x14]
+		push dword ptr[eax + 0x10]
+		push dword ptr[eax + 0xc]
+		push dword ptr[eax + 0x8]
+		push dword ptr[eax + 0x4]
+		push ecx
+		call eng_champ_reputation_calc
+		add esp, 0x18
+		ret 0x14
+	}
+}
+
 void setup_eng_champ() {
 	WriteVTablePtr(eng_champ_vtable, VTableEoSUpdate, (DWORD)&eng_champ_update_c);
 	WriteVTablePtr(eng_champ_vtable, VTableFixtures, (DWORD)&eng_champ_fixture_caller);
 	WriteVTablePtr(eng_champ_vtable, VTableSetChampion, (DWORD)&eng_champ_set_champion_c);
 	WriteVTablePtr(eng_champ_vtable, VTableSubsRounds, (DWORD)&eng_champ_subs_c);
+	WriteVTablePtr(eng_champ_vtable, VTablePlayoffQual, (DWORD)&eng_champ_playoffs_c);
+	WriteVTablePtr(eng_champ_vtable, VTableReputationCalc, (DWORD)&eng_champ_reputation_calc_c);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(eng_champ_vtable, VTable21, 0x4110b0);
 }
