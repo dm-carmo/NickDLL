@@ -433,7 +433,7 @@ void __declspec(naked) rb_croatia_generic_fix()
 	__asm
 	{
 		push eax
-		mov eax, dword ptr ss:[esp + 0x14]
+		mov eax, dword ptr ss : [esp + 0x14]
 		mov al, byte ptr ds : [eax + 5]
 		mov byte ptr ss : [esp + 0x30] , al
 		pop eax
@@ -446,7 +446,7 @@ void __declspec(naked) rb_croatia_generic_fix2()
 {
 	__asm
 	{
-		mov edx, dword ptr ss:[esp + 0xc]
+		mov edx, dword ptr ss : [esp + 0xc]
 		mov dl, byte ptr ds : [edx + 5]
 		mov byte ptr ss : [esp + 0x50] , dl
 		push 0x7dc8f8
@@ -462,7 +462,9 @@ void setup_discipline_setup()
 	WriteDWORD(0x5557e6 + 1, CompetitionRules_LENGTH);
 
 	// rb_croatia edit
-	WriteBytes(0x7dcaab, 5, 0x8b, 0x46, 0x17, 0x90, 0x90);
+	WriteBytes(0x7dca9c, 1, 0x94);
+	WriteBytes(0x7dcaa2, 8, 0x52, 0x8B, 0x94, 0x24, 0x08, 0x02, 0x00, 0x00);
+	WriteBytes(0x7dcaab, 5, 0x8b, 0x41, 0x17, 0x90, 0x90);
 	PatchFunction(0x7dc9bb, (DWORD)&rb_croatia_generic_fix);
 	PatchFunction(0x7dc8f3, (DWORD)&rb_croatia_generic_fix2);
 }

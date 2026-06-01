@@ -176,10 +176,11 @@ DWORD eng_fa_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 
 		int tv_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 4, 5), year, Sunday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 25), year, Saturday, Afternoon, NationalStadium);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Sunday, Afternoon, NationalStadium);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 25), year, Saturday, Afternoon);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Saturday, Evening, NationalStadium);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Sunday, Evening, NationalStadium);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 4, 2, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("eng_fa_cup_semi_win"), prizeMoneyFile.GetInt("eng_fa_cup_semi_lose"));
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup2 + ExtraTimePenalties_1, NoTiebreak_2, 6, 4, 2, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("eng_fa_cup_semi_win"), prizeMoneyFile.GetInt("eng_fa_cup_semi_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 4, 26), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 16), year, Saturday, Afternoon, NationalStadium);
