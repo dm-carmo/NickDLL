@@ -84,6 +84,12 @@ void Setup()
 	WriteBytes(0x820e0e, 1, 1);
 
 	// WC qualifiers calendar changes
+	WriteBytes(0x915395, 1, 1);
+	WriteBytes(0x915397, 1, 5);
+	WriteBytes(0x91539c, 1, 9);
+	WriteBytes(0x9153bd, 1, 1);
+	WriteBytes(0x9153bf, 1, 5);
+	WriteBytes(0x9153c4, 1, 23);
 	WriteBytes(0x9153e7, 1, 1);
 	WriteBytes(0x9153e9, 1, 5);
 	WriteBytes(0x9153ee, 1, 12);
