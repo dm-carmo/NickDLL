@@ -385,7 +385,7 @@ void __fastcall serie_d_promotion(BYTE* _this)
 	for (unsigned int j = 0; j < promoted_clubs.size(); j++) {
 		cm3_clubs* clubToRelegate = relegated_clubs[j];
 		cm3_clubs* clubToPromote = promoted_clubs[j];
-		dprintf("Swapping Teams: %s (%s) %d <-> %s (%s) %d\n", clubToRelegate->ClubName, clubToRelegate->ClubDivision->ClubCompName, clubToRelegate->ClubReputation, clubToPromote->ClubName, clubToPromote->ClubDivision->ClubCompName, clubToPromote->ClubReputation);
+		//dprintf("Swapping Teams: %s (%s) %d <-> %s (%s) %d\n", clubToRelegate->ClubName, clubToRelegate->ClubDivision->ClubCompName, clubToRelegate->ClubReputation, clubToPromote->ClubName, clubToPromote->ClubDivision->ClubCompName, clubToPromote->ClubReputation);
 
 		cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
 		cm3_club_comps* bottomDivision = clubToPromote->ClubDivision;
@@ -462,6 +462,7 @@ char ita_ser_a_update(BYTE* _this) {
 	AddTeams(_this);
 	data->prize_money_pool = SetupPrizeMoney(_this, prizeMoneyFile.GetInt("ita_ser_a_prize_money"));
 	data->f225 = 1;
+	SetupTVMoney(_this, prizeMoneyFile.GetInt("ita_ser_a_tv_money"), 0);
 	sub_6835C0(_this);
 	BYTE* edx = 0;
 	sub_6827D0(_this, edx);
@@ -500,8 +501,6 @@ void ita_ser_a_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->rules = RulesItalyLeague;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
-	comp->ClubCompBackgroundColour = get_colour(COLOUR_BLUE_4_9CF());
-	comp->ClubCompForegroundColour = get_colour(COLOUR_WHITE_9CF());
 	data->min_stadium_capacity = 12000;
 	data->f68 = -1;
 	data->current_stage = -1;
@@ -510,6 +509,7 @@ void ita_ser_a_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	AddTeams(_this);
 	data->prize_money_pool = SetupPrizeMoney(_this, prizeMoneyFile.GetInt("ita_ser_a_prize_money"));
 	data->f225 = 1;
+	SetupTVMoney(_this, prizeMoneyFile.GetInt("ita_ser_a_tv_money"), 0);
 	sub_6835C0(_this);
 	BYTE* ebx = 0;
 	sub_6827D0(_this, ebx);

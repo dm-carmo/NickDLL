@@ -133,12 +133,12 @@ DWORD bra_reg_bahia_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year, 1, 25), year, Saturday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
+		AddFixture(pMem, fixture_id, Date(year, 1, 22), year, Wednesday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Thursday, Evening);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year, 1, 29), year, Wednesday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Thursday, Evening);
+		AddFixture(pMem, fixture_id, Date(year, 1, 25), year, Saturday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
 		AddFixture(pMem, fixture_id, Date(year, 2, 1), year, Saturday);
@@ -174,11 +174,11 @@ DWORD bra_reg_bahia_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 3, 1), year, Saturday);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Sunday, Afternoon);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup2 + Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 5, 4, 2, 4, 0, 0, 2, 7);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup2 + PenaltiesNoExtraTime_1, NoTiebreak_2, 5, 4, 2, 4, 0, 0, 1, 0);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 3, 10), year, Monday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 3, 16), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 5, 2, 1, 0, 0, 0, 2, 7, 0, prizeMoneyFile.GetInt("bra_ba_playoff_winner_money"), prizeMoneyFile.GetInt("bra_ba_playoff_runner_up_money"));
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 3, 2), year, Monday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 3, 8), year, Saturday);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 5, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("bra_ba_playoff_winner_money"), prizeMoneyFile.GetInt("bra_ba_playoff_runner_up_money"));
 
 		return (DWORD)pMem;
 	}
@@ -381,8 +381,6 @@ void bra_reg_bahia_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->rules = RulesBrazilRegional;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
-	comp->ClubCompBackgroundColour = get_colour(COLOUR_BLUE_1_9CF());
-	comp->ClubCompForegroundColour = get_colour(COLOUR_ORANGE_2_9CF());
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 1;

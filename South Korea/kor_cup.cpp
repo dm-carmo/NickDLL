@@ -84,7 +84,7 @@ int kor_cup_teams(BYTE* _this) {
 			string s = string(c->ClubNameShort);
 			return s.size() < 5 || s.substr(s.size() - 4) != " (R)";
 		});
-	for (int i = 0; i < 18; i++)
+	for (int i = 0; i < 15; i++)
 	{
 		int availableIdx = rand() % lower_clubs.size();
 		cm3_clubs* lower_club = lower_clubs[availableIdx];

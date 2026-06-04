@@ -96,14 +96,11 @@ int arg_cup_teams(BYTE* _this) {
 		vec.push_back(division_clubs[i]);
 	}
 	// Lower
-	division_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_ARGENTINA_9CF());
-	sort(division_clubs.begin(), division_clubs.end(), compareClubRep);
-	for (unsigned int i = 0; i < 3; i++)
+	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_ARGENTINA_9CF());
+	division_clubs = get_random_weighted_clubs(lower_clubs, 3, true);
+	for (cm3_clubs* club : division_clubs)
 	{
-		int availableIdx = rand() % division_clubs.size();
-		cm3_clubs* lower_club = division_clubs[availableIdx];
-		vec.push_back(lower_club);
-		division_clubs.erase(division_clubs.begin() + availableIdx);
+		vec.push_back(club);
 	}
 
 	for (DWORD i = 0; i < total_teams; i++)
@@ -235,10 +232,10 @@ void arg_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->current_stage = -1;
 	data->num_stages = 0;
 	data->comp_type = CLUB_DOMESTIC;
-	data->max_bench = 9;
-	data->max_subs = 5;
+	data->max_bench = 7;
+	data->max_subs = 3;
 	data->rules = RulesArgentina;
-	*((BYTE*)(_this + 0xB1)) = 0;;
+	*((BYTE*)(_this + 0xB1)) = 0;
 	int loaded = sub_51FC00(_this, 1);
 	if (loaded) return;
 	arg_cup_teams(_this);

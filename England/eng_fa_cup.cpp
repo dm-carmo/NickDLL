@@ -174,9 +174,13 @@ DWORD eng_fa_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 4), year, Saturday);
 		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 8, 4, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("eng_fa_cup_qtr_win"), 0);
 
+		int tv_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 4, 5), year, Sunday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 25), year, Saturday, Afternoon, FACupSemiFinals);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 4, 2, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("eng_fa_cup_semi_win"), prizeMoneyFile.GetInt("eng_fa_cup_semi_lose"));
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 25), year, Saturday, Afternoon);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Saturday, Evening, NationalStadium);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Sunday, Evening, NationalStadium);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup2 + ExtraTimePenalties_1, NoTiebreak_2, 6, 4, 2, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("eng_fa_cup_semi_win"), prizeMoneyFile.GetInt("eng_fa_cup_semi_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 4, 26), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 16), year, Saturday, Afternoon, NationalStadium);
@@ -218,8 +222,6 @@ void eng_fa_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	*((BYTE*)(_this + 0xB1)) = 0;
 	int loaded = sub_51FC00(_this, 1);
 	if (loaded) return;
-	comp->ClubCompBackgroundColour = get_colour(COLOUR_RED_2_9CF());
-	comp->ClubCompForegroundColour = get_colour(COLOUR_WHITE_9CF());
 	eng_fa_cup_teams(_this);
 	DWORD v1 = *(DWORD*)_this;
 	*((DWORD*)(_this + 0xA3)) = (DWORD)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0x3c, _this + 0x3a, 0);

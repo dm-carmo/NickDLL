@@ -34,7 +34,7 @@ int eng_league_2_subs(BYTE* _this)
 	}
 
 	comp_data->f82 = 2;
-	comp_data->max_bench = 5;
+	comp_data->max_bench = 7;
 	comp_data->max_subs = 3;
 
 	DWORD v1 = *(DWORD*)_this;
@@ -282,8 +282,6 @@ void eng_league_2_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->rules = RulesEngland;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
-	comp->ClubCompBackgroundColour = get_colour(COLOUR_WHITE_9CF());
-	comp->ClubCompForegroundColour = get_colour(COLOUR_RED_2_9CF());
 	data->min_stadium_capacity = 5000;
 	data->min_stadium_seats = 1000;
 	data->f68 = -1;

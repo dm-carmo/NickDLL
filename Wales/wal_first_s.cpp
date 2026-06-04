@@ -80,7 +80,7 @@ int wal_first_s_subs(BYTE* _this)
 	comp_data->relegates_to = -1;
 
 	comp_data->f82 = 2;
-	comp_data->max_bench = 5;
+	comp_data->max_bench = 7;
 	comp_data->max_subs = 3;
 
 	DWORD v1 = *(DWORD*)_this;
@@ -234,8 +234,6 @@ void wal_first_s_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	if (loaded) return;
 	data->min_stadium_capacity = 750;
 	data->min_stadium_seats = 250;
-	comp->ClubCompBackgroundColour = 0;
-	comp->ClubCompForegroundColour = 0;
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 0;

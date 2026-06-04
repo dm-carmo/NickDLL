@@ -7,6 +7,8 @@
 #include "arg_third_metro.h"
 #include "arg_third_interior.h"
 #include "arg_cup.h"
+#include "arg_champ_cup.h"
+#include "arg_super.h"
 
 DWORD arg_setup_c(playable_nation_data* nation_data) {
 	BYTE* start_date = new BYTE[8];
@@ -24,10 +26,10 @@ DWORD arg_setup_c(playable_nation_data* nation_data) {
 	nation_data->f70 = 5;
 	BYTE selected = nation_data->nation->NationLeagueSelected;
 	if ((selected & 4) == 0) {
-		nation_data->num_of_comps = 3;
+		nation_data->num_of_comps = 5;
 	}
 	else {
-		nation_data->num_of_comps = 5;
+		nation_data->num_of_comps = 7;
 	}
 	DWORD* nation_comps = (DWORD*)sub_944E46_malloc(nation_data->num_of_comps * 4);
 	nation_data->comps_list = (DWORD)nation_comps;
@@ -56,12 +58,20 @@ DWORD arg_setup_c(playable_nation_data* nation_data) {
 	arg_cup_init(pMem, start_year, get_comp(ARG_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
+	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
+	arg_champ_cup_init(pMem, start_year, get_comp(ARG_CHAMPIONS_CUP_9CF()));
+	nation_comps[i++] = (DWORD)pMem;
+
+	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
+	arg_super_init(pMem, start_year, get_comp(ARG_SUPER_CUP_9CF()));
+	nation_comps[i++] = (DWORD)pMem;
+
 	BYTE* cm_date = new BYTE[8];
-	convert_to_cm_date(cm_date, 1, January, 2025, -1);
+	convert_to_cm_date(cm_date, 1, January, START_YEAR, -1);
 	nation_data->update_day = *(WORD*)cm_date;
 	nation_data->update_year = start_year;
 	nation_data->f29 = 1;
-	nation_data->super_cup = 0;
+	nation_data->super_cup = get_comp(ARG_SUPER_CUP_9CF());
 	return 1;
 }
 
@@ -71,6 +81,8 @@ void setup_arg_nation() {
 	setup_arg_third_metro();
 	setup_arg_third_interior();
 	setup_arg_cup();
+	setup_arg_champ_cup();
+	setup_arg_super();
 
 	// transfer window adjustment
 	//WriteBytes(0x40a6af, 1, 0xd);

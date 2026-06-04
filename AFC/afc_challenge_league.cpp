@@ -205,7 +205,7 @@ void afc_challenge_team_selection() {
 			}
 			BYTE j = 0;
 			int required;
-			if (filesystem::exists("Data/afc.cfg") && *current_year == (WORD)2025) {
+			if (filesystem::exists("Data/afc.cfg") && *current_year == (WORD)START_YEAR) {
 				ifstream in("Data/afc.cfg", ios_base::in);
 				string name;
 				char nation[LONG_TXT_LENGTH];
@@ -899,16 +899,13 @@ void afc_challenge_league_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->promotes_to = -1;
 	data->relegates_to = -1;
 	data->f82 = 3;
-	data->max_bench = 9;
-	data->max_subs = 5;
+	data->max_bench = 7;
+	data->max_subs = 3;
 	data->rules = RulesAsia;
 	data->f81 = 0xa;
 	*((BYTE*)(_this + 0xB1)) = 0;
 	int loaded = sub_51FC00(_this, 1);
 	if (loaded) return;
-	comp->ClubCompContinent = get_continent(ASIA_9CF());
-	comp->ClubCompBackgroundColour = get_colour(COLOUR_PURPLE_3_9CF());
-	comp->ClubCompForegroundColour = get_colour(COLOUR_ORANGE_1_9CF());
 	data->f171 = 0;
 	data->f68 = -1;
 	data->current_stage = -1;

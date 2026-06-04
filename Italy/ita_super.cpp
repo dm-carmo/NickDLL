@@ -58,7 +58,7 @@ int ita_super_teams(BYTE* _this) {
 	WORD total_teams = 4;
 	BYTE* pMem = (BYTE*)sub_944E46_malloc(6 * total_teams);
 
-	comp_data->n_teams = total_teams;;
+	comp_data->n_teams = total_teams;
 	comp_data->teams_list = (DWORD*)pMem;
 
 	teams_seeded* teams = (teams_seeded*)comp_data->teams_list;
@@ -71,7 +71,11 @@ int ita_super_teams(BYTE* _this) {
 	cm3_clubs* runner_up = get_last_comp_runner_up(ita_cup);
 	if (runner_up) vec.push_back(runner_up);
 
-	for (cm3_clubs* c : ser_a_clubs) {
+	if (comp_data->year == 2025) {
+		vec.push_back(find_club("SSC Napoli"));
+		vec.push_back(find_club("Internazionale"));
+	}
+	else for (cm3_clubs* c : ser_a_clubs) {
 		if (!vector_contains_club(vec, c)) vec.push_back(c);
 		if (vec.size() >= 4) break;
 	}

@@ -105,7 +105,7 @@ void usa_champ_reputation_setup(BYTE* _this) {
 		comp_stats* curr_stage = comp_data;
 		DWORD* all_teams = comp_data->teams2;
 		vector<cm3_clubs*> clubs;
-		for (int i = 0; i < 24; i++) clubs.push_back((cm3_clubs*)all_teams[i]);
+		for (int i = 0; i < 25; i++) clubs.push_back((cm3_clubs*)all_teams[i]);
 		sort(clubs.begin(), clubs.end(), compareClubRep);
 
 		sub_4A2540((BYTE*)comp_data->f8, clubs[0], 1);
@@ -123,6 +123,7 @@ void usa_champ_reputation_setup(BYTE* _this) {
 			sub_4A2540((BYTE*)comp_data->f8, clubs[16 + 2 * i], 17 + 2 * i);
 			sub_4A2540((BYTE*)comp_data->f8, clubs[17 + 2 * i], 17 + 2 * i);
 		}
+		sub_4A2540((BYTE*)comp_data->f8, clubs[24], 25);
 	}
 }
 
@@ -171,8 +172,8 @@ int usa_champ_add_teams(BYTE* _this)
 		*((DWORD*)(&comp_data->teams2[i])) = (DWORD)champ_clubs[i];
 	}
 
-	comp_data->n_teams = 12; // number of teams per group in this case
-	comp_data->team_league_table = (DWORD*)sub_944E46_malloc(12 * league_team_list_sz);
+	comp_data->n_teams = 13; // number of teams per group in this case
+	comp_data->team_league_table = (DWORD*)sub_944E46_malloc(13 * league_team_list_sz);
 	BYTE teamsAdded = 0;
 	for (DWORD i = 0; i < comp_data->n_teams; i++)
 	{
@@ -188,17 +189,19 @@ void usa_champ_setup_groups(BYTE* _this, BYTE idx) {
 	WORD stage_name_id = 0;
 	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, int, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, idx, &num_rounds, &stage_name_id, 0);
 	comp_stats* data = (comp_stats*)_this;
-	DWORD* pTeams = (DWORD*)sub_944E46_malloc(data->n_teams * 4);
+
+	WORD n_teams = 12;
+	DWORD* pTeams = (DWORD*)sub_944E46_malloc(n_teams * 4);
 
 	DWORD* all_teams = data->teams2;
-	for (DWORD i = 0; i < data->n_teams; i++)
+	for (DWORD i = 0; i < n_teams; i++)
 	{
 		cm3_clubs* club = (cm3_clubs*)all_teams[data->n_teams * (idx + 1) + i];
 		*((DWORD*)(&pTeams[i])) = (DWORD)club;
 	}
 	WORD year = data->year;
 	BYTE* pStage = (BYTE*)sub_944CF1_operator_new(0xEE);
-	create_league_stage_data(pStage, _this, data->n_teams, pTeams, 3, (DWORD)(data->competition_db), pFixtures, num_rounds,
+	create_league_stage_data(pStage, _this, n_teams, pTeams, 2, (DWORD)(data->competition_db), pFixtures, num_rounds,
 		data->pts_for_win, data->pts_for_draw, data->f196, (BYTE*)(_this + 0xC5), (BYTE*)(_this + 0xBE),
 		year, idx, stage_name_id, data->f81, 1, 0, data->f217, -1, 0, 2);
 	DWORD* stages_arr = data->stages;
@@ -212,7 +215,7 @@ void usa_champ_subs(BYTE* _this)
 {
 	comp_stats* comp_data = (comp_stats*)_this;
 
-	comp_data->n_rounds = 3;
+	comp_data->n_rounds = 2;
 	comp_data->pts_for_win = 3;
 	comp_data->pts_for_draw = 1;
 	comp_data->f196 = 2;
@@ -259,43 +262,36 @@ DWORD usa_champ_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		BYTE* pMem = NULL;
 		comp_stats* data = (comp_stats*)_this;
 		WORD year = data->year;
-		BYTE numberOfLeagueTeams = 12;
-		*num_rounds = (numberOfLeagueTeams - 1) * data->n_rounds;
+		BYTE numberOfLeagueTeams = 12 + abs(stage_idx);
+		*num_rounds = (numberOfLeagueTeams - 1 + numberOfLeagueTeams % 2) * data->n_rounds;
 		*stage_name_id = EasternConference + (stage_idx + 1);
 
 		pMem = (BYTE*)sub_944E46_malloc(fixture_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 3, 9), year, Sunday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 3, 16), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 3, 23), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 3, 30), year, Sunday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 4, 6), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 4, 13), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 4, 20), year, Sunday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 4, 27), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 5, 4), year, Sunday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 5, 14), year, Wednesday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 5, 18), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 5, 25), year, Sunday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 6, 1), year, Sunday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 6, 4), year, Wednesday, Evening);
+		if(numberOfLeagueTeams > 12) AddFixtureNoTV(pMem, fixture_id++, Date(year, 6, 1), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 6, 15), year, Sunday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 6, 18), year, Wednesday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 6, 22), year, Sunday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 6, 29), year, Sunday);
+		if (numberOfLeagueTeams > 12) AddFixtureNoTV(pMem, fixture_id++, Date(year, 6, 29), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 7, 6), year, Sunday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 7, 13), year, Sunday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 7, 20), year, Sunday);
+		if (numberOfLeagueTeams > 12) AddFixtureNoTV(pMem, fixture_id++, Date(year, 7, 20), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 7, 27), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 3), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 10), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 24), year, Sunday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 31), year, Sunday);
+		if (numberOfLeagueTeams > 12) AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 31), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 7), year, Sunday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 17), year, Wednesday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 21), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 28), year, Sunday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 1), year, Wednesday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 5), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 19), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 26), year, Sunday);
@@ -547,7 +543,7 @@ void __declspec(naked) usa_champ_playoffs_create()
 }
 
 void usa_d2_awards_teams(BYTE* _this, DWORD** team_list, WORD* total_teams) {
-	*total_teams = 24;
+	*total_teams = 25;
 	DWORD* pMem = (DWORD*)sub_944E46_malloc(4 * (*total_teams));
 	*team_list = pMem;
 

@@ -1,4 +1,5 @@
 #pragma warning (disable : 4786 4996 6031)  // Stops all the weird STL warnings
+
 #include <windows.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -10,6 +11,7 @@
 #include <algorithm>
 
 #include "Structures\CMHeader.h"
+#include "Helpers\generic_functions.h"
 #include "Helpers\Helper.h"
 #include "Helpers\YearChanger.h"
 
@@ -76,7 +78,18 @@ void Setup()
 	// Shows more teams in Team Stats, up to 127
 	WriteBytes(0x495976, 1, 0x7F);
 
+	// Change manager's starting age
+	WriteDWORD(0x820e01, (START_YEAR - 34));
+	WriteBytes(0x820e09, 1, July);
+	WriteBytes(0x820e0e, 1, 1);
+
 	// WC qualifiers calendar changes
+	WriteBytes(0x915395, 1, 1);
+	WriteBytes(0x915397, 1, 5);
+	WriteBytes(0x91539c, 1, 9);
+	WriteBytes(0x9153bd, 1, 1);
+	WriteBytes(0x9153bf, 1, 5);
+	WriteBytes(0x9153c4, 1, 23);
 	WriteBytes(0x9153e7, 1, 1);
 	WriteBytes(0x9153e9, 1, 5);
 	WriteBytes(0x9153ee, 1, 12);
@@ -149,10 +162,16 @@ void Setup()
 	setup_wal_nation();
 
 	dprintf("------------------------------\n");
-	dprintf("New nation: Czech Republic\n");
-	setup_cze_nation();
 	dprintf("New nation: Austria\n");
 	setup_aut_nation();
+	dprintf("New nation: Chile\n");
+	setup_chi_nation();
+	dprintf("New nation: Czech Republic\n");
+	setup_cze_nation();
+	dprintf("New nation: Egypt\n");
+	setup_egy_nation();
+	dprintf("New nation: Saudi Arabia\n");
+	setup_ksa_nation();
 	dprintf("New nation: Switzerland\n");
 	setup_sui_nation();
 	dprintf("------------------------------\n");

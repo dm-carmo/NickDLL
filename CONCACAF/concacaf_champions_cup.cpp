@@ -281,7 +281,7 @@ void concacaf_cup_team_selection() {
 
 	// If there is a .cfg file, uses it to get preset teams for the first year
 	// Includes failsafes in case any of the clubs can't be found or are already qualified for some reason
-	if (std::filesystem::exists("Data/concacaf.cfg") && *current_year == 2025) {
+	if (std::filesystem::exists("Data/concacaf.cfg") && *current_year == START_YEAR) {
 		//dprintf("Getting preset teams for CONCACAF\n");
 		ifstream in("Data/concacaf.cfg", ios_base::in);
 		string name;
@@ -514,15 +514,13 @@ void concacaf_champions_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->promotes_to = -1;
 	data->relegates_to = -1;
 	data->f82 = 3;
-	data->max_bench = 9;
-	data->max_subs = 5;
+	data->max_bench = 7;
+	data->max_subs = 3;
 	data->rules = RulesSouthAmerica;
 	data->f81 = 0xa;
 	*((BYTE*)(_this + 0xB1)) = 0;
 	int loaded = sub_51FC00(_this, 1);
 	if (loaded) return;
-	comp->ClubCompBackgroundColour = get_colour(COLOUR_BLUE_2_9CF());
-	comp->ClubCompForegroundColour = get_colour(COLOUR_CYAN_2_9CF());
 	concacaf_champions_cup_all_teams(_this);
 	concacaf_champions_cup_qualifier_teams(_this);
 	DWORD v1 = *(DWORD*)_this;

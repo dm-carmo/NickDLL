@@ -80,7 +80,7 @@ int sco_lowland_subs(BYTE* _this)
 	comp_data->relegates_to = -1;
 
 	comp_data->f82 = 2;
-	comp_data->max_bench = 5;
+	comp_data->max_bench = 7;
 	comp_data->max_subs = 3;
 
 	DWORD v1 = *(DWORD*)_this;
@@ -164,14 +164,13 @@ void __declspec(naked) sco_lowland_fixtures_c()
 }
 
 void sco_lowland_block_promotion(BYTE* _this) {
-	cm3_clubs* celtic_b = find_club("Glasgow Celtic B");
-	cm3_clubs* hearts_b = find_club("Heart of Midlothian FC B");
 	comp_stats* data = (comp_stats*)_this;
 	WORD total_teams = data->n_teams;
 	team_league_stats* table_teams = (team_league_stats*)(data->team_league_table);
 	for (int i = 0; i < total_teams; i++) {
-		cm3_clubs* club = table_teams[i].club;
-		if (club == celtic_b || club == hearts_b) {
+		DWORD is_main_club;
+		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)table_teams[i].club, &is_main_club, 1);
+		if (ret_club && !is_main_club) {
 			table_teams[i].league_fate = CantBePromotedOrRelegated;
 		}
 	}
@@ -250,8 +249,6 @@ void sco_lowland_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->rules = RulesScotlandLeague;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
-	comp->ClubCompBackgroundColour = 0;
-	comp->ClubCompForegroundColour = 0;
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 0;

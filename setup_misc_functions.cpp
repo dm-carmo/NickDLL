@@ -99,58 +99,6 @@ int show_extra_leagues_in_start(BYTE* nation, DWORD dest_ptr, int a3) {
 		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
 		return 1;
 	}
-	/* Unused for now :)
-	if (cm3_nation->NationID == NATION_AUSTRALIA_9CF()) {
-		league_str = "National Premier Leagues";
-		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
-		return 1;
-	}
-	if (cm3_nation->NationID == NATION_CROATIA_9CF()) {
-		league_str = "3. NL";
-		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
-		return 1;
-	}
-	if (cm3_nation->NationID == NATION_DENMARK_9CF()) {
-		league_str = "Danmarksserien";
-		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
-		return 1;
-	}
-	if (cm3_nation->NationID == NATION_FRANCE_9CF()) {
-		league_str = "National 2";
-		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
-		return 1;
-	}
-	if (cm3_nation->NationID == NATION_GREECE_9CF()) {
-		league_str = "Gamma Ethniki";
-		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
-		return 1;
-	}
-	if (cm3_nation->NationID == NATION_HOLLAND_9CF()) {
-		league_str = "Tweede Divisie";
-		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
-		return 1;
-	}
-	if (cm3_nation->NationID == NATION_ITALY_9CF()) {
-		league_str = "Serie D";
-		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
-		return 1;
-	}
-	if (cm3_nation->NationID == NATION_POLAND_9CF()) {
-		league_str = "III liga";
-		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
-		return 1;
-	}
-	if (cm3_nation->NationID == NATION_RUSSIA_9CF()) {
-		league_str = "Second League";
-		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
-		return 1;
-	}
-	if (cm3_nation->NationID == NATION_SOUTH_KOREA_9CF()) {
-		league_str = "K3 League";
-		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
-		return 1;
-	}
-	*/
 	return 0;
 }
 
@@ -167,8 +115,8 @@ int parent_child_stages(int child_stage_id) {
 	if ((child_stage_id >= 0x407 && child_stage_id <= 0x40B) || child_stage_id == SecondRoundGroup6) return SecondRound;
 	if (child_stage_id >= 0x47e && child_stage_id <= 0x47f) return ThirdRound;
 	if (child_stage_id >= 0x40c && child_stage_id <= 0x40e) return SemiFinal;
-	if (child_stage_id >= 0x43d && child_stage_id <= 0x43e) return AperturaGroupStage;
-	if (child_stage_id >= 0x445 && child_stage_id <= 0x446) return ClausuraGroupStage;
+	//if (child_stage_id >= 0x43d && child_stage_id <= 0x43e) return AperturaGroupStage;
+	//if (child_stage_id >= 0x445 && child_stage_id <= 0x446) return ClausuraGroupStage;
 	if (child_stage_id >= 0x44d && child_stage_id <= 0x450) return PromotionGroupStage;
 	if (child_stage_id >= 0x47c && child_stage_id <= 0x47d) return RelegationGroupStage;
 	if (child_stage_id >= 0x43f && child_stage_id <= 0x440) return FirstStage;
@@ -268,6 +216,20 @@ void setup_misc_functions()
 	PatchFunction(0x46B71E, (DWORD)&aus_minor_premier_in_history);
 	PatchFunction(0x460ec6, (DWORD)&club_pro_status_with_continental_comp_c);
 
+	// Finance changes
+	if (configFile.GetBool("financeTweaks", false)) {
+		WriteWORD(0x59dc6d, 5000);
+		WriteWORD(0x59dcd0, 5000);
+
+		//WriteDWORD(0x59dc89, 1500);
+
+		WriteDWORD(0x59dbf9, 3500);
+		WriteDWORD(0x59dca5, 3500);
+
+		WriteBytes(0x59dce0, 1, 3);
+		WriteBytes(0x59dce7, 1, 6);
+	}
+
 	// Move August 30's international friendlies forward two weeks
 	for (DWORD d : friendly_aug_30plus4) {
 		WriteBytes(d + 4, 1, 3);
@@ -323,4 +285,9 @@ void setup_misc_functions()
 		WriteBytes(0x8077CF + 2, 1, 36);
 		WriteBytes(0xA7FFD8, 2, 0x33, 0x36);
 	}
+
+	// Show hosts for some other comps
+	WriteDWORD(0x96769C, 0x404480); // Asian Cup
+	WriteDWORD(0x96B488, 0x404480); // Copa América
+	WriteDWORD(0x9672F8, 0x404480); // AFCON
 }

@@ -22,6 +22,8 @@ int GetKey();
 
 DWORD Get9CF(DWORD id);
 cm3_clubs* get_club(DWORD clubID);
+cm3_clubs* get_national_team(DWORD nationID);
+vector<cm3_clubs*>  get_all_national_teams();
 BYTE* get_loaded_league(DWORD compID);
 cm3_nations* find_country(const char* szCountry);
 cm3_nations* get_country(DWORD countryID);
@@ -74,3 +76,4 @@ vector<cm3_clubs*> get_relegated_teams(DWORD compID);
 bool sortTLS(team_league_stats s1, team_league_stats s2);
 vector<cm3_clubs*> get_random_weighted_clubs(vector<cm3_clubs*> list, unsigned int amount, bool to_promote);
 void generic_prom_rel(DWORD nation_id, DWORD promote_from, DWORD relegate_from, int num_child_comps, ...);
+int UpdateCountryCoefficient(cm3_clubs* club, char coeff);

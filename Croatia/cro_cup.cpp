@@ -77,17 +77,14 @@ int cro_cup_teams(BYTE* _this) {
 	teams_seeded* teams = (teams_seeded*)comp_data->teams_list;
 
 	// Lower
-	vector<cm3_clubs*> club_list = find_clubs_of_comp(CRO_FOURTH_9CF());
-	sort(club_list.begin(), club_list.end(), compareClubRep);
-	int max_to_check = (club_list.size() > 15 ? 15 : club_list.size());
-	for (int i = 0; i < 10; i++) {
-		int availableIdx = rand() % (max_to_check - i);
-		cm3_clubs* selected = club_list[availableIdx];
-		vec.push_back(selected);
-		club_list.erase(club_list.begin() + availableIdx);
+	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(CRO_FOURTH_9CF());
+	vector<cm3_clubs*> division_clubs = get_random_weighted_clubs(lower_clubs, 10, true);
+	for (cm3_clubs* club : division_clubs)
+	{
+		vec.push_back(club);
 	}
 	// 2. NL
-	vector<cm3_clubs*> division_clubs = find_clubs_of_comp(CRO_THIRD_9CF());
+	division_clubs = find_clubs_of_comp(CRO_THIRD_9CF());
 	sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPosInv);
 	for (cm3_clubs* club : division_clubs)
 	{

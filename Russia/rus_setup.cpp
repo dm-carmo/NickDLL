@@ -47,7 +47,7 @@ DWORD rus_setup_c(playable_nation_data* nation_data) {
 	nation_comps[i++] = (DWORD)pMem;
 
 	BYTE* cm_date = new BYTE[8];
-	convert_to_cm_date(cm_date, 20, June, 2025, -1);
+	convert_to_cm_date(cm_date, 20, June, START_YEAR, -1);
 	nation_data->update_day = *(WORD*)cm_date;
 	nation_data->update_year = *current_year;
 	nation_data->f29 = 1;
@@ -62,7 +62,15 @@ void __declspec(naked) russia_foreign_rules()
 		mov eax, dword ptr ds : [eax]
 		cmp eax, dword ptr ds : [0x9CF930]
 		je rus_prm_fgn
+		cmp eax, 0xc4 // temp for saudi
+		je rus_prm_fgn
+		cmp eax, 0x179 // temp for saudi
+		je rus_prm_fgn
+		cmp eax, 0x18d // temp for saudi
+		je rus_prm_fgn
 		cmp eax, dword ptr ds : [0x9CF92C]
+		je rus_first_fgn
+		cmp eax, 0x18c // temp for saudi
 		je rus_first_fgn
 		cmp eax, dword ptr ds : [0x9CF918]
 		je rus_second_fgn

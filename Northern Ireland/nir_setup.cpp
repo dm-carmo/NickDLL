@@ -56,7 +56,7 @@ DWORD nir_setup_c(playable_nation_data* nation_data) {
 	nation_comps[i++] = (DWORD)pMem;
 
 	BYTE* cm_date = new BYTE[8];
-	convert_to_cm_date(cm_date, 20, June, 2025, -1);
+	convert_to_cm_date(cm_date, 20, June, START_YEAR, -1);
 	nation_data->update_day = *(WORD*)cm_date;
 	nation_data->update_year = *current_year;
 	nation_data->f29 = 1;

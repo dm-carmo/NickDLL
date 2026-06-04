@@ -548,22 +548,12 @@ void swe_third_playoffs_rele(BYTE* _this) {
 
 	vector<cm3_clubs*> playoff_clubs;
 	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_SWEDEN_9CF());
-	sort(available_clubs.begin(), available_clubs.end(), compareClubRep);
-	// Promoted clubs
-	int max_to_check = (available_clubs.size() > 24 ? 24 : available_clubs.size());
-	for (int i = 0; i < 12; i++)
-	{
-		int availableIdx = rand() % (max_to_check - i);
-		available_clubs.erase(available_clubs.begin() + availableIdx);
-	}
+	vector<cm3_clubs*> random_lower = get_random_weighted_clubs(available_clubs, 18, true);
 	// Playoff clubs
-	max_to_check = (available_clubs.size() > 12 ? 12 : available_clubs.size());
 	for (int i = 0; i < 6; i++)
 	{
-		int availableIdx = rand() % (max_to_check - i);
-		cm3_clubs* available = available_clubs[availableIdx];
+		cm3_clubs* available = random_lower[i + 12];
 		playoff_clubs.push_back(available);
-		available_clubs.erase(available_clubs.begin() + availableIdx);
 	}
 
 	j = 0;

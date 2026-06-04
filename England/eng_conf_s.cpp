@@ -108,7 +108,7 @@ int eng_conf_s_subs(BYTE* _this)
 	comp_data->relegates_to = -1;
 
 	comp_data->f82 = 2;
-	comp_data->max_bench = 5;
+	comp_data->max_bench = 7;
 	comp_data->max_subs = 3;
 
 	DWORD v1 = *(DWORD*)_this;
@@ -200,7 +200,7 @@ void eng_conf_s_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->comp_vtable = (DWORD*)(eng_conf_s_vtable->vtable_ptr);
 	eng_conf_s_vtable->SetPointer(VTableInitFree, (DWORD)&eng_conf_s_free_c);
 	eng_conf_s_vtable->SetPointer(VTableEoSUpdate, (DWORD)&eng_conf_s_update_c);
-	eng_conf_s_vtable->SetPointer(VTablePlayoffQual, (DWORD)&eng_playoffs_create);
+	eng_conf_s_vtable->SetPointer(VTablePlayoffQual, (DWORD)&eng_conf_playoffs_c);
 	eng_conf_s_vtable->SetPointer(VTableFixtures, (DWORD)&eng_conf_fixtures_c);
 	eng_conf_s_vtable->SetPointer(VTableTableFates, (DWORD)&eng_conf_set_table_fate);
 	eng_conf_s_vtable->SetPointer(VTableSubsRounds, (DWORD)&eng_conf_s_subs_c);
@@ -211,8 +211,6 @@ void eng_conf_s_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->rules = RulesEngland;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
-	comp->ClubCompBackgroundColour = get_colour(COLOUR_GREEN_1_9CF());
-	comp->ClubCompForegroundColour = get_colour(COLOUR_BLACK_9CF());
 	data->min_stadium_capacity = 3000;
 	data->min_stadium_seats = 250;
 	data->f68 = -1;

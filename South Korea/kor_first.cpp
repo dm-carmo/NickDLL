@@ -292,6 +292,38 @@ void __declspec(naked) kor_first_subs_c()
 	}
 }
 
+void __fastcall kor_second_relegation()
+{
+	cm3_clubs* relegate = 0;
+	BYTE* comp_bytes = get_loaded_league(KOR_SECOND_9CF());
+	comp_stats* comp_data = (comp_stats*)comp_bytes;
+	for (WORD num = 0; num < comp_data->n_teams; num++) {
+		team_league_stats table_pos = ((team_league_stats*)comp_data->team_league_table)[num];
+		if (table_pos.league_fate == Relegated) {
+			relegate = table_pos.club;
+			break;
+		}
+	}
+
+	cm3_clubs* promote = 0;
+	comp_stats* playoff_stage = (comp_stats*)comp_data->stages[1];
+	for (WORD i = 0; i < playoff_stage->n_teams; i++) {
+		teams_seeded t = ((teams_seeded*)playoff_stage->teams_list)[i];
+		if (t.f6 == 1) {
+			if (t.club->ClubDivision != comp_data->competition_db) {
+				promote = t.club;
+				break;
+			}
+		}
+	}
+
+	if (promote && relegate) {
+		cm3_club_comps* relegate_to = promote->ClubDivision;
+		promote_club_6830B0((BYTE*)promote, (DWORD)comp_data->competition_db, 1);
+		relegate_club_6831A0((BYTE*)relegate, (DWORD)relegate_to, 1);
+	}
+}
+
 char kor_first_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
@@ -310,6 +342,7 @@ char kor_first_update(BYTE* _this) {
 
 	DWORD v1 = *(DWORD*)_this;
 	(*(void(__thiscall**)(BYTE*, int))(v1 + 0xB0))(_this, 1);
+	kor_second_relegation();
 
 	sub_687970(_this, ebx);
 	if (data->fixtures_table) {
@@ -573,7 +606,7 @@ int kor_first_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char sta
 			team_league_stats* table = (team_league_stats*)(kor_second_data->team_league_table);
 			WORD current_round = *(WORD*)(round_data + 0x34);
 			for (int i = 0; i < num_teams; i++) {
-					if (table[i].club != club) continue;
+				if (table[i].club != club) continue;
 				switch (fate) {
 				case TopPlayoff:
 					staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)kor_second, 0x32);
@@ -596,7 +629,7 @@ int kor_first_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char sta
 			team_league_stats* table = (team_league_stats*)(comp_data->team_league_table);
 			WORD current_round = *(WORD*)(round_data + 0x34);
 			for (int i = 0; i < num_teams; i++) {
-					if (table[i].club != club) continue;
+				if (table[i].club != club) continue;
 				switch (fate) {
 				case BottomPlayoff:
 					staff_history_relegated_86A1C0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));

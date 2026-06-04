@@ -70,50 +70,28 @@ void __fastcall rus_non_league_promotion(BYTE* _this)
 	}
 
 	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(RUS_SECOND_B_9CF(), NATION_RUSSIA_9CF());
-	sort(available_clubs.begin(), available_clubs.end(), compareClubRep);
-	int max_to_check = (available_clubs.size() > 6 ? 6 : available_clubs.size());
-	for (unsigned int i = 0; i < relegated_clubs.size(); i++)
-	{
-		int availableIdx = rand() % (max_to_check - i);
-		cm3_clubs* clubToRelegate = relegated_clubs[i];
-		cm3_clubs* available = available_clubs[availableIdx];
-
+	for (size_t i = 0; i < available_clubs.size(); i++) {
+		cm3_clubs* c = available_clubs[i];
 		DWORD is_main_club;
-		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)available, &is_main_club, 1);
+		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)c, &is_main_club, 1);
 		if (ret_club && !is_main_club && ret_club->ClubDivision->ClubCompID != RUS_PREMIER_9CF()
 			&& ret_club->ClubDivision->ClubCompID != RUS_FIRST_9CF())
+		{
+			available_clubs.erase(available_clubs.begin() + i);
 			i--;
-		else
-		{
-			cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
-			cm3_club_comps* bottomDivision = available->ClubDivision;
-			relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
-			promote_club_6830B0((BYTE*)available, (DWORD)topDivision, 1);
-			clubToRelegate->ClubReserveDivision = 0;
 		}
-
-		available_clubs.erase(available_clubs.begin() + availableIdx);
 	}
-	if (comp_data->year == 2025)
-	{
-		for (unsigned int i = 0; i < 2; i++)
-		{
-			int availableIdx = rand() % (max_to_check - i);
-			cm3_clubs* available = available_clubs[availableIdx];
+	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(available_clubs, relegated_clubs.size() + (comp_data->year == 2025 ? 2 : 0), true);
 
-			DWORD is_main_club;
-			cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)available, &is_main_club, 1);
-			if (ret_club && !is_main_club && ret_club->ClubDivision->ClubCompID != RUS_PREMIER_9CF()
-				&& ret_club->ClubDivision->ClubCompID != RUS_FIRST_9CF())
-				i--;
-			else
-			{
-				cm3_club_comps* bottomDivision = available->ClubDivision;
-				promote_club_6830B0((BYTE*)available, (DWORD)get_comp(RUS_SECOND_A_9CF()), 1);
-			}
+	for (cm3_clubs* c : relegated_clubs) {
+		cm3_club_comps* bottomDivision = get_comp(RUS_SECOND_B_9CF());
+		relegate_club_6831A0((BYTE*)c, (DWORD)bottomDivision, 1);
+		c->ClubReserveDivision = 0;
+	}
 
-			available_clubs.erase(available_clubs.begin() + availableIdx);
-		}
+	for (cm3_clubs* c : promoted_clubs) {
+		cm3_club_comps* topDivision = get_comp(RUS_SECOND_A_9CF());
+		promote_club_6830B0((BYTE*)c, (DWORD)topDivision, 1);
 	}
 }
 
@@ -258,6 +236,28 @@ void sort_rus_second_a_clubs() {
 	}
 }
 
+void __fastcall rus_fake_lower_relegation(BYTE* _this)
+{
+	vector<cm3_clubs*> d2b_clubs = find_clubs_of_comp(RUS_SECOND_B_9CF(), NATION_RUSSIA_9CF());
+	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_RUSSIA_9CF());
+	unsigned int num_to_swap = d2b_clubs.size() / 8;
+	if (lower_clubs.size() < num_to_swap) num_to_swap = lower_clubs.size();
+
+	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(lower_clubs, num_to_swap, true);
+	vector<cm3_clubs*> relegated_clubs = get_random_weighted_clubs(d2b_clubs, num_to_swap, false);
+
+	for (unsigned int j = 0; j < num_to_swap; j++) {
+		cm3_clubs* clubToRelegate = relegated_clubs[j];
+		cm3_clubs* clubToPromote = promoted_clubs[j];
+		//dprintf("Swapping Teams: %s (%s) %d <-> %s (%s) %d\n", clubToRelegate->ClubName, clubToRelegate->ClubDivision->ClubCompName, clubToRelegate->ClubReputation, clubToPromote->ClubName, clubToPromote->ClubDivision->ClubCompName, clubToPromote->ClubReputation);
+
+		cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
+		cm3_club_comps* bottomDivision = clubToPromote->ClubDivision;
+		relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
+		promote_club_6830B0((BYTE*)clubToPromote, (DWORD)topDivision, 1);
+	}
+}
+
 char rus_premier_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
@@ -286,7 +286,9 @@ char rus_premier_update(BYTE* _this) {
 	rus_check_reserve_teams(_this);
 	DWORD v1 = *(DWORD*)_this;
 	rus_premier_prom_rel_update(_this, 1);
+
 	rus_non_league_promotion(_this);
+	rus_fake_lower_relegation(_this);
 	sort_rus_second_a_clubs();
 
 	sub_687970(_this, ebx);

@@ -45,17 +45,13 @@ DWORD fra_setup_c(playable_nation_data* nation_data) {
 	// Cup
 	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
 	fra_cup_setup(pMem, *current_year, get_comp(FRA_CUP_9CF()));
-	get_comp(FRA_CUP_9CF())->ClubCompForegroundColour = 0;
-	get_comp(FRA_CUP_9CF())->ClubCompBackgroundColour = 0;
 	nation_comps[i++] = (DWORD)pMem;
 	// Super Cup
 	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
 	fra_super_setup(pMem, *current_year, get_comp(FRA_SUPER_CUP_9CF()));
-	get_comp(FRA_SUPER_CUP_9CF())->ClubCompForegroundColour = 0;
-	get_comp(FRA_SUPER_CUP_9CF())->ClubCompBackgroundColour = 0;
 	nation_comps[i++] = (DWORD)pMem;
 	BYTE* cm_date = new BYTE[8];
-	convert_to_cm_date(cm_date, 20, June, 2025, -1);
+	convert_to_cm_date(cm_date, 20, June, START_YEAR, -1);
 	nation_data->update_day = *(WORD*)cm_date;
 	nation_data->update_year = *current_year;
 	nation_data->f29 = 1;

@@ -665,8 +665,6 @@ void nor_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->rules = RulesNorwayLeague;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
-	comp->ClubCompBackgroundColour = 0;
-	comp->ClubCompForegroundColour = 0;
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 2;

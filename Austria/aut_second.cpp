@@ -467,7 +467,7 @@ void aut_second_points_deductions(BYTE* _this, WORD current_year)
 			if (tls->club == klagenfurt) {
 				tls->points = -3;
 				tls->points_away = -3;
-				return;
+				break;
 			}
 		}
 	}
@@ -481,7 +481,7 @@ void aut_second_points_deductions(BYTE* _this, WORD current_year)
 			if (tls->club == bregenz) {
 				tls->points = -3;
 				tls->points_away = -3;
-				return;
+				break;
 			}
 		}
 	}
@@ -495,7 +495,7 @@ void aut_second_points_deductions(BYTE* _this, WORD current_year)
 			if (tls->club == stripfing) {
 				tls->points = -42;
 				tls->points_away = -42;
-				return;
+				break;
 			}
 		}
 	}

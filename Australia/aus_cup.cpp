@@ -212,14 +212,12 @@ void aus_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->current_stage = -1;
 	data->num_stages = 0;
 	data->comp_type = CLUB_DOMESTIC;
-	data->max_bench = 9;
-	data->max_subs = 5;
+	data->max_bench = 7;
+	data->max_subs = 3;
 	data->rules = RulesAustralia;
-	*((BYTE*)(_this + 0xB1)) = 0;;
+	*((BYTE*)(_this + 0xB1)) = 0;
 	int loaded = sub_51FC00(_this, 1);
 	if (loaded) return;
-	comp->ClubCompBackgroundColour = 0;
-	comp->ClubCompForegroundColour = 0;
 	aus_cup_teams(_this);
 	DWORD v1 = *(DWORD*)_this;
 	*((DWORD*)(_this + 0xA3)) = (DWORD)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0x3c, _this + 0x3a, 0);

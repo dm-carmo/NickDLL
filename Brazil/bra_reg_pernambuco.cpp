@@ -133,6 +133,10 @@ DWORD bra_reg_pernambuco_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds,
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
+		AddFixture(pMem, fixture_id, Date(year, 1, 22), year, Wednesday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Thursday, Evening);
+		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		tv_id = 0;
 		AddFixture(pMem, fixture_id, Date(year, 1, 25), year, Saturday);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
@@ -140,19 +144,7 @@ DWORD bra_reg_pernambuco_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds,
 		AddFixture(pMem, fixture_id, Date(year, 1, 29), year, Wednesday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Thursday, Evening);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
-		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year, 2, 1), year, Saturday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
-		AddFixtureTV(pMem, fixture_id++, tv_id++);
-		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year, 2, 8), year, Saturday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
-		AddFixtureTV(pMem, fixture_id++, tv_id++);
-		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year, 2, 15), year, Saturday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
-		AddFixtureTV(pMem, fixture_id++, tv_id++);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 2, 22), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 2, 1), year, Saturday);
 
 		check_number_of_fixtures(_this, fixture_id, *num_rounds);
 
@@ -169,20 +161,18 @@ DWORD bra_reg_pernambuco_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds,
 		pMem = (BYTE*)sub_944E46_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 2, 23), year, Sunday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 3, 2), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup2 + PenaltiesNoExtraTime_1, NoTiebreak_2, 5, 4, 2, 4, 0, 0, 1, 0);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 2, 2), year, Sunday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 2, 5), year, Wednesday, Evening);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup2 + Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 5, 4, 2, 4, 0, 0, 2, 3);
 
 		int tv_id = 0;
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 3, 3), year, Monday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 3, 8), year, Saturday);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Sunday, Afternoon);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup2 + Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 5, 4, 2, 2, 4, 0, 2, 7);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 2, 9), year, Sunday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 2, 12), year, Wednesday, Evening);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup2 + Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 5, 4, 2, 2, 4, 0, 2, 10);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 3, 17), year, Monday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 3, 22), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 5, 2, 1, 0, 0, 0, 2, 4);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 2, 23), year, Sunday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 3, 1), year, Saturday);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 5, 2, 1, 0, 0, 0, 2, 7);
 
 		return (DWORD)pMem;
 	}
@@ -385,8 +375,6 @@ void bra_reg_pernambuco_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->rules = RulesBrazilRegional;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
-	comp->ClubCompBackgroundColour = get_colour(COLOUR_BLUE_1_9CF());
-	comp->ClubCompForegroundColour = get_colour(COLOUR_WHITE_9CF());
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 1;

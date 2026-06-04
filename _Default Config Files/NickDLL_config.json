@@ -1,8 +1,10 @@
 {
+  "prizeMoneyMultiplier": 1.0,
   "cupRunnerUpsInUEFA": false,
   "useEnglandAcademyTeams": false,
   "competitionColoursPatch": true,
   "changePlayerSearchFilters": true,
   "showThirdPlaceInHistory": true,
+  "financeTweaks": true,
   "russiaBan": true,
 }

@@ -409,8 +409,6 @@ void __declspec(naked) fifa_club_world_cup_reputation_calc_c()
 	}
 }
 
-static char(__thiscall* get_host_ids_5FA730)(BYTE* _this, long comp_id, WORD year, DWORD* host1_ptr, DWORD* host2_ptr, int a6) =
-(char(__thiscall*)(BYTE * _this, long comp_id, WORD year, DWORD * host1_ptr, DWORD * host2_ptr, int a6))(0x5FA730);
 void fifa_club_world_cup_all_teams(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	WORD year = data->year;
@@ -992,7 +990,7 @@ void fifa_club_world_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	comp_stats* data = (comp_stats*)_this;
 	data->competition_db = comp;
 	WORD start_year = year;
-	while ((start_year - 2025) % 4 != 0) {
+	while ((start_year - START_YEAR) % 4 != 0) {
 		start_year++;
 	}
 	data->year = start_year;
@@ -1014,8 +1012,6 @@ void fifa_club_world_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->f81 = 0xf;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
-	comp->ClubCompBackgroundColour = get_colour(COLOUR_BLACK_9CF());
-	comp->ClubCompForegroundColour = get_colour(COLOUR_GOLD_9CF());
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 8;

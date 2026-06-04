@@ -128,8 +128,8 @@ DWORD ita_ser_b_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 14), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 21), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 28), year, Saturday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 3), year, Tuesday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 7), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 10), year, Tuesday, Evening); // delayed from March 3 due to cup clash
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 14), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 17), year, Tuesday, Evening);
 
@@ -275,8 +275,6 @@ void ita_ser_b_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->rules = RulesItalyLeague;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
-	comp->ClubCompBackgroundColour = get_colour(COLOUR_GREEN_1_9CF());
-	comp->ClubCompForegroundColour = get_colour(COLOUR_WHITE_9CF());
 	data->min_stadium_capacity = 5500;
 	data->f68 = -1;
 	data->current_stage = -1;
@@ -393,7 +391,7 @@ void ita_ser_b_rele_playoffs(BYTE* _this) {
 	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)(comp_data->competition_db), pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, 0);
 	DWORD* stages_arr = comp_data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
-	sub_51C800(new_stage, 0);;
+	sub_51C800(new_stage, 0);
 	comp_data->current_stage = (long)stage_num;
 }
 

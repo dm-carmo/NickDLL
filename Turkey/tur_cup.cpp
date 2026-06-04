@@ -271,17 +271,20 @@ int tur_cup_teams(BYTE* _this) {
 	sort(vec_uefa.begin(), vec_uefa.end(), compareClubLastDivPosInv);
 
 	// Lower
-	division_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_TURKEY_9CF());
-	sort(division_clubs.begin(), division_clubs.end(), compareClubRepInv);
-	for (int i = 0; i < 16 + (comp_data->year > 2025); i++)
-	{
-		int availableIdx = rand() % division_clubs.size();
-		cm3_clubs* lower_club = division_clubs[availableIdx];
-		if (!vector_contains_club(vec_uefa, lower_club)) vec.push_back(lower_club);
-
-		division_clubs.erase(division_clubs.begin() + availableIdx);
+	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_TURKEY_9CF());
+	for (size_t i = 0; i < lower_clubs.size(); i++) {
+		cm3_clubs* c = lower_clubs[i];
+		if (vector_contains_club(vec_uefa, c))
+		{
+			lower_clubs.erase(lower_clubs.begin() + i);
+			i--;
+		}
 	}
-
+	division_clubs = get_random_weighted_clubs(lower_clubs, 16 + (comp_data->year > 2025 ? 1 : 0), true);
+	for (cm3_clubs* club : division_clubs)
+	{
+		vec.push_back(club);
+	}
 	// 3. Lig
 	division_clubs = find_clubs_of_comp(TUR_FOURTH_9CF());
 	BYTE selected = get_country(NATION_TURKEY_9CF())->NationLeagueSelected;
@@ -770,8 +773,8 @@ void tur_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->comp_vtable = tur_cup_vtable;
 	data->year = year;
 	data->comp_type = CLUB_DOMESTIC;
-	data->max_bench = 9;
-	data->max_subs = 5;
+	data->max_bench = 7;
+	data->max_subs = 3;
 	data->rules = RulesTurkeyCup;
 	*((BYTE*)(_this + 0xB1)) = 0;
 	int loaded = sub_51FC00(_this, 1);

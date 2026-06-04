@@ -274,7 +274,7 @@ void sudam_team_selection() {
 
 		BYTE j = 0;
 		int required;
-		if (filesystem::exists("Data/conmebol.cfg") && *current_year == (WORD)2025) {
+		if (filesystem::exists("Data/conmebol.cfg") && *current_year == (WORD)START_YEAR) {
 			ifstream in("Data/conmebol.cfg", ios_base::in);
 			string name;
 			char nation[LONG_TXT_LENGTH];
@@ -320,6 +320,48 @@ void sudam_team_selection() {
 					}
 					conmebol_club->ClubEuroSeeding = curr_seeding;
 					j++;
+				}
+			}
+		}
+		else
+		{
+			// Get secondary cup winners if country is playable, only from second season onwards
+			if (conmebol_nation->NationLeagueSelected) {
+				DWORD max_playables = pnd_count;
+				for (DWORD i = 0; i < max_playables; i++) {
+					playable_nation_data playable = pnd_list[i];
+					if (playable.nation == conmebol_nation && playable.league_cup) {
+						cm3_clubs* cup_winner = get_last_comp_winner(playable.league_cup);
+						if (cup_winner && cup_winner->ClubNation == conmebol_nation && cup_winner->ClubEuroFlag == -1) {
+							cup_winner->ClubEuroFlag = COPA_SUDAMERICANA_9CF();
+							if (j >= count) {
+								for (int x = curr_seeding; x < 2; x++) {
+									count += quals[x];
+									curr_seeding = x + 1;
+									if (quals[x] > 0) break;
+								}
+								if (curr_seeding > 2) break;
+							}
+							cup_winner->ClubEuroSeeding = curr_seeding;
+							j++;
+						}
+						else {
+							cm3_clubs* cup_loser = get_last_comp_runner_up(playable.league_cup);
+							if (cup_loser && cup_loser->ClubNation == conmebol_nation && cup_loser->ClubEuroFlag == -1) {
+								cup_loser->ClubEuroFlag = COPA_SUDAMERICANA_9CF();
+								if (j >= count) {
+									for (int x = curr_seeding; x < 2; x++) {
+										count += quals[x];
+										curr_seeding = x + 1;
+										if (quals[x] > 0) break;
+									}
+									if (curr_seeding > 2) break;
+								}
+								cup_loser->ClubEuroSeeding = curr_seeding;
+								j++;
+							}
+						}
+					}
 				}
 			}
 		}
@@ -1026,15 +1068,13 @@ void conmebol_sudamericana_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->promotes_to = -1;
 	data->relegates_to = -1;
 	data->f82 = 3;
-	data->max_bench = 9;
-	data->max_subs = 5;
+	data->max_bench = 7;
+	data->max_subs = 3;
 	data->rules = RulesSouthAmerica;
 	data->f81 = 0xa;
 	*((BYTE*)(_this + 0xB1)) = 0;
 	int loaded = sub_51FC00(_this, 1);
 	if (loaded) return;
-	comp->ClubCompBackgroundColour = get_colour(COLOUR_BLUE_3_9CF());
-	comp->ClubCompForegroundColour = get_colour(COLOUR_WHITE_9CF());
 	data->f171 = 0;
 	data->f68 = -1;
 	data->current_stage = -1;

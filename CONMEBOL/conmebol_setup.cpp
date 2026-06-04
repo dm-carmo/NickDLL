@@ -40,12 +40,10 @@ DWORD conmebol_setup_c(playable_nation_data* nation_data) {
 
 	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
 	conmebol_recopa_setup(pMem, start_year, get_comp(RECOPA_9CF()));
-	get_comp(RECOPA_9CF())->ClubCompBackgroundColour = get_colour(COLOUR_BLUE_4_9CF());
-	get_comp(RECOPA_9CF())->ClubCompForegroundColour = get_colour(COLOUR_WHITE_9CF());
 	nation_comps[i++] = (DWORD)pMem;
 
 	BYTE* cm_date = new BYTE[8];
-	convert_to_cm_date(cm_date, 2, January, 2025, -1);
+	convert_to_cm_date(cm_date, 2, January, START_YEAR, -1);
 	nation_data->update_day = *(WORD*)cm_date;
 	nation_data->update_year = start_year;
 	nation_data->f29 = 1;

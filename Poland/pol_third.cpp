@@ -623,7 +623,7 @@ void pol_third_points_deductions(BYTE* _this, WORD current_year)
 			if (tls->club == jastrzebie) {
 				tls->points = -1;
 				tls->points_away = -1;
-				return;
+				break;
 			}
 		}
 	}

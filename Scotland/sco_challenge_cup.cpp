@@ -304,29 +304,59 @@ int sco_challenge_cup_all_teams(BYTE* _this) {
 	BYTE selected = get_country(NATION_SCOTLAND_9CF())->NationLeagueSelected;
 	// Highland
 	vector<cm3_clubs*> division_clubs = find_clubs_of_comp(SCO_HIGHLAND_9CF());
-	if ((selected & 4) != 0) sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPos);
-	else sort(division_clubs.begin(), division_clubs.end(), compareClubRep);
-	cm3_clubs* celtic_b = find_club("Glasgow Celtic B");
-	cm3_clubs* hearts_b = find_club("Heart of Midlothian FC B");
-	auto find_club = find(division_clubs.begin(), division_clubs.end(), celtic_b);
-	if (find_club != division_clubs.end()) division_clubs.erase(find_club);
-	find_club = find(division_clubs.begin(), division_clubs.end(), hearts_b);
-	if (find_club != division_clubs.end()) division_clubs.erase(find_club);
-	for (int i = 0; i < 5; i++)
+	for (size_t i = 0; i < division_clubs.size(); i++) {
+		cm3_clubs* c = division_clubs[i];
+		DWORD is_main_club;
+		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)c, &is_main_club, 1);
+		if (ret_club && !is_main_club)
+		{
+			division_clubs.erase(division_clubs.begin() + i);
+			i--;
+		}
+	}
+	if ((selected & 4) != 0)
 	{
-		vec.push_back(division_clubs[i]);
+		sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPos);
+		for (int i = 0; i < 5; i++)
+		{
+			vec.push_back(division_clubs[i]);
+		}
+	}
+	else
+	{
+		vector<cm3_clubs*> available_clubs = get_random_weighted_clubs(division_clubs, 5, true);
+		for (cm3_clubs* club : available_clubs)
+		{
+			vec.push_back(club);
+		}
 	}
 	// Lowland
 	division_clubs = find_clubs_of_comp(SCO_LOWLAND_9CF());
-	if ((selected & 4) != 0) sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPos);
-	else sort(division_clubs.begin(), division_clubs.end(), compareClubRep);
-	find_club = find(division_clubs.begin(), division_clubs.end(), celtic_b);
-	if (find_club != division_clubs.end()) division_clubs.erase(find_club);
-	find_club = find(division_clubs.begin(), division_clubs.end(), hearts_b);
-	if (find_club != division_clubs.end()) division_clubs.erase(find_club);
-	for (int i = 0; i < 5; i++)
+	for (size_t i = 0; i < division_clubs.size(); i++) {
+		cm3_clubs* c = division_clubs[i];
+		DWORD is_main_club;
+		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)c, &is_main_club, 1);
+		if (ret_club && !is_main_club)
+		{
+			division_clubs.erase(division_clubs.begin() + i);
+			i--;
+		}
+	}
+	if ((selected & 4) != 0)
 	{
-		vec.push_back(division_clubs[i]);
+		sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPos);
+		for (int i = 0; i < 5; i++)
+		{
+			vec.push_back(division_clubs[i]);
+		}
+	}
+	else
+	{
+		vector<cm3_clubs*> available_clubs = get_random_weighted_clubs(division_clubs, 5, true);
+		for (cm3_clubs* club : available_clubs)
+		{
+			vec.push_back(club);
+		}
 	}
 	// League Two
 	division_clubs = find_clubs_of_comp(SCO_LEAGUE_2_9CF());

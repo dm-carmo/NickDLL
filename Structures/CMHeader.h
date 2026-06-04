@@ -8,6 +8,8 @@
 
 #define SI_DOUBLE double
 
+#define START_YEAR 2025
+
 extern WORD FixedTeamOrderInCup;
 extern WORD FixedTeamOrderInCup2;
 extern WORD FixedTeamOrderInCup3;
@@ -65,6 +67,9 @@ enum CompetitionRules : BYTE {
 	RulesCzech,
 	RulesAustria,
 	RulesSwitzerland,
+	RulesSaudi,
+	RulesChile,
+	RulesEgypt,
 	CompetitionRules_LENGTH
 };
 

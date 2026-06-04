@@ -284,47 +284,6 @@ void __declspec(naked) wal_premier_subs_c()
 	}
 }
 
-void __fastcall wal_non_league_promotion(BYTE* _this)
-{
-	vector<cm3_clubs*> northern_relegated_clubs = get_relegated_teams(WAL_FIRST_NORTH_9CF());
-	vector<cm3_clubs*> southern_relegated_clubs = get_relegated_teams(WAL_FIRST_SOUTH_9CF());
-
-	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_WALES_9CF());
-	sort(available_clubs.begin(), available_clubs.end(), compareClubRep);
-	int max_to_check = (available_clubs.size() > 6 ? 6 : available_clubs.size());
-	unsigned int i;
-	for (i = 0; i < northern_relegated_clubs.size(); i++)
-	{
-		int availableIdx = rand() % (max_to_check - i);
-		cm3_clubs* clubToRelegate = northern_relegated_clubs[i];
-		cm3_clubs* available = available_clubs[availableIdx];
-		//dprintf("Swapping Teams: %s (%s) <-> %s (%s)\n", clubToRelegate->ClubName, clubToRelegate->ClubDivision->ClubCompName, available->ClubName, available->ClubDivision->ClubCompName);
-
-		cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
-		cm3_club_comps* bottomDivision = available->ClubDivision;
-		relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
-		promote_club_6830B0((BYTE*)available, (DWORD)topDivision, 1);
-
-		available_clubs.erase(available_clubs.begin() + availableIdx);
-	}
-
-	for (unsigned int j = 0; j < southern_relegated_clubs.size(); j++)
-	{
-		int availableIdx = rand() % (max_to_check - i - j);
-		cm3_clubs* clubToRelegate = southern_relegated_clubs[j];
-		cm3_clubs* available = available_clubs[availableIdx];
-
-		//dprintf("Swapping Teams: %s (%s) <-> %s (%s)\n", clubToRelegate->ClubName, clubToRelegate->ClubDivision->ClubCompName, available->ClubName, available->ClubDivision->ClubCompName);
-
-		cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
-		cm3_club_comps* bottomDivision = available->ClubDivision;
-		relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
-		promote_club_6830B0((BYTE*)available, (DWORD)topDivision, 1);
-
-		available_clubs.erase(available_clubs.begin() + availableIdx);
-	}
-}
-
 void sort_first_n_s_clubs() {
 	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(WAL_FIRST_NORTH_9CF());
 	vector<cm3_clubs*> first_s_clubs = find_clubs_of_comp(WAL_FIRST_SOUTH_9CF());
@@ -362,7 +321,7 @@ char wal_premier_update(BYTE* _this) {
 
 	DWORD v1 = *(DWORD*)_this;
 	wal_premier_prom_rel_update(_this, 1);
-	wal_non_league_promotion(_this);
+	generic_prom_rel(NATION_WALES_9CF(), A_LOWER_9CF(), WAL_FIRST_NORTH_9CF(), 1, WAL_FIRST_SOUTH_9CF());
 	sort_first_n_s_clubs();
 
 	sub_687970(_this, ebx);
