@@ -207,7 +207,7 @@ void ger_regional_setup_groups(BYTE* _this, BYTE idx) {
 	BYTE* pStage = (BYTE*)sub_944CF1_operator_new(0xEE);
 	BYTE prom_rel[4] = { 0, 1, 0, 3 };
 	WORD check = year % 3;
-	if (idx == 1 || idx == 2 || (check == 1 && idx == 0) || (check == 2 && idx == 4)) {
+	if (idx == 1 || idx == 2 || (check == 1 && idx == 0) || (check == 2 && idx == 3)) {
 		prom_rel[0] = 1;
 		prom_rel[1] = 0;
 	}

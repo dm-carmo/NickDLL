@@ -959,9 +959,11 @@ void uefa_conference_league_stages_create(BYTE* _this) {
 	long max = comp_data->num_stages;
 	if (current < max - 1) {
 		current++;
-		comp_data->current_stage = current;
 		if (current == 1) {
+			comp_stats* uel_data = (comp_stats*)get_loaded_league(UEFA_EUROPA_LEAGUE_9CF());
+			if (uel_data->current_stage < 1) return;
 			uefa_conference_league_group_stage_setup(_this);
+			return;
 		}
 		else if (current == 5) {
 			uefa_conference_league_playoff_stage_setup(_this);
@@ -969,6 +971,7 @@ void uefa_conference_league_stages_create(BYTE* _this) {
 		else if (current == 6) {
 			uefa_conference_league_final_stage_setup(_this);
 		}
+		comp_data->current_stage = current;
 	}
 }
 

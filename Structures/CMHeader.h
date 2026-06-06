@@ -835,29 +835,29 @@ typedef struct AVG_POINTS_STATS
 #pragma pack(push, 1)
 typedef struct PLAYABLE_NATION_DATA
 {
-	cm3_nations* nation; // B63D60
-	cm3_continents* continent; // B63D64
-	DWORD setup_function_addr; // B63D68
-	DWORD num_of_comps; // B63D6C
-	DWORD comps_list; // B63D70
-	BYTE d; // B63D74
-	WORD update_day; // B63D75
-	DWORD updates_in_june; // B63D77
-	WORD update_year; // B63D7B
-	BYTE f29; // B63D7D
-	cm3_club_comps* main_cup; // B63D7E
-	cm3_club_comps* league_cup; // B63D82
-	cm3_club_comps* super_cup; // B63D86
-	BYTE start_date[8]; // B63D8A
-	WORD contract_start_day; // B63D92
-	BYTE contract_start_month; // B63D94
-	WORD contract_start_year; // B63D95
-	WORD f55; // B63D97
-	BYTE end_date[8]; // B63D99
-	WORD contract_end_day; // B63DA1
-	BYTE contract_end_month; // B63DA3
-	WORD contract_end_year; // B63DA4
-	WORD f70; // B63DA6
+	cm3_nations* nation; // 0
+	cm3_continents* continent; // 4
+	DWORD setup_function_addr; // 8
+	DWORD num_of_comps; // 12
+	DWORD comps_list; // 16
+	BYTE d; // 20
+	WORD update_day; // 21
+	DWORD updates_in_june; // 23
+	WORD update_year; // 27
+	BYTE f29; // 29
+	cm3_club_comps* main_cup; // 30
+	cm3_club_comps* league_cup; // 34
+	cm3_club_comps* super_cup; // 38
+	BYTE start_date[8]; // 42
+	WORD contract_start_day; // 50
+	BYTE contract_start_month; // 52
+	WORD contract_start_year; // 53
+	WORD f55; // 55
+	BYTE end_date[8]; // 57
+	WORD contract_end_day; // 65
+	BYTE contract_end_month; // 67
+	WORD contract_end_year; // 68
+	WORD f70; // 70
 
 	PLAYABLE_NATION_DATA()
 	{
