@@ -109,13 +109,13 @@ char* qualified_semi_title_msg = "{}<%s - Team Name(e.g.Ajax)>{} through to {}<%
 char* qualified_playoff_msg = "{}<%s - Team Name(e.g.Ajax)>{} have guaranteed a place in the Playoff of the {}<%s - Competition Name(e.g.Champions League)>{}.";
 char* qualified_playoff_title_msg = "{}<%s - Team Name(e.g.Ajax)>{} through to {}<%s - Competition Name(e.g.Champions League)>{} Playoff";
 char* qualified_champ_grp_msg = "{}<%s - Team Name(e.g.Ajax)>{} have qualified for the {}<%s - Competition Name(e.g.Champions League)>{} Championship Group.";
-char* qualified_champ_grp_title_msg = "{}<%s - Team Name(e.g.Ajax)>{} qualify for the {}<%s - Competition Name(e.g.Champions League)>{} Championship Group";
+char* qualified_champ_grp_title_msg = "{}<%s - Team Name(e.g.Ajax)>{} qualify for championship group";
 char* qualified_rel_grp_msg = "{}<%s - Team Name(e.g.Ajax)>{} have qualified for the {}<%s - Competition Name(e.g.Champions League)>{} Relegation Group.";
-char* qualified_rel_grp_title_msg = "{}<%s - Team Name(e.g.Ajax)>{} qualify for the {}<%s - Competition Name(e.g.Champions League)>{} Relegation Group";
+char* qualified_rel_grp_title_msg = "{}<%s - Team Name(e.g.Ajax)>{} qualify for relegation group";
 char* qualified_gold_grp_msg = "{}<%s - Team Name(e.g.Ajax)>{} have qualified for the {}<%s - Competition Name(e.g.Champions League)>{} Second Stage Gold Group.";
-char* qualified_gold_grp_title_msg = "{}<%s - Team Name(e.g.Ajax)>{} qualify for the {}<%s - Competition Name(e.g.Champions League)>{} Second Stage Gold Group";
+char* qualified_gold_grp_title_msg = "{}<%s - Team Name(e.g.Ajax)>{} qualify for gold group";
 char* qualified_silver_grp_msg = "{}<%s - Team Name(e.g.Ajax)>{} have qualified for the {}<%s - Competition Name(e.g.Champions League)>{} Second Stage Silver Group.";
-char* qualified_silver_grp_title_msg = "{}<%s - Team Name(e.g.Ajax)>{} qualify for the {}<%s - Competition Name(e.g.Champions League)>{} Second Stage Silver Group";
+char* qualified_silver_grp_title_msg = "{}<%s - Team Name(e.g.Ajax)>{} qualify for silver group";
 char* uel_playoff_msg = "{}<%s - Team Name(e.g.Ajax)>{} through to Playoff";
 
 char* register_msg1 = "{}<%s - Club Name(e.g.Chelsea)>{} may register one more player to be eligible for the group stage of the {}<%s - Competition Name(e.g.UEFA Cup)>{}.";

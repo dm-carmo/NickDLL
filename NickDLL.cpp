@@ -103,6 +103,9 @@ void Setup()
 	WriteBytes(0x920956, 1, 5);
 	WriteBytes(0x92095c, 1, 12);
 
+	// Fix too many countries to select in player filter, causing a (harmless) error
+	WriteBytes(0x8149a1, 1, 9);
+
 	bool result = configFile.LoadConfig("NickDLL_config.json");
 	result = prizeMoneyFile.LoadConfig("NickDLL_prize_money.json");
 
