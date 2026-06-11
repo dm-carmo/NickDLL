@@ -134,7 +134,7 @@ void __fastcall por_liga_3_relegation(BYTE* _this)
 	vector<cm3_clubs*> promoted_clubs;
 	vector<DWORD> d4_groups = { POR_FOURTH_A_9CF(), POR_FOURTH_B_9CF(), POR_FOURTH_C_9CF(), POR_FOURTH_D_9CF() };
 	for (DWORD id : d4_groups) {
-		vector<cm3_clubs*> available_clubs = find_clubs_of_comp_reserve_division(id, NATION_PORTUGAL_9CF());
+		vector<cm3_clubs*> available_clubs = find_clubs_of_comp_main_reserve_division(POR_FOURTH_9CF(), id, NATION_PORTUGAL_9CF());
 		for (size_t i = 0; i < available_clubs.size(); i++) {
 			cm3_clubs* c = available_clubs[i];
 			DWORD is_main_club;
@@ -213,7 +213,7 @@ void __fastcall por_d4_inactive_relegation(BYTE* _this)
 	vector<cm3_clubs*> relegated_clubs;
 	vector<DWORD> d4_groups = { POR_FOURTH_A_9CF(), POR_FOURTH_B_9CF(), POR_FOURTH_C_9CF(), POR_FOURTH_D_9CF() };
 	for (DWORD id : d4_groups) {
-		vector<cm3_clubs*> available_clubs = find_clubs_of_comp_reserve_division(id, NATION_PORTUGAL_9CF());
+		vector<cm3_clubs*> available_clubs = find_clubs_of_comp_main_reserve_division(POR_FOURTH_9CF(), id, NATION_PORTUGAL_9CF());
 		vector<cm3_clubs*> ret = get_random_weighted_clubs(available_clubs, 5, false);
 		move(ret.begin(), ret.end(), back_inserter(relegated_clubs));
 	}

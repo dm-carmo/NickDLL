@@ -278,6 +278,7 @@ void sudam_team_selection() {
 			ifstream in("Data/conmebol.cfg", ios_base::in);
 			string name;
 			char nation[LONG_TXT_LENGTH];
+			cm3_nations* nation_ptr;
 			required = -1;
 			while (std::getline(in, name))
 			{
@@ -287,7 +288,8 @@ void sudam_team_selection() {
 				}
 				if (name[0] == '*') {
 					strcpy_s(nation, name.substr(1).c_str());
-					if (_strcmpi(nation, conmebol_nation->NationName) == 0)
+					nation_ptr = find_country(nation);
+					if (conmebol_nation == nation_ptr)
 					{
 						if (conmebol_nation->NationID == NATION_ARGENTINA_9CF() || conmebol_nation->NationID == NATION_BRAZIL_9CF()) required = 6;
 						else required = 4;
@@ -298,7 +300,7 @@ void sudam_team_selection() {
 					}
 					continue;
 				}
-				if (_strcmpi(nation, conmebol_nation->NationName) != 0) continue;
+				if (conmebol_nation != nation_ptr) continue;
 				if (j >= required) continue;
 				cm3_clubs* conmebol_club = find_club(name.c_str());
 				if (!conmebol_club || !conmebol_club->ClubNation || conmebol_club->ClubNation != conmebol_nation) {

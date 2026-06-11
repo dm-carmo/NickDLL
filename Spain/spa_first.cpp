@@ -185,7 +185,7 @@ void __fastcall spa_third_relegation(BYTE* _this)
 	vector<cm3_clubs*> promoted_clubs;
 	vector<DWORD> d4_groups = { SPA_FOURTH_G1_9CF(), SPA_FOURTH_G2_9CF(), SPA_FOURTH_G3_9CF(), SPA_FOURTH_G4_9CF(), SPA_FOURTH_G5_9CF() };
 	for (DWORD id : d4_groups) {
-		vector<cm3_clubs*> available_clubs = find_clubs_of_comp_reserve_division(id, NATION_SPAIN_9CF());
+		vector<cm3_clubs*> available_clubs = find_clubs_of_comp_main_reserve_division(SPA_FOURTH_9CF(), id, NATION_SPAIN_9CF());
 		for (size_t i = 0; i < available_clubs.size(); i++) {
 			cm3_clubs* c = available_clubs[i];
 			DWORD is_main_club;
@@ -264,7 +264,7 @@ void __fastcall spa_d4_inactive_relegation(BYTE* _this)
 	vector<cm3_clubs*> relegated_clubs;
 	vector<DWORD> d4_groups = { SPA_FOURTH_G1_9CF(), SPA_FOURTH_G2_9CF(), SPA_FOURTH_G3_9CF(), SPA_FOURTH_G4_9CF(), SPA_FOURTH_G5_9CF() };
 	for (DWORD id : d4_groups) {
-		vector<cm3_clubs*> available_clubs = find_clubs_of_comp_reserve_division(id, NATION_SPAIN_9CF());
+		vector<cm3_clubs*> available_clubs = find_clubs_of_comp_main_reserve_division(SPA_FOURTH_9CF(), id, NATION_SPAIN_9CF());
 		vector<cm3_clubs*> ret = get_random_weighted_clubs(available_clubs, 5, false);
 		move(ret.begin(), ret.end(), back_inserter(relegated_clubs));
 	}

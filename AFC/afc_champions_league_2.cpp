@@ -243,6 +243,7 @@ void afc_cl_2_team_selection() {
 				ifstream in("Data/afc.cfg", ios_base::in);
 				string name;
 				char nation[LONG_TXT_LENGTH];
+				cm3_nations* nation_ptr;
 				required = -1;
 				while (std::getline(in, name))
 				{
@@ -252,7 +253,8 @@ void afc_cl_2_team_selection() {
 					}
 					if (name[0] == '*') {
 						strcpy_s(nation, name.substr(1).c_str());
-						if (_strcmpi(nation, afc_nation->NationName) == 0)
+						nation_ptr = find_country(nation);
+						if (afc_nation == nation_ptr)
 						{
 							if (i < 6) required = 1;
 							else if (i < 10 + add) required = 2;
@@ -265,7 +267,7 @@ void afc_cl_2_team_selection() {
 						}
 						continue;
 					}
-					if (_strcmpi(nation, afc_nation->NationName) != 0) continue;
+					if (afc_nation != nation_ptr) continue;
 					if (j >= required) continue;
 					cm3_clubs* afc_club = find_club(name.c_str());
 					if (!afc_club || !afc_club->ClubNation || afc_club->ClubNation != afc_nation) {

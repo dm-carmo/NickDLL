@@ -1253,6 +1253,7 @@ char uel_team_selection(BYTE* _this, BYTE* club_list, int club_count) {
 			ifstream in("Data/euro.cfg", ios_base::in);
 			string name;
 			char nation[LONG_TXT_LENGTH];
+			cm3_nations* nation_ptr;
 			int required = -1;
 			while (std::getline(in, name))
 			{
@@ -1262,7 +1263,8 @@ char uel_team_selection(BYTE* _this, BYTE* club_list, int club_count) {
 				}
 				if (name[0] == '*') {
 					strcpy_s(nation, name.substr(1).c_str());
-					if (_strcmpi(nation, euro_country->NationName) == 0)
+					nation_ptr = find_country(nation);
+					if (euro_country == nation_ptr)
 					{
 						required = u->uel_spots;
 						//dprintf("[UEL] Getting clubs from euro.cfg: %s - max %d\n", nation, required);
@@ -1272,7 +1274,7 @@ char uel_team_selection(BYTE* _this, BYTE* club_list, int club_count) {
 					}
 					continue;
 				}
-				if (_strcmpi(nation, euro_country->NationName) != 0) continue;
+				if (euro_country != nation_ptr) continue;
 				if (j >= required) continue;
 				cm3_clubs* euro_club = find_club(name.c_str());
 				if (!euro_club || !euro_club->ClubNation || euro_club->ClubNation != euro_country) {

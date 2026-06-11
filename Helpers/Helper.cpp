@@ -230,6 +230,21 @@ vector<cm3_clubs*> find_clubs_of_comp_reserve_division(DWORD comp_id, long natio
 	return ret;
 }
 
+vector<cm3_clubs*> find_clubs_of_comp_main_reserve_division(DWORD main_comp_id, DWORD reserve_comp_id, long nation_id)
+{
+	vector<cm3_clubs*> ret;
+	for (DWORD i = 0; i < *clubs_count; i++)
+	{
+		if (!(*clubs)[i].ClubNation) continue;
+		if (!(*clubs)[i].ClubDivision) continue;
+		if (!(*clubs)[i].ClubReserveDivision) continue;
+		if ((*clubs)[i].ClubDivision->ClubCompID == main_comp_id && (*clubs)[i].ClubReserveDivision->ClubCompID == reserve_comp_id &&
+			(nation_id == -1 || (*clubs)[i].ClubNation->NationID == nation_id))
+			ret.push_back(&(*clubs)[i]);
+	}
+	return ret;
+}
+
 vector<cm3_clubs*> find_clubs_of_comp_last_division(DWORD comp_id, long nation_id)
 {
 	vector<cm3_clubs*> ret;
