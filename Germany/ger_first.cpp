@@ -153,7 +153,7 @@ void __fastcall ger_liga_3_relegation(BYTE* _this)
 	shuffle(d4_groups.begin(), d4_groups.end(), rng);
 	for (int i = 0; i < 4; i++) {
 		DWORD id = d4_groups[i];
-		vector<cm3_clubs*> available_clubs = find_clubs_of_comp_reserve_division(id, NATION_GERMANY_9CF());
+		vector<cm3_clubs*> available_clubs = find_clubs_of_comp_main_reserve_division(GER_REGIONAL_9CF(), id, NATION_GERMANY_9CF());
 		for (size_t i = 0; i < available_clubs.size(); i++) {
 			cm3_clubs* c = available_clubs[i];
 			DWORD is_main_club;
@@ -186,7 +186,7 @@ void __fastcall ger_d4_inactive_relegation(BYTE* _this)
 	vector<cm3_clubs*> relegated_clubs;
 	vector<DWORD> d4_groups = { GER_REGIONAL_NORTH_9CF(), GER_REGIONAL_SOUTHWEST_9CF(), GER_REGIONAL_WEST_9CF(), GER_REGIONAL_NORTHEAST_9CF(), GER_REGIONAL_BAYERN_9CF() };
 	for (DWORD id : d4_groups) {
-		vector<cm3_clubs*> available_clubs = find_clubs_of_comp_reserve_division(id, NATION_GERMANY_9CF());
+		vector<cm3_clubs*> available_clubs = find_clubs_of_comp_main_reserve_division(GER_REGIONAL_9CF(), id, NATION_GERMANY_9CF());
 		vector<cm3_clubs*> ret = get_random_weighted_clubs(available_clubs, 3, false);
 		move(ret.begin(), ret.end(), back_inserter(relegated_clubs));
 	}

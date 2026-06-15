@@ -201,6 +201,7 @@ void caf_confed_team_selection() {
 			ifstream in("Data/caf.cfg", ios_base::in);
 			string name;
 			char nation[LONG_TXT_LENGTH];
+			cm3_nations* nation_ptr;
 			required = -1;
 			while (std::getline(in, name))
 			{
@@ -210,7 +211,8 @@ void caf_confed_team_selection() {
 				}
 				if (name[0] == '*') {
 					strcpy_s(nation, name.substr(1).c_str());
-					if (_strcmpi(nation, caf_nation->NationName) == 0)
+					nation_ptr = find_country(nation);
+					if (caf_nation == nation_ptr)
 					{
 						required = count;
 						//dprintf("[Conf] Getting clubs from caf.cfg: %s - max %d\n", nation, required);
@@ -220,7 +222,7 @@ void caf_confed_team_selection() {
 					}
 					continue;
 				}
-				if (_strcmpi(nation, caf_nation->NationName) != 0) continue;
+				if (caf_nation != nation_ptr) continue;
 				if (j >= required) continue;
 				cm3_clubs* caf_club = find_club(name.c_str());
 				if (!caf_club || !caf_club->ClubNation || caf_club->ClubNation != caf_nation) {

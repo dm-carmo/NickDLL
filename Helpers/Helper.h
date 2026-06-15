@@ -36,6 +36,7 @@ cm3_clubs* find_club(const char* szClub);
 cm3_club_comps* get_comp(DWORD compID);
 vector<cm3_clubs*> find_clubs_of_comp(DWORD comp_id, long nation_id = -1);
 vector<cm3_clubs*> find_clubs_of_comp_reserve_division(DWORD comp_id, long nation_id = -1);
+vector<cm3_clubs*> find_clubs_of_comp_main_reserve_division(DWORD main_comp_id, DWORD reserve_comp_id, long nation_id = -1);
 vector<cm3_clubs*> find_clubs_of_comp_last_division(DWORD comp_id, long nation_id = -1);
 cm3_club_comps* find_club_comp(const char* szClubComp);
 cm3_staff_comps* find_award(const char* szAward);
