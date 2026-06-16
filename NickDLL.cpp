@@ -103,8 +103,13 @@ void Setup()
 	WriteBytes(0x920956, 1, 5);
 	WriteBytes(0x92095c, 1, 12);
 
-	// Fix too many countries to select in player filter, causing a (harmless) error
+	// Fix too many countries to select in player/scout filter, causing a (harmless) error
+	WriteBytes(0x80959d, 1, 9);
+	WriteNOP(0x8095a8, 2);
 	WriteBytes(0x8149a1, 1, 9);
+	// Hopefully temporary: hide Area.cpp 507/838 error for other cases
+	WriteNOP(0x40344c, 5);
+	WriteNOP(0x403c32, 5);
 
 	bool result = configFile.LoadConfig("NickDLL_config.json");
 	result = prizeMoneyFile.LoadConfig("NickDLL_prize_money.json");
