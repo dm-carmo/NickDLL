@@ -903,7 +903,7 @@ void fifa_club_world_cup_init2(BYTE* _this, DWORD current_date, int a3) {
 		WORD date_day = *(WORD*)(cm_date);
 		WORD date_year = *(WORD*)(cm_date + 2);
 		if (date_day == *(WORD*)(current_date) && *(WORD*)(current_date + 2) == data->year) {
-			if (!a3) {
+			if (a3) {
 				fifa_club_world_cup_all_teams(_this);
 				fifa_club_world_cup_setup_first_group(_this);
 				sub_6827D0(_this, 0);

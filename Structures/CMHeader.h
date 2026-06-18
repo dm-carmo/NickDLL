@@ -991,7 +991,9 @@ extern uefa_seedings** uefa_seeding_list;
 
 extern DWORD* b5e134;
 extern DWORD* b74340;
+extern DWORD* b74318;
 extern DWORD* b67a44;
 extern DWORD* ae1050;
 extern DWORD* ad9c60;
 extern DWORD* ae2a38;
+extern DWORD* ae28f0;

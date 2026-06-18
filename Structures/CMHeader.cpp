@@ -70,7 +70,9 @@ uefa_seedings** uefa_seeding_list = (uefa_seedings**)0xDE1F58;
 
 DWORD* b5e134 = (DWORD*)0xB5E134;
 DWORD* b74340 = (DWORD*)0xB74340;
+DWORD* b74318 = (DWORD*)0xB74318;
 DWORD* b67a44 = (DWORD*)0xB67A44;
 DWORD* ae1050 = (DWORD*)0xAE1050;
 DWORD* ad9c60 = (DWORD*)0xAD9C60;
 DWORD* ae2a38 = (DWORD*)0xAE2A38;
+DWORD* ae28f0 = (DWORD*)0xAE28F0;

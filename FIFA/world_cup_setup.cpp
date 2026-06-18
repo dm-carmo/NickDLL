@@ -2,7 +2,7 @@
 #include "Structures\CMHeader.h"
 #include "Helpers\generic_functions.h"
 #include <Helpers\9cf_constants.h>
-//#include "world_cup.h"
+#include "fifa_world_cup.h"
 
 static DWORD(__thiscall* world_cup_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
 (DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x92BF50);
@@ -36,7 +36,7 @@ DWORD world_cup_setup_c(playable_nation_data* nation_data) {
 	BYTE i = 0;
 
 	BYTE* pMem = (BYTE*)sub_944CF1_operator_new(0x192);
-	world_cup_setup(pMem, *current_year, get_comp(FIFA_WORLD_CUP_9CF()));
+	fifa_world_cup_init(pMem, *current_year, get_comp(FIFA_WORLD_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)sub_944CF1_operator_new(0xBB);
@@ -64,14 +64,14 @@ DWORD world_cup_setup_c(playable_nation_data* nation_data) {
 	nation_comps[i++] = (DWORD)pMem;
 
 	BYTE* cm_date = new BYTE[8];
-	convert_to_cm_date(cm_date, 25, July, 2025, -1);
+	convert_to_cm_date(cm_date, 25, July, START_YEAR, -1);
 	nation_data->update_day = *(WORD*)cm_date;
-	nation_data->update_year = 1996; //*current_year;
+	nation_data->update_year = *current_year;
 	nation_data->f29 = 2;
 	nation_data->super_cup = 0;
 	return 1;
 }
 
 void setup_world_cup_comps() {
-
+	setup_fifa_world_cup();
 }

@@ -136,6 +136,8 @@ static void(__thiscall* staff_history_comp_runner_up_86B0B0)(BYTE* _this, cm3_cl
 (void(__thiscall*)(BYTE * _this, cm3_clubs * club, BYTE * round_data, int a4))(0x86B0B0);
 static void(__thiscall* staff_history_comp_third_place_86B710)(BYTE* _this, cm3_clubs* club, BYTE* round_data, int a4) =
 (void(__thiscall*)(BYTE * _this, cm3_clubs * club, BYTE * round_data, int a4))(0x86B710);
+static void(__thiscall* sub_775220)(BYTE* _this, cm3_nations* nation, cm3_club_comps* comp) = (void(__thiscall*)(BYTE * _this, cm3_nations * nation, cm3_club_comps * comp))(0x775220);
+static void(__thiscall* sub_775420)(BYTE* _this, cm3_club_comps* comp) = (void(__thiscall*)(BYTE * _this, cm3_club_comps * comp))(0x775420);
 
 static int(__thiscall* yearly_person_award_setup_92FE80)(BYTE* _this, int a2, int a3, DWORD award_id, WORD rep1, WORD rep2, DWORD comp_id, char a8, int a9, char a10, int a11, int is_player) =
 (int(__thiscall*)(BYTE * _this, int a2, int a3, DWORD award_id, WORD rep1, WORD rep2, DWORD comp_id, char a8, int a9, char a10, int a11, int is_player))(0x92FE80);
@@ -186,6 +188,7 @@ static int(__thiscall* sub_9058B0)(BYTE* _this, cm3_nations* nation, char a3) =
 (int(__thiscall*)(BYTE * _this, cm3_nations * nation, char a3))(0x9058B0);
 static char(__thiscall* get_host_ids_5FA730)(BYTE* _this, long comp_id, WORD year, DWORD* host1_ptr, DWORD* host2_ptr, int a6) =
 (char(__thiscall*)(BYTE * _this, long comp_id, WORD year, DWORD * host1_ptr, DWORD * host2_ptr, int a6))(0x5FA730);
+static int(__thiscall* sub_7E9180)(BYTE* _this, int a2) = (int(__thiscall*)(BYTE * _this, int a2))(0x7E9180);
 
 static char* (*get_db_nation_name)(cm3_nations* nation) = (char* (*)(cm3_nations * nation))(0x5453F0);
 static char* (*get_db_club_name)(cm3_clubs* club) = (char* (*)(cm3_clubs * club))(0x545880);
