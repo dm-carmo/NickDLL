@@ -497,7 +497,7 @@ void __fastcall spa_qualify_teams_for_cup(BYTE* _this) {
 	WORD d1_total_teams = data->n_teams;
 	team_league_stats* table_teams = (team_league_stats*)(data->team_league_table);
 	for (int i = 0; i < d1_total_teams; i++) {
-		if (!vector_contains_club(vec_super, table_teams[i].club)) vec_super.push_back(table_teams[i].club);
+		if (!vector_contains_element(vec_super, table_teams[i].club)) vec_super.push_back(table_teams[i].club);
 		if (vec_super.size() >= 4) break;
 	}
 
@@ -512,7 +512,7 @@ void __fastcall spa_qualify_teams_for_cup(BYTE* _this) {
 			lower_clubs.erase(lower_clubs.begin() + i);
 			i--;
 		}
-		else if (vector_contains_club(vec_super, c))
+		else if (vector_contains_element(vec_super, c))
 		{
 			lower_clubs.erase(lower_clubs.begin() + i);
 			i--;
@@ -538,7 +538,7 @@ void __fastcall spa_qualify_teams_for_cup(BYTE* _this) {
 				DWORD is_main_club;
 				cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)table_teams[i].club, &is_main_club, 1);
 				if (!ret_club || is_main_club) {
-					if (!vector_contains_club(vec_super, table_teams[i].club)) vec.push_back(table_teams[i].club);
+					if (!vector_contains_element(vec_super, table_teams[i].club)) vec.push_back(table_teams[i].club);
 					j++;
 				}
 			}
@@ -556,7 +556,7 @@ void __fastcall spa_qualify_teams_for_cup(BYTE* _this) {
 			cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)club, &is_main_club, 1);
 			if (ret_club && !is_main_club)
 				i--;
-			else if (!vector_contains_club(vec_super, club))
+			else if (!vector_contains_element(vec_super, club))
 				vec.push_back(club);
 
 			division_clubs.erase(division_clubs.begin() + availableIdx);
@@ -575,7 +575,7 @@ void __fastcall spa_qualify_teams_for_cup(BYTE* _this) {
 			DWORD is_main_club;
 			cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)table_teams[i].club, &is_main_club, 1);
 			if (!ret_club || is_main_club) {
-				if (!vector_contains_club(vec_super, table_teams[i].club)) vec.push_back(table_teams[i].club);
+				if (!vector_contains_element(vec_super, table_teams[i].club)) vec.push_back(table_teams[i].club);
 				j++;
 			}
 		}
@@ -586,14 +586,14 @@ void __fastcall spa_qualify_teams_for_cup(BYTE* _this) {
 	{
 		DWORD is_main_club;
 		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)club, &is_main_club, 1);
-		if ((!ret_club || is_main_club) && !vector_contains_club(vec_super, club)) vec.push_back(club);
+		if ((!ret_club || is_main_club) && !vector_contains_element(vec_super, club)) vec.push_back(club);
 	}
 	// La Liga
 	division_clubs = find_clubs_of_comp(SPA_FIRST_9CF());
 	sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPosInv);
 	for (cm3_clubs* club : division_clubs)
 	{
-		if (!vector_contains_club(vec_super, club)) vec.push_back(club);
+		if (!vector_contains_element(vec_super, club)) vec.push_back(club);
 	}
 
 	for (size_t i = 0; i < vec_super.size(); i++) vec.push_back(vec_super[i]);

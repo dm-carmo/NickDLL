@@ -249,6 +249,7 @@ typedef struct cm3_nations CM3_NATIONS;
 typedef struct cm3_cities CM3_CITIES;
 typedef struct cm3_stadiums CM3_STADIUMS;
 typedef struct cm3_colours CM3_COLOURS;
+typedef struct cm3_names CM3_NAMES;
 typedef struct cm3_clubs CM3_CLUBS;
 typedef struct cm3_staff CM3_STAFF;
 typedef struct cm3_non_players CM3_NON_PLAYERS;
@@ -262,6 +263,16 @@ typedef struct
 	short year;
 	long LeapYear; // =1 if year is a leapyear, 0 otherwise.
 } CM_DATE;
+#pragma pack(pop)
+
+#pragma pack(push, 1)
+struct cm3_names
+{
+	char Name[STANDARD_TXT_LENGTH];
+	long NameID;
+	long Nation;
+	char count;
+};
 #pragma pack(pop)
 
 #pragma pack(push, 1)
@@ -400,9 +411,9 @@ struct cm3_staff_preferences
 struct cm3_staff
 {
 	long StaffID;
-	DWORD* StaffFirstName;
-	DWORD* StaffSecondName;
-	DWORD* StaffCommonName;
+	CM3_NAMES* StaffFirstName;
+	CM3_NAMES* StaffSecondName;
+	CM3_NAMES* StaffCommonName;
 	CM_DATE StaffDateOfBirth;
 	short StaffYearOfBirth;
 	CM3_NATIONS* StaffNation;
@@ -946,6 +957,24 @@ extern DWORD* comp_stats_count;
 
 extern cm3_colours** colours;
 extern DWORD* colours_count;
+
+extern cm3_staff** staff;
+extern DWORD* staff_count;
+
+extern cm3_players** players;
+extern DWORD* players_count;
+
+extern cm3_non_players** non_players;
+extern DWORD* non_players_count;
+
+extern cm3_names** first_names;
+extern DWORD* first_names_count;
+
+extern cm3_names** second_names;
+extern DWORD* second_names_count;
+
+extern cm3_names** common_names;
+extern DWORD* common_names_count;
 
 extern DWORD* current_date;
 extern WORD* current_year;

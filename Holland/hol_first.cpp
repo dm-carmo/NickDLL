@@ -349,7 +349,7 @@ void __fastcall hol_non_league_promotion(BYTE* _this)
 	vector<cm3_clubs*> relegated_clubs = get_relegated_teams(HOL_SECOND_9CF());
 	if (relegated_clubs.size() < 1) return;
 
-	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_HOLLAND_9CF());
+	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_NETHERLANDS_9CF());
 	sort(available_clubs.begin(), available_clubs.end(), compareClubRep);
 	int max_to_check = (available_clubs.size() > 4 ? 4 : available_clubs.size());
 	for (unsigned int i = 0; i < relegated_clubs.size(); i++)

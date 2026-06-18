@@ -152,7 +152,7 @@ void __fastcall swe_second_relegation(BYTE* _this)
 	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(available_clubs, 8, true);
 	int i = 0;
 	for (cm3_clubs* c : promoted_clubs) {
-		if (!vector_contains_club(in_playoffs, c)) {
+		if (!vector_contains_element(in_playoffs, c)) {
 			promote_club_6830B0((BYTE*)c, (DWORD)comp_data->competition_db, 1);
 			promoted_teams++;
 			if (++i == 6) break;
@@ -208,7 +208,7 @@ void __fastcall swe_non_league_promotion(BYTE* _this)
 	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(available_clubs, 18, true);
 	int i = 0;
 	for (cm3_clubs* c : promoted_clubs) {
-		if (!vector_contains_club(in_playoffs, c)) {
+		if (!vector_contains_element(in_playoffs, c)) {
 			promote_club_6830B0((BYTE*)c, (DWORD)comp_data->competition_db, 1);
 			promoted_teams++;
 			if (++i == 12) break;

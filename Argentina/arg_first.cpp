@@ -102,7 +102,7 @@ int arg_first_last_positions(BYTE* _this) {
 	comp_stats* open_playoff = (comp_stats*)data->stages[3];
 	teams_seeded* open_teams = (teams_seeded*)open_playoff->teams_list;
 	for (WORD i = 0; i < open_playoff->n_teams; i++) {
-		if (open_teams[i].f6 == 1 && !vector_contains_club(clubs, open_teams[i].club))
+		if (open_teams[i].f6 == 1 && !vector_contains_element(clubs, open_teams[i].club))
 		{
 			clubs.push_back(open_teams[i].club);
 			break;
@@ -112,7 +112,7 @@ int arg_first_last_positions(BYTE* _this) {
 	comp_stats* close_playoff = (comp_stats*)data->stages[4];
 	teams_seeded* close_teams = (teams_seeded*)close_playoff->teams_list;
 	for (WORD i = 0; i < close_playoff->n_teams; i++) {
-		if (close_teams[i].f6 == 1 && !vector_contains_club(clubs, close_teams[i].club))
+		if (close_teams[i].f6 == 1 && !vector_contains_element(clubs, close_teams[i].club))
 		{
 			clubs.push_back(close_teams[i].club);
 			break;
@@ -123,7 +123,7 @@ int arg_first_last_positions(BYTE* _this) {
 	team_league_stats* table_teams = (team_league_stats*)(aggregate->team_league_table);
 	for (WORD i = 0; i < aggregate->n_teams; i++)
 	{
-		if (!vector_contains_club(clubs, table_teams[i].club)) clubs.push_back(table_teams[i].club);
+		if (!vector_contains_element(clubs, table_teams[i].club)) clubs.push_back(table_teams[i].club);
 	}
 
 	if (clubs.size() != aggregate->n_teams)

@@ -152,6 +152,30 @@ cm3_colours* get_colour(DWORD colourID) {
 	return (colourID != -1L) ? &(*colours)[colourID] : NULL;
 }
 
+cm3_staff* get_staff(DWORD staffID) {
+	return (staffID != -1L) ? &(*staff)[staffID] : NULL;
+}
+
+cm3_players* get_player(DWORD playerID) {
+	return (playerID != -1L) ? &(*players)[playerID] : NULL;
+}
+
+cm3_non_players* get_non_player(DWORD nonPlayerID) {
+	return (nonPlayerID != -1L) ? &(*non_players)[nonPlayerID] : NULL;
+}
+
+cm3_names* get_first_name(DWORD nameID) {
+	return (nameID != -1L) ? &(*first_names)[nameID] : NULL;
+}
+
+cm3_names* get_second_name(DWORD nameID) {
+	return (nameID != -1L) ? &(*second_names)[nameID] : NULL;
+}
+
+cm3_names* get_common_name(DWORD nameID) {
+	return (nameID != -1L) ? &(*common_names)[nameID] : NULL;
+}
+
 vector<cm3_nations*> central_america_countries()
 {
 	vector<cm3_nations*> ret;
@@ -471,16 +495,6 @@ vector<cm3_club_comps*> find_club_comps_of_nation(const char* szNation)
 	}
 
 	return ret;
-}
-
-bool vector_contains_club(vector<cm3_clubs*>& vec, cm3_clubs* club)
-{
-	for (DWORD i = 0; i < vec.size(); i++)
-	{
-		if (vec[i] == club)
-			return true;
-	}
-	return false;
 }
 
 bool compareClubSeeding(cm3_clubs* c1, cm3_clubs* c2)

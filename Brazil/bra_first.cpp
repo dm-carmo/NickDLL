@@ -514,7 +514,7 @@ void __fastcall bra_qualify_teams_for_cup(BYTE* _this) {
 				team_league_stats* table = (team_league_stats*)league->team_league_table;
 				for (WORD j = 0; j < league->n_teams && count > 0; j++) {
 					cm3_clubs* club = table[j].club;
-					if (vector_contains_club(all_clubs, club)) continue;
+					if (vector_contains_element(all_clubs, club)) continue;
 					//dprintf("- Club %s has qualified to Copa do Brasil! (finished %d)\n", club->ClubNameShort, j + 1);
 					first_phase.push_back(club);
 					count--;
@@ -539,16 +539,16 @@ void __fastcall bra_qualify_teams_for_cup(BYTE* _this) {
 				comp_stats* league_group = (comp_stats*)(league->stages[0]);
 				for (WORD num = 0; num < league->n_teams; num++) {
 					cm3_clubs* c1 = ((team_league_stats*)league->team_league_table)[num].club;
-					if (!vector_contains_club(grouped_teams, c1))
+					if (!vector_contains_element(grouped_teams, c1))
 						grouped_teams.push_back(c1);
 					cm3_clubs* c2 = ((team_league_stats*)league_group->team_league_table)[num].club;
-					if (!vector_contains_club(grouped_teams, c2))
+					if (!vector_contains_element(grouped_teams, c2))
 						grouped_teams.push_back(c2);
 				}
 				// add the teams
 				for (WORD j = 0; j < grouped_teams.size() && count > 0; j++) {
 					cm3_clubs* club = grouped_teams[j];
-					if (vector_contains_club(all_clubs, club)) continue;
+					if (vector_contains_element(all_clubs, club)) continue;
 					//dprintf("- Club %s has qualified to Copa do Brasil! (index %d)\n", club->ClubNameShort, j);
 					first_phase.push_back(club);
 					count--;
@@ -559,7 +559,7 @@ void __fastcall bra_qualify_teams_for_cup(BYTE* _this) {
 				sort(lower_teams.begin(), lower_teams.end(), compareClubRep);
 				for (WORD j = 0; j < lower_teams.size() && count > 0; j++) {
 					cm3_clubs* club = lower_teams[j];
-					if (vector_contains_club(all_clubs, club)) continue;
+					if (vector_contains_element(all_clubs, club)) continue;
 					//dprintf("- Club %s has qualified to Copa do Brasil! (from lower leagues)\n", club->ClubNameShort);
 					first_phase.push_back(club);
 					count--;

@@ -79,7 +79,7 @@ int aus_cup_teams(BYTE* _this) {
 		int availableIdx = rand() % division_clubs.size();
 		cm3_clubs* lower_club = division_clubs[availableIdx];
 
-		if (vector_contains_club(vec, lower_club))
+		if (vector_contains_element(vec, lower_club))
 			i--;
 		else
 			vec.push_back(lower_club);

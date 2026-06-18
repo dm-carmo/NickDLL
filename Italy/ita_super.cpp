@@ -76,7 +76,7 @@ int ita_super_teams(BYTE* _this) {
 		vec.push_back(find_club("Internazionale"));
 	}
 	else for (cm3_clubs* c : ser_a_clubs) {
-		if (!vector_contains_club(vec, c)) vec.push_back(c);
+		if (!vector_contains_element(vec, c)) vec.push_back(c);
 		if (vec.size() >= 4) break;
 	}
 

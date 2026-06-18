@@ -34,26 +34,26 @@ int eng_league_cup_teams(BYTE* _this) {
 	sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPosInv);
 	for (cm3_clubs* club : division_clubs)
 	{
-		if (!vector_contains_club(vec_uefa, club)) vec.push_back(club);
+		if (!vector_contains_element(vec_uefa, club)) vec.push_back(club);
 	}
 	// League 1
 	division_clubs = find_clubs_of_comp(ENG_LEAGUE_1_9CF());
 	for (cm3_clubs* club : division_clubs)
 	{
-		if (!vector_contains_club(vec_uefa, club)) vec.push_back(club);
+		if (!vector_contains_element(vec_uefa, club)) vec.push_back(club);
 	}
 	// Championship
 	division_clubs = find_clubs_of_comp(ENG_CHAMP_9CF());
 	for (cm3_clubs* club : division_clubs)
 	{
-		if (!vector_contains_club(vec_uefa, club)) vec.push_back(club);
+		if (!vector_contains_element(vec_uefa, club)) vec.push_back(club);
 	}
 	// Premier League
 	division_clubs = find_clubs_of_comp(ENG_PREMIER_9CF());
 	sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPosInv);
 	for (cm3_clubs* club : division_clubs)
 	{
-		if (!vector_contains_club(vec_uefa, club)) vec.push_back(club);
+		if (!vector_contains_element(vec_uefa, club)) vec.push_back(club);
 	}
 
 	for (cm3_clubs* club : vec_uefa)

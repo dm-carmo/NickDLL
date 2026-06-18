@@ -222,7 +222,7 @@ int replacement_667150() {
 	idx++;
 
 	cm_date = new BYTE[8];
-	pnd_list[idx].nation = get_country(NATION_HOLLAND_9CF());
+	pnd_list[idx].nation = get_country(NATION_NETHERLANDS_9CF());
 	pnd_list[idx].setup_function_addr = (DWORD)&hol_setup_c;
 	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 28, May, *current_year, -1);

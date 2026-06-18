@@ -127,7 +127,7 @@ int ksa_super_teams(BYTE* _this) {
 		if (runner_up) vec.push_back(runner_up);
 
 		for (cm3_clubs* c : d1_clubs) {
-			if (!vector_contains_club(vec, c)) vec.push_back(c);
+			if (!vector_contains_element(vec, c)) vec.push_back(c);
 			if (vec.size() >= 4) break;
 		}
 	}

@@ -112,10 +112,10 @@ int bra_super_teams(BYTE* _this) {
 		if (cup_second) vec.push_back(cup_second);
 	}
 	cm3_clubs* league_champ = get_last_comp_winner(league);
-	if (league_champ && !vector_contains_club(vec, league_champ)) vec.push_back(league_champ);
+	if (league_champ && !vector_contains_element(vec, league_champ)) vec.push_back(league_champ);
 	else {
 		cm3_clubs* league_second = get_last_comp_runner_up(league);
-		if (league_second && !vector_contains_club(vec, league_second)) vec.push_back(league_second);
+		if (league_second && !vector_contains_element(vec, league_second)) vec.push_back(league_second);
 	}
 
 	for (DWORD i = 0; i < vec.size(); i++)

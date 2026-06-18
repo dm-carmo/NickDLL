@@ -25,7 +25,7 @@ int aus_league_last_positions(BYTE* _this) {
 	char curr_pos = 3;
 	team_league_stats* table = (team_league_stats*)(comp_data->team_league_table);
 	for (WORD i = 0; i < comp_data->n_teams; i++) {
-		if (vector_contains_club(done, table[i].club)) continue;
+		if (vector_contains_element(done, table[i].club)) continue;
 		table[i].club->ClubLastDivision = comp_data->competition_db;
 		table[i].club->ClubLastPosition = curr_pos++;
 	}

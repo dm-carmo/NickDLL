@@ -23,1047 +23,10 @@ map<string, char*> clubs_rename_long = {
 	{"Associação Lusitano de Évora 1911", "Lusitano de Évora GC"},
 };
 
-map<string, DWORD> club_dword_match = {
-	{"MLS All Stars East", 0x9d00a4},
-	{"MLS All Stars West", 0x9d00a8},
-	{"River Plate", 0x9d00ac},
-	{"Vélez Sarsfield", 0x9d00b0},
-	{"Independiente", 0x9d00b4},
-	{"Independiente Rivadavia de Mendoza", 0x9d00b8},
-	{"Racing de Córdoba", 0x9d00bc},
-	{"Villa Mitre de Bahía Blanca", 0x9d00c0},
-	{"Argentino de Rosario", 0x9d00c4},
-	{"Temperley", 0x9d00c8},
-	{"Lanús", 0x9d00cc},
-	{"Boca Juniors", 0x9d00d0},
-	{"Gimnasia y Esgrima de La Plata", 0x9d00d4},
-	{"San Lorenzo de Almagro", 0x9d00d8},
-	{"Argentinos Juniors", 0x9d00dc},
-	{"Rosario Central", 0x9d00e0},
-	{"Newell's Old Boys", 0x9d00e4},
-	{"Racing Club", 0x9d00e8},
-	{"Colón de Santa Fé", 0x9d00ec},
-	{"Platense", 0x9d00f0},
-	{"Ferro Carril Oeste", 0x9d00f4},
-	{"Estudiantes de La Plata", 0x9d00f8},
-	{"Gimnasia y Esgrima de Jujuy", 0x9d00fc},
-	{"Unión de Santa Fé", 0x9d0100},
-	{"Huracán", 0x9d0104},
-	{"Talleres de Córdoba", 0x9d0108},
-	{"Belgrano de Córdoba", 0x9d010c},
-	{"Arsenal", 0x9d0110},
-	{"Crystal Palace", 0x9d0114},
-	{"Glasgow Celtic", 0x9d0118},
-	{"Glasgow Rangers", 0x9d011c},
-	{"Athletic Club de Bilbao", 0x9d0120},
-	{"C.D. Alavés", 0x9d0124},
-	{"Real Sociedad C.F.", 0x9d0128},
-	{"Atlético de Madrid", 0x9d012c},
-	{"Atlético de Madrid B", 0x9d0130},
-	{"Athletic Club de Bilbao B", 0x9d0134},
-	{"F.C. Barcelona", 0x9d0138},
-	{"F.C. Barcelona B", 0x9d013c},
-	{"Real Valladolid", 0x9d0140},
-	{"Real Valladolid B", 0x9d0144},
-	{"Málaga C.F.", 0x9d0148},
-	{"Málaga C.F. B", 0x9d014c},
-	{"Real Betis Balompié", 0x9d0150},
-	{"Real Betis Balompié B", 0x9d0154},
-	{"Real Club Celta de Vigo", 0x9d0158},
-	{"Real Club Celta de Vigo B", 0x9d015c},
-	{"Deportivo de La Coruña", 0x9d0160},
-	{"Deportivo de La Coruña B", 0x9d0164},
-	{"R.C.D. Espanyol", 0x9d0168},
-	{"R.C.D. Espanyol B", 0x9d016c},
-	{"FC Augsburg", 0x9d0170}, // replaced Logroñés
-	{"FC Augsburg II", 0x9d0174}, // replaced Logroñés B
-	{"R.C.D. Mallorca", 0x9d0178},
-	{"R.C.D. Mallorca B", 0x9d017c},
-	{"Club Atlético Osasuna", 0x9d0180},
-	{"Club Atlético Osasuna B", 0x9d0184},
-	{"Real Oviedo C.F.", 0x9d0188},
-	{"Real Oviedo C.F. B", 0x9d018c},
-	{"Real Madrid C.F.", 0x9d0190},
-	{"Real Madrid C.F. B", 0x9d0194},
-	{"Sevilla C.F.", 0x9d0198},
-	{"Sevilla C.F. B", 0x9d019c},
-	{"Real Sociedad C.F. B", 0x9d01a0},
-	{"Instituto de Córdoba", 0x9d01a4},
-	{"San Martín de San Juan", 0x9d01a8},
-	{"Gimnasia y Tiro de Salta", 0x9d01ac},
-	{"Atlético Rafaela", 0x9d01b0},
-	{"San Martín de Tucumán", 0x9d01b4},
-	{"Almirante Brown de Arrecifes", 0x9d01b8},
-	{"Atlético Tucumán", 0x9d01bc},
-	{"Olimpo de Bahía Blanca", 0x9d01c0},
-	{"Huracán de Corrientes", 0x9d01c4},
-	{"Aldosivi", 0x9d01c8},
-	{"Cipolletti de Río Negro", 0x9d01cc},
-	{"San Martín de Mendoza", 0x9d01d0},
-	{"Douglas Haig", 0x9d01d4},
-	{"Gimnasia y Esgrima de Concepción del Uruguay", 0x9d01d8},
-	{"Juventud Antoniana de Salta", 0x9d01dc},
-	{"Godoy Cruz de Mendoza", 0x9d01e0},
-	{"Banfield", 0x9d01e4},
-	{"Los Andes", 0x9d01e8},
-	{"Quilmes", 0x9d01ec},
-	{"Central Córdoba de Rosario", 0x9d01f0},
-	{"Chacarita Juniors", 0x9d01f4},
-	{"All Boys", 0x9d01f8},
-	{"San Miguel", 0x9d01fc},
-	{"Nueva Chicago", 0x9d0200},
-	{"Defensa y Justicia", 0x9d0204},
-	{"Arsenal de Sarandí", 0x9d0208},
-	{"Huracán de Tres Arroyos", 0x9d020c},
-	{"Defensores de Belgrano", 0x9d0210},
-	{"Deportivo Morón", 0x9d0214},
-	{"Estudiantes de Buenos Aires", 0x9d0218},
-	{"Almagro", 0x9d021c},
-	{"Atlanta", 0x9d0220},
-	{"Deportivo Español", 0x9d0224},
-	{"El Porvenir", 0x9d0228},
-	{"Tigre", 0x9d022c},
-	{"Middlesbrough", 0x9d0230},
-	{"Newcastle United", 0x9d0234},
-	{"Sunderland", 0x9d0238},
-	{"Aston Villa", 0x9d023c},
-	{"Manchester United", 0x9d0240},
-	{"Liverpool", 0x9d0244},
-	{"Everton", 0x9d0248},
-	{"Tottenham Hotspur", 0x9d024c},
-	{"Chelsea", 0x9d0250},
-	{"Valencia C.F.", 0x9d0254},
-	{"Valencia C.F. B", 0x9d0258},
-	{"Brighton and Hove Albion", 0x9d025c},
-	{"Southampton", 0x9d0260},
-	{"Al-Ahli SFC", 0x9d0264},
-	{"FC Metz", 0x9d0268},
-	{"Cruzeiro Esporte Clube", 0x9d026c},
-	{"São Paulo Futebol Clube", 0x9d0270},
-	{"Sociedade Esportiva Palmeiras", 0x9d0274},
-	{"Sport Club Corinthians Paulista", 0x9d0278},
-	{"Grêmio Foot-Ball Porto-Alegrense", 0x9d027c},
-	{"Club Social y Deportivo Colo Colo", 0x9d0280},
-	{"Club de Fútbol de la Universidad de Chile", 0x9d0284},
-	{"Club Deportivo Universidad Católica", 0x9d0288},
-	{"Nacional Montevideo", 0x9d028c},
-	{"Club Olimpia", 0x9d0290},
-	{"Club Cerro Porteño", 0x9d0294},
-	{"Club Atlético Peñarol", 0x9d0298},
-	{"Elgin City", 0x9d029c},
-	{"Peterhead", 0x9d02a0},
-	{"Eintracht Frankfurt", 0x9d02a4},
-	{"Eintracht Frankfurt Amateure", 0x9d02a8},
-	{"FC Hansa Rostock", 0x9d02ac},
-	{"FC Hansa Rostock Amateure", 0x9d02b0},
-	{"FC Schalke 04", 0x9d02b4},
-	{"FC Schalke 04 Amateure", 0x9d02b8},
-	{"SpVgg Greuther Fürth", 0x9d02bc},
-	{"SpVgg Greuther Fürth II", 0x9d02c0},
-	{"Sport Lisboa e Benfica", 0x9d02c4},
-	{"Sport Lisboa e Benfica B", 0x9d02c8},
-	{"Sporting Clube de Braga", 0x9d02cc},
-	{"Sporting Clube de Braga B", 0x9d02d0},
-	{"Clube Sport Marítimo", 0x9d02d4},
-	{"Clube Sport Marítimo B", 0x9d02d8},
-	{"Futebol Clube do Porto", 0x9d02dc},
-	{"Futebol Clube do Porto B", 0x9d02e0},
-	{"S.D. Éibar", 0x9d02e4},
-	{"Amurrio C.F.", 0x9d02e8},
-	{"C.D. Aurrerá Vitoria", 0x9d02ec},
-	{"Barakaldo C.F.", 0x9d02f0},
-	{"S.D. Beasaín", 0x9d02f4},
-	{"Bermeo Club", 0x9d02f8},
-	{"Gernika Club", 0x9d02fc},
-	{"S.D. Lemona", 0x9d0304},
-	{"Elgoibar C.D.", 0x9d0308},
-	{"Hernani C.D.", 0x9d030c},
-	{"Zalla U.C.", 0x9d0310},
-	{"Cultural Durango", 0x9d0314},
-	{"S.D. Amorebieta", 0x9d0318},
-	{"Arenas Getxo Bilbao", 0x9d031c},
-	{"Aurrerá Ondarroa C.D.", 0x9d0320},
-	{"Baskonia C.D.", 0x9d0324},
-	{"S.D. Éibar B", 0x9d0328},
-	{"U.D. San Pedro", 0x9d032c},
-	{"Santurtzi C.D.", 0x9d0330},
-	{"Sestao River Club", 0x9d0334},
-	{"Tolosa C.F.", 0x9d0338},
-	{"Coritiba Football Club", 0x9d033c},
-	{"Santos Futebol Clube", 0x9d0340},
-	{"Sport Club do Recife", 0x9d0344},
-	{"Associação Portuguesa de Desportos", 0x9d0348},
-	{"Clube Atlético Mineiro", 0x9d0350},
-	{"Clube de Regatas Vasco da Gama", 0x9d0354},
-	{"Clube de Regatas do Flamengo", 0x9d0358},
-	{"Sport Club Internacional", 0x9d035c},
-	{"Esporte Clube Vitória", 0x9d0360},
-	{"Botafogo de Futebol e Regatas", 0x9d0364},
-	{"Clube Atlético Paranaense", 0x9d0368},
-	{"Associação Atlética Ponte Preta", 0x9d036c},
-	{"Esporte Clube Juventude", 0x9d0370},
-	{"Guarani Futebol Clube", 0x9d0374},
-	{"Paraná Clube", 0x9d0378},
-	{"Chicago Fire", 0x9d037c},
-	{"Miami Fusion FC", 0x9d0380},
-	{"Washington DC United", 0x9d0384},
-	{"Tampa Bay Mutiny", 0x9d0388},
-	{"San Jose Earthquakes", 0x9d038c},
-	{"New England Revolution", 0x9d0390},
-	{"NY/NJ Metrostars", 0x9d0394},
-	{"Los Angeles Galaxy", 0x9d0398},
-	{"Kansas City Wizards", 0x9d039c},
-	{"Dallas Burn", 0x9d03a0},
-	{"Columbus Crew", 0x9d03a4},
-	{"Colorado Rapids", 0x9d03a8},
-	{"Albacete Balompié", 0x9d03ac},
-	{"Albacete Balompié B", 0x9d03b0},
-	{"TSG 1899 Hoffenheim", 0x9d03b4}, // replaced Badajoz
-	{"TSG 1899 Hoffenheim II", 0x9d03b8}, // replaced Badajoz B
-	{"C.D. Leganés", 0x9d03bc},
-	{"C.D. Leganés B", 0x9d03c0},
-	{"C.D. Tenerife", 0x9d03c4},
-	{"C.D. Tenerife B", 0x9d03c8},
-	{"SC Paderborn 07", 0x9d03cc},
-	{"SC Paderborn 07 II", 0x9d03d0},
-	{"Deportivo Alavés B", 0x9d03d4},
-	{"CD Lugo", 0x9d03d8},
-	{"CD Lugo B Polvorín", 0x9d03dc},
-	{"Racing Club de Santander", 0x9d03e0},
-	{"Rayo Cantabria", 0x9d03e4}, // Racing Santander B
-	{"Rayo Vallecano de Madrid", 0x9d03e8},
-	{"Rayo Vallecano de Madrid B", 0x9d03ec},
-	{"Real Murcia C.F.", 0x9d03f0},
-	{"Real Murcia C.F. B", 0x9d03f4},
-	{"Real Sporting de Gijón", 0x9d03f8},
-	{"Real Sporting de Gijón B", 0x9d03fc},
-	{"Real Zaragoza", 0x9d0400},
-	{"Real Zaragoza B", 0x9d0404},
-	{"Granada CF", 0x9d0408},
-	{"Granada CF B", 0x9d040c},
-	{"U.D. Las Palmas", 0x9d0410},
-	{"U.D. Las Palmas B", 0x9d0414},
-	{"Cádiz CF", 0x9d0418},
-	{"Cádiz CF Mirandilla", 0x9d041c},
-	{"FC Vaduz", 0x9d0420},
-	{"USV Eschen/Mauren", 0x9d0424},
-	{"FC Balzers", 0x9d0428},
-	{"General Paz Juniors de Córdoba", 0x9d042c},
-	{"Swansea City", 0x9d0430},
-	{"Cardiff City", 0x9d0434},
-	{"Merthyr Tydfil", 0x9d0438},
-	{"Wrexham", 0x9d043c},
-	{"Sporting Clube de Portugal", 0x9d0440},
-	{"Sporting Clube de Portugal B", 0x9d0444},
-	{"Arminia Bielefeld", 0x9d0448},
-	{"Arminia Bielefeld II", 0x9d044c},
-	{"FC Cartagena", 0x9d0450},
-	{"FC Cartagena B", 0x9d0454},
-	{"Holstein Kiel", 0x9d0458},
-	{"Holstein Kiel II", 0x9d045c},
-	{"Hannover 96", 0x9d0460},
-	{"Hannover 96 Amateure", 0x9d0464},
-	{"1.FC Köln", 0x9d0468},
-	{"1.FC Köln Amateure", 0x9d046c},
-	{"Borussia M'gladbach", 0x9d0470},
-	{"Bor. M'gladbach Amateure", 0x9d0474},
-	{"1.FC Nürnberg", 0x9d0478},
-	{"1.FC Nürnberg Amateure", 0x9d047c},
-	{"FC Ingolstadt 04", 0x9d0480},
-	{"FC Ingolstadt 04 II", 0x9d0484},
-	{"SC Freiburg", 0x9d0488},
-	{"SC Freiburg Amateure", 0x9d048c},
-	{"SSV Jahn Regensburg", 0x9d0490},
-	{"SSV Jahn Regensburg II", 0x9d0494},
-	{"Burgos CF", 0x9d0498},
-	{"Burgos CF Promesas", 0x9d049c},
-	{"SpVgg Unterhaching", 0x9d04a0},
-	{"SpVgg Unterhaching II", 0x9d04a4},
-	{"Villarreal CF", 0x9d04a8},
-	{"Villarreal CF B", 0x9d04ac},
-	{"SD Huesca", 0x9d04b0},
-	{"SD Huesca B", 0x9d04b4},
-	{"C.D. Castellón", 0x9d04b8},
-	{"C.D. Castellón B", 0x9d04bc},
-	{"Getafe CF", 0x9d04c0},
-	{"Getafe CF B", 0x9d04c4},
-	{"UD Logroñés", 0x9d04c8},
-	{"UD Logroñés Promesas", 0x9d04cc},
-	{"UD Almería", 0x9d04d0},
-	{"UD Almería B", 0x9d04d4},
-	{"Córdoba C.F.", 0x9d04d8},
-	{"Córdoba C.F. B", 0x9d04dc},
-	{"Cultural Leonesa", 0x9d04e0},
-	{"Cultural Leonesa B", 0x9d04e4},
-	{"Elche C.F.", 0x9d04e8},
-	{"Elche C.F. B", 0x9d04ec},
-	{"Levante U.D.", 0x9d04f0},
-	{"Levante U.D. B", 0x9d04f4},
-	{"GD Chaves", 0x9d04f8},
-	{"GD Chaves B", 0x9d04fc},
-	{"Recreativo de Huelva", 0x9d0500},
-	{"Recreativo de Huelva B", 0x9d0504},
-	{"Fortuna Düsseldorf", 0x9d0508},
-	{"Fortuna Düsseldorf II", 0x9d050c},
-	{"Vitória Guimarães SC", 0x9d0510},
-	{"Vitória Guimarães SC B", 0x9d0514},
-	{"FSV Mainz 05", 0x9d0518},
-	{"FSV Mainz 05 II", 0x9d051c},
-	{"CD Numancia", 0x9d0520},
-	{"CD Numancia B", 0x9d0524},
-	{"1.FC Kaiserslautern Amateure", 0xb63c9c},
-	{"AD Alcorcón B", 0xb63ca0},
-	{"VfL Bochum Amateure", 0xb63ca4},
-	{"Hamburger SV Amateure", 0xb63ca8},
-	{"Borussia Dortmund Amateure", 0xb63cac},
-	{"FC St. Pauli Amateure", 0xb63cb0},
-	{"FC St. Pauli", 0xb63cb4},
-	{"FC Alverca B", 0xb63cb8},
-	{"AD Alcorcón", 0xb63cbc},
-	{"SV Werder Bremen", 0xb63cc0},
-	{"VfB Stuttgart", 0xb63cc4},
-	{"TSV 1860 München", 0xb63cc8},
-	{"TSV 1860 München Amateure", 0xb63ccc},
-	{"FC Bayern München Amateure", 0xb63cd0},
-	{"Hamburger SV", 0xb63cd4},
-	{"FC Bayern München", 0xb63cd8},
-	{"1.FC Kaiserslautern", 0xb63cdc},
-	{"FC Alverca", 0xb63ce0},
-	{"Hertha BSC Berlin", 0xb63ce4},
-	{"Borussia Dortmund", 0xb63ce8},
-	{"Hertha BSC Amateure", 0xb63cec},
-	{"Karlsruher SC", 0xb63cf0},
-	{"VfB Stuttgart Amateure", 0xb63cf4},
-	{"Karlsruher SC II", 0xb63cf8},
-	{"VfL Bochum", 0xb63cfc},
-	{"SV Werder Bremen Amateure", 0xb63d00}
-};
-
-map<string, DWORD> league_dword_match = {
-	{"French Championnat National 3", 0x9CF548},
-	{"German Bundesliga", 0x9CF54C},
-	{"German 2. Bundesliga", 0x9CF550},
-	{"German Regionalliga West", 0x9CF554},
-	{"German Regionalliga Nordost", 0x9CF558},
-	{"German Regionalliga Nord", 0x9CF55C},
-	{"German Regionalliga Südwest", 0x9CF560},
-	{"German 3. Liga", 0x9CF564},
-	{"Dutch Eredivisie", 0x9CF568},
-	{"Dutch Eerste Divisie", 0x9CF56C},
-	{"Italian Serie A", 0x9CF570},
-	{"Italian Serie B", 0x9CF574},
-	{"Italian Serie C/A", 0x9CF578},
-	{"Italian Serie C/B", 0x9CF57C},
-	{"Italian Serie C2/A", 0x9CF580},
-	{"Italian Serie C2/B", 0x9CF584},
-	{"Italian Serie C2/C", 0x9CF588},
-	{"Italian Serie D", 0x9CF58C},
-	{"Major League Soccer", 0x9CF590},
-	{"American USL Championship", 0x9CF594},
-	{"American USL League One", 0x9CF598},
-	{"Belgian Pro League", 0x9CF59C},
-	{"Belgian Challenger Pro League", 0x9CF5A0},
-	{"Belgian Division 1 VV", 0x9CF5A4},
-	{"Belgian Division 1 ACFF", 0x9CF5A8},
-	{"Danish Superliga", 0x9CF5AC},
-	{"Danish First Division", 0x9CF5B0},
-	{"Danish Second Division", 0x9CF5B4},
-	{"Danish Third Division", 0x9CF5B8},
-	{"English Premier League", 0x9CF5BC},
-	{"English Football League Championship", 0x9CF5C0},
-	{"English Football League One", 0x9CF5C4},
-	{"English Football League Two", 0x9CF5C8},
-	{"French Ligue 1", 0x9CF5CC},
-	{"French Ligue 2", 0x9CF5D0},
-	{"French Championnat National 1", 0x9CF5D4},
-	{"French Championnat National 2", 0x9CF5D8},
-	{"Scottish Premiership", 0x9CF5DC},
-	{"Scottish Championship", 0x9CF5E0},
-	{"Scottish League One", 0x9CF5E4},
-	{"Scottish League Two", 0x9CF5E8},
-	{"Swedish Allsvenskan", 0x9CF5EC},
-	{"Swedish Superettan", 0x9CF5F0},
-	{"Swedish Ettan South", 0x9CF5F4},
-	{"Swedish Ettan North", 0x9CF5F8},
-	{"Swedish Division 2 South Svealand", 0x9CF5FC},
-	{"Swedish Division 2 North Götaland", 0x9CF600},
-	{"Swedish Division 2 Norrland", 0x9CF604},
-	{"Swedish Division 2 West Götaland", 0x9CF608},
-	{"Liga Portugal 1", 0x9CF60C},
-	{"Liga Portugal 2", 0x9CF610},
-	{"Liga 3 Série A", 0x9CF614},
-	{"Campeonato de Portugal Série A", 0x9CF618},
-	{"Liga 3 Série B", 0x9CF61C},
-	{"Campeonato de Portugal", 0x9CF620},
-	{"Spanish La Liga", 0x9CF624},
-	{"Spanish La Liga 2", 0x9CF628},
-	{"Spanish Primera Federación Group 1", 0x9CF62C},
-	{"Spanish Primera Federación Group 2", 0x9CF630},
-	{"Spanish Segunda Federación Group 4", 0x9CF634},
-	{"Spanish Segunda Federación Group 5", 0x9CF638},
-	{"Copa Libertadores de América", 0x9CF63C},
-	{"Campeonato de Portugal Série C", 0x9CF640},
-	{"Copa CONMEBOL", 0x9CF644},
-	{"Recopa Sudamericana", 0x9CF648},
-	{"AFC Champions League Elite", 0x9CF64C},
-	{"AFC Champions League Two", 0x9CF650},
-	{"Argentine Primera División", 0x9CF654},
-	{"Argentine Primera Nacional", 0x9CF658},
-	{"Japanese J1 League", 0x9CF65C},
-	{"Japanese Emperor's Cup", 0x9CF660},
-	{"Japanese J.League Cup", 0x9CF664},
-	{"Friendly", 0x9CF668},
-	{"Japanese Super Cup", 0x9CF66C},
-	{"Japanese Football League", 0x9CF670},
-	{"Japanese Regional Championships", 0x9CF674},
-	{"Japanese J3 League", 0x9CF678},
-	{"Copa Argentina", 0x9CF67C},
-	{"Argentine Torneo Federal A", 0x9CF680},
-	{"Reserve", 0x9CF684},
-	{"Argentine Primera División B", 0x9CF688},
-	{"Campeonato Brasileiro Série D", 0x9CF68C},
-	{"Swedish Division 2 South Götaland", 0x9CF690},
-	{"German DFL-Supercup", 0x9CF694},
-	{"Copa Sudamericana", 0x9CF698},
-	{"English National League", 0x9CF69C},
-	{"English FA Trophy", 0x9CF6A0},
-	{"Conference League Cup", 0x9CF6A4},
-	{"Trophée des Champions", 0x9CF6A8},
-	{"Swedish Division 2", 0x9CF6AC},
-	{"Spanish Segunda Federación", 0x9CF6B0},
-	{"Supertaça Cândido de Oliveira", 0x9CF6B4},
-	{"A Premier Division", 0x9CF6B8},
-	{"Norwegian Eliteserien", 0x9CF6BC},
-	{"Norwegian 1. Divisjon", 0x9CF6C0},
-	{"Norwegian 2. Divisjon Group 1", 0x9CF6C4},
-	{"Norwegian 2. Divisjon Group 2", 0x9CF6C8},
-	{"Norwegian 3. Divisjon Group 1", 0x9CF6CC},
-	{"Norwegian 3. Divisjon Group 2", 0x9CF6D0},
-	{"Norwegian 3. Divisjon Group 3", 0x9CF6D4},
-	{"Norwegian 3. Divisjon Group 4", 0x9CF6D8},
-	{"Norwegian 3. Divisjon Group 5", 0x9CF6DC},
-	{"Norwegian 3. Divisjon Group 6", 0x9CF6E0},
-	{"Intercontinental Cup", 0x9CF6E4},
-	{"UEFA Champions League", 0x9CF6E8},
-	{"UEFA Conference League", 0x9CF6EC},
-	{"UEFA Europa League", 0x9CF6F0},
-	{"UEFA Super Cup", 0x9CF6F4},
-	{"UEFA Intertoto Cup", 0x9CF6F8},
-	{"Supercoupe de Belgique", 0x9CF6FC},
-	{"Coupe de Belgique", 0x9CF700},
-	{"Campeonato de Portugal Série B", 0x9CF704},
-	{"DBU Pokalen", 0x9CF708},
-	{"Coupe de France", 0x9CF70C},
-	{"Coupe de la Ligue", 0x9CF710},
-	{"German DFB-Pokal", 0x9CF714},
-	{"KNVB Beker", 0x9CF718},
-	{"Coppa Italia", 0x9CF71C},
-	{"Coppa Italia Serie C", 0x9CF720},
-	{"Supercoppa Italiana", 0x9CF724},
-	{"Lamar Hunt U.S. Open Cup", 0x9CF728},
-	{"CONCACAF Champions Cup", 0x9CF72C},
-	{"Campeonato de Portugal Série D", 0x9CF730},
-	{"Norwegian Cupen", 0x9CF734},
-	{"Norwegian 3. Divisjon", 0x9CF738},
-	{"Taça de Portugal", 0x9CF73C},
-	{"Spanish Copa del Rey", 0x9CF740},
-	{"Supercopa de España", 0x9CF744},
-	{"Svenska Cupen", 0x9CF748},
-	{"English FA Cup", 0x9CF74C},
-	{"English League Cup", 0x9CF750},
-	{"English FA Community Shield", 0x9CF754},
-	{"English Football League Trophy", 0x9CF758},
-	{"Scottish Cup", 0x9CF75C},
-	{"Scottish League Cup", 0x9CF760},
-	{"A Lower Division", 0x9CF764},
-	{"Japanese J2 League", 0x9CF768},
-	{"World Cup Oceania Qualifying Section", 0x9CF76C},
-	{"World Cup CONCACAF Qualifying Section", 0x9CF770},
-	{"World Cup Asian Qualifying Section", 0x9CF774},
-	{"World Cup South American Qualifying Section", 0x9CF778},
-	{"World Cup African Qualifying Section", 0x9CF77C},
-	{"World Cup European Qualifying Section", 0x9CF780},
-	{"UEFA European Championship Qualifying", 0x9CF784},
-	{"Asian Cup Qualifying", 0x9CF788},
-	{"Gold Cup", 0x9CF78C},
-	{"AFC Asian Cup", 0x9CF790},
-	{"\'B\' International", 0x9CF794},
-	{"Under 21 International", 0x9CF798},
-	{"FIFA World Cup", 0x9CF79C},
-	{"Olympic Games", 0x9CF7A0},
-	{"UEFA European Championship", 0x9CF7A4},
-	{"Copa América", 0x9CF7A8},
-	{"African Cup of Nations", 0x9CF7AC},
-	{"Johan Cruijff Schaal", 0x9CF7B0},
-	{"Scottish League Challenge Cup", 0x9CF7B4},
-	{"Spanish Primera Federación", 0x9CF7B8},
-	{"FIFA Club World Cup", 0x9CF7BC},
-	{"Liga 3", 0x9CF7C0},
-	{"Belgian National Division 1", 0x9CF7C4},
-	{"Swedish Ettan", 0x9CF7C8},
-	{"OFC Champions League", 0x9CF7CC},
-	{"CAF Super Cup", 0x9CF7D0},
-	{"Belgian Division 2 VV", 0x9CF7D4},
-	{"Belgian Division 2 VV A", 0x9CF7D8},
-	{"Belgian Division 2 VV B", 0x9CF7DC},
-	{"Belgian Division 2 ACFF", 0x9CF7E0},
-	{"Suomen Cup", 0x9CF7E4},
-	{"Finnish Veikkausliiga", 0x9CF7E8},
-	{"Finnish Ykkönen", 0x9CF7EC},
-	{"Finnish Kolmonen", 0x9CF7F0},
-	{"Finnish Kakkonen", 0x9CF7F4},
-	{"Finnish Ykkösliiga", 0x9CF7F8},
-	{"Finnish Kakkonen Group A", 0x9CF7FC},
-	{"Finnish Kakkonen Group B", 0x9CF800},
-	{"Finnish Kakkonen Group C", 0x9CF804},
-	{"Finnish Ykkönen East", 0x9CF808},
-	{"League of Ireland Premier Division", 0x9CF80C},
-	{"League of Ireland First Division", 0x9CF810},
-	{"African Cup of Nations Qualifying", 0x9CF814}, // remove
-	{"UEFA Nations League", 0x9CF818}, // remove
-	{"CONCACAF Nations League", 0x9CF81C}, // remove
-	{"Irish Group A", 0x9CF820}, // remove
-	{"Irish Group B", 0x9CF824}, // remove
-	{"Northern Irish Group A", 0x9CF82C}, // remove
-	{"Northern Irish Group B", 0x9CF830}, // remove
-	{"Northern Irish Group C", 0x9CF834}, // remove
-	{"Northern Irish Group D", 0x9CF838}, // remove
-	{"League of Ireland Cup", 0x9CF83C},
-	{"FAI Cup", 0x9CF840},
-	{"Irish National League", 0x9CF844},
-	{"Irish Connacht Senior League", 0x9CF848},
-	{"Irish Ulster Senior League", 0x9CF84C},
-	{"Irish Munster Senior League", 0x9CF850},
-	{"Irish Leinster Senior League Premier", 0x9CF854},
-	{"Polish Ekstraklasa", 0x9CF858},
-	{"Polish I Liga", 0x9CF85C},
-	{"Polish III Liga", 0x9CF860},
-	{"Puchar Polski", 0x9CF864},
-	{"Polish II Liga", 0x9CF868},
-	{"Greek Super League", 0x9CF86C},
-	{"Greek Super League 2", 0x9CF870},
-	{"Greek Gamma Ethniki", 0x9CF874},
-	{"Kypello Elladas", 0x9CF878},
-	{"Croatian HNL", 0x9CF87C},
-	{"Croatian Prva NL", 0x9CF880},
-	{"Croatian Treca NL", 0x9CF884},
-	{"Croatian Druga NL North", 0x9CF888}, // remove
-	{"Croatian Druga NL South", 0x9CF88C}, // remove
-	{"Croatian Druga NL East", 0x9CF890}, // remove
-	{"Croatian Druga NL West", 0x9CF894}, // remove
-	{"Hrvatski Kup", 0x9CF898},
-	{"Australian A-League", 0x9CF89C},
-	{"OFC Nations Cup", 0x9CF8A0},
-	{"Croatian Druga NL", 0x9CF8A4},
-	{"Croatian Prva NL North", 0x9CF8A8},
-	{"Croatian Prva NL South", 0x9CF8AC},
-	{"NIFL Premiership", 0x9CF8B0},
-	{"NIFL Championship", 0x9CF8B4},
-	{"NIFL Premier Intermediate League", 0x9CF8B8},
-	{"NIFL Charity Shield", 0x9CF8BC},
-	{"Irish Football Association Challenge Cup", 0x9CF8C0},
-	{"German Regionalliga Bayern", 0x9CF8C4},
-	{"Irish Football League Cup", 0x9CF8C8},
-	{"TFF 3. Lig", 0x9CF8CC},
-	{"Turkish 2. Division Group 1", 0x9CF8D0},
-	//{"Turkish 2. Division Group 2", 0x9CF8D4},
-	{"Turkish Süper Lig", 0x9CF8D8},
-	{"TFF 1. Lig", 0x9CF8DC},
-	{"TFF 2. Lig", 0x9CF8E0},
-	{"TFF 2. Lig Group 1", 0x9CF8E4},
-	{"TFF 2. Lig Group 2", 0x9CF8E8},
-	{"TFF 3. Lig Group 1", 0x9CF8EC},
-	{"TFF 3. Lig Group 2", 0x9CF8F0},
-	{"TFF 3. Lig Group 3", 0x9CF8F4},
-	{"Türkiye Kupasi", 0x9CF8F8},
-	{"Turkish Super Cup", 0x9CF8FC},
-	{"English National League North", 0x9CF900},
-	{"English National League South", 0x9CF904},
-	{"Italian Serie C", 0x9CF908},
-	{"Italian Serie C/C", 0x9CF90C},
-	{"German Regionalliga", 0x9CF910},
-	{"Russian Super Cup", 0x9CF914},
-	{"Russian Second League Division A", 0x9CF918},
-	{"Russian Second League Division B", 0x9CF91C},
-	{"Russian Second League Division A Gold", 0x9CF920},
-	{"Russian Second League Division A Silver", 0x9CF924},
-	{"Russian Second Division - East", 0x9CF928}, // remove
-	{"Russian First League", 0x9CF92C},
-	{"Russian Premier League", 0x9CF930},
-	{"Russian Cup", 0x9CF934},
-	{"Supercoppa Serie C", 0x9CF938},
-	{"Greek Super Cup", 0x9CF93C},
-	{"Croatian Super Cup", 0x9CF940},
-	{"SuperPuchar Polski", 0x9CF944},
-	{"Irish Presidents Cup", 0x9CF948},
-	{"Welsh Cymru Premier", 0x9CF94C},
-	{"Welsh League Cup", 0x9CF950},
-	{"Welsh Cup", 0x9CF954},
-	{"Welsh Premier Cup", 0x9CF958},
-	{"Copa Interamericana", 0x9CF95C},
-	{"Welsh Cymru North", 0x9CF960},
-	{"FIFA Confederations Cup", 0x9CF964},
-	{"Brazilian Bahia Lower Division", 0x9CF968},
-	{"Brazilian Central Lower Division", 0x9CF96C},
-	{"Brazilian Santa Catarina Lower Division", 0x9CF970},
-	{"Brazilian Pernambuco Lower Division", 0x9CF974},
-	{"Brazilian North Lower Division", 0x9CF978},
-	{"Brazilian Rio de Janeiro Lower Division", 0x9CF97C},
-	{"Brazilian Northeast Lower Division", 0x9CF980},
-	{"Brazilian Goiás Lower Division", 0x9CF984},
-	{"Brazilian Minas Gerais Lower Division", 0x9CF988},
-	{"Brazilian Paraná Lower Division", 0x9CF98C},
-	{"Brazilian Gaúcho Lower Division", 0x9CF990},
-	{"Brazilian Campeonato Norte", 0x9CF994},
-	{"Brazilian Campeonato Central", 0x9CF998},
-	{"Brazilian São Paulo Lower Division", 0x9CF99C},
-	{"Brazilian Central Regional Cup", 0x9CF9A0},
-	{"Brazilian Campeonato Nordeste", 0x9CF9A4},
-	{"Brazilian North Regional Cup", 0x9CF9A8},
-	{"Campeonato Brasileiro Série C", 0x9CF9AC},
-	{"Brazilian Campeonato Catarinense", 0x9CF9B0},
-	{"Brazilian Campeonato Goiano", 0x9CF9B4},
-	{"Brazilian Supercopa Rei", 0x9CF9B8},
-	{"Brazilian Campeonato Pernambucano", 0x9CF9BC},
-	{"Brazilian Campeonato Baiano", 0x9CF9C0},
-	{"Brazilian Northeast Regional Cup", 0x9CF9C4},
-	{"Brazilian Campeonato Gaúcho", 0x9CF9C8},
-	{"Brazilian South-Minas Regional Cup", 0x9CF9CC},
-	{"Brazilian Campeonato Paranaense", 0x9CF9D0},
-	{"Brazilian Campeonato Mineiro", 0x9CF9D4},
-	{"Brazilian Rio-São Paulo Tournement", 0x9CF9D8},
-	{"Brazilian Campeonato Carioca", 0x9CF9DC},
-	{"Campeonato Brasileiro Série B", 0x9CF9E0},
-	{"Brazilian Campeonato Paulista", 0x9CF9E4},
-	{"Copa do Brasil", 0x9CF9E8},
-	{"Campeonato Brasileiro Série A", 0x9CF9EC},
-	{"Irish Munster Senior Cup", 0x9CF9F0},
-	{"Irish Leinster Senior Cup", 0x9CF9F4},
-	{"K League Super Cup", 0x9CF9F8},
-	{"K League 2", 0x9CF9FC},
-	{"K League 1", 0x9CFA00},
-	{"Korea Cup", 0x9CFA04},
-};
-
-map<string, DWORD> award_dword_match = {
-	{"Ballon d'Or", 0x9CFA20},
-	{"Best FIFA Men's Player", 0x9CFA24},
-	{"UEFA Men's Player of the Year", 0x9CFA28},
-	{"Rey del Fútbol de América", 0x9CFA2C},
-	{"African Footballer of the Year", 0x9CFA30},
-	{"English PFA Players' Player of the Year", 0x9CFA34},
-	{"English PFA Young Player of the Year", 0x9CFA38},
-	{"English Premier League Team of the Year", 0x9CFA3C},
-	{"English Championship Team of the Year", 0x9CFA40},
-	{"English League One Team of the Year", 0x9CFA44},
-	{"English League Two Team of the Year", 0x9CFA48},
-	{"English Premier League Player of the Month", 0x9CFA4C},
-	{"English Championship Player of the Month", 0x9CFA50},
-	{"English League One Player of the Month", 0x9CFA54},
-	{"English League Two Player of the Month", 0x9CFA58},
-	{"English Premier League Young Player of the Month", 0x9CFA5C},
-	{"English Championship Young Player of the Month", 0x9CFA60},
-	{"English League One Young Player of the Month", 0x9CFA64},
-	{"English League Two Young Player of the Month", 0x9CFA68},
-	{"English Premier League Team of the Week", 0x9CFA6C},
-	{"English Championship Team of the Week", 0x9CFA70},
-	{"English League One Team of the Week", 0x9CFA74},
-	{"English League Two Team of the Week", 0x9CFA78},
-	{"PFA Scotland Players' Player of the Year", 0x9CFA7C},
-	{"PFA Scotland Young Player of the Year", 0x9CFA80},
-	{"SPFL Premiership Player of the Month", 0x9CFA84},
-	{"SPFL Championship Player of the Month", 0x9CFA88},
-	{"SPFL League One Player of the Month", 0x9CFA8C},
-	{"SPFL League Two Player of the Month", 0x9CFA90},
-	{"SPFL Premiership Team of the Week", 0x9CFA94},
-	{"SPFL Championship Team of the Week", 0x9CFA98},
-	{"SPFL League One Team of the Week", 0x9CFA9C},
-	{"SPFL League Two Team of the Week", 0x9CFAA0},
-	{"Belgian Golden Boot", 0x9CFAA4},
-	{"Belgian Pro League Player of the Year", 0x9CFAA8},
-	{"Belgian Pro League Goalkeeper of the Year", 0x9CFAAC},
-	{"Belgian Second Division Player of the Year", 0x9CFAB0},
-	{"Danish Player of the Year", 0x9CFAB4},
-	{"Danish Superliga Player of the Year", 0x9CFAB8},
-	{"Danish Superliga Young Player of the Year", 0x9CFABC},
-	{"Danish First Division Player of the Year", 0x9CFAC0},
-	{"Danish First Division Young Player of the Year", 0x9CFAC4},
-	{"Danish Third Division Player of the Year", 0x9CFAC8},
-	{"Danish Second Division Player of the Year", 0x9CFACC},
-	{"Danish Third Division Young Player of Year", 0x9CFAD0},
-	{"Danish Second Division Young Player of Year", 0x9CFAD4},
-	{"French Player of the Year", 0x9CFAD8},
-	{"French Foreign Player of the Year", 0x9CFADC},
-	{"French Under-23 Player of the Year", 0x9CFAE0},
-	{"French Most Popular Player of the Year", 0x9CFAE4},
-	{"French Most Unpopular Player of the Year", 0x9CFAE8},
-	{"French Ligue 1 Players' Player of the Year", 0x9CFAEC},
-	{"French Ligue 1 Player of the Year", 0x9CFAF0},
-	{"French Ligue 1 Goalkeeper of the Year", 0x9CFAF4},
-	{"French Ligue 2 Players' Player of the Year", 0x9CFAF8},
-	{"French Ligue 2 Player of the Year", 0x9CFAFC},
-	{"French Ligue 2 Goalkeeper of the Year", 0x9CFB00},
-	{"German Player of the Year", 0x9CFB04},
-	{"German Bundesliga Player of the Month", 0x9CFB08},
-	{"German 2. Bundesliga Player of the Month", 0x9CFB0C},
-	{"Dutch Goalkeeper of the Year", 0x9CFB10},
-	{"Dutch Eerste Divisie Young Player of the Year", 0x9CFB14},
-	{"Dutch Eredivisie Player of the Year", 0x9CFB18},
-	{"Dutch Eredivisie Top Goalscorer", 0x9CFB1C},
-	{"Dutch Eredivisie Manager of the Year", 0x9CFB20},
-	{"Dutch Eerste Divisie Player of the Year", 0x9CFB24},
-	{"Dutch Eerste Divisie Top Goalscorer", 0x9CFB28},
-	{"Dutch Eerste Divisie Manager of the Year", 0x9CFB2C},
-	{"Italian Serie A Young Player of the Year", 0x9CFB30},
-	{"Italian Serie A Player of the Year", 0x9CFB34},
-	{"Italian Serie A Italian Player of the Year", 0x9CFB38},
-	{"Italian Serie A Foreign Player of the Year", 0x9CFB3C},
-	{"Italian Serie A Defender of the Year", 0x9CFB40},
-	{"Italian Serie A Goalkeeper of the Year", 0x9CFB44},
-	{"Italian Serie B Player of the Year", 0x9CFB48},
-	{"Italian Serie C Player of the Year", 0x9CFB4C},
-	{"Italian Serie C1/B Player of the Year", 0x9CFB50},
-	{"Norwegian Player of the Year", 0x9CFB54},
-	{"Norwegian Goalkeeper of the Year", 0x9CFB58},
-	{"Norwegian Defender of the Year", 0x9CFB5C},
-	{"Norwegian Midfielder of the Year", 0x9CFB60},
-	{"Norwegian Attacker of the Year", 0x9CFB64},
-	{"Norwegian Eliteserien Team of the Week", 0x9CFB68},
-	{"Norwegian 1. Divisjon Team of the Week", 0x9CFB6C},
-	{"Liga Portugal 1 Most Man of the Match", 0x9CFB70},
-	{"Liga Portugal 1 Top Goalscorer", 0x9CFB74},
-	{"Liga Portugal 2 Player of the Year", 0x9CFB78},
-	{"Spanish La Liga Goalkeeper of the Year", 0x9CFB7C},
-	{"Spanish Player of the Year", 0x9CFB80},
-	{"Spanish La Liga Top Goalscorer", 0x9CFB84},
-	{"Swedish Player of the Year", 0x9CFB88},
-	{"Swedish Allsvenskan Top Goalscorer", 0x9CFB8C},
-	{"Swedish Fans Player of the Year", 0x9CFB90},
-	{"MLS Goalkeeper of the Year", 0x9CFB94},
-	{"MLS Defender of the Year", 0x9CFB98},
-	{"MLS Rookie of the Year", 0x9CFB9C},
-	{"MLS Scoring Champion", 0x9CFBA0},
-	{"MLS All-Pro Team", 0x9CFBA4},
-	{"MLS Player of the Month", 0x9CFBA8},
-	{"SPFL Premiership Team of the Year", 0x9CFBAC},
-	{"SPFL Championship Team of the Year", 0x9CFBB0},
-	{"SPFL League One Team of the Year", 0x9CFBB4},
-	{"SPFL League Two Team of the Year", 0x9CFBB8},
-	{"Scottish Top Goalscorer", 0x9CFBBC},
-	{"SPFL Premiership Young Player of the Month", 0x9CFBC0},
-	{"SPFL Championship Young Player of the Month", 0x9CFBC4},
-	{"SPFL League One Young Player of the Month", 0x9CFBC8},
-	{"SPFL League Two Young Player of the Month", 0x9CFBCC},
-	{"Belgian Manager of the Year", 0x9CFBD0},
-	{"English Premier League Manager of the Year", 0x9CFBD4},
-	{"English Premier League Manager of the Month", 0x9CFBD8},
-	{"English Championship Manager of the Year", 0x9CFBDC},
-	{"English Championship Manager of the Month", 0x9CFBE0},
-	{"English League One Manager of the Year", 0x9CFBE4},
-	{"English League One Manager of the Month", 0x9CFBE8},
-	{"English League Two Manager of the Year", 0x9CFBEC},
-	{"English League Two Manager of the Month", 0x9CFBF0},
-	{"French Manager of the Year", 0x9CFBF4},
-	{"German Bundesliga Manager of the Year", 0x9CFBF8},
-	{"German 2. Bundesliga Manager of the Year", 0x9CFBFC},
-	{"Dutch Eredivisie Young Player of the Year", 0x9CFC00},
-	{"Italian Serie A Panchina d'Oro", 0x9CFC04},
-	{"Italian Serie B Panchina d'Argento", 0x9CFC08},
-	{"Italian Serie C Manager of the Year", 0x9CFC0C},
-	{"Italian Serie C1/B Manager of the Year", 0x9CFC10},
-	{"SPFL Premiership Manager of the Year", 0x9CFC14},
-	{"SPFL Premiership Manager of the Month", 0x9CFC18},
-	{"SPFL Championship Manager of the Year", 0x9CFC1C},
-	{"SPFL Championship Manager of the Month", 0x9CFC20},
-	{"SPFL League One Manager of the Year", 0x9CFC24},
-	{"SPFL League One Manager of the Month", 0x9CFC28},
-	{"SPFL League Two Manager of the Year", 0x9CFC2C},
-	{"SPFL League Two Manager of the Month", 0x9CFC30},
-	{"Spanish Manager of the Year", 0x9CFC34},
-	{"Swedish Manager of the Year", 0x9CFC38},
-	{"MLS Manager of the Year", 0x9CFC3C},
-	{"Belgian Young Player of the Year", 0x9CFC40},
-	{"Argentine Primera División Team of the Week", 0x9CFC44},
-	{"Argentine Primera Nacional Team of the Week", 0x9CFC48},
-	{"Japanese Player of the Year", 0x9CFC4C},
-	{"Japanese Top Goalscorer", 0x9CFC50},
-	{"Japanese Young Player of the Year", 0x9CFC54},
-	{"Japanese Manager of the Year", 0x9CFC58},
-	{"Japanese J1 League Team of the Year", 0x9CFC5C},
-	{"World Cup Golden Boot", 0x9CFC60},
-	{"World Cup Dream Team", 0x9CFC64},
-	{"German 3. Liga Player of the Month", 0x9CFC68},
-	{"English National North Manager of the Year", 0x9CFC6C},
-	{"German 3. Liga Manager of the Year", 0x9CFC70},
-	{"German 3. Liga Team of the Week", 0x9CFC74},
-	{"German 3. Liga Top Goalscorer", 0x9CFC78},
-	{"German Bundesliga Top Goalscorer", 0x9CFC7C},
-	{"English National South Manager of the Year", 0x9CFC80},
-	{"English National League Manager of the Month", 0x9CFC84},
-	{"English National League Team of the Year", 0x9CFC88},
-	{"English National League Manager of the Year", 0x9CFC8C},
-	{"English National League Player of the Month", 0x9CFC90},
-	{"English National League Team of the Week", 0x9CFC94},
-	{"English National League Young Player of the Month", 0x9CFC98},
-	{"Liga Portugal 1 Team of the Year", 0x9CFC9C},
-	{"Liga Portugal 2 Team of the Year", 0x9CFCA0},
-	{"Liga Portugal 1 Team of the Week", 0x9CFCA4},
-	{"Liga Portugal 2 Team of the Week", 0x9CFCA8},
-	{"Japanese J1 League Team of the Week", 0x9CFCAC},
-	{"Japanese J2 League Team of the Week", 0x9CFCB0},
-	{"Swedish Allsvenskan Team of the Week", 0x9CFCB4},
-	{"Swedish Superettan Team of the Week", 0x9CFCB8},
-	{"Spanish La Liga Team of the Week", 0x9CFCBC},
-	{"Spanish La Liga 2 Team of the Week", 0x9CFCC0},
-	{"Italian Serie A Team of the Week", 0x9CFCC4},
-	{"Italian Serie B Team of the Week", 0x9CFCC8},
-	{"Italian Serie C Team of the Week", 0x9CFCCC},
-	{"Italian Serie C1/B Team of the Week", 0x9CFCD0},
-	{"Dutch Eredivisie Team of the Week", 0x9CFCD4},
-	{"Dutch Eerste Divisie Team of the Week", 0x9CFCD8},
-	{"German Bundesliga Team of the Week", 0x9CFCDC},
-	{"German 2. Bundesliga Team of the Week", 0x9CFCE0},
-	{"French Ligue 1 Team of the Week", 0x9CFCE4},
-	{"French Ligue 2 Team of the Week", 0x9CFCE8},
-	{"Danish Superliga Team of the Week", 0x9CFCEC},
-	{"Danish First Division Team of the Week", 0x9CFCF0},
-	{"Danish Second Division Team of the Week", 0x9CFCF4},
-	{"Belgian Pro League Team of the Week", 0x9CFCF8},
-	{"Belgian Challenger League Team of the Week", 0x9CFCFC},
-	{"Liga Portugal 1 Player of the Year", 0x9CFD00},
-	{"Liga Portugal 2 Most Man of the Match", 0x9CFD04},
-	{"Liga Portugal 2 Top Goalscorer", 0x9CFD08},
-	{"German 2. Bundesliga Top Goalscorer", 0x9CFD0C},
-	{"Swedish Goalkeeper of the Year", 0x9CFD10},
-	{"Swedish Defender of the Year", 0x9CFD14},
-	{"Swedish Forward of the Year", 0x9CFD18},
-	{"Swedish Rookie of the Year", 0x9CFD1C},
-	{"Swedish Midfielder of the Year", 0x9CFD20},
-	{"Italian Serie C2/A Manager of the Year", 0x9CFD24},
-	{"Italian Serie C2/A Player of the Year", 0x9CFD28},
-	{"Italian Serie C2/A Team of the Week", 0x9CFD2C},
-	{"Italian Serie C2/B Manager of the Year", 0x9CFD30},
-	{"Italian Serie C2/B Player of the Year", 0x9CFD34},
-	{"Japanese J2 League Team of the Year", 0x9CFD38},
-	{"Spanish La Liga 2 Goalkeeper of the Year", 0x9CFD3C},
-	{"Spanish La Liga 2 Top Goalscorer", 0x9CFD40},
-	{"Italian Serie C2/B Team of the Week", 0x9CFD44},
-	{"Italian Serie C2/C Manager of the Year", 0x9CFD48},
-	{"Italian Serie C2/C Player of the Year", 0x9CFD4C},
-	{"Italian Serie C2/C Team of the Week", 0x9CFD50},
-	{"Belgian Pro League Top Goalscorer", 0x9CFD54},
-	{"Belgian Pro League Revelation of the Year", 0x9CFD58},
-	{"Belgian Challenger League Top Goalscorer", 0x9CFD5C},
-	{"Belgian Division 1 VV Team of the Week", 0x9CFD60},
-	{"Belgian Division 1 VV Revelation of the Year", 0x9CFD64},
-	{"Belgian Division 1 VV Top Goalscorer", 0x9CFD68},
-	{"European Goalkeeper of the Year", 0x9CFD6C},
-	{"European Defender of the Year", 0x9CFD70},
-	{"European Midfielder of the Year", 0x9CFD74},
-	{"European Striker of the Year", 0x9CFD78},
-	{"Italian Serie A Team of the Year", 0x9CFD7C},
-	{"Italian Serie B Team of the Year", 0x9CFD80},
-	{"Italian Serie C Team of the Year", 0x9CFD84},
-	{"Italian Serie C1/B Team of the Year", 0x9CFD88},
-	{"Italian Serie C2/A Team of the Year", 0x9CFD8C},
-	{"Italian Serie C2/B Team of the Year", 0x9CFD90},
-	{"Italian Serie C2/C Team of the Year", 0x9CFD94},
-	{"Italian Serie A Capocannoniere", 0x9CFD98},
-	{"Italian Serie B Top Goalscorer", 0x9CFD9C},
-	{"Italian Serie C Top Goalscorer", 0x9CFDA0},
-	{"Italian Serie C1/B Top Goalscorer", 0x9CFDA4},
-	{"Italian Serie C2/A Top Goalscorer", 0x9CFDA8},
-	{"Italian Serie C2/B Top Goalscorer", 0x9CFDAC},
-	{"Italian Serie C2/C Top Goalscorer", 0x9CFDB0},
-	{"Norwegian Eliteserien Manager of the Month", 0x9CFDB4},
-	{"Norwegian Eliteserien Player of the Month", 0x9CFDB8},
-	{"Norwegian 1. Divisjon Manager of the Month", 0x9CFDBC},
-	{"Norwegian 1. Divisjon Player of the Month", 0x9CFDC0},
-	{"Liga Portugal 1 Manager of the Year", 0x9CFDC4},
-	{"Liga Portugal 2 Manager of the Year", 0x9CFDC8},
-	{"Finnish Player of the Year", 0x9CFDCC},
-	{"Finnish Young Player of the Year", 0x9CFDD0},
-	{"Finnish Goalkeeper of the Year", 0x9CFDD4},
-	{"Finnish Manager of the Year", 0x9CFDD8},
-	{"Finnish Veikkausliiga Top Goalscorer", 0x9CFDDC},
-	{"Finnish Veikkausliiga Player of the Month", 0x9CFDE0},
-	{"Finnish Veikkausliiga Team of the Year", 0x9CFDE4},
-	{"Finnish Veikkausliiga Team of the Week", 0x9CFDE8},
-	{"Finnish Ykkösliiga Top Goalscorer", 0x9CFDEC},
-	{"Finnish Ykkösliiga Team of the Year", 0x9CFDF0},
-	{"Finnish Ykkösliiga Team of the Week", 0x9CFDF4},
-	{"Irish Player of the Year", 0x9CFDF8},
-	{"Irish Young Player of the Year", 0x9CFDFC},
-	{"Irish Premier Division Team of the Week", 0x9CFE00},
-	{"Irish Premier Division Player of the Year", 0x9CFE04},
-	{"Irish Premier Division Young Player of the Year", 0x9CFE08},
-	{"Irish Premier Division Team of the Year", 0x9CFE0C},
-	{"Irish First Division Team of the Week", 0x9CFE10},
-	{"Irish First Division Player of the Year", 0x9CFE14},
-	{"Irish First Division Young Player of the Year", 0x9CFE18},
-	{"Irish First Division Team of the Year", 0x9CFE1C},
-	{"Irish Premier Division Manager of the Year", 0x9CFE20},
-	{"Irish Premier Division Manager of the Month", 0x9CFE24},
-	{"Irish First Division Manager of the Year", 0x9CFE28},
-	{"Irish First Division Manager of the Month", 0x9CFE2C},
-	{"Polish Ekstraklasa Team of the Week", 0x9CFE30},
-	{"Polish Ekstraklasa Player of the Year", 0x9CFE34},
-	{"Polish Ekstraklasa Young Player of the Year", 0x9CFE38},
-	{"Polish Ekstraklasa Manager of the Year", 0x9CFE3C},
-	{"Polish Ekstraklasa Team of the Year", 0x9CFE40},
-	{"Polish I Liga Team of the Week", 0x9CFE44},
-	{"Polish I Liga Player of the Year", 0x9CFE48},
-	{"Polish I Liga Young Player of the Year", 0x9CFE4C},
-	{"Polish I Liga Manager of the Year", 0x9CFE50},
-	{"Polish I Liga Team of the Year", 0x9CFE54},
-	{"Croatian HNL Player of the Year", 0x9CFE58},
-	{"Croatian HNL Team of the Week", 0x9CFE5C},
-	{"Croatian HNL Top Goalscorer", 0x9CFE60},
-	{"Croatian 1. NL Player of the Year", 0x9CFE64},
-	{"Croatian 1. NL Team of the Week", 0x9CFE68},
-	{"Croatian 1. NL Top Goalscorer", 0x9CFE6C},
-	{"Croatian 2. NL Player of the Year", 0x9CFE70},
-	{"Croatian 2. NL Team of the Week", 0x9CFE74},
-	{"Croatian 2. NL Top Goalscorer", 0x9CFE78},
-	{"Australian A-League Team of the Week", 0x9CFE7C},
-	{"Australian A-League Manager of the Month", 0x9CFE80},
-	{"Australian A-League Player of the Month", 0x9CFE84},
-	{"Australian A-League Young Player of the Month", 0x9CFE88},
-	{"Australian A-League Player of the Year", 0x9CFE8C},
-	{"Australian A-League Young Player of the Year", 0x9CFE90},
-	{"Australian A-League Goalkeeper of the Year", 0x9CFE94},
-	{"Australian A-League Leading Goalscorer", 0x9CFE98},
-	{"Australian A-League Manager of the Year", 0x9CFE9C},
-	{"Greek Player of the Year", 0x9CFEA0},
-	{"Greek Foreign Player of the Year", 0x9CFEA4},
-	{"Greek Super League Team of the Week", 0x9CFEA8},
-	{"Greek Super League Player of the Year", 0x9CFEAC},
-	{"Greek Super League Manager of the Year", 0x9CFEB0},
-	{"Greek Super League Top Goalscorer", 0x9CFEB4},
-	{"Greek Super League 2 Team of the Week", 0x9CFEB8},
-	{"Greek Super League 2 Player of the Year", 0x9CFEBC},
-	{"Greek Super League 2 Manager of the Year", 0x9CFEC0},
-	{"Greek Super League 2 Top Goalscorer", 0x9CFEC4},
-	{"Turkish Player of the Year", 0x9CFEC8},
-	{"Turkish Manager of the Year", 0x9CFECC},
-	{"Turkish Süper Lig Team of the Week", 0x9CFED0},
-	{"Turkish Süper Lig Team of the Year", 0x9CFED4},
-	{"TFF 1. Lig Team of the Week", 0x9CFED8},
-	{"TFF 1. Lig Team of the Year", 0x9CFEDC},
-	{"Russian Player of the Year", 0x9CFEE0},
-	{"Russian Premier League Team of the Week", 0x9CFEE4},
-	{"Russian Premier League Team of the Year", 0x9CFEE8},
-	{"Russian Premier League Player of the Month", 0x9CFEEC},
-	{"Russian First League Team of the Week", 0x9CFEF0},
-	{"Russian First League Team of the Year", 0x9CFEF4},
-	{"Russian First League Player of the Month", 0x9CFEF8},
-	{"Irish Personality of the Year", 0x9CFEFC},
-	{"NIFL Player of the Year", 0x9CFF00},
-	{"NIFL Premiership Team of the Week", 0x9CFF04},
-	{"NIFL Premiership Player of the Year", 0x9CFF08},
-	{"NIFL Premiership Young Player of the Year", 0x9CFF0C},
-	{"NIFL Premiership Top Goalscorer", 0x9CFF10},
-	{"NIFL Premiership Manager of the Year", 0x9CFF14},
-	{"NIFL Premiership Manager of the Month", 0x9CFF18},
-	{"NIFL Championship Team of the Week", 0x9CFF1C},
-	{"NIFL Championship Player of the Year", 0x9CFF20},
-	{"NIFL Championship Young Player of the Year", 0x9CFF24},
-	{"NIFL Championship Top Goalscorer", 0x9CFF28},
-	{"NIFL Championship Manager of the Year", 0x9CFF2C},
-	{"NIFL Championship Manager of the Month", 0x9CFF30},
-	{"Irish League Golden Boot", 0x9CFF34},
-	{"Irish League Bronze Boot", 0x9CFF38},
-	{"Belgian Challenger League Revelation of the Year", 0x9CFF3C},
-	{"Welsh Team of the Week", 0x9CFF40},
-	{"Welsh Player of the Year", 0x9CFF44},
-	{"Welsh Young Player of the Year", 0x9CFF48},
-	{"Welsh Top Goalscorer", 0x9CFF4C},
-	{"Welsh Manager of the Year", 0x9CFF50},
-	{"Welsh Manager of the Month", 0x9CFF54},
-	{"French Ligue 1 Team of the Year", 0x9CFF58},
-	{"French Ligue 2 Team of the Year", 0x9CFF5C},
-	{"French National Player of the Year", 0x9CFF60},
-	{"French National Goalkeeper of the Year", 0x9CFF64},
-	{"French National Team of the Week", 0x9CFF68},
-	{"French National Team of the Year", 0x9CFF6C},
-	{"Irish Player of the Month", 0x9CFF70},
-	{"French National Players' Player of the Year", 0x9CFF74},
-	{"Oceania Footballer of the Year", 0x9CFF78},
-	{"Finnish Ykkösliiga Player of the Month", 0x9CFF7C},
-	{"Finnish Veikkausliiga Manager of the Month", 0x9CFF80},
-	{"Finnish Ykkösliiga Manager of the Month", 0x9CFF84},
-	{"Brazilian Série A Player of the Year", 0x9CFF88},
-	{"Brazilian Série A Team of the Week", 0x9CFF8C},
-	{"Brazilian Série A Team of the Year", 0x9CFF90},
-	{"Brazilian Série A Top Goalscorer", 0x9CFF94},
-	{"Brazilian Série A Young Player of the Year", 0x9CFF98},
-	{"Brazilian Série B Player of the Year", 0x9CFF9C},
-	{"Brazilian Série B Team of the Week", 0x9CFFA0},
-	{"Brazilian Série B Team of the Year", 0x9CFFA4},
-	{"Brazilian Série B Top Goalscorer", 0x9CFFA8},
-	{"Brazilian Série B Young Player of the Year", 0x9CFFAC},
-	{"Brazilian Série C Player of the Year", 0x9CFFB0},
-	{"Brazilian Série C Team of the Week", 0x9CFFB4},
-	{"Brazilian Série C Team of the Year", 0x9CFFB8},
-	{"Brazilian Série C Top Goalscorer", 0x9CFFBC},
-	{"Brazilian Série C Young Player of the Year", 0x9CFFC0},
-	{"Campeonato Baiano Best Goalkeeper", 0x9CFFC4},
-	{"Campeonato Baiano Best Player", 0x9CFFC8},
-	{"Campeonato Baiano Team of the Week", 0x9CFFCC},
-	{"Campeonato Baiano Top Goalscorer", 0x9CFFD0},
-	{"Campeonato Central Best Goalkeeper", 0x9CFFD4},
-	{"Campeonato Central Best Player", 0x9CFFD8},
-	{"Campeonato Central Team of the Week", 0x9CFFDC},
-	{"Campeonato Central Top Goalscorer", 0x9CFFE0},
-	{"Campeonato Gaúcho Best Goalkeeper", 0x9CFFE4},
-	{"Campeonato Gaúcho Best Player", 0x9CFFE8},
-	{"Campeonato Gaúcho Team of the Week", 0x9CFFEC},
-	{"Campeonato Gaúcho Top Goalscorer", 0x9CFFF0},
-	{"Campeonato Goiano Best Goalkeeper", 0x9CFFF4},
-	{"Campeonato Goiano Best Player", 0x9CFFF8},
-	{"Campeonato Goiano Team of the Week", 0x9CFFFC},
-	{"Campeonato Goiano Top Goalscorer", 0x9D0000},
-	{"Campeonato Mineiro Best Goalkeeper", 0x9D0004},
-	{"Campeonato Mineiro Best Player", 0x9D0008},
-	{"Campeonato Mineiro Team of the Week", 0x9D000C},
-	{"Campeonato Mineiro Top Goalscorer", 0x9D0010},
-	{"Campeonato do Norte Best Goalkeeper", 0x9D0014},
-	{"Campeonato do Norte Best Player", 0x9D0018},
-	{"Campeonato do Norte Team of the Week", 0x9D001C},
-	{"Campeonato do Norte Top Goalscorer", 0x9D0020},
-	{"Campeonato do Nordeste Best Goalkeeper", 0x9D0024},
-	{"Campeonato do Nordeste Best Player", 0x9D0028},
-	{"Campeonato do Nordeste Team of the Week", 0x9D002C},
-	{"Campeonato do Nordeste Top Goalscorer", 0x9D0030},
-	{"Campeonato Paranaense Best Goalkeeper", 0x9D0034},
-	{"Campeonato Paranaense Best Player", 0x9D0038},
-	{"Campeonato Paranaense Team of the Week", 0x9D003C},
-	{"Campeonato Paranaense Top Goalscorer", 0x9D0040},
-	{"Campeonato Pernambucano Best Goalkeeper", 0x9D0044},
-	{"Campeonato Pernambucano Best Player", 0x9D0048},
-	{"Campeonato Pernambucano Team of the Week", 0x9D004C},
-	{"Campeonato Pernambucano Top Goalscorer", 0x9D0050},
-	{"Campeonato Carioca Best Goalkeeper", 0x9D0054},
-	{"Campeonato Carioca Best Player", 0x9D0058},
-	{"Campeonato Carioca Team of the Week", 0x9D005C},
-	{"Campeonato Carioca Top Goalscorer", 0x9D0060},
-	{"Campeonato Catarinense Best Goalkeeper", 0x9D0064},
-	{"Campeonato Catarinense Best Player", 0x9D0068},
-	{"Campeonato Catarinense Team of the Week", 0x9D006C},
-	{"Campeonato Catarinense Top Goalscorer", 0x9D0070},
-	{"Campeonato Paulista Best Goalkeeper", 0x9D0074},
-	{"Campeonato Paulista Best Player", 0x9D0078},
-	{"Campeonato Paulista Team of the Week", 0x9D007C},
-	{"Campeonato Paulista Top Goalscorer", 0x9D0080},
-	{"South Korean Best 11 of the Year", 0x9D0084},
-	{"South Korean Manager of the Month", 0x9D0088},
-	{"South Korean Manager of the Year", 0x9D008C},
-	{"South Korean Most Assisted Player of the Year", 0x9D0090},
-	{"South Korean Player of the Month", 0x9D0094},
-	{"South Korean Player of the Year", 0x9D0098},
-	{"South Korean Top Goal Scorer of the Year", 0x9D009C},
-	{"South Korean Young Player of the Year", 0x9D00A0},
-};
+map<string, DWORD> club_dword_match;
+map<string, DWORD> league_dword_match;
+map<string, DWORD> award_dword_match;
+map<string, DWORD> nation_dword_match;
 
 int setup_9cf_leagues(char* league_name, DWORD league_id) {
 	// Fill out 9CF codes
@@ -1075,17 +38,6 @@ int setup_9cf_leagues(char* league_name, DWORD league_id) {
 }
 
 int setup_9cf_clubs(char* club_name, DWORD club_id) {
-	// Change database names - done later to avoid issues with Player_setup.cfg
-	/*cm3_clubs* club_data = &(*clubs)[club_id];
-	string club_name_str = string(club_name);
-	auto new_val_long = clubs_rename_long.find(club_name_str);
-	if (new_val_long != clubs_rename_long.end()) {
-		strcpy_s(club_data->ClubName, new_val_long->Second);
-	}
-	auto new_val_short = clubs_rename_short.find(club_name_str);
-	if (new_val_short != clubs_rename_short.end()) {
-		strcpy_s(club_data->ClubNameShort, new_val_short->Second);
-	}*/
 	// Fill out 9CF codes
 	auto it = club_dword_match.find(string(club_name));
 	if (it != club_dword_match.end()) {
@@ -1141,6 +93,15 @@ int setup_9cf_awards(char* award_name, DWORD award_id) {
 	return 1;
 }
 
+int setup_9cf_nations(char* nation_name, DWORD nation_id) {
+	// Fill out 9CF codes
+	auto it = nation_dword_match.find(string(nation_name));
+	if (it != nation_dword_match.end()) {
+		WriteDWORD(it->second, nation_id);
+	}
+	return 1;
+}
+
 // a bit ugly and lengthy but works with no issues
 BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD a3) {
 	if (!to_check) return NULL;
@@ -1180,17 +141,17 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 		if ((DWORD)to_check->ClubID == CLUB_STUTTGART_9CF()) return (BYTE*)get_club(CLUB_STUTTGART_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_UNTERHACHING_9CF()) return (BYTE*)get_club(CLUB_UNTERHACHING_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_WERDER_BREMEN_9CF()) return (BYTE*)get_club(CLUB_WERDER_BREMEN_II_9CF());
-		if (strcmp(db_club_name, "FC Carl Zeiss Jena") == 0) { cm3_clubs* ret = find_club("FC Carl Zeiss Jena II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Energie Cottbus") == 0) { cm3_clubs* ret = find_club("FC Energie Cottbus II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "MSV Duisburg") == 0) { cm3_clubs* ret = find_club("MSV Duisburg Amateure"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Bayer 04 Leverkusen") == 0) { cm3_clubs* ret = find_club("Bayer Leverkusen (A)"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "1.FC Magdeburg") == 0) { cm3_clubs* ret = find_club("1.FC Magdeburg II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "1.FC Saarbrücken") == 0) { cm3_clubs* ret = find_club("1.FC Saarbrücken II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Stuttgarter Kickers") == 0) { cm3_clubs* ret = find_club("Stuttgarter Kickers II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "VfL Wolfsburg") == 0) { cm3_clubs* ret = find_club("VfL Wolfsburg Amateure"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Rot-Weiß Oberhausen") == 0) { cm3_clubs* ret = find_club("RW Oberhausen Amateure"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "SSV Ulm 1846") == 0) { cm3_clubs* ret = find_club("SSV Ulm 1846 II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "SG Wattenscheid 09") == 0) { cm3_clubs* ret = find_club("SG Wattenscheid 09 II"); if (ret) return (BYTE*)ret; }
+		if ((DWORD)to_check->ClubID == CLUB_JENA_9CF()) return (BYTE*)get_club(CLUB_JENA_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_COTTBUS_9CF()) return (BYTE*)get_club(CLUB_COTTBUS_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_DUISBURG_9CF()) return (BYTE*)get_club(CLUB_DUISBURG_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_BAYER_LEVERKUSEN_9CF()) return (BYTE*)get_club(CLUB_BAYER_LEVERKUSEN_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_MAGDEBURG_9CF()) return (BYTE*)get_club(CLUB_MAGDEBURG_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SAARBRUCKEN_9CF()) return (BYTE*)get_club(CLUB_SAARBRUCKEN_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_STUTTGARTER_KICKERS_9CF()) return (BYTE*)get_club(CLUB_STUTTGARTER_KICKERS_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_WOLFSBURG_9CF()) return (BYTE*)get_club(CLUB_WOLFSBURG_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_OBERHAUSEN_9CF()) return (BYTE*)get_club(CLUB_OBERHAUSEN_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ULM_9CF()) return (BYTE*)get_club(CLUB_ULM_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_WATTENSCHEID_9CF()) return (BYTE*)get_club(CLUB_WATTENSCHEID_II_9CF());
 	}
 	else if (to_check->ClubNation->NationID == NATION_SPAIN_9CF()) {
 		if ((DWORD)to_check->ClubID == CLUB_ALAVES_9CF()) return (BYTE*)get_club(CLUB_ALAVES_B_9CF());
@@ -1238,8 +199,8 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 		if ((DWORD)to_check->ClubID == CLUB_VALLADOLID_9CF()) return (BYTE*)get_club(CLUB_VALLADOLID_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_VILLARREAL_9CF()) return (BYTE*)get_club(CLUB_VILLARREAL_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_ZARAGOZA_9CF()) return (BYTE*)get_club(CLUB_ZARAGOZA_B_9CF());
-		if (strcmp(db_club_name, "Girona FC") == 0) { cm3_clubs* ret = find_club("Girona FC B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "U.D. Salamanca") == 0) { cm3_clubs* ret = find_club("U.D. Salamanca B"); if (ret) return (BYTE*)ret; }
+		if ((DWORD)to_check->ClubID == CLUB_GIRONA_9CF()) return (BYTE*)get_club(CLUB_GIRONA_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SALAMANCA_9CF()) return (BYTE*)get_club(CLUB_SALAMANCA_B_9CF());
 	}
 	else if (to_check->ClubNation->NationID == NATION_PORTUGAL_9CF()) {
 		if ((DWORD)to_check->ClubID == CLUB_ALVERCA_9CF()) return (BYTE*)get_club(CLUB_ALVERCA_B_9CF());
@@ -1250,244 +211,247 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 		if ((DWORD)to_check->ClubID == CLUB_PORTO_9CF()) return (BYTE*)get_club(CLUB_PORTO_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_SPORTING_CP_9CF()) return (BYTE*)get_club(CLUB_SPORTING_CP_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_VIT_GUIMARAES_9CF()) return (BYTE*)get_club(CLUB_VIT_GUIMARAES_B_9CF());
-		if (strcmp(db_club_name, "CD Santa Clara") == 0) { cm3_clubs* ret = find_club("CD Santa Clara B"); if (ret) return (BYTE*)ret; }
+		if ((DWORD)to_check->ClubID == CLUB_SANTA_CLARA_9CF()) return (BYTE*)get_club(CLUB_SANTA_CLARA_B_9CF());
 	}
 	else if (to_check->ClubNation->NationID == NATION_NORWAY_9CF()) {
-		if (strcmp(db_club_name, "Aalesunds FK") == 0) { cm3_clubs* ret = find_club("Aalesunds FK II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Åsane Fotball") == 0) { cm3_clubs* ret = find_club("Åsane Fotball II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Bærum SK") == 0) { cm3_clubs* ret = find_club("Bærum SK II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FK Bodø/Glimt") == 0) { cm3_clubs* ret = find_club("FK Bodø/Glimt II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "SK Brann") == 0) { cm3_clubs* ret = find_club("SK Brann II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Bryne FK") == 0) { cm3_clubs* ret = find_club("Bryne FK II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Byåsen TF") == 0) { cm3_clubs* ret = find_club("Byåsen IL II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Follo FK") == 0) { cm3_clubs* ret = find_club("Follo FK II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Fredrikstad FK") == 0) { cm3_clubs* ret = find_club("Fredrikstad FK II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FK Fyllingsdalen") == 0) { cm3_clubs* ret = find_club("FK Fyllingsdalen II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "SK Gjøvik-Lyn") == 0) { cm3_clubs* ret = find_club("FK Gjøvik-Lyn II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Grorud IL") == 0) { cm3_clubs* ret = find_club("Grorud IL II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Hamarkameratene") == 0) { cm3_clubs* ret = find_club("Hamarkameratene II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FK Haugesund") == 0) { cm3_clubs* ret = find_club("FK Haugesund II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "IL Hødd") == 0) { cm3_clubs* ret = find_club("IL Hødd II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Hønefoss BK") == 0) { cm3_clubs* ret = find_club("Hønefoss BK II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "KFUM-Kameratene Oslo") == 0) { cm3_clubs* ret = find_club("KFUM-Kameratene Oslo II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Kjelsås IL") == 0) { cm3_clubs* ret = find_club("Kjelsas IL II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Kongsvinger IL") == 0) { cm3_clubs* ret = find_club("Kongsvinger IL II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Kristiansund BK") == 0) { cm3_clubs* ret = find_club("Kristiansund BK II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Lillestrøm SK") == 0) { cm3_clubs* ret = find_club("Lillestrøm SK II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Lyn 1896 FK") == 0) { cm3_clubs* ret = find_club("Lyn 1896 FK II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Mjøndalen IF") == 0) { cm3_clubs* ret = find_club("Mjøndalen IF II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Molde FK") == 0) { cm3_clubs* ret = find_club("Molde FK II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Nardo FK") == 0) { cm3_clubs* ret = find_club("Nardo FK II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Odds BK") == 0) { cm3_clubs* ret = find_club("Odds BK II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Pors Fotball") == 0) { cm3_clubs* ret = find_club("Pors Fotball II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Ranheim IL") == 0) { cm3_clubs* ret = find_club("Ranheim IL II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Raufoss IL") == 0) { cm3_clubs* ret = find_club("Raufoss IL II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Rosenborg BK") == 0) { cm3_clubs* ret = find_club("Rosenborg BK II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Sandefjord Fotball") == 0) { cm3_clubs* ret = find_club("Sandefjord Fotball II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Sandnes Ulf") == 0) { cm3_clubs* ret = find_club("Sandnes Ulf II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Sarpsborg 08 FF") == 0) { cm3_clubs* ret = find_club("Sarpsborg 08 FF II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Skeid Oslo") == 0) { cm3_clubs* ret = find_club("Skeid Oslo II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Sogndal IL") == 0) { cm3_clubs* ret = find_club("Sogndal IL II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Stabæk Fotball") == 0) { cm3_clubs* ret = find_club("Stabaek IF II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "IK Start") == 0) { cm3_clubs* ret = find_club("IK Start II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Strømmen IF") == 0) { cm3_clubs* ret = find_club("Strømmen IL II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Strømsgodset IF") == 0) { cm3_clubs* ret = find_club("Strømsgodset IF II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Tromsø IL") == 0) { cm3_clubs* ret = find_club("Tromsø IL II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "SK Træff") == 0) { cm3_clubs* ret = find_club("SK Træff II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Ullensaker/Kisa IL") == 0) { cm3_clubs* ret = find_club("Ullensaker/Kisa IL II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "SK Vard Haugesund") == 0) { cm3_clubs* ret = find_club("SK Vard Haugesund II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Viking FK") == 0) { cm3_clubs* ret = find_club("Viking FK II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Vålerenga Fotball Elite") == 0) { cm3_clubs* ret = find_club("Vålerenga Fotball II"); if (ret) return (BYTE*)ret; }
+		if ((DWORD)to_check->ClubID == CLUB_AALESUND_9CF()) return (BYTE*)get_club(CLUB_AALESUND_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ASANE_9CF()) return (BYTE*)get_club(CLUB_ASANE_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_BAERUM_9CF()) return (BYTE*)get_club(CLUB_BAERUM_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_BODO_GLIMT_9CF()) return (BYTE*)get_club(CLUB_BODO_GLIMT_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_BRANN_9CF()) return (BYTE*)get_club(CLUB_BRANN_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_BRYNE_9CF()) return (BYTE*)get_club(CLUB_BRYNE_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_BYASEN_9CF()) return (BYTE*)get_club(CLUB_BYASEN_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_FOLLO_9CF()) return (BYTE*)get_club(CLUB_FOLLO_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_FREDRIKSTAD_9CF()) return (BYTE*)get_club(CLUB_FREDRIKSTAD_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_FYLLINGSDALEN_9CF()) return (BYTE*)get_club(CLUB_FYLLINGSDALEN_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_GJOVIK_LYN_9CF()) return (BYTE*)get_club(CLUB_GJOVIK_LYN_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_GRORUD_9CF()) return (BYTE*)get_club(CLUB_GRORUD_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_HAMKAM_9CF()) return (BYTE*)get_club(CLUB_HAMKAM_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_HAUGESUND_9CF()) return (BYTE*)get_club(CLUB_HAUGESUND_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_HODD_9CF()) return (BYTE*)get_club(CLUB_HODD_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_HONEFOSS_9CF()) return (BYTE*)get_club(CLUB_HONEFOSS_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_KFUM_OSLO_9CF()) return (BYTE*)get_club(CLUB_KFUM_OSLO_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_KJELSAS_9CF()) return (BYTE*)get_club(CLUB_KJELSAS_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_KONGSVINGER_9CF()) return (BYTE*)get_club(CLUB_KONGSVINGER_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_KRISTIANSUND_9CF()) return (BYTE*)get_club(CLUB_KRISTIANSUND_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LILLESTROM_9CF()) return (BYTE*)get_club(CLUB_LILLESTROM_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LYN_9CF()) return (BYTE*)get_club(CLUB_LYN_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_MJONDALEN_9CF()) return (BYTE*)get_club(CLUB_MJONDALEN_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_MOLDE_9CF()) return (BYTE*)get_club(CLUB_MOLDE_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_NARDO_9CF()) return (BYTE*)get_club(CLUB_NARDO_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ODDS_9CF()) return (BYTE*)get_club(CLUB_ODDS_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_PORS_9CF()) return (BYTE*)get_club(CLUB_PORS_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_RANHEIM_9CF()) return (BYTE*)get_club(CLUB_RANHEIM_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_RAUFOSS_9CF()) return (BYTE*)get_club(CLUB_RAUFOSS_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ROSENBORG_9CF()) return (BYTE*)get_club(CLUB_ROSENBORG_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SANDEFJORD_9CF()) return (BYTE*)get_club(CLUB_SANDEFJORD_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SANDNES_ULF_9CF()) return (BYTE*)get_club(CLUB_SANDNES_ULF_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SARPSBORG_9CF()) return (BYTE*)get_club(CLUB_SARPSBORG_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SKEID_9CF()) return (BYTE*)get_club(CLUB_SKEID_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SOGNDAL_9CF()) return (BYTE*)get_club(CLUB_SOGNDAL_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_STABAEK_9CF()) return (BYTE*)get_club(CLUB_STABAEK_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_START_9CF()) return (BYTE*)get_club(CLUB_START_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_STROMMEN_9CF()) return (BYTE*)get_club(CLUB_STROMMEN_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_STROMSGODSET_9CF()) return (BYTE*)get_club(CLUB_STROMSGODSET_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_TROMSO_9CF()) return (BYTE*)get_club(CLUB_TROMSO_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_TRAEFF_9CF()) return (BYTE*)get_club(CLUB_TRAEFF_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ULL_KISA_9CF()) return (BYTE*)get_club(CLUB_ULL_KISA_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_VARD_HAUGESUND_9CF()) return (BYTE*)get_club(CLUB_VARD_HAUGESUND_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_VIKING_9CF()) return (BYTE*)get_club(CLUB_VIKING_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_VALERENGA_9CF()) return (BYTE*)get_club(CLUB_VALERENGA_II_9CF());
 	}
 	else if (to_check->ClubNation->NationID == NATION_FINLAND_9CF()) {
-		if (strcmp(db_club_name, "Atlantis FC") == 0) { cm3_clubs* ret = find_club("Atlantis FC II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "HJK Helsinki") == 0) { cm3_clubs* ret = find_club("HJK Klubi 04 Helsinki"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Espoo") == 0) { cm3_clubs* ret = find_club("FC Espoo II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Helsinki IFK") == 0) { cm3_clubs* ret = find_club("Helsinki IFK II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Honka") == 0) { cm3_clubs* ret = find_club("FC Honka II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Inter Turku") == 0) { cm3_clubs* ret = find_club("FC Inter Turku II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Ilves Tampere") == 0) { cm3_clubs* ret = find_club("Ilves Tampere II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Kuopion Palloseura") == 0) { cm3_clubs* ret = find_club("Kuopion Palloseura II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Rovaniemen Palloseura") == 0) { cm3_clubs* ret = find_club("Rovaniemen Palloseura II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Vaasan Palloseura") == 0) { cm3_clubs* ret = find_club("Vaasan Palloseura II"); if (ret) return (BYTE*)ret; }
+		if ((DWORD)to_check->ClubID == CLUB_ATLANTIS_9CF()) return (BYTE*)get_club(CLUB_ATLANTIS_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_HJK_9CF()) return (BYTE*)get_club(CLUB_KLUBI_04_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ESPOO_9CF()) return (BYTE*)get_club(CLUB_ESPOO_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_HIFK_9CF()) return (BYTE*)get_club(CLUB_HIFK_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_HONKA_9CF()) return (BYTE*)get_club(CLUB_HONKA_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_INTER_TURKU_9CF()) return (BYTE*)get_club(CLUB_INTER_TURKU_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ILVES_9CF()) return (BYTE*)get_club(CLUB_ILVES_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_KUPS_9CF()) return (BYTE*)get_club(CLUB_KUPS_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ROPS_9CF()) return (BYTE*)get_club(CLUB_ROPS_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_VPS_9CF()) return (BYTE*)get_club(CLUB_VPS_II_9CF());
+
 	}
 	else if (to_check->ClubNation->NationID == NATION_POLAND_9CF()) {
-		if (strcmp(db_club_name, "Chrobry Glogow") == 0) { cm3_clubs* ret = find_club("Chrobry Glogow II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Cracovia") == 0) { cm3_clubs* ret = find_club("Cracovia II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Górnik Zabrze") == 0) { cm3_clubs* ret = find_club("Gornik Zabrze II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Jagiellonia Bialystok") == 0) { cm3_clubs* ret = find_club("Jagiellonia Bialystok II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Korona Kielce") == 0) { cm3_clubs* ret = find_club("Korona Kielce II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Lech Poznan") == 0) { cm3_clubs* ret = find_club("Lech Poznan II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Legia Warszawa") == 0) { cm3_clubs* ret = find_club("Legia Warsaw II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "LKS Lodz") == 0) { cm3_clubs* ret = find_club("LKS Lodz II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Miedz Legnica") == 0) { cm3_clubs* ret = find_club("Miedz Legnica II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Piast Gliwice") == 0) { cm3_clubs* ret = find_club("Piast Gliwice II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Pogon Szczecin") == 0) { cm3_clubs* ret = find_club("Pogon Szczecin II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Raków Czestochowa") == 0) { cm3_clubs* ret = find_club("Rakow Czestochowa II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Slask Wroclaw") == 0) { cm3_clubs* ret = find_club("Slask Wroclaw II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Widzew Lodz") == 0) { cm3_clubs* ret = find_club("Widzew Lodz II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Wisla Kraków") == 0) { cm3_clubs* ret = find_club("Wisla Krakow II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Wisla Plock") == 0) { cm3_clubs* ret = find_club("Wisla Plock II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Zaglebie Lubin") == 0) { cm3_clubs* ret = find_club("Zaglebie Lubin II"); if (ret) return (BYTE*)ret; }
+		if ((DWORD)to_check->ClubID == CLUB_CHROBRY_GLOGOW_9CF()) return (BYTE*)get_club(CLUB_CHROBRY_GLOGOW_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_CRACOVIA_9CF()) return (BYTE*)get_club(CLUB_CRACOVIA_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_GORNIK_ZABRZE_9CF()) return (BYTE*)get_club(CLUB_GORNIK_ZABRZE_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_JAGIELLONIA_9CF()) return (BYTE*)get_club(CLUB_JAGIELLONIA_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_KIELCE_9CF()) return (BYTE*)get_club(CLUB_KIELCE_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LECH_POZNAN_9CF()) return (BYTE*)get_club(CLUB_LECH_POZNAN_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LEGIA_WARSAW_9CF()) return (BYTE*)get_club(CLUB_LEGIA_WARSAW_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LKS_LODZ_9CF()) return (BYTE*)get_club(CLUB_LKS_LODZ_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_MIEDZ_LEGNICA_9CF()) return (BYTE*)get_club(CLUB_MIEDZ_LEGNICA_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_PIAST_GLIWICE_9CF()) return (BYTE*)get_club(CLUB_PIAST_GLIWICE_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_POGON_SZCZECIN_9CF()) return (BYTE*)get_club(CLUB_POGON_SZCZECIN_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_RAKOW_9CF()) return (BYTE*)get_club(CLUB_RAKOW_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SLASK_WROCLAW_9CF()) return (BYTE*)get_club(CLUB_SLASK_WROCLAW_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_WIDZEW_LODZ_9CF()) return (BYTE*)get_club(CLUB_WIDZEW_LODZ_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_WISLA_KRAKOW_9CF()) return (BYTE*)get_club(CLUB_WISLA_KRAKOW_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_WISLA_PLOCK_9CF()) return (BYTE*)get_club(CLUB_WISLA_PLOCK_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ZAGLEBIE_LUBIN_9CF()) return (BYTE*)get_club(CLUB_ZAGLEBIE_LUBIN_II_9CF());
+
 	}
 	else if (to_check->ClubNation->NationID == NATION_SCOTLAND_9CF()) {
-		if (strcmp(db_club_name, "Glasgow Celtic") == 0) { cm3_clubs* ret = find_club("Glasgow Celtic B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Heart of Midlothian FC") == 0) { cm3_clubs* ret = find_club("Heart of Midlothian FC B"); if (ret) return (BYTE*)ret; }
+		if ((DWORD)to_check->ClubID == CLUB_CELTIC_9CF()) return (BYTE*)get_club(CLUB_CELTIC_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_HEARTS_9CF()) return (BYTE*)get_club(CLUB_HEARTS_B_9CF());
 	}
 	else if (to_check->ClubNation->NationID == NATION_GREECE_9CF()) {
-		if (strcmp(db_club_name, "Asteras Aktor") == 0) { cm3_clubs* ret = find_club("Asteras Aktor B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "AEK Athens") == 0) { cm3_clubs* ret = find_club("AEK Athens B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Olympiacos Piraeus") == 0) { cm3_clubs* ret = find_club("Olympiacos Piraeus B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "PAOK Thessaloniki") == 0) { cm3_clubs* ret = find_club("PAOK Thessaloniki B"); if (ret) return (BYTE*)ret; }
+		if ((DWORD)to_check->ClubID == CLUB_ASTERAS_AKTOR_9CF()) return (BYTE*)get_club(CLUB_ASTERAS_AKTOR_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_AEK_ATHENS_9CF()) return (BYTE*)get_club(CLUB_AEK_ATHENS_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_OLYMPIACOS_9CF()) return (BYTE*)get_club(CLUB_OLYMPIACOS_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_PAOK_9CF()) return (BYTE*)get_club(CLUB_PAOK_B_9CF());
 	}
-	else if (to_check->ClubNation->NationID == NATION_HOLLAND_9CF()) {
-		if (strcmp(db_club_name, "AZ") == 0) { cm3_clubs* ret = find_club("AZ Alkmaar U21"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Ajax Amsterdam") == 0) { cm3_clubs* ret = find_club("Ajax Amsterdam U21"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Almere City FC") == 0) { cm3_clubs* ret = find_club("Jong Almere City FC"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "PSV Eindhoven") == 0) { cm3_clubs* ret = find_club("PSV Eindhoven U21"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Sparta Rotterdam") == 0) { cm3_clubs* ret = find_club("Sparta Rotterdam U21"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Utrecht") == 0) { cm3_clubs* ret = find_club("FC Utrecht U21"); if (ret) return (BYTE*)ret; }
+	else if (to_check->ClubNation->NationID == NATION_NETHERLANDS_9CF()) {
+		if ((DWORD)to_check->ClubID == CLUB_AZ_9CF()) return (BYTE*)get_club(CLUB_JONG_AZ_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_AJAX_9CF()) return (BYTE*)get_club(CLUB_JONG_AJAX_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ALMERE_CITY_9CF()) return (BYTE*)get_club(CLUB_JONG_ALMERE_CITY_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_PSV_9CF()) return (BYTE*)get_club(CLUB_JONG_PSV_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SPARTA_ROTTERDAM_9CF()) return (BYTE*)get_club(CLUB_JONG_SPARTA_ROTTERDAM_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_UTRECHT_9CF()) return (BYTE*)get_club(CLUB_JONG_UTRECHT_9CF());
 	}
 	else if (to_check->ClubNation->NationID == NATION_BELGIUM_9CF()) {
-		if (strcmp(db_club_name, "RSC Anderlecht") == 0) { cm3_clubs* ret = find_club("RSC Anderlecht B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Royal Antwerp FC") == 0) { cm3_clubs* ret = find_club("Royal Antwerp FC B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Cercle Brugge") == 0) { cm3_clubs* ret = find_club("Cercle Brugge B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Royal Charleroi SC") == 0) { cm3_clubs* ret = find_club("RSC Charleroi B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Club Brugge KV") == 0) { cm3_clubs* ret = find_club("Club Brugge KV II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "KAS Eupen") == 0) { cm3_clubs* ret = find_club("KAS Eupen U23"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "KRC Genk") == 0) { cm3_clubs* ret = find_club("KRC Genk B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "KAA Gent") == 0) { cm3_clubs* ret = find_club("KAA Gent B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "KV Mechelen") == 0) { cm3_clubs* ret = find_club("KV Mechelen U23"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Oud-Heverlee Leuven") == 0) { cm3_clubs* ret = find_club("Oud-Heverlee Leuven U23"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Sint-Truidense VV") == 0) { cm3_clubs* ret = find_club("STVV Youth"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Standard Liège") == 0) { cm3_clubs* ret = find_club("Standard de Liège 16 FC"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Union Saint-Gilloise") == 0) { cm3_clubs* ret = find_club("Union Saint-Gilloise U23"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Zulte Waregem") == 0) { cm3_clubs* ret = find_club("Zulte-Waregem B"); if (ret) return (BYTE*)ret; }
+		if ((DWORD)to_check->ClubID == CLUB_ANDERLECHT_9CF()) return (BYTE*)get_club(CLUB_ANDERLECHT_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ANTWERP_9CF()) return (BYTE*)get_club(CLUB_ANTWERP_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_CERCLE_BRUGGE_9CF()) return (BYTE*)get_club(CLUB_CERCLE_BRUGGE_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_CHARLEROI_9CF()) return (BYTE*)get_club(CLUB_CHARLEROI_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_CLUB_BRUGGE_9CF()) return (BYTE*)get_club(CLUB_CLUB_BRUGGE_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_EUPEN_9CF()) return (BYTE*)get_club(CLUB_EUPEN_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_GENK_9CF()) return (BYTE*)get_club(CLUB_GENK_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_GENT_9CF()) return (BYTE*)get_club(CLUB_GENT_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_KV_MECHELEN_9CF()) return (BYTE*)get_club(CLUB_KV_MECHELEN_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_OH_LEUVEN_9CF()) return (BYTE*)get_club(CLUB_OH_LEUVEN_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SINT_TRUIDEN_9CF()) return (BYTE*)get_club(CLUB_SINT_TRUIDEN_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_STANDARD_LIEGE_9CF()) return (BYTE*)get_club(CLUB_STANDARD_LIEGE_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_UNION_SG_9CF()) return (BYTE*)get_club(CLUB_UNION_SG_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ZULTE_WAREGEM_9CF()) return (BYTE*)get_club(CLUB_ZULTE_WAREGEM_B_9CF());
 	}
 	else if (to_check->ClubNation->NationID == NATION_RUSSIA_9CF()) {
-		if (strcmp(db_club_name, "Akron Tolyatti") == 0) { cm3_clubs* ret = find_club("Akron-2 Togliatti"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Alania Vladikavkaz") == 0) { cm3_clubs* ret = find_club("Alania-2 Vladikavkaz"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Arsenal Tula") == 0) { cm3_clubs* ret = find_club("Arsenal-2 Tula"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Baltika Kaliningrad") == 0) { cm3_clubs* ret = find_club("Baltika-2 Kaliningrad"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "CSKA Moscow") == 0) { cm3_clubs* ret = find_club("CSKA Moscow II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Dinamo Makhachkala") == 0) { cm3_clubs* ret = find_club("Dinamo Makhachkala II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Dynamo Moscow") == 0) { cm3_clubs* ret = find_club("Dynamo 2 Moscow"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Enisey Krasnoyarsk") == 0) { cm3_clubs* ret = find_club("Enisey 2 Krasnoyarsk"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Fakel Voronezh") == 0) { cm3_clubs* ret = find_club("Fakel-M Voronezh"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Khimki") == 0) { cm3_clubs* ret = find_club("FC Khimki 2"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Orenburg") == 0) { cm3_clubs* ret = find_club("FC Orenburg-2"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Rostov") == 0) { cm3_clubs* ret = find_club("FC Rostov 2"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Ufa") == 0) { cm3_clubs* ret = find_club("FK Ufa 2"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Kosmos Khimki") == 0) { cm3_clubs* ret = find_club("Kosmos-2 Dolgoprudnyi"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Krylya Sovetov Samara") == 0) { cm3_clubs* ret = find_club("Krylya Sovetov 2 Samara"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Lokomotiv Moscow") == 0) { cm3_clubs* ret = find_club("Lokomotiv-Kazanka Moskow"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Rodina Moscow") == 0) { cm3_clubs* ret = find_club("Rodina 2 Moscow"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Rotor Volgograd") == 0) { cm3_clubs* ret = find_club("Rotor 2 Volgograd"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Rubin Kazan") == 0) { cm3_clubs* ret = find_club("Rubin 2 Kazan"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "SKA Khabarovsk") == 0) { cm3_clubs* ret = find_club("SKA Khabarovsk 2"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Spartak Moscow") == 0) { cm3_clubs* ret = find_club("Spartak 2 Moscow"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Ural Yekaterinburg") == 0) { cm3_clubs* ret = find_club("Ural 2 Ekaterinburg"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Zenit St. Petersburg") == 0) { cm3_clubs* ret = find_club("Zenit 2 St. Petersburg"); if (ret) return (BYTE*)ret; }
+		if ((DWORD)to_check->ClubID == CLUB_AKRON_9CF()) return (BYTE*)get_club(CLUB_AKRON_2_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ALANIA_9CF()) return (BYTE*)get_club(CLUB_ALANIA_2_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ARSENAL_TULA_9CF()) return (BYTE*)get_club(CLUB_ARSENAL_2_TULA_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_BALTIKA_9CF()) return (BYTE*)get_club(CLUB_BALTIKA_2_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_CSKA_MOSCOW_9CF()) return (BYTE*)get_club(CLUB_CSKA_2_MOSCOW_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_DINAMO_MAKHACHKALA_9CF()) return (BYTE*)get_club(CLUB_DINAMO_2_MAKHACHKALA_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_DYNAMO_MOSCOW_9CF()) return (BYTE*)get_club(CLUB_DYNAMO_2_MOSCOW_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ENISEY_9CF()) return (BYTE*)get_club(CLUB_ENISEY_2_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_FAKEL_VORONEZH_9CF()) return (BYTE*)get_club(CLUB_FAKEL_M_VORONEZH_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_KHIMKI_9CF()) return (BYTE*)get_club(CLUB_KHIMKI_2_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ORENBURG_9CF()) return (BYTE*)get_club(CLUB_ORENBURG_2_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ROSTOV_9CF()) return (BYTE*)get_club(CLUB_ROSTOV_2_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_UFA_9CF()) return (BYTE*)get_club(CLUB_UFA_2_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_KOSMOS_KHIMKI_9CF()) return (BYTE*)get_club(CLUB_KOSMOS_2_DOLGOPRUDNYI_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_KRYLYA_SOVETOV_9CF()) return (BYTE*)get_club(CLUB_KRYLYA_SOVETOV_2_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LOKOMOTIV_MOSCOW_9CF()) return (BYTE*)get_club(CLUB_LOKOMOTIV_KAZANKA_MOSKOW_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_RODINA_MOSCOW_9CF()) return (BYTE*)get_club(CLUB_RODINA_2_MOSCOW_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ROTOR_9CF()) return (BYTE*)get_club(CLUB_ROTOR_2_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_RUBIN_KAZAN_9CF()) return (BYTE*)get_club(CLUB_RUBIN_2_KAZAN_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SKA_KHABAROVSK_9CF()) return (BYTE*)get_club(CLUB_SKA_KHABAROVSK_2_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SPARTAK_MOSCOW_9CF()) return (BYTE*)get_club(CLUB_SPARTAK_2_MOSCOW_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_URAL_9CF()) return (BYTE*)get_club(CLUB_URAL_2_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ZENIT_9CF()) return (BYTE*)get_club(CLUB_ZENIT_2_9CF());
 	}
 	else if (to_check->ClubNation->NationID == NATION_CZECH_REPUBLIC_9CF()) {
-		if (strcmp(db_club_name, "1.FC Slovacko") == 0) { cm3_clubs* ret = find_club("1.FC Slovacko B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "AC Sparta Prague") == 0) { cm3_clubs* ret = find_club("AC Sparta Prague B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Bohemians Prague 1905") == 0) { cm3_clubs* ret = find_club("Bohemians Prague 1905 B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Banik Ostrava") == 0) { cm3_clubs* ret = find_club("FC Banik Ostrava B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Hradec Kralove") == 0) { cm3_clubs* ret = find_club("FC Hradec Kralove B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC SILON Taborsko") == 0) { cm3_clubs* ret = find_club("FC SILON Taborsko B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Slovan Liberec") == 0) { cm3_clubs* ret = find_club("FC Slovan Liberec B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Viktoria Plzen") == 0) { cm3_clubs* ret = find_club("FC Viktoria Plzen B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC FC Zbrojovka Brno") == 0) { cm3_clubs* ret = find_club("FC FC Zbrojovka Brno B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Zlin") == 0) { cm3_clubs* ret = find_club("FC Zlin B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FK Dukla Prague") == 0) { cm3_clubs* ret = find_club("FK Dukla Prague B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FK Jablonec") == 0) { cm3_clubs* ret = find_club("FK Jablonec B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FK Mlada Boleslav") == 0) { cm3_clubs* ret = find_club("FK Mlada Boleslav B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FK Pardubice") == 0) { cm3_clubs* ret = find_club("FK Pardubice B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FK Pribram") == 0) { cm3_clubs* ret = find_club("FK Pribram B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FK Teplice") == 0) { cm3_clubs* ret = find_club("FK Teplice B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "MFK Karvina") == 0) { cm3_clubs* ret = find_club("MFK Karvina B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "SK Dynamo Ceske Budejovice") == 0) { cm3_clubs* ret = find_club("SK Dynamo Ceske Budejovice B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "SK Sigma Olomouc") == 0) { cm3_clubs* ret = find_club("SK Sigma Olomouc B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "SK Slavia Prague") == 0) { cm3_clubs* ret = find_club("SK Slavia Prague B"); if (ret) return (BYTE*)ret; }
+		if ((DWORD)to_check->ClubID == CLUB_SLOVACKO_9CF()) return (BYTE*)get_club(CLUB_SLOVACKO_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SPARTA_PRAGUE_9CF()) return (BYTE*)get_club(CLUB_SPARTA_PRAGUE_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_BOHEMIANS_1905_9CF()) return (BYTE*)get_club(CLUB_BOHEMIANS_1905_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_BANIK_OSTRAVA_9CF()) return (BYTE*)get_club(CLUB_BANIK_OSTRAVA_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_HRADEC_KRALOVE_9CF()) return (BYTE*)get_club(CLUB_HRADEC_KRALOVE_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_TABORSKO_9CF()) return (BYTE*)get_club(CLUB_TABORSKO_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SLOVAN_LIBEREC_9CF()) return (BYTE*)get_club(CLUB_SLOVAN_LIBEREC_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_VIKTORIA_PLZEN_9CF()) return (BYTE*)get_club(CLUB_VIKTORIA_PLZEN_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_BRNO_9CF()) return (BYTE*)get_club(CLUB_BRNO_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ZLIN_9CF()) return (BYTE*)get_club(CLUB_ZLIN_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_DUKLA_PRAGUE_9CF()) return (BYTE*)get_club(CLUB_DUKLA_PRAGUE_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_JABLONEC_9CF()) return (BYTE*)get_club(CLUB_JABLONEC_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_MLADA_BOLESLAV_9CF()) return (BYTE*)get_club(CLUB_MLADA_BOLESLAV_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_PARDUBICE_9CF()) return (BYTE*)get_club(CLUB_PARDUBICE_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_PRIBRAM_9CF()) return (BYTE*)get_club(CLUB_PRIBRAM_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_TEPLICE_9CF()) return (BYTE*)get_club(CLUB_TEPLICE_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_KARVINA_9CF()) return (BYTE*)get_club(CLUB_KARVINA_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_CESKE_BUDEJOVICE_9CF()) return (BYTE*)get_club(CLUB_CESKE_BUDEJOVICE_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SIGMA_OLOMOUC_9CF()) return (BYTE*)get_club(CLUB_SIGMA_OLOMOUC_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SLAVIA_PRAGUE_9CF()) return (BYTE*)get_club(CLUB_SLAVIA_PRAGUE_B_9CF());
 	}
 	else if (to_check->ClubNation->NationID == NATION_AUSTRIA_9CF()) {
-		if (strcmp(db_club_name, "Admira Wacker") == 0) { cm3_clubs* ret = find_club("Admira Wacker Panthers"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Austria Vienna") == 0) { cm3_clubs* ret = find_club("Young Violets Austria Wien"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "LASK Linz") == 0) { cm3_clubs* ret = find_club("LASK Amateure OÖ"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Rapid Vienna") == 0) { cm3_clubs* ret = find_club("Rapid Vienna II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Red Bull Salzburg") == 0) { cm3_clubs* ret = find_club("FC Liefering"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "SC Austria Lustenau") == 0) { cm3_clubs* ret = find_club("SC Austria Lustenau II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "SCR Altach") == 0) { cm3_clubs* ret = find_club("SCR Altach Juniors"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "SK Sturm Graz") == 0) { cm3_clubs* ret = find_club("SK Sturm Graz II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "SKN St. Pölten") == 0) { cm3_clubs* ret = find_club("SKN St. Pölten Juniors"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "SV Ried") == 0) { cm3_clubs* ret = find_club("SV Ried II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Wolfsberger AC") == 0) { cm3_clubs* ret = find_club("Wolfsberger AC II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "WSG Tirol") == 0) { cm3_clubs* ret = find_club("WSG Tirol II"); if (ret) return (BYTE*)ret; }
+		if ((DWORD)to_check->ClubID == CLUB_ADMIRA_WACKER_9CF()) return (BYTE*)get_club(CLUB_ADMIRA_WACKER_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_AUSTRIA_VIENNA_9CF()) return (BYTE*)get_club(CLUB_AUSTRIA_VIENNA_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LASK_9CF()) return (BYTE*)get_club(CLUB_LASK_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_RAPID_VIENNA_9CF()) return (BYTE*)get_club(CLUB_RAPID_VIENNA_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_RB_SALZBURG_9CF()) return (BYTE*)get_club(CLUB_LIEFERING_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_AUSTRIA_LUSTENAU_9CF()) return (BYTE*)get_club(CLUB_AUSTRIA_LUSTENAU_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ALTACH_9CF()) return (BYTE*)get_club(CLUB_ALTACH_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_STURM_GRAZ_9CF()) return (BYTE*)get_club(CLUB_STURM_GRAZ_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ST_POLTEN_9CF()) return (BYTE*)get_club(CLUB_ST_POLTEN_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_RIED_9CF()) return (BYTE*)get_club(CLUB_RIED_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_WOLFSBERG_9CF()) return (BYTE*)get_club(CLUB_WOLFSBERG_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_WSG_TIROL_9CF()) return (BYTE*)get_club(CLUB_WSG_TIROL_II_9CF());
+
 	}
 	else if (to_check->ClubNation->NationID == NATION_SWITZERLAND_9CF()) {
-		if (strcmp(db_club_name, "BSC Young Boys") == 0) { cm3_clubs* ret = find_club("BSC Young Boys U21"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Grasshopper Club Zurich") == 0) { cm3_clubs* ret = find_club("Grasshopper Club Zürich U21"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Basel 1893") == 0) { cm3_clubs* ret = find_club("FC Basel 1893 U21"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Lausanne-Sport") == 0) { cm3_clubs* ret = find_club("FC Lausanne-Sport II "); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Lugano") == 0) { cm3_clubs* ret = find_club("FC Lugano II"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Luzern") == 0) { cm3_clubs* ret = find_club("FC Luzern U21"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Sion") == 0) { cm3_clubs* ret = find_club("FC Sion U21"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC St. Gallen 1879") == 0) { cm3_clubs* ret = find_club("FC St. Gallen 1879 U21"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Winterthur") == 0) { cm3_clubs* ret = find_club("FC Winterthur U21"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Zürich") == 0) { cm3_clubs* ret = find_club("FC Zürich U21"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Servette FC") == 0) { cm3_clubs* ret = find_club("Servette FC U21"); if (ret) return (BYTE*)ret; }
+		if ((DWORD)to_check->ClubID == CLUB_YOUNG_BOYS_9CF()) return (BYTE*)get_club(CLUB_YOUNG_BOYS_U21_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_GRASSHOPPERS_9CF()) return (BYTE*)get_club(CLUB_GRASSHOPPERS_U21_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_BASEL_9CF()) return (BYTE*)get_club(CLUB_BASEL_U21_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LAUSANNE_9CF()) return (BYTE*)get_club(CLUB_LAUSANNE_U21_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LUGANO_9CF()) return (BYTE*)get_club(CLUB_LUGANO_U21_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LUZERN_9CF()) return (BYTE*)get_club(CLUB_LUZERN_U21_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SION_9CF()) return (BYTE*)get_club(CLUB_SION_U21_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ST_GALLEN_9CF()) return (BYTE*)get_club(CLUB_ST_GALLEN_U21_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_WINTERTHUR_9CF()) return (BYTE*)get_club(CLUB_WINTERTHUR_U21_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ZURICH_9CF()) return (BYTE*)get_club(CLUB_ZURICH_U21_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SERVETTE_9CF()) return (BYTE*)get_club(CLUB_SERVETTE_U21_9CF());
 	}
 	else if (to_check->ClubNation->NationID == NATION_FRANCE_9CF()) {
-		if (strcmp(db_club_name, "AC Ajaccio") == 0) { cm3_clubs* ret = find_club("AC Ajaccio B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Le Havre AC") == 0) { cm3_clubs* ret = find_club("AC Le Havre B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "AJ Auxerre") == 0) { cm3_clubs* ret = find_club("AJ Auxerre B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Amiens SC") == 0) { cm3_clubs* ret = find_club("Amiens SC B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Angers SCO") == 0) { cm3_clubs* ret = find_club("Angers SCO B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "AS Monaco") == 0) { cm3_clubs* ret = find_club("AS Monaco B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "AS Nancy-Lorraine") == 0) { cm3_clubs* ret = find_club("AS Nancy-Lorraine B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "AS Saint-Étienne") == 0) { cm3_clubs* ret = find_club("AS Saint-Étienne B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Bourges Foot 18") == 0) { cm3_clubs* ret = find_club("Bourges Foot 18 B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Clermont Foot 63") == 0) { cm3_clubs* ret = find_club("Clermont Foot 63 B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "CS Sedan-Ardennes") == 0) { cm3_clubs* ret = find_club("CS Sedan-Ardennes B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Dijon FCO") == 0) { cm3_clubs* ret = find_club("Dijon FCO B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "EA Guingamp") == 0) { cm3_clubs* ret = find_club("EA Guingamp B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "ESTAC Troyes") == 0) { cm3_clubs* ret = find_club("ESTAC Troyes B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Girondins Bordeaux") == 0) { cm3_clubs* ret = find_club("FC Girondins Bordeaux B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Le Mans FC") == 0) { cm3_clubs* ret = find_club("Le Mans FC B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Lorient") == 0) { cm3_clubs* ret = find_club("FC Lorient B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Metz") == 0) { cm3_clubs* ret = find_club("FC Metz B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Nantes") == 0) { cm3_clubs* ret = find_club("FC Nantes B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Sochaux-Montbéliard") == 0) { cm3_clubs* ret = find_club("FC Sochaux-Montbéliard B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "LB Châteauroux") == 0) { cm3_clubs* ret = find_club("LB Châteauroux B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Le Puy Foot 43 Auvergne") == 0) { cm3_clubs* ret = find_club("Le Puy Foot 43 Auvergne B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Vendée Les Herbiers Football") == 0) { cm3_clubs* ret = find_club("Vendée Les Herbiers Football B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "LOSC Lille") == 0) { cm3_clubs* ret = find_club("LOSC Lille B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Lyon - La Duchère") == 0) { cm3_clubs* ret = find_club("Lyon - La Duchère B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Marignane-Gignac-Côte-Bleue FC") == 0) { cm3_clubs* ret = find_club("Marignane-Gignac-Côte Bleue FC B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Montpellier HSC") == 0) { cm3_clubs* ret = find_club("Montpellier HSC B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "OGC Nice") == 0) { cm3_clubs* ret = find_club("OGC Nice B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Olympique Marseille") == 0) { cm3_clubs* ret = find_club("Olympique de Marseille B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Olympique Lyon") == 0) { cm3_clubs* ret = find_club("Olympique Lyon B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Paris FC") == 0) { cm3_clubs* ret = find_club("Paris FC B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Paris Saint-Germain") == 0) { cm3_clubs* ret = find_club("Paris Saint-Germain B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Pau FC") == 0) { cm3_clubs* ret = find_club("Pau FC B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Quevilly - Rouen Métropole") == 0) { cm3_clubs* ret = find_club("Quevilly - Rouen Métropole B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "RC Strasbourg Alsace") == 0) { cm3_clubs* ret = find_club("Racing Strasbourg B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "RC Lens") == 0) { cm3_clubs* ret = find_club("RC Lens B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Rodez AF") == 0) { cm3_clubs* ret = find_club("Rodez Aveyron Football B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "SC Bastia") == 0) { cm3_clubs* ret = find_club("SC Bastia B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "SM Caen") == 0) { cm3_clubs* ret = find_club("SM Caen B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Stade Brestois 29") == 0) { cm3_clubs* ret = find_club("Stade Brest 29 B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Stade Briochin") == 0) { cm3_clubs* ret = find_club("Stade Briochin B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Stade Lavallois") == 0) { cm3_clubs* ret = find_club("Stade Laval B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Stade Reims") == 0) { cm3_clubs* ret = find_club("Stade Reims B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Stade Rennais FC") == 0) { cm3_clubs* ret = find_club("Stade Rennais FC B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Toulouse") == 0) { cm3_clubs* ret = find_club("Toulouse FC B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "US Avranches") == 0) { cm3_clubs* ret = find_club("US Avranches B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "US Boulogne") == 0) { cm3_clubs* ret = find_club("US Boulogne B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "US Orléans") == 0) { cm3_clubs* ret = find_club("US Orléans B"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Valenciennes FC") == 0) { cm3_clubs* ret = find_club("Valenciennes FC B"); if (ret) return (BYTE*)ret; }
+		if ((DWORD)to_check->ClubID == CLUB_AJACCIO_9CF()) return (BYTE*)get_club(CLUB_AJACCIO_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LE_HAVRE_9CF()) return (BYTE*)get_club(CLUB_LE_HAVRE_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_AUXERRE_9CF()) return (BYTE*)get_club(CLUB_AUXERRE_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_AMIENS_9CF()) return (BYTE*)get_club(CLUB_AMIENS_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ANGERS_9CF()) return (BYTE*)get_club(CLUB_ANGERS_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_MONACO_9CF()) return (BYTE*)get_club(CLUB_MONACO_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_NANCY_9CF()) return (BYTE*)get_club(CLUB_NANCY_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SAINT_ETIENNE_9CF()) return (BYTE*)get_club(CLUB_SAINT_ETIENNE_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_BOURGES_9CF()) return (BYTE*)get_club(CLUB_BOURGES_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_CLERMONT_9CF()) return (BYTE*)get_club(CLUB_CLERMONT_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SEDAN_9CF()) return (BYTE*)get_club(CLUB_SEDAN_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_DIJON_9CF()) return (BYTE*)get_club(CLUB_DIJON_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_GUINGAMP_9CF()) return (BYTE*)get_club(CLUB_GUINGAMP_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_TROYES_9CF()) return (BYTE*)get_club(CLUB_TROYES_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_BORDEAUX_9CF()) return (BYTE*)get_club(CLUB_BORDEAUX_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LE_MANS_9CF()) return (BYTE*)get_club(CLUB_LE_MANS_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LORIENT_9CF()) return (BYTE*)get_club(CLUB_LORIENT_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_METZ_9CF()) return (BYTE*)get_club(CLUB_METZ_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_NANTES_9CF()) return (BYTE*)get_club(CLUB_NANTES_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SOCHAUX_9CF()) return (BYTE*)get_club(CLUB_SOCHAUX_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_CHATEAUROUX_9CF()) return (BYTE*)get_club(CLUB_CHATEAUROUX_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LE_PUY_9CF()) return (BYTE*)get_club(CLUB_LE_PUY_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LES_HERBIERS_9CF()) return (BYTE*)get_club(CLUB_LES_HERBIERS_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LILLE_9CF()) return (BYTE*)get_club(CLUB_LILLE_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LYON_LA_DUCHÈRE_9CF()) return (BYTE*)get_club(CLUB_LYON_LA_DUCHÈRE_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_MARIGNANE_9CF()) return (BYTE*)get_club(CLUB_MARIGNANE_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_MONTPELLIER_9CF()) return (BYTE*)get_club(CLUB_MONTPELLIER_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_NICE_9CF()) return (BYTE*)get_club(CLUB_NICE_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_MARSEILLE_9CF()) return (BYTE*)get_club(CLUB_MARSEILLE_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LYON_9CF()) return (BYTE*)get_club(CLUB_LYON_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_PARIS_FC_9CF()) return (BYTE*)get_club(CLUB_PARIS_FC_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_PSG_9CF()) return (BYTE*)get_club(CLUB_PSG_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_PAU_9CF()) return (BYTE*)get_club(CLUB_PAU_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_QUEVILLY_ROUEN_9CF()) return (BYTE*)get_club(CLUB_QUEVILLY_ROUEN_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_STRASBOURG_9CF()) return (BYTE*)get_club(CLUB_STRASBOURG_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LENS_9CF()) return (BYTE*)get_club(CLUB_LENS_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_RODEZ_9CF()) return (BYTE*)get_club(CLUB_RODEZ_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_BASTIA_9CF()) return (BYTE*)get_club(CLUB_BASTIA_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_CAEN_9CF()) return (BYTE*)get_club(CLUB_CAEN_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_BREST_9CF()) return (BYTE*)get_club(CLUB_BREST_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ST_BRIEUC_9CF()) return (BYTE*)get_club(CLUB_ST_BRIEUC_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LAVAL_9CF()) return (BYTE*)get_club(CLUB_LAVAL_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_REIMS_9CF()) return (BYTE*)get_club(CLUB_REIMS_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_RENNES_9CF()) return (BYTE*)get_club(CLUB_RENNES_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_TOULOUSE_9CF()) return (BYTE*)get_club(CLUB_TOULOUSE_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_AVRANCHES_9CF()) return (BYTE*)get_club(CLUB_AVRANCHES_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_BOULOGNE_9CF()) return (BYTE*)get_club(CLUB_BOULOGNE_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ORLEANS_9CF()) return (BYTE*)get_club(CLUB_ORLEANS_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_VALENCIENNES_9CF()) return (BYTE*)get_club(CLUB_VALENCIENNES_B_9CF());
 	}
 
 	// Reserve teams check
@@ -1523,17 +487,17 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 		if ((DWORD)to_check->ClubID == CLUB_STUTTGART_II_9CF()) return (BYTE*)get_club(CLUB_STUTTGART_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_UNTERHACHING_II_9CF()) return (BYTE*)get_club(CLUB_UNTERHACHING_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_WERDER_BREMEN_II_9CF()) return (BYTE*)get_club(CLUB_WERDER_BREMEN_9CF());
-		if (strcmp(db_club_name, "FC Carl Zeiss Jena II") == 0) { cm3_clubs* ret = find_club("FC Carl Zeiss Jena"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Energie Cottbus II") == 0) { cm3_clubs* ret = find_club("FC Energie Cottbus"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "MSV Duisburg Amateure") == 0) { cm3_clubs* ret = find_club("MSV Duisburg"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Bayer Leverkusen (A)") == 0) { cm3_clubs* ret = find_club("Bayer 04 Leverkusen"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "1.FC Magdeburg II") == 0) { cm3_clubs* ret = find_club("1.FC Magdeburg"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "1.FC Saarbrücken II") == 0) { cm3_clubs* ret = find_club("1.FC Saarbrücken"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Stuttgarter Kickers II") == 0) { cm3_clubs* ret = find_club("Stuttgarter Kickers"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "VfL Wolfsburg Amateure") == 0) { cm3_clubs* ret = find_club("VfL Wolfsburg"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "RW Oberhausen Amateure") == 0) { cm3_clubs* ret = find_club("Rot-Weiß Oberhausen"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "SSV Ulm 1846 II") == 0) { cm3_clubs* ret = find_club("SSV Ulm 1846"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "SG Wattenscheid 09 II") == 0) { cm3_clubs* ret = find_club("SG Wattenscheid 09"); if (ret) return (BYTE*)ret; }
+		if ((DWORD)to_check->ClubID == CLUB_JENA_II_9CF()) return (BYTE*)get_club(CLUB_JENA_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_COTTBUS_II_9CF()) return (BYTE*)get_club(CLUB_COTTBUS_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_DUISBURG_II_9CF()) return (BYTE*)get_club(CLUB_DUISBURG_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_BAYER_LEVERKUSEN_II_9CF()) return (BYTE*)get_club(CLUB_BAYER_LEVERKUSEN_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_MAGDEBURG_II_9CF()) return (BYTE*)get_club(CLUB_MAGDEBURG_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SAARBRUCKEN_II_9CF()) return (BYTE*)get_club(CLUB_SAARBRUCKEN_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_STUTTGARTER_KICKERS_II_9CF()) return (BYTE*)get_club(CLUB_STUTTGARTER_KICKERS_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_WOLFSBURG_II_9CF()) return (BYTE*)get_club(CLUB_WOLFSBURG_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_OBERHAUSEN_II_9CF()) return (BYTE*)get_club(CLUB_OBERHAUSEN_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ULM_II_9CF()) return (BYTE*)get_club(CLUB_ULM_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_WATTENSCHEID_II_9CF()) return (BYTE*)get_club(CLUB_WATTENSCHEID_9CF());
 	}
 	else if (to_check->ClubNation->NationID == NATION_SPAIN_9CF()) {
 		if ((DWORD)to_check->ClubID == CLUB_ALAVES_B_9CF()) return (BYTE*)get_club(CLUB_ALAVES_9CF());
@@ -1581,8 +545,8 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 		if ((DWORD)to_check->ClubID == CLUB_VALLADOLID_B_9CF()) return (BYTE*)get_club(CLUB_VALLADOLID_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_VILLARREAL_B_9CF()) return (BYTE*)get_club(CLUB_VILLARREAL_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_ZARAGOZA_B_9CF()) return (BYTE*)get_club(CLUB_ZARAGOZA_9CF());
-		if (strcmp(db_club_name, "Girona FC B") == 0) { cm3_clubs* ret = find_club("Girona FC"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "U.D. Salamanca B") == 0) { cm3_clubs* ret = find_club("U.D. Salamanca"); if (ret) return (BYTE*)ret; }
+		if ((DWORD)to_check->ClubID == CLUB_GIRONA_B_9CF()) return (BYTE*)get_club(CLUB_GIRONA_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SALAMANCA_B_9CF()) return (BYTE*)get_club(CLUB_SALAMANCA_9CF());
 	}
 	else if (to_check->ClubNation->NationID == NATION_PORTUGAL_9CF()) {
 		if ((DWORD)to_check->ClubID == CLUB_ALVERCA_B_9CF()) return (BYTE*)get_club(CLUB_ALVERCA_9CF());
@@ -1593,244 +557,247 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 		if ((DWORD)to_check->ClubID == CLUB_PORTO_B_9CF()) return (BYTE*)get_club(CLUB_PORTO_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_SPORTING_CP_B_9CF()) return (BYTE*)get_club(CLUB_SPORTING_CP_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_VIT_GUIMARAES_B_9CF()) return (BYTE*)get_club(CLUB_VIT_GUIMARAES_9CF());
-		if (strcmp(db_club_name, "CD Santa Clara B") == 0) { cm3_clubs* ret = find_club("CD Santa Clara"); if (ret) return (BYTE*)ret; }
+		if ((DWORD)to_check->ClubID == CLUB_SANTA_CLARA_B_9CF()) return (BYTE*)get_club(CLUB_SANTA_CLARA_9CF());
 	}
 	else if (to_check->ClubNation->NationID == NATION_NORWAY_9CF()) {
-		if (strcmp(db_club_name, "Aalesunds FK II") == 0) { cm3_clubs* ret = find_club("Aalesunds FK"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Åsane Fotball II") == 0) { cm3_clubs* ret = find_club("Åsane Fotball"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Bærum SK II") == 0) { cm3_clubs* ret = find_club("Bærum SK"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FK Bodø/Glimt II") == 0) { cm3_clubs* ret = find_club("FK Bodø/Glimt"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "SK Brann II") == 0) { cm3_clubs* ret = find_club("SK Brann"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Bryne FK II") == 0) { cm3_clubs* ret = find_club("Bryne FK"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Byåsen IL II") == 0) { cm3_clubs* ret = find_club("Byåsen TF"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Follo FK II") == 0) { cm3_clubs* ret = find_club("Follo FK"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Fredrikstad FK II") == 0) { cm3_clubs* ret = find_club("Fredrikstad FK"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FK Fyllingsdalen II") == 0) { cm3_clubs* ret = find_club("FK Fyllingsdalen"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FK Gjøvik-Lyn II") == 0) { cm3_clubs* ret = find_club("SK Gjøvik-Lyn"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Grorud IL II") == 0) { cm3_clubs* ret = find_club("Grorud IL"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Hamarkameratene II") == 0) { cm3_clubs* ret = find_club("Hamarkameratene"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FK Haugesund II") == 0) { cm3_clubs* ret = find_club("FK Haugesund"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "IL Hødd II") == 0) { cm3_clubs* ret = find_club("IL Hødd"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Hønefoss BK II") == 0) { cm3_clubs* ret = find_club("Hønefoss BK"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "KFUM-Kameratene Oslo II") == 0) { cm3_clubs* ret = find_club("KFUM-Kameratene Oslo"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Kjelsas IL II") == 0) { cm3_clubs* ret = find_club("Kjelsås IL"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Kongsvinger IL II") == 0) { cm3_clubs* ret = find_club("Kongsvinger IL"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Kristiansund BK II") == 0) { cm3_clubs* ret = find_club("Kristiansund BK"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Lillestrøm SK II") == 0) { cm3_clubs* ret = find_club("Lillestrøm SK"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Lyn 1896 FK II") == 0) { cm3_clubs* ret = find_club("Lyn 1896 FK"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Mjøndalen IF II") == 0) { cm3_clubs* ret = find_club("Mjøndalen IF"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Molde FK II") == 0) { cm3_clubs* ret = find_club("Molde FK"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Nardo FK II") == 0) { cm3_clubs* ret = find_club("Nardo FK"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Odds BK II") == 0) { cm3_clubs* ret = find_club("Odds BK"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Pors Fotball II") == 0) { cm3_clubs* ret = find_club("Pors Fotball"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Ranheim IL II") == 0) { cm3_clubs* ret = find_club("Ranheim IL"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Raufoss IL II") == 0) { cm3_clubs* ret = find_club("Raufoss IL"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Rosenborg BK II") == 0) { cm3_clubs* ret = find_club("Rosenborg BK"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Sandefjord Fotball II") == 0) { cm3_clubs* ret = find_club("Sandefjord Fotball"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Sandnes Ulf II") == 0) { cm3_clubs* ret = find_club("Sandnes Ulf"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Sarpsborg 08 FF II") == 0) { cm3_clubs* ret = find_club("Sarpsborg 08 FF"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Skeid Oslo II") == 0) { cm3_clubs* ret = find_club("Skeid Oslo"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Sogndal IL II") == 0) { cm3_clubs* ret = find_club("Sogndal IL"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Stabaek IF II") == 0) { cm3_clubs* ret = find_club("Stabæk Fotball"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "IK Start II") == 0) { cm3_clubs* ret = find_club("IK Start"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Strømmen IL II") == 0) { cm3_clubs* ret = find_club("Strømmen IF"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Strømsgodset IF II") == 0) { cm3_clubs* ret = find_club("Strømsgodset IF"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Tromsø IL II") == 0) { cm3_clubs* ret = find_club("Tromsø IL"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "SK Træff II") == 0) { cm3_clubs* ret = find_club("SK Træff"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Ullensaker/Kisa IL II") == 0) { cm3_clubs* ret = find_club("Ullensaker/Kisa IL"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "SK Vard Haugesund II") == 0) { cm3_clubs* ret = find_club("SK Vard Haugesund"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Viking FK II") == 0) { cm3_clubs* ret = find_club("Viking FK"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Vålerenga Fotball II") == 0) { cm3_clubs* ret = find_club("Vålerenga Fotball Elite"); if (ret) return (BYTE*)ret; }
+		if ((DWORD)to_check->ClubID == CLUB_AALESUND_II_9CF()) return (BYTE*)get_club(CLUB_AALESUND_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ASANE_II_9CF()) return (BYTE*)get_club(CLUB_ASANE_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_BAERUM_II_9CF()) return (BYTE*)get_club(CLUB_BAERUM_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_BODO_GLIMT_II_9CF()) return (BYTE*)get_club(CLUB_BODO_GLIMT_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_BRANN_II_9CF()) return (BYTE*)get_club(CLUB_BRANN_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_BRYNE_II_9CF()) return (BYTE*)get_club(CLUB_BRYNE_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_BYASEN_II_9CF()) return (BYTE*)get_club(CLUB_BYASEN_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_FOLLO_II_9CF()) return (BYTE*)get_club(CLUB_FOLLO_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_FREDRIKSTAD_II_9CF()) return (BYTE*)get_club(CLUB_FREDRIKSTAD_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_FYLLINGSDALEN_II_9CF()) return (BYTE*)get_club(CLUB_FYLLINGSDALEN_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_GJOVIK_LYN_II_9CF()) return (BYTE*)get_club(CLUB_GJOVIK_LYN_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_GRORUD_II_9CF()) return (BYTE*)get_club(CLUB_GRORUD_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_HAMKAM_II_9CF()) return (BYTE*)get_club(CLUB_HAMKAM_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_HAUGESUND_II_9CF()) return (BYTE*)get_club(CLUB_HAUGESUND_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_HODD_II_9CF()) return (BYTE*)get_club(CLUB_HODD_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_HONEFOSS_II_9CF()) return (BYTE*)get_club(CLUB_HONEFOSS_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_KFUM_OSLO_II_9CF()) return (BYTE*)get_club(CLUB_KFUM_OSLO_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_KJELSAS_II_9CF()) return (BYTE*)get_club(CLUB_KJELSAS_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_KONGSVINGER_II_9CF()) return (BYTE*)get_club(CLUB_KONGSVINGER_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_KRISTIANSUND_II_9CF()) return (BYTE*)get_club(CLUB_KRISTIANSUND_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LILLESTROM_II_9CF()) return (BYTE*)get_club(CLUB_LILLESTROM_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LYN_II_9CF()) return (BYTE*)get_club(CLUB_LYN_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_MJONDALEN_II_9CF()) return (BYTE*)get_club(CLUB_MJONDALEN_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_MOLDE_II_9CF()) return (BYTE*)get_club(CLUB_MOLDE_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_NARDO_II_9CF()) return (BYTE*)get_club(CLUB_NARDO_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ODDS_II_9CF()) return (BYTE*)get_club(CLUB_ODDS_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_PORS_II_9CF()) return (BYTE*)get_club(CLUB_PORS_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_RANHEIM_II_9CF()) return (BYTE*)get_club(CLUB_RANHEIM_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_RAUFOSS_II_9CF()) return (BYTE*)get_club(CLUB_RAUFOSS_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ROSENBORG_II_9CF()) return (BYTE*)get_club(CLUB_ROSENBORG_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SANDEFJORD_II_9CF()) return (BYTE*)get_club(CLUB_SANDEFJORD_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SANDNES_ULF_II_9CF()) return (BYTE*)get_club(CLUB_SANDNES_ULF_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SARPSBORG_II_9CF()) return (BYTE*)get_club(CLUB_SARPSBORG_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SKEID_II_9CF()) return (BYTE*)get_club(CLUB_SKEID_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SOGNDAL_II_9CF()) return (BYTE*)get_club(CLUB_SOGNDAL_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_STABAEK_II_9CF()) return (BYTE*)get_club(CLUB_STABAEK_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_START_II_9CF()) return (BYTE*)get_club(CLUB_START_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_STROMMEN_II_9CF()) return (BYTE*)get_club(CLUB_STROMMEN_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_STROMSGODSET_II_9CF()) return (BYTE*)get_club(CLUB_STROMSGODSET_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_TROMSO_II_9CF()) return (BYTE*)get_club(CLUB_TROMSO_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_TRAEFF_II_9CF()) return (BYTE*)get_club(CLUB_TRAEFF_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ULL_KISA_II_9CF()) return (BYTE*)get_club(CLUB_ULL_KISA_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_VARD_HAUGESUND_II_9CF()) return (BYTE*)get_club(CLUB_VARD_HAUGESUND_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_VIKING_II_9CF()) return (BYTE*)get_club(CLUB_VIKING_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_VALERENGA_II_9CF()) return (BYTE*)get_club(CLUB_VALERENGA_9CF());
 	}
 	else if (to_check->ClubNation->NationID == NATION_FINLAND_9CF()) {
-		if (strcmp(db_club_name, "Atlantis FC II") == 0) { cm3_clubs* ret = find_club("Atlantis FC"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "HJK Klubi 04 Helsinki") == 0) { cm3_clubs* ret = find_club("HJK Helsinki"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Espoo II") == 0) { cm3_clubs* ret = find_club("FC Espoo"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Helsinki IFK II") == 0) { cm3_clubs* ret = find_club("Helsinki IFK"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Honka II") == 0) { cm3_clubs* ret = find_club("FC Honka"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Inter Turku II") == 0) { cm3_clubs* ret = find_club("FC Inter Turku"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Ilves Tampere II") == 0) { cm3_clubs* ret = find_club("Ilves Tampere"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Kuopion Palloseura II") == 0) { cm3_clubs* ret = find_club("Kuopion Palloseura"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Rovaniemen Palloseura II") == 0) { cm3_clubs* ret = find_club("Rovaniemen Palloseura"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Vaasan Palloseura II") == 0) { cm3_clubs* ret = find_club("Vaasan Palloseura"); if (ret) return (BYTE*)ret; }
+		if ((DWORD)to_check->ClubID == CLUB_ATLANTIS_II_9CF()) return (BYTE*)get_club(CLUB_ATLANTIS_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_KLUBI_04_9CF()) return (BYTE*)get_club(CLUB_HJK_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ESPOO_II_9CF()) return (BYTE*)get_club(CLUB_ESPOO_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_HIFK_II_9CF()) return (BYTE*)get_club(CLUB_HIFK_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_HONKA_II_9CF()) return (BYTE*)get_club(CLUB_HONKA_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_INTER_TURKU_II_9CF()) return (BYTE*)get_club(CLUB_INTER_TURKU_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ILVES_II_9CF()) return (BYTE*)get_club(CLUB_ILVES_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_KUPS_II_9CF()) return (BYTE*)get_club(CLUB_KUPS_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ROPS_II_9CF()) return (BYTE*)get_club(CLUB_ROPS_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_VPS_II_9CF()) return (BYTE*)get_club(CLUB_VPS_9CF());
+
 	}
 	else if (to_check->ClubNation->NationID == NATION_POLAND_9CF()) {
-		if (strcmp(db_club_name, "Chrobry Glogow II") == 0) { cm3_clubs* ret = find_club("Chrobry Glogow"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Cracovia II") == 0) { cm3_clubs* ret = find_club("Cracovia"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Gornik Zabrze II") == 0) { cm3_clubs* ret = find_club("Górnik Zabrze"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Jagiellonia Bialystok II") == 0) { cm3_clubs* ret = find_club("Jagiellonia Bialystok"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Korona Kielce II") == 0) { cm3_clubs* ret = find_club("Korona Kielce"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Lech Poznan II") == 0) { cm3_clubs* ret = find_club("Lech Poznan"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Legia Warsaw II") == 0) { cm3_clubs* ret = find_club("Legia Warszawa"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "LKS Lodz II") == 0) { cm3_clubs* ret = find_club("LKS Lodz"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Miedz Legnica II") == 0) { cm3_clubs* ret = find_club("Miedz Legnica"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Piast Gliwice II") == 0) { cm3_clubs* ret = find_club("Piast Gliwice"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Pogon Szczecin II") == 0) { cm3_clubs* ret = find_club("Pogon Szczecin"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Rakow Czestochowa II") == 0) { cm3_clubs* ret = find_club("Raków Czestochowa"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Slask Wroclaw II") == 0) { cm3_clubs* ret = find_club("Slask Wroclaw"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Widzew Lodz II") == 0) { cm3_clubs* ret = find_club("Widzew Lodz"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Wisla Krakow II") == 0) { cm3_clubs* ret = find_club("Wisla Kraków"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Wisla Plock II") == 0) { cm3_clubs* ret = find_club("Wisla Plock"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Zaglebie Lubin II") == 0) { cm3_clubs* ret = find_club("Zaglebie Lubin"); if (ret) return (BYTE*)ret; }
+		if ((DWORD)to_check->ClubID == CLUB_CHROBRY_GLOGOW_II_9CF()) return (BYTE*)get_club(CLUB_CHROBRY_GLOGOW_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_CRACOVIA_II_9CF()) return (BYTE*)get_club(CLUB_CRACOVIA_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_GORNIK_ZABRZE_II_9CF()) return (BYTE*)get_club(CLUB_GORNIK_ZABRZE_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_JAGIELLONIA_II_9CF()) return (BYTE*)get_club(CLUB_JAGIELLONIA_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_KIELCE_II_9CF()) return (BYTE*)get_club(CLUB_KIELCE_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LECH_POZNAN_II_9CF()) return (BYTE*)get_club(CLUB_LECH_POZNAN_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LEGIA_WARSAW_II_9CF()) return (BYTE*)get_club(CLUB_LEGIA_WARSAW_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LKS_LODZ_II_9CF()) return (BYTE*)get_club(CLUB_LKS_LODZ_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_MIEDZ_LEGNICA_II_9CF()) return (BYTE*)get_club(CLUB_MIEDZ_LEGNICA_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_PIAST_GLIWICE_II_9CF()) return (BYTE*)get_club(CLUB_PIAST_GLIWICE_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_POGON_SZCZECIN_II_9CF()) return (BYTE*)get_club(CLUB_POGON_SZCZECIN_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_RAKOW_II_9CF()) return (BYTE*)get_club(CLUB_RAKOW_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SLASK_WROCLAW_II_9CF()) return (BYTE*)get_club(CLUB_SLASK_WROCLAW_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_WIDZEW_LODZ_II_9CF()) return (BYTE*)get_club(CLUB_WIDZEW_LODZ_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_WISLA_KRAKOW_II_9CF()) return (BYTE*)get_club(CLUB_WISLA_KRAKOW_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_WISLA_PLOCK_II_9CF()) return (BYTE*)get_club(CLUB_WISLA_PLOCK_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ZAGLEBIE_LUBIN_II_9CF()) return (BYTE*)get_club(CLUB_ZAGLEBIE_LUBIN_9CF());
 	}
 	else if (to_check->ClubNation->NationID == NATION_SCOTLAND_9CF()) {
-		if (strcmp(db_club_name, "Glasgow Celtic B") == 0) { cm3_clubs* ret = find_club("Glasgow Celtic"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Heart of Midlothian FC B") == 0) { cm3_clubs* ret = find_club("Heart of Midlothian FC"); if (ret) return (BYTE*)ret; }
+		if ((DWORD)to_check->ClubID == CLUB_CELTIC_B_9CF()) return (BYTE*)get_club(CLUB_CELTIC_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_HEARTS_B_9CF()) return (BYTE*)get_club(CLUB_HEARTS_9CF());
 	}
 	else if (to_check->ClubNation->NationID == NATION_GREECE_9CF()) {
-		if (strcmp(db_club_name, "Asteras Aktor B") == 0) { cm3_clubs* ret = find_club("Asteras Aktor"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "AEK Athens B") == 0) { cm3_clubs* ret = find_club("AEK Athens"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Olympiacos Piraeus B") == 0) { cm3_clubs* ret = find_club("Olympiacos Piraeus"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "PAOK Thessaloniki B") == 0) { cm3_clubs* ret = find_club("PAOK Thessaloniki"); if (ret) return (BYTE*)ret; }
+		if ((DWORD)to_check->ClubID == CLUB_ASTERAS_AKTOR_B_9CF()) return (BYTE*)get_club(CLUB_ASTERAS_AKTOR_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_AEK_ATHENS_B_9CF()) return (BYTE*)get_club(CLUB_AEK_ATHENS_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_OLYMPIACOS_B_9CF()) return (BYTE*)get_club(CLUB_OLYMPIACOS_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_PAOK_B_9CF()) return (BYTE*)get_club(CLUB_PAOK_9CF());
 	}
-	else if (to_check->ClubNation->NationID == NATION_HOLLAND_9CF()) {
-		if (strcmp(db_club_name, "AZ Alkmaar U21") == 0) { cm3_clubs* ret = find_club("AZ"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Ajax Amsterdam U21") == 0) { cm3_clubs* ret = find_club("Ajax Amsterdam"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Jong Almere City FC") == 0) { cm3_clubs* ret = find_club("Almere City FC"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "PSV Eindhoven U21") == 0) { cm3_clubs* ret = find_club("PSV Eindhoven"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Sparta Rotterdam U21") == 0) { cm3_clubs* ret = find_club("Sparta Rotterdam"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Utrecht U21") == 0) { cm3_clubs* ret = find_club("FC Utrecht"); if (ret) return (BYTE*)ret; }
+	else if (to_check->ClubNation->NationID == NATION_NETHERLANDS_9CF()) {
+		if ((DWORD)to_check->ClubID == CLUB_JONG_AZ_9CF()) return (BYTE*)get_club(CLUB_AZ_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_JONG_AJAX_9CF()) return (BYTE*)get_club(CLUB_AJAX_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_JONG_ALMERE_CITY_9CF()) return (BYTE*)get_club(CLUB_ALMERE_CITY_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_JONG_PSV_9CF()) return (BYTE*)get_club(CLUB_PSV_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_JONG_SPARTA_ROTTERDAM_9CF()) return (BYTE*)get_club(CLUB_SPARTA_ROTTERDAM_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_JONG_UTRECHT_9CF()) return (BYTE*)get_club(CLUB_UTRECHT_9CF());
+
 	}
 	else if (to_check->ClubNation->NationID == NATION_BELGIUM_9CF()) {
-		if (strcmp(db_club_name, "RSC Anderlecht B") == 0) { cm3_clubs* ret = find_club("RSC Anderlecht"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Royal Antwerp FC B") == 0) { cm3_clubs* ret = find_club("Royal Antwerp FC"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Cercle Brugge B") == 0) { cm3_clubs* ret = find_club("Cercle Brugge"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "RSC Charleroi B") == 0) { cm3_clubs* ret = find_club("Royal Charleroi SC"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Club Brugge KV II") == 0) { cm3_clubs* ret = find_club("Club Brugge KV"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "KAS Eupen U23") == 0) { cm3_clubs* ret = find_club("KAS Eupen"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "KRC Genk B") == 0) { cm3_clubs* ret = find_club("KRC Genk"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "KAA Gent B") == 0) { cm3_clubs* ret = find_club("KAA Gent"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "KV Mechelen U23") == 0) { cm3_clubs* ret = find_club("KV Mechelen"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Oud-Heverlee Leuven U23") == 0) { cm3_clubs* ret = find_club("Oud-Heverlee Leuven"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "STVV Youth") == 0) { cm3_clubs* ret = find_club("Sint-Truidense VV"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Standard de Liège 16 FC") == 0) { cm3_clubs* ret = find_club("Standard Liège"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Union Saint-Gilloise U23") == 0) { cm3_clubs* ret = find_club("Union Saint-Gilloise"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Zulte-Waregem B") == 0) { cm3_clubs* ret = find_club("Zulte Waregem"); if (ret) return (BYTE*)ret; }
+		if ((DWORD)to_check->ClubID == CLUB_ANDERLECHT_B_9CF()) return (BYTE*)get_club(CLUB_ANDERLECHT_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ANTWERP_B_9CF()) return (BYTE*)get_club(CLUB_ANTWERP_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_CERCLE_BRUGGE_B_9CF()) return (BYTE*)get_club(CLUB_CERCLE_BRUGGE_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_CHARLEROI_B_9CF()) return (BYTE*)get_club(CLUB_CHARLEROI_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_CLUB_BRUGGE_B_9CF()) return (BYTE*)get_club(CLUB_CLUB_BRUGGE_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_EUPEN_B_9CF()) return (BYTE*)get_club(CLUB_EUPEN_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_GENK_B_9CF()) return (BYTE*)get_club(CLUB_GENK_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_GENT_B_9CF()) return (BYTE*)get_club(CLUB_GENT_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_KV_MECHELEN_B_9CF()) return (BYTE*)get_club(CLUB_KV_MECHELEN_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_OH_LEUVEN_B_9CF()) return (BYTE*)get_club(CLUB_OH_LEUVEN_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SINT_TRUIDEN_B_9CF()) return (BYTE*)get_club(CLUB_SINT_TRUIDEN_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_STANDARD_LIEGE_B_9CF()) return (BYTE*)get_club(CLUB_STANDARD_LIEGE_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_UNION_SG_B_9CF()) return (BYTE*)get_club(CLUB_UNION_SG_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ZULTE_WAREGEM_B_9CF()) return (BYTE*)get_club(CLUB_ZULTE_WAREGEM_9CF());
 	}
 	else if (to_check->ClubNation->NationID == NATION_RUSSIA_9CF()) {
-		if (strcmp(db_club_name, "Akron-2 Togliatti") == 0) { cm3_clubs* ret = find_club("Akron Tolyatti"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Alania-2 Vladikavkaz") == 0) { cm3_clubs* ret = find_club("Alania Vladikavkaz"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Arsenal-2 Tula") == 0) { cm3_clubs* ret = find_club("Arsenal Tula"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Baltika-2 Kaliningrad") == 0) { cm3_clubs* ret = find_club("Baltika Kaliningrad"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "CSKA Moscow II") == 0) { cm3_clubs* ret = find_club("CSKA Moscow"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Dinamo Makhachkala II") == 0) { cm3_clubs* ret = find_club("Dinamo Makhachkala"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Dynamo 2 Moscow") == 0) { cm3_clubs* ret = find_club("Dynamo Moscow"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Enisey 2 Krasnoyarsk") == 0) { cm3_clubs* ret = find_club("Enisey Krasnoyarsk"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Fakel-M Voronezh") == 0) { cm3_clubs* ret = find_club("Fakel Voronezh"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Khimki 2") == 0) { cm3_clubs* ret = find_club("FC Khimki"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Orenburg-2") == 0) { cm3_clubs* ret = find_club("FC Orenburg"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Rostov 2") == 0) { cm3_clubs* ret = find_club("FC Rostov"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FK Ufa 2") == 0) { cm3_clubs* ret = find_club("FC Ufa"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Kosmos-2 Dolgoprudnyi") == 0) { cm3_clubs* ret = find_club("Kosmos Khimki"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Krylya Sovetov 2 Samara") == 0) { cm3_clubs* ret = find_club("Krylya Sovetov Samara"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Lokomotiv-Kazanka Moskow") == 0) { cm3_clubs* ret = find_club("Lokomotiv Moscow"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Rodina 2 Moscow") == 0) { cm3_clubs* ret = find_club("Rodina Moscow"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Rotor 2 Volgograd") == 0) { cm3_clubs* ret = find_club("Rotor Volgograd"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Rubin 2 Kazan") == 0) { cm3_clubs* ret = find_club("Rubin Kazan"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "SKA Khabarovsk 2") == 0) { cm3_clubs* ret = find_club("SKA Khabarovsk"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Spartak 2 Moscow") == 0) { cm3_clubs* ret = find_club("Spartak Moscow"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Ural 2 Ekaterinburg") == 0) { cm3_clubs* ret = find_club("Ural Yekaterinburg"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Zenit 2 St. Petersburg") == 0) { cm3_clubs* ret = find_club("Zenit St. Petersburg"); if (ret) return (BYTE*)ret; }
+		if ((DWORD)to_check->ClubID == CLUB_AKRON_2_9CF()) return (BYTE*)get_club(CLUB_AKRON_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ALANIA_2_9CF()) return (BYTE*)get_club(CLUB_ALANIA_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ARSENAL_2_TULA_9CF()) return (BYTE*)get_club(CLUB_ARSENAL_TULA_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_BALTIKA_2_9CF()) return (BYTE*)get_club(CLUB_BALTIKA_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_CSKA_2_MOSCOW_9CF()) return (BYTE*)get_club(CLUB_CSKA_MOSCOW_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_DINAMO_2_MAKHACHKALA_9CF()) return (BYTE*)get_club(CLUB_DINAMO_MAKHACHKALA_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_DYNAMO_2_MOSCOW_9CF()) return (BYTE*)get_club(CLUB_DYNAMO_MOSCOW_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ENISEY_2_9CF()) return (BYTE*)get_club(CLUB_ENISEY_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_FAKEL_M_VORONEZH_9CF()) return (BYTE*)get_club(CLUB_FAKEL_VORONEZH_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_KHIMKI_2_9CF()) return (BYTE*)get_club(CLUB_KHIMKI_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ORENBURG_2_9CF()) return (BYTE*)get_club(CLUB_ORENBURG_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ROSTOV_2_9CF()) return (BYTE*)get_club(CLUB_ROSTOV_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_UFA_2_9CF()) return (BYTE*)get_club(CLUB_UFA_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_KOSMOS_2_DOLGOPRUDNYI_9CF()) return (BYTE*)get_club(CLUB_KOSMOS_KHIMKI_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_KRYLYA_SOVETOV_2_9CF()) return (BYTE*)get_club(CLUB_KRYLYA_SOVETOV_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LOKOMOTIV_KAZANKA_MOSKOW_9CF()) return (BYTE*)get_club(CLUB_LOKOMOTIV_MOSCOW_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_RODINA_2_MOSCOW_9CF()) return (BYTE*)get_club(CLUB_RODINA_MOSCOW_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ROTOR_2_9CF()) return (BYTE*)get_club(CLUB_ROTOR_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_RUBIN_2_KAZAN_9CF()) return (BYTE*)get_club(CLUB_RUBIN_KAZAN_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SKA_KHABAROVSK_2_9CF()) return (BYTE*)get_club(CLUB_SKA_KHABAROVSK_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SPARTAK_2_MOSCOW_9CF()) return (BYTE*)get_club(CLUB_SPARTAK_MOSCOW_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_URAL_2_9CF()) return (BYTE*)get_club(CLUB_URAL_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ZENIT_2_9CF()) return (BYTE*)get_club(CLUB_ZENIT_9CF());
 	}
 	else if (to_check->ClubNation->NationID == NATION_CZECH_REPUBLIC_9CF()) {
-		if (strcmp(db_club_name, "1.FC Slovacko B") == 0) { cm3_clubs* ret = find_club("1.FC Slovacko"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "AC Sparta Prague B") == 0) { cm3_clubs* ret = find_club("AC Sparta Prague"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Bohemians Prague 1905 B") == 0) { cm3_clubs* ret = find_club("Bohemians Prague 1905"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Banik Ostrava B") == 0) { cm3_clubs* ret = find_club("FC Banik Ostrava"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Hradec Kralove B") == 0) { cm3_clubs* ret = find_club("FC Hradec Kralove"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC SILON Taborsko B") == 0) { cm3_clubs* ret = find_club("FC SILON Taborsko"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Slovan Liberec B") == 0) { cm3_clubs* ret = find_club("FC Slovan Liberec"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Viktoria Plzen B") == 0) { cm3_clubs* ret = find_club("FC Viktoria Plzen"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC FC Zbrojovka Brno B") == 0) { cm3_clubs* ret = find_club("FC FC Zbrojovka Brno"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Zlin B") == 0) { cm3_clubs* ret = find_club("FC Zlin"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FK Dukla Prague B") == 0) { cm3_clubs* ret = find_club("FK Dukla Prague"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FK Jablonec B") == 0) { cm3_clubs* ret = find_club("FK Jablonec"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FK Mlada Boleslav B") == 0) { cm3_clubs* ret = find_club("FK Mlada Boleslav"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FK Pardubice B") == 0) { cm3_clubs* ret = find_club("FK Pardubice"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FK Pribram B") == 0) { cm3_clubs* ret = find_club("FK Pribram"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FK Teplice B") == 0) { cm3_clubs* ret = find_club("FK Teplice"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "MFK Karvina B") == 0) { cm3_clubs* ret = find_club("MFK Karvina"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "SK Dynamo Ceske Budejovice B") == 0) { cm3_clubs* ret = find_club("SK Dynamo Ceske Budejovice"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "SK Sigma Olomouc B") == 0) { cm3_clubs* ret = find_club("SK Sigma Olomouc"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "SK Slavia Prague B") == 0) { cm3_clubs* ret = find_club("SK Slavia Prague"); if (ret) return (BYTE*)ret; }
+		if ((DWORD)to_check->ClubID == CLUB_SLOVACKO_B_9CF()) return (BYTE*)get_club(CLUB_SLOVACKO_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SPARTA_PRAGUE_B_9CF()) return (BYTE*)get_club(CLUB_SPARTA_PRAGUE_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_BOHEMIANS_1905_B_9CF()) return (BYTE*)get_club(CLUB_BOHEMIANS_1905_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_BANIK_OSTRAVA_B_9CF()) return (BYTE*)get_club(CLUB_BANIK_OSTRAVA_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_HRADEC_KRALOVE_B_9CF()) return (BYTE*)get_club(CLUB_HRADEC_KRALOVE_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_TABORSKO_B_9CF()) return (BYTE*)get_club(CLUB_TABORSKO_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SLOVAN_LIBEREC_B_9CF()) return (BYTE*)get_club(CLUB_SLOVAN_LIBEREC_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_VIKTORIA_PLZEN_B_9CF()) return (BYTE*)get_club(CLUB_VIKTORIA_PLZEN_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_BRNO_B_9CF()) return (BYTE*)get_club(CLUB_BRNO_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ZLIN_B_9CF()) return (BYTE*)get_club(CLUB_ZLIN_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_DUKLA_PRAGUE_B_9CF()) return (BYTE*)get_club(CLUB_DUKLA_PRAGUE_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_JABLONEC_B_9CF()) return (BYTE*)get_club(CLUB_JABLONEC_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_MLADA_BOLESLAV_B_9CF()) return (BYTE*)get_club(CLUB_MLADA_BOLESLAV_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_PARDUBICE_B_9CF()) return (BYTE*)get_club(CLUB_PARDUBICE_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_PRIBRAM_B_9CF()) return (BYTE*)get_club(CLUB_PRIBRAM_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_TEPLICE_B_9CF()) return (BYTE*)get_club(CLUB_TEPLICE_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_KARVINA_B_9CF()) return (BYTE*)get_club(CLUB_KARVINA_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_CESKE_BUDEJOVICE_B_9CF()) return (BYTE*)get_club(CLUB_CESKE_BUDEJOVICE_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SIGMA_OLOMOUC_B_9CF()) return (BYTE*)get_club(CLUB_SIGMA_OLOMOUC_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SLAVIA_PRAGUE_B_9CF()) return (BYTE*)get_club(CLUB_SLAVIA_PRAGUE_9CF());
 	}
 	else if (to_check->ClubNation->NationID == NATION_AUSTRIA_9CF()) {
-		if (strcmp(db_club_name, "Admira Wacker Panthers") == 0) { cm3_clubs* ret = find_club("Admira Wacker"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Young Violets Austria Wien") == 0) { cm3_clubs* ret = find_club("Austria Vienna"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "LASK Amateure OÖ") == 0) { cm3_clubs* ret = find_club("LASK Linz"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Rapid Vienna II") == 0) { cm3_clubs* ret = find_club("Rapid Vienna"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Liefering") == 0) { cm3_clubs* ret = find_club("Red Bull Salzburg"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "SC Austria Lustenau II") == 0) { cm3_clubs* ret = find_club("SC Austria Lustenau"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "SCR Altach Juniors") == 0) { cm3_clubs* ret = find_club("SCR Altach"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "SK Sturm Graz II") == 0) { cm3_clubs* ret = find_club("SK Sturm Graz"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "SKN St. Pölten Juniors") == 0) { cm3_clubs* ret = find_club("SKN St. Pölten"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "SV Ried II") == 0) { cm3_clubs* ret = find_club("SV Ried"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Wolfsberger AC II") == 0) { cm3_clubs* ret = find_club("Wolfsberger AC"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "WSG Tirol II") == 0) { cm3_clubs* ret = find_club("WSG Tirol"); if (ret) return (BYTE*)ret; }
+		if ((DWORD)to_check->ClubID == CLUB_ADMIRA_WACKER_II_9CF()) return (BYTE*)get_club(CLUB_ADMIRA_WACKER_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_AUSTRIA_VIENNA_II_9CF()) return (BYTE*)get_club(CLUB_AUSTRIA_VIENNA_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LASK_II_9CF()) return (BYTE*)get_club(CLUB_LASK_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_RAPID_VIENNA_II_9CF()) return (BYTE*)get_club(CLUB_RAPID_VIENNA_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LIEFERING_9CF()) return (BYTE*)get_club(CLUB_RB_SALZBURG_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_AUSTRIA_LUSTENAU_II_9CF()) return (BYTE*)get_club(CLUB_AUSTRIA_LUSTENAU_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ALTACH_II_9CF()) return (BYTE*)get_club(CLUB_ALTACH_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_STURM_GRAZ_II_9CF()) return (BYTE*)get_club(CLUB_STURM_GRAZ_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ST_POLTEN_II_9CF()) return (BYTE*)get_club(CLUB_ST_POLTEN_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_RIED_II_9CF()) return (BYTE*)get_club(CLUB_RIED_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_WOLFSBERG_II_9CF()) return (BYTE*)get_club(CLUB_WOLFSBERG_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_WSG_TIROL_II_9CF()) return (BYTE*)get_club(CLUB_WSG_TIROL_9CF());
+
 	}
 	else if (to_check->ClubNation->NationID == NATION_SWITZERLAND_9CF()) {
-		if (strcmp(db_club_name, "BSC Young Boys U21") == 0) { cm3_clubs* ret = find_club("BSC Young Boys"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Grasshopper Club Zürich U21") == 0) { cm3_clubs* ret = find_club("Grasshopper Club Zurich"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Basel 1893 U21") == 0) { cm3_clubs* ret = find_club("FC Basel 1893"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Lausanne-Sport II ") == 0) { cm3_clubs* ret = find_club("FC Lausanne-Sport"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Lugano II") == 0) { cm3_clubs* ret = find_club("FC Lugano"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Luzern U21") == 0) { cm3_clubs* ret = find_club("FC Luzern"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Sion U21") == 0) { cm3_clubs* ret = find_club("FC Sion"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC St. Gallen 1879 U21") == 0) { cm3_clubs* ret = find_club("FC St. Gallen 1879"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Winterthur U21") == 0) { cm3_clubs* ret = find_club("FC Winterthur"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Zürich U21") == 0) { cm3_clubs* ret = find_club("FC Zürich"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Servette FC U21") == 0) { cm3_clubs* ret = find_club("Servette FC"); if (ret) return (BYTE*)ret; }
+		if ((DWORD)to_check->ClubID == CLUB_YOUNG_BOYS_U21_9CF()) return (BYTE*)get_club(CLUB_YOUNG_BOYS_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_GRASSHOPPERS_U21_9CF()) return (BYTE*)get_club(CLUB_GRASSHOPPERS_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_BASEL_U21_9CF()) return (BYTE*)get_club(CLUB_BASEL_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LAUSANNE_U21_9CF()) return (BYTE*)get_club(CLUB_LAUSANNE_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LUGANO_U21_9CF()) return (BYTE*)get_club(CLUB_LUGANO_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LUZERN_U21_9CF()) return (BYTE*)get_club(CLUB_LUZERN_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SION_U21_9CF()) return (BYTE*)get_club(CLUB_SION_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ST_GALLEN_U21_9CF()) return (BYTE*)get_club(CLUB_ST_GALLEN_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_WINTERTHUR_U21_9CF()) return (BYTE*)get_club(CLUB_WINTERTHUR_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ZURICH_U21_9CF()) return (BYTE*)get_club(CLUB_ZURICH_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SERVETTE_U21_9CF()) return (BYTE*)get_club(CLUB_SERVETTE_9CF());
 	}
 	else if (to_check->ClubNation->NationID == NATION_FRANCE_9CF()) {
-		if (strcmp(db_club_name, "AC Ajaccio B") == 0) { cm3_clubs* ret = find_club("AC Ajaccio"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "AC Le Havre B") == 0) { cm3_clubs* ret = find_club("Le Havre AC"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "AJ Auxerre B") == 0) { cm3_clubs* ret = find_club("AJ Auxerre"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Amiens SC B") == 0) { cm3_clubs* ret = find_club("Amiens SC"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Angers SCO B") == 0) { cm3_clubs* ret = find_club("Angers SCO"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "AS Monaco B") == 0) { cm3_clubs* ret = find_club("AS Monaco"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "AS Nancy-Lorraine B") == 0) { cm3_clubs* ret = find_club("AS Nancy-Lorraine"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "AS Saint-Étienne B") == 0) { cm3_clubs* ret = find_club("AS Saint-Étienne"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Bourges Foot 18 B") == 0) { cm3_clubs* ret = find_club("Bourges Foot 18"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Clermont Foot 63 B") == 0) { cm3_clubs* ret = find_club("Clermont Foot 63"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "CS Sedan-Ardennes B") == 0) { cm3_clubs* ret = find_club("CS Sedan-Ardennes"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Dijon FCO B") == 0) { cm3_clubs* ret = find_club("Dijon FCO"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "EA Guingamp B") == 0) { cm3_clubs* ret = find_club("EA Guingamp"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "ESTAC Troyes B") == 0) { cm3_clubs* ret = find_club("ESTAC Troyes"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Girondins Bordeaux B") == 0) { cm3_clubs* ret = find_club("FC Girondins Bordeaux"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Le Mans FC B") == 0) { cm3_clubs* ret = find_club("Le Mans FC"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Lorient B") == 0) { cm3_clubs* ret = find_club("FC Lorient"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Metz B") == 0) { cm3_clubs* ret = find_club("FC Metz"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Nantes B") == 0) { cm3_clubs* ret = find_club("FC Nantes"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "FC Sochaux-Montbéliard B") == 0) { cm3_clubs* ret = find_club("FC Sochaux-Montbéliard"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "LB Châteauroux B") == 0) { cm3_clubs* ret = find_club("LB Châteauroux"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Le Puy Foot 43 Auvergne B") == 0) { cm3_clubs* ret = find_club("Le Puy Foot 43 Auvergne"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Vendée Les Herbiers Football B") == 0) { cm3_clubs* ret = find_club("Vendée Les Herbiers Football"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "LOSC Lille B") == 0) { cm3_clubs* ret = find_club("LOSC Lille"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Lyon - La Duchère B") == 0) { cm3_clubs* ret = find_club("Lyon - La Duchère"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Marignane-Gignac-Côte Bleue FC B") == 0) { cm3_clubs* ret = find_club("Marignane-Gignac-Côte-Bleue FC"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Montpellier HSC B") == 0) { cm3_clubs* ret = find_club("Montpellier HSC"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "OGC Nice B") == 0) { cm3_clubs* ret = find_club("OGC Nice"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Olympique de Marseille B") == 0) { cm3_clubs* ret = find_club("Olympique Marseille"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Olympique Lyon B") == 0) { cm3_clubs* ret = find_club("Olympique Lyon"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Paris FC B") == 0) { cm3_clubs* ret = find_club("Paris FC"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Paris Saint-Germain B") == 0) { cm3_clubs* ret = find_club("Paris Saint-Germain"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Pau FC B") == 0) { cm3_clubs* ret = find_club("Pau FC"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Quevilly - Rouen Métropole B") == 0) { cm3_clubs* ret = find_club("Quevilly - Rouen Métropole"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Racing Strasbourg B") == 0) { cm3_clubs* ret = find_club("RC Strasbourg Alsace"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "RC Lens B") == 0) { cm3_clubs* ret = find_club("RC Lens"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Rodez Aveyron Football B") == 0) { cm3_clubs* ret = find_club("Rodez AF"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "SC Bastia B") == 0) { cm3_clubs* ret = find_club("SC Bastia"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "SM Caen B") == 0) { cm3_clubs* ret = find_club("SM Caen"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Stade Brest 29 B") == 0) { cm3_clubs* ret = find_club("Stade Brestois 29"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Stade Briochin B") == 0) { cm3_clubs* ret = find_club("Stade Briochin"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Stade Laval B") == 0) { cm3_clubs* ret = find_club("Stade Lavallois"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Stade Reims B") == 0) { cm3_clubs* ret = find_club("Stade Reims"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Stade Rennais FC B") == 0) { cm3_clubs* ret = find_club("Stade Rennais FC"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Toulouse FC B") == 0) { cm3_clubs* ret = find_club("FC Toulouse"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "US Avranches B") == 0) { cm3_clubs* ret = find_club("US Avranches"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "US Boulogne B") == 0) { cm3_clubs* ret = find_club("US Boulogne"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "US Orléans B") == 0) { cm3_clubs* ret = find_club("US Orléans"); if (ret) return (BYTE*)ret; }
-		if (strcmp(db_club_name, "Valenciennes FC B") == 0) { cm3_clubs* ret = find_club("Valenciennes FC"); if (ret) return (BYTE*)ret; }
+		if ((DWORD)to_check->ClubID == CLUB_AJACCIO_B_9CF()) return (BYTE*)get_club(CLUB_AJACCIO_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LE_HAVRE_B_9CF()) return (BYTE*)get_club(CLUB_LE_HAVRE_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_AUXERRE_B_9CF()) return (BYTE*)get_club(CLUB_AUXERRE_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_AMIENS_B_9CF()) return (BYTE*)get_club(CLUB_AMIENS_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ANGERS_B_9CF()) return (BYTE*)get_club(CLUB_ANGERS_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_MONACO_B_9CF()) return (BYTE*)get_club(CLUB_MONACO_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_NANCY_B_9CF()) return (BYTE*)get_club(CLUB_NANCY_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SAINT_ETIENNE_B_9CF()) return (BYTE*)get_club(CLUB_SAINT_ETIENNE_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_BOURGES_B_9CF()) return (BYTE*)get_club(CLUB_BOURGES_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_CLERMONT_B_9CF()) return (BYTE*)get_club(CLUB_CLERMONT_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SEDAN_B_9CF()) return (BYTE*)get_club(CLUB_SEDAN_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_DIJON_B_9CF()) return (BYTE*)get_club(CLUB_DIJON_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_GUINGAMP_B_9CF()) return (BYTE*)get_club(CLUB_GUINGAMP_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_TROYES_B_9CF()) return (BYTE*)get_club(CLUB_TROYES_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_BORDEAUX_B_9CF()) return (BYTE*)get_club(CLUB_BORDEAUX_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LE_MANS_B_9CF()) return (BYTE*)get_club(CLUB_LE_MANS_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LORIENT_B_9CF()) return (BYTE*)get_club(CLUB_LORIENT_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_METZ_B_9CF()) return (BYTE*)get_club(CLUB_METZ_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_NANTES_B_9CF()) return (BYTE*)get_club(CLUB_NANTES_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SOCHAUX_B_9CF()) return (BYTE*)get_club(CLUB_SOCHAUX_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_CHATEAUROUX_B_9CF()) return (BYTE*)get_club(CLUB_CHATEAUROUX_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LE_PUY_B_9CF()) return (BYTE*)get_club(CLUB_LE_PUY_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LES_HERBIERS_B_9CF()) return (BYTE*)get_club(CLUB_LES_HERBIERS_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LILLE_B_9CF()) return (BYTE*)get_club(CLUB_LILLE_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LYON_LA_DUCHÈRE_B_9CF()) return (BYTE*)get_club(CLUB_LYON_LA_DUCHÈRE_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_MARIGNANE_B_9CF()) return (BYTE*)get_club(CLUB_MARIGNANE_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_MONTPELLIER_B_9CF()) return (BYTE*)get_club(CLUB_MONTPELLIER_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_NICE_B_9CF()) return (BYTE*)get_club(CLUB_NICE_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_MARSEILLE_B_9CF()) return (BYTE*)get_club(CLUB_MARSEILLE_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LYON_B_9CF()) return (BYTE*)get_club(CLUB_LYON_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_PARIS_FC_B_9CF()) return (BYTE*)get_club(CLUB_PARIS_FC_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_PSG_B_9CF()) return (BYTE*)get_club(CLUB_PSG_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_PAU_B_9CF()) return (BYTE*)get_club(CLUB_PAU_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_QUEVILLY_ROUEN_B_9CF()) return (BYTE*)get_club(CLUB_QUEVILLY_ROUEN_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_STRASBOURG_B_9CF()) return (BYTE*)get_club(CLUB_STRASBOURG_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LENS_B_9CF()) return (BYTE*)get_club(CLUB_LENS_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_RODEZ_B_9CF()) return (BYTE*)get_club(CLUB_RODEZ_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_BASTIA_B_9CF()) return (BYTE*)get_club(CLUB_BASTIA_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_CAEN_B_9CF()) return (BYTE*)get_club(CLUB_CAEN_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_BREST_B_9CF()) return (BYTE*)get_club(CLUB_BREST_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ST_BRIEUC_B_9CF()) return (BYTE*)get_club(CLUB_ST_BRIEUC_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LAVAL_B_9CF()) return (BYTE*)get_club(CLUB_LAVAL_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_REIMS_B_9CF()) return (BYTE*)get_club(CLUB_REIMS_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_RENNES_B_9CF()) return (BYTE*)get_club(CLUB_RENNES_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_TOULOUSE_B_9CF()) return (BYTE*)get_club(CLUB_TOULOUSE_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_AVRANCHES_B_9CF()) return (BYTE*)get_club(CLUB_AVRANCHES_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_BOULOGNE_B_9CF()) return (BYTE*)get_club(CLUB_BOULOGNE_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ORLEANS_B_9CF()) return (BYTE*)get_club(CLUB_ORLEANS_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_VALENCIENNES_B_9CF()) return (BYTE*)get_club(CLUB_VALENCIENNES_9CF());
 	}
 
 	// default case if none found
@@ -1852,13 +819,1795 @@ void __declspec(naked) check_if_reserve_team_new_c()
 	}
 }
 
+int force_load_9cf_clubs(DWORD old_id, DWORD new_id) {
+	for (const auto& [key, value] : club_dword_match) {
+		if (Get9CF(value) == old_id) {
+			WriteDWORD(value, new_id);
+			return 1;
+		}
+	}
+	return 0;
+}
+
+void check_9cf() {
+	for (const auto& [key, value] : club_dword_match) {
+		if (Get9CF(value) == -1) {
+			string msg = "Could not find club: " + key;
+			create_message_box("Error", msg.c_str(), false);
+		}
+	}
+	for (const auto& [key, value] : league_dword_match) {
+		if (Get9CF(value) == -1) {
+			string msg = "Could not find competition: " + key;
+			create_message_box("Error", msg.c_str(), false);
+		}
+	}
+	for (const auto& [key, value] : award_dword_match) {
+		if (Get9CF(value) == -1) {
+			string msg = "Could not find award: " + key;
+			create_message_box("Error", msg.c_str(), false);
+		}
+	}
+	for (const auto& [key, value] : nation_dword_match) {
+		if (Get9CF(value) == -1) {
+			string msg = "Could not find nation: " + key;
+			create_message_box("Error", msg.c_str(), false);
+		}
+	}
+}
+
+extern "C" _declspec(naked) int check_9cf_c()
+{
+	_asm
+	{
+		pushad
+	}
+	check_9cf();
+	_asm
+	{
+		popad
+		pop edi
+		pop esi
+		pop ebp
+		mov eax, 1
+		pop ebx
+		add esp, 0x220
+		ret
+	}
+}
+
 void setup_name_injection()
 {
 	// Add call to our name function after all player setups have been loaded
 	PatchFunction(0x5CCCC1, (DWORD)inject_club_names);
+	PatchFunction(0x60D810, (DWORD)setup_9cf_nations);
 	PatchFunction(0x60EFD0, (DWORD)setup_9cf_leagues);
 	PatchFunction(0x6115E0, (DWORD)setup_9cf_awards);
 	PatchFunction(0x6146B0, (DWORD)setup_9cf_clubs);
 
+	PatchFunction(0x605144, (DWORD)check_9cf_c);
+
+	PatchFunction(0x60BA80, (DWORD)force_load_9cf_clubs);
+
 	PatchFunction(0x540A50, (DWORD)check_if_reserve_team_new);
+
+	club_dword_match.insert({ "MLS All Stars East", 0x9d00a4 });
+	club_dword_match.insert({ "MLS All Stars West", 0x9d00a8 });
+	club_dword_match.insert({ "River Plate", 0x9d00ac });
+	club_dword_match.insert({ "Vélez Sarsfield", 0x9d00b0 });
+	club_dword_match.insert({ "Independiente", 0x9d00b4 });
+	club_dword_match.insert({ "Independiente Rivadavia de Mendoza", 0x9d00b8 });
+	club_dword_match.insert({ "Racing de Córdoba", 0x9d00bc });
+	club_dword_match.insert({ "Villa Mitre de Bahía Blanca", 0x9d00c0 });
+	club_dword_match.insert({ "Argentino de Rosario", 0x9d00c4 });
+	club_dword_match.insert({ "Temperley", 0x9d00c8 });
+	club_dword_match.insert({ "Lanús", 0x9d00cc });
+	club_dword_match.insert({ "Boca Juniors", 0x9d00d0 });
+	club_dword_match.insert({ "Gimnasia y Esgrima de La Plata", 0x9d00d4 });
+	club_dword_match.insert({ "San Lorenzo de Almagro", 0x9d00d8 });
+	club_dword_match.insert({ "Argentinos Juniors", 0x9d00dc });
+	club_dword_match.insert({ "Rosario Central", 0x9d00e0 });
+	club_dword_match.insert({ "Newell's Old Boys", 0x9d00e4 });
+	club_dword_match.insert({ "Racing Club", 0x9d00e8 });
+	club_dword_match.insert({ "Colón de Santa Fé", 0x9d00ec });
+	club_dword_match.insert({ "Platense", 0x9d00f0 });
+	club_dword_match.insert({ "Ferro Carril Oeste", 0x9d00f4 });
+	club_dword_match.insert({ "Estudiantes de La Plata", 0x9d00f8 });
+	club_dword_match.insert({ "Gimnasia y Esgrima de Jujuy", 0x9d00fc });
+	club_dword_match.insert({ "Unión de Santa Fé", 0x9d0100 });
+	club_dword_match.insert({ "Huracán", 0x9d0104 });
+	club_dword_match.insert({ "Talleres de Córdoba", 0x9d0108 });
+	club_dword_match.insert({ "Belgrano de Córdoba", 0x9d010c });
+	club_dword_match.insert({ "Arsenal", 0x9d0110 });
+	club_dword_match.insert({ "Crystal Palace", 0x9d0114 });
+	club_dword_match.insert({ "Glasgow Celtic", 0x9d0118 });
+	club_dword_match.insert({ "Glasgow Rangers", 0x9d011c });
+	club_dword_match.insert({ "Athletic Club de Bilbao", 0x9d0120 });
+	club_dword_match.insert({ "C.D. Alavés", 0x9d0124 });
+	club_dword_match.insert({ "Real Sociedad C.F.", 0x9d0128 });
+	club_dword_match.insert({ "Atlético de Madrid", 0x9d012c });
+	club_dword_match.insert({ "Atlético de Madrid B", 0x9d0130 });
+	club_dword_match.insert({ "Athletic Club de Bilbao B", 0x9d0134 });
+	club_dword_match.insert({ "F.C. Barcelona", 0x9d0138 });
+	club_dword_match.insert({ "F.C. Barcelona B", 0x9d013c });
+	club_dword_match.insert({ "Real Valladolid", 0x9d0140 });
+	club_dword_match.insert({ "Real Valladolid B", 0x9d0144 });
+	club_dword_match.insert({ "Málaga C.F.", 0x9d0148 });
+	club_dword_match.insert({ "Málaga C.F. B", 0x9d014c });
+	club_dword_match.insert({ "Real Betis Balompié", 0x9d0150 });
+	club_dword_match.insert({ "Real Betis Balompié B", 0x9d0154 });
+	club_dword_match.insert({ "Real Club Celta de Vigo", 0x9d0158 });
+	club_dword_match.insert({ "Real Club Celta de Vigo B", 0x9d015c });
+	club_dword_match.insert({ "Deportivo de La Coruña", 0x9d0160 });
+	club_dword_match.insert({ "Deportivo de La Coruña B", 0x9d0164 });
+	club_dword_match.insert({ "R.C.D. Espanyol", 0x9d0168 });
+	club_dword_match.insert({ "R.C.D. Espanyol B", 0x9d016c });
+	club_dword_match.insert({ "FC Augsburg", 0x9d0170 });
+	club_dword_match.insert({ "FC Augsburg II", 0x9d0174 });
+	club_dword_match.insert({ "R.C.D. Mallorca", 0x9d0178 });
+	club_dword_match.insert({ "R.C.D. Mallorca B", 0x9d017c });
+	club_dword_match.insert({ "Club Atlético Osasuna", 0x9d0180 });
+	club_dword_match.insert({ "Club Atlético Osasuna B", 0x9d0184 });
+	club_dword_match.insert({ "Real Oviedo C.F.", 0x9d0188 });
+	club_dword_match.insert({ "Real Oviedo C.F. B", 0x9d018c });
+	club_dword_match.insert({ "Real Madrid C.F.", 0x9d0190 });
+	club_dword_match.insert({ "Real Madrid C.F. B", 0x9d0194 });
+	club_dword_match.insert({ "Sevilla C.F.", 0x9d0198 });
+	club_dword_match.insert({ "Sevilla C.F. B", 0x9d019c });
+	club_dword_match.insert({ "Real Sociedad C.F. B", 0x9d01a0 });
+	club_dword_match.insert({ "Instituto de Córdoba", 0x9d01a4 });
+	club_dword_match.insert({ "San Martín de San Juan", 0x9d01a8 });
+	club_dword_match.insert({ "Gimnasia y Tiro de Salta", 0x9d01ac });
+	club_dword_match.insert({ "Atlético Rafaela", 0x9d01b0 });
+	club_dword_match.insert({ "San Martín de Tucumán", 0x9d01b4 });
+	club_dword_match.insert({ "Almirante Brown de Arrecifes", 0x9d01b8 });
+	club_dword_match.insert({ "Atlético Tucumán", 0x9d01bc });
+	club_dword_match.insert({ "Olimpo de Bahía Blanca", 0x9d01c0 });
+	club_dword_match.insert({ "Huracán de Corrientes", 0x9d01c4 });
+	club_dword_match.insert({ "Aldosivi", 0x9d01c8 });
+	club_dword_match.insert({ "Cipolletti de Río Negro", 0x9d01cc });
+	club_dword_match.insert({ "San Martín de Mendoza", 0x9d01d0 });
+	club_dword_match.insert({ "Douglas Haig", 0x9d01d4 });
+	club_dword_match.insert({ "Gimnasia y Esgrima de Concepción del Uruguay", 0x9d01d8 });
+	club_dword_match.insert({ "Juventud Antoniana de Salta", 0x9d01dc });
+	club_dword_match.insert({ "Godoy Cruz Antonio Tomba", 0x9d01e0 });
+	club_dword_match.insert({ "Banfield", 0x9d01e4 });
+	club_dword_match.insert({ "Los Andes", 0x9d01e8 });
+	club_dword_match.insert({ "Quilmes", 0x9d01ec });
+	club_dword_match.insert({ "Central Córdoba de Rosario", 0x9d01f0 });
+	club_dword_match.insert({ "Chacarita Juniors", 0x9d01f4 });
+	club_dword_match.insert({ "All Boys", 0x9d01f8 });
+	club_dword_match.insert({ "San Miguel", 0x9d01fc });
+	club_dword_match.insert({ "Nueva Chicago", 0x9d0200 });
+	club_dword_match.insert({ "Defensa y Justicia", 0x9d0204 });
+	club_dword_match.insert({ "Arsenal de Sarandí", 0x9d0208 });
+	club_dword_match.insert({ "Huracán de Tres Arroyos", 0x9d020c });
+	club_dword_match.insert({ "Defensores de Belgrano", 0x9d0210 });
+	club_dword_match.insert({ "Deportivo Morón", 0x9d0214 });
+	club_dword_match.insert({ "Estudiantes de Buenos Aires", 0x9d0218 });
+	club_dword_match.insert({ "Almagro", 0x9d021c });
+	club_dword_match.insert({ "Atlanta", 0x9d0220 });
+	club_dword_match.insert({ "Deportivo Español", 0x9d0224 });
+	club_dword_match.insert({ "El Porvenir", 0x9d0228 });
+	club_dword_match.insert({ "Tigre", 0x9d022c });
+	club_dword_match.insert({ "Middlesbrough", 0x9d0230 });
+	club_dword_match.insert({ "Newcastle United", 0x9d0234 });
+	club_dword_match.insert({ "Sunderland", 0x9d0238 });
+	club_dword_match.insert({ "Aston Villa", 0x9d023c });
+	club_dword_match.insert({ "Manchester United", 0x9d0240 });
+	club_dword_match.insert({ "Liverpool", 0x9d0244 });
+	club_dword_match.insert({ "Everton", 0x9d0248 });
+	club_dword_match.insert({ "Tottenham Hotspur", 0x9d024c });
+	club_dword_match.insert({ "Chelsea", 0x9d0250 });
+	club_dword_match.insert({ "Valencia C.F.", 0x9d0254 });
+	club_dword_match.insert({ "Valencia C.F. B", 0x9d0258 });
+	club_dword_match.insert({ "Brighton and Hove Albion", 0x9d025c });
+	club_dword_match.insert({ "Southampton", 0x9d0260 });
+	club_dword_match.insert({ "Al-Ahli SFC", 0x9d0264 });
+	club_dword_match.insert({ "FC Metz", 0x9d0268 });
+	club_dword_match.insert({ "Cruzeiro Esporte Clube", 0x9d026c });
+	club_dword_match.insert({ "São Paulo Futebol Clube", 0x9d0270 });
+	club_dword_match.insert({ "Sociedade Esportiva Palmeiras", 0x9d0274 });
+	club_dword_match.insert({ "Sport Club Corinthians Paulista", 0x9d0278 });
+	club_dword_match.insert({ "Grêmio Foot-Ball Porto-Alegrense", 0x9d027c });
+	club_dword_match.insert({ "Club Social y Deportivo Colo Colo", 0x9d0280 });
+	club_dword_match.insert({ "Club de Fútbol de la Universidad de Chile", 0x9d0284 });
+	club_dword_match.insert({ "Club Deportivo Universidad Católica", 0x9d0288 });
+	club_dword_match.insert({ "Nacional Montevideo", 0x9d028c });
+	club_dword_match.insert({ "Club Olimpia", 0x9d0290 });
+	club_dword_match.insert({ "Club Cerro Porteño", 0x9d0294 });
+	club_dword_match.insert({ "Club Atlético Peñarol", 0x9d0298 });
+	club_dword_match.insert({ "Elgin City", 0x9d029c });
+	club_dword_match.insert({ "Peterhead", 0x9d02a0 });
+	club_dword_match.insert({ "Eintracht Frankfurt", 0x9d02a4 });
+	club_dword_match.insert({ "Eintracht Frankfurt Amateure", 0x9d02a8 });
+	club_dword_match.insert({ "FC Hansa Rostock", 0x9d02ac });
+	club_dword_match.insert({ "FC Hansa Rostock Amateure", 0x9d02b0 });
+	club_dword_match.insert({ "FC Schalke 04", 0x9d02b4 });
+	club_dword_match.insert({ "FC Schalke 04 Amateure", 0x9d02b8 });
+	club_dword_match.insert({ "SpVgg Greuther Fürth", 0x9d02bc });
+	club_dword_match.insert({ "SpVgg Greuther Fürth II", 0x9d02c0 });
+	club_dword_match.insert({ "Sport Lisboa e Benfica", 0x9d02c4 });
+	club_dword_match.insert({ "Sport Lisboa e Benfica B", 0x9d02c8 });
+	club_dword_match.insert({ "Sporting Clube de Braga", 0x9d02cc });
+	club_dword_match.insert({ "Sporting Clube de Braga B", 0x9d02d0 });
+	club_dword_match.insert({ "Clube Sport Marítimo", 0x9d02d4 });
+	club_dword_match.insert({ "Clube Sport Marítimo B", 0x9d02d8 });
+	club_dword_match.insert({ "Futebol Clube do Porto", 0x9d02dc });
+	club_dword_match.insert({ "Futebol Clube do Porto B", 0x9d02e0 });
+	club_dword_match.insert({ "S.D. Éibar", 0x9d02e4 });
+	club_dword_match.insert({ "Amurrio C.F.", 0x9d02e8 });
+	club_dword_match.insert({ "C.D. Aurrerá Vitoria", 0x9d02ec });
+	club_dword_match.insert({ "Barakaldo C.F.", 0x9d02f0 });
+	club_dword_match.insert({ "S.D. Beasaín", 0x9d02f4 });
+	club_dword_match.insert({ "Bermeo Club", 0x9d02f8 });
+	club_dword_match.insert({ "Gernika Club", 0x9d02fc });
+	club_dword_match.insert({ "S.D. Lemona", 0x9d0304 });
+	club_dword_match.insert({ "Elgoibar C.D.", 0x9d0308 });
+	club_dword_match.insert({ "Hernani C.D.", 0x9d030c });
+	club_dword_match.insert({ "Zalla U.C.", 0x9d0310 });
+	club_dword_match.insert({ "Cultural Durango", 0x9d0314 });
+	club_dword_match.insert({ "S.D. Amorebieta", 0x9d0318 });
+	club_dword_match.insert({ "Arenas Getxo Bilbao", 0x9d031c });
+	club_dword_match.insert({ "Aurrerá Ondarroa C.D.", 0x9d0320 });
+	club_dword_match.insert({ "Baskonia C.D.", 0x9d0324 });
+	club_dword_match.insert({ "S.D. Éibar B", 0x9d0328 });
+	club_dword_match.insert({ "U.D. San Pedro", 0x9d032c });
+	club_dword_match.insert({ "Santurtzi C.D.", 0x9d0330 });
+	club_dword_match.insert({ "Sestao River Club", 0x9d0334 });
+	club_dword_match.insert({ "Tolosa C.F.", 0x9d0338 });
+	club_dword_match.insert({ "Coritiba Football Club", 0x9d033c });
+	club_dword_match.insert({ "Santos Futebol Clube", 0x9d0340 });
+	club_dword_match.insert({ "Sport Club do Recife", 0x9d0344 });
+	club_dword_match.insert({ "Associação Portuguesa de Desportos", 0x9d0348 });
+	club_dword_match.insert({ "Clube Atlético Mineiro", 0x9d0350 });
+	club_dword_match.insert({ "Clube de Regatas Vasco da Gama", 0x9d0354 });
+	club_dword_match.insert({ "Clube de Regatas do Flamengo", 0x9d0358 });
+	club_dword_match.insert({ "Sport Club Internacional", 0x9d035c });
+	club_dword_match.insert({ "Esporte Clube Vitória", 0x9d0360 });
+	club_dword_match.insert({ "Botafogo de Futebol e Regatas", 0x9d0364 });
+	club_dword_match.insert({ "Clube Atlético Paranaense", 0x9d0368 });
+	club_dword_match.insert({ "Associação Atlética Ponte Preta", 0x9d036c });
+	club_dword_match.insert({ "Esporte Clube Juventude", 0x9d0370 });
+	club_dword_match.insert({ "Guarani Futebol Clube", 0x9d0374 });
+	club_dword_match.insert({ "Paraná Clube", 0x9d0378 });
+	club_dword_match.insert({ "Chicago Fire", 0x9d037c });
+	club_dword_match.insert({ "Miami Fusion FC", 0x9d0380 });
+	club_dword_match.insert({ "Washington DC United", 0x9d0384 });
+	club_dword_match.insert({ "Tampa Bay Mutiny", 0x9d0388 });
+	club_dword_match.insert({ "San Jose Earthquakes", 0x9d038c });
+	club_dword_match.insert({ "New England Revolution", 0x9d0390 });
+	club_dword_match.insert({ "NY/NJ Metrostars", 0x9d0394 });
+	club_dword_match.insert({ "Los Angeles Galaxy", 0x9d0398 });
+	club_dword_match.insert({ "Kansas City Wizards", 0x9d039c });
+	club_dword_match.insert({ "Dallas Burn", 0x9d03a0 });
+	club_dword_match.insert({ "Columbus Crew", 0x9d03a4 });
+	club_dword_match.insert({ "Colorado Rapids", 0x9d03a8 });
+	club_dword_match.insert({ "Albacete Balompié", 0x9d03ac });
+	club_dword_match.insert({ "Albacete Balompié B", 0x9d03b0 });
+	club_dword_match.insert({ "TSG 1899 Hoffenheim", 0x9d03b4 });
+	club_dword_match.insert({ "TSG 1899 Hoffenheim II", 0x9d03b8 });
+	club_dword_match.insert({ "C.D. Leganés", 0x9d03bc });
+	club_dword_match.insert({ "C.D. Leganés B", 0x9d03c0 });
+	club_dword_match.insert({ "C.D. Tenerife", 0x9d03c4 });
+	club_dword_match.insert({ "C.D. Tenerife B", 0x9d03c8 });
+	club_dword_match.insert({ "SC Paderborn 07", 0x9d03cc });
+	club_dword_match.insert({ "SC Paderborn 07 II", 0x9d03d0 });
+	club_dword_match.insert({ "Deportivo Alavés B", 0x9d03d4 });
+	club_dword_match.insert({ "CD Lugo", 0x9d03d8 });
+	club_dword_match.insert({ "CD Lugo B Polvorín", 0x9d03dc });
+	club_dword_match.insert({ "Racing Club de Santander", 0x9d03e0 });
+	club_dword_match.insert({ "Rayo Cantabria", 0x9d03e4 });
+	club_dword_match.insert({ "Rayo Vallecano de Madrid", 0x9d03e8 });
+	club_dword_match.insert({ "Rayo Vallecano de Madrid B", 0x9d03ec });
+	club_dword_match.insert({ "Real Murcia C.F.", 0x9d03f0 });
+	club_dword_match.insert({ "Real Murcia C.F. B", 0x9d03f4 });
+	club_dword_match.insert({ "Real Sporting de Gijón", 0x9d03f8 });
+	club_dword_match.insert({ "Real Sporting de Gijón B", 0x9d03fc });
+	club_dword_match.insert({ "Real Zaragoza", 0x9d0400 });
+	club_dword_match.insert({ "Real Zaragoza B", 0x9d0404 });
+	club_dword_match.insert({ "Granada CF", 0x9d0408 });
+	club_dword_match.insert({ "Granada CF B", 0x9d040c });
+	club_dword_match.insert({ "U.D. Las Palmas", 0x9d0410 });
+	club_dword_match.insert({ "U.D. Las Palmas B", 0x9d0414 });
+	club_dword_match.insert({ "Cádiz CF", 0x9d0418 });
+	club_dword_match.insert({ "Cádiz CF Mirandilla", 0x9d041c });
+	club_dword_match.insert({ "FC Vaduz", 0x9d0420 });
+	club_dword_match.insert({ "USV Eschen/Mauren", 0x9d0424 });
+	club_dword_match.insert({ "FC Balzers", 0x9d0428 });
+	club_dword_match.insert({ "General Paz Juniors de Córdoba", 0x9d042c });
+	club_dword_match.insert({ "Swansea City", 0x9d0430 });
+	club_dword_match.insert({ "Cardiff City", 0x9d0434 });
+	club_dword_match.insert({ "Merthyr Tydfil", 0x9d0438 });
+	club_dword_match.insert({ "Wrexham", 0x9d043c });
+	club_dword_match.insert({ "Sporting Clube de Portugal", 0x9d0440 });
+	club_dword_match.insert({ "Sporting Clube de Portugal B", 0x9d0444 });
+	club_dword_match.insert({ "Arminia Bielefeld", 0x9d0448 });
+	club_dword_match.insert({ "Arminia Bielefeld II", 0x9d044c });
+	club_dword_match.insert({ "FC Cartagena", 0x9d0450 });
+	club_dword_match.insert({ "FC Cartagena B", 0x9d0454 });
+	club_dword_match.insert({ "Holstein Kiel", 0x9d0458 });
+	club_dword_match.insert({ "Holstein Kiel II", 0x9d045c });
+	club_dword_match.insert({ "Hannover 96", 0x9d0460 });
+	club_dword_match.insert({ "Hannover 96 Amateure", 0x9d0464 });
+	club_dword_match.insert({ "1.FC Köln", 0x9d0468 });
+	club_dword_match.insert({ "1.FC Köln Amateure", 0x9d046c });
+	club_dword_match.insert({ "Borussia M'gladbach", 0x9d0470 });
+	club_dword_match.insert({ "Bor. M'gladbach Amateure", 0x9d0474 });
+	club_dword_match.insert({ "1.FC Nürnberg", 0x9d0478 });
+	club_dword_match.insert({ "1.FC Nürnberg Amateure", 0x9d047c });
+	club_dword_match.insert({ "FC Ingolstadt 04", 0x9d0480 });
+	club_dword_match.insert({ "FC Ingolstadt 04 II", 0x9d0484 });
+	club_dword_match.insert({ "SC Freiburg", 0x9d0488 });
+	club_dword_match.insert({ "SC Freiburg Amateure", 0x9d048c });
+	club_dword_match.insert({ "SSV Jahn Regensburg", 0x9d0490 });
+	club_dword_match.insert({ "SSV Jahn Regensburg II", 0x9d0494 });
+	club_dword_match.insert({ "Burgos CF", 0x9d0498 });
+	club_dword_match.insert({ "Burgos CF Promesas", 0x9d049c });
+	club_dword_match.insert({ "SpVgg Unterhaching", 0x9d04a0 });
+	club_dword_match.insert({ "SpVgg Unterhaching II", 0x9d04a4 });
+	club_dword_match.insert({ "Villarreal CF", 0x9d04a8 });
+	club_dword_match.insert({ "Villarreal CF B", 0x9d04ac });
+	club_dword_match.insert({ "SD Huesca", 0x9d04b0 });
+	club_dword_match.insert({ "SD Huesca B", 0x9d04b4 });
+	club_dword_match.insert({ "C.D. Castellón", 0x9d04b8 });
+	club_dword_match.insert({ "C.D. Castellón B", 0x9d04bc });
+	club_dword_match.insert({ "Getafe CF", 0x9d04c0 });
+	club_dword_match.insert({ "Getafe CF B", 0x9d04c4 });
+	club_dword_match.insert({ "UD Logroñés", 0x9d04c8 });
+	club_dword_match.insert({ "UD Logroñés Promesas", 0x9d04cc });
+	club_dword_match.insert({ "UD Almería", 0x9d04d0 });
+	club_dword_match.insert({ "UD Almería B", 0x9d04d4 });
+	club_dword_match.insert({ "Córdoba C.F.", 0x9d04d8 });
+	club_dword_match.insert({ "Córdoba C.F. B", 0x9d04dc });
+	club_dword_match.insert({ "Cultural Leonesa", 0x9d04e0 });
+	club_dword_match.insert({ "Cultural Leonesa B", 0x9d04e4 });
+	club_dword_match.insert({ "Elche C.F.", 0x9d04e8 });
+	club_dword_match.insert({ "Elche C.F. B", 0x9d04ec });
+	club_dword_match.insert({ "Levante U.D.", 0x9d04f0 });
+	club_dword_match.insert({ "Levante U.D. B", 0x9d04f4 });
+	club_dword_match.insert({ "GD Chaves", 0x9d04f8 });
+	club_dword_match.insert({ "GD Chaves B", 0x9d04fc });
+	club_dword_match.insert({ "Recreativo de Huelva", 0x9d0500 });
+	club_dword_match.insert({ "Recreativo de Huelva B", 0x9d0504 });
+	club_dword_match.insert({ "Fortuna Düsseldorf", 0x9d0508 });
+	club_dword_match.insert({ "Fortuna Düsseldorf II", 0x9d050c });
+	club_dword_match.insert({ "Vitória Guimarães SC", 0x9d0510 });
+	club_dword_match.insert({ "Vitória Guimarães SC B", 0x9d0514 });
+	club_dword_match.insert({ "FSV Mainz 05", 0x9d0518 });
+	club_dword_match.insert({ "FSV Mainz 05 II", 0x9d051c });
+	club_dword_match.insert({ "CD Numancia", 0x9d0520 });
+	club_dword_match.insert({ "CD Numancia B", 0x9d0524 });
+	club_dword_match.insert({ "1.FC Kaiserslautern Amateure", 0xb63c9c });
+	club_dword_match.insert({ "AD Alcorcón B", 0xb63ca0 });
+	club_dword_match.insert({ "VfL Bochum Amateure", 0xb63ca4 });
+	club_dword_match.insert({ "Hamburger SV Amateure", 0xb63ca8 });
+	club_dword_match.insert({ "Borussia Dortmund Amateure", 0xb63cac });
+	club_dword_match.insert({ "FC St. Pauli Amateure", 0xb63cb0 });
+	club_dword_match.insert({ "FC St. Pauli", 0xb63cb4 });
+	club_dword_match.insert({ "FC Alverca B", 0xb63cb8 });
+	club_dword_match.insert({ "AD Alcorcón", 0xb63cbc });
+	club_dword_match.insert({ "SV Werder Bremen", 0xb63cc0 });
+	club_dword_match.insert({ "VfB Stuttgart", 0xb63cc4 });
+	club_dword_match.insert({ "TSV 1860 München", 0xb63cc8 });
+	club_dword_match.insert({ "TSV 1860 München Amateure", 0xb63ccc });
+	club_dword_match.insert({ "FC Bayern München Amateure", 0xb63cd0 });
+	club_dword_match.insert({ "Hamburger SV", 0xb63cd4 });
+	club_dword_match.insert({ "FC Bayern München", 0xb63cd8 });
+	club_dword_match.insert({ "1.FC Kaiserslautern", 0xb63cdc });
+	club_dword_match.insert({ "FC Alverca", 0xb63ce0 });
+	club_dword_match.insert({ "Hertha BSC Berlin", 0xb63ce4 });
+	club_dword_match.insert({ "Borussia Dortmund", 0xb63ce8 });
+	club_dword_match.insert({ "Hertha BSC Amateure", 0xb63cec });
+	club_dword_match.insert({ "Karlsruher SC", 0xb63cf0 });
+	club_dword_match.insert({ "VfB Stuttgart Amateure", 0xb63cf4 });
+	club_dword_match.insert({ "Karlsruher SC II", 0xb63cf8 });
+	club_dword_match.insert({ "VfL Bochum", 0xb63cfc });
+	club_dword_match.insert({ "SV Werder Bremen Amateure", 0xb63d00 });
+	// new
+	club_dword_match.insert({ "FC Carl Zeiss Jena", 0xDE9000 });
+	club_dword_match.insert({ "FC Carl Zeiss Jena II", 0xDE9004 });
+	club_dword_match.insert({ "FC Energie Cottbus", 0xDE9008 });
+	club_dword_match.insert({ "FC Energie Cottbus II", 0xDE900C });
+	club_dword_match.insert({ "MSV Duisburg", 0xDE9010 });
+	club_dword_match.insert({ "MSV Duisburg Amateure", 0xDE9014 });
+	club_dword_match.insert({ "Bayer 04 Leverkusen", 0xDE9018 });
+	club_dword_match.insert({ "Bayer Leverkusen (A)", 0xDE901C });
+	club_dword_match.insert({ "1.FC Magdeburg", 0xDE9020 });
+	club_dword_match.insert({ "1.FC Magdeburg II", 0xDE9024 });
+	club_dword_match.insert({ "1.FC Saarbrücken", 0xDE9028 });
+	club_dword_match.insert({ "1.FC Saarbrücken II", 0xDE902C });
+	club_dword_match.insert({ "Stuttgarter Kickers", 0xDE9030 });
+	club_dword_match.insert({ "Stuttgarter Kickers II", 0xDE9034 });
+	club_dword_match.insert({ "VfL Wolfsburg", 0xDE9038 });
+	club_dword_match.insert({ "VfL Wolfsburg Amateure", 0xDE903C });
+	club_dword_match.insert({ "Rot-Weiß Oberhausen", 0xDE9040 });
+	club_dword_match.insert({ "RW Oberhausen Amateure", 0xDE9044 });
+	club_dword_match.insert({ "SSV Ulm 1846", 0xDE9048 });
+	club_dword_match.insert({ "SSV Ulm 1846 II", 0xDE904C });
+	club_dword_match.insert({ "SG Wattenscheid 09", 0xDE9050 });
+	club_dword_match.insert({ "SG Wattenscheid 09 II", 0xDE9054 });
+	club_dword_match.insert({ "Girona FC", 0xDE9058 });
+	club_dword_match.insert({ "Girona FC B", 0xDE905C });
+	club_dword_match.insert({ "U.D. Salamanca", 0xDE9060 });
+	club_dword_match.insert({ "U.D. Salamanca B", 0xDE9064 });
+	club_dword_match.insert({ "CD Santa Clara", 0xDE9068 });
+	club_dword_match.insert({ "CD Santa Clara B", 0xDE906C });
+	club_dword_match.insert({ "Aalesunds FK", 0xDE9070 });
+	club_dword_match.insert({ "Aalesunds FK II", 0xDE9074 });
+	club_dword_match.insert({ "Åsane Fotball", 0xDE9078 });
+	club_dword_match.insert({ "Åsane Fotball II", 0xDE907C });
+	club_dword_match.insert({ "Bærum SK", 0xDE9080 });
+	club_dword_match.insert({ "Bærum SK II", 0xDE9084 });
+	club_dword_match.insert({ "FK Bodø/Glimt", 0xDE9088 });
+	club_dword_match.insert({ "FK Bodø/Glimt II", 0xDE908C });
+	club_dword_match.insert({ "SK Brann", 0xDE9090 });
+	club_dword_match.insert({ "SK Brann II", 0xDE9094 });
+	club_dword_match.insert({ "Bryne FK", 0xDE9098 });
+	club_dword_match.insert({ "Bryne FK II", 0xDE909C });
+	club_dword_match.insert({ "Byåsen TF", 0xDE90A0 });
+	club_dword_match.insert({ "Byåsen IL II", 0xDE90A4 });
+	club_dword_match.insert({ "Follo FK", 0xDE90A8 });
+	club_dword_match.insert({ "Follo FK II", 0xDE90AC });
+	club_dword_match.insert({ "Fredrikstad FK", 0xDE90B0 });
+	club_dword_match.insert({ "Fredrikstad FK II", 0xDE90B4 });
+	club_dword_match.insert({ "FK Fyllingsdalen", 0xDE90B8 });
+	club_dword_match.insert({ "FK Fyllingsdalen II", 0xDE90BC });
+	club_dword_match.insert({ "SK Gjøvik-Lyn", 0xDE90C0 });
+	club_dword_match.insert({ "FK Gjøvik-Lyn II", 0xDE90C4 });
+	club_dword_match.insert({ "Grorud IL", 0xDE90C8 });
+	club_dword_match.insert({ "Grorud IL II", 0xDE90CC });
+	club_dword_match.insert({ "Hamarkameratene", 0xDE90D0 });
+	club_dword_match.insert({ "Hamarkameratene II", 0xDE90D4 });
+	club_dword_match.insert({ "FK Haugesund", 0xDE90D8 });
+	club_dword_match.insert({ "FK Haugesund II", 0xDE90DC });
+	club_dword_match.insert({ "IL Hødd", 0xDE90E0 });
+	club_dword_match.insert({ "IL Hødd II", 0xDE90E4 });
+	club_dword_match.insert({ "Hønefoss BK", 0xDE90E8 });
+	club_dword_match.insert({ "Hønefoss BK II", 0xDE90EC });
+	club_dword_match.insert({ "KFUM-Kameratene Oslo", 0xDE90F0 });
+	club_dword_match.insert({ "KFUM-Kameratene Oslo II", 0xDE90F4 });
+	club_dword_match.insert({ "Kjelsås IL", 0xDE90F8 });
+	club_dword_match.insert({ "Kjelsas IL II", 0xDE90FC });
+	club_dword_match.insert({ "Kongsvinger IL", 0xDE9100 });
+	club_dword_match.insert({ "Kongsvinger IL II", 0xDE9104 });
+	club_dword_match.insert({ "Kristiansund BK", 0xDE9108 });
+	club_dword_match.insert({ "Kristiansund BK II", 0xDE910C });
+	club_dword_match.insert({ "Lillestrøm SK", 0xDE9110 });
+	club_dword_match.insert({ "Lillestrøm SK II", 0xDE9114 });
+	club_dword_match.insert({ "Lyn 1896 FK", 0xDE9118 });
+	club_dword_match.insert({ "Lyn 1896 FK II", 0xDE911C });
+	club_dword_match.insert({ "Mjøndalen IF", 0xDE9120 });
+	club_dword_match.insert({ "Mjøndalen IF II", 0xDE9124 });
+	club_dword_match.insert({ "Molde FK", 0xDE9128 });
+	club_dword_match.insert({ "Molde FK II", 0xDE912C });
+	club_dword_match.insert({ "Nardo FK", 0xDE9130 });
+	club_dword_match.insert({ "Nardo FK II", 0xDE9134 });
+	club_dword_match.insert({ "Odds BK", 0xDE9138 });
+	club_dword_match.insert({ "Odds BK II", 0xDE913C });
+	club_dword_match.insert({ "Pors Fotball", 0xDE9140 });
+	club_dword_match.insert({ "Pors Fotball II", 0xDE9144 });
+	club_dword_match.insert({ "Ranheim IL", 0xDE9148 });
+	club_dword_match.insert({ "Ranheim IL II", 0xDE914C });
+	club_dword_match.insert({ "Raufoss IL", 0xDE9150 });
+	club_dword_match.insert({ "Raufoss IL II", 0xDE9154 });
+	club_dword_match.insert({ "Rosenborg BK", 0xDE9158 });
+	club_dword_match.insert({ "Rosenborg BK II", 0xDE915C });
+	club_dword_match.insert({ "Sandefjord Fotball", 0xDE9160 });
+	club_dword_match.insert({ "Sandefjord Fotball II", 0xDE9164 });
+	club_dword_match.insert({ "Sandnes Ulf", 0xDE9168 });
+	club_dword_match.insert({ "Sandnes Ulf II", 0xDE916C });
+	club_dword_match.insert({ "Sarpsborg 08 FF", 0xDE9170 });
+	club_dword_match.insert({ "Sarpsborg 08 FF II", 0xDE9174 });
+	club_dword_match.insert({ "Skeid Oslo", 0xDE9178 });
+	club_dword_match.insert({ "Skeid Oslo II", 0xDE917C });
+	club_dword_match.insert({ "Sogndal IL", 0xDE9180 });
+	club_dword_match.insert({ "Sogndal IL II", 0xDE9184 });
+	club_dword_match.insert({ "Stabæk Fotball", 0xDE9188 });
+	club_dword_match.insert({ "Stabaek IF II", 0xDE918C });
+	club_dword_match.insert({ "IK Start", 0xDE9190 });
+	club_dword_match.insert({ "IK Start II", 0xDE9194 });
+	club_dword_match.insert({ "Strømmen IF", 0xDE9198 });
+	club_dword_match.insert({ "Strømmen IL II", 0xDE919C });
+	club_dword_match.insert({ "Strømsgodset IF", 0xDE91A0 });
+	club_dword_match.insert({ "Strømsgodset IF II", 0xDE91A4 });
+	club_dword_match.insert({ "Tromsø IL", 0xDE91A8 });
+	club_dword_match.insert({ "Tromsø IL II", 0xDE91AC });
+	club_dword_match.insert({ "SK Træff", 0xDE91B0 });
+	club_dword_match.insert({ "SK Træff II", 0xDE91B4 });
+	club_dword_match.insert({ "Ullensaker/Kisa IL", 0xDE91B8 });
+	club_dword_match.insert({ "Ullensaker/Kisa IL II", 0xDE91BC });
+	club_dword_match.insert({ "SK Vard Haugesund", 0xDE91C0 });
+	club_dword_match.insert({ "SK Vard Haugesund II", 0xDE91C4 });
+	club_dword_match.insert({ "Viking FK", 0xDE91C8 });
+	club_dword_match.insert({ "Viking FK II", 0xDE91CC });
+	club_dword_match.insert({ "Vålerenga Fotball Elite", 0xDE91D0 });
+	club_dword_match.insert({ "Vålerenga Fotball II", 0xDE91D4 });
+	club_dword_match.insert({ "Atlantis FC", 0xDE91D8 });
+	club_dword_match.insert({ "Atlantis FC II", 0xDE91DC });
+	club_dword_match.insert({ "HJK Helsinki", 0xDE91E0 });
+	club_dword_match.insert({ "HJK Klubi 04 Helsinki", 0xDE91E4 });
+	club_dword_match.insert({ "FC Espoo", 0xDE91E8 });
+	club_dword_match.insert({ "FC Espoo II", 0xDE91EC });
+	club_dword_match.insert({ "Helsinki IFK", 0xDE91F0 });
+	club_dword_match.insert({ "Helsinki IFK II", 0xDE91F4 });
+	club_dword_match.insert({ "FC Honka", 0xDE91F8 });
+	club_dword_match.insert({ "FC Honka II", 0xDE91FC });
+	club_dword_match.insert({ "FC Inter Turku", 0xDE9200 });
+	club_dword_match.insert({ "FC Inter Turku II", 0xDE9204 });
+	club_dword_match.insert({ "Ilves Tampere", 0xDE9208 });
+	club_dword_match.insert({ "Ilves Tampere II", 0xDE920C });
+	club_dword_match.insert({ "Kuopion Palloseura", 0xDE9210 });
+	club_dword_match.insert({ "Kuopion Palloseura II", 0xDE9214 });
+	club_dword_match.insert({ "Rovaniemen Palloseura", 0xDE9218 });
+	club_dword_match.insert({ "Rovaniemen Palloseura II", 0xDE921C });
+	club_dword_match.insert({ "Vaasan Palloseura", 0xDE9220 });
+	club_dword_match.insert({ "Vaasan Palloseura II", 0xDE9224 });
+	club_dword_match.insert({ "Chrobry Glogow", 0xDE9228 });
+	club_dword_match.insert({ "Chrobry Glogow II", 0xDE922C });
+	club_dword_match.insert({ "Cracovia", 0xDE9230 });
+	club_dword_match.insert({ "Cracovia II", 0xDE9234 });
+	club_dword_match.insert({ "Górnik Zabrze", 0xDE9238 });
+	club_dword_match.insert({ "Gornik Zabrze II", 0xDE923C });
+	club_dword_match.insert({ "Jagiellonia Bialystok", 0xDE9240 });
+	club_dword_match.insert({ "Jagiellonia Bialystok II", 0xDE9244 });
+	club_dword_match.insert({ "Korona Kielce", 0xDE9248 });
+	club_dword_match.insert({ "Korona Kielce II", 0xDE924C });
+	club_dword_match.insert({ "Lech Poznan", 0xDE9250 });
+	club_dword_match.insert({ "Lech Poznan II", 0xDE9254 });
+	club_dword_match.insert({ "Legia Warszawa", 0xDE9258 });
+	club_dword_match.insert({ "Legia Warsaw II", 0xDE925C });
+	club_dword_match.insert({ "LKS Lodz", 0xDE9260 });
+	club_dword_match.insert({ "LKS Lodz II", 0xDE9264 });
+	club_dword_match.insert({ "Miedz Legnica", 0xDE9268 });
+	club_dword_match.insert({ "Miedz Legnica II", 0xDE926C });
+	club_dword_match.insert({ "Piast Gliwice", 0xDE9270 });
+	club_dword_match.insert({ "Piast Gliwice II", 0xDE9274 });
+	club_dword_match.insert({ "Pogon Szczecin", 0xDE9278 });
+	club_dword_match.insert({ "Pogon Szczecin II", 0xDE927C });
+	club_dword_match.insert({ "Raków Czestochowa", 0xDE9280 });
+	club_dword_match.insert({ "Rakow Czestochowa II", 0xDE9284 });
+	club_dword_match.insert({ "Slask Wroclaw", 0xDE9288 });
+	club_dword_match.insert({ "Slask Wroclaw II", 0xDE928C });
+	club_dword_match.insert({ "Widzew Lodz", 0xDE9290 });
+	club_dword_match.insert({ "Widzew Lodz II", 0xDE9294 });
+	club_dword_match.insert({ "Wisla Kraków", 0xDE9298 });
+	club_dword_match.insert({ "Wisla Krakow II", 0xDE929C });
+	club_dword_match.insert({ "Wisla Plock", 0xDE92A0 });
+	club_dword_match.insert({ "Wisla Plock II", 0xDE92A4 });
+	club_dword_match.insert({ "Zaglebie Lubin", 0xDE92A8 });
+	club_dword_match.insert({ "Zaglebie Lubin II", 0xDE92AC });
+	club_dword_match.insert({ "Glasgow Celtic", 0xDE92B0 });
+	club_dword_match.insert({ "Glasgow Celtic B", 0xDE92B4 });
+	club_dword_match.insert({ "Heart of Midlothian FC", 0xDE92B8 });
+	club_dword_match.insert({ "Heart of Midlothian FC B", 0xDE92BC });
+	club_dword_match.insert({ "Asteras Aktor", 0xDE92C0 });
+	club_dword_match.insert({ "Asteras Aktor B", 0xDE92C4 });
+	club_dword_match.insert({ "AEK Athens", 0xDE92C8 });
+	club_dword_match.insert({ "AEK Athens B", 0xDE92CC });
+	club_dword_match.insert({ "Olympiacos Piraeus", 0xDE92D0 });
+	club_dword_match.insert({ "Olympiacos Piraeus B", 0xDE92D4 });
+	club_dword_match.insert({ "PAOK Thessaloniki", 0xDE92D8 });
+	club_dword_match.insert({ "PAOK Thessaloniki B", 0xDE92DC });
+	club_dword_match.insert({ "AZ", 0xDE92E0 });
+	club_dword_match.insert({ "AZ Alkmaar U21", 0xDE92E4 });
+	club_dword_match.insert({ "Ajax Amsterdam", 0xDE92E8 });
+	club_dword_match.insert({ "Ajax Amsterdam U21", 0xDE92EC });
+	club_dword_match.insert({ "Almere City FC", 0xDE92F0 });
+	club_dword_match.insert({ "Jong Almere City FC", 0xDE92F4 });
+	club_dword_match.insert({ "PSV Eindhoven", 0xDE92F8 });
+	club_dword_match.insert({ "PSV Eindhoven U21", 0xDE92FC });
+	club_dword_match.insert({ "Sparta Rotterdam", 0xDE9300 });
+	club_dword_match.insert({ "Sparta Rotterdam U21", 0xDE9304 });
+	club_dword_match.insert({ "FC Utrecht", 0xDE9308 });
+	club_dword_match.insert({ "FC Utrecht U21", 0xDE930C });
+	club_dword_match.insert({ "RSC Anderlecht", 0xDE9310 });
+	club_dword_match.insert({ "RSC Anderlecht B", 0xDE9314 });
+	club_dword_match.insert({ "Royal Antwerp FC", 0xDE9318 });
+	club_dword_match.insert({ "Royal Antwerp FC B", 0xDE931C });
+	club_dword_match.insert({ "Cercle Brugge", 0xDE9320 });
+	club_dword_match.insert({ "Cercle Brugge B", 0xDE9324 });
+	club_dword_match.insert({ "Royal Charleroi SC", 0xDE9328 });
+	club_dword_match.insert({ "RSC Charleroi B", 0xDE932C });
+	club_dword_match.insert({ "Club Brugge KV", 0xDE9330 });
+	club_dword_match.insert({ "Club Brugge KV II", 0xDE9334 });
+	club_dword_match.insert({ "KAS Eupen", 0xDE9338 });
+	club_dword_match.insert({ "KAS Eupen U23", 0xDE933C });
+	club_dword_match.insert({ "KRC Genk", 0xDE9340 });
+	club_dword_match.insert({ "KRC Genk B", 0xDE9344 });
+	club_dword_match.insert({ "KAA Gent", 0xDE9348 });
+	club_dword_match.insert({ "KAA Gent B", 0xDE934C });
+	club_dword_match.insert({ "KV Mechelen", 0xDE9350 });
+	club_dword_match.insert({ "KV Mechelen U23", 0xDE9354 });
+	club_dword_match.insert({ "Oud-Heverlee Leuven", 0xDE9358 });
+	club_dword_match.insert({ "Oud-Heverlee Leuven U23", 0xDE935C });
+	club_dword_match.insert({ "Sint-Truidense VV", 0xDE9360 });
+	club_dword_match.insert({ "STVV Youth", 0xDE9364 });
+	club_dword_match.insert({ "Standard Liège", 0xDE9368 });
+	club_dword_match.insert({ "Standard de Liège 16 FC", 0xDE936C });
+	club_dword_match.insert({ "Union Saint-Gilloise", 0xDE9370 });
+	club_dword_match.insert({ "Union Saint-Gilloise U23", 0xDE9374 });
+	club_dword_match.insert({ "Zulte Waregem", 0xDE9378 });
+	club_dword_match.insert({ "Zulte-Waregem B", 0xDE937C });
+	club_dword_match.insert({ "Akron Tolyatti", 0xDE9380 });
+	club_dword_match.insert({ "Akron-2 Togliatti", 0xDE9384 });
+	club_dword_match.insert({ "Alania Vladikavkaz", 0xDE9388 });
+	club_dword_match.insert({ "Alania-2 Vladikavkaz", 0xDE938C });
+	club_dword_match.insert({ "Arsenal Tula", 0xDE9390 });
+	club_dword_match.insert({ "Arsenal-2 Tula", 0xDE9394 });
+	club_dword_match.insert({ "Baltika Kaliningrad", 0xDE9398 });
+	club_dword_match.insert({ "Baltika-2 Kaliningrad", 0xDE939C });
+	club_dword_match.insert({ "CSKA Moscow", 0xDE93A0 });
+	club_dword_match.insert({ "CSKA Moscow II", 0xDE93A4 });
+	club_dword_match.insert({ "Dinamo Makhachkala", 0xDE93A8 });
+	club_dword_match.insert({ "Dinamo Makhachkala II", 0xDE93AC });
+	club_dword_match.insert({ "Dynamo Moscow", 0xDE93B0 });
+	club_dword_match.insert({ "Dynamo 2 Moscow", 0xDE93B4 });
+	club_dword_match.insert({ "Enisey Krasnoyarsk", 0xDE93B8 });
+	club_dword_match.insert({ "Enisey 2 Krasnoyarsk", 0xDE93BC });
+	club_dword_match.insert({ "Fakel Voronezh", 0xDE93C0 });
+	club_dword_match.insert({ "Fakel-M Voronezh", 0xDE93C4 });
+	club_dword_match.insert({ "FC Khimki", 0xDE93C8 });
+	club_dword_match.insert({ "FC Khimki 2", 0xDE93CC });
+	club_dword_match.insert({ "FC Orenburg", 0xDE93D0 });
+	club_dword_match.insert({ "FC Orenburg-2", 0xDE93D4 });
+	club_dword_match.insert({ "FC Rostov", 0xDE93D8 });
+	club_dword_match.insert({ "FC Rostov 2", 0xDE93DC });
+	club_dword_match.insert({ "FC Ufa", 0xDE93E0 });
+	club_dword_match.insert({ "FK Ufa 2", 0xDE93E4 });
+	club_dword_match.insert({ "Kosmos Khimki", 0xDE93E8 });
+	club_dword_match.insert({ "Kosmos-2 Dolgoprudnyi", 0xDE93EC });
+	club_dword_match.insert({ "Krylya Sovetov Samara", 0xDE93F0 });
+	club_dword_match.insert({ "Krylya Sovetov 2 Samara", 0xDE93F4 });
+	club_dword_match.insert({ "Lokomotiv Moscow", 0xDE93F8 });
+	club_dword_match.insert({ "Lokomotiv-Kazanka Moskow", 0xDE93FC });
+	club_dword_match.insert({ "Rodina Moscow", 0xDE9400 });
+	club_dword_match.insert({ "Rodina 2 Moscow", 0xDE9404 });
+	club_dword_match.insert({ "Rotor Volgograd", 0xDE9408 });
+	club_dword_match.insert({ "Rotor 2 Volgograd", 0xDE940C });
+	club_dword_match.insert({ "Rubin Kazan", 0xDE9410 });
+	club_dword_match.insert({ "Rubin 2 Kazan", 0xDE9414 });
+	club_dword_match.insert({ "SKA Khabarovsk", 0xDE9418 });
+	club_dword_match.insert({ "SKA Khabarovsk 2", 0xDE941C });
+	club_dword_match.insert({ "Spartak Moscow", 0xDE9420 });
+	club_dword_match.insert({ "Spartak 2 Moscow", 0xDE9424 });
+	club_dword_match.insert({ "Ural Yekaterinburg", 0xDE9428 });
+	club_dword_match.insert({ "Ural 2 Ekaterinburg", 0xDE942C });
+	club_dword_match.insert({ "Zenit St. Petersburg", 0xDE9430 });
+	club_dword_match.insert({ "Zenit 2 St. Petersburg", 0xDE9434 });
+	club_dword_match.insert({ "1.FC Slovacko", 0xDE9438 });
+	club_dword_match.insert({ "1.FC Slovacko B", 0xDE943C });
+	club_dword_match.insert({ "AC Sparta Prague", 0xDE9440 });
+	club_dword_match.insert({ "AC Sparta Prague B", 0xDE9444 });
+	club_dword_match.insert({ "Bohemians Prague 1905", 0xDE9448 });
+	club_dword_match.insert({ "Bohemians Prague 1905 B", 0xDE944C });
+	club_dword_match.insert({ "FC Banik Ostrava", 0xDE9450 });
+	club_dword_match.insert({ "FC Banik Ostrava B", 0xDE9454 });
+	club_dword_match.insert({ "FC Hradec Kralove", 0xDE9458 });
+	club_dword_match.insert({ "FC Hradec Kralove B", 0xDE945C });
+	club_dword_match.insert({ "FC SILON Taborsko", 0xDE9460 });
+	club_dword_match.insert({ "FC SILON Taborsko B", 0xDE9464 });
+	club_dword_match.insert({ "FC Slovan Liberec", 0xDE9468 });
+	club_dword_match.insert({ "FC Slovan Liberec B", 0xDE946C });
+	club_dword_match.insert({ "FC Viktoria Plzen", 0xDE9470 });
+	club_dword_match.insert({ "FC Viktoria Plzen B", 0xDE9474 });
+	club_dword_match.insert({ "FC Zbrojovka Brno", 0xDE9478 });
+	club_dword_match.insert({ "FC Zbrojovka Brno B", 0xDE947C });
+	club_dword_match.insert({ "FC Zlin", 0xDE9480 });
+	club_dword_match.insert({ "FC Zlin B", 0xDE9484 });
+	club_dword_match.insert({ "FK Dukla Prague", 0xDE9488 });
+	club_dword_match.insert({ "FK Dukla Prague B", 0xDE948C });
+	club_dword_match.insert({ "FK Jablonec", 0xDE9490 });
+	club_dword_match.insert({ "FK Jablonec B", 0xDE9494 });
+	club_dword_match.insert({ "FK Mlada Boleslav", 0xDE9498 });
+	club_dword_match.insert({ "FK Mlada Boleslav B", 0xDE949C });
+	club_dword_match.insert({ "FK Pardubice", 0xDE94A0 });
+	club_dword_match.insert({ "FK Pardubice B", 0xDE94A4 });
+	club_dword_match.insert({ "FK Pribram", 0xDE94A8 });
+	club_dword_match.insert({ "FK Pribram B", 0xDE94AC });
+	club_dword_match.insert({ "FK Teplice", 0xDE94B0 });
+	club_dword_match.insert({ "FK Teplice B", 0xDE94B4 });
+	club_dword_match.insert({ "MFK Karvina", 0xDE94B8 });
+	club_dword_match.insert({ "MFK Karvina B", 0xDE94BC });
+	club_dword_match.insert({ "SK Dynamo Ceske Budejovice", 0xDE94C0 });
+	club_dword_match.insert({ "SK Dynamo Ceske Budejovice B", 0xDE94C4 });
+	club_dword_match.insert({ "SK Sigma Olomouc", 0xDE94C8 });
+	club_dword_match.insert({ "SK Sigma Olomouc B", 0xDE94CC });
+	club_dword_match.insert({ "SK Slavia Prague", 0xDE94D0 });
+	club_dword_match.insert({ "SK Slavia Prague B", 0xDE94D4 });
+	club_dword_match.insert({ "Admira Wacker", 0xDE94D8 });
+	club_dword_match.insert({ "Admira Wacker Panthers", 0xDE94DC });
+	club_dword_match.insert({ "Austria Vienna", 0xDE94E0 });
+	club_dword_match.insert({ "Young Violets Austria Wien", 0xDE94E4 });
+	club_dword_match.insert({ "LASK Linz", 0xDE94E8 });
+	club_dword_match.insert({ "LASK Amateure OÖ", 0xDE94EC });
+	club_dword_match.insert({ "Rapid Vienna", 0xDE94F0 });
+	club_dword_match.insert({ "Rapid Vienna II", 0xDE94F4 });
+	club_dword_match.insert({ "Red Bull Salzburg", 0xDE94F8 });
+	club_dword_match.insert({ "FC Liefering", 0xDE94FC });
+	club_dword_match.insert({ "SC Austria Lustenau", 0xDE9500 });
+	club_dword_match.insert({ "SC Austria Lustenau II", 0xDE9504 });
+	club_dword_match.insert({ "SCR Altach", 0xDE9508 });
+	club_dword_match.insert({ "SCR Altach Juniors", 0xDE950C });
+	club_dword_match.insert({ "SK Sturm Graz", 0xDE9510 });
+	club_dword_match.insert({ "SK Sturm Graz II", 0xDE9514 });
+	club_dword_match.insert({ "SKN St. Pölten", 0xDE9518 });
+	club_dword_match.insert({ "SKN St. Pölten Juniors", 0xDE951C });
+	club_dword_match.insert({ "SV Ried", 0xDE9520 });
+	club_dword_match.insert({ "SV Ried II", 0xDE9524 });
+	club_dword_match.insert({ "Wolfsberger AC", 0xDE9528 });
+	club_dword_match.insert({ "Wolfsberger AC II", 0xDE952C });
+	club_dword_match.insert({ "WSG Tirol", 0xDE9530 });
+	club_dword_match.insert({ "WSG Tirol II", 0xDE9534 });
+	club_dword_match.insert({ "BSC Young Boys", 0xDE9538 });
+	club_dword_match.insert({ "BSC Young Boys U21", 0xDE953C });
+	club_dword_match.insert({ "Grasshopper Club Zurich", 0xDE9540 });
+	club_dword_match.insert({ "Grasshopper Club Zürich U21", 0xDE9544 });
+	club_dword_match.insert({ "FC Basel 1893", 0xDE9548 });
+	club_dword_match.insert({ "FC Basel 1893 U21", 0xDE954C });
+	club_dword_match.insert({ "FC Lausanne-Sport", 0xDE9550 });
+	club_dword_match.insert({ "FC Lausanne-Sport II ", 0xDE9554 });
+	club_dword_match.insert({ "FC Lugano", 0xDE9558 });
+	club_dword_match.insert({ "FC Lugano II", 0xDE955C });
+	club_dword_match.insert({ "FC Luzern", 0xDE9560 });
+	club_dword_match.insert({ "FC Luzern U21", 0xDE9564 });
+	club_dword_match.insert({ "FC Sion", 0xDE9568 });
+	club_dword_match.insert({ "FC Sion U21", 0xDE956C });
+	club_dword_match.insert({ "FC St. Gallen 1879", 0xDE9570 });
+	club_dword_match.insert({ "FC St. Gallen 1879 U21", 0xDE9574 });
+	club_dword_match.insert({ "FC Winterthur", 0xDE9578 });
+	club_dword_match.insert({ "FC Winterthur U21", 0xDE957C });
+	club_dword_match.insert({ "FC Zürich", 0xDE9580 });
+	club_dword_match.insert({ "FC Zürich U21", 0xDE9584 });
+	club_dword_match.insert({ "Servette FC", 0xDE9588 });
+	club_dword_match.insert({ "Servette FC U21", 0xDE958C });
+	club_dword_match.insert({ "AC Ajaccio", 0xDE9590 });
+	club_dword_match.insert({ "AC Ajaccio B", 0xDE9594 });
+	club_dword_match.insert({ "Le Havre AC", 0xDE9598 });
+	club_dword_match.insert({ "AC Le Havre B", 0xDE959C });
+	club_dword_match.insert({ "AJ Auxerre", 0xDE95A0 });
+	club_dword_match.insert({ "AJ Auxerre B", 0xDE95A4 });
+	club_dword_match.insert({ "Amiens SC", 0xDE95A8 });
+	club_dword_match.insert({ "Amiens SC B", 0xDE95AC });
+	club_dword_match.insert({ "Angers SCO", 0xDE95B0 });
+	club_dword_match.insert({ "Angers SCO B", 0xDE95B4 });
+	club_dword_match.insert({ "AS Monaco", 0xDE95B8 });
+	club_dword_match.insert({ "AS Monaco B", 0xDE95BC });
+	club_dword_match.insert({ "AS Nancy-Lorraine", 0xDE95C0 });
+	club_dword_match.insert({ "AS Nancy-Lorraine B", 0xDE95C4 });
+	club_dword_match.insert({ "AS Saint-Étienne", 0xDE95C8 });
+	club_dword_match.insert({ "AS Saint-Étienne B", 0xDE95CC });
+	club_dword_match.insert({ "Bourges Foot 18", 0xDE95D0 });
+	club_dword_match.insert({ "Bourges Foot 18 B", 0xDE95D4 });
+	club_dword_match.insert({ "Clermont Foot 63", 0xDE95D8 });
+	club_dword_match.insert({ "Clermont Foot 63 B", 0xDE95DC });
+	club_dword_match.insert({ "CS Sedan-Ardennes", 0xDE95E0 });
+	club_dword_match.insert({ "CS Sedan-Ardennes B", 0xDE95E4 });
+	club_dword_match.insert({ "Dijon FCO", 0xDE95E8 });
+	club_dword_match.insert({ "Dijon FCO B", 0xDE95EC });
+	club_dword_match.insert({ "EA Guingamp", 0xDE95F0 });
+	club_dword_match.insert({ "EA Guingamp B", 0xDE95F4 });
+	club_dword_match.insert({ "ESTAC Troyes", 0xDE95F8 });
+	club_dword_match.insert({ "ESTAC Troyes B", 0xDE95FC });
+	club_dword_match.insert({ "FC Girondins Bordeaux", 0xDE9600 });
+	club_dword_match.insert({ "FC Girondins Bordeaux B", 0xDE9604 });
+	club_dword_match.insert({ "Le Mans FC", 0xDE9608 });
+	club_dword_match.insert({ "Le Mans FC B", 0xDE960C });
+	club_dword_match.insert({ "FC Lorient", 0xDE9610 });
+	club_dword_match.insert({ "FC Lorient B", 0xDE9614 });
+	club_dword_match.insert({ "FC Metz", 0xDE9618 });
+	club_dword_match.insert({ "FC Metz B", 0xDE961C });
+	club_dword_match.insert({ "FC Nantes", 0xDE9620 });
+	club_dword_match.insert({ "FC Nantes B", 0xDE9624 });
+	club_dword_match.insert({ "FC Sochaux-Montbéliard", 0xDE9628 });
+	club_dword_match.insert({ "FC Sochaux-Montbéliard B", 0xDE962C });
+	club_dword_match.insert({ "LB Châteauroux", 0xDE9630 });
+	club_dword_match.insert({ "LB Châteauroux B", 0xDE9634 });
+	club_dword_match.insert({ "Le Puy Foot 43 Auvergne", 0xDE9638 });
+	club_dword_match.insert({ "Le Puy Foot 43 Auvergne B", 0xDE963C });
+	club_dword_match.insert({ "Vendée Les Herbiers Football", 0xDE9640 });
+	club_dword_match.insert({ "Vendée Les Herbiers Football B", 0xDE9644 });
+	club_dword_match.insert({ "LOSC Lille", 0xDE9648 });
+	club_dword_match.insert({ "LOSC Lille B", 0xDE964C });
+	club_dword_match.insert({ "Lyon - La Duchère", 0xDE9650 });
+	club_dword_match.insert({ "Lyon - La Duchère B", 0xDE9654 });
+	club_dword_match.insert({ "Marignane-Gignac-Côte-Bleue FC", 0xDE9658 });
+	club_dword_match.insert({ "Marignane-Gignac-Côte Bleue FC B", 0xDE965C });
+	club_dword_match.insert({ "Montpellier HSC", 0xDE9660 });
+	club_dword_match.insert({ "Montpellier HSC B", 0xDE9664 });
+	club_dword_match.insert({ "OGC Nice", 0xDE9668 });
+	club_dword_match.insert({ "OGC Nice B", 0xDE966C });
+	club_dword_match.insert({ "Olympique Marseille", 0xDE9670 });
+	club_dword_match.insert({ "Olympique de Marseille B", 0xDE9674 });
+	club_dword_match.insert({ "Olympique Lyon", 0xDE9678 });
+	club_dword_match.insert({ "Olympique Lyon B", 0xDE967C });
+	club_dword_match.insert({ "Paris FC", 0xDE9680 });
+	club_dword_match.insert({ "Paris FC B", 0xDE9684 });
+	club_dword_match.insert({ "Paris Saint-Germain", 0xDE9688 });
+	club_dword_match.insert({ "Paris Saint-Germain B", 0xDE968C });
+	club_dword_match.insert({ "Pau FC", 0xDE9690 });
+	club_dword_match.insert({ "Pau FC B", 0xDE9694 });
+	club_dword_match.insert({ "Quevilly - Rouen Métropole", 0xDE9698 });
+	club_dword_match.insert({ "Quevilly - Rouen Métropole B", 0xDE969C });
+	club_dword_match.insert({ "RC Strasbourg Alsace", 0xDE96A0 });
+	club_dword_match.insert({ "Racing Strasbourg B", 0xDE96A4 });
+	club_dword_match.insert({ "RC Lens", 0xDE96A8 });
+	club_dword_match.insert({ "RC Lens B", 0xDE96AC });
+	club_dword_match.insert({ "Rodez AF", 0xDE96B0 });
+	club_dword_match.insert({ "Rodez Aveyron Football B", 0xDE96B4 });
+	club_dword_match.insert({ "SC Bastia", 0xDE96B8 });
+	club_dword_match.insert({ "SC Bastia B", 0xDE96BC });
+	club_dword_match.insert({ "SM Caen", 0xDE96C0 });
+	club_dword_match.insert({ "SM Caen B", 0xDE96C4 });
+	club_dword_match.insert({ "Stade Brestois 29", 0xDE96C8 });
+	club_dword_match.insert({ "Stade Brest 29 B", 0xDE96CC });
+	club_dword_match.insert({ "Stade Briochin", 0xDE96D0 });
+	club_dword_match.insert({ "Stade Briochin B", 0xDE96D4 });
+	club_dword_match.insert({ "Stade Lavallois", 0xDE96D8 });
+	club_dword_match.insert({ "Stade Laval B", 0xDE96DC });
+	club_dword_match.insert({ "Stade Reims", 0xDE96E0 });
+	club_dword_match.insert({ "Stade Reims B", 0xDE96E4 });
+	club_dword_match.insert({ "Stade Rennais FC", 0xDE96E8 });
+	club_dword_match.insert({ "Stade Rennais FC B", 0xDE96EC });
+	club_dword_match.insert({ "FC Toulouse", 0xDE96F0 });
+	club_dword_match.insert({ "Toulouse FC B", 0xDE96F4 });
+	club_dword_match.insert({ "US Avranches", 0xDE96F8 });
+	club_dword_match.insert({ "US Avranches B", 0xDE96FC });
+	club_dword_match.insert({ "US Boulogne", 0xDE9700 });
+	club_dword_match.insert({ "US Boulogne B", 0xDE9704 });
+	club_dword_match.insert({ "US Orléans", 0xDE9708 });
+	club_dword_match.insert({ "US Orléans B", 0xDE970C });
+	club_dword_match.insert({ "Valenciennes FC", 0xDE9710 });
+	club_dword_match.insert({ "Valenciennes FC B", 0xDE9714 });
+	// new nations end at 0xDE9758
+
+	league_dword_match.insert({ "French Championnat National 3", 0x9CF548 });
+	league_dword_match.insert({ "German Bundesliga", 0x9CF54C });
+	league_dword_match.insert({ "German 2. Bundesliga", 0x9CF550 });
+	league_dword_match.insert({ "German Regionalliga West", 0x9CF554 });
+	league_dword_match.insert({ "German Regionalliga Nordost", 0x9CF558 });
+	league_dword_match.insert({ "German Regionalliga Nord", 0x9CF55C });
+	league_dword_match.insert({ "German Regionalliga Südwest", 0x9CF560 });
+	league_dword_match.insert({ "German 3. Liga", 0x9CF564 });
+	league_dword_match.insert({ "Dutch Eredivisie", 0x9CF568 });
+	league_dword_match.insert({ "Dutch Eerste Divisie", 0x9CF56C });
+	league_dword_match.insert({ "Italian Serie A", 0x9CF570 });
+	league_dword_match.insert({ "Italian Serie B", 0x9CF574 });
+	league_dword_match.insert({ "Italian Serie C/A", 0x9CF578 });
+	league_dword_match.insert({ "Italian Serie C/B", 0x9CF57C });
+	league_dword_match.insert({ "Italian Serie C2/A", 0x9CF580 });
+	league_dword_match.insert({ "Italian Serie C2/B", 0x9CF584 });
+	league_dword_match.insert({ "Italian Serie C2/C", 0x9CF588 });
+	league_dword_match.insert({ "Italian Serie D", 0x9CF58C });
+	league_dword_match.insert({ "Major League Soccer", 0x9CF590 });
+	league_dword_match.insert({ "American USL Championship", 0x9CF594 });
+	league_dword_match.insert({ "American USL League One", 0x9CF598 });
+	league_dword_match.insert({ "Belgian Pro League", 0x9CF59C });
+	league_dword_match.insert({ "Belgian Challenger Pro League", 0x9CF5A0 });
+	league_dword_match.insert({ "Belgian Division 1 VV", 0x9CF5A4 });
+	league_dword_match.insert({ "Belgian Division 1 ACFF", 0x9CF5A8 });
+	league_dword_match.insert({ "Danish Superliga", 0x9CF5AC });
+	league_dword_match.insert({ "Danish First Division", 0x9CF5B0 });
+	league_dword_match.insert({ "Danish Second Division", 0x9CF5B4 });
+	league_dword_match.insert({ "Danish Third Division", 0x9CF5B8 });
+	league_dword_match.insert({ "English Premier League", 0x9CF5BC });
+	league_dword_match.insert({ "English Football League Championship", 0x9CF5C0 });
+	league_dword_match.insert({ "English Football League One", 0x9CF5C4 });
+	league_dword_match.insert({ "English Football League Two", 0x9CF5C8 });
+	league_dword_match.insert({ "French Ligue 1", 0x9CF5CC });
+	league_dword_match.insert({ "French Ligue 2", 0x9CF5D0 });
+	league_dword_match.insert({ "French Championnat National 1", 0x9CF5D4 });
+	league_dword_match.insert({ "French Championnat National 2", 0x9CF5D8 });
+	league_dword_match.insert({ "Scottish Premiership", 0x9CF5DC });
+	league_dword_match.insert({ "Scottish Championship", 0x9CF5E0 });
+	league_dword_match.insert({ "Scottish League One", 0x9CF5E4 });
+	league_dword_match.insert({ "Scottish League Two", 0x9CF5E8 });
+	league_dword_match.insert({ "Swedish Allsvenskan", 0x9CF5EC });
+	league_dword_match.insert({ "Swedish Superettan", 0x9CF5F0 });
+	league_dword_match.insert({ "Swedish Ettan South", 0x9CF5F4 });
+	league_dword_match.insert({ "Swedish Ettan North", 0x9CF5F8 });
+	league_dword_match.insert({ "Swedish Division 2 South Svealand", 0x9CF5FC });
+	league_dword_match.insert({ "Swedish Division 2 North Götaland", 0x9CF600 });
+	league_dword_match.insert({ "Swedish Division 2 Norrland", 0x9CF604 });
+	league_dword_match.insert({ "Swedish Division 2 West Götaland", 0x9CF608 });
+	league_dword_match.insert({ "Liga Portugal 1", 0x9CF60C });
+	league_dword_match.insert({ "Liga Portugal 2", 0x9CF610 });
+	league_dword_match.insert({ "Liga 3 Série A", 0x9CF614 });
+	league_dword_match.insert({ "Campeonato de Portugal Série A", 0x9CF618 });
+	league_dword_match.insert({ "Liga 3 Série B", 0x9CF61C });
+	league_dword_match.insert({ "Campeonato de Portugal", 0x9CF620 });
+	league_dword_match.insert({ "Spanish La Liga", 0x9CF624 });
+	league_dword_match.insert({ "Spanish La Liga 2", 0x9CF628 });
+	league_dword_match.insert({ "Spanish Primera Federación Group 1", 0x9CF62C });
+	league_dword_match.insert({ "Spanish Primera Federación Group 2", 0x9CF630 });
+	league_dword_match.insert({ "Spanish Segunda Federación Group 4", 0x9CF634 });
+	league_dword_match.insert({ "Spanish Segunda Federación Group 5", 0x9CF638 });
+	league_dword_match.insert({ "Copa Libertadores de América", 0x9CF63C });
+	league_dword_match.insert({ "Campeonato de Portugal Série C", 0x9CF640 });
+	league_dword_match.insert({ "Copa CONMEBOL", 0x9CF644 });
+	league_dword_match.insert({ "Recopa Sudamericana", 0x9CF648 });
+	league_dword_match.insert({ "AFC Champions League Elite", 0x9CF64C });
+	league_dword_match.insert({ "AFC Champions League Two", 0x9CF650 });
+	league_dword_match.insert({ "Argentine Primera División", 0x9CF654 });
+	league_dword_match.insert({ "Argentine Primera Nacional", 0x9CF658 });
+	league_dword_match.insert({ "Japanese J1 League", 0x9CF65C });
+	league_dword_match.insert({ "Japanese Emperor's Cup", 0x9CF660 });
+	league_dword_match.insert({ "Japanese J.League Cup", 0x9CF664 });
+	league_dword_match.insert({ "Friendly", 0x9CF668 });
+	league_dword_match.insert({ "Japanese Super Cup", 0x9CF66C });
+	league_dword_match.insert({ "Japanese Football League", 0x9CF670 });
+	league_dword_match.insert({ "Japanese Regional Championships", 0x9CF674 });
+	league_dword_match.insert({ "Japanese J3 League", 0x9CF678 });
+	league_dword_match.insert({ "Copa Argentina", 0x9CF67C });
+	league_dword_match.insert({ "Argentine Torneo Federal A", 0x9CF680 });
+	league_dword_match.insert({ "Reserve", 0x9CF684 });
+	league_dword_match.insert({ "Argentine Primera División B", 0x9CF688 });
+	league_dword_match.insert({ "Campeonato Brasileiro Série D", 0x9CF68C });
+	league_dword_match.insert({ "Swedish Division 2 South Götaland", 0x9CF690 });
+	league_dword_match.insert({ "German DFL-Supercup", 0x9CF694 });
+	league_dword_match.insert({ "Copa Sudamericana", 0x9CF698 });
+	league_dword_match.insert({ "English National League", 0x9CF69C });
+	league_dword_match.insert({ "English FA Trophy", 0x9CF6A0 });
+	league_dword_match.insert({ "Conference League Cup", 0x9CF6A4 });
+	league_dword_match.insert({ "Trophée des Champions", 0x9CF6A8 });
+	league_dword_match.insert({ "Swedish Division 2", 0x9CF6AC });
+	league_dword_match.insert({ "Spanish Segunda Federación", 0x9CF6B0 });
+	league_dword_match.insert({ "Supertaça Cândido de Oliveira", 0x9CF6B4 });
+	league_dword_match.insert({ "A Premier Division", 0x9CF6B8 });
+	league_dword_match.insert({ "Norwegian Eliteserien", 0x9CF6BC });
+	league_dword_match.insert({ "Norwegian 1. Divisjon", 0x9CF6C0 });
+	league_dword_match.insert({ "Norwegian 2. Divisjon Group 1", 0x9CF6C4 });
+	league_dword_match.insert({ "Norwegian 2. Divisjon Group 2", 0x9CF6C8 });
+	league_dword_match.insert({ "Norwegian 3. Divisjon Group 1", 0x9CF6CC });
+	league_dword_match.insert({ "Norwegian 3. Divisjon Group 2", 0x9CF6D0 });
+	league_dword_match.insert({ "Norwegian 3. Divisjon Group 3", 0x9CF6D4 });
+	league_dword_match.insert({ "Norwegian 3. Divisjon Group 4", 0x9CF6D8 });
+	league_dword_match.insert({ "Norwegian 3. Divisjon Group 5", 0x9CF6DC });
+	league_dword_match.insert({ "Norwegian 3. Divisjon Group 6", 0x9CF6E0 });
+	league_dword_match.insert({ "Intercontinental Cup", 0x9CF6E4 });
+	league_dword_match.insert({ "UEFA Champions League", 0x9CF6E8 });
+	league_dword_match.insert({ "UEFA Conference League", 0x9CF6EC });
+	league_dword_match.insert({ "UEFA Europa League", 0x9CF6F0 });
+	league_dword_match.insert({ "UEFA Super Cup", 0x9CF6F4 });
+	league_dword_match.insert({ "UEFA Intertoto Cup", 0x9CF6F8 });
+	league_dword_match.insert({ "Supercoupe de Belgique", 0x9CF6FC });
+	league_dword_match.insert({ "Coupe de Belgique", 0x9CF700 });
+	league_dword_match.insert({ "Campeonato de Portugal Série B", 0x9CF704 });
+	league_dword_match.insert({ "DBU Pokalen", 0x9CF708 });
+	league_dword_match.insert({ "Coupe de France", 0x9CF70C });
+	league_dword_match.insert({ "Coupe de la Ligue", 0x9CF710 });
+	league_dword_match.insert({ "German DFB-Pokal", 0x9CF714 });
+	league_dword_match.insert({ "KNVB Beker", 0x9CF718 });
+	league_dword_match.insert({ "Coppa Italia", 0x9CF71C });
+	league_dword_match.insert({ "Coppa Italia Serie C", 0x9CF720 });
+	league_dword_match.insert({ "Supercoppa Italiana", 0x9CF724 });
+	league_dword_match.insert({ "Lamar Hunt U.S. Open Cup", 0x9CF728 });
+	league_dword_match.insert({ "CONCACAF Champions Cup", 0x9CF72C });
+	league_dword_match.insert({ "Campeonato de Portugal Série D", 0x9CF730 });
+	league_dword_match.insert({ "Norwegian Cupen", 0x9CF734 });
+	league_dword_match.insert({ "Norwegian 3. Divisjon", 0x9CF738 });
+	league_dword_match.insert({ "Taça de Portugal", 0x9CF73C });
+	league_dword_match.insert({ "Spanish Copa del Rey", 0x9CF740 });
+	league_dword_match.insert({ "Supercopa de España", 0x9CF744 });
+	league_dword_match.insert({ "Svenska Cupen", 0x9CF748 });
+	league_dword_match.insert({ "English FA Cup", 0x9CF74C });
+	league_dword_match.insert({ "English League Cup", 0x9CF750 });
+	league_dword_match.insert({ "English FA Community Shield", 0x9CF754 });
+	league_dword_match.insert({ "English Football League Trophy", 0x9CF758 });
+	league_dword_match.insert({ "Scottish Cup", 0x9CF75C });
+	league_dword_match.insert({ "Scottish League Cup", 0x9CF760 });
+	league_dword_match.insert({ "A Lower Division", 0x9CF764 });
+	league_dword_match.insert({ "Japanese J2 League", 0x9CF768 });
+	league_dword_match.insert({ "World Cup Oceania Qualifying Section", 0x9CF76C });
+	league_dword_match.insert({ "World Cup CONCACAF Qualifying Section", 0x9CF770 });
+	league_dword_match.insert({ "World Cup Asian Qualifying Section", 0x9CF774 });
+	league_dword_match.insert({ "World Cup South American Qualifying Section", 0x9CF778 });
+	league_dword_match.insert({ "World Cup African Qualifying Section", 0x9CF77C });
+	league_dword_match.insert({ "World Cup European Qualifying Section", 0x9CF780 });
+	league_dword_match.insert({ "UEFA European Championship Qualifying", 0x9CF784 });
+	league_dword_match.insert({ "Asian Cup Qualifying", 0x9CF788 });
+	league_dword_match.insert({ "Gold Cup", 0x9CF78C });
+	league_dword_match.insert({ "AFC Asian Cup", 0x9CF790 });
+	league_dword_match.insert({ "\'B\' International", 0x9CF794 });
+	league_dword_match.insert({ "Under 21 International", 0x9CF798 });
+	league_dword_match.insert({ "FIFA World Cup", 0x9CF79C });
+	league_dword_match.insert({ "Olympic Games", 0x9CF7A0 });
+	league_dword_match.insert({ "UEFA European Championship", 0x9CF7A4 });
+	league_dword_match.insert({ "Copa América", 0x9CF7A8 });
+	league_dword_match.insert({ "African Cup of Nations", 0x9CF7AC });
+	league_dword_match.insert({ "Johan Cruijff Schaal", 0x9CF7B0 });
+	league_dword_match.insert({ "Scottish League Challenge Cup", 0x9CF7B4 });
+	league_dword_match.insert({ "Spanish Primera Federación", 0x9CF7B8 });
+	league_dword_match.insert({ "FIFA Club World Cup", 0x9CF7BC });
+	league_dword_match.insert({ "Liga 3", 0x9CF7C0 });
+	league_dword_match.insert({ "Belgian National Division 1", 0x9CF7C4 });
+	league_dword_match.insert({ "Swedish Ettan", 0x9CF7C8 });
+	league_dword_match.insert({ "OFC Champions League", 0x9CF7CC });
+	league_dword_match.insert({ "CAF Super Cup", 0x9CF7D0 });
+	league_dword_match.insert({ "Belgian Division 2 VV", 0x9CF7D4 });
+	league_dword_match.insert({ "Belgian Division 2 VV A", 0x9CF7D8 });
+	league_dword_match.insert({ "Belgian Division 2 VV B", 0x9CF7DC });
+	league_dword_match.insert({ "Belgian Division 2 ACFF", 0x9CF7E0 });
+	league_dword_match.insert({ "Suomen Cup", 0x9CF7E4 });
+	league_dword_match.insert({ "Finnish Veikkausliiga", 0x9CF7E8 });
+	league_dword_match.insert({ "Finnish Ykkönen", 0x9CF7EC });
+	league_dword_match.insert({ "Finnish Kolmonen", 0x9CF7F0 });
+	league_dword_match.insert({ "Finnish Kakkonen", 0x9CF7F4 });
+	league_dword_match.insert({ "Finnish Ykkösliiga", 0x9CF7F8 });
+	league_dword_match.insert({ "Finnish Kakkonen Group A", 0x9CF7FC });
+	league_dword_match.insert({ "Finnish Kakkonen Group B", 0x9CF800 });
+	league_dword_match.insert({ "Finnish Kakkonen Group C", 0x9CF804 });
+	league_dword_match.insert({ "Finnish Ykkönen East", 0x9CF808 });
+	league_dword_match.insert({ "League of Ireland Premier Division", 0x9CF80C });
+	league_dword_match.insert({ "League of Ireland First Division", 0x9CF810 });
+	league_dword_match.insert({ "African Cup of Nations Qualifying", 0x9CF814 });
+	league_dword_match.insert({ "UEFA Nations League", 0x9CF818 });
+	league_dword_match.insert({ "CONCACAF Nations League", 0x9CF81C });
+	league_dword_match.insert({ "Irish Group A", 0x9CF820 }); // remove
+	league_dword_match.insert({ "Irish Group B", 0x9CF824 }); // remove
+	league_dword_match.insert({ "Northern Irish Group A", 0x9CF82C }); // remove
+	league_dword_match.insert({ "Northern Irish Group B", 0x9CF830 }); // remove
+	league_dword_match.insert({ "Northern Irish Group C", 0x9CF834 }); // remove
+	league_dword_match.insert({ "Northern Irish Group D", 0x9CF838 }); // remove
+	league_dword_match.insert({ "League of Ireland Cup", 0x9CF83C });
+	league_dword_match.insert({ "FAI Cup", 0x9CF840 });
+	league_dword_match.insert({ "Irish National League", 0x9CF844 });
+	league_dword_match.insert({ "Irish Connacht Senior League", 0x9CF848 });
+	league_dword_match.insert({ "Irish Ulster Senior League", 0x9CF84C });
+	league_dword_match.insert({ "Irish Munster Senior League", 0x9CF850 });
+	league_dword_match.insert({ "Irish Leinster Senior League Premier", 0x9CF854 });
+	league_dword_match.insert({ "Polish Ekstraklasa", 0x9CF858 });
+	league_dword_match.insert({ "Polish 1 Liga", 0x9CF85C });
+	league_dword_match.insert({ "Polish 3 Liga", 0x9CF860 });
+	league_dword_match.insert({ "Puchar Polski", 0x9CF864 });
+	league_dword_match.insert({ "Polish 2 Liga", 0x9CF868 });
+	league_dword_match.insert({ "Greek Super League", 0x9CF86C });
+	league_dword_match.insert({ "Greek Super League 2", 0x9CF870 });
+	league_dword_match.insert({ "Greek Gamma Ethniki", 0x9CF874 });
+	league_dword_match.insert({ "Kypello Elladas", 0x9CF878 });
+	league_dword_match.insert({ "Croatian HNL", 0x9CF87C });
+	league_dword_match.insert({ "Croatian Prva NL", 0x9CF880 });
+	league_dword_match.insert({ "Croatian Treca NL", 0x9CF884 });
+	league_dword_match.insert({ "Croatian Druga NL North", 0x9CF888 }); // remove
+	league_dword_match.insert({ "Croatian Druga NL South", 0x9CF88C }); // remove
+	league_dword_match.insert({ "Croatian Druga NL East", 0x9CF890 }); // remove
+	league_dword_match.insert({ "Croatian Druga NL West", 0x9CF894 }); // remove
+	league_dword_match.insert({ "Hrvatski Kup", 0x9CF898 });
+	league_dword_match.insert({ "Australian A-League", 0x9CF89C });
+	league_dword_match.insert({ "OFC Nations Cup", 0x9CF8A0 });
+	league_dword_match.insert({ "Croatian Druga NL", 0x9CF8A4 });
+	league_dword_match.insert({ "Croatian Prva NL North", 0x9CF8A8 });
+	league_dword_match.insert({ "Croatian Prva NL South", 0x9CF8AC });
+	league_dword_match.insert({ "NIFL Premiership", 0x9CF8B0 });
+	league_dword_match.insert({ "NIFL Championship", 0x9CF8B4 });
+	league_dword_match.insert({ "NIFL Premier Intermediate League", 0x9CF8B8 });
+	league_dword_match.insert({ "NIFL Charity Shield", 0x9CF8BC });
+	league_dword_match.insert({ "Irish Football Association Challenge Cup", 0x9CF8C0 });
+	league_dword_match.insert({ "German Regionalliga Bayern", 0x9CF8C4 });
+	league_dword_match.insert({ "Irish Football League Cup", 0x9CF8C8 });
+	league_dword_match.insert({ "TFF 3. Lig", 0x9CF8CC });
+	//league_dword_match.insert({"Turkish 2. Division Group 1", 0x9CF8D0});
+	//league_dword_match.insert({"Turkish 2. Division Group 2", 0x9CF8D4});
+	league_dword_match.insert({ "Turkish Süper Lig", 0x9CF8D8 });
+	league_dword_match.insert({ "TFF 1. Lig", 0x9CF8DC });
+	league_dword_match.insert({ "TFF 2. Lig", 0x9CF8E0 });
+	league_dword_match.insert({ "TFF 2. Lig Group 1", 0x9CF8E4 });
+	league_dword_match.insert({ "TFF 2. Lig Group 2", 0x9CF8E8 });
+	league_dword_match.insert({ "TFF 3. Lig Group 1", 0x9CF8EC });
+	league_dword_match.insert({ "TFF 3. Lig Group 2", 0x9CF8F0 });
+	league_dword_match.insert({ "TFF 3. Lig Group 3", 0x9CF8F4 });
+	league_dword_match.insert({ "Türkiye Kupasi", 0x9CF8F8 });
+	league_dword_match.insert({ "Turkish Super Cup", 0x9CF8FC });
+	league_dword_match.insert({ "English National League North", 0x9CF900 });
+	league_dword_match.insert({ "English National League South", 0x9CF904 });
+	league_dword_match.insert({ "Italian Serie C", 0x9CF908 });
+	league_dword_match.insert({ "Italian Serie C/C", 0x9CF90C });
+	league_dword_match.insert({ "German Regionalliga", 0x9CF910 });
+	league_dword_match.insert({ "Russian Super Cup", 0x9CF914 });
+	league_dword_match.insert({ "Russian Second League Division A", 0x9CF918 });
+	league_dword_match.insert({ "Russian Second League Division B", 0x9CF91C });
+	league_dword_match.insert({ "Russian Second League Division A Gold", 0x9CF920 });
+	league_dword_match.insert({ "Russian Second League Division A Silver", 0x9CF924 });
+	league_dword_match.insert({ "Russian Second Division - East", 0x9CF928 }); // remove
+	league_dword_match.insert({ "Russian First League", 0x9CF92C });
+	league_dword_match.insert({ "Russian Premier League", 0x9CF930 });
+	league_dword_match.insert({ "Russian Cup", 0x9CF934 });
+	league_dword_match.insert({ "Supercoppa Serie C", 0x9CF938 });
+	league_dword_match.insert({ "Greek Super Cup", 0x9CF93C });
+	league_dword_match.insert({ "Croatian Super Cup", 0x9CF940 });
+	league_dword_match.insert({ "SuperPuchar Polski", 0x9CF944 });
+	league_dword_match.insert({ "Irish Presidents Cup", 0x9CF948 });
+	league_dword_match.insert({ "Welsh Cymru Premier", 0x9CF94C });
+	league_dword_match.insert({ "Welsh League Cup", 0x9CF950 });
+	league_dword_match.insert({ "Welsh Cup", 0x9CF954 });
+	league_dword_match.insert({ "Welsh Premier Cup", 0x9CF958 });
+	league_dword_match.insert({ "Copa Interamericana", 0x9CF95C });
+	league_dword_match.insert({ "Welsh Cymru North", 0x9CF960 });
+	league_dword_match.insert({ "FIFA Confederations Cup", 0x9CF964 });
+	league_dword_match.insert({ "Brazilian Bahia Lower Division", 0x9CF968 });
+	league_dword_match.insert({ "Brazilian Central Lower Division", 0x9CF96C });
+	league_dword_match.insert({ "Brazilian Santa Catarina Lower Division", 0x9CF970 });
+	league_dword_match.insert({ "Brazilian Pernambuco Lower Division", 0x9CF974 });
+	league_dword_match.insert({ "Brazilian North Lower Division", 0x9CF978 });
+	league_dword_match.insert({ "Brazilian Rio de Janeiro Lower Division", 0x9CF97C });
+	league_dword_match.insert({ "Brazilian Northeast Lower Division", 0x9CF980 });
+	league_dword_match.insert({ "Brazilian Goiás Lower Division", 0x9CF984 });
+	league_dword_match.insert({ "Brazilian Minas Gerais Lower Division", 0x9CF988 });
+	league_dword_match.insert({ "Brazilian Paraná Lower Division", 0x9CF98C });
+	league_dword_match.insert({ "Brazilian Gaúcho Lower Division", 0x9CF990 });
+	league_dword_match.insert({ "Brazilian Campeonato Norte", 0x9CF994 });
+	league_dword_match.insert({ "Brazilian Campeonato Central", 0x9CF998 });
+	league_dword_match.insert({ "Brazilian São Paulo Lower Division", 0x9CF99C });
+	league_dword_match.insert({ "Brazilian Central Regional Cup", 0x9CF9A0 });
+	league_dword_match.insert({ "Brazilian Campeonato Nordeste", 0x9CF9A4 });
+	league_dword_match.insert({ "Brazilian North Regional Cup", 0x9CF9A8 });
+	league_dword_match.insert({ "Campeonato Brasileiro Série C", 0x9CF9AC });
+	league_dword_match.insert({ "Brazilian Campeonato Catarinense", 0x9CF9B0 });
+	league_dword_match.insert({ "Brazilian Campeonato Goiano", 0x9CF9B4 });
+	league_dword_match.insert({ "Brazilian Supercopa Rei", 0x9CF9B8 });
+	league_dword_match.insert({ "Brazilian Campeonato Pernambucano", 0x9CF9BC });
+	league_dword_match.insert({ "Brazilian Campeonato Baiano", 0x9CF9C0 });
+	league_dword_match.insert({ "Brazilian Northeast Regional Cup", 0x9CF9C4 });
+	league_dword_match.insert({ "Brazilian Campeonato Gaúcho", 0x9CF9C8 });
+	league_dword_match.insert({ "Brazilian South-Minas Regional Cup", 0x9CF9CC });
+	league_dword_match.insert({ "Brazilian Campeonato Paranaense", 0x9CF9D0 });
+	league_dword_match.insert({ "Brazilian Campeonato Mineiro", 0x9CF9D4 });
+	league_dword_match.insert({ "Brazilian Rio-São Paulo Tournement", 0x9CF9D8 });
+	league_dword_match.insert({ "Brazilian Campeonato Carioca", 0x9CF9DC });
+	league_dword_match.insert({ "Campeonato Brasileiro Série B", 0x9CF9E0 });
+	league_dword_match.insert({ "Brazilian Campeonato Paulista", 0x9CF9E4 });
+	league_dword_match.insert({ "Copa do Brasil", 0x9CF9E8 });
+	league_dword_match.insert({ "Campeonato Brasileiro Série A", 0x9CF9EC });
+	league_dword_match.insert({ "Irish Munster Senior Cup", 0x9CF9F0 });
+	league_dword_match.insert({ "Irish Leinster Senior Cup", 0x9CF9F4 });
+	league_dword_match.insert({ "K League Super Cup", 0x9CF9F8 });
+	league_dword_match.insert({ "K League 2", 0x9CF9FC });
+	league_dword_match.insert({ "K League 1", 0x9CFA00 });
+	league_dword_match.insert({ "Korea Cup", 0x9CFA04 });
+
+	award_dword_match.insert({ "Ballon d'Or", 0x9CFA20 });
+	award_dword_match.insert({ "Best FIFA Men's Player", 0x9CFA24 });
+	award_dword_match.insert({ "UEFA Men's Player of the Year", 0x9CFA28 });
+	award_dword_match.insert({ "Rey del Fútbol de América", 0x9CFA2C });
+	award_dword_match.insert({ "African Footballer of the Year", 0x9CFA30 });
+	award_dword_match.insert({ "English PFA Players' Player of the Year", 0x9CFA34 });
+	award_dword_match.insert({ "English PFA Young Player of the Year", 0x9CFA38 });
+	award_dword_match.insert({ "English Premier League Team of the Year", 0x9CFA3C });
+	award_dword_match.insert({ "English Championship Team of the Year", 0x9CFA40 });
+	award_dword_match.insert({ "English League One Team of the Year", 0x9CFA44 });
+	award_dword_match.insert({ "English League Two Team of the Year", 0x9CFA48 });
+	award_dword_match.insert({ "English Premier League Player of the Month", 0x9CFA4C });
+	award_dword_match.insert({ "English Championship Player of the Month", 0x9CFA50 });
+	award_dword_match.insert({ "English League One Player of the Month", 0x9CFA54 });
+	award_dword_match.insert({ "English League Two Player of the Month", 0x9CFA58 });
+	award_dword_match.insert({ "English Premier League Young Player of the Month", 0x9CFA5C });
+	award_dword_match.insert({ "English Championship Young Player of the Month", 0x9CFA60 });
+	award_dword_match.insert({ "English League One Young Player of the Month", 0x9CFA64 });
+	award_dword_match.insert({ "English League Two Young Player of the Month", 0x9CFA68 });
+	award_dword_match.insert({ "English Premier League Team of the Week", 0x9CFA6C });
+	award_dword_match.insert({ "English Championship Team of the Week", 0x9CFA70 });
+	award_dword_match.insert({ "English League One Team of the Week", 0x9CFA74 });
+	award_dword_match.insert({ "English League Two Team of the Week", 0x9CFA78 });
+	award_dword_match.insert({ "PFA Scotland Players' Player of the Year", 0x9CFA7C });
+	award_dword_match.insert({ "PFA Scotland Young Player of the Year", 0x9CFA80 });
+	award_dword_match.insert({ "SPFL Premiership Player of the Month", 0x9CFA84 });
+	award_dword_match.insert({ "SPFL Championship Player of the Month", 0x9CFA88 });
+	award_dword_match.insert({ "SPFL League One Player of the Month", 0x9CFA8C });
+	award_dword_match.insert({ "SPFL League Two Player of the Month", 0x9CFA90 });
+	award_dword_match.insert({ "SPFL Premiership Team of the Week", 0x9CFA94 });
+	award_dword_match.insert({ "SPFL Championship Team of the Week", 0x9CFA98 });
+	award_dword_match.insert({ "SPFL League One Team of the Week", 0x9CFA9C });
+	award_dword_match.insert({ "SPFL League Two Team of the Week", 0x9CFAA0 });
+	award_dword_match.insert({ "Belgian Golden Boot", 0x9CFAA4 });
+	award_dword_match.insert({ "Belgian Professional Player of the Year", 0x9CFAA8 });
+	award_dword_match.insert({ "Belgian Pro League Goalkeeper of the Year", 0x9CFAAC });
+	award_dword_match.insert({ "Belgian Player of the Year", 0x9CFAB0 });
+	award_dword_match.insert({ "Danish Player of the Year", 0x9CFAB4 });
+	award_dword_match.insert({ "Danish Superliga Player of the Year", 0x9CFAB8 });
+	award_dword_match.insert({ "Danish Superliga Young Player of the Year", 0x9CFABC });
+	award_dword_match.insert({ "Danish First Division Player of the Year", 0x9CFAC0 });
+	award_dword_match.insert({ "Danish First Division Young Player of the Year", 0x9CFAC4 });
+	award_dword_match.insert({ "Danish Third Division Player of the Year", 0x9CFAC8 });
+	award_dword_match.insert({ "Danish Second Division Player of the Year", 0x9CFACC });
+	award_dword_match.insert({ "Danish Third Division Young Player of Year", 0x9CFAD0 });
+	award_dword_match.insert({ "Danish Second Division Young Player of Year", 0x9CFAD4 });
+	award_dword_match.insert({ "French Player of the Year", 0x9CFAD8 });
+	award_dword_match.insert({ "French Foreign Player of the Year", 0x9CFADC });
+	award_dword_match.insert({ "French Under-23 Player of the Year", 0x9CFAE0 });
+	award_dword_match.insert({ "French Most Popular Player of the Year", 0x9CFAE4 });
+	award_dword_match.insert({ "French Most Unpopular Player of the Year", 0x9CFAE8 });
+	award_dword_match.insert({ "French Ligue 1 Players' Player of the Year", 0x9CFAEC });
+	award_dword_match.insert({ "French Ligue 1 Player of the Year", 0x9CFAF0 });
+	award_dword_match.insert({ "French Ligue 1 Goalkeeper of the Year", 0x9CFAF4 });
+	award_dword_match.insert({ "French Ligue 2 Players' Player of the Year", 0x9CFAF8 });
+	award_dword_match.insert({ "French Ligue 2 Player of the Year", 0x9CFAFC });
+	award_dword_match.insert({ "French Ligue 2 Goalkeeper of the Year", 0x9CFB00 });
+	award_dword_match.insert({ "German Player of the Year", 0x9CFB04 });
+	award_dword_match.insert({ "German Bundesliga Player of the Month", 0x9CFB08 });
+	award_dword_match.insert({ "German 2. Bundesliga Player of the Month", 0x9CFB0C });
+	award_dword_match.insert({ "Dutch Goalkeeper of the Year", 0x9CFB10 });
+	award_dword_match.insert({ "Dutch Eerste Divisie Young Player of the Year", 0x9CFB14 });
+	award_dword_match.insert({ "Dutch Eredivisie Player of the Year", 0x9CFB18 });
+	award_dword_match.insert({ "Dutch Eredivisie Top Goalscorer", 0x9CFB1C });
+	award_dword_match.insert({ "Dutch Eredivisie Manager of the Year", 0x9CFB20 });
+	award_dword_match.insert({ "Dutch Eerste Divisie Player of the Year", 0x9CFB24 });
+	award_dword_match.insert({ "Dutch Eerste Divisie Top Goalscorer", 0x9CFB28 });
+	award_dword_match.insert({ "Dutch Eerste Divisie Manager of the Year", 0x9CFB2C });
+	award_dword_match.insert({ "Italian Serie A Young Player of the Year", 0x9CFB30 });
+	award_dword_match.insert({ "Italian Serie A Player of the Year", 0x9CFB34 });
+	award_dword_match.insert({ "Italian Serie A Italian Player of the Year", 0x9CFB38 });
+	award_dword_match.insert({ "Italian Serie A Foreign Player of the Year", 0x9CFB3C });
+	award_dword_match.insert({ "Italian Serie A Defender of the Year", 0x9CFB40 });
+	award_dword_match.insert({ "Italian Serie A Goalkeeper of the Year", 0x9CFB44 });
+	award_dword_match.insert({ "Italian Serie B Player of the Year", 0x9CFB48 });
+	award_dword_match.insert({ "Italian Serie C Player of the Year", 0x9CFB4C });
+	award_dword_match.insert({ "Italian Serie C1/B Player of the Year", 0x9CFB50 });
+	award_dword_match.insert({ "Norwegian Player of the Year", 0x9CFB54 });
+	award_dword_match.insert({ "Norwegian Goalkeeper of the Year", 0x9CFB58 });
+	award_dword_match.insert({ "Norwegian Defender of the Year", 0x9CFB5C });
+	award_dword_match.insert({ "Norwegian Midfielder of the Year", 0x9CFB60 });
+	award_dword_match.insert({ "Norwegian Attacker of the Year", 0x9CFB64 });
+	award_dword_match.insert({ "Norwegian Eliteserien Team of the Week", 0x9CFB68 });
+	award_dword_match.insert({ "Norwegian 1. Divisjon Team of the Week", 0x9CFB6C });
+	award_dword_match.insert({ "Liga Portugal 1 Most Man of the Match", 0x9CFB70 });
+	award_dword_match.insert({ "Liga Portugal 1 Top Goalscorer", 0x9CFB74 });
+	award_dword_match.insert({ "Liga Portugal 2 Player of the Year", 0x9CFB78 });
+	award_dword_match.insert({ "Spanish La Liga Goalkeeper of the Year", 0x9CFB7C });
+	award_dword_match.insert({ "Spanish Player of the Year", 0x9CFB80 });
+	award_dword_match.insert({ "Spanish La Liga Top Goalscorer", 0x9CFB84 });
+	award_dword_match.insert({ "Swedish Player of the Year", 0x9CFB88 });
+	award_dword_match.insert({ "Swedish Allsvenskan Top Goalscorer", 0x9CFB8C });
+	award_dword_match.insert({ "Swedish Fans Player of the Year", 0x9CFB90 });
+	award_dword_match.insert({ "MLS Goalkeeper of the Year", 0x9CFB94 });
+	award_dword_match.insert({ "MLS Defender of the Year", 0x9CFB98 });
+	award_dword_match.insert({ "MLS Rookie of the Year", 0x9CFB9C });
+	award_dword_match.insert({ "MLS Scoring Champion", 0x9CFBA0 });
+	award_dword_match.insert({ "MLS All-Pro Team", 0x9CFBA4 });
+	award_dword_match.insert({ "MLS Player of the Month", 0x9CFBA8 });
+	award_dword_match.insert({ "SPFL Premiership Team of the Year", 0x9CFBAC });
+	award_dword_match.insert({ "SPFL Championship Team of the Year", 0x9CFBB0 });
+	award_dword_match.insert({ "SPFL League One Team of the Year", 0x9CFBB4 });
+	award_dword_match.insert({ "SPFL League Two Team of the Year", 0x9CFBB8 });
+	award_dword_match.insert({ "Scottish Top Goalscorer", 0x9CFBBC });
+	award_dword_match.insert({ "SPFL Premiership Young Player of the Month", 0x9CFBC0 });
+	award_dword_match.insert({ "SPFL Championship Young Player of the Month", 0x9CFBC4 });
+	award_dword_match.insert({ "SPFL League One Young Player of the Month", 0x9CFBC8 });
+	award_dword_match.insert({ "SPFL League Two Young Player of the Month", 0x9CFBCC });
+	award_dword_match.insert({ "Belgian Manager of the Year", 0x9CFBD0 });
+	award_dword_match.insert({ "English Premier League Manager of the Year", 0x9CFBD4 });
+	award_dword_match.insert({ "English Premier League Manager of the Month", 0x9CFBD8 });
+	award_dword_match.insert({ "English Championship Manager of the Year", 0x9CFBDC });
+	award_dword_match.insert({ "English Championship Manager of the Month", 0x9CFBE0 });
+	award_dword_match.insert({ "English League One Manager of the Year", 0x9CFBE4 });
+	award_dword_match.insert({ "English League One Manager of the Month", 0x9CFBE8 });
+	award_dword_match.insert({ "English League Two Manager of the Year", 0x9CFBEC });
+	award_dword_match.insert({ "English League Two Manager of the Month", 0x9CFBF0 });
+	award_dword_match.insert({ "French Manager of the Year", 0x9CFBF4 });
+	award_dword_match.insert({ "German Bundesliga Manager of the Year", 0x9CFBF8 });
+	award_dword_match.insert({ "German 2. Bundesliga Manager of the Year", 0x9CFBFC });
+	award_dword_match.insert({ "Dutch Eredivisie Young Player of the Year", 0x9CFC00 });
+	award_dword_match.insert({ "Italian Serie A Panchina d'Oro", 0x9CFC04 });
+	award_dword_match.insert({ "Italian Serie B Panchina d'Argento", 0x9CFC08 });
+	award_dword_match.insert({ "Italian Serie C Manager of the Year", 0x9CFC0C });
+	award_dword_match.insert({ "Italian Serie C1/B Manager of the Year", 0x9CFC10 });
+	award_dword_match.insert({ "SPFL Premiership Manager of the Year", 0x9CFC14 });
+	award_dword_match.insert({ "SPFL Premiership Manager of the Month", 0x9CFC18 });
+	award_dword_match.insert({ "SPFL Championship Manager of the Year", 0x9CFC1C });
+	award_dword_match.insert({ "SPFL Championship Manager of the Month", 0x9CFC20 });
+	award_dword_match.insert({ "SPFL League One Manager of the Year", 0x9CFC24 });
+	award_dword_match.insert({ "SPFL League One Manager of the Month", 0x9CFC28 });
+	award_dword_match.insert({ "SPFL League Two Manager of the Year", 0x9CFC2C });
+	award_dword_match.insert({ "SPFL League Two Manager of the Month", 0x9CFC30 });
+	award_dword_match.insert({ "Spanish Manager of the Year", 0x9CFC34 });
+	award_dword_match.insert({ "Swedish Manager of the Year", 0x9CFC38 });
+	award_dword_match.insert({ "MLS Manager of the Year", 0x9CFC3C });
+	award_dword_match.insert({ "Belgian Young Player of the Year", 0x9CFC40 });
+	award_dword_match.insert({ "Argentine Primera División Team of the Week", 0x9CFC44 });
+	award_dword_match.insert({ "Argentine Primera Nacional Team of the Week", 0x9CFC48 });
+	award_dword_match.insert({ "Japanese Player of the Year", 0x9CFC4C });
+	award_dword_match.insert({ "Japanese Top Goalscorer", 0x9CFC50 });
+	award_dword_match.insert({ "Japanese Young Player of the Year", 0x9CFC54 });
+	award_dword_match.insert({ "Japanese Manager of the Year", 0x9CFC58 });
+	award_dword_match.insert({ "Japanese J1 League Team of the Year", 0x9CFC5C });
+	award_dword_match.insert({ "World Cup Golden Boot", 0x9CFC60 });
+	award_dword_match.insert({ "World Cup Dream Team", 0x9CFC64 });
+	award_dword_match.insert({ "German 3. Liga Player of the Month", 0x9CFC68 });
+	award_dword_match.insert({ "English National North Manager of the Year", 0x9CFC6C });
+	award_dword_match.insert({ "German 3. Liga Manager of the Year", 0x9CFC70 });
+	award_dword_match.insert({ "German 3. Liga Team of the Week", 0x9CFC74 });
+	award_dword_match.insert({ "German 3. Liga Top Goalscorer", 0x9CFC78 });
+	award_dword_match.insert({ "German Bundesliga Top Goalscorer", 0x9CFC7C });
+	award_dword_match.insert({ "English National South Manager of the Year", 0x9CFC80 });
+	award_dword_match.insert({ "English National League Manager of the Month", 0x9CFC84 });
+	award_dword_match.insert({ "English National League Team of the Year", 0x9CFC88 });
+	award_dword_match.insert({ "English National League Manager of the Year", 0x9CFC8C });
+	award_dword_match.insert({ "English National League Player of the Month", 0x9CFC90 });
+	award_dword_match.insert({ "English National League Team of the Week", 0x9CFC94 });
+	award_dword_match.insert({ "English National League Young Player of the Month", 0x9CFC98 });
+	award_dword_match.insert({ "Liga Portugal 1 Team of the Year", 0x9CFC9C });
+	award_dword_match.insert({ "Liga Portugal 2 Team of the Year", 0x9CFCA0 });
+	award_dword_match.insert({ "Liga Portugal 1 Team of the Week", 0x9CFCA4 });
+	award_dword_match.insert({ "Liga Portugal 2 Team of the Week", 0x9CFCA8 });
+	award_dword_match.insert({ "Japanese J1 League Team of the Week", 0x9CFCAC });
+	award_dword_match.insert({ "Japanese J2 League Team of the Week", 0x9CFCB0 });
+	award_dword_match.insert({ "Swedish Allsvenskan Team of the Week", 0x9CFCB4 });
+	award_dword_match.insert({ "Swedish Superettan Team of the Week", 0x9CFCB8 });
+	award_dword_match.insert({ "Spanish La Liga Team of the Week", 0x9CFCBC });
+	award_dword_match.insert({ "Spanish La Liga 2 Team of the Week", 0x9CFCC0 });
+	award_dword_match.insert({ "Italian Serie A Team of the Week", 0x9CFCC4 });
+	award_dword_match.insert({ "Italian Serie B Team of the Week", 0x9CFCC8 });
+	award_dword_match.insert({ "Italian Serie C Team of the Week", 0x9CFCCC });
+	award_dword_match.insert({ "Italian Serie C1/B Team of the Week", 0x9CFCD0 });
+	award_dword_match.insert({ "Dutch Eredivisie Team of the Week", 0x9CFCD4 });
+	award_dword_match.insert({ "Dutch Eerste Divisie Team of the Week", 0x9CFCD8 });
+	award_dword_match.insert({ "German Bundesliga Team of the Week", 0x9CFCDC });
+	award_dword_match.insert({ "German 2. Bundesliga Team of the Week", 0x9CFCE0 });
+	award_dword_match.insert({ "French Ligue 1 Team of the Week", 0x9CFCE4 });
+	award_dword_match.insert({ "French Ligue 2 Team of the Week", 0x9CFCE8 });
+	award_dword_match.insert({ "Danish Superliga Team of the Week", 0x9CFCEC });
+	award_dword_match.insert({ "Danish First Division Team of the Week", 0x9CFCF0 });
+	award_dword_match.insert({ "Danish Second Division Team of the Week", 0x9CFCF4 });
+	award_dword_match.insert({ "Belgian Pro League Team of the Week", 0x9CFCF8 });
+	award_dword_match.insert({ "Belgian Challenger League Team of the Week", 0x9CFCFC });
+	award_dword_match.insert({ "Liga Portugal 1 Player of the Year", 0x9CFD00 });
+	award_dword_match.insert({ "Liga Portugal 2 Most Man of the Match", 0x9CFD04 });
+	award_dword_match.insert({ "Liga Portugal 2 Top Goalscorer", 0x9CFD08 });
+	award_dword_match.insert({ "German 2. Bundesliga Top Goalscorer", 0x9CFD0C });
+	award_dword_match.insert({ "Swedish Goalkeeper of the Year", 0x9CFD10 });
+	award_dword_match.insert({ "Swedish Defender of the Year", 0x9CFD14 });
+	award_dword_match.insert({ "Swedish Forward of the Year", 0x9CFD18 });
+	award_dword_match.insert({ "Swedish Rookie of the Year", 0x9CFD1C });
+	award_dword_match.insert({ "Swedish Midfielder of the Year", 0x9CFD20 });
+	award_dword_match.insert({ "Italian Serie C2/A Manager of the Year", 0x9CFD24 });
+	award_dword_match.insert({ "Italian Serie C2/A Player of the Year", 0x9CFD28 });
+	award_dword_match.insert({ "Italian Serie C2/A Team of the Week", 0x9CFD2C });
+	award_dword_match.insert({ "Italian Serie C2/B Manager of the Year", 0x9CFD30 });
+	award_dword_match.insert({ "Italian Serie C2/B Player of the Year", 0x9CFD34 });
+	award_dword_match.insert({ "Japanese J2 League Team of the Year", 0x9CFD38 });
+	award_dword_match.insert({ "Spanish La Liga 2 Goalkeeper of the Year", 0x9CFD3C });
+	award_dword_match.insert({ "Spanish La Liga 2 Top Goalscorer", 0x9CFD40 });
+	award_dword_match.insert({ "Italian Serie C2/B Team of the Week", 0x9CFD44 });
+	award_dword_match.insert({ "Italian Serie C2/C Manager of the Year", 0x9CFD48 });
+	award_dword_match.insert({ "Italian Serie C2/C Player of the Year", 0x9CFD4C });
+	award_dword_match.insert({ "Italian Serie C2/C Team of the Week", 0x9CFD50 });
+	award_dword_match.insert({ "Belgian Pro League Top Goalscorer", 0x9CFD54 });
+	award_dword_match.insert({ "Belgian Pro League Revelation of the Year", 0x9CFD58 });
+	award_dword_match.insert({ "Belgian Challenger League Top Goalscorer", 0x9CFD5C });
+	award_dword_match.insert({ "Belgian Division 1 VV Team of the Week", 0x9CFD60 });
+	award_dword_match.insert({ "Belgian Division 1 VV Revelation of the Year", 0x9CFD64 });
+	award_dword_match.insert({ "Belgian Division 1 VV Top Goalscorer", 0x9CFD68 });
+	award_dword_match.insert({ "European Goalkeeper of the Year", 0x9CFD6C });
+	award_dword_match.insert({ "European Defender of the Year", 0x9CFD70 });
+	award_dword_match.insert({ "European Midfielder of the Year", 0x9CFD74 });
+	award_dword_match.insert({ "European Striker of the Year", 0x9CFD78 });
+	award_dword_match.insert({ "Italian Serie A Team of the Year", 0x9CFD7C });
+	award_dword_match.insert({ "Italian Serie B Team of the Year", 0x9CFD80 });
+	award_dword_match.insert({ "Italian Serie C Team of the Year", 0x9CFD84 });
+	award_dword_match.insert({ "Italian Serie C1/B Team of the Year", 0x9CFD88 });
+	award_dword_match.insert({ "Italian Serie C2/A Team of the Year", 0x9CFD8C });
+	award_dword_match.insert({ "Italian Serie C2/B Team of the Year", 0x9CFD90 });
+	award_dword_match.insert({ "Italian Serie C2/C Team of the Year", 0x9CFD94 });
+	award_dword_match.insert({ "Italian Serie A Capocannoniere", 0x9CFD98 });
+	award_dword_match.insert({ "Italian Serie B Top Goalscorer", 0x9CFD9C });
+	award_dword_match.insert({ "Italian Serie C Top Goalscorer", 0x9CFDA0 });
+	award_dword_match.insert({ "Italian Serie C1/B Top Goalscorer", 0x9CFDA4 });
+	award_dword_match.insert({ "Italian Serie C2/A Top Goalscorer", 0x9CFDA8 });
+	award_dword_match.insert({ "Italian Serie C2/B Top Goalscorer", 0x9CFDAC });
+	award_dword_match.insert({ "Italian Serie C2/C Top Goalscorer", 0x9CFDB0 });
+	award_dword_match.insert({ "Norwegian Eliteserien Manager of the Month", 0x9CFDB4 });
+	award_dword_match.insert({ "Norwegian Eliteserien Player of the Month", 0x9CFDB8 });
+	award_dword_match.insert({ "Norwegian 1. Divisjon Manager of the Month", 0x9CFDBC });
+	award_dword_match.insert({ "Norwegian 1. Divisjon Player of the Month", 0x9CFDC0 });
+	award_dword_match.insert({ "Liga Portugal 1 Manager of the Year", 0x9CFDC4 });
+	award_dword_match.insert({ "Liga Portugal 2 Manager of the Year", 0x9CFDC8 });
+	award_dword_match.insert({ "Finnish Player of the Year", 0x9CFDCC });
+	award_dword_match.insert({ "Finnish Young Player of the Year", 0x9CFDD0 });
+	award_dword_match.insert({ "Finnish Goalkeeper of the Year", 0x9CFDD4 });
+	award_dword_match.insert({ "Finnish Manager of the Year", 0x9CFDD8 });
+	award_dword_match.insert({ "Finnish Veikkausliiga Top Goalscorer", 0x9CFDDC });
+	award_dword_match.insert({ "Finnish Veikkausliiga Player of the Month", 0x9CFDE0 });
+	award_dword_match.insert({ "Finnish Veikkausliiga Team of the Year", 0x9CFDE4 });
+	award_dword_match.insert({ "Finnish Veikkausliiga Team of the Week", 0x9CFDE8 });
+	award_dword_match.insert({ "Finnish Ykkösliiga Top Goalscorer", 0x9CFDEC });
+	award_dword_match.insert({ "Finnish Ykkösliiga Team of the Year", 0x9CFDF0 });
+	award_dword_match.insert({ "Finnish Ykkösliiga Team of the Week", 0x9CFDF4 });
+	award_dword_match.insert({ "Irish Player of the Year", 0x9CFDF8 });
+	award_dword_match.insert({ "Irish Young Player of the Year", 0x9CFDFC });
+	award_dword_match.insert({ "Irish Premier Division Team of the Week", 0x9CFE00 });
+	award_dword_match.insert({ "Irish Premier Division Player of the Year", 0x9CFE04 });
+	award_dword_match.insert({ "Irish Premier Division Young Player of the Year", 0x9CFE08 });
+	award_dword_match.insert({ "Irish Premier Division Team of the Year", 0x9CFE0C });
+	award_dword_match.insert({ "Irish First Division Team of the Week", 0x9CFE10 });
+	award_dword_match.insert({ "Irish First Division Player of the Year", 0x9CFE14 });
+	award_dword_match.insert({ "Irish First Division Young Player of the Year", 0x9CFE18 });
+	award_dword_match.insert({ "Irish First Division Team of the Year", 0x9CFE1C });
+	award_dword_match.insert({ "Irish Premier Division Manager of the Year", 0x9CFE20 });
+	award_dword_match.insert({ "Irish Premier Division Manager of the Month", 0x9CFE24 });
+	award_dword_match.insert({ "Irish First Division Manager of the Year", 0x9CFE28 });
+	award_dword_match.insert({ "Irish First Division Manager of the Month", 0x9CFE2C });
+	award_dword_match.insert({ "Polish Ekstraklasa Team of the Week", 0x9CFE30 });
+	award_dword_match.insert({ "Polish Ekstraklasa Player of the Year", 0x9CFE34 });
+	award_dword_match.insert({ "Polish Ekstraklasa Young Player of the Year", 0x9CFE38 });
+	award_dword_match.insert({ "Polish Ekstraklasa Manager of the Year", 0x9CFE3C });
+	award_dword_match.insert({ "Polish Ekstraklasa Team of the Year", 0x9CFE40 });
+	award_dword_match.insert({ "Polish I Liga Team of the Week", 0x9CFE44 });
+	award_dword_match.insert({ "Polish I Liga Player of the Year", 0x9CFE48 });
+	award_dword_match.insert({ "Polish I Liga Young Player of the Year", 0x9CFE4C });
+	award_dword_match.insert({ "Polish I Liga Manager of the Year", 0x9CFE50 });
+	award_dword_match.insert({ "Polish I Liga Team of the Year", 0x9CFE54 });
+	award_dword_match.insert({ "Croatian HNL Player of the Year", 0x9CFE58 });
+	award_dword_match.insert({ "Croatian HNL Team of the Week", 0x9CFE5C });
+	award_dword_match.insert({ "Croatian HNL Top Goalscorer", 0x9CFE60 });
+	award_dword_match.insert({ "Croatian 1. NL Player of the Year", 0x9CFE64 });
+	award_dword_match.insert({ "Croatian 1. NL Team of the Week", 0x9CFE68 });
+	award_dword_match.insert({ "Croatian 1. NL Top Goalscorer", 0x9CFE6C });
+	award_dword_match.insert({ "Croatian 2. NL Player of the Year", 0x9CFE70 });
+	award_dword_match.insert({ "Croatian 2. NL Team of the Week", 0x9CFE74 });
+	award_dword_match.insert({ "Croatian 2. NL Top Goalscorer", 0x9CFE78 });
+	award_dword_match.insert({ "Australian A-League Team of the Week", 0x9CFE7C });
+	award_dword_match.insert({ "Australian A-League Manager of the Month", 0x9CFE80 });
+	award_dword_match.insert({ "Australian A-League Player of the Month", 0x9CFE84 });
+	award_dword_match.insert({ "Australian A-League Young Player of the Month", 0x9CFE88 });
+	award_dword_match.insert({ "Australian A-League Player of the Year", 0x9CFE8C });
+	award_dword_match.insert({ "Australian A-League Young Player of the Year", 0x9CFE90 });
+	award_dword_match.insert({ "Australian A-League Goalkeeper of the Year", 0x9CFE94 });
+	award_dword_match.insert({ "Australian A-League Leading Goalscorer", 0x9CFE98 });
+	award_dword_match.insert({ "Australian A-League Manager of the Year", 0x9CFE9C });
+	award_dword_match.insert({ "Greek Player of the Year", 0x9CFEA0 });
+	award_dword_match.insert({ "Greek Foreign Player of the Year", 0x9CFEA4 });
+	award_dword_match.insert({ "Greek Super League Team of the Week", 0x9CFEA8 });
+	award_dword_match.insert({ "Greek Super League Player of the Year", 0x9CFEAC });
+	award_dword_match.insert({ "Greek Super League Manager of the Year", 0x9CFEB0 });
+	award_dword_match.insert({ "Greek Super League Top Goalscorer", 0x9CFEB4 });
+	award_dword_match.insert({ "Greek Super League 2 Team of the Week", 0x9CFEB8 });
+	award_dword_match.insert({ "Greek Super League 2 Player of the Year", 0x9CFEBC });
+	award_dword_match.insert({ "Greek Super League 2 Manager of the Year", 0x9CFEC0 });
+	award_dword_match.insert({ "Greek Super League 2 Top Goalscorer", 0x9CFEC4 });
+	award_dword_match.insert({ "Turkish Player of the Year", 0x9CFEC8 });
+	award_dword_match.insert({ "Turkish Manager of the Year", 0x9CFECC });
+	award_dword_match.insert({ "Turkish Süper Lig Team of the Week", 0x9CFED0 });
+	award_dword_match.insert({ "Turkish Süper Lig Team of the Year", 0x9CFED4 });
+	award_dword_match.insert({ "TFF 1. Lig Team of the Week", 0x9CFED8 });
+	award_dword_match.insert({ "TFF 1. Lig Team of the Year", 0x9CFEDC });
+	award_dword_match.insert({ "Russian Player of the Year", 0x9CFEE0 });
+	award_dword_match.insert({ "Russian Premier League Team of the Week", 0x9CFEE4 });
+	award_dword_match.insert({ "Russian Premier League Team of the Year", 0x9CFEE8 });
+	award_dword_match.insert({ "Russian Premier League Player of the Month", 0x9CFEEC });
+	award_dword_match.insert({ "Russian First League Team of the Week", 0x9CFEF0 });
+	award_dword_match.insert({ "Russian First League Team of the Year", 0x9CFEF4 });
+	award_dword_match.insert({ "Russian First League Player of the Month", 0x9CFEF8 });
+	award_dword_match.insert({ "Irish Personality of the Year", 0x9CFEFC });
+	award_dword_match.insert({ "NIFL Player of the Year", 0x9CFF00 });
+	award_dword_match.insert({ "NIFL Premiership Team of the Week", 0x9CFF04 });
+	award_dword_match.insert({ "NIFL Premiership Player of the Year", 0x9CFF08 });
+	award_dword_match.insert({ "NIFL Premiership Young Player of the Year", 0x9CFF0C });
+	award_dword_match.insert({ "NIFL Premiership Top Goalscorer", 0x9CFF10 });
+	award_dword_match.insert({ "NIFL Premiership Manager of the Year", 0x9CFF14 });
+	award_dword_match.insert({ "NIFL Premiership Manager of the Month", 0x9CFF18 });
+	award_dword_match.insert({ "NIFL Championship Team of the Week", 0x9CFF1C });
+	award_dword_match.insert({ "NIFL Championship Player of the Year", 0x9CFF20 });
+	award_dword_match.insert({ "NIFL Championship Young Player of the Year", 0x9CFF24 });
+	award_dword_match.insert({ "NIFL Championship Top Goalscorer", 0x9CFF28 });
+	award_dword_match.insert({ "NIFL Championship Manager of the Year", 0x9CFF2C });
+	award_dword_match.insert({ "NIFL Championship Manager of the Month", 0x9CFF30 });
+	award_dword_match.insert({ "Irish League Golden Boot", 0x9CFF34 });
+	award_dword_match.insert({ "Irish League Bronze Boot", 0x9CFF38 });
+	award_dword_match.insert({ "Belgian Challenger League Revelation of the Year", 0x9CFF3C });
+	award_dword_match.insert({ "Welsh Team of the Week", 0x9CFF40 });
+	award_dword_match.insert({ "Welsh Player of the Year", 0x9CFF44 });
+	award_dword_match.insert({ "Welsh Young Player of the Year", 0x9CFF48 });
+	award_dword_match.insert({ "Welsh Top Goalscorer", 0x9CFF4C });
+	award_dword_match.insert({ "Welsh Manager of the Year", 0x9CFF50 });
+	award_dword_match.insert({ "Welsh Manager of the Month", 0x9CFF54 });
+	award_dword_match.insert({ "French Ligue 1 Team of the Year", 0x9CFF58 });
+	award_dword_match.insert({ "French Ligue 2 Team of the Year", 0x9CFF5C });
+	award_dword_match.insert({ "French National Player of the Year", 0x9CFF60 });
+	award_dword_match.insert({ "French National Goalkeeper of the Year", 0x9CFF64 });
+	award_dword_match.insert({ "French National Team of the Week", 0x9CFF68 });
+	award_dword_match.insert({ "French National Team of the Year", 0x9CFF6C });
+	award_dword_match.insert({ "Irish Player of the Month", 0x9CFF70 });
+	award_dword_match.insert({ "French National Players' Player of the Year", 0x9CFF74 });
+	award_dword_match.insert({ "Oceania Footballer of the Year", 0x9CFF78 });
+	award_dword_match.insert({ "Finnish Ykkösliiga Player of the Month", 0x9CFF7C });
+	award_dword_match.insert({ "Finnish Veikkausliiga Manager of the Month", 0x9CFF80 });
+	award_dword_match.insert({ "Finnish Ykkösliiga Manager of the Month", 0x9CFF84 });
+	award_dword_match.insert({ "Brazilian Série A Player of the Year", 0x9CFF88 });
+	award_dword_match.insert({ "Brazilian Série A Team of the Week", 0x9CFF8C });
+	award_dword_match.insert({ "Brazilian Série A Team of the Year", 0x9CFF90 });
+	award_dword_match.insert({ "Brazilian Série A Top Goalscorer", 0x9CFF94 });
+	award_dword_match.insert({ "Brazilian Série A Young Player of the Year", 0x9CFF98 });
+	award_dword_match.insert({ "Brazilian Série B Player of the Year", 0x9CFF9C });
+	award_dword_match.insert({ "Brazilian Série B Team of the Week", 0x9CFFA0 });
+	award_dword_match.insert({ "Brazilian Série B Team of the Year", 0x9CFFA4 });
+	award_dword_match.insert({ "Brazilian Série B Top Goalscorer", 0x9CFFA8 });
+	award_dword_match.insert({ "Brazilian Série B Young Player of the Year", 0x9CFFAC });
+	award_dword_match.insert({ "Brazilian Série C Player of the Year", 0x9CFFB0 });
+	award_dword_match.insert({ "Brazilian Série C Team of the Week", 0x9CFFB4 });
+	award_dword_match.insert({ "Brazilian Série C Team of the Year", 0x9CFFB8 });
+	award_dword_match.insert({ "Brazilian Série C Top Goalscorer", 0x9CFFBC });
+	award_dword_match.insert({ "Brazilian Série C Young Player of the Year", 0x9CFFC0 });
+	award_dword_match.insert({ "Campeonato Baiano Best Goalkeeper", 0x9CFFC4 });
+	award_dword_match.insert({ "Campeonato Baiano Best Player", 0x9CFFC8 });
+	award_dword_match.insert({ "Campeonato Baiano Team of the Week", 0x9CFFCC });
+	award_dword_match.insert({ "Campeonato Baiano Top Goalscorer", 0x9CFFD0 });
+	award_dword_match.insert({ "Campeonato Central Best Goalkeeper", 0x9CFFD4 });
+	award_dword_match.insert({ "Campeonato Central Best Player", 0x9CFFD8 });
+	award_dword_match.insert({ "Campeonato Central Team of the Week", 0x9CFFDC });
+	award_dword_match.insert({ "Campeonato Central Top Goalscorer", 0x9CFFE0 });
+	award_dword_match.insert({ "Campeonato Gaúcho Best Goalkeeper", 0x9CFFE4 });
+	award_dword_match.insert({ "Campeonato Gaúcho Best Player", 0x9CFFE8 });
+	award_dword_match.insert({ "Campeonato Gaúcho Team of the Week", 0x9CFFEC });
+	award_dword_match.insert({ "Campeonato Gaúcho Top Goalscorer", 0x9CFFF0 });
+	award_dword_match.insert({ "Campeonato Goiano Best Goalkeeper", 0x9CFFF4 });
+	award_dword_match.insert({ "Campeonato Goiano Best Player", 0x9CFFF8 });
+	award_dword_match.insert({ "Campeonato Goiano Team of the Week", 0x9CFFFC });
+	award_dword_match.insert({ "Campeonato Goiano Top Goalscorer", 0x9D0000 });
+	award_dword_match.insert({ "Campeonato Mineiro Best Goalkeeper", 0x9D0004 });
+	award_dword_match.insert({ "Campeonato Mineiro Best Player", 0x9D0008 });
+	award_dword_match.insert({ "Campeonato Mineiro Team of the Week", 0x9D000C });
+	award_dword_match.insert({ "Campeonato Mineiro Top Goalscorer", 0x9D0010 });
+	award_dword_match.insert({ "Campeonato do Norte Best Goalkeeper", 0x9D0014 });
+	award_dword_match.insert({ "Campeonato do Norte Best Player", 0x9D0018 });
+	award_dword_match.insert({ "Campeonato do Norte Team of the Week", 0x9D001C });
+	award_dword_match.insert({ "Campeonato do Norte Top Goalscorer", 0x9D0020 });
+	award_dword_match.insert({ "Campeonato do Nordeste Best Goalkeeper", 0x9D0024 });
+	award_dword_match.insert({ "Campeonato do Nordeste Best Player", 0x9D0028 });
+	award_dword_match.insert({ "Campeonato do Nordeste Team of the Week", 0x9D002C });
+	award_dword_match.insert({ "Campeonato do Nordeste Top Goalscorer", 0x9D0030 });
+	award_dword_match.insert({ "Campeonato Paranaense Best Goalkeeper", 0x9D0034 });
+	award_dword_match.insert({ "Campeonato Paranaense Best Player", 0x9D0038 });
+	award_dword_match.insert({ "Campeonato Paranaense Team of the Week", 0x9D003C });
+	award_dword_match.insert({ "Campeonato Paranaense Top Goalscorer", 0x9D0040 });
+	award_dword_match.insert({ "Campeonato Pernambucano Best Goalkeeper", 0x9D0044 });
+	award_dword_match.insert({ "Campeonato Pernambucano Best Player", 0x9D0048 });
+	award_dword_match.insert({ "Campeonato Pernambucano Team of the Week", 0x9D004C });
+	award_dword_match.insert({ "Campeonato Pernambucano Top Goalscorer", 0x9D0050 });
+	award_dword_match.insert({ "Campeonato Carioca Best Goalkeeper", 0x9D0054 });
+	award_dword_match.insert({ "Campeonato Carioca Best Player", 0x9D0058 });
+	award_dword_match.insert({ "Campeonato Carioca Team of the Week", 0x9D005C });
+	award_dword_match.insert({ "Campeonato Carioca Top Goalscorer", 0x9D0060 });
+	award_dword_match.insert({ "Campeonato Catarinense Best Goalkeeper", 0x9D0064 });
+	award_dword_match.insert({ "Campeonato Catarinense Best Player", 0x9D0068 });
+	award_dword_match.insert({ "Campeonato Catarinense Team of the Week", 0x9D006C });
+	award_dword_match.insert({ "Campeonato Catarinense Top Goalscorer", 0x9D0070 });
+	award_dword_match.insert({ "Campeonato Paulista Best Goalkeeper", 0x9D0074 });
+	award_dword_match.insert({ "Campeonato Paulista Best Player", 0x9D0078 });
+	award_dword_match.insert({ "Campeonato Paulista Team of the Week", 0x9D007C });
+	award_dword_match.insert({ "Campeonato Paulista Top Goalscorer", 0x9D0080 });
+	award_dword_match.insert({ "South Korean Best 11 of the Year", 0x9D0084 });
+	award_dword_match.insert({ "South Korean Manager of the Month", 0x9D0088 });
+	award_dword_match.insert({ "South Korean Manager of the Year", 0x9D008C });
+	award_dword_match.insert({ "South Korean Most Assisted Player of the Year", 0x9D0090 });
+	award_dword_match.insert({ "South Korean Player of the Month", 0x9D0094 });
+	award_dword_match.insert({ "South Korean Player of the Year", 0x9D0098 });
+	award_dword_match.insert({ "South Korean Top Goal Scorer of the Year", 0x9D009C });
+	award_dword_match.insert({ "South Korean Young Player of the Year", 0x9D00A0 });
+
+	nation_dword_match.insert({ "Afghanistan", 0x9CF200 });
+	nation_dword_match.insert({ "Albania", 0x9CF204 });
+	nation_dword_match.insert({ "Algeria", 0x9CF208 });
+	nation_dword_match.insert({ "Andorra", 0x9CF20c });
+	nation_dword_match.insert({ "Angola", 0x9CF210 });
+	nation_dword_match.insert({ "Antigua & Barbuda", 0x9CF214 });
+	nation_dword_match.insert({ "Argentina", 0x9CF218 });
+	nation_dword_match.insert({ "Armenia", 0x9CF21c });
+	nation_dword_match.insert({ "Aruba", 0x9CF220 });
+	nation_dword_match.insert({ "Australia", 0x9CF224 });
+	nation_dword_match.insert({ "Austria", 0x9CF228 });
+	nation_dword_match.insert({ "Azerbaijan", 0x9CF22c });
+	nation_dword_match.insert({ "Bahamas", 0x9CF230 });
+	nation_dword_match.insert({ "Bahrain", 0x9CF234 });
+	nation_dword_match.insert({ "Bangladesh", 0x9CF238 });
+	nation_dword_match.insert({ "Barbados", 0x9CF23c });
+	nation_dword_match.insert({ "Belarus", 0x9CF240 });
+	nation_dword_match.insert({ "Belgium", 0x9CF244 });
+	nation_dword_match.insert({ "Belize", 0x9CF248 });
+	nation_dword_match.insert({ "Benin", 0x9CF24c });
+	nation_dword_match.insert({ "Bermuda", 0x9CF250 });
+	nation_dword_match.insert({ "Bolivia", 0x9CF254 });
+	nation_dword_match.insert({ "Bosnia-Herzegovina", 0x9CF258 });
+	nation_dword_match.insert({ "Botswana", 0x9CF25c });
+	nation_dword_match.insert({ "Brazil", 0x9CF260 });
+	nation_dword_match.insert({ "Brunei Darussalam", 0x9CF264 });
+	nation_dword_match.insert({ "Bulgaria", 0x9CF268 });
+	nation_dword_match.insert({ "Burkina Faso", 0x9CF26c });
+	//nation_dword_match.insert({ "Unused", 0x9CF270 });
+	nation_dword_match.insert({ "Burundi", 0x9CF274 });
+	nation_dword_match.insert({ "Commonwealth of Soviet States", 0x9CF278 });
+	nation_dword_match.insert({ "Cameroon", 0x9CF27c });
+	nation_dword_match.insert({ "Canada", 0x9CF280 });
+	nation_dword_match.insert({ "Cape Verde Islands", 0x9CF284 });
+	nation_dword_match.insert({ "Cayman Islands", 0x9CF288 });
+	nation_dword_match.insert({ "Central African Republic", 0x9CF28c });
+	nation_dword_match.insert({ "Chad", 0x9CF290 });
+	nation_dword_match.insert({ "Chile", 0x9CF294 });
+	nation_dword_match.insert({ "China", 0x9CF298 });
+	nation_dword_match.insert({ "Colombia", 0x9CF29c });
+	nation_dword_match.insert({ "The Congo", 0x9CF2a0 });
+	nation_dword_match.insert({ "Cook Islands", 0x9CF2a4 });
+	nation_dword_match.insert({ "Costa Rica", 0x9CF2a8 });
+	nation_dword_match.insert({ "Croatia", 0x9CF2ac });
+	nation_dword_match.insert({ "Cuba", 0x9CF2b0 });
+	nation_dword_match.insert({ "Cyprus", 0x9CF2b4 });
+	nation_dword_match.insert({ "Czech Republic", 0x9CF2b8 });
+	nation_dword_match.insert({ "Czechoslovakia", 0x9CF2bc });
+	nation_dword_match.insert({ "Denmark", 0x9CF2c0 });
+	nation_dword_match.insert({ "Djibouti", 0x9CF2c4 });
+	nation_dword_match.insert({ "Dominica", 0x9CF2c8 });
+	nation_dword_match.insert({ "Dominican Republic", 0x9CF2cc });
+	nation_dword_match.insert({ "East Germany", 0x9CF2d0 });
+	nation_dword_match.insert({ "Ecuador", 0x9CF2d4 });
+	nation_dword_match.insert({ "Egypt", 0x9CF2d8 });
+	nation_dword_match.insert({ "Republic of Ireland", 0x9CF2dc });
+	nation_dword_match.insert({ "El Salvador", 0x9CF2e0 });
+	nation_dword_match.insert({ "England", 0x9CF2e4 });
+	nation_dword_match.insert({ "Equatorial Guinea", 0x9CF2e8 });
+	nation_dword_match.insert({ "Estonia", 0x9CF2ec });
+	nation_dword_match.insert({ "Ethiopia", 0x9CF2f0 });
+	nation_dword_match.insert({ "Faroe Islands", 0x9CF2f4 });
+	nation_dword_match.insert({ "Fiji", 0x9CF2f8 });
+	nation_dword_match.insert({ "Finland", 0x9CF2fc });
+	nation_dword_match.insert({ "France", 0x9CF300 });
+	nation_dword_match.insert({ "North Macedonia", 0x9CF304 });
+	nation_dword_match.insert({ "Gabon", 0x9CF308 });
+	nation_dword_match.insert({ "The Gambia", 0x9CF30c });
+	nation_dword_match.insert({ "Georgia", 0x9CF310 });
+	nation_dword_match.insert({ "Germany", 0x9CF314 });
+	nation_dword_match.insert({ "Ghana", 0x9CF318 });
+	nation_dword_match.insert({ "Greece", 0x9CF31c });
+	nation_dword_match.insert({ "Grenada", 0x9CF320 });
+	nation_dword_match.insert({ "Guatemala", 0x9CF324 });
+	nation_dword_match.insert({ "Guinea", 0x9CF328 });
+	nation_dword_match.insert({ "Guinea-Bissau", 0x9CF32c });
+	nation_dword_match.insert({ "Guyana", 0x9CF330 });
+	nation_dword_match.insert({ "Haiti", 0x9CF334 });
+	nation_dword_match.insert({ "Netherlands", 0x9CF338 });
+	nation_dword_match.insert({ "Honduras", 0x9CF33c });
+	nation_dword_match.insert({ "Hong Kong", 0x9CF340 });
+	nation_dword_match.insert({ "Hungary", 0x9CF344 });
+	nation_dword_match.insert({ "Iceland", 0x9CF348 });
+	nation_dword_match.insert({ "India", 0x9CF34c });
+	nation_dword_match.insert({ "Indonesia", 0x9CF350 });
+	nation_dword_match.insert({ "Iran", 0x9CF354 });
+	nation_dword_match.insert({ "Iraq", 0x9CF358 });
+	nation_dword_match.insert({ "Israel", 0x9CF35c });
+	nation_dword_match.insert({ "Italy", 0x9CF360 });
+	nation_dword_match.insert({ "Ivory Coast", 0x9CF364 });
+	nation_dword_match.insert({ "Jamaica", 0x9CF368 });
+	nation_dword_match.insert({ "Japan", 0x9CF36c });
+	nation_dword_match.insert({ "Jordan", 0x9CF370 });
+	nation_dword_match.insert({ "Cambodia", 0x9CF374 });
+	nation_dword_match.insert({ "Kazakhstan", 0x9CF378 });
+	nation_dword_match.insert({ "Kenya", 0x9CF37c });
+	nation_dword_match.insert({ "Kuwait", 0x9CF380 });
+	nation_dword_match.insert({ "Kyrgyzstan", 0x9CF384 });
+	nation_dword_match.insert({ "Laos", 0x9CF388 });
+	nation_dword_match.insert({ "Latvia", 0x9CF38c });
+	nation_dword_match.insert({ "Lebanon", 0x9CF390 });
+	nation_dword_match.insert({ "Lesotho", 0x9CF394 });
+	nation_dword_match.insert({ "Liberia", 0x9CF398 });
+	nation_dword_match.insert({ "Libya", 0x9CF39c });
+	nation_dword_match.insert({ "Liechtenstein", 0x9CF3a0 });
+	nation_dword_match.insert({ "Lithuania", 0x9CF3a4 });
+	nation_dword_match.insert({ "Luxembourg", 0x9CF3a8 });
+	nation_dword_match.insert({ "Macau", 0x9CF3ac });
+	nation_dword_match.insert({ "Madagascar", 0x9CF3b0 });
+	nation_dword_match.insert({ "Malawi", 0x9CF3b4 });
+	nation_dword_match.insert({ "Malaysia", 0x9CF3b8 });
+	nation_dword_match.insert({ "Maldives", 0x9CF3bc });
+	nation_dword_match.insert({ "Mali", 0x9CF3c0 });
+	nation_dword_match.insert({ "Malta", 0x9CF3c4 });
+	nation_dword_match.insert({ "Mauritania", 0x9CF3c8 });
+	nation_dword_match.insert({ "Mauritius", 0x9CF3cc });
+	nation_dword_match.insert({ "Mexico", 0x9CF3d0 });
+	nation_dword_match.insert({ "Moldova", 0x9CF3d4 });
+	nation_dword_match.insert({ "Morocco", 0x9CF3d8 });
+	nation_dword_match.insert({ "Mozambique", 0x9CF3dc });
+	nation_dword_match.insert({ "Myanmar", 0x9CF3e0 });
+	nation_dword_match.insert({ "Northern Ireland", 0x9CF3e4 });
+	nation_dword_match.insert({ "Namibia", 0x9CF3e8 });
+	nation_dword_match.insert({ "Nepal", 0x9CF3ec });
+	nation_dword_match.insert({ "Curaçao", 0x9CF3f0 });
+	nation_dword_match.insert({ "New Zealand", 0x9CF3f4 });
+	nation_dword_match.insert({ "Nicaragua", 0x9CF3f8 });
+	nation_dword_match.insert({ "Niger", 0x9CF3fc });
+	nation_dword_match.insert({ "Nigeria", 0x9CF400 });
+	nation_dword_match.insert({ "North Korea", 0x9CF404 });
+	nation_dword_match.insert({ "Norway", 0x9CF408 });
+	nation_dword_match.insert({ "Oman", 0x9CF40c });
+	nation_dword_match.insert({ "Pakistan", 0x9CF410 });
+	nation_dword_match.insert({ "Palestine", 0x9CF414 });
+	nation_dword_match.insert({ "Panama", 0x9CF418 });
+	nation_dword_match.insert({ "Papua New Guinea", 0x9CF41c });
+	nation_dword_match.insert({ "Paraguay", 0x9CF420 });
+	nation_dword_match.insert({ "Pays Basque", 0x9CF424 });
+	nation_dword_match.insert({ "Peru", 0x9CF428 });
+	nation_dword_match.insert({ "The Philippines", 0x9CF42c });
+	nation_dword_match.insert({ "Poland", 0x9CF430 });
+	nation_dword_match.insert({ "Portugal", 0x9CF434 });
+	nation_dword_match.insert({ "Puerto Rico", 0x9CF438 });
+	nation_dword_match.insert({ "Qatar", 0x9CF43c });
+	nation_dword_match.insert({ "Democratic Republic of Congo", 0x9CF440 });
+	nation_dword_match.insert({ "Romania", 0x9CF444 });
+	nation_dword_match.insert({ "Russia", 0x9CF448 });
+	nation_dword_match.insert({ "Rwanda", 0x9CF44c });
+	nation_dword_match.insert({ "San Marino", 0x9CF450 });
+	nation_dword_match.insert({ "São Tomé & Principe", 0x9CF454 });
+	nation_dword_match.insert({ "Saudi Arabia", 0x9CF458 });
+	nation_dword_match.insert({ "Scotland", 0x9CF45c });
+	nation_dword_match.insert({ "Senegal", 0x9CF460 });
+	nation_dword_match.insert({ "Seychelles", 0x9CF464 });
+	nation_dword_match.insert({ "Sierra Leone", 0x9CF468 });
+	nation_dword_match.insert({ "Singapore", 0x9CF46c });
+	nation_dword_match.insert({ "Slovakia", 0x9CF470 });
+	nation_dword_match.insert({ "Slovenia", 0x9CF474 });
+	nation_dword_match.insert({ "Solomon Islands", 0x9CF478 });
+	nation_dword_match.insert({ "Somalia", 0x9CF47c });
+	nation_dword_match.insert({ "South Africa", 0x9CF480 });
+	nation_dword_match.insert({ "South Korea", 0x9CF484 });
+	nation_dword_match.insert({ "Spain", 0x9CF488 });
+	nation_dword_match.insert({ "Sri Lanka", 0x9CF48c });
+	nation_dword_match.insert({ "St Kitts & Nevis", 0x9CF490 });
+	nation_dword_match.insert({ "Saint Lucia", 0x9CF494 });
+	nation_dword_match.insert({ "St Vincent & The Grenadines", 0x9CF498 });
+	nation_dword_match.insert({ "Sudan", 0x9CF49c });
+	nation_dword_match.insert({ "Surinam", 0x9CF4a0 });
+	nation_dword_match.insert({ "eSwatini", 0x9CF4a4 });
+	nation_dword_match.insert({ "Sweden", 0x9CF4a8 });
+	nation_dword_match.insert({ "Switzerland", 0x9CF4ac });
+	nation_dword_match.insert({ "Syria", 0x9CF4b0 });
+	nation_dword_match.insert({ "Tahiti", 0x9CF4b4 });
+	nation_dword_match.insert({ "Chinese Taipei", 0x9CF4b8 });
+	nation_dword_match.insert({ "Tajikistan", 0x9CF4bc });
+	nation_dword_match.insert({ "Tanzania", 0x9CF4c0 });
+	nation_dword_match.insert({ "Thailand", 0x9CF4c4 });
+	nation_dword_match.insert({ "Timor", 0x9CF4c8 });
+	nation_dword_match.insert({ "Togo", 0x9CF4cc });
+	nation_dword_match.insert({ "Tonga", 0x9CF4d0 });
+	nation_dword_match.insert({ "Trinidad & Tobago", 0x9CF4d4 });
+	nation_dword_match.insert({ "Tunisia", 0x9CF4d8 });
+	nation_dword_match.insert({ "Turkey", 0x9CF4dc });
+	nation_dword_match.insert({ "Turkmenistan", 0x9CF4e0 });
+	nation_dword_match.insert({ "United Arab Emirates", 0x9CF4e4 });
+	nation_dword_match.insert({ "Soviet Union", 0x9CF4e8 });
+	nation_dword_match.insert({ "Uganda", 0x9CF4ec });
+	nation_dword_match.insert({ "Ukraine", 0x9CF4f0 });
+	nation_dword_match.insert({ "Uruguay", 0x9CF4f4 });
+	nation_dword_match.insert({ "United States", 0x9CF4f8 });
+	nation_dword_match.insert({ "Uzbekistan", 0x9CF4fc });
+	nation_dword_match.insert({ "Vanuatu", 0x9CF500 });
+	nation_dword_match.insert({ "Venezuela", 0x9CF504 });
+	nation_dword_match.insert({ "Vietnam", 0x9CF508 });
+	nation_dword_match.insert({ "West Germany", 0x9CF50c });
+	nation_dword_match.insert({ "Wales", 0x9CF510 });
+	nation_dword_match.insert({ "Samoa", 0x9CF514 });
+	nation_dword_match.insert({ "Yemen", 0x9CF518 });
+	nation_dword_match.insert({ "Serbia", 0x9CF51c });
+	nation_dword_match.insert({ "Zaire", 0x9CF520 });
+	nation_dword_match.insert({ "Zambia", 0x9CF524 });
+	nation_dword_match.insert({ "Zimbabwe", 0x9CF528 });
+	nation_dword_match.insert({ "American Samoa", 0x9CF52c });
+	nation_dword_match.insert({ "New Caledonia", 0x9CF530 });
+	nation_dword_match.insert({ "British Virgin Islands", 0x9CF534 });
+	nation_dword_match.insert({ "Turks and Caicos Islands", 0x9CF538 });
+	nation_dword_match.insert({ "US Virgin Islands", 0x9CF53c });
+	nation_dword_match.insert({ "Anguilla", 0x9CF540 });
+	nation_dword_match.insert({ "Montserrat", 0x9CF544 });
+	nation_dword_match.insert({ "Bhutan", 0xDE9718 });
+	nation_dword_match.insert({ "Bonaire", 0xDE971C });
+	nation_dword_match.insert({ "Comoros", 0xDE9720 });
+	nation_dword_match.insert({ "Eritrea", 0xDE9724 });
+	nation_dword_match.insert({ "French Guiana", 0xDE9728 });
+	nation_dword_match.insert({ "Gibraltar", 0xDE972C });
+	nation_dword_match.insert({ "Guadeloupe", 0xDE9730 });
+	nation_dword_match.insert({ "Guam", 0xDE9734 });
+	nation_dword_match.insert({ "Kosovo", 0xDE9738 });
+	nation_dword_match.insert({ "Martinique", 0xDE973C });
+	nation_dword_match.insert({ "Mongolia", 0xDE9740 });
+	nation_dword_match.insert({ "Montenegro", 0xDE9744 });
+	nation_dword_match.insert({ "Northern Mariana Islands", 0xDE9748 });
+	nation_dword_match.insert({ "Réunion", 0xDE974C });
+	nation_dword_match.insert({ "Saint-Martin", 0xDE9750 });
+	nation_dword_match.insert({ "Sint Maarten", 0xDE9754 });
+	nation_dword_match.insert({ "South Sudan", 0xDE9758 });
 }

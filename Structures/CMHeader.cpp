@@ -36,6 +36,24 @@ DWORD* comp_stats_count = (DWORD*)0xADADF8;
 cm3_colours** colours = (cm3_colours**)0xAE23EC;
 DWORD* colours_count = (DWORD*)0xAE2394;
 
+cm3_staff** staff = (cm3_staff**)0xAE23BC;
+DWORD* staff_count = (DWORD*)0xAE2364;
+
+cm3_players** players = (cm3_players**)0xAE23C4;
+DWORD* players_count = (DWORD*)0xAE236C;
+
+cm3_non_players** non_players = (cm3_non_players**)0xAE23C0;
+DWORD* non_players_count = (DWORD*)0xAE2368;
+
+cm3_names** first_names = (cm3_names**)0xAE23F0;
+DWORD* first_names_count = (DWORD*)0xAE2398;
+
+cm3_names** second_names = (cm3_names**)0xAE23F4;
+DWORD* second_names_count = (DWORD*)0xAE239C;
+
+cm3_names** common_names = (cm3_names**)0xAE23F8;
+DWORD* common_names_count = (DWORD*)0xAE23A0;
+
 DWORD* current_date = (DWORD*)0xAE2C90;
 WORD* current_year = (WORD*)0xAE2C92;
 

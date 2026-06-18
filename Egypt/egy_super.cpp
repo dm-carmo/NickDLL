@@ -172,10 +172,10 @@ int egy_super_teams(BYTE* _this) {
 		if (runner_up) vec.push_back(runner_up);
 		cm3_club_comps* egy_lge_cup = get_comp(EGY_LEAGUE_CUP_9CF());
 		winner = get_last_comp_winner(egy_lge_cup);
-		if (winner && !vector_contains_club(vec, winner)) vec.push_back(winner);
+		if (winner && !vector_contains_element(vec, winner)) vec.push_back(winner);
 
 		for (cm3_clubs* c : d1_clubs) {
-			if (!vector_contains_club(vec, c)) vec.push_back(c);
+			if (!vector_contains_element(vec, c)) vec.push_back(c);
 			if (vec.size() >= 4) break;
 		}
 	}
