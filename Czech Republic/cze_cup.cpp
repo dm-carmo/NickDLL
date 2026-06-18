@@ -78,7 +78,7 @@ int cze_cup_teams(BYTE* _this) {
 	sort(division_clubs.begin(), division_clubs.end(), compareClubRepInv);
 	for (cm3_clubs* club : division_clubs)
 	{
-		if (!vector_contains_club(vec_uefa, club))
+		if (!vector_contains_element(vec_uefa, club))
 		{
 			DWORD is_main_club;
 			cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)club, &is_main_club, 1);
@@ -92,7 +92,7 @@ int cze_cup_teams(BYTE* _this) {
 	sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPosInv);
 	for (cm3_clubs* club : division_clubs)
 	{
-		if (!vector_contains_club(vec_uefa, club))
+		if (!vector_contains_element(vec_uefa, club))
 		{
 			DWORD is_main_club;
 			cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)club, &is_main_club, 1);
@@ -104,7 +104,7 @@ int cze_cup_teams(BYTE* _this) {
 	sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPosInv);
 	for (cm3_clubs* club : division_clubs)
 	{
-		if (!vector_contains_club(vec_uefa, club))
+		if (!vector_contains_element(vec_uefa, club))
 		{
 			DWORD is_main_club;
 			cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)club, &is_main_club, 1);
@@ -116,7 +116,7 @@ int cze_cup_teams(BYTE* _this) {
 	sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPosInv);
 	for (cm3_clubs* club : division_clubs)
 	{
-		if (!vector_contains_club(vec_uefa, club)) vec.push_back(club);
+		if (!vector_contains_element(vec_uefa, club)) vec.push_back(club);
 	}
 
 	for (cm3_clubs* club : vec_uefa)

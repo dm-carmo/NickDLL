@@ -112,10 +112,10 @@ int cro_super_teams(BYTE* _this) {
 		if (league_second) vec.push_back(league_second);
 	}
 	cm3_clubs* cup_champ = get_last_comp_winner(cup);
-	if (cup_champ && !vector_contains_club(vec, cup_champ)) vec.push_back(cup_champ);
+	if (cup_champ && !vector_contains_element(vec, cup_champ)) vec.push_back(cup_champ);
 	else {
 		cm3_clubs* cup_second = get_last_comp_runner_up(cup);
-		if (cup_second && !vector_contains_club(vec, cup_second)) vec.push_back(cup_second);
+		if (cup_second && !vector_contains_element(vec, cup_second)) vec.push_back(cup_second);
 	}
 
 	for (DWORD i = 0; i < vec.size(); i++)

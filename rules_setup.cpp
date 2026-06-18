@@ -106,7 +106,7 @@ void replacement_8D26B0(BYTE* _this) {
 	rules_array[idx++] = (DWORD)dMem;
 
 	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
-	if (dMem) holland_rules_5F9690(dMem, idx, NATION_HOLLAND_9CF(), -1, 1, 0);
+	if (dMem) holland_rules_5F9690(dMem, idx, NATION_NETHERLANDS_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
 	dMem = (BYTE*)sub_944CF1_operator_new(0x19);

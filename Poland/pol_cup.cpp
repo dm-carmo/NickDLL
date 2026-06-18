@@ -92,7 +92,7 @@ int pol_cup_teams(BYTE* _this) {
 	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(POL_LOWER_9CF());
 	for (size_t i = 0; i < lower_clubs.size(); i++) {
 		cm3_clubs* c = lower_clubs[i];
-		if (vector_contains_club(vec_uefa, c))
+		if (vector_contains_element(vec_uefa, c))
 		{
 			lower_clubs.erase(lower_clubs.begin() + i);
 			i--;
@@ -108,21 +108,21 @@ int pol_cup_teams(BYTE* _this) {
 	sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPosInv);
 	for (cm3_clubs* club : division_clubs)
 	{
-		if (!vector_contains_club(vec_uefa, club)) vec.push_back(club);
+		if (!vector_contains_element(vec_uefa, club)) vec.push_back(club);
 	}
 	// I Liga
 	division_clubs = find_clubs_of_comp(POL_SECOND_9CF());
 	sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPosInv);
 	for (cm3_clubs* club : division_clubs)
 	{
-		if (!vector_contains_club(vec_uefa, club)) vec.push_back(club);
+		if (!vector_contains_element(vec_uefa, club)) vec.push_back(club);
 	}
 	// Ekstraklasa
 	division_clubs = find_clubs_of_comp(POL_FIRST_9CF());
 	sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPosInv);
 	for (cm3_clubs* club : division_clubs)
 	{
-		if (!vector_contains_club(vec_uefa, club)) vec.push_back(club);
+		if (!vector_contains_element(vec_uefa, club)) vec.push_back(club);
 	}
 
 	for (cm3_clubs* club : vec_uefa)

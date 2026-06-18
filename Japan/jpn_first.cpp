@@ -109,7 +109,7 @@ void __fastcall jpn_third_relegation(BYTE* _this)
 	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(JPN_JFL_9CF(), NATION_JAPAN_9CF());
 	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(available_clubs, 2, true);
 	for (cm3_clubs* c : promoted_clubs) {
-		if (!vector_contains_club(in_playoffs, c)) {
+		if (!vector_contains_element(in_playoffs, c)) {
 			promote_club_6830B0((BYTE*)c, (DWORD)comp_data->competition_db, 1);
 			promoted_teams++;
 			break;

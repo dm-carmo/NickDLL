@@ -695,6 +695,9 @@
     <ClInclude Include="Wales\wal_premier.h" />
     <ClInclude Include="Wales\wal_setup.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Helpers\Helper.tpp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

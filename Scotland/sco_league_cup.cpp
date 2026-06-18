@@ -316,7 +316,7 @@ int sco_league_cup_all_teams(BYTE* _this) {
 		cm3_clubs* c = division_clubs[i];
 		DWORD is_main_club;
 		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)c, &is_main_club, 1);
-		if ((ret_club && !is_main_club) || vector_contains_club(vec_uefa, division_clubs[i]))
+		if ((ret_club && !is_main_club) || vector_contains_element(vec_uefa, division_clubs[i]))
 		{
 			division_clubs.erase(division_clubs.begin() + i);
 			i--;
@@ -344,7 +344,7 @@ int sco_league_cup_all_teams(BYTE* _this) {
 		cm3_clubs* c = division_clubs[i];
 		DWORD is_main_club;
 		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)c, &is_main_club, 1);
-		if ((ret_club && !is_main_club) || vector_contains_club(vec_uefa, division_clubs[i]))
+		if ((ret_club && !is_main_club) || vector_contains_element(vec_uefa, division_clubs[i]))
 		{
 			division_clubs.erase(division_clubs.begin() + i);
 			i--;
@@ -370,26 +370,26 @@ int sco_league_cup_all_teams(BYTE* _this) {
 	division_clubs = find_clubs_of_comp(SCO_LEAGUE_2_9CF());
 	for (cm3_clubs* club : division_clubs)
 	{
-		if (!vector_contains_club(vec_uefa, club)) vec.push_back(club);
+		if (!vector_contains_element(vec_uefa, club)) vec.push_back(club);
 	}
 	// League One
 	division_clubs = find_clubs_of_comp(SCO_LEAGUE_1_9CF());
 	for (cm3_clubs* club : division_clubs)
 	{
-		if (!vector_contains_club(vec_uefa, club)) vec.push_back(club);
+		if (!vector_contains_element(vec_uefa, club)) vec.push_back(club);
 	}
 	// Championship
 	division_clubs = find_clubs_of_comp(SCO_CHAMP_9CF());
 	for (cm3_clubs* club : division_clubs)
 	{
-		if (!vector_contains_club(vec_uefa, club)) vec.push_back(club);
+		if (!vector_contains_element(vec_uefa, club)) vec.push_back(club);
 	}
 	// Premiership
 	division_clubs = find_clubs_of_comp(SCO_PREMIER_9CF());
 	sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPosInv);
 	for (cm3_clubs* club : division_clubs)
 	{
-		if (!vector_contains_club(vec_uefa, club)) vec.push_back(club);
+		if (!vector_contains_element(vec_uefa, club)) vec.push_back(club);
 	}
 
 	for (cm3_clubs* club : vec_uefa)

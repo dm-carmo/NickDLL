@@ -428,11 +428,11 @@ void fifa_club_world_cup_all_teams(BYTE* _this) {
 	vector<cm3_clubs*> afc_clubs;
 	for (int i = 0; i < 4; i++) {
 		cm3_clubs* winner = get_last_comp_winner_by_year(get_comp(AFC_CHAMPIONS_LEAGUE_ELITE_9CF()), year - i - 1);
-		if (winner && !vector_contains_club(afc_clubs, winner)) afc_clubs.push_back(winner);
+		if (winner && !vector_contains_element(afc_clubs, winner)) afc_clubs.push_back(winner);
 	}
 	for (int i = 0; i < 4 && afc_clubs.size() < 4; i++) {
 		cm3_clubs* runner_up = get_last_comp_runner_up_by_year(get_comp(AFC_CHAMPIONS_LEAGUE_ELITE_9CF()), year - i - 1);
-		if (runner_up && !vector_contains_club(afc_clubs, runner_up)) afc_clubs.push_back(runner_up);
+		if (runner_up && !vector_contains_element(afc_clubs, runner_up)) afc_clubs.push_back(runner_up);
 	}
 	vector<cm3_clubs*> high_rep_clubs = find_clubs_of_continent(ASIA_9CF());
 	sort(high_rep_clubs.begin(), high_rep_clubs.end(), compareClubRep);
@@ -440,18 +440,18 @@ void fifa_club_world_cup_all_teams(BYTE* _this) {
 	while (afc_clubs.size() < 4)
 	{
 		cm3_clubs* backup = high_rep_clubs[backup_count++];
-		if (!vector_contains_club(afc_clubs, backup)) afc_clubs.push_back(backup);
+		if (!vector_contains_element(afc_clubs, backup)) afc_clubs.push_back(backup);
 	}
 	// CAF (4)
 	// - last 4 winners of CAF CL, get runner-ups as backup
 	vector<cm3_clubs*> caf_clubs;
 	for (int i = 0; i < 4; i++) {
 		cm3_clubs* winner = get_last_comp_winner_by_year(get_comp(CAF_CHAMPIONS_LEAGUE_9CF()), year - i - 1);
-		if (winner && !vector_contains_club(caf_clubs, winner)) caf_clubs.push_back(winner);
+		if (winner && !vector_contains_element(caf_clubs, winner)) caf_clubs.push_back(winner);
 	}
 	for (int i = 0; i < 4 && caf_clubs.size() < 4; i++) {
 		cm3_clubs* runner_up = get_last_comp_runner_up_by_year(get_comp(CAF_CHAMPIONS_LEAGUE_9CF()), year - i - 1);
-		if (runner_up && !vector_contains_club(caf_clubs, runner_up)) caf_clubs.push_back(runner_up);
+		if (runner_up && !vector_contains_element(caf_clubs, runner_up)) caf_clubs.push_back(runner_up);
 	}
 	high_rep_clubs = find_clubs_of_continent(AFRICA_9CF());
 	sort(high_rep_clubs.begin(), high_rep_clubs.end(), compareClubRep);
@@ -459,18 +459,18 @@ void fifa_club_world_cup_all_teams(BYTE* _this) {
 	while (caf_clubs.size() < 4)
 	{
 		cm3_clubs* backup = high_rep_clubs[backup_count++];
-		if (!vector_contains_club(caf_clubs, backup)) caf_clubs.push_back(backup);
+		if (!vector_contains_element(caf_clubs, backup)) caf_clubs.push_back(backup);
 	}
 	// CONCACAF (4)
 	// - last 4 winners of CONCACAF CL, get runner-ups as backup
 	vector<cm3_clubs*> concacaf_clubs;
 	for (int i = 0; i < 4; i++) {
 		cm3_clubs* winner = get_last_comp_winner_by_year(get_comp(CONCACAF_CHAMPIONS_CUP_9CF()), year - i - 1);
-		if (winner && !vector_contains_club(concacaf_clubs, winner)) concacaf_clubs.push_back(winner);
+		if (winner && !vector_contains_element(concacaf_clubs, winner)) concacaf_clubs.push_back(winner);
 	}
 	for (int i = 0; i < 4 && concacaf_clubs.size() < 4; i++) {
 		cm3_clubs* runner_up = get_last_comp_runner_up_by_year(get_comp(CONCACAF_CHAMPIONS_CUP_9CF()), year - i - 1);
-		if (runner_up && !vector_contains_club(concacaf_clubs, runner_up)) concacaf_clubs.push_back(runner_up);
+		if (runner_up && !vector_contains_element(concacaf_clubs, runner_up)) concacaf_clubs.push_back(runner_up);
 	}
 	high_rep_clubs = find_clubs_of_continent(NORTH_AMERICA_9CF());
 	sort(high_rep_clubs.begin(), high_rep_clubs.end(), compareClubRep);
@@ -478,18 +478,18 @@ void fifa_club_world_cup_all_teams(BYTE* _this) {
 	while (concacaf_clubs.size() < 4)
 	{
 		cm3_clubs* backup = high_rep_clubs[backup_count++];
-		if (!vector_contains_club(concacaf_clubs, backup)) concacaf_clubs.push_back(backup);
+		if (!vector_contains_element(concacaf_clubs, backup)) concacaf_clubs.push_back(backup);
 	}
 	// CONMEBOL (6)
 	// - last 4 winners of Libertadores, get runner-ups as backup
 	vector<cm3_clubs*> conmebol_clubs;
 	for (int i = 0; i < 4; i++) {
 		cm3_clubs* winner = get_last_comp_winner_by_year(get_comp(COPA_LIBERTADORES_9CF()), year - i - 1);
-		if (winner && !vector_contains_club(conmebol_clubs, winner)) conmebol_clubs.push_back(winner);
+		if (winner && !vector_contains_element(conmebol_clubs, winner)) conmebol_clubs.push_back(winner);
 	}
 	for (int i = 0; i < 4 && conmebol_clubs.size() < 6; i++) {
 		cm3_clubs* runner_up = get_last_comp_runner_up_by_year(get_comp(COPA_LIBERTADORES_9CF()), year - i - 1);
-		if (runner_up && !vector_contains_club(conmebol_clubs, runner_up)) conmebol_clubs.push_back(runner_up);
+		if (runner_up && !vector_contains_element(conmebol_clubs, runner_up)) conmebol_clubs.push_back(runner_up);
 	}
 	high_rep_clubs = find_clubs_of_continent(SOUTH_AMERICA_9CF());
 	sort(high_rep_clubs.begin(), high_rep_clubs.end(), compareClubRep);
@@ -497,7 +497,7 @@ void fifa_club_world_cup_all_teams(BYTE* _this) {
 	while (conmebol_clubs.size() < 6)
 	{
 		cm3_clubs* backup = high_rep_clubs[backup_count++];
-		if (!vector_contains_club(conmebol_clubs, backup)) conmebol_clubs.push_back(backup);
+		if (!vector_contains_element(conmebol_clubs, backup)) conmebol_clubs.push_back(backup);
 	}
 	// OFC (1)
 	// - last winner of OFC CL
@@ -510,15 +510,15 @@ void fifa_club_world_cup_all_teams(BYTE* _this) {
 	vector<cm3_clubs*> uefa_clubs;
 	for (int i = 0; i < 4; i++) {
 		cm3_clubs* winner = get_last_comp_winner_by_year(get_comp(UEFA_CHAMPIONS_LEAGUE_9CF()), year - i - 1);
-		if (winner && !vector_contains_club(uefa_clubs, winner)) uefa_clubs.push_back(winner);
+		if (winner && !vector_contains_element(uefa_clubs, winner)) uefa_clubs.push_back(winner);
 	}
 	for (int i = 0; i < 4; i++) {
 		cm3_clubs* winner = get_last_comp_winner_by_year(get_comp(UEFA_EUROPA_LEAGUE_9CF()), year - i - 1);
-		if (winner && !vector_contains_club(uefa_clubs, winner)) uefa_clubs.push_back(winner);
+		if (winner && !vector_contains_element(uefa_clubs, winner)) uefa_clubs.push_back(winner);
 	}
 	for (int i = 0; i < 4 && uefa_clubs.size() < 12; i++) {
 		cm3_clubs* runner_up = get_last_comp_runner_up_by_year(get_comp(UEFA_CHAMPIONS_LEAGUE_9CF()), year - i - 1);
-		if (runner_up && !vector_contains_club(uefa_clubs, runner_up)) uefa_clubs.push_back(runner_up);
+		if (runner_up && !vector_contains_element(uefa_clubs, runner_up)) uefa_clubs.push_back(runner_up);
 	}
 	high_rep_clubs = find_clubs_of_continent(EUROPE_9CF());
 	sort(high_rep_clubs.begin(), high_rep_clubs.end(), compareClubRep);
@@ -526,7 +526,7 @@ void fifa_club_world_cup_all_teams(BYTE* _this) {
 	while (uefa_clubs.size() < 12)
 	{
 		cm3_clubs* backup = high_rep_clubs[backup_count++];
-		if (!vector_contains_club(uefa_clubs, backup)) uefa_clubs.push_back(backup);
+		if (!vector_contains_element(uefa_clubs, backup)) uefa_clubs.push_back(backup);
 	}
 	// Host (1)
 	cm3_clubs* host_club = 0;
@@ -546,8 +546,8 @@ void fifa_club_world_cup_all_teams(BYTE* _this) {
 	}
 	for (size_t i = 0; i < high_rep_clubs.size() && !host_club; i++) {
 		cm3_clubs* club = high_rep_clubs[i];
-		if (!vector_contains_club(afc_clubs, club) && !vector_contains_club(caf_clubs, club) && !vector_contains_club(concacaf_clubs, club) &&
-			!vector_contains_club(conmebol_clubs, club) && !vector_contains_club(uefa_clubs, club) && ofc_club != club)
+		if (!vector_contains_element(afc_clubs, club) && !vector_contains_element(caf_clubs, club) && !vector_contains_element(concacaf_clubs, club) &&
+			!vector_contains_element(conmebol_clubs, club) && !vector_contains_element(uefa_clubs, club) && ofc_club != club)
 			host_club = club;
 	}
 

@@ -108,7 +108,7 @@ int arg_super_teams(BYTE* _this) {
 
 	cm3_club_comps* arg_cup = get_comp(ARG_CUP_9CF());
 	winner = get_last_comp_winner(arg_cup);
-	if (winner && !vector_contains_club(vec, winner)) vec.push_back(winner);
+	if (winner && !vector_contains_element(vec, winner)) vec.push_back(winner);
 
 	cm3_clubs* runner_up = get_last_comp_runner_up(arg_cup);
 	if (runner_up && vec.size() < 2) vec.push_back(runner_up);

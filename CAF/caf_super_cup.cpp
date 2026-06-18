@@ -61,10 +61,10 @@ int caf_super_cup_teams(BYTE* _this) {
 	cm3_clubs* caf_cl_champ = get_last_comp_winner(caf_cl);
 	if (caf_cl_champ) vec.push_back(caf_cl_champ);
 	cm3_clubs* caf_conf_champ = get_last_comp_winner(caf_conf);
-	if (caf_conf_champ && !vector_contains_club(vec, caf_conf_champ)) vec.push_back(caf_conf_champ);
+	if (caf_conf_champ && !vector_contains_element(vec, caf_conf_champ)) vec.push_back(caf_conf_champ);
 	else {
 		cm3_clubs* caf_conf_second = get_last_comp_runner_up(caf_conf);
-		if (caf_conf_second && !vector_contains_club(vec, caf_conf_second)) vec.push_back(caf_conf_second);
+		if (caf_conf_second && !vector_contains_element(vec, caf_conf_second)) vec.push_back(caf_conf_second);
 		else {
 			cm3_clubs* caf_cl_second = get_last_comp_runner_up(caf_cl);
 			if (caf_cl_second) vec.push_back(caf_cl_second);

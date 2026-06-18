@@ -152,12 +152,12 @@ int ita_cup_teams(BYTE* _this) {
 		}
 		// Serie C Cup winner or runner-up
 		cm3_clubs* c_winner = get_last_comp_winner(serie_c_cup);
-		if (c_winner && c_winner->ClubDivision == serie_c && !vector_contains_club(vec, c_winner)) {
+		if (c_winner && c_winner->ClubDivision == serie_c && !vector_contains_element(vec, c_winner)) {
 			c_count++;
 			vec.push_back(c_winner);
 		}
 		cm3_clubs* c_loser = get_last_comp_runner_up(serie_c_cup);
-		if (c_count < 4 && c_loser && c_loser->ClubDivision == serie_c && !vector_contains_club(vec, c_loser)) {
+		if (c_count < 4 && c_loser && c_loser->ClubDivision == serie_c && !vector_contains_element(vec, c_loser)) {
 			c_count++;
 			vec.push_back(c_loser);
 		}
@@ -166,7 +166,7 @@ int ita_cup_teams(BYTE* _this) {
 			//dprintf("getting extra teams for Coppa Italia ...\n");
 			for (DWORD i = 0; i < division_clubs.size() && c_count < 4; i++) {
 				cm3_clubs* c_club_extra = division_clubs[i];
-				if (c_club_extra->ClubLastDivision && c_club_extra->ClubLastDivision->ClubCompID == ITA_SERIE_C_9CF() && !vector_contains_club(vec, c_club_extra))
+				if (c_club_extra->ClubLastDivision && c_club_extra->ClubLastDivision->ClubCompID == ITA_SERIE_C_9CF() && !vector_contains_element(vec, c_club_extra))
 				{
 					c_count++;
 					vec.push_back(c_club_extra);

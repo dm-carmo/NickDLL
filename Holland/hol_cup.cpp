@@ -132,7 +132,7 @@ int hol_cup_teams(BYTE* _this) {
 
 	teams_seeded* teams = (teams_seeded*)comp_data->teams_list;
 
-	vector<cm3_clubs*> division_clubs = find_clubs_of_country(NATION_HOLLAND_9CF());
+	vector<cm3_clubs*> division_clubs = find_clubs_of_country(NATION_NETHERLANDS_9CF());
 	for (cm3_clubs* club : division_clubs)
 	{
 		if (club->ClubEuroFlag != -1) vec_uefa.push_back(club);
@@ -143,14 +143,14 @@ int hol_cup_teams(BYTE* _this) {
 	WORD lower_teams = total_teams - main_teams;
 
 	// Lower
-	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_HOLLAND_9CF());
-	vector<cm3_clubs*> lower_clubs2 = find_clubs_of_comp(A_LOWER_B_9CF(), NATION_HOLLAND_9CF());
+	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_NETHERLANDS_9CF());
+	vector<cm3_clubs*> lower_clubs2 = find_clubs_of_comp(A_LOWER_B_9CF(), NATION_NETHERLANDS_9CF());
 	move(lower_clubs2.begin(), lower_clubs2.end(), back_inserter(lower_clubs));
 	for (size_t i = 0; i < lower_clubs.size(); i++) {
 		cm3_clubs* c = lower_clubs[i];
 		DWORD is_main_club;
 		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)c, &is_main_club, 1);
-		if ((ret_club && !is_main_club) || vector_contains_club(vec_uefa, c))
+		if ((ret_club && !is_main_club) || vector_contains_element(vec_uefa, c))
 		{
 			lower_clubs.erase(lower_clubs.begin() + i);
 			i--;
@@ -166,7 +166,7 @@ int hol_cup_teams(BYTE* _this) {
 	sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPosInv);
 	for (cm3_clubs* club : division_clubs)
 	{
-		if (!vector_contains_club(vec_uefa, club))
+		if (!vector_contains_element(vec_uefa, club))
 		{
 			DWORD is_main_club;
 			cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)club, &is_main_club, 1);
@@ -178,7 +178,7 @@ int hol_cup_teams(BYTE* _this) {
 	sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPosInv);
 	for (cm3_clubs* club : division_clubs)
 	{
-		if (!vector_contains_club(vec_uefa, club)) vec.push_back(club);
+		if (!vector_contains_element(vec_uefa, club)) vec.push_back(club);
 	}
 
 	for (cm3_clubs* club : vec_uefa)

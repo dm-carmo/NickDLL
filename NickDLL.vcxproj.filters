@@ -1692,4 +1692,7 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Helpers\Helper.tpp" />
+  </ItemGroup>
 </Project>

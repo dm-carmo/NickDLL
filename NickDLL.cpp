@@ -40,6 +40,7 @@ void Setup()
 	{
 		ShowWindow(hCon, SW_SHOW);
 		SetForegroundWindow(hCon);
+		SetConsoleOutputCP(65001); // CP_UTF8
 	}
 
 	freopen("CONOUT$", "w", stdout);

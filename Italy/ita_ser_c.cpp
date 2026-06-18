@@ -488,7 +488,7 @@ void ita_c_playoffs_prom(BYTE* _this) {
 		bool found_r2 = false;
 		while (!found_r2) {
 			cm3_clubs* r2_club = ((team_league_stats*)curr_stage->team_league_table)[start_r2++].club;
-			if (vector_contains_club(clubs_rnd4, r2_club) || vector_contains_club(clubs_rnd3, r2_club))
+			if (vector_contains_element(clubs_rnd4, r2_club) || vector_contains_element(clubs_rnd3, r2_club))
 				continue;
 			else {
 				clubs_rnd2.push_back(r2_club);
@@ -508,7 +508,7 @@ void ita_c_playoffs_prom(BYTE* _this) {
 		WORD found_count = 0;
 		while (found_count < 6) {
 			cm3_clubs* r1_club = ((team_league_stats*)curr_stage->team_league_table)[start_r1++].club;
-			if (vector_contains_club(clubs_rnd4, r1_club) || vector_contains_club(clubs_rnd3, r1_club) || vector_contains_club(clubs_rnd2, r1_club))
+			if (vector_contains_element(clubs_rnd4, r1_club) || vector_contains_element(clubs_rnd3, r1_club) || vector_contains_element(clubs_rnd2, r1_club))
 				continue;
 			else {
 				clubs_rnd1.push_back(r1_club);

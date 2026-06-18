@@ -144,7 +144,7 @@ void bra_cup_first_year_teams(BYTE* _this) {
 		BYTE count = state_counts[i];
 		//dprintf("Getting %d teams from league: %s\n", count, get_comp(state_leagues[i])->ClubCompNameShort);
 		for (WORD j = 0; j < state_clubs.size() && count > 0; j++) {
-			if (vector_contains_club(all_clubs, state_clubs[j])) continue;
+			if (vector_contains_element(all_clubs, state_clubs[j])) continue;
 			//dprintf("- Club %s has qualified to Copa do Brasil! (from state league)\n", state_clubs[j]->ClubNameShort, j + 1);
 			first_phase.push_back(state_clubs[j]);
 			count--;
@@ -153,7 +153,7 @@ void bra_cup_first_year_teams(BYTE* _this) {
 			state_clubs = find_clubs_of_comp_reserve_division(state_lower[i]);
 			sort(state_clubs.begin(), state_clubs.end(), compareClubRep);
 			for (WORD j = 0; j < state_clubs.size() && count > 0; j++) {
-				if (vector_contains_club(all_clubs, state_clubs[j])) continue;
+				if (vector_contains_element(all_clubs, state_clubs[j])) continue;
 				//dprintf("- Club %s has qualified to Copa do Brasil! (from lower leagues)\n", state_clubs[j]->ClubNameShort);
 				first_phase.push_back(state_clubs[j]);
 				count--;
