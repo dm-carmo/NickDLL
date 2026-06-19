@@ -1398,8 +1398,6 @@ void __declspec(naked) uel_team_selection_c()
 	}
 }
 
-static void(__thiscall* sub_48CAB0)(BYTE* _this, char* a1, int a2, __int16 a3, __int16 a4, char a5, int a6) =
-(void(__thiscall*)(BYTE * _this, char* a1, int a2, __int16 a3, __int16 a4, char a5, int a6))(0x48CAB0);
 void uel_48CAB0(BYTE* _this, char* a1, int a2, __int16 a3, __int16 a4, char a5, int a6) {
 	// Shows the right text in club's Competitions history if they win in the Champions Third Qualifying Round then lose in the Playoff
 	if (a3 == ChampionsPath && a4 == ThirdQualifyingPhase && a5 == 1)

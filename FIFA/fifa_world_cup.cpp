@@ -16,9 +16,26 @@ DWORD table_start_offset = 0xDEA000;
 
 int fifa_world_cup_set_champion(BYTE* _this) {
 	comp_stats* comp_data = (comp_stats*)_this;
-	BYTE* stage_data_for_history = (BYTE*)comp_data->stages[12];
-	DWORD v1 = *(DWORD*)stage_data_for_history;
-	(*(int(__thiscall**)(BYTE*))(v1 + 0x30))(stage_data_for_history);
+	BYTE* final_bytes = (BYTE*)comp_data->stages[15];
+	BYTE* third_playoff_bytes = (BYTE*)comp_data->stages[14];
+	comp_stats* final_data = (comp_stats*)final_bytes;
+	comp_stats* third_playoff_data = (comp_stats*)third_playoff_bytes;
+	cm3_clubs* first = 0;
+	cm3_clubs* second = 0;
+	cm3_clubs* third = 0;
+	teams_seeded* teams = (teams_seeded*)third_playoff_data->teams_list;
+	for (WORD i = 0; i < third_playoff_data->n_teams; i++) {
+		if (teams[i].f6 == 1) third = teams[i].club;
+	}
+	teams = (teams_seeded*)final_data->teams_list;
+	for (WORD i = 0; i < final_data->n_teams; i++) {
+		if (teams[i].f6 == 1) first = teams[i].club;
+		else if (teams[i].f6 == 2) second = teams[i].club;
+	}
+	DWORD host1_id, host2_id;
+	get_host_ids_5FA730((BYTE*)*b5e134, comp_data->competition_db->ClubCompID, comp_data->year, &host1_id, &host2_id, 1);
+	sub_4AFCE0_add_history_entry(_this, first, second, third, get_national_team(host1_id));
+
 	sub_775420((BYTE*)*b74318, comp_data->competition_db);
 	return 0;
 }
@@ -209,60 +226,123 @@ DWORD fifa_world_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WOR
 			*a5 = 0;
 		BYTE* pMem = NULL;
 		WORD year = ((comp_stats*)_this)->year;
-		*num_rounds = 6;
-		*stage_name_id = None;
+		*num_rounds = 4;
+		*stage_name_id = WorldCupPath1;
 
 		pMem = (BYTE*)sub_944E46_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
 		int tv_id = 0;
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 6, 28), year, Sunday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 6, 27), year, Saturday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 1), year, Wednesday, Afternoon, VenueUnknown_1);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 2, Monday, Morning, LargestStadium3);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 2, Monday, Afternoon, LargestStadium2);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 2, Tuesday, Morning, LargestStadium4);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 2, Tuesday, Afternoon, NationalStadium);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 2, Wednesday, Morning, LargestStadium9);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 2, Wednesday, Afternoon, LargestStadium6);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 2, Thursday, Morning, LargestStadium7);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 2, Thursday, Afternoon, LargestStadium8);
-		FillFixtureDetails(pMem, fixture_id++, RoundOf32, 0, FixedTeamOrderInCup2 + ExtraTimePenalties_1, NoTiebreak_2, 10, 32, 16, 32, 0, 0, 1, 0);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Monday, Afternoon, LargestStadium1);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Tuesday, Afternoon, LargestStadium2);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Sunday, Morning, LargestStadium4);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Monday, Afternoon, NationalStadium);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Thursday, Afternoon, LargestStadium9);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Thursday, Morning, LargestStadium6);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Wednesday, Afternoon, LargestStadium7);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Thursday, Afternoon, LargestStadium5);
+		FillFixtureDetails(pMem, fixture_id++, RoundOf32, 0, FixedTeamOrderInCup2 + ExtraTimePenalties_1, NoTiebreak_2, 10, 16, 8, 16, 0, 0, 1, 0);
 		tv_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 3), year, Friday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 6), year, Monday, Afternoon, VenueUnknown_1);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Saturday, Afternoon, LargestStadium1);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Saturday, Evening, LargestStadium2);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Sunday, Evening, LargestStadium4);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Sunday, Afternoon, NationalStadium);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Monday, Evening, LargestStadium9);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Monday, Afternoon, LargestStadium6);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Tuesday, Evening, LargestStadium7);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Tuesday, Afternoon, LargestStadium8);
-		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, FixedTeamOrderInCup2 + ExtraTimePenalties_1, NoTiebreak_2, 10, 16, 8, 0, 0, 0, 1, 0);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Saturday, Afternoon, LargestStadium3);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Saturday, Morning, LargestStadium1);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Monday, Afternoon, NationalStadium);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Monday, Afternoon, LargestStadium5);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++);
+		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, FixedTeamOrderInCup2 + ExtraTimePenalties_1, NoTiebreak_2, 10, 8, 4, 0, 0, 0, 1, 0);
 		tv_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 8), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 10), year, Friday, Afternoon, VenueUnknown_1);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Thursday, Afternoon, NationalStadium);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Friday, Morning, LargestStadium5);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Thursday, Afternoon, LargestStadium2);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Friday, Morning, NationalStadium);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup2 + ExtraTimePenalties_1, NoTiebreak_2, 10, 4, 2, 0, 0, 0, 1, 0);
+
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 12), year, Sunday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 14), year, Tuesday, Afternoon, LargestStadium1);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, ExtraTimePenalties_1, NoTiebreak_2, 10, 2, 1, 0, 0, 0, 1, 0);
+
+		return (DWORD)pMem;
+	}
+	else if (stage_idx == 13) {
+		if (a5)
+			*a5 = 0;
+		BYTE* pMem = NULL;
+		WORD year = ((comp_stats*)_this)->year;
+		*num_rounds = 4;
+		*stage_name_id = WorldCupPath2;
+
+		pMem = (BYTE*)sub_944E46_malloc(playoff_dates_sz * (*num_rounds));
+
+		int fixture_id = 0;
+		int tv_id = 0;
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 6, 27), year, Saturday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 1), year, Wednesday, Afternoon, VenueUnknown_1);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Monday, Morning, LargestStadium3);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Tuesday, Morning, LargestStadium4);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Tuesday, Afternoon, NationalStadium);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Wednesday, Morning, LargestStadium9);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Friday, Afternoon, LargestStadium2);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Friday, Afternoon, LargestStadium6);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Thursday, Evening, LargestStadium7);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Thursday, Evening, LargestStadium8);
+		FillFixtureDetails(pMem, fixture_id++, RoundOf32, 0, FixedTeamOrderInCup2 + ExtraTimePenalties_1, NoTiebreak_2, 10, 16, 8, 16, 0, 0, 1, 0);
+		tv_id = 0;
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 3), year, Friday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 6), year, Monday, Afternoon, VenueUnknown_1);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Sunday, Evening, LargestStadium4);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Sunday, Afternoon, NationalStadium);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Tuesday, Evening, LargestStadium7);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Tuesday, Afternoon, LargestStadium8);
+		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, FixedTeamOrderInCup2 + ExtraTimePenalties_1, NoTiebreak_2, 10, 8, 4, 0, 0, 0, 1, 0);
+		tv_id = 0;
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 8), year, Wednesday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 10), year, Friday, Afternoon, VenueUnknown_1);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Saturday, Afternoon, LargestStadium3);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Saturday, Evening, LargestStadium1);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup2 + ExtraTimePenalties_1, NoTiebreak_2, 10, 8, 4, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup2 + ExtraTimePenalties_1, NoTiebreak_2, 10, 4, 2, 0, 0, 0, 1, 0);
 		tv_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 12), year, Sunday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 15), year, Wednesday, Evening, VenueUnknown_1);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Tuesday, Afternoon, LargestStadium1);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Wednesday, Afternoon, NationalStadium);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup2 + ExtraTimePenalties_1, NoTiebreak_2, 10, 4, 2, 0, 0, 0, 1, 0);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 15), year, Wednesday, Evening, NationalStadium);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, ExtraTimePenalties_1, NoTiebreak_2, 10, 2, 1, 0, 0, 0, 1, 0);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 16), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 19), year, Sunday, Afternoon, NationalStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, FixedTeamOrderInCup2 + ExtraTimePenalties_1, NoTiebreak_2, 10, 2, 1, 0, 0, 0, 1, 0);
+		return (DWORD)pMem;
+	}
+	else if (stage_idx == 14) {
+		if (a5)
+			*a5 = 0;
+		BYTE* pMem = NULL;
+		WORD year = ((comp_stats*)_this)->year;
+		*num_rounds = 1;
+		*stage_name_id = ThirdPlacePlayoff;
 
+		pMem = (BYTE*)sub_944E46_malloc(playoff_dates_sz * (*num_rounds));
+
+		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 16), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 18), year, Saturday, Afternoon, LargestStadium2);
-		FillFixtureDetails(pMem, fixture_id++, ThirdPlacePlayoff, 0, FixedTeamOrderInCup2 + ExtraTimePenalties_1, NoTiebreak_2, 10, 2, 1, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, None, 0, ExtraTimePenalties_1, NoTiebreak_2, 10, 2, 1, 2, 0, 0, 1, 0);
+
+		return (DWORD)pMem;
+	}
+	else if (stage_idx == 15) {
+		if (a5)
+			*a5 = 0;
+		BYTE* pMem = NULL;
+		WORD year = ((comp_stats*)_this)->year;
+		*num_rounds = 1;
+		*stage_name_id = None;
+
+		pMem = (BYTE*)sub_944E46_malloc(playoff_dates_sz * (*num_rounds));
+
+		int fixture_id = 0;
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 16), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 19), year, Sunday, Afternoon, NationalStadium);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 10, 2, 1, 2, 0, 0, 1, 0);
 
 		return (DWORD)pMem;
 	}
@@ -352,7 +432,6 @@ void fifa_world_cup_reputation_calc(BYTE* _this, BYTE* club, char stage, char cu
 		else ret_max = 1 + 12 * (max - 1);
 		if (ret_current > ret_max) ret_current = ret_max;
 	}
-	// calc for second placed teams stage?
 	else if (stage == 11) {
 		if (current < 9) ret_current = 17;
 		else ret_current = 33;
@@ -361,7 +440,18 @@ void fifa_world_cup_reputation_calc(BYTE* _this, BYTE* club, char stage, char cu
 		if (max < 9) ret_max = 17;
 		else ret_max = 33;
 	}
-	else if (stage == 12) {
+	else if (stage == 12 || stage == 13) {
+		if (current > 1) ret_current = current + (current - 1);
+		if (min > 1) ret_min = min + (min - 1);
+		if (max > 1) ret_max = max + (max - 1);
+		else max = 2;
+	}
+	else if (stage == 14) {
+		ret_current = current + 2;
+		ret_min = min + 2;
+		ret_max = max + 2;
+	}
+	else if (stage == 15) {
 		// do nothing
 	}
 	ret[0x73] = ret_current;
@@ -680,7 +770,65 @@ int fifa_world_cup_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage
 			return 0;
 		}
 	}
-	else if (stage == 12) {
+	else if (stage == 12 || stage == 13) {
+		WORD num_teams = comp_data->n_teams;
+		if (num_teams <= 0) return 0;
+		comp_stats* stage_data = (comp_stats*)(comp_data->stages[stage]);
+		BYTE* rounds = ((comp_stats*)(comp_data->stages[stage]))->rounds_list;
+		WORD current_round = *(WORD*)(round_data + 0x34);
+		char c;
+		switch (fate) {
+		case TopPlayoff:
+			c = sub_4BF850(50, 100, current_round, 5);
+			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, Final, c);
+			return 0;
+		case Promoted:
+			c = sub_4BF850(50, 100, current_round, 5);
+			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
+				*(WORD*)(rounds + playoff_dates_sz * (current_round + 1) + 7), c);
+			return 0;
+		case BottomPlayoff:
+			c = sub_4BF850(50, 100, current_round, 5);
+			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, ThirdPlacePlayoff, c);
+			return 0;
+		default:
+			c = sub_4BF850(50, 100, current_round, 5);
+			staff_history_knocked_out_86C000(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
+				*(WORD*)(rounds + playoff_dates_sz * current_round + 7), c);
+			break;
+		}
+		sub_775000((BYTE*)*b74318, club->ClubNation);
+		return 0;
+	}
+	else if (stage == 14) {
+		WORD num_teams = comp_data->n_teams;
+		if (num_teams <= 0) return 0;
+		comp_stats* stage_data = (comp_stats*)(comp_data->stages[stage]);
+		BYTE* rounds = ((comp_stats*)(comp_data->stages[stage]))->rounds_list;
+		WORD current_round = *(WORD*)(round_data + 0x34);
+		char c;
+		switch (fate) {
+		case TopPlayoff:
+			staff_history_comp_third_place_86B710(staff_hist_ptr, club, round_data, a7);
+			*a5 = 4;
+			break;
+		case Promoted:
+			c = sub_4BF850(50, 100, current_round, 5);
+			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
+				*(WORD*)(rounds + playoff_dates_sz * (current_round + 1) + 7), c);
+			return 0;
+		case BottomPlayoff:
+			break;
+		default:
+			c = sub_4BF850(50, 100, current_round, 5);
+			staff_history_knocked_out_86C000(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
+				*(WORD*)(rounds + playoff_dates_sz * current_round + 7), c);
+			break;
+		}
+		sub_775000((BYTE*)*b74318, club->ClubNation);
+		return 0;
+	}
+	else if (stage == 15) {
 		WORD num_teams = comp_data->n_teams;
 		if (num_teams <= 0) return 0;
 		comp_stats* stage_data = (comp_stats*)(comp_data->stages[stage]);
@@ -699,11 +847,6 @@ int fifa_world_cup_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage
 			return 0;
 		case BottomPlayoff:
 			staff_history_comp_runner_up_86B0B0(staff_hist_ptr, club, round_data, a7);
-			break;
-		case Relegated:
-			staff_history_comp_third_place_86B710(staff_hist_ptr, club, round_data, a7);
-			break;
-		case 4:
 			break;
 		default:
 			c = sub_4BF850(50, 100, current_round, 5);
@@ -735,7 +878,9 @@ void __declspec(naked) fifa_world_cup_set_table_fate()
 	}
 }
 
-void fifa_world_cup_final_stage_setup(BYTE* _this) {
+#pragma warning(push)
+#pragma warning(disable:6385)
+void fifa_world_cup_paths_setup(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	DWORD* ae28f0_ptr = (DWORD*)*(DWORD*)*ae28f0;
 	sub_7E9180(((BYTE*)(ae28f0_ptr[data->rules])), 0);
@@ -744,8 +889,9 @@ void fifa_world_cup_final_stage_setup(BYTE* _this) {
 
 	char stage_num = 12;
 
-	BYTE playoff_teams = 32;
-	DWORD* pTeams = (DWORD*)sub_944E46_malloc(playoff_teams * 4);
+	BYTE playoff_teams = 16;
+	DWORD* pTeams1 = (DWORD*)sub_944E46_malloc(playoff_teams * 4);
+	DWORD* pTeams2 = (DWORD*)sub_944E46_malloc(playoff_teams * 4);
 
 	comp_stats* curr_stage = data;
 	vector<cm3_clubs*> clubs;
@@ -775,23 +921,26 @@ void fifa_world_cup_final_stage_setup(BYTE* _this) {
 			}
 		}
 	}
+	for (WORD i = 8; i < best_placed_stage->n_teams; i++)
+		staff_history_failed_qual_86C1D0(staff_hist_ptr, best_placed_table[i].club, (DWORD)(data->competition_db), GroupStage, 0x1E);
 
 	char key[9] = { '\0' };
 	char indexes[9] = { '\0' };
 	for (int i = 0; i < 495; i++) {
 		strncpy_s(key, (char*)(table_start_offset + 16 * i), 8);
 		if (strcmp(key, best_third_letters) == 0) {
-			dprintf("Key: %s\n", key);
 			strncpy_s(indexes, (char*)(table_start_offset + 16 * i + 8), 8);
 			break;
 		}
 	}
 
-	BYTE table_order[8] = { 13,25,17,3,19,9,29,15 };
-	BYTE team_order[32] = { 12,0,24,1,6,5,16,30,2,10,4,7,18,31,22,27,8,11,26,23,28,20,14,21, };
+	BYTE table_order[8] = { 21,29,13,1,15,3,31,23 };
+	BYTE team_order[32] = { 20,4,28,5,16,7,12,26,0,18,6,17,14,27,10,25,2,19,24,11,30,8,22,9 };
 	for (char i = 0; i < 8; i++) team_order[i + 24] = table_order[indexes[i] - 1];
-	for (WORD j = 0; j < playoff_teams; j++) {
-		*((DWORD*)(&pTeams[team_order[j]])) = (DWORD)clubs[j];
+	for (WORD j = 0; j < playoff_teams * 2; j++) {
+		BYTE order = team_order[j];
+		if (order < playoff_teams) *((DWORD*)(&pTeams1[team_order[j]])) = (DWORD)clubs[j];
+		else *((DWORD*)(&pTeams2[team_order[j] - playoff_teams])) = (DWORD)clubs[j];
 	}
 
 	WORD num_rounds = 0;
@@ -800,10 +949,75 @@ void fifa_world_cup_final_stage_setup(BYTE* _this) {
 	DWORD v1 = *(DWORD*)_this;
 	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, char, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
 	BYTE* new_stage = (BYTE*)sub_944CF1_operator_new(0xB2);
-	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)(data->competition_db), pFixtures, year, stage_num, 4, stage_name_id, 0x14, 1, 0, 0, 0);
+	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams1, num_rounds, (DWORD)(data->competition_db), pFixtures, year, stage_num, 4, stage_name_id, 0x14, 1, 0, 0, 0);
 	DWORD* stages_arr = data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
 	sub_51C800(new_stage, 0);
+	stage_num++;
+
+	num_rounds = 0;
+	stage_name_id = 0;
+	pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, char, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
+	new_stage = (BYTE*)sub_944CF1_operator_new(0xB2);
+	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams2, num_rounds, (DWORD)(data->competition_db), pFixtures, year, stage_num, 4, stage_name_id, 0x14, 1, 0, 0, 0);
+	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
+	sub_51C800(new_stage, 0);
+
+	data->current_stage = (long)stage_num;
+}
+#pragma warning(pop)
+
+void fifa_world_cup_final_stage_setup(BYTE* _this) {
+	comp_stats* data = (comp_stats*)_this;
+
+	char stage_num = 14;
+
+	BYTE playoff_teams = 2;
+	DWORD* pTeams1 = (DWORD*)sub_944E46_malloc(playoff_teams * 4);
+	DWORD* pTeams2 = (DWORD*)sub_944E46_malloc(playoff_teams * 4);
+
+	comp_stats* path1 = (comp_stats*)(data->stages[12]);
+	comp_stats* path2 = (comp_stats*)(data->stages[13]);
+
+	for (WORD j = 0; j < path1->n_teams; j++) {
+		teams_seeded t = ((teams_seeded*)path1->teams_list)[j];
+		if (t.f6 == 1) {
+			*((DWORD*)(&pTeams1[0])) = (DWORD)t.club;
+		}
+		else if (t.f6 == 2) {
+			*((DWORD*)(&pTeams2[0])) = (DWORD)t.club;
+		}
+	}
+	for (WORD j = 0; j < path2->n_teams; j++) {
+		teams_seeded t = ((teams_seeded*)path2->teams_list)[j];
+		if (t.f6 == 1) {
+			*((DWORD*)(&pTeams1[1])) = (DWORD)t.club;
+		}
+		else if (t.f6 == 2) {
+			*((DWORD*)(&pTeams2[1])) = (DWORD)t.club;
+		}
+	}
+
+	WORD num_rounds = 0;
+	WORD stage_name_id = 0;
+	WORD year = data->year;
+	DWORD v1 = *(DWORD*)_this;
+	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, char, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
+	BYTE* new_stage = (BYTE*)sub_944CF1_operator_new(0xB2);
+	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams2, num_rounds, (DWORD)(data->competition_db), pFixtures, year, stage_num, 4, stage_name_id, 0x14, 1, 0, 0, 0);
+	DWORD* stages_arr = data->stages;
+	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
+	sub_51C800(new_stage, 0);
+	stage_num++;
+
+	num_rounds = 0;
+	stage_name_id = 0;
+	pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, char, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
+	new_stage = (BYTE*)sub_944CF1_operator_new(0xB2);
+	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams1, num_rounds, (DWORD)(data->competition_db), pFixtures, year, stage_num, 4, stage_name_id, 0x14, 1, 0, 0, 0);
+	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
+	sub_51C800(new_stage, 0);
+
 	data->current_stage = (long)stage_num;
 }
 
@@ -815,6 +1029,9 @@ void fifa_world_cup_stages_create(BYTE* _this) {
 		current++;
 		comp_data->current_stage = current;
 		if (current == 12) {
+			fifa_world_cup_paths_setup(_this);
+		}
+		else if (current == 14) {
 			fifa_world_cup_final_stage_setup(_this);
 		}
 	}
@@ -840,6 +1057,8 @@ void fifa_world_cup_setup1(BYTE* _this) {
 	if (data->year != 2026) {
 		data->f75 = 0;
 		if (n < 48) {
+			string msg = "Not enough teams in World Cup: needed 48 but only had " + to_string(n);
+			create_message_box(data->competition_db->ClubCompName, msg.c_str(), true);
 			vector<cm3_clubs*> nat_teams = get_all_national_teams();
 			sort(nat_teams.begin(), nat_teams.end(), compareNationRanking);
 			for (WORD i = n, idx = 0; i < 48; i++, idx++) {
@@ -1079,7 +1298,7 @@ void fifa_world_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->f217 = 0x28;
 	data->f68 = -1;
 	data->current_stage = -1;
-	data->num_stages = 13;
+	data->num_stages = 16;
 	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
 	for (int i = 0; i < data->num_stages; i++) data->stages[i] = 0;
 	fifa_world_cup_seeded_teams(_this);
@@ -1184,8 +1403,65 @@ int fifa_world_cup_stage_news(BYTE* _this, int club_idx, char fate, char stage_i
 		}
 		//else if (fate == Eliminated) return sub_4B4590(club_idx, (WORD)stage_name_idx, (DWORD)comp_data, fate, show_body_text, ret_str_ptr);
 	}
-	// add case for best placed stage
-	else if (stage_id == 12)
+	else if (stage_id == 12 || stage_id == 13)
+	{
+		if (show_body_text) return sub_4B0B80(club_idx, round_data, a9, fate, a7, ret_str_ptr);
+		else {
+			switch (fate)
+			{
+			case TopPlayoff:
+				sub_66F4E0(0xDE1F64, 0x987198, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
+					&club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+				break;
+			case BottomPlayoff:
+				sub_66F4E0(0xDE1F64, 0x98713C, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
+					&club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+				break;
+			case Promoted:
+				sub_66F4E0(0xDE1F64, 0x987198, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
+					&club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+				break;
+			default:
+				sub_66F4E0(0xDE1F64, 0x98713C, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
+					&club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+				break;
+			}
+			sub_4AE660(ret_str_ptr, 0xDE1F64);
+			sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+			sub_4AE8A0((BYTE*)ret_str_ptr, &comp_data->ClubCompNameShort[0], 0x7d0, (DWORD)comp_data);
+			return 1;
+		}
+	}
+	else if (stage_id == 14)
+	{
+		if (show_body_text) return sub_4B0B80(club_idx, round_data, a9, fate, a7, ret_str_ptr);
+		else {
+			switch (fate)
+			{
+			case TopPlayoff:
+				sub_66F4E0(0xDE1F64, 0x987264, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
+					&club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+				break;
+			case BottomPlayoff:
+				sub_66F4E0(0xDE1F64, 0x987200, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
+					&club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+				break;
+			case Promoted:
+				sub_66F4E0(0xDE1F64, 0x987198, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
+					&club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+				break;
+			default:
+				sub_66F4E0(0xDE1F64, 0x98713C, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
+					&club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+				break;
+			}
+			sub_4AE660(ret_str_ptr, 0xDE1F64);
+			sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+			sub_4AE8A0((BYTE*)ret_str_ptr, &comp_data->ClubCompNameShort[0], 0x7d0, (DWORD)comp_data);
+			return 1;
+		}
+	}
+	else if (stage_id == 15)
 	{
 		if (show_body_text) return sub_4B0B80(club_idx, round_data, a9, fate, a7, ret_str_ptr);
 		else {
@@ -1197,18 +1473,6 @@ int fifa_world_cup_stage_news(BYTE* _this, int club_idx, char fate, char stage_i
 				break;
 			case BottomPlayoff:
 				sub_66F4E0(0xDE1F64, 0x9872C8, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
-					&club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
-				break;
-			case Relegated:
-				sub_66F4E0(0xDE1F64, 0x987264, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
-					&club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
-				break;
-			case 4:
-				sub_66F4E0(0xDE1F64, 0x987200, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
-					&club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
-				break;
-			case Promoted:
-				sub_66F4E0(0xDE1F64, 0x987198, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
 					&club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
 				break;
 			default:
@@ -1247,6 +1511,47 @@ void __declspec(naked) fifa_world_cup_stage_news_c()
 	}
 }
 
+void fifa_world_cup_48CAB0(BYTE* _this, char* a1, int a2, __int16 a3, __int16 a4, char a5, int a6) {
+	// Shows the right text in club's Competitions history if they win in the Champions Third Qualifying Round then lose in the Playoff
+	if (a3 == WorldCupPath1 || a3 == WorldCupPath2)
+	{
+		if (a4 == SemiFinal)
+		{
+			if (a5 == 1) return sub_48CAB0(_this, a1, a2, None, Final, 0, a6);
+			else if (a5 == 2) return sub_48CAB0(_this, a1, a2, ThirdPlacePlayoff, None, 0, a6);
+		}
+		return sub_48CAB0(_this, a1, a2, None, a4, a5, a6);
+	}
+	else if (a3 == ThirdPlacePlayoff && a4 == None)
+	{
+		if (a5 == 1) return sub_48CAB0(_this, a1, a2, None, None, 3, a6);
+		else return sub_48CAB0(_this, a1, a2, None, SemiFinal, -1, a6);
+	}
+	else if (a3 == None && a4 == Final)
+	{
+		if (a5 == 1 || a5 == 2) return sub_48CAB0(_this, a1, a2, None, None, a5, a6);
+	}
+	return sub_48CAB0(_this, a1, a2, a3, a4, a5, a6);
+}
+
+void __declspec(naked) fifa_world_cup_48CAB0_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x18]
+		push dword ptr[eax + 0x14]
+		push dword ptr[eax + 0x10]
+		push dword ptr[eax + 0xc]
+		push dword ptr[eax + 0x8]
+		push dword ptr[eax + 0x4]
+		push ecx
+		call fifa_world_cup_48CAB0
+		add esp, 0x1c
+		ret 0x18
+	}
+}
+
 void setup_fifa_world_cup() {
 	WriteVTablePtr(fifa_world_cup_vtable, VTableSubsRounds, (DWORD)&fifa_world_cup_subs_c);
 	WriteVTablePtr(fifa_world_cup_vtable, VTableLeagueSplit, (DWORD)&fifa_world_cup_init2_c);
@@ -1260,9 +1565,16 @@ void setup_fifa_world_cup() {
 	WriteVTablePtr(fifa_world_cup_vtable, VTableStageNews, (DWORD)&fifa_world_cup_stage_news_c);
 	WriteVTablePtr(fifa_world_cup_vtable, VTable29, (DWORD)&fifa_world_cup_vtable29_c);
 	WriteVTablePtr(fifa_world_cup_vtable, VTable30, (DWORD)&fifa_world_cup_vtable30_c);
+	WriteVTablePtr(fifa_world_cup_vtable, VTableClubLandmarks, (DWORD)&fifa_world_cup_48CAB0_c);
 
 	// move awards 1 week later
 	WriteBytes(0x92fe22, 1, 20);
+
+	// autumn/spring stages to path 1/2
+	WriteBytes(0x9a4654, 6, 0x50, 0x61, 0x74, 0x68, 0x20, 0x31); // Path 1 short
+	WriteBytes(0x9a464c, 6, 0x50, 0x61, 0x74, 0x68, 0x20, 0x32); // Path 2 short
+	WriteBytes(0x9a6a08, 7, 0x50, 0x61, 0x74, 0x68, 0x20, 0x31, 0x0); // Path 1 long
+	WriteBytes(0x9a69f8, 7, 0x50, 0x61, 0x74, 0x68, 0x20, 0x32, 0x0); // Path 2 long
 
 	// third placed teams table
 	map<char*, char*> table = {
