@@ -12,10 +12,11 @@
 using namespace std;
 
 DWORD* fifa_world_cup_vtable = (DWORD*)0x9712F0;
+DWORD table_start_offset = 0xDEA000;
 
 int fifa_world_cup_set_champion(BYTE* _this) {
 	comp_stats* comp_data = (comp_stats*)_this;
-	BYTE* stage_data_for_history = (BYTE*)comp_data->stages[7];
+	BYTE* stage_data_for_history = (BYTE*)comp_data->stages[12];
 	DWORD v1 = *(DWORD*)stage_data_for_history;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x30))(stage_data_for_history);
 	sub_775420((BYTE*)*b74318, comp_data->competition_db);
@@ -58,14 +59,14 @@ void fifa_world_cup_subs(BYTE* _this)
 	data->max_subs = 3;
 
 	BYTE* cm_date = new BYTE[8];
-	convert_to_cm_date(cm_date, 15, December, data->year, -1);
+	convert_to_cm_date(cm_date, 6, April, data->year, -1);
 	*((WORD*)(_this + 0x18E)) = *(WORD*)(cm_date);
-	*((WORD*)(_this + 0x190)) = -1;
+	*((WORD*)(_this + 0x190)) = 0;
 
 	cm_date = new BYTE[8];
-	convert_to_cm_date(cm_date, 27, December, data->year, -1);
+	convert_to_cm_date(cm_date, 13, April, data->year, -1);
 	*((WORD*)(_this + 0xB6)) = *(WORD*)(cm_date);
-	*((WORD*)(_this + 0xB8)) = -1;
+	*((WORD*)(_this + 0xB8)) = 0;
 
 	DWORD v1 = *(DWORD*)_this;
 	data->fixtures_table = (DWORD*)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0xA9, _this + 0x3A, 0);
@@ -87,7 +88,7 @@ void __declspec(naked) fifa_world_cup_subs_c()
 
 DWORD fifa_world_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
 {
-	if (stage_idx < 7) {
+	if (stage_idx < 11) {
 		if (a5)
 			*a5 = 1;
 		BYTE* pMem = NULL;
@@ -98,93 +99,137 @@ DWORD fifa_world_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WOR
 		pMem = (BYTE*)sub_944E46_malloc(fixture_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddFixture(pMem, 0, Date(year, 6, 12), year, Friday, Afternoon, VenueUnknown_1);
+		AddFixture(pMem, 0, Date(year, 6, 14), year, Sunday, Afternoon, VenueUnknown_1);
 		AddFixtureTV(pMem, 0, 2);
-		AddFixture(pMem, 1, Date(year, 6, 19), year, Friday, Afternoon, VenueUnknown_1);
+		AddFixture(pMem, 1, Date(year, 6, 20), year, Saturday, Afternoon, VenueUnknown_1);
 		AddFixtureTV(pMem, 1, 2);
-		AddFixture(pMem, 2, Date(year, 6, 24), year, Wednesday, Afternoon, VenueUnknown_1);
+		AddFixture(pMem, 2, Date(year, 6, 26), year, Friday, Afternoon, VenueUnknown_1);
 		AddFixtureTV(pMem, 2, 2);
 		if (stage_idx == -1) {
-			AddFixtureTV(pMem, 0, 0, 3, Wednesday, Afternoon, NationalStadium);
-			AddFixtureTV(pMem, 0, 1, 3, Wednesday, Evening, LargestStadium9);
-			AddFixtureTV(pMem, 1, 0, 3, Tuesday, Afternoon, LargestStadium7);
-			AddFixtureTV(pMem, 1, 1, 3, Tuesday, Evening, LargestStadium5);
-			AddFixtureTV(pMem, 2, 0, 3, Tuesday, Evening, LargestStadium1);
-			AddFixtureTV(pMem, 2, 1, 3, Tuesday, Evening, LargestStadium8);
+			AddFixtureTV(pMem, 0, 0, 3, Thursday, Afternoon, NationalStadium);
+			AddFixtureTV(pMem, 0, 1, 3, Thursday, Evening, LargestStadium9);
+			AddFixtureTV(pMem, 1, 0, 3, Thursday, Morning, LargestStadium8);
+			AddFixtureTV(pMem, 1, 1, 3, Thursday, Afternoon, LargestStadium2);
+			AddFixtureTV(pMem, 2, 0, 3, Wednesday, Afternoon, NationalStadium);
+			AddFixtureTV(pMem, 2, 1, 3, Wednesday, Afternoon, LargestStadium2);
 		}
 		else if (stage_idx == 0) {
-			AddFixtureTV(pMem, 0, 0, 3, Thursday, Afternoon, LargestStadium7);
-			AddFixtureTV(pMem, 0, 1, 3, Thursday, Evening, LargestStadium6);
-			AddFixtureTV(pMem, 1, 0, 3, Wednesday, Afternoon, LargestStadium8);
-			AddFixtureTV(pMem, 1, 1, 3, Wednesday, Evening, LargestStadium9);
-			AddFixtureTV(pMem, 2, 0, 3, Tuesday, Evening, NationalStadium);
-			AddFixtureTV(pMem, 2, 1, 3, Tuesday, Evening, LargestStadium5);
+			AddFixtureTV(pMem, 0, 0, 3, Friday, Afternoon, LargestStadium1);
+			AddFixtureTV(pMem, 0, 1, 3, Saturday, Morning, LargestStadium5);
+			AddFixtureTV(pMem, 1, 0, 3, Thursday, Morning, LargestStadium3);
+			AddFixtureTV(pMem, 1, 1, 3, Thursday, Afternoon, NationalStadium);
+			AddFixtureTV(pMem, 2, 0, 3, Wednesday, Morning, LargestStadium4);
+			AddFixtureTV(pMem, 2, 1, 3, Wednesday, Morning, LargestStadium9);
 		}
 		else if (stage_idx == 1) {
-			AddFixtureTV(pMem, 0, 0, 3, Friday, Afternoon, LargestStadium4);
-			AddFixtureTV(pMem, 0, 1, 3, Friday, Evening, LargestStadium1);
-			AddFixtureTV(pMem, 1, 0, 3, Thursday, Evening, LargestStadium6);
-			AddFixtureTV(pMem, 1, 1, 3, Thursday, Afternoon, NationalStadium);
-			AddFixtureTV(pMem, 2, 0, 3, Wednesday, Afternoon, LargestStadium3);
-			AddFixtureTV(pMem, 2, 1, 3, Wednesday, Afternoon, LargestStadium3);
+			AddFixtureTV(pMem, 0, 0, 3, Saturday, Afternoon, LargestStadium1);
+			AddFixtureTV(pMem, 0, 1, 3, Saturday, Evening, LargestStadium3);
+			AddFixtureTV(pMem, 1, 0, 3, Friday, Afternoon, LargestStadium6);
+			AddFixtureTV(pMem, 1, 1, 3, Friday, Evening, LargestStadium7);
+			AddFixtureTV(pMem, 2, 0, 3, Wednesday, Afternoon, LargestStadium7);
+			AddFixtureTV(pMem, 2, 1, 3, Wednesday, Afternoon, LargestStadium8);
 		}
 		else if (stage_idx == 2) {
-			AddFixtureTV(pMem, 0, 0, 3, Friday, Afternoon, LargestStadium9);
-			AddFixtureTV(pMem, 0, 1, 3, Saturday, Afternoon, LargestStadium5);
-			AddFixtureTV(pMem, 1, 0, 3, Saturday, Afternoon, LargestStadium8);
-			AddFixtureTV(pMem, 1, 1, 3, Saturday, Evening, LargestStadium2);
-			AddFixtureTV(pMem, 2, 0, 3, Wednesday, Evening, LargestStadium4);
-			AddFixtureTV(pMem, 2, 1, 3, Wednesday, Evening, LargestStadium6);
+			AddFixtureTV(pMem, 0, 0, 3, Friday, Afternoon, LargestStadium3);
+			AddFixtureTV(pMem, 0, 1, 3, Saturday, Evening, NationalStadium);
+			AddFixtureTV(pMem, 1, 0, 3, Friday, Morning, LargestStadium9);
+			AddFixtureTV(pMem, 1, 1, 3, Friday, Evening, LargestStadium5);
+			AddFixtureTV(pMem, 2, 0, 3, Thursday, Afternoon, LargestStadium3);
+			AddFixtureTV(pMem, 2, 1, 3, Thursday, Afternoon, LargestStadium5);
 		}
 		else if (stage_idx == 3) {
-			AddFixtureTV(pMem, 0, 0, 3, Saturday, Afternoon, LargestStadium3);
-			AddFixtureTV(pMem, 0, 1, 3, Saturday, Evening, NationalStadium);
-			AddFixtureTV(pMem, 1, 0, 3, Saturday, Afternoon, LargestStadium7);
-			AddFixtureTV(pMem, 1, 1, 3, Saturday, Evening, LargestStadium1);
-			AddFixtureTV(pMem, 2, 0, 3, Thursday, Afternoon, LargestStadium8);
-			AddFixtureTV(pMem, 2, 1, 3, Thursday, Afternoon, LargestStadium2);
+			AddFixtureTV(pMem, 0, 0, 3, Sunday, Morning, LargestStadium6);
+			AddFixtureTV(pMem, 0, 1, 3, Sunday, Afternoon, LargestStadium7);
+			AddFixtureTV(pMem, 1, 0, 3, Saturday, Afternoon, LargestStadium8);
+			AddFixtureTV(pMem, 1, 1, 3, Saturday, Afternoon, LargestStadium4);
+			AddFixtureTV(pMem, 2, 0, 3, Thursday, Afternoon, LargestStadium7);
+			AddFixtureTV(pMem, 2, 1, 3, Thursday, Afternoon, LargestStadium1);
 		}
 		else if (stage_idx == 4) {
-			AddFixtureTV(pMem, 0, 0, 3, Sunday, Afternoon, LargestStadium8);
-			AddFixtureTV(pMem, 0, 1, 3, Monday, Evening, LargestStadium2);
-			AddFixtureTV(pMem, 1, 0, 3, Sunday, Afternoon, LargestStadium4);
-			AddFixtureTV(pMem, 1, 1, 3, Sunday, Evening, LargestStadium3);
-			AddFixtureTV(pMem, 2, 0, 3, Thursday, Evening, LargestStadium9);
-			AddFixtureTV(pMem, 2, 1, 3, Thursday, Evening, LargestStadium5);
+			AddFixtureTV(pMem, 0, 0, 3, Sunday, Afternoon, LargestStadium2);
+			AddFixtureTV(pMem, 0, 1, 3, Sunday, Evening, LargestStadium5);
+			AddFixtureTV(pMem, 1, 0, 3, Saturday, Morning, LargestStadium8);
+			AddFixtureTV(pMem, 1, 1, 3, Saturday, Evening, LargestStadium9);
+			AddFixtureTV(pMem, 2, 0, 3, Thursday, Afternoon, LargestStadium2);
+			AddFixtureTV(pMem, 2, 1, 3, Thursday, Afternoon, LargestStadium4);
 		}
 		else if (stage_idx == 5) {
-			AddFixtureTV(pMem, 0, 0, 3, Monday, Afternoon, LargestStadium1);
-			AddFixtureTV(pMem, 0, 1, 3, Monday, Evening, LargestStadium3);
-			AddFixtureTV(pMem, 1, 0, 3, Monday, Afternoon, LargestStadium9);
-			AddFixtureTV(pMem, 1, 1, 3, Monday, Evening, LargestStadium6);
-			AddFixtureTV(pMem, 2, 0, 3, Friday, Evening, NationalStadium);
+			AddFixtureTV(pMem, 0, 0, 3, Monday, Morning, LargestStadium9);
+			AddFixtureTV(pMem, 0, 1, 3, Monday, Afternoon, LargestStadium3);
+			AddFixtureTV(pMem, 1, 0, 3, Sunday, Morning, LargestStadium3);
+			AddFixtureTV(pMem, 1, 1, 3, Sunday, Afternoon, NationalStadium);
+			AddFixtureTV(pMem, 2, 0, 3, Friday, Evening, LargestStadium9);
 			AddFixtureTV(pMem, 2, 1, 3, Friday, Evening, LargestStadium4);
 		}
 		else if (stage_idx == 6) {
-			AddFixtureTV(pMem, 0, 0, 3, Sunday, Afternoon, LargestStadium6);
-			AddFixtureTV(pMem, 0, 1, 3, Sunday, Evening, LargestStadium4);
-			AddFixtureTV(pMem, 1, 0, 3, Saturday, Afternoon, LargestStadium5);
-			AddFixtureTV(pMem, 1, 1, 3, Sunday, Afternoon, LargestStadium2);
-			AddFixtureTV(pMem, 2, 0, 3, Friday, Afternoon, LargestStadium7);
-			AddFixtureTV(pMem, 2, 1, 3, Friday, Afternoon, LargestStadium3);
+			AddFixtureTV(pMem, 0, 0, 3, Monday, Morning, LargestStadium8);
+			AddFixtureTV(pMem, 0, 1, 3, Monday, Afternoon, LargestStadium4);
+			AddFixtureTV(pMem, 1, 0, 3, Sunday, Morning, LargestStadium8);
+			AddFixtureTV(pMem, 1, 1, 3, Sunday, Afternoon, LargestStadium9);
+			AddFixtureTV(pMem, 2, 0, 3, Friday, Afternoon, LargestStadium6);
+			AddFixtureTV(pMem, 2, 1, 3, Friday, Afternoon, LargestStadium1);
+		}
+		else if (stage_idx == 7) {
+			AddFixtureTV(pMem, 0, 0, 3, Tuesday, Afternoon, LargestStadium1);
+			AddFixtureTV(pMem, 0, 1, 3, Tuesday, Afternoon, LargestStadium8);
+			AddFixtureTV(pMem, 1, 0, 3, Monday, Afternoon, LargestStadium7);
+			AddFixtureTV(pMem, 1, 1, 3, Monday, Evening, LargestStadium1);
+			AddFixtureTV(pMem, 2, 0, 3, Friday, Afternoon, LargestStadium3);
+			AddFixtureTV(pMem, 2, 1, 3, Friday, Afternoon, NationalStadium);
+		}
+		else if (stage_idx == 8) {
+			AddFixtureTV(pMem, 0, 0, 3, Tuesday, Evening, LargestStadium4);
+			AddFixtureTV(pMem, 0, 1, 3, Tuesday, Evening, LargestStadium5);
+			AddFixtureTV(pMem, 1, 0, 3, Monday, Morning, LargestStadium2);
+			AddFixtureTV(pMem, 1, 1, 3, Monday, Evening, LargestStadium5);
+			AddFixtureTV(pMem, 2, 0, 3, Saturday, Evening, LargestStadium4);
+			AddFixtureTV(pMem, 2, 1, 3, Saturday, Evening, LargestStadium2);
+		}
+		else if (stage_idx == 9) {
+			AddFixtureTV(pMem, 0, 0, 3, Wednesday, Morning, LargestStadium6);
+			AddFixtureTV(pMem, 0, 1, 3, Wednesday, Evening, NationalStadium);
+			AddFixtureTV(pMem, 1, 0, 3, Tuesday, Morning, LargestStadium6);
+			AddFixtureTV(pMem, 1, 1, 3, Tuesday, Evening, LargestStadium7);
+			AddFixtureTV(pMem, 2, 0, 3, Saturday, Afternoon, LargestStadium6);
+			AddFixtureTV(pMem, 2, 1, 3, Saturday, Afternoon, LargestStadium8);
+		}
+		else if (stage_idx == 10) {
+			AddFixtureTV(pMem, 0, 0, 3, Wednesday, Afternoon, LargestStadium2);
+			AddFixtureTV(pMem, 0, 1, 3, Wednesday, Afternoon, LargestStadium5);
+			AddFixtureTV(pMem, 1, 0, 3, Tuesday, Afternoon, LargestStadium8);
+			AddFixtureTV(pMem, 1, 1, 3, Tuesday, Afternoon, LargestStadium1);
+			AddFixtureTV(pMem, 2, 0, 3, Saturday, Afternoon, LargestStadium1);
+			AddFixtureTV(pMem, 2, 1, 3, Saturday, Afternoon, LargestStadium7);
 		}
 
 		return (DWORD)pMem;
 	}
-	else if (stage_idx == 7) {
+	else if (stage_idx == 12) {
 		if (a5)
 			*a5 = 0;
 		BYTE* pMem = NULL;
 		WORD year = ((comp_stats*)_this)->year;
-		*num_rounds = 5;
+		*num_rounds = 6;
 		*stage_name_id = None;
 
 		pMem = (BYTE*)sub_944E46_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
 		int tv_id = 0;
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 6, 26), year, Friday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 6, 30), year, Monday, Afternoon, VenueUnknown_1);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 6, 28), year, Sunday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 1), year, Wednesday, Afternoon, VenueUnknown_1);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 2, Monday, Morning, LargestStadium3);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 2, Monday, Afternoon, LargestStadium2);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 2, Tuesday, Morning, LargestStadium4);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 2, Tuesday, Afternoon, NationalStadium);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 2, Wednesday, Morning, LargestStadium9);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 2, Wednesday, Afternoon, LargestStadium6);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 2, Thursday, Morning, LargestStadium7);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 2, Thursday, Afternoon, LargestStadium8);
+		FillFixtureDetails(pMem, fixture_id++, RoundOf32, 0, FixedTeamOrderInCup2 + ExtraTimePenalties_1, NoTiebreak_2, 10, 32, 16, 32, 0, 0, 1, 0);
+		tv_id = 0;
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 3), year, Friday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 6), year, Monday, Afternoon, VenueUnknown_1);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Saturday, Afternoon, LargestStadium1);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Saturday, Evening, LargestStadium2);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Sunday, Evening, LargestStadium4);
@@ -193,31 +238,31 @@ DWORD fifa_world_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WOR
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Monday, Afternoon, LargestStadium6);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Tuesday, Evening, LargestStadium7);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Tuesday, Afternoon, LargestStadium8);
-		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, FixedTeamOrderInCup2 + ExtraTimePenalties_1, NoTiebreak_2, 10, 16, 8, 16, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, FixedTeamOrderInCup2 + ExtraTimePenalties_1, NoTiebreak_2, 10, 16, 8, 0, 0, 0, 1, 0);
 		tv_id = 0;
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 1), year, Wednesday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 4), year, Saturday, Afternoon, VenueUnknown_1);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Friday, Evening, NationalStadium);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Friday, Afternoon, LargestStadium5);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Saturday, Evening, LargestStadium1);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 8), year, Wednesday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 10), year, Friday, Afternoon, VenueUnknown_1);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Thursday, Afternoon, NationalStadium);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Friday, Morning, LargestStadium5);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Saturday, Afternoon, LargestStadium3);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Saturday, Evening, LargestStadium1);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++);
 		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup2 + ExtraTimePenalties_1, NoTiebreak_2, 10, 8, 4, 0, 0, 0, 1, 0);
 		tv_id = 0;
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 5), year, Sunday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 8), year, Wednesday, Evening, VenueUnknown_1);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Tuesday, Evening, LargestStadium1);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Wednesday, Evening, NationalStadium);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 12), year, Sunday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 15), year, Wednesday, Evening, VenueUnknown_1);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Tuesday, Afternoon, LargestStadium1);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Wednesday, Afternoon, NationalStadium);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++);
 		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup2 + ExtraTimePenalties_1, NoTiebreak_2, 10, 4, 2, 0, 0, 0, 1, 0);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 9), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 12), year, Sunday, Afternoon, NationalStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 10, 2, 1, 0, 0, 0, 1, 0);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 16), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 19), year, Sunday, Afternoon, NationalStadium);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, FixedTeamOrderInCup2 + ExtraTimePenalties_1, NoTiebreak_2, 10, 2, 1, 0, 0, 0, 1, 0);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 9), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 11), year, Saturday, Afternoon, LargestStadium2);
-		FillFixtureDetails(pMem, fixture_id++, ThirdPlacePlayoff, 0, ExtraTimePenalties_1, NoTiebreak_2, 10, 2, 1, 0, 0, 0, 1, 0);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 16), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 18), year, Saturday, Afternoon, LargestStadium2);
+		FillFixtureDetails(pMem, fixture_id++, ThirdPlacePlayoff, 0, FixedTeamOrderInCup2 + ExtraTimePenalties_1, NoTiebreak_2, 10, 2, 1, 0, 0, 0, 1, 0);
 
 		return (DWORD)pMem;
 	}
@@ -265,11 +310,14 @@ void fifa_world_cup_reputation_setup(BYTE* _this) {
 		for (int i = 8; i < 16; i++) {
 			sub_4A2540((BYTE*)comp_data->f8, clubs[i], 9);
 		}
-		for (int i = 16; i < 24; i++) {
+		for (int i = 16; i < 32; i++) {
 			sub_4A2540((BYTE*)comp_data->f8, clubs[i], 17);
 		}
-		for (int i = 24; i < 32; i++) {
-			sub_4A2540((BYTE*)comp_data->f8, clubs[i], 25);
+		for (int i = 32; i < 40; i++) {
+			sub_4A2540((BYTE*)comp_data->f8, clubs[i], 33);
+		}
+		for (int i = 40; i < 48; i++) {
+			sub_4A2540((BYTE*)comp_data->f8, clubs[i], 41);
 		}
 		for (WORD i = 0; i < comp_data->special_nteams_seedings; i++) {
 			sub_775220((BYTE*)*b74318, clubs[i]->ClubNation, comp_data->competition_db);
@@ -296,15 +344,24 @@ void fifa_world_cup_reputation_calc(BYTE* _this, BYTE* club, char stage, char cu
 	char ret_current = current;
 	char ret_min = min;
 	char ret_max = max;
-	if (stage < 7) {
-		ret_current = 1 + 8 * (current - 1);
+	if (stage < 11) {
+		ret_current = 1 + 12 * (current - 1);
 		if (min < 3) ret_min = 1;
-		else ret_min = 1 + 8 * (min - 1);
-		if (max < 3) ret_max = 9;
-		else ret_max = 1 + 8 * (max - 1);
+		else ret_min = 1 + 12 * (min - 1);
+		if (max < 3) ret_max = 17;
+		else ret_max = 1 + 12 * (max - 1);
 		if (ret_current > ret_max) ret_current = ret_max;
 	}
-	else if (stage == 7) {
+	// calc for second placed teams stage?
+	else if (stage == 11) {
+		if (current < 9) ret_current = 17;
+		else ret_current = 33;
+		if (min < 9) ret_min = 1;
+		else ret_min = 33;
+		if (max < 9) ret_max = 17;
+		else ret_max = 33;
+	}
+	else if (stage == 12) {
 		// do nothing
 	}
 	ret[0x73] = ret_current;
@@ -338,7 +395,7 @@ void fifa_world_cup_setup_first_group(BYTE* _this, BYTE* pMem) {
 	data->team_league_table = (DWORD*)tMem;
 
 	BYTE teamsAdded = 0;
-	for (BYTE i = 0; i < 32 && teamsAdded < 4; i++) {
+	for (BYTE i = 0; i < 48 && teamsAdded < 4; i++) {
 		if (*((BYTE*)(pMem + 5 * i + 4)) == 1) {
 			DWORD club_id = *((DWORD*)(pMem + 5 * i));
 			add_team_call(_this, teamsAdded++, get_club(club_id), 0, 0);
@@ -356,7 +413,7 @@ void fifa_world_cup_setup_groups(BYTE* _this, BYTE* pMem, BYTE idx) {
 	DWORD* pTeams = (DWORD*)sub_944E46_malloc(data->n_teams * 4);
 
 	BYTE teamsAdded = 0;
-	for (BYTE i = 0; i < 32 && teamsAdded < 4; i++) {
+	for (BYTE i = 0; i < 48 && teamsAdded < 4; i++) {
 		if (*((BYTE*)(pMem + 5 * i + 4)) == (idx + 2)) {
 			DWORD club_id = *((DWORD*)(pMem + 5 * i));
 			*((DWORD*)(&pTeams[teamsAdded++])) = (DWORD)get_club(club_id);
@@ -374,6 +431,84 @@ void fifa_world_cup_setup_groups(BYTE* _this, BYTE* pMem, BYTE idx) {
 	sub_9452CA_free(pFixtures);
 	sub_684230(pStage);
 	data->current_stage = idx;
+}
+
+void fifa_world_cup_best_placed_update(BYTE* _this) {
+	comp_stats* data = (comp_stats*)_this;
+	char stage_num = 11;
+	//BYTE stage_num = *(BYTE*)(_this + 0x100);
+
+	WORD v26[4];
+	WORD v27[4];
+	DWORD v23[2];
+	DWORD lpMem[2];
+	sub_54A110((BYTE*)v26);
+	sub_54A110((BYTE*)v27);
+
+	WORD year = data->year;
+	BYTE* ba = (BYTE*)data->fixtures_table;
+	BYTE* cm_date = new BYTE[8];
+	if (year == 1998) { // change?
+		convert_to_cm_date(cm_date, 1, June, 1998, -1);
+	}
+	else {
+		sub_549EF0(cm_date, *(WORD*)(ba)-3, year + *(WORD*)(ba + 2));
+	}
+	sub_417C10((BYTE*)v26, v23, cm_date);
+	WORD a9 = *(WORD*)(_this + 0xA9);
+	sub_549EF0(cm_date, *(WORD*)(ba + a9 * fixture_dates_sz - fixture_dates_sz),
+		year + *(WORD*)(ba + a9 * fixture_dates_sz - fixture_dates_sz + 2));
+	sub_54C770(cm_date, (BYTE*)v23, 1);
+	sub_417C10((BYTE*)v27, lpMem, (BYTE*)v23);
+	comp_stats* curr_stage = data;
+	for (char al = -1; al < 11; al++) {
+		if (al > -1) curr_stage = (comp_stats*)(data->stages[al]);
+		sub_6827D0((BYTE*)curr_stage, 0);
+		team_league_stats* table_teams = (team_league_stats*)(curr_stage->team_league_table);
+		team_league_stats tls_third = table_teams[2];
+		cm3_clubs* third_club = tls_third.club;
+		DWORD* pMem = (DWORD*)sub_944E46_malloc(4 * curr_stage->n_teams);
+		for (WORD i = 0; i < curr_stage->n_teams; i++) {
+			*((DWORD*)(&pMem[i])) = table_teams[i].club->ClubID;
+		}
+		BYTE* pStage = (BYTE*)sub_944CF1_operator_new(0xEE);
+		comp_stats* stage_data = (comp_stats*)pStage;
+		WORD n = curr_stage->n_teams;
+		sub_88C6D0(pStage, curr_stage->n_teams, pMem, -1, -1, v26, v27, data->competition_db->ClubCompID, data->pts_for_win, data->pts_for_draw, (BYTE*)(_this + 0xC5), 9 * (n * (n - 1)), data->f16);
+		table_teams = (team_league_stats*)stage_data->team_league_table;
+		WORD chk = 0;
+		for (; chk < stage_data->n_teams; chk++) {
+			if (table_teams[chk].club == third_club) break;
+		}
+		if (chk < stage_data->n_teams) {
+			comp_stats* best_placed_stage = (comp_stats*)(data->stages[stage_num]);
+			team_league_stats* best_placed_table = (team_league_stats*)(best_placed_stage->team_league_table);
+			memcpy(&best_placed_table[al + 1], &table_teams[chk], league_team_list_sz);
+			best_placed_table[al + 1].position_history = 0;
+			best_placed_table[al + 1].f4 = 0;
+		}
+		DWORD v1 = *(DWORD*)pStage;
+		(DWORD*)(*(int(__thiscall**)(BYTE*, int a2))(v1))((BYTE*)pStage, 1);
+		sub_9452CA_free((BYTE*)(pMem));
+	}
+	sub_6827D0((BYTE*)data->stages[stage_num], 0);
+}
+
+void fifa_world_cup_setup_best_placed(BYTE* _this) {
+	char stage_num = 11;
+	//BYTE stage_num = *(BYTE*)(_this + 0x100);
+	comp_stats* data = (comp_stats*)_this;
+	WORD year = data->year;
+	BYTE* pStage = (BYTE*)sub_944CF1_operator_new(0xEE);
+	BYTE prom_rel[4] = { 0, 8, 0, 0 };
+	BYTE tiebreaks[4] = { GoalDifferenceTiebreaker, GoalsForTiebreaker, GoalsForAwayTiebreaker, NoTiebreaker };
+	create_league_stage_data(pStage, _this, 12, 0, 0, (DWORD)(data->competition_db), 0, 0,
+		data->pts_for_win, data->pts_for_draw, data->f196, &tiebreaks[0], &prom_rel[0],
+		year, stage_num, SecondPlacedTeams, 0, 1, 0, 2, -1, 0, 2);
+	DWORD* stages_arr = data->stages;
+	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)pStage;
+	data->current_stage = stage_num;
+	fifa_world_cup_best_placed_update(_this);
 }
 
 void fifa_world_cup_seeded_teams(BYTE* _this) {
@@ -397,38 +532,55 @@ void fifa_world_cup_seeded_teams(BYTE* _this) {
 		count++;
 		if (count > 0 && teamList[0].club == teamList[count].club) count--;
 	}
+	for (WORD i = count; i < 48; i++) teamList[i].f5 = 6;
 	if (year == 2026) {
-		teamList[count].club = get_national_team(NATION_FRANCE_9CF());
-		teamList[count++].f5 = 2;
-		teamList[count++].club = get_national_team(NATION_SENEGAL_9CF());
-		teamList[count++].club = get_national_team(NATION_URUGUAY_9CF());
-		teamList[count++].club = get_national_team(NATION_DENMARK_9CF());
+		teamList[count].club = get_national_team(NATION_CANADA_9CF());
+		teamList[count++].f5 = 1;
 		teamList[count++].club = get_national_team(NATION_SPAIN_9CF());
-		teamList[count++].club = get_national_team(NATION_SLOVENIA_9CF());
-		teamList[count++].club = get_national_team(NATION_PARAGUAY_9CF());
-		teamList[count++].club = get_national_team(NATION_SOUTH_AFRICA_9CF());
-		teamList[count++].club = get_national_team(NATION_BRAZIL_9CF());
-		teamList[count++].club = get_national_team(NATION_TURKEY_9CF());
-		teamList[count++].club = get_national_team(NATION_CHINA_9CF());
-		teamList[count++].club = get_national_team(NATION_COSTA_RICA_9CF());
-		teamList[count++].club = get_national_team(NATION_POLAND_9CF());
-		teamList[count++].club = get_national_team(NATION_USA_9CF());
-		teamList[count++].club = get_national_team(NATION_PORTUGAL_9CF());
-		teamList[count++].club = get_national_team(NATION_GERMANY_9CF());
-		teamList[count++].club = get_national_team(NATION_SAUDI_ARABIA_9CF());
-		teamList[count++].club = get_national_team(NATION_IRELAND_9CF());
-		teamList[count++].club = get_national_team(NATION_CAMEROON_9CF());
 		teamList[count++].club = get_national_team(NATION_ARGENTINA_9CF());
-		teamList[count++].club = get_national_team(NATION_NIGERIA_9CF());
+		teamList[count++].club = get_national_team(NATION_FRANCE_9CF());
 		teamList[count++].club = get_national_team(NATION_ENGLAND_9CF());
-		teamList[count++].club = get_national_team(NATION_SWEDEN_9CF());
-		teamList[count++].club = get_national_team(NATION_ITALY_9CF());
-		teamList[count++].club = get_national_team(NATION_ECUADOR_9CF());
-		teamList[count++].club = get_national_team(NATION_CROATIA_9CF());
-		teamList[count++].club = get_national_team(NATION_MEXICO_9CF());
+		teamList[count++].club = get_national_team(NATION_BRAZIL_9CF());
+		teamList[count++].club = get_national_team(NATION_PORTUGAL_9CF());
+		teamList[count++].club = get_national_team(NATION_NETHERLANDS_9CF());
 		teamList[count++].club = get_national_team(NATION_BELGIUM_9CF());
-		teamList[count++].club = get_national_team(NATION_RUSSIA_9CF());
+		teamList[count++].club = get_national_team(NATION_GERMANY_9CF());
+		teamList[count++].club = get_national_team(NATION_CROATIA_9CF());
+		teamList[count++].club = get_national_team(NATION_MOROCCO_9CF());
+		teamList[count++].club = get_national_team(NATION_COLOMBIA_9CF());
+		teamList[count++].club = get_national_team(NATION_URUGUAY_9CF());
+		teamList[count++].club = get_national_team(NATION_SWITZERLAND_9CF());
+		teamList[count++].club = get_national_team(NATION_JAPAN_9CF());
+		teamList[count++].club = get_national_team(NATION_SENEGAL_9CF());
+		teamList[count++].club = get_national_team(NATION_IRAN_9CF());
+		teamList[count++].club = get_national_team(NATION_SOUTH_KOREA_9CF());
+		teamList[count++].club = get_national_team(NATION_ECUADOR_9CF());
+		teamList[count++].club = get_national_team(NATION_AUSTRIA_9CF());
+		teamList[count++].club = get_national_team(NATION_AUSTRALIA_9CF());
+		teamList[count++].club = get_national_team(NATION_NORWAY_9CF());
+		teamList[count++].club = get_national_team(NATION_PANAMA_9CF());
+		teamList[count++].club = get_national_team(NATION_EGYPT_9CF());
+		teamList[count++].club = get_national_team(NATION_ALGERIA_9CF());
+		teamList[count++].club = get_national_team(NATION_SCOTLAND_9CF());
+		teamList[count++].club = get_national_team(NATION_PARAGUAY_9CF());
 		teamList[count++].club = get_national_team(NATION_TUNISIA_9CF());
+		teamList[count++].club = get_national_team(NATION_IVORY_COAST_9CF());
+		teamList[count++].club = get_national_team(NATION_UZBEKISTAN_9CF());
+		teamList[count++].club = get_national_team(NATION_QATAR_9CF());
+		teamList[count++].club = get_national_team(NATION_SAUDI_ARABIA_9CF());
+		teamList[count++].club = get_national_team(NATION_SOUTH_AFRICA_9CF());
+		teamList[count++].club = get_national_team(NATION_JORDAN_9CF());
+		teamList[count++].club = get_national_team(NATION_CAPE_VERDE_9CF());
+		teamList[count++].club = get_national_team(NATION_GHANA_9CF());
+		teamList[count++].club = get_national_team(NATION_CURACAO_9CF());
+		teamList[count++].club = get_national_team(NATION_HAITI_9CF());
+		teamList[count++].club = get_national_team(NATION_NEW_ZEALAND_9CF());
+		teamList[count++].club = get_national_team(NATION_BOSNIA_9CF());
+		teamList[count++].club = get_national_team(NATION_SWEDEN_9CF());
+		teamList[count++].club = get_national_team(NATION_TURKEY_9CF());
+		teamList[count++].club = get_national_team(NATION_CZECH_REPUBLIC_9CF());
+		teamList[count++].club = get_national_team(NATION_DR_CONGO_9CF());
+		teamList[count++].club = get_national_team(NATION_IRAQ_9CF());
 	}
 	data->special_nteams_seedings = count;
 }
@@ -506,17 +658,29 @@ void __declspec(naked) fifa_world_cup_update_c()
 int fifa_world_cup_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
-	if (stage < 7) {
+	if (stage < 11) {
 		switch (fate) {
 		case Qualified1:
-			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, RoundOf16, 0x1E);
+			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, RoundOf32, 0x1E);
 			return 0;
 		default:
-			staff_history_failed_qual_86C1D0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), GroupStage, 0x1E);
+			//staff_history_failed_qual_86C1D0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), GroupStage, 0x1E);
 			return 0;
 		}
 	}
-	else if (stage == 7) {
+	else if (stage == 11) {
+		switch (fate) {
+		case TopPlayoff:
+			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, RoundOf32, 0x1E);
+			return 0;
+		case BottomPlayoff:
+			staff_history_failed_qual_86C1D0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), GroupStage, 0x1E);
+			return 0;
+		default:
+			return 0;
+		}
+	}
+	else if (stage == 12) {
 		WORD num_teams = comp_data->n_teams;
 		if (num_teams <= 0) return 0;
 		comp_stats* stage_data = (comp_stats*)(comp_data->stages[stage]);
@@ -540,8 +704,7 @@ int fifa_world_cup_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage
 			staff_history_comp_third_place_86B710(staff_hist_ptr, club, round_data, a7);
 			break;
 		case 4:
-			sub_775000((BYTE*)*b74318, club->ClubNation);
-			return 0;
+			break;
 		default:
 			c = sub_4BF850(50, 100, current_round, 5);
 			staff_history_knocked_out_86C000(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
@@ -577,21 +740,56 @@ void fifa_world_cup_final_stage_setup(BYTE* _this) {
 	DWORD* ae28f0_ptr = (DWORD*)*(DWORD*)*ae28f0;
 	sub_7E9180(((BYTE*)(ae28f0_ptr[data->rules])), 0);
 
-	char stage_num = 7;
+	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 
-	BYTE playoff_teams = 16;
+	char stage_num = 12;
+
+	BYTE playoff_teams = 32;
 	DWORD* pTeams = (DWORD*)sub_944E46_malloc(playoff_teams * 4);
 
 	comp_stats* curr_stage = data;
 	vector<cm3_clubs*> clubs;
-	for (char al = -1; al < 7; al++) {
+	for (char al = -1; al < 11; al++) {
 		if (al > -1) curr_stage = (comp_stats*)(data->stages[al]);
 		team_league_stats* table_teams = (team_league_stats*)(curr_stage->team_league_table);
 		clubs.push_back(table_teams[0].club);
 		clubs.push_back(table_teams[1].club);
+		staff_history_failed_qual_86C1D0(staff_hist_ptr, table_teams[3].club, (DWORD)(data->competition_db), GroupStage, 0x1E);
+	}
+	comp_stats* best_placed_stage = (comp_stats*)(data->stages[11]);
+	team_league_stats* best_placed_table = (team_league_stats*)(best_placed_stage->team_league_table);
+	char best_third_letters[9] = { 0,0,0,0,0,0,0,0,0 };
+	char letter_idx = 0;
+	curr_stage = data;
+	for (char al = -1; al < 11; al++) {
+		if (al > -1) curr_stage = (comp_stats*)(data->stages[al]);
+		team_league_stats* table_teams = (team_league_stats*)(curr_stage->team_league_table);
+		cm3_clubs* third = table_teams[2].club;
+		for (WORD i = 0; i < best_placed_stage->prom_playoff; i++) {
+			if (best_placed_table[i].club == third) {
+				best_third_letters[letter_idx++] = 65 + al + 1;
+				clubs.push_back(third);
+				table_teams[2].league_fate = Qualified1;
+				curr_stage->promotions++;
+				break;
+			}
+		}
 	}
 
-	BYTE team_order[16] = { 8,13,4,1,10,15,6,3,0,5,12,9,2,7,14,11 };
+	char key[9] = { '\0' };
+	char indexes[9] = { '\0' };
+	for (int i = 0; i < 495; i++) {
+		strncpy_s(key, (char*)(table_start_offset + 16 * i), 8);
+		if (strcmp(key, best_third_letters) == 0) {
+			dprintf("Key: %s\n", key);
+			strncpy_s(indexes, (char*)(table_start_offset + 16 * i + 8), 8);
+			break;
+		}
+	}
+
+	BYTE table_order[8] = { 13,25,17,3,19,9,29,15 };
+	BYTE team_order[32] = { 12,0,24,1,6,5,16,30,2,10,4,7,18,31,22,27,8,11,26,23,28,20,14,21, };
+	for (char i = 0; i < 8; i++) team_order[i + 24] = table_order[indexes[i] - 1];
 	for (WORD j = 0; j < playoff_teams; j++) {
 		*((DWORD*)(&pTeams[team_order[j]])) = (DWORD)clubs[j];
 	}
@@ -616,7 +814,7 @@ void fifa_world_cup_stages_create(BYTE* _this) {
 	if (current < max - 1) {
 		current++;
 		comp_data->current_stage = current;
-		if (current == 7) {
+		if (current == 12) {
 			fifa_world_cup_final_stage_setup(_this);
 		}
 	}
@@ -641,10 +839,10 @@ void fifa_world_cup_setup1(BYTE* _this) {
 	WORD di = 0;
 	if (data->year != 2026) {
 		data->f75 = 0;
-		if (n < 32) {
+		if (n < 48) {
 			vector<cm3_clubs*> nat_teams = get_all_national_teams();
 			sort(nat_teams.begin(), nat_teams.end(), compareNationRanking);
-			for (WORD i = n, idx = 0; i < 32; i++, idx++) {
+			for (WORD i = n, idx = 0; i < 48; i++, idx++) {
 				cm3_clubs* c = nat_teams[idx];
 				for (WORD j = 0; j < n; j++) {
 					if (teamList[j].club == c) {
@@ -654,13 +852,11 @@ void fifa_world_cup_setup1(BYTE* _this) {
 				}
 				teamList[i].club = c;
 			}
-			data->special_nteams_seedings = 32;
+			data->special_nteams_seedings = 48;
 		}
-		n = 32;
+		n = 48;
 		vector<cm3_clubs*> qualified_teams;
-		for (WORD i = 0; i < n; i++) {
-			qualified_teams.push_back(teamList[i].club);
-		}
+		for (WORD i = 0; i < n; i++) qualified_teams.push_back(teamList[i].club);
 		sort(qualified_teams.begin(), qualified_teams.end(), compareNationRanking);
 		WORD year = data->year;
 		DWORD host1_id, host2_id;
@@ -676,17 +872,13 @@ void fifa_world_cup_setup1(BYTE* _this) {
 				cm3_clubs* c1 = qualified_teams[1];
 				qualified_teams[1] = qualified_teams[i];
 				qualified_teams[i] = c1;
-				if (bl < 1) {
-					bl = 1;
-				}
+				if (bl < 1) bl = 1;
 			}
 			if (qualified_teams[i] == host2) {
 				cm3_clubs* c1 = qualified_teams[2];
 				qualified_teams[2] = qualified_teams[i];
 				qualified_teams[i] = c1;
-				if (bl < 2) {
-					bl = 2;
-				}
+				if (bl < 2) bl = 2;
 			}
 		}
 		if (host1 == host2) bl = 1;
@@ -694,18 +886,10 @@ void fifa_world_cup_setup1(BYTE* _this) {
 		for (WORD i = 0; i < n; i++) {
 			cm3_clubs* c = qualified_teams[i];
 			teamList[i].club = c;
-			if (i < 8) {
-				teamList[i].f5 = 3;
-			}
-			else if (i < 16) {
-				teamList[i].f5 = 10;
-			}
-			else if (i < 24) {
-				teamList[i].f5 = 11;
-			}
-			else {
-				teamList[i].f5 = 12;
-			}
+			if (i < 12) teamList[i].f5 = 3;
+			else if (i < 24) teamList[i].f5 = 10;
+			else if (i < 36) teamList[i].f5 = 11;
+			else teamList[i].f5 = 12;
 		}
 	}
 }
@@ -713,9 +897,9 @@ void fifa_world_cup_setup1(BYTE* _this) {
 BYTE* fifa_world_cup_all_teams(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	teams_seeded* teamList = (teams_seeded*)data->special_teams_seedings;
-	BYTE* pMem = (BYTE*)sub_944E46_malloc(32 * 5);
-	BYTE counts[8] = { 0,0,0,0,0,0,0,0 };
-	for (WORD i = 0; i < 8; i++) {
+	BYTE* pMem = (BYTE*)sub_944E46_malloc(48 * 5);
+	BYTE counts[12] = { 0,0,0,0,0,0,0,0,0,0,0,0 };
+	for (WORD i = 0; i < 12; i++) {
 		counts[i]++;
 		if (i == 0) {
 			*((DWORD*)(pMem)) = teamList[0].club->ClubID;
@@ -723,21 +907,17 @@ BYTE* fifa_world_cup_all_teams(BYTE* _this) {
 			teamList[0].f5 = -1;
 		}
 		else {
-			BYTE r = rand() % 7 + 1;
-			while (teamList[r].f5 == -1) {
-				r = rand() % 7 + 1;
-			}
+			BYTE r = rand() % 11 + 1;
+			while (teamList[r].f5 == -1) r = rand() % 11 + 1;
 			*((DWORD*)(pMem + 5 * i)) = teamList[r].club->ClubID;
 			*((BYTE*)(pMem + 5 * i + 4)) = i + 1;
 		}
 	}
 	DWORD dx = 0;
-	for (DWORD i = 8; i < 32; i++) {
-		DWORD b = (i >> 3) + 1;
-		DWORD r = rand() % 8;
-		while (counts[r] >= b) {
-			r = rand() % 8;
-		}
+	for (DWORD i = 12; i < 48; i++) {
+		DWORD b = i / 12 + 1;
+		DWORD r = rand() % 12;
+		while (counts[r] >= b) r = rand() % 12;
 		*((DWORD*)(pMem + 5 * i)) = teamList[i].club->ClubID;
 		*((BYTE*)(pMem + 5 * i + 4)) = (BYTE)(r + 1);
 		counts[r]++;
@@ -745,62 +925,67 @@ BYTE* fifa_world_cup_all_teams(BYTE* _this) {
 	WORD year = data->year;
 	if (year == 2026) {
 		WORD x = 0;
+		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_MEXICO_9CF())->ClubID;
+		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_SOUTH_AFRICA_9CF())->ClubID;
+		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_SOUTH_KOREA_9CF())->ClubID;
+		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_CZECH_REPUBLIC_9CF())->ClubID;
+		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_CANADA_9CF())->ClubID;
+		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_BOSNIA_9CF())->ClubID;
+		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_QATAR_9CF())->ClubID;
+		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_SWITZERLAND_9CF())->ClubID;
+		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_BRAZIL_9CF())->ClubID;
+		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_MOROCCO_9CF())->ClubID;
+		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_HAITI_9CF())->ClubID;
+		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_SCOTLAND_9CF())->ClubID;
+		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_USA_9CF())->ClubID;
+		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_PARAGUAY_9CF())->ClubID;
+		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_AUSTRALIA_9CF())->ClubID;
+		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_TURKEY_9CF())->ClubID;
+		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_GERMANY_9CF())->ClubID;
+		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_CURACAO_9CF())->ClubID;
+		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_IVORY_COAST_9CF())->ClubID;
+		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_ECUADOR_9CF())->ClubID;
+		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_NETHERLANDS_9CF())->ClubID;
+		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_JAPAN_9CF())->ClubID;
+		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_SWEDEN_9CF())->ClubID;
+		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_TUNISIA_9CF())->ClubID;
+		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_BELGIUM_9CF())->ClubID;
+		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_EGYPT_9CF())->ClubID;
+		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_IRAN_9CF())->ClubID;
+		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_NEW_ZEALAND_9CF())->ClubID;
+		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_SPAIN_9CF())->ClubID;
+		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_CAPE_VERDE_9CF())->ClubID;
+		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_SAUDI_ARABIA_9CF())->ClubID;
+		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_URUGUAY_9CF())->ClubID;
 		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_FRANCE_9CF())->ClubID;
 		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_SENEGAL_9CF())->ClubID;
-		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_URUGUAY_9CF())->ClubID;
-		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_DENMARK_9CF())->ClubID;
-
-		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_SPAIN_9CF())->ClubID;
-		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_SLOVENIA_9CF())->ClubID;
-		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_PARAGUAY_9CF())->ClubID;
-		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_SOUTH_AFRICA_9CF())->ClubID;
-
-		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_BRAZIL_9CF())->ClubID;
-		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_TURKEY_9CF())->ClubID;
-		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_CHINA_9CF())->ClubID;
-		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_COSTA_RICA_9CF())->ClubID;
-
-		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_SOUTH_KOREA_9CF())->ClubID;
-		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_POLAND_9CF())->ClubID;
-		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_USA_9CF())->ClubID;
-		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_PORTUGAL_9CF())->ClubID;
-
-		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_GERMANY_9CF())->ClubID;
-		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_SAUDI_ARABIA_9CF())->ClubID;
-		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_IRELAND_9CF())->ClubID;
-		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_CAMEROON_9CF())->ClubID;
-
+		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_IRAQ_9CF())->ClubID;
+		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_NORWAY_9CF())->ClubID;
 		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_ARGENTINA_9CF())->ClubID;
-		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_NIGERIA_9CF())->ClubID;
+		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_ALGERIA_9CF())->ClubID;
+		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_AUSTRIA_9CF())->ClubID;
+		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_JORDAN_9CF())->ClubID;
+		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_PORTUGAL_9CF())->ClubID;
+		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_DR_CONGO_9CF())->ClubID;
+		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_UZBEKISTAN_9CF())->ClubID;
+		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_COLOMBIA_9CF())->ClubID;
 		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_ENGLAND_9CF())->ClubID;
-		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_SWEDEN_9CF())->ClubID;
-
-		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_ITALY_9CF())->ClubID;
-		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_ECUADOR_9CF())->ClubID;
 		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_CROATIA_9CF())->ClubID;
-		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_MEXICO_9CF())->ClubID;
-
-		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_JAPAN_9CF())->ClubID;
-		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_BELGIUM_9CF())->ClubID;
-		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_RUSSIA_9CF())->ClubID;
-		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_TUNISIA_9CF())->ClubID;
+		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_GHANA_9CF())->ClubID;
+		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_PANAMA_9CF())->ClubID;
 
 		teams_seeded* teamList = (teams_seeded*)data->special_teams_seedings;
-		for (BYTE i = 0; i < 32; i++) {
+		for (BYTE i = 0; i < 48; i++) {
 			teamList[i].club = get_club(*((DWORD*)(pMem + 5 * i)));
 			teamList[i].f5 = 6;
 			*((BYTE*)(pMem + 5 * i + 4)) = (i >> 2) + 1;
 		}
-		teamList[0].f5 = 2;
+		teamList[0].f5 = 1;
+		teamList[4].f5 = 1;
 		teamList[12].f5 = 1;
-		teamList[28].f5 = 1;
-		data->special_nteams_seedings = 32;
+		data->special_nteams_seedings = 48;
 	}
-	else {
-		for (BYTE i = 0; i < 32; i++) {
-			teamList[i].f5 = 6;
-		}
-	}
+	else for (BYTE i = 0; i < 48; i++) teamList[i].f5 = 6;
 	return pMem;
 }
 
@@ -811,9 +996,8 @@ void fifa_world_cup_setup2(BYTE* _this) {
 	sub_6835C0(_this);
 	sub_6827D0(_this, 0);
 	data->f69 = 1;
-	for (BYTE i = 0; i < 7; i++) {
-		fifa_world_cup_setup_groups(_this, pMem, i);
-	}
+	for (BYTE i = 0; i < 11; i++) fifa_world_cup_setup_groups(_this, pMem, i);
+	fifa_world_cup_setup_best_placed(_this);
 	sub_9452CA_free(pMem);
 	fifa_world_cup_reputation_setup(_this);
 	DWORD* ae28f0_ptr = (DWORD*)*(DWORD*)*ae28f0;
@@ -824,13 +1008,22 @@ void fifa_world_cup_init2(BYTE* _this, DWORD current_date, int a3) {
 	comp_stats* data = (comp_stats*)_this;
 	WORD day1 = *(WORD*)(_this + 0x18E);
 	short year1 = *(short*)(_this + 0x190);
-	if (day1 == *(WORD*)(current_date) && *(WORD*)(current_date + 2) == data->year + year1) {
-		if (a3) fifa_world_cup_setup1(_this);
-	}
-	WORD day2 = *(WORD*)(_this + 0xB6);
-	short year2 = *(short*)(_this + 0xB8);
-	if (day2 == *(WORD*)(current_date) && *(WORD*)(current_date + 2) == data->year + year2) {
-		if (a3) fifa_world_cup_setup2(_this);
+	if (*(WORD*)(current_date + 2) > data->year + year1 ||
+		(*(WORD*)(current_date + 2) == data->year + year1 && *(WORD*)(current_date) >= day1)) {
+		if (day1 == *(WORD*)(current_date) && *(WORD*)(current_date + 2) == data->year + year1) {
+			if (a3) fifa_world_cup_setup1(_this);
+		}
+		else {
+			WORD day2 = *(WORD*)(_this + 0xB6);
+			short year2 = *(short*)(_this + 0xB8);
+			if (day2 == *(WORD*)(current_date) && *(WORD*)(current_date + 2) == data->year + year2) {
+				if (a3) fifa_world_cup_setup2(_this);
+			}
+			else if (*(WORD*)(current_date) > day2 || *(WORD*)(current_date + 2) > data->year + year2) {
+				char ret = sub_5AE6D0((BYTE*)current_date, data->competition_db->ClubCompID);
+				if (ret) fifa_world_cup_best_placed_update(_this);
+			}
+		}
 	}
 	sub_6847C0(_this, current_date, a3);
 }
@@ -877,16 +1070,16 @@ void fifa_world_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	}
 	data->f81 = 0xf;
 	data->special_nteams_seedings = 0;
-	data->f56 = 32;
-	BYTE* pMem = (BYTE*)sub_944E46_malloc(32 * 6);
-	for (int i = 0; i < 32 * 6; i++) pMem[i] = 0;
+	data->f56 = 48;
+	BYTE* pMem = (BYTE*)sub_944E46_malloc(48 * 6);
+	for (int i = 0; i < 48 * 6; i++) pMem[i] = 0;
 	data->special_teams_seedings = (DWORD*)pMem;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
 	data->f217 = 0x28;
 	data->f68 = -1;
 	data->current_stage = -1;
-	data->num_stages = 8;
+	data->num_stages = 13;
 	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
 	for (int i = 0; i < data->num_stages; i++) data->stages[i] = 0;
 	fifa_world_cup_seeded_teams(_this);
@@ -897,12 +1090,8 @@ void fifa_world_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	sub_49EE70(pMem2, _this);
 	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
-	if (data->year == year) {
-		data->special_nteams_seedings = 32;
-	}
-	else {
-		data->f69 = 0;
-	}
+	if (data->year == year) data->special_nteams_seedings = 48;
+	else data->f69 = 0;
 	data->team_league_table = 0;
 	data->n_teams = 0;
 }
@@ -915,9 +1104,10 @@ WORD fifa_world_cup_vtable29(BYTE* _this, cm3_clubs* club) {
 	else if (val == 2) return Final;
 	else if (val < 5) return SemiFinal;
 	else if (val < 9) return QuarterFinal;
+	else if (val < 16) return RoundOf16;
 	else
 	{
-		short ret = (val > 16) - 1;
+		short ret = (val > 32) - 1;
 		return (ret & 0x18) - 4;
 	}
 }
@@ -979,11 +1169,23 @@ int fifa_world_cup_stage_news(BYTE* _this, int club_idx, char fate, char stage_i
 	comp_stats* data = (comp_stats*)_this;
 	cm3_club_comps* comp_data = data->competition_db;
 	cm3_clubs* club_data = get_club(club_idx);
-	if (stage_id < 7) {
+	if (stage_id < 11) {
 		if (fate == Qualified1) return sub_4B4590(club_idx, (WORD)stage_name_idx, (DWORD)comp_data, fate, show_body_text, ret_str_ptr);
 		else if (fate == Eliminated) return sub_4B4590(club_idx, (WORD)stage_name_idx, (DWORD)comp_data, fate, show_body_text, ret_str_ptr);
 	}
-	else if (stage_id == 7)
+	else if (stage_id == 11) {
+		if (fate == Qualified1) {
+			sub_66F4E0(0xDE1F64, 0x9C4800, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
+				&club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+			sub_4AE660(ret_str_ptr, 0xDE1F64);
+			sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+			sub_4AE8A0((BYTE*)ret_str_ptr, &comp_data->ClubCompNameShort[0], 0x7d0, (DWORD)comp_data);
+			return 1;
+		}
+		//else if (fate == Eliminated) return sub_4B4590(club_idx, (WORD)stage_name_idx, (DWORD)comp_data, fate, show_body_text, ret_str_ptr);
+	}
+	// add case for best placed stage
+	else if (stage_id == 12)
 	{
 		if (show_body_text) return sub_4B0B80(club_idx, round_data, a9, fate, a7, ret_str_ptr);
 		else {
@@ -1058,4 +1260,512 @@ void setup_fifa_world_cup() {
 	WriteVTablePtr(fifa_world_cup_vtable, VTableStageNews, (DWORD)&fifa_world_cup_stage_news_c);
 	WriteVTablePtr(fifa_world_cup_vtable, VTable29, (DWORD)&fifa_world_cup_vtable29_c);
 	WriteVTablePtr(fifa_world_cup_vtable, VTable30, (DWORD)&fifa_world_cup_vtable30_c);
+
+	// move awards 1 week later
+	WriteBytes(0x92fe22, 1, 20);
+
+	// third placed teams table
+	map<char*, char*> table = {
+		{"EFGHIJKL", "EJIFHGLK"},
+		{"DFGHIJKL", "HGIDJFLK"},
+		{"DEGHIJKL", "EJIDHGLK"},
+		{"DEFHIJKL", "EJIDHFLK"},
+		{"DEFGIJKL", "EGIDJFLK"},
+		{"DEFGHJKL", "EGJDHFLK"},
+		{"DEFGHIKL", "EGIDHFLK"},
+		{"DEFGHIJL", "EGJDHFLI"},
+		{"DEFGHIJK", "EGJDHFIK"},
+		{"CFGHIJKL", "HGICJFLK"},
+		{"CEGHIJKL", "EJICHGLK"},
+		{"CEFHIJKL", "EJICHFLK"},
+		{"CEFGIJKL", "EGICJFLK"},
+		{"CEFGHJKL", "EGJCHFLK"},
+		{"CEFGHIKL", "EGICHFLK"},
+		{"CEFGHIJL", "EGJCHFLI"},
+		{"CEFGHIJK", "EGJCHFIK"},
+		{"CDGHIJKL", "HGICJDLK"},
+		{"CDFHIJKL", "CJIDHFLK"},
+		{"CDFGIJKL", "CGIDJFLK"},
+		{"CDFGHJKL", "CGJDHFLK"},
+		{"CDFGHIKL", "CGIDHFLK"},
+		{"CDFGHIJL", "CGJDHFLI"},
+		{"CDFGHIJK", "CGJDHFIK"},
+		{"CDEHIJKL", "EJICHDLK"},
+		{"CDEGIJKL", "EGICJDLK"},
+		{"CDEGHJKL", "EGJCHDLK"},
+		{"CDEGHIKL", "EGICHDLK"},
+		{"CDEGHIJL", "EGJCHDLI"},
+		{"CDEGHIJK", "EGJCHDIK"},
+		{"CDEFIJKL", "CJEDIFLK"},
+		{"CDEFHJKL", "CJEDHFLK"},
+		{"CDEFHIKL", "CEIDHFLK"},
+		{"CDEFHIJL", "CJEDHFLI"},
+		{"CDEFHIJK", "CJEDHFIK"},
+		{"CDEFGJKL", "CGEDJFLK"},
+		{"CDEFGIKL", "CGEDIFLK"},
+		{"CDEFGIJL", "CGEDJFLI"},
+		{"CDEFGIJK", "CGEDJFIK"},
+		{"CDEFGHKL", "CGEDHFLK"},
+		{"CDEFGHJL", "CGJDHFLE"},
+		{"CDEFGHJK", "CGJDHFEK"},
+		{"CDEFGHIL", "CGEDHFLI"},
+		{"CDEFGHIK", "CGEDHFIK"},
+		{"CDEFGHIJ", "CGJDHFEI"},
+		{"BFGHIJKL", "HJBFIGLK"},
+		{"BEGHIJKL", "EJIBHGLK"},
+		{"BEFHIJKL", "EJBFIHLK"},
+		{"BEFGIJKL", "EJBFIGLK"},
+		{"BEFGHJKL", "EJBFHGLK"},
+		{"BEFGHIKL", "EGBFIHLK"},
+		{"BEFGHIJL", "EJBFHGLI"},
+		{"BEFGHIJK", "EJBFHGIK"},
+		{"BDGHIJKL", "HJBDIGLK"},
+		{"BDFHIJKL", "HJBDIFLK"},
+		{"BDFGIJKL", "IGBDJFLK"},
+		{"BDFGHJKL", "HGBDJFLK"},
+		{"BDFGHIKL", "HGBDIFLK"},
+		{"BDFGHIJL", "HGBDJFLI"},
+		{"BDFGHIJK", "HGBDJFIK"},
+		{"BDEHIJKL", "EJBDIHLK"},
+		{"BDEGIJKL", "EJBDIGLK"},
+		{"BDEGHJKL", "EJBDHGLK"},
+		{"BDEGHIKL", "EGBDIHLK"},
+		{"BDEGHIJL", "EJBDHGLI"},
+		{"BDEGHIJK", "EJBDHGIK"},
+		{"BDEFIJKL", "EJBDIFLK"},
+		{"BDEFHJKL", "EJBDHFLK"},
+		{"BDEFHIKL", "EIBDHFLK"},
+		{"BDEFHIJL", "EJBDHFLI"},
+		{"BDEFHIJK", "EJBDHFIK"},
+		{"BDEFGJKL", "EGBDJFLK"},
+		{"BDEFGIKL", "EGBDIFLK"},
+		{"BDEFGIJL", "EGBDJFLI"},
+		{"BDEFGIJK", "EGBDJFIK"},
+		{"BDEFGHKL", "EGBDHFLK"},
+		{"BDEFGHJL", "HGBDJFLE"},
+		{"BDEFGHJK", "HGBDJFEK"},
+		{"BDEFGHIL", "EGBDHFLI"},
+		{"BDEFGHIK", "EGBDHFIK"},
+		{"BDEFGHIJ", "HGBDJFEI"},
+		{"BCGHIJKL", "HJBCIGLK"},
+		{"BCFHIJKL", "HJBCIFLK"},
+		{"BCFGIJKL", "IGBCJFLK"},
+		{"BCFGHJKL", "HGBCJFLK"},
+		{"BCFGHIKL", "HGBCIFLK"},
+		{"BCFGHIJL", "HGBCJFLI"},
+		{"BCFGHIJK", "HGBCJFIK"},
+		{"BCEHIJKL", "EJBCIHLK"},
+		{"BCEGIJKL", "EJBCIGLK"},
+		{"BCEGHJKL", "EJBCHGLK"},
+		{"BCEGHIKL", "EGBCIHLK"},
+		{"BCEGHIJL", "EJBCHGLI"},
+		{"BCEGHIJK", "EJBCHGIK"},
+		{"BCEFIJKL", "EJBCIFLK"},
+		{"BCEFHJKL", "EJBCHFLK"},
+		{"BCEFHIKL", "EIBCHFLK"},
+		{"BCEFHIJL", "EJBCHFLI"},
+		{"BCEFHIJK", "EJBCHFIK"},
+		{"BCEFGJKL", "EGBCJFLK"},
+		{"BCEFGIKL", "EGBCIFLK"},
+		{"BCEFGIJL", "EGBCJFLI"},
+		{"BCEFGIJK", "EGBCJFIK"},
+		{"BCEFGHKL", "EGBCHFLK"},
+		{"BCEFGHJL", "HGBCJFLE"},
+		{"BCEFGHJK", "HGBCJFEK"},
+		{"BCEFGHIL", "EGBCHFLI"},
+		{"BCEFGHIK", "EGBCHFIK"},
+		{"BCEFGHIJ", "HGBCJFEI"},
+		{"BCDHIJKL", "HJBCIDLK"},
+		{"BCDGIJKL", "IGBCJDLK"},
+		{"BCDGHJKL", "HGBCJDLK"},
+		{"BCDGHIKL", "HGBCIDLK"},
+		{"BCDGHIJL", "HGBCJDLI"},
+		{"BCDGHIJK", "HGBCJDIK"},
+		{"BCDFIJKL", "CJBDIFLK"},
+		{"BCDFHJKL", "CJBDHFLK"},
+		{"BCDFHIKL", "CIBDHFLK"},
+		{"BCDFHIJL", "CJBDHFLI"},
+		{"BCDFHIJK", "CJBDHFIK"},
+		{"BCDFGJKL", "CGBDJFLK"},
+		{"BCDFGIKL", "CGBDIFLK"},
+		{"BCDFGIJL", "CGBDJFLI"},
+		{"BCDFGIJK", "CGBDJFIK"},
+		{"BCDFGHKL", "CGBDHFLK"},
+		{"BCDFGHJL", "CGBDHFLJ"},
+		{"BCDFGHJK", "HGBCJFDK"},
+		{"BCDFGHIL", "CGBDHFLI"},
+		{"BCDFGHIK", "CGBDHFIK"},
+		{"BCDFGHIJ", "HGBCJFDI"},
+		{"BCDEIJKL", "EJBCIDLK"},
+		{"BCDEHJKL", "EJBCHDLK"},
+		{"BCDEHIKL", "EIBCHDLK"},
+		{"BCDEHIJL", "EJBCHDLI"},
+		{"BCDEHIJK", "EJBCHDIK"},
+		{"BCDEGJKL", "EGBCJDLK"},
+		{"BCDEGIKL", "EGBCIDLK"},
+		{"BCDEGIJL", "EGBCJDLI"},
+		{"BCDEGIJK", "EGBCJDIK"},
+		{"BCDEGHKL", "EGBCHDLK"},
+		{"BCDEGHJL", "HGBCJDLE"},
+		{"BCDEGHJK", "HGBCJDEK"},
+		{"BCDEGHIL", "EGBCHDLI"},
+		{"BCDEGHIK", "EGBCHDIK"},
+		{"BCDEGHIJ", "HGBCJDEI"},
+		{"BCDEFJKL", "CJBDEFLK"},
+		{"BCDEFIKL", "CEBDIFLK"},
+		{"BCDEFIJL", "CJBDEFLI"},
+		{"BCDEFIJK", "CJBDEFIK"},
+		{"BCDEFHKL", "CEBDHFLK"},
+		{"BCDEFHJL", "CJBDHFLE"},
+		{"BCDEFHJK", "CJBDHFEK"},
+		{"BCDEFHIL", "CEBDHFLI"},
+		{"BCDEFHIK", "CEBDHFIK"},
+		{"BCDEFHIJ", "CJBDHFEI"},
+		{"BCDEFGKL", "CGBDEFLK"},
+		{"BCDEFGJL", "CGBDJFLE"},
+		{"BCDEFGJK", "CGBDJFEK"},
+		{"BCDEFGIL", "CGBDEFLI"},
+		{"BCDEFGIK", "CGBDEFIK"},
+		{"BCDEFGIJ", "CGBDJFEI"},
+		{"BCDEFGHL", "CGBDHFLE"},
+		{"BCDEFGHK", "CGBDHFEK"},
+		{"BCDEFGHJ", "HGBCJFDE"},
+		{"BCDEFGHI", "CGBDHFEI"},
+		{"AFGHIJKL", "HJIFAGLK"},
+		{"AEGHIJKL", "EJIAHGLK"},
+		{"AEFHIJKL", "EJIFAHLK"},
+		{"AEFGIJKL", "EJIFAGLK"},
+		{"AEFGHJKL", "EGJFAHLK"},
+		{"AEFGHIKL", "EGIFAHLK"},
+		{"AEFGHIJL", "EGJFAHLI"},
+		{"AEFGHIJK", "EGJFAHIK"},
+		{"ADGHIJKL", "HJIDAGLK"},
+		{"ADFHIJKL", "HJIDAFLK"},
+		{"ADFGIJKL", "IGJDAFLK"},
+		{"ADFGHJKL", "HGJDAFLK"},
+		{"ADFGHIKL", "HGIDAFLK"},
+		{"ADFGHIJL", "HGJDAFLI"},
+		{"ADFGHIJK", "HGJDAFIK"},
+		{"ADEHIJKL", "EJIDAHLK"},
+		{"ADEGIJKL", "EJIDAGLK"},
+		{"ADEGHJKL", "EGJDAHLK"},
+		{"ADEGHIKL", "EGIDAHLK"},
+		{"ADEGHIJL", "EGJDAHLI"},
+		{"ADEGHIJK", "EGJDAHIK"},
+		{"ADEFIJKL", "EJIDAFLK"},
+		{"ADEFHJKL", "HJEDAFLK"},
+		{"ADEFHIKL", "HEIDAFLK"},
+		{"ADEFHIJL", "HJEDAFLI"},
+		{"ADEFHIJK", "HJEDAFIK"},
+		{"ADEFGJKL", "EGJDAFLK"},
+		{"ADEFGIKL", "EGIDAFLK"},
+		{"ADEFGIJL", "EGJDAFLI"},
+		{"ADEFGIJK", "EGJDAFIK"},
+		{"ADEFGHKL", "HGEDAFLK"},
+		{"ADEFGHJL", "HGJDAFLE"},
+		{"ADEFGHJK", "HGJDAFEK"},
+		{"ADEFGHIL", "HGEDAFLI"},
+		{"ADEFGHIK", "HGEDAFIK"},
+		{"ADEFGHIJ", "HGJDAFEI"},
+		{"ACGHIJKL", "HJICAGLK"},
+		{"ACFHIJKL", "HJICAFLK"},
+		{"ACFGIJKL", "IGJCAFLK"},
+		{"ACFGHJKL", "HGJCAFLK"},
+		{"ACFGHIKL", "HGICAFLK"},
+		{"ACFGHIJL", "HGJCAFLI"},
+		{"ACFGHIJK", "HGJCAFIK"},
+		{"ACEHIJKL", "EJICAHLK"},
+		{"ACEGIJKL", "EJICAGLK"},
+		{"ACEGHJKL", "EGJCAHLK"},
+		{"ACEGHIKL", "EGICAHLK"},
+		{"ACEGHIJL", "EGJCAHLI"},
+		{"ACEGHIJK", "EGJCAHIK"},
+		{"ACEFIJKL", "EJICAFLK"},
+		{"ACEFHJKL", "HJECAFLK"},
+		{"ACEFHIKL", "HEICAFLK"},
+		{"ACEFHIJL", "HJECAFLI"},
+		{"ACEFHIJK", "HJECAFIK"},
+		{"ACEFGJKL", "EGJCAFLK"},
+		{"ACEFGIKL", "EGICAFLK"},
+		{"ACEFGIJL", "EGJCAFLI"},
+		{"ACEFGIJK", "EGJCAFIK"},
+		{"ACEFGHKL", "HGECAFLK"},
+		{"ACEFGHJL", "HGJCAFLE"},
+		{"ACEFGHJK", "HGJCAFEK"},
+		{"ACEFGHIL", "HGECAFLI"},
+		{"ACEFGHIK", "HGECAFIK"},
+		{"ACEFGHIJ", "HGJCAFEI"},
+		{"ACDHIJKL", "HJICADLK"},
+		{"ACDGIJKL", "IGJCADLK"},
+		{"ACDGHJKL", "HGJCADLK"},
+		{"ACDGHIKL", "HGICADLK"},
+		{"ACDGHIJL", "HGJCADLI"},
+		{"ACDGHIJK", "HGJCADIK"},
+		{"ACDFIJKL", "CJIDAFLK"},
+		{"ACDFHJKL", "HJFCADLK"},
+		{"ACDFHIKL", "HFICADLK"},
+		{"ACDFHIJL", "HJFCADLI"},
+		{"ACDFHIJK", "HJFCADIK"},
+		{"ACDFGJKL", "CGJDAFLK"},
+		{"ACDFGIKL", "CGIDAFLK"},
+		{"ACDFGIJL", "CGJDAFLI"},
+		{"ACDFGIJK", "CGJDAFIK"},
+		{"ACDFGHKL", "HGFCADLK"},
+		{"ACDFGHJL", "CGJDAFLH"},
+		{"ACDFGHJK", "HGJCAFDK"},
+		{"ACDFGHIL", "HGFCADLI"},
+		{"ACDFGHIK", "HGFCADIK"},
+		{"ACDFGHIJ", "HGJCAFDI"},
+		{"ACDEIJKL", "EJICADLK"},
+		{"ACDEHJKL", "HJECADLK"},
+		{"ACDEHIKL", "HEICADLK"},
+		{"ACDEHIJL", "HJECADLI"},
+		{"ACDEHIJK", "HJECADIK"},
+		{"ACDEGJKL", "EGJCADLK"},
+		{"ACDEGIKL", "EGICADLK"},
+		{"ACDEGIJL", "EGJCADLI"},
+		{"ACDEGIJK", "EGJCADIK"},
+		{"ACDEGHKL", "HGECADLK"},
+		{"ACDEGHJL", "HGJCADLE"},
+		{"ACDEGHJK", "HGJCADEK"},
+		{"ACDEGHIL", "HGECADLI"},
+		{"ACDEGHIK", "HGECADIK"},
+		{"ACDEGHIJ", "HGJCADEI"},
+		{"ACDEFJKL", "CJEDAFLK"},
+		{"ACDEFIKL", "CEIDAFLK"},
+		{"ACDEFIJL", "CJEDAFLI"},
+		{"ACDEFIJK", "CJEDAFIK"},
+		{"ACDEFHKL", "HEFCADLK"},
+		{"ACDEFHJL", "HJFCADLE"},
+		{"ACDEFHJK", "HJECAFDK"},
+		{"ACDEFHIL", "HEFCADLI"},
+		{"ACDEFHIK", "HEFCADIK"},
+		{"ACDEFHIJ", "HJECAFDI"},
+		{"ACDEFGKL", "CGEDAFLK"},
+		{"ACDEFGJL", "CGJDAFLE"},
+		{"ACDEFGJK", "CGJDAFEK"},
+		{"ACDEFGIL", "CGEDAFLI"},
+		{"ACDEFGIK", "CGEDAFIK"},
+		{"ACDEFGIJ", "CGJDAFEI"},
+		{"ACDEFGHL", "HGFCADLE"},
+		{"ACDEFGHK", "HGECAFDK"},
+		{"ACDEFGHJ", "HGJCAFDE"},
+		{"ACDEFGHI", "HGECAFDI"},
+		{"ABGHIJKL", "HJBAIGLK"},
+		{"ABFHIJKL", "HJBAIFLK"},
+		{"ABFGIJKL", "IJBFAGLK"},
+		{"ABFGHJKL", "HJBFAGLK"},
+		{"ABFGHIKL", "HGBAIFLK"},
+		{"ABFGHIJL", "HJBFAGLI"},
+		{"ABFGHIJK", "HJBFAGIK"},
+		{"ABEHIJKL", "EJBAIHLK"},
+		{"ABEGIJKL", "EJBAIGLK"},
+		{"ABEGHJKL", "EJBAHGLK"},
+		{"ABEGHIKL", "EGBAIHLK"},
+		{"ABEGHIJL", "EJBAHGLI"},
+		{"ABEGHIJK", "EJBAHGIK"},
+		{"ABEFIJKL", "EJBAIFLK"},
+		{"ABEFHJKL", "EJBFAHLK"},
+		{"ABEFHIKL", "EIBFAHLK"},
+		{"ABEFHIJL", "EJBFAHLI"},
+		{"ABEFHIJK", "EJBFAHIK"},
+		{"ABEFGJKL", "EJBFAGLK"},
+		{"ABEFGIKL", "EGBAIFLK"},
+		{"ABEFGIJL", "EJBFAGLI"},
+		{"ABEFGIJK", "EJBFAGIK"},
+		{"ABEFGHKL", "EGBFAHLK"},
+		{"ABEFGHJL", "HJBFAGLE"},
+		{"ABEFGHJK", "HJBFAGEK"},
+		{"ABEFGHIL", "EGBFAHLI"},
+		{"ABEFGHIK", "EGBFAHIK"},
+		{"ABEFGHIJ", "HJBFAGEI"},
+		{"ABDHIJKL", "IJBDAHLK"},
+		{"ABDGIJKL", "IJBDAGLK"},
+		{"ABDGHJKL", "HJBDAGLK"},
+		{"ABDGHIKL", "IGBDAHLK"},
+		{"ABDGHIJL", "HJBDAGLI"},
+		{"ABDGHIJK", "HJBDAGIK"},
+		{"ABDFIJKL", "IJBDAFLK"},
+		{"ABDFHJKL", "HJBDAFLK"},
+		{"ABDFHIKL", "HIBDAFLK"},
+		{"ABDFHIJL", "HJBDAFLI"},
+		{"ABDFHIJK", "HJBDAFIK"},
+		{"ABDFGJKL", "FJBDAGLK"},
+		{"ABDFGIKL", "IGBDAFLK"},
+		{"ABDFGIJL", "FJBDAGLI"},
+		{"ABDFGIJK", "FJBDAGIK"},
+		{"ABDFGHKL", "HGBDAFLK"},
+		{"ABDFGHJL", "HGBDAFLJ"},
+		{"ABDFGHJK", "HGBDAFJK"},
+		{"ABDFGHIL", "HGBDAFLI"},
+		{"ABDFGHIK", "HGBDAFIK"},
+		{"ABDFGHIJ", "HGBDAFIJ"},
+		{"ABDEIJKL", "EJBAIDLK"},
+		{"ABDEHJKL", "EJBDAHLK"},
+		{"ABDEHIKL", "EIBDAHLK"},
+		{"ABDEHIJL", "EJBDAHLI"},
+		{"ABDEHIJK", "EJBDAHIK"},
+		{"ABDEGJKL", "EJBDAGLK"},
+		{"ABDEGIKL", "EGBAIDLK"},
+		{"ABDEGIJL", "EJBDAGLI"},
+		{"ABDEGIJK", "EJBDAGIK"},
+		{"ABDEGHKL", "EGBDAHLK"},
+		{"ABDEGHJL", "HJBDAGLE"},
+		{"ABDEGHJK", "HJBDAGEK"},
+		{"ABDEGHIL", "EGBDAHLI"},
+		{"ABDEGHIK", "EGBDAHIK"},
+		{"ABDEGHIJ", "HJBDAGEI"},
+		{"ABDEFJKL", "EJBDAFLK"},
+		{"ABDEFIKL", "EIBDAFLK"},
+		{"ABDEFIJL", "EJBDAFLI"},
+		{"ABDEFIJK", "EJBDAFIK"},
+		{"ABDEFHKL", "HEBDAFLK"},
+		{"ABDEFHJL", "HJBDAFLE"},
+		{"ABDEFHJK", "HJBDAFEK"},
+		{"ABDEFHIL", "HEBDAFLI"},
+		{"ABDEFHIK", "HEBDAFIK"},
+		{"ABDEFHIJ", "HJBDAFEI"},
+		{"ABDEFGKL", "EGBDAFLK"},
+		{"ABDEFGJL", "EGBDAFLJ"},
+		{"ABDEFGJK", "EGBDAFJK"},
+		{"ABDEFGIL", "EGBDAFLI"},
+		{"ABDEFGIK", "EGBDAFIK"},
+		{"ABDEFGIJ", "EGBDAFIJ"},
+		{"ABDEFGHL", "HGBDAFLE"},
+		{"ABDEFGHK", "HGBDAFEK"},
+		{"ABDEFGHJ", "HGBDAFEJ"},
+		{"ABDEFGHI", "HGBDAFEI"},
+		{"ABCHIJKL", "IJBCAHLK"},
+		{"ABCGIJKL", "IJBCAGLK"},
+		{"ABCGHJKL", "HJBCAGLK"},
+		{"ABCGHIKL", "IGBCAHLK"},
+		{"ABCGHIJL", "HJBCAGLI"},
+		{"ABCGHIJK", "HJBCAGIK"},
+		{"ABCFIJKL", "IJBCAFLK"},
+		{"ABCFHJKL", "HJBCAFLK"},
+		{"ABCFHIKL", "HIBCAFLK"},
+		{"ABCFHIJL", "HJBCAFLI"},
+		{"ABCFHIJK", "HJBCAFIK"},
+		{"ABCFGJKL", "CJBFAGLK"},
+		{"ABCFGIKL", "IGBCAFLK"},
+		{"ABCFGIJL", "CJBFAGLI"},
+		{"ABCFGIJK", "CJBFAGIK"},
+		{"ABCFGHKL", "HGBCAFLK"},
+		{"ABCFGHJL", "HGBCAFLJ"},
+		{"ABCFGHJK", "HGBCAFJK"},
+		{"ABCFGHIL", "HGBCAFLI"},
+		{"ABCFGHIK", "HGBCAFIK"},
+		{"ABCFGHIJ", "HGBCAFIJ"},
+		{"ABCEIJKL", "EJBAICLK"},
+		{"ABCEHJKL", "EJBCAHLK"},
+		{"ABCEHIKL", "EIBCAHLK"},
+		{"ABCEHIJL", "EJBCAHLI"},
+		{"ABCEHIJK", "EJBCAHIK"},
+		{"ABCEGJKL", "EJBCAGLK"},
+		{"ABCEGIKL", "EGBAICLK"},
+		{"ABCEGIJL", "EJBCAGLI"},
+		{"ABCEGIJK", "EJBCAGIK"},
+		{"ABCEGHKL", "EGBCAHLK"},
+		{"ABCEGHJL", "HJBCAGLE"},
+		{"ABCEGHJK", "HJBCAGEK"},
+		{"ABCEGHIL", "EGBCAHLI"},
+		{"ABCEGHIK", "EGBCAHIK"},
+		{"ABCEGHIJ", "HJBCAGEI"},
+		{"ABCEFJKL", "EJBCAFLK"},
+		{"ABCEFIKL", "EIBCAFLK"},
+		{"ABCEFIJL", "EJBCAFLI"},
+		{"ABCEFIJK", "EJBCAFIK"},
+		{"ABCEFHKL", "HEBCAFLK"},
+		{"ABCEFHJL", "HJBCAFLE"},
+		{"ABCEFHJK", "HJBCAFEK"},
+		{"ABCEFHIL", "HEBCAFLI"},
+		{"ABCEFHIK", "HEBCAFIK"},
+		{"ABCEFHIJ", "HJBCAFEI"},
+		{"ABCEFGKL", "EGBCAFLK"},
+		{"ABCEFGJL", "EGBCAFLJ"},
+		{"ABCEFGJK", "EGBCAFJK"},
+		{"ABCEFGIL", "EGBCAFLI"},
+		{"ABCEFGIK", "EGBCAFIK"},
+		{"ABCEFGIJ", "EGBCAFIJ"},
+		{"ABCEFGHL", "HGBCAFLE"},
+		{"ABCEFGHK", "HGBCAFEK"},
+		{"ABCEFGHJ", "HGBCAFEJ"},
+		{"ABCEFGHI", "HGBCAFEI"},
+		{"ABCDIJKL", "IJBCADLK"},
+		{"ABCDHJKL", "HJBCADLK"},
+		{"ABCDHIKL", "HIBCADLK"},
+		{"ABCDHIJL", "HJBCADLI"},
+		{"ABCDHIJK", "HJBCADIK"},
+		{"ABCDGJKL", "CJBDAGLK"},
+		{"ABCDGIKL", "IGBCADLK"},
+		{"ABCDGIJL", "CJBDAGLI"},
+		{"ABCDGIJK", "CJBDAGIK"},
+		{"ABCDGHKL", "HGBCADLK"},
+		{"ABCDGHJL", "HGBCADLJ"},
+		{"ABCDGHJK", "HGBCADJK"},
+		{"ABCDGHIL", "HGBCADLI"},
+		{"ABCDGHIK", "HGBCADIK"},
+		{"ABCDGHIJ", "HGBCADIJ"},
+		{"ABCDFJKL", "CJBDAFLK"},
+		{"ABCDFIKL", "CIBDAFLK"},
+		{"ABCDFIJL", "CJBDAFLI"},
+		{"ABCDFIJK", "CJBDAFIK"},
+		{"ABCDFHKL", "HFBCADLK"},
+		{"ABCDFHJL", "CJBDAFLH"},
+		{"ABCDFHJK", "HJBCAFDK"},
+		{"ABCDFHIL", "HFBCADLI"},
+		{"ABCDFHIK", "HFBCADIK"},
+		{"ABCDFHIJ", "HJBCAFDI"},
+		{"ABCDFGKL", "CGBDAFLK"},
+		{"ABCDFGJL", "CGBDAFLJ"},
+		{"ABCDFGJK", "CGBDAFJK"},
+		{"ABCDFGIL", "CGBDAFLI"},
+		{"ABCDFGIK", "CGBDAFIK"},
+		{"ABCDFGIJ", "CGBDAFIJ"},
+		{"ABCDFGHL", "CGBDAFLH"},
+		{"ABCDFGHK", "HGBCAFDK"},
+		{"ABCDFGHJ", "HGBCAFDJ"},
+		{"ABCDFGHI", "HGBCAFDI"},
+		{"ABCDEJKL", "EJBCADLK"},
+		{"ABCDEIKL", "EIBCADLK"},
+		{"ABCDEIJL", "EJBCADLI"},
+		{"ABCDEIJK", "EJBCADIK"},
+		{"ABCDEHKL", "HEBCADLK"},
+		{"ABCDEHJL", "HJBCADLE"},
+		{"ABCDEHJK", "HJBCADEK"},
+		{"ABCDEHIL", "HEBCADLI"},
+		{"ABCDEHIK", "HEBCADIK"},
+		{"ABCDEHIJ", "HJBCADEI"},
+		{"ABCDEGKL", "EGBCADLK"},
+		{"ABCDEGJL", "EGBCADLJ"},
+		{"ABCDEGJK", "EGBCADJK"},
+		{"ABCDEGIL", "EGBCADLI"},
+		{"ABCDEGIK", "EGBCADIK"},
+		{"ABCDEGIJ", "EGBCADIJ"},
+		{"ABCDEGHL", "HGBCADLE"},
+		{"ABCDEGHK", "HGBCADEK"},
+		{"ABCDEGHJ", "HGBCADEJ"},
+		{"ABCDEGHI", "HGBCADEI"},
+		{"ABCDEFKL", "CEBDAFLK"},
+		{"ABCDEFJL", "CJBDAFLE"},
+		{"ABCDEFJK", "CJBDAFEK"},
+		{"ABCDEFIL", "CEBDAFLI"},
+		{"ABCDEFIK", "CEBDAFIK"},
+		{"ABCDEFIJ", "CJBDAFEI"},
+		{"ABCDEFHL", "HFBCADLE"},
+		{"ABCDEFHK", "HEBCAFDK"},
+		{"ABCDEFHJ", "HJBCAFDE"},
+		{"ABCDEFHI", "HEBCAFDI"},
+		{"ABCDEFGL", "CGBDAFLE"},
+		{"ABCDEFGK", "CGBDAFEK"},
+		{"ABCDEFGJ", "CGBDAFEJ"},
+		{"ABCDEFGI", "CGBDAFEI"},
+		{"ABCDEFGH", "HGBCAFDE"},
+	};
+	DWORD off = table_start_offset;
+	for (auto const& x : table)
+	{
+		for (int i = 0; i < 8; i++) WriteBytes(off++, 1, x.first[i]);
+		for (int i = 0; i < 8; i++) WriteBytes(off++, 1, strchr(x.second, x.first[i]) - x.second + 1);
+	}
 }

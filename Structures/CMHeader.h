@@ -795,7 +795,7 @@ typedef struct TEAM_LEAGUE_STATS
 {
 	CM3_CLUBS* club;			// 0
 	char current_pos;			// 4
-	char pad4[4];				// 5
+	DWORD f4;					// 5
 	DWORD position_history;		// 9
 	char pad13[4];				// 13
 	char games;					// 17
