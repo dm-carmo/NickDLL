@@ -57,6 +57,7 @@ vector<cm3_clubs*> find_clubs_of_country_for_euro(DWORD nation_id);
 void reset_club_euro_flags(DWORD continentID);
 template <typename T> bool vector_contains_element(vector<T>& vec, T elem);
 bool compareClubSeeding(cm3_clubs* c1, cm3_clubs* c2);
+bool compareNationRanking(cm3_clubs* c1, cm3_clubs* c2);
 bool compareClubRep(cm3_clubs* c1, cm3_clubs* c2);
 bool compareClubRepInv(cm3_clubs* c1, cm3_clubs* c2);
 bool compareClubLastDivPos(cm3_clubs* c1, cm3_clubs* c2);

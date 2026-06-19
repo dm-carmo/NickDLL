@@ -503,6 +503,12 @@ bool compareClubSeeding(cm3_clubs* c1, cm3_clubs* c2)
 	return (c1->ClubEuroSeeding > c2->ClubEuroSeeding);
 }
 
+bool compareNationRanking(cm3_clubs* c1, cm3_clubs* c2)
+{
+	if (c1->ClubNation->NationFIFACoefficient == c2->ClubNation->NationFIFACoefficient) return (c1->ClubReputation > c2->ClubReputation);
+	return (c1->ClubNation->NationFIFACoefficient > c2->ClubNation->NationFIFACoefficient);
+}
+
 bool compareClubRep(cm3_clubs* c1, cm3_clubs* c2)
 {
 	return (c1->ClubReputation > c2->ClubReputation);
