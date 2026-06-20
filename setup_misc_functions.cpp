@@ -800,6 +800,128 @@ extern "C" _declspec(naked) void player_gain_nationality_c()
 	}
 }
 
+void __declspec(naked) show_wing_back_position()
+{
+	__asm
+	{
+		mov eax, dword ptr ss : [esp + 0x11b8]
+		movsx ecx, byte ptr ds : [eax + 0x16]
+		cmp ecx, ebp
+		jl end_func
+		cmp bl, 0x1
+		jnz bl_not_1
+		lea edi, dword ptr ss : [esp + 0x14]
+		or ecx, 0xffffffff
+		xor eax, eax
+		repne scas byte ptr es : [edi]
+		not ecx
+		dec ecx
+		je ecx_zero_1
+		mov edi, 0x9b7630
+		or ecx, 0xffffffff
+		repne scas byte ptr es : [edi]
+		not ecx
+		sub edi, ecx
+		lea edx, dword ptr ss : [esp + 0x14]
+		mov esi, edi
+		mov edi, edx
+		mov edx, ecx
+		or ecx, 0xffffffff
+		repne scas byte ptr es : [edi]
+		mov ecx, edx
+		dec edi
+		shr ecx, 0x2
+		rep movs dword ptr es : [edi] , dword ptr ds : [esi]
+		mov ecx, edx
+		and ecx, 0x3
+		rep movs byte ptr es : [edi] , byte ptr ds : [esi]
+		ecx_zero_1 :
+		push 0xad9c64
+		push 0x9b75b9
+		push 0xde1f64
+		push call_1_ret
+		push 0x66f4e0
+		ret
+		call_1_ret :
+		add esp, 0x0c
+			jmp call_1_jmp
+			bl_not_1 :
+		cmp bl, 2
+			je bl_equal_2
+			cmp bl, 3
+			je bl_equal_2
+			lea edi, dword ptr ss : [esp + 0x14]
+			or ecx, 0xffffffff
+			xor eax, eax
+			repne scas byte ptr es : [edi]
+			not ecx
+			dec ecx
+			jnz end_func
+			lea edx, dword ptr ss : [esp + 0x14]
+			mov edi, 0x9b75bc
+			jmp jump_2
+			bl_equal_2 :
+		lea edi, dword ptr ss : [esp + 0x14]
+			or ecx, 0xffffffff
+			xor eax, eax
+			repne scas byte ptr es : [edi]
+			not ecx
+			dec ecx
+			je ecx_zero_2
+			mov edi, 0x9b7630
+			or ecx, 0xffffffff
+			repne scas byte ptr es : [edi]
+			not ecx
+			sub edi, ecx
+			lea edx, dword ptr ss : [esp + 0x14]
+			mov esi, edi
+			mov edi, edx
+			mov edx, ecx
+			or ecx, 0xffffffff
+			repne scas byte ptr es : [edi]
+			mov ecx, edx
+			dec edi
+			shr ecx, 0x2
+			rep movs dword ptr es : [edi] , dword ptr ds : [esi]
+			mov ecx, edx
+			and ecx, 0x3
+			rep movs byte ptr es : [edi] , byte ptr ds : [esi]
+			ecx_zero_2 :
+			push 0xa85892
+			push 0xde1f64
+			push call_2_ret
+			push 0x66f4e0
+			ret
+			call_2_ret :
+		add esp, 0x8
+			call_1_jmp :
+			lea edx, dword ptr ss : [esp + 0x14]
+			mov edi, 0xde1f64
+			jump_2 :
+			or ecx, 0xffffffff
+			xor eax, eax
+			repne scas byte ptr es : [edi]
+			not ecx
+			sub edi, ecx
+			mov esi, edi
+			mov edi, edx
+			mov edx, ecx
+			or ecx, 0xffffffff
+			repne scas byte ptr es : [edi]
+			mov ecx, edx
+			dec edi
+			shr ecx, 0x2
+			rep movs dword ptr es : [edi] , dword ptr ds : [esi]
+			mov ecx, edx
+			and ecx, 0x3
+			rep movs byte ptr es : [edi] , byte ptr ds : [esi]
+			end_func :
+			mov eax, dword ptr ss : [esp + 0x11b8]
+			push 0x53f2d4
+			ret
+	}
+}
+
 void setup_misc_functions()
 {
 	if (configFile.GetBool("competitionColoursPatch", true)) PatchFunction(0x53b7c0, (DWORD)&comp_colours_in_header);
@@ -809,6 +931,12 @@ void setup_misc_functions()
 	PatchFunction(0x460ec6, (DWORD)&club_pro_status_with_continental_comp_c);
 	PatchFunction(0x460d75, (DWORD)&show_club_country_based);
 	PatchFunction(0x8c5bd2, (DWORD)&player_gain_nationality_c);
+
+	// Show the hidden wing-back position
+	if (configFile.GetBool("showWingBacks", true)) {
+		PatchFunction(0x53f2cd, (DWORD)&show_wing_back_position);
+		WriteBytes(0x9b75b9, 2, 'W', 'B');
+	}
 
 	// Finance changes
 	if (configFile.GetBool("financeTweaks", false)) {

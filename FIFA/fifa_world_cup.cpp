@@ -1053,29 +1053,34 @@ void fifa_world_cup_setup1(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	teams_seeded* teamList = (teams_seeded*)data->special_teams_seedings;
 	WORD n = data->special_nteams_seedings;
-	WORD di = 0;
+	vector<cm3_clubs*> qualified_teams;
+	for (WORD i = 0; i < n; i++) qualified_teams.push_back(teamList[i].club);
 	if (data->year != 2026) {
 		data->f75 = 0;
 		if (n < 48) {
 			string msg = "Not enough teams in World Cup: needed 48 but only had " + to_string(n);
-			create_message_box(data->competition_db->ClubCompName, msg.c_str(), true);
 			vector<cm3_clubs*> nat_teams = get_all_national_teams();
 			sort(nat_teams.begin(), nat_teams.end(), compareNationRanking);
-			for (WORD i = n, idx = 0; i < 48; i++, idx++) {
-				cm3_clubs* c = nat_teams[idx];
-				for (WORD j = 0; j < n; j++) {
-					if (teamList[j].club == c) {
-						i--;
-						continue;
-					}
+			//for (size_t i = 0; i < nat_teams.size(); i++) {
+			//	cm3_clubs* c = nat_teams[i];
+			//	dprintf("%d: %s [%f]\n", i + 1, c->ClubNameShort, c->ClubNation->NationFIFACoefficient);
+			//}
+			for (WORD i = 0; n < 48 && i < nat_teams.size(); i++) {
+				cm3_clubs* c = nat_teams[i];
+				if (!vector_contains_element(qualified_teams, c)) {
+					//dprintf("Added extra team to World Cup: %s, ranking %d, FIFA points [%f, %f, %f, %f, %f, %f, %f]\n",
+						//c->ClubNameShort, i + 1, c->ClubNation->NationFIFACoefficient, c->ClubNation->NationFIFACoefficient91, c->ClubNation->NationFIFACoefficient92, c->ClubNation->NationFIFACoefficient93, c->ClubNation->NationFIFACoefficient94, c->ClubNation->NationFIFACoefficient95, c->ClubNation->NationFIFACoefficient96);
+					teamList[n++].club = c;
+					qualified_teams.push_back(c);
 				}
-				teamList[i].club = c;
 			}
 			data->special_nteams_seedings = 48;
+			create_message_box(data->competition_db->ClubCompName, msg.c_str(), true);
 		}
-		n = 48;
-		vector<cm3_clubs*> qualified_teams;
-		for (WORD i = 0; i < n; i++) qualified_teams.push_back(teamList[i].club);
+		if (n < 48) {
+			string msg = "Something went wrong... only have " + to_string(n) + " teams for the World Cup!";
+			create_message_box(data->competition_db->ClubCompName, msg.c_str(), true);
+		}
 		sort(qualified_teams.begin(), qualified_teams.end(), compareNationRanking);
 		WORD year = data->year;
 		DWORD host1_id, host2_id;
@@ -1130,15 +1135,17 @@ BYTE* fifa_world_cup_all_teams(BYTE* _this) {
 			while (teamList[r].f5 == -1) r = rand() % 11 + 1;
 			*((DWORD*)(pMem + 5 * i)) = teamList[r].club->ClubID;
 			*((BYTE*)(pMem + 5 * i + 4)) = i + 1;
+			teamList[r].f5 = -1;
 		}
 	}
 	DWORD dx = 0;
 	for (DWORD i = 12; i < 48; i++) {
 		DWORD b = i / 12 + 1;
 		DWORD r = rand() % 12;
-		while (counts[r] >= b) r = rand() % 12;
+		while (teamList[r].f5 == -1 && counts[r] >= b) r = rand() % 12;
 		*((DWORD*)(pMem + 5 * i)) = teamList[i].club->ClubID;
 		*((BYTE*)(pMem + 5 * i + 4)) = (BYTE)(r + 1);
+		teamList[r].f5 = -1;
 		counts[r]++;
 	}
 	WORD year = data->year;
@@ -1394,7 +1401,7 @@ int fifa_world_cup_stage_news(BYTE* _this, int club_idx, char fate, char stage_i
 	}
 	else if (stage_id == 11) {
 		if (fate == Qualified1) {
-			sub_66F4E0(0xDE1F64, 0x9C4800, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
+			sub_66F4E0(0xDE1F64, (DWORD)&qualified_best3rd_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
 				&club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
 			sub_4AE660(ret_str_ptr, 0xDE1F64);
 			sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
@@ -1575,6 +1582,9 @@ void setup_fifa_world_cup() {
 	WriteBytes(0x9a464c, 6, 0x50, 0x61, 0x74, 0x68, 0x20, 0x32); // Path 2 short
 	WriteBytes(0x9a6a08, 7, 0x50, 0x61, 0x74, 0x68, 0x20, 0x31, 0x0); // Path 1 long
 	WriteBytes(0x9a69f8, 7, 0x50, 0x61, 0x74, 0x68, 0x20, 0x32, 0x0); // Path 2 long
+	char* best_placed_text = "Best Placed Teams";
+	WriteDWORD(0x4B5C3E + 1, (DWORD)&best_placed_text[0]);
+	WriteDWORD(0x4B88B9 + 1, (DWORD)&best_placed_text[0]);
 
 	// third placed teams table
 	map<char*, char*> table = {
