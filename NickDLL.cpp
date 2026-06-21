@@ -84,6 +84,16 @@ void Setup()
 	WriteBytes(0x820e09, 1, July);
 	WriteBytes(0x820e0e, 1, 1);
 
+	// Adjust randomized birth dates
+	DWORD year_diff = START_YEAR - 2001;
+	WriteDWORD(0x527853, 1940 + year_diff);
+	WriteDWORD(0x527552, 1940 + year_diff);
+	WriteDWORD(0x527B4E, 1940 + year_diff);
+	WriteDWORD(0x527DF9, 1940 + year_diff);
+	WriteDWORD(0x536878, 1967 + year_diff);
+	WriteDWORD(0x53687F, 1980 + year_diff);
+	WriteDWORD(0x537CA0, 1940 + year_diff);
+
 	// WC qualifiers calendar changes
 	WriteBytes(0x915395, 1, 1);
 	WriteBytes(0x915397, 1, 5);
