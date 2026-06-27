@@ -166,6 +166,8 @@ static void(__thiscall* staff_history_comp_third_place_86B710)(BYTE* _this, cm3_
 (void(__thiscall*)(BYTE * _this, cm3_clubs * club, BYTE * round_data, int a4))(0x86B710);
 static void(__thiscall* sub_775000)(BYTE* _this, cm3_nations* nation) =
 (void(__thiscall*)(BYTE * _this, cm3_nations * nation))(0x775000);
+static void(__thiscall* sub_775070)(BYTE* _this, cm3_continents* continent, int a3) =
+(void(__thiscall*)(BYTE * _this, cm3_continents * continent, int a3))(0x775070);
 static void(__thiscall* sub_775220)(BYTE* _this, cm3_nations* nation, cm3_club_comps* comp) =
 (void(__thiscall*)(BYTE * _this, cm3_nations * nation, cm3_club_comps * comp))(0x775220);
 static void(__thiscall* sub_775420)(BYTE* _this, cm3_club_comps* comp) =

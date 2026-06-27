@@ -101,6 +101,34 @@ DWORD Get9CF(DWORD id)
 	return *(DWORD*)id;
 }
 
+WORD get_world_cup_hosts_in_continent(BYTE* _this, DWORD continentID, DWORD* out_host1_id, DWORD* out_host2_id) {
+	comp_stats* data = (comp_stats*)_this;
+	WORD year = data->year;
+	while (year % 4 != 2) year++;
+	DWORD host1_id = -1, host2_id = -1;
+	char num_hosts = get_host_ids_5FA730((BYTE*)*b5e134, FIFA_WORLD_CUP_9CF(), year, &host1_id, &host2_id, 1);
+	WORD num_to_exclude = 0;
+	if (num_hosts > 0) {
+		cm3_nations* host1 = get_country(host1_id);
+		if (host1->NationContinent && host1->NationContinent->ContinentID == continentID)
+		{
+			num_to_exclude++;
+			*out_host1_id = host1_id;
+		}
+		else *out_host1_id = -1;
+	}
+	if (num_hosts > 1) {
+		cm3_nations* host2 = get_country(host2_id);
+		if (host2->NationContinent && host2->NationContinent->ContinentID == continentID)
+		{
+			num_to_exclude++;
+			*out_host2_id = host2_id;
+		}
+		else *out_host2_id = -1;
+	}
+	return num_to_exclude;
+}
+
 cm3_clubs* get_club(DWORD clubID)
 {
 	return (clubID != -1L) ? &(*clubs)[clubID] : NULL;
@@ -111,12 +139,23 @@ cm3_clubs* get_national_team(DWORD nationID)
 	return (nationID != -1L) ? &(*clubs)[*clubs_count + (nationID - 2 * *nations_count)] : NULL;
 }
 
-vector<cm3_clubs*>  get_all_national_teams() {
+vector<cm3_clubs*> get_all_national_teams() {
 	vector<cm3_clubs*> ret;
 	for (DWORD i = 0; i < *nations_count; i++)
 	{
 		cm3_clubs* c = &(*clubs)[*clubs_count + (i - 2 * *nations_count)];
 		if (c->ClubNation && c->ClubNation->NationContinent)
+			ret.push_back(c);
+	}
+	return ret;
+}
+
+vector<cm3_clubs*> get_national_teams_of_continent(DWORD continentID) {
+	vector<cm3_clubs*> ret;
+	for (DWORD i = 0; i < *nations_count; i++)
+	{
+		cm3_clubs* c = &(*clubs)[*clubs_count + (i - 2 * *nations_count)];
+		if (c->ClubNation && c->ClubNation->NationContinent && c->ClubNation->NationContinent->ContinentID == continentID)
 			ret.push_back(c);
 	}
 	return ret;
@@ -503,10 +542,12 @@ bool compareClubSeeding(cm3_clubs* c1, cm3_clubs* c2)
 	return (c1->ClubEuroSeeding > c2->ClubEuroSeeding);
 }
 
+// Does not work as it should (?)
 bool compareNationRanking(cm3_clubs* c1, cm3_clubs* c2)
 {
-	if (c1->ClubNation->NationFIFACoefficient == c2->ClubNation->NationFIFACoefficient) return (c1->ClubReputation > c2->ClubReputation);
-	return (c1->ClubNation->NationFIFACoefficient > c2->ClubNation->NationFIFACoefficient);
+	//if (c1->ClubNation->NationFIFACoefficient == c2->ClubNation->NationFIFACoefficient) return (c1->ClubReputation > c2->ClubReputation);
+	//return (c1->ClubNation->NationFIFACoefficient > c2->ClubNation->NationFIFACoefficient);
+	return (c1->ClubReputation > c2->ClubReputation);
 }
 
 bool compareClubRep(cm3_clubs* c1, cm3_clubs* c2)

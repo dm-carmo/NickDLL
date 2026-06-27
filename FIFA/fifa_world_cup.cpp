@@ -32,9 +32,9 @@ int fifa_world_cup_set_champion(BYTE* _this) {
 		if (teams[i].f6 == 1) first = teams[i].club;
 		else if (teams[i].f6 == 2) second = teams[i].club;
 	}
-	DWORD host1_id, host2_id;
-	get_host_ids_5FA730((BYTE*)*b5e134, comp_data->competition_db->ClubCompID, comp_data->year, &host1_id, &host2_id, 1);
-	sub_4AFCE0_add_history_entry(_this, first, second, third, get_national_team(host1_id));
+	DWORD host1_id = -1, host2_id = -1;
+	char num_hosts = get_host_ids_5FA730((BYTE*)*b5e134, comp_data->competition_db->ClubCompID, comp_data->year, &host1_id, &host2_id, 1);
+	sub_4AFCE0_add_history_entry(_this, first, second, third, num_hosts > 0 ? get_national_team(host1_id) : 0);
 
 	sub_775420((BYTE*)*b74318, comp_data->competition_db);
 	return 0;
@@ -526,30 +526,24 @@ void fifa_world_cup_setup_groups(BYTE* _this, BYTE* pMem, BYTE idx) {
 void fifa_world_cup_best_placed_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	char stage_num = 11;
-	//BYTE stage_num = *(BYTE*)(_this + 0x100);
 
-	WORD v26[4];
-	WORD v27[4];
-	DWORD v23[2];
-	DWORD lpMem[2];
-	sub_54A110((BYTE*)v26);
-	sub_54A110((BYTE*)v27);
+	WORD start_date[4];
+	WORD end_date[4];
+	DWORD tmp1[2];
+	DWORD tmp2[2];
+	sub_54A110((BYTE*)start_date);
+	sub_54A110((BYTE*)end_date);
 
 	WORD year = data->year;
 	BYTE* ba = (BYTE*)data->fixtures_table;
 	BYTE* cm_date = new BYTE[8];
-	if (year == 1998) { // change?
-		convert_to_cm_date(cm_date, 1, June, 1998, -1);
-	}
-	else {
-		sub_549EF0(cm_date, *(WORD*)(ba)-3, year + *(WORD*)(ba + 2));
-	}
-	sub_417C10((BYTE*)v26, v23, cm_date);
+	sub_549EF0(cm_date, *(WORD*)(ba)-3, year + *(WORD*)(ba + 2));
+	sub_417C10((BYTE*)start_date, tmp1, cm_date);
 	WORD a9 = *(WORD*)(_this + 0xA9);
 	sub_549EF0(cm_date, *(WORD*)(ba + a9 * fixture_dates_sz - fixture_dates_sz),
 		year + *(WORD*)(ba + a9 * fixture_dates_sz - fixture_dates_sz + 2));
-	sub_54C770(cm_date, (BYTE*)v23, 1);
-	sub_417C10((BYTE*)v27, lpMem, (BYTE*)v23);
+	sub_54C770(cm_date, (BYTE*)tmp1, 1);
+	sub_417C10((BYTE*)end_date, tmp2, (BYTE*)tmp1);
 	comp_stats* curr_stage = data;
 	for (char al = -1; al < 11; al++) {
 		if (al > -1) curr_stage = (comp_stats*)(data->stages[al]);
@@ -564,7 +558,7 @@ void fifa_world_cup_best_placed_update(BYTE* _this) {
 		BYTE* pStage = (BYTE*)sub_944CF1_operator_new(0xEE);
 		comp_stats* stage_data = (comp_stats*)pStage;
 		WORD n = curr_stage->n_teams;
-		sub_88C6D0(pStage, curr_stage->n_teams, pMem, -1, -1, v26, v27, data->competition_db->ClubCompID, data->pts_for_win, data->pts_for_draw, (BYTE*)(_this + 0xC5), 9 * (n * (n - 1)), data->f16);
+		sub_88C6D0(pStage, n, pMem, -1, -1, start_date, end_date, data->competition_db->ClubCompID, data->pts_for_win, data->pts_for_draw, (BYTE*)(_this + 0xC5), 9 * (n * (n - 1)), data->f16);
 		table_teams = (team_league_stats*)stage_data->team_league_table;
 		WORD chk = 0;
 		for (; chk < stage_data->n_teams; chk++) {
@@ -586,7 +580,6 @@ void fifa_world_cup_best_placed_update(BYTE* _this) {
 
 void fifa_world_cup_setup_best_placed(BYTE* _this) {
 	char stage_num = 11;
-	//BYTE stage_num = *(BYTE*)(_this + 0x100);
 	comp_stats* data = (comp_stats*)_this;
 	WORD year = data->year;
 	BYTE* pStage = (BYTE*)sub_944CF1_operator_new(0xEE);
@@ -608,7 +601,7 @@ void fifa_world_cup_seeded_teams(BYTE* _this) {
 	WORD count = data->special_nteams_seedings;
 	teamList[count].f5 = 2;
 	WORD year = data->year;
-	DWORD host1_id, host2_id;
+	DWORD host1_id = -1, host2_id = -1;
 	char num_hosts = get_host_ids_5FA730((BYTE*)*b5e134, data->competition_db->ClubCompID, year, &host1_id, &host2_id, 1);
 	if (num_hosts > 0) {
 		teamList[count].club = get_national_team(host1_id);
@@ -685,23 +678,24 @@ char fifa_world_cup_update(BYTE* _this) {
 	BYTE* wcq_caf = get_loaded_league(WORLD_CUP_CAF_QUALIFYING_9CF());
 	BYTE* wcq_uefa = get_loaded_league(WORLD_CUP_UEFA_QUALIFYING_9CF());
 
-	DWORD v1 = *(DWORD*)wcq_concacaf;
-	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(wcq_concacaf);
+	//DWORD v1 = *(DWORD*)wcq_concacaf;
+	//(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(wcq_concacaf);
 
+	DWORD v1;
 	v1 = *(DWORD*)wcq_ofc;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(wcq_ofc);
 
-	v1 = *(DWORD*)wcq_afc;
-	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(wcq_afc);
+	//v1 = *(DWORD*)wcq_afc;
+	//(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(wcq_afc);
 
-	v1 = *(DWORD*)wcq_conmebol;
-	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(wcq_conmebol);
+	//v1 = *(DWORD*)wcq_conmebol;
+	//(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(wcq_conmebol);
 
-	v1 = *(DWORD*)wcq_caf;
-	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(wcq_caf);
+	//v1 = *(DWORD*)wcq_caf;
+	//(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(wcq_caf);
 
-	v1 = *(DWORD*)wcq_uefa;
-	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(wcq_uefa);
+	//v1 = *(DWORD*)wcq_uefa;
+	//(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(wcq_uefa);
 
 	BYTE* ebx = 0;
 	sub_687970(_this, ebx);
@@ -901,6 +895,7 @@ void fifa_world_cup_paths_setup(BYTE* _this) {
 		clubs.push_back(table_teams[0].club);
 		clubs.push_back(table_teams[1].club);
 		staff_history_failed_qual_86C1D0(staff_hist_ptr, table_teams[3].club, (DWORD)(data->competition_db), GroupStage, 0x1E);
+		sub_775000((BYTE*)*b74318, table_teams[3].club->ClubNation);
 	}
 	comp_stats* best_placed_stage = (comp_stats*)(data->stages[11]);
 	team_league_stats* best_placed_table = (team_league_stats*)(best_placed_stage->team_league_table);
@@ -922,7 +917,10 @@ void fifa_world_cup_paths_setup(BYTE* _this) {
 		}
 	}
 	for (WORD i = 8; i < best_placed_stage->n_teams; i++)
+	{
 		staff_history_failed_qual_86C1D0(staff_hist_ptr, best_placed_table[i].club, (DWORD)(data->competition_db), GroupStage, 0x1E);
+		sub_775000((BYTE*)*b74318, best_placed_table[i].club->ClubNation);
+	}
 
 	char key[9] = { '\0' };
 	char indexes[9] = { '\0' };
@@ -1083,12 +1081,12 @@ void fifa_world_cup_setup1(BYTE* _this) {
 		}
 		sort(qualified_teams.begin(), qualified_teams.end(), compareNationRanking);
 		WORD year = data->year;
-		DWORD host1_id, host2_id;
+		DWORD host1_id = -1, host2_id = -1;
 		char num_hosts = get_host_ids_5FA730((BYTE*)*b5e134, data->competition_db->ClubCompID, year, &host1_id, &host2_id, 1);
 		cm3_clubs* host1, * host2;
-		if (host1_id == -1) host1 = 0;
+		if (num_hosts < 1) host1 = 0;
 		else host1 = get_national_team(host1_id);
-		if (host2_id == -1) host2 = 0;
+		if (num_hosts < 2) host2 = 0;
 		else host2 = get_national_team(host2_id);
 		WORD bl = 0;
 		for (WORD i = 0; i < n; i++) {
@@ -1273,27 +1271,13 @@ void fifa_world_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	comp_stats* data = (comp_stats*)_this;
 	data->competition_db = comp;
 	data->comp_vtable = fifa_world_cup_vtable;
-	WORD host_check = (year + 1 - 1994) & 0x80000003;
 	data->comp_type = NATION_INTERNATIONAL;
 	data->promotes_to = -1;
 	data->relegates_to = -1;
 	data->f75 = 1;
 	data->rules = RulesInternational;
 	data->year = year + 1;
-	if (host_check < 0) {
-		host_check--;
-		host_check = host_check | 0xFFFFFFFC;
-		host_check++;
-	}
-	while (host_check != 0) {
-		data->year++;
-		host_check = (data->year - 1994) & 0x80000003;
-		if (host_check < 0) {
-			host_check--;
-			host_check = host_check | 0xFFFFFFFC;
-			host_check++;
-		}
-	}
+	while (data->year % 4 != 2) data->year++;
 	data->f81 = 0xf;
 	data->special_nteams_seedings = 0;
 	data->f56 = 48;

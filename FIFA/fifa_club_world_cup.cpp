@@ -530,10 +530,10 @@ void fifa_club_world_cup_all_teams(BYTE* _this) {
 	}
 	// Host (1)
 	cm3_clubs* host_club = 0;
-	DWORD host1_id, host2_id;
-	get_host_ids_5FA730((BYTE*)*b5e134, data->competition_db->ClubCompID, year, &host1_id, &host2_id, 1);
+	DWORD host1_id = -1, host2_id = -1;
+	char num_hosts = get_host_ids_5FA730((BYTE*)*b5e134, data->competition_db->ClubCompID, year, &host1_id, &host2_id, 1);
 	cm3_nations* host;
-	if (host1_id == (DWORD)-1) host = get_country(NATION_QATAR_9CF());
+	if (num_hosts < 1) host = get_country(NATION_QATAR_9CF());
 	else host = host = get_country(host1_id);
 	high_rep_clubs = find_clubs_of_country(host->NationID);
 	if (host->NationLeagueSelected) {

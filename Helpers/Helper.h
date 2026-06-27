@@ -21,9 +21,11 @@ void PatchFunction(DWORD addr, DWORD jmpTo);
 int GetKey();
 
 DWORD Get9CF(DWORD id);
+WORD get_world_cup_hosts_in_continent(BYTE* _this, DWORD continentID, DWORD* out_host1_id, DWORD* out_host2_id);
 cm3_clubs* get_club(DWORD clubID);
 cm3_clubs* get_national_team(DWORD nationID);
 vector<cm3_clubs*> get_all_national_teams();
+vector<cm3_clubs*> get_national_teams_of_continent(DWORD continentID);
 BYTE* get_loaded_league(DWORD compID);
 cm3_nations* find_country(const char* szCountry);
 cm3_nations* get_country(DWORD countryID);

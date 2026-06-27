@@ -852,6 +852,9 @@
     <ClCompile Include="FIFA\fifa_world_cup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FIFA\world_cup_quals_ofc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -1701,6 +1704,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="FIFA\fifa_world_cup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FIFA\world_cup_quals_ofc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

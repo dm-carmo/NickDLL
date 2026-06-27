@@ -9,6 +9,7 @@
 #include <vector>
 #include <set>
 #include <algorithm>
+#include <tchar.h>
 
 #include "Structures\CMHeader.h"
 #include "Helpers\generic_functions.h"
@@ -70,57 +71,51 @@ void Setup()
 	WriteBytes(0x5448aa, 2, 0x00, 0x75);
 #endif 
 
-	// Fixes a slight bug where B-teams can't qualify for relegation playoffs if they have the "CantBePromoted" flag set
-	WriteBytes(0x68527E, 1, 0xFC);
+	///BEGIN add Windows 95 compatibility + run as admin
+	TCHAR exePath[MAX_PATH + 1];
+	DWORD len = GetModuleFileName(NULL, exePath, MAX_PATH);
+	if (len > 0) {
+		HKEY hKey;
+		LPCTSTR sk = TEXT("Software\\Microsoft\\Windows NT\\CurrentVersion\\AppCompatFlags\\Layers");
 
-	// Fix for all clubs appearing in the Select Team screen, when only one league is set as foreground
-	WriteNOP(0x822696, 2);
+		LONG openRes = RegOpenKeyEx(
+			HKEY_CURRENT_USER,
+			sk,
+			0,
+			KEY_WRITE,
+			&hKey);
 
-	// Shows more teams in Team Stats, up to 127
-	WriteBytes(0x495976, 1, 0x7F);
+		if (openRes == ERROR_SUCCESS) {
+			dprintf("Success opening key.\n");
 
-	// Change manager's starting age
-	WriteDWORD(0x820e01, (START_YEAR - 34));
-	WriteBytes(0x820e09, 1, July);
-	WriteBytes(0x820e0e, 1, 1);
+			//LPCTSTR value = exePath;
+			LPCTSTR data = TEXT("WIN95 RUNASADMIN\0");
 
-	// Adjust randomized birth dates
-	DWORD year_diff = START_YEAR - 2001;
-	WriteDWORD(0x527853, 1940 + year_diff);
-	WriteDWORD(0x527552, 1940 + year_diff);
-	WriteDWORD(0x527B4E, 1940 + year_diff);
-	WriteDWORD(0x527DF9, 1940 + year_diff);
-	WriteDWORD(0x536878, 1967 + year_diff);
-	WriteDWORD(0x53687F, 1980 + year_diff);
-	WriteDWORD(0x537CA0, 1940 + year_diff);
+			LONG setRes = RegSetKeyValue(hKey, NULL, exePath, REG_SZ, (LPBYTE)data, (_tcslen(data) + 1) * sizeof(TCHAR));
 
-	// WC qualifiers calendar changes
-	WriteBytes(0x915395, 1, 1);
-	WriteBytes(0x915397, 1, 5);
-	WriteBytes(0x91539c, 1, 9);
-	WriteBytes(0x9153bd, 1, 1);
-	WriteBytes(0x9153bf, 1, 5);
-	WriteBytes(0x9153c4, 1, 23);
-	WriteBytes(0x9153e7, 1, 1);
-	WriteBytes(0x9153e9, 1, 5);
-	WriteBytes(0x9153ee, 1, 12);
+			if (setRes == ERROR_SUCCESS) {
+				dprintf("Success writing to registry.\n");
 
-	WriteBytes(0x9207c9, 1, 8);
-	WriteBytes(0x9207cb, 1, 6);
-	WriteBytes(0x9207f5, 1, 1);
-	WriteBytes(0x9207f7, 1, 5);
-	WriteBytes(0x920801, 1, 10);
-	WriteBytes(0x920950, 1, 1);
-	WriteBytes(0x920956, 1, 5);
-	WriteBytes(0x92095c, 1, 12);
+				//RegDeleteKey(hKey, sk);
 
-	// Fix too many countries to select in player/scout filter, causing a (harmless) error
-	WriteBytes(0x80959d, 1, 9);
-	WriteNOP(0x8095a8, 2);
-	WriteBytes(0x8149a1, 1, 9);
-	// Hopefully temporary: hide Area.cpp 507/838 error for other cases
-	WriteNOP(0x40344c, 5);
-	WriteNOP(0x403c32, 5);
+				LONG closeOut = RegCloseKey(hKey);
+
+				if (closeOut == ERROR_SUCCESS) {
+					dprintf("Success closing key.\n");
+				}
+				else {
+					dprintf("Error closing key.\n");
+				}
+			}
+			else {
+				dprintf("Error writing to registry. %d\n", setRes);
+			}
+		}
+		else {
+			dprintf("Error opening key.\n");
+		}
+	}
+	///END
 
 	bool result = configFile.LoadConfig("NickDLL_config.json");
 	result = prizeMoneyFile.LoadConfig("NickDLL_prize_money.json");
@@ -221,9 +216,6 @@ void Setup()
 	setup_leagues_setup();
 	setup_discipline_setup();
 	setup_rules_setup();
-
-	// temporary: suppresses hall_of_fame 315 error
-	WriteNOP(0x5ef93b, 5);
 }
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved)

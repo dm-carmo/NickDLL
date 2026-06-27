@@ -243,6 +243,7 @@
     <ClCompile Include="FIFA\fifa_club_world_cup.cpp" />
     <ClCompile Include="FIFA\fifa_intercontinental_cup.cpp" />
     <ClCompile Include="FIFA\fifa_world_cup.cpp" />
+    <ClCompile Include="FIFA\world_cup_quals_ofc.cpp" />
     <ClCompile Include="FIFA\world_cup_setup.cpp" />
     <ClCompile Include="Finland\fin_awards.cpp" />
     <ClCompile Include="Finland\fin_cup.cpp" />
@@ -526,6 +527,7 @@
     <ClInclude Include="FIFA\fifa_club_world_cup.h" />
     <ClInclude Include="FIFA\fifa_intercontinental_cup.h" />
     <ClInclude Include="FIFA\fifa_world_cup.h" />
+    <ClInclude Include="FIFA\world_cup_quals_ofc.h" />
     <ClInclude Include="FIFA\world_cup_setup.h" />
     <ClInclude Include="Finland\fin_awards.h" />
     <ClInclude Include="Finland\fin_cup.h" />
