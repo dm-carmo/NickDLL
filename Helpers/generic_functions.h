@@ -172,6 +172,9 @@ static void(__thiscall* sub_775220)(BYTE* _this, cm3_nations* nation, cm3_club_c
 (void(__thiscall*)(BYTE * _this, cm3_nations * nation, cm3_club_comps * comp))(0x775220);
 static void(__thiscall* sub_775420)(BYTE* _this, cm3_club_comps* comp) =
 (void(__thiscall*)(BYTE * _this, cm3_club_comps * comp))(0x775420);
+//char *__thiscall sub_7779B0(char *this, int a2, int a3)
+static char* (__thiscall* sub_7779B0)(BYTE* _this, cm3_clubs* club, cm3_club_comps* comp) =
+(char* (__thiscall*)(BYTE * _this, cm3_clubs * club, cm3_club_comps * comp))(0x7779B0);
 
 static int(__thiscall* yearly_person_award_setup_92FE80)(BYTE* _this, int a2, int a3, DWORD award_id, WORD rep1, WORD rep2, DWORD comp_id, char a8, int a9, char a10, int a11, int is_player) =
 (int(__thiscall*)(BYTE * _this, int a2, int a3, DWORD award_id, WORD rep1, WORD rep2, DWORD comp_id, char a8, int a9, char a10, int a11, int is_player))(0x92FE80);

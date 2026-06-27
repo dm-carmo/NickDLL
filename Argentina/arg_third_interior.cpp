@@ -311,7 +311,7 @@ DWORD arg_third_interior_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds,
 		WORD year = data->year;
 		BYTE numberOfLeagueTeams = 10;
 		*num_rounds = (numberOfLeagueTeams - 1) * data->n_rounds;
-		*stage_name_id = FirstRoundNumericGroup + (stage_idx + 1);
+		*stage_name_id = FirstRoundAlphabeticGroup + (stage_idx + 1);
 
 		pMem = (BYTE*)sub_944E46_malloc(fixture_dates_sz * (*num_rounds));
 

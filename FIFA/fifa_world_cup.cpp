@@ -685,8 +685,8 @@ char fifa_world_cup_update(BYTE* _this) {
 	v1 = *(DWORD*)wcq_ofc;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(wcq_ofc);
 
-	//v1 = *(DWORD*)wcq_afc;
-	//(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(wcq_afc);
+	v1 = *(DWORD*)wcq_afc;
+	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(wcq_afc);
 
 	//v1 = *(DWORD*)wcq_conmebol;
 	//(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(wcq_conmebol);

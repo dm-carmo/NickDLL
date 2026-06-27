@@ -88,8 +88,7 @@ DWORD world_cup_quals_ofc_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds
 
 		pMem = (BYTE*)sub_944E46_malloc(playoff_dates_sz * (*num_rounds));
 
-		DWORD host1_id, host2_id;
-		WORD num_to_exclude = get_world_cup_hosts_in_continent(_this, OCEANIA_9CF(), &host1_id, &host2_id);
+		WORD num_to_exclude = get_world_cup_hosts_in_continent(_this, OCEANIA_9CF(), 0, 0);
 		WORD num_teams = 4 - num_to_exclude;
 		WORD r1_teams = num_teams - num_teams % 2;
 		int fixture_id = 0;
@@ -109,7 +108,7 @@ DWORD world_cup_quals_ofc_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds
 		BYTE* pMem = NULL;
 		WORD year = data->year;
 		*num_rounds = 3;
-		*stage_name_id = SecondRoundNumericGroup + stage_idx;
+		*stage_name_id = SecondRoundAlphabeticGroup + stage_idx;
 
 		pMem = (BYTE*)sub_944E46_malloc(fixture_dates_sz * (*num_rounds));
 
@@ -381,49 +380,6 @@ void __declspec(naked) world_cup_quals_ofc_reputation_calc_c()
 	}
 }
 
-void world_cup_quals_ofc_setup_first_group(BYTE* _this) {
-	comp_stats* data = (comp_stats*)_this;
-	WORD total_teams = 5;
-	BYTE* pMem = (BYTE*)sub_944E46_malloc(league_team_list_sz * total_teams);
-
-	data->n_teams = total_teams;
-	data->team_league_table = (DWORD*)pMem;
-
-	teams_seeded* all_teams = (teams_seeded*)data->special_teams_seedings;
-
-	BYTE teamsAdded = 0;
-	for (BYTE i = 0; i < total_teams; i++) {
-		add_team_call(_this, teamsAdded++, all_teams[i * 2].club, 0, 0);
-	}
-	sub_684230(_this);
-}
-
-void world_cup_quals_ofc_setup_groups(BYTE* _this, BYTE idx) {
-	DWORD v1 = *(DWORD*)_this;
-	WORD num_rounds = 0;
-	WORD stage_name_id = 0;
-	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, int, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, idx, &num_rounds, &stage_name_id, 0);
-	comp_stats* data = (comp_stats*)_this;
-	DWORD* pTeams = (DWORD*)sub_944E46_malloc(data->n_teams * 4);
-
-	teams_seeded* teams = (teams_seeded*)data->special_teams_seedings;
-	for (BYTE i = 0; i < 5; i++) {
-		*((DWORD*)(&pTeams[i])) = (DWORD)teams[i * 2 + (idx + 1)].club;
-	}
-
-	WORD year = data->year;
-	BYTE* pStage = (BYTE*)sub_944CF1_operator_new(0xEE);
-	create_league_stage_data(pStage, _this, 5, pTeams, 1, (DWORD)(data->competition_db), pFixtures, num_rounds,
-		data->pts_for_win, data->pts_for_draw, data->f196, (BYTE*)(_this + 0xC5), (BYTE*)(_this + 0xBE),
-		year, idx, stage_name_id, data->f81, 2, 0, data->f217, -1, 0, 2);
-	DWORD* stages_arr = data->stages;
-	*((DWORD*)(&stages_arr[idx])) = (DWORD)pStage;
-	sub_9452CA_free(pTeams);
-	sub_9452CA_free(pFixtures);
-	sub_684230(pStage);
-	data->current_stage = idx;
-}
-
 void world_cup_quals_ofc_group_stage_setup(BYTE* _this) {
 	char stage_num = 0;
 
@@ -546,8 +502,7 @@ void world_cup_quals_ofc_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->comp_vtable = world_cup_quals_ofc_vtable;
 	data->year = year;
 	data->comp_type = NATION_INTERNATIONAL;
-	//data->promotes_to = AFC QUALIFIERS;
-	data->promotes_to = -1;
+	data->promotes_to = WORLD_CUP_AFC_QUALIFYING_9CF();
 	//data->relegates_to = CONMEBOL QUALIFIERS;
 	data->relegates_to = -1;
 	data->rules = RulesInternational;
@@ -665,13 +620,22 @@ int world_cup_quals_ofc_set_fates(BYTE* _this, cm3_clubs* club, char fate, char 
 		comp_stats* world_cup_data = (comp_stats*)world_cup_bytes;
 		teams_seeded* qualifiers = (teams_seeded*)world_cup_data->special_teams_seedings;
 		WORD insert_idx = world_cup_data->special_nteams_seedings;
+		WORD num_to_exclude = get_world_cup_hosts_in_continent(_this, OCEANIA_9CF(), 0, 0);
 		switch (fate) {
 		case TopPlayoff:
-			qualifiers[insert_idx].club = club;
-			qualifiers[insert_idx].f5 = 6;
-			qualifiers[insert_idx].f6 = 0;
-			world_cup_data->special_nteams_seedings++;
-			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)world_cup_data->competition_db, None, None, 0x64);
+			if (num_to_exclude < 1)
+			{
+				qualifiers[insert_idx].club = club;
+				qualifiers[insert_idx].f5 = 6;
+				qualifiers[insert_idx].f6 = 0;
+				world_cup_data->special_nteams_seedings++;
+				staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)world_cup_data->competition_db, None, None, 0x64);
+				sub_7779B0((BYTE*)*b74318, club, world_cup_data->competition_db);
+			}
+			else {
+				// intercontinental playoffs
+				staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)world_cup_data->competition_db, None, QualifyingRound, 0x64);
+			}
 			return 0;
 		case Promoted:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
@@ -735,7 +699,7 @@ int world_cup_quals_ofc_stage_news(BYTE* _this, int club_idx, char fate, char st
 			sub_4AE660(ret_str_ptr, 0xDE1F64);
 			sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
 			sub_4AE8A0((BYTE*)ret_str_ptr, &comp_data->ClubCompNameShort[0], 0x7d0, (DWORD)comp_data);
-			return 0;
+			return 1;
 		}
 	}
 	else if (stage_id < 2) {
@@ -745,13 +709,21 @@ int world_cup_quals_ofc_stage_news(BYTE* _this, int club_idx, char fate, char st
 	else if (stage_id == 2) {
 		if (show_body_text) return sub_4B0B80(club_idx, round_data, a9, fate, a7, ret_str_ptr);
 		else {
+			WORD num_to_exclude = get_world_cup_hosts_in_continent(_this, OCEANIA_9CF(), 0, 0);
 			switch (fate)
 			{
 			case TopPlayoff:
-				sub_66F4E0(0xDE1F64, 0xAD4B78, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
-				sub_4AE660(ret_str_ptr, 0xDE1F64);
-				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
-				return 1;
+				if (num_to_exclude < 1)
+				{
+					sub_66F4E0(0xDE1F64, 0xAD4B78, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+					sub_4AE660(ret_str_ptr, 0xDE1F64);
+					sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+					return 1;
+				}
+				else {
+					// intercontinental playoffs 0xAD4BE0
+					return 0;
+				}
 				// case Relegated: intercontinental playoffs 0xAD4BE0
 			case Promoted:
 				sub_66F4E0(0xDE1F64, 0x987198, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,

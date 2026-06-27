@@ -113,18 +113,18 @@ WORD get_world_cup_hosts_in_continent(BYTE* _this, DWORD continentID, DWORD* out
 		if (host1->NationContinent && host1->NationContinent->ContinentID == continentID)
 		{
 			num_to_exclude++;
-			*out_host1_id = host1_id;
+			if (out_host1_id) *out_host1_id = host1_id;
 		}
-		else *out_host1_id = -1;
+		else if (out_host1_id) *out_host1_id = -1;
 	}
 	if (num_hosts > 1) {
 		cm3_nations* host2 = get_country(host2_id);
 		if (host2->NationContinent && host2->NationContinent->ContinentID == continentID)
 		{
 			num_to_exclude++;
-			*out_host2_id = host2_id;
+			if (out_host2_id) *out_host2_id = host2_id;
 		}
-		else *out_host2_id = -1;
+		else if (out_host2_id) *out_host2_id = -1;
 	}
 	return num_to_exclude;
 }
