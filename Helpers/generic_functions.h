@@ -143,8 +143,8 @@ static bool(__thiscall* sub_4AE8A0)(BYTE* _this, const char* a2, int a3, int a4)
 static int(__thiscall* sub_4AE660)(LPVOID* _this, int a2) = (int(__thiscall*)(LPVOID * _this, int a2))(0x4AE660);
 static int(*sub_4B0B80)(int a1, int a2, char a3, char a4, __int16 a5, LPVOID* a6) =
 (int(*)(int a1, int a2, char a3, char a4, __int16 a5, LPVOID * a6))(0x4B0B80);
-static void(__thiscall* sub_48CAB0)(BYTE* _this, char* a1, int a2, __int16 a3, __int16 a4, char a5, int a6) =
-(void(__thiscall*)(BYTE * _this, char* a1, int a2, __int16 a3, __int16 a4, char a5, int a6))(0x48CAB0);
+static void(__thiscall* sub_48CAB0)(BYTE* _this, DWORD dest_ptr, int a2, WORD main_stage_id, WORD sub_stage_id, char fate, cm3_clubs* club) =
+(void(__thiscall*)(BYTE * _this, DWORD dest_ptr, int a2, WORD main_stage_id, WORD sub_stage_id, char fate, cm3_clubs * club))(0x48CAB0);
 
 static void(__thiscall* staff_history_qualified_86BDD0)(BYTE* _this, cm3_clubs* club, DWORD comp_id, WORD stage_main, DWORD stage_sub, char a6) =
 (void(__thiscall*)(BYTE * _this, cm3_clubs * club, DWORD comp_id, WORD stage_main, DWORD stage_sub, char a6))(0x86BDD0);

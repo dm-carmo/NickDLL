@@ -688,8 +688,8 @@ char fifa_world_cup_update(BYTE* _this) {
 	v1 = *(DWORD*)wcq_afc;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(wcq_afc);
 
-	//v1 = *(DWORD*)wcq_conmebol;
-	//(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(wcq_conmebol);
+	v1 = *(DWORD*)wcq_conmebol;
+	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(wcq_conmebol);
 
 	//v1 = *(DWORD*)wcq_caf;
 	//(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(wcq_caf);
@@ -1502,27 +1502,26 @@ void __declspec(naked) fifa_world_cup_stage_news_c()
 	}
 }
 
-void fifa_world_cup_48CAB0(BYTE* _this, char* a1, int a2, __int16 a3, __int16 a4, char a5, int a6) {
-	// Shows the right text in club's Competitions history if they win in the Champions Third Qualifying Round then lose in the Playoff
-	if (a3 == WorldCupPath1 || a3 == WorldCupPath2)
+void fifa_world_cup_48CAB0(BYTE* _this, DWORD dest_ptr, int a2, WORD main_stage_id, WORD sub_stage_id, char fate, cm3_clubs* club) {
+	if (main_stage_id == WorldCupPath1 || main_stage_id == WorldCupPath2)
 	{
-		if (a4 == SemiFinal)
+		if (sub_stage_id == SemiFinal)
 		{
-			if (a5 == 1) return sub_48CAB0(_this, a1, a2, None, Final, 0, a6);
-			else if (a5 == 2) return sub_48CAB0(_this, a1, a2, ThirdPlacePlayoff, None, 0, a6);
+			if (fate == 1) return sub_48CAB0(_this, dest_ptr, a2, None, Final, 0, club);
+			else if (fate == 2) return sub_48CAB0(_this, dest_ptr, a2, ThirdPlacePlayoff, None, 0, club);
 		}
-		return sub_48CAB0(_this, a1, a2, None, a4, a5, a6);
+		return sub_48CAB0(_this, dest_ptr, a2, None, sub_stage_id, fate, club);
 	}
-	else if (a3 == ThirdPlacePlayoff && a4 == None)
+	else if (main_stage_id == ThirdPlacePlayoff && sub_stage_id == None)
 	{
-		if (a5 == 1) return sub_48CAB0(_this, a1, a2, None, None, 3, a6);
-		else return sub_48CAB0(_this, a1, a2, None, SemiFinal, -1, a6);
+		if (fate == 1) return sub_48CAB0(_this, dest_ptr, a2, None, None, 3, club);
+		else return sub_48CAB0(_this, dest_ptr, a2, None, SemiFinal, -1, club);
 	}
-	else if (a3 == None && a4 == Final)
+	else if (main_stage_id == None && sub_stage_id == Final)
 	{
-		if (a5 == 1 || a5 == 2) return sub_48CAB0(_this, a1, a2, None, None, a5, a6);
+		if (fate == 1 || fate == 2) return sub_48CAB0(_this, dest_ptr, a2, None, None, fate, club);
 	}
-	return sub_48CAB0(_this, a1, a2, a3, a4, a5, a6);
+	return sub_48CAB0(_this, dest_ptr, a2, main_stage_id, sub_stage_id, fate, club);
 }
 
 void __declspec(naked) fifa_world_cup_48CAB0_c()

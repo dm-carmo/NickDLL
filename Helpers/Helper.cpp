@@ -930,3 +930,20 @@ int UpdateCountryCoefficient(cm3_clubs* club, char coeff) {
 		nation = get_country(NATION_LIECHTENSTEIN_9CF());
 	return sub_9058B0((BYTE*)*uefa_seeding_list, nation, coeff);
 }
+
+void add_team_to_world_cup(cm3_clubs* club) {
+	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
+	BYTE* world_cup_bytes = get_loaded_league(FIFA_WORLD_CUP_9CF());
+	comp_stats* world_cup_data = (comp_stats*)world_cup_bytes;
+	teams_seeded* qualifiers = (teams_seeded*)world_cup_data->special_teams_seedings;
+	WORD insert_idx = world_cup_data->special_nteams_seedings;
+	if (insert_idx >= world_cup_data->f56) create_message_box("", "", true);
+	else {
+		qualifiers[insert_idx].club = club;
+		qualifiers[insert_idx].f5 = 6;
+		qualifiers[insert_idx].f6 = 0;
+		world_cup_data->special_nteams_seedings++;
+		staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)world_cup_data->competition_db, None, None, 0x64);
+		sub_7779B0((BYTE*)*b74318, club, world_cup_data->competition_db);
+	}
+}

@@ -1398,11 +1398,11 @@ void __declspec(naked) uel_team_selection_c()
 	}
 }
 
-void uel_48CAB0(BYTE* _this, char* a1, int a2, __int16 a3, __int16 a4, char a5, int a6) {
+void uel_48CAB0(BYTE* _this, DWORD dest_ptr, int a2, WORD main_stage_id, WORD sub_stage_id, char fate, cm3_clubs* club) {
 	// Shows the right text in club's Competitions history if they win in the Champions Third Qualifying Round then lose in the Playoff
-	if (a3 == ChampionsPath && a4 == ThirdQualifyingPhase && a5 == 1)
-		sub_48CAB0(_this, a1, a2, MainPath, Playoff, 2, a6);
-	else sub_48CAB0(_this, a1, a2, a3, a4, a5, a6);
+	if (main_stage_id == ChampionsPath && sub_stage_id == ThirdQualifyingPhase && fate == 1)
+		sub_48CAB0(_this, dest_ptr, a2, MainPath, Playoff, 2, club);
+	else sub_48CAB0(_this, dest_ptr, a2, main_stage_id, sub_stage_id, fate, club);
 }
 
 void __declspec(naked) uel_48CAB0_c()

@@ -94,11 +94,11 @@ DWORD world_cup_quals_ofc_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 1), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 6), year, Friday, Afternoon);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, ExtraTimePenalties_1, NoTiebreak_2, 10, r1_teams, r1_teams / 2, r1_teams, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, FirstStage, 0, ExtraTimePenalties_1, NoTiebreak_2, 10, r1_teams, r1_teams / 2, r1_teams, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 7), year, Saturday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 9), year, Monday, Afternoon);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 10, 2, 1, num_teams - r1_teams, r1_teams == num_teams ? 0 : r1_teams, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, SecondStage, 0, ExtraTimePenalties_1, NoTiebreak_2, 10, 2, 1, num_teams - r1_teams, r1_teams == num_teams ? 0 : r1_teams, 0, 1, 0);
 
 		return (DWORD)pMem;
 	}
@@ -139,11 +139,11 @@ DWORD world_cup_quals_ofc_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 19), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 21), year, Friday, Afternoon);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 10, 4, 2, 4, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, FirstStage, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 10, 4, 2, 4, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 22), year, Saturday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 24), year, Monday, Afternoon);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 10, 2, 1, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, SecondStage, 0, ExtraTimePenalties_1, NoTiebreak_2, 10, 2, 1, 0, 0, 0, 1, 0);
 
 		return (DWORD)pMem;
 	}
@@ -503,8 +503,7 @@ void world_cup_quals_ofc_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->year = year;
 	data->comp_type = NATION_INTERNATIONAL;
 	data->promotes_to = WORLD_CUP_AFC_QUALIFYING_9CF();
-	//data->relegates_to = CONMEBOL QUALIFIERS;
-	data->relegates_to = -1;
+	data->relegates_to = WORLD_CUP_CONMEBOL_QUALIFYING_9CF();
 	data->rules = RulesInternational;
 	data->f82 = 3;
 	data->max_bench = 7;
@@ -618,19 +617,12 @@ int world_cup_quals_ofc_set_fates(BYTE* _this, cm3_clubs* club, char fate, char 
 		WORD current_round = *(WORD*)(round_data + 0x34);
 		BYTE* world_cup_bytes = get_loaded_league(FIFA_WORLD_CUP_9CF());
 		comp_stats* world_cup_data = (comp_stats*)world_cup_bytes;
-		teams_seeded* qualifiers = (teams_seeded*)world_cup_data->special_teams_seedings;
-		WORD insert_idx = world_cup_data->special_nteams_seedings;
-		WORD num_to_exclude = get_world_cup_hosts_in_continent(_this, OCEANIA_9CF(), 0, 0);
+		WORD num_hosts = get_world_cup_hosts_in_continent(_this, OCEANIA_9CF(), 0, 0);
 		switch (fate) {
 		case TopPlayoff:
-			if (num_to_exclude < 1)
+			if (num_hosts < 1)
 			{
-				qualifiers[insert_idx].club = club;
-				qualifiers[insert_idx].f5 = 6;
-				qualifiers[insert_idx].f6 = 0;
-				world_cup_data->special_nteams_seedings++;
-				staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)world_cup_data->competition_db, None, None, 0x64);
-				sub_7779B0((BYTE*)*b74318, club, world_cup_data->competition_db);
+				add_team_to_world_cup(club);
 			}
 			else {
 				// intercontinental playoffs
@@ -674,6 +666,7 @@ void __declspec(naked) world_cup_quals_ofc_set_table_fate()
 	}
 }
 
+// showing random news for all managers, why?
 int world_cup_quals_ofc_stage_news(BYTE* _this, int club_idx, char fate, char stage_id, int stage_name_idx, int round_data, __int16 a7, int a8, char a9, int show_body_text, LPVOID* ret_str_ptr) {
 	comp_stats* data = (comp_stats*)_this;
 	cm3_club_comps* comp_data = data->competition_db;
@@ -765,6 +758,49 @@ void __declspec(naked) world_cup_quals_ofc_stage_news_c()
 	}
 }
 
+void world_cup_quals_ofc_48CAB0(BYTE* _this, DWORD dest_ptr, int a2, WORD main_stage_id, WORD sub_stage_id, char fate, cm3_clubs* club) {
+	if ((main_stage_id >= 0x407 && main_stage_id <= 0x40B) || main_stage_id == SecondRoundGroupF ||
+		(main_stage_id >= 0x42f && main_stage_id <= 0x431)) { // Second Round
+		if (fate != Qualified1) {
+			sub_66F4E0(dest_ptr, 0x9A7B94);
+			return;
+		}
+	}
+	if (main_stage_id == ThirdRound && sub_stage_id == Final)
+	{
+		WORD num_hosts = get_world_cup_hosts_in_continent(_this, OCEANIA_9CF(), 0, 0);
+		if (num_hosts < 1 && fate == 1)
+		{
+			sub_66F4E0(dest_ptr, 0xAD4658, club->ClubGenderName, 0xAD9C64);
+			return;
+		}
+		else {
+			// intercontinental playoffs
+			sub_66F4E0(dest_ptr, 0xAD4CB4, club->ClubGenderName, 0xAD9C64);
+			return;
+		}
+	}
+	return sub_48CAB0(_this, dest_ptr, a2, main_stage_id, sub_stage_id, fate, club);
+}
+
+void __declspec(naked) world_cup_quals_ofc_48CAB0_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x18]
+		push dword ptr[eax + 0x14]
+		push dword ptr[eax + 0x10]
+		push dword ptr[eax + 0xc]
+		push dword ptr[eax + 0x8]
+		push dword ptr[eax + 0x4]
+		push ecx
+		call world_cup_quals_ofc_48CAB0
+		add esp, 0x1c
+		ret 0x18
+	}
+}
+
 void setup_world_cup_quals_ofc() {
 	WriteVTablePtr(world_cup_quals_ofc_vtable, VTableInitFree, (DWORD)&world_cup_quals_ofc_free_c);
 	WriteVTablePtr(world_cup_quals_ofc_vtable, VTableEoSUpdate, (DWORD)&world_cup_quals_ofc_update_c);
@@ -777,7 +813,7 @@ void setup_world_cup_quals_ofc() {
 	WriteVTablePtr(world_cup_quals_ofc_vtable, VTableStageNews, (DWORD)&world_cup_quals_ofc_stage_news_c);
 	//WriteVTablePtr(world_cup_quals_ofc_vtable, VTable29, (DWORD)&world_cup_quals_ofc_vtable29_c);
 	//WriteVTablePtr(world_cup_quals_ofc_vtable, VTable30, (DWORD)&world_cup_quals_ofc_vtable30_c);
-	//WriteVTablePtr(world_cup_quals_ofc_vtable, VTableClubLandmarks, (DWORD)&world_cup_quals_ofc_48CAB0_c);
+	WriteVTablePtr(world_cup_quals_ofc_vtable, VTableClubLandmarks, (DWORD)&world_cup_quals_ofc_48CAB0_c);
 
 	WriteVTablePtr(world_cup_quals_ofc_vtable, VTablePostMatchUpdate, 0x51A150);
 	WriteVTablePtr(world_cup_quals_ofc_vtable, VTable5, 0x521E00);
