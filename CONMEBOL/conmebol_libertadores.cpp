@@ -189,15 +189,15 @@ DWORD conmebol_libertadores_fixtures(BYTE* _this, char stage_idx, WORD* num_roun
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 5, 29), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 13), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, FixedTeamOrderInCup + Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 16, 8, 16, 0, 0, 2, 7, prizeMoneyFile.GetInt("conmebol_liber_r16_qualify"));
+		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 8, FixedTeamOrderInCup + Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 16, 8, 16, 0, 0, 2, 7, prizeMoneyFile.GetInt("conmebol_liber_r16_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 21), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 17), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup + Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 8, 4, 0, 0, 0, 2, 7, prizeMoneyFile.GetInt("conmebol_liber_qtr_qualify"));
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 8, FixedTeamOrderInCup + Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 8, 4, 0, 0, 0, 2, 7, prizeMoneyFile.GetInt("conmebol_liber_qtr_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 25), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 22), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 4, 2, 0, 0, 0, 2, 7, prizeMoneyFile.GetInt("conmebol_liber_semi_qualify"));
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 8, FixedTeamOrderInCup + Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 4, 2, 0, 0, 0, 2, 7, prizeMoneyFile.GetInt("conmebol_liber_semi_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 29), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 29), year, Saturday, Afternoon, NationalStadium);
@@ -723,17 +723,30 @@ void conmebol_libertadores_final_stage_setup(BYTE* _this) {
 
 	comp_stats* curr_stage = comp_data;
 
-	vector<cm3_clubs*> clubs;
+	vector<team_league_stats> sort_first, sort_second;
 	for (char al = 0; al < 8; al++) {
 		curr_stage = (comp_stats*)(comp_data->stages[al]);
 		team_league_stats* table_teams = (team_league_stats*)(curr_stage->team_league_table);
-		clubs.push_back(table_teams[0].club);
-		clubs.push_back(table_teams[1].club);
+		sort_first.push_back(table_teams[0]);
+		sort_second.push_back(table_teams[1]);
 	}
 
-	BYTE team_order[16] = { 0,8,2,10,4,12,6,14,15,7,13,5,11,3,9,1 };
-	for (WORD j = 0; j < playoff_teams; j++) {
-		*((DWORD*)(&pTeams[team_order[j]])) = (DWORD)clubs[j];
+	sort(sort_first.begin(), sort_first.end(), sortTLS);
+	sort(sort_second.begin(), sort_second.end(), sortTLS);
+
+	BYTE first_seed[8] = { 0,1,2,3,4,5,6,7 };
+	shuffle(begin(first_seed), end(first_seed), rng);
+	BYTE second_seed[8] = { 0,1,2,3,4,5,6,7 };
+	shuffle(begin(second_seed), end(second_seed), rng);
+
+	BYTE team_order[16] = { 0 };
+	for (WORD j = 0; j < playoff_teams / 2; j++) {
+		cm3_clubs* club1 = sort_first[first_seed[j]].club;
+		cm3_clubs* club2 = sort_second[second_seed[j]].club;
+		*((DWORD*)(&pTeams[j * 2])) = (DWORD)club2;
+		*((DWORD*)(&pTeams[j * 2 + 1])) = (DWORD)club1;
+		team_order[j * 2] = second_seed[j] + 8;
+		team_order[j * 2 + 1] = first_seed[j];
 	}
 
 	// for each team in pteams:
@@ -745,7 +758,7 @@ void conmebol_libertadores_final_stage_setup(BYTE* _this) {
 	DWORD v1 = *(DWORD*)_this;
 	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, char, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
 	BYTE* new_stage = (BYTE*)sub_944CF1_operator_new(0xB2);
-	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)(comp_data->competition_db), pFixtures, year, stage_num, 2, stage_name_id, 0x14, 1, 0, 0, 0);
+	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)(comp_data->competition_db), pFixtures, year, stage_num, 2, stage_name_id, 0x14, 1, 0, 0, &team_order[0]);
 	DWORD* stages_arr = comp_data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
 	sub_51C800(new_stage, 0);

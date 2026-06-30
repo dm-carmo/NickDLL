@@ -3,6 +3,7 @@
 #include "Helpers\generic_functions.h"
 #include "Structures\vtable.h"
 #include "Helpers\constants.h"
+#include <Helpers/9cf_constants.h>
 
 DWORD* irl_presidents_vtable = (DWORD*)0x96BF74;
 
@@ -44,7 +45,56 @@ void __declspec(naked) irl_presidents_fixture_caller()
 	}
 }
 
+int irl_presidents_teams(BYTE* _this) {
+	vector<cm3_clubs*> vec;
+	comp_stats* comp_data = (comp_stats*)_this;
+	WORD total_teams = 2;
+	BYTE* pMem = (BYTE*)sub_944E46_malloc(6 * total_teams);
+
+	comp_data->n_teams = total_teams;
+	comp_data->teams_list = (DWORD*)pMem;
+
+	teams_seeded* teams = (teams_seeded*)comp_data->teams_list;
+
+	cm3_club_comps* irl_d1 = get_comp(IRL_PREMIER_9CF());
+	cm3_club_comps* irl_cup = get_comp(IRL_CHALLENGE_CUP_9CF());
+	cm3_clubs* irl_d1_champ = get_last_comp_winner(irl_d1);
+	if (irl_d1_champ) vec.push_back(irl_d1_champ);
+	cm3_clubs* irl_cup_champ = get_last_comp_winner(irl_cup);
+	if (irl_cup_champ && !vector_contains_element(vec, irl_cup_champ)) vec.push_back(irl_cup_champ);
+	else {
+		cm3_clubs* irl_d1_second = get_last_comp_runner_up(irl_d1);
+		if (irl_d1_second && !vector_contains_element(vec, irl_d1_second)) vec.push_back(irl_d1_second);
+		else {
+			cm3_clubs* irl_cup_second = get_last_comp_runner_up(irl_cup);
+			if (irl_cup_second) vec.push_back(irl_cup_second);
+		}
+	}
+
+	for (DWORD i = 0; i < vec.size(); i++)
+	{
+		teams[i].club = vec[i];
+		teams[i].f5 = 0;
+		teams[i].f6 = 0;
+	}
+
+	return 1;
+}
+
+void __declspec(naked) irl_presidents_teams_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push ecx
+		call irl_presidents_teams
+		add esp, 0x4
+		ret
+	}
+}
+
 void setup_irl_presidents()
 {
 	WriteVTablePtr(irl_presidents_vtable, VTableFixtures, (DWORD)&irl_presidents_fixture_caller);
+	PatchFunction(0x639670, (DWORD)&irl_presidents_teams_c);
 }

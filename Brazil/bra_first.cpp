@@ -417,7 +417,6 @@ void __fastcall bra_state_leagues_update(BYTE* _this) {
 			{
 				cm3_clubs* clubToRelegate = relegated[i];
 				cm3_clubs* available = promoted_clubs[i];
-				//dprintf("Swapping Teams: %s (%s) <-> %s (%s)\n", clubToRelegate->ClubName, clubToRelegate->ClubDivision->ClubCompName, available->ClubName, available->ClubDivision->ClubCompName);
 
 				cm3_club_comps* topDivision = clubToRelegate->ClubReserveDivision;
 				cm3_club_comps* bottomDivision = available->ClubReserveDivision;

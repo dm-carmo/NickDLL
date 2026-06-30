@@ -424,7 +424,6 @@ void __fastcall fin_second_relegation(BYTE* _this)
 		cm3_clubs* clubToRelegate = relegated_clubs[i];
 		cm3_clubs* available = promoted_clubs[i];
 
-		//dprintf("Swapping Teams: %s (%s) <-> %s (%s)\n", clubToRelegate->ClubName, clubToRelegate->ClubDivision->ClubCompName, available->ClubName, available->ClubDivision->ClubCompName);
 		cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
 		cm3_club_comps* bottomDivision = available->ClubDivision;
 		relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
@@ -447,7 +446,6 @@ void __fastcall fin_non_league_promotion(BYTE* _this)
 		for (WORD num = 0; num < curr_stage->n_teams; num++) {
 			team_league_stats table_pos = ((team_league_stats*)curr_stage->team_league_table)[num];
 			if (table_pos.league_fate == Relegated) {
-				//dprintf("Relegating club from Kakkonen: %s\n", table_pos.club->ClubNameShort);
 				relegated_clubs.push_back(table_pos.club);
 			}
 		}
@@ -472,7 +470,6 @@ void __fastcall fin_non_league_promotion(BYTE* _this)
 		cm3_clubs* clubToRelegate = relegated_clubs[i];
 		cm3_clubs* available = promoted_clubs[i];
 
-		//dprintf("Swapping Teams: %s (%s) <-> %s (%s)\n", clubToRelegate->ClubName, clubToRelegate->ClubDivision->ClubCompName, available->ClubName, available->ClubDivision->ClubCompName);
 		cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
 		cm3_club_comps* bottomDivision = available->ClubDivision;
 		relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
@@ -505,7 +502,6 @@ void __fastcall fin_fake_non_league_promotion(BYTE* _this)
 		cm3_clubs* clubToRelegate = relegated_clubs[i];
 		cm3_clubs* available = promoted_clubs[i];
 
-		//dprintf("Swapping Teams: %s (%s) <-> %s (%s)\n", clubToRelegate->ClubName, clubToRelegate->ClubDivision->ClubCompName, available->ClubName, available->ClubDivision->ClubCompName);
 		cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
 		cm3_club_comps* bottomDivision = available->ClubDivision;
 		relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
