@@ -3,6 +3,7 @@
 #include "Helpers\generic_functions.h"
 #include "Structures\vtable.h"
 #include "Helpers\constants.h"
+#include <Helpers/9cf_constants.h>
 
 DWORD* hol_super_vtable = (DWORD*)0x96B9D4;
 
@@ -44,7 +45,56 @@ void __declspec(naked) hol_super_fixture_caller()
 	}
 }
 
+int hol_super_teams(BYTE* _this) {
+	vector<cm3_clubs*> vec;
+	comp_stats* comp_data = (comp_stats*)_this;
+	WORD total_teams = 2;
+	BYTE* pMem = (BYTE*)sub_944E46_malloc(6 * total_teams);
+
+	comp_data->n_teams = total_teams;
+	comp_data->teams_list = (DWORD*)pMem;
+
+	teams_seeded* teams = (teams_seeded*)comp_data->teams_list;
+
+	cm3_club_comps* hol_d1 = get_comp(HOL_FIRST_9CF());
+	cm3_club_comps* hol_cup = get_comp(HOL_CUP_9CF());
+	cm3_clubs* hol_d1_champ = get_last_comp_winner(hol_d1);
+	if (hol_d1_champ) vec.push_back(hol_d1_champ);
+	cm3_clubs* hol_cup_champ = get_last_comp_winner(hol_cup);
+	if (hol_cup_champ && !vector_contains_element(vec, hol_cup_champ)) vec.push_back(hol_cup_champ);
+	else {
+		cm3_clubs* hol_d1_second = get_last_comp_runner_up(hol_d1);
+		if (hol_d1_second && !vector_contains_element(vec, hol_d1_second)) vec.push_back(hol_d1_second);
+		else {
+			cm3_clubs* hol_cup_second = get_last_comp_runner_up(hol_cup);
+			if (hol_cup_second) vec.push_back(hol_cup_second);
+		}
+	}
+
+	for (DWORD i = 0; i < vec.size(); i++)
+	{
+		teams[i].club = vec[i];
+		teams[i].f5 = 0;
+		teams[i].f6 = 0;
+	}
+
+	return 1;
+}
+
+void __declspec(naked) hol_super_teams_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push ecx
+		call hol_super_teams
+		add esp, 0x4
+		ret
+	}
+}
+
 void setup_hol_super()
 {
 	WriteVTablePtr(hol_super_vtable, VTableFixtures, (DWORD)&hol_super_fixture_caller);
+	PatchFunction(0x5f8c10, (DWORD)&hol_super_teams_c);
 }

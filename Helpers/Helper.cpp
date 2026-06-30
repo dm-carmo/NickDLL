@@ -343,7 +343,6 @@ vector<cm3_clubs*> find_clubs_of_country(DWORD nation_id)
 		if ((*clubs)[i].ClubNation != NULL && (*clubs)[i].ClubNation->NationID == nation_id)
 		{
 			cm3_clubs* club = &(*clubs)[i];
-			//dprintf("Club Division: %s\n", (club->ClubDivision)->ClubCompName);
 			ret.push_back(club);
 		}
 	}
@@ -359,8 +358,6 @@ vector<cm3_clubs*> find_clubs_of_country_for_euro_playable(DWORD nation_id)
 		if ((*clubs)[i].ClubNation != NULL && (*clubs)[i].ClubNation->NationID == nation_id)
 		{
 			cm3_clubs* club = &(*clubs)[i];
-
-			//dprintf("Club Division: %s\n", (club->ClubDivision)->ClubCompName);
 
 			// Don't add Lower Division Clubs
 			if (!club->ClubDivision || club->ClubDivision->ClubCompID != A_LOWER_9CF() || club->ClubDivision->ClubCompID != A_LOWER_B_9CF())
@@ -405,8 +402,6 @@ vector<cm3_clubs*> find_clubs_of_country_for_euro(DWORD nation_id)
 		if ((*clubs)[i].ClubNation != NULL && (*clubs)[i].ClubNation->NationID == nation_id)
 		{
 			cm3_clubs* club = &(*clubs)[i];
-
-			//dprintf("Club Division: %s\n", (club->ClubDivision)->ClubCompName);
 
 			if (club->ClubEuroFlag == -1)
 			{
@@ -842,6 +837,12 @@ bool sortTLS(team_league_stats s1, team_league_stats s2)
 	if (diff1 != diff2) return diff1 > diff2;
 	if (s1.goals_for != s2.goals_for) return s1.goals_for > s2.goals_for;
 	if (s1.goals_against != s2.goals_against) return s1.goals_against < s2.goals_against;
+	return s1.club->ClubReputation > s2.club->ClubReputation;
+}
+
+bool sortTeamSeeding(teams_seeded s1, teams_seeded s2)
+{
+	if (s1.f5 != s2.f5) return s1.f5 < s2.f5;
 	return s1.club->ClubReputation > s2.club->ClubReputation;
 }
 

@@ -84,6 +84,7 @@ team_league_stats* get_team_league_stats(DWORD comp_id, cm3_clubs* club, char st
 void check_number_of_fixtures(BYTE* _this, int created_fixtures, WORD needed_fixtures);
 vector<cm3_clubs*> get_relegated_teams(DWORD compID);
 bool sortTLS(team_league_stats s1, team_league_stats s2);
+bool sortTeamSeeding(teams_seeded s1, teams_seeded s2);
 vector<cm3_clubs*> get_random_weighted_clubs(vector<cm3_clubs*> list, unsigned int amount, bool to_promote);
 void generic_prom_rel(DWORD nation_id, DWORD promote_from, DWORD relegate_from, int num_child_comps, ...);
 int UpdateCountryCoefficient(cm3_clubs* club, char coeff);

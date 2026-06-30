@@ -334,7 +334,6 @@ void __fastcall sco_non_league_promotion(BYTE* _this)
 		int availableIdx = rand() % (max_to_check - i);
 		cm3_clubs* clubToRelegate = highland_relegated_clubs[i];
 		cm3_clubs* available = available_clubs[availableIdx];
-		//dprintf("Swapping Teams: %s (%s) <-> %s (%s)\n", clubToRelegate->ClubName, clubToRelegate->ClubDivision->ClubCompName, available->ClubName, available->ClubDivision->ClubCompName);
 
 		cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
 		cm3_club_comps* bottomDivision = available->ClubDivision;
@@ -349,8 +348,6 @@ void __fastcall sco_non_league_promotion(BYTE* _this)
 		int availableIdx = rand() % (max_to_check - i - j);
 		cm3_clubs* clubToRelegate = lowland_relegated_clubs[j];
 		cm3_clubs* available = available_clubs[availableIdx];
-
-		//dprintf("Swapping Teams: %s (%s) <-> %s (%s)\n", clubToRelegate->ClubName, clubToRelegate->ClubDivision->ClubCompName, available->ClubName, available->ClubDivision->ClubCompName);
 
 		cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
 		cm3_club_comps* bottomDivision = available->ClubDivision;
@@ -421,7 +418,6 @@ void __fastcall sco_extra_non_playable_swaps(BYTE* _this)
 	for (unsigned int j = 0; j < 2; j++) {
 		cm3_clubs* clubToRelegate = relegated_clubs[j];
 		cm3_clubs* clubToPromote = promoted_clubs[j];
-		//dprintf("Swapping Teams: %s (%s) %d <-> %s (%s) %d\n", clubToRelegate->ClubName, clubToRelegate->ClubDivision->ClubCompName, clubToRelegate->ClubReputation, clubToPromote->ClubName, clubToPromote->ClubDivision->ClubCompName, clubToPromote->ClubReputation);
 
 		cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
 		cm3_club_comps* bottomDivision = clubToPromote->ClubDivision;

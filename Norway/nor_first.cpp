@@ -425,22 +425,6 @@ void nor_first_playoffs_c(BYTE* _this) {
 			nor_first_playoff_prom(_this);
 			nor_first_playoff_rele(_this);
 		}
-		/*else if (current == 1)
-		{
-			BYTE* nor_second = get_loaded_league(NOR_SECOND_9CF());
-			comp_stats* nor_second_data = (comp_stats*)nor_second;
-			BYTE* prom_playoff = (BYTE*)nor_second_data->stages[1];
-			if (prom_playoff) {
-				DWORD v1 = *(DWORD*)prom_playoff;
-				char ret = (*(int(__thiscall**)(BYTE*, int, int))(v1 + 0x10))(prom_playoff, 0, 1);
-				if (ret != 0) {
-					(*(void(__thiscall**)(BYTE*))(v1 + 0x94))(prom_playoff);
-					comp_data->current_stage = current;
-					dprintf("NOR_FIRST playoff create: relegation playoff creation\n", current, max);
-					nor_first_playoff_rele(_this);
-				}
-			}
-		}*/
 	}
 }
 
