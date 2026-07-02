@@ -73,7 +73,7 @@ void world_cup_quals_caf_subs(BYTE* _this)
 	comp_data->pts_for_win = 3;
 	comp_data->pts_for_draw = 1;
 	comp_data->f67 = 2;
-	comp_data->f196 = 2;
+	comp_data->f196 = 10;
 	comp_data->tiebreaker_1 = GoalDifferenceTiebreaker;
 	comp_data->tiebreaker_2 = GoalsForTiebreaker;
 	comp_data->tiebreaker_3 = CurrentPositionTiebreaker;
@@ -521,7 +521,7 @@ void world_cup_quals_caf_setup_best_placed(BYTE* _this) {
 	BYTE tiebreaks[4] = { GoalDifferenceTiebreaker, GoalsForTiebreaker, GoalsForAwayTiebreaker, NoTiebreaker };
 	create_league_stage_data(pStage, _this, num_groups, 0, 0, (DWORD)(data->competition_db), 0, 0,
 		data->pts_for_win, data->pts_for_draw, data->f196, &tiebreaks[0], &prom_rel[0],
-		year, stage_num, SecondPlacedTeams, 0, 1, 0, 0x28, -1, 0, 2);
+		year, stage_num, BestPlacedTeams, 0, 1, 0, 0x28, -1, 0, 2);
 	DWORD* stages_arr = data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)pStage;
 	data->current_stage = stage_num;

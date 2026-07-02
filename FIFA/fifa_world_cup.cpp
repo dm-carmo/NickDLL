@@ -587,7 +587,7 @@ void fifa_world_cup_setup_best_placed(BYTE* _this) {
 	BYTE tiebreaks[4] = { GoalDifferenceTiebreaker, GoalsForTiebreaker, GoalsForAwayTiebreaker, NoTiebreaker };
 	create_league_stage_data(pStage, _this, 12, 0, 0, (DWORD)(data->competition_db), 0, 0,
 		data->pts_for_win, data->pts_for_draw, data->f196, &tiebreaks[0], &prom_rel[0],
-		year, stage_num, SecondPlacedTeams, 0, 1, 0, 0x28, -1, 0, 2);
+		year, stage_num, BestPlacedTeams, 0, 1, 0, 0x28, -1, 0, 2);
 	DWORD* stages_arr = data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)pStage;
 	data->current_stage = stage_num;
@@ -677,11 +677,11 @@ char fifa_world_cup_update(BYTE* _this) {
 	BYTE* wcq_conmebol = get_loaded_league(WORLD_CUP_CONMEBOL_QUALIFYING_9CF());
 	BYTE* wcq_caf = get_loaded_league(WORLD_CUP_CAF_QUALIFYING_9CF());
 	BYTE* wcq_uefa = get_loaded_league(WORLD_CUP_UEFA_QUALIFYING_9CF());
+	BYTE* wcq_playoffs = get_loaded_league(WORLD_CUP_PLAYOFFS_9CF());
 
-	//DWORD v1 = *(DWORD*)wcq_concacaf;
-	//(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(wcq_concacaf);
+	DWORD v1 = *(DWORD*)wcq_concacaf;
+	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(wcq_concacaf);
 
-	DWORD v1;
 	v1 = *(DWORD*)wcq_ofc;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(wcq_ofc);
 
@@ -696,6 +696,9 @@ char fifa_world_cup_update(BYTE* _this) {
 
 	//v1 = *(DWORD*)wcq_uefa;
 	//(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(wcq_uefa);
+
+	//v1 = *(DWORD*)wcq_playoffs;
+	//(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(wcq_playoffs);
 
 	BYTE* ebx = 0;
 	sub_687970(_this, ebx);

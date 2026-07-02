@@ -382,7 +382,7 @@ void world_cup_quals_afc_reputation_setup(BYTE* _this) {
 			sub_4A2540((BYTE*)comp_data->f8, clubs[i], 28);
 		}
 		for (DWORD i = 36; i < clubs.size(); i++) {
-			sub_4A2540((BYTE*)comp_data->f8, clubs[i], 11);
+			sub_4A2540((BYTE*)comp_data->f8, clubs[i], 37);
 		}
 		for (WORD i = 0; i < clubs.size(); i++) {
 			sub_775220((BYTE*)*b74318, clubs[i]->ClubNation, comp_data->competition_db);
@@ -761,8 +761,7 @@ void world_cup_quals_afc_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->comp_vtable = world_cup_quals_afc_vtable;
 	data->year = year;
 	data->comp_type = NATION_INTERNATIONAL;
-	//data->promotes_to = CONCACAF QUALIFIERS;
-	data->promotes_to = -1;
+	data->promotes_to = WORLD_CUP_CONCACAF_QUALIFYING_9CF();
 	data->relegates_to = WORLD_CUP_OFC_QUALIFYING_9CF();
 	data->rules = RulesInternational;
 	data->f82 = 3;

@@ -73,7 +73,7 @@ void world_cup_quals_conmebol_subs(BYTE* _this)
 	comp_data->pts_for_win = 3;
 	comp_data->pts_for_draw = 1;
 	comp_data->f67 = 2;
-	comp_data->f196 = 2;
+	comp_data->f196 = 10;
 	comp_data->tiebreaker_1 = GoalDifferenceTiebreaker;
 	comp_data->tiebreaker_2 = GoalsForTiebreaker;
 	comp_data->tiebreaker_3 = CurrentPositionTiebreaker;

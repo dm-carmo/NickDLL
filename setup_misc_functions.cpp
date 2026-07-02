@@ -106,7 +106,7 @@ int parent_child_stages(int child_stage_id) {
 	if (child_stage_id >= 0x3e8 && child_stage_id <= 0x3fb) return GroupStage;
 	if (child_stage_id >= 0x41f && child_stage_id <= 0x42e) return GroupStage;
 	if (child_stage_id == EasternConference || child_stage_id == WesternConference || child_stage_id == CentralConference) return GroupStage;
-	if (child_stage_id == SecondPlacedTeams) return GroupStage;
+	//if (child_stage_id == BestPlacedTeams) return GroupStage;
 	if (child_stage_id >= 0x473 && child_stage_id <= 0x474) return CentralAmericanZone;
 	if (child_stage_id >= 0x475 && child_stage_id <= 0x479) return ClassificationGroups;
 	if (child_stage_id >= 0x3fd && child_stage_id <= 0x406) return FirstRound;
