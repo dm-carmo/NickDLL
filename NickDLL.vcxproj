@@ -244,6 +244,7 @@
     <ClCompile Include="FIFA\fifa_intercontinental_cup.cpp" />
     <ClCompile Include="FIFA\fifa_world_cup.cpp" />
     <ClCompile Include="FIFA\world_cup_quals_afc.cpp" />
+    <ClCompile Include="FIFA\world_cup_quals_caf.cpp" />
     <ClCompile Include="FIFA\world_cup_quals_conmebol.cpp" />
     <ClCompile Include="FIFA\world_cup_quals_ofc.cpp" />
     <ClCompile Include="FIFA\world_cup_setup.cpp" />
@@ -530,6 +531,7 @@
     <ClInclude Include="FIFA\fifa_intercontinental_cup.h" />
     <ClInclude Include="FIFA\fifa_world_cup.h" />
     <ClInclude Include="FIFA\world_cup_quals_afc.h" />
+    <ClInclude Include="FIFA\world_cup_quals_caf.h" />
     <ClInclude Include="FIFA\world_cup_quals_conmebol.h" />
     <ClInclude Include="FIFA\world_cup_quals_ofc.h" />
     <ClInclude Include="FIFA\world_cup_setup.h" />

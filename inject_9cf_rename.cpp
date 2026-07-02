@@ -1908,7 +1908,7 @@ void setup_name_injection()
 	league_dword_match.insert({ "Russian Second League Division B", 0x9CF91C });
 	league_dword_match.insert({ "Russian Second League Division A Gold", 0x9CF920 });
 	league_dword_match.insert({ "Russian Second League Division A Silver", 0x9CF924 });
-	league_dword_match.insert({ "Russian Second Division - East", 0x9CF928 }); // remove
+	league_dword_match.insert({ "World Cup Play-Off Tournament", 0x9CF928 });
 	league_dword_match.insert({ "Russian First League", 0x9CF92C });
 	league_dword_match.insert({ "Russian Premier League", 0x9CF930 });
 	league_dword_match.insert({ "Russian Cup", 0x9CF934 });

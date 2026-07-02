@@ -275,8 +275,7 @@ void world_cup_quals_conmebol_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->year = year;
 	data->comp_type = NATION_INTERNATIONAL;
 	data->promotes_to = WORLD_CUP_OFC_QUALIFYING_9CF();
-	//data->relegates_to = AFRICAN QUALIFIERS;
-	data->relegates_to = -1;
+	data->relegates_to = WORLD_CUP_CAF_QUALIFYING_9CF();
 	data->rules = RulesInternational;
 	data->f82 = 3;
 	data->year = year;
@@ -348,8 +347,7 @@ int world_cup_quals_conmebol_set_fates(BYTE* _this, cm3_clubs* club, char fate, 
 			add_team_to_world_cup(club);
 			return 0;
 		case TopPlayoff:
-			// intercontinental playoff
-			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(world_cup_data->competition_db), None, QualifyingRound, 0x1E);
+			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(get_comp(WORLD_CUP_PLAYOFFS_9CF())), None, None, 0x1E);
 			return 0;
 		default:
 			staff_history_failed_qual_86C1D0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, 0xF);
@@ -383,7 +381,6 @@ int world_cup_quals_conmebol_stage_news(BYTE* _this, int club_idx, char fate, ch
 	comp_stats* data = (comp_stats*)_this;
 	cm3_club_comps* comp_data = data->competition_db;
 	cm3_clubs* club_data = get_club(club_idx);
-	WORD num_hosts = get_world_cup_hosts_in_continent(_this, ASIA_9CF(), 0, 0);
 	if (stage_id == -1) {
 		if (fate == Qualified1)
 		{
@@ -395,8 +392,15 @@ int world_cup_quals_conmebol_stage_news(BYTE* _this, int club_idx, char fate, ch
 				return 1;
 			}
 		}
-		// intercontinental playoffs 0xAD4BE0
-		else if (fate == TopPlayoff) return sub_4B4590(club_idx, (WORD)stage_name_idx, (DWORD)comp_data, fate, show_body_text, ret_str_ptr);
+		else if (fate == TopPlayoff) {
+			if (show_body_text) return sub_4B0B80(club_idx, round_data, a9, fate, a7, ret_str_ptr);
+			else {
+				sub_66F4E0(0xDE1F64, 0xAD4BE0, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+				sub_4AE660(ret_str_ptr, 0xDE1F64);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+				return 1;
+			}
+		}
 		else if (fate == Eliminated) return sub_4B4590(club_idx, (WORD)stage_name_idx, (DWORD)comp_data, fate, show_body_text, ret_str_ptr);
 	}
 	return 0;
@@ -424,15 +428,14 @@ void __declspec(naked) world_cup_quals_conmebol_stage_news_c()
 	}
 }
 
-void world_cup_quals_conmebol_48CAB0(BYTE* _this, DWORD dest_ptr, int a2, WORD main_stage_id, WORD sub_stage_id, char fate, cm3_clubs* club) {
+void world_cup_quals_conmebol_landmarks(BYTE* _this, DWORD dest_ptr, int a2, WORD main_stage_id, WORD sub_stage_id, char fate, cm3_clubs* club) {
 	if (main_stage_id == None) {
 		if (fate == Qualified1) {
 			sub_66F4E0(dest_ptr, 0xAD4658, club->ClubGenderName, 0xAD9C64);
 			return;
 		}
 		else if (fate == TopPlayoff) {
-			// intercontinental playoffs
-			sub_66F4E0(dest_ptr, 0xAD4CB4, club->ClubGenderName, 0xAD9C64);
+			sub_66F4E0(dest_ptr, (DWORD)&qualified_wc_playoffs[0]);
 			return;
 		}
 		else {
@@ -443,7 +446,7 @@ void world_cup_quals_conmebol_48CAB0(BYTE* _this, DWORD dest_ptr, int a2, WORD m
 	return sub_48CAB0(_this, dest_ptr, a2, main_stage_id, sub_stage_id, fate, club);
 }
 
-void __declspec(naked) world_cup_quals_conmebol_48CAB0_c()
+void __declspec(naked) world_cup_quals_conmebol_landmarks_c()
 {
 	__asm
 	{
@@ -455,7 +458,7 @@ void __declspec(naked) world_cup_quals_conmebol_48CAB0_c()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call world_cup_quals_conmebol_48CAB0
+		call world_cup_quals_conmebol_landmarks
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -470,7 +473,7 @@ void setup_world_cup_quals_conmebol() {
 	WriteVTablePtr(world_cup_quals_conmebol_vtable, VTableStageNews, (DWORD)&world_cup_quals_conmebol_stage_news_c);
 	//WriteVTablePtr(world_cup_quals_conmebol_vtable, VTable29, (DWORD)&world_cup_quals_conmebol_vtable29_c);
 	//WriteVTablePtr(world_cup_quals_conmebol_vtable, VTable30, (DWORD)&world_cup_quals_conmebol_vtable30_c);
-	WriteVTablePtr(world_cup_quals_conmebol_vtable, VTableClubLandmarks, (DWORD)&world_cup_quals_conmebol_48CAB0_c);
+	WriteVTablePtr(world_cup_quals_conmebol_vtable, VTableClubLandmarks, (DWORD)&world_cup_quals_conmebol_landmarks_c);
 
 	WriteVTablePtr(world_cup_quals_conmebol_vtable, VTable9, 0x48CEB0);
 	WriteVTablePtr(world_cup_quals_conmebol_vtable, VTable10, 0x48CEA0);

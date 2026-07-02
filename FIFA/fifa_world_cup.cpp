@@ -583,11 +583,11 @@ void fifa_world_cup_setup_best_placed(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	WORD year = data->year;
 	BYTE* pStage = (BYTE*)sub_944CF1_operator_new(0xEE);
-	BYTE prom_rel[4] = { 0, 8, 0, 0 };
+	BYTE prom_rel[4] = { 8, 0, 0, 0 };
 	BYTE tiebreaks[4] = { GoalDifferenceTiebreaker, GoalsForTiebreaker, GoalsForAwayTiebreaker, NoTiebreaker };
 	create_league_stage_data(pStage, _this, 12, 0, 0, (DWORD)(data->competition_db), 0, 0,
 		data->pts_for_win, data->pts_for_draw, data->f196, &tiebreaks[0], &prom_rel[0],
-		year, stage_num, SecondPlacedTeams, 0, 1, 0, 2, -1, 0, 2);
+		year, stage_num, SecondPlacedTeams, 0, 1, 0, 0x28, -1, 0, 2);
 	DWORD* stages_arr = data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)pStage;
 	data->current_stage = stage_num;
@@ -691,8 +691,8 @@ char fifa_world_cup_update(BYTE* _this) {
 	v1 = *(DWORD*)wcq_conmebol;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(wcq_conmebol);
 
-	//v1 = *(DWORD*)wcq_caf;
-	//(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(wcq_caf);
+	v1 = *(DWORD*)wcq_caf;
+	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(wcq_caf);
 
 	//v1 = *(DWORD*)wcq_uefa;
 	//(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(wcq_uefa);
@@ -754,13 +754,11 @@ int fifa_world_cup_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage
 	}
 	else if (stage == 11) {
 		switch (fate) {
-		case TopPlayoff:
+		case Qualified1:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, RoundOf32, 0x1E);
 			return 0;
-		case BottomPlayoff:
-			staff_history_failed_qual_86C1D0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), GroupStage, 0x1E);
-			return 0;
 		default:
+			staff_history_failed_qual_86C1D0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), GroupStage, 0x1E);
 			return 0;
 		}
 	}
@@ -906,7 +904,7 @@ void fifa_world_cup_paths_setup(BYTE* _this) {
 		if (al > -1) curr_stage = (comp_stats*)(data->stages[al]);
 		team_league_stats* table_teams = (team_league_stats*)(curr_stage->team_league_table);
 		cm3_clubs* third = table_teams[2].club;
-		for (WORD i = 0; i < best_placed_stage->prom_playoff; i++) {
+		for (WORD i = 0; i < best_placed_stage->promotions; i++) {
 			if (best_placed_table[i].club == third) {
 				best_third_letters[letter_idx++] = 65 + al + 1;
 				clubs.push_back(third);
@@ -1502,7 +1500,7 @@ void __declspec(naked) fifa_world_cup_stage_news_c()
 	}
 }
 
-void fifa_world_cup_48CAB0(BYTE* _this, DWORD dest_ptr, int a2, WORD main_stage_id, WORD sub_stage_id, char fate, cm3_clubs* club) {
+void fifa_world_cup_landmarks(BYTE* _this, DWORD dest_ptr, int a2, WORD main_stage_id, WORD sub_stage_id, char fate, cm3_clubs* club) {
 	if (main_stage_id == WorldCupPath1 || main_stage_id == WorldCupPath2)
 	{
 		if (sub_stage_id == SemiFinal)
@@ -1524,7 +1522,7 @@ void fifa_world_cup_48CAB0(BYTE* _this, DWORD dest_ptr, int a2, WORD main_stage_
 	return sub_48CAB0(_this, dest_ptr, a2, main_stage_id, sub_stage_id, fate, club);
 }
 
-void __declspec(naked) fifa_world_cup_48CAB0_c()
+void __declspec(naked) fifa_world_cup_landmarks_c()
 {
 	__asm
 	{
@@ -1536,7 +1534,7 @@ void __declspec(naked) fifa_world_cup_48CAB0_c()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call fifa_world_cup_48CAB0
+		call fifa_world_cup_landmarks
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -1555,7 +1553,7 @@ void setup_fifa_world_cup() {
 	WriteVTablePtr(fifa_world_cup_vtable, VTableStageNews, (DWORD)&fifa_world_cup_stage_news_c);
 	WriteVTablePtr(fifa_world_cup_vtable, VTable29, (DWORD)&fifa_world_cup_vtable29_c);
 	WriteVTablePtr(fifa_world_cup_vtable, VTable30, (DWORD)&fifa_world_cup_vtable30_c);
-	WriteVTablePtr(fifa_world_cup_vtable, VTableClubLandmarks, (DWORD)&fifa_world_cup_48CAB0_c);
+	WriteVTablePtr(fifa_world_cup_vtable, VTableClubLandmarks, (DWORD)&fifa_world_cup_landmarks_c);
 
 	// move awards 1 week later
 	WriteBytes(0x92fe22, 1, 20);

@@ -4,6 +4,7 @@
 #include <Helpers\9cf_constants.h>
 #include "fifa_world_cup.h"
 #include "world_cup_quals_afc.h"
+#include "world_cup_quals_caf.h"
 #include "world_cup_quals_ofc.h"
 #include "world_cup_quals_conmebol.h"
 
@@ -31,7 +32,7 @@ DWORD world_cup_setup_c(playable_nation_data* nation_data) {
 	nation_data->contract_end_month = June;
 	nation_data->contract_end_year = *current_year;
 	nation_data->f70 = 5;
-	nation_data->num_of_comps = 4;
+	nation_data->num_of_comps = 5;
 	DWORD* nation_comps = (DWORD*)sub_944E46_malloc(nation_data->num_of_comps * 4);
 	nation_data->comps_list = (DWORD)nation_comps;
 
@@ -41,9 +42,9 @@ DWORD world_cup_setup_c(playable_nation_data* nation_data) {
 	fifa_world_cup_init(pMem, *current_year, get_comp(FIFA_WORLD_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
-	//pMem = (BYTE*)sub_944CF1_operator_new(0xBB);
-	//wcq_caf_setup(pMem, *current_year, get_comp(WORLD_CUP_CAF_QUALIFYING_9CF()));
-	//nation_comps[i++] = (DWORD)pMem;
+	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	world_cup_quals_caf_init(pMem, *current_year, get_comp(WORLD_CUP_CAF_QUALIFYING_9CF()));
+	nation_comps[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
 	world_cup_quals_afc_init(pMem, *current_year, get_comp(WORLD_CUP_AFC_QUALIFYING_9CF()));
@@ -61,9 +62,13 @@ DWORD world_cup_setup_c(playable_nation_data* nation_data) {
 	world_cup_quals_ofc_init(pMem, *current_year, get_comp(WORLD_CUP_OFC_QUALIFYING_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0xF0);
+	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
 	world_cup_quals_conmebol_init(pMem, *current_year, get_comp(WORLD_CUP_CONMEBOL_QUALIFYING_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
+
+	//pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
+	//wcq_playoffs_setup(pMem, *current_year, get_comp(WORLD_CUP_PLAYOFFS_9CF()));
+	//nation_comps[i++] = (DWORD)pMem;
 
 	BYTE* cm_date = new BYTE[8];
 	convert_to_cm_date(cm_date, 25, July, START_YEAR, -1);
@@ -77,6 +82,7 @@ DWORD world_cup_setup_c(playable_nation_data* nation_data) {
 void setup_world_cup_comps() {
 	setup_fifa_world_cup();
 	setup_world_cup_quals_afc();
+	setup_world_cup_quals_caf();
 	setup_world_cup_quals_ofc();
 	setup_world_cup_quals_conmebol();
 }

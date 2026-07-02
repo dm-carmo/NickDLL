@@ -625,8 +625,7 @@ int world_cup_quals_ofc_set_fates(BYTE* _this, cm3_clubs* club, char fate, char 
 				add_team_to_world_cup(club);
 			}
 			else {
-				// intercontinental playoffs
-				staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)world_cup_data->competition_db, None, QualifyingRound, 0x64);
+				staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(get_comp(WORLD_CUP_PLAYOFFS_9CF())), None, None, 0x1E);
 			}
 			return 0;
 		case Promoted:
@@ -634,8 +633,7 @@ int world_cup_quals_ofc_set_fates(BYTE* _this, cm3_clubs* club, char fate, char 
 				*(WORD*)(rounds + playoff_dates_sz * (current_round + 1) + 7), 0xF);
 			return 0;
 		case BottomPlayoff:
-			// intercontinental playoffs
-			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)world_cup_data->competition_db, None, QualifyingRound, 0x64);
+			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(get_comp(WORLD_CUP_PLAYOFFS_9CF())), None, None, 0x1E);
 			return 0;
 		default:
 			staff_history_knocked_out_86C000(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
@@ -666,7 +664,6 @@ void __declspec(naked) world_cup_quals_ofc_set_table_fate()
 	}
 }
 
-// showing random news for all managers, why?
 int world_cup_quals_ofc_stage_news(BYTE* _this, int club_idx, char fate, char stage_id, int stage_name_idx, int round_data, __int16 a7, int a8, char a9, int show_body_text, LPVOID* ret_str_ptr) {
 	comp_stats* data = (comp_stats*)_this;
 	cm3_club_comps* comp_data = data->competition_db;
@@ -702,11 +699,11 @@ int world_cup_quals_ofc_stage_news(BYTE* _this, int club_idx, char fate, char st
 	else if (stage_id == 2) {
 		if (show_body_text) return sub_4B0B80(club_idx, round_data, a9, fate, a7, ret_str_ptr);
 		else {
-			WORD num_to_exclude = get_world_cup_hosts_in_continent(_this, OCEANIA_9CF(), 0, 0);
+			WORD num_hosts = get_world_cup_hosts_in_continent(_this, OCEANIA_9CF(), 0, 0);
 			switch (fate)
 			{
 			case TopPlayoff:
-				if (num_to_exclude < 1)
+				if (num_hosts < 1)
 				{
 					sub_66F4E0(0xDE1F64, 0xAD4B78, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
 					sub_4AE660(ret_str_ptr, 0xDE1F64);
@@ -714,10 +711,23 @@ int world_cup_quals_ofc_stage_news(BYTE* _this, int club_idx, char fate, char st
 					return 1;
 				}
 				else {
-					// intercontinental playoffs 0xAD4BE0
-					return 0;
+					sub_66F4E0(0xDE1F64, 0xAD4BE0, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+					sub_4AE660(ret_str_ptr, 0xDE1F64);
+					sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+					return 1;
 				}
-				// case Relegated: intercontinental playoffs 0xAD4BE0
+			case BottomPlayoff:
+				if (num_hosts > 0) {
+					sub_66F4E0(0xDE1F64, 0xAD4BE0, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+					sub_4AE660(ret_str_ptr, 0xDE1F64);
+					sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+					return 1;
+				}
+				else {
+					sub_66F4E0(0xDE1F64, 0xAD4BA4, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
+						&club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+					break;
+				}
 			case Promoted:
 				sub_66F4E0(0xDE1F64, 0x987198, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
 					&club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
@@ -758,7 +768,7 @@ void __declspec(naked) world_cup_quals_ofc_stage_news_c()
 	}
 }
 
-void world_cup_quals_ofc_48CAB0(BYTE* _this, DWORD dest_ptr, int a2, WORD main_stage_id, WORD sub_stage_id, char fate, cm3_clubs* club) {
+void world_cup_quals_ofc_landmarks(BYTE* _this, DWORD dest_ptr, int a2, WORD main_stage_id, WORD sub_stage_id, char fate, cm3_clubs* club) {
 	if ((main_stage_id >= 0x407 && main_stage_id <= 0x40B) || main_stage_id == SecondRoundGroupF ||
 		(main_stage_id >= 0x42f && main_stage_id <= 0x431)) { // Second Round
 		if (fate != Qualified1) {
@@ -766,7 +776,7 @@ void world_cup_quals_ofc_48CAB0(BYTE* _this, DWORD dest_ptr, int a2, WORD main_s
 			return;
 		}
 	}
-	if (main_stage_id == ThirdRound && sub_stage_id == Final)
+	if (main_stage_id == ThirdRound && sub_stage_id == SecondStage)
 	{
 		WORD num_hosts = get_world_cup_hosts_in_continent(_this, OCEANIA_9CF(), 0, 0);
 		if (num_hosts < 1 && fate == 1)
@@ -775,15 +785,14 @@ void world_cup_quals_ofc_48CAB0(BYTE* _this, DWORD dest_ptr, int a2, WORD main_s
 			return;
 		}
 		else {
-			// intercontinental playoffs
-			sub_66F4E0(dest_ptr, 0xAD4CB4, club->ClubGenderName, 0xAD9C64);
+			sub_66F4E0(dest_ptr, (DWORD)&qualified_wc_playoffs[0]);
 			return;
 		}
 	}
 	return sub_48CAB0(_this, dest_ptr, a2, main_stage_id, sub_stage_id, fate, club);
 }
 
-void __declspec(naked) world_cup_quals_ofc_48CAB0_c()
+void __declspec(naked) world_cup_quals_ofc_landmarks_c()
 {
 	__asm
 	{
@@ -795,7 +804,7 @@ void __declspec(naked) world_cup_quals_ofc_48CAB0_c()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call world_cup_quals_ofc_48CAB0
+		call world_cup_quals_ofc_landmarks
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -813,7 +822,7 @@ void setup_world_cup_quals_ofc() {
 	WriteVTablePtr(world_cup_quals_ofc_vtable, VTableStageNews, (DWORD)&world_cup_quals_ofc_stage_news_c);
 	//WriteVTablePtr(world_cup_quals_ofc_vtable, VTable29, (DWORD)&world_cup_quals_ofc_vtable29_c);
 	//WriteVTablePtr(world_cup_quals_ofc_vtable, VTable30, (DWORD)&world_cup_quals_ofc_vtable30_c);
-	WriteVTablePtr(world_cup_quals_ofc_vtable, VTableClubLandmarks, (DWORD)&world_cup_quals_ofc_48CAB0_c);
+	WriteVTablePtr(world_cup_quals_ofc_vtable, VTableClubLandmarks, (DWORD)&world_cup_quals_ofc_landmarks_c);
 
 	WriteVTablePtr(world_cup_quals_ofc_vtable, VTablePostMatchUpdate, 0x51A150);
 	WriteVTablePtr(world_cup_quals_ofc_vtable, VTable5, 0x521E00);

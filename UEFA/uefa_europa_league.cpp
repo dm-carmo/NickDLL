@@ -1398,14 +1398,14 @@ void __declspec(naked) uel_team_selection_c()
 	}
 }
 
-void uel_48CAB0(BYTE* _this, DWORD dest_ptr, int a2, WORD main_stage_id, WORD sub_stage_id, char fate, cm3_clubs* club) {
+void uel_landmarks(BYTE* _this, DWORD dest_ptr, int a2, WORD main_stage_id, WORD sub_stage_id, char fate, cm3_clubs* club) {
 	// Shows the right text in club's Competitions history if they win in the Champions Third Qualifying Round then lose in the Playoff
 	if (main_stage_id == ChampionsPath && sub_stage_id == ThirdQualifyingPhase && fate == 1)
 		sub_48CAB0(_this, dest_ptr, a2, MainPath, Playoff, 2, club);
 	else sub_48CAB0(_this, dest_ptr, a2, main_stage_id, sub_stage_id, fate, club);
 }
 
-void __declspec(naked) uel_48CAB0_c()
+void __declspec(naked) uel_landmarks_c()
 {
 	__asm
 	{
@@ -1417,7 +1417,7 @@ void __declspec(naked) uel_48CAB0_c()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call uel_48CAB0
+		call uel_landmarks
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -1562,7 +1562,7 @@ void setup_uefa_europa_league() {
 	WriteVTablePtr(uefa_europa_league_vtable, VTable10, 0x48CEA0);
 	WriteVTablePtr(uefa_europa_league_vtable, VTablePlayoffQual, (DWORD)&uefa_europa_league_stages_create_c);
 	WriteVTablePtr(uefa_europa_league_vtable, VTableSetChampion, (DWORD)&uefa_europa_league_set_champion_c);
-	WriteVTablePtr(uefa_europa_league_vtable, VTableClubLandmarks, (DWORD)&uel_48CAB0_c);
+	WriteVTablePtr(uefa_europa_league_vtable, VTableClubLandmarks, (DWORD)&uel_landmarks_c);
 	WriteVTablePtr(uefa_europa_league_vtable, VTableSubsRounds, 0x858e70);
 	WriteVTablePtr(uefa_europa_league_vtable, VTableFixtures, (DWORD)&uefa_europa_league_fixture_caller);
 	WriteVTablePtr(uefa_europa_league_vtable, VTableTableFates, (DWORD)&uefa_europa_league_set_table_fate);
