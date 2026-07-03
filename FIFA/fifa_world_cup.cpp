@@ -599,7 +599,6 @@ void fifa_world_cup_seeded_teams(BYTE* _this) {
 	teams_seeded* teamList = (teams_seeded*)data->special_teams_seedings;
 	data->special_nteams_seedings = 0;
 	WORD count = data->special_nteams_seedings;
-	teamList[count].f5 = 2;
 	WORD year = data->year;
 	DWORD host1_id = -1, host2_id = -1;
 	char num_hosts = get_host_ids_5FA730((BYTE*)*b5e134, data->competition_db->ClubCompID, year, &host1_id, &host2_id, 1);
@@ -697,8 +696,8 @@ char fifa_world_cup_update(BYTE* _this) {
 	//v1 = *(DWORD*)wcq_uefa;
 	//(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(wcq_uefa);
 
-	//v1 = *(DWORD*)wcq_playoffs;
-	//(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(wcq_playoffs);
+	v1 = *(DWORD*)wcq_playoffs;
+	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(wcq_playoffs);
 
 	BYTE* ebx = 0;
 	sub_687970(_this, ebx);

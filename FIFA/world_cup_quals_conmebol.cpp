@@ -347,7 +347,8 @@ int world_cup_quals_conmebol_set_fates(BYTE* _this, cm3_clubs* club, char fate, 
 			add_team_to_world_cup(club);
 			return 0;
 		case TopPlayoff:
-			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(get_comp(WORLD_CUP_PLAYOFFS_9CF())), None, None, 0x1E);
+			// has to be done separately
+			//staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(get_comp(WORLD_CUP_PLAYOFFS_9CF())), None, None, 0x1E);
 			return 0;
 		default:
 			staff_history_failed_qual_86C1D0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, 0xF);

@@ -625,7 +625,7 @@ int world_cup_quals_ofc_set_fates(BYTE* _this, cm3_clubs* club, char fate, char 
 				add_team_to_world_cup(club);
 			}
 			else {
-				staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(get_comp(WORLD_CUP_PLAYOFFS_9CF())), None, None, 0x1E);
+				add_team_to_world_cup_playoffs(club);
 			}
 			return 0;
 		case Promoted:
@@ -633,7 +633,7 @@ int world_cup_quals_ofc_set_fates(BYTE* _this, cm3_clubs* club, char fate, char 
 				*(WORD*)(rounds + playoff_dates_sz * (current_round + 1) + 7), 0xF);
 			return 0;
 		case BottomPlayoff:
-			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(get_comp(WORLD_CUP_PLAYOFFS_9CF())), None, None, 0x1E);
+			add_team_to_world_cup_playoffs(club);
 			return 0;
 		default:
 			staff_history_knocked_out_86C000(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),

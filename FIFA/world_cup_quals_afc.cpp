@@ -281,7 +281,7 @@ void world_cup_quals_afc_all_teams(BYTE* _this) {
 
 	DWORD host1_id, host2_id;
 	WORD num_hosts = get_world_cup_hosts_in_continent(_this, ASIA_9CF(), &host1_id, &host2_id);
-	if (num_hosts > 0) data->num_stages--;
+	if (num_hosts != 1) data->num_stages--;
 	if (num_hosts == 2) data->num_stages--;
 	WORD total_teams_in_comp = (WORD)afc_countries.size();
 	data->special_nteams_seedings = total_teams_in_comp;
@@ -905,6 +905,11 @@ int world_cup_quals_afc_set_fates(BYTE* _this, cm3_clubs* club, char fate, char 
 				staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, SixthRound, 0x1E);
 				return 0;
 			}
+			else if (num_hosts == 2)
+			{
+				add_team_to_world_cup_playoffs(club);
+				return 0;
+			}
 			else
 			{
 				staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, FifthRound, 0x1E);
@@ -930,7 +935,7 @@ int world_cup_quals_afc_set_fates(BYTE* _this, cm3_clubs* club, char fate, char 
 				add_team_to_world_cup(club);
 			}
 			else {
-				staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(get_comp(WORLD_CUP_PLAYOFFS_9CF())), None, None, 0x1E);
+				add_team_to_world_cup_playoffs(club);
 			}
 			return 0;
 		case Promoted:
@@ -940,7 +945,7 @@ int world_cup_quals_afc_set_fates(BYTE* _this, cm3_clubs* club, char fate, char 
 		case BottomPlayoff:
 			if (num_hosts == 1)
 			{
-				staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(get_comp(WORLD_CUP_PLAYOFFS_9CF())), None, None, 0x1E);
+				add_team_to_world_cup_playoffs(club);
 			}
 			else {
 				staff_history_knocked_out_86C000(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
@@ -964,7 +969,7 @@ int world_cup_quals_afc_set_fates(BYTE* _this, cm3_clubs* club, char fate, char 
 		WORD current_round = *(WORD*)(round_data + 0x34);
 		switch (fate) {
 		case TopPlayoff:
-			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(get_comp(WORLD_CUP_PLAYOFFS_9CF())), None, None, 0x1E);
+			add_team_to_world_cup_playoffs(club);
 			return 0;
 		case Promoted:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
@@ -1070,7 +1075,18 @@ int world_cup_quals_afc_stage_news(BYTE* _this, int club_idx, char fate, char st
 				}
 			}
 		}
-		else if (fate == TopPlayoff) return sub_4B4590(club_idx, (WORD)stage_name_idx, (DWORD)comp_data, fate, show_body_text, ret_str_ptr);
+		else if (fate == TopPlayoff)
+		{
+			if (show_body_text) return sub_4B0B80(club_idx, round_data, a9, fate, a7, ret_str_ptr);
+			else {
+				if (num_hosts == 2) {
+					sub_66F4E0(0xDE1F64, 0xAD4BE0, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+					sub_4AE660(ret_str_ptr, 0xDE1F64);
+					sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+					return 1;
+				}
+			}
+		}
 		else if (fate == Eliminated) return sub_4B4590(club_idx, (WORD)stage_name_idx, (DWORD)comp_data, fate, show_body_text, ret_str_ptr);
 	}
 	else if (stage_id == 14) {
@@ -1198,8 +1214,11 @@ void world_cup_quals_afc_landmarks(BYTE* _this, DWORD dest_ptr, int a2, WORD mai
 	}
 	if (main_stage_id >= 0x47e && main_stage_id <= 0x47f) { // Fourth Round
 		if (fate == Qualified1) {
-			sub_66F4E0(dest_ptr, 0xAD4658, club->ClubGenderName, 0xAD9C64);
-			return;
+			if (num_hosts == 0)
+			{
+				sub_66F4E0(dest_ptr, 0xAD4658, club->ClubGenderName, 0xAD9C64);
+				return;
+			}
 		}
 		else if (fate != TopPlayoff) {
 			sub_66F4E0(dest_ptr, 0x9A7AA0);

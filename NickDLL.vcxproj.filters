@@ -867,6 +867,9 @@
     <ClCompile Include="FIFA\world_cup_quals_concacaf.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FIFA\world_cup_playoffs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -1731,6 +1734,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="FIFA\world_cup_quals_concacaf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FIFA\world_cup_playoffs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

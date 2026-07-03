@@ -88,6 +88,7 @@ bool sortTeamSeeding(teams_seeded s1, teams_seeded s2);
 vector<cm3_clubs*> get_random_weighted_clubs(vector<cm3_clubs*> list, unsigned int amount, bool to_promote);
 void generic_prom_rel(DWORD nation_id, DWORD promote_from, DWORD relegate_from, int num_child_comps, ...);
 int UpdateCountryCoefficient(cm3_clubs* club, char coeff);
-void add_team_to_world_cup(cm3_clubs* club);
+void add_team_to_world_cup(cm3_clubs* club, bool send_news = true);
+void add_team_to_world_cup_playoffs(cm3_clubs* club);
 
 #include "Helper.tpp"

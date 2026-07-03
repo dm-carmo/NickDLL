@@ -647,7 +647,7 @@ int world_cup_quals_caf_set_fates(BYTE* _this, cm3_clubs* club, char fate, char 
 			if (num_hosts == 0)
 				staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, SecondRound, 0x1E);
 			else
-				staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(get_comp(WORLD_CUP_PLAYOFFS_9CF())), None, None, 0x1E);
+				add_team_to_world_cup_playoffs(club);
 			return 0;
 		default:
 			staff_history_failed_qual_86C1D0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, 0xF);
@@ -673,7 +673,7 @@ int world_cup_quals_caf_set_fates(BYTE* _this, cm3_clubs* club, char fate, char 
 		WORD current_round = *(WORD*)(round_data + 0x34);
 		switch (fate) {
 		case TopPlayoff:
-			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(get_comp(WORLD_CUP_PLAYOFFS_9CF())), None, None, 0x1E);
+			add_team_to_world_cup_playoffs(club);
 			return 0;
 		case Promoted:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
