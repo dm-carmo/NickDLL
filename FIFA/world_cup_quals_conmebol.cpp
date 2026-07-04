@@ -465,6 +465,30 @@ void __declspec(naked) world_cup_quals_conmebol_landmarks_c()
 	}
 }
 
+BYTE world_cup_quals_conmebol_vtable30(BYTE* _this, cm3_clubs* club) {
+	comp_stats* data = (comp_stats*)_this;
+	DWORD* f8 = data->f8;
+	BYTE bl = (BYTE)sub_4A2E10((BYTE*)f8, club, 0x13);
+	BYTE al = (BYTE)sub_4A2E10((BYTE*)f8, club, 0x12);
+
+	BYTE cutoff = data->promotions + data->prom_playoff;
+	if (al < cutoff) return (bl < cutoff) - 1;
+	else return bl < cutoff;
+}
+
+void __declspec(naked) world_cup_quals_conmebol_vtable30_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x4]
+		push ecx
+		call world_cup_quals_conmebol_vtable30
+		add esp, 0x8
+		ret 4
+	}
+}
+
 void setup_world_cup_quals_conmebol() {
 	WriteVTablePtr(world_cup_quals_conmebol_vtable, VTableInitFree, (DWORD)&world_cup_quals_conmebol_free_c);
 	WriteVTablePtr(world_cup_quals_conmebol_vtable, VTableEoSUpdate, (DWORD)&world_cup_quals_conmebol_update_c);
@@ -473,7 +497,7 @@ void setup_world_cup_quals_conmebol() {
 	WriteVTablePtr(world_cup_quals_conmebol_vtable, VTableFixtures, (DWORD)&world_cup_quals_conmebol_fixture_caller);
 	WriteVTablePtr(world_cup_quals_conmebol_vtable, VTableStageNews, (DWORD)&world_cup_quals_conmebol_stage_news_c);
 	//WriteVTablePtr(world_cup_quals_conmebol_vtable, VTable29, (DWORD)&world_cup_quals_conmebol_vtable29_c);
-	//WriteVTablePtr(world_cup_quals_conmebol_vtable, VTable30, (DWORD)&world_cup_quals_conmebol_vtable30_c);
+	WriteVTablePtr(world_cup_quals_conmebol_vtable, VTable30, (DWORD)&world_cup_quals_conmebol_vtable30_c);
 	WriteVTablePtr(world_cup_quals_conmebol_vtable, VTableClubLandmarks, (DWORD)&world_cup_quals_conmebol_landmarks_c);
 
 	WriteVTablePtr(world_cup_quals_conmebol_vtable, VTable9, 0x48CEB0);
