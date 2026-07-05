@@ -43,6 +43,14 @@ extern char* qualified_silver_grp_title_msg;
 extern char* uel_playoff_msg;
 extern char* qualified_best3rd_msg;
 extern char* qualified_wc_playoffs;
+extern char* lge_a;
+extern char* lge_b;
+extern char* lge_c;
+extern char* lge_d;
+extern char* lge_a_short;
+extern char* lge_b_short;
+extern char* lge_c_short;
+extern char* lge_d_short;
 
 extern char* register_msg1;
 extern char* register_msg2;

@@ -915,6 +915,6 @@ void arg_third_interior_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 void setup_arg_third_interior() {
 	char* rel_grp_text = "Relegation Group Stage";
 	char* rel_grp_text_short = "Rel. Group Stage";
-	WriteDWORD(0x4B665F + 1, (DWORD)&rel_grp_text[0]);
-	WriteDWORD(0x4B915A + 1, (DWORD)&rel_grp_text_short[0]);
+	WriteDWORD(0x4B62B2 + 1, (DWORD)&rel_grp_text[0]);
+	WriteDWORD(0x4B8D9F + 1, (DWORD)&rel_grp_text_short[0]);
 }

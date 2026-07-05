@@ -429,7 +429,7 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 		if ((DWORD)to_check->ClubID == CLUB_LE_PUY_9CF()) return (BYTE*)get_club(CLUB_LE_PUY_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_LES_HERBIERS_9CF()) return (BYTE*)get_club(CLUB_LES_HERBIERS_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_LILLE_9CF()) return (BYTE*)get_club(CLUB_LILLE_B_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_LYON_LA_DUCHÈRE_9CF()) return (BYTE*)get_club(CLUB_LYON_LA_DUCHÈRE_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LYON_LA_DUCHERE_9CF()) return (BYTE*)get_club(CLUB_LYON_LA_DUCHERE_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_MARIGNANE_9CF()) return (BYTE*)get_club(CLUB_MARIGNANE_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_MONTPELLIER_9CF()) return (BYTE*)get_club(CLUB_MONTPELLIER_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_NICE_9CF()) return (BYTE*)get_club(CLUB_NICE_B_9CF());
@@ -775,7 +775,7 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 		if ((DWORD)to_check->ClubID == CLUB_LE_PUY_B_9CF()) return (BYTE*)get_club(CLUB_LE_PUY_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_LES_HERBIERS_B_9CF()) return (BYTE*)get_club(CLUB_LES_HERBIERS_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_LILLE_B_9CF()) return (BYTE*)get_club(CLUB_LILLE_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_LYON_LA_DUCHÈRE_B_9CF()) return (BYTE*)get_club(CLUB_LYON_LA_DUCHÈRE_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LYON_LA_DUCHERE_B_9CF()) return (BYTE*)get_club(CLUB_LYON_LA_DUCHERE_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_MARIGNANE_B_9CF()) return (BYTE*)get_club(CLUB_MARIGNANE_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_MONTPELLIER_B_9CF()) return (BYTE*)get_club(CLUB_MONTPELLIER_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_NICE_B_9CF()) return (BYTE*)get_club(CLUB_NICE_9CF());

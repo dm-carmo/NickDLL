@@ -93,11 +93,11 @@ DWORD world_cup_playoffs_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds,
 		WORD r1_teams = num_teams - 2 - num_teams % 2;
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 10), year, Wednesday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 25), year, Thursday, Afternoon);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 24), year, Thursday, Afternoon);
 		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 10, r1_teams, r1_teams / 2, r1_teams, 0, 0, 1, 0);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 26), year, Friday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 30), year, Tuesday, Afternoon);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 25), year, Friday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 29), year, Tuesday, Afternoon);
 		FillFixtureDetails(pMem, fixture_id++, Final, 0, FixedTeamOrderInCup3 + ExtraTimePenalties_1, NoTiebreak_2, 10, 4, 2, num_teams - r1_teams, r1_teams, 0, 1, 0);
 
 		return (DWORD)pMem;
@@ -380,7 +380,7 @@ void __declspec(naked) world_cup_playoffs_stage_news_c()
 void world_cup_playoffs_landmarks(BYTE* _this, DWORD dest_ptr, int a2, WORD main_stage_id, WORD sub_stage_id, char fate, cm3_clubs* club) {
 	if (main_stage_id == None) {
 		if (fate == TopPlayoff) {
-			sub_66F4E0(dest_ptr, (DWORD)&qualified_wc_playoffs[0]);
+			sub_66F4E0(dest_ptr, 0xAD4658, club->ClubGenderName, 0xAD9C64);
 			return;
 		}
 	}

@@ -536,8 +536,7 @@ void world_cup_quals_caf_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->year = year;
 	data->comp_type = NATION_INTERNATIONAL;
 	data->promotes_to = WORLD_CUP_CONMEBOL_QUALIFYING_9CF();
-	//data->relegates_to = EUROPEAN QUALIFIERS;
-	data->relegates_to = -1;
+	data->relegates_to = WORLD_CUP_UEFA_QUALIFYING_9CF();
 	data->rules = RulesInternational;
 	data->f82 = 3;
 	data->year = year;
@@ -731,7 +730,7 @@ int world_cup_quals_caf_stage_news(BYTE* _this, int club_idx, char fate, char st
 			//sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
 			return 1;
 		}
-		//else if (fate == Eliminated) return sub_4B4590(club_idx, (WORD)stage_name_idx, (DWORD)comp_data, fate, show_body_text, ret_str_ptr);
+		else if (fate == Eliminated) return sub_4B4590(club_idx, (WORD)stage_name_idx, (DWORD)comp_data, fate, show_body_text, ret_str_ptr);
 	}
 	else if (stage_id == num_groups - 1) {
 		if (fate == Qualified1)

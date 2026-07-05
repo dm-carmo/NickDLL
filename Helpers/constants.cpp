@@ -119,6 +119,14 @@ char* qualified_silver_grp_title_msg = "{}<%s - Team Name(e.g.Ajax)>{} qualify f
 char* uel_playoff_msg = "{}<%s - Team Name(e.g.Ajax)>{} through to Playoff";
 char* qualified_best3rd_msg = "{}<%s - Team Name(e.g.Ajax)>{} have finished as one of the best third placed teams in the {}<%s - Competition Name(e.g.Champions League)>{} tournament.";
 char* qualified_wc_playoffs = "Qualified For Play-Offs";
+char* lge_a = "League A";
+char* lge_b = "League B";
+char* lge_c = "League C";
+char* lge_d = "League D";
+char* lge_a_short = "Lge A";
+char* lge_b_short = "Lge B";
+char* lge_c_short = "Lge C";
+char* lge_d_short = "Lge D";
 
 char* register_msg1 = "{}<%s - Club Name(e.g.Chelsea)>{} may register one more player to be eligible for the group stage of the {}<%s - Competition Name(e.g.UEFA Cup)>{}.";
 char* register_msg2 = "{}<%s - Club Name(e.g.Chelsea)>{} may register <%d - number(e.g.2)> more players to be eligible for the group stage of the {}<%s - Competition Name(e.g.UEFA Cup)>{}.";

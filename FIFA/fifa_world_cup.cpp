@@ -693,8 +693,8 @@ char fifa_world_cup_update(BYTE* _this) {
 	v1 = *(DWORD*)wcq_caf;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(wcq_caf);
 
-	//v1 = *(DWORD*)wcq_uefa;
-	//(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(wcq_uefa);
+	v1 = *(DWORD*)wcq_uefa;
+	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(wcq_uefa);
 
 	v1 = *(DWORD*)wcq_playoffs;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(wcq_playoffs);
@@ -1091,14 +1091,14 @@ void fifa_world_cup_setup1(BYTE* _this) {
 		WORD bl = 0;
 		for (WORD i = 0; i < n; i++) {
 			if (qualified_teams[i] == host1) {
-				cm3_clubs* c1 = qualified_teams[1];
-				qualified_teams[1] = qualified_teams[i];
+				cm3_clubs* c1 = qualified_teams[0];
+				qualified_teams[0] = qualified_teams[i];
 				qualified_teams[i] = c1;
 				if (bl < 1) bl = 1;
 			}
 			if (qualified_teams[i] == host2) {
-				cm3_clubs* c1 = qualified_teams[2];
-				qualified_teams[2] = qualified_teams[i];
+				cm3_clubs* c1 = qualified_teams[1];
+				qualified_teams[1] = qualified_teams[i];
 				qualified_teams[i] = c1;
 				if (bl < 2) bl = 2;
 			}
@@ -1118,9 +1118,13 @@ void fifa_world_cup_setup1(BYTE* _this) {
 
 BYTE* fifa_world_cup_all_teams(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
+	WORD year = data->year;
 	teams_seeded* teamList = (teams_seeded*)data->special_teams_seedings;
 	BYTE* pMem = (BYTE*)sub_944E46_malloc(48 * 5);
 	BYTE counts[12] = { 0,0,0,0,0,0,0,0,0,0,0,0 };
+	DWORD host1_id = -1, host2_id = -1;
+	char num_hosts = get_host_ids_5FA730((BYTE*)*b5e134, data->competition_db->ClubCompID, year, &host1_id, &host2_id, 1);
+	BYTE offset = 12 - num_hosts;
 	for (WORD i = 0; i < 12; i++) {
 		counts[i]++;
 		if (i == 0) {
@@ -1128,9 +1132,14 @@ BYTE* fifa_world_cup_all_teams(BYTE* _this) {
 			*((BYTE*)(pMem + 4)) = 1;
 			teamList[0].f5 = -1;
 		}
+		else if (i == 1 && num_hosts > 1) {
+			*((DWORD*)(pMem + 5)) = teamList[1].club->ClubID;
+			*((BYTE*)(pMem + 9)) = 1;
+			teamList[1].f5 = -1;
+		}
 		else {
-			BYTE r = rand() % 11 + 1;
-			while (teamList[r].f5 == -1) r = rand() % 11 + 1;
+			BYTE r = rand() % offset + num_hosts;
+			while (teamList[r].f5 == -1) r = rand() % offset + num_hosts;
 			*((DWORD*)(pMem + 5 * i)) = teamList[r].club->ClubID;
 			*((BYTE*)(pMem + 5 * i + 4)) = i + 1;
 			teamList[r].f5 = -1;
@@ -1146,7 +1155,6 @@ BYTE* fifa_world_cup_all_teams(BYTE* _this) {
 		teamList[r].f5 = -1;
 		counts[r]++;
 	}
-	WORD year = data->year;
 	if (year == 2026) {
 		WORD x = 0;
 		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_MEXICO_9CF())->ClubID;
@@ -1209,7 +1217,11 @@ BYTE* fifa_world_cup_all_teams(BYTE* _this) {
 		teamList[12].f5 = 1;
 		data->special_nteams_seedings = 48;
 	}
-	else for (BYTE i = 0; i < 48; i++) teamList[i].f5 = 6;
+	else
+	{
+		for (BYTE i = 0; i < num_hosts; i++) teamList[i].f5 = 1;
+		for (BYTE i = num_hosts; i < 48; i++) teamList[i].f5 = 6;
+	}
 	return pMem;
 }
 
