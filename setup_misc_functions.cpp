@@ -923,6 +923,128 @@ void __declspec(naked) show_wing_back_position()
 	}
 }
 
+bool is_continental_qualifiers(cm3_club_comps* comp) {
+	if (!comp) return false;
+	DWORD id = comp->ClubCompID;
+	if (id == WORLD_CUP_AFC_QUALIFYING_9CF()) return true;
+	if (id == WORLD_CUP_OFC_QUALIFYING_9CF()) return true;
+	if (id == WORLD_CUP_CAF_QUALIFYING_9CF()) return true;
+	if (id == WORLD_CUP_CONCACAF_QUALIFYING_9CF()) return true;
+	if (id == WORLD_CUP_CONMEBOL_QUALIFYING_9CF()) return true;
+	if (id == WORLD_CUP_UEFA_QUALIFYING_9CF()) return true;
+	if (id == WORLD_CUP_PLAYOFFS_9CF()) return true;
+	if (id == UEFA_EURO_QUALIFYING_9CF()) return true;
+	if (id == ASIAN_CUP_QUALIFYING_9CF()) return true;
+	if (id == AFRICAN_CUP_OF_NATIONS_QUALIFYING_9CF()) return true;
+	if (id == CONCACAF_NATIONS_LEAGUE_9CF()) return true;
+	return false;
+}
+
+bool is_continental_finals(cm3_club_comps* comp) {
+	if (!comp) return false;
+	DWORD id = comp->ClubCompID;
+	if (id == OFC_NATIONS_CUP_9CF()) return true;
+	if (id == GOLD_CUP_9CF()) return true;
+	if (id == COPA_AMERICA_9CF()) return true;
+	if (id == ASIAN_CUP_9CF()) return true;
+	if (id == AFRICAN_CUP_OF_NATIONS_9CF()) return true;
+	if (id == UEFA_EURO_9CF()) return true;
+	return false;
+}
+
+bool is_youth_competition(cm3_club_comps* comp) {
+	if (!comp) return false;
+	DWORD id = comp->ClubCompID;
+	if (id == OLYMPIC_GAMES_9CF()) return true;
+	return false;
+}
+
+static __int16(__thiscall* update_ranking)(BYTE* _this, cm3_nations* nation, __int16 a3, BYTE* match_data) =
+(__int16(__thiscall*)(BYTE * _this, cm3_nations * nation, __int16 a3, BYTE * match_data))(0x58DEA0);
+void update_fifa_coefficients(BYTE* _this, BYTE* match_data) {
+	cm3_club_comps* comp = (cm3_club_comps*)*(DWORD*)(match_data + 0x14);
+	if (!comp) return;
+	if (is_youth_competition(comp)) return;
+	cm3_stadiums* stadium = (cm3_stadiums*)*(DWORD*)(match_data + 0x18);
+	cm3_clubs* home_team = (cm3_clubs*)*(DWORD*)(match_data + 0x1C);
+	if (!home_team->ClubNation) return;
+	cm3_clubs* away_team = (cm3_clubs*)*(DWORD*)(match_data + 0x20);
+	if (!away_team->ClubNation) return;
+	WORD main_stage_id = *(WORD*)(match_data + 0x32);
+	WORD sub_stage_id = *(WORD*)(match_data + 0x30);
+	char goals_home = *(char*)(match_data + 0x47);
+	char goals_away;
+	if (goals_home == -1) {
+		goals_home = *(char*)(match_data + 0x43);
+		goals_away = *(char*)(match_data + 0x44);
+	}
+	else goals_away = *(char*)(match_data + 0x48);
+
+	int importance = 10;
+	// if Nations League && group stage, importance = 15
+	// if Nations League && playoffs, importance = 25
+	if (comp->ClubCompID == UEFA_NATIONS_LEAGUE_9CF()) {
+		if (sub_stage_id == QuarterFinal || sub_stage_id == SemiFinal || sub_stage_id == Final || sub_stage_id == ThirdPlacePlayoff || main_stage_id == ThirdPlacePlayoff) importance = 25;
+		else importance = 15;
+	}
+	// if World Cup qualifiers or confederation qualifiers, importance = 25
+	if (is_continental_qualifiers(comp)) importance = 25;
+	// if confederation finals (before quarter-finals), importance = 35
+	// if confederation finals (quarter-finals and later), importance = 40
+	if (is_continental_finals(comp)) {
+		if (sub_stage_id == QuarterFinal || sub_stage_id == SemiFinal || sub_stage_id == Final || sub_stage_id == ThirdPlacePlayoff || main_stage_id == ThirdPlacePlayoff) importance = 40;
+		else importance = 30;
+	}
+	// if World Cup (before quarter-finals), importance = 50
+	// if World Cup (quarter-finals and later), importance = 60
+	if (comp->ClubCompID == FIFA_WORLD_CUP_9CF()) {
+		if (sub_stage_id == QuarterFinal || sub_stage_id == SemiFinal || sub_stage_id == Final || sub_stage_id == ThirdPlacePlayoff || main_stage_id == ThirdPlacePlayoff) importance = 60;
+		else importance = 50;
+	}
+	float result_home = 0;
+	float result_away = 0;
+	// if draw or penalty loss, result = 0.5
+	if (goals_home == goals_away) {
+		result_home = 0.5;
+		result_away = 0.5;
+	}
+	// if penalty win, result = 0.75
+	// if win, result = 1
+	else {
+		result_home = (goals_home > goals_away);
+		result_away = (goals_away > goals_home);
+	}
+	float rating_home = getFIFARankingPoints(home_team->ClubNation);
+	float rating_away = getFIFARankingPoints(away_team->ClubNation);
+	float diff = rating_home - rating_away;
+	// 1 divided by (10 ^ -(rating_diff / 600) + 1)
+	float expected_home = (float)(1 / (pow(10, -diff / 600) + 1));
+	float expected_away = (float)(1 / (pow(10, diff / 600) + 1));
+
+	// full formula: P = Pbefore + I * (W - We)
+	float new_rating_home = rating_home + importance * (result_home - expected_home);
+	if (new_rating_home < 0) new_rating_home = 0;
+	float new_rating_away = rating_away + importance * (result_away - expected_away);
+	if (new_rating_away < 0) new_rating_away = 0;
+
+	// check if World Cup or main continental comp, and if knockout rounds, don't lower rating?
+	setFIFARankingPoints(home_team->ClubNation, new_rating_home);
+	setFIFARankingPoints(away_team->ClubNation, new_rating_away);
+}
+
+void __declspec(naked) update_fifa_coefficients_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x4]
+		push ecx
+		call update_fifa_coefficients
+		add esp, 0x8
+		ret 4
+	}
+}
+
 void setup_misc_functions()
 {
 	if (configFile.GetBool("competitionColoursPatch", true)) PatchFunction(0x53b7c0, (DWORD)&comp_colours_in_header);
@@ -932,6 +1054,11 @@ void setup_misc_functions()
 	PatchFunction(0x460ec6, (DWORD)&club_pro_status_with_continental_comp_c);
 	PatchFunction(0x460d75, (DWORD)&show_club_country_based);
 	PatchFunction(0x8c5bd2, (DWORD)&player_gain_nationality_c);
+	PatchFunction(0x58CF70, (DWORD)&update_fifa_coefficients_c);
+	// block the old update function
+	WriteBytes(0x58dfc0, 1, 0xc3);
+	WriteDWORD(0x58ddfd + 2, 0x967880);
+	WriteNOP(0x58de05, 6);
 
 	// Show the hidden wing-back position
 	if (configFile.GetBool("showWingBacks", true)) {

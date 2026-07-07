@@ -1059,15 +1059,9 @@ void fifa_world_cup_setup1(BYTE* _this) {
 			string msg = "Not enough teams in World Cup: needed 48 but only had " + to_string(n);
 			vector<cm3_clubs*> nat_teams = get_all_national_teams();
 			sort(nat_teams.begin(), nat_teams.end(), compareNationRanking);
-			//for (size_t i = 0; i < nat_teams.size(); i++) {
-			//	cm3_clubs* c = nat_teams[i];
-			//	dprintf("%d: %s [%f]\n", i + 1, c->ClubNameShort, c->ClubNation->NationFIFACoefficient);
-			//}
 			for (WORD i = 0; n < 48 && i < nat_teams.size(); i++) {
 				cm3_clubs* c = nat_teams[i];
 				if (!vector_contains_element(qualified_teams, c)) {
-					//dprintf("Added extra team to World Cup: %s, ranking %d, FIFA points [%f, %f, %f, %f, %f, %f, %f]\n",
-						//c->ClubNameShort, i + 1, c->ClubNation->NationFIFACoefficient, c->ClubNation->NationFIFACoefficient91, c->ClubNation->NationFIFACoefficient92, c->ClubNation->NationFIFACoefficient93, c->ClubNation->NationFIFACoefficient94, c->ClubNation->NationFIFACoefficient95, c->ClubNation->NationFIFACoefficient96);
 					teamList[n++].club = c;
 					qualified_teams.push_back(c);
 				}
@@ -1116,45 +1110,66 @@ void fifa_world_cup_setup1(BYTE* _this) {
 	}
 }
 
+bool check_can_team_enter_group(cm3_clubs* club, DWORD idx, BYTE afc[], BYTE caf[], BYTE concacaf[], BYTE conmebol[], BYTE ofc[], BYTE uefa[]) {
+	if (club->ClubNation->NationContinent->ContinentID == OCEANIA_9CF())
+	{
+		return ofc[idx] < 1;
+	}
+	else if (club->ClubNation->NationContinent->ContinentID == ASIA_9CF())
+	{
+		return afc[idx] < 1;
+	}
+	else if (club->ClubNation->NationContinent->ContinentID == AFRICA_9CF())
+	{
+		return caf[idx] < 1;
+	}
+	else if (club->ClubNation->NationContinent->ContinentID == NORTH_AMERICA_9CF())
+	{
+		return concacaf[idx] < 1;
+	}
+	else if (club->ClubNation->NationContinent->ContinentID == SOUTH_AMERICA_9CF())
+	{
+		return conmebol[idx] < 1;
+	}
+	else if (club->ClubNation->NationContinent->ContinentID == EUROPE_9CF())
+	{
+		return uefa[idx] < 2;
+	}
+	return true;
+}
+
+void update_continent_counts(cm3_clubs* club, DWORD idx, BYTE afc[], BYTE caf[], BYTE concacaf[], BYTE conmebol[], BYTE ofc[], BYTE uefa[]) {
+	if (club->ClubNation->NationContinent->ContinentID == OCEANIA_9CF())
+	{
+		ofc[idx]++;
+	}
+	else if (club->ClubNation->NationContinent->ContinentID == ASIA_9CF())
+	{
+		afc[idx]++;
+	}
+	else if (club->ClubNation->NationContinent->ContinentID == AFRICA_9CF())
+	{
+		caf[idx]++;
+	}
+	else if (club->ClubNation->NationContinent->ContinentID == NORTH_AMERICA_9CF())
+	{
+		concacaf[idx]++;
+	}
+	else if (club->ClubNation->NationContinent->ContinentID == SOUTH_AMERICA_9CF())
+	{
+		conmebol[idx]++;
+	}
+	else if (club->ClubNation->NationContinent->ContinentID == EUROPE_9CF())
+	{
+		uefa[idx]++;
+	}
+}
+
 BYTE* fifa_world_cup_all_teams(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	WORD year = data->year;
 	teams_seeded* teamList = (teams_seeded*)data->special_teams_seedings;
 	BYTE* pMem = (BYTE*)sub_944E46_malloc(48 * 5);
-	BYTE counts[12] = { 0,0,0,0,0,0,0,0,0,0,0,0 };
-	DWORD host1_id = -1, host2_id = -1;
-	char num_hosts = get_host_ids_5FA730((BYTE*)*b5e134, data->competition_db->ClubCompID, year, &host1_id, &host2_id, 1);
-	BYTE offset = 12 - num_hosts;
-	for (WORD i = 0; i < 12; i++) {
-		counts[i]++;
-		if (i == 0) {
-			*((DWORD*)(pMem)) = teamList[0].club->ClubID;
-			*((BYTE*)(pMem + 4)) = 1;
-			teamList[0].f5 = -1;
-		}
-		else if (i == 1 && num_hosts > 1) {
-			*((DWORD*)(pMem + 5)) = teamList[1].club->ClubID;
-			*((BYTE*)(pMem + 9)) = 1;
-			teamList[1].f5 = -1;
-		}
-		else {
-			BYTE r = rand() % offset + num_hosts;
-			while (teamList[r].f5 == -1) r = rand() % offset + num_hosts;
-			*((DWORD*)(pMem + 5 * i)) = teamList[r].club->ClubID;
-			*((BYTE*)(pMem + 5 * i + 4)) = i + 1;
-			teamList[r].f5 = -1;
-		}
-	}
-	DWORD dx = 0;
-	for (DWORD i = 12; i < 48; i++) {
-		DWORD b = i / 12 + 1;
-		DWORD r = rand() % 12;
-		while (teamList[r].f5 == -1 && counts[r] >= b) r = rand() % 12;
-		*((DWORD*)(pMem + 5 * i)) = teamList[i].club->ClubID;
-		*((BYTE*)(pMem + 5 * i + 4)) = (BYTE)(r + 1);
-		teamList[r].f5 = -1;
-		counts[r]++;
-	}
 	if (year == 2026) {
 		WORD x = 0;
 		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_MEXICO_9CF())->ClubID;
@@ -1219,6 +1234,103 @@ BYTE* fifa_world_cup_all_teams(BYTE* _this) {
 	}
 	else
 	{
+		BYTE counts[12] = { 0,0,0,0,0,0,0,0,0,0,0,0 };
+		BYTE counts_afc[12] = { 0,0,0,0,0,0,0,0,0,0,0,0 };
+		BYTE counts_caf[12] = { 0,0,0,0,0,0,0,0,0,0,0,0 };
+		BYTE counts_concacaf[12] = { 0,0,0,0,0,0,0,0,0,0,0,0 };
+		BYTE counts_conmebol[12] = { 0,0,0,0,0,0,0,0,0,0,0,0 };
+		BYTE counts_ofc[12] = { 0,0,0,0,0,0,0,0,0,0,0,0 };
+		BYTE counts_uefa[12] = { 0,0,0,0,0,0,0,0,0,0,0,0 };
+		DWORD host1_id = -1, host2_id = -1;
+		char num_hosts = get_host_ids_5FA730((BYTE*)*b5e134, data->competition_db->ClubCompID, year, &host1_id, &host2_id, 1);
+		BYTE offset = 12 - num_hosts;
+		for (WORD i = 0; i < 12; i++) {
+			counts[i]++;
+			if (i == 0) {
+				*((DWORD*)(pMem)) = teamList[0].club->ClubID;
+				*((BYTE*)(pMem + 4)) = 1;
+				teamList[0].f5 = -1;
+				update_continent_counts(teamList[0].club, 0, counts_afc, counts_caf, counts_concacaf, counts_conmebol, counts_ofc, counts_uefa);
+			}
+			else if (i == 1 && num_hosts > 1) {
+				*((DWORD*)(pMem + 5)) = teamList[1].club->ClubID;
+				*((BYTE*)(pMem + 9)) = 2;
+				teamList[1].f5 = -1;
+				update_continent_counts(teamList[1].club, 1, counts_afc, counts_caf, counts_concacaf, counts_conmebol, counts_ofc, counts_uefa);
+			}
+			else {
+				BYTE r = rand() % offset + num_hosts;
+				while (teamList[r].f5 == -1) r = rand() % offset + num_hosts;
+				*((DWORD*)(pMem + 5 * i)) = teamList[r].club->ClubID;
+				*((BYTE*)(pMem + 5 * i + 4)) = i + 1;
+				teamList[r].f5 = -1;
+				update_continent_counts(teamList[r].club, i, counts_afc, counts_caf, counts_concacaf, counts_conmebol, counts_ofc, counts_uefa);
+			}
+		}
+		vector<BYTE> uefa_mandatory;
+		uefa_mandatory.reserve(12);
+		for (BYTE j = 0; j < 12; j++)
+		{
+			if (get_club(*((DWORD*)(pMem + 5 * j)))->ClubNation->NationContinent->ContinentID != EUROPE_9CF())
+				uefa_mandatory.push_back(*((BYTE*)(pMem + 5 * j + 4)) - 1);
+		}
+		shuffle(uefa_mandatory.begin(), uefa_mandatory.end(), rng);
+		for (DWORD i = 12; i < 48; i++) {
+			cm3_clubs* club = teamList[i].club;
+			DWORD b = i / 12 + 1;
+			DWORD r;
+			if (club->ClubNation->NationContinent->ContinentID == EUROPE_9CF() && !uefa_mandatory.empty()) {
+				r = uefa_mandatory.back();
+				uefa_mandatory.pop_back();
+			}
+			else
+			{
+				r = rand() % 12;
+				bool valid = false;
+				for (WORD iters = 0; iters < 24; iters++) {
+					if (counts[r] >= b) {
+						r = rand() % 12;
+						continue;
+					}
+					if (!check_can_team_enter_group(club, r, counts_afc, counts_caf, counts_concacaf, counts_conmebol, counts_ofc, counts_uefa)) {
+						r = rand() % 12;
+						continue;
+					}
+					valid = true;
+					break;
+				}
+				if (!valid) {
+					for (DWORD j = 12; j <= i; j++) teamList[j].f5 = 6;
+					for (DWORD j = 0; j < 12; j++)
+					{
+						counts[j] = 1;
+						counts_afc[j] = 0;
+						counts_caf[j] = 0;
+						counts_concacaf[j] = 0;
+						counts_conmebol[j] = 0;
+						counts_ofc[j] = 0;
+						counts_uefa[j] = 0;
+					}
+					for (DWORD j = 0; j < 12; j++)
+					{
+						update_continent_counts(get_club(*((DWORD*)(pMem + 5 * j))), *((BYTE*)(pMem + 5 * j + 4)) - 1, counts_afc, counts_caf, counts_concacaf, counts_conmebol, counts_ofc, counts_uefa);
+					}
+					uefa_mandatory.clear();
+					for (BYTE j = 0; j < 12; j++)
+					{
+						if (get_club(*((DWORD*)(pMem + 5 * j)))->ClubNation->NationContinent->ContinentID != EUROPE_9CF())
+							uefa_mandatory.push_back(*((BYTE*)(pMem + 5 * j + 4)) - 1);
+					}
+					i = 11;
+					continue;
+				}
+			}
+			*((DWORD*)(pMem + 5 * i)) = club->ClubID;
+			*((BYTE*)(pMem + 5 * i + 4)) = (BYTE)(r + 1);
+			teamList[i].f5 = -1;
+			counts[r]++;
+			update_continent_counts(club, r, counts_afc, counts_caf, counts_concacaf, counts_conmebol, counts_ofc, counts_uefa);
+		}
 		for (BYTE i = 0; i < num_hosts; i++) teamList[i].f5 = 1;
 		for (BYTE i = num_hosts; i < 48; i++) teamList[i].f5 = 6;
 	}

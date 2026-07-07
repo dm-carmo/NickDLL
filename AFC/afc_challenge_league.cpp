@@ -186,11 +186,11 @@ void afc_challenge_team_selection() {
 	BYTE quals_2[2] = { 0,1 };
 
 	for (int a = 0; a < 2; a++) {
-		vector<string> v;
-		if (a == 0) v = asia_west;
-		else v = asia_east;
+		vector<DWORD> v;
+		if (a == 0) v = west_asia_nations();
+		else v = east_asia_nations();
 		for (size_t i = 10; i < v.size(); i++) {
-			cm3_nations* afc_nation = find_country(v[i].c_str());
+			cm3_nations* afc_nation = get_country(v[i]);
 
 			BYTE* quals;
 			if ((a == 0 && i < 15) || (a == 1 && i < 11)) quals = quals_1;
@@ -295,7 +295,7 @@ void afc_challenge_team_selection() {
 			}
 
 			required = 1;
-			//if (j < required) dprintf("[CL2] Getting clubs from database - best\n");
+			//if (j < required) dprintf("[ChL] Getting clubs from database - best\n");
 			vector<cm3_clubs*> clubs;
 			bool playable = afc_nation->NationLeagueSelected;
 			if (playable) {

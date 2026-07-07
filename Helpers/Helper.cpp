@@ -241,6 +241,100 @@ vector<cm3_nations*> caribbean_countries()
 	return ret;
 }
 
+vector<DWORD> east_asia_nations() {
+	vector<DWORD> ret;
+	ret.push_back(NATION_JAPAN_9CF());
+	ret.push_back(NATION_SOUTH_KOREA_9CF());
+	ret.push_back(NATION_CHINA_9CF());
+	ret.push_back(NATION_THAILAND_9CF());
+	ret.push_back(NATION_AUSTRALIA_9CF());
+	ret.push_back(NATION_MALAYSIA_9CF());
+	ret.push_back(NATION_VIETNAM_9CF());
+	ret.push_back(NATION_HONG_KONG_9CF());
+	ret.push_back(NATION_SINGAPORE_9CF());
+	ret.push_back(NATION_PHILIPPINES_9CF());
+	ret.push_back(NATION_INDONESIA_9CF());
+	ret.push_back(NATION_NORTH_KOREA_9CF());
+	ret.push_back(NATION_CAMBODIA_9CF());
+	ret.push_back(NATION_MYANMAR_9CF());
+	ret.push_back(NATION_CHINESE_TAIPEI_9CF());
+	ret.push_back(NATION_MONGOLIA_9CF());
+	ret.push_back(NATION_MACAU_9CF());
+	ret.push_back(NATION_LAOS_9CF());
+	ret.push_back(NATION_BRUNEI_9CF());
+	ret.push_back(NATION_GUAM_9CF());
+	//ret.push_back(NATION_NORTHERN_MARIANA_9CF());
+	ret.push_back(NATION_TIMOR_9CF());
+	return ret;
+}
+
+vector<DWORD> west_asia_nations() {
+	vector<DWORD> ret;
+	ret.push_back(NATION_SAUDI_ARABIA_9CF());
+	ret.push_back(NATION_UAE_9CF());
+	ret.push_back(NATION_QATAR_9CF());
+	ret.push_back(NATION_IRAN_9CF());
+	ret.push_back(NATION_UZBEKISTAN_9CF());
+	ret.push_back(NATION_IRAQ_9CF());
+	ret.push_back(NATION_JORDAN_9CF());
+	ret.push_back(NATION_BAHRAIN_9CF());
+	ret.push_back(NATION_INDIA_9CF());
+	ret.push_back(NATION_TAJIKISTAN_9CF());
+	ret.push_back(NATION_TURKMENISTAN_9CF());
+	ret.push_back(NATION_OMAN_9CF());
+	ret.push_back(NATION_LEBANON_9CF());
+	ret.push_back(NATION_KUWAIT_9CF());
+	ret.push_back(NATION_BANGLADESH_9CF());
+	ret.push_back(NATION_SYRIA_9CF());
+	ret.push_back(NATION_KYRGYZSTAN_9CF());
+	ret.push_back(NATION_MALDIVES_9CF());
+	ret.push_back(NATION_PALESTINE_9CF());
+	ret.push_back(NATION_NEPAL_9CF());
+	ret.push_back(NATION_SRI_LANKA_9CF());
+	ret.push_back(NATION_BHUTAN_9CF());
+	ret.push_back(NATION_AFGHANISTAN_9CF());
+	ret.push_back(NATION_PAKISTAN_9CF());
+	ret.push_back(NATION_YEMEN_9CF());
+	return ret;
+}
+
+vector<DWORD> caf_top_12_nations() {
+	vector<DWORD> ret;
+	ret.push_back(NATION_EGYPT_9CF());
+	ret.push_back(NATION_MOROCCO_9CF());
+	ret.push_back(NATION_SOUTH_AFRICA_9CF());
+	ret.push_back(NATION_ALGERIA_9CF());
+	ret.push_back(NATION_TANZANIA_9CF());
+	ret.push_back(NATION_TUNISIA_9CF());
+	ret.push_back(NATION_ANGOLA_9CF());
+	ret.push_back(NATION_DR_CONGO_9CF());
+	ret.push_back(NATION_SUDAN_9CF());
+	ret.push_back(NATION_IVORY_COAST_9CF());
+	ret.push_back(NATION_LIBYA_9CF());
+	ret.push_back(NATION_NIGERIA_9CF());
+	return ret;
+}
+
+vector<DWORD> caf_bottom_6_nations() {
+	vector<DWORD> ret;
+	ret.push_back(NATION_CHAD_9CF());
+	ret.push_back(NATION_ERITREA_9CF());
+	ret.push_back(NATION_SAO_TOME_PRINCIPE_9CF());
+	ret.push_back(NATION_SOMALIA_9CF());
+	ret.push_back(NATION_DJIBOUTI_9CF());
+	ret.push_back(NATION_SEYCHELLES_9CF());
+	return ret;
+}
+
+vector<DWORD> ofc_bottom_4_nations() {
+	vector<DWORD> ret;
+	ret.push_back(NATION_AMERICAN_SAMOA_9CF());
+	ret.push_back(NATION_COOK_ISLANDS_9CF());
+	ret.push_back(NATION_SAMOA_9CF());
+	ret.push_back(NATION_TONGA_9CF());
+	return ret;
+}
+
 vector<cm3_nations*> get_countries_of_continent(DWORD continentID) {
 	vector<cm3_nations*> ret;
 	for (DWORD i = 0; i < *nations_count; i++)
@@ -537,11 +631,33 @@ bool compareClubSeeding(cm3_clubs* c1, cm3_clubs* c2)
 	return (c1->ClubEuroSeeding > c2->ClubEuroSeeding);
 }
 
-// Does not work as it should (?)
+float getFIFARankingPoints(cm3_nations* nation) {
+	BYTE* rankings_array = (BYTE*)*b74318;
+	rankings_array = (BYTE*)*(DWORD*)(rankings_array + 0x1C);
+	rankings_array = (BYTE*)*(DWORD*)(rankings_array);
+	DWORD size = 0x2C;
+	if (!nation) return 0;
+	if ((DWORD)nation->NationID > *nations_count) return 0;
+	return *((float*)(rankings_array + size * nation->NationID + 12)) * 10;
+}
+
+void setFIFARankingPoints(cm3_nations* nation, float value) {
+	BYTE* rankings_array = (BYTE*)*b74318;
+	rankings_array = (BYTE*)*(DWORD*)(rankings_array + 0x1C);
+	rankings_array = (BYTE*)*(DWORD*)(rankings_array);
+	DWORD size = 0x2C;
+	if (!nation) return;
+	if ((DWORD)nation->NationID > *nations_count) return;
+	*((float*)(rankings_array + size * nation->NationID + 12)) = value / 10.f;
+}
+
 bool compareNationRanking(cm3_clubs* c1, cm3_clubs* c2)
 {
-	//if (c1->ClubNation->NationFIFACoefficient == c2->ClubNation->NationFIFACoefficient) return (c1->ClubReputation > c2->ClubReputation);
-	//return (c1->ClubNation->NationFIFACoefficient > c2->ClubNation->NationFIFACoefficient);
+	if (c1->ClubNation && c2->ClubNation) {
+		float f1 = getFIFARankingPoints(c1->ClubNation);
+		float f2 = getFIFARankingPoints(c2->ClubNation);
+		if (f1 != f2) return f1 > f2;
+	}
 	return (c1->ClubReputation > c2->ClubReputation);
 }
 
@@ -664,8 +780,9 @@ bool compareClubAsiaWestEast(cm3_clubs* c1, cm3_clubs* c2)
 {
 	bool c1_west = false, c2_west = false;
 	if (!c1->ClubNation || !c2->ClubNation) return compareClubLongitude(c1, c2);
-	c1_west = find(asia_west.begin(), asia_west.end(), get_db_nation_name(c1->ClubNation)) != asia_west.end();
-	c2_west = find(asia_west.begin(), asia_west.end(), get_db_nation_name(c2->ClubNation)) != asia_west.end();
+	vector<DWORD> asia_west = west_asia_nations();
+	c1_west = find(asia_west.begin(), asia_west.end(), c1->ClubNation->NationID) != asia_west.end();
+	c2_west = find(asia_west.begin(), asia_west.end(), c2->ClubNation->NationID) != asia_west.end();
 	if (c1_west != c2_west) return c1_west;
 	else return compareClubLongitude(c1, c2);
 }

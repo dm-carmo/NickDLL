@@ -203,12 +203,14 @@ void caf_cl_team_selection() {
 	vector<cm3_nations*> caf_nations = get_countries_of_continent(AFRICA_9CF());
 	shuffle(caf_nations.begin(), caf_nations.end(), rng);
 	BYTE excluded_count = 0;
+	vector<DWORD> top12_ids = caf_top_12_nations();
+	vector<DWORD> bottom6_ids = caf_bottom_6_nations();
 	for (cm3_nations* caf_nation : caf_nations) {
 		BYTE count = 1;
-		if (find(caf_top12.begin(), caf_top12.end(), get_db_nation_name(caf_nation)) != caf_top12.end()) {
+		if (find(top12_ids.begin(), top12_ids.end(), caf_nation->NationID) != top12_ids.end()) {
 			count = 2;
 		}
-		else if (excluded_count < 3 && find(caf_worst.begin(), caf_worst.end(), get_db_nation_name(caf_nation)) != caf_worst.end()) {
+		else if (excluded_count < 3 && find(bottom6_ids.begin(), bottom6_ids.end(), caf_nation->NationID) != bottom6_ids.end()) {
 			excluded_count++;
 			continue;
 		}

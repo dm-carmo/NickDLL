@@ -126,7 +126,6 @@ void __fastcall swe_second_relegation(BYTE* _this)
 		for (WORD num = 0; num < curr_stage->n_teams; num++) {
 			team_league_stats table_pos = ((team_league_stats*)curr_stage->team_league_table)[num];
 			if (table_pos.league_fate == Relegated) {
-				//dprintf("Relegating club from Ettan: %s\n", table_pos.club->ClubNameShort);
 				relegated_clubs.push_back(table_pos.club);
 			}
 		}
@@ -141,7 +140,6 @@ void __fastcall swe_second_relegation(BYTE* _this)
 		if (promote->ClubDivision && promote->ClubDivision != comp_data->competition_db) {
 			in_playoffs.push_back(promote);
 			if (t.f6 == 1) {
-				//dprintf("Promoting club to Ettan (playoff): %s\n", promote->ClubNameShort);
 				promote_club_6830B0((BYTE*)promote, (DWORD)comp_data->competition_db, 1);
 				promoted_teams++;
 			}
@@ -182,7 +180,6 @@ void __fastcall swe_non_league_promotion(BYTE* _this)
 		for (WORD num = 0; num < curr_stage->n_teams; num++) {
 			team_league_stats table_pos = ((team_league_stats*)curr_stage->team_league_table)[num];
 			if (table_pos.league_fate == Relegated) {
-				//dprintf("Relegating club from Division 2: %s\n", table_pos.club->ClubNameShort);
 				relegated_clubs.push_back(table_pos.club);
 			}
 		}
@@ -197,7 +194,6 @@ void __fastcall swe_non_league_promotion(BYTE* _this)
 		if (promote->ClubDivision && promote->ClubDivision != comp_data->competition_db) {
 			in_playoffs.push_back(promote);
 			if (t.f6 == 1) {
-				//dprintf("Promoting club to Division 2 (playoff): %s\n", promote->ClubNameShort);
 				promote_club_6830B0((BYTE*)promote, (DWORD)comp_data->competition_db, 1);
 				promoted_teams++;
 			}

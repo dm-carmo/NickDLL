@@ -730,7 +730,7 @@ int world_cup_quals_uefa_set_fates(BYTE* _this, cm3_clubs* club, char fate, char
 		WORD current_round = *(WORD*)(round_data + 0x34);
 		switch (fate) {
 		case TopPlayoff:
-			add_team_to_world_cup(club, false);
+			add_team_to_world_cup(club, num_hosts == 1);
 			return 0;
 		case Promoted:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),

@@ -8,12 +8,6 @@ extern int playoff_dates_sz;
 extern int fixture_dates_sz;
 extern int league_team_list_sz;
 
-extern vector<string> asia_east;
-extern vector<string> asia_west;
-extern vector<string> caf_top12;
-extern vector<string> caf_worst;
-extern vector<string> ofc_worst;
-
 extern char* qualified_grp_msg;
 extern char* qualified_grp_title_msg;
 extern char* drop_down_title_msg;
