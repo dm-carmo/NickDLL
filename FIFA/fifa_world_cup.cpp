@@ -669,6 +669,7 @@ void fifa_world_cup_seeded_teams(BYTE* _this) {
 
 char fifa_world_cup_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
+	data->f76 = 0;
 
 	BYTE* wcq_concacaf = get_loaded_league(WORLD_CUP_CONCACAF_QUALIFYING_9CF());
 	BYTE* wcq_ofc = get_loaded_league(WORLD_CUP_OFC_QUALIFYING_9CF());
