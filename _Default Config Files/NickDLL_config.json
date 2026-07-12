@@ -7,4 +7,7 @@
   "showThirdPlaceInHistory": true,
   "financeTweaks": true,
   "russiaBan": true,
+  "replaceNIrelandWith": "",
+  "replaceIrelandWith": "",
+  "replaceWalesWith": ""
 }

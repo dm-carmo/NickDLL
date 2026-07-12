@@ -45,6 +45,8 @@ extern char* lge_a_short;
 extern char* lge_b_short;
 extern char* lge_c_short;
 extern char* lge_d_short;
+extern char* r3_groups_drawn;
+extern char* r4_groups_drawn;
 
 extern char* register_msg1;
 extern char* register_msg2;

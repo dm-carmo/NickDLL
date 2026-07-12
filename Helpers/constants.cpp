@@ -43,6 +43,8 @@ char* lge_a_short = "Lge A";
 char* lge_b_short = "Lge B";
 char* lge_c_short = "Lge C";
 char* lge_d_short = "Lge D";
+char* r3_groups_drawn = "{}<%s - competition name(e.g.Champions League)>{} 3rd round groups drawn";
+char* r4_groups_drawn = "{}<%s - competition name(e.g.Champions League)>{} 4th round groups drawn";
 
 char* register_msg1 = "{}<%s - Club Name(e.g.Chelsea)>{} may register one more player to be eligible for the group stage of the {}<%s - Competition Name(e.g.UEFA Cup)>{}.";
 char* register_msg2 = "{}<%s - Club Name(e.g.Chelsea)>{} may register <%d - number(e.g.2)> more players to be eligible for the group stage of the {}<%s - Competition Name(e.g.UEFA Cup)>{}.";

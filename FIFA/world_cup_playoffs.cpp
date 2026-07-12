@@ -342,9 +342,10 @@ int world_cup_playoffs_stage_news(BYTE* _this, int club_idx, char fate, char sta
 					&club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
 				break;
 			default:
-				sub_66F4E0(0xDE1F64, 0xAD4BA4, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
-					&club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
-				break;
+				sub_66F4E0(0xDE1F64, 0xAD4BA4, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+				sub_4AE660(ret_str_ptr, 0xDE1F64);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+				return 1;
 			}
 			sub_4AE660(ret_str_ptr, 0xDE1F64);
 			sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);

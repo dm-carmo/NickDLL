@@ -144,14 +144,20 @@ void Setup()
 	setup_gre_nation();
 	dprintf("Applying Holland changes\n");
 	setup_hol_nation();
-	dprintf("Applying Ireland changes\n");
-	setup_irl_nation();
+	if (strlen(configFile.GetValue("replaceIrelandWith", "")) == 0)
+	{
+		dprintf("Applying Ireland changes\n");
+		setup_irl_nation();
+	}
 	dprintf("Applying Italy changes\n");
 	setup_ita_nation();
 	dprintf("Applying Japan changes\n");
 	setup_jpn_nation();
-	dprintf("Applying Northern Ireland changes\n");
-	setup_nir_nation();
+	if (strlen(configFile.GetValue("replaceNIrelandWith", "")) == 0)
+	{
+		dprintf("Applying Northern Ireland changes\n");
+		setup_nir_nation();
+	}
 	dprintf("Applying Norway changes\n");
 	setup_nor_nation();
 	dprintf("Applying Poland changes\n");
@@ -172,8 +178,11 @@ void Setup()
 	setup_tur_nation();
 	dprintf("Applying USA changes\n");
 	setup_usa_nation();
-	dprintf("Applying Wales changes\n");
-	setup_wal_nation();
+	if (strlen(configFile.GetValue("replaceWalesWith", "")) == 0)
+	{
+		dprintf("Applying Wales changes\n");
+		setup_wal_nation();
+	}
 
 	dprintf("------------------------------\n");
 	dprintf("New nation: Austria\n");

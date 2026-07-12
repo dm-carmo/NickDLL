@@ -91,7 +91,7 @@ void fifa_club_world_cup_subs(BYTE* _this)
 	comp_data->n_rounds = 1;
 	comp_data->pts_for_win = 3;
 	comp_data->pts_for_draw = 1;
-	comp_data->f196 = 8;
+	comp_data->f196 = 23;
 	comp_data->comp_type = CLUB_INTERNATIONAL;
 	comp_data->tiebreaker_1 = CurrentPositionTiebreaker;
 	comp_data->tiebreaker_2 = GoalDifferenceTiebreaker;
@@ -202,15 +202,15 @@ DWORD fifa_club_world_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds
 		if (stage_idx < 1) {
 			AddFixture(pMem, fixture_id, Date(year, 6, 15), year, Sunday, Afternoon, VenueUnknown_1);
 			AddFixtureTV(pMem, fixture_id, 0, 1, Sunday, Morning, LargestStadium2);
-			AddFixtureTV(pMem, fixture_id, 1, 1, Sunday, Evening, LargestStadium1);
+			AddFixtureTV(pMem, fixture_id, 1, 1, Sunday, Evening, LargestStadium9);
 			AddFixtureTV(pMem, fixture_id++, 2);
 			AddFixture(pMem, fixture_id, Date(year, 6, 19), year, Thursday, Afternoon, VenueUnknown_1);
 			AddFixtureTV(pMem, fixture_id, 0, 1, Thursday, Morning, LargestStadium2);
-			AddFixtureTV(pMem, fixture_id, 1, 1, Thursday, Evening, LargestStadium1);
+			AddFixtureTV(pMem, fixture_id, 1, 1, Thursday, Evening, LargestStadium9);
 			AddFixtureTV(pMem, fixture_id++, 2);
 			AddFixture(pMem, fixture_id, Date(year, 6, 23), year, Monday, Afternoon, VenueUnknown_1);
 			AddFixtureTV(pMem, fixture_id, 0, 1, Monday, Afternoon, LargestStadium2);
-			AddFixtureTV(pMem, fixture_id, 1, 1, Monday, Afternoon, LargestStadium1);
+			AddFixtureTV(pMem, fixture_id, 1, 1, Monday, Afternoon, LargestStadium9);
 			AddFixtureTV(pMem, fixture_id++, 2);
 		}
 		else if (stage_idx < 3) {
@@ -272,29 +272,29 @@ DWORD fifa_club_world_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds
 		int tv_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 6, 27), year, Friday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 6, 28), year, Saturday, Afternoon, VenueUnknown_1);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Tuesday, Afternoon, LargestStadium7);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Monday, Afternoon, LargestStadium9);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Sunday, Afternoon, LargestStadium4);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Saturday, Afternoon, LargestStadium1);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Tuesday, Morning, LargestStadium8);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Monday, Morning, LargestStadium6);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Sunday, Morning, NationalStadium);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Saturday, Morning, LargestStadium2);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Tuesday, Afternoon, LargestStadium7);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Monday, Afternoon, LargestStadium9);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Sunday, Afternoon, LargestStadium1);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Saturday, Afternoon, LargestStadium4);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Tuesday, Morning, LargestStadium8);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Monday, Morning, LargestStadium6);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Sunday, Morning, LargestStadium3);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Saturday, Morning, NationalStadium);
 		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, FixedTeamOrderInCup2 + ExtraTimePenalties_1, NoTiebreak_2, 23, 16, 8, 16, 0, 0, 1, 0, prizeMoneyFile.GetInt("fifa_cwc_r16_qualify"));
 		tv_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 2), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 4), year, Friday, Afternoon, VenueUnknown_1);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Saturday, Afternoon, LargestStadium1);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Friday, Afternoon, NationalStadium);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Saturday, Morning, LargestStadium3);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Friday, Morning, LargestStadium5);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Saturday, Afternoon, LargestStadium2);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Friday, Afternoon, LargestStadium6);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Saturday, Morning, LargestStadium3);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Friday, Morning, LargestStadium5);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++);
 		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup2 + ExtraTimePenalties_1, NoTiebreak_2, 23, 8, 4, 0, 0, 0, 1, 0, prizeMoneyFile.GetInt("fifa_cwc_qtr_qualify"));
 		tv_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 6), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 8), year, Tuesday, Afternoon, VenueUnknown_1);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Wednesday, Afternoon, NationalStadium);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Tuesday, Afternoon, LargestStadium1);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Wednesday, Afternoon, LargestStadium2);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Tuesday, Afternoon, LargestStadium1);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++);
 		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup2 + ExtraTimePenalties_1, NoTiebreak_2, 23, 4, 2, 0, 0, 0, 1, 0, prizeMoneyFile.GetInt("fifa_cwc_semi_qualify"));
 

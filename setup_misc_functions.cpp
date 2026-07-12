@@ -3,6 +3,7 @@
 #include <Helpers/9cf_constants.h>
 #include <Helpers/generic_functions.h>
 #include "Helpers/Helper.h"
+#include <Helpers/constants.h>
 
 static WORD(*rgb_to_word_5E4800)(unsigned char a1, unsigned char a2, unsigned char a3, DWORD* a4) =
 (WORD(*)(unsigned char a1, unsigned char a2, unsigned char a3, DWORD * a4))(0x5E4800);
@@ -1045,6 +1046,123 @@ void __declspec(naked) update_fifa_coefficients_c()
 	}
 }
 
+char* lga_groups_drawn = "{}<%s - competition name(e.g.Champions League)>{} League A groups drawn";
+char* lgb_groups_drawn = "{}<%s - competition name(e.g.Champions League)>{} League B groups drawn";
+char* lgc_groups_drawn = "{}<%s - competition name(e.g.Champions League)>{} League C groups drawn";
+char* lgd_groups_drawn = "{}<%s - competition name(e.g.Champions League)>{} League D groups drawn";
+char* st1_groups_drawn = "{}<%s - competition name(e.g.Champions League)>{} 1st stage groups drawn";
+char* st2_groups_drawn = "{}<%s - competition name(e.g.Champions League)>{} 2nd stage groups drawn";
+void __declspec(naked) fixed_groups_drawn_news_title()
+{
+	__asm
+	{
+		cmp eax, LeagueA
+		jnz league_b_case
+		lea eax, dword ptr ds : [edi + edi * 2]
+		lea edx, dword ptr ds : [eax + eax * 8]
+		mov eax, dword ptr ds : [0xae23d0]
+		shl edx, 2
+		sub edx, edi
+		add eax, edx
+		movsx ecx, byte ptr ds : [eax + 0x52]
+		add eax, 0x38
+		push eax
+		push ecx
+		push ecx
+		push lga_groups_drawn
+		push 0x77fd5a
+		ret
+		league_b_case :
+		cmp eax, LeagueB
+			jnz league_c_case
+			lea eax, dword ptr ds : [edi + edi * 2]
+			lea edx, dword ptr ds : [eax + eax * 8]
+			mov eax, dword ptr ds : [0xae23d0]
+			shl edx, 2
+			sub edx, edi
+			add eax, edx
+			movsx ecx, byte ptr ds : [eax + 0x52]
+			add eax, 0x38
+			push eax
+			push ecx
+			push ecx
+			push lgb_groups_drawn
+			push 0x77fd5a
+			ret
+			league_c_case :
+		cmp eax, LeagueC
+			jnz league_d_case
+			lea eax, dword ptr ds : [edi + edi * 2]
+			lea edx, dword ptr ds : [eax + eax * 8]
+			mov eax, dword ptr ds : [0xae23d0]
+			shl edx, 2
+			sub edx, edi
+			add eax, edx
+			movsx ecx, byte ptr ds : [eax + 0x52]
+			add eax, 0x38
+			push eax
+			push ecx
+			push ecx
+			push lgc_groups_drawn
+			push 0x77fd5a
+			ret
+			league_d_case :
+		cmp eax, LeagueD
+			jnz stage_1_case
+			lea eax, dword ptr ds : [edi + edi * 2]
+			lea edx, dword ptr ds : [eax + eax * 8]
+			mov eax, dword ptr ds : [0xae23d0]
+			shl edx, 2
+			sub edx, edi
+			add eax, edx
+			movsx ecx, byte ptr ds : [eax + 0x52]
+			add eax, 0x38
+			push eax
+			push ecx
+			push ecx
+			push lgd_groups_drawn
+			push 0x77fd5a
+			ret
+			stage_1_case :
+		cmp eax, FirstStage
+			jnz stage_2_case
+			lea eax, dword ptr ds : [edi + edi * 2]
+			lea edx, dword ptr ds : [eax + eax * 8]
+			mov eax, dword ptr ds : [0xae23d0]
+			shl edx, 2
+			sub edx, edi
+			add eax, edx
+			movsx ecx, byte ptr ds : [eax + 0x52]
+			add eax, 0x38
+			push eax
+			push ecx
+			push ecx
+			push st1_groups_drawn
+			push 0x77fd5a
+			ret
+			stage_2_case :
+		cmp eax, SecondStage
+			jnz generic_group_case
+			lea eax, dword ptr ds : [edi + edi * 2]
+			lea edx, dword ptr ds : [eax + eax * 8]
+			mov eax, dword ptr ds : [0xae23d0]
+			shl edx, 2
+			sub edx, edi
+			add eax, edx
+			movsx ecx, byte ptr ds : [eax + 0x52]
+			add eax, 0x38
+			push eax
+			push ecx
+			push ecx
+			push st2_groups_drawn
+			push 0x77fd5a
+			ret
+			generic_group_case :
+		push 0x77fc5a
+			ret
+	}
+}
+
 void setup_misc_functions()
 {
 	if (configFile.GetBool("competitionColoursPatch", true)) PatchFunction(0x53b7c0, (DWORD)&comp_colours_in_header);
@@ -1198,4 +1316,13 @@ void setup_misc_functions()
 
 	// Enable Bosman signings from all countries
 	WriteBytes(0x544677, 1, 0xeb);
+
+	// "groups drawn" news message title adjustment => review this
+	WriteDWORD(0x77fcda + 1, ThirdRound);
+	WriteDWORD(0x77fcfe + 1, (DWORD)&r3_groups_drawn[0]);
+	WriteDWORD(0x77fd05 + 1, FourthRound);
+	WriteDWORD(0x77fd28 + 1, (DWORD)&r4_groups_drawn[0]);
+	PatchFunction(0x77fd2f, (DWORD)&fixed_groups_drawn_news_title);
+	// misspelling
+	WriteBytes(0xa0aa2a, 2, 'y', '\'');
 }
