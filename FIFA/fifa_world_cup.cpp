@@ -606,15 +606,17 @@ void fifa_world_cup_seeded_teams(BYTE* _this) {
 		teamList[count].club = get_national_team(host1_id);
 		teamList[count].f5 = 1;
 		count++;
-		if (count > 0 && teamList[0].club == teamList[count].club) count--;
 	}
 	if (num_hosts > 1) {
 		teamList[count].club = get_national_team(host2_id);
 		teamList[count].f5 = 1;
 		count++;
-		if (count > 0 && teamList[0].club == teamList[count].club) count--;
 	}
-	for (WORD i = count; i < 48; i++) teamList[i].f5 = 6;
+	for (WORD i = count; i < 48; i++)
+	{
+		teamList[i].club = 0;
+		teamList[i].f5 = 6;
+	}
 	if (year == 2026) {
 		teamList[count].club = get_national_team(NATION_CANADA_9CF());
 		teamList[count++].f5 = 1;
@@ -1222,7 +1224,6 @@ BYTE* fifa_world_cup_all_teams(BYTE* _this) {
 		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_GHANA_9CF())->ClubID;
 		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_PANAMA_9CF())->ClubID;
 
-		teams_seeded* teamList = (teams_seeded*)data->special_teams_seedings;
 		for (BYTE i = 0; i < 48; i++) {
 			teamList[i].club = get_club(*((DWORD*)(pMem + 5 * i)));
 			teamList[i].f5 = 6;
