@@ -239,6 +239,7 @@
     <ClCompile Include="England\eng_league_1.cpp" />
     <ClCompile Include="England\eng_setup.cpp" />
     <ClCompile Include="England\eng_league_2.cpp" />
+    <ClCompile Include="FIFA National\fifa_national_setup.cpp" />
     <ClCompile Include="FIFA\fifa_club_setup.cpp" />
     <ClCompile Include="FIFA\fifa_club_world_cup.cpp" />
     <ClCompile Include="FIFA\fifa_intercontinental_cup.cpp" />
@@ -529,6 +530,7 @@
     <ClInclude Include="England\eng_league_1.h" />
     <ClInclude Include="England\eng_setup.h" />
     <ClInclude Include="England\eng_league_2.h" />
+    <ClInclude Include="FIFA National\fifa_national_setup.h" />
     <ClInclude Include="FIFA\fifa_club_setup.h" />
     <ClInclude Include="FIFA\fifa_club_world_cup.h" />
     <ClInclude Include="FIFA\fifa_intercontinental_cup.h" />

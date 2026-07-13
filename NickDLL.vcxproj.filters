@@ -873,6 +873,9 @@
     <ClCompile Include="FIFA\world_cup_quals_uefa.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FIFA National\fifa_national_setup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -1743,6 +1746,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="FIFA\world_cup_quals_uefa.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FIFA National\fifa_national_setup.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
