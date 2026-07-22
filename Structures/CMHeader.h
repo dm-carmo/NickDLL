@@ -117,7 +117,7 @@ enum RoundNames : WORD {
 	MajorSemiFinal = 0x154,
 	PreliminaryFinal = 0x15E,
 	GrandFinal = 0x168,
-	InterzonePlayoff = 0x172,
+	LeagueStage = 0x172,
 	NumericGroupStage = 0x3E9,
 	BestPlacedTeams = 0x3FC,
 	FirstRoundAlphabeticGroup = 0x3FD,
@@ -178,7 +178,8 @@ enum RoundNames : WORD {
 	CentralConference = 0x47B,
 	RelegationGroupAtoB = 0x47C,
 	FourthRoundAlphabeticGroup = 0x47E,
-	EastWest = 0x480,
+	East = 0x480,
+	West = 0x481,
 	ChampionsPath = 0x482,
 	LeaguePath = 0x483
 };
@@ -268,7 +269,7 @@ struct cm3_names
 {
 	char Name[STANDARD_TXT_LENGTH];
 	long NameID;
-	long Nation;
+	long NationID;
 	char count;
 };
 #pragma pack(pop)

@@ -98,7 +98,7 @@ DWORD ger_regional_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD*
 		*num_rounds = (numberOfLeagueTeams - 1) * data->n_rounds;
 		if (stage_idx == -1) *stage_name_id = North;
 		else if (stage_idx == 0) *stage_name_id = Northeast;
-		else if (stage_idx == 1) *stage_name_id = EastWest + 1;
+		else if (stage_idx == 1) *stage_name_id = West;
 		else if (stage_idx == 2) *stage_name_id = Southwest;
 		else if (stage_idx == 3) *stage_name_id = Bayern;
 		else *stage_name_id = 0;
@@ -439,7 +439,7 @@ int ger_regional_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char 
 			}
 			team_league_stats* table = (team_league_stats*)(curr_stage->team_league_table);
 			for (int i = 0; i < num_teams; i++) {
-					if (table[i].club != club) continue;
+				if (table[i].club != club) continue;
 				switch (fate) {
 				case TopPlayoff:
 					staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), 0x32);

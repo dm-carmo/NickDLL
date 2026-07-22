@@ -23,7 +23,8 @@ char* arg_second_set_champion(BYTE* _this) {
 	cm3_clubs* third = 0;
 	teams = (teams_seeded*)prom_data->teams_list;
 	for (WORD i = 0; i < prom_data->n_teams; i++) {
-		if (teams[i].f6 == 1) third = teams[i].club;
+		if (teams[i].f6 == 2 && !third) third = teams[i].club;
+		if (teams[i].f6 == 1 && teams[i].club != second) third = teams[i].club;
 	}
 	return sub_4AFCE0_add_history_entry(_this, first, second, third, 0);
 }
