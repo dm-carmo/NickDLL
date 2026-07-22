@@ -135,5 +135,6 @@ void __declspec(naked) eng_fa_trophy_fixture_caller()
 void setup_eng_fa_trophy()
 {
 	WriteVTablePtr(eng_fa_trophy_vtable, VTableFixtures, (DWORD)&eng_fa_trophy_fixture_caller);
+	WriteVTablePtr(eng_fa_trophy_vtable, VTableSubsRounds, 0x858e70);
 	PatchFunction(0x5712b0, (DWORD)&eng_fa_trophy_teams_c);
 }

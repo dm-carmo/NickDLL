@@ -1163,6 +1163,110 @@ void __declspec(naked) fixed_groups_drawn_news_title()
 	}
 }
 
+cm3_names* choose_a_brazil_name(cm3_staff* person) {
+	char* first_ch = person->StaffFirstName->Name;
+	wstring first(&first_ch[0], &first_ch[strlen(first_ch)]);
+	char* second_ch = person->StaffSecondName->Name;
+	wstring second(&second_ch[0], &second_ch[strlen(second_ch)]);
+	vector<wstring> first_split = split_string_spaces(first);
+	vector<wstring> second_split = split_string_spaces(second);
+	first_split.erase(remove_if(first_split.begin(), first_split.end(),
+		[](wstring s) {
+			if (s.size() == 0) return true;
+			wstring copy(s);
+			transform(copy.begin(), copy.end(), copy.begin(), towlower);
+			return s == copy;
+		}), first_split.end());
+	second_split.erase(remove_if(second_split.begin(), second_split.end(),
+		[](wstring s) {
+			if (s.size() == 0) return true;
+			wstring copy(s);
+			transform(copy.begin(), copy.end(), copy.begin(), towlower);
+			return s == copy;
+		}), second_split.end());
+	first_split.insert(first_split.end(), make_move_iterator(second_split.begin()), make_move_iterator(second_split.end()));
+	if (first_split.size() > 2) {
+		dprintf("Trying to get common name for person: %s, %s\n", second_ch, first_ch);
+		vector<cm3_names*> eligible_names = get_common_names_by_nation(NATION_BRAZIL_9CF());
+		eligible_names.erase(remove_if(eligible_names.begin(), eligible_names.end(),
+			[first_split](cm3_names* n) {
+				char* name = n->Name;
+				wstring name_str(&name[0], &name[strlen(name)]);
+				for (wstring s : first_split) {
+					if (name_str.find(s) != wstring::npos) return false;
+				}
+				return true;
+			}), eligible_names.end());
+		if (eligible_names.size() > 0)
+		{
+			shuffle(eligible_names.begin(), eligible_names.end(), rng);
+			dprintf("- Found: %s\n", eligible_names[0]->Name);
+			return eligible_names[0];
+		}
+	}
+	return get_common_name(0);
+}
+
+void __declspec(naked) brazil_regens_common_names_1()
+{
+	__asm
+	{
+		mov edx, dword ptr ds : [edx]
+		cmp edx, dword ptr ds : [0x9cf260]
+		jnz normal_regen_behaviour_1
+		push esi
+		call choose_a_brazil_name
+		push 0x7ab3e6
+		ret
+		normal_regen_behaviour_1 :
+		mov edx, dword ptr ds : [esi + 0x1a]
+			push edx
+			push 0x7ab3e6
+			push 0x53a5b0
+			ret
+	}
+}
+
+void __declspec(naked) brazil_regens_common_names_2()
+{
+	__asm
+	{
+		mov eax, dword ptr ds : [eax]
+		cmp eax, dword ptr ds : [0x9cf260]
+		jnz normal_regen_behaviour_2
+		push edx
+		call choose_a_brazil_name
+		push 0x59ebbf
+		ret
+		normal_regen_behaviour_2 :
+		mov eax, dword ptr ds : [edx + 0x1a]
+			push eax
+			push 0x59ebbf
+			push 0x53a5b0
+			ret
+	}
+}
+
+void __declspec(naked) brazil_regens_common_names_3()
+{
+	__asm
+	{
+		mov edx, dword ptr ds : [edx]
+		cmp edx, dword ptr ds : [0x9cf260]
+		jnz normal_regen_behaviour_3
+		push esi
+		call choose_a_brazil_name
+		push 0x7abd96
+		ret
+		normal_regen_behaviour_3 :
+		mov edx, dword ptr ds : [esi + 0x1a]
+			push edx
+			push 0x7abd96
+			push 0x53a5b0
+			ret
+	}
+}
+
 void setup_misc_functions()
 {
 	if (configFile.GetBool("competitionColoursPatch", true)) PatchFunction(0x53b7c0, (DWORD)&comp_colours_in_header);
@@ -1177,9 +1281,22 @@ void setup_misc_functions()
 	WriteBytes(0x58dfc0, 1, 0xc3);
 	WriteDWORD(0x58ddfd + 2, 0x967880);
 	WriteNOP(0x58de05, 6);
+	if (configFile.GetBool("brazilRegenNames", false)) {
+		// point 1
+		WriteNOP(0x7ab3e0, 6);
+		PatchFunction(0x7ab3e0, (DWORD)&brazil_regens_common_names_1);
+		// point 2, needs extra changes
+		WriteBytes(0x59eba4, 1, 0xb6);
+		WriteBytes(0x59ebaf, 1, 0x8);
+		WriteNOP(0x59ebb9, 6);
+		PatchFunction(0x59ebb9, (DWORD)&brazil_regens_common_names_2);
+		// point 3
+		WriteNOP(0x7abd90, 6);
+		PatchFunction(0x7abd90, (DWORD)&brazil_regens_common_names_3);
+	}
 
 	// Show the hidden wing-back position
-	if (configFile.GetBool("showWingBacks", true)) {
+	if (configFile.GetBool("showWingBacks", false)) {
 		PatchFunction(0x53f2cd, (DWORD)&show_wing_back_position);
 		WriteBytes(0x9b75b9, 2, 'W', 'B');
 	}

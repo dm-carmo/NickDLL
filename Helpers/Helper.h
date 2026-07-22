@@ -1,9 +1,14 @@
 #pragma once
 #include <windows.h>
 #include <vector>
+#include <iostream>
+#include <sstream>
 #include "Structures\CMHeader.h"
 #include "Config.h"
 #include <random>
+#include <stdio.h>
+#include <conio.h>
+#include <algorithm>
 
 using namespace std;
 
@@ -37,6 +42,7 @@ cm3_non_players* get_non_player(DWORD nonPlayerID);
 cm3_names* get_first_name(DWORD nameID);
 cm3_names* get_second_name(DWORD nameID);
 cm3_names* get_common_name(DWORD nameID);
+vector<cm3_names*> get_common_names_by_nation(DWORD nationID);
 vector<cm3_nations*> central_america_countries();
 vector<cm3_nations*> caribbean_countries();
 vector<DWORD> east_asia_nations();
@@ -97,5 +103,6 @@ void generic_prom_rel(DWORD nation_id, DWORD promote_from, DWORD relegate_from, 
 int UpdateCountryCoefficient(cm3_clubs* club, char coeff);
 void add_team_to_world_cup(cm3_clubs* club, bool send_news = true);
 void add_team_to_world_cup_playoffs(cm3_clubs* club);
+vector<wstring> split_string_spaces(const wstring& str);
 
 #include "Helper.tpp"

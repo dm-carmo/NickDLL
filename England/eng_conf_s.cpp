@@ -12,14 +12,15 @@ char* eng_conf_s_set_champion(BYTE* _this) {
 	comp_stats* comp_data = (comp_stats*)_this;
 	BYTE* playoff_bytes = (BYTE*)comp_data->stages[0];
 	comp_stats* playoff_data = (comp_stats*)playoff_bytes;
-	cm3_clubs* third = 0;
+	cm3_clubs* second = 0;
 	teams_seeded* teams = (teams_seeded*)playoff_data->teams_list;
 	for (WORD i = 0; i < playoff_data->n_teams; i++) {
-		if (teams[i].f6 == 1) third = teams[i].club;
+		if (teams[i].f6 == 1) second = teams[i].club;
 	}
 	team_league_stats* table = (team_league_stats*)(comp_data->team_league_table);
 	cm3_clubs* first = table[0].club;
-	cm3_clubs* second = table[1].club;
+	cm3_clubs* third = table[1].club;
+	if (second == third) third = table[2].club;
 	return sub_4AFCE0_add_history_entry(_this, first, second, third, 0);
 }
 

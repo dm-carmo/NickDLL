@@ -150,7 +150,7 @@ DWORD uefa_europa_league_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds,
 		comp_stats* data = (comp_stats*)_this;
 		WORD year = data->year;
 		*num_rounds = 8;
-		*stage_name_id = InterzonePlayoff;
+		*stage_name_id = LeagueStage;
 
 		pMem = (BYTE*)sub_944E46_malloc(fixture_dates_sz * (*num_rounds));
 
@@ -802,7 +802,7 @@ void uefa_europa_league_group_stage_setup(BYTE* _this) {
 		*((DWORD*)(&pTeams[j])) = (DWORD)club;
 		int ret = sub_5A0590(ae2a38_ptr, (BYTE*)club);
 		AddToClubIncome((BYTE*)ret, prizeMoneyFile.GetInt("uefa_uel_groups_qualify"));
-		AddMoneyFromComp(_this, (BYTE*)club, prizeMoneyFile.GetInt("uefa_uel_groups_qualify"), 0, -1, InterzonePlayoff, 0, -2);
+		AddMoneyFromComp(_this, (BYTE*)club, prizeMoneyFile.GetInt("uefa_uel_groups_qualify"), 0, -1, LeagueStage, 0, -2);
 	}
 
 	WORD year = comp_data->year;
@@ -873,7 +873,7 @@ void uefa_europa_league_group_stage_setup(BYTE* _this) {
 			bool multiple = false;
 			if (n_tries > 255)
 			{
-				if (n_tries == 256 && m == 0) dprintf("[UEL] Tried to make draw without teams from the same country facing each other, but failed.\n");
+				//if (n_tries == 256 && m == 0) dprintf("[UEL] Tried to make draw without teams from the same country facing each other, but failed.\n");
 				multiple = pot_nations[club->ClubNation] > 3;
 			}
 
@@ -1141,7 +1141,7 @@ int uefa_europa_league_set_fates(BYTE* _this, cm3_clubs* club, char fate, char s
 		WORD current_round = *(WORD*)(round_data + 0x34);
 		switch (fate) {
 		case TopPlayoff:
-			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, InterzonePlayoff, 0x1E);
+			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, LeagueStage, 0x1E);
 			return 0;
 		case Promoted:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
@@ -1175,7 +1175,7 @@ int uefa_europa_league_set_fates(BYTE* _this, cm3_clubs* club, char fate, char s
 			// Playoff to Conference League groups (handled in Conference League)
 			else if (stage == -1 && round_idx == 3) {
 				club->ClubEuroFlag = UEFA_CONFERENCE_LEAGUE_9CF();
-				staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(uecl_data->competition_db), None, InterzonePlayoff, 0x1E);
+				staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(uecl_data->competition_db), None, LeagueStage, 0x1E);
 			}
 			else club->ClubEuroFlag = -1;
 			return 0;
@@ -1236,7 +1236,7 @@ int uefa_europa_league_set_fates(BYTE* _this, cm3_clubs* club, char fate, char s
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, KnockoutPlayoff, 0x1E);
 			return 0;
 		default:
-			staff_history_knocked_out_86C000(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, InterzonePlayoff, 0xF);
+			staff_history_knocked_out_86C000(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, LeagueStage, 0xF);
 			club->ClubEuroFlag = -1;
 			return 0;
 		}
