@@ -119,30 +119,31 @@ enum RoundNames : WORD {
 	GrandFinal = 0x168,
 	InterzonePlayoff = 0x172,
 	NumericGroupStage = 0x3E9,
-	SecondPlacedTeams = 0x3FC,
-	FirstRoundNumericGroup = 0x3FD,
-	SecondRoundNumericGroup = 0x407,
-	SemiFinalNumericGroup = 0x40C,
-	CaribbeanZone = 0x40F,
-	CentralAmericanZone = 0x410,
+	BestPlacedTeams = 0x3FC,
+	FirstRoundAlphabeticGroup = 0x3FD,
+	SecondRoundAlphabeticGroup = 0x407,
+	ThirdRoundAlphabeticGroup = 0x40C,
+	LeagueC1to4 = 0x40F,
 	EasternConference = 0x413,
 	WesternConference = 0x414,
 	EasternConferencePlayoff = 0x415,
 	WesternConferencePlayoff = 0x416,
 	MLSCup = 0x417,
-	AutumnSeason = 0x419,
-	SpringSeason = 0x41A,
+	PlayoffGroup12 = 0x418,
+	WorldCupPath1 = 0x41A,
+	WorldCupPath2 = 0x41B,
 	GroupStage = 0x41C,
-	NorthernSouthernSection = 0x41E,
+	LeagueA = 0x41D,
+	LeagueB = 0x41E,
 	AlphabeticGroupStage = 0x420,
-	OceaniaAsiaPlayoff = 0x42F,
+	SecondRoundGroupGtoI = 0x42F,
 	FirstStage = 0x432,
 	SecondStage = 0x433,
 	AperturaPlayoffs = 0x434,
 	ClausuraPlayoffs = 0x435,
 	Bayern = 0x436,
 	MainPath = 0x437,
-	Promotion = 0x438,
+	RelegationGroupStage = 0x438,
 	Periods1to4 = 0x439,
 	AperturaGroupsAtoB = 0x43D,
 	FirstStageGoldSilver = 0x43F,
@@ -150,7 +151,8 @@ enum RoundNames : WORD {
 	RPLPath = 0x443,
 	RegionsPath = 0x444,
 	ClausuraGroupsAtoB = 0x445,
-	Phase2GroupCtoD = 0x447,
+	LeagueC = 0x447,
+	LeagueD = 0x448,
 	AperturaGroupStage = 0x449,
 	ClausuraGroupStage = 0x44A,
 	ChampionshipGroup = 0x44B,
@@ -164,22 +166,18 @@ enum RoundNames : WORD {
 	South = 0x456,
 	Central = 0x457,
 	PromotionPlayoff = 0x458,
-	FirstPromotionPlayoff = 0x459,
-	SecondPromotionPlayoff = 0x45A,
-	ThirdPromotionPlayoff = 0x45B,
-	RelegationGroupStage = 0x45C,
+	LeagueB1to4 = 0x459,
 	EastSvealand = 0x46D,
 	WestSvealand = 0x46E,
 	EastGotaland = 0x46F,
 	WestGotaland = 0x470,
 	SouthGotaland = 0x471,
-	SecondRoundGroup6 = 0x472,
-	CentralAmericanZoneGroup1 = 0x473,
-	ClassificationGroup1to5 = 0x475,
-	ClassificationGroups = 0x47A,
+	SecondRoundGroupF = 0x472,
+	LeagueD1to2 = 0x473,
+	LeagueA1to6 = 0x475,
 	CentralConference = 0x47B,
 	RelegationGroupAtoB = 0x47C,
-	ThirdRoundNumericGroup = 0x47E,
+	FourthRoundAlphabeticGroup = 0x47E,
 	EastWest = 0x480,
 	ChampionsPath = 0x482,
 	LeaguePath = 0x483
@@ -795,7 +793,7 @@ typedef struct TEAM_LEAGUE_STATS
 {
 	CM3_CLUBS* club;			// 0
 	char current_pos;			// 4
-	char pad4[4];				// 5
+	DWORD f4;					// 5
 	DWORD position_history;		// 9
 	char pad13[4];				// 13
 	char games;					// 17
@@ -991,7 +989,9 @@ extern uefa_seedings** uefa_seeding_list;
 
 extern DWORD* b5e134;
 extern DWORD* b74340;
+extern DWORD* b74318;
 extern DWORD* b67a44;
 extern DWORD* ae1050;
 extern DWORD* ad9c60;
 extern DWORD* ae2a38;
+extern DWORD* ae28f0;

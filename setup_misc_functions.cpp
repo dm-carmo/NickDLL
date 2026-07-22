@@ -3,6 +3,7 @@
 #include <Helpers/9cf_constants.h>
 #include <Helpers/generic_functions.h>
 #include "Helpers/Helper.h"
+#include <Helpers/constants.h>
 
 static WORD(*rgb_to_word_5E4800)(unsigned char a1, unsigned char a2, unsigned char a3, DWORD* a4) =
 (WORD(*)(unsigned char a1, unsigned char a2, unsigned char a3, DWORD * a4))(0x5E4800);
@@ -105,16 +106,17 @@ int show_extra_leagues_in_start(BYTE* nation, DWORD dest_ptr, int a3) {
 int parent_child_stages(int child_stage_id) {
 	if (child_stage_id >= 0x3e8 && child_stage_id <= 0x3fb) return GroupStage;
 	if (child_stage_id >= 0x41f && child_stage_id <= 0x42e) return GroupStage;
-	if (child_stage_id == EasternConference) return GroupStage;
-	if (child_stage_id == WesternConference) return GroupStage;
-	if (child_stage_id == CentralConference) return GroupStage;
-	if (child_stage_id == SecondPlacedTeams) return GroupStage;
-	if (child_stage_id >= 0x473 && child_stage_id <= 0x474) return CentralAmericanZone;
-	if (child_stage_id >= 0x475 && child_stage_id <= 0x479) return ClassificationGroups;
+	if (child_stage_id == EasternConference || child_stage_id == WesternConference || child_stage_id == CentralConference) return GroupStage;
+	//if (child_stage_id == BestPlacedTeams) return GroupStage;
+	if (child_stage_id >= 0x475 && child_stage_id <= 0x47A) return LeagueA;
+	if (child_stage_id >= 0x459 && child_stage_id <= 0x45C) return LeagueB;
+	if (child_stage_id >= 0x40F && child_stage_id <= 0x412) return LeagueC;
+	if (child_stage_id >= 0x473 && child_stage_id <= 0x474) return LeagueD;
 	if (child_stage_id >= 0x3fd && child_stage_id <= 0x406) return FirstRound;
-	if ((child_stage_id >= 0x407 && child_stage_id <= 0x40B) || child_stage_id == SecondRoundGroup6) return SecondRound;
-	if (child_stage_id >= 0x47e && child_stage_id <= 0x47f) return ThirdRound;
-	if (child_stage_id >= 0x40c && child_stage_id <= 0x40e) return SemiFinal;
+	if ((child_stage_id >= 0x407 && child_stage_id <= 0x40B) || child_stage_id == SecondRoundGroupF ||
+		(child_stage_id >= 0x42f && child_stage_id <= 0x431)) return SecondRound;
+	if (child_stage_id >= 0x47e && child_stage_id <= 0x47f) return FourthRound;
+	if (child_stage_id >= 0x40c && child_stage_id <= 0x40e) return ThirdRound;
 	//if (child_stage_id >= 0x43d && child_stage_id <= 0x43e) return AperturaGroupStage;
 	//if (child_stage_id >= 0x445 && child_stage_id <= 0x446) return ClausuraGroupStage;
 	if (child_stage_id >= 0x44d && child_stage_id <= 0x450) return PromotionGroupStage;
@@ -800,6 +802,367 @@ extern "C" _declspec(naked) void player_gain_nationality_c()
 	}
 }
 
+void __declspec(naked) show_wing_back_position()
+{
+	__asm
+	{
+		mov eax, dword ptr ss : [esp + 0x11b8]
+		movsx ecx, byte ptr ds : [eax + 0x16]
+		cmp ecx, ebp
+		jl end_func
+		cmp bl, 0x1
+		jnz bl_not_1
+		lea edi, dword ptr ss : [esp + 0x14]
+		or ecx, 0xffffffff
+		xor eax, eax
+		repne scas byte ptr es : [edi]
+		not ecx
+		dec ecx
+		je ecx_zero_1
+		mov edi, 0x9b7630
+		or ecx, 0xffffffff
+		repne scas byte ptr es : [edi]
+		not ecx
+		sub edi, ecx
+		lea edx, dword ptr ss : [esp + 0x14]
+		mov esi, edi
+		mov edi, edx
+		mov edx, ecx
+		or ecx, 0xffffffff
+		repne scas byte ptr es : [edi]
+		mov ecx, edx
+		dec edi
+		shr ecx, 0x2
+		rep movs dword ptr es : [edi] , dword ptr ds : [esi]
+		mov ecx, edx
+		and ecx, 0x3
+		rep movs byte ptr es : [edi] , byte ptr ds : [esi]
+		ecx_zero_1 :
+		push 0xad9c64
+		push 0x9b75b9
+		push 0xde1f64
+		push call_1_ret
+		push 0x66f4e0
+		ret
+		call_1_ret :
+		add esp, 0x0c
+			jmp call_1_jmp
+			bl_not_1 :
+		cmp bl, 2
+			je bl_equal_2
+			cmp bl, 3
+			je bl_equal_2
+			lea edi, dword ptr ss : [esp + 0x14]
+			or ecx, 0xffffffff
+			xor eax, eax
+			repne scas byte ptr es : [edi]
+			not ecx
+			dec ecx
+			jnz end_func
+			lea edx, dword ptr ss : [esp + 0x14]
+			mov edi, 0x9b75bc
+			jmp jump_2
+			bl_equal_2 :
+		lea edi, dword ptr ss : [esp + 0x14]
+			or ecx, 0xffffffff
+			xor eax, eax
+			repne scas byte ptr es : [edi]
+			not ecx
+			dec ecx
+			je ecx_zero_2
+			mov edi, 0x9b7630
+			or ecx, 0xffffffff
+			repne scas byte ptr es : [edi]
+			not ecx
+			sub edi, ecx
+			lea edx, dword ptr ss : [esp + 0x14]
+			mov esi, edi
+			mov edi, edx
+			mov edx, ecx
+			or ecx, 0xffffffff
+			repne scas byte ptr es : [edi]
+			mov ecx, edx
+			dec edi
+			shr ecx, 0x2
+			rep movs dword ptr es : [edi] , dword ptr ds : [esi]
+			mov ecx, edx
+			and ecx, 0x3
+			rep movs byte ptr es : [edi] , byte ptr ds : [esi]
+			ecx_zero_2 :
+			push 0xa85892
+			push 0xde1f64
+			push call_2_ret
+			push 0x66f4e0
+			ret
+			call_2_ret :
+		add esp, 0x8
+			call_1_jmp :
+			lea edx, dword ptr ss : [esp + 0x14]
+			mov edi, 0xde1f64
+			jump_2 :
+			or ecx, 0xffffffff
+			xor eax, eax
+			repne scas byte ptr es : [edi]
+			not ecx
+			sub edi, ecx
+			mov esi, edi
+			mov edi, edx
+			mov edx, ecx
+			or ecx, 0xffffffff
+			repne scas byte ptr es : [edi]
+			mov ecx, edx
+			dec edi
+			shr ecx, 0x2
+			rep movs dword ptr es : [edi] , dword ptr ds : [esi]
+			mov ecx, edx
+			and ecx, 0x3
+			rep movs byte ptr es : [edi] , byte ptr ds : [esi]
+			end_func :
+			mov eax, dword ptr ss : [esp + 0x11b8]
+			push 0x53f2d4
+			ret
+	}
+}
+
+bool is_continental_qualifiers(cm3_club_comps* comp) {
+	if (!comp) return false;
+	DWORD id = comp->ClubCompID;
+	if (id == WORLD_CUP_AFC_QUALIFYING_9CF()) return true;
+	if (id == WORLD_CUP_OFC_QUALIFYING_9CF()) return true;
+	if (id == WORLD_CUP_CAF_QUALIFYING_9CF()) return true;
+	if (id == WORLD_CUP_CONCACAF_QUALIFYING_9CF()) return true;
+	if (id == WORLD_CUP_CONMEBOL_QUALIFYING_9CF()) return true;
+	if (id == WORLD_CUP_UEFA_QUALIFYING_9CF()) return true;
+	if (id == WORLD_CUP_PLAYOFFS_9CF()) return true;
+	if (id == UEFA_EURO_QUALIFYING_9CF()) return true;
+	if (id == ASIAN_CUP_QUALIFYING_9CF()) return true;
+	if (id == AFRICAN_CUP_OF_NATIONS_QUALIFYING_9CF()) return true;
+	if (id == CONCACAF_NATIONS_LEAGUE_9CF()) return true;
+	return false;
+}
+
+bool is_continental_finals(cm3_club_comps* comp) {
+	if (!comp) return false;
+	DWORD id = comp->ClubCompID;
+	if (id == OFC_NATIONS_CUP_9CF()) return true;
+	if (id == GOLD_CUP_9CF()) return true;
+	if (id == COPA_AMERICA_9CF()) return true;
+	if (id == ASIAN_CUP_9CF()) return true;
+	if (id == AFRICAN_CUP_OF_NATIONS_9CF()) return true;
+	if (id == UEFA_EURO_9CF()) return true;
+	return false;
+}
+
+bool is_youth_competition(cm3_club_comps* comp) {
+	if (!comp) return false;
+	DWORD id = comp->ClubCompID;
+	if (id == OLYMPIC_GAMES_9CF()) return true;
+	return false;
+}
+
+static __int16(__thiscall* update_ranking)(BYTE* _this, cm3_nations* nation, __int16 a3, BYTE* match_data) =
+(__int16(__thiscall*)(BYTE * _this, cm3_nations * nation, __int16 a3, BYTE * match_data))(0x58DEA0);
+void update_fifa_coefficients(BYTE* _this, BYTE* match_data) {
+	cm3_club_comps* comp = (cm3_club_comps*)*(DWORD*)(match_data + 0x14);
+	if (!comp) return;
+	if (is_youth_competition(comp)) return;
+	cm3_stadiums* stadium = (cm3_stadiums*)*(DWORD*)(match_data + 0x18);
+	cm3_clubs* home_team = (cm3_clubs*)*(DWORD*)(match_data + 0x1C);
+	if (!home_team->ClubNation) return;
+	cm3_clubs* away_team = (cm3_clubs*)*(DWORD*)(match_data + 0x20);
+	if (!away_team->ClubNation) return;
+	WORD main_stage_id = *(WORD*)(match_data + 0x32);
+	WORD sub_stage_id = *(WORD*)(match_data + 0x30);
+	char goals_home = *(char*)(match_data + 0x47);
+	char goals_away;
+	if (goals_home == -1) {
+		goals_home = *(char*)(match_data + 0x43);
+		goals_away = *(char*)(match_data + 0x44);
+	}
+	else goals_away = *(char*)(match_data + 0x48);
+
+	int importance = 10;
+	// if Nations League && group stage, importance = 15
+	// if Nations League && playoffs, importance = 25
+	if (comp->ClubCompID == UEFA_NATIONS_LEAGUE_9CF()) {
+		if (sub_stage_id == QuarterFinal || sub_stage_id == SemiFinal || sub_stage_id == Final || sub_stage_id == ThirdPlacePlayoff || main_stage_id == ThirdPlacePlayoff) importance = 25;
+		else importance = 15;
+	}
+	// if World Cup qualifiers or confederation qualifiers, importance = 25
+	if (is_continental_qualifiers(comp)) importance = 25;
+	// if confederation finals (before quarter-finals), importance = 35
+	// if confederation finals (quarter-finals and later), importance = 40
+	if (is_continental_finals(comp)) {
+		if (sub_stage_id == QuarterFinal || sub_stage_id == SemiFinal || sub_stage_id == Final || sub_stage_id == ThirdPlacePlayoff || main_stage_id == ThirdPlacePlayoff) importance = 40;
+		else importance = 30;
+	}
+	// if World Cup (before quarter-finals), importance = 50
+	// if World Cup (quarter-finals and later), importance = 60
+	if (comp->ClubCompID == FIFA_WORLD_CUP_9CF()) {
+		if (sub_stage_id == QuarterFinal || sub_stage_id == SemiFinal || sub_stage_id == Final || sub_stage_id == ThirdPlacePlayoff || main_stage_id == ThirdPlacePlayoff) importance = 60;
+		else importance = 50;
+	}
+	float result_home = 0;
+	float result_away = 0;
+	// if draw or penalty loss, result = 0.5
+	if (goals_home == goals_away) {
+		result_home = 0.5;
+		result_away = 0.5;
+	}
+	// if penalty win, result = 0.75
+	// if win, result = 1
+	else {
+		result_home = (goals_home > goals_away);
+		result_away = (goals_away > goals_home);
+	}
+	float rating_home = getFIFARankingPoints(home_team->ClubNation);
+	float rating_away = getFIFARankingPoints(away_team->ClubNation);
+	float diff = rating_home - rating_away;
+	// 1 divided by (10 ^ -(rating_diff / 600) + 1)
+	float expected_home = (float)(1 / (pow(10, -diff / 600) + 1));
+	float expected_away = (float)(1 / (pow(10, diff / 600) + 1));
+
+	// full formula: P = Pbefore + I * (W - We)
+	float new_rating_home = rating_home + importance * (result_home - expected_home);
+	if (new_rating_home < 0) new_rating_home = 0;
+	float new_rating_away = rating_away + importance * (result_away - expected_away);
+	if (new_rating_away < 0) new_rating_away = 0;
+
+	// check if World Cup or main continental comp, and if knockout rounds, don't lower rating?
+	setFIFARankingPoints(home_team->ClubNation, new_rating_home);
+	setFIFARankingPoints(away_team->ClubNation, new_rating_away);
+}
+
+void __declspec(naked) update_fifa_coefficients_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x4]
+		push ecx
+		call update_fifa_coefficients
+		add esp, 0x8
+		ret 4
+	}
+}
+
+char* lga_groups_drawn = "{}<%s - competition name(e.g.Champions League)>{} League A groups drawn";
+char* lgb_groups_drawn = "{}<%s - competition name(e.g.Champions League)>{} League B groups drawn";
+char* lgc_groups_drawn = "{}<%s - competition name(e.g.Champions League)>{} League C groups drawn";
+char* lgd_groups_drawn = "{}<%s - competition name(e.g.Champions League)>{} League D groups drawn";
+char* st1_groups_drawn = "{}<%s - competition name(e.g.Champions League)>{} 1st stage groups drawn";
+char* st2_groups_drawn = "{}<%s - competition name(e.g.Champions League)>{} 2nd stage groups drawn";
+void __declspec(naked) fixed_groups_drawn_news_title()
+{
+	__asm
+	{
+		cmp eax, LeagueA
+		jnz league_b_case
+		lea eax, dword ptr ds : [edi + edi * 2]
+		lea edx, dword ptr ds : [eax + eax * 8]
+		mov eax, dword ptr ds : [0xae23d0]
+		shl edx, 2
+		sub edx, edi
+		add eax, edx
+		movsx ecx, byte ptr ds : [eax + 0x52]
+		add eax, 0x38
+		push eax
+		push ecx
+		push ecx
+		push lga_groups_drawn
+		push 0x77fd5a
+		ret
+		league_b_case :
+		cmp eax, LeagueB
+			jnz league_c_case
+			lea eax, dword ptr ds : [edi + edi * 2]
+			lea edx, dword ptr ds : [eax + eax * 8]
+			mov eax, dword ptr ds : [0xae23d0]
+			shl edx, 2
+			sub edx, edi
+			add eax, edx
+			movsx ecx, byte ptr ds : [eax + 0x52]
+			add eax, 0x38
+			push eax
+			push ecx
+			push ecx
+			push lgb_groups_drawn
+			push 0x77fd5a
+			ret
+			league_c_case :
+		cmp eax, LeagueC
+			jnz league_d_case
+			lea eax, dword ptr ds : [edi + edi * 2]
+			lea edx, dword ptr ds : [eax + eax * 8]
+			mov eax, dword ptr ds : [0xae23d0]
+			shl edx, 2
+			sub edx, edi
+			add eax, edx
+			movsx ecx, byte ptr ds : [eax + 0x52]
+			add eax, 0x38
+			push eax
+			push ecx
+			push ecx
+			push lgc_groups_drawn
+			push 0x77fd5a
+			ret
+			league_d_case :
+		cmp eax, LeagueD
+			jnz stage_1_case
+			lea eax, dword ptr ds : [edi + edi * 2]
+			lea edx, dword ptr ds : [eax + eax * 8]
+			mov eax, dword ptr ds : [0xae23d0]
+			shl edx, 2
+			sub edx, edi
+			add eax, edx
+			movsx ecx, byte ptr ds : [eax + 0x52]
+			add eax, 0x38
+			push eax
+			push ecx
+			push ecx
+			push lgd_groups_drawn
+			push 0x77fd5a
+			ret
+			stage_1_case :
+		cmp eax, FirstStage
+			jnz stage_2_case
+			lea eax, dword ptr ds : [edi + edi * 2]
+			lea edx, dword ptr ds : [eax + eax * 8]
+			mov eax, dword ptr ds : [0xae23d0]
+			shl edx, 2
+			sub edx, edi
+			add eax, edx
+			movsx ecx, byte ptr ds : [eax + 0x52]
+			add eax, 0x38
+			push eax
+			push ecx
+			push ecx
+			push st1_groups_drawn
+			push 0x77fd5a
+			ret
+			stage_2_case :
+		cmp eax, SecondStage
+			jnz generic_group_case
+			lea eax, dword ptr ds : [edi + edi * 2]
+			lea edx, dword ptr ds : [eax + eax * 8]
+			mov eax, dword ptr ds : [0xae23d0]
+			shl edx, 2
+			sub edx, edi
+			add eax, edx
+			movsx ecx, byte ptr ds : [eax + 0x52]
+			add eax, 0x38
+			push eax
+			push ecx
+			push ecx
+			push st2_groups_drawn
+			push 0x77fd5a
+			ret
+			generic_group_case :
+		push 0x77fc5a
+			ret
+	}
+}
+
 void setup_misc_functions()
 {
 	if (configFile.GetBool("competitionColoursPatch", true)) PatchFunction(0x53b7c0, (DWORD)&comp_colours_in_header);
@@ -809,6 +1172,17 @@ void setup_misc_functions()
 	PatchFunction(0x460ec6, (DWORD)&club_pro_status_with_continental_comp_c);
 	PatchFunction(0x460d75, (DWORD)&show_club_country_based);
 	PatchFunction(0x8c5bd2, (DWORD)&player_gain_nationality_c);
+	PatchFunction(0x58CF70, (DWORD)&update_fifa_coefficients_c);
+	// block the old update function
+	WriteBytes(0x58dfc0, 1, 0xc3);
+	WriteDWORD(0x58ddfd + 2, 0x967880);
+	WriteNOP(0x58de05, 6);
+
+	// Show the hidden wing-back position
+	if (configFile.GetBool("showWingBacks", true)) {
+		PatchFunction(0x53f2cd, (DWORD)&show_wing_back_position);
+		WriteBytes(0x9b75b9, 2, 'W', 'B');
+	}
 
 	// Finance changes
 	if (configFile.GetBool("financeTweaks", false)) {
@@ -942,4 +1316,13 @@ void setup_misc_functions()
 
 	// Enable Bosman signings from all countries
 	WriteBytes(0x544677, 1, 0xeb);
+
+	// "groups drawn" news message title adjustment => review this
+	WriteDWORD(0x77fcda + 1, ThirdRound);
+	WriteDWORD(0x77fcfe + 1, (DWORD)&r3_groups_drawn[0]);
+	WriteDWORD(0x77fd05 + 1, FourthRound);
+	WriteDWORD(0x77fd28 + 1, (DWORD)&r4_groups_drawn[0]);
+	PatchFunction(0x77fd2f, (DWORD)&fixed_groups_drawn_news_title);
+	// misspelling
+	WriteBytes(0xa0aa2a, 2, 'y', '\'');
 }

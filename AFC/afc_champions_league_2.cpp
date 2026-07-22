@@ -201,9 +201,10 @@ void afc_cl_2_team_selection() {
 		extra_team = true;
 	}
 	else {
+		vector<DWORD> asia_west = west_asia_nations();
 		chal_lge_winner->ClubEuroFlag = AFC_CHAMPIONS_LEAGUE_TWO_9CF();
 		chal_lge_winner->ClubEuroSeeding = 1;
-		extra_v = find(asia_west.begin(), asia_west.end(), get_db_nation_name(chal_lge_winner->ClubNation)) == asia_west.end();
+		extra_v = find(asia_west.begin(), asia_west.end(), chal_lge_winner->ClubNation->NationID) == asia_west.end();
 	}
 
 	// Remaining teams
@@ -215,13 +216,13 @@ void afc_cl_2_team_selection() {
 	BYTE quals_5[2] = { 0,0 };
 
 	for (int a = 0; a < 2; a++) {
-		vector<string> v;
-		if (a == 0) v = asia_west;
-		else v = asia_east;
+		vector<DWORD> v;
+		if (a == 0) v = west_asia_nations();
+		else v = east_asia_nations();
 		size_t add = extra_team || extra_v != a;
 		for (size_t i = 0; i < v.size(); i++) {
 			if (i >= 12) break;
-			cm3_nations* afc_nation = find_country(v[i].c_str());
+			cm3_nations* afc_nation = get_country(v[i]);
 
 			BYTE* quals;
 			if (i < 6) quals = quals_1;

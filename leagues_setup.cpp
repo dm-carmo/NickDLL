@@ -8,7 +8,7 @@ int replacement_667150() {
 	int idx = 0;
 	pnd_list[idx].nation = 0;
 	pnd_list[idx].continent = 0;
-	pnd_list[idx].setup_function_addr = 0x830620;
+	pnd_list[idx].setup_function_addr = (DWORD)&world_cup_setup_c;
 	convert_to_cm_date(pnd_list[idx].start_date, 1, July, *current_year, -1);
 	convert_to_cm_date(pnd_list[idx].end_date, 1, July, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
@@ -233,12 +233,25 @@ int replacement_667150() {
 	idx++;
 
 	cm_date = new BYTE[8];
-	pnd_list[idx].nation = get_country(NATION_IRELAND_9CF());
-	pnd_list[idx].setup_function_addr = (DWORD)&irl_setup_c;
-	convert_to_cm_date(pnd_list[idx].start_date, 14, February, *current_year + 1, -1);
-	convert_to_cm_date(pnd_list[idx].end_date, 14, November, *current_year + 1, -1);
-	pnd_list[idx].updates_in_june = 0;
-	convert_to_cm_date(cm_date, 1, January, START_YEAR, -1);
+	const char* replace_irl = configFile.GetValue("replaceIrelandWith", "");
+	// use new structure
+	if (strlen(replace_irl) == 0) {
+		pnd_list[idx].nation = get_country(NATION_IRELAND_9CF());
+		pnd_list[idx].setup_function_addr = (DWORD)&irl_setup_c;
+		convert_to_cm_date(pnd_list[idx].start_date, 14, February, *current_year + 1, -1);
+		convert_to_cm_date(pnd_list[idx].end_date, 14, November, *current_year + 1, -1);
+		pnd_list[idx].updates_in_june = 0;
+		convert_to_cm_date(cm_date, 1, January, START_YEAR, -1);
+	}
+	// use old structure, for old-school league replacements
+	else {
+		pnd_list[idx].nation = get_country(Get9CF(stoul(replace_irl, nullptr, 16)));
+		pnd_list[idx].setup_function_addr = 0x834E60;
+		convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
+		convert_to_cm_date(pnd_list[idx].end_date, 10, June, *current_year, -1);
+		pnd_list[idx].updates_in_june = 1;
+		convert_to_cm_date(cm_date, 20, June, START_YEAR, -1);
+	}
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].main_cup = get_comp(IRL_CHALLENGE_CUP_9CF());
 	idx++;
@@ -266,10 +279,20 @@ int replacement_667150() {
 	idx++;
 
 	cm_date = new BYTE[8];
-	pnd_list[idx].nation = get_country(NATION_NORTHERN_IRELAND_9CF());
-	pnd_list[idx].setup_function_addr = (DWORD)&nir_setup_c;
+	const char* replace_nir = configFile.GetValue("replaceNIrelandWith", "");
+	// use new structure
+	if (strlen(replace_nir) == 0) {
+		pnd_list[idx].nation = get_country(NATION_NORTHERN_IRELAND_9CF());
+		pnd_list[idx].setup_function_addr = (DWORD)&nir_setup_c;
+		convert_to_cm_date(pnd_list[idx].end_date, 8, May, *current_year, -1);
+	}
+	// use old structure, for old-school league replacements
+	else {
+		pnd_list[idx].nation = get_country(Get9CF(stoul(replace_nir, nullptr, 16)));
+		pnd_list[idx].setup_function_addr = 0x835C90;
+		convert_to_cm_date(pnd_list[idx].end_date, 10, June, *current_year, -1);
+	}
 	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
-	convert_to_cm_date(pnd_list[idx].end_date, 8, May, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
 	convert_to_cm_date(cm_date, 20, June, START_YEAR, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
@@ -387,10 +410,20 @@ int replacement_667150() {
 	idx++;
 
 	cm_date = new BYTE[8];
-	pnd_list[idx].nation = get_country(NATION_WALES_9CF());
-	pnd_list[idx].setup_function_addr = (DWORD)&wal_setup_c;
+	const char* replace_wal = configFile.GetValue("replaceWalesWith", "");
+	// use new structure
+	if (strlen(replace_wal) == 0) {
+		pnd_list[idx].nation = get_country(NATION_WALES_9CF());
+		pnd_list[idx].setup_function_addr = (DWORD)&wal_setup_c;
+		convert_to_cm_date(pnd_list[idx].end_date, 6, May, *current_year, -1);
+	}
+	// use old structure, for old-school league replacements
+	else {
+		pnd_list[idx].nation = get_country(Get9CF(stoul(replace_wal, nullptr, 16)));
+		pnd_list[idx].setup_function_addr = 0x8383B0;
+		convert_to_cm_date(pnd_list[idx].end_date, 10, June, *current_year, -1);
+	}
 	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
-	convert_to_cm_date(pnd_list[idx].end_date, 6, May, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
 	convert_to_cm_date(cm_date, 20, June, START_YEAR, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);

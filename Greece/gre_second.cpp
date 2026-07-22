@@ -13,7 +13,7 @@ char* gre_second_set_champion(BYTE* _this) {
 	{
 		BYTE* stage_data_for_history = (BYTE*)data->stages[1];
 		DWORD v1 = *(DWORD*)stage_data_for_history;
-		return (*(char*(__thiscall**)(BYTE*))(v1 + 0x30))(stage_data_for_history);
+		return (*(char* (__thiscall**)(BYTE*))(v1 + 0x30))(stage_data_for_history);
 	}
 	else return sub_684640(_this);
 }
@@ -142,7 +142,7 @@ DWORD gre_second_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 			DWORD CompID = data->competition_db->ClubCompID;
 			BYTE numberOfLeagueTeams = 10;
 			*num_rounds = (numberOfLeagueTeams - 1) * data->n_rounds;
-			*stage_name_id = NorthernSouthernSection + stage_idx;
+			*stage_name_id = stage_idx == -1 ? North : South;
 
 			pMem = (BYTE*)sub_944E46_malloc(fixture_dates_sz * (*num_rounds));
 
@@ -632,7 +632,7 @@ int gre_second_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char st
 				switch (fate) {
 				case TopPlayoff:
 					staff_history_champion_868C50(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));
-					if(table[i].league_fate != CantBePromoted) table[i].league_fate = Champions;
+					if (table[i].league_fate != CantBePromoted) table[i].league_fate = Champions;
 					*a5 = 1;
 					return 0;
 				case Promoted:

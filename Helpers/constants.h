@@ -8,12 +8,6 @@ extern int playoff_dates_sz;
 extern int fixture_dates_sz;
 extern int league_team_list_sz;
 
-extern vector<string> asia_east;
-extern vector<string> asia_west;
-extern vector<string> caf_top12;
-extern vector<string> caf_worst;
-extern vector<string> ofc_worst;
-
 extern char* qualified_grp_msg;
 extern char* qualified_grp_title_msg;
 extern char* drop_down_title_msg;
@@ -41,6 +35,18 @@ extern char* qualified_gold_grp_title_msg;
 extern char* qualified_silver_grp_msg;
 extern char* qualified_silver_grp_title_msg;
 extern char* uel_playoff_msg;
+extern char* qualified_best3rd_msg;
+extern char* qualified_wc_playoffs;
+extern char* lge_a;
+extern char* lge_b;
+extern char* lge_c;
+extern char* lge_d;
+extern char* lge_a_short;
+extern char* lge_b_short;
+extern char* lge_c_short;
+extern char* lge_d_short;
+extern char* r3_groups_drawn;
+extern char* r4_groups_drawn;
 
 extern char* register_msg1;
 extern char* register_msg2;

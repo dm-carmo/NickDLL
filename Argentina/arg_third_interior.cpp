@@ -311,7 +311,7 @@ DWORD arg_third_interior_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds,
 		WORD year = data->year;
 		BYTE numberOfLeagueTeams = 10;
 		*num_rounds = (numberOfLeagueTeams - 1) * data->n_rounds;
-		*stage_name_id = FirstRoundNumericGroup + (stage_idx + 1);
+		*stage_name_id = FirstRoundAlphabeticGroup + (stage_idx + 1);
 
 		pMem = (BYTE*)sub_944E46_malloc(fixture_dates_sz * (*num_rounds));
 
@@ -915,6 +915,6 @@ void arg_third_interior_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 void setup_arg_third_interior() {
 	char* rel_grp_text = "Relegation Group Stage";
 	char* rel_grp_text_short = "Rel. Group Stage";
-	WriteDWORD(0x4B665F + 1, (DWORD)&rel_grp_text[0]);
-	WriteDWORD(0x4B915A + 1, (DWORD)&rel_grp_text_short[0]);
+	WriteDWORD(0x4B62B2 + 1, (DWORD)&rel_grp_text[0]);
+	WriteDWORD(0x4B8D9F + 1, (DWORD)&rel_grp_text_short[0]);
 }

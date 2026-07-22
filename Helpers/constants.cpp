@@ -6,90 +6,6 @@ int league_team_list_sz = 59;
 
 using namespace std;
 
-vector<string> asia_east = {
-	"Japan",
-	"South Korea",
-	"China",
-	"Thailand",
-	"Australia",
-	"Malaysia",
-	"Vietnam",
-	"Hong Kong",
-	"Singapore",
-	"The Philippines",
-	"Indonesia",
-	"North Korea",
-	"Cambodia",
-	"Myanmar",
-	"Chinese Taipei",
-	"Mongolia",
-	"Macau",
-	"Laos",
-	"Brunei Darussalam",
-	"Guam",
-	//"Northern Mariana Islands",
-	"Timor",
-};
-
-vector<string> asia_west = {
-	"Saudi Arabia",
-	"United Arab Emirates",
-	"Qatar",
-	"Iran",
-	"Uzbekistan",
-	"Iraq",
-	"Jordan",
-	"Bahrain",
-	"India",
-	"Tajikistan",
-	"Turkmenistan",
-	"Oman",
-	"Lebanon",
-	"Kuwait",
-	"Bangladesh",
-	"Syria",
-	"Kyrgyzstan",
-	"Maldives",
-	"Palestine",
-	"Nepal",
-	"Sri Lanka",
-	"Bhutan",
-	"Afghanistan",
-	"Pakistan",
-	"Yemen",
-};
-
-vector<string> caf_top12 = {
-	"Egypt",
-	"Morocco",
-	"South Africa",
-	"Algeria",
-	"Tanzania",
-	"Tunisia",
-	"Angola",
-	"Democratic Republic of Congo",
-	"Sudan",
-	"Ivory Coast",
-	"Libya",
-	"Nigeria",
-};
-
-vector<string> caf_worst = {
-	"Chad",
-	"Eritrea",
-	"São Tomé & Principe",
-	"Somalia",
-	"Djibouti",
-	"Seychelles",
-};
-
-vector<string> ofc_worst = {
-	"American Samoa",
-	"Cook Islands",
-	"Samoa",
-	"Tonga",
-};
-
 char* qualified_grp_msg = "{}<%s - Team Name(e.g.Ajax)>{} have guaranteed a place in the group stage of the {}<%s - Competition Name(e.g.Champions League)>{}.";
 char* qualified_grp_title_msg = "{}<%s - Team Name(e.g.Ajax)>{} qualify for {}<%s - Competition Name(e.g.Champions League)>{} group stage";
 char* drop_down_title_msg = "{}<%s - Team Name(e.g.Ajax)>{} drop down to {}<%s - Competition Name(e.g.Champions League)>{}";
@@ -117,6 +33,18 @@ char* qualified_gold_grp_title_msg = "{}<%s - Team Name(e.g.Ajax)>{} qualify for
 char* qualified_silver_grp_msg = "{}<%s - Team Name(e.g.Ajax)>{} have qualified for the {}<%s - Competition Name(e.g.Champions League)>{} Second Stage Silver Group.";
 char* qualified_silver_grp_title_msg = "{}<%s - Team Name(e.g.Ajax)>{} qualify for silver group";
 char* uel_playoff_msg = "{}<%s - Team Name(e.g.Ajax)>{} through to Playoff";
+char* qualified_best3rd_msg = "{}<%s - Team Name(e.g.Ajax)>{} have finished as one of the best third placed teams in the {}<%s - Competition Name(e.g.Champions League)>{} tournament.";
+char* qualified_wc_playoffs = "Qualified For Play-Offs";
+char* lge_a = "League A";
+char* lge_b = "League B";
+char* lge_c = "League C";
+char* lge_d = "League D";
+char* lge_a_short = "Lge A";
+char* lge_b_short = "Lge B";
+char* lge_c_short = "Lge C";
+char* lge_d_short = "Lge D";
+char* r3_groups_drawn = "{}<%s - competition name(e.g.Champions League)>{} 3rd round groups drawn";
+char* r4_groups_drawn = "{}<%s - competition name(e.g.Champions League)>{} 4th round groups drawn";
 
 char* register_msg1 = "{}<%s - Club Name(e.g.Chelsea)>{} may register one more player to be eligible for the group stage of the {}<%s - Competition Name(e.g.UEFA Cup)>{}.";
 char* register_msg2 = "{}<%s - Club Name(e.g.Chelsea)>{} may register <%d - number(e.g.2)> more players to be eligible for the group stage of the {}<%s - Competition Name(e.g.UEFA Cup)>{}.";

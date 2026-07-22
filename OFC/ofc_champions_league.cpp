@@ -163,8 +163,9 @@ void ofc_cl_team_selection() {
 	reset_club_euro_flags(OCEANIA_9CF());
 
 	vector<cm3_nations*> ofc_nations = get_countries_of_continent(OCEANIA_9CF());
+	vector<DWORD> bottom4 = ofc_bottom_4_nations();
 	for (cm3_nations* ofc_nation : ofc_nations) {
-		bool in_prelim = find(ofc_worst.begin(), ofc_worst.end(), get_db_nation_name(ofc_nation)) != ofc_worst.end();
+		bool in_prelim = find(bottom4.begin(), bottom4.end(), ofc_nation->NationID) != bottom4.end();
 		BYTE j = 0;
 		if (filesystem::exists("Data/ofc.cfg") && *current_year == (WORD)START_YEAR) {
 			ifstream in("Data/ofc.cfg", ios_base::in);

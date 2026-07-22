@@ -5,7 +5,7 @@
 
 void belgium_awards(BYTE* _this, int a2) {
 	DWORD edi = *(DWORD*)(_this + 0x13);
-	*(WORD*)(_this + 0x8) = 18;
+	*(WORD*)(_this + 0x8) = 17;
 
 	DWORD* awards_list = (DWORD*)sub_944E46_malloc(*(WORD*)(_this + 0x8) * 4);
 	*(DWORD*)(_this + 0x4) = (DWORD)awards_list;
@@ -18,10 +18,6 @@ void belgium_awards(BYTE* _this, int a2) {
 
 	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, BEL_GOLDEN_BOOT_9CF(), 5000, 2500, -1, 0, 0, 0, a2, 1);
-	awards_list[i++] = (DWORD)pMem;
-
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
-	yearly_person_award_setup_92FE80(pMem, edi, i, BEL_EBONY_BOOT_9CF(), 4000, 2500, -1, 0, 0, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
@@ -113,7 +109,6 @@ char bel_awards_2(BYTE* _this, DWORD current_date) {
 	if (date_year == *(WORD*)(current_date + 2) && date_day == *(WORD*)(current_date)) {
 		BYTE* ad9c60_ptr = (BYTE*)*ad9c60;
 		yearly_player_award_nominate_7683C0(_this, current_date, awards_list[1], *(DWORD*)(ad9c60_ptr + 0xc), -1, NATION_BELGIUM_9CF(), -1, -1, -1, 0, -1);
-		yearly_player_award_nominate_768720(_this, current_date, awards_list[2], *(DWORD*)(ad9c60_ptr + 0xc), AFRICA_9CF(), 0, 1, 0);
 	}
 	cm_date = new BYTE[8];
 	convert_to_cm_date(cm_date, 6, June, *(WORD*)(current_date + 2), -1);
@@ -122,17 +117,17 @@ char bel_awards_2(BYTE* _this, DWORD current_date) {
 	//DWORD leap = *(DWORD*)(cm_date + 4);
 	if (date_year == *(WORD*)(current_date + 2) && date_day == *(WORD*)(current_date)) {
 		yearly_staff_award_nominate_768940(_this, current_date, awards_list[0], BEL_FIRST_9CF());
-		yearly_player_award_nominate_768CF0(_this, BEL_FIRST_9CF(), current_date, awards_list[3], -1, 0, 17, -1, -1, -1, -1);
-		yearly_player_award_nominate_768CF0(_this, BEL_FIRST_9CF(), current_date, awards_list[4], 23, 0, 17, -1, -1, -1, -1);
-		yearly_player_award_nominate_768CF0(_this, BEL_FIRST_9CF(), current_date, awards_list[6], -1, 0, 2, -1, -1, -1, -1);
-		yearly_player_award_nominate_768CF0(_this, BEL_FIRST_9CF(), current_date, awards_list[7], -1, 1, 17, -1, -1, -1, -1);
-		yearly_player_award_nominate_768CF0(_this, BEL_FIRST_9CF(), current_date, awards_list[8], 23, 0, 17, -1, -1, -1, -1);
-		yearly_player_award_nominate_768CF0(_this, BEL_SECOND_9CF(), current_date, awards_list[10], -1, 0, 2, -1, -1, -1, -1);
-		yearly_player_award_nominate_768CF0(_this, BEL_SECOND_9CF(), current_date, awards_list[11], 23, 0, 17, -1, -1, -1, -1);
-		yearly_player_award_nominate_768CF0(_this, BEL_THIRD_VV_9CF(), current_date, awards_list[13], -1, 0, 2, -1, -1, -1, -1);
-		yearly_player_award_nominate_768CF0(_this, BEL_THIRD_VV_9CF(), current_date, awards_list[14], 23, 0, 17, -1, -1, -1, -1);
-		yearly_player_award_nominate_768CF0(_this, BEL_THIRD_ACFF_9CF(), current_date, awards_list[16], -1, 0, 2, -1, -1, -1, -1);
-		yearly_player_award_nominate_768CF0(_this, BEL_THIRD_ACFF_9CF(), current_date, awards_list[17], 23, 0, 17, -1, -1, -1, -1);
+		yearly_player_award_nominate_768CF0(_this, BEL_FIRST_9CF(), current_date, awards_list[2], -1, 0, 17, -1, -1, -1, -1);
+		yearly_player_award_nominate_768CF0(_this, BEL_FIRST_9CF(), current_date, awards_list[3], 23, 0, 17, -1, -1, -1, -1);
+		yearly_player_award_nominate_768CF0(_this, BEL_FIRST_9CF(), current_date, awards_list[5], -1, 0, 2, -1, -1, -1, -1);
+		yearly_player_award_nominate_768CF0(_this, BEL_FIRST_9CF(), current_date, awards_list[6], -1, 1, 17, -1, -1, -1, -1);
+		yearly_player_award_nominate_768CF0(_this, BEL_FIRST_9CF(), current_date, awards_list[7], 23, 0, 17, -1, -1, -1, -1);
+		yearly_player_award_nominate_768CF0(_this, BEL_SECOND_9CF(), current_date, awards_list[9], -1, 0, 2, -1, -1, -1, -1);
+		yearly_player_award_nominate_768CF0(_this, BEL_SECOND_9CF(), current_date, awards_list[10], 23, 0, 17, -1, -1, -1, -1);
+		yearly_player_award_nominate_768CF0(_this, BEL_THIRD_VV_9CF(), current_date, awards_list[12], -1, 0, 2, -1, -1, -1, -1);
+		yearly_player_award_nominate_768CF0(_this, BEL_THIRD_VV_9CF(), current_date, awards_list[13], 23, 0, 17, -1, -1, -1, -1);
+		yearly_player_award_nominate_768CF0(_this, BEL_THIRD_ACFF_9CF(), current_date, awards_list[15], -1, 0, 2, -1, -1, -1, -1);
+		yearly_player_award_nominate_768CF0(_this, BEL_THIRD_ACFF_9CF(), current_date, awards_list[16], 23, 0, 17, -1, -1, -1, -1);
 	}
 	return sub_768310(_this, current_date);
 }
@@ -152,19 +147,19 @@ void __declspec(naked) bel_awards_2_c()
 
 void bel_awards_team_of_week(BYTE* _this, DWORD award_addr) {
 	DWORD* awards_list = (DWORD*)*(DWORD*)(_this + 0x4);
-	if (award_addr == awards_list[5]) {
+	if (award_addr == awards_list[4]) {
 		sub_769C70(_this, BEL_FIRST_9CF(), award_addr);
 		return;
 	}
-	if (award_addr == awards_list[9]) {
+	if (award_addr == awards_list[8]) {
 		sub_769C70(_this, BEL_SECOND_9CF(), award_addr);
 		return;
 	}
-	if (award_addr == awards_list[12]) {
+	if (award_addr == awards_list[11]) {
 		sub_769C70(_this, BEL_THIRD_VV_9CF(), award_addr);
 		return;
 	}
-	if (award_addr == awards_list[15]) {
+	if (award_addr == awards_list[14]) {
 		sub_769C70(_this, BEL_THIRD_ACFF_9CF(), award_addr);
 		return;
 	}

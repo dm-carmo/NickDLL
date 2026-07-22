@@ -9,6 +9,7 @@
 #include <vector>
 #include <set>
 #include <algorithm>
+#include <tchar.h>
 
 #include "Structures\CMHeader.h"
 #include "Helpers\generic_functions.h"
@@ -70,6 +71,52 @@ void Setup()
 	WriteBytes(0x5448aa, 2, 0x00, 0x75);
 #endif 
 
+	///BEGIN add Windows 95 compatibility + run as admin
+	TCHAR exePath[MAX_PATH + 1];
+	DWORD len = GetModuleFileName(NULL, exePath, MAX_PATH);
+	if (len > 0) {
+		HKEY hKey;
+		LPCTSTR sk = TEXT("Software\\Microsoft\\Windows NT\\CurrentVersion\\AppCompatFlags\\Layers");
+
+		LONG openRes = RegOpenKeyEx(
+			HKEY_CURRENT_USER,
+			sk,
+			0,
+			KEY_WRITE,
+			&hKey);
+
+		if (openRes == ERROR_SUCCESS) {
+			dprintf("Success opening key.\n");
+
+			//LPCTSTR value = exePath;
+			LPCTSTR data = TEXT("WIN95 RUNASADMIN\0");
+
+			LONG setRes = RegSetKeyValue(hKey, NULL, exePath, REG_SZ, (LPBYTE)data, (_tcslen(data) + 1) * sizeof(TCHAR));
+
+			if (setRes == ERROR_SUCCESS) {
+				dprintf("Success writing to registry.\n");
+
+				//RegDeleteKey(hKey, sk);
+
+				LONG closeOut = RegCloseKey(hKey);
+
+				if (closeOut == ERROR_SUCCESS) {
+					dprintf("Success closing key.\n");
+				}
+				else {
+					dprintf("Error closing key.\n");
+				}
+			}
+			else {
+				dprintf("Error writing to registry. %d\n", setRes);
+			}
+		}
+		else {
+			dprintf("Error opening key.\n");
+		}
+	}
+	///END
+
 	bool result = configFile.LoadConfig("NickDLL_config.json");
 	result = prizeMoneyFile.LoadConfig("NickDLL_prize_money.json");
 
@@ -97,14 +144,20 @@ void Setup()
 	setup_gre_nation();
 	dprintf("Applying Holland changes\n");
 	setup_hol_nation();
-	dprintf("Applying Ireland changes\n");
-	setup_irl_nation();
+	if (strlen(configFile.GetValue("replaceIrelandWith", "")) == 0)
+	{
+		dprintf("Applying Ireland changes\n");
+		setup_irl_nation();
+	}
 	dprintf("Applying Italy changes\n");
 	setup_ita_nation();
 	dprintf("Applying Japan changes\n");
 	setup_jpn_nation();
-	dprintf("Applying Northern Ireland changes\n");
-	setup_nir_nation();
+	if (strlen(configFile.GetValue("replaceNIrelandWith", "")) == 0)
+	{
+		dprintf("Applying Northern Ireland changes\n");
+		setup_nir_nation();
+	}
 	dprintf("Applying Norway changes\n");
 	setup_nor_nation();
 	dprintf("Applying Poland changes\n");
@@ -125,8 +178,11 @@ void Setup()
 	setup_tur_nation();
 	dprintf("Applying USA changes\n");
 	setup_usa_nation();
-	dprintf("Applying Wales changes\n");
-	setup_wal_nation();
+	if (strlen(configFile.GetValue("replaceWalesWith", "")) == 0)
+	{
+		dprintf("Applying Wales changes\n");
+		setup_wal_nation();
+	}
 
 	dprintf("------------------------------\n");
 	dprintf("New nation: Austria\n");
@@ -143,6 +199,8 @@ void Setup()
 	setup_sui_nation();
 	dprintf("------------------------------\n");
 
+	dprintf("Applying FIFA changes (World Cup)\n");
+	setup_world_cup_comps();
 	dprintf("Applying FIFA changes (club comps)\n");
 	setup_fifa_club_comps();
 	dprintf("Applying AFC changes\n");

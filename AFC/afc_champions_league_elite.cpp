@@ -213,12 +213,12 @@ void afc_cl_elite_team_selection() {
 	BYTE quals_6[2] = { 0,0 };
 
 	for (int a = 0; a < 2; a++) {
-		vector<string> v;
-		if (a == 0) v = asia_west;
-		else v = asia_east;
+		vector<DWORD> v;
+		if (a == 0) v = west_asia_nations();
+		else v = east_asia_nations();
 		for (size_t i = 0; i < v.size(); i++) {
 			if (i >= 6) break;
-			cm3_nations* afc_nation = find_country(v[i].c_str());
+			cm3_nations* afc_nation = get_country(v[i]);
 
 			BYTE* quals;
 			if (i < 1) quals = quals_1;

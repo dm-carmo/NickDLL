@@ -91,7 +91,7 @@ void fifa_club_world_cup_subs(BYTE* _this)
 	comp_data->n_rounds = 1;
 	comp_data->pts_for_win = 3;
 	comp_data->pts_for_draw = 1;
-	comp_data->f196 = 8;
+	comp_data->f196 = 23;
 	comp_data->comp_type = CLUB_INTERNATIONAL;
 	comp_data->tiebreaker_1 = CurrentPositionTiebreaker;
 	comp_data->tiebreaker_2 = GoalDifferenceTiebreaker;
@@ -202,15 +202,15 @@ DWORD fifa_club_world_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds
 		if (stage_idx < 1) {
 			AddFixture(pMem, fixture_id, Date(year, 6, 15), year, Sunday, Afternoon, VenueUnknown_1);
 			AddFixtureTV(pMem, fixture_id, 0, 1, Sunday, Morning, LargestStadium2);
-			AddFixtureTV(pMem, fixture_id, 1, 1, Sunday, Evening, LargestStadium1);
+			AddFixtureTV(pMem, fixture_id, 1, 1, Sunday, Evening, LargestStadium9);
 			AddFixtureTV(pMem, fixture_id++, 2);
 			AddFixture(pMem, fixture_id, Date(year, 6, 19), year, Thursday, Afternoon, VenueUnknown_1);
 			AddFixtureTV(pMem, fixture_id, 0, 1, Thursday, Morning, LargestStadium2);
-			AddFixtureTV(pMem, fixture_id, 1, 1, Thursday, Evening, LargestStadium1);
+			AddFixtureTV(pMem, fixture_id, 1, 1, Thursday, Evening, LargestStadium9);
 			AddFixtureTV(pMem, fixture_id++, 2);
 			AddFixture(pMem, fixture_id, Date(year, 6, 23), year, Monday, Afternoon, VenueUnknown_1);
 			AddFixtureTV(pMem, fixture_id, 0, 1, Monday, Afternoon, LargestStadium2);
-			AddFixtureTV(pMem, fixture_id, 1, 1, Monday, Afternoon, LargestStadium1);
+			AddFixtureTV(pMem, fixture_id, 1, 1, Monday, Afternoon, LargestStadium9);
 			AddFixtureTV(pMem, fixture_id++, 2);
 		}
 		else if (stage_idx < 3) {
@@ -272,29 +272,29 @@ DWORD fifa_club_world_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds
 		int tv_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 6, 27), year, Friday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 6, 28), year, Saturday, Afternoon, VenueUnknown_1);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Tuesday, Afternoon, LargestStadium7);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Monday, Afternoon, LargestStadium9);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Sunday, Afternoon, LargestStadium4);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Saturday, Afternoon, LargestStadium1);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Tuesday, Morning, LargestStadium8);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Monday, Morning, LargestStadium6);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Sunday, Morning, NationalStadium);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Saturday, Morning, LargestStadium2);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Tuesday, Afternoon, LargestStadium7);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Monday, Afternoon, LargestStadium9);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Sunday, Afternoon, LargestStadium1);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Saturday, Afternoon, LargestStadium4);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Tuesday, Morning, LargestStadium8);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Monday, Morning, LargestStadium6);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Sunday, Morning, LargestStadium3);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Saturday, Morning, NationalStadium);
 		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, FixedTeamOrderInCup2 + ExtraTimePenalties_1, NoTiebreak_2, 23, 16, 8, 16, 0, 0, 1, 0, prizeMoneyFile.GetInt("fifa_cwc_r16_qualify"));
 		tv_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 2), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 4), year, Friday, Afternoon, VenueUnknown_1);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Saturday, Afternoon, LargestStadium1);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Friday, Afternoon, NationalStadium);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Saturday, Morning, LargestStadium3);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Friday, Morning, LargestStadium5);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Saturday, Afternoon, LargestStadium2);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Friday, Afternoon, LargestStadium6);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Saturday, Morning, LargestStadium3);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Friday, Morning, LargestStadium5);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++);
 		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup2 + ExtraTimePenalties_1, NoTiebreak_2, 23, 8, 4, 0, 0, 0, 1, 0, prizeMoneyFile.GetInt("fifa_cwc_qtr_qualify"));
 		tv_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 6), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 8), year, Tuesday, Afternoon, VenueUnknown_1);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Wednesday, Afternoon, NationalStadium);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Tuesday, Afternoon, LargestStadium1);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Wednesday, Afternoon, LargestStadium2);
+		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Tuesday, Afternoon, LargestStadium1);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++);
 		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup2 + ExtraTimePenalties_1, NoTiebreak_2, 23, 4, 2, 0, 0, 0, 1, 0, prizeMoneyFile.GetInt("fifa_cwc_semi_qualify"));
 
@@ -530,10 +530,10 @@ void fifa_club_world_cup_all_teams(BYTE* _this) {
 	}
 	// Host (1)
 	cm3_clubs* host_club = 0;
-	DWORD host1_id, host2_id;
-	get_host_ids_5FA730((BYTE*)*b5e134, data->competition_db->ClubCompID, year, &host1_id, &host2_id, 1);
+	DWORD host1_id = -1, host2_id = -1;
+	char num_hosts = get_host_ids_5FA730((BYTE*)*b5e134, data->competition_db->ClubCompID, year, &host1_id, &host2_id, 1);
 	cm3_nations* host;
-	if (host1_id == (DWORD)-1) host = get_country(NATION_QATAR_9CF());
+	if (num_hosts < 1) host = get_country(NATION_QATAR_9CF());
 	else host = host = get_country(host1_id);
 	high_rep_clubs = find_clubs_of_country(host->NationID);
 	if (host->NationLeagueSelected) {
@@ -903,7 +903,7 @@ void fifa_club_world_cup_init2(BYTE* _this, DWORD current_date, int a3) {
 		WORD date_day = *(WORD*)(cm_date);
 		WORD date_year = *(WORD*)(cm_date + 2);
 		if (date_day == *(WORD*)(current_date) && *(WORD*)(current_date + 2) == data->year) {
-			if (!a3) {
+			if (a3) {
 				fifa_club_world_cup_all_teams(_this);
 				fifa_club_world_cup_setup_first_group(_this);
 				sub_6827D0(_this, 0);
@@ -938,24 +938,7 @@ int cwc_stage_news(BYTE* _this, int club_idx, char fate, char stage_id, int stag
 	cm3_club_comps* comp_data = data->competition_db;
 	cm3_clubs* club_data = get_club(club_idx);
 	if (stage_id < 7) {
-		if (fate == Qualified1) {
-			if (show_body_text) {
-				sub_66F4E0(0xDE1F64, (DWORD)&qualified_r16_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderName, comp_data->ClubCompGenderName,
-					&club_data->ClubNameShort[0], &comp_data->ClubCompName[0]);
-				sub_4AE660(ret_str_ptr, 0xDE1F64);
-				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
-				sub_4AE8A0((BYTE*)ret_str_ptr, &comp_data->ClubCompName[0], 0x7d0, (DWORD)comp_data);
-				return 1;
-			}
-			else {
-				sub_66F4E0(0xDE1F64, (DWORD)&qualified_r16_title_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
-					&club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
-				sub_4AE660(ret_str_ptr, 0xDE1F64);
-				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
-				sub_4AE8A0((BYTE*)ret_str_ptr, &comp_data->ClubCompNameShort[0], 0x7d0, (DWORD)comp_data);
-				return 1;
-			}
-		}
+		if (fate == Qualified1) return sub_4B4590(club_idx, (WORD)stage_name_idx, (DWORD)comp_data, fate, show_body_text, ret_str_ptr);
 		else if (fate == Eliminated) return sub_4B4590(club_idx, (WORD)stage_name_idx, (DWORD)comp_data, fate, show_body_text, ret_str_ptr);
 	}
 	else if (stage_id == 7) return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
