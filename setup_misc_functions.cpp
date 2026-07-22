@@ -1186,7 +1186,7 @@ cm3_names* choose_a_brazil_name(cm3_staff* person) {
 		}), second_split.end());
 	first_split.insert(first_split.end(), make_move_iterator(second_split.begin()), make_move_iterator(second_split.end()));
 	if (first_split.size() > 2) {
-		dprintf("Trying to get common name for person: %s, %s\n", second_ch, first_ch);
+		//dprintf("Trying to get common name for person: %s, %s\n", second_ch, first_ch);
 		vector<cm3_names*> eligible_names = get_common_names_by_nation(NATION_BRAZIL_9CF());
 		eligible_names.erase(remove_if(eligible_names.begin(), eligible_names.end(),
 			[first_split](cm3_names* n) {
@@ -1200,7 +1200,7 @@ cm3_names* choose_a_brazil_name(cm3_staff* person) {
 		if (eligible_names.size() > 0)
 		{
 			shuffle(eligible_names.begin(), eligible_names.end(), rng);
-			dprintf("- Found: %s\n", eligible_names[0]->Name);
+			//dprintf("- Found: %s\n", eligible_names[0]->Name);
 			return eligible_names[0];
 		}
 	}

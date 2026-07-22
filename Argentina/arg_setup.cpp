@@ -85,10 +85,6 @@ void setup_arg_nation() {
 	setup_arg_super();
 
 	// transfer window adjustment
-	//WriteBytes(0x40a6af, 1, 0xd);
-	//WriteBytes(0x40a6b4, 1, 0x0);
-	//WriteBytes(0x40a6ca, 1, 0x9);
-	//WriteBytes(0x40a6cf, 1, 0x2);
 	WriteBytes(0x40a6ae, 1, Saturday);
 	WriteBytes(0x40a6af, 1, 0x14);
 	WriteBytes(0x40a6b4, 1, 0xb);
@@ -102,4 +98,6 @@ void setup_arg_nation() {
 	// loans adjustment - only full season loans + can't loan outside transfer window
 	WriteDWORD(0x9674c0, 0x412dd0);
 	WriteDWORD(0x9674c8, 0x90f1a0);
+	// Max foreign players in club - separate from match restriction
+	WriteBytes(0x40a5d9, 1, 0x6);
 }

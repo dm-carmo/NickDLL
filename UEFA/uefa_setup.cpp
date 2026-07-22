@@ -119,4 +119,7 @@ void setup_uefa_continent() {
 	char* knockout_text_l2_short = "KO Playoff Leg 2";
 	WriteDWORD(0x4B589e + 1, (DWORD)&knockout_text_l2[0]);
 	WriteDWORD(0x4B870a + 1, (DWORD)&knockout_text_l2_short[0]);
+	char* league_phase_text = "League Phase";
+	WriteDWORD(0x4B59A2 + 1, (DWORD)&league_phase_text[0]);
+	WriteDWORD(0x4B876E + 1, (DWORD)&league_phase_text[0]);
 }
