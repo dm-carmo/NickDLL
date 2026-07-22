@@ -11,6 +11,7 @@
 
 using namespace std;
 
+// Credits to tafo for the initial research on how to have a realistic league phase
 DWORD* afc_champions_league_elite_vtable = (DWORD*)0x9674D4;
 
 void afc_champions_league_elite_free_under(BYTE* _this) {
