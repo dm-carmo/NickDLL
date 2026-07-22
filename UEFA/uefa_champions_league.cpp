@@ -1733,8 +1733,4 @@ void setup_uefa_champions_league() {
 
 	// weird hardcoded stuff with fixtures?
 	WriteBytes(0x68a03f, 1, 0xeb);
-
-	char* league_stage_text = "League Stage";
-	WriteDWORD(0x4B59A2 + 1, (DWORD)&league_stage_text[0]);
-	WriteDWORD(0x4B876E + 1, (DWORD)&league_stage_text[0]);
 }
