@@ -6,10 +6,10 @@ int league_team_list_sz = 59;
 
 using namespace std;
 
-char* qualified_grp_msg = "{}<%s - Team Name(e.g.Ajax)>{} have guaranteed a place in the group stage of the {}<%s - Competition Name(e.g.Champions League)>{}.";
-char* qualified_grp_title_msg = "{}<%s - Team Name(e.g.Ajax)>{} qualify for {}<%s - Competition Name(e.g.Champions League)>{} group stage";
+char* qualified_grp_msg = "{}<%s - Team Name(e.g.Ajax)>{} have guaranteed a place in the league phase of the {}<%s - Competition Name(e.g.Champions League)>{}.";
+char* qualified_grp_title_msg = "{}<%s - Team Name(e.g.Ajax)>{} qualify for {}<%s - Competition Name(e.g.Champions League)>{} league phase";
 char* drop_down_title_msg = "{}<%s - Team Name(e.g.Ajax)>{} drop down to {}<%s - Competition Name(e.g.Champions League)>{}";
-char* drop_down_grp_title_msg = "{}<%s - Team Name(e.g.Ajax)>{} drop down to {}<%s - Competition Name(e.g.Champions League)>{} group stage";
+char* drop_down_grp_title_msg = "{}<%s - Team Name(e.g.Ajax)>{} drop down to {}<%s - Competition Name(e.g.Champions League)>{} league phase";
 char* qualified_r16_msg = "{}<%s - Team Name(e.g.Ajax)>{} have guaranteed a place in the Round of 16 of the {}<%s - Competition Name(e.g.Champions League)>{}.";
 char* qualified_r16_title_msg = "{}<%s - Team Name(e.g.Ajax)>{} through to {}<%s - Competition Name(e.g.Champions League)>{} R of 16";
 char* qualified_r32_msg = "{}<%s - Team Name(e.g.Ajax)>{} have guaranteed a place in the Round of 32 of the {}<%s - Competition Name(e.g.Champions League)>{}.";
@@ -46,6 +46,6 @@ char* lge_d_short = "Lge D";
 char* r3_groups_drawn = "{}<%s - competition name(e.g.Champions League)>{} 3rd round groups drawn";
 char* r4_groups_drawn = "{}<%s - competition name(e.g.Champions League)>{} 4th round groups drawn";
 
-char* register_msg1 = "{}<%s - Club Name(e.g.Chelsea)>{} may register one more player to be eligible for the group stage of the {}<%s - Competition Name(e.g.UEFA Cup)>{}.";
-char* register_msg2 = "{}<%s - Club Name(e.g.Chelsea)>{} may register <%d - number(e.g.2)> more players to be eligible for the group stage of the {}<%s - Competition Name(e.g.UEFA Cup)>{}.";
-char* register_msg3 = "{}<%s - Club Name(e.g.Chelsea)>{} may register <%d - number(e.g.2)> players to be eligible for the group stage of the {}<%s - Competition Name(e.g.UEFA Cup)>{}.";
+char* register_msg1 = "{}<%s - Club Name(e.g.Chelsea)>{} may register one more player to be eligible for the league phase of the {}<%s - Competition Name(e.g.UEFA Cup)>{}.";
+char* register_msg2 = "{}<%s - Club Name(e.g.Chelsea)>{} may register <%d - number(e.g.2)> more players to be eligible for the league phase of the {}<%s - Competition Name(e.g.UEFA Cup)>{}.";
+char* register_msg3 = "{}<%s - Club Name(e.g.Chelsea)>{} may register <%d - number(e.g.2)> players to be eligible for the league phase of the {}<%s - Competition Name(e.g.UEFA Cup)>{}.";

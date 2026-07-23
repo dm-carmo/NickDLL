@@ -15,6 +15,10 @@ static int(*add_fixture_date_call)(BYTE* a1, __int16 a2, __int16 a3, unsigned __
 (int(*)(BYTE * a1, __int16 a2, __int16 a3, unsigned __int8 a4, __int16 a5, int a6, char a7, __int16 a8, int a9))(0x68A160);
 static int(*add_fixture_tv_days_call)(BYTE* a1, __int16 a2, unsigned __int16 a3, __int16 a4, char a5, char a6, int a7) =
 (int(*)(BYTE * a1, __int16 a2, unsigned __int16 a3, __int16 a4, char a5, char a6, int a7))(0x68A1C0);
+static void(__thiscall* sub_85C260)(BYTE* _this, int a2, BYTE* a3, int a4) =
+(void(__thiscall*)(BYTE * _this, int a2, BYTE * a3, int a4))(0x85C260);
+static bool(__thiscall* sub_5AA680)(BYTE* _this, BYTE* a2, int a3) =
+(bool(__thiscall*)(BYTE * _this, BYTE * a2, int a3))(0x5AA680);
 
 static int(*add_playoff_draw_date_call)(BYTE* a1, __int16 a2, __int16 a3, BYTE a4, __int16 a5, int a6, __int16 a7) =
 (int(*)(BYTE * a1, __int16 a2, __int16 a3, unsigned __int8 a4, __int16 a5, int a6, __int16 a7))(0x521E60);

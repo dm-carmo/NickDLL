@@ -117,7 +117,7 @@ enum RoundNames : WORD {
 	MajorSemiFinal = 0x154,
 	PreliminaryFinal = 0x15E,
 	GrandFinal = 0x168,
-	InterzonePlayoff = 0x172,
+	LeagueStage = 0x172,
 	NumericGroupStage = 0x3E9,
 	BestPlacedTeams = 0x3FC,
 	FirstRoundAlphabeticGroup = 0x3FD,
@@ -178,7 +178,8 @@ enum RoundNames : WORD {
 	CentralConference = 0x47B,
 	RelegationGroupAtoB = 0x47C,
 	FourthRoundAlphabeticGroup = 0x47E,
-	EastWest = 0x480,
+	East = 0x480,
+	West = 0x481,
 	ChampionsPath = 0x482,
 	LeaguePath = 0x483
 };
@@ -268,7 +269,7 @@ struct cm3_names
 {
 	char Name[STANDARD_TXT_LENGTH];
 	long NameID;
-	long Nation;
+	long NationID;
 	char count;
 };
 #pragma pack(pop)
@@ -909,6 +910,93 @@ typedef struct UEFA_SEEDINGS
 	WORD current_year_points;
 	BYTE num_teams_in_comps;
 } uefa_seedings;
+#pragma pack(pop)
+
+/*
+* 0x00 = comp ID
+* 0x04 = ignore? // esp+38
+* 0x08 = -1
+* 0x0c = home team ID *LATER
+* 0x10 = away team ID *LATER
+* 0x14 = comp ptr
+* 0x18 = ignore? // esp+4c
+* 0x1c = home ptr *LATER
+* 0x20 = away ptr *LATER
+* 0x24 = ? year ? // esp+58
+* 0x26 = ? day ?
+* 0x28 = entry + 0x2 WORD *LATER
+* 0x2a = entry + 0x0 WORD *LATER
+* 0x2c = year
+* 0x2e = ignore? // esp+62
+* 0x30 = ? 0 ?
+* 0x32 = ? group stage id ?
+* 0x34 = match num *LATER
+* 0x36 = 0xdb
+* 0x38 = 0xab
+* 0x3a = 0xc4 BYTE CHANGED LATER????
+* 0x3b = -1 BYTE
+* 0x3c = ignore? // esp+70
+* 0x3d = 0 BYTE
+* 0x3e = 0 BYTE
+* 0x3f = entry + 0x4 BYTE *LATER
+* 0x40 = 1 BYTE
+* 0x41 = 1 BYTE
+* 0x42 = 0x44 BYTE or stage number?
+* 0x43 = -1 BYTE
+* 0x44 = -1 BYTE
+* 0x45 = -1 BYTE
+* 0x46 = -1 BYTE
+* 0x47 = -1 BYTE
+* 0x48 = -1 BYTE
+* 0x49 = -1 BYTE
+* 0x4a = -1 BYTE
+* 0x4b = -1 BYTE
+* 0x4c = -1 BYTE
+*/
+#pragma pack(push, 1)
+typedef struct MATCH_DATA
+{
+	DWORD comp_id;
+	DWORD f4;
+	DWORD f8;
+	DWORD home_team_id;
+	DWORD away_team_id;
+	cm3_club_comps* comp;
+	cm3_stadiums* stadium;
+	cm3_clubs* home_team;
+	cm3_clubs* away_team;
+	WORD end_year;
+	WORD end_day;
+	WORD fixture_year;
+	WORD fixture_day;
+	WORD current_year;
+	WORD f46;
+	WORD sub_stage_id;
+	WORD main_stage_id;
+	WORD fixture_number;
+	WORD f54_0xdb;
+	WORD f56_0xab;
+	BYTE f58_0xc4;
+	BYTE f59;
+	BYTE f60;
+	BYTE f61;
+	BYTE f62;
+	BYTE f63; // from fixture + 0x4
+	BYTE f64;
+	BYTE f65;
+	BYTE stage_number;
+	BYTE goals_home2;
+	BYTE goals_away2;
+	BYTE f69;
+	BYTE f70;
+	BYTE goals_home1;
+	BYTE goals_away1;
+	BYTE f73;
+	BYTE f74;
+	BYTE f75;
+	BYTE f76;
+	WORD subs;
+} match_data;
 #pragma pack(pop)
 
 enum LeagueFates : char {

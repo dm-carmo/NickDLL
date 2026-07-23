@@ -216,20 +216,24 @@ void club_pro_status_with_continental_comp(BYTE* _this) {
 	else {
 		sprintf(continental_comp, "");
 	}
-	char pro_status[128];
+	DWORD pro_status = 0;
 	if (club->ClubProfessionalStatus == Professional) {
-		sprintf(pro_status, "%s%s", "Professional", continental_comp);
+		pro_status = 0x9904b0;
 	}
 	else if (club->ClubProfessionalStatus == SemiProfessional) {
-		sprintf(pro_status, "%s%s", "Semi-Professional", continental_comp);
+		pro_status = 0x99049c;
 	}
 	else if (club->ClubProfessionalStatus == Amateur) {
-		sprintf(pro_status, "%s%s", "Amateur", continental_comp);
+		pro_status = 0x990494;
 	}
 	else {
-		sprintf(pro_status, "%s%s", "Unknown", continental_comp);
+		pro_status = 0xa16546;
 	}
-	sub_66F4E0(0xDE1F64, (DWORD)&pro_status[0]);
+	sub_66F4E0(0xDE1F64, pro_status);
+	string pro_status_c((char*)0xDE1F64);
+	char ret_str[128];
+	sprintf(ret_str, "%s%s", pro_status_c.c_str(), continental_comp);
+	sub_66F4E0(0xDE1F64, (DWORD)&ret_str[0]);
 }
 
 void __declspec(naked) club_pro_status_with_continental_comp_c() {
@@ -1163,6 +1167,146 @@ void __declspec(naked) fixed_groups_drawn_news_title()
 	}
 }
 
+cm3_names* choose_a_brazil_name(cm3_staff* person) {
+	char* first_ch = person->StaffFirstName->Name;
+	wstring first(&first_ch[0], &first_ch[strlen(first_ch)]);
+	char* second_ch = person->StaffSecondName->Name;
+	wstring second(&second_ch[0], &second_ch[strlen(second_ch)]);
+	vector<wstring> first_split = split_string_spaces(first);
+	vector<wstring> second_split = split_string_spaces(second);
+	first_split.erase(remove_if(first_split.begin(), first_split.end(),
+		[](wstring s) {
+			if (s.size() == 0) return true;
+			wstring copy(s);
+			transform(copy.begin(), copy.end(), copy.begin(), towlower);
+			return s == copy;
+		}), first_split.end());
+	second_split.erase(remove_if(second_split.begin(), second_split.end(),
+		[](wstring s) {
+			if (s.size() == 0) return true;
+			wstring copy(s);
+			transform(copy.begin(), copy.end(), copy.begin(), towlower);
+			return s == copy;
+		}), second_split.end());
+	first_split.insert(first_split.end(), make_move_iterator(second_split.begin()), make_move_iterator(second_split.end()));
+	if (first_split.size() > 2) {
+		//dprintf("Trying to get common name for person: %s, %s\n", second_ch, first_ch);
+		vector<cm3_names*> eligible_names = get_common_names_by_nation(NATION_BRAZIL_9CF());
+		eligible_names.erase(remove_if(eligible_names.begin(), eligible_names.end(),
+			[first_split](cm3_names* n) {
+				char* name = n->Name;
+				wstring name_str(&name[0], &name[strlen(name)]);
+				for (wstring s : first_split) {
+					if (name_str.find(s) != wstring::npos) return false;
+				}
+				return true;
+			}), eligible_names.end());
+		if (eligible_names.size() > 0)
+		{
+			shuffle(eligible_names.begin(), eligible_names.end(), rng);
+			//dprintf("- Found: %s\n", eligible_names[0]->Name);
+			return eligible_names[0];
+		}
+	}
+	return get_common_name(0);
+}
+
+void __declspec(naked) brazil_regens_common_names_1()
+{
+	__asm
+	{
+		mov edx, dword ptr ds : [edx]
+		cmp edx, dword ptr ds : [0x9cf260]
+		jnz normal_regen_behaviour_1
+		push esi
+		call choose_a_brazil_name
+		push 0x7ab3e6
+		ret
+		normal_regen_behaviour_1 :
+		mov edx, dword ptr ds : [esi + 0x1a]
+			push edx
+			push 0x7ab3e6
+			push 0x53a5b0
+			ret
+	}
+}
+
+void __declspec(naked) brazil_regens_common_names_2()
+{
+	__asm
+	{
+		mov eax, dword ptr ds : [eax]
+		cmp eax, dword ptr ds : [0x9cf260]
+		jnz normal_regen_behaviour_2
+		push edx
+		call choose_a_brazil_name
+		push 0x59ebbf
+		ret
+		normal_regen_behaviour_2 :
+		mov eax, dword ptr ds : [edx + 0x1a]
+			push eax
+			push 0x59ebbf
+			push 0x53a5b0
+			ret
+	}
+}
+
+void __declspec(naked) brazil_regens_common_names_3()
+{
+	__asm
+	{
+		mov edx, dword ptr ds : [edx]
+		cmp edx, dword ptr ds : [0x9cf260]
+		jnz normal_regen_behaviour_3
+		push esi
+		call choose_a_brazil_name
+		push 0x7abd96
+		ret
+		normal_regen_behaviour_3 :
+		mov edx, dword ptr ds : [esi + 0x1a]
+			push edx
+			push 0x7abd96
+			push 0x53a5b0
+			ret
+	}
+}
+
+// make positions unclickable on reults page to avoid a crash
+void __declspec(naked) quick_uefa_fix_1() {
+	__asm {
+		mov eax, dword ptr ds : [esi + 0x14]
+		mov ecx, dword ptr ds : [eax]
+		cmp ecx, dword ptr ds : [0x9CF6E8]
+		je special_uefa_tables_1
+		cmp ecx, dword ptr ds : [0x9CF6F0]
+		je special_uefa_tables_1
+		cmp ecx, dword ptr ds : [0x9CF6EC]
+		je special_uefa_tables_1
+		push 0x49dbe0
+		ret
+		special_uefa_tables_1 :
+		push 0x49DC9B
+			ret
+	}
+}
+void __declspec(naked) quick_uefa_fix_2() {
+	__asm {
+		mov eax, dword ptr ds : [eax + 0x14]
+		mov ecx, dword ptr ds : [eax]
+		cmp ecx, dword ptr ds : [0x9CF6E8]
+		je special_uefa_tables_2
+		cmp ecx, dword ptr ds : [0x9CF6F0]
+		je special_uefa_tables_2
+		cmp ecx, dword ptr ds : [0x9CF6EC]
+		je special_uefa_tables_2
+		push 0x49e65a
+		ret
+		special_uefa_tables_2 :
+		push 0x49E75D
+			ret
+	}
+}
+
 void setup_misc_functions()
 {
 	if (configFile.GetBool("competitionColoursPatch", true)) PatchFunction(0x53b7c0, (DWORD)&comp_colours_in_header);
@@ -1173,13 +1317,28 @@ void setup_misc_functions()
 	PatchFunction(0x460d75, (DWORD)&show_club_country_based);
 	PatchFunction(0x8c5bd2, (DWORD)&player_gain_nationality_c);
 	PatchFunction(0x58CF70, (DWORD)&update_fifa_coefficients_c);
+	PatchFunction(0x49dbcd, (DWORD)&quick_uefa_fix_1);
+	PatchFunction(0x49e647, (DWORD)&quick_uefa_fix_2);
 	// block the old update function
 	WriteBytes(0x58dfc0, 1, 0xc3);
 	WriteDWORD(0x58ddfd + 2, 0x967880);
 	WriteNOP(0x58de05, 6);
+	if (configFile.GetBool("brazilRegenNames", false)) {
+		// point 1
+		WriteNOP(0x7ab3e0, 6);
+		PatchFunction(0x7ab3e0, (DWORD)&brazil_regens_common_names_1);
+		// point 2, needs extra changes
+		WriteBytes(0x59eba4, 1, 0xb6);
+		WriteBytes(0x59ebaf, 1, 0x8);
+		WriteNOP(0x59ebb9, 6);
+		PatchFunction(0x59ebb9, (DWORD)&brazil_regens_common_names_2);
+		// point 3
+		WriteNOP(0x7abd90, 6);
+		PatchFunction(0x7abd90, (DWORD)&brazil_regens_common_names_3);
+	}
 
 	// Show the hidden wing-back position
-	if (configFile.GetBool("showWingBacks", true)) {
+	if (configFile.GetBool("showWingBacks", false)) {
 		PatchFunction(0x53f2cd, (DWORD)&show_wing_back_position);
 		WriteBytes(0x9b75b9, 2, 'W', 'B');
 	}

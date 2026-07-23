@@ -1,8 +1,4 @@
-#pragma warning (disable : 4996)
 #include "Helper.h"
-#include <stdio.h>
-#include <conio.h>
-#include <algorithm>
 #include "generic_functions.h"
 #include "constants.h"
 #include "9cf_constants.h"
@@ -213,6 +209,16 @@ cm3_names* get_second_name(DWORD nameID) {
 
 cm3_names* get_common_name(DWORD nameID) {
 	return (nameID != -1L) ? &(*common_names)[nameID] : NULL;
+}
+
+vector<cm3_names*> get_common_names_by_nation(DWORD nationID) {
+	vector<cm3_names*> ret;
+	for (DWORD i = 0; i < *common_names_count; i++)
+	{
+		if ((*common_names)[i].NationID == nationID)
+			ret.push_back(&(*common_names)[i]);
+	}
+	return ret;
 }
 
 vector<cm3_nations*> central_america_countries()
@@ -1080,4 +1086,16 @@ void add_team_to_world_cup_playoffs(cm3_clubs* club) {
 		world_cup_data->special_nteams_seedings++;
 		staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)world_cup_data->competition_db, None, None, 0x1E);
 	}
+}
+
+vector<wstring> split_string_spaces(const wstring& str) {
+	vector<wstring> tokens;
+	wistringstream iss(str);
+	wstring token;
+
+	while (iss >> token) {
+		tokens.push_back(token);
+	}
+
+	return tokens;
 }
