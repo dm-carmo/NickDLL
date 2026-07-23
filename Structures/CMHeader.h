@@ -995,6 +995,7 @@ typedef struct MATCH_DATA
 	BYTE f74;
 	BYTE f75;
 	BYTE f76;
+	WORD subs;
 } match_data;
 #pragma pack(pop)
 

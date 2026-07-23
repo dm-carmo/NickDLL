@@ -107,8 +107,9 @@ void setup_uefa_continent() {
 	char* main_path_short = "M.Path";
 	WriteDWORD(0x4B6298 + 1, (DWORD)&main_path[0]);
 	WriteDWORD(0x4B8D85 + 1, (DWORD)&main_path_short[0]);
+	WriteDWORD(0x4beacc, 0x4bb38b);
 	char* knockout_text = "Knockout Phase Playoff";
-	char* knockout_text_short = "Knockout Playoff";
+	char* knockout_text_short = "KO Playoff";
 	WriteDWORD(0x4B586a + 1, (DWORD)&knockout_text[0]);
 	WriteDWORD(0x4B86f6 + 1, (DWORD)&knockout_text_short[0]);
 	char* knockout_text_l1 = "Knockout Phase Playoff First Leg";
@@ -120,6 +121,7 @@ void setup_uefa_continent() {
 	WriteDWORD(0x4B589e + 1, (DWORD)&knockout_text_l2[0]);
 	WriteDWORD(0x4B870a + 1, (DWORD)&knockout_text_l2_short[0]);
 	char* league_phase_text = "League Phase";
+	char* league_phase_text_short = "Lge Phase";
 	WriteDWORD(0x4B59A2 + 1, (DWORD)&league_phase_text[0]);
-	WriteDWORD(0x4B876E + 1, (DWORD)&league_phase_text[0]);
+	WriteDWORD(0x4B876E + 1, (DWORD)&league_phase_text_short[0]);
 }
