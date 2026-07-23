@@ -936,6 +936,7 @@ void uefa_europa_league_group_stage_setup(BYTE* _this) {
 		match->f74 = -1;
 		match->f75 = -1;
 		match->f76 = -1;
+		match->subs = 0x59; // force 9/5 subs
 
 		vector<pair<char, char>> matchup_pairs;
 		for (char t = 0; t < group_teams; t++) {

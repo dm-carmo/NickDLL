@@ -216,20 +216,24 @@ void club_pro_status_with_continental_comp(BYTE* _this) {
 	else {
 		sprintf(continental_comp, "");
 	}
-	char pro_status[128];
+	DWORD pro_status = 0;
 	if (club->ClubProfessionalStatus == Professional) {
-		sprintf(pro_status, "%s%s", "Professional", continental_comp);
+		pro_status = 0x9904b0;
 	}
 	else if (club->ClubProfessionalStatus == SemiProfessional) {
-		sprintf(pro_status, "%s%s", "Semi-Professional", continental_comp);
+		pro_status = 0x99049c;
 	}
 	else if (club->ClubProfessionalStatus == Amateur) {
-		sprintf(pro_status, "%s%s", "Amateur", continental_comp);
+		pro_status = 0x990494;
 	}
 	else {
-		sprintf(pro_status, "%s%s", "Unknown", continental_comp);
+		pro_status = 0xa16546;
 	}
-	sub_66F4E0(0xDE1F64, (DWORD)&pro_status[0]);
+	sub_66F4E0(0xDE1F64, pro_status);
+	string pro_status_c((char*)0xDE1F64);
+	char ret_str[128];
+	sprintf(ret_str, "%s%s", pro_status_c.c_str(), continental_comp);
+	sub_66F4E0(0xDE1F64, (DWORD)&ret_str[0]);
 }
 
 void __declspec(naked) club_pro_status_with_continental_comp_c() {
@@ -1267,6 +1271,42 @@ void __declspec(naked) brazil_regens_common_names_3()
 	}
 }
 
+// make positions unclickable on reults page to avoid a crash
+void __declspec(naked) quick_uefa_fix_1() {
+	__asm {
+		mov eax, dword ptr ds : [esi + 0x14]
+		mov ecx, dword ptr ds : [eax]
+		cmp ecx, dword ptr ds : [0x9CF6E8]
+		je special_uefa_tables_1
+		cmp ecx, dword ptr ds : [0x9CF6F0]
+		je special_uefa_tables_1
+		cmp ecx, dword ptr ds : [0x9CF6EC]
+		je special_uefa_tables_1
+		push 0x49dbe0
+		ret
+		special_uefa_tables_1 :
+		push 0x49DC9B
+			ret
+	}
+}
+void __declspec(naked) quick_uefa_fix_2() {
+	__asm {
+		mov eax, dword ptr ds : [eax + 0x14]
+		mov ecx, dword ptr ds : [eax]
+		cmp ecx, dword ptr ds : [0x9CF6E8]
+		je special_uefa_tables_2
+		cmp ecx, dword ptr ds : [0x9CF6F0]
+		je special_uefa_tables_2
+		cmp ecx, dword ptr ds : [0x9CF6EC]
+		je special_uefa_tables_2
+		push 0x49e65a
+		ret
+		special_uefa_tables_2 :
+		push 0x49E75D
+			ret
+	}
+}
+
 void setup_misc_functions()
 {
 	if (configFile.GetBool("competitionColoursPatch", true)) PatchFunction(0x53b7c0, (DWORD)&comp_colours_in_header);
@@ -1277,6 +1317,8 @@ void setup_misc_functions()
 	PatchFunction(0x460d75, (DWORD)&show_club_country_based);
 	PatchFunction(0x8c5bd2, (DWORD)&player_gain_nationality_c);
 	PatchFunction(0x58CF70, (DWORD)&update_fifa_coefficients_c);
+	PatchFunction(0x49dbcd, (DWORD)&quick_uefa_fix_1);
+	PatchFunction(0x49e647, (DWORD)&quick_uefa_fix_2);
 	// block the old update function
 	WriteBytes(0x58dfc0, 1, 0xc3);
 	WriteDWORD(0x58ddfd + 2, 0x967880);
