@@ -606,6 +606,7 @@ void bra_third_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	bra_third_vtable->SetPointer(VTableStageNews, 0x48c6d0);
 	bra_third_vtable->SetPointer(VTableReputationCalc, (DWORD)&bra_third_reputation_calc_c);
 	bra_third_vtable->SetPointer(VTable37, 0x68aad0);
+	bra_third_vtable->SetPointer(VTable39, 0x404480);
 	data->year = year;
 	data->rules = RulesBrazilNational;
 	int loaded = sub_687B10(_this, 1);

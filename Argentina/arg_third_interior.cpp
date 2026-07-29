@@ -887,6 +887,8 @@ void arg_third_interior_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	arg_third_interior_vtable->SetPointer(VTablePostMatchUpdate, 0x685d30);
 	arg_third_interior_vtable->SetPointer(VTableAwardTeamsSetup, 0x687a20);
 	arg_third_interior_vtable->SetPointer(VTableUpdateLastDivision, (DWORD)&arg_third_interior_last_positions_c);
+	arg_third_interior_vtable->SetPointer(VTable39, 0x404480);
+	arg_third_interior_vtable->SetPointer(VTable40, 0x404480);
 	data->year = year;
 	data->rules = RulesArgentina;
 	int loaded = sub_687B10(_this, 1);

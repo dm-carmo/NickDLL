@@ -43,8 +43,8 @@ enum VTablePointers {
 	VTableSubsRounds = 36, // Sets things such as: number of substitutes, number of promoted/relegated teams, etc
 	VTable37 = 37,
 	VTable38 = 38,
-	VTable39 = 39,
-	VTable40 = 40,
+	VTable39 = 39, // affects board expectations regarding promotion?
+	VTable40 = 40, // affects board expectations regarding relegation?
 	VTableAwardTeamsSetup = 41, // For leagues with groups, gets all the teams in the league for award purposes
 	VTableUpdateLastDivision = 42, // Updates last divisions/positions
 	VTable43 = 43,

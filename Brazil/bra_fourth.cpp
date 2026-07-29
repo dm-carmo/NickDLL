@@ -637,4 +637,5 @@ void setup_bra_fourth() {
 	WriteVTablePtr(bra_fourth_vtable, VTableStageNews, 0x48c6d0);
 	WriteVTablePtr(bra_fourth_vtable, VTablePlayoffQual, (DWORD)&bra_fourth_playoffs_create);
 	WriteVTablePtr(bra_fourth_vtable, VTable37, 0x68aad0);
+	WriteVTablePtr(bra_fourth_vtable, VTable39, 0x404480);
 }

@@ -21,8 +21,8 @@ void por_third_subs(BYTE* _this)
 	comp_data->tiebreaker_3 = GamesWonTiebreaker;
 	comp_data->tiebreaker_4 = GoalsForTiebreaker;
 	comp_data->f82 = 2;
-	comp_data->promotions = 0;
-	comp_data->prom_playoff = 4;
+	comp_data->promotions = 4;
+	comp_data->prom_playoff = 0;
 	comp_data->rele_playoff = 6;
 	comp_data->relegations = 0;
 
@@ -35,7 +35,7 @@ void por_third_subs(BYTE* _this)
 		comp_data->relegates_to = POR_FOURTH_9CF();
 	}
 
-	comp_data->f217 = 0x2;
+	comp_data->f217 = 0x28;
 	comp_data->max_bench = 7;
 	comp_data->max_subs = 3;
 
@@ -498,6 +498,7 @@ int por_third_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char sta
 			staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), 0x64);
 			return 0;
 		case TopPlayoff:
+		case Qualified1:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, PromotionPlayoff, 0x1E);
 			return 0;
 		case BottomPlayoff:
@@ -698,7 +699,7 @@ int por_third_stage_news(BYTE* _this, int club_idx, char fate, char stage_id, in
 	cm3_club_comps* comp_data = data->competition_db;
 	cm3_clubs* club_data = get_club(club_idx);
 	if (stage_id < 1) {
-		if (fate == TopPlayoff) {
+		if (fate == Qualified1) {
 			if (show_body_text) {
 				sub_66F4E0(0xDE1F64, (DWORD)&qualified_champ_grp_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderName, comp_data->ClubCompGenderName,
 					&club_data->ClubNameShort[0], &comp_data->ClubCompName[0]);
@@ -769,6 +770,8 @@ void setup_por_third()
 	WriteVTablePtr(por_third_vtable, VTableTableFates, (DWORD)&por_third_set_table_fate);
 	WriteVTablePtr(por_third_vtable, VTableStageNews, (DWORD)&por_third_stage_news_c);
 	WriteVTablePtr(por_third_vtable, VTablePlayoffQual, (DWORD)&por_third_playoffs_create_c);
+	WriteVTablePtr(por_third_vtable, VTable39, 0x404480);
+	WriteVTablePtr(por_third_vtable, VTable40, 0x404480);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(por_third_vtable, VTable21, 0x4110b0);
 	char* rel_grp_a_text = "Relegation Group A";
 	char* rel_grp_a_text_short = "Rel. Grp A";

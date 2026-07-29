@@ -662,6 +662,7 @@ void por_fourth_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	por_fourth_vtable->SetPointer(VTableSubsRounds, (DWORD)&por_fourth_subs_c);
 	por_fourth_vtable->SetPointer(VTableTableFates, (DWORD)&por_fourth_set_table_fate);
 	por_fourth_vtable->SetPointer(VTablePlayoffQual, (DWORD)&por_fourth_playoffs_create_c);
+	por_fourth_vtable->SetPointer(VTable39, 0x404480);
 	data->year = year;
 	data->rules = RulesPortugal;
 	int loaded = sub_687B10(_this, 1);

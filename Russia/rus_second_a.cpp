@@ -737,6 +737,8 @@ void rus_second_a_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	rus_second_a_vtable->SetPointer(VTableTableFates, (DWORD)&rus_second_a_set_table_fate);
 	rus_second_a_vtable->SetPointer(VTablePlayoffQual, (DWORD)&rus_second_a_playoffs_create_c);
 	rus_second_a_vtable->SetPointer(VTableUpdateLastDivision, (DWORD)&rus_second_a_last_positions_c);
+	rus_second_a_vtable->SetPointer(VTable39, 0x404480);
+	rus_second_a_vtable->SetPointer(VTable40, 0x404480);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) rus_second_a_vtable->SetPointer(VTable21, 0x4110b0);
 	data->year = year;
 	data->rules = RulesRussia;

@@ -556,4 +556,5 @@ void setup_fin_third()
 	WriteVTablePtr(fin_third_vtable, VTableTableFates, (DWORD)&fin_third_set_table_fate);
 	WriteVTablePtr(fin_third_vtable, VTablePlayoffQual, (DWORD)&fin_third_playoffs_create_c);
 	WriteVTablePtr(fin_third_vtable, VTableSetChampion, (DWORD)&fin_third_set_champion_c);
+	WriteVTablePtr(fin_third_vtable, VTable39, 0x404480);
 }
