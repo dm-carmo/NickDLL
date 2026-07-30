@@ -705,6 +705,7 @@ void world_cup_quals_concacaf_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 
 	data->n_teams = 22;
 	BYTE* pMem = (BYTE*)sub_944E46_malloc(6 * data->n_teams);
+	for (int i = 0; i < 6 * data->n_teams; i++) pMem[i] = 0;
 	data->teams_list = (DWORD*)pMem;
 
 	DWORD v1 = *(DWORD*)_this;

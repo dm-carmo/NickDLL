@@ -780,8 +780,9 @@ void world_cup_quals_afc_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
 	for (int i = 0; i < data->num_stages; i++) data->stages[i] = 0;
 
-	data->n_teams = 10;
+	data->n_teams = 20;
 	BYTE* pMem = (BYTE*)sub_944E46_malloc(6 * data->n_teams);
+	for (int i = 0; i < 6 * data->n_teams; i++) pMem[i] = 0;
 	data->teams_list = (DWORD*)pMem;
 
 	DWORD v1 = *(DWORD*)_this;
