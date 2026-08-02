@@ -678,9 +678,9 @@ void fifa_club_world_cup_all_teams(BYTE* _this) {
 		else if (host_club->ClubNation->NationContinent->ContinentID == OCEANIA_9CF()) {
 			prize = prizeMoneyFile.GetInt("fifa_cwc_ofc_participation_money");
 		}
-		ret = sub_5A0590(ae2a38_ptr, (BYTE*)ofc_club);
+		ret = sub_5A0590(ae2a38_ptr, (BYTE*)host_club);
 		AddToClubIncome((BYTE*)ret, prize);
-		AddMoneyFromComp(_this, (BYTE*)ofc_club, prize, 0, -1, GroupStage, 0, -2);
+		AddMoneyFromComp(_this, (BYTE*)host_club, prize, 0, -1, GroupStage, 0, -2);
 	}
 }
 
