@@ -316,6 +316,7 @@ void bra_fourth_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
 	for (int i = 0; i < data->num_stages; i++) data->stages[i] = 0;
 	bra_fourth_subs(_this);
+	data->teams2 = 0;
 	bra_fourth_add_teams(_this);
 	sub_6835C0(_this);
 	BYTE* ebx = 0;

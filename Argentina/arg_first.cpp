@@ -1114,6 +1114,7 @@ void arg_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
 	for (int i = 0; i < data->num_stages; i++) data->stages[i] = 0;
 	arg_first_subs(_this);
+	data->teams2 = 0;
 	arg_first_add_teams(_this, true);
 	SetupTVMoney(_this, prizeMoneyFile.GetInt("arg_prm_tv_money_normal"), get_comp(ARG_FIRST_9CF()));
 	SetupTVMoney(_this, prizeMoneyFile.GetInt("arg_prm_tv_money_promoted"), get_comp(ARG_SECOND_9CF()));

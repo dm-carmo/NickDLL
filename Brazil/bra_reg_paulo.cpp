@@ -505,6 +505,7 @@ void bra_reg_paulo_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
 	for (int i = 0; i < data->num_stages; i++) data->stages[i] = 0;
 	bra_reg_paulo_subs(_this);
+	data->teams2 = 0;
 	bra_reg_paulo_add_teams(_this);
 	data->prize_money_pool = SetupPrizeMoney(_this, prizeMoneyFile.GetInt("bra_sp_prize_money"));
 	data->f225 = 1;
