@@ -111,7 +111,7 @@ DWORD bra_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		*num_rounds = (numberOfLeagueTeams - 1) * data->n_rounds;
 		*stage_name_id = None;
 
-		pMem = (BYTE*)sub_944E46_malloc(fixture_dates_sz * (*num_rounds));
+		pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
 		int tv_id = 0;
@@ -309,7 +309,7 @@ void bra_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	sub_6835C0(_this);
 	BYTE* ebx = 0;
 	sub_6827D0(_this, ebx);
-	BYTE* pMem2 = (BYTE*)sub_944CF1_operator_new(0x5CE);
+	BYTE* pMem2 = (BYTE*)cm0102_new(0x5CE);
 	BYTE unk1 = 1;
 	sub_49EE70(pMem2, _this);
 	unk1 = 0;
@@ -568,7 +568,7 @@ void __fastcall bra_qualify_teams_for_cup(BYTE* _this) {
 	}
 	sort(first_phase.begin(), first_phase.end(), compareClubRepInv);
 
-	BYTE* pMem = (BYTE*)sub_944E46_malloc(6 * total_teams);
+	BYTE* pMem = (BYTE*)cm0102_malloc(6 * total_teams);
 	cup_data->special_teams_seedings = (DWORD*)pMem;
 	teams_seeded* teams = (teams_seeded*)cup_data->special_teams_seedings;
 

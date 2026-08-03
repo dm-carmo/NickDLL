@@ -16,7 +16,7 @@ int AddTeams(BYTE* _this)
 
 	// Now let's add the teams
 	comp_data->n_teams = numberOfLeagueTeams; // number of teams
-	comp_data->team_league_table = (DWORD*)sub_944E46_malloc(numberOfLeagueTeams * league_team_list_sz); // number of teams * 59 (0x3B)
+	comp_data->team_league_table = (DWORD*)cm0102_malloc(numberOfLeagueTeams * league_team_list_sz); // number of teams * 59 (0x3B)
 	BYTE teamsAdded = 0;
 	for (DWORD i = 0; i < *clubs_count; i++)
 	{
@@ -38,7 +38,7 @@ int AddTeamsReserveDivision(BYTE* _this)
 
 	// Now let's add the teams
 	comp_data->n_teams = numberOfLeagueTeams; // number of teams
-	comp_data->team_league_table = (DWORD*)sub_944E46_malloc(numberOfLeagueTeams * league_team_list_sz); // number of teams * 59 (0x3B)
+	comp_data->team_league_table = (DWORD*)cm0102_malloc(numberOfLeagueTeams * league_team_list_sz); // number of teams * 59 (0x3B)
 	BYTE teamsAdded = 0;
 	for (DWORD i = 0; i < *clubs_count; i++)
 	{
@@ -60,7 +60,7 @@ int AddTeamsGroupLeague(BYTE* _this, DWORD first_group_id)
 
 	// Now let's add the teams
 	comp_data->n_teams = numberOfLeagueTeams; // number of teams
-	comp_data->team_league_table = (DWORD*)sub_944E46_malloc(numberOfLeagueTeams * league_team_list_sz); // number of teams * 59 (0x3B)
+	comp_data->team_league_table = (DWORD*)cm0102_malloc(numberOfLeagueTeams * league_team_list_sz); // number of teams * 59 (0x3B)
 	BYTE teamsAdded = 0;
 	for (DWORD i = 0; i < *clubs_count; i++)
 	{
@@ -79,7 +79,7 @@ void AddLeague(BYTE* _this, const char* szLeagueName, int leagueNo, int year, DW
 	cm3_club_comps* comp = find_club_comp(szLeagueName);
 	if (comp)
 	{
-		BYTE* ee_bytes = (BYTE*)sub_944CF1_operator_new(0xEE);
+		BYTE* ee_bytes = (BYTE*)cm0102_new(0xEE);
 		league_init_typedef init_call = (league_init_typedef)(league_init_addr);
 		BYTE* leagueSetupPtr = init_call(ee_bytes, (short)*current_year, comp);
 		DWORD* compPtrTable = *(DWORD**)(_this + 0x10);

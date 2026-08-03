@@ -7,41 +7,41 @@ void kormany_awards(BYTE* _this, int a2) {
 	DWORD edi = *(DWORD*)(_this + 0x13);
 	*(WORD*)(_this + 0x8) = 8;
 
-	DWORD* awards_list = (DWORD*)sub_944E46_malloc(*(WORD*)(_this + 0x8) * 4);
+	DWORD* awards_list = (DWORD*)cm0102_malloc(*(WORD*)(_this + 0x8) * 4);
 	*(DWORD*)(_this + 0x4) = (DWORD)awards_list;
 	BYTE i = 0;
 	BYTE esi = 0;
 
 	// General awards
-	BYTE* pMem = (BYTE*)sub_944CF1_operator_new(0x25D);
+	BYTE* pMem = (BYTE*)cm0102_new(0x25D);
 	team_award_setup_8AF520(pMem, edi, i, KOR_BEST_11_OF_YEAR_9CF(), 2500, 1250, -1, 0, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0xA2);
+	pMem = (BYTE*)cm0102_new(0xA2);
 	monthly_person_award_setup_766E10(pMem, edi, i, KOR_MANAGER_OF_MONTH_9CF(), 1500, 750, -1, February, *current_year, November, *current_year, a2, 0);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0xA2);
+	pMem = (BYTE*)cm0102_new(0xA2);
 	monthly_person_award_setup_766E10(pMem, edi, i, KOR_PLAYER_OF_MONTH_9CF(), 1500, 750, -1, February, *current_year, November, *current_year, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, KOR_MANAGER_OF_YEAR_9CF(), 1000, 500, -1, 0, 0, 0, a2, 0);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, KOR_PLAYER_OF_YEAR_9CF(), 1500, 500, -1, 0, 0, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, KOR_TOP_GOAL_SCORER_9CF(), 1000, 500, -1, 0, 0, 1, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, KOR_YOUNG_PLAYER_OF_YEAR_9CF(), 500, 250, -1, 0, 0, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, KOR_MOST_ASSISTED_9CF(), 1000, 500, -1, 0, 0, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 }

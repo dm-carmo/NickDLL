@@ -95,7 +95,7 @@ DWORD eng_league_2_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD*
 		*num_rounds = (numberOfLeagueTeams - 1) * data->n_rounds;
 		*stage_name_id = None;
 
-		pMem = (BYTE*)sub_944E46_malloc(fixture_dates_sz * (*num_rounds));
+		pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 2), year, Saturday);
@@ -193,7 +193,7 @@ DWORD eng_league_2_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD*
 		*num_rounds = 2;
 		*stage_name_id = Playoff;
 
-		pMem = (BYTE*)sub_944E46_malloc(playoff_dates_sz * (*num_rounds));
+		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 3), year, Sunday);
@@ -287,8 +287,7 @@ void eng_league_2_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 1;
-	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
-	for (int i = 0; i < data->num_stages; i++) data->stages[i] = 0;
+	data->stages = (DWORD*)cm0102_malloc(data->num_stages * 4);
 	eng_league_2_subs(_this);
 	AddTeams(_this);
 	SetupTVMoney(_this, prizeMoneyFile.GetInt("eng_l2_tv_money_relegated"), get_comp(ENG_LEAGUE_1_9CF()));
@@ -296,7 +295,7 @@ void eng_league_2_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	sub_6835C0(_this);
 	BYTE* ebx = 0;
 	sub_6827D0(_this, ebx);
-	BYTE* pMem2 = (BYTE*)sub_944CF1_operator_new(0x5CE);
+	BYTE* pMem2 = (BYTE*)cm0102_new(0x5CE);
 	BYTE unk1 = 1;
 	sub_49EE70(pMem2, _this);
 	unk1 = 0;

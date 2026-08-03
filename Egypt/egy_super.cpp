@@ -95,7 +95,7 @@ DWORD egy_super_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		*num_rounds = 2;
 		*stage_name_id = None;
 
-		pMem = (BYTE*)sub_944E46_malloc(playoff_dates_sz * (*num_rounds));
+		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 6, 29), year, Sunday);
@@ -116,7 +116,7 @@ DWORD egy_super_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		*num_rounds = 1;
 		*stage_name_id = ThirdPlacePlayoff;
 
-		pMem = (BYTE*)sub_944E46_malloc(playoff_dates_sz * (*num_rounds));
+		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 7), year, Friday);
@@ -148,7 +148,7 @@ int egy_super_teams(BYTE* _this) {
 	vector<cm3_clubs*> vec;
 	comp_stats* comp_data = (comp_stats*)_this;
 	WORD total_teams = 4;
-	BYTE* pMem = (BYTE*)sub_944E46_malloc(6 * total_teams);
+	BYTE* pMem = (BYTE*)cm0102_malloc(6 * total_teams);
 
 	comp_data->n_teams = total_teams;
 	comp_data->teams_list = (DWORD*)pMem;
@@ -194,14 +194,14 @@ void egy_super_third_place(BYTE* _this) {
 	char stage_num = 0;
 	comp_stats* comp_data = (comp_stats*)_this;
 	BYTE playoff_teams = 2;
-	DWORD* pTeams = (DWORD*)sub_944E46_malloc(playoff_teams * 4);
+	DWORD* pTeams = (DWORD*)cm0102_malloc(playoff_teams * 4);
 	for (int i = 0; i < playoff_teams; i++) pTeams[i] = 0;
 	WORD num_rounds = 0;
 	WORD stage_name_id = 0;
 	WORD year = comp_data->year;
 	DWORD v1 = *(DWORD*)_this;
 	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, char, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
-	BYTE* new_stage = (BYTE*)sub_944CF1_operator_new(0xB2);
+	BYTE* new_stage = (BYTE*)cm0102_new(0xB2);
 	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)comp_data->competition_db, pFixtures, year, stage_num, 2, stage_name_id, 0x14, 1, 0, 0, 0);
 	DWORD* stages_arr = comp_data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
@@ -398,8 +398,7 @@ void egy_super_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 1;
-	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
-	for (int i = 0; i < data->num_stages; i++) data->stages[i] = 0;
+	data->stages = (DWORD*)cm0102_malloc(data->num_stages * 4);
 	data->comp_type = CLUB_DOMESTIC;
 	data->max_bench = 7;
 	data->max_subs = 3;
@@ -411,7 +410,7 @@ void egy_super_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	DWORD v1 = *(DWORD*)_this;
 	*((DWORD*)(_this + 0xA3)) = (DWORD)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0x3c, _this + 0x3a, 0);
 	cup_map_fixture_tree_518790(_this);
-	BYTE* pMem2 = (BYTE*)sub_944CF1_operator_new(0x5CE);
+	BYTE* pMem2 = (BYTE*)cm0102_new(0x5CE);
 	BYTE unk1 = 1;
 	sub_49EE70(pMem2, _this);
 	unk1 = 0;

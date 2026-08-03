@@ -32,39 +32,39 @@ DWORD ita_setup_c(playable_nation_data* nation_data) {
 	else { // C2 selected, not used for now
 		nation_data->num_of_comps = 7;
 	}
-	DWORD* nation_comps = (DWORD*)sub_944E46_malloc(nation_data->num_of_comps * 4);
+	DWORD* nation_comps = (DWORD*)cm0102_malloc(nation_data->num_of_comps * 4);
 	nation_data->comps_list = (DWORD)nation_comps;
 	
 	BYTE i = 0;
 	// Serie A
-	BYTE* pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	BYTE* pMem = (BYTE*)cm0102_new(0xEE);
 	ita_ser_a_init(pMem, *current_year, get_comp(ITA_SERIE_A_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Serie B
-	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	pMem = (BYTE*)cm0102_new(0xEE);
 	ita_ser_b_init(pMem, *current_year, get_comp(ITA_SERIE_B_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Serie C
-	pMem = (BYTE*)sub_944CF1_operator_new(0xEF);
+	pMem = (BYTE*)cm0102_new(0xEF);
 	ita_ser_c_init(pMem, *current_year, get_comp(ITA_SERIE_C_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	if ((selected & 4) != 0) {
 		// not used for now
 	}
 	// Coppa Italia
-	pMem = (BYTE*)sub_944CF1_operator_new(0xB4);
+	pMem = (BYTE*)cm0102_new(0xB4);
 	ita_cup_init(pMem, *current_year, get_comp(ITA_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Supercoppa Italia
-	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
+	pMem = (BYTE*)cm0102_new(0xB2);
 	ita_supercup_setup(pMem, *current_year, get_comp(ITA_SUPER_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Coppa Serie C
-	pMem = (BYTE*)sub_944CF1_operator_new(0xB4);
+	pMem = (BYTE*)cm0102_new(0xB4);
 	ita_c_cup_init(pMem, *current_year, get_comp(ITA_SERIE_C_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Supercoppa Serie C
-	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	pMem = (BYTE*)cm0102_new(0xEE);
 	ita_c_supercup_init(pMem, *current_year, get_comp(ITA_C1_SUPER_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 

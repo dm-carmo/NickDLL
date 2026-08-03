@@ -34,38 +34,38 @@ DWORD por_setup_c(playable_nation_data* nation_data) {
 	else {
 		nation_data->num_of_comps = 7;
 	}
-	DWORD* nation_comps = (DWORD*)sub_944E46_malloc(nation_data->num_of_comps * 4);
+	DWORD* nation_comps = (DWORD*)cm0102_malloc(nation_data->num_of_comps * 4);
 	nation_data->comps_list = (DWORD)nation_comps;
 	
 	BYTE i = 0;
 	// Liga 1
-	BYTE* pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	BYTE* pMem = (BYTE*)cm0102_new(0xEE);
 	por_first_init(pMem, *current_year, get_comp(POR_FIRST_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Liga 2
-	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	pMem = (BYTE*)cm0102_new(0xEE);
 	por_second_init(pMem, *current_year, get_comp(POR_SECOND_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Liga 3
-	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	pMem = (BYTE*)cm0102_new(0xEE);
 	por_third_init(pMem, *current_year, get_comp(POR_THIRD_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	if ((selected & 4) != 0) {
 		// Campeonato de Portugal
-		pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+		pMem = (BYTE*)cm0102_new(0xEE);
 		por_fourth_init(pMem, *current_year, get_comp(POR_FOURTH_9CF()));
 		nation_comps[i++] = (DWORD)pMem;
 	}
 	// Cup
-	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
+	pMem = (BYTE*)cm0102_new(0xB2);
 	por_cup_setup(pMem, *current_year, get_comp(POR_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// League Cup
-	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
+	pMem = (BYTE*)cm0102_new(0xB2);
 	por_league_cup_init(pMem, *current_year, get_comp(POR_LEAGUE_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Super Cup
-	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
+	pMem = (BYTE*)cm0102_new(0xB2);
 	por_super_setup(pMem, *current_year, get_comp(POR_SUPER_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	BYTE* cm_date = new BYTE[8];

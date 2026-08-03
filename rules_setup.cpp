@@ -54,142 +54,142 @@ static BYTE* (__thiscall* s_korea_rules_66E630)(BYTE* _this, char a2, int a3, in
 
 void replacement_8D26B0(BYTE* _this) {
 	DWORD rules_count = pnd_count - 8;
-	DWORD* rules_array = (DWORD*)sub_944E46_malloc(4 * rules_count);
+	DWORD* rules_array = (DWORD*)cm0102_malloc(4 * rules_count);
 	int idx = 0;
 
-	BYTE* dMem = (BYTE*)sub_944CF1_operator_new(0x19);
+	BYTE* dMem = (BYTE*)cm0102_new(0x19);
 	if (dMem) europe_rules_583280(dMem, idx, -1, EUROPE_9CF(), 2, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
-	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
+	dMem = (BYTE*)cm0102_new(0x19);
 	if (dMem) argentina_rules_40A580(dMem, idx, NATION_ARGENTINA_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
-	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
+	dMem = (BYTE*)cm0102_new(0x19);
 	if (dMem) australia_rules_412C80(dMem, idx, NATION_AUSTRALIA_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
-	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
+	dMem = (BYTE*)cm0102_new(0x19);
 	if (dMem) belgium_rules_424B90(dMem, idx, NATION_BELGIUM_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
-	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
+	dMem = (BYTE*)cm0102_new(0x19);
 	if (dMem) brazil_rules_43F0E0(dMem, idx, NATION_BRAZIL_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
-	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
+	dMem = (BYTE*)cm0102_new(0x19);
 	if (dMem) croatia_rules_518500(dMem, idx, NATION_CROATIA_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
-	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
+	dMem = (BYTE*)cm0102_new(0x19);
 	if (dMem) denmark_rules_555460(dMem, idx, NATION_DENMARK_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
-	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
+	dMem = (BYTE*)cm0102_new(0x19);
 	if (dMem) england_rules_579B30(dMem, idx, NATION_ENGLAND_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
-	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
+	dMem = (BYTE*)cm0102_new(0x19);
 	if (dMem) finland_rules_5A9950(dMem, idx, NATION_FINLAND_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
-	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
+	dMem = (BYTE*)cm0102_new(0x19);
 	if (dMem) france_rules_5C1570(dMem, idx, NATION_FRANCE_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
-	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
+	dMem = (BYTE*)cm0102_new(0x19);
 	if (dMem) germany_rules_5DFF70(dMem, idx, NATION_GERMANY_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
-	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
+	dMem = (BYTE*)cm0102_new(0x19);
 	if (dMem) greece_rules_5ECEB0(dMem, idx, NATION_GREECE_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
-	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
+	dMem = (BYTE*)cm0102_new(0x19);
 	if (dMem) holland_rules_5F9690(dMem, idx, NATION_NETHERLANDS_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
-	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
+	dMem = (BYTE*)cm0102_new(0x19);
 	if (dMem) ireland_rules_63C210(dMem, idx, NATION_IRELAND_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
-	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
+	dMem = (BYTE*)cm0102_new(0x19);
 	if (dMem) italy_rules_661380(dMem, idx, NATION_ITALY_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
-	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
+	dMem = (BYTE*)cm0102_new(0x19);
 	if (dMem) japan_rules_666BD0(dMem, idx, NATION_JAPAN_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
-	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
+	dMem = (BYTE*)cm0102_new(0x19);
 	if (dMem) norway_rules_7944F0(dMem, idx, NATION_NORWAY_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
-	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
+	dMem = (BYTE*)cm0102_new(0x19);
 	if (dMem) n_ireland_rules_7936D0(dMem, idx, NATION_NORTHERN_IRELAND_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
-	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
+	dMem = (BYTE*)cm0102_new(0x19);
 	if (dMem) poland_rules_7CD830(dMem, idx, NATION_POLAND_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
-	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
+	dMem = (BYTE*)cm0102_new(0x19);
 	if (dMem) portugal_rules_7D3D80(dMem, idx, NATION_PORTUGAL_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
-	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
+	dMem = (BYTE*)cm0102_new(0x19);
 	if (dMem) russia_rules_7EC770(dMem, idx, NATION_RUSSIA_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
-	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
+	dMem = (BYTE*)cm0102_new(0x19);
 	if (dMem) scotland_rules_7F6390(dMem, idx, NATION_SCOTLAND_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
-	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
+	dMem = (BYTE*)cm0102_new(0x19);
 	if (dMem) spain_rules_859400(dMem, idx, NATION_SPAIN_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
-	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
+	dMem = (BYTE*)cm0102_new(0x19);
 	if (dMem) sweden_rules_893D80(dMem, idx, NATION_SWEDEN_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
-	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
+	dMem = (BYTE*)cm0102_new(0x19);
 	if (dMem) turkey_rules_9020A0(dMem, idx, NATION_TURKEY_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
-	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
+	dMem = (BYTE*)cm0102_new(0x19);
 	if (dMem) usa_rules_90B940(dMem, idx, NATION_USA_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
-	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
+	dMem = (BYTE*)cm0102_new(0x19);
 	if (dMem) wales_rules_90F080(dMem, idx, NATION_WALES_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
-	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
+	dMem = (BYTE*)cm0102_new(0x19);
 	if (dMem) s_korea_rules_66E630(dMem, idx, NATION_SOUTH_KOREA_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
-	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
+	dMem = (BYTE*)cm0102_new(0x19);
 	if (dMem) croatia_rules_518500(dMem, idx, NATION_CZECH_REPUBLIC_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
-	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
+	dMem = (BYTE*)cm0102_new(0x19);
 	if (dMem) germany_rules_5DFF70(dMem, idx, NATION_AUSTRIA_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
-	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
+	dMem = (BYTE*)cm0102_new(0x19);
 	if (dMem) germany_rules_5DFF70(dMem, idx, NATION_SWITZERLAND_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
-	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
+	dMem = (BYTE*)cm0102_new(0x19);
 	if (dMem) russia_rules_7EC770(dMem, idx, NATION_SAUDI_ARABIA_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
-	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
+	dMem = (BYTE*)cm0102_new(0x19);
 	if (dMem) argentina_rules_40A580(dMem, idx, NATION_CHILE_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
-	dMem = (BYTE*)sub_944CF1_operator_new(0x19);
+	dMem = (BYTE*)cm0102_new(0x19);
 	if (dMem) s_korea_rules_66E630(dMem, idx, NATION_EGYPT_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
@@ -206,7 +206,7 @@ void replacement_8D26B0(BYTE* _this) {
 	}
 	*((DWORD*)(_this + 0x8a8)) = unknown_8a8;
 
-	DWORD* pMem = (DWORD*)sub_944E46_malloc(4 * unknown_8a8);
+	DWORD* pMem = (DWORD*)cm0102_malloc(4 * unknown_8a8);
 	DWORD b = 0;
 	for (DWORD i = 0; i < rules_count; i++) {
 		DWORD tmp = rules_array[i];

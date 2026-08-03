@@ -18,20 +18,20 @@ DWORD cze_setup_c(playable_nation_data* nation_data) {
 	nation_data->contract_end_year = *current_year + 1;
 	nation_data->f70 = 5;
 	nation_data->num_of_comps = 3;
-	DWORD* nation_comps = (DWORD*)sub_944E46_malloc(nation_data->num_of_comps * 4);
+	DWORD* nation_comps = (DWORD*)cm0102_malloc(nation_data->num_of_comps * 4);
 	nation_data->comps_list = (DWORD)nation_comps;
 
 	BYTE i = 0;
 
-	BYTE* pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	BYTE* pMem = (BYTE*)cm0102_new(0xEE);
 	cze_first_init(pMem, *current_year, get_comp(CZE_FIRST_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	pMem = (BYTE*)cm0102_new(0xEE);
 	cze_second_init(pMem, *current_year, get_comp(CZE_SECOND_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
+	pMem = (BYTE*)cm0102_new(0xB2);
 	cze_cup_init(pMem, *current_year, get_comp(CZE_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 

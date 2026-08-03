@@ -67,80 +67,80 @@ DWORD bra_setup_c(playable_nation_data* nation_data) {
 	nation_data->contract_end_year = start_year;
 	nation_data->f70 = 6;
 	nation_data->num_of_comps = 18;
-	DWORD* nation_comps = (DWORD*)sub_944E46_malloc(nation_data->num_of_comps * 4);
+	DWORD* nation_comps = (DWORD*)cm0102_malloc(nation_data->num_of_comps * 4);
 	nation_data->comps_list = (DWORD)nation_comps;
 	
 	BYTE i = 0;
 	// Série A
-	BYTE* pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	BYTE* pMem = (BYTE*)cm0102_new(0xEE);
 	bra_first_init(pMem, start_year, get_comp(BRA_FIRST_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Série B
-	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	pMem = (BYTE*)cm0102_new(0xEE);
 	bra_second_init(pMem, start_year, get_comp(BRA_SECOND_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Série C
-	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	pMem = (BYTE*)cm0102_new(0xEE);
 	bra_third_init(pMem, start_year, get_comp(BRA_THIRD_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Série D
-	pMem = (BYTE*)sub_944CF1_operator_new(0xF2);
+	pMem = (BYTE*)cm0102_new(0xF2);
 	bra_fourth_init(pMem, start_year, get_comp(BRA_FOURTH_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Campeonato Baiano
-	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	pMem = (BYTE*)cm0102_new(0xEE);
 	bra_reg_bahia_init(pMem, start_year, get_comp(BRA_BAHIA_STATE_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Campeonato Carioca
-	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	pMem = (BYTE*)cm0102_new(0xF2);
 	bra_reg_rio_init(pMem, start_year, get_comp(BRA_RIO_DE_JANEIRO_STATE_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Campeonato Catarinense
-	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	pMem = (BYTE*)cm0102_new(0xF2);
 	bra_reg_catarina_init(pMem, start_year, get_comp(BRA_SANTA_CATARINA_STATE_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Campeonato Central
-	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	pMem = (BYTE*)cm0102_new(0xF2);
 	bra_reg_central_init(pMem, start_year, get_comp(BRA_CENTRAL_STATE_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Campeonato Gaúcho
-	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	pMem = (BYTE*)cm0102_new(0xF2);
 	bra_reg_gaucho_init(pMem, start_year, get_comp(BRA_GAUCHO_STATE_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Campeonato Goiano
-	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	pMem = (BYTE*)cm0102_new(0xF2);
 	bra_reg_goias_init(pMem, start_year, get_comp(BRA_GOIAS_STATE_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Campeonato Mineiro
-	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	pMem = (BYTE*)cm0102_new(0xF2);
 	bra_reg_minas_init(pMem, start_year, get_comp(BRA_MINAS_GERAIS_STATE_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Campeonato Nordeste
-	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	pMem = (BYTE*)cm0102_new(0xF2);
 	bra_reg_northeast_init(pMem, start_year, get_comp(BRA_NORTHEAST_STATE_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Campeonato Norte
-	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	pMem = (BYTE*)cm0102_new(0xEE);
 	bra_reg_north_init(pMem, start_year, get_comp(BRA_NORTH_STATE_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Campeonato Paranaense
-	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	pMem = (BYTE*)cm0102_new(0xF2);
 	bra_reg_parana_init(pMem, start_year, get_comp(BRA_PARANA_STATE_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Campeonato Paulista
-	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	pMem = (BYTE*)cm0102_new(0xF2);
 	bra_reg_paulo_init(pMem, start_year, get_comp(BRA_SAO_PAULO_STATE_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Campeonato Pernambucano
-	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	pMem = (BYTE*)cm0102_new(0xEE);
 	bra_reg_pernambuco_init(pMem, start_year, get_comp(BRA_PERNAMBUCO_STATE_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Cup
-	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
+	pMem = (BYTE*)cm0102_new(0xB2);
 	bra_cup_init(pMem, start_year, get_comp(BRA_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Champions Cup
-	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
+	pMem = (BYTE*)cm0102_new(0xB2);
 	bra_super_init(pMem, start_year, get_comp(BRA_CHAMPIONS_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 

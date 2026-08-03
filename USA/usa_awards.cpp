@@ -7,37 +7,37 @@ void usa_awards(BYTE* _this, int a2) {
 	DWORD edi = *(DWORD*)(_this + 0x13);
 	*(WORD*)(_this + 0x8) = 7;
 
-	DWORD* awards_list = (DWORD*)sub_944E46_malloc(*(WORD*)(_this + 0x8) * 4);
+	DWORD* awards_list = (DWORD*)cm0102_malloc(*(WORD*)(_this + 0x8) * 4);
 	*(DWORD*)(_this + 0x4) = (DWORD)awards_list;
 	BYTE i = 0;
 	BYTE esi = 0;
 
 	// MLS awards
-	BYTE* pMem = (BYTE*)sub_944CF1_operator_new(0xA2);
+	BYTE* pMem = (BYTE*)cm0102_new(0xA2);
 	monthly_person_award_setup_766E10(pMem, edi, i, MLS_PLAYER_OF_MONTH_9CF(), 3000, 500, USA_MLS_9CF(), February, *current_year, November, *current_year, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, MLS_MANAGER_OF_YEAR_9CF(), 5000, 500, USA_MLS_9CF(), 0, 0, 0, a2, 0);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, MLS_SCORING_CHAMPION_9CF(), 5000, 500, USA_MLS_9CF(), 0, 0, 1, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, MLS_GOALKEEPER_OF_YEAR_9CF(), 5000, 500, USA_MLS_9CF(), 0, 0, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, MLS_DEFENDER_OF_YEAR_9CF(), 5000, 500, USA_MLS_9CF(), 0, 0, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, MLS_ROOKIE_OF_YEAR_9CF(), 4000, 500, USA_MLS_9CF(), 0, 0, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x25D);
+	pMem = (BYTE*)cm0102_new(0x25D);
 	team_award_setup_8AF520(pMem, edi, i, MLS_ALL_PRO_TEAM_9CF(), 3500, 100, USA_MLS_9CF(), 0, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 }

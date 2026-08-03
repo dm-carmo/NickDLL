@@ -23,40 +23,40 @@ DWORD world_cup_setup_c(playable_nation_data* nation_data) {
 	nation_data->contract_end_year = *current_year;
 	nation_data->f70 = 5;
 	nation_data->num_of_comps = 8;
-	DWORD* nation_comps = (DWORD*)sub_944E46_malloc(nation_data->num_of_comps * 4);
+	DWORD* nation_comps = (DWORD*)cm0102_malloc(nation_data->num_of_comps * 4);
 	nation_data->comps_list = (DWORD)nation_comps;
 
 	BYTE i = 0;
 
-	BYTE* pMem = (BYTE*)sub_944CF1_operator_new(0x192);
+	BYTE* pMem = (BYTE*)cm0102_new(0x192);
 	fifa_world_cup_init(pMem, *current_year, get_comp(FIFA_WORLD_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	pMem = (BYTE*)cm0102_new(0xEE);
 	world_cup_quals_caf_init(pMem, *current_year, get_comp(WORLD_CUP_CAF_QUALIFYING_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
+	pMem = (BYTE*)cm0102_new(0xB2);
 	world_cup_quals_afc_init(pMem, *current_year, get_comp(WORLD_CUP_AFC_QUALIFYING_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
+	pMem = (BYTE*)cm0102_new(0xB2);
 	world_cup_quals_concacaf_init(pMem, *current_year, get_comp(WORLD_CUP_CONCACAF_QUALIFYING_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	pMem = (BYTE*)cm0102_new(0xEE);
 	world_cup_quals_uefa_init(pMem, *current_year, get_comp(WORLD_CUP_UEFA_QUALIFYING_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
+	pMem = (BYTE*)cm0102_new(0xB2);
 	world_cup_quals_ofc_init(pMem, *current_year, get_comp(WORLD_CUP_OFC_QUALIFYING_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	pMem = (BYTE*)cm0102_new(0xEE);
 	world_cup_quals_conmebol_init(pMem, *current_year, get_comp(WORLD_CUP_CONMEBOL_QUALIFYING_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
+	pMem = (BYTE*)cm0102_new(0xB2);
 	world_cup_playoffs_init(pMem, *current_year, get_comp(WORLD_CUP_PLAYOFFS_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 

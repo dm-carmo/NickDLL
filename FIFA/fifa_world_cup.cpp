@@ -113,7 +113,7 @@ DWORD fifa_world_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WOR
 		*num_rounds = 3;
 		*stage_name_id = AlphabeticGroupStage + stage_idx;
 
-		pMem = (BYTE*)sub_944E46_malloc(fixture_dates_sz * (*num_rounds));
+		pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
 		AddFixture(pMem, 0, Date(year, 6, 14), year, Sunday, Afternoon, VenueUnknown_1);
@@ -229,7 +229,7 @@ DWORD fifa_world_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WOR
 		*num_rounds = 4;
 		*stage_name_id = WorldCupPath1;
 
-		pMem = (BYTE*)sub_944E46_malloc(playoff_dates_sz * (*num_rounds));
+		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
 		int tv_id = 0;
@@ -275,7 +275,7 @@ DWORD fifa_world_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WOR
 		*num_rounds = 4;
 		*stage_name_id = WorldCupPath2;
 
-		pMem = (BYTE*)sub_944E46_malloc(playoff_dates_sz * (*num_rounds));
+		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
 		int tv_id = 0;
@@ -320,7 +320,7 @@ DWORD fifa_world_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WOR
 		*num_rounds = 1;
 		*stage_name_id = ThirdPlacePlayoff;
 
-		pMem = (BYTE*)sub_944E46_malloc(playoff_dates_sz * (*num_rounds));
+		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 16), year, Thursday);
@@ -337,7 +337,7 @@ DWORD fifa_world_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WOR
 		*num_rounds = 1;
 		*stage_name_id = None;
 
-		pMem = (BYTE*)sub_944E46_malloc(playoff_dates_sz * (*num_rounds));
+		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 16), year, Thursday);
@@ -479,7 +479,7 @@ void __declspec(naked) fifa_world_cup_reputation_calc_c()
 void fifa_world_cup_setup_first_group(BYTE* _this, BYTE* pMem) {
 	comp_stats* data = (comp_stats*)_this;
 	WORD total_teams = 4;
-	BYTE* tMem = (BYTE*)sub_944E46_malloc(league_team_list_sz * total_teams);
+	BYTE* tMem = (BYTE*)cm0102_malloc(league_team_list_sz * total_teams);
 
 	data->n_teams = total_teams;
 	data->team_league_table = (DWORD*)tMem;
@@ -500,7 +500,7 @@ void fifa_world_cup_setup_groups(BYTE* _this, BYTE* pMem, BYTE idx) {
 	WORD stage_name_id = 0;
 	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, int, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, idx, &num_rounds, &stage_name_id, 0);
 	comp_stats* data = (comp_stats*)_this;
-	DWORD* pTeams = (DWORD*)sub_944E46_malloc(data->n_teams * 4);
+	DWORD* pTeams = (DWORD*)cm0102_malloc(data->n_teams * 4);
 
 	BYTE teamsAdded = 0;
 	for (BYTE i = 0; i < 48 && teamsAdded < 4; i++) {
@@ -511,7 +511,7 @@ void fifa_world_cup_setup_groups(BYTE* _this, BYTE* pMem, BYTE idx) {
 	}
 
 	WORD year = data->year;
-	BYTE* pStage = (BYTE*)sub_944CF1_operator_new(0xEE);
+	BYTE* pStage = (BYTE*)cm0102_new(0xEE);
 	create_league_stage_data(pStage, _this, 4, pTeams, 1, (DWORD)(data->competition_db), pFixtures, num_rounds,
 		data->pts_for_win, data->pts_for_draw, data->f196, (BYTE*)(_this + 0xC5), (BYTE*)(_this + 0xBE),
 		year, idx, stage_name_id, data->f81, 4, 0, data->f217, -1, 0, 2);
@@ -551,11 +551,11 @@ void fifa_world_cup_best_placed_update(BYTE* _this) {
 		team_league_stats* table_teams = (team_league_stats*)(curr_stage->team_league_table);
 		team_league_stats tls_third = table_teams[2];
 		cm3_clubs* third_club = tls_third.club;
-		DWORD* pMem = (DWORD*)sub_944E46_malloc(4 * curr_stage->n_teams);
+		DWORD* pMem = (DWORD*)cm0102_malloc(4 * curr_stage->n_teams);
 		for (WORD i = 0; i < curr_stage->n_teams; i++) {
 			*((DWORD*)(&pMem[i])) = table_teams[i].club->ClubID;
 		}
-		BYTE* pStage = (BYTE*)sub_944CF1_operator_new(0xEE);
+		BYTE* pStage = (BYTE*)cm0102_new(0xEE);
 		comp_stats* stage_data = (comp_stats*)pStage;
 		WORD n = curr_stage->n_teams;
 		sub_88C6D0(pStage, n, pMem, -1, -1, start_date, end_date, data->competition_db->ClubCompID, data->pts_for_win, data->pts_for_draw, (BYTE*)(_this + 0xC5), 9 * (n * (n - 1)), data->f16);
@@ -582,7 +582,7 @@ void fifa_world_cup_setup_best_placed(BYTE* _this) {
 	char stage_num = 11;
 	comp_stats* data = (comp_stats*)_this;
 	WORD year = data->year;
-	BYTE* pStage = (BYTE*)sub_944CF1_operator_new(0xEE);
+	BYTE* pStage = (BYTE*)cm0102_new(0xEE);
 	BYTE prom_rel[4] = { 8, 0, 0, 0 };
 	BYTE tiebreaks[4] = { GoalDifferenceTiebreaker, GoalsForTiebreaker, GoalsForAwayTiebreaker, NoTiebreaker };
 	create_league_stage_data(pStage, _this, 12, 0, 0, (DWORD)(data->competition_db), 0, 0,
@@ -887,8 +887,8 @@ void fifa_world_cup_paths_setup(BYTE* _this) {
 	char stage_num = 12;
 
 	BYTE playoff_teams = 16;
-	DWORD* pTeams1 = (DWORD*)sub_944E46_malloc(playoff_teams * 4);
-	DWORD* pTeams2 = (DWORD*)sub_944E46_malloc(playoff_teams * 4);
+	DWORD* pTeams1 = (DWORD*)cm0102_malloc(playoff_teams * 4);
+	DWORD* pTeams2 = (DWORD*)cm0102_malloc(playoff_teams * 4);
 
 	comp_stats* curr_stage = data;
 	vector<cm3_clubs*> clubs;
@@ -949,7 +949,7 @@ void fifa_world_cup_paths_setup(BYTE* _this) {
 	WORD year = data->year;
 	DWORD v1 = *(DWORD*)_this;
 	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, char, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
-	BYTE* new_stage = (BYTE*)sub_944CF1_operator_new(0xB2);
+	BYTE* new_stage = (BYTE*)cm0102_new(0xB2);
 	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams1, num_rounds, (DWORD)(data->competition_db), pFixtures, year, stage_num, 4, stage_name_id, 0x14, 1, 0, 0, 0);
 	DWORD* stages_arr = data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
@@ -959,7 +959,7 @@ void fifa_world_cup_paths_setup(BYTE* _this) {
 	num_rounds = 0;
 	stage_name_id = 0;
 	pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, char, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
-	new_stage = (BYTE*)sub_944CF1_operator_new(0xB2);
+	new_stage = (BYTE*)cm0102_new(0xB2);
 	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams2, num_rounds, (DWORD)(data->competition_db), pFixtures, year, stage_num, 4, stage_name_id, 0x14, 1, 0, 0, 0);
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
 	sub_51C800(new_stage, 0);
@@ -974,8 +974,8 @@ void fifa_world_cup_final_stage_setup(BYTE* _this) {
 	char stage_num = 14;
 
 	BYTE playoff_teams = 2;
-	DWORD* pTeams1 = (DWORD*)sub_944E46_malloc(playoff_teams * 4);
-	DWORD* pTeams2 = (DWORD*)sub_944E46_malloc(playoff_teams * 4);
+	DWORD* pTeams1 = (DWORD*)cm0102_malloc(playoff_teams * 4);
+	DWORD* pTeams2 = (DWORD*)cm0102_malloc(playoff_teams * 4);
 
 	comp_stats* path1 = (comp_stats*)(data->stages[12]);
 	comp_stats* path2 = (comp_stats*)(data->stages[13]);
@@ -1004,7 +1004,7 @@ void fifa_world_cup_final_stage_setup(BYTE* _this) {
 	WORD year = data->year;
 	DWORD v1 = *(DWORD*)_this;
 	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, char, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
-	BYTE* new_stage = (BYTE*)sub_944CF1_operator_new(0xB2);
+	BYTE* new_stage = (BYTE*)cm0102_new(0xB2);
 	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams2, num_rounds, (DWORD)(data->competition_db), pFixtures, year, stage_num, 4, stage_name_id, 0x14, 1, 0, 0, 0);
 	DWORD* stages_arr = data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
@@ -1014,7 +1014,7 @@ void fifa_world_cup_final_stage_setup(BYTE* _this) {
 	num_rounds = 0;
 	stage_name_id = 0;
 	pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, char, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
-	new_stage = (BYTE*)sub_944CF1_operator_new(0xB2);
+	new_stage = (BYTE*)cm0102_new(0xB2);
 	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams1, num_rounds, (DWORD)(data->competition_db), pFixtures, year, stage_num, 4, stage_name_id, 0x14, 1, 0, 0, 0);
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
 	sub_51C800(new_stage, 0);
@@ -1172,7 +1172,7 @@ BYTE* fifa_world_cup_all_teams(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	WORD year = data->year;
 	teams_seeded* teamList = (teams_seeded*)data->special_teams_seedings;
-	BYTE* pMem = (BYTE*)sub_944E46_malloc(48 * 5);
+	BYTE* pMem = (BYTE*)cm0102_malloc(48 * 5);
 	if (year == 2026) {
 		WORD x = 0;
 		*((DWORD*)(pMem + 5 * (x++))) = get_national_team(NATION_MEXICO_9CF())->ClubID;
@@ -1407,7 +1407,7 @@ void fifa_world_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->f81 = 0xf;
 	data->special_nteams_seedings = 0;
 	data->f56 = 48;
-	BYTE* pMem = (BYTE*)sub_944E46_malloc(48 * 6);
+	BYTE* pMem = (BYTE*)cm0102_malloc(48 * 6);
 	for (int i = 0; i < 48 * 6; i++) pMem[i] = 0;
 	data->special_teams_seedings = (DWORD*)pMem;
 	int loaded = sub_687B10(_this, 1);
@@ -1416,12 +1416,11 @@ void fifa_world_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 16;
-	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
-	for (int i = 0; i < data->num_stages; i++) data->stages[i] = 0;
+	data->stages = (DWORD*)cm0102_malloc(data->num_stages * 4);
 	fifa_world_cup_seeded_teams(_this);
 	fifa_world_cup_subs(_this);
 	BYTE* ebx = 0;
-	BYTE* pMem2 = (BYTE*)sub_944CF1_operator_new(0x5CE);
+	BYTE* pMem2 = (BYTE*)cm0102_new(0x5CE);
 	BYTE unk1 = 1;
 	sub_49EE70(pMem2, _this);
 	unk1 = 0;

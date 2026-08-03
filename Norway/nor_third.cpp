@@ -178,7 +178,7 @@ DWORD nor_third_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		*num_rounds = (numberOfLeagueTeams - 1) * data->n_rounds;
 		*stage_name_id = NumericGroupStage + stage_idx;
 
-		pMem = (BYTE*)sub_944E46_malloc(fixture_dates_sz * (*num_rounds));
+		pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 3, 29), year, Saturday);
@@ -242,7 +242,7 @@ void nor_third_setup_groups(BYTE* _this, BYTE idx) {
 	else if (idx == 2) group_id = NOR_THIRD_G4_9CF();
 	else if (idx == 3) group_id = NOR_THIRD_G5_9CF();
 	else if (idx == 4) group_id = NOR_THIRD_G6_9CF();
-	DWORD* pTeams = (DWORD*)sub_944E46_malloc(data->n_teams * 4);
+	DWORD* pTeams = (DWORD*)cm0102_malloc(data->n_teams * 4);
 
 	BYTE teamsAdded = 0;
 	for (DWORD i = 0; i < *clubs_count; i++)
@@ -255,7 +255,7 @@ void nor_third_setup_groups(BYTE* _this, BYTE idx) {
 		}
 	}
 	WORD year = data->year;
-	BYTE* pStage = (BYTE*)sub_944CF1_operator_new(0xEE);
+	BYTE* pStage = (BYTE*)cm0102_new(0xEE);
 	create_league_stage_data(pStage, _this, 14, pTeams, 2, (DWORD)(data->competition_db), pFixtures, num_rounds,
 		data->pts_for_win, data->pts_for_draw, data->f196, (BYTE*)(_this + 0xC5), (BYTE*)(_this + 0xBE),
 		year, idx, stage_name_id, data->f81, 1, 0, data->f217, -1, 0, 2);
@@ -417,7 +417,7 @@ void __declspec(naked) nor_third_reputation_calc_c()
 
 void nor_third_awards(BYTE* _this, DWORD** team_list, WORD* total_teams) {
 	*total_teams = 84;
-	DWORD* pMem = (DWORD*)sub_944E46_malloc(4 * (*total_teams));
+	DWORD* pMem = (DWORD*)cm0102_malloc(4 * (*total_teams));
 	*team_list = pMem;
 
 	comp_stats* comp_data = (comp_stats*)_this;
@@ -474,14 +474,13 @@ void nor_third_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 5;
-	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
-	for (int i = 0; i < data->num_stages; i++) data->stages[i] = 0;
+	data->stages = (DWORD*)cm0102_malloc(data->num_stages * 4);
 	nor_third_subs(_this);
 	AddTeamsGroupLeague(_this, NOR_THIRD_G1_9CF());
 	SetupTVMoney(_this, prizeMoneyFile.GetInt("nor_third_tv_money"), 0);
 	BYTE* ebx = 0;
 	sub_6827D0(_this, ebx);
-	BYTE* pMem2 = (BYTE*)sub_944CF1_operator_new(0x5CE);
+	BYTE* pMem2 = (BYTE*)cm0102_new(0x5CE);
 	BYTE unk1 = 1;
 	sub_49EE70(pMem2, _this);
 	unk1 = 0;

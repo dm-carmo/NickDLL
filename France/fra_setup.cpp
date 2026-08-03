@@ -26,28 +26,28 @@ DWORD fra_setup_c(playable_nation_data* nation_data) {
 	nation_data->f70 = 5;
 	BYTE selected = nation_data->nation->NationLeagueSelected;
 	nation_data->num_of_comps = 5;
-	DWORD* nation_comps = (DWORD*)sub_944E46_malloc(nation_data->num_of_comps * 4);
+	DWORD* nation_comps = (DWORD*)cm0102_malloc(nation_data->num_of_comps * 4);
 	nation_data->comps_list = (DWORD)nation_comps;
 	
 	BYTE i = 0;
 	// Ligue 1
-	BYTE* pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	BYTE* pMem = (BYTE*)cm0102_new(0xEE);
 	fra_first_init(pMem, *current_year, get_comp(FRA_FIRST_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Ligue 2
-	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	pMem = (BYTE*)cm0102_new(0xEE);
 	fra_second_init(pMem, *current_year, get_comp(FRA_SECOND_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// National
-	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	pMem = (BYTE*)cm0102_new(0xEE);
 	fra_third_init(pMem, *current_year, get_comp(FRA_NATIONAL_1_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Cup
-	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
+	pMem = (BYTE*)cm0102_new(0xB2);
 	fra_cup_setup(pMem, *current_year, get_comp(FRA_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Super Cup
-	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
+	pMem = (BYTE*)cm0102_new(0xB2);
 	fra_super_setup(pMem, *current_year, get_comp(FRA_SUPER_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	BYTE* cm_date = new BYTE[8];

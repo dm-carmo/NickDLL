@@ -6,55 +6,55 @@
 void norway_awards(BYTE* _this, int a2) {
 	DWORD edi = *(DWORD*)(_this + 0x13);
 	*(WORD*)(_this + 0x8) = 11;
-	DWORD* awards_list = (DWORD*)sub_944E46_malloc(*(WORD*)(_this + 0x8) * 4);
+	DWORD* awards_list = (DWORD*)cm0102_malloc(*(WORD*)(_this + 0x8) * 4);
 	*(DWORD*)(_this + 0x4) = (DWORD)awards_list;
 	BYTE i = 0;
 	BYTE esi = 0;
 
 	// General awards
-	BYTE* pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	BYTE* pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, NOR_PLAYER_OF_YEAR_9CF(), 6000, 2500, -1, 0, 0, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, NOR_GOALKEEPER_OF_YEAR_9CF(), 4000, 1000, -1, 0, 0, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, NOR_DEFENDER_OF_YEAR_9CF(), 4000, 1000, -1, 0, 0, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, NOR_MIDFIELDER_OF_YEAR_9CF(), 4000, 1500, -1, 0, 0, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, NOR_ATTACKER_OF_YEAR_9CF(), 4000, 1750, -1, 0, 0, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
 	// Eliteserien awards
-	pMem = (BYTE*)sub_944CF1_operator_new(0x25D);
+	pMem = (BYTE*)cm0102_new(0x25D);
 	team_award_setup_8AF520(pMem, edi, i, NOR_PREMIER_TEAM_OF_WEEK_9CF(), 3000, 500, NOR_PREMIER_9CF(), 0, 1, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0xA2);
+	pMem = (BYTE*)cm0102_new(0xA2);
 	monthly_person_award_setup_766E10(pMem, edi, i, NOR_PREMIER_MANAGER_OF_MONTH_9CF(), 3000, 1500, NOR_PREMIER_9CF(), March, *current_year, November, *current_year, a2, 0);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0xA2);
+	pMem = (BYTE*)cm0102_new(0xA2);
 	monthly_person_award_setup_766E10(pMem, edi, i, NOR_PREMIER_PLAYER_OF_MONTH_9CF(), 3000, 1500, NOR_PREMIER_9CF(), March, *current_year, November, *current_year, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
 	// 1. Divisjon awards
-	pMem = (BYTE*)sub_944CF1_operator_new(0x25D);
+	pMem = (BYTE*)cm0102_new(0x25D);
 	team_award_setup_8AF520(pMem, edi, i, NOR_FIRST_TEAM_OF_WEEK_9CF(), 1000, 100, NOR_FIRST_9CF(), 0, 1, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0xA2);
+	pMem = (BYTE*)cm0102_new(0xA2);
 	monthly_person_award_setup_766E10(pMem, edi, i, NOR_FIRST_MANAGER_OF_MONTH_9CF(), 1500, 750, NOR_FIRST_9CF(), March, *current_year, November, *current_year, a2, 0);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0xA2);
+	pMem = (BYTE*)cm0102_new(0xA2);
 	monthly_person_award_setup_766E10(pMem, edi, i, NOR_FIRST_PLAYER_OF_MONTH_9CF(), 1500, 750, NOR_FIRST_9CF(), March, *current_year, November, *current_year, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 }

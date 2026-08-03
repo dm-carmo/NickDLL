@@ -6,83 +6,83 @@
 void ireland_awards(BYTE* _this, int a2) {
 	DWORD edi = *(DWORD*)(_this + 0x13);
 	*(WORD*)(_this + 0x8) = 18;
-	DWORD* awards_list = (DWORD*)sub_944E46_malloc(*(WORD*)(_this + 0x8) * 4);
+	DWORD* awards_list = (DWORD*)cm0102_malloc(*(WORD*)(_this + 0x8) * 4);
 	*(DWORD*)(_this + 0x4) = (DWORD)awards_list;
 	BYTE i = 0;
 	BYTE esi = 0;
 
 	// General awards
-	BYTE* pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	BYTE* pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, IRL_PLAYER_OF_YEAR_9CF(), 0xbb8, 0x5dc, -1, 0, 0, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, IRL_YOUNG_PLAYER_OF_YEAR_9CF(), 0x5dc, 0x2ee, -1, 0, 0, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, IRL_PERSONALITY_OF_YEAR_9CF(), 0, 0, -1, 0, 0, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0xA2);
+	pMem = (BYTE*)cm0102_new(0xA2);
 	monthly_person_award_setup_766E10(pMem, edi, i, IRL_PLAYER_OF_MONTH_9CF(), 0xbb8, 0x5dc, -1, February, *current_year, October, *current_year, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
 	// Premier awards
-	pMem = (BYTE*)sub_944CF1_operator_new(0x25D);
+	pMem = (BYTE*)cm0102_new(0x25D);
 	team_award_setup_8AF520(pMem, edi, i, IRL_PREMIER_TEAM_OF_WEEK_9CF(), 0x3e8, 0x1f4, IRL_PREMIER_9CF(), 1, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, IRL_PREMIER_PLAYER_OF_YEAR_9CF(), 0x5dc, 0x2ee, IRL_PREMIER_9CF(), 0, 0, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, IRL_PREMIER_YOUNG_PLAYER_OF_YEAR_9CF(), 0x1f4, 0xfa, IRL_PREMIER_9CF(), 0, 0, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, IRL_LEAGUE_GOLDEN_BOOT_9CF(), 0x1f4, 0xfa, IRL_PREMIER_9CF(), 0, 0, 1, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x25D);
+	pMem = (BYTE*)cm0102_new(0x25D);
 	team_award_setup_8AF520(pMem, edi, i, IRL_PREMIER_TEAM_OF_YEAR_9CF(), 0x5dc, 0x2ee, IRL_PREMIER_9CF(), 0, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, IRL_PREMIER_MANAGER_OF_YEAR_9CF(), 0x9c4, 0x4b0, IRL_PREMIER_9CF(), 0, 0, 0, a2, 0);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0xA2);
+	pMem = (BYTE*)cm0102_new(0xA2);
 	monthly_person_award_setup_766E10(pMem, edi, i, IRL_PREMIER_MANAGER_OF_MONTH_9CF(), 0x7d0, 0x3e8, IRL_PREMIER_9CF(), February, *current_year, October, *current_year, a2, 0);
 	awards_list[i++] = (DWORD)pMem;
 
 	// First awards
-	pMem = (BYTE*)sub_944CF1_operator_new(0x25D);
+	pMem = (BYTE*)cm0102_new(0x25D);
 	team_award_setup_8AF520(pMem, edi, i, IRL_FIRST_TEAM_OF_WEEK_9CF(), 0x1f4, 0xfa, IRL_FIRST_9CF(), 1, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, IRL_FIRST_PLAYER_OF_YEAR_9CF(), 0x2ee, 0x190, IRL_FIRST_9CF(), 0, 0, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, IRL_FIRST_YOUNG_PLAYER_OF_YEAR_9CF(), 0x12c, 0x96, IRL_FIRST_9CF(), 0, 0, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, IRL_LEAGUE_BRONZE_BOOT_9CF(), 0x1f4, 0xfa, IRL_FIRST_9CF(), 0, 0, 1, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x25D);
+	pMem = (BYTE*)cm0102_new(0x25D);
 	team_award_setup_8AF520(pMem, edi, i, IRL_FIRST_TEAM_OF_YEAR_9CF(), 0x1f4, 0xfa, IRL_FIRST_9CF(), 0, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, IRL_FIRST_MANAGER_OF_YEAR_9CF(), 0x3e8, 0x1f4, IRL_FIRST_9CF(), 0, 0, 0, a2, 0);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0xA2);
+	pMem = (BYTE*)cm0102_new(0xA2);
 	monthly_person_award_setup_766E10(pMem, edi, i, IRL_FIRST_MANAGER_OF_MONTH_9CF(), 0x3e8, 0x1f4, IRL_FIRST_9CF(), February, *current_year, October, *current_year, a2, 0);
 	awards_list[i++] = (DWORD)pMem;
 }

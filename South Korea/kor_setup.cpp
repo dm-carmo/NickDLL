@@ -28,24 +28,24 @@ DWORD kor_setup_c(playable_nation_data* nation_data) {
 	nation_data->contract_end_year = start_year;
 	nation_data->f70 = 5;
 	nation_data->num_of_comps = 4;
-	DWORD* nation_comps = (DWORD*)sub_944E46_malloc(nation_data->num_of_comps * 4);
+	DWORD* nation_comps = (DWORD*)cm0102_malloc(nation_data->num_of_comps * 4);
 	nation_data->comps_list = (DWORD)nation_comps;
 	
 	BYTE i = 0;
 	// K1
-	BYTE* pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	BYTE* pMem = (BYTE*)cm0102_new(0xEE);
 	kor_first_init(pMem, start_year, get_comp(KOR_FIRST_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// K2
-	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	pMem = (BYTE*)cm0102_new(0xEE);
 	kor_second_init(pMem, start_year, get_comp(KOR_SECOND_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Cup
-	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
+	pMem = (BYTE*)cm0102_new(0xB2);
 	kor_cup_setup(pMem, start_year, get_comp(KOR_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Super Cup
-	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
+	pMem = (BYTE*)cm0102_new(0xB2);
 	kor_super_setup(pMem, start_year, get_comp(KOR_SUPER_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 

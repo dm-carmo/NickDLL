@@ -211,7 +211,7 @@ int arg_third_interior_add_teams(BYTE* _this)
 	if (all_teams) sub_9452CA_free(all_teams);
 
 	vector<cm3_clubs*> champ_clubs = find_clubs_of_comp(comp_data->competition_db->ClubCompID);
-	comp_data->teams2 = (DWORD*)sub_944E46_malloc(champ_clubs.size() * 4);
+	comp_data->teams2 = (DWORD*)cm0102_malloc(champ_clubs.size() * 4);
 	sort(champ_clubs.begin(), champ_clubs.end(), compareClubLatitude);
 	for (DWORD i = 0; i < champ_clubs.size(); i++)
 	{
@@ -219,7 +219,7 @@ int arg_third_interior_add_teams(BYTE* _this)
 	}
 
 	comp_data->n_teams = 9; // number of teams per group in this case
-	comp_data->team_league_table = (DWORD*)sub_944E46_malloc(10 * league_team_list_sz);
+	comp_data->team_league_table = (DWORD*)cm0102_malloc(10 * league_team_list_sz);
 	BYTE teamsAdded = 0;
 	for (DWORD i = 0; i < comp_data->n_teams; i++)
 	{
@@ -235,7 +235,7 @@ void arg_third_interior_setup_groups(BYTE* _this, BYTE idx) {
 	WORD stage_name_id = 0;
 	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, int, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, idx, &num_rounds, &stage_name_id, 0);
 	comp_stats* data = (comp_stats*)_this;
-	DWORD* pTeams = (DWORD*)sub_944E46_malloc(data->n_teams * 4);
+	DWORD* pTeams = (DWORD*)cm0102_malloc(data->n_teams * 4);
 	WORD teams_in_group = 9;
 	WORD offset = teams_in_group * (idx + 1);
 
@@ -246,7 +246,7 @@ void arg_third_interior_setup_groups(BYTE* _this, BYTE idx) {
 		*((DWORD*)(&pTeams[i])) = (DWORD)club;
 	}
 	WORD year = data->year;
-	BYTE* pStage = (BYTE*)sub_944CF1_operator_new(0xEE);
+	BYTE* pStage = (BYTE*)cm0102_new(0xEE);
 	BYTE prom_rel[4] = { 0, 4, 5, 0 };
 	create_league_stage_data(pStage, _this, teams_in_group, pTeams, 2, (DWORD)(data->competition_db), pFixtures, num_rounds,
 		data->pts_for_win, data->pts_for_draw, data->f196, (BYTE*)(_this + 0xC5), &prom_rel[0],
@@ -313,7 +313,7 @@ DWORD arg_third_interior_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds,
 		*num_rounds = (numberOfLeagueTeams - 1) * data->n_rounds;
 		*stage_name_id = FirstRoundAlphabeticGroup + (stage_idx + 1);
 
-		pMem = (BYTE*)sub_944E46_malloc(fixture_dates_sz * (*num_rounds));
+		pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 3, 1), year, Saturday);
@@ -351,7 +351,7 @@ DWORD arg_third_interior_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds,
 		if (stage_idx < 5) *stage_name_id = PromotionGroupAtoD + (stage_idx - 3);
 		else *stage_name_id = RelegationGroupAtoB + (stage_idx - 5);
 
-		pMem = (BYTE*)sub_944E46_malloc(fixture_dates_sz * (*num_rounds));
+		pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
 		if (stage_idx >= 5) AddFixtureNoTV(pMem, fixture_id++, Date(year, 7, 12), year, Saturday);
@@ -385,7 +385,7 @@ DWORD arg_third_interior_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds,
 		*num_rounds = 3;
 		*stage_name_id = Playoff;
 
-		pMem = (BYTE*)sub_944E46_malloc(playoff_dates_sz * (*num_rounds));
+		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 16), year, Sunday);
@@ -645,7 +645,7 @@ void arg_third_interior_playoff_finals(BYTE* _this) {
 	char stage_num = 7;
 	comp_stats* comp_data = (comp_stats*)_this;
 	BYTE playoff_teams = 8;
-	DWORD* pTeams = (DWORD*)sub_944E46_malloc(playoff_teams * 4);
+	DWORD* pTeams = (DWORD*)cm0102_malloc(playoff_teams * 4);
 	BYTE team_order[8] = { 0,2,4,6,7,5,3,1 };
 
 	vector<cm3_clubs*> clubs;
@@ -672,7 +672,7 @@ void arg_third_interior_playoff_finals(BYTE* _this) {
 	WORD year = comp_data->year;
 	DWORD v1 = *(DWORD*)_this;
 	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, char, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
-	BYTE* new_stage = (BYTE*)sub_944CF1_operator_new(0xB2);
+	BYTE* new_stage = (BYTE*)cm0102_new(0xB2);
 	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)comp_data->competition_db, pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, 0);
 	DWORD* stages_arr = comp_data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
@@ -693,7 +693,7 @@ void arg_third_interior_playoffs_prom(BYTE* _this) {
 		WORD num_rounds = 0;
 		WORD stage_name_id = 0;
 		BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, int, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
-		DWORD* pTeams = (DWORD*)sub_944E46_malloc(playoff_teams * 4);
+		DWORD* pTeams = (DWORD*)cm0102_malloc(playoff_teams * 4);
 
 		for (char al = (g * 2 - 1); al < (g * 2 + 1); al++)
 		{
@@ -715,7 +715,7 @@ void arg_third_interior_playoffs_prom(BYTE* _this) {
 
 		BYTE prom_rel[4] = { 0, 4, 0, 0 };
 		WORD year = comp_data->year;
-		BYTE* pStage = (BYTE*)sub_944CF1_operator_new(0xEE);
+		BYTE* pStage = (BYTE*)cm0102_new(0xEE);
 		create_league_stage_data(pStage, _this, playoff_teams, pTeams, 2, (DWORD)(comp_data->competition_db), pFixtures, num_rounds,
 			comp_data->pts_for_win, comp_data->pts_for_draw, comp_data->f196, (BYTE*)(_this + 0xC5), &prom_rel[0],
 			year, stage_num, stage_name_id, 0x14, 1, 0, comp_data->f217, -1, 0, 2);
@@ -741,7 +741,7 @@ void arg_third_interior_playoffs_rele(BYTE* _this) {
 		WORD num_rounds = 0;
 		WORD stage_name_id = 0;
 		BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, int, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
-		DWORD* pTeams = (DWORD*)sub_944E46_malloc(playoff_teams * 4);
+		DWORD* pTeams = (DWORD*)cm0102_malloc(playoff_teams * 4);
 
 		for (char al = (g * 2 - 1); al < (g * 2 + 1); al++)
 		{
@@ -763,7 +763,7 @@ void arg_third_interior_playoffs_rele(BYTE* _this) {
 
 		BYTE prom_rel[4] = { 0, 0, 0, 2 };
 		WORD year = comp_data->year;
-		BYTE* pStage = (BYTE*)sub_944CF1_operator_new(0xEE);
+		BYTE* pStage = (BYTE*)cm0102_new(0xEE);
 		create_league_stage_data(pStage, _this, playoff_teams, pTeams, 2, (DWORD)(comp_data->competition_db), pFixtures, num_rounds,
 			comp_data->pts_for_win, comp_data->pts_for_draw, comp_data->f196, (BYTE*)(_this + 0xC5), &prom_rel[0],
 			year, stage_num, stage_name_id, 0x14, 1, 0, comp_data->f217, -1, 0, 2);
@@ -896,14 +896,13 @@ void arg_third_interior_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 8;
-	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
-	for (int i = 0; i < data->num_stages; i++) data->stages[i] = 0;
+	data->stages = (DWORD*)cm0102_malloc(data->num_stages * 4);
 	arg_third_interior_subs(_this);
 	arg_third_interior_add_teams(_this);
 	sub_6835C0(_this);
 	BYTE* ebx = 0;
 	sub_6827D0(_this, ebx);
-	BYTE* pMem2 = (BYTE*)sub_944CF1_operator_new(0x5CE);
+	BYTE* pMem2 = (BYTE*)cm0102_new(0x5CE);
 	BYTE unk1 = 1;
 	sub_49EE70(pMem2, _this);
 	unk1 = 0;

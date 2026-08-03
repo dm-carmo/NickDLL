@@ -13,90 +13,90 @@ void italy_awards(BYTE* _this, int a2) {
 	else {
 		*(WORD*)(_this + 0x8) = 20;
 	}
-	DWORD* awards_list = (DWORD*)sub_944E46_malloc(*(WORD*)(_this + 0x8) * 4);
+	DWORD* awards_list = (DWORD*)cm0102_malloc(*(WORD*)(_this + 0x8) * 4);
 	*(DWORD*)(_this + 0x4) = (DWORD)awards_list;
 	BYTE i = 0;
 	BYTE esi = 0;
 
 	// Serie A awards
-	BYTE* pMem = (BYTE*)sub_944CF1_operator_new(0x25D);
+	BYTE* pMem = (BYTE*)cm0102_new(0x25D);
 	team_award_setup_8AF520(pMem, edi, i, ITA_SERIE_A_TEAM_OF_WEEK_9CF(), 0, 0, ITA_SERIE_A_9CF(), 1, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x25D);
+	pMem = (BYTE*)cm0102_new(0x25D);
 	team_award_setup_8AF520(pMem, edi, i, ITA_SERIE_A_TEAM_OF_YEAR_9CF(), 6500, 2500, ITA_SERIE_A_9CF(), 1, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, ITA_SERIE_A_MANAGER_OF_YEAR_9CF(), 7000, 2500, ITA_SERIE_A_9CF(), 1, 0, 0, a2, 0);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, ITA_SERIE_A_PLAYER_OF_YEAR_9CF(), 8500, 5000, ITA_SERIE_A_9CF(), 1, 0, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, ITA_SERIE_A_YOUNG_PLAYER_OF_YEAR_9CF(), 7500, 4000, ITA_SERIE_A_9CF(), 1, 0, 0, a2, 0);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, ITA_SERIE_A_TOP_GOALSCORER_9CF(), 8000, 5000, ITA_SERIE_A_9CF(), 1, 0, 1, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, ITA_SERIE_A_DEFENDER_OF_YEAR_9CF(), 7500, 5000, ITA_SERIE_A_9CF(), 1, 0, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, ITA_SERIE_A_GOALKEEPER_OF_YEAR_9CF(), 7500, 5000, ITA_SERIE_A_9CF(), 1, 0, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, ITA_SERIE_A_ITA_PLAYER_OF_YEAR_9CF(), 7500, 5000, ITA_SERIE_A_9CF(), 1, 0, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, ITA_SERIE_A_FOREIGN_PLAYER_OF_YEAR_9CF(), 7500, 5000, ITA_SERIE_A_9CF(), 1, 0, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
 	// Serie B awards
-	pMem = (BYTE*)sub_944CF1_operator_new(0x25D);
+	pMem = (BYTE*)cm0102_new(0x25D);
 	team_award_setup_8AF520(pMem, edi, i, ITA_SERIE_B_TEAM_OF_WEEK_9CF(), 0, 0, ITA_SERIE_B_9CF(), 1, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x25D);
+	pMem = (BYTE*)cm0102_new(0x25D);
 	team_award_setup_8AF520(pMem, edi, i, ITA_SERIE_B_TEAM_OF_YEAR_9CF(), 3500, 1750, ITA_SERIE_B_9CF(), 1, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, ITA_SERIE_B_MANAGER_OF_YEAR_9CF(), 5000, 1500, ITA_SERIE_B_9CF(), 1, 0, 0, a2, 0);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, ITA_SERIE_B_PLAYER_OF_YEAR_9CF(), 6000, 2000, ITA_SERIE_B_9CF(), 1, 0, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, ITA_SERIE_B_TOP_GOALSCORER_9CF(), 5500, 2000, ITA_SERIE_B_9CF(), 1, 0, 1, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 	// Serie C awards
-	pMem = (BYTE*)sub_944CF1_operator_new(0x25D);
+	pMem = (BYTE*)cm0102_new(0x25D);
 	team_award_setup_8AF520(pMem, edi, i, ITA_SERIE_C1_A_TEAM_OF_WEEK_9CF(), 0, 0, ITA_SERIE_C_9CF(), 1, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x25D);
+	pMem = (BYTE*)cm0102_new(0x25D);
 	team_award_setup_8AF520(pMem, edi, i, ITA_SERIE_C1_A_TEAM_OF_YEAR_9CF(), 1500, 750, ITA_SERIE_C_9CF(), 1, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, ITA_SERIE_C1_A_MANAGER_OF_YEAR_9CF(), 3000, 1000, ITA_SERIE_C_9CF(), 1, 0, 0, a2, 0);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, ITA_SERIE_C1_A_PLAYER_OF_YEAR_9CF(), 4500, 1500, ITA_SERIE_C_9CF(), 1, 0, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, ITA_SERIE_C1_A_TOP_GOALSCORER_9CF(), 2000, 1000, ITA_SERIE_C_9CF(), 1, 0, 1, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 }

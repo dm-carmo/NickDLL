@@ -35,45 +35,45 @@ DWORD sco_setup_c(playable_nation_data* nation_data) {
 	else {
 		nation_data->num_of_comps = 9;
 	}
-	DWORD* nation_comps = (DWORD*)sub_944E46_malloc(nation_data->num_of_comps * 4);
+	DWORD* nation_comps = (DWORD*)cm0102_malloc(nation_data->num_of_comps * 4);
 	nation_data->comps_list = (DWORD)nation_comps;
 	
 	BYTE i = 0;
 
-	BYTE* pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	BYTE* pMem = (BYTE*)cm0102_new(0xEE);
 	sco_premier_init(pMem, *current_year, get_comp(SCO_PREMIER_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	pMem = (BYTE*)cm0102_new(0xEE);
 	sco_champ_init(pMem, *current_year, get_comp(SCO_CHAMP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	pMem = (BYTE*)cm0102_new(0xEE);
 	sco_league_1_init(pMem, *current_year, get_comp(SCO_LEAGUE_1_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	pMem = (BYTE*)cm0102_new(0xEE);
 	sco_league_2_init(pMem, *current_year, get_comp(SCO_LEAGUE_2_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	if ((selected & 4) != 0) {
-		pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+		pMem = (BYTE*)cm0102_new(0xEE);
 		sco_highland_init(pMem, *current_year, get_comp(SCO_HIGHLAND_9CF()));
 		nation_comps[i++] = (DWORD)pMem;
 
-		pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+		pMem = (BYTE*)cm0102_new(0xEE);
 		sco_lowland_init(pMem, *current_year, get_comp(SCO_LOWLAND_9CF()));
 		nation_comps[i++] = (DWORD)pMem;
 	}
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
+	pMem = (BYTE*)cm0102_new(0xB2);
 	sco_cup_setup(pMem, *current_year, get_comp(SCO_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0xF6);
+	pMem = (BYTE*)cm0102_new(0xF6);
 	sco_league_cup_init(pMem, *current_year, get_comp(SCO_LEAGUE_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0xF6);
+	pMem = (BYTE*)cm0102_new(0xF6);
 	sco_challenge_cup_init(pMem, *current_year, get_comp(SCO_CHALLENGE_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	BYTE* cm_date = new BYTE[8];

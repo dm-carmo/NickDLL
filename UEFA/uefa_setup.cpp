@@ -24,24 +24,24 @@ DWORD uefa_setup_c(playable_nation_data* nation_data) {
 	nation_data->f70 = 5;
 	// call 6699D0 removed so the comps always load
 	nation_data->num_of_comps = 4;
-	DWORD* nation_comps = (DWORD*)sub_944E46_malloc(nation_data->num_of_comps * 4);
+	DWORD* nation_comps = (DWORD*)cm0102_malloc(nation_data->num_of_comps * 4);
 	nation_data->comps_list = (DWORD)nation_comps;
 
 	BYTE i = 0;
 
-	BYTE* pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
+	BYTE* pMem = (BYTE*)cm0102_new(0xB2);
 	uefa_champions_league_init(pMem, *current_year, get_comp(UEFA_CHAMPIONS_LEAGUE_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0xB6);
+	pMem = (BYTE*)cm0102_new(0xB6);
 	uefa_europa_league_init(pMem, *current_year, get_comp(UEFA_EUROPA_LEAGUE_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0xB6);
+	pMem = (BYTE*)cm0102_new(0xB6);
 	uefa_conference_league_init(pMem, *current_year, get_comp(UEFA_CONFERENCE_LEAGUE_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
+	pMem = (BYTE*)cm0102_new(0xB2);
 	uefa_super_cup_setup(pMem, *current_year, get_comp(UEFA_SUPER_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 

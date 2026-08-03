@@ -28,24 +28,24 @@ DWORD irl_setup_c(playable_nation_data* nation_data) {
 	nation_data->contract_end_year = start_year;
 	nation_data->f70 = 5;
 	nation_data->num_of_comps = 4;
-	DWORD* nation_comps = (DWORD*)sub_944E46_malloc(nation_data->num_of_comps * 4);
+	DWORD* nation_comps = (DWORD*)cm0102_malloc(nation_data->num_of_comps * 4);
 	nation_data->comps_list = (DWORD)nation_comps;
 	
 	BYTE i = 0;
 
-	BYTE* pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	BYTE* pMem = (BYTE*)cm0102_new(0xEE);
 	irl_premier_init(pMem, start_year, get_comp(IRL_PREMIER_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	pMem = (BYTE*)cm0102_new(0xEE);
 	irl_first_init(pMem, start_year, get_comp(IRL_FIRST_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
+	pMem = (BYTE*)cm0102_new(0xB2);
 	irl_cup_setup(pMem, start_year, get_comp(IRL_CHALLENGE_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
+	pMem = (BYTE*)cm0102_new(0xB2);
 	irl_presidents_setup(pMem, start_year, get_comp(IRL_PRESIDENTS_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 

@@ -18,7 +18,7 @@ DWORD bra_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		*num_rounds = 9;
 		*stage_name_id = None;
 
-		pMem = (BYTE*)sub_944E46_malloc(playoff_dates_sz * (*num_rounds));
+		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 1, 5), year, Sunday);
@@ -82,7 +82,7 @@ int bra_cup_teams(BYTE* _this) {
 	vector<cm3_clubs*> vec;
 	comp_stats* comp_data = (comp_stats*)_this;
 	WORD total_teams = 126;
-	BYTE* pMem = (BYTE*)sub_944E46_malloc(6 * total_teams);
+	BYTE* pMem = (BYTE*)cm0102_malloc(6 * total_teams);
 
 	comp_data->n_teams = total_teams;
 	comp_data->teams_list = (DWORD*)pMem;
@@ -162,7 +162,7 @@ void bra_cup_first_year_teams(BYTE* _this) {
 	}
 	sort(first_phase.begin(), first_phase.end(), compareClubRepInv);
 
-	BYTE* pMem = (BYTE*)sub_944E46_malloc(6 * total_teams);
+	BYTE* pMem = (BYTE*)cm0102_malloc(6 * total_teams);
 	cup_data->special_teams_seedings = (DWORD*)pMem;
 	teams_seeded* teams = (teams_seeded*)cup_data->special_teams_seedings;
 
@@ -205,7 +205,7 @@ void bra_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	DWORD v1 = *(DWORD*)_this;
 	*((DWORD*)(_this + 0xA3)) = (DWORD)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0x3c, _this + 0x3a, 0);
 	cup_map_fixture_tree_518790(_this);
-	BYTE* pMem2 = (BYTE*)sub_944CF1_operator_new(0x5CE);
+	BYTE* pMem2 = (BYTE*)cm0102_new(0x5CE);
 	BYTE unk1 = 1;
 	sub_49EE70(pMem2, _this);
 	unk1 = 0;

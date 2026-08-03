@@ -28,33 +28,33 @@ DWORD tur_setup_c(playable_nation_data* nation_data) {
 	else {
 		nation_data->num_of_comps = 6;
 	}
-	DWORD* nation_comps = (DWORD*)sub_944E46_malloc(nation_data->num_of_comps * 4);
+	DWORD* nation_comps = (DWORD*)cm0102_malloc(nation_data->num_of_comps * 4);
 	nation_data->comps_list = (DWORD)nation_comps;
 
 	BYTE i = 0;
 
-	BYTE* pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	BYTE* pMem = (BYTE*)cm0102_new(0xEE);
 	tur_first_init(pMem, *current_year, get_comp(TUR_FIRST_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	pMem = (BYTE*)cm0102_new(0xEE);
 	tur_second_init(pMem, *current_year, get_comp(TUR_SECOND_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	pMem = (BYTE*)cm0102_new(0xEE);
 	tur_third_init(pMem, *current_year, get_comp(TUR_THIRD_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	if ((selected & 4) != 0) {
-		pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+		pMem = (BYTE*)cm0102_new(0xEE);
 		tur_fourth_init(pMem, *current_year, get_comp(TUR_FOURTH_9CF()));
 		nation_comps[i++] = (DWORD)pMem;
 	}
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
+	pMem = (BYTE*)cm0102_new(0xB2);
 	tur_cup_init(pMem, *current_year, get_comp(TUR_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
+	pMem = (BYTE*)cm0102_new(0xB2);
 	tur_super_init(pMem, *current_year, get_comp(TUR_SUPER_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 

@@ -92,6 +92,24 @@ int GetKey()
 	return _getch();
 }
 
+void* cm0102_malloc(int size) {
+	BYTE* ret = (BYTE*)sub_944E46_malloc(size);
+	for (int i = 0; i < size; i++) ret[i] = 0;
+	return ret;
+}
+
+void* cm0102_alloc(int item_num, int item_sz) {
+	BYTE* ret = (BYTE*)sub_945501_alloc(item_num, item_sz);
+	for (int i = 0; i < item_num * item_sz; i++) ret[i] = 0;
+	return ret;
+}
+
+void* cm0102_new(int size) {
+	BYTE* ret = (BYTE*)sub_944CF1_operator_new(size);
+	for (int i = 0; i < size; i++) ret[i] = 0;
+	return ret;
+}
+
 DWORD Get9CF(DWORD id)
 {
 	return *(DWORD*)id;

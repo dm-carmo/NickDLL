@@ -7,47 +7,47 @@ void croatia_awards(BYTE* _this, int a2) {
 	DWORD edi = *(DWORD*)(_this + 0x13);
 	*(WORD*)(_this + 0x8) = 9;
 
-	DWORD* awards_list = (DWORD*)sub_944E46_malloc(*(WORD*)(_this + 0x8) * 4);
+	DWORD* awards_list = (DWORD*)cm0102_malloc(*(WORD*)(_this + 0x8) * 4);
 	*(DWORD*)(_this + 0x4) = (DWORD)awards_list;
 	BYTE i = 0;
 	BYTE esi = 0;
 
 	// First Division awards
-	BYTE* pMem = (BYTE*)sub_944CF1_operator_new(0x25D);
+	BYTE* pMem = (BYTE*)cm0102_new(0x25D);
 	team_award_setup_8AF520(pMem, edi, i, CRO_FIRST_TEAM_OF_WEEK_9CF(), 0, 0, CRO_FIRST_9CF(), 1, 0, a2, 1); // before a2, original game uses 2 but not working?
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, CRO_FIRST_PLAYER_OF_YEAR_9CF(), 1500, 800, CRO_FIRST_9CF(), 1, 0, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, CRO_FIRST_TOP_GOALSCORER_9CF(), 1200, 600, CRO_FIRST_9CF(), 1, 0, 1, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
 	// Second Division awards
-	pMem = (BYTE*)sub_944CF1_operator_new(0x25D);
+	pMem = (BYTE*)cm0102_new(0x25D);
 	team_award_setup_8AF520(pMem, edi, i, CRO_SECOND_A_TEAM_OF_WEEK_9CF(), 0, 0, CRO_SECOND_9CF(), 1, 0, a2, 1); // before a2, original game uses 2 but not working?
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, CRO_SECOND_A_PLAYER_OF_YEAR_9CF(), 700, 400, CRO_SECOND_9CF(), 1, 0, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, CRO_SECOND_A_TOP_GOALSCORER_9CF(), 700, 400, CRO_SECOND_9CF(), 1, 0, 1, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
 	// Third Division awards
-	pMem = (BYTE*)sub_944CF1_operator_new(0x25D);
+	pMem = (BYTE*)cm0102_new(0x25D);
 	team_award_setup_8AF520(pMem, edi, i, CRO_SECOND_B_TEAM_OF_WEEK_9CF(), 0, 0, CRO_THIRD_9CF(), 1, 0, a2, 1); // before a2, original game uses 2 but not working?
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, CRO_SECOND_B_PLAYER_OF_YEAR_9CF(), 400, 200, CRO_THIRD_9CF(), 1, 0, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, CRO_SECOND_B_TOP_GOALSCORER_9CF(), 400, 200, CRO_THIRD_9CF(), 1, 0, 1, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 }

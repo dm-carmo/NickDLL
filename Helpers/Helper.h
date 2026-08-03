@@ -25,6 +25,9 @@ void WriteDWORD(DWORD addr, DWORD data);
 void PatchFunction(DWORD addr, DWORD jmpTo);
 int GetKey();
 
+void* cm0102_malloc(int size);
+void* cm0102_alloc(int item_num, int item_sz);
+void* cm0102_new(int size);
 DWORD Get9CF(DWORD id);
 WORD get_world_cup_hosts_in_continent(BYTE* _this, DWORD continentID, DWORD* out_host1_id, DWORD* out_host2_id);
 cm3_clubs* get_club(DWORD clubID);

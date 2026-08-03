@@ -33,30 +33,30 @@ DWORD nor_setup_c(playable_nation_data* nation_data) {
 	else {
 		nation_data->num_of_comps = 5;
 	}
-	DWORD* nation_comps = (DWORD*)sub_944E46_malloc(nation_data->num_of_comps * 4);
+	DWORD* nation_comps = (DWORD*)cm0102_malloc(nation_data->num_of_comps * 4);
 	nation_data->comps_list = (DWORD)nation_comps;
 	
 	BYTE i = 0;
 	// Eliteserien
-	BYTE* pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	BYTE* pMem = (BYTE*)cm0102_new(0xEE);
 	nor_premier_init(pMem, start_year, get_comp(NOR_PREMIER_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// 1. divisjon
-	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	pMem = (BYTE*)cm0102_new(0xEE);
 	nor_first_init(pMem, start_year, get_comp(NOR_FIRST_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// 2. divisjon
-	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	pMem = (BYTE*)cm0102_new(0xEE);
 	nor_second_init(pMem, start_year, get_comp(NOR_SECOND_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	if ((selected & 4) != 0) {
 		// 3. divisjon
-		pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+		pMem = (BYTE*)cm0102_new(0xEE);
 		nor_third_init(pMem, start_year, get_comp(NOR_THIRD_9CF()));
 		nation_comps[i++] = (DWORD)pMem;
 	}
 	// Cup
-	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
+	pMem = (BYTE*)cm0102_new(0xB2);
 	nor_cup_setup(pMem, *current_year, get_comp(NOR_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	BYTE* cm_date = new BYTE[8];

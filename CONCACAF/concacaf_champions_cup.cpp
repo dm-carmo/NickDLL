@@ -22,7 +22,7 @@ DWORD concacaf_champions_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rou
 		*num_rounds = 5;
 		*stage_name_id = None;
 
-		pMem = (BYTE*)sub_944E46_malloc(playoff_dates_sz * (*num_rounds));
+		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 1, 14), year, Wednesday);
@@ -350,7 +350,7 @@ void concacaf_champions_cup_all_teams(BYTE* _this) {
 	data->f56 = total_teams_in_comp;
 
 	if (data->special_teams_seedings) sub_9452CA_free(data->special_teams_seedings);
-	BYTE* pMem = (BYTE*)sub_944E46_malloc(6 * total_teams_in_comp);
+	BYTE* pMem = (BYTE*)cm0102_malloc(6 * total_teams_in_comp);
 	data->special_teams_seedings = (DWORD*)pMem;
 
 	teams_seeded* teams = (teams_seeded*)data->special_teams_seedings;
@@ -370,7 +370,7 @@ void concacaf_champions_cup_all_teams(BYTE* _this) {
 void concacaf_champions_cup_qualifier_teams(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	WORD total_teams = 27;
-	BYTE* pMem = (BYTE*)sub_944E46_malloc(6 * total_teams);
+	BYTE* pMem = (BYTE*)cm0102_malloc(6 * total_teams);
 
 	data->n_teams = total_teams;
 	data->teams_list = (DWORD*)pMem;
@@ -526,7 +526,7 @@ void concacaf_champions_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	DWORD v1 = *(DWORD*)_this;
 	*((DWORD*)(_this + 0xA3)) = (DWORD)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0x3c, _this + 0x3a, 0);
 	cup_map_fixture_tree_518790(_this);
-	BYTE* pMem2 = (BYTE*)sub_944CF1_operator_new(0x5CE);
+	BYTE* pMem2 = (BYTE*)cm0102_new(0x5CE);
 	BYTE unk1 = 1;
 	sub_49EE70(pMem2, _this);
 	unk1 = 0;

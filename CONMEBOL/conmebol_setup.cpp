@@ -25,20 +25,20 @@ DWORD conmebol_setup_c(playable_nation_data* nation_data) {
 	nation_data->f70 = 5;
 	// call 6699D0 removed so the comps always load
 	nation_data->num_of_comps = 3;
-	DWORD* nation_comps = (DWORD*)sub_944E46_malloc(nation_data->num_of_comps * 4);
+	DWORD* nation_comps = (DWORD*)cm0102_malloc(nation_data->num_of_comps * 4);
 	nation_data->comps_list = (DWORD)nation_comps;
 	
 	BYTE i = 0;
 
-	BYTE* pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
+	BYTE* pMem = (BYTE*)cm0102_new(0xB2);
 	conmebol_libertadores_init(pMem, start_year, get_comp(COPA_LIBERTADORES_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
+	pMem = (BYTE*)cm0102_new(0xB2);
 	conmebol_sudamericana_init(pMem, start_year, get_comp(COPA_SUDAMERICANA_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
+	pMem = (BYTE*)cm0102_new(0xB2);
 	conmebol_recopa_setup(pMem, start_year, get_comp(RECOPA_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 

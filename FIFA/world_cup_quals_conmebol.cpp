@@ -121,7 +121,7 @@ DWORD world_cup_quals_conmebol_fixtures(BYTE* _this, char stage_idx, WORD* num_r
 		*num_rounds = (numberOfLeagueTeams - 1 + numberOfLeagueTeams % 2) * data->n_rounds;
 		*stage_name_id = None;
 
-		pMem = (BYTE*)sub_944E46_malloc(fixture_dates_sz * (*num_rounds));
+		pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
 		//AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 7), year, Thursday, Afternoon);
@@ -249,11 +249,11 @@ void world_cup_quals_conmebol_teams(BYTE* _this) {
 	data->f56 = total_teams_in_comp;
 
 	if (data->special_teams_seedings) sub_9452CA_free(data->special_teams_seedings);
-	BYTE* pMem = (BYTE*)sub_944E46_malloc(6 * total_teams_in_comp);
+	BYTE* pMem = (BYTE*)cm0102_malloc(6 * total_teams_in_comp);
 	data->special_teams_seedings = (DWORD*)pMem;
 	teams_seeded* teams = (teams_seeded*)data->special_teams_seedings;
 
-	BYTE* pMem2 = (BYTE*)sub_944E46_malloc(league_team_list_sz * total_teams_in_comp);
+	BYTE* pMem2 = (BYTE*)cm0102_malloc(league_team_list_sz * total_teams_in_comp);
 	data->n_teams = total_teams_in_comp;
 	data->team_league_table = (DWORD*)pMem2;
 
@@ -288,11 +288,10 @@ void world_cup_quals_conmebol_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->f217 = 0x28;
 	data->current_stage = -1;
 	data->num_stages = 0;
-	//data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
-	//for (int i = 0; i < data->num_stages; i++) data->stages[i] = 0;
-	world_cup_quals_conmebol_subs(_this);
+	//data->stages = (DWORD*)cm0102_malloc(data->num_stages * 4);
+	//world_cup_quals_conmebol_subs(_this);
 	BYTE* ebx = 0;
-	BYTE* pMem2 = (BYTE*)sub_944CF1_operator_new(0x5CE);
+	BYTE* pMem2 = (BYTE*)cm0102_new(0x5CE);
 	BYTE unk1 = 1;
 	sub_49EE70(pMem2, _this);
 	unk1 = 0;

@@ -32,40 +32,40 @@ DWORD fifa_national_setup_c(playable_nation_data* nation_data) {
 	nation_data->contract_end_year = *current_year;
 	nation_data->f70 = 5;
 	nation_data->num_of_comps = 8;
-	DWORD* nation_comps = (DWORD*)sub_944E46_malloc(nation_data->num_of_comps * 4);
+	DWORD* nation_comps = (DWORD*)cm0102_malloc(nation_data->num_of_comps * 4);
 	nation_data->comps_list = (DWORD)nation_comps;
 
 	BYTE i = 0;
 
-	BYTE* pMem = (BYTE*)sub_944CF1_operator_new(0xF6);
+	BYTE* pMem = (BYTE*)cm0102_new(0xF6);
 	olympic_games_setup(pMem, *current_year, get_comp(OLYMPIC_GAMES_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0xF4);
+	pMem = (BYTE*)cm0102_new(0xF4);
 	african_nations_setup(pMem, *current_year, get_comp(AFRICAN_CUP_OF_NATIONS_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0xF4);
+	pMem = (BYTE*)cm0102_new(0xF4);
 	asian_cup_setup(pMem, *current_year, get_comp(ASIAN_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0xF4);
+	pMem = (BYTE*)cm0102_new(0xF4);
 	gold_cup_setup(pMem, *current_year, get_comp(GOLD_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x142);
+	pMem = (BYTE*)cm0102_new(0x142);
 	uefa_euro_setup(pMem, *current_year, get_comp(UEFA_EURO_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x102);
+	pMem = (BYTE*)cm0102_new(0x102);
 	uefa_euro_quals_setup(pMem, *current_year, get_comp(UEFA_EURO_QUALIFYING_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0xF4);
+	pMem = (BYTE*)cm0102_new(0xF4);
 	ofc_nations_cup_setup(pMem, *current_year, get_comp(OFC_NATIONS_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0xF6);
+	pMem = (BYTE*)cm0102_new(0xF6);
 	copa_america_setup(pMem, *current_year, get_comp(COPA_AMERICA_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 

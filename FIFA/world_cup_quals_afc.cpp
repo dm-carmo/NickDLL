@@ -87,7 +87,7 @@ DWORD world_cup_quals_afc_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds
 		*num_rounds = 1;
 		*stage_name_id = None;
 
-		pMem = (BYTE*)sub_944E46_malloc(playoff_dates_sz * (*num_rounds));
+		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 1), year, Thursday);
@@ -106,7 +106,7 @@ DWORD world_cup_quals_afc_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds
 		if (stage_idx == 5) *stage_name_id = SecondRoundGroupF;
 		if (stage_idx > 5) *stage_name_id = SecondRoundGroupGtoI + stage_idx - 6;
 
-		pMem = (BYTE*)sub_944E46_malloc(fixture_dates_sz * (*num_rounds));
+		pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 16), year, Thursday, Afternoon);
@@ -126,7 +126,7 @@ DWORD world_cup_quals_afc_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds
 		*num_rounds = 10;
 		*stage_name_id = ThirdRoundAlphabeticGroup + stage_idx - 9;
 
-		pMem = (BYTE*)sub_944E46_malloc(fixture_dates_sz * (*num_rounds));
+		pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 9, 5), year, Thursday, Afternoon);
@@ -150,7 +150,7 @@ DWORD world_cup_quals_afc_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds
 		*num_rounds = 3;
 		*stage_name_id = FourthRoundAlphabeticGroup + stage_idx - 12;
 
-		pMem = (BYTE*)sub_944E46_malloc(fixture_dates_sz * (*num_rounds));
+		pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 2, 10, 8), year, Wednesday, Afternoon);
@@ -167,7 +167,7 @@ DWORD world_cup_quals_afc_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds
 		*num_rounds = 1;
 		*stage_name_id = None;
 
-		pMem = (BYTE*)sub_944E46_malloc(playoff_dates_sz * (*num_rounds));
+		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 2, 10, 15), year, Wednesday);
@@ -184,7 +184,7 @@ DWORD world_cup_quals_afc_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds
 		*num_rounds = 1;
 		*stage_name_id = None;
 
-		pMem = (BYTE*)sub_944E46_malloc(playoff_dates_sz * (*num_rounds));
+		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 2, 10, 15), year, Wednesday);
@@ -288,7 +288,7 @@ void world_cup_quals_afc_all_teams(BYTE* _this) {
 	data->f56 = total_teams_in_comp;
 
 	if (data->special_teams_seedings) sub_9452CA_free(data->special_teams_seedings);
-	BYTE* pMem = (BYTE*)sub_944E46_malloc(6 * total_teams_in_comp);
+	BYTE* pMem = (BYTE*)cm0102_malloc(6 * total_teams_in_comp);
 	data->special_teams_seedings = (DWORD*)pMem;
 	teams_seeded* teams = (teams_seeded*)data->special_teams_seedings;
 
@@ -313,7 +313,7 @@ void world_cup_quals_afc_all_teams(BYTE* _this) {
 void world_cup_quals_afc_qualifier_teams(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	WORD total_teams = 20;
-	BYTE* pMem = (BYTE*)sub_944E46_malloc(6 * total_teams);
+	BYTE* pMem = (BYTE*)cm0102_malloc(6 * total_teams);
 
 	if (data->teams_list) sub_9452CA_free(data->teams_list);
 	if (data->f173) {
@@ -507,7 +507,7 @@ void world_cup_quals_afc_second_stage_setup(BYTE* _this) {
 		WORD num_rounds = 0;
 		WORD stage_name_id = 0;
 		BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, int, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, i + stage_num, &num_rounds, &stage_name_id, 0);
-		DWORD* pTeams = (DWORD*)sub_944E46_malloc(group_teams * 4);
+		DWORD* pTeams = (DWORD*)cm0102_malloc(group_teams * 4);
 
 		for (int j = 0; j < group_teams; j++) {
 			cm3_clubs* club = clubs[i + 9 * j];
@@ -515,7 +515,7 @@ void world_cup_quals_afc_second_stage_setup(BYTE* _this) {
 		}
 
 		WORD year = comp_data->year;
-		BYTE* pStage = (BYTE*)sub_944CF1_operator_new(0xEE);
+		BYTE* pStage = (BYTE*)cm0102_new(0xEE);
 		create_league_stage_data(pStage, _this, group_teams, pTeams, 2, (DWORD)(comp_data->competition_db), pFixtures, num_rounds,
 			3, 1, 10, &tiebreaks[0], &prom_rel[0], year, i + stage_num, stage_name_id, 0xf, 2, 0, 0x28, -1, 0, 2);
 		DWORD* stages_arr = comp_data->stages;
@@ -564,7 +564,7 @@ void world_cup_quals_afc_third_stage_setup(BYTE* _this) {
 		WORD num_rounds = 0;
 		WORD stage_name_id = 0;
 		BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, int, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, i + stage_num, &num_rounds, &stage_name_id, 0);
-		DWORD* pTeams = (DWORD*)sub_944E46_malloc(group_teams * 4);
+		DWORD* pTeams = (DWORD*)cm0102_malloc(group_teams * 4);
 
 		for (int j = 0; j < group_teams; j++) {
 			cm3_clubs* club = clubs[i + 3 * j];
@@ -572,7 +572,7 @@ void world_cup_quals_afc_third_stage_setup(BYTE* _this) {
 		}
 
 		WORD year = comp_data->year;
-		BYTE* pStage = (BYTE*)sub_944CF1_operator_new(0xEE);
+		BYTE* pStage = (BYTE*)cm0102_new(0xEE);
 		create_league_stage_data(pStage, _this, group_teams, pTeams, 2, (DWORD)(comp_data->competition_db), pFixtures, num_rounds,
 			3, 1, 10, &tiebreaks[0], &prom_rel[0], year, i + stage_num, stage_name_id, 0xf, 2, 0, 0x28, -1, 0, 2);
 		DWORD* stages_arr = comp_data->stages;
@@ -620,7 +620,7 @@ void world_cup_quals_afc_fourth_stage_setup(BYTE* _this) {
 		WORD num_rounds = 0;
 		WORD stage_name_id = 0;
 		BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, int, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, i + stage_num, &num_rounds, &stage_name_id, 0);
-		DWORD* pTeams = (DWORD*)sub_944E46_malloc(group_teams * 4);
+		DWORD* pTeams = (DWORD*)cm0102_malloc(group_teams * 4);
 
 		for (int j = 0; j < group_teams; j++) {
 			cm3_clubs* club = clubs[i + 2 * j];
@@ -628,7 +628,7 @@ void world_cup_quals_afc_fourth_stage_setup(BYTE* _this) {
 		}
 
 		WORD year = comp_data->year;
-		BYTE* pStage = (BYTE*)sub_944CF1_operator_new(0xEE);
+		BYTE* pStage = (BYTE*)cm0102_new(0xEE);
 		create_league_stage_data(pStage, _this, group_teams, pTeams, 1, (DWORD)(comp_data->competition_db), pFixtures, num_rounds,
 			3, 1, 10, &tiebreaks[0], &prom_rel[0], year, i + stage_num, stage_name_id, 0xf, 2, 0, 0x28, -1, 0, 2);
 		DWORD* stages_arr = comp_data->stages;
@@ -645,7 +645,7 @@ void world_cup_quals_afc_final_stage_setup(BYTE* _this) {
 
 	comp_stats* comp_data = (comp_stats*)_this;
 	BYTE playoff_teams = 2;
-	DWORD* pTeams = (DWORD*)sub_944E46_malloc(playoff_teams * 4);
+	DWORD* pTeams = (DWORD*)cm0102_malloc(playoff_teams * 4);
 
 	comp_stats* curr_stage = comp_data;
 
@@ -672,7 +672,7 @@ void world_cup_quals_afc_final_stage_setup(BYTE* _this) {
 	WORD year = comp_data->year;
 	DWORD v1 = *(DWORD*)_this;
 	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, char, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
-	BYTE* new_stage = (BYTE*)sub_944CF1_operator_new(0xB2);
+	BYTE* new_stage = (BYTE*)cm0102_new(0xB2);
 	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)(comp_data->competition_db), pFixtures, year, stage_num, 2, stage_name_id, 0x14, 1, 0, 0, 0);
 	DWORD* stages_arr = comp_data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
@@ -685,7 +685,7 @@ void world_cup_quals_afc_extra_stage_setup(BYTE* _this) {
 
 	comp_stats* comp_data = (comp_stats*)_this;
 	BYTE playoff_teams = 2;
-	DWORD* pTeams = (DWORD*)sub_944E46_malloc(playoff_teams * 4);
+	DWORD* pTeams = (DWORD*)cm0102_malloc(playoff_teams * 4);
 
 	comp_stats* curr_stage = comp_data;
 
@@ -711,7 +711,7 @@ void world_cup_quals_afc_extra_stage_setup(BYTE* _this) {
 	WORD year = comp_data->year;
 	DWORD v1 = *(DWORD*)_this;
 	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, char, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
-	BYTE* new_stage = (BYTE*)sub_944CF1_operator_new(0xB2);
+	BYTE* new_stage = (BYTE*)cm0102_new(0xB2);
 	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)(comp_data->competition_db), pFixtures, year, stage_num, 2, stage_name_id, 0x14, 1, 0, 0, 0);
 	DWORD* stages_arr = comp_data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
@@ -777,11 +777,11 @@ void world_cup_quals_afc_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 16;
-	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
+	data->stages = (DWORD*)cm0102_malloc(data->num_stages * 4);
 	for (int i = 0; i < data->num_stages; i++) data->stages[i] = 0;
 
 	data->n_teams = 20;
-	BYTE* pMem = (BYTE*)sub_944E46_malloc(6 * data->n_teams);
+	BYTE* pMem = (BYTE*)cm0102_malloc(6 * data->n_teams);
 	for (int i = 0; i < 6 * data->n_teams; i++) pMem[i] = 0;
 	data->teams_list = (DWORD*)pMem;
 
@@ -789,7 +789,7 @@ void world_cup_quals_afc_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	*((DWORD*)(_this + 0xA3)) = (DWORD)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0x3c, _this + 0x3a, 0);
 	cup_map_fixture_tree_518790(_this);
 	BYTE* ebx = 0;
-	BYTE* pMem2 = (BYTE*)sub_944CF1_operator_new(0x5CE);
+	BYTE* pMem2 = (BYTE*)cm0102_new(0x5CE);
 	BYTE unk1 = 1;
 	sub_49EE70(pMem2, _this);
 	unk1 = 0;

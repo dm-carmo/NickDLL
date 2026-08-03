@@ -6,50 +6,50 @@
 void holand_awards(BYTE* _this, int a2) {
 	DWORD edi = *(DWORD*)(_this + 0x13);
 	*(WORD*)(_this + 0x8) = 10;
-	DWORD* awards_list = (DWORD*)sub_944E46_malloc(*(WORD*)(_this + 0x8) * 4);
+	DWORD* awards_list = (DWORD*)cm0102_malloc(*(WORD*)(_this + 0x8) * 4);
 	*(DWORD*)(_this + 0x4) = (DWORD)awards_list;
 	BYTE i = 0;
 	BYTE esi = 0;
 
 	// D1 awards
-	BYTE* pMem = (BYTE*)sub_944CF1_operator_new(0x25D);
+	BYTE* pMem = (BYTE*)cm0102_new(0x25D);
 	team_award_setup_8AF520(pMem, edi, i, HOL_FIRST_TEAM_OF_WEEK_9CF(), 0, 0, HOL_FIRST_9CF(), 1, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, HOL_FIRST_PLAYER_OF_YEAR_9CF(), 6000, 2500, HOL_FIRST_9CF(), 1, 0, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, HOL_FIRST_YOUNG_PLAYER_OF_YEAR_9CF(), 4500, 1250, HOL_FIRST_9CF(), 1, 0, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, HOL_FIRST_MANAGER_OF_YEAR_9CF(), 6000, 2500, HOL_FIRST_9CF(), 1, 0, 0, a2, 0);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, HOL_FIRST_TOP_GOALSCORER_9CF(), 6000, 2500, HOL_FIRST_9CF(), 1, 0, 1, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
 	// D2 awards
-	pMem = (BYTE*)sub_944CF1_operator_new(0x25D);
+	pMem = (BYTE*)cm0102_new(0x25D);
 	team_award_setup_8AF520(pMem, edi, i, HOL_SECOND_TEAM_OF_WEEK_9CF(), 0, 0, HOL_SECOND_9CF(), 1, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, HOL_SECOND_PLAYER_OF_YEAR_9CF(), 4000, 1000, HOL_SECOND_9CF(), 1, 0, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, HOL_SECOND_YOUNG_PLAYER_OF_YEAR_9CF(), 3000, 750, HOL_SECOND_9CF(), 1, 0, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, HOL_SECOND_MANAGER_OF_YEAR_9CF(), 4000, 1000, HOL_SECOND_9CF(), 1, 0, 0, a2, 0);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, HOL_SECOND_TOP_GOALSCORER_9CF(), 4000, 1000, HOL_SECOND_9CF(), 1, 0, 1, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 }

@@ -25,20 +25,20 @@ DWORD usa_setup_c(playable_nation_data* nation_data) {
 	nation_data->contract_end_year = start_year;
 	nation_data->f70 = 2;
 	nation_data->num_of_comps = 3;
-	DWORD* nation_comps = (DWORD*)sub_944E46_malloc(nation_data->num_of_comps * 4);
+	DWORD* nation_comps = (DWORD*)cm0102_malloc(nation_data->num_of_comps * 4);
 	nation_data->comps_list = (DWORD)nation_comps;
 	
 	BYTE i = 0;
 	// MLS
-	BYTE* pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	BYTE* pMem = (BYTE*)cm0102_new(0xF2);
 	usa_mls_init(pMem, start_year, get_comp(USA_MLS_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Championship
-	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	pMem = (BYTE*)cm0102_new(0xF2);
 	usa_champ_init(pMem, start_year, get_comp(USA_SECOND_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Cup
-	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
+	pMem = (BYTE*)cm0102_new(0xB2);
 	usa_cup_setup(pMem, start_year, get_comp(USA_OPEN_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 

@@ -86,7 +86,7 @@ DWORD world_cup_playoffs_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds,
 		*num_rounds = 2;
 		*stage_name_id = None;
 
-		pMem = (BYTE*)sub_944E46_malloc(playoff_dates_sz * (*num_rounds));
+		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		WORD uefa_hosts = get_world_cup_hosts_in_continent(_this, EUROPE_9CF(), 0, 0);
 		WORD num_teams = 6 - (uefa_hosts > 0);
@@ -131,7 +131,7 @@ char world_cup_playoffs_update(BYTE* _this) {
 	}
 	data->special_nteams_seedings = 0;
 	data->f56 = 6;
-	BYTE* pMem = (BYTE*)sub_944E46_malloc(6 * 6);
+	BYTE* pMem = (BYTE*)cm0102_malloc(6 * 6);
 	for (int i = 0; i < 6 * 6; i++) pMem[i] = 0;
 	data->special_teams_seedings = (DWORD*)pMem;
 	if (data->rounds_list) {
@@ -208,7 +208,7 @@ void world_cup_playoffs_qualifier_teams(BYTE* _this) {
 	WORD total_teams = data->special_nteams_seedings;
 	WORD uefa_hosts = get_world_cup_hosts_in_continent(_this, EUROPE_9CF(), 0, 0);
 	if (uefa_hosts > 0) data->f56--;
-	BYTE* pMem = (BYTE*)sub_944E46_malloc(6 * total_teams);
+	BYTE* pMem = (BYTE*)cm0102_malloc(6 * total_teams);
 
 	if (data->teams_list) sub_9452CA_free(data->teams_list);
 	if (data->f173) {
@@ -438,7 +438,7 @@ void world_cup_playoffs_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->f81 = 0xf;
 	data->special_nteams_seedings = 0;
 	data->f56 = 6;
-	BYTE* pMem = (BYTE*)sub_944E46_malloc(6 * 6);
+	BYTE* pMem = (BYTE*)cm0102_malloc(6 * 6);
 	for (int i = 0; i < 6 * 6; i++) pMem[i] = 0;
 	data->special_teams_seedings = (DWORD*)pMem;
 	*((BYTE*)(_this + 0xB1)) = 0;
@@ -450,14 +450,14 @@ void world_cup_playoffs_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->num_stages = 0;
 
 	data->n_teams = 6;
-	BYTE* tMem = (BYTE*)sub_944E46_malloc(6 * data->n_teams);
+	BYTE* tMem = (BYTE*)cm0102_malloc(6 * data->n_teams);
 	data->teams_list = (DWORD*)tMem;
 
 	DWORD v1 = *(DWORD*)_this;
 	*((DWORD*)(_this + 0xA3)) = (DWORD)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0x3c, _this + 0x3a, 0);
 	cup_map_fixture_tree_518790(_this);
 	BYTE* ebx = 0;
-	BYTE* pMem2 = (BYTE*)sub_944CF1_operator_new(0x5CE);
+	BYTE* pMem2 = (BYTE*)cm0102_new(0x5CE);
 	BYTE unk1 = 1;
 	sub_49EE70(pMem2, _this);
 	unk1 = 0;

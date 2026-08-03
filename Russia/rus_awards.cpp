@@ -7,31 +7,31 @@ void rusatia_awards(BYTE* _this, int a2) {
 	DWORD edi = *(DWORD*)(_this + 0x13);
 	*(WORD*)(_this + 0x8) = 5;
 
-	DWORD* awards_list = (DWORD*)sub_944E46_malloc(*(WORD*)(_this + 0x8) * 4);
+	DWORD* awards_list = (DWORD*)cm0102_malloc(*(WORD*)(_this + 0x8) * 4);
 	*(DWORD*)(_this + 0x4) = (DWORD)awards_list;
 	BYTE i = 0;
 	BYTE esi = 0;
 
 	// General awards
-	BYTE* pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	BYTE* pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, RUS_PLAYER_OF_YEAR_9CF(), 4000, 2000, -1, 0, 0, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
 	// Premier League awards
-	pMem = (BYTE*)sub_944CF1_operator_new(0x25D);
+	pMem = (BYTE*)cm0102_new(0x25D);
 	team_award_setup_8AF520(pMem, edi, i, RUS_PREMIER_TEAM_OF_WEEK_9CF(), 0, 0, RUS_PREMIER_9CF(), 1, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x25D);
+	pMem = (BYTE*)cm0102_new(0x25D);
 	team_award_setup_8AF520(pMem, edi, i, RUS_PREMIER_TEAM_OF_YEAR_9CF(), 0, 0, RUS_PREMIER_9CF(), 1, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
 	// First League awards
-	pMem = (BYTE*)sub_944CF1_operator_new(0x25D);
+	pMem = (BYTE*)cm0102_new(0x25D);
 	team_award_setup_8AF520(pMem, edi, i, RUS_FIRST_TEAM_OF_WEEK_9CF(), 0, 0, RUS_FIRST_9CF(), 1, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x25D);
+	pMem = (BYTE*)cm0102_new(0x25D);
 	team_award_setup_8AF520(pMem, edi, i, RUS_FIRST_TEAM_OF_YEAR_9CF(), 0, 0, RUS_FIRST_9CF(), 1, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 }

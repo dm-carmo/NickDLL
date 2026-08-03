@@ -153,7 +153,7 @@ DWORD ita_c_supercup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WOR
 		*num_rounds = numberOfLeagueTeams * data->n_rounds;
 		*stage_name_id = None;
 
-		pMem = (BYTE*)sub_944E46_malloc(fixture_dates_sz * (*num_rounds));
+		pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 5, 2), year, Saturday);
@@ -190,7 +190,7 @@ int ita_c_supercup_teams(BYTE* _this) {
 	vector<cm3_clubs*> vec;
 	comp_stats* comp_data = (comp_stats*)_this;
 	WORD total_teams = 3;
-	BYTE* pMem = (BYTE*)sub_944E46_malloc(league_team_list_sz * total_teams);
+	BYTE* pMem = (BYTE*)cm0102_malloc(league_team_list_sz * total_teams);
 
 	comp_data->n_teams = total_teams;
 	comp_data->team_league_table = (DWORD*)pMem;
@@ -256,7 +256,7 @@ void ita_c_supercup_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->current_stage = -1;
 	data->num_stages = 0;
 	ita_c_supercup_subs(_this);
-	BYTE* pMem2 = (BYTE*)sub_944CF1_operator_new(0x5CE);
+	BYTE* pMem2 = (BYTE*)cm0102_new(0x5CE);
 	BYTE unk1 = 1;
 	sub_49EE70(pMem2, _this);
 	unk1 = 0;

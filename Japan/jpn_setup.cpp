@@ -38,38 +38,38 @@ DWORD jpn_setup_c(playable_nation_data* nation_data) {
 	else {
 		nation_data->num_of_comps = 7;
 	}
-	DWORD* nation_comps = (DWORD*)sub_944E46_malloc(nation_data->num_of_comps * 4);
+	DWORD* nation_comps = (DWORD*)cm0102_malloc(nation_data->num_of_comps * 4);
 	nation_data->comps_list = (DWORD)nation_comps;
 	
 	BYTE i = 0;
 	// J1
-	BYTE* pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	BYTE* pMem = (BYTE*)cm0102_new(0xEE);
 	jpn_first_init(pMem, start_year, get_comp(JPN_FIRST_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// J2
-	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	pMem = (BYTE*)cm0102_new(0xEE);
 	jpn_second_init(pMem, start_year, get_comp(JPN_SECOND_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// J3
-	pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+	pMem = (BYTE*)cm0102_new(0xEE);
 	jpn_third_init(pMem, start_year, get_comp(JPN_THIRD_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	if ((selected & 4) != 0) {
 		// JFL
-		pMem = (BYTE*)sub_944CF1_operator_new(0xEE);
+		pMem = (BYTE*)cm0102_new(0xEE);
 		jpn_jfl_init(pMem, start_year, get_comp(JPN_JFL_9CF()));
 		nation_comps[i++] = (DWORD)pMem;
 	}
 	// Cup
-	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
+	pMem = (BYTE*)cm0102_new(0xB2);
 	jpn_cup_setup(pMem, start_year, get_comp(JPN_EMPEROR_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// League Cup
-	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
+	pMem = (BYTE*)cm0102_new(0xB2);
 	jpn_league_cup_setup(pMem, start_year, get_comp(JPN_LEAGUE_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Super Cup
-	pMem = (BYTE*)sub_944CF1_operator_new(0xB2);
+	pMem = (BYTE*)cm0102_new(0xB2);
 	jpn_super_cup_setup(pMem, start_year, get_comp(JPN_SUPER_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 

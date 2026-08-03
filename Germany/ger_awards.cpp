@@ -7,64 +7,64 @@ void germany_awards(BYTE* _this, int a2) {
 	DWORD edi = *(DWORD*)(_this + 0x13);
 	*(WORD*)(_this + 0x8) = 13;
 
-	DWORD* awards_list = (DWORD*)sub_944E46_malloc(*(WORD*)(_this + 0x8) * 4);
+	DWORD* awards_list = (DWORD*)cm0102_malloc(*(WORD*)(_this + 0x8) * 4);
 	*(DWORD*)(_this + 0x4) = (DWORD)awards_list;
 	BYTE i = 0;
 	BYTE esi = 0;
 
 	// General awards
-	BYTE* pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	BYTE* pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, GER_PLAYER_OF_YEAR_9CF(), 7500, 2500, -1, 1, 0, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
 	// First Division awards
-	pMem = (BYTE*)sub_944CF1_operator_new(0x25D);
+	pMem = (BYTE*)cm0102_new(0x25D);
 	team_award_setup_8AF520(pMem, edi, i, GER_FIRST_TEAM_OF_WEEK_9CF(), 0, 0, GER_FIRST_9CF(), 1, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0xA2);
+	pMem = (BYTE*)cm0102_new(0xA2);
 	monthly_person_award_setup_766E10(pMem, edi, i, GER_FIRST_PLAYER_OF_MONTH_9CF(), 6000, 2000, GER_FIRST_9CF(), August, *current_year, May, *current_year + 1, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, GER_FIRST_MANAGER_OF_YEAR_9CF(), 6000, 2000, GER_FIRST_9CF(), 1, 0, 0, a2, 0);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, GER_FIRST_TOP_GOALSCORER_9CF(), 5000, 2000, GER_FIRST_9CF(), 1, 0, 1, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
 	// Second Division awards
-	pMem = (BYTE*)sub_944CF1_operator_new(0x25D);
+	pMem = (BYTE*)cm0102_new(0x25D);
 	team_award_setup_8AF520(pMem, edi, i, GER_SECOND_TEAM_OF_WEEK_9CF(), 0, 0, GER_SECOND_9CF(), 1, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0xA2);
+	pMem = (BYTE*)cm0102_new(0xA2);
 	monthly_person_award_setup_766E10(pMem, edi, i, GER_SECOND_PLAYER_OF_MONTH_9CF(), 4500, 1000, GER_SECOND_9CF(), August, *current_year, May, *current_year + 1, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, GER_SECOND_MANAGER_OF_YEAR_9CF(), 4500, 1000, GER_SECOND_9CF(), 1, 0, 0, a2, 0);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, GER_SECOND_TOP_GOALSCORER_9CF(), 3000, 1000, GER_SECOND_9CF(), 1, 0, 1, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
 	// Third Division awards
-	pMem = (BYTE*)sub_944CF1_operator_new(0x25D);
+	pMem = (BYTE*)cm0102_new(0x25D);
 	team_award_setup_8AF520(pMem, edi, i, GER_THIRD_TEAM_OF_WEEK_9CF(), 0, 0, GER_THIRD_9CF(), 1, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0xA2);
+	pMem = (BYTE*)cm0102_new(0xA2);
 	monthly_person_award_setup_766E10(pMem, edi, i, GER_THIRD_PLAYER_OF_MONTH_9CF(), 3000, 500, GER_THIRD_9CF(), August, *current_year, May, *current_year + 1, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, GER_THIRD_MANAGER_OF_YEAR_9CF(), 3000, 500, GER_THIRD_9CF(), 1, 0, 0, a2, 0);
 	awards_list[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)sub_944CF1_operator_new(0x2B);
+	pMem = (BYTE*)cm0102_new(0x2B);
 	yearly_person_award_setup_92FE80(pMem, edi, i, GER_THIRD_TOP_GOALSCORER_9CF(), 2000, 500, GER_THIRD_9CF(), 1, 0, 1, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 }

@@ -69,7 +69,7 @@ DWORD por_third_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		*num_rounds = (numberOfLeagueTeams - 1) * data->n_rounds;
 		*stage_name_id = AlphabeticGroupStage + stage_idx;
 
-		pMem = (BYTE*)sub_944E46_malloc(fixture_dates_sz * (*num_rounds));
+		pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 10), year, Sunday);
@@ -105,7 +105,7 @@ DWORD por_third_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		*num_rounds = (numberOfLeagueTeams - 1) * 2;
 		*stage_name_id = PromotionPlayoff;
 
-		pMem = (BYTE*)sub_944E46_malloc(fixture_dates_sz * (*num_rounds));
+		pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 8), year, Sunday);
@@ -137,7 +137,7 @@ DWORD por_third_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		*num_rounds = (numberOfLeagueTeams - 1) * 2;
 		*stage_name_id = RelegationGroupAtoB + (stage_idx - 2);
 
-		pMem = (BYTE*)sub_944E46_malloc(fixture_dates_sz * (*num_rounds));
+		pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 15), year, Sunday);
@@ -181,7 +181,7 @@ void por_third_setup_groups(BYTE* _this, BYTE idx) {
 	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, int, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, idx, &num_rounds, &stage_name_id, 0);
 	comp_stats* data = (comp_stats*)_this;
 	DWORD group_id = POR_THIRD_B_9CF();
-	DWORD* pTeams = (DWORD*)sub_944E46_malloc(data->n_teams * 4);
+	DWORD* pTeams = (DWORD*)cm0102_malloc(data->n_teams * 4);
 
 	BYTE teamsAdded = 0;
 	for (DWORD i = 0; i < *clubs_count; i++)
@@ -194,7 +194,7 @@ void por_third_setup_groups(BYTE* _this, BYTE idx) {
 		}
 	}
 	WORD year = data->year;
-	BYTE* pStage = (BYTE*)sub_944CF1_operator_new(0xEE);
+	BYTE* pStage = (BYTE*)cm0102_new(0xEE);
 	create_league_stage_data(pStage, _this, 10, pTeams, 2, (DWORD)(data->competition_db), pFixtures, num_rounds,
 		data->pts_for_win, data->pts_for_draw, data->f196, (BYTE*)(_this + 0xC5), (BYTE*)(_this + 0xBE),
 		year, idx, stage_name_id, data->f81, 1, 0, data->f217, -1, 0, 2);
@@ -323,14 +323,13 @@ void por_third_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 4;
-	data->stages = (DWORD*)sub_944E46_malloc(data->num_stages * 4);
-	for (int i = 0; i < data->num_stages; i++) data->stages[i] = 0;
+	data->stages = (DWORD*)cm0102_malloc(data->num_stages * 4);
 	por_third_subs(_this);
 	AddTeamsGroupLeague(_this, POR_THIRD_A_9CF());
 	SetupTVMoney(_this, prizeMoneyFile.GetInt("por_third_tv_money"), 0);
 	BYTE* ebx = 0;
 	sub_6827D0(_this, ebx);
-	BYTE* pMem2 = (BYTE*)sub_944CF1_operator_new(0x5CE);
+	BYTE* pMem2 = (BYTE*)cm0102_new(0x5CE);
 	BYTE unk1 = 1;
 	sub_49EE70(pMem2, _this);
 	unk1 = 0;
@@ -351,7 +350,7 @@ void por_third_playoffs_prom(BYTE* _this) {
 
 	comp_stats* comp_data = (comp_stats*)_this;
 	BYTE playoff_teams = 8;
-	DWORD* pTeams = (DWORD*)sub_944E46_malloc(playoff_teams * 4);
+	DWORD* pTeams = (DWORD*)cm0102_malloc(playoff_teams * 4);
 
 	comp_stats* curr_stage = comp_data;
 	vector<cm3_clubs*> clubs;
@@ -364,7 +363,7 @@ void por_third_playoffs_prom(BYTE* _this) {
 		team_league_stats* table_teams = (team_league_stats*)(curr_stage->team_league_table);
 		for (int i = 0; i < total_teams; i++) {
 			team_league_stats tls = table_teams[i];
-			if (tls.league_fate == TopPlayoff) {
+			if (tls.league_fate == Qualified1 || tls.league_fate == TopPlayoff) {
 				clubs.push_back(tls.club);
 			}
 		}
@@ -375,7 +374,7 @@ void por_third_playoffs_prom(BYTE* _this) {
 	}
 
 	WORD year = comp_data->year;
-	BYTE* pStage = (BYTE*)sub_944CF1_operator_new(0xEE);
+	BYTE* pStage = (BYTE*)cm0102_new(0xEE);
 	BYTE prom_rel[4] = { 2, 1, 0, 0 };
 	short f217 = 3;
 	create_league_stage_data(pStage, _this, playoff_teams, pTeams, 2, (DWORD)(comp_data->competition_db), pFixtures, num_rounds,
@@ -407,7 +406,7 @@ void por_third_playoffs_rele(BYTE* _this) {
 		WORD num_rounds = 0;
 		WORD stage_name_id = 0;
 		BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, int, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
-		DWORD* pTeams = (DWORD*)sub_944E46_malloc(playoff_teams * 4);
+		DWORD* pTeams = (DWORD*)cm0102_malloc(playoff_teams * 4);
 
 		char al = g - 1;
 		if (al >= 0) {
@@ -436,7 +435,7 @@ void por_third_playoffs_rele(BYTE* _this) {
 		}
 
 		WORD year = comp_data->year;
-		BYTE* pStage = (BYTE*)sub_944CF1_operator_new(0xEE);
+		BYTE* pStage = (BYTE*)cm0102_new(0xEE);
 		create_league_stage_data(pStage, _this, playoff_teams, pTeams, 2, (DWORD)(comp_data->competition_db), pFixtures, num_rounds,
 			comp_data->pts_for_win, comp_data->pts_for_draw, comp_data->f196, (BYTE*)(_this + 0xC5), &prom_rel[0],
 			year, stage_num, stage_name_id, 0x14, 1, 0, comp_data->f217, -1, 0, 2);
@@ -619,7 +618,7 @@ void __declspec(naked) por_third_set_champion_c()
 
 void por_7D2B80(BYTE* _this, DWORD** team_list, WORD* total_teams) {
 	*total_teams = 20;
-	DWORD* pMem = (DWORD*)sub_944E46_malloc(4 * (*total_teams));
+	DWORD* pMem = (DWORD*)cm0102_malloc(4 * (*total_teams));
 	*team_list = pMem;
 
 	comp_stats* comp_data = (comp_stats*)_this;
