@@ -9,9 +9,16 @@ DWORD* spa_third_vtable = (DWORD*)0x96FC84;
 
 int spa_third_set_champion(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
-	BYTE* stage_data_for_history = (BYTE*)data->stages[2];
-	DWORD v1 = *(DWORD*)stage_data_for_history;
-	return (*(int(__thiscall**)(BYTE*))(v1 + 0x30))(stage_data_for_history);
+	comp_stats* curr_stage = data;
+	for (char al = -1; al < 1; al++) {
+		if (al >= 0) {
+			curr_stage = (comp_stats*)(data->stages[al]);
+		}
+		team_league_stats* table_teams = (team_league_stats*)(curr_stage->team_league_table);
+		sub_4AFCE0_add_history_entry(_this, table_teams[0].club, table_teams[1].club, table_teams[2].club, 0);
+	}
+
+	return 0;
 }
 
 void __declspec(naked) spa_third_set_champion_c()
@@ -303,23 +310,6 @@ DWORD spa_third_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 
 		return (DWORD)pMem;
 	}
-	else if (stage_idx == 2) {
-		if (a5)
-			*a5 = 0;
-		BYTE* pMem = NULL;
-		WORD year = ((comp_stats*)_this)->year;
-		*num_rounds = 1;
-		*stage_name_id = None;
-
-		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
-
-		int fixture_id = 0;
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 25), year, Monday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 27), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 6, 2, 1, 2, 0, 0, 2, 3);
-
-		return (DWORD)pMem;
-	}
 	return 0;
 }
 
@@ -514,35 +504,6 @@ void spa_third_playoffs_prom(BYTE* _this) {
 	sub_51C800(new_stage, 0);
 }
 
-void spa_third_playoffs_champ(BYTE* _this) {
-	char stage_num = 2;
-
-	comp_stats* comp_data = (comp_stats*)_this;
-	BYTE playoff_teams = 2;
-	DWORD* pTeams = (DWORD*)cm0102_malloc(playoff_teams * 4);
-
-	comp_stats* curr_stage = comp_data;
-	for (char al = -1; al < 1; al++) {
-		if (al >= 0) {
-			curr_stage = (comp_stats*)(comp_data->stages[al]);
-		}
-		team_league_stats* table_teams = (team_league_stats*)(curr_stage->team_league_table);
-		*((DWORD*)(&pTeams[al + 1])) = (DWORD)table_teams[0].club;
-	}
-
-	WORD num_rounds = 0;
-	WORD stage_name_id = 0;
-	WORD year = comp_data->year;
-	DWORD v1 = *(DWORD*)_this;
-	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, char, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
-	BYTE* new_stage = (BYTE*)cm0102_new(0xB2);
-	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)(comp_data->competition_db), pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, 0);
-	DWORD* stages_arr = comp_data->stages;
-	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
-	sub_51C800(new_stage, 0);
-	comp_data->current_stage = (long)stage_num;
-}
-
 void spa_third_playoffs_create(BYTE* _this) {
 	comp_stats* comp_data = (comp_stats*)_this;
 	long current = comp_data->current_stage;
@@ -552,7 +513,6 @@ void spa_third_playoffs_create(BYTE* _this) {
 		if (current == 1) {
 			comp_data->current_stage = current;
 			spa_third_playoffs_prom(_this);
-			spa_third_playoffs_champ(_this);
 		}
 	}
 }
@@ -622,42 +582,6 @@ int spa_third_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char sta
 					staff_history_knocked_out_86C000(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
 						*(WORD*)(rounds + playoff_dates_sz * current_round + 7), 0xF);
 					table[i].league_fate = Eliminated;
-					return 0;
-				}
-			}
-		}
-	}
-	else if (stage == 2) {
-		cm3_clubs* club_ptr = (cm3_clubs*)club;
-		WORD num_teams = comp_data->n_teams;
-		if (num_teams <= 0) return 0;
-		BYTE* rounds = ((comp_stats*)(comp_data->stages[stage]))->rounds_list;
-		WORD current_round = *(WORD*)(round_data + 0x34);
-		comp_stats* curr_stage = comp_data;
-
-		for (char al = -1; al < 1; al++) {
-			if (al >= 0) {
-				curr_stage = (comp_stats*)(comp_data->stages[al]);
-			}
-			team_league_stats* table = (team_league_stats*)(curr_stage->team_league_table);
-			for (int i = 0; i < num_teams; i++) {
-				if (table[i].club != club) continue;
-				switch (fate) {
-				case TopPlayoff:
-					staff_history_champion_868C50(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));
-					if (table[i].league_fate != CantBePromoted) table[i].league_fate = Champions;
-					*a5 = 1;
-					return 0;
-				case Promoted:
-					staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
-						*(WORD*)(rounds + playoff_dates_sz * (current_round + 1) + 7), 0xF);
-					return 0;
-				case BottomPlayoff:
-					staff_history_comp_runner_up_86B0B0(staff_hist_ptr, club, round_data, a7);
-					return 0;
-				default:
-					staff_history_knocked_out_86C000(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
-						*(WORD*)(rounds + playoff_dates_sz * current_round + 7), 0xF);
 					return 0;
 				}
 			}
@@ -734,9 +658,6 @@ void spa_third_reputation_calc(BYTE* _this, BYTE* club, char stage, char current
 		ret_min = 2 + min;
 		ret_max = 2 + max;
 	}
-	else if (stage == 2) {
-		// do nothing
-	}
 	ret[0x73] = ret_current;
 	ret[0x74] = ret_min;
 	ret[0x75] = ret_max;
@@ -773,7 +694,7 @@ void spa_third_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->min_stadium_seats = 4000;
 	data->f68 = -1;
 	data->current_stage = -1;
-	data->num_stages = 3;
+	data->num_stages = 2;
 	data->stages = (DWORD*)cm0102_malloc(data->num_stages * 4);
 	spa_third_subs(_this);
 	AddTeamsGroupLeague(_this, SPA_THIRD_G1_9CF());

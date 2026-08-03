@@ -20,8 +20,7 @@ int eng_champ_subs(BYTE* _this)
 	comp_data->tiebreaker_3 = CurrentPositionTiebreaker;
 	comp_data->comp_type = CLUB_DOMESTIC;
 	comp_data->promotions = 2;
-	comp_data->prom_playoff = 4;
-	if (comp_data->year > 2025) comp_data->prom_playoff = 6;
+	comp_data->prom_playoff = 6;
 	comp_data->rele_playoff = 0;
 	comp_data->relegations = 3;
 
@@ -398,41 +397,23 @@ DWORD eng_champ_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 			*a5 = 0;
 		BYTE* pMem = NULL;
 		WORD year = ((comp_stats*)_this)->year;
-		if (year == 2025)
-		{
-			*num_rounds = 2;
-			*stage_name_id = Playoff;
+		*num_rounds = 3;
+		*stage_name_id = Playoff;
 
-			pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
+		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
-			int fixture_id = 0;
-			AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 3), year, Sunday);
-			AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 7), year, Thursday, Evening);
-			FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 5, 4, 2, 4, 0, 0, 2, 4);
+		int fixture_id = 0;
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 3), year, Sunday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 7), year, Thursday, Evening);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 5, 4, 2, 4, 0, 0, 1, 0);
 
-			AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 12), year, Tuesday);
-			AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 23), year, Saturday, Afternoon, NationalStadium);
-			FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 0, 2, 1, 0, 0, 0, 1, 0);
-		}
-		else {
-			*num_rounds = 3;
-			*stage_name_id = Playoff;
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 8), year, Friday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 14), year, Thursday, Evening);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup3 + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 5, 4, 2, 2, 4, 0, 2, 4);
 
-			pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
-
-			int fixture_id = 0;
-			AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 3), year, Sunday);
-			AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 7), year, Thursday, Evening);
-			FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 5, 4, 2, 4, 0, 0, 1, 0);
-
-			AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 8), year, Friday);
-			AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 14), year, Thursday, Evening);
-			FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup3 + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 5, 4, 2, 2, 4, 0, 2, 4);
-
-			AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 19), year, Tuesday);
-			AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 23), year, Saturday, Afternoon, NationalStadium);
-			FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 0, 2, 1, 0, 0, 0, 1, 0);
-		}
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 19), year, Tuesday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 23), year, Saturday, Afternoon, NationalStadium);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 0, 2, 1, 0, 0, 0, 1, 0);
 
 		return (DWORD)pMem;
 	}
@@ -457,31 +438,17 @@ void __declspec(naked) eng_champ_fixture_caller()
 
 void eng_champ_points_deductions(BYTE* _this, WORD current_year)
 {
-	if (current_year > 2025) return;
-	cm3_clubs* sheff_wed = find_club("Sheffield Wednesday");
-	if (sheff_wed) {
+	if (current_year > 2026) return;
+	cm3_clubs* soton = find_club("Southampton");
+	if (soton) {
 		comp_stats* data = (comp_stats*)_this;
 		WORD total_teams = data->n_teams;
 		team_league_stats* table_teams = (team_league_stats*)(data->team_league_table);
 		for (int i = 0; i < total_teams; i++) {
 			team_league_stats* tls = &table_teams[i];
-			if (tls->club == sheff_wed) {
-				tls->points = -18;
-				tls->points_away = -18;
-				break;
-			}
-		}
-	}
-	cm3_clubs* leicester = find_club("Leicester City");
-	if (leicester) {
-		comp_stats* data = (comp_stats*)_this;
-		WORD total_teams = data->n_teams;
-		team_league_stats* table_teams = (team_league_stats*)(data->team_league_table);
-		for (int i = 0; i < total_teams; i++) {
-			team_league_stats* tls = &table_teams[i];
-			if (tls->club == leicester) {
-				tls->points = -6;
-				tls->points_away = -6;
+			if (tls->club == soton) {
+				tls->points = -4;
+				tls->points_away = -4;
 				break;
 			}
 		}
@@ -575,22 +542,11 @@ void eng_champ_playoffs_under(BYTE* _this) {
 	DWORD* pTeams = (DWORD*)cm0102_malloc(playoff_teams * 4);
 	WORD year = comp_data->year;
 
-	if (year == 2025) {
-		BYTE team_order[4] = { 0,3,2,1 };
+	BYTE team_order[6] = { 4,5,0,3,2,1 };
 
-		team_league_stats* table_teams = (team_league_stats*)(comp_data->team_league_table);
-		for (char i = comp_data->promotions, j = 0; i < total_teams && j < playoff_teams; i++) {
-			*((DWORD*)(&pTeams[team_order[j++]])) = (DWORD)table_teams[i].club;
-		}
-	}
-	else
-	{
-		BYTE team_order[6] = { 4,5,0,3,2,1 };
-
-		team_league_stats* table_teams = (team_league_stats*)(comp_data->team_league_table);
-		for (char i = comp_data->promotions, j = 0; i < total_teams && j < playoff_teams; i++) {
-			*((DWORD*)(&pTeams[team_order[j++]])) = (DWORD)table_teams[i].club;
-		}
+	team_league_stats* table_teams = (team_league_stats*)(comp_data->team_league_table);
+	for (char i = comp_data->promotions, j = 0; i < total_teams && j < playoff_teams; i++) {
+		*((DWORD*)(&pTeams[team_order[j++]])) = (DWORD)table_teams[i].club;
 	}
 
 	WORD num_rounds = 0;

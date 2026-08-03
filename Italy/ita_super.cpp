@@ -14,7 +14,7 @@ DWORD ita_super_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 			*a5 = 0;
 		BYTE* pMem = NULL;
 		WORD year = ((comp_stats*)_this)->year;
-		*num_rounds = 2;
+		*num_rounds = 1;
 		*stage_name_id = None;
 
 		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
@@ -22,14 +22,8 @@ DWORD ita_super_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		int fixture_id = 0;
 		int tv_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 6, 29), year, Sunday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 18), year, Tuesday, Evening, AhAhliKSAStadium);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Wednesday, Evening, AhAhliKSAStadium);
-		AddPlayoffTVFixture(pMem, fixture_id, tv_id++);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup2 + PenaltiesNoExtraTime_1, NoTiebreak_2, 6, 4, 2, 4, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("ita_super_semi_lose"));
-
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 20), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 22), year, Saturday, Afternoon, AhAhliKSAStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("ita_super_final_win"), prizeMoneyFile.GetInt("ita_super_final_lose"));
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 6, 2, 1, 2, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("ita_super_final_win"), prizeMoneyFile.GetInt("ita_super_final_lose"));
 
 		return (DWORD)pMem;
 	}
@@ -55,29 +49,27 @@ void __declspec(naked) ita_super_fixture_caller()
 int ita_super_teams(BYTE* _this) {
 	vector<cm3_clubs*> vec;
 	comp_stats* comp_data = (comp_stats*)_this;
-	WORD total_teams = 4;
+	WORD total_teams = 2;
 	BYTE* pMem = (BYTE*)cm0102_malloc(6 * total_teams);
 
 	comp_data->n_teams = total_teams;
 	comp_data->teams_list = (DWORD*)pMem;
 
 	teams_seeded* teams = (teams_seeded*)comp_data->teams_list;
-	vector<cm3_clubs*> ser_a_clubs = find_clubs_of_comp_last_division(ITA_SERIE_A_9CF());
-	sort(ser_a_clubs.begin(), ser_a_clubs.end(), compareClubLastDivPos);
 
-	cm3_club_comps* ita_cup = get_comp(ITA_CUP_9CF());
-	cm3_clubs* winner = get_last_comp_winner(ita_cup);
-	if (winner) vec.push_back(winner);
-	cm3_clubs* runner_up = get_last_comp_runner_up(ita_cup);
-	if (runner_up) vec.push_back(runner_up);
-
-	if (comp_data->year == 2025) {
-		vec.push_back(find_club("SSC Napoli"));
-		vec.push_back(find_club("Internazionale"));
+	cm3_club_comps* league = get_comp(ITA_SERIE_A_9CF());
+	cm3_club_comps* cup = get_comp(ITA_CUP_9CF());
+	cm3_clubs* league_champ = get_last_comp_winner(league);
+	if (league_champ) vec.push_back(league_champ);
+	else {
+		cm3_clubs* league_second = get_last_comp_runner_up(league);
+		if (league_second) vec.push_back(league_second);
 	}
-	else for (cm3_clubs* c : ser_a_clubs) {
-		if (!vector_contains_element(vec, c)) vec.push_back(c);
-		if (vec.size() >= 4) break;
+	cm3_clubs* cup_champ = get_last_comp_winner(cup);
+	if (cup_champ && !vector_contains_element(vec, cup_champ)) vec.push_back(cup_champ);
+	else {
+		cm3_clubs* cup_second = get_last_comp_runner_up(cup);
+		if (cup_second && !vector_contains_element(vec, cup_second)) vec.push_back(cup_second);
 	}
 
 	for (DWORD i = 0; i < vec.size(); i++)

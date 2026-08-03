@@ -9,8 +9,8 @@
 DWORD* nir_first_vtable = (DWORD*)0x96DB64;
 
 int nir_first_7F3220(DWORD a1, DWORD a2) {
-	BYTE split_pos = 6;
-	WORD stage1_games = 33;
+	BYTE split_pos = 8;
+	WORD stage1_games = 30;
 	team_league_stats* tls1 = (team_league_stats*)a1;
 	team_league_stats* tls2 = (team_league_stats*)a2;
 
@@ -30,7 +30,7 @@ DWORD nir_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		comp_stats* data = (comp_stats*)_this;
 		WORD year = data->year;
 		DWORD CompID = data->competition_db->ClubCompID;
-		*num_rounds = 38;
+		*num_rounds = 37;
 		*stage_name_id = None;
 
 		pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
@@ -66,7 +66,6 @@ DWORD nir_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Sunday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 16), year, Tuesday, Evening);
 		tv_id = 0;
 		AddFixture(pMem, fixture_id, Date(year, 9, 20), year, Saturday);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
@@ -176,18 +175,18 @@ DWORD nir_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Sunday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
-		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year + 1, 3, 7), year, Saturday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Sunday, Afternoon);
-		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 7), year, Saturday);
+		// next phase starts here
 		tv_id = 0;
 		AddFixture(pMem, fixture_id, Date(year + 1, 3, 14), year, Saturday);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Sunday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 21), year, Saturday);
-		// next phase starts here
+		tv_id = 0;
+		AddFixture(pMem, fixture_id, Date(year + 1, 3, 21), year, Saturday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Sunday, Afternoon);
+		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
 		AddFixture(pMem, fixture_id, Date(year + 1, 3, 28), year, Saturday);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
@@ -238,12 +237,14 @@ DWORD nir_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		comp_stats* data = (comp_stats*)_this;
 		WORD year = data->year;
 		DWORD CompID = data->competition_db->ClubCompID;
-		*num_rounds = 5;
+		*num_rounds = 7;
 		*stage_name_id = ChampionshipGroup + stage_idx - 1;
 
 		pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 14), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 21), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 28), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 4), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 11), year, Saturday);
@@ -277,8 +278,8 @@ void nir_first_subs(BYTE* _this)
 {
 	comp_stats* comp_data = (comp_stats*)_this;
 
-	comp_data->n_rounds = 3;
-	*((DWORD*)(_this + 0xA7)) = 38; // total number of games each team will play
+	comp_data->n_rounds = 2;
+	*((DWORD*)(_this + 0xA7)) = 37; // total number of games each team will play
 	*((DWORD*)(_this + 0xA3)) = 0;
 	comp_data->pts_for_win = 3;
 	comp_data->pts_for_draw = 1;
@@ -290,7 +291,7 @@ void nir_first_subs(BYTE* _this)
 	comp_data->promotions = 1;
 	comp_data->prom_playoff = 1;
 	comp_data->rele_playoff = 1;
-	comp_data->relegations = 1;
+	comp_data->relegations = 2;
 
 	comp_data->promotes_to = NIR_PREMIER_9CF();
 	comp_data->relegates_to = NIR_SECOND_9CF();
@@ -374,7 +375,7 @@ void nir_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->rules = RulesNorthernIreland;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) {
-		if (data->n_rounds != 4) return;
+		if (data->n_rounds != 3) return;
 		*((DWORD*)(_this + 0xA3)) = (DWORD)&nir_first_7F3220;
 		return;
 	}
@@ -399,12 +400,12 @@ void nir_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 
 void nir_first_split_under(BYTE* _this) {
 	comp_stats* comp_data = (comp_stats*)_this;
-	BYTE playoff_teams = 6;
+	BYTE playoff_teams = 8;
 	WORD total_teams = comp_data->n_teams;
 	team_league_stats* table_teams = (team_league_stats*)(comp_data->team_league_table);
 
 	DWORD* pTeams = (DWORD*)cm0102_malloc(playoff_teams * 4);
-	for (int i = 0; i < 6; i++) {
+	for (int i = 0; i < 8; i++) {
 		*((DWORD*)(&pTeams[i])) = (DWORD)table_teams[i].club;
 	}
 
@@ -425,8 +426,8 @@ void nir_first_split_under(BYTE* _this) {
 	sub_9452CA_free(pFixtures);
 
 	DWORD* pTeams2 = (DWORD*)cm0102_malloc(playoff_teams * 4);
-	for (int i = 0; i < 6; i++) {
-		*((DWORD*)(&pTeams2[i])) = (DWORD)table_teams[i + 6].club;
+	for (int i = 0; i < 8; i++) {
+		*((DWORD*)(&pTeams2[i])) = (DWORD)table_teams[i + 8].club;
 	}
 
 	WORD num_rounds2 = 0;
@@ -442,20 +443,20 @@ void nir_first_split_under(BYTE* _this) {
 	sub_9452CA_free(pTeams2);
 	sub_9452CA_free(pFixtures2);
 
-	comp_data->n_rounds = 4;
+	comp_data->n_rounds = 3;
 	*((DWORD*)(_this + 0xA3)) = (DWORD)&nir_first_7F3220;
 }
 
 char nir_first_table_split(BYTE* _this, DWORD current_date, int a2) {
 	if (a2) {
 		comp_stats* comp_data = (comp_stats*)_this;
-		if (comp_data->n_rounds == 3) {
+		if (comp_data->n_rounds == 2) {
 			WORD num_teams = comp_data->n_teams;
 			team_league_stats* table_teams = (team_league_stats*)(comp_data->team_league_table);
 			bool is_finished = true;
 			for (int i = 0; i < num_teams; i++) {
 				team_league_stats tls = table_teams[i];
-				if (tls.games < 33) {
+				if (tls.games < 30) {
 					is_finished = false;
 					break;
 				}
@@ -665,9 +666,9 @@ void nir_first_reputation_calc(BYTE* _this, BYTE* club, char stage, char current
 			ret_max = 2;
 		}
 		else {
-			ret_current = 11;
-			ret_min = 11;
-			ret_max = 11;
+			ret_current = 14;
+			ret_min = 14;
+			ret_max = 14;
 		}
 	}
 	ret[0x73] = ret_current;

@@ -78,7 +78,7 @@ int cro_cup_teams(BYTE* _this) {
 
 	// Lower
 	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(CRO_FOURTH_9CF());
-	vector<cm3_clubs*> division_clubs = get_random_weighted_clubs(lower_clubs, 10, true);
+	vector<cm3_clubs*> division_clubs = get_random_weighted_clubs(lower_clubs, 6, true);
 	for (cm3_clubs* club : division_clubs)
 	{
 		vec.push_back(club);

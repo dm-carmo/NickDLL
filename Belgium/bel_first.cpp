@@ -91,12 +91,6 @@ void bel_first_subs(BYTE* _this)
 	comp_data->prom_playoff = 0;
 	comp_data->rele_playoff = 0;
 	comp_data->relegations = 2;
-	if (comp_data->year == 2025)
-	{
-		*((DWORD*)(_this + 0xA7)) = 37; // total number of games each team will play
-		comp_data->rele_playoff = 1;
-		comp_data->relegations = 0;
-	}
 
 	comp_data->promotes_to = -1;
 	comp_data->relegates_to = BEL_SECOND_9CF();
@@ -126,429 +120,189 @@ void __declspec(naked) bel_first_subs_c()
 DWORD bel_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
 {
 	comp_stats* data = (comp_stats*)_this;
-	if (data->year == 2025)
-	{
-		if (stage_idx < 0) {
-			if (a5)
-				*a5 = 1;
-			BYTE* pMem = NULL;
-			WORD year = data->year;
-			*num_rounds = 37;
-			*stage_name_id = None;
+	if (stage_idx < 0) {
+		if (a5)
+			*a5 = 1;
+		BYTE* pMem = NULL;
+		WORD year = data->year;
+		DWORD CompID = data->competition_db->ClubCompID;
+		BYTE numberOfLeagueTeams = (BYTE)CountNumberOfTeamsInComp(CompID);
+		*num_rounds = (numberOfLeagueTeams - 1 + numberOfLeagueTeams % 2) * data->n_rounds;
+		*stage_name_id = None;
 
-			pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
+		pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
 
-			int fixture_id = 0;
-			int tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year, 7, 27), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year, 8, 3), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year, 8, 10), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year, 8, 17), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year, 8, 24), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year, 8, 31), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year, 9, 14), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year, 9, 21), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year, 9, 28), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year, 10, 5), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year, 10, 19), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year, 10, 26), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year, 11, 2), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year, 11, 9), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year, 11, 23), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year, 11, 30), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year, 12, 7), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year, 12, 14), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year, 12, 21), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year, 12, 28), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year + 1, 1, 18), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year + 1, 1, 25), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year + 1, 2, 1), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year + 1, 2, 8), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year + 1, 2, 15), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year + 1, 2, 22), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year + 1, 3, 1), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year + 1, 3, 8), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year + 1, 3, 15), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 22), year, Sunday);
-			// next phase starts here
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year + 1, 4, 5), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year + 1, 4, 12), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year + 1, 4, 19), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year + 1, 4, 26), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year + 1, 5, 3), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year + 1, 5, 10), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 5, 17), year, Sunday);
+		int fixture_id = 0;
+		int tv_id = 0;
+		AddFixture(pMem, fixture_id, Date(year, 8, 10), year, Sunday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		tv_id = 0;
+		AddFixture(pMem, fixture_id, Date(year, 8, 17), year, Sunday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		tv_id = 0;
+		AddFixture(pMem, fixture_id, Date(year, 8, 24), year, Sunday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		tv_id = 0;
+		AddFixture(pMem, fixture_id, Date(year, 8, 31), year, Sunday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		tv_id = 0;
+		AddFixture(pMem, fixture_id, Date(year, 9, 14), year, Sunday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		tv_id = 0;
+		AddFixture(pMem, fixture_id, Date(year, 9, 21), year, Sunday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		tv_id = 0;
+		AddFixture(pMem, fixture_id, Date(year, 9, 28), year, Sunday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		tv_id = 0;
+		AddFixture(pMem, fixture_id, Date(year, 10, 5), year, Sunday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		tv_id = 0;
+		AddFixture(pMem, fixture_id, Date(year, 10, 19), year, Sunday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		tv_id = 0;
+		AddFixture(pMem, fixture_id, Date(year, 10, 26), year, Sunday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		tv_id = 0;
+		AddFixture(pMem, fixture_id, Date(year, 11, 2), year, Sunday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		tv_id = 0;
+		AddFixture(pMem, fixture_id, Date(year, 11, 9), year, Sunday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		tv_id = 0;
+		AddFixture(pMem, fixture_id, Date(year, 11, 23), year, Sunday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		tv_id = 0;
+		AddFixture(pMem, fixture_id, Date(year, 11, 30), year, Sunday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		tv_id = 0;
+		AddFixture(pMem, fixture_id, Date(year, 12, 7), year, Sunday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		tv_id = 0;
+		AddFixture(pMem, fixture_id, Date(year, 12, 14), year, Sunday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		tv_id = 0;
+		AddFixture(pMem, fixture_id, Date(year, 12, 21), year, Sunday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		tv_id = 0;
+		AddFixture(pMem, fixture_id, Date(year, 12, 28), year, Sunday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		tv_id = 0;
+		AddFixture(pMem, fixture_id, Date(year + 1, 1, 18), year, Sunday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		tv_id = 0;
+		AddFixture(pMem, fixture_id, Date(year + 1, 1, 25), year, Sunday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		tv_id = 0;
+		AddFixture(pMem, fixture_id, Date(year + 1, 2, 1), year, Sunday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		tv_id = 0;
+		AddFixture(pMem, fixture_id, Date(year + 1, 2, 8), year, Sunday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		tv_id = 0;
+		AddFixture(pMem, fixture_id, Date(year + 1, 2, 15), year, Sunday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		tv_id = 0;
+		AddFixture(pMem, fixture_id, Date(year + 1, 2, 22), year, Sunday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		tv_id = 0;
+		AddFixture(pMem, fixture_id, Date(year + 1, 3, 1), year, Sunday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		tv_id = 0;
+		AddFixture(pMem, fixture_id, Date(year + 1, 3, 8), year, Sunday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		tv_id = 0;
+		AddFixture(pMem, fixture_id, Date(year + 1, 3, 15), year, Sunday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		tv_id = 0;
+		AddFixture(pMem, fixture_id, Date(year + 1, 3, 22), year, Sunday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		tv_id = 0;
+		AddFixture(pMem, fixture_id, Date(year + 1, 4, 5), year, Sunday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		tv_id = 0;
+		AddFixture(pMem, fixture_id, Date(year + 1, 4, 12), year, Sunday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		tv_id = 0;
+		AddFixture(pMem, fixture_id, Date(year + 1, 4, 19), year, Sunday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		tv_id = 0;
+		AddFixture(pMem, fixture_id, Date(year + 1, 4, 26), year, Sunday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		tv_id = 0;
+		AddFixture(pMem, fixture_id, Date(year + 1, 5, 3), year, Sunday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 5, 10), year, Sunday);
 
-			check_number_of_fixtures(_this, fixture_id, *num_rounds);
+		check_number_of_fixtures(_this, fixture_id, *num_rounds);
 
-			return (DWORD)pMem;
-		}
-		else if (stage_idx == 0) {
-			if (a5)
-				*a5 = 0;
-			BYTE* pMem = NULL;
-			WORD year = data->year;
-			*num_rounds = 1;
-			*stage_name_id = None;
-
-			pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
-
-			int fixture_id = 0;
-			AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 18), year, Monday);
-			AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 20), year, Wednesday, Evening);
-			FillFixtureDetails(pMem, fixture_id++, Playoff, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 6, 2, 1, 2, 0, 0, 2, 4);
-
-			return (DWORD)pMem;
-		}
-		else if (stage_idx < 3) {
-			if (a5)
-				*a5 = 1;
-			BYTE* pMem = NULL;
-			WORD year = data->year;
-			DWORD CompID = data->competition_db->ClubCompID;
-			*num_rounds = 7;
-			*stage_name_id = ChampionshipGroup + stage_idx - 1;
-
-			pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
-
-			int fixture_id = 0;
-			AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 5), year, Sunday);
-			AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 12), year, Sunday);
-			AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 19), year, Sunday);
-			AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 26), year, Sunday);
-			AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 5, 3), year, Sunday);
-			AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 5, 10), year, Sunday);
-			AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 5, 17), year, Sunday);
-
-			check_number_of_fixtures(_this, fixture_id, *num_rounds);
-
-			return (DWORD)pMem;
-		}
-	}
-	else {
-		if (stage_idx < 0) {
-			if (a5)
-				*a5 = 1;
-			BYTE* pMem = NULL;
-			WORD year = data->year;
-			DWORD CompID = data->competition_db->ClubCompID;
-			BYTE numberOfLeagueTeams = (BYTE)CountNumberOfTeamsInComp(CompID);
-			*num_rounds = (numberOfLeagueTeams - 1 + numberOfLeagueTeams % 2) * data->n_rounds;
-			*stage_name_id = None;
-
-			pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
-
-			int fixture_id = 0;
-			int tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year, 8, 10), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year, 8, 17), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year, 8, 24), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year, 8, 31), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year, 9, 14), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year, 9, 21), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year, 9, 28), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year, 10, 5), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year, 10, 19), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year, 10, 26), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year, 11, 2), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year, 11, 9), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year, 11, 23), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year, 11, 30), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year, 12, 7), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year, 12, 14), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year, 12, 21), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year, 12, 28), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year + 1, 1, 18), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year + 1, 1, 25), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year + 1, 2, 1), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year + 1, 2, 8), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year + 1, 2, 15), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year + 1, 2, 22), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year + 1, 3, 1), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year + 1, 3, 8), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year + 1, 3, 15), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year + 1, 3, 22), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year + 1, 4, 5), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year + 1, 4, 12), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year + 1, 4, 19), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year + 1, 4, 26), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year + 1, 5, 3), year, Sunday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-			AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 5, 10), year, Sunday);
-
-			check_number_of_fixtures(_this, fixture_id, *num_rounds);
-
-			return (DWORD)pMem;
-		}
+		return (DWORD)pMem;
 	}
 	return 0;
 }
@@ -569,30 +323,7 @@ void __declspec(naked) bel_first_fixtures_c()
 	}
 }
 
-void __fastcall bel_d1_d2_relegation_2025(BYTE* _this)
-{
-	vector<cm3_clubs*> relegated_clubs = get_relegated_teams(BEL_FIRST_9CF());
-
-	vector<cm3_clubs*> promoted_clubs;
-	comp_stats* comp_data = (comp_stats*)get_loaded_league(BEL_SECOND_9CF());
-	for (WORD num = 0; num < comp_data->n_teams; num++) {
-		team_league_stats table_pos = ((team_league_stats*)comp_data->team_league_table)[num];
-		if (table_pos.league_fate == Promoted || table_pos.league_fate == Champions) {
-			promoted_clubs.push_back(table_pos.club);
-		}
-	}
-
-	cm3_club_comps* topDivision = get_comp(BEL_FIRST_9CF());
-	cm3_club_comps* bottomDivision = get_comp(BEL_SECOND_9CF());
-	for (cm3_clubs* club : relegated_clubs) {
-		relegate_club_6831A0((BYTE*)club, (DWORD)bottomDivision, 1);
-	}
-	for (cm3_clubs* club : promoted_clubs) {
-		promote_club_6830B0((BYTE*)club, (DWORD)topDivision, 1);
-	}
-}
-
-void __fastcall bel_d2_d3_relegation_2025(BYTE* _this)
+void __fastcall bel_d2_d3_relegation_2026(BYTE* _this)
 {
 	vector<cm3_clubs*> relegated_clubs = get_relegated_teams(BEL_SECOND_9CF());
 
@@ -622,7 +353,7 @@ void __fastcall bel_d2_d3_relegation_2025(BYTE* _this)
 	}
 }
 
-void __fastcall bel_d3_d4_relegation_2025(BYTE* _this)
+void __fastcall bel_d3_d4_relegation_2026(BYTE* _this)
 {
 	vector<cm3_clubs*> relegated_clubs = get_relegated_teams(BEL_THIRD_VV_9CF());
 
@@ -659,12 +390,7 @@ void bel_first_prom_rel_update(BYTE* _this, int a2) {
 	BYTE* bel_second = get_loaded_league(BEL_SECOND_9CF());
 	v1 = *(DWORD*)bel_second;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(bel_second);
-	if (data->year == 2025) {
-		bel_d1_d2_relegation_2025(_this);
-	}
-	else {
-		process_promotion_relegation_689C80(_this, _this, bel_second, 1, a2, -1, -1);
-	}
+	process_promotion_relegation_689C80(_this, _this, bel_second, 1, a2, -1, -1);
 
 	BYTE* bel_third_vv = get_loaded_league(BEL_THIRD_VV_9CF());
 	v1 = *(DWORD*)bel_third_vv;
@@ -672,8 +398,8 @@ void bel_first_prom_rel_update(BYTE* _this, int a2) {
 	BYTE* bel_third_ac = get_loaded_league(BEL_THIRD_ACFF_9CF());
 	v1 = *(DWORD*)bel_third_ac;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(bel_third_ac);
-	if (data->year == 2025) {
-		bel_d2_d3_relegation_2025(_this);
+	if (data->year == 2026) {
+		bel_d2_d3_relegation_2026(_this);
 	}
 	else {
 		process_promotion_relegation_689C80(_this, bel_second, bel_third_vv, 1, a2, -1, -1);
@@ -688,8 +414,8 @@ void bel_first_prom_rel_update(BYTE* _this, int a2) {
 		BYTE* bel_fourth_vv_grp = (BYTE*)bel_fourth_vv_data->stages[0];
 		v1 = *(DWORD*)bel_fourth_vv_grp;
 		(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(bel_fourth_vv_grp);
-		if (data->year == 2025) {
-			bel_d3_d4_relegation_2025(_this);
+		if (data->year == 2026) {
+			bel_d3_d4_relegation_2026(_this);
 		}
 		else {
 			process_promotion_relegation_689C80(_this, bel_third_vv, bel_fourth_vv, 1, a2, -1, -1);
@@ -768,7 +494,7 @@ void __fastcall bel_third_ac_relegation(BYTE* _this)
 			i--;
 		}
 	}
-	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(available_clubs, relegated_clubs.size() + (comp_data->year == 2025 ? 1 : 0), true);
+	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(available_clubs, relegated_clubs.size() + (comp_data->year == 2026 ? 1 : 0), true);
 
 	for (cm3_clubs* c : relegated_clubs) {
 		cm3_club_comps* bottomDivision = get_comp(BEL_FOURTH_ACFF_9CF());
@@ -814,7 +540,7 @@ void __fastcall bel_non_league_promotion(BYTE* _this)
 			i--;
 		}
 	}
-	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(available_clubs, relegated_clubs_vv.size() + relegated_clubs_ac.size() + (comp_data->year == 2025 ? 1 : 0), true);
+	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(available_clubs, relegated_clubs_vv.size() + relegated_clubs_ac.size() + (comp_data->year == 2026 ? 1 : 0), true);
 
 	for (cm3_clubs* c : relegated_clubs_vv) {
 		cm3_club_comps* bottomDivision = get_comp(A_LOWER_9CF());
@@ -858,7 +584,7 @@ void __fastcall fake_bel_non_league_promotion(BYTE* _this)
 			i--;
 		}
 	}
-	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(available_clubs, relegated_clubs.size() + (comp_data->year == 2025 ? 1 : 0), true);
+	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(available_clubs, relegated_clubs.size() + (comp_data->year == 2026 ? 1 : 0), true);
 
 	for (cm3_clubs* c : relegated_clubs) {
 		cm3_club_comps* bottomDivision = get_comp(A_LOWER_9CF());
@@ -1272,11 +998,7 @@ void bel_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->year = year;
 	data->rules = RulesBelgiumLeague;
 	int loaded = sub_687B10(_this, 1);
-	if (loaded) {
-		if (data->year > 2025 || data->n_rounds != 3) return;
-		*((DWORD*)(_this + 0xA3)) = (DWORD)&bel_first_7F3220;
-		return;
-	}
+	if (loaded)  return;
 	data->min_stadium_capacity = 8000;
 	data->min_stadium_seats = 5000;
 	data->f68 = -1;
@@ -1346,42 +1068,6 @@ void bel_first_split_under(BYTE* _this) {
 
 	comp_data->n_rounds = 3;
 	*((DWORD*)(_this + 0xA3)) = (DWORD)&bel_first_7F3220;
-}
-
-char bel_first_table_split(BYTE* _this, DWORD current_date, int a2) {
-	comp_stats* comp_data = (comp_stats*)_this;
-	if (a2 && comp_data->year == 2025) {
-		if (comp_data->n_rounds == 2) {
-			WORD num_teams = comp_data->n_teams;
-			team_league_stats* table_teams = (team_league_stats*)(comp_data->team_league_table);
-			bool is_finished = true;
-			for (int i = 0; i < num_teams; i++) {
-				team_league_stats tls = table_teams[i];
-				if (tls.games < 30) {
-					is_finished = false;
-					break;
-				}
-			}
-			if (is_finished) {
-				bel_first_split_under(_this);
-			}
-		}
-	}
-	return sub_6847C0(_this, current_date, a2);
-}
-
-void __declspec(naked) bel_first_table_split_c()
-{
-	__asm
-	{
-		mov eax, esp
-		push dword ptr[eax + 0x8]
-		push dword ptr[eax + 0x4]
-		push ecx
-		call bel_first_table_split
-		add esp, 0xc
-		ret 8
-	}
 }
 
 void bel_first_playoff_under(BYTE* _this) {
@@ -1603,7 +1289,6 @@ void setup_bel_first()
 	WriteVTablePtr(bel_first_vtable, VTableInitFree, (DWORD)&bel_first_free_c);
 	WriteVTablePtr(bel_first_vtable, VTableEoSUpdate, (DWORD)&bel_first_update_c);
 	WriteVTablePtr(bel_first_vtable, VTableFixtures, (DWORD)&bel_first_fixtures_c);
-	WriteVTablePtr(bel_first_vtable, VTableLeagueSplit, (DWORD)&bel_first_table_split_c);
 	WriteVTablePtr(bel_first_vtable, VTableReputationCalc, (DWORD)&bel_first_reputation_calc_c);
 	WriteVTablePtr(bel_first_vtable, VTablePlayoffQual, (DWORD)&bel_first_playoffs_create);
 	WriteVTablePtr(bel_first_vtable, VTableTableFates, (DWORD)&bel_first_set_table_fate);

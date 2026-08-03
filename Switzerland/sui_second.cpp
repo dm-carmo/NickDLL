@@ -308,25 +308,6 @@ void __declspec(naked) sui_second_update_c()
 	}
 }
 
-void sui_second_points_deductions(BYTE* _this, WORD current_year)
-{
-	if (current_year > 2025) return;
-	cm3_clubs* vevey = find_club("Vevey-Sports");
-	if (vevey) {
-		comp_stats* data = (comp_stats*)_this;
-		WORD total_teams = data->n_teams;
-		team_league_stats* table_teams = (team_league_stats*)(data->team_league_table);
-		for (int i = 0; i < total_teams; i++) {
-			team_league_stats* tls = &table_teams[i];
-			if (tls->club == vevey) {
-				tls->points = -3;
-				tls->points_away = -3;
-				break;
-			}
-		}
-	}
-}
-
 void sui_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 {
 	sub_682200(_this);
@@ -359,7 +340,6 @@ void sui_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
 	league_reputation_setup_generic_68A850(_this);
-	sui_second_points_deductions(_this, year);
 }
 
 void setup_sui_second()

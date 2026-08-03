@@ -140,13 +140,6 @@ DWORD egy_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Friday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
-		if (numberOfLeagueTeams > 20) {
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year, 8, 27), year, Wednesday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-		}
 		tv_id = 0;
 		AddFixture(pMem, fixture_id, Date(year, 8, 30), year, Saturday);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Friday, Evening);
@@ -204,13 +197,6 @@ DWORD egy_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Friday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
-		if (numberOfLeagueTeams > 20) {
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year, 11, 26), year, Wednesday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Tuesday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Thursday, Evening);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-		}
 		if (numberOfLeagueTeams > 18) {
 			tv_id = 0;
 			AddFixture(pMem, fixture_id, Date(year, 11, 29), year, Saturday);
@@ -312,13 +298,6 @@ DWORD egy_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Tuesday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Thursday, Evening);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
-		if (numberOfLeagueTeams > 20) {
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year + 1, 5, 9), year, Saturday);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-		}
 		tv_id = 0;
 		AddFixture(pMem, fixture_id, Date(year + 1, 5, 13), year, Wednesday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Tuesday, Evening);
@@ -329,13 +308,6 @@ DWORD egy_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Friday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
-		if (numberOfLeagueTeams > 20) {
-			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year + 1, 5, 20), year, Wednesday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Friday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
-			AddFixtureTV(pMem, fixture_id++, tv_id++);
-		}
 		tv_id = 0;
 		AddFixture(pMem, fixture_id, Date(year + 1, 5, 23), year, Saturday);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Friday, Evening);

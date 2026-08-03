@@ -20,10 +20,11 @@ int nir_cup_teams(BYTE* _this) {
 	// Lower
 	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_NORTHERN_IRELAND_9CF());
 	vector<cm3_clubs*> division_clubs = get_random_weighted_clubs(lower_clubs, 2, true);
-	for (cm3_clubs* club : division_clubs)
-	{
-		vec.push_back(club);
-	}
+	// Currently not used
+	//for (cm3_clubs* club : division_clubs)
+	//{
+	//	vec.push_back(club);
+	//}
 	// NIFL Intermediate
 	division_clubs = find_clubs_of_comp(NIR_SECOND_9CF());
 	for (cm3_clubs* club : division_clubs)

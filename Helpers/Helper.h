@@ -19,6 +19,7 @@ extern std::default_random_engine rng;
 
 void dprintf(const char* fmt, ...);
 void WriteBytes(DWORD addr, int bytes, ...);
+void WriteString(DWORD addr, int length, char* bytes);
 void WriteNOP(DWORD addr, int bytes);
 void WriteWORD(DWORD addr, WORD data);
 void WriteDWORD(DWORD addr, DWORD data);

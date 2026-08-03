@@ -306,21 +306,7 @@ void __declspec(naked) sco_league_2_fixtures_c()
 
 void sco_league_2_points_deductions(BYTE* _this, WORD current_year)
 {
-	if (current_year > 2025) return;
-	cm3_clubs* dumbarton = find_club("Dumbarton FC");
-	if (dumbarton) {
-		comp_stats* data = (comp_stats*)_this;
-		WORD total_teams = data->n_teams;
-		team_league_stats* table_teams = (team_league_stats*)(data->team_league_table);
-		for (int i = 0; i < total_teams; i++) {
-			team_league_stats* tls = &table_teams[i];
-			if (tls->club == dumbarton) {
-				tls->points = -5;
-				tls->points_away = -5;
-				break;
-			}
-		}
-	}
+	if (current_year > 2026) return;
 	cm3_clubs* edinburgh = find_club("Edinburgh City");
 	if (edinburgh) {
 		comp_stats* data = (comp_stats*)_this;
@@ -329,8 +315,8 @@ void sco_league_2_points_deductions(BYTE* _this, WORD current_year)
 		for (int i = 0; i < total_teams; i++) {
 			team_league_stats* tls = &table_teams[i];
 			if (tls->club == edinburgh) {
-				tls->points = -15;
-				tls->points_away = -15;
+				tls->points = -5;
+				tls->points_away = -5;
 				break;
 			}
 		}

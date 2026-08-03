@@ -85,7 +85,7 @@ int fra_cup_teams(BYTE* _this) {
 	teams_seeded* teams = (teams_seeded*)comp_data->teams_list;
 
 	// Lower
-	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(FRA_NATIONAL_2_9CF(), NATION_FRANCE_9CF());
+	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(FRA_NATIONAL_1_9CF(), NATION_FRANCE_9CF());
 	vector<cm3_clubs*> lower_clubs2 = find_clubs_of_comp(FRA_LOWER_9CF(), NATION_FRANCE_9CF());
 	move(lower_clubs2.begin(), lower_clubs2.end(), back_inserter(lower_clubs));
 	lower_clubs2 = find_clubs_of_comp(A_LOWER_9CF(), NATION_FRANCE_9CF());
@@ -100,13 +100,13 @@ int fra_cup_teams(BYTE* _this) {
 			i--;
 		}
 	}
-	vector<cm3_clubs*> division_clubs = get_random_weighted_clubs(lower_clubs, 148 + (comp_data->year == 2025 ? 1 : 0), true);
+	vector<cm3_clubs*> division_clubs = get_random_weighted_clubs(lower_clubs, 148, true);
 	for (cm3_clubs* club : division_clubs)
 	{
 		vec.push_back(club);
 	}
 	// National
-	division_clubs = find_clubs_of_comp(FRA_NATIONAL_1_9CF());
+	division_clubs = find_clubs_of_comp(FRA_THIRD_9CF());
 	for (cm3_clubs* club : division_clubs)
 	{
 		vec.push_back(club);

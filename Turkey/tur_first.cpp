@@ -111,7 +111,7 @@ void __declspec(naked) tur_first_subs_c()
 	}
 }
 
-void __fastcall tur_d3_d4_relegation_2025(BYTE* _this)
+void __fastcall tur_d3_d4_relegation_2026(BYTE* _this)
 {
 	vector<cm3_clubs*> relegated_clubs;
 	comp_stats* comp_data = (comp_stats*)get_loaded_league(TUR_THIRD_9CF());
@@ -131,7 +131,7 @@ void __fastcall tur_d3_d4_relegation_2025(BYTE* _this)
 	vector<cm3_clubs*> promoted_clubs;
 	comp_data = (comp_stats*)get_loaded_league(TUR_FOURTH_9CF());
 	curr_stage = comp_data;
-	for (char al = -1; al < 3; al++) {
+	for (char al = -1; al < 2; al++) {
 		if (al >= 0) {
 			curr_stage = (comp_stats*)(comp_data->stages[al]);
 		}
@@ -177,20 +177,20 @@ void tur_first_prom_rel_update(BYTE* _this, int a2) {
 		comp_stats* tur_fourth_data = (comp_stats*)tur_fourth;
 		v1 = *(DWORD*)tur_fourth;
 		(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(tur_fourth);
-		if (tur_fourth_data->year == 2025) {
-			tur_d3_d4_relegation_2025(_this);
+		if (tur_fourth_data->year == 2026) {
+			tur_d3_d4_relegation_2026(_this);
 		}
 		else {
 			process_promotion_relegation_689C80(_this, tur_third, tur_fourth, 1, a2, -1, -1);
 
-			for (int i = 0; i < 3; i++)
+			for (int i = 0; i < 2; i++)
 			{
 				BYTE* tur_fourth_grp = (BYTE*)tur_fourth_data->stages[i];
 				process_promotion_relegation_689C80(_this, tur_third, tur_fourth_grp, 1, a2, -1, -1);
 			}
 
 			process_promotion_relegation_689C80(_this, tur_third_grp, tur_fourth, 1, a2, -1, -1);
-			for (int i = 0; i < 3; i++)
+			for (int i = 0; i < 2; i++)
 			{
 				BYTE* tur_fourth_grp = (BYTE*)tur_fourth_data->stages[i];
 				process_promotion_relegation_689C80(_this, tur_third_grp, tur_fourth_grp, 1, a2, -1, -1);
@@ -231,7 +231,7 @@ void __fastcall tur_third_relegation(BYTE* _this)
 	}
 
 	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(TUR_FOURTH_9CF(), NATION_TURKEY_9CF());
-	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(available_clubs, relegated_clubs.size() - (comp_data->year == 2025 ? 1 : 0), true);
+	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(available_clubs, relegated_clubs.size() + (comp_data->year == 2026 ? 1 : 0), true);
 
 	for (cm3_clubs* c : relegated_clubs) {
 		cm3_club_comps* bottomDivision = get_comp(TUR_FOURTH_9CF());
@@ -251,7 +251,7 @@ void __fastcall tur_non_league_promotion(BYTE* _this)
 
 	comp_stats* comp_data = (comp_stats*)get_loaded_league(TUR_FOURTH_9CF());
 	comp_stats* curr_stage = comp_data;
-	for (char al = -1; al < 3; al++) {
+	for (char al = -1; al < 2; al++) {
 		if (al >= 0) {
 			curr_stage = (comp_stats*)(comp_data->stages[al]);
 		}
@@ -264,7 +264,7 @@ void __fastcall tur_non_league_promotion(BYTE* _this)
 	}
 
 	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_TURKEY_9CF());
-	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(available_clubs, relegated_clubs.size() - (comp_data->year == 2025 ? 1 : 0), true);
+	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(available_clubs, relegated_clubs.size() + (comp_data->year == 2026 ? 1 : 0), true);
 
 	for (cm3_clubs* c : relegated_clubs) {
 		cm3_club_comps* bottomDivision = get_comp(A_LOWER_9CF());
@@ -292,13 +292,10 @@ void sort_tur_third_clubs() {
 void sort_tur_fourth_clubs() {
 	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(TUR_FOURTH_9CF());
 	sort(available_clubs.begin(), available_clubs.end(), compareClubLongitudeInv);
-	sort(available_clubs.begin(), available_clubs.begin() + 32, compareClubLatitude);
-	sort(available_clubs.begin() + 32, available_clubs.end(), compareClubLatitude);
 	for (size_t i = 0; i < available_clubs.size(); i++)
 	{
-		if (i < 16) available_clubs[i]->ClubReserveDivision = get_comp(TUR_FOURTH_G1_9CF());
-		else if (i < 32) available_clubs[i]->ClubReserveDivision = get_comp(TUR_FOURTH_G4_9CF());
-		else if (i < 48) available_clubs[i]->ClubReserveDivision = get_comp(TUR_FOURTH_G2_9CF());
+		if (i < 18) available_clubs[i]->ClubReserveDivision = get_comp(TUR_FOURTH_G1_9CF());
+		else if (i < 36) available_clubs[i]->ClubReserveDivision = get_comp(TUR_FOURTH_G2_9CF());
 		else available_clubs[i]->ClubReserveDivision = get_comp(TUR_FOURTH_G3_9CF());
 	}
 }
@@ -310,8 +307,8 @@ void __fastcall tur_fake_lower_relegation(BYTE* _this)
 	vector<cm3_clubs*> d4_clubs = find_clubs_of_comp(TUR_FOURTH_9CF(), NATION_TURKEY_9CF());
 	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_TURKEY_9CF());
 
-	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(lower_clubs, 16 - (comp_data->year == 2025 ? 1 : 0), true);
-	vector<cm3_clubs*> relegated_clubs = get_random_weighted_clubs(d4_clubs, 16, false);
+	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(lower_clubs, 12 + (comp_data->year == 2026 ? 1 : 0), true);
+	vector<cm3_clubs*> relegated_clubs = get_random_weighted_clubs(d4_clubs, 12, false);
 
 	for (cm3_clubs* c : relegated_clubs) {
 		cm3_club_comps* bottomDivision = get_comp(A_LOWER_9CF());
@@ -355,7 +352,7 @@ char tur_first_update(BYTE* _this) {
 		update_club_pro_status_68A980(tur_fourth, SemiProfessional, -3, Champions, 1);
 		update_club_pro_status_68A980(tur_fourth, SemiProfessional, -3, Promoted, 1);
 		update_club_pro_status_68A980(tur_fourth, Amateur, -3, Relegated, 0);
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < 2; i++)
 		{
 			BYTE* tur_fourth_grp = (BYTE*)tur_fourth_data->stages[i];
 			update_club_pro_status_68A980(tur_fourth_grp, SemiProfessional, Promoted, -3, 1);

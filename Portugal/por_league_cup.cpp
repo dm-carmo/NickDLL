@@ -65,35 +65,22 @@ int por_league_cup_teams(BYTE* _this) {
 
 	teams_seeded* teams = (teams_seeded*)comp_data->teams_list;
 
-	if (comp_data->year == 2025) {
-		vec.push_back(find_club("Sporting Clube de Portugal"));
-		vec.push_back(find_club("Sport Lisboa e Benfica"));
-		vec.push_back(find_club("Futebol Clube do Porto"));
-		vec.push_back(find_club("Sporting Clube de Braga"));
-		vec.push_back(find_club("CD Santa Clara"));
-		vec.push_back(find_club("Vitória Guimarães SC"));
-		vec.push_back(find_club("CD Tondela"));
-		vec.push_back(find_club("FC Alverca"));
-	}
-	else
+	// Liga 1
+	vector<cm3_clubs*> division_clubs = find_clubs_of_comp_last_division(POR_FIRST_9CF());
+	sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPos);
+	for (int i = 0; i < 6; i++)
 	{
-		// Liga 1
-		vector<cm3_clubs*> division_clubs = find_clubs_of_comp_last_division(POR_FIRST_9CF());
-		sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPos);
-		for (int i = 0; i < 6; i++)
-		{
-			vec.push_back(division_clubs[i]);
-		}
-		// Liga 2
-		division_clubs = find_clubs_of_comp_last_division(POR_SECOND_9CF());
-		sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPos);
-		for (cm3_clubs* club : division_clubs)
-		{
-			if (vec.size() >= 8) break;
-			DWORD is_main_club;
-			cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)club, &is_main_club, 1);
-			if (!ret_club || is_main_club) vec.push_back(club);
-		}
+		vec.push_back(division_clubs[i]);
+	}
+	// Liga 2
+	division_clubs = find_clubs_of_comp_last_division(POR_SECOND_9CF());
+	sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPos);
+	for (cm3_clubs* club : division_clubs)
+	{
+		if (vec.size() >= 8) break;
+		DWORD is_main_club;
+		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)club, &is_main_club, 1);
+		if (!ret_club || is_main_club) vec.push_back(club);
 	}
 
 	for (DWORD i = 0; i < vec.size() / 2; i++)

@@ -489,21 +489,7 @@ void __declspec(naked) fin_second_set_table_fate()
 
 void fin_second_points_deductions(BYTE* _this, WORD current_year)
 {
-	if (current_year > 2025) return;
-	cm3_clubs* atlantis = find_club("Atlantis FC");
-	if (atlantis) {
-		comp_stats* data = (comp_stats*)_this;
-		WORD total_teams = data->n_teams;
-		team_league_stats* table_teams = (team_league_stats*)(data->team_league_table);
-		for (int i = 0; i < total_teams; i++) {
-			team_league_stats* tls = &table_teams[i];
-			if (tls->club == atlantis) {
-				tls->points = -2;
-				tls->points_away = -2;
-				break;
-			}
-		}
-	}
+	if (current_year > 2026) return;
 	cm3_clubs* jazz = find_club("FC Jazz");
 	if (jazz) {
 		comp_stats* data = (comp_stats*)_this;

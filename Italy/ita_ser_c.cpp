@@ -773,13 +773,9 @@ void __declspec(naked) ita_ser_c_update_c()
 
 void ita_ser_c_points_deductions(BYTE* _this, WORD current_year)
 {
-	if (current_year > 2025) return;
+	if (current_year > 2026) return;
 	map<cm3_clubs*, short> point_deduction_map = {
-		{find_club("US Triestina"), -23},
-		{find_club("Campobasso FC"), -2},
-		{find_club("Ternana Calcio"), -5},
-		{find_club("FC Trapani 1905"), -20},
-		{find_club("Siracusa Calcio"), -6},
+		{find_club("FC Crotone"), -6},
 	};
 	comp_stats* data = (comp_stats*)_this;
 

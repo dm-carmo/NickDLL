@@ -533,25 +533,6 @@ void __declspec(naked) fin_first_reputation_calc_c()
 	}
 }
 
-void fin_first_points_deductions(BYTE* _this, WORD current_year)
-{
-	if (current_year > 2025) return;
-	cm3_clubs* pk35 = find_club("Pallokerho-35");
-	if (pk35) {
-		comp_stats* data = (comp_stats*)_this;
-		WORD total_teams = data->n_teams;
-		team_league_stats* table_teams = (team_league_stats*)(data->team_league_table);
-		for (int i = 0; i < total_teams; i++) {
-			team_league_stats* tls = &table_teams[i];
-			if (tls->club == pk35) {
-				tls->points = -2;
-				tls->points_away = -2;
-				break;
-			}
-		}
-	}
-}
-
 void fin_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 {
 	sub_682200(_this);
@@ -586,7 +567,6 @@ void fin_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->f8 = (DWORD*)pMem2;
 	block_reserve_promotion_fin_first(_this);
 	league_reputation_setup_generic_68A850(_this);
-	fin_first_points_deductions(_this, year);
 }
 
 void setup_fin_first()

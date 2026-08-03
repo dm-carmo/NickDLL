@@ -131,11 +131,11 @@ int ita_cup_teams(BYTE* _this) {
 	cm3_club_comps* serie_c = get_comp(ITA_SERIE_C_9CF());
 	cm3_club_comps* serie_c_cup = get_comp(ITA_SERIE_C_CUP_9CF());
 
-	if (comp_data->year == 2025) {
-		vec.push_back(find_club("Audace Cerignola"));
-		vec.push_back(find_club("AS Giana Erminio")); // replaces Rimini
-		vec.push_back(find_club("Ternana Calcio"));
-		vec.push_back(find_club("LR Vicenza"));
+	if (comp_data->year == 2026) {
+		vec.push_back(find_club("Catania FC"));
+		vec.push_back(find_club("Potenza Calcio"));
+		vec.push_back(find_club("Ravenna FC"));
+		vec.push_back(find_club("Union Brescia"));
 	}
 	else {
 		// Serie C

@@ -76,8 +76,7 @@ void egy_second_subs(BYTE* _this)
 	comp_data->promotions = 3;
 	comp_data->prom_playoff = 0;
 	comp_data->rele_playoff = 0;
-	if (comp_data->year == 2025) comp_data->relegations = 2;
-	else if (d1_teams > 18) comp_data->relegations = 4;
+	if (d1_teams > 18) comp_data->relegations = 4;
 	else comp_data->relegations = 3;
 
 	comp_data->promotes_to = EGY_FIRST_9CF();

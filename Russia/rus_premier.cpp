@@ -81,7 +81,7 @@ void __fastcall rus_non_league_promotion(BYTE* _this)
 			i--;
 		}
 	}
-	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(available_clubs, relegated_clubs.size() + (comp_data->year == 2025 ? 2 : 0), true);
+	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(available_clubs, relegated_clubs.size() + (comp_data->year == 2026 ? 3 : 0), true);
 
 	for (cm3_clubs* c : relegated_clubs) {
 		cm3_club_comps* bottomDivision = get_comp(RUS_SECOND_B_9CF());

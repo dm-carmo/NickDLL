@@ -77,7 +77,7 @@ void bel_third_vv_subs(BYTE* _this)
 	comp_data->prom_playoff = 0;
 	comp_data->rele_playoff = 0;
 	comp_data->relegations = 3;
-	if (comp_data->year == 2025)
+	if (comp_data->year == 2026)
 	{
 		comp_data->relegations = 2;
 	}

@@ -140,7 +140,7 @@ DWORD rus_second_a_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD*
 		comp_stats* data = (comp_stats*)_this;
 		WORD year = data->year;
 		BYTE numberOfLeagueTeams = 10;
-		if (year == 2025 && stage_idx == 0) numberOfLeagueTeams = 8;
+		if (year == 2026 && stage_idx == 0) numberOfLeagueTeams = 7;
 		*num_rounds = (numberOfLeagueTeams - 1) * data->n_rounds;
 		*stage_name_id = FirstStageGoldSilver + stage_idx + 1;
 
@@ -180,7 +180,7 @@ DWORD rus_second_a_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD*
 		comp_stats* data = ((comp_stats*)_this);
 		WORD year = data->year;
 		BYTE numberOfLeagueTeams = 10;
-		if (year == 2025 && stage_idx == 2) numberOfLeagueTeams = 8;
+		if (year == 2026 && stage_idx == 2) numberOfLeagueTeams = 7;
 		*num_rounds = (numberOfLeagueTeams - 1) * 2;
 		*stage_name_id = SecondStageGoldSilver + stage_idx - 1;
 
@@ -241,7 +241,7 @@ void rus_second_a_setup_groups(BYTE* _this, BYTE idx) {
 	WORD year = data->year;
 	DWORD group_id = RUS_SECOND_A_SILVER_9CF();
 	WORD num_teams = 10;
-	if (year == 2025) num_teams = 8;
+	if (year == 2026) num_teams = 7;
 	DWORD* pTeams = (DWORD*)cm0102_malloc(num_teams * 4);
 
 	BYTE teamsAdded = 0;
@@ -256,7 +256,7 @@ void rus_second_a_setup_groups(BYTE* _this, BYTE idx) {
 	}
 	BYTE* pStage = (BYTE*)cm0102_new(0xEE);
 	BYTE prom_rel[4] = { 0, 4, 6, 0 };
-	if (year == 2025) prom_rel[2] = 4;
+	if (year == 2026) prom_rel[2] = 3;
 	create_league_stage_data(pStage, _this, num_teams, pTeams, 2, (DWORD)(data->competition_db), pFixtures, num_rounds,
 		data->pts_for_win, data->pts_for_draw, data->f196, (BYTE*)(_this + 0xC5), &prom_rel[0],
 		year, idx, stage_name_id, data->f81, 1, 0, data->f217, -1, 0, 2);
@@ -424,7 +424,7 @@ void rus_second_a_playoffs_rele(BYTE* _this) {
 	comp_stats* comp_data = (comp_stats*)_this;
 	WORD year = comp_data->year;
 	BYTE playoff_teams = 10;
-	if (year == 2025) playoff_teams = 8;
+	if (year == 2026) playoff_teams = 7;
 	DWORD* pTeams = (DWORD*)cm0102_malloc(playoff_teams * 4);
 
 	comp_stats* curr_stage = comp_data;

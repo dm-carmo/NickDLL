@@ -40,7 +40,7 @@ DWORD fra_setup_c(playable_nation_data* nation_data) {
 	nation_comps[i++] = (DWORD)pMem;
 	// National
 	pMem = (BYTE*)cm0102_new(0xEE);
-	fra_third_init(pMem, *current_year, get_comp(FRA_NATIONAL_1_9CF()));
+	fra_third_init(pMem, *current_year, get_comp(FRA_THIRD_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Cup
 	pMem = (BYTE*)cm0102_new(0xB2);

@@ -1330,6 +1330,26 @@ void __declspec(naked) playoff_winner_in_history() {
 
 void setup_misc_functions()
 {
+	// update game name
+	int year = START_YEAR % 2000;
+	char name1[6];
+	char name2[8];
+	sprintf(name1, "%d/%d", year, year + 1);
+	sprintf(name2, "%d/%d", START_YEAR, year + 1);
+	WriteString(0x9cd33d, 6, name1);
+	WriteString(0xa8029d, 8, name2);
+
+	// update version name
+	WriteDWORD(0x90d131, (DWORD)&VERSION[0]);
+	char* patch_name = "Restructures Patch Version";
+	WriteDWORD(0x591215, (DWORD)&patch_name[0]);
+	char* patch_name_short = "Restructures\n<%s - version>";
+	WriteDWORD(0x75dcba, (DWORD)&patch_name_short[0]);
+	char* patch_details_str = "Restructures Patch Version: <%s - version> - Build: <%s - Build Date> <%s - Build Time>";
+	WriteDWORD(0x823b63, (DWORD)&patch_details_str[0]);
+	WriteDWORD(0x823b58, (DWORD)&__DATE__[0]);
+	WriteDWORD(0x823b53, (DWORD)&__TIME__[0]);
+
 	if (configFile.GetBool("competitionColoursPatch", true)) PatchFunction(0x53b7c0, (DWORD)&comp_colours_in_header);
 	PatchFunction(0x669f50, (DWORD)&show_extra_leagues_in_start);
 	PatchFunction(0x4B01D0, (DWORD)&parent_child_stages);

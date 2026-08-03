@@ -121,7 +121,6 @@ DWORD tur_third_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		WORD year = data->year;
 		DWORD CompID = data->competition_db->ClubCompID;
 		BYTE numberOfLeagueTeams = 18;
-		if (year == 2025 && stage_idx == -1) numberOfLeagueTeams = 20;
 		*num_rounds = (numberOfLeagueTeams - 1) * data->n_rounds;
 		*stage_name_id = NumericGroupStage + stage_idx;
 
@@ -139,13 +138,11 @@ DWORD tur_third_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 26), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 2), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 9), year, Sunday);
-		if (numberOfLeagueTeams > 18) AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 26), year, Wednesday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 30), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 12, 7), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 12, 14), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 12, 17), year, Wednesday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 12, 21), year, Sunday);
-		if (numberOfLeagueTeams > 18) AddFixtureNoTV(pMem, fixture_id++, Date(year, 12, 28), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 1, 11), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 1, 18), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 1, 25), year, Sunday);
@@ -156,12 +153,10 @@ DWORD tur_third_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 22), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 1), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 8), year, Sunday);
-		if (numberOfLeagueTeams > 18) AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 11), year, Wednesday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 15), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 25), year, Wednesday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 29), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 5), year, Sunday);
-		if (numberOfLeagueTeams > 18) AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 8), year, Wednesday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 12), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 19), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 26), year, Sunday);
@@ -510,10 +505,10 @@ void __declspec(naked) tur_third_reputation_calc_c()
 
 void tur_third_points_deductions(BYTE* _this, WORD current_year)
 {
-	if (current_year > 2025) return;
+	if (current_year > 2026) return;
 	map<cm3_clubs*, short> point_deduction_map = {
-		{find_club("Yeni Mersin Idmanyurdu"), -3},
-		{find_club("Yeni Malatyaspor"), -45}
+		{find_club("Adana Demirspor"), -6},
+		{find_club("Hatayspor"), -6}
 	};
 	comp_stats* data = (comp_stats*)_this;
 	comp_stats* curr_stage = data;
@@ -561,7 +556,6 @@ void tur_third_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	for (BYTE i = 0; i < 1; i++) {
 		tur_third_setup_groups(_this, i);
 	}
-	if (data->year == 2025) data->relegations = 4;
 	tur_third_reputation_setup(_this);
 	tur_third_points_deductions(_this, year);
 }

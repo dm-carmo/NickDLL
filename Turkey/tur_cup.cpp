@@ -280,7 +280,7 @@ int tur_cup_teams(BYTE* _this) {
 			i--;
 		}
 	}
-	division_clubs = get_random_weighted_clubs(lower_clubs, 16 + (comp_data->year > 2025 ? 1 : 0), true);
+	division_clubs = get_random_weighted_clubs(lower_clubs, 27 + (comp_data->year == 2026 ? 1 : 0), true);
 	for (cm3_clubs* club : division_clubs)
 	{
 		vec.push_back(club);

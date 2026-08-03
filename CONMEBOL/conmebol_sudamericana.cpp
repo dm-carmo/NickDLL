@@ -385,7 +385,7 @@ void sudam_team_selection() {
 		}
 		size_t max_count = required + 2 - j;
 		if (max_count > clubs.size()) max_count = clubs.size();
-		for (; j < required; j++) {
+		for (; j < required && max_count > 0; j++) {
 			int idx = 0;
 			if (!playable) idx = rand() % max_count;
 			cm3_clubs* conmebol_club = clubs[idx];
@@ -402,7 +402,6 @@ void sudam_team_selection() {
 			conmebol_club->ClubEuroSeeding = curr_seeding;
 			clubs.erase(clubs.begin() + idx);
 			max_count--;
-			if (max_count < 1) break;
 		}
 		if (j < required) {
 			for (; j < required; j++) {

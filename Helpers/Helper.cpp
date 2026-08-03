@@ -50,6 +50,19 @@ void WriteBytes(DWORD addr, int bytes, ...)
 	va_end(valist);
 }
 
+void WriteString(DWORD addr, int length, char* bytes)
+{
+	for (int i = 0; i < length; i++)
+	{
+		DWORD dwOldProt, dwOldProt2;
+		VirtualProtect((void*)addr, 1, PAGE_EXECUTE_READWRITE, &dwOldProt);
+		*((BYTE*)addr) = bytes[i];
+		VirtualProtect((void*)addr, 1, dwOldProt, &dwOldProt2);
+
+		addr++;
+	}
+}
+
 void WriteNOP(DWORD addr, int bytes)
 {
 	for (int i = 0; i < bytes; i++)

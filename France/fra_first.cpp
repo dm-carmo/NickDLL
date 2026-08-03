@@ -60,7 +60,7 @@ void fra_first_prom_rel_update(BYTE* _this, int a2) {
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(fra_second);
 	process_promotion_relegation_689C80(_this, _this, fra_second, 1, a2, -1, -1);
 
-	BYTE* fra_third = get_loaded_league(FRA_NATIONAL_1_9CF());
+	BYTE* fra_third = get_loaded_league(FRA_THIRD_9CF());
 	v1 = *(DWORD*)fra_third;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(fra_third);
 	process_promotion_relegation_689C80(_this, fra_second, fra_third, 1, a2, -1, -1);
@@ -81,9 +81,9 @@ void __declspec(naked) fra_first_prom_rel_update_c()
 
 void __fastcall fra_national_relegation(BYTE* _this)
 {
-	vector<cm3_clubs*> relegated_clubs = get_relegated_teams(FRA_NATIONAL_1_9CF());
+	vector<cm3_clubs*> relegated_clubs = get_relegated_teams(FRA_THIRD_9CF());
 
-	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(FRA_NATIONAL_2_9CF(), NATION_FRANCE_9CF());
+	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(FRA_NATIONAL_1_9CF(), NATION_FRANCE_9CF());
 	for (size_t i = 0; i < available_clubs.size(); i++) {
 		cm3_clubs* c = available_clubs[i];
 		DWORD is_main_club;
@@ -95,8 +95,7 @@ void __fastcall fra_national_relegation(BYTE* _this)
 		}
 	}
 	unsigned int num_to_promote = relegated_clubs.size();
-	comp_stats* comp_data = (comp_stats*)get_loaded_league(FRA_NATIONAL_1_9CF());
-	if (comp_data->year == 2025) num_to_promote++;
+	comp_stats* comp_data = (comp_stats*)get_loaded_league(FRA_THIRD_9CF());
 
 	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(available_clubs, num_to_promote, true);
 
@@ -109,17 +108,11 @@ void __fastcall fra_national_relegation(BYTE* _this)
 		relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
 		promote_club_6830B0((BYTE*)clubToPromote, (DWORD)topDivision, 1);
 	}
-
-	if (comp_data->year == 2025) {
-		cm3_clubs* clubToPromote = promoted_clubs[num_to_promote - 1];
-		cm3_club_comps* topDivision = comp_data->competition_db;
-		promote_club_6830B0((BYTE*)clubToPromote, (DWORD)topDivision, 1);
-	}
 }
 
 void __fastcall fra_extra_non_playable_swaps(BYTE* _this)
 {
-	vector<cm3_clubs*> nat2_clubs = find_clubs_of_comp(FRA_NATIONAL_2_9CF(), NATION_FRANCE_9CF());
+	vector<cm3_clubs*> nat2_clubs = find_clubs_of_comp(FRA_NATIONAL_1_9CF(), NATION_FRANCE_9CF());
 	vector<cm3_clubs*> nat3_clubs = find_clubs_of_comp(FRA_LOWER_9CF(), NATION_FRANCE_9CF());
 	unsigned int num_to_swap = nat2_clubs.size() / 8;
 	if (nat3_clubs.size() < num_to_swap) num_to_swap = nat3_clubs.size();
@@ -162,7 +155,7 @@ char fra_first_update(BYTE* _this) {
 	data->f76 = 0;
 
 	BYTE* fra_second = get_loaded_league(FRA_SECOND_9CF());
-	BYTE* fra_third = get_loaded_league(FRA_NATIONAL_1_9CF());
+	BYTE* fra_third = get_loaded_league(FRA_THIRD_9CF());
 
 	// All teams that were in D1 must be professional
 	update_club_pro_status_68A980(_this, Professional, Relegated, -3, 1);
@@ -170,12 +163,10 @@ char fra_first_update(BYTE* _this) {
 	// All teams that were in D2 must be professional
 	update_club_pro_status_68A980(fra_second, Professional, Relegated, -3, 1);
 	update_club_pro_status_68A980(fra_second, Professional, -3, Relegated, 1);
-	// All teams that were not promoted from D3 must be semi-professional
-	update_club_pro_status_68A980(fra_third, SemiProfessional, Promoted, -3, 1);
-	update_club_pro_status_68A980(fra_third, SemiProfessional, Promoted, -3, 0);
-	// All teams that were promoted from D3 must be professional
-	update_club_pro_status_68A980(fra_third, Professional, -3, Champions, 1);
-	update_club_pro_status_68A980(fra_third, Professional, -3, Promoted, 1);
+	// All teams that were n ot relegated from D3 must be professional
+	update_club_pro_status_68A980(fra_third, Professional, Relegated, -3, 1);
+	// All teams that were relegated from D3 must be semi-professional
+	update_club_pro_status_68A980(fra_third, SemiProfessional, -3, Relegated, 1);
 
 	fra_first_prom_rel_update(_this, 1);
 	fra_national_relegation(_this);

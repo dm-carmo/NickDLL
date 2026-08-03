@@ -22,7 +22,8 @@ DWORD wal_setup_c(playable_nation_data* nation_data) {
 	nation_data->contract_end_month = May;
 	nation_data->contract_end_year = *current_year + 1;
 	nation_data->f70 = 5;
-	nation_data->num_of_comps = 5;
+	//nation_data->num_of_comps = 5;
+	nation_data->num_of_comps = 4;
 	DWORD* nation_comps = (DWORD*)cm0102_malloc(nation_data->num_of_comps * 4);
 	nation_data->comps_list = (DWORD)nation_comps;
 	
@@ -44,9 +45,10 @@ DWORD wal_setup_c(playable_nation_data* nation_data) {
 	wal_cup_setup(pMem, *current_year, get_comp(WAL_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)cm0102_new(0xB2);
-	wal_league_cup_init(pMem, *current_year, get_comp(WAL_LEAGUE_CUP_9CF()));
-	nation_comps[i++] = (DWORD)pMem;
+	//pMem = (BYTE*)cm0102_new(0xB2);
+	//wal_league_cup_init(pMem, *current_year, get_comp(WAL_LEAGUE_CUP_9CF()));
+	//nation_comps[i++] = (DWORD)pMem;
+
 	BYTE* cm_date = new BYTE[8];
 	convert_to_cm_date(cm_date, 20, June, START_YEAR, -1);
 	nation_data->update_day = *(WORD*)cm_date;

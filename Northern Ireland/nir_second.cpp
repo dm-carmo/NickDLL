@@ -63,7 +63,7 @@ int nir_second_subs(BYTE* _this)
 {
 	comp_stats* comp_data = (comp_stats*)_this;
 
-	comp_data->n_rounds = 2;
+	comp_data->n_rounds = 3;
 	comp_data->pts_for_win = 3;
 	comp_data->pts_for_draw = 1;
 	comp_data->f196 = 2;
@@ -71,7 +71,7 @@ int nir_second_subs(BYTE* _this)
 	comp_data->tiebreaker_2 = GoalsForTiebreaker;
 	comp_data->tiebreaker_3 = CurrentPositionTiebreaker;
 	comp_data->comp_type = CLUB_DOMESTIC;
-	comp_data->promotions = 1;
+	comp_data->promotions = 2;
 	comp_data->prom_playoff = 1;
 	comp_data->rele_playoff = 0;
 	comp_data->relegations = 1;
@@ -105,10 +105,16 @@ DWORD nir_second_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 		pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 16), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 23), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 30), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 6), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 13), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 20), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 4), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 11), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 18), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 25), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 1), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 8), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 29), year, Saturday);
@@ -121,6 +127,7 @@ DWORD nir_second_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 1, 17), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 1, 31), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 7), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 14), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 21), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 28), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 7), year, Saturday);
@@ -214,25 +221,6 @@ void __declspec(naked) nir_second_subs_c()
 	}
 }
 
-void nir_second_points_deductions(BYTE* _this, WORD current_year)
-{
-	if (current_year > 2025) return;
-	cm3_clubs* banbridge = find_club("Banbridge Town FC");
-	if (banbridge) {
-		comp_stats* data = (comp_stats*)_this;
-		WORD total_teams = data->n_teams;
-		team_league_stats* table_teams = (team_league_stats*)(data->team_league_table);
-		for (int i = 0; i < total_teams; i++) {
-			team_league_stats* tls = &table_teams[i];
-			if (tls->club == banbridge) {
-				tls->points = -12;
-				tls->points_away = -12;
-				break;
-			}
-		}
-	}
-}
-
 void nir_second_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	sub_682200(_this);
 	comp_stats* data = (comp_stats*)_this;
@@ -263,7 +251,6 @@ void nir_second_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
 	league_reputation_setup_generic_68A850(_this);
-	nir_second_points_deductions(_this, year);
 }
 
 void setup_nir_second() {

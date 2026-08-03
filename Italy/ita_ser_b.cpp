@@ -3,6 +3,7 @@
 #include "Helpers\constants.h"
 #include "Structures\vtable.h"
 #include <Helpers\9cf_constants.h>
+#include <map>
 
 DWORD* ita_ser_b_vtable = (DWORD*)0x96C480;
 
@@ -266,6 +267,25 @@ void __declspec(naked) ita_ser_b_subs_c()
 	}
 }
 
+void ita_ser_b_points_deductions(BYTE* _this, WORD current_year)
+{
+	if (current_year > 2026) return;
+	cm3_clubs* juve_stabia = find_club("SS Juve Stabia");
+	if (juve_stabia) {
+		comp_stats* data = (comp_stats*)_this;
+		WORD total_teams = data->n_teams;
+		team_league_stats* table_teams = (team_league_stats*)(data->team_league_table);
+		for (int i = 0; i < total_teams; i++) {
+			team_league_stats* tls = &table_teams[i];
+			if (tls->club == juve_stabia) {
+				tls->points = -2;
+				tls->points_away = -2;
+				break;
+			}
+		}
+	}
+}
+
 void ita_ser_b_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 {
 	sub_682200(_this);
@@ -293,6 +313,7 @@ void ita_ser_b_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
 	league_reputation_setup_generic_68A850(_this);
+	ita_ser_b_points_deductions(_this, year);
 }
 
 char ita_ser_b_update(BYTE* _this) {

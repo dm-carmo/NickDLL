@@ -559,25 +559,6 @@ void __declspec(naked) pol_first_fixtures_c()
 	}
 }
 
-void pol_first_points_deductions(BYTE* _this, WORD current_year)
-{
-	if (current_year > 2025) return;
-	cm3_clubs* lechia = find_club("Lechia Gdansk");
-	if (lechia) {
-		comp_stats* data = (comp_stats*)_this;
-		WORD total_teams = data->n_teams;
-		team_league_stats* table_teams = (team_league_stats*)(data->team_league_table);
-		for (int i = 0; i < total_teams; i++) {
-			team_league_stats* tls = &table_teams[i];
-			if (tls->club == lechia) {
-				tls->points = -5;
-				tls->points_away = -5;
-				break;
-			}
-		}
-	}
-}
-
 void pol_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 {
 	sub_682200(_this);
@@ -607,7 +588,6 @@ void pol_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
 	league_reputation_setup_generic_68A850(_this);
-	pol_first_points_deductions(_this, year);
 }
 
 void setup_pol_first()
