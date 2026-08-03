@@ -12,16 +12,16 @@ char* arg_third_metro_set_champion(BYTE* _this) {
 	comp_stats* comp_data = (comp_stats*)_this;
 	BYTE* playoff_bytes = (BYTE*)comp_data->stages[0];
 	comp_stats* playoff_data = (comp_stats*)playoff_bytes;
-	cm3_clubs* second = 0;
+	cm3_clubs* po_win = 0;
 	teams_seeded* teams = (teams_seeded*)playoff_data->teams_list;
 	for (WORD i = 0; i < playoff_data->n_teams; i++) {
-		if (teams[i].f6 == 1) second = teams[i].club;
+		if (teams[i].f6 == 1) po_win = teams[i].club;
 	}
 	team_league_stats* table = (team_league_stats*)(comp_data->team_league_table);
 	cm3_clubs* first = table[0].club;
-	cm3_clubs* third = table[1].club;
-	if (second == third) third = table[2].club;
-	return sub_4AFCE0_add_history_entry(_this, first, second, third, 0);
+	cm3_clubs* second = table[1].club;
+	cm3_clubs* third = table[2].club;
+	return sub_4AFCE0_add_history_entry(_this, first, second, third, po_win);
 }
 
 void __declspec(naked) arg_third_metro_set_champion_c()
@@ -461,6 +461,7 @@ void arg_third_metro_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	arg_third_metro_vtable->SetPointer(VTableSetChampion, (DWORD)&arg_third_metro_set_champion_c);
 	arg_third_metro_vtable->SetPointer(VTableStageNews, 0x48c6d0);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) arg_third_metro_vtable->SetPointer(VTable21, 0x4110b0);
+	if (configFile.GetBool("showPlayoffWinnerInHistory", true)) arg_third_metro_vtable->SetPointer(VTable35, 0x404480);
 	data->year = year;
 	data->rules = RulesArgentina;
 	int loaded = sub_687B10(_this, 1);

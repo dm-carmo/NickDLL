@@ -1289,6 +1289,7 @@ void __declspec(naked) quick_uefa_fix_1() {
 			ret
 	}
 }
+
 void __declspec(naked) quick_uefa_fix_2() {
 	__asm {
 		mov eax, dword ptr ds : [eax + 0x14]
@@ -1307,12 +1308,33 @@ void __declspec(naked) quick_uefa_fix_2() {
 	}
 }
 
+char* playoff_winner = "Playoff Winner";
+void __declspec(naked) playoff_winner_in_history() {
+	__asm {
+		push edi
+		mov edi, dword ptr ds : [edi + 4]
+		mov edi, dword ptr ds : [edi]
+		cmp edi, dword ptr ds : [0x9cf794]
+		pop edi
+		jl show_playoff_str
+		push 0x990fc0
+		jmp ret_playoff
+		show_playoff_str :
+		push playoff_winner
+			ret_playoff :
+		push 0x49953a
+			ret
+	}
+}
+//004997FB     66:8B15 8431AE>MOV DX,WORD PTR DS:[AE3184] => this makes the text colour white
+
 void setup_misc_functions()
 {
 	if (configFile.GetBool("competitionColoursPatch", true)) PatchFunction(0x53b7c0, (DWORD)&comp_colours_in_header);
 	PatchFunction(0x669f50, (DWORD)&show_extra_leagues_in_start);
 	PatchFunction(0x4B01D0, (DWORD)&parent_child_stages);
 	PatchFunction(0x46B71E, (DWORD)&aus_minor_premier_in_history);
+	PatchFunction(0x499535, (DWORD)&playoff_winner_in_history);
 	PatchFunction(0x460ec6, (DWORD)&club_pro_status_with_continental_comp_c);
 	PatchFunction(0x460d75, (DWORD)&show_club_country_based);
 	PatchFunction(0x8c5bd2, (DWORD)&player_gain_nationality_c);

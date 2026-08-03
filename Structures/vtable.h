@@ -39,7 +39,7 @@ enum VTablePointers {
 	VTable32 = 32,
 	VTable33 = 33,
 	VTable34 = 34,
-	VTable35 = 35,
+	VTable35 = 35, // AL=1 to show hosts in comp history, AL=0 otherwise
 	VTableSubsRounds = 36, // Sets things such as: number of substitutes, number of promoted/relegated teams, etc
 	VTable37 = 37,
 	VTable38 = 38,

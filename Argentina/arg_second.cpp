@@ -20,13 +20,12 @@ char* arg_second_set_champion(BYTE* _this) {
 	}
 	BYTE* prom_bytes = (BYTE*)data->stages[2];
 	comp_stats* prom_data = (comp_stats*)prom_bytes;
-	cm3_clubs* third = 0;
+	cm3_clubs* po_win = 0;
 	teams = (teams_seeded*)prom_data->teams_list;
 	for (WORD i = 0; i < prom_data->n_teams; i++) {
-		if (teams[i].f6 == 2 && !third) third = teams[i].club;
-		if (teams[i].f6 == 1 && teams[i].club != second) third = teams[i].club;
+		if (teams[i].f6 == 1) po_win = teams[i].club;
 	}
-	return sub_4AFCE0_add_history_entry(_this, first, second, third, 0);
+	return sub_4AFCE0_add_history_entry(_this, first, second, 0, po_win);
 }
 
 void __declspec(naked) arg_second_set_champion_c()
@@ -823,4 +822,5 @@ void setup_arg_second()
 	WriteVTablePtr(arg_second_vtable, VTable14, 0x583470);
 	WriteVTablePtr(arg_second_vtable, VTableStageNews, 0x48c6d0);
 	WriteVTablePtr(arg_second_vtable, VTable39, 0x404480);
+	if (configFile.GetBool("showPlayoffWinnerInHistory", true)) WriteVTablePtr(arg_second_vtable, VTable35, 0x404480);
 }

@@ -5,9 +5,10 @@
   "competitionColoursPatch": true,
   "changePlayerSearchFilters": true,
   "showThirdPlaceInHistory": true,
+  "showPlayoffWinnerInHistory": true,
   "financeTweaks": true,
   "russiaBan": true,
-  "brazilRegenNames": false,
+  "brazilRegenNames": true,
   "replaceNIrelandWith": "",
   "replaceIrelandWith": "",
   "replaceWalesWith": ""
