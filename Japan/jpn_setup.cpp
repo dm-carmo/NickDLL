@@ -18,19 +18,16 @@ static DWORD(__thiscall* jpn_super_cup_setup)(BYTE* _this, WORD year, cm3_club_c
 (DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x665D70);
 
 DWORD jpn_setup_c(playable_nation_data* nation_data) {
-	BYTE* start_date = new BYTE[8];
-	sub_54C770((BYTE*)dd6ec8, start_date, 4);
-	WORD start_year = *(WORD*)(start_date + 2);
-	
-	nation_data->contract_start_day = 1;
-	nation_data->contract_start_month = February;
-	nation_data->contract_start_year = start_year;
-	nation_data->f55 = 5;
-	
-	nation_data->contract_end_day = 20;
-	nation_data->contract_end_month = December;
-	nation_data->contract_end_year = start_year;
-	nation_data->f70 = 5;
+
+	nation_data->contract_start_day = 6;
+	nation_data->contract_start_month = August;
+	nation_data->contract_start_year = *current_year;
+	nation_data->f55 = 6;
+
+	nation_data->contract_end_day = 8;
+	nation_data->contract_end_month = June;
+	nation_data->contract_end_year = *current_year + 1;
+	nation_data->f70 = 6;
 	BYTE selected = nation_data->nation->NationLeagueSelected;
 	if ((selected & 4) == 0) {
 		nation_data->num_of_comps = 6;
@@ -44,39 +41,39 @@ DWORD jpn_setup_c(playable_nation_data* nation_data) {
 	BYTE i = 0;
 	// J1
 	BYTE* pMem = (BYTE*)cm0102_new(0xEE);
-	jpn_first_init(pMem, start_year, get_comp(JPN_FIRST_9CF()));
+	jpn_first_init(pMem, *current_year, get_comp(JPN_FIRST_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// J2
 	pMem = (BYTE*)cm0102_new(0xEE);
-	jpn_second_init(pMem, start_year, get_comp(JPN_SECOND_9CF()));
+	jpn_second_init(pMem, *current_year, get_comp(JPN_SECOND_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// J3
 	pMem = (BYTE*)cm0102_new(0xEE);
-	jpn_third_init(pMem, start_year, get_comp(JPN_THIRD_9CF()));
+	jpn_third_init(pMem, *current_year, get_comp(JPN_THIRD_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	if ((selected & 4) != 0) {
 		// JFL
 		pMem = (BYTE*)cm0102_new(0xEE);
-		jpn_jfl_init(pMem, start_year, get_comp(JPN_JFL_9CF()));
+		jpn_jfl_init(pMem, *current_year, get_comp(JPN_JFL_9CF()));
 		nation_comps[i++] = (DWORD)pMem;
 	}
 	// Cup
 	pMem = (BYTE*)cm0102_new(0xB2);
-	jpn_cup_setup(pMem, start_year, get_comp(JPN_EMPEROR_CUP_9CF()));
+	jpn_cup_setup(pMem, *current_year, get_comp(JPN_EMPEROR_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// League Cup
 	pMem = (BYTE*)cm0102_new(0xB2);
-	jpn_league_cup_setup(pMem, start_year, get_comp(JPN_LEAGUE_CUP_9CF()));
+	jpn_league_cup_setup(pMem, *current_year, get_comp(JPN_LEAGUE_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Super Cup
 	pMem = (BYTE*)cm0102_new(0xB2);
-	jpn_super_cup_setup(pMem, start_year, get_comp(JPN_SUPER_CUP_9CF()));
+	jpn_super_cup_setup(pMem, *current_year, get_comp(JPN_SUPER_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
 	BYTE* cm_date = new BYTE[8];
-	convert_to_cm_date(cm_date, 1, January, START_YEAR, -1);
+	convert_to_cm_date(cm_date, 20, June, START_YEAR, -1);
 	nation_data->update_day = *(WORD*)cm_date;
-	nation_data->update_year = start_year;
+	nation_data->update_year = *current_year;
 	nation_data->f29 = 1;
 	nation_data->super_cup = get_comp(JPN_SUPER_CUP_9CF());
 	return 1;

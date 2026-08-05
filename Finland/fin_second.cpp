@@ -6,7 +6,7 @@
 #include "Helpers\constants.h"
 #include <Helpers\9cf_constants.h>
 
-vtable* fin_second_vtable = new vtable((BYTE*)0x96A4C0, 0xB4);
+vtable* fin_second_vtable = new vtable((BYTE*)0x969798, 0xB4);
 
 void fin_second_free_under(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
@@ -516,8 +516,6 @@ void fin_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	fin_second_vtable->SetPointer(VTableInitFree, (DWORD)&fin_second_free_c);
 	fin_second_vtable->SetPointer(VTableEoSUpdate, (DWORD)&fin_second_update_c);
 	fin_second_vtable->SetPointer(VTableFixtures, (DWORD)&fin_second_fixtures_c);
-	fin_second_vtable->SetPointer(VTableReputationCalc, 0x48e380);
-	fin_second_vtable->SetPointer(VTablePlayoffQual, 0x5a8f60);
 	fin_second_vtable->SetPointer(VTableTableFates, (DWORD)&fin_second_set_table_fate);
 	fin_second_vtable->SetPointer(VTableLeagueSplit, (DWORD)&fin_second_table_split_c);
 	fin_second_vtable->SetPointer(VTableStageNews, 0x7f3080); // Scotland stage news contains champ/rel group news

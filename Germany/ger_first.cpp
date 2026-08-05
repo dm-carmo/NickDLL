@@ -141,6 +141,15 @@ void __fastcall ger_non_league_promotion(BYTE* _this)
 		promote_club_6830B0((BYTE*)clubToPromote, (DWORD)topDivision, 1);
 		clubToRelegate->ClubReserveDivision = 0;
 	}
+
+	if (comp_data->year == 2026) {
+		cm3_clubs* clubToRelegate = relegated_clubs[promoted_clubs.size()];
+
+		cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
+		cm3_club_comps* bottomDivision = get_comp(A_LOWER_9CF());
+		relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
+		clubToRelegate->ClubReserveDivision = 0;
+	}
 }
 
 void __fastcall ger_liga_3_relegation(BYTE* _this)

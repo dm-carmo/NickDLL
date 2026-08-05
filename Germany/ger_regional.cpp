@@ -95,6 +95,7 @@ DWORD ger_regional_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD*
 		comp_stats* data = (comp_stats*)_this;
 		WORD year = data->year;
 		BYTE numberOfLeagueTeams = 18;
+		if (stage_idx == 3 && data->year == 2026) numberOfLeagueTeams = 20;
 		*num_rounds = (numberOfLeagueTeams - 1) * data->n_rounds;
 		if (stage_idx == -1) *stage_name_id = North;
 		else if (stage_idx == 0) *stage_name_id = Northeast;
@@ -110,6 +111,7 @@ DWORD ger_regional_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD*
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 2), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 9), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 16), year, Saturday);
+		if (numberOfLeagueTeams > 18) AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 20), year, Wednesday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 23), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 30), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 13), year, Saturday);
@@ -117,6 +119,7 @@ DWORD ger_regional_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD*
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 20), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 27), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 4), year, Saturday);
+		if (numberOfLeagueTeams > 18) AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 15), year, Wednesday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 18), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 25), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 1), year, Saturday);
@@ -133,8 +136,10 @@ DWORD ger_regional_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD*
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 7), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 14), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 21), year, Saturday);
+		if (numberOfLeagueTeams > 18) AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 25), year, Wednesday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 4), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 11), year, Saturday);
+		if (numberOfLeagueTeams > 18) AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 15), year, Wednesday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 18), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 25), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 5, 2), year, Saturday);
@@ -191,7 +196,9 @@ void ger_regional_setup_groups(BYTE* _this, BYTE idx) {
 	if (idx == 1) group_id = GER_REGIONAL_WEST_9CF();
 	else if (idx == 2) group_id = GER_REGIONAL_SOUTHWEST_9CF();
 	else if (idx == 3) group_id = GER_REGIONAL_BAYERN_9CF();
-	DWORD* pTeams = (DWORD*)cm0102_malloc(data->n_teams * 4);
+	int n_teams = 18;
+	if (idx == 3 && data->year == 2026) n_teams++;
+	DWORD* pTeams = (DWORD*)cm0102_malloc(n_teams * 4);
 
 	BYTE teamsAdded = 0;
 	for (DWORD i = 0; i < *clubs_count; i++)
@@ -206,12 +213,13 @@ void ger_regional_setup_groups(BYTE* _this, BYTE idx) {
 	WORD year = data->year;
 	BYTE* pStage = (BYTE*)cm0102_new(0xEE);
 	BYTE prom_rel[4] = { 0, 1, 0, 3 };
+	if (idx == 3 && data->year == 2026) prom_rel[3]++;
 	WORD check = year % 3;
 	if (idx == 1 || idx == 2 || (check == 1 && idx == 0) || (check == 2 && idx == 3)) {
 		prom_rel[0] = 1;
 		prom_rel[1] = 0;
 	}
-	create_league_stage_data(pStage, _this, 18, pTeams, 2, (DWORD)(data->competition_db), pFixtures, num_rounds,
+	create_league_stage_data(pStage, _this, n_teams, pTeams, 2, (DWORD)(data->competition_db), pFixtures, num_rounds,
 		data->pts_for_win, data->pts_for_draw, data->f196, (BYTE*)(_this + 0xC5), &prom_rel[0],
 		year, idx, stage_name_id, data->f81, 1, 0, data->f217, -1, 0, 2);
 	DWORD* stages_arr = data->stages;

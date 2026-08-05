@@ -1308,6 +1308,30 @@ void __declspec(naked) quick_uefa_fix_2() {
 	}
 }
 
+void __declspec(naked) weird_bug_fix1_temp() {
+	__asm {
+		test edx,edx
+		je jmp_over_bug1
+		mov dword ptr ds : [edx + 4] , ebx
+		jmp_over_bug1:
+		mov edx, dword ptr ss : [ebp + 0xc]
+			push 0x948c85
+			ret
+	}
+}
+
+void __declspec(naked) weird_bug_fix2_temp() {
+	__asm {
+		test ebx,ebx
+		mov edx, dword ptr ds : [edx + 8]
+		je jmp_over_bug2
+		mov dword ptr ds : [ebx + 8] , edx
+		jmp_over_bug2:
+			push 0x948c91
+			ret
+	}
+}
+
 char* playoff_winner = "Playoff Winner";
 void __declspec(naked) playoff_winner_in_history() {
 	__asm {
@@ -1350,6 +1374,11 @@ void setup_misc_functions()
 	WriteDWORD(0x823b58, (DWORD)&__DATE__[0]);
 	WriteDWORD(0x823b53, (DWORD)&__TIME__[0]);
 
+	// very weird bug fix! hopefully temporary!
+	WriteNOP(0x948c7f, 6);
+	PatchFunction(0x948c7f, (DWORD)&weird_bug_fix1_temp);
+	WriteNOP(0x948c8b, 6);
+	PatchFunction(0x948c8b, (DWORD)&weird_bug_fix2_temp);
 	if (configFile.GetBool("competitionColoursPatch", true)) PatchFunction(0x53b7c0, (DWORD)&comp_colours_in_header);
 	PatchFunction(0x669f50, (DWORD)&show_extra_leagues_in_start);
 	PatchFunction(0x4B01D0, (DWORD)&parent_child_stages);

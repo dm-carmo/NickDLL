@@ -20,32 +20,32 @@ DWORD jpn_league_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WOR
 		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 2, 5), year, Wednesday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 3, 20), year, Thursday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 6), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 2), year, Wednesday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, FirstRound, 1, ExtraTimePenalties_1, NoTiebreak_2, 4, 54, 27, 54, 0, 0, 1, 0);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 3, 21), year, Friday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 4, 9), year, Wednesday, Evening);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 3), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 30), year, Wednesday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, SecondRound, 1, ExtraTimePenalties_1, NoTiebreak_2, 4, 28, 14, 1, 54, 0, 1, 0);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 4, 10), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 5, 21), year, Wednesday, Evening);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 1), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 14), year, Wednesday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 1, ExtraTimePenalties_1, NoTiebreak_2, 4, 14, 7, 0, 0, 0, 1, 0);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 5, 22), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 6, 4), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, Playoff, 1, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 4, 8, 4, 1, 55, 0, 2, 4);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 15), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 28), year, Wednesday, Evening);
+		FillFixtureDetails(pMem, fixture_id++, FourthRound, 1, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 4, 8, 4, 1, 55, 0, 1, 0);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 6, 9), year, Monday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 3), year, Wednesday, Evening);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 29), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 11), year, Wednesday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 1, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 6, 8, 4, 4, 56, 0, 2, 4);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 8), year, Monday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 8), year, Wednesday, Evening);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 16), year, Monday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 24), year, Wednesday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 1, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 6, 4, 2, 0, 0, 0, 2, 4, 0, 0, prizeMoneyFile.GetInt("jpn_league_cup_semi_lose"));
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 13), year, Monday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 1), year, Saturday, Evening, NationalStadium);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 29), year, Monday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 14), year, Wednesday, Evening, NationalStadium);
 		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("jpn_league_cup_final_win"), prizeMoneyFile.GetInt("jpn_league_cup_final_lose"));
 
 		return (DWORD)pMem;
