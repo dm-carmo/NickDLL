@@ -1310,10 +1310,10 @@ void __declspec(naked) quick_uefa_fix_2() {
 
 void __declspec(naked) weird_bug_fix1_temp() {
 	__asm {
-		test edx,edx
+		test edx, edx
 		je jmp_over_bug1
 		mov dword ptr ds : [edx + 4] , ebx
-		jmp_over_bug1:
+		jmp_over_bug1 :
 		mov edx, dword ptr ss : [ebp + 0xc]
 			push 0x948c85
 			ret
@@ -1322,12 +1322,12 @@ void __declspec(naked) weird_bug_fix1_temp() {
 
 void __declspec(naked) weird_bug_fix2_temp() {
 	__asm {
-		test ebx,ebx
+		test ebx, ebx
 		mov edx, dword ptr ds : [edx + 8]
 		je jmp_over_bug2
 		mov dword ptr ds : [ebx + 8] , edx
-		jmp_over_bug2:
-			push 0x948c91
+		jmp_over_bug2 :
+		push 0x948c91
 			ret
 	}
 }

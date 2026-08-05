@@ -21,8 +21,8 @@ void por_third_subs(BYTE* _this)
 	comp_data->tiebreaker_3 = GamesWonTiebreaker;
 	comp_data->tiebreaker_4 = GoalsForTiebreaker;
 	comp_data->f82 = 2;
-	comp_data->promotions = 4;
-	comp_data->prom_playoff = 0;
+	comp_data->promotions = 0;
+	comp_data->prom_playoff = 4;
 	comp_data->rele_playoff = 6;
 	comp_data->relegations = 0;
 
@@ -35,7 +35,7 @@ void por_third_subs(BYTE* _this)
 		comp_data->relegates_to = POR_FOURTH_9CF();
 	}
 
-	comp_data->f217 = 0x28;
+	comp_data->f217 = 0x2;
 	comp_data->max_bench = 7;
 	comp_data->max_subs = 3;
 
@@ -698,7 +698,7 @@ int por_third_stage_news(BYTE* _this, int club_idx, char fate, char stage_id, in
 	cm3_club_comps* comp_data = data->competition_db;
 	cm3_clubs* club_data = get_club(club_idx);
 	if (stage_id < 1) {
-		if (fate == Qualified1) {
+		if (fate == TopPlayoff || fate == Qualified1) {
 			if (show_body_text) {
 				sub_66F4E0(0xDE1F64, (DWORD)&qualified_champ_grp_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderName, comp_data->ClubCompGenderName,
 					&club_data->ClubNameShort[0], &comp_data->ClubCompName[0]);
