@@ -129,7 +129,7 @@ void __fastcall ger_non_league_promotion(BYTE* _this)
 			i--;
 		}
 	}
-	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(available_clubs, relegated_clubs.size(), true);
+	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(available_clubs, relegated_clubs.size() - (comp_data->year == 2026 ? 1 : 0), true);
 
 	for (unsigned int j = 0; j < promoted_clubs.size(); j++) {
 		cm3_clubs* clubToRelegate = relegated_clubs[j];

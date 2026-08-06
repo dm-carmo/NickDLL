@@ -37,10 +37,10 @@ vector<DWORD> friendly_march_21plus3 = {
 };
 
 vector<DWORD> replace_titlebar_bg = {
-	0x81BB1A + 3, 0x81CA55 + 3, 0x81D0D3 + 3, 0x81C99C + 2, 0x81CAE6 + 3, 0x81EE2C + 3, 0x81F1EC + 3, 0x81F94F + 3, 0x825D9B + 3, 0x820FB7 + 3, 0x821AD0 + 2, 0x8222B2 + 3, 0x822AF1 + 3, 0x81FF46 + 3, 0x8F4656 + 3, 0x8766E6 + 3,
+	0x81BB1A + 3, 0x81CA55 + 3, 0x81D0D3 + 3, 0x81C99C + 2, 0x81CAE6 + 3, 0x81EE2C + 3, 0x81F1EC + 3, 0x81F94F + 3, 0x825D9B + 3, 0x820FB7 + 3, 0x821AD0 + 2, 0x8222B2 + 3, 0x822AF1 + 3, 0x81FF46 + 3, 0x8F4656 + 3, 0x8766E6 + 3, 0x81E932 + 3,
 };
 vector<DWORD> replace_titlebar_fg = {
-	0x81BB13 + 3, 0x81CA61 + 3, 0x81D0CC + 3, 0x81C9BC + 3, 0x81CAED + 3, 0x81EE25 + 3, 0x81F1E6 + 2, 0x81F949 + 2, 0x825D95 + 2, 0x820FB0 + 3, 0x821AC9 + 3, 0x8222AC + 2, 0x822AEA + 3, 0x81FF40 + 2, 0x8F465D + 2, 0x8766DF + 3,
+	0x81BB13 + 3, 0x81CA61 + 3, 0x81D0CC + 3, 0x81C9BC + 3, 0x81CAED + 3, 0x81EE25 + 3, 0x81F1E6 + 2, 0x81F949 + 2, 0x825D95 + 2, 0x820FB0 + 3, 0x821AC9 + 3, 0x8222AC + 2, 0x822AEA + 3, 0x81FF40 + 2, 0x8F465D + 2, 0x8766DF + 3, 0x81E92B + 3,
 };
 
 int show_extra_leagues_in_start(BYTE* nation, DWORD dest_ptr, int a3) {
@@ -971,8 +971,8 @@ bool is_youth_competition(cm3_club_comps* comp) {
 	return false;
 }
 
-static __int16(__thiscall* update_ranking)(BYTE* _this, cm3_nations* nation, __int16 a3, BYTE* match_data) =
-(__int16(__thiscall*)(BYTE * _this, cm3_nations * nation, __int16 a3, BYTE * match_data))(0x58DEA0);
+//static __int16(__thiscall* update_ranking)(BYTE* _this, cm3_nations* nation, __int16 a3, BYTE* match_data) =
+//(__int16(__thiscall*)(BYTE * _this, cm3_nations * nation, __int16 a3, BYTE * match_data))(0x58DEA0);
 void update_fifa_coefficients(BYTE* _this, BYTE* match_data) {
 	cm3_club_comps* comp = (cm3_club_comps*)*(DWORD*)(match_data + 0x14);
 	if (!comp) return;
@@ -1335,6 +1335,34 @@ void __declspec(naked) playoff_winner_in_history() {
 }
 //004997FB     66:8B15 8431AE>MOV DX,WORD PTR DS:[AE3184] => this makes the text colour white
 
+static int(__thiscall* sub_54BA20) (BYTE* _this, char* a2, __int16 a3, char a4) =
+(int(__thiscall*)(BYTE * _this, char* a2, __int16 a3, char a4))(0x54BA20);
+void print_country_date_info_start(playable_nation_data* pnd, char* ret_str) {
+	BYTE* start_date = pnd->start_date;
+	BYTE* cm_date = new BYTE[8];
+	sub_549EF0(cm_date, *(WORD*)(start_date)-28, *(WORD*)(start_date + 2));
+	char* date_str = new char[96];
+	sub_54BA20(cm_date, date_str, 0x7d0, -1);
+	char pos = 0;
+	while (date_str[pos++] != ' ');
+	sprintf(ret_str, "%s\n%s", pnd->nation->NationNameShort, &date_str[pos]);
+}
+
+void __declspec(naked) print_country_date_info_start_c()
+{
+	__asm
+	{
+		pushad
+		push edi
+		push eax
+		call print_country_date_info_start
+		add esp, 0x8
+		popad
+		push 0x81EA1A
+		ret
+	}
+}
+
 void setup_misc_functions()
 {
 	// update game name
@@ -1354,6 +1382,7 @@ void setup_misc_functions()
 	WriteDWORD(0x75dcba, (DWORD)&patch_name_short[0]);
 	char* patch_details_str = "Restructures Patch Version: <%s - version> - Build: <%s - Build Date> <%s - Build Time>";
 	WriteDWORD(0x823b63, (DWORD)&patch_details_str[0]);
+	WriteNOP(0x823b50, 2);
 	WriteDWORD(0x823b58, (DWORD)&__DATE__[0]);
 	WriteDWORD(0x823b53, (DWORD)&__TIME__[0]);
 
@@ -1368,7 +1397,10 @@ void setup_misc_functions()
 	PatchFunction(0x58CF70, (DWORD)&update_fifa_coefficients_c);
 	PatchFunction(0x49dbcd, (DWORD)&quick_uefa_fix_1);
 	PatchFunction(0x49e647, (DWORD)&quick_uefa_fix_2);
-	// block the old update function
+	PatchFunction(0x81e9be, (DWORD)&print_country_date_info_start_c);
+	char* select_start = "Select Start Date";
+	WriteDWORD(0x81e959, (DWORD)&select_start[0]);
+	// block the old coefficients update function
 	WriteBytes(0x58dfc0, 1, 0xc3);
 	WriteDWORD(0x58ddfd + 2, 0x967880);
 	WriteNOP(0x58de05, 6);

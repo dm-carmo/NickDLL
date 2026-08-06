@@ -237,7 +237,7 @@ void arg_third_interior_setup_groups(BYTE* _this, BYTE idx) {
 	comp_stats* data = (comp_stats*)_this;
 	DWORD* pTeams = (DWORD*)cm0102_malloc(data->n_teams * 4);
 	WORD teams_in_group = 9;
-	WORD offset = teams_in_group * (idx + 1);
+	WORD offset = teams_in_group * (idx + 1) + 1; // first group has 10 instead of 9
 
 	DWORD* all_teams = data->teams2;
 	for (DWORD i = 0; i < teams_in_group; i++)
@@ -348,7 +348,7 @@ DWORD arg_third_interior_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds,
 		BYTE numberOfLeagueTeams = 10;
 		if (stage_idx == 4) numberOfLeagueTeams = 8;
 		*num_rounds = (numberOfLeagueTeams - 1) * data->n_rounds;
-		if (stage_idx == 4) *stage_name_id = PromotionGroupAtoD + (stage_idx - 3);
+		if (stage_idx < 5) *stage_name_id = PromotionGroupAtoD + (stage_idx - 3);
 		else *stage_name_id = RelegationGroupAtoB + (stage_idx - 5);
 
 		pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));

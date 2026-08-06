@@ -229,7 +229,7 @@ DWORD tur_fourth_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 11), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 17), year, Sunday, Afternoon, NeutralStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 6, 6, 3, 6, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 6, 6, 3, 0, 0, 0, 1, 0);
 
 		return (DWORD)pMem;
 	}

@@ -8,19 +8,6 @@
 
 DWORD* bel_first_vtable = (DWORD*)0x967940;
 
-int bel_first_7F3220(DWORD a1, DWORD a2) {
-	BYTE split_pos = 8;
-	WORD stage1_games = 30;
-	team_league_stats* tls1 = (team_league_stats*)a1;
-	team_league_stats* tls2 = (team_league_stats*)a2;
-
-	BYTE bl = ((BYTE*)tls1->position_history)[stage1_games - 1];
-	BYTE al = (bl >= split_pos) + 1;
-	bl = ((BYTE*)tls2->position_history)[stage1_games - 1];
-	BYTE cl = (bl >= split_pos) + 1;
-	return al - cl;
-}
-
 void bel_first_free_under(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	data->comp_vtable = bel_first_vtable;
@@ -941,9 +928,6 @@ char bel_first_update(BYTE* _this) {
 	}
 	data->year++;
 	data->current_stage = -1;
-	data->num_stages = 0;
-	data->stages = 0;
-	*((DWORD*)(_this + 0xA7)) = -1;
 	bel_first_subs(_this);
 	AddTeams(_this);
 	data->prize_money_pool = SetupPrizeMoney(_this, prizeMoneyFile.GetInt("bel_first_prize_money"));
@@ -1003,8 +987,7 @@ void bel_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->min_stadium_seats = 5000;
 	data->f68 = -1;
 	data->current_stage = -1;
-	data->num_stages = 1;
-	data->stages = (DWORD*)cm0102_malloc(data->num_stages * 4);
+	data->num_stages = 0;
 	bel_first_subs(_this);
 	AddTeams(_this);
 	data->prize_money_pool = SetupPrizeMoney(_this, prizeMoneyFile.GetInt("bel_first_prize_money"));
@@ -1021,277 +1004,12 @@ void bel_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	league_reputation_setup_generic_68A850(_this);
 }
 
-void bel_first_split_under(BYTE* _this) {
-	comp_stats* comp_data = (comp_stats*)_this;
-	BYTE playoff_teams = 8;
-	WORD total_teams = comp_data->n_teams;
-	team_league_stats* table_teams = (team_league_stats*)(comp_data->team_league_table);
-
-	DWORD* pTeams = (DWORD*)cm0102_malloc(playoff_teams * 4);
-	for (int i = 0; i < 8; i++) {
-		*((DWORD*)(&pTeams[i])) = (DWORD)table_teams[i].club;
-	}
-
-	WORD num_rounds = 0;
-	WORD stage_name_id = 0;
-	DWORD v0 = *(DWORD*)_this;
-	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, int, WORD*, WORD*, DWORD))(v0 + 0x3C))(_this, 1, &num_rounds, &stage_name_id, 0);
-
-	WORD year = comp_data->year;
-	BYTE* pStage = (BYTE*)cm0102_new(0xEE);
-	short f217 = 3;
-	create_league_stage_data(pStage, _this, playoff_teams, pTeams, 1, (DWORD)(comp_data->competition_db), pFixtures, num_rounds,
-		comp_data->pts_for_win, comp_data->pts_for_draw, comp_data->f196, (BYTE*)(_this + 0xC5), (BYTE*)(_this + 0xBE),
-		year, -1, stage_name_id, 0x14, 1, 0, f217, -1, 0, 2);
-	DWORD v1 = *(DWORD*)pStage;
-	(*(int(__thiscall**)(BYTE*, int))(v1))(pStage, 1);
-	sub_9452CA_free(pTeams);
-	sub_9452CA_free(pFixtures);
-
-	DWORD* pTeams2 = (DWORD*)cm0102_malloc(playoff_teams * 4);
-	for (int i = 0; i < 8; i++) {
-		*((DWORD*)(&pTeams2[i])) = (DWORD)table_teams[i + 8].club;
-	}
-
-	WORD num_rounds2 = 0;
-	WORD stage_name_id2 = 0;
-	BYTE* pFixtures2 = (BYTE*)(*(int(__thiscall**)(BYTE*, int, WORD*, WORD*, DWORD))(v0 + 0x3C))(_this, 2, &num_rounds2, &stage_name_id2, 0);
-
-	BYTE* pStage2 = (BYTE*)cm0102_new(0xEE);
-	create_league_stage_data(pStage2, _this, playoff_teams, pTeams2, 1, (DWORD)(comp_data->competition_db), pFixtures2, num_rounds2,
-		comp_data->pts_for_win, comp_data->pts_for_draw, comp_data->f196, (BYTE*)(_this + 0xC5), (BYTE*)(_this + 0xBE),
-		year, -1, stage_name_id2, 0x14, 1, 0, f217, -1, 0, 2);
-	DWORD v2 = *(DWORD*)pStage2;
-	(*(int(__thiscall**)(BYTE*, int))(v2))(pStage2, 1);
-	sub_9452CA_free(pTeams2);
-	sub_9452CA_free(pFixtures2);
-
-	comp_data->n_rounds = 3;
-	*((DWORD*)(_this + 0xA3)) = (DWORD)&bel_first_7F3220;
-}
-
-void bel_first_playoff_under(BYTE* _this) {
-	char stage_num = 0;
-	comp_stats* comp_data = (comp_stats*)_this;
-	BYTE playoff_teams = 2;
-	WORD total_teams = comp_data->n_teams;
-	DWORD* pTeams = (DWORD*)cm0102_malloc(playoff_teams * 4);
-
-	team_league_stats* table_teams = (team_league_stats*)(comp_data->team_league_table);
-	for (int i = 0; i < total_teams; i++) {
-		team_league_stats tls = table_teams[i];
-		if (tls.league_fate == BottomPlayoff) {
-			*((DWORD*)(&pTeams[0])) = (DWORD)tls.club;
-			break;
-		}
-	}
-
-	comp_stats* bel_second_data = (comp_stats*)get_loaded_league(BEL_SECOND_9CF());
-	total_teams = bel_second_data->n_teams;
-	table_teams = (team_league_stats*)(bel_second_data->team_league_table);
-	for (int i = 0; i < total_teams; i++) {
-		team_league_stats tls = table_teams[i];
-		if (tls.league_fate == TopPlayoff) {
-			*((DWORD*)(&pTeams[1])) = (DWORD)tls.club;
-			break;
-		}
-	}
-	WORD num_rounds = 0;
-	WORD stage_name_id = 0;
-	WORD year = comp_data->year;
-	DWORD v1 = *(DWORD*)_this;
-	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, char, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
-	BYTE* new_stage = (BYTE*)cm0102_new(0xB2);
-	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)comp_data->competition_db, pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, 0);
-	DWORD* stages_arr = comp_data->stages;
-	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
-	sub_51C800(new_stage, 0);
-}
-
-void bel_first_playoffs_c(BYTE* _this) {
-	comp_stats* comp_data = (comp_stats*)_this;
-	long current = comp_data->current_stage;
-	long max = comp_data->num_stages;
-	if (current < max - 1) {
-		BYTE* bel_second = get_loaded_league(BEL_SECOND_9CF());
-		comp_stats* bel_second_data = (comp_stats*)bel_second;
-		BYTE* prom_playoff = (BYTE*)bel_second_data->stages[0];
-		if (prom_playoff) {
-			DWORD v1 = *(DWORD*)prom_playoff;
-			char ret = (*(int(__thiscall**)(BYTE*, int, int))(v1 + 0x10))(prom_playoff, 0, 1);
-			if (ret != 0) {
-				current++;
-				comp_data->current_stage = current;
-				if (current == 0) {
-					bel_first_playoff_under(_this);
-				}
-			}
-		}
-	}
-}
-
-void __declspec(naked) bel_first_playoffs_create()
-{
-	__asm
-	{
-		mov eax, esp
-		push ecx
-		call bel_first_playoffs_c
-		add esp, 0x4
-		ret
-	}
-}
-
-int bel_first_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
-	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
-	comp_stats* comp_data = (comp_stats*)_this;
-	if (stage == 0) {
-		cm3_clubs* club_ptr = (cm3_clubs*)club;
-		cm3_club_comps* bel_second = get_comp(BEL_SECOND_9CF());
-		BYTE* rounds = ((comp_stats*)(comp_data->stages[stage]))->rounds_list;
-		if (club_ptr->ClubDivision == bel_second) {
-			comp_stats* bel_second_data = (comp_stats*)get_loaded_league(BEL_SECOND_9CF());
-			WORD num_teams = bel_second_data->n_teams;
-			if (num_teams <= 0) return 0;
-			team_league_stats* table = (team_league_stats*)(bel_second_data->team_league_table);
-			WORD current_round = *(WORD*)(round_data + 0x34);
-			for (int i = 0; i < num_teams; i++) {
-				if (table[i].club != club) continue;
-				switch (fate) {
-				case TopPlayoff:
-					staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)bel_second, 0x32);
-					table[i].league_fate = Promoted;
-					*a5 = 1;
-					return 0;
-				case Promoted:
-					staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
-						*(WORD*)(rounds + playoff_dates_sz * (current_round + 1) + 7), 0xF);
-					return 0;
-				default:
-					table[i].league_fate = Eliminated;
-					return 0;
-				}
-			}
-		}
-		else {
-			WORD num_teams = comp_data->n_teams;
-			if (num_teams <= 0) return 0;
-			team_league_stats* table = (team_league_stats*)(comp_data->team_league_table);
-			WORD current_round = *(WORD*)(round_data + 0x34);
-			for (int i = 0; i < num_teams; i++) {
-				if (table[i].club != club) continue;
-				switch (fate) {
-				case BottomPlayoff:
-					staff_history_relegated_86A1C0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));
-					table[i].league_fate = Relegated;
-					*a5 = 1;
-					return 0;
-				case Relegated:
-					staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
-						*(WORD*)(rounds + playoff_dates_sz * (current_round + 1) + 7), 0xF);
-					return 0;
-				default:
-					table[i].league_fate = Eliminated;
-					return 0;
-				}
-			}
-		}
-	}
-	else {
-		switch (fate) {
-		case Champions:
-			staff_history_champion_868C50(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));
-			return 0;
-		case Promoted:
-			staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), 0x64);
-			return 0;
-		case TopPlayoff:
-			return 0;
-		case BottomPlayoff:
-			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, Playoff, 0x1E);
-			return 0;
-		case Relegated:
-			staff_history_relegated_86A1C0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));
-			return 0;
-		default:
-			return 0;
-		}
-	}
-	return 0;
-}
-
-void __declspec(naked) bel_first_set_table_fate()
-{
-	__asm
-	{
-		mov eax, esp
-		push dword ptr[eax + 0x18]
-		push dword ptr[eax + 0x14]
-		push dword ptr[eax + 0x10]
-		push dword ptr[eax + 0xC]
-		push dword ptr[eax + 0x8]
-		push dword ptr[eax + 0x4]
-		push ecx
-		call bel_first_table_indicators
-		add esp, 0x1c
-		ret 0x18
-	}
-}
-
-void bel_first_reputation_calc(BYTE* _this, BYTE* club, char stage, char current, char min, char max) {
-	comp_stats* comp_data = (comp_stats*)_this;
-	BYTE* ret = (BYTE*)sub_4A4850((BYTE*)comp_data->f8, club);
-	if (!ret) return;
-	char ret_current = current;
-	char ret_min = min;
-	char ret_max = max;
-	if (stage == 0) {
-		comp_stats* d2_comp_data = (comp_stats*)get_loaded_league(BEL_SECOND_9CF());
-		cm3_clubs* club_data = (cm3_clubs*)club;
-		if (club_data->ClubDivision->ClubCompID == BEL_SECOND_9CF()) {
-			ret = (BYTE*)sub_4A4850((BYTE*)d2_comp_data->f8, club);
-			if (!ret) return;
-			ret_current = 3;
-			ret_min = 3;
-			ret_max = 3;
-		}
-		else {
-			ret_current = 16;
-			ret_min = 16;
-			ret_max = 16;
-		}
-	}
-	ret[0x73] = ret_current;
-	ret[0x74] = ret_min;
-	ret[0x75] = ret_max;
-}
-
-void __declspec(naked) bel_first_reputation_calc_c()
-{
-	__asm
-	{
-		mov eax, esp
-		push dword ptr[eax + 0x14]
-		push dword ptr[eax + 0x10]
-		push dword ptr[eax + 0xc]
-		push dword ptr[eax + 0x8]
-		push dword ptr[eax + 0x4]
-		push ecx
-		call bel_first_reputation_calc
-		add esp, 0x18
-		ret 0x14
-	}
-}
-
 void setup_bel_first()
 {
 	WriteVTablePtr(bel_first_vtable, VTableSubsRounds, (DWORD)&bel_first_subs_c);
 	WriteVTablePtr(bel_first_vtable, VTableInitFree, (DWORD)&bel_first_free_c);
 	WriteVTablePtr(bel_first_vtable, VTableEoSUpdate, (DWORD)&bel_first_update_c);
 	WriteVTablePtr(bel_first_vtable, VTableFixtures, (DWORD)&bel_first_fixtures_c);
-	WriteVTablePtr(bel_first_vtable, VTableReputationCalc, (DWORD)&bel_first_reputation_calc_c);
-	WriteVTablePtr(bel_first_vtable, VTablePlayoffQual, (DWORD)&bel_first_playoffs_create);
-	WriteVTablePtr(bel_first_vtable, VTableTableFates, (DWORD)&bel_first_set_table_fate);
 	WriteVTablePtr(bel_first_vtable, VTablePromRelUpdate, (DWORD)&bel_first_prom_rel_update_c);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(bel_first_vtable, VTable21, 0x4110b0);
 }

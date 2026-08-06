@@ -76,7 +76,7 @@ void aut_second_subs(BYTE* _this)
 	comp_data->promotions = 1;
 	comp_data->prom_playoff = 0;
 	comp_data->rele_playoff = 0;
-	comp_data->relegations = 3;
+	comp_data->relegations = 2;
 
 	comp_data->promotes_to = AUT_FIRST_9CF();
 	comp_data->relegates_to = -1;
