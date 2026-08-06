@@ -82,6 +82,11 @@ void ita_c_supercup_subs(BYTE* _this)
 	comp_data->max_bench = 7;
 	comp_data->max_subs = 3;
 
+	BYTE* cm_date = new BYTE[8];
+	convert_to_cm_date(cm_date, 27, April, comp_data->year + 1, Monday);
+	*((WORD*)(_this + 0xB6)) = *(WORD*)(cm_date);
+	*((WORD*)(_this + 0xB8)) = 1;
+
 	DWORD v1 = *(DWORD*)_this;
 	comp_data->fixtures_table = (DWORD*)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0xA9, _this + 0x3A, 0);
 
@@ -149,7 +154,6 @@ DWORD ita_c_supercup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WOR
 		comp_stats* data = (comp_stats*)_this;
 		WORD year = data->year;
 		BYTE numberOfLeagueTeams = 3;
-		*num_rounds = numberOfLeagueTeams * data->n_rounds;
 		*num_rounds = numberOfLeagueTeams * data->n_rounds;
 		*stage_name_id = None;
 

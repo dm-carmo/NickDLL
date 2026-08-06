@@ -36,6 +36,13 @@ vector<DWORD> friendly_march_21plus3 = {
 	0x5CA743, 0x5CA9D6, 0x5CAA6C, 0x5CB083, 0x5CB187, 0x5CB283, 0x5CB393, 0x5CB4B7,
 };
 
+vector<DWORD> replace_titlebar_bg = {
+	0x81BB1A + 3, 0x81CA55 + 3, 0x81D0D3 + 3, 0x81C99C + 2, 0x81CAE6 + 3, 0x81EE2C + 3, 0x81F1EC + 3, 0x81F94F + 3, 0x825D9B + 3, 0x820FB7 + 3, 0x821AD0 + 2, 0x8222B2 + 3, 0x822AF1 + 3, 0x81FF46 + 3, 0x8F4656 + 3, 0x8766E6 + 3,
+};
+vector<DWORD> replace_titlebar_fg = {
+	0x81BB13 + 3, 0x81CA61 + 3, 0x81D0CC + 3, 0x81C9BC + 3, 0x81CAED + 3, 0x81EE25 + 3, 0x81F1E6 + 2, 0x81F949 + 2, 0x825D95 + 2, 0x820FB0 + 3, 0x821AC9 + 3, 0x8222AC + 2, 0x822AEA + 3, 0x81FF40 + 2, 0x8F465D + 2, 0x8766DF + 3,
+};
+
 int show_extra_leagues_in_start(BYTE* nation, DWORD dest_ptr, int a3) {
 	if (!nation || !dest_ptr || a3 < 20) return 0;
 	cm3_nations* cm3_nation = (cm3_nations*)nation;
@@ -1308,30 +1315,6 @@ void __declspec(naked) quick_uefa_fix_2() {
 	}
 }
 
-void __declspec(naked) weird_bug_fix1_temp() {
-	__asm {
-		test edx, edx
-		je jmp_over_bug1
-		mov dword ptr ds : [edx + 4] , ebx
-		jmp_over_bug1 :
-		mov edx, dword ptr ss : [ebp + 0xc]
-			push 0x948c85
-			ret
-	}
-}
-
-void __declspec(naked) weird_bug_fix2_temp() {
-	__asm {
-		test ebx, ebx
-		mov edx, dword ptr ds : [edx + 8]
-		je jmp_over_bug2
-		mov dword ptr ds : [ebx + 8] , edx
-		jmp_over_bug2 :
-		push 0x948c91
-			ret
-	}
-}
-
 char* playoff_winner = "Playoff Winner";
 void __declspec(naked) playoff_winner_in_history() {
 	__asm {
@@ -1374,11 +1357,6 @@ void setup_misc_functions()
 	WriteDWORD(0x823b58, (DWORD)&__DATE__[0]);
 	WriteDWORD(0x823b53, (DWORD)&__TIME__[0]);
 
-	// very weird bug fix! hopefully temporary!
-	WriteNOP(0x948c7f, 6);
-	PatchFunction(0x948c7f, (DWORD)&weird_bug_fix1_temp);
-	WriteNOP(0x948c8b, 6);
-	PatchFunction(0x948c8b, (DWORD)&weird_bug_fix2_temp);
 	if (configFile.GetBool("competitionColoursPatch", true)) PatchFunction(0x53b7c0, (DWORD)&comp_colours_in_header);
 	PatchFunction(0x669f50, (DWORD)&show_extra_leagues_in_start);
 	PatchFunction(0x4B01D0, (DWORD)&parent_child_stages);
@@ -1555,4 +1533,76 @@ void setup_misc_functions()
 	PatchFunction(0x77fd2f, (DWORD)&fixed_groups_drawn_news_title);
 	// misspelling
 	WriteBytes(0xa0aa2a, 2, 'y', '\'');
+
+	const char* titlebar_bg = configFile.GetValue("defaultTitleBackground", "0xAE31A8");
+	DWORD titlebar_bg_hex = stoul(titlebar_bg, nullptr, 16);
+	const char* titlebar_fg = configFile.GetValue("defaultTitleForeground", "0xAE3184");
+	DWORD titlebar_fg_hex = stoul(titlebar_fg, nullptr, 16);
+
+	// change default colours - clubs with no colours
+	WriteDWORD(0x53b642, 0xae317e);
+	WriteDWORD(0x53b662, 0xae3154);
+	WriteDWORD(0x839598, 0xae317e);
+	WriteDWORD(0x8395a0, 0xae3154);
+
+	// change default titlebar colours (menus)
+	for (DWORD d : replace_titlebar_bg) {
+		WriteDWORD(d, titlebar_bg_hex);
+	}
+	for (DWORD d : replace_titlebar_fg) {
+		WriteDWORD(d, titlebar_fg_hex);
+	}
+	// fix web sites menu
+	WriteNOP(0x513a2e, 10);
+	WriteBytes(0x513a2e, 2, 0x66, 0xa1);
+	WriteDWORD(0x513a30, titlebar_fg_hex);
+	WriteNOP(0x513a39, 10);
+	WriteBytes(0x513a39, 2, 0x66, 0xa1);
+	WriteDWORD(0x513a3b, titlebar_bg_hex);
+	// fix credits menu
+	WriteNOP(0x51331d, 5);
+	WriteNOP(0x513341, 5);
+	WriteNOP(0x5131bc, 10);
+	WriteBytes(0x5131bc, 2, 0x66, 0xa1);
+	WriteDWORD(0x5131be, titlebar_fg_hex);
+	WriteNOP(0x5131c7, 9);
+	WriteBytes(0x5131c7, 2, 0x66, 0xa1);
+	WriteDWORD(0x5131c9, titlebar_bg_hex);
+	// fix nations & clubs menu
+	WriteNOP(0x5a0903, 9);
+	WriteBytes(0x5a0903, 2, 0x66, 0xa1);
+	WriteDWORD(0x5a0905, titlebar_fg_hex);
+	WriteNOP(0x5a090d, 10);
+	WriteBytes(0x5a090d, 2, 0x66, 0xa1);
+	WriteDWORD(0x5a090f, titlebar_bg_hex);
+	// fix find menu
+	WriteNOP(0x5a2ec1, 9);
+	WriteBytes(0x5a2ec1, 2, 0x66, 0xa1);
+	WriteDWORD(0x5a2ec3, titlebar_fg_hex);
+	WriteNOP(0x5a2ecb, 10);
+	WriteBytes(0x5a2ecb, 2, 0x66, 0xa1);
+	WriteDWORD(0x5a2ecd, titlebar_bg_hex);
+	// fix add nickname menu
+	WriteNOP(0x88bcbe, 10);
+	WriteBytes(0x88bcbe, 2, 0x66, 0xa1);
+	WriteDWORD(0x88bcc0, titlebar_fg_hex);
+	WriteNOP(0x88bcc9, 10);
+	WriteBytes(0x88bcc9, 2, 0x66, 0xa1);
+	WriteDWORD(0x88bccb, titlebar_bg_hex);
+	// fix save game menu - backwards
+	WriteNOP(0x763f5e, 1);
+	WriteNOP(0x763f64, 8);
+	WriteBytes(0x763f64, 2, 0x66, 0xa1);
+	WriteDWORD(0x763f66, titlebar_bg_hex);
+	WriteNOP(0x763f6d, 10);
+	WriteBytes(0x763f6d, 2, 0x66, 0xa1);
+	WriteDWORD(0x763f6f, titlebar_fg_hex);
+	// fix auto save game menu - backwards
+	WriteNOP(0x761722, 1);
+	WriteNOP(0x761728, 8);
+	WriteBytes(0x761728, 2, 0x66, 0xa1);
+	WriteDWORD(0x76172a, titlebar_bg_hex);
+	WriteNOP(0x761731, 10);
+	WriteBytes(0x761731, 2, 0x66, 0xa1);
+	WriteDWORD(0x761733, titlebar_fg_hex);
 }

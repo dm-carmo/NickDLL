@@ -78,6 +78,8 @@ int kor_cup_teams(BYTE* _this) {
 
 	// Lower
 	vector<cm3_clubs*> division_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_SOUTH_KOREA_9CF());
+	vector<cm3_clubs*> division_clubs2 = find_clubs_of_comp(A_LOWER_B_9CF(), NATION_SOUTH_KOREA_9CF());
+	move(division_clubs2.begin(), division_clubs2.end(), back_inserter(division_clubs));
 	vector<cm3_clubs*> lower_clubs;
 	std::copy_if(division_clubs.begin(), division_clubs.end(), std::back_inserter(lower_clubs),
 		[](cm3_clubs* c) {

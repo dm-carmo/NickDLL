@@ -140,7 +140,7 @@ DWORD rus_second_a_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD*
 		comp_stats* data = (comp_stats*)_this;
 		WORD year = data->year;
 		BYTE numberOfLeagueTeams = 10;
-		if (year == 2026 && stage_idx == 0) numberOfLeagueTeams = 7;
+		if (year == 2026 && stage_idx == 0) numberOfLeagueTeams = 8;
 		*num_rounds = (numberOfLeagueTeams - 1) * data->n_rounds;
 		*stage_name_id = FirstStageGoldSilver + stage_idx + 1;
 

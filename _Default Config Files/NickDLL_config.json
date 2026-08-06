@@ -11,5 +11,7 @@
   "brazilRegenNames": true,
   "replaceNIrelandWith": "",
   "replaceIrelandWith": "",
-  "replaceWalesWith": ""
+  "replaceWalesWith": "",
+  "defaultTitleBackground": "0xAE3150",
+  "defaultTitleForeground": "0xAEBDEC"
 }

@@ -876,6 +876,9 @@
     <ClCompile Include="FIFA National\fifa_national_setup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Scotland\sco_pyramid_playoff.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -1749,6 +1752,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="FIFA National\fifa_national_setup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scotland\sco_pyramid_playoff.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

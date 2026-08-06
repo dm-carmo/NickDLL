@@ -385,7 +385,6 @@ int fra_third_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char sta
 		}
 	}
 	else if (stage == -1) {
-		cm3_club_comps* fra_second = get_comp(FRA_SECOND_9CF());
 		switch (fate) {
 		case Champions:
 			staff_history_champion_868C50(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));

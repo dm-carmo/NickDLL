@@ -71,52 +71,6 @@ void Setup()
 	WriteBytes(0x5448aa, 2, 0x00, 0x75);
 #endif 
 
-	///BEGIN add Windows 95 compatibility + run as admin
-	TCHAR exePath[MAX_PATH + 1];
-	DWORD len = GetModuleFileName(NULL, exePath, MAX_PATH);
-	if (len > 0) {
-		HKEY hKey;
-		LPCTSTR sk = TEXT("Software\\Microsoft\\Windows NT\\CurrentVersion\\AppCompatFlags\\Layers");
-
-		LONG openRes = RegOpenKeyEx(
-			HKEY_CURRENT_USER,
-			sk,
-			0,
-			KEY_WRITE,
-			&hKey);
-
-		if (openRes == ERROR_SUCCESS) {
-			dprintf("Success opening key.\n");
-
-			//LPCTSTR value = exePath;
-			LPCTSTR data = TEXT("WIN95 RUNASADMIN\0");
-
-			LONG setRes = RegSetKeyValue(hKey, NULL, exePath, REG_SZ, (LPBYTE)data, (_tcslen(data) + 1) * sizeof(TCHAR));
-
-			if (setRes == ERROR_SUCCESS) {
-				dprintf("Success writing to registry.\n");
-
-				//RegDeleteKey(hKey, sk);
-
-				LONG closeOut = RegCloseKey(hKey);
-
-				if (closeOut == ERROR_SUCCESS) {
-					dprintf("Success closing key.\n");
-				}
-				else {
-					dprintf("Error closing key.\n");
-				}
-			}
-			else {
-				dprintf("Error writing to registry. %d\n", setRes);
-			}
-		}
-		else {
-			dprintf("Error opening key.\n");
-		}
-	}
-	///END
-
 	bool result = configFile.LoadConfig("NickDLL_config.json");
 	result = prizeMoneyFile.LoadConfig("NickDLL_prize_money.json");
 

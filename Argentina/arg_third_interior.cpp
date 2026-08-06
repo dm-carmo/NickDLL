@@ -218,7 +218,7 @@ int arg_third_interior_add_teams(BYTE* _this)
 		*((DWORD*)(&comp_data->teams2[i])) = (DWORD)champ_clubs[i];
 	}
 
-	comp_data->n_teams = 9; // number of teams per group in this case
+	comp_data->n_teams = 10; // number of teams per group in this case
 	comp_data->team_league_table = (DWORD*)cm0102_malloc(10 * league_team_list_sz);
 	BYTE teamsAdded = 0;
 	for (DWORD i = 0; i < comp_data->n_teams; i++)
@@ -271,7 +271,7 @@ void arg_third_interior_subs(BYTE* _this)
 	comp_data->tiebreaker_2 = GoalsForTiebreaker;
 	comp_data->tiebreaker_3 = CurrentPositionTiebreaker;
 	comp_data->promotions = 0;
-	comp_data->prom_playoff = 4;
+	comp_data->prom_playoff = 5;
 	comp_data->rele_playoff = 5;
 	comp_data->relegations = 0;
 
@@ -346,23 +346,23 @@ DWORD arg_third_interior_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds,
 		comp_stats* data = (comp_stats*)_this;
 		WORD year = data->year;
 		BYTE numberOfLeagueTeams = 10;
-		if (stage_idx < 5) numberOfLeagueTeams = 8;
+		if (stage_idx == 4) numberOfLeagueTeams = 8;
 		*num_rounds = (numberOfLeagueTeams - 1) * data->n_rounds;
-		if (stage_idx < 5) *stage_name_id = PromotionGroupAtoD + (stage_idx - 3);
+		if (stage_idx == 4) *stage_name_id = PromotionGroupAtoD + (stage_idx - 3);
 		else *stage_name_id = RelegationGroupAtoB + (stage_idx - 5);
 
 		pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		if (stage_idx >= 5) AddFixtureNoTV(pMem, fixture_id++, Date(year, 7, 12), year, Saturday);
+		if (numberOfLeagueTeams > 8) AddFixtureNoTV(pMem, fixture_id++, Date(year, 7, 12), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 7, 19), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 7, 26), year, Saturday);
-		if (stage_idx >= 5) AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 2), year, Saturday);
+		if (numberOfLeagueTeams > 8) AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 2), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 9), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 16), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 23), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 30), year, Saturday);
-		if (stage_idx >= 5) AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 6), year, Saturday);
+		if (numberOfLeagueTeams > 8) AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 6), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 13), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 20), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 27), year, Saturday);
@@ -371,7 +371,7 @@ DWORD arg_third_interior_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds,
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 18), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 1), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 8), year, Saturday);
-		if (stage_idx >= 5) AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 15), year, Saturday);
+		if (numberOfLeagueTeams > 8) AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 15), year, Saturday);
 
 		check_number_of_fixtures(_this, fixture_id, *num_rounds);
 
@@ -685,10 +685,10 @@ void arg_third_interior_playoffs_prom(BYTE* _this) {
 
 	comp_stats* comp_data = (comp_stats*)_this;
 	DWORD* stages_arr = comp_data->stages;
-	BYTE playoff_teams = 8;
 
 	comp_stats* curr_stage = comp_data;
 	for (int g = 0; g < 2; g++) {
+		BYTE playoff_teams = (g == 0) ? 9 : 8;
 		vector<cm3_clubs*> clubs;
 		WORD num_rounds = 0;
 		WORD stage_name_id = 0;

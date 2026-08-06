@@ -26,9 +26,9 @@ DWORD ofc_champions_league_fixtures(BYTE* _this, char stage_idx, WORD* num_round
 		pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 2, 8), year, Saturday, Evening);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 2, 11), year, Tuesday, Evening);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 2, 14), year, Friday, Evening);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 1, 31), year, Saturday, Evening);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 2, 3), year, Tuesday, Evening);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 2, 6), year, Friday, Evening);
 
 		return (DWORD)pMem;
 	}
@@ -44,14 +44,14 @@ DWORD ofc_champions_league_fixtures(BYTE* _this, char stage_idx, WORD* num_round
 
 		int fixture_id = 0;
 		if (stage_idx == 0) {
-			AddFixtureNoTV(pMem, fixture_id++, Date(year, 3, 30), year, Sunday, Evening);
-			AddFixtureNoTV(pMem, fixture_id++, Date(year, 4, 2), year, Wednesday, Evening);
-			AddFixtureNoTV(pMem, fixture_id++, Date(year, 4, 5), year, Saturday, Evening);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 9), year, Sunday, Evening);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 12), year, Wednesday, Evening);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 15), year, Saturday, Evening);
 		}
 		else {
-			AddFixtureNoTV(pMem, fixture_id++, Date(year, 3, 31), year, Monday, Evening);
-			AddFixtureNoTV(pMem, fixture_id++, Date(year, 4, 3), year, Thursday, Evening);
-			AddFixtureNoTV(pMem, fixture_id++, Date(year, 4, 6), year, Sunday, Evening);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 10), year, Monday, Evening);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 13), year, Thursday, Evening);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 16), year, Sunday, Evening);
 		}
 
 		return (DWORD)pMem;
@@ -67,12 +67,12 @@ DWORD ofc_champions_league_fixtures(BYTE* _this, char stage_idx, WORD* num_round
 		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 4, 7), year, Monday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 4, 9), year, Wednesday, Evening);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 17), year, Monday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 19), year, Wednesday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 8, 4, 2, 4, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("ofc_cl_semi_lose"));
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 4, 10), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 4, 12), year, Saturday, Evening, NationalStadium);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 20), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 22), year, Saturday, Evening, NationalStadium);
 		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 8, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("ofc_cl_final_win"), prizeMoneyFile.GetInt("ofc_cl_final_lose"));
 
 		return (DWORD)pMem;

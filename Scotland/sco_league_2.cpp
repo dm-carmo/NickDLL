@@ -269,19 +269,15 @@ DWORD sco_league_2_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD*
 			*a5 = 0;
 		BYTE* pMem = NULL;
 		WORD year = ((comp_stats*)_this)->year;
-		*num_rounds = 2;
+		*num_rounds = 1;
 		*stage_name_id = Playoff;
 
 		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 3), year, Sunday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 6), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 5, 2, 1, 2, 0, 0, 2, 3);
-
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 10), year, Sunday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 13), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 6, 2, 1, 1, 2, 0, 2, 3);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 9), year, Saturday);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 5, 2, 1, 2, 0, 0, 2, 7);
 
 		return (DWORD)pMem;
 	}
@@ -357,7 +353,7 @@ void sco_league_2_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 void sco_league_2_playoff_rele(BYTE* _this) {
 	char stage_num = 0;
 	comp_stats* comp_data = (comp_stats*)_this;
-	BYTE playoff_teams = 3;
+	BYTE playoff_teams = 2;
 	WORD total_teams = comp_data->n_teams;
 	DWORD* pTeams = (DWORD*)cm0102_malloc(playoff_teams * 4);
 
@@ -365,22 +361,21 @@ void sco_league_2_playoff_rele(BYTE* _this) {
 	for (int i = 0; i < total_teams; i++) {
 		team_league_stats tls = table_teams[i];
 		if (tls.league_fate == BottomPlayoff) {
-			*((DWORD*)(&pTeams[2])) = (DWORD)tls.club;
+			*((DWORD*)(&pTeams[0])) = (DWORD)tls.club;
 			break;
 		}
 	}
 
-	comp_stats* sco_highland_data = (comp_stats*)get_loaded_league(SCO_HIGHLAND_9CF());
-	if (sco_highland_data) {
-		total_teams = sco_highland_data->n_teams;
-		table_teams = (team_league_stats*)(sco_highland_data->team_league_table);
+	comp_stats* sco_playoffs_data = (comp_stats*)get_loaded_league(SCO_PYRAMID_PLAYOFF_9CF());
+	if (sco_playoffs_data) {
+		total_teams = sco_playoffs_data->n_teams;
+		table_teams = (team_league_stats*)(sco_playoffs_data->team_league_table);
 		for (int i = 0; i < total_teams; i++) {
 			team_league_stats tls = table_teams[i];
-			DWORD is_main_club;
-			cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)tls.club, &is_main_club, 1);
-			if (ret_club && !is_main_club) continue;
-			*((DWORD*)(&pTeams[0])) = (DWORD)tls.club;
-			break;
+			if (tls.league_fate == TopPlayoff) {
+				*((DWORD*)(&pTeams[1])) = (DWORD)tls.club;
+				break;
+			}
 		}
 	}
 	else {
@@ -395,25 +390,9 @@ void sco_league_2_playoff_rele(BYTE* _this) {
 				i--;
 			}
 		}
-		vector<cm3_clubs*> playoff_club = get_random_weighted_clubs(available_clubs, 1, true);
-		*((DWORD*)(&pTeams[0])) = (DWORD)playoff_club[0];
-	}
+		cm3_clubs* h_playoff_club = get_random_weighted_clubs(available_clubs, 1, true)[0];
 
-	comp_stats* sco_lowland_data = (comp_stats*)get_loaded_league(SCO_LOWLAND_9CF());
-	if (sco_lowland_data) {
-		total_teams = sco_lowland_data->n_teams;
-		table_teams = (team_league_stats*)(sco_lowland_data->team_league_table);
-		for (int i = 0; i < total_teams; i++) {
-			team_league_stats tls = table_teams[i];
-			DWORD is_main_club;
-			cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)tls.club, &is_main_club, 1);
-			if (ret_club && !is_main_club) continue;
-			*((DWORD*)(&pTeams[1])) = (DWORD)tls.club;
-			break;
-		}
-	}
-	else {
-		vector<cm3_clubs*> available_clubs = find_clubs_of_comp(SCO_LOWLAND_9CF());
+		available_clubs = find_clubs_of_comp(SCO_LOWLAND_9CF());
 		for (size_t i = 0; i < available_clubs.size(); i++) {
 			cm3_clubs* c = available_clubs[i];
 			DWORD is_main_club;
@@ -424,8 +403,9 @@ void sco_league_2_playoff_rele(BYTE* _this) {
 				i--;
 			}
 		}
-		vector<cm3_clubs*> playoff_club = get_random_weighted_clubs(available_clubs, 1, true);
-		*((DWORD*)(&pTeams[1])) = (DWORD)playoff_club[0];
+		cm3_clubs* l_playoff_club = get_random_weighted_clubs(available_clubs, 1, true)[0];
+		if (rand() > (RAND_MAX / 2)) *((DWORD*)(&pTeams[1])) = (DWORD)h_playoff_club;
+		else *((DWORD*)(&pTeams[1])) = (DWORD)l_playoff_club;
 	}
 
 	WORD num_rounds = 0;
@@ -447,16 +427,12 @@ void sco_league_2_playoffs_c(BYTE* _this) {
 	if (current < max - 1) {
 		current++;
 		if (current == 0) {
-			BYTE* sco_highland = get_loaded_league(SCO_HIGHLAND_9CF());
-			BYTE* sco_lowland = get_loaded_league(SCO_LOWLAND_9CF());
-			if (sco_highland && sco_lowland) {
-				DWORD v1 = *(DWORD*)sco_highland;
-				DWORD v2 = *(DWORD*)sco_lowland;
-				char ret1 = (*(int(__thiscall**)(BYTE*, int, int))(v1 + 0x10))(sco_highland, 0, 1);
-				char ret2 = (*(int(__thiscall**)(BYTE*, int, int))(v2 + 0x10))(sco_lowland, 0, 1);
-				if (ret1 != 0 && ret2 != 0) {
-					(*(void(__thiscall**)(BYTE*))(v1 + 0x94))(sco_highland);
-					(*(void(__thiscall**)(BYTE*))(v1 + 0x94))(sco_lowland);
+			BYTE* sco_playoffs = get_loaded_league(SCO_PYRAMID_PLAYOFF_9CF());
+			if (sco_playoffs) {
+				DWORD v1 = *(DWORD*)sco_playoffs;
+				char ret1 = (*(int(__thiscall**)(BYTE*, int, int))(v1 + 0x10))(sco_playoffs, 0, 1);
+				if (ret1 != 0) {
+					(*(void(__thiscall**)(BYTE*))(v1 + 0x94))(sco_playoffs);
 				}
 				else return;
 			}
@@ -515,23 +491,29 @@ int sco_league_2_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char 
 			WORD current_round = *(WORD*)(round_data + 0x34);
 			comp_stats* sco_lowland_data = (comp_stats*)get_loaded_league(SCO_LOWLAND_9CF());
 			if (sco_lowland_data) {
-				WORD num_teams = sco_lowland_data->n_teams;
-				team_league_stats* table = (team_league_stats*)(sco_lowland_data->team_league_table);
-				for (int i = 0; i < num_teams; i++) {
-					if (table[i].club != club) continue;
-					switch (fate) {
-					case TopPlayoff:
-						staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)sco_lowland, 0x32);
-						//table[i].league_fate = Promoted;
-						*a5 = 1;
-						return 0;
-					case Promoted:
-						staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
-							*(WORD*)(rounds + playoff_dates_sz * (current_round + 1) + 7), 0xF);
-						return 0;
-					default:
-						//table[i].league_fate = Eliminated;
-						return 0;
+				comp_stats* curr_stage = sco_lowland_data;
+				for (char al = -1; al < 1; al++) {
+					if (al >= 0) {
+						curr_stage = (comp_stats*)(sco_lowland_data->stages[al]);
+					}
+					WORD num_teams = curr_stage->n_teams;
+					team_league_stats* table = (team_league_stats*)(curr_stage->team_league_table);
+					for (int i = 0; i < num_teams; i++) {
+						if (table[i].club != club) continue;
+						switch (fate) {
+						case TopPlayoff:
+							staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)sco_lowland, 0x32);
+							table[i].league_fate = Promoted;
+							*a5 = 1;
+							return 0;
+						case Promoted:
+							staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
+								*(WORD*)(rounds + playoff_dates_sz * (current_round + 1) + 7), 0xF);
+							return 0;
+						default:
+							//table[i].league_fate = Eliminated;
+							return 0;
+						}
 					}
 				}
 			}
@@ -662,23 +644,8 @@ void sco_league_2_reputation_calc(BYTE* _this, BYTE* club, char stage, char curr
 		comp_stats* highland_data = (comp_stats*)get_loaded_league(SCO_HIGHLAND_9CF());
 		comp_stats* lowland_data = (comp_stats*)get_loaded_league(SCO_LOWLAND_9CF());
 		cm3_clubs* club_data = (cm3_clubs*)club;
-		if (club_data->ClubDivision->ClubCompID == SCO_HIGHLAND_9CF()) {
-			if (highland_data) {
-				ret = (BYTE*)sub_4A4850((BYTE*)highland_data->f8, club);
-				if (!ret) return;
-				ret_current = 1;
-				ret_min = 1;
-				ret_max = 1;
-			}
-		}
-		else if (club_data->ClubDivision->ClubCompID == SCO_LOWLAND_9CF()) {
-			if (lowland_data) {
-				ret = (BYTE*)sub_4A4850((BYTE*)lowland_data->f8, club);
-				if (!ret) return;
-				ret_current = 1;
-				ret_min = 1;
-				ret_max = 1;
-			}
+		if (club_data->ClubDivision->ClubCompID == SCO_HIGHLAND_9CF() || club_data->ClubDivision->ClubCompID == SCO_LOWLAND_9CF()) {
+			return;
 		}
 		else {
 			ret_current = 10;

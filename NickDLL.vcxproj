@@ -368,6 +368,7 @@
     <ClCompile Include="Scotland\sco_league_cup.cpp" />
     <ClCompile Include="Scotland\sco_lowland.cpp" />
     <ClCompile Include="Scotland\sco_premier.cpp" />
+    <ClCompile Include="Scotland\sco_pyramid_playoff.cpp" />
     <ClCompile Include="Scotland\sco_setup.cpp" />
     <ClCompile Include="setup_misc_functions.cpp" />
     <ClCompile Include="South Korea\kor_awards.cpp" />
@@ -660,6 +661,7 @@
     <ClInclude Include="Scotland\sco_league_cup.h" />
     <ClInclude Include="Scotland\sco_lowland.h" />
     <ClInclude Include="Scotland\sco_premier.h" />
+    <ClInclude Include="Scotland\sco_pyramid_playoff.h" />
     <ClInclude Include="Scotland\sco_setup.h" />
     <ClInclude Include="setup_misc_functions.h" />
     <ClInclude Include="South Korea\kor_awards.h" />

@@ -9,7 +9,7 @@
 #define SI_DOUBLE double
 
 #define START_YEAR 2026
-#define VERSION "V5 + fix"
+#define VERSION "26/27 V1"
 
 extern WORD FixedTeamOrderInCup;
 extern WORD FixedTeamOrderInCup2;

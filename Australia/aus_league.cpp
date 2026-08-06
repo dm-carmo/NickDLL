@@ -158,7 +158,7 @@ char aus_league_update(BYTE* _this) {
 		}
 	}
 	data->year++;
-	if (data->year == 2026) {
+	if (data->year == 2027) {
 		cm3_clubs* western = find_club("Western United FC");
 		if (western) western->ClubDivision = data->competition_db;
 	}

@@ -320,44 +320,6 @@ void __declspec(naked) sco_premier_subs_c()
 	}
 }
 
-void __fastcall sco_non_league_promotion(BYTE* _this)
-{
-	vector<cm3_clubs*> highland_relegated_clubs = get_relegated_teams(SCO_HIGHLAND_9CF());
-	vector<cm3_clubs*> lowland_relegated_clubs = get_relegated_teams(SCO_LOWLAND_9CF());
-
-	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_SCOTLAND_9CF());
-	sort(available_clubs.begin(), available_clubs.end(), compareClubRep);
-	int max_to_check = (available_clubs.size() > 4 ? 4 : available_clubs.size());
-	unsigned int i;
-	for (i = 0; i < highland_relegated_clubs.size(); i++)
-	{
-		int availableIdx = rand() % (max_to_check - i);
-		cm3_clubs* clubToRelegate = highland_relegated_clubs[i];
-		cm3_clubs* available = available_clubs[availableIdx];
-
-		cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
-		cm3_club_comps* bottomDivision = available->ClubDivision;
-		relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
-		promote_club_6830B0((BYTE*)available, (DWORD)topDivision, 1);
-
-		available_clubs.erase(available_clubs.begin() + availableIdx);
-	}
-
-	for (unsigned int j = 0; j < lowland_relegated_clubs.size(); j++)
-	{
-		int availableIdx = rand() % (max_to_check - i - j);
-		cm3_clubs* clubToRelegate = lowland_relegated_clubs[j];
-		cm3_clubs* available = available_clubs[availableIdx];
-
-		cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
-		cm3_club_comps* bottomDivision = available->ClubDivision;
-		relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
-		promote_club_6830B0((BYTE*)available, (DWORD)topDivision, 1);
-
-		available_clubs.erase(available_clubs.begin() + availableIdx);
-	}
-}
-
 void __fastcall sco_league_2_relegation()
 {
 	cm3_clubs* relegate = 0;
@@ -426,6 +388,39 @@ void __fastcall sco_extra_non_playable_swaps(BYTE* _this)
 	}
 }
 
+void __fastcall sco_non_league_promotion(BYTE* _this)
+{
+	vector<cm3_clubs*> relegated_clubs = get_relegated_teams(SCO_HIGHLAND_9CF());
+
+	comp_stats* comp_data = (comp_stats*)get_loaded_league(SCO_LOWLAND_9CF());
+	comp_stats* curr_stage = comp_data;
+	for (char al = -1; al < 1; al++) {
+		if (al >= 0) {
+			curr_stage = (comp_stats*)(comp_data->stages[al]);
+		}
+		for (WORD num = 0; num < curr_stage->n_teams; num++) {
+			team_league_stats table_pos = ((team_league_stats*)curr_stage->team_league_table)[num];
+			if (table_pos.league_fate == Relegated) {
+				relegated_clubs.push_back(table_pos.club);
+			}
+		}
+	}
+
+	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_SCOTLAND_9CF());
+	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(available_clubs, relegated_clubs.size() - (comp_data->year == 2026 ? 1 : 0), true);
+
+	for (cm3_clubs* c : relegated_clubs) {
+		cm3_club_comps* bottomDivision = get_comp(A_LOWER_9CF());
+		relegate_club_6831A0((BYTE*)c, (DWORD)bottomDivision, 1);
+		c->ClubReserveDivision = 0;
+	}
+
+	for (cm3_clubs* c : promoted_clubs) {
+		cm3_club_comps* topDivision = get_comp(SCO_HIGHLAND_9CF());
+		promote_club_6830B0((BYTE*)c, (DWORD)topDivision, 1);
+	}
+}
+
 char sco_premier_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
@@ -455,12 +450,15 @@ char sco_premier_update(BYTE* _this) {
 		// All teams that were relegated from D5 must be amateur
 		update_club_pro_status_68A980(sco_highland, Amateur, -3, Relegated, 0);
 		update_club_pro_status_68A980(sco_lowland, Amateur, -3, Relegated, 0);
+		comp_stats* sco_lowland_data = (comp_stats*)sco_lowland;
+		BYTE* sco_lowland_grp = (BYTE*)sco_lowland_data->stages[0];
+		update_club_pro_status_68A980(sco_lowland_grp, Amateur, -3, Relegated, 0);
 	}
 
 	DWORD v1 = *(DWORD*)_this;
 	sco_premier_prom_rel_update(_this, 1);
 	if (sco_highland && sco_lowland) {
-		generic_prom_rel(NATION_SCOTLAND_9CF(), A_LOWER_9CF(), SCO_HIGHLAND_9CF(), 1, SCO_LOWLAND_9CF());
+		sco_non_league_promotion(_this);
 	}
 	else {
 		sco_extra_non_playable_swaps(_this);

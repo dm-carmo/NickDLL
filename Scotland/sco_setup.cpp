@@ -7,6 +7,7 @@
 #include "sco_league_2.h"
 #include "sco_highland.h"
 #include "sco_lowland.h"
+#include "sco_pyramid_playoff.h"
 #include "sco_cup.h"
 #include "sco_league_cup.h"
 #include "sco_challenge_cup.h"
@@ -33,7 +34,7 @@ DWORD sco_setup_c(playable_nation_data* nation_data) {
 		nation_data->num_of_comps = 7;
 	}
 	else {
-		nation_data->num_of_comps = 9;
+		nation_data->num_of_comps = 10;
 	}
 	DWORD* nation_comps = (DWORD*)cm0102_malloc(nation_data->num_of_comps * 4);
 	nation_data->comps_list = (DWORD)nation_comps;
@@ -60,8 +61,12 @@ DWORD sco_setup_c(playable_nation_data* nation_data) {
 		sco_highland_init(pMem, *current_year, get_comp(SCO_HIGHLAND_9CF()));
 		nation_comps[i++] = (DWORD)pMem;
 
-		pMem = (BYTE*)cm0102_new(0xEE);
+		pMem = (BYTE*)cm0102_new(0xF2);
 		sco_lowland_init(pMem, *current_year, get_comp(SCO_LOWLAND_9CF()));
+		nation_comps[i++] = (DWORD)pMem;
+
+		pMem = (BYTE*)cm0102_new(0xEE);
+		sco_pyramid_playoff_init(pMem, *current_year, get_comp(SCO_PYRAMID_PLAYOFF_9CF()));
 		nation_comps[i++] = (DWORD)pMem;
 	}
 
@@ -92,6 +97,7 @@ void setup_sco_nation() {
 	setup_sco_league_2();
 	setup_sco_highland();
 	setup_sco_lowland();
+	setup_sco_pyramid_playoff();
 	setup_sco_cup();
 	setup_sco_league_cup();
 	setup_sco_challenge_cup();

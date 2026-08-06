@@ -89,6 +89,51 @@ int sco_highland_subs(BYTE* _this)
 	return 1;
 }
 
+int sco_highland_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
+	comp_stats* comp_data = (comp_stats*)_this;
+	cm3_club_comps* sco_playoff = get_comp(SCO_PYRAMID_PLAYOFF_9CF());
+	if (stage < 0) {
+		switch (fate) {
+		case Champions:
+			staff_history_champion_868C50(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));
+			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)sco_playoff, None, None, 0x1E);
+			return 0;
+		case Promoted:
+			staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), 0x64);
+			return 0;
+		case TopPlayoff:
+			return 0;
+		case BottomPlayoff:
+			return 0;
+		case Relegated:
+			staff_history_relegated_86A1C0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));
+			return 0;
+		default:
+			return 0;
+		}
+	}
+	return 0;
+}
+
+void __declspec(naked) sco_highland_set_table_fate()
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x18]
+		push dword ptr[eax + 0x14]
+		push dword ptr[eax + 0x10]
+		push dword ptr[eax + 0xC]
+		push dword ptr[eax + 0x8]
+		push dword ptr[eax + 0x4]
+		push ecx
+		call sco_highland_set_fates
+		add esp, 0x1c
+		ret 0x18
+	}
+}
+
 DWORD sco_highland_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
 {
 	if (stage_idx == -1) {
@@ -244,6 +289,7 @@ void sco_highland_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	sco_highland_vtable->SetPointer(VTableEoSUpdate, (DWORD)&sco_highland_update_c);
 	sco_highland_vtable->SetPointer(VTableFixtures, (DWORD)&sco_highland_fixtures_c);
 	sco_highland_vtable->SetPointer(VTableSubsRounds, (DWORD)&sco_highland_subs_c);
+	sco_highland_vtable->SetPointer(VTableTableFates, (DWORD)&sco_highland_set_table_fate);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) sco_highland_vtable->SetPointer(VTable21, 0x4110b0);
 	data->year = year;
 	data->rules = RulesScotlandLeague;
