@@ -295,8 +295,8 @@ void swe_third_setup_groups(BYTE* _this, BYTE idx) {
 	}
 	WORD year = data->year;
 	BYTE* pStage = (BYTE*)cm0102_new(0xEE);
-	create_league_stage_data(pStage, _this, 14, pTeams, 2, (DWORD)(data->competition_db), pFixtures, num_rounds,
-		data->pts_for_win, data->pts_for_draw, data->f196, (BYTE*)(_this + 0xC5), (BYTE*)(_this + 0xBE),
+	create_league_stage_data(pStage, _this, data->n_teams, pTeams, data->n_rounds, (DWORD)(data->competition_db), pFixtures, num_rounds,
+		data->pts_for_win, data->pts_for_draw, data->f196, &data->tiebreaker_1, &data->promotions,
 		year, idx, stage_name_id, data->f81, 1, 0, data->f217, -1, 0, 2);
 	DWORD* stages_arr = data->stages;
 	*((DWORD*)(&stages_arr[idx])) = (DWORD)pStage;
@@ -475,12 +475,12 @@ void swe_third_playoffs_prom(BYTE* _this) {
 	char stage_num = 5;
 	DWORD v1 = *(DWORD*)_this;
 
-	comp_stats* comp_data = (comp_stats*)_this;
-	DWORD* stages_arr = comp_data->stages;
+	comp_stats* data = (comp_stats*)_this;
+	DWORD* stages_arr = data->stages;
 	BYTE playoff_teams = 3;
 
-	comp_stats* curr_stage = comp_data;
-	BYTE prom_rel[4] = { 0, 1, 0, 0 };
+	comp_stats* curr_stage = data;
+	char prom_rel[4] = { 0, 1, 0, 0 };
 
 	for (char g = 0; g < 2; g++) {
 		vector<cm3_clubs*> clubs;
@@ -492,7 +492,7 @@ void swe_third_playoffs_prom(BYTE* _this) {
 		char start_al = (-1 + 3 * g);
 		for (char al = start_al; al < start_al + 3; al++) {
 			if (al >= 0) {
-				curr_stage = (comp_stats*)(comp_data->stages[al]);
+				curr_stage = (comp_stats*)(data->stages[al]);
 			}
 			WORD total_teams = curr_stage->n_teams;
 			team_league_stats* table_teams = (team_league_stats*)(curr_stage->team_league_table);
@@ -508,18 +508,18 @@ void swe_third_playoffs_prom(BYTE* _this) {
 			*((DWORD*)(&pTeams[i])) = (DWORD)clubs[i];
 		}
 
-		WORD year = comp_data->year;
+		WORD year = data->year;
 		BYTE* pStage = (BYTE*)cm0102_new(0xEE);
-		create_league_stage_data(pStage, _this, playoff_teams, pTeams, 1, (DWORD)(comp_data->competition_db), pFixtures, num_rounds,
-			comp_data->pts_for_win, comp_data->pts_for_draw, comp_data->f196, (BYTE*)(_this + 0xC5), &prom_rel[0],
-			year, stage_num, stage_name_id, 0x14, 1, 0, comp_data->f217, -1, 0, 2);
+		create_league_stage_data(pStage, _this, playoff_teams, pTeams, 1, (DWORD)(data->competition_db), pFixtures, num_rounds,
+			data->pts_for_win, data->pts_for_draw, data->f196, &data->tiebreaker_1, &prom_rel[0],
+			year, stage_num, stage_name_id, 0x14, 1, 0, data->f217, -1, 0, 2);
 		*((DWORD*)(&stages_arr[stage_num])) = (DWORD)pStage;
 
 		sub_9452CA_free(pTeams);
 		sub_9452CA_free(pFixtures);
 		stage_num++;
 	}
-	comp_data->current_stage = stage_num - 1;
+	data->current_stage = stage_num - 1;
 }
 
 void swe_third_playoffs_rele(BYTE* _this) {

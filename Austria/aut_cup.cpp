@@ -9,7 +9,7 @@ vtable* aut_cup_vtable = new vtable((BYTE*)0x96E650, 0xA0);
 
 void aut_cup_free_under(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
-	data->comp_vtable = (DWORD*)aut_cup_vtable->vtable_ptr;
+	data->comp_vtable = (DWORD*)(aut_cup_vtable->vtable_ptr);
 	DWORD x = 0;
 	if (data->teams_list) {
 		sub_9452CA_free(data->teams_list);

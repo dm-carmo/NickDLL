@@ -58,14 +58,13 @@ static BYTE* (__thiscall* create_cup_stage_data)(BYTE* _this, BYTE* main_comp, _
 	(BYTE * (__thiscall*)(BYTE * _this, BYTE * main_comp, __int16 n_teams, DWORD * teamsPtr, __int16 n_rounds, int comp_id, const void* fixturesPtr,
 		__int16 year, char stage_num, char a10, __int16 stage_name_id, char a12, int a13, int a14, int a15, BYTE * a16))(0x522E00);
 static BYTE* (__thiscall* create_league_stage_data)(BYTE* _this, BYTE* main_comp, __int16 n_teams, DWORD* teamsPtr, __int16 n_rounds, int comp_id, const void* fixturesPtr,
-	__int16 num_fixtures, char pts_for_win, char pts_for_draw, char a11, BYTE* tiebreaks_addr, BYTE* prom_rel_addr, __int16 year, char stage_num,
+	__int16 num_fixtures, char pts_for_win, char pts_for_draw, char a11, char* tiebreaks_addr, char* prom_rel_addr, __int16 year, char stage_num,
 	__int16 stage_name_id, char a17, char a18, __int16 a19, __int16 a20, __int16 a21, int a22, char a23) =
 	(BYTE * (__thiscall*)(BYTE * _this, BYTE * main_comp, __int16 n_teams, DWORD * teamsPtr, __int16 n_rounds, int comp_id, const void* fixturesPtr,
-		__int16 num_fixtures, char pts_for_win, char pts_for_draw, char a11, BYTE * tiebreaks_addr, BYTE * prom_rel_addr, __int16 year, char stage_num,
+		__int16 num_fixtures, char pts_for_win, char pts_for_draw, char a11, char* tiebreaks_addr, char* prom_rel_addr, __int16 year, char stage_num,
 		__int16 stage_name_id, char a17, char a18, __int16 a19, __int16 a20, __int16 a21, int a22, char a23))(0x68B100);
-//char *__thiscall sub_88C6D0(char *this, __int16 a2, int a3, int a4, int a5, int a6, int a7, int a8, char a9, char a10, int a11, int a12, int a13)
-static BYTE* (__thiscall* sub_88C6D0)(BYTE* _this, WORD n_teams, DWORD* teamsPtr, int a4, int a5, WORD* a6, WORD* a7, DWORD comp_id, char pts_for_win, char pts_for_draw, BYTE* tiebreaks_addr, int a12, DWORD a13) =
-(BYTE * (__thiscall*)(BYTE * _this, WORD n_teams, DWORD * teamsPtr, int a4, int a5, WORD * a6, WORD * a7, DWORD comp_id, char pts_for_win, char pts_for_draw, BYTE * tiebreaks_addr, int a12, DWORD  a13))(0x88C6D0);
+static BYTE* (__thiscall* sub_88C6D0)(BYTE* _this, WORD n_teams, DWORD* teamsPtr, int a4, int a5, WORD* a6, WORD* a7, DWORD comp_id, char pts_for_win, char pts_for_draw, char* tiebreaks_addr, int a12, DWORD a13) =
+(BYTE * (__thiscall*)(BYTE * _this, WORD n_teams, DWORD * teamsPtr, int a4, int a5, WORD * a6, WORD * a7, DWORD comp_id, char pts_for_win, char pts_for_draw, char* tiebreaks_addr, int a12, DWORD  a13))(0x88C6D0);
 
 static void(__thiscall* sub_4A2540)(BYTE* _this, cm3_clubs* club, char a3) =
 (void(__thiscall*)(BYTE * _this, cm3_clubs * club, char a3))(0x4A2540);

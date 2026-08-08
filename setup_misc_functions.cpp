@@ -1418,6 +1418,9 @@ void setup_misc_functions()
 		PatchFunction(0x7abd90, (DWORD)&brazil_regens_common_names_3);
 	}
 
+	// hide history button for certain comps -> set VTable21 to 0x48ce70
+	WriteBytes(0x4901c7, 12, 0x8B, 0x45, 0x00, 0xFF, 0x50, 0x50, 0x3C, 0x00, 0x90, 0x90, 0x90, 0x90);
+
 	// Show the hidden wing-back position
 	if (configFile.GetBool("showWingBacks", false)) {
 		PatchFunction(0x53f2cd, (DWORD)&show_wing_back_position);
@@ -1473,6 +1476,11 @@ void setup_misc_functions()
 	}
 	WriteBytes(0x5cb872 + 1, 1, 28);
 	WriteBytes(0x5cb8b7 + 1, 1, 28);
+
+	// Fix hosts not syncing after some comps changed their year frequency
+	WriteBytes(0x5F9EDB + 3, 1, 32);
+	WriteBytes(0x5FA1A2 + 3, 1, 32);
+	WriteBytes(0x5FA44F + 3, 1, 32);
 
 	// Change player search filters
 	if (configFile.GetBool("changePlayerSearchFilters", true)) {
@@ -1621,6 +1629,41 @@ void setup_misc_functions()
 	WriteNOP(0x88bcc9, 10);
 	WriteBytes(0x88bcc9, 2, 0x66, 0xa1);
 	WriteDWORD(0x88bccb, titlebar_bg_hex);
+	// fix send message menu
+	WriteNOP(0x7899d1, 10);
+	WriteBytes(0x7899d1, 2, 0x66, 0xa1);
+	WriteDWORD(0x7899d3, titlebar_fg_hex);
+	WriteNOP(0x7899dc, 10);
+	WriteBytes(0x7899dc, 2, 0x66, 0xa1);
+	WriteDWORD(0x7899de, titlebar_bg_hex);
+	// fix manager chat menu
+	WriteNOP(0x76558a, 10);
+	WriteBytes(0x76558a, 2, 0x66, 0xa1);
+	WriteDWORD(0x76558c, titlebar_fg_hex);
+	WriteNOP(0x765595, 10);
+	WriteBytes(0x765595, 2, 0x66, 0xa1);
+	WriteDWORD(0x765597, titlebar_bg_hex);
+	// fix go on holiday menu
+	WriteNOP(0x6b2e1d, 10);
+	WriteBytes(0x6b2e1d, 2, 0x66, 0xa1);
+	WriteDWORD(0x6b2e1f, titlebar_fg_hex);
+	WriteNOP(0x6b2e28, 10);
+	WriteBytes(0x6b2e28, 2, 0x66, 0xa1);
+	WriteDWORD(0x6b2e2a, titlebar_bg_hex);
+	// fix restart game menu - backwards
+	WriteNOP(0x7642c8, 9);
+	WriteBytes(0x7642c8, 2, 0x66, 0xa1);
+	WriteDWORD(0x7642ca, titlebar_bg_hex);
+	WriteNOP(0x7642d2, 10);
+	WriteBytes(0x7642d2, 2, 0x66, 0xa1);
+	WriteDWORD(0x7642d4, titlebar_fg_hex);
+	// fix exit game menu - backwards
+	WriteNOP(0x764371, 9);
+	WriteBytes(0x764371, 2, 0x66, 0xa1);
+	WriteDWORD(0x764373, titlebar_bg_hex);
+	WriteNOP(0x76437b, 10);
+	WriteBytes(0x76437b, 2, 0x66, 0xa1);
+	WriteDWORD(0x76437d, titlebar_fg_hex);
 	// fix save game menu - backwards
 	WriteNOP(0x763f5e, 1);
 	WriteNOP(0x763f64, 8);
@@ -1629,6 +1672,22 @@ void setup_misc_functions()
 	WriteNOP(0x763f6d, 10);
 	WriteBytes(0x763f6d, 2, 0x66, 0xa1);
 	WriteDWORD(0x763f6f, titlebar_fg_hex);
+	// fix save before exit menu - backwards
+	WriteNOP(0x762bf1, 1);
+	WriteNOP(0x762bfb, 8);
+	WriteBytes(0x762bfb, 2, 0x66, 0xa1);
+	WriteDWORD(0x762bfd, titlebar_bg_hex);
+	WriteNOP(0x762c04, 10);
+	WriteBytes(0x762c04, 2, 0x66, 0xa1);
+	WriteDWORD(0x762c06, titlebar_fg_hex);
+	// fix save before restart menu - backwards
+	WriteNOP(0x762a44, 1);
+	WriteNOP(0x762a4a, 8);
+	WriteBytes(0x762a4a, 2, 0x66, 0xa1);
+	WriteDWORD(0x762a4c, titlebar_bg_hex);
+	WriteNOP(0x762a53, 10);
+	WriteBytes(0x762a53, 2, 0x66, 0xa1);
+	WriteDWORD(0x762a55, titlebar_fg_hex);
 	// fix auto save game menu - backwards
 	WriteNOP(0x761722, 1);
 	WriteNOP(0x761728, 8);

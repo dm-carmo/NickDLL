@@ -447,7 +447,7 @@ void world_cup_quals_concacaf_best_placed_update(BYTE* _this) {
 			*((DWORD*)(&pMem[i])) = table_teams[i].club->ClubID;
 		}
 		BYTE* pStage = (BYTE*)cm0102_new(0xEE);
-		sub_88C6D0(pStage, num_teams, pMem, -1, -1, start_date, end_date, data->competition_db->ClubCompID, 3, 1, (BYTE*)(first_group_bytes + 0xC5), 9 * (num_teams * (num_teams - 1)), data->f16);
+		sub_88C6D0(pStage, num_teams, pMem, -1, -1, start_date, end_date, data->competition_db->ClubCompID, 3, 1, &first_group_data->tiebreaker_1, 9 * (num_teams * (num_teams - 1)), data->f16);
 		comp_stats* stage_data = (comp_stats*)pStage;
 		table_teams = (team_league_stats*)stage_data->team_league_table;
 		WORD chk = 0;
@@ -475,7 +475,7 @@ void world_cup_quals_concacaf_setup_best_placed(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	WORD year = data->year;
 	BYTE* pStage = (BYTE*)cm0102_new(0xEE);
-	BYTE prom_rel[4] = { 0, 2, 0, 0 };
+	char prom_rel[4] = { 0, 2, 0, 0 };
 
 	if (num_hosts == 1)
 	{
@@ -489,7 +489,7 @@ void world_cup_quals_concacaf_setup_best_placed(BYTE* _this) {
 		prom_rel[2] = 2;
 	}
 
-	BYTE tiebreaks[4] = { GoalDifferenceTiebreaker, GoalsForTiebreaker, GoalsForAwayTiebreaker, NoTiebreaker };
+	char tiebreaks[4] = { GoalDifferenceTiebreaker, GoalsForTiebreaker, GoalsForAwayTiebreaker, NoTiebreaker };
 	create_league_stage_data(pStage, _this, 3, 0, 0, (DWORD)(data->competition_db), 0, 0, 3, 1, 10, &tiebreaks[0], &prom_rel[0],
 		year, stage_num, BestPlacedTeams, 0, 1, 0, 0x28, -1, 0, 2);
 	DWORD* stages_arr = data->stages;
@@ -505,8 +505,8 @@ void world_cup_quals_concacaf_second_stage_setup(BYTE* _this) {
 	comp_stats* comp_data = (comp_stats*)_this;
 	DWORD* stages_arr = comp_data->stages;
 
-	BYTE prom_rel[4] = { 2, 0, 0, 0 };
-	BYTE tiebreaks[4] = { GoalDifferenceTiebreaker, GoalsForTiebreaker, CurrentPositionTiebreaker, GoalsForAwayTiebreaker };
+	char prom_rel[4] = { 2, 0, 0, 0 };
+	char tiebreaks[4] = { GoalDifferenceTiebreaker, GoalsForTiebreaker, CurrentPositionTiebreaker, GoalsForAwayTiebreaker };
 
 	vector<cm3_clubs*> clubs;
 	teams_seeded* teams = (teams_seeded*)comp_data->special_teams_seedings;
@@ -555,10 +555,10 @@ void world_cup_quals_concacaf_third_stage_setup(BYTE* _this) {
 	comp_stats* comp_data = (comp_stats*)_this;
 	DWORD* stages_arr = comp_data->stages;
 
-	BYTE prom_rel[4] = { 2, 1, 0, 0 };
+	char prom_rel[4] = { 2, 1, 0, 0 };
 	if (num_hosts > 0) prom_rel[0] = 1;
 	if (num_hosts == 1) prom_rel[1] = 2;
-	BYTE tiebreaks[4] = { GoalDifferenceTiebreaker, GoalsForTiebreaker, CurrentPositionTiebreaker, GoalsForAwayTiebreaker };
+	char tiebreaks[4] = { GoalDifferenceTiebreaker, GoalsForTiebreaker, CurrentPositionTiebreaker, GoalsForAwayTiebreaker };
 
 	vector<cm3_clubs*> clubs;
 	for (char al = 0; al < 6; al++) {
@@ -701,11 +701,9 @@ void world_cup_quals_concacaf_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->current_stage = -1;
 	data->num_stages = 11;
 	data->stages = (DWORD*)cm0102_malloc(data->num_stages * 4);
-	for (int i = 0; i < data->num_stages; i++) data->stages[i] = 0;
 
 	data->n_teams = 22;
 	BYTE* pMem = (BYTE*)cm0102_malloc(6 * data->n_teams);
-	for (int i = 0; i < 6 * data->n_teams; i++) pMem[i] = 0;
 	data->teams_list = (DWORD*)pMem;
 
 	DWORD v1 = *(DWORD*)_this;

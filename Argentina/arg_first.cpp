@@ -252,21 +252,20 @@ void arg_first_setup_groups_open(BYTE* _this, BYTE idx) {
 	DWORD v1 = *(DWORD*)_this;
 	WORD num_rounds = 0;
 	WORD stage_name_id = 0;
-	WORD n_teams = 15;
 	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, int, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, idx, &num_rounds, &stage_name_id, 0);
 	comp_stats* data = (comp_stats*)_this;
-	DWORD* pTeams = (DWORD*)cm0102_malloc(n_teams * 4);
+	DWORD* pTeams = (DWORD*)cm0102_malloc(data->n_teams * 4);
 
 	DWORD* all_teams = data->teams2;
-	for (DWORD i = 0; i < n_teams; i++)
+	for (DWORD i = 0; i < data->n_teams; i++)
 	{
-		cm3_clubs* club = (cm3_clubs*)all_teams[n_teams * ((idx + 1) / 2) + i];
+		cm3_clubs* club = (cm3_clubs*)all_teams[data->n_teams * ((idx + 1) / 2) + i];
 		*((DWORD*)(&pTeams[i])) = (DWORD)club;
 	}
 	WORD year = data->year;
 	BYTE* pStage = (BYTE*)cm0102_new(0xEE);
-	create_league_stage_data(pStage, _this, n_teams, pTeams, 1, (DWORD)(data->competition_db), pFixtures, num_rounds,
-		data->pts_for_win, data->pts_for_draw, data->f196, (BYTE*)(_this + 0xC5), (BYTE*)(_this + 0xBE),
+	create_league_stage_data(pStage, _this, data->n_teams, pTeams, data->n_rounds, (DWORD)(data->competition_db), pFixtures, num_rounds,
+		data->pts_for_win, data->pts_for_draw, data->f196, &data->tiebreaker_1, &data->promotions,
 		year, idx, stage_name_id, data->f81, 1, 0, data->f217, -1, 0, 2);
 	DWORD* stages_arr = data->stages;
 	*((DWORD*)(&stages_arr[idx])) = (DWORD)pStage;
@@ -279,21 +278,20 @@ void arg_first_setup_groups_close(BYTE* _this, BYTE idx) {
 	DWORD v1 = *(DWORD*)_this;
 	WORD num_rounds = 0;
 	WORD stage_name_id = 0;
-	WORD n_teams = 15;
 	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, int, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, idx, &num_rounds, &stage_name_id, 0);
 	comp_stats* data = (comp_stats*)_this;
-	DWORD* pTeams = (DWORD*)cm0102_malloc(n_teams * 4);
+	DWORD* pTeams = (DWORD*)cm0102_malloc(data->n_teams * 4);
 
 	DWORD* all_teams = data->teams2;
-	for (DWORD i = 0; i < n_teams; i++)
+	for (DWORD i = 0; i < data->n_teams; i++)
 	{
-		cm3_clubs* club = (cm3_clubs*)all_teams[n_teams * (idx / 2) + i];
+		cm3_clubs* club = (cm3_clubs*)all_teams[data->n_teams * (idx / 2) + i];
 		*((DWORD*)(&pTeams[i])) = (DWORD)club;
 	}
 	WORD year = data->year;
 	BYTE* pStage = (BYTE*)cm0102_new(0xEE);
-	create_league_stage_data(pStage, _this, n_teams, pTeams, 1, (DWORD)(data->competition_db), pFixtures, num_rounds,
-		data->pts_for_win, data->pts_for_draw, data->f196, (BYTE*)(_this + 0xC5), (BYTE*)(_this + 0xBE),
+	create_league_stage_data(pStage, _this, data->n_teams, pTeams, data->n_rounds, (DWORD)(data->competition_db), pFixtures, num_rounds,
+		data->pts_for_win, data->pts_for_draw, data->f196, &data->tiebreaker_1, &data->promotions,
 		year, idx, stage_name_id, data->f81, 1, 0, data->f217, -1, 0, 2);
 	DWORD* stages_arr = data->stages;
 	*((DWORD*)(&stages_arr[idx])) = (DWORD)pStage;
@@ -318,10 +316,10 @@ void arg_first_league_table(BYTE* _this) {
 	}
 	WORD year = data->year;
 	BYTE* pStage = (BYTE*)cm0102_new(0xEE);
-	BYTE prom_rel[4] = { 0, 0, 0, 0 };
+	char prom_rel[4] = { 0, 0, 0, 0 };
 	short f217 = 0;
 	create_league_stage_data(pStage, _this, (short)data->n_teams2, pTeams, 0, (DWORD)(data->competition_db), pFixtures, 28,
-		data->pts_for_win, data->pts_for_draw, data->f196, (BYTE*)(_this + 0xC5), &prom_rel[0],
+		data->pts_for_win, data->pts_for_draw, data->f196, &data->tiebreaker_1, &prom_rel[0],
 		year, idx, stage_name_id, data->f81, 1, 0, f217, -1, 0, data->f225);
 	DWORD* stages_arr = data->stages;
 	*((DWORD*)(&stages_arr[idx])) = (DWORD)pStage;

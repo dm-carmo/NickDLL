@@ -373,12 +373,12 @@ void hol_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 }
 
 void __fastcall hol_second_create_periods(BYTE* _this, char stage_idx) {
-	comp_stats* comp_data = (comp_stats*)_this;
-	DWORD* pTeams = (DWORD*)cm0102_malloc(comp_data->n_teams * 4);
-	BYTE prom_rel[4] = { 0, 1, 0, 0 };
+	comp_stats* data = (comp_stats*)_this;
+	DWORD* pTeams = (DWORD*)cm0102_malloc(data->n_teams * 4);
+	char prom_rel[4] = { 0, 1, 0, 0 };
 
-	team_league_stats* table_teams = (team_league_stats*)(comp_data->team_league_table);
-	for (WORD i = 0; i < comp_data->n_teams; i++) {
+	team_league_stats* table_teams = (team_league_stats*)(data->team_league_table);
+	for (WORD i = 0; i < data->n_teams; i++) {
 		*((DWORD*)(&pTeams[i])) = (DWORD)table_teams[i].club;
 	}
 
@@ -388,18 +388,18 @@ void __fastcall hol_second_create_periods(BYTE* _this, char stage_idx) {
 	if (stage_idx >= 2 && stage_idx < 4) num_rounds = 9;
 
 	BYTE* pStage = (BYTE*)cm0102_new(0xEE);
-	create_league_stage_data(pStage, _this, comp_data->n_teams, pTeams, 1, (DWORD)(comp_data->competition_db), 0, 0,
-		comp_data->pts_for_win, comp_data->pts_for_draw, comp_data->f196, (BYTE*)(_this + 0xC5), &prom_rel[0],
-		comp_data->year, stage_idx, stage_name_id, 0, 1, 0, 0x22, num_rounds, 0, 2);
-	DWORD* stages_arr = comp_data->stages;
+	create_league_stage_data(pStage, _this, data->n_teams, pTeams, 1, (DWORD)(data->competition_db), 0, 0,
+		data->pts_for_win, data->pts_for_draw, data->f196, &data->tiebreaker_1, &prom_rel[0],
+		data->year, stage_idx, stage_name_id, 0, 1, 0, 0x22, num_rounds, 0, 2);
+	DWORD* stages_arr = data->stages;
 	*((DWORD*)(&stages_arr[stage_idx])) = (DWORD)pStage;
 
 	comp_stats* period_data = (comp_stats*)pStage;
-	for (WORD i = 0; i < comp_data->n_teams; i++) {
+	for (WORD i = 0; i < data->n_teams; i++) {
 		team_league_stats tls = table_teams[i];
 		if (tls.league_fate != NoFate) {
 			team_league_stats* period_table = (team_league_stats*)(period_data->team_league_table);
-			for (WORD j = 0; j < comp_data->n_teams; j++) {
+			for (WORD j = 0; j < data->n_teams; j++) {
 				team_league_stats period_tls = period_table[j];
 				if (tls.club == period_tls.club) {
 					period_table[j].league_fate = Eliminated;
@@ -408,7 +408,7 @@ void __fastcall hol_second_create_periods(BYTE* _this, char stage_idx) {
 		}
 	}
 
-	comp_data->current_stage = stage_idx;
+	data->current_stage = stage_idx;
 }
 
 int hol_second_vtable2(BYTE* _this, BYTE* round_data, int a3) {

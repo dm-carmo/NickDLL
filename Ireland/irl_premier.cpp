@@ -73,6 +73,39 @@ void __declspec(naked) irl_premier_prom_rel_update_c()
 	}
 }
 
+void __fastcall irl_first_relegation()
+{
+	cm3_clubs* relegate = 0;
+	BYTE* comp_bytes = get_loaded_league(IRL_FIRST_9CF());
+	comp_stats* comp_data = (comp_stats*)comp_bytes;
+	for (WORD num = 0; num < comp_data->n_teams; num++) {
+		team_league_stats table_pos = ((team_league_stats*)comp_data->team_league_table)[num];
+		if (table_pos.league_fate == Relegated) {
+			relegate = table_pos.club;
+			break;
+		}
+	}
+
+	cm3_clubs* promote = 0;
+	comp_stats* playoff_stage = (comp_stats*)comp_data->stages[1];
+	WORD promoted_teams = 0;
+	for (WORD i = 0; i < playoff_stage->n_teams; i++) {
+		teams_seeded t = ((teams_seeded*)playoff_stage->teams_list)[i];
+		if (t.f6 == 1) {
+			if (t.club->ClubDivision && t.club->ClubDivision != comp_data->competition_db) {
+				promote = t.club;
+				break;
+			}
+		}
+	}
+
+	if (promote && relegate) {
+		cm3_club_comps* relegate_to = promote->ClubDivision;
+		promote_club_6830B0((BYTE*)promote, (DWORD)comp_data->competition_db, 1);
+		relegate_club_6831A0((BYTE*)relegate, (DWORD)relegate_to, 1);
+	}
+}
+
 char irl_premier_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* ebx = 0;
@@ -90,6 +123,7 @@ char irl_premier_update(BYTE* _this) {
 	update_club_pro_status_68A980(_this, SemiProfessional, -3, Relegated, 0);
 
 	irl_premier_prom_rel_update(_this, 1);
+	if (data->year > 2026) irl_first_relegation();
 
 	sub_687970(_this, ebx);
 	if (data->fixtures_table) {

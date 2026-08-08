@@ -255,6 +255,7 @@
     <ClCompile Include="Finland\fin_awards.cpp" />
     <ClCompile Include="Finland\fin_cup.cpp" />
     <ClCompile Include="Finland\fin_first.cpp" />
+    <ClCompile Include="Finland\fin_league_cup.cpp" />
     <ClCompile Include="Finland\fin_premier.cpp" />
     <ClCompile Include="Finland\fin_second.cpp" />
     <ClCompile Include="Finland\fin_setup.cpp" />
@@ -294,6 +295,7 @@
     <ClCompile Include="Ireland\irl_first.cpp" />
     <ClCompile Include="Ireland\irl_premier.cpp" />
     <ClCompile Include="Ireland\irl_presidents.cpp" />
+    <ClCompile Include="Ireland\irl_second.cpp" />
     <ClCompile Include="Ireland\irl_setup.cpp" />
     <ClCompile Include="Italy\ita_awards.cpp" />
     <ClCompile Include="Italy\ita_cup.cpp" />
@@ -547,6 +549,7 @@
     <ClInclude Include="Finland\fin_awards.h" />
     <ClInclude Include="Finland\fin_cup.h" />
     <ClInclude Include="Finland\fin_first.h" />
+    <ClInclude Include="Finland\fin_league_cup.h" />
     <ClInclude Include="Finland\fin_premier.h" />
     <ClInclude Include="Finland\fin_second.h" />
     <ClInclude Include="Finland\fin_setup.h" />
@@ -587,6 +590,7 @@
     <ClInclude Include="Ireland\irl_first.h" />
     <ClInclude Include="Ireland\irl_premier.h" />
     <ClInclude Include="Ireland\irl_presidents.h" />
+    <ClInclude Include="Ireland\irl_second.h" />
     <ClInclude Include="Ireland\irl_setup.h" />
     <ClInclude Include="Italy\ita_awards.h" />
     <ClInclude Include="Italy\ita_cup.h" />

@@ -288,8 +288,7 @@ void world_cup_quals_conmebol_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->f217 = 0x28;
 	data->current_stage = -1;
 	data->num_stages = 0;
-	//data->stages = (DWORD*)cm0102_malloc(data->num_stages * 4);
-	//world_cup_quals_conmebol_subs(_this);
+	world_cup_quals_conmebol_subs(_this);
 	BYTE* ebx = 0;
 	BYTE* pMem2 = (BYTE*)cm0102_new(0x5CE);
 	BYTE unk1 = 1;

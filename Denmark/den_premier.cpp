@@ -440,10 +440,10 @@ void den_premier_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 }
 
 void den_premier_split_under(BYTE* _this) {
-	comp_stats* comp_data = (comp_stats*)_this;
+	comp_stats* data = (comp_stats*)_this;
 	BYTE playoff_teams = 6;
-	WORD total_teams = comp_data->n_teams;
-	team_league_stats* table_teams = (team_league_stats*)(comp_data->team_league_table);
+	WORD total_teams = data->n_teams;
+	team_league_stats* table_teams = (team_league_stats*)(data->team_league_table);
 
 	DWORD* pTeams = (DWORD*)cm0102_malloc(playoff_teams * 4);
 	for (int i = 0; i < 6; i++) {
@@ -455,11 +455,11 @@ void den_premier_split_under(BYTE* _this) {
 	DWORD v0 = *(DWORD*)_this;
 	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, int, WORD*, WORD*, DWORD))(v0 + 0x3C))(_this, 0, &num_rounds, &stage_name_id, 0);
 
-	WORD year = comp_data->year;
+	WORD year = data->year;
 	BYTE* pStage = (BYTE*)cm0102_new(0xEE);
 	short f217 = 3;
-	create_league_stage_data(pStage, _this, playoff_teams, pTeams, 2, (DWORD)(comp_data->competition_db), pFixtures, num_rounds,
-		comp_data->pts_for_win, comp_data->pts_for_draw, comp_data->f196, (BYTE*)(_this + 0xC5), (BYTE*)(_this + 0xBE),
+	create_league_stage_data(pStage, _this, playoff_teams, pTeams, 2, (DWORD)(data->competition_db), pFixtures, num_rounds,
+		data->pts_for_win, data->pts_for_draw, data->f196, &data->tiebreaker_1, &data->promotions,
 		year, -1, stage_name_id, 0x14, 1, 0, f217, -1, 0, 2);
 	DWORD v1 = *(DWORD*)pStage;
 	(*(int(__thiscall**)(BYTE*, int))(v1))(pStage, 1);
@@ -476,15 +476,15 @@ void den_premier_split_under(BYTE* _this) {
 	BYTE* pFixtures2 = (BYTE*)(*(int(__thiscall**)(BYTE*, int, WORD*, WORD*, DWORD))(v0 + 0x3C))(_this, 1, &num_rounds2, &stage_name_id2, 0);
 
 	BYTE* pStage2 = (BYTE*)cm0102_new(0xEE);
-	create_league_stage_data(pStage2, _this, playoff_teams, pTeams2, 2, (DWORD)(comp_data->competition_db), pFixtures2, num_rounds2,
-		comp_data->pts_for_win, comp_data->pts_for_draw, comp_data->f196, (BYTE*)(_this + 0xC5), (BYTE*)(_this + 0xBE),
+	create_league_stage_data(pStage2, _this, playoff_teams, pTeams2, 2, (DWORD)(data->competition_db), pFixtures2, num_rounds2,
+		data->pts_for_win, data->pts_for_draw, data->f196, &data->tiebreaker_1, &data->promotions,
 		year, -1, stage_name_id2, 0x14, 1, 0, f217, -1, 0, 2);
 	DWORD v2 = *(DWORD*)pStage2;
 	(*(int(__thiscall**)(BYTE*, int))(v2))(pStage2, 1);
 	sub_9452CA_free(pTeams2);
 	sub_9452CA_free(pFixtures2);
 
-	comp_data->n_rounds = 4;
+	data->n_rounds = 4;
 	*((DWORD*)(_this + 0xA3)) = (DWORD)&den_premier_7F3220;
 }
 

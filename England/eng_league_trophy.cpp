@@ -209,7 +209,6 @@ DWORD eng_league_trophy_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, 
 		*stage_name_id = None;
 
 		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
-		for (int i = 0; i < playoff_dates_sz * (*num_rounds); i++) pMem[i] = 0;
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 12), year, Wednesday);
@@ -428,18 +427,17 @@ void eng_league_trophy_setup_groups(BYTE* _this, BYTE idx) {
 	WORD stage_name_id = 0;
 	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, int, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, idx, &num_rounds, &stage_name_id, 0);
 	comp_stats* data = (comp_stats*)_this;
-	WORD total_teams = 4;
-	DWORD* pTeams = (DWORD*)cm0102_malloc(total_teams * 4);
+	DWORD* pTeams = (DWORD*)cm0102_malloc(data->n_teams * 4);
 
 	DWORD* teams = data->teams2;
 	BYTE teamsAdded = 0;
-	for (WORD i = 0; i < total_teams; i++)
+	for (WORD i = 0; i < data->n_teams; i++)
 		*((DWORD*)(&pTeams[teamsAdded++])) = teams[i + 4 * (idx + 1)];
 
 	WORD year = data->year;
 	BYTE* pStage = (BYTE*)cm0102_new(0xEE);
-	create_league_stage_data(pStage, _this, total_teams, pTeams, 1, (DWORD)(data->competition_db), pFixtures, num_rounds,
-		data->pts_for_win, data->pts_for_draw, data->f196, (BYTE*)(_this + 0xC5), (BYTE*)(_this + 0xBE),
+	create_league_stage_data(pStage, _this, data->n_teams, pTeams, data->n_rounds, (DWORD)(data->competition_db), pFixtures, num_rounds,
+		data->pts_for_win, data->pts_for_draw, data->f196, &data->tiebreaker_1, &data->promotions,
 		year, idx, stage_name_id, data->f81, 2, 0, data->f217, -1, 0, 2);
 	DWORD* stages_arr = data->stages;
 	*((DWORD*)(&stages_arr[idx])) = (DWORD)pStage;

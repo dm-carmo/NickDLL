@@ -18,34 +18,35 @@ int irl_cup_teams(BYTE* _this) {
 
 	teams_seeded* teams = (teams_seeded*)comp_data->teams_list;
 	// Lower
-	vector<cm3_clubs*> division_clubs = find_clubs_of_comp(IRL_MUNSTER_LEAGUE_9CF());
-	vector<cm3_clubs*> division_clubs2 = find_clubs_of_comp(IRL_LEINSTER_LEAGUE_9CF());
-	move(division_clubs2.begin(), division_clubs2.end(), back_inserter(division_clubs));
-	division_clubs2 = find_clubs_of_comp(IRL_ULSTER_LEAGUE_9CF());
-	move(division_clubs2.begin(), division_clubs2.end(), back_inserter(division_clubs));
-	division_clubs2 = find_clubs_of_comp(IRL_CONNACHT_LEAGUE_9CF());
-	move(division_clubs2.begin(), division_clubs2.end(), back_inserter(division_clubs));
-	division_clubs2 = find_clubs_of_comp(A_LOWER_9CF(), NATION_IRELAND_9CF());
-	move(division_clubs2.begin(), division_clubs2.end(), back_inserter(division_clubs));
-	sort(division_clubs.begin(), division_clubs.end(), compareClubRep);
-	for (int i = 0; i < 24; i++)
-	{
-		int availableIdx = rand() % division_clubs.size();
-		cm3_clubs* lower_club = division_clubs[availableIdx];
-
-		vec.push_back(lower_club);
-
-		division_clubs.erase(division_clubs.begin() + availableIdx);
-	}
-	// First
-	division_clubs = find_clubs_of_comp(IRL_FIRST_9CF());
+	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(IRL_MUNSTER_LEAGUE_9CF());
+	vector<cm3_clubs*> lower_clubs2 = find_clubs_of_comp(IRL_LEINSTER_LEAGUE_9CF());
+	move(lower_clubs2.begin(), lower_clubs2.end(), back_inserter(lower_clubs));
+	lower_clubs2 = find_clubs_of_comp(IRL_ULSTER_LEAGUE_9CF());
+	move(lower_clubs2.begin(), lower_clubs2.end(), back_inserter(lower_clubs));
+	lower_clubs2 = find_clubs_of_comp(IRL_CONNACHT_LEAGUE_9CF());
+	move(lower_clubs2.begin(), lower_clubs2.end(), back_inserter(lower_clubs));
+	lower_clubs2 = find_clubs_of_comp(A_LOWER_9CF(), NATION_IRELAND_9CF());
+	move(lower_clubs2.begin(), lower_clubs2.end(), back_inserter(lower_clubs));
+	vector<cm3_clubs*> division_clubs = get_random_weighted_clubs(lower_clubs, 9, true);
 	for (cm3_clubs* club : division_clubs)
 	{
 		vec.push_back(club);
 	}
+	// National
+	lower_clubs = find_clubs_of_comp(IRL_NATIONAL_LEAGUE_9CF());
+	for (cm3_clubs* club : lower_clubs)
+	{
+		vec.push_back(club);
+	}
+	// First
+	lower_clubs = find_clubs_of_comp(IRL_FIRST_9CF());
+	for (cm3_clubs* club : lower_clubs)
+	{
+		vec.push_back(club);
+	}
 	// Premier
-	division_clubs = find_clubs_of_comp(IRL_PREMIER_9CF());
-	for (cm3_clubs* club : division_clubs)
+	lower_clubs = find_clubs_of_comp(IRL_PREMIER_9CF());
+	for (cm3_clubs* club : lower_clubs)
 	{
 		vec.push_back(club);
 	}

@@ -7,6 +7,7 @@
 #include "fin_second.h"
 #include "fin_third.h"
 #include "fin_cup.h"
+#include "fin_league_cup.h"
 #include "fin_awards.h"
 
 static DWORD(__thiscall* fin_cup_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
@@ -17,8 +18,8 @@ DWORD fin_setup_c(playable_nation_data* nation_data) {
 	sub_54C770((BYTE*)dd6ec8, start_date, 4);
 	WORD start_year = *(WORD*)(start_date + 2);
 
-	nation_data->contract_start_day = 1;
-	nation_data->contract_start_month = March;
+	nation_data->contract_start_day = 15;
+	nation_data->contract_start_month = January;
 	nation_data->contract_start_year = start_year;
 	nation_data->f55 = 5;
 
@@ -28,10 +29,10 @@ DWORD fin_setup_c(playable_nation_data* nation_data) {
 	nation_data->f70 = 6;
 	BYTE selected = nation_data->nation->NationLeagueSelected;
 	if ((selected & 4) == 0) {
-		nation_data->num_of_comps = 4;
+		nation_data->num_of_comps = 5;
 	}
 	else {
-		nation_data->num_of_comps = 5;
+		nation_data->num_of_comps = 6;
 	}
 	DWORD* nation_comps = (DWORD*)cm0102_malloc(nation_data->num_of_comps * 4);
 	nation_data->comps_list = (DWORD)nation_comps;
@@ -59,6 +60,10 @@ DWORD fin_setup_c(playable_nation_data* nation_data) {
 	pMem = (BYTE*)cm0102_new(0xB2);
 	fin_cup_setup(pMem, start_year, get_comp(FIN_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
+	// League Cup
+	pMem = (BYTE*)cm0102_new(0xF6);
+	fin_league_cup_init(pMem, start_year, get_comp(FIN_LEAGUE_CUP_9CF()));
+	nation_comps[i++] = (DWORD)pMem;
 	BYTE* cm_date = new BYTE[8];
 	convert_to_cm_date(cm_date, 1, January, START_YEAR, -1);
 	nation_data->update_day = *(WORD*)cm_date;
@@ -75,6 +80,7 @@ void setup_fin_nation()
 	setup_fin_second();
 	setup_fin_third();
 	setup_fin_cup();
+	setup_fin_league_cup();
 	setup_fin_awards();
 
 	WriteNOP(0x592322, 7);

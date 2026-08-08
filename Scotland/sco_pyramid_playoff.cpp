@@ -8,7 +8,7 @@ vtable* sco_pyramid_playoff_vtable = new vtable((BYTE*)0x96C0C8, 0xB4);
 
 void sco_pyramid_playoff_free_under(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
-	data->comp_vtable = (DWORD*)sco_pyramid_playoff_vtable->vtable_ptr;
+	data->comp_vtable = (DWORD*)(sco_pyramid_playoff_vtable->vtable_ptr);
 	DWORD x = 0;
 	sub_687970(_this, 0);
 	if (data->fixtures_table) {
@@ -327,7 +327,7 @@ void sco_pyramid_playoff_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	sub_682200(_this);
 	comp_stats* data = (comp_stats*)_this;
 	data->competition_db = comp;
-	data->comp_vtable = (DWORD*)sco_pyramid_playoff_vtable->vtable_ptr;
+	data->comp_vtable = (DWORD*)(sco_pyramid_playoff_vtable->vtable_ptr);
 	sco_pyramid_playoff_vtable->SetPointer(VTableInitFree, (DWORD)&sco_pyramid_playoff_free_c);
 	sco_pyramid_playoff_vtable->SetPointer(VTableEoSUpdate, (DWORD)&sco_pyramid_playoff_update_c);
 	sco_pyramid_playoff_vtable->SetPointer(VTableLeagueSplit, (DWORD)&sco_pyramid_playoff_63B300_c);

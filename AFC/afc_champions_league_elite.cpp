@@ -606,8 +606,8 @@ void afc_champions_league_elite_group_stage_setup(BYTE* _this) {
 	comp_stats* comp_data = (comp_stats*)_this;
 	DWORD* stages_arr = comp_data->stages;
 
-	BYTE prom_rel[4] = { 4, 0, 0, 0 };
-	BYTE tiebreaks[4] = { GoalDifferenceTiebreaker, GoalsForTiebreaker, GamesWonTiebreaker, NoTiebreaker };
+	char prom_rel[4] = { 4, 0, 0, 0 };
+	char tiebreaks[4] = { GoalDifferenceTiebreaker, GoalsForTiebreaker, GamesWonTiebreaker, NoTiebreaker };
 
 	vector<cm3_clubs*> clubs;
 	teams_seeded* teams = (teams_seeded*)comp_data->special_teams_seedings;

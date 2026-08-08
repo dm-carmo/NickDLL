@@ -879,6 +879,12 @@
     <ClCompile Include="Scotland\sco_pyramid_playoff.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Finland\fin_league_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Ireland\irl_second.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -1755,6 +1761,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Scotland\sco_pyramid_playoff.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Finland\fin_league_cup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Ireland\irl_second.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -180,9 +180,9 @@ int replacement_667150() {
 	cm_date = new BYTE[8];
 	pnd_list[idx].nation = get_country(NATION_FINLAND_9CF());
 	pnd_list[idx].setup_function_addr = (DWORD)&fin_setup_c;
-	convert_to_cm_date(pnd_list[idx].start_date, 5, April, *current_year + 1, -1);
+	convert_to_cm_date(pnd_list[idx].start_date, 14, February, *current_year + 1, -1);
 	convert_to_cm_date(cm_date, 1, January, START_YEAR, -1);
-	convert_to_cm_date(pnd_list[idx].end_date, 12, November, *current_year + 1, -1);
+	convert_to_cm_date(pnd_list[idx].end_date, 18, November, *current_year + 1, -1);
 	pnd_list[idx].updates_in_june = 0;
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
 	pnd_list[idx].main_cup = get_comp(FIN_CUP_9CF());

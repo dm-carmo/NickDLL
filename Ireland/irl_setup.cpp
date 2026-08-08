@@ -4,6 +4,7 @@
 #include <Helpers\9cf_constants.h>
 #include "irl_premier.h"
 #include "irl_first.h"
+#include "irl_second.h"
 #include "irl_cup.h"
 #include "irl_presidents.h"
 #include "irl_awards.h"
@@ -27,7 +28,7 @@ DWORD irl_setup_c(playable_nation_data* nation_data) {
 	nation_data->contract_end_month = November;
 	nation_data->contract_end_year = start_year;
 	nation_data->f70 = 5;
-	nation_data->num_of_comps = 4;
+	nation_data->num_of_comps = 5;
 	DWORD* nation_comps = (DWORD*)cm0102_malloc(nation_data->num_of_comps * 4);
 	nation_data->comps_list = (DWORD)nation_comps;
 	
@@ -39,6 +40,10 @@ DWORD irl_setup_c(playable_nation_data* nation_data) {
 
 	pMem = (BYTE*)cm0102_new(0xEE);
 	irl_first_init(pMem, start_year, get_comp(IRL_FIRST_9CF()));
+	nation_comps[i++] = (DWORD)pMem;
+
+	pMem = (BYTE*)cm0102_new(0xF2);
+	irl_second_init(pMem, start_year, get_comp(IRL_NATIONAL_LEAGUE_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)cm0102_new(0xB2);
@@ -61,6 +66,7 @@ DWORD irl_setup_c(playable_nation_data* nation_data) {
 void setup_irl_nation() {
 	setup_irl_premier();
 	setup_irl_first();
+	setup_irl_second();
 	setup_irl_cup();
 	setup_irl_presidents();
 	setup_irl_awards();

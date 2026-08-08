@@ -227,11 +227,11 @@ void tur_third_setup_groups(BYTE* _this, BYTE idx) {
 		}
 	}
 	WORD year = data->year;
-	BYTE prom_rel[4] = { 1,4,0,3 };
+	char prom_rel[4] = { 1,4,0,3 };
 	if (year == 2026) prom_rel[3]--;
 	BYTE* pStage = (BYTE*)cm0102_new(0xEE);
-	create_league_stage_data(pStage, _this, n_teams, pTeams, 2, (DWORD)(data->competition_db), pFixtures, num_rounds,
-		data->pts_for_win, data->pts_for_draw, data->f196, (BYTE*)(_this + 0xC5), &prom_rel[0],
+	create_league_stage_data(pStage, _this, n_teams, pTeams, data->n_rounds, (DWORD)(data->competition_db), pFixtures, num_rounds,
+		data->pts_for_win, data->pts_for_draw, data->f196, &data->tiebreaker_1, &prom_rel[0],
 		year, idx, stage_name_id, data->f81, 1, 0, data->f217, -1, 0, 2);
 	DWORD* stages_arr = data->stages;
 	*((DWORD*)(&stages_arr[idx])) = (DWORD)pStage;

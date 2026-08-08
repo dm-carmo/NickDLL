@@ -196,7 +196,6 @@ void egy_super_third_place(BYTE* _this) {
 	comp_stats* comp_data = (comp_stats*)_this;
 	BYTE playoff_teams = 2;
 	DWORD* pTeams = (DWORD*)cm0102_malloc(playoff_teams * 4);
-	for (int i = 0; i < playoff_teams; i++) pTeams[i] = 0;
 	WORD num_rounds = 0;
 	WORD stage_name_id = 0;
 	WORD year = comp_data->year;

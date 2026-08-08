@@ -482,8 +482,8 @@ void world_cup_quals_afc_second_stage_setup(BYTE* _this) {
 	comp_stats* comp_data = (comp_stats*)_this;
 	DWORD* stages_arr = comp_data->stages;
 
-	BYTE prom_rel[4] = { 2, 0, 0, 0 };
-	BYTE tiebreaks[4] = { GoalDifferenceTiebreaker, GoalsForTiebreaker, CurrentPositionTiebreaker, GoalsForAwayTiebreaker };
+	char prom_rel[4] = { 2, 0, 0, 0 };
+	char tiebreaks[4] = { GoalDifferenceTiebreaker, GoalsForTiebreaker, CurrentPositionTiebreaker, GoalsForAwayTiebreaker };
 
 	vector<cm3_clubs*> clubs;
 	teams_seeded* teams = (teams_seeded*)comp_data->special_teams_seedings;
@@ -534,8 +534,8 @@ void world_cup_quals_afc_third_stage_setup(BYTE* _this) {
 	comp_stats* comp_data = (comp_stats*)_this;
 	DWORD* stages_arr = comp_data->stages;
 
-	BYTE prom_rel[4] = { 2, 2, 0, 0 };
-	BYTE tiebreaks[4] = { GoalDifferenceTiebreaker, GoalsForTiebreaker, CurrentPositionTiebreaker, GoalsForAwayTiebreaker };
+	char prom_rel[4] = { 2, 2, 0, 0 };
+	char tiebreaks[4] = { GoalDifferenceTiebreaker, GoalsForTiebreaker, CurrentPositionTiebreaker, GoalsForAwayTiebreaker };
 
 	vector<cm3_clubs*> clubs;
 	for (char al = 0; al < 9; al++) {
@@ -590,8 +590,8 @@ void world_cup_quals_afc_fourth_stage_setup(BYTE* _this) {
 	comp_stats* comp_data = (comp_stats*)_this;
 	DWORD* stages_arr = comp_data->stages;
 
-	BYTE prom_rel[4] = { 1, 1, 0, 0 };
-	BYTE tiebreaks[4] = { GoalDifferenceTiebreaker, GoalsForTiebreaker, CurrentPositionTiebreaker, GoalsForAwayTiebreaker };
+	char prom_rel[4] = { 1, 1, 0, 0 };
+	char tiebreaks[4] = { GoalDifferenceTiebreaker, GoalsForTiebreaker, CurrentPositionTiebreaker, GoalsForAwayTiebreaker };
 
 	WORD num_hosts = get_world_cup_hosts_in_continent(_this, ASIA_9CF(), 0, 0);
 	if (num_hosts > 1) prom_rel[0] = 0;
@@ -778,11 +778,9 @@ void world_cup_quals_afc_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->current_stage = -1;
 	data->num_stages = 16;
 	data->stages = (DWORD*)cm0102_malloc(data->num_stages * 4);
-	for (int i = 0; i < data->num_stages; i++) data->stages[i] = 0;
 
 	data->n_teams = 20;
 	BYTE* pMem = (BYTE*)cm0102_malloc(6 * data->n_teams);
-	for (int i = 0; i < 6 * data->n_teams; i++) pMem[i] = 0;
 	data->teams_list = (DWORD*)pMem;
 
 	DWORD v1 = *(DWORD*)_this;

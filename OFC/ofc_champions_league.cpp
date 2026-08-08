@@ -301,8 +301,8 @@ void ofc_champions_league_group_stage_setup(BYTE* _this) {
 		}
 	}
 
-	BYTE prom_rel[4] = { 2, 0, 0, 0 };
-	BYTE tiebreaks[4] = { CurrentPositionTiebreaker, GoalDifferenceTiebreaker, GoalsForTiebreaker, NoTiebreaker };
+	char prom_rel[4] = { 2, 0, 0, 0 };
+	char tiebreaks[4] = { CurrentPositionTiebreaker, GoalDifferenceTiebreaker, GoalsForTiebreaker, NoTiebreaker };
 
 	vector<cm3_clubs*> clubs;
 	teams_seeded* teams = (teams_seeded*)comp_data->special_teams_seedings;

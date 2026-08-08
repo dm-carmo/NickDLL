@@ -194,8 +194,8 @@ void rus_cup_setup_groups(BYTE* _this, BYTE idx) {
 
 	WORD year = data->year;
 	BYTE* pStage = (BYTE*)cm0102_new(0xEE);
-	BYTE prom_rel[4] = { 2, 0, 0, 0 };
-	BYTE tiebreaks[4] = { CurrentPositionTiebreaker, GamesWonTiebreaker, GoalDifferenceTiebreaker, GoalsForTiebreaker };
+	char prom_rel[4] = { 2, 0, 0, 0 };
+	char tiebreaks[4] = { CurrentPositionTiebreaker, GamesWonTiebreaker, GoalDifferenceTiebreaker, GoalsForTiebreaker };
 	create_league_stage_data(pStage, _this, total_teams, pTeams, 2, (DWORD)(data->competition_db), pFixtures, num_rounds,
 		3, 1, 2, &tiebreaks[0], &prom_rel[0], year, idx, stage_name_id, data->f81, 1, 0, 0x28, -1, 0, 2);
 	DWORD* stages_arr = data->stages;

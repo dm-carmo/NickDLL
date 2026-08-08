@@ -446,7 +446,7 @@ void world_cup_quals_uefa_setup_groups_a(BYTE* _this, BYTE idx) {
 	WORD year = data->year;
 	BYTE* pStage = (BYTE*)cm0102_new(0xEE);
 	create_league_stage_data(pStage, _this, num_teams, pTeams, 1, (DWORD)(data->competition_db), pFixtures, num_rounds,
-		data->pts_for_win, data->pts_for_draw, data->f196, (BYTE*)(_this + 0xC5), (BYTE*)(_this + 0xBE),
+		data->pts_for_win, data->pts_for_draw, data->f196, &data->tiebreaker_1, &data->promotions,
 		year, idx, stage_name_id, data->f81, 2, 0, data->f217, -1, 0, 2);
 	DWORD* stages_arr = data->stages;
 	*((DWORD*)(&stages_arr[idx])) = (DWORD)pStage;
@@ -479,12 +479,12 @@ void world_cup_quals_uefa_setup_groups_b(BYTE* _this, BYTE idx) {
 	*((DWORD*)(&pTeams[teamsAdded++])) = (DWORD)qualifiers[36 + idx - 5 + 12].club;
 	if (num_teams > 5) *((DWORD*)(&pTeams[teamsAdded++])) = (DWORD)qualifiers[36 + idx - 5 + 15].club;
 
-	BYTE prom_rel[4] = { 1, 1, 0, 0 };
+	char prom_rel[4] = { 1, 1, 0, 0 };
 	if (num_hosts == 1) prom_rel[0] = 0;
 	WORD year = data->year;
 	BYTE* pStage = (BYTE*)cm0102_new(0xEE);
 	create_league_stage_data(pStage, _this, num_teams, pTeams, 1, (DWORD)(data->competition_db), pFixtures, num_rounds,
-		data->pts_for_win, data->pts_for_draw, data->f196, (BYTE*)(_this + 0xC5), &prom_rel[0],
+		data->pts_for_win, data->pts_for_draw, data->f196, &data->tiebreaker_1, &prom_rel[0],
 		year, idx, stage_name_id, data->f81, 2, 0, data->f217, -1, 0, 2);
 	DWORD* stages_arr = data->stages;
 	*((DWORD*)(&stages_arr[idx])) = (DWORD)pStage;
@@ -538,7 +538,7 @@ void world_cup_quals_uefa_best_placed_update(BYTE* _this) {
 		}
 		BYTE* pStage = (BYTE*)cm0102_new(0xEE);
 		WORD n = data->n_teams; // always assume 6 teams
-		sub_88C6D0(pStage, teams_to_check, pMem, -1, -1, start_date, end_date, data->competition_db->ClubCompID, data->pts_for_win, data->pts_for_draw, (BYTE*)(_this + 0xC5), 9 * (n * (n - 1)), data->f16);
+		sub_88C6D0(pStage, teams_to_check, pMem, -1, -1, start_date, end_date, data->competition_db->ClubCompID, data->pts_for_win, data->pts_for_draw, &data->tiebreaker_1, 9 * (n * (n - 1)), data->f16);
 		comp_stats* stage_data = (comp_stats*)pStage;
 		table_teams = (team_league_stats*)stage_data->team_league_table;
 		WORD chk = 0;
@@ -568,11 +568,11 @@ void world_cup_quals_uefa_setup_best_placed(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	WORD year = data->year;
 	BYTE* pStage = (BYTE*)cm0102_new(0xEE);
-	BYTE prom_rel[4] = { 0, 1, 0, 0 };
+	char prom_rel[4] = { 0, 1, 0, 0 };
 	if (num_hosts == 1) prom_rel[1] = 3;
 	if (num_hosts == 2) prom_rel[1] = 2;
 
-	BYTE tiebreaks[4] = { GoalDifferenceTiebreaker, GoalsForTiebreaker, GoalsForAwayTiebreaker, NoTiebreaker };
+	char tiebreaks[4] = { GoalDifferenceTiebreaker, GoalsForTiebreaker, GoalsForAwayTiebreaker, NoTiebreaker };
 	create_league_stage_data(pStage, _this, num_teams, 0, 0, (DWORD)(data->competition_db), 0, 0,
 		data->pts_for_win, data->pts_for_draw, data->f196, &tiebreaks[0], &prom_rel[0],
 		year, stage_num, BestPlacedTeams, 0, 1, 0, 0x28, -1, 0, 2);

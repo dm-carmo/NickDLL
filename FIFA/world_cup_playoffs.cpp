@@ -15,7 +15,7 @@ vtable* world_cup_playoffs_vtable = new vtable((BYTE*)0x970C24, 0xA0);
 
 void world_cup_playoffs_free_under(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
-	data->comp_vtable = (DWORD*)world_cup_playoffs_vtable->vtable_ptr;
+	data->comp_vtable = (DWORD*)(world_cup_playoffs_vtable->vtable_ptr);
 	DWORD x = 0;
 	if (data->teams_list) {
 		sub_9452CA_free(data->teams_list);
@@ -132,7 +132,6 @@ char world_cup_playoffs_update(BYTE* _this) {
 	data->special_nteams_seedings = 0;
 	data->f56 = 6;
 	BYTE* pMem = (BYTE*)cm0102_malloc(6 * 6);
-	for (int i = 0; i < 6 * 6; i++) pMem[i] = 0;
 	data->special_teams_seedings = (DWORD*)pMem;
 	if (data->rounds_list) {
 		sub_9452CA_free(data->rounds_list);
@@ -410,7 +409,7 @@ void world_cup_playoffs_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	sub_518640(_this);
 	comp_stats* data = (comp_stats*)_this;
 	data->competition_db = comp;
-	data->comp_vtable = (DWORD*)world_cup_playoffs_vtable->vtable_ptr;
+	data->comp_vtable = (DWORD*)(world_cup_playoffs_vtable->vtable_ptr);
 	world_cup_playoffs_vtable->SetPointer(VTableInitFree, (DWORD)&world_cup_playoffs_free_c);
 	world_cup_playoffs_vtable->SetPointer(VTableEoSUpdate, (DWORD)&world_cup_playoffs_update_c);
 	world_cup_playoffs_vtable->SetPointer(VTableLeagueSplit, (DWORD)&world_cup_playoffs_init2_c);
@@ -439,7 +438,6 @@ void world_cup_playoffs_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->special_nteams_seedings = 0;
 	data->f56 = 6;
 	BYTE* pMem = (BYTE*)cm0102_malloc(6 * 6);
-	for (int i = 0; i < 6 * 6; i++) pMem[i] = 0;
 	data->special_teams_seedings = (DWORD*)pMem;
 	*((BYTE*)(_this + 0xB1)) = 0;
 	int loaded = sub_51FC00(_this, 1);

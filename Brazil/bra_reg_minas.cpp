@@ -425,8 +425,8 @@ void bra_reg_minas_setup_groups(BYTE* _this, BYTE idx) {
 	}
 	WORD year = data->year;
 	BYTE* pStage = (BYTE*)cm0102_new(0xEE);
-	create_league_stage_data(pStage, _this, data->n_teams, pTeams, 1, (DWORD)(data->competition_db), pFixtures, num_rounds,
-		data->pts_for_win, data->pts_for_draw, data->f196, (BYTE*)(_this + 0xC5), (BYTE*)(_this + 0xBE),
+	create_league_stage_data(pStage, _this, data->n_teams, pTeams, data->n_rounds, (DWORD)(data->competition_db), pFixtures, num_rounds,
+		data->pts_for_win, data->pts_for_draw, data->f196, &data->tiebreaker_1, &data->promotions,
 		year, idx, stage_name_id, data->f81, 1, 0, data->f217, -1, 0, 2);
 	DWORD* stages_arr = data->stages;
 	*((DWORD*)(&stages_arr[idx])) = (DWORD)pStage;
@@ -532,16 +532,16 @@ void bra_reg_minas_playoff_rele(BYTE* _this) {
 	WORD stage_name_id = 0;
 	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, int, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
 
-	comp_stats* comp_data = (comp_stats*)_this;
+	comp_stats* data = (comp_stats*)_this;
 	BYTE playoff_teams = 4;
 	DWORD* pTeams = (DWORD*)cm0102_malloc(playoff_teams * 4);
 
-	comp_stats* curr_stage = comp_data;
+	comp_stats* curr_stage = data;
 	vector<cm3_clubs*> clubs;
 
 	for (char al = -1; al < 1; al++) {
 		if (al >= 0) {
-			curr_stage = (comp_stats*)(comp_data->stages[al]);
+			curr_stage = (comp_stats*)(data->stages[al]);
 		}
 		WORD total_teams = curr_stage->n_teams;
 		team_league_stats* table_teams = (team_league_stats*)(curr_stage->team_league_table);
@@ -557,17 +557,17 @@ void bra_reg_minas_playoff_rele(BYTE* _this) {
 		*((DWORD*)(&pTeams[i])) = (DWORD)clubs[i];
 	}
 
-	WORD year = comp_data->year;
+	WORD year = data->year;
 	BYTE* pStage = (BYTE*)cm0102_new(0xEE);
-	BYTE prom_rel[4] = { 0, 0, 0, 2 };
-	create_league_stage_data(pStage, _this, playoff_teams, pTeams, 2, (DWORD)(comp_data->competition_db), pFixtures, num_rounds,
-		comp_data->pts_for_win, comp_data->pts_for_draw, comp_data->f196, (BYTE*)(_this + 0xC5), &prom_rel[0],
-		year, stage_num, stage_name_id, 0x14, 1, 0, comp_data->f217, -1, 0, 2);
-	DWORD* stages_arr = comp_data->stages;
+	char prom_rel[4] = { 0, 0, 0, 2 };
+	create_league_stage_data(pStage, _this, playoff_teams, pTeams, 2, (DWORD)(data->competition_db), pFixtures, num_rounds,
+		data->pts_for_win, data->pts_for_draw, data->f196, &data->tiebreaker_1, &prom_rel[0],
+		year, stage_num, stage_name_id, 0x14, 1, 0, data->f217, -1, 0, 2);
+	DWORD* stages_arr = data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)pStage;
 	sub_9452CA_free(pTeams);
 	sub_9452CA_free(pFixtures);
-	comp_data->current_stage = stage_num;
+	data->current_stage = stage_num;
 }
 
 void bra_reg_minas_playoffs_c(BYTE* _this) {

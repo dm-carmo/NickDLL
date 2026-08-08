@@ -103,6 +103,7 @@ void irl_first_subs(BYTE* _this)
 	comp_data->promotions = 1;
 	comp_data->prom_playoff = 4;
 	comp_data->rele_playoff = 0;
+	if (comp_data->year > 2026) comp_data->rele_playoff = 1;
 	comp_data->relegations = 0;
 
 	comp_data->promotes_to = IRL_PREMIER_9CF();
@@ -265,6 +266,23 @@ DWORD irl_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 
 		return (DWORD)pMem;
 	}
+	else if (stage_idx == 1) {
+		if (a5)
+			*a5 = 0;
+		BYTE* pMem = NULL;
+		WORD year = ((comp_stats*)_this)->year;
+		*num_rounds = 1;
+		*stage_name_id = None;
+
+		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
+
+		int fixture_id = 0;
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 16), year, Sunday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 22), year, Saturday);
+		FillFixtureDetails(pMem, fixture_id++, Playoff, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 2, 0, 0, 1, 0);
+
+		return (DWORD)pMem;
+	}
 	return 0;
 }
 
@@ -297,6 +315,7 @@ void irl_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 1;
+	if (year > 2026) data->num_stages = 2;
 	data->stages = (DWORD*)cm0102_malloc(data->num_stages * 4);
 	irl_first_subs(_this);
 	AddTeams(_this);
@@ -346,6 +365,43 @@ void irl_first_playoff_prom(BYTE* _this) {
 	sub_51C800(new_stage, 0);
 }
 
+void irl_first_playoff_rele(BYTE* _this) {
+	char stage_num = 1;
+	comp_stats* comp_data = (comp_stats*)_this;
+	BYTE playoff_teams = 2;
+	WORD total_teams = comp_data->n_teams;
+	DWORD* pTeams = (DWORD*)cm0102_malloc(playoff_teams * 4);
+
+	team_league_stats* table_teams = (team_league_stats*)(comp_data->team_league_table);
+	for (int i = 0; i < total_teams; i++) {
+		team_league_stats tls = table_teams[i];
+		if (tls.league_fate == BottomPlayoff) {
+			*((DWORD*)(&pTeams[0])) = (DWORD)tls.club;
+			break;
+		}
+	}
+
+	comp_stats* irl_national_data = (comp_stats*)get_loaded_league(IRL_NATIONAL_LEAGUE_9CF());
+	comp_stats* playoff_data = (comp_stats*)irl_national_data->stages[2];
+	teams_seeded* teams = (teams_seeded*)playoff_data->teams_list;
+	for (WORD i = 0; i < playoff_data->n_teams; i++) {
+		if (teams[i].f6 == 1) {
+			*((DWORD*)(&pTeams[1])) = (DWORD)teams[i].club;
+			break;
+		}
+	}
+	WORD num_rounds = 0;
+	WORD stage_name_id = 0;
+	WORD year = comp_data->year;
+	DWORD v1 = *(DWORD*)_this;
+	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, char, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
+	BYTE* new_stage = (BYTE*)cm0102_new(0xB2);
+	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)comp_data->competition_db, pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, 0);
+	DWORD* stages_arr = comp_data->stages;
+	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
+	sub_51C800(new_stage, 0);
+}
+
 void irl_first_playoffs_c(BYTE* _this) {
 	comp_stats* comp_data = (comp_stats*)_this;
 	long current = comp_data->current_stage;
@@ -355,6 +411,20 @@ void irl_first_playoffs_c(BYTE* _this) {
 		if (current == 0) {
 			comp_data->current_stage = current;
 			irl_first_playoff_prom(_this);
+		}
+		else if (current == 1)
+		{
+			BYTE* irl_national = get_loaded_league(IRL_NATIONAL_LEAGUE_9CF());
+			comp_stats* irl_national_data = (comp_stats*)irl_national;
+			BYTE* prom_playoff = (BYTE*)irl_national_data->stages[2];
+			if (prom_playoff) {
+				DWORD v1 = *(DWORD*)prom_playoff;
+				char ret = (*(int(__thiscall**)(BYTE*, int, int))(v1 + 0x10))(prom_playoff, 0, 1);
+				if (ret != 0) {
+					comp_data->current_stage = current;
+					irl_first_playoff_rele(_this);
+				}
+			}
 		}
 	}
 }
@@ -397,6 +467,63 @@ int irl_first_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char sta
 					*(WORD*)(rounds + playoff_dates_sz * current_round + 7), 0xF);
 				table[i].league_fate = Eliminated;
 				return 0;
+			}
+		}
+	}
+	else if (stage == 1) {
+		cm3_clubs* club_ptr = (cm3_clubs*)club;
+		cm3_club_comps* irl_national = get_comp(IRL_NATIONAL_LEAGUE_9CF());
+		BYTE* rounds = ((comp_stats*)(comp_data->stages[stage]))->rounds_list;
+		if (club_ptr->ClubDivision == irl_national) {
+			WORD current_round = *(WORD*)(round_data + 0x34);
+			comp_stats* irl_national_data = (comp_stats*)get_loaded_league(IRL_NATIONAL_LEAGUE_9CF());
+			comp_stats* curr_stage = irl_national_data;
+			for (char al = -1; al < 2; al++) {
+				if (al >= 0) {
+					curr_stage = (comp_stats*)(irl_national_data->stages[al]);
+				}
+				WORD num_teams = curr_stage->n_teams;
+				team_league_stats* table = (team_league_stats*)(curr_stage->team_league_table);
+				for (int i = 0; i < num_teams; i++) {
+					if (table[i].club != club) continue;
+					switch (fate) {
+					case TopPlayoff:
+						staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)irl_national, 0x32);
+						//table[i].league_fate = Promoted;
+						*a5 = 1;
+						return 0;
+					case Promoted:
+						staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
+							*(WORD*)(rounds + playoff_dates_sz * (current_round + 1) + 7), 0xF);
+						return 0;
+					default:
+						//table[i].league_fate = Eliminated;
+						return 0;
+					}
+				}
+			}
+		}
+		else {
+			WORD num_teams = comp_data->n_teams;
+			if (num_teams <= 0) return 0;
+			team_league_stats* table = (team_league_stats*)(comp_data->team_league_table);
+			WORD current_round = *(WORD*)(round_data + 0x34);
+			for (int i = 0; i < num_teams; i++) {
+				if (table[i].club != club) continue;
+				switch (fate) {
+				case BottomPlayoff:
+					staff_history_relegated_86A1C0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));
+					table[i].league_fate = Relegated;
+					*a5 = 1;
+					return 0;
+				case Relegated:
+					staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
+						*(WORD*)(rounds + playoff_dates_sz * (current_round + 1) + 7), 0xF);
+					return 0;
+				default:
+					table[i].league_fate = Eliminated;
+					return 0;
+				}
 			}
 		}
 	}
@@ -462,6 +589,11 @@ char irl_first_update(BYTE* _this) {
 			}
 			data->stages[i] = 0;
 		}
+	}
+	if (data->year == 2026) {
+		data->num_stages++;
+		sub_9452CA_free(data->stages);
+		data->stages = (DWORD*)cm0102_malloc(data->num_stages * 4);
 	}
 	data->year++;
 	data->current_stage = -1;
