@@ -163,7 +163,7 @@ DWORD uefa_conference_league_fixtures(BYTE* _this, char stage_idx, WORD* num_rou
 		pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 2), year, Thursday, Evening);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 16), year, Thursday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 23), year, Thursday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 6), year, Thursday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 27), year, Thursday, Evening);
@@ -221,7 +221,7 @@ DWORD uefa_conference_league_fixtures(BYTE* _this, char stage_idx, WORD* num_rou
 		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 4, 2, 0, 0, 0, 2, 7, prizeMoneyFile.GetInt("uefa_uecl_semi_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 8), year, Friday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 27), year, Wednesday, Evening, NationalStadium);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 6, 3), year, Wednesday, Evening, NationalStadium);
 		AddPlayoffTVFixture(pMem, fixture_id, 0);
 		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 8, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("uefa_uecl_final_win"), prizeMoneyFile.GetInt("uefa_uecl_final_lose"));
 
@@ -1486,7 +1486,7 @@ int uecl_stage_news(BYTE* _this, int club_idx, char fate, char stage_id, int sta
 		{
 			if (show_body_text) return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
 			if (fate == 1) {
-				sub_66F4E0(0xDE1F64, (DWORD)&qualified_grp_title_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
+				sub_66F4E0(0xDE1F64, (DWORD)&qualified_lge_stage_title_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
 					&club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
 				sub_4AE660(ret_str_ptr, 0xDE1F64);
 				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);

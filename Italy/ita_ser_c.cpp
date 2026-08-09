@@ -838,19 +838,19 @@ void ita_ser_c_reputation_calc(BYTE* _this, BYTE* club, char stage, char current
 	char ret_min = min;
 	char ret_max = max;
 	if (stage < 2) {
-		ret_current = 1 + 5 * (current - 1);
-		ret_min = 1 + 5 * (min - 1);
-		ret_max = 1 + 5 * (max - 1);
+		ret_current = 1 + 3 * (current - 1);
+		ret_min = 1 + 3 * (min - 1);
+		ret_max = 1 + 3 * (max - 1);
 	}
 	else if (stage == 2) {
-		ret_current = 1 + 5 * (current);
-		ret_min = 1 + 5 * (min);
-		ret_max = 1 + 5 * (max);
+		ret_current = 1 + 3 * (current);
+		ret_min = 1 + 3 * (min);
+		ret_max = 1 + 3 * (max);
 	}
 	else if (stage == 3) {
-		ret_current = 1 + 5 * (current + 14);
-		ret_min = 1 + 5 * (min + 14);
-		ret_max = 1 + 5 * (max + 14);
+		ret_current = 1 + 3 * (current + 14);
+		ret_min = 1 + 3 * (min + 14);
+		ret_max = 1 + 3 * (max + 14);
 	}
 	ret[0x73] = ret_current;
 	ret[0x74] = ret_min;

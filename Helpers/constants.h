@@ -8,9 +8,12 @@ extern int playoff_dates_sz;
 extern int fixture_dates_sz;
 extern int league_team_list_sz;
 
+extern char* qualified_lge_stage_msg;
+extern char* qualified_lge_stage_title_msg;
 extern char* qualified_grp_msg;
 extern char* qualified_grp_title_msg;
 extern char* drop_down_title_msg;
+extern char* drop_down_lge_stage_title_msg;
 extern char* drop_down_grp_title_msg;
 extern char* qualified_r16_msg;
 extern char* qualified_r16_title_msg;

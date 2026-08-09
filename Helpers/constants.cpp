@@ -6,10 +6,13 @@ int league_team_list_sz = 59;
 
 using namespace std;
 
+char* qualified_lge_stage_msg = "{}<%s - Team Name(e.g.Ajax)>{} have guaranteed a place in the league phase of the {}<%s - Competition Name(e.g.Champions League)>{}.";
+char* qualified_lge_stage_title_msg = "{}<%s - Team Name(e.g.Ajax)>{} qualify for {}<%s - Competition Name(e.g.Champions League)>{} league phase";
 char* qualified_grp_msg = "{}<%s - Team Name(e.g.Ajax)>{} have guaranteed a place in the league phase of the {}<%s - Competition Name(e.g.Champions League)>{}.";
 char* qualified_grp_title_msg = "{}<%s - Team Name(e.g.Ajax)>{} qualify for {}<%s - Competition Name(e.g.Champions League)>{} league phase";
 char* drop_down_title_msg = "{}<%s - Team Name(e.g.Ajax)>{} drop down to {}<%s - Competition Name(e.g.Champions League)>{}";
-char* drop_down_grp_title_msg = "{}<%s - Team Name(e.g.Ajax)>{} drop down to {}<%s - Competition Name(e.g.Champions League)>{} league phase";
+char* drop_down_lge_stage_title_msg = "{}<%s - Team Name(e.g.Ajax)>{} drop down to {}<%s - Competition Name(e.g.Champions League)>{} league phase";
+char* drop_down_grp_title_msg = "{}<%s - Team Name(e.g.Ajax)>{} drop down to {}<%s - Competition Name(e.g.Champions League)>{} group stage";
 char* qualified_r16_msg = "{}<%s - Team Name(e.g.Ajax)>{} have guaranteed a place in the Round of 16 of the {}<%s - Competition Name(e.g.Champions League)>{}.";
 char* qualified_r16_title_msg = "{}<%s - Team Name(e.g.Ajax)>{} through to {}<%s - Competition Name(e.g.Champions League)>{} R of 16";
 char* qualified_r32_msg = "{}<%s - Team Name(e.g.Ajax)>{} have guaranteed a place in the Round of 32 of the {}<%s - Competition Name(e.g.Champions League)>{}.";

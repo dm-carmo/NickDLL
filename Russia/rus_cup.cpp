@@ -79,7 +79,7 @@ void __declspec(naked) rus_cup_free_c()
 int rus_cup_all_teams(BYTE* _this) {
 	vector<cm3_clubs*> vec;
 	comp_stats* comp_data = (comp_stats*)_this;
-	WORD total_teams = 104;
+	WORD total_teams = 102;
 	comp_data->special_nteams_seedings = total_teams;
 	//comp_data->f56 = total_teams;
 
@@ -160,7 +160,7 @@ int rus_cup_all_teams(BYTE* _this) {
 
 void rus_cup_qualifier_teams(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
-	WORD total_teams = 88;
+	WORD total_teams = 86;
 	BYTE* pMem = (BYTE*)cm0102_malloc(6 * total_teams);
 
 	data->n_teams = total_teams;
@@ -185,7 +185,7 @@ void rus_cup_setup_groups(BYTE* _this, BYTE idx) {
 	DWORD* pTeams = (DWORD*)cm0102_malloc(total_teams * 4);
 
 	teams_seeded* qualifiers = (teams_seeded*)data->special_teams_seedings;
-	WORD start = 88;
+	WORD start = 86;
 	DWORD total_count = data->special_nteams_seedings;
 	for (WORD i = 0; i < total_teams; i++) {
 		cm3_clubs* c = qualifiers[start + idx + i * 4].club;
@@ -220,27 +220,27 @@ DWORD rus_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 6, 29), year, Sunday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 6), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 28, 14, 28, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("rus_cup_r1_win"));
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 30), year, Wednesday, Evening);
+		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 24, 12, 24, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("rus_cup_r1_win"));
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 7), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 20), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SecondRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 56, 28, 42, 28, 0, 1, 0, 0, prizeMoneyFile.GetInt("rus_cup_r2_win"));
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 31), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 13), year, Wednesday, Evening);
+		FillFixtureDetails(pMem, fixture_id++, SecondRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 56, 28, 44, 24, 0, 1, 0, 0, prizeMoneyFile.GetInt("rus_cup_r2_win"));
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 21), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 10), year, Wednesday, Evening);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 14), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 27), year, Wednesday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 28, 14, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("rus_cup_r3_win"));
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 11), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 24), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, FourthRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 32, 16, 18, 70, 0, 1, 0, 0, prizeMoneyFile.GetInt("rus_cup_r4_win"));
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 28), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 10), year, Wednesday, Evening);
+		FillFixtureDetails(pMem, fixture_id++, FourthRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 32, 16, 18, 68, 0, 1, 0, 0, prizeMoneyFile.GetInt("rus_cup_r4_win"));
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 25), year, Thursday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 11), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 15), year, Wednesday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, FifthRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 16, 8, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("rus_cup_r5_win"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 16), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 29), year, Wednesday, Evening);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 5), year, Wednesday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, SixthRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 8, 4, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("rus_cup_r6_win"));
 
 		return (DWORD)pMem;
@@ -256,12 +256,12 @@ DWORD rus_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 7, 30), year, Wednesday, Evening);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 13), year, Wednesday, Evening);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 27), year, Wednesday, Evening);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 17), year, Wednesday, Evening);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 1), year, Wednesday, Evening);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 22), year, Wednesday, Evening);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 6), year, Wednesday, Evening);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 20), year, Wednesday, Evening);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 3), year, Wednesday, Evening);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 15), year, Wednesday, Evening);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 29), year, Wednesday, Evening);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 26), year, Wednesday, Evening);
 
 		return (DWORD)pMem;
 	}
@@ -276,17 +276,17 @@ DWORD rus_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 23), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 5), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 4, 8, 4, 8, 0, 0, 2, 21, 0, prizeMoneyFile.GetInt("rus_cup_sub_qtr_win"));
-
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 27), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 4), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 4, 4, 2, 0, 0, 0, 2, 14, 0, prizeMoneyFile.GetInt("rus_cup_sub_semi_win"));
+		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 4, 8, 4, 8, 0, 0, 2, 14, 0, prizeMoneyFile.GetInt("rus_cup_sub_qtr_win"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 19), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 9), year, Thursday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 6, 2, 1, 0, 0, 0, 2, 28, 0, prizeMoneyFile.GetInt("rus_cup_sub_final_win"));
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 8), year, Wednesday, Evening);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 4, 4, 2, 0, 0, 0, 2, 14, 0, prizeMoneyFile.GetInt("rus_cup_sub_semi_win"));
+
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 4, 23), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 6), year, Wednesday, Evening);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 6, 2, 1, 0, 0, 0, 2, 14, 0, prizeMoneyFile.GetInt("rus_cup_sub_final_win"));
 
 		return (DWORD)pMem;
 	}
@@ -301,17 +301,17 @@ DWORD rus_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 23), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 26), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 4, 8, 4, 8, 0, 0, 2, 98, 0, prizeMoneyFile.GetInt("rus_cup_sub_qtr_win"));
-
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 5), year, Thursday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 27), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 18), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 4, 4, 2, 0, 0, 0, 2, 21, 0, prizeMoneyFile.GetInt("rus_cup_sub_semi_win"));
+		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 4, 8, 4, 8, 0, 0, 2, 21, 0, prizeMoneyFile.GetInt("rus_cup_sub_qtr_win"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 4, 9), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 6), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("rus_cup_sub_final_win"));
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 22), year, Wednesday, Evening);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 4, 4, 2, 0, 0, 0, 2, 14, 0, prizeMoneyFile.GetInt("rus_cup_sub_semi_win"));
+
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 7), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 20), year, Wednesday, Evening);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("rus_cup_sub_final_win"));
 
 		return (DWORD)pMem;
 	}
@@ -326,8 +326,8 @@ DWORD rus_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 8), year, Friday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 24), year, Sunday, Afternoon, NationalStadium);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 21), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 6, 7), year, Sunday, Afternoon, NationalStadium);
 		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 2, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("rus_cup_final_win"));
 
 		return (DWORD)pMem;
@@ -394,7 +394,7 @@ void rus_cup_reputation_setup(BYTE* _this) {
 		for (int i = 62; i < 90; i++) {
 			sub_4A2540((BYTE*)comp_data->f8, clubs[i], 63);
 		}
-		for (int i = 90; i < 104; i++) {
+		for (int i = 90; i < 102; i++) {
 			sub_4A2540((BYTE*)comp_data->f8, clubs[i], 91);
 		}
 		comp_data->special_nteams_seedings = 0;

@@ -22,34 +22,34 @@ DWORD por_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 8), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 31), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 92, 46, 92, 0, 0, 1, 0, prizeMoneyFile.GetInt("por_cup_r1_qualify"));
+		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 94, 47, 94, 0, 0, 1, 0, prizeMoneyFile.GetInt("por_cup_r1_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 1), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 21), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, SecondRound, 1, ExtraTimePenalties_1, NoTiebreak_2, 4, 92, 46, 46, 92, 0, 1, 0, prizeMoneyFile.GetInt("por_cup_r2_qualify"));
+		FillFixtureDetails(pMem, fixture_id++, SecondRound, 1, ExtraTimePenalties_1, NoTiebreak_2, 4, 80, 40, 33, 94, 0, 1, 0, prizeMoneyFile.GetInt("por_cup_r2_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 22), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 19), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 1, ExtraTimePenalties_1, NoTiebreak_2, 4, 64, 32, 18, 138, 0, 1, 0, prizeMoneyFile.GetInt("por_cup_r3_qualify"));
+		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 1, ExtraTimePenalties_1, NoTiebreak_2, 4, 54, 27, 14, 127, 0, 1, 0, prizeMoneyFile.GetInt("por_cup_r3_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 20), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 23), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, FourthRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 32, 16, 0, 0, 0, 1, 0, prizeMoneyFile.GetInt("por_cup_r4_qualify"));
+		FillFixtureDetails(pMem, fixture_id++, FourthRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 32, 16, 5, 141, 0, 1, 0, prizeMoneyFile.GetInt("por_cup_r4_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 24), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 17), year, Wednesday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, FifthRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 16, 8, 0, 0, 0, 1, 0, prizeMoneyFile.GetInt("por_cup_r5_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 18), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 1, 14), year, Wednesday, Evening);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 2, 4), year, Wednesday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 8, 4, 0, 0, 0, 1, 0, prizeMoneyFile.GetInt("por_cup_qtr_qualify"));
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 1, 15), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 2, 4), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 6, 4, 2, 0, 0, 0, 2, 77, prizeMoneyFile.GetInt("por_cup_semi_qualify"));
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 2, 5), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 24), year, Sunday);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 4, 2, 0, 0, 0, 1, 0, prizeMoneyFile.GetInt("por_cup_semi_qualify"));
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 4, 23), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 24), year, Sunday, Afternoon, NationalStadium);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 25), year, Monday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 31), year, Sunday, Afternoon, NationalStadium);
 		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("por_cup_final_win"), prizeMoneyFile.GetInt("por_cup_final_lose"));
 
 		return (DWORD)pMem;
@@ -75,8 +75,9 @@ void __declspec(naked) por_cup_fixture_caller()
 
 int por_cup_teams(BYTE* _this) {
 	vector<cm3_clubs*> vec;
+	vector<cm3_clubs*> vec_uefa;
 	comp_stats* comp_data = (comp_stats*)_this;
-	WORD total_teams = 156;
+	WORD total_teams = 146;
 	BYTE* pMem = (BYTE*)cm0102_malloc(6 * total_teams);
 
 	comp_data->n_teams = total_teams;
@@ -87,19 +88,30 @@ int por_cup_teams(BYTE* _this) {
 		CountNumberOfTeamsInCompNoReserve(POR_THIRD_9CF()) + CountNumberOfTeamsInCompNoReserve(POR_FOURTH_9CF());
 	WORD lower_teams = total_teams - main_teams;
 
+	vector<cm3_clubs*> division_clubs = find_clubs_of_country(NATION_PORTUGAL_9CF());
+	for (cm3_clubs* club : division_clubs)
+	{
+		if (club->ClubEuroFlag != -1)
+		{
+			vec_uefa.push_back(club);
+			if (club->ClubDivision && club->ClubDivision->ClubCompID == A_LOWER_9CF()) lower_teams--;
+		}
+	}
+	sort(vec_uefa.begin(), vec_uefa.end(), compareClubLastDivPosInv);
+
 	// Lower
 	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_PORTUGAL_9CF());
 	for (size_t i = 0; i < lower_clubs.size(); i++) {
 		cm3_clubs* c = lower_clubs[i];
 		DWORD is_main_club;
 		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)c, &is_main_club, 1);
-		if (ret_club && !is_main_club)
+		if ((ret_club && !is_main_club) || vector_contains_element(vec_uefa, c))
 		{
 			lower_clubs.erase(lower_clubs.begin() + i);
 			i--;
 		}
 	}
-	vector<cm3_clubs*> division_clubs = get_random_weighted_clubs(lower_clubs, lower_teams, true);
+	division_clubs = get_random_weighted_clubs(lower_clubs, lower_teams, true);
 	for (cm3_clubs* club : division_clubs)
 	{
 		vec.push_back(club);
@@ -107,23 +119,24 @@ int por_cup_teams(BYTE* _this) {
 	// Campeonato de Portugal
 	BYTE selected = get_country(NATION_PORTUGAL_9CF())->NationLeagueSelected;
 	division_clubs = find_clubs_of_comp(POR_FOURTH_9CF());
-	if ((selected & 4) != 0) sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPosInv);
-	else sort(division_clubs.begin(), division_clubs.end(), compareClubRep);
+	//if ((selected & 4) != 0) sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPosInv);
+	//else sort(division_clubs.begin(), division_clubs.end(), compareClubRep);
 	for (cm3_clubs* club : division_clubs)
 	{
 		DWORD is_main_club;
 		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)club, &is_main_club, 1);
-		if (!ret_club || is_main_club) vec.push_back(club);
+		if ((!ret_club || is_main_club) && !vector_contains_element(vec_uefa, club)) vec.push_back(club);
 	}
 	// Liga 3
 	division_clubs = find_clubs_of_comp(POR_THIRD_9CF());
-	sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPosInv);
+	//sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPosInv);
 	for (cm3_clubs* club : division_clubs)
 	{
 		DWORD is_main_club;
 		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)club, &is_main_club, 1);
-		if (!ret_club || is_main_club) vec.push_back(club);
+		if ((!ret_club || is_main_club) && !vector_contains_element(vec_uefa, club)) vec.push_back(club);
 	}
+	shuffle(vec.begin(), vec.end(), rng);
 	// Liga 2
 	division_clubs = find_clubs_of_comp(POR_SECOND_9CF());
 	sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPosInv);
@@ -131,21 +144,24 @@ int por_cup_teams(BYTE* _this) {
 	{
 		DWORD is_main_club;
 		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)club, &is_main_club, 1);
-		if (!ret_club || is_main_club) vec.push_back(club);
+		if ((!ret_club || is_main_club) && !vector_contains_element(vec_uefa, club)) vec.push_back(club);
 	}
 	// Liga 1
 	division_clubs = find_clubs_of_comp(POR_FIRST_9CF());
 	sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPosInv);
 	for (cm3_clubs* club : division_clubs)
 	{
+		if (!vector_contains_element(vec_uefa, club)) vec.push_back(club);
+	}
+
+	for (cm3_clubs* club : vec_uefa)
+	{
 		vec.push_back(club);
 	}
 
-	shuffle(vec.begin(), vec.begin() + 120, rng);
-
-	for (DWORD i = 0; i < vec.size(); i++)
+	for (DWORD i = 0; i < total_teams; i++)
 	{
-		teams[i].club = vec[i];
+		teams[i].club = vec[total_teams - i - 1];
 		teams[i].f5 = 0;
 		teams[i].f6 = 0;
 	}

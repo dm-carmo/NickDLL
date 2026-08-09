@@ -192,9 +192,9 @@ void __fastcall por_non_league_promotion(BYTE* _this)
 			i--;
 		}
 	}
-	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(available_clubs, relegated_clubs.size(), true);
+	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(available_clubs, relegated_clubs.size() + (comp_data->year == 2026 ? 8 : 0), true);
 
-	for (unsigned int j = 0; j < promoted_clubs.size(); j++) {
+	for (unsigned int j = 0; j < relegated_clubs.size(); j++) {
 		cm3_clubs* clubToRelegate = relegated_clubs[j];
 		cm3_clubs* clubToPromote = promoted_clubs[j];
 
@@ -204,15 +204,24 @@ void __fastcall por_non_league_promotion(BYTE* _this)
 		promote_club_6830B0((BYTE*)clubToPromote, (DWORD)topDivision, 1);
 		clubToRelegate->ClubReserveDivision = 0;
 	}
+
+	if (comp_data->year == 2026) {
+		for (unsigned int j = relegated_clubs.size(); j < promoted_clubs.size(); j++) {
+			promote_club_6830B0((BYTE*)promoted_clubs[j], (DWORD)comp_data->competition_db, 1);
+		}
+	}
 }
 
 void __fastcall por_d4_inactive_relegation(BYTE* _this)
 {
+	comp_stats* comp_data = (comp_stats*)_this;
 	vector<cm3_clubs*> relegated_clubs;
 	vector<DWORD> d4_groups = { POR_FOURTH_A_9CF(), POR_FOURTH_B_9CF(), POR_FOURTH_C_9CF(), POR_FOURTH_D_9CF() };
+	int num_rels = 5;
+	if (comp_data->year == 2026) num_rels = 3;
 	for (DWORD id : d4_groups) {
 		vector<cm3_clubs*> available_clubs = find_clubs_of_comp_main_reserve_division(POR_FOURTH_9CF(), id, NATION_PORTUGAL_9CF());
-		vector<cm3_clubs*> ret = get_random_weighted_clubs(available_clubs, 5, false);
+		vector<cm3_clubs*> ret = get_random_weighted_clubs(available_clubs, num_rels, false);
 		move(ret.begin(), ret.end(), back_inserter(relegated_clubs));
 	}
 
@@ -228,7 +237,7 @@ void __fastcall por_d4_inactive_relegation(BYTE* _this)
 			i--;
 		}
 	}
-	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(available_clubs, relegated_clubs.size(), true);
+	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(available_clubs, relegated_clubs.size() + (comp_data->year == 2026 ? 8 : 0), true);
 
 	for (unsigned int j = 0; j < promoted_clubs.size(); j++) {
 		cm3_clubs* clubToRelegate = relegated_clubs[j];
@@ -239,6 +248,12 @@ void __fastcall por_d4_inactive_relegation(BYTE* _this)
 		relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
 		promote_club_6830B0((BYTE*)clubToPromote, (DWORD)topDivision, 1);
 		clubToRelegate->ClubReserveDivision = 0;
+	}
+
+	if (comp_data->year == 2026) {
+		for (unsigned int j = relegated_clubs.size(); j < promoted_clubs.size(); j++) {
+			promote_club_6830B0((BYTE*)promoted_clubs[j], (DWORD)comp_data->competition_db, 1);
+		}
 	}
 }
 
@@ -288,10 +303,10 @@ void sort_por_fourth_clubs(WORD year) {
 		else c->ClubReserveDivision = get_comp(POR_FOURTH_D_9CF());
 	}
 
-	size_t a_size = 14 - (year % 2 ? clubs_madeira.size() : 0);
-	size_t b_size = 14 - (year % 2 ? 0 : clubs_madeira.size());
-	size_t c_size = 14 - (year % 2 ? clubs_azores.size() : 0);
-	size_t d_size = 14 - (year % 2 ? 0 : clubs_azores.size());
+	size_t a_size = 16 - (year % 2 ? clubs_madeira.size() : 0);
+	size_t b_size = 16 - (year % 2 ? 0 : clubs_madeira.size());
+	size_t c_size = 16 - (year % 2 ? clubs_azores.size() : 0);
+	size_t d_size = 16 - (year % 2 ? 0 : clubs_azores.size());
 
 	for (size_t i = 0; i < available_clubs.size(); i++)
 	{

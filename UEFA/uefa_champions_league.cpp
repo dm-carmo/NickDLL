@@ -165,10 +165,10 @@ DWORD uefa_champions_league_fixtures(BYTE* _this, char stage_idx, WORD* num_roun
 		pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 16), year, Tuesday, Evening);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 17), year, Wednesday, Evening);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 30), year, Tuesday, Evening);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 1), year, Wednesday, Evening);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 9), year, Tuesday, Evening);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 10), year, Wednesday, Evening);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 14), year, Tuesday, Evening);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 15), year, Wednesday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 21), year, Tuesday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 22), year, Wednesday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 4), year, Tuesday, Evening);
@@ -232,7 +232,7 @@ DWORD uefa_champions_league_fixtures(BYTE* _this, char stage_idx, WORD* num_roun
 		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 4, 2, 0, 0, 0, 2, 7, prizeMoneyFile.GetInt("uefa_ucl_semi_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 7), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 30), year, Saturday, Evening, NationalStadium);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 6, 6), year, Saturday, Evening, NationalStadium);
 		AddPlayoffTVFixture(pMem, fixture_id, 0);
 		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 8, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("uefa_ucl_final_win"), prizeMoneyFile.GetInt("uefa_ucl_final_lose"));
 
@@ -252,8 +252,8 @@ DWORD uefa_champions_league_fixtures(BYTE* _this, char stage_idx, WORD* num_roun
 		int fixture_id = 0;
 		if (stage_idx == -2)
 		{
-			AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 17), year, Wednesday, Evening);
-			AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 1), year, Wednesday, Evening);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 10), year, Wednesday, Evening);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 15), year, Wednesday, Evening);
 			AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 22), year, Wednesday, Evening);
 			AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 4), year, Tuesday, Evening);
 			AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 26), year, Wednesday, Evening);
@@ -262,8 +262,8 @@ DWORD uefa_champions_league_fixtures(BYTE* _this, char stage_idx, WORD* num_roun
 			AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 1, 28), year, Wednesday, Evening);
 		}
 		else {
-			AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 16), year, Tuesday, Evening);
-			AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 30), year, Tuesday, Evening);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 9), year, Tuesday, Evening);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 14), year, Tuesday, Evening);
 			AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 21), year, Tuesday, Evening);
 			AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 5), year, Wednesday, Evening);
 			AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 25), year, Tuesday, Evening);
@@ -1607,7 +1607,7 @@ int ucl_stage_news(BYTE* _this, int club_idx, char fate, char stage_id, int stag
 			else {
 				comp_data = get_comp(UEFA_EUROPA_LEAGUE_9CF());
 				if (stage_id == 0) {
-					sub_66F4E0(0xDE1F64, (DWORD)&drop_down_grp_title_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
+					sub_66F4E0(0xDE1F64, (DWORD)&drop_down_lge_stage_title_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
 						&club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
 				}
 				else {
@@ -1624,7 +1624,7 @@ int ucl_stage_news(BYTE* _this, int club_idx, char fate, char stage_id, int stag
 		{
 			if (show_body_text) return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
 			if (fate == 1) {
-				sub_66F4E0(0xDE1F64, (DWORD)&qualified_grp_title_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
+				sub_66F4E0(0xDE1F64, (DWORD)&qualified_lge_stage_title_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
 					&club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
 				sub_4AE660(ret_str_ptr, 0xDE1F64);
 				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
@@ -1633,7 +1633,7 @@ int ucl_stage_news(BYTE* _this, int club_idx, char fate, char stage_id, int stag
 			}
 			else {
 				comp_data = get_comp(UEFA_EUROPA_LEAGUE_9CF());
-				sub_66F4E0(0xDE1F64, (DWORD)&drop_down_grp_title_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
+				sub_66F4E0(0xDE1F64, (DWORD)&drop_down_lge_stage_title_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
 					&club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
 				sub_4AE660(ret_str_ptr, 0xDE1F64);
 				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
