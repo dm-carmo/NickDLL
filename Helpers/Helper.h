@@ -35,6 +35,7 @@ cm3_clubs* get_club(DWORD clubID);
 cm3_clubs* get_national_team(DWORD nationID);
 vector<cm3_clubs*> get_all_national_teams();
 vector<cm3_clubs*> get_national_teams_of_continent(DWORD continentID);
+vector<cm3_clubs*> get_national_teams_of_continent_fifa_members(DWORD continentID);
 BYTE* get_loaded_league(DWORD compID);
 cm3_nations* find_country(const char* szCountry);
 cm3_nations* get_country(DWORD countryID);
@@ -87,7 +88,8 @@ bool compareClubLongitude(cm3_clubs* c1, cm3_clubs* c2);
 bool compareClubLongitudeInv(cm3_clubs* c1, cm3_clubs* c2);
 bool compareClubEWDiagNS(cm3_clubs* c1, cm3_clubs* c2);
 bool compareClubWEDiagNS(cm3_clubs* c1, cm3_clubs* c2);
-bool compareClubNation(cm3_clubs* c1, cm3_clubs* c2);
+bool compareClubNationID(cm3_clubs* c1, cm3_clubs* c2);
+bool compareClubAFCElite(cm3_clubs* c1, cm3_clubs* c2);
 bool compareClubAsiaWestEast(cm3_clubs* c1, cm3_clubs* c2);
 cm3_clubs* get_last_comp_winner(cm3_club_comps* comp);
 cm3_clubs* get_last_comp_runner_up(cm3_club_comps* comp);
@@ -108,5 +110,6 @@ int UpdateCountryCoefficient(cm3_clubs* club, char coeff);
 void add_team_to_world_cup(cm3_clubs* club, bool send_news = true);
 void add_team_to_world_cup_playoffs(cm3_clubs* club);
 vector<wstring> split_string_spaces(const wstring& str);
+bool is_nation_non_fifa(cm3_nations* n);
 
 #include "Helper.tpp"

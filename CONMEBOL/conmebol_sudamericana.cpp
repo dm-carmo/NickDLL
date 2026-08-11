@@ -486,7 +486,7 @@ void conmebol_sudamericana_qualifier_teams(BYTE* _this) {
 			count++;
 		}
 	}
-	sort(qual_clubs.begin(), qual_clubs.end(), compareClubNation);
+	sort(qual_clubs.begin(), qual_clubs.end(), compareClubNationID);
 	shuffle(qual_clubs.begin(), qual_clubs.begin() + 4, rng);
 	shuffle(qual_clubs.begin() + 4, qual_clubs.begin() + 8, rng);
 	shuffle(qual_clubs.begin() + 8, qual_clubs.begin() + 12, rng);

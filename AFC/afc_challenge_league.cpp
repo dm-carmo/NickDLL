@@ -193,7 +193,7 @@ void afc_challenge_team_selection() {
 			cm3_nations* afc_nation = get_country(v[i]);
 
 			BYTE* quals;
-			if ((a == 0 && i < 15) || (a == 1 && i < 11)) quals = quals_1;
+			if ((a == 0 && i < 15) || (a == 1 && i < 12)) quals = quals_1;
 			else quals = quals_2;
 
 			BYTE count = 0;
@@ -295,7 +295,7 @@ void afc_challenge_team_selection() {
 			}
 
 			required = 1;
-			//if (j < required) dprintf("[ChL] Getting clubs from database - best\n");
+			//if (j < required) dprintf("[ChL] (%s) Getting clubs from database - best\n", afc_nation->NationNameShort);
 			vector<cm3_clubs*> clubs;
 			bool playable = afc_nation->NationLeagueSelected;
 			if (playable) {
@@ -338,7 +338,7 @@ void afc_challenge_league_all_teams(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 
 	WORD total_teams_in_comp = 30;
-	data->special_nteams_seedings = 26;
+	data->special_nteams_seedings = 27;
 	data->f56 = total_teams_in_comp;
 
 	if (data->special_teams_seedings) sub_9452CA_free(data->special_teams_seedings);
@@ -352,16 +352,16 @@ void afc_challenge_league_all_teams(BYTE* _this) {
 		cm3_clubs* club = &(*clubs)[i];
 		if (club->ClubEuroFlag == AFC_CHALLENGE_LEAGUE_9CF()) {
 			BYTE seed = club->ClubEuroSeeding;
-			if (seed == 1 && teams_r1 < 6) {
+			if (seed == 1 && teams_r1 < 7) {
 				teams[teams_r1].club = club;
 				teams[teams_r1].f5 = 7;
 				teams[teams_r1].f6 = 0;
 				teams_r1++;
 			}
 			else if (seed == 2 && teams_r2 < 20) {
-				teams[teams_r2 + 6].club = club;
-				teams[teams_r2 + 6].f5 = 8;
-				teams[teams_r2 + 6].f6 = 0;
+				teams[teams_r2 + 7].club = club;
+				teams[teams_r2 + 7].f5 = 8;
+				teams[teams_r2 + 7].f6 = 0;
 				teams_r2++;
 			}
 		}

@@ -90,7 +90,7 @@ DWORD afc_champions_league_2_fixtures(BYTE* _this, char stage_idx, WORD* num_rou
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 6, 28), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 13), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, PreliminaryRound, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 8, 8, 4, 8, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, PreliminaryRound, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 8, 6, 3, 6, 0, 0, 1, 0);
 
 		return (DWORD)pMem;
 	}
@@ -212,24 +212,34 @@ void afc_cl_2_team_selection() {
 	BYTE quals_1[2] = { 1,0 };
 	BYTE quals_2[2] = { 2,0 };
 	BYTE quals_3[2] = { 1,1 };
-	BYTE quals_4[2] = { 0,1 };
-	BYTE quals_5[2] = { 0,0 };
+	BYTE quals_4[2] = { 0,2 };
+	BYTE quals_5[2] = { 0,1 };
+	BYTE quals_6[2] = { 0,0 };
 
 	for (int a = 0; a < 2; a++) {
 		vector<DWORD> v;
 		if (a == 0) v = west_asia_nations();
 		else v = east_asia_nations();
-		size_t add = extra_team || extra_v != a;
+		size_t sub_team = extra_team || extra_v != a;
 		for (size_t i = 0; i < v.size(); i++) {
 			if (i >= 12) break;
 			cm3_nations* afc_nation = get_country(v[i]);
 
 			BYTE* quals;
-			if (i < 6) quals = quals_1;
-			else if (i < 8) quals = quals_2;
-			else if (i < 10 + add) quals = quals_3;
-			else if (i < 12) quals = quals_4;
-			else quals = quals_5;
+			if (a == 0) {
+				if (i < 7 - sub_team) quals = quals_1;
+				else if (i < 9) quals = quals_2;
+				else if (i < 10) quals = quals_4;
+				else if (i < 12) quals = quals_5;
+				else quals = quals_6;
+			}
+			else {
+				if (i < 7 - sub_team) quals = quals_1;
+				else if (i < 10 - sub_team) quals = quals_2;
+				else if (i < 10) quals = quals_1;
+				else if (i < 12) quals = quals_5;
+				else quals = quals_5;
+			}
 
 			BYTE count = 0;
 			BYTE curr_seeding = 0;
@@ -257,10 +267,18 @@ void afc_cl_2_team_selection() {
 						nation_ptr = find_country(nation);
 						if (afc_nation == nation_ptr)
 						{
-							if (i < 6) required = 1;
-							else if (i < 10 + add) required = 2;
-							else if (i < 12) required = 1;
-							else required = 0;
+							if (a == 0) {
+								if (i < 7 - sub_team) required = 1;
+								else if (i < 10) required = 2;
+								else if (i < 12) required = 1;
+								else required = 0;
+							}
+							else {
+								if (i < 7 - sub_team) required = 1;
+								else if (i < 10 - sub_team) required = 2;
+								else if (i < 12) required = 1;
+								else required = 0;
+							}
 							//dprintf("[CL2] Getting clubs from afc.cfg: %s - max %d\n", nation, required);
 						}
 						else {
@@ -293,7 +311,7 @@ void afc_cl_2_team_selection() {
 					}
 				}
 			}
-			else if (i >= 4 && i < 10 + add && afc_nation->NationLeagueSelected) {
+			else if (i >= 4 && i < 10 && afc_nation->NationLeagueSelected) {
 				DWORD max_playables = pnd_count;
 				for (DWORD i = 0; i < max_playables; i++) {
 					playable_nation_data playable = pnd_list[i];
@@ -332,11 +350,19 @@ void afc_cl_2_team_selection() {
 				}
 			}
 
-			if (i < 6) required = 1;
-			else if (i < 10 + add) required = 2;
-			else if (i < 12) required = 1;
-			else required = 0;
-			//if (j < required) dprintf("[CL2] Getting clubs from database - best\n");
+			if (a == 0) {
+				if (i < 7 - sub_team) required = 1;
+				else if (i < 10) required = 2;
+				else if (i < 12) required = 1;
+				else required = 0;
+			}
+			else {
+				if (i < 7 - sub_team) required = 1;
+				else if (i < 10 - sub_team) required = 2;
+				else if (i < 12) required = 1;
+				else required = 0;
+			}
+			//if (j < required) dprintf("[CL2] (%s) Getting clubs from database - best\n", afc_nation->NationNameShort);
 			vector<cm3_clubs*> clubs;
 			bool playable = afc_nation->NationLeagueSelected;
 			if (playable) {
@@ -378,8 +404,8 @@ void afc_champions_league_2_all_teams(BYTE* _this) {
 
 	comp_stats* data = (comp_stats*)_this;
 
-	WORD total_teams_in_comp = 36;
-	data->special_nteams_seedings = 34;
+	WORD total_teams_in_comp = 35;
+	data->special_nteams_seedings = 31;
 	data->f56 = total_teams_in_comp;
 
 	if (data->special_teams_seedings) sub_9452CA_free(data->special_teams_seedings);
@@ -393,16 +419,16 @@ void afc_champions_league_2_all_teams(BYTE* _this) {
 		cm3_clubs* club = &(*clubs)[i];
 		if (club->ClubEuroFlag == AFC_CHAMPIONS_LEAGUE_TWO_9CF()) {
 			BYTE seed = club->ClubEuroSeeding;
-			if (seed == 1 && teams_r1 < 26) {
+			if (seed == 1 && teams_r1 < 25) {
 				teams[teams_r1].club = club;
 				teams[teams_r1].f5 = 7;
 				teams[teams_r1].f6 = 0;
 				teams_r1++;
 			}
-			else if (seed == 2 && teams_r2 < 8) {
-				teams[teams_r2 + 26].club = club;
-				teams[teams_r2 + 26].f5 = 8;
-				teams[teams_r2 + 26].f6 = 0;
+			else if (seed == 2 && teams_r2 < 6) {
+				teams[teams_r2 + 25].club = club;
+				teams[teams_r2 + 25].f5 = 8;
+				teams[teams_r2 + 25].f6 = 0;
 				teams_r2++;
 			}
 		}
@@ -411,7 +437,7 @@ void afc_champions_league_2_all_teams(BYTE* _this) {
 
 void afc_champions_league_2_qualifier_teams(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
-	WORD total_teams = 8;
+	WORD total_teams = 6;
 	BYTE* pMem = (BYTE*)cm0102_malloc(6 * total_teams);
 
 	data->n_teams = total_teams;
@@ -468,6 +494,7 @@ void afc_champions_league_2_reputation_setup(BYTE* _this) {
 			sub_4A2540((BYTE*)comp_data->f8, clubs[i], 17);
 		}
 		for (int i = 24; i < 32; i++) {
+			if (i >= comp_data->special_nteams_seedings) return;
 			sub_4A2540((BYTE*)comp_data->f8, clubs[i], 25);
 		}
 		for (int i = 32; i < 35; i++) {
@@ -614,7 +641,10 @@ void afc_champions_league_2_group_stage_setup(BYTE* _this) {
 	teams_seeded* teams = (teams_seeded*)comp_data->special_teams_seedings;
 	for (DWORD i = 0; i < comp_data->special_nteams_seedings; i++) {
 		if (teams[i].club->ClubEuroFlag == comp_data->competition_db->ClubCompID)
+		{
+			//dprintf("[CL2] club %d - %s - seed %d\n", i, teams[i].club->ClubNameShort, teams[i].club->ClubEuroSeeding);
 			clubs.push_back(teams[i].club);
+		}
 	}
 	if (clubs.size() != 32)
 	{

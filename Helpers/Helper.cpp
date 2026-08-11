@@ -188,6 +188,17 @@ vector<cm3_clubs*> get_national_teams_of_continent(DWORD continentID) {
 	return ret;
 }
 
+vector<cm3_clubs*> get_national_teams_of_continent_fifa_members(DWORD continentID) {
+	vector<cm3_clubs*> ret;
+	for (DWORD i = 0; i < *nations_count; i++)
+	{
+		cm3_clubs* c = &(*clubs)[*clubs_count + (i - 2 * *nations_count)];
+		if (c->ClubNation && c->ClubNation->NationContinent && c->ClubNation->NationContinent->ContinentID == continentID && !is_nation_non_fifa(c->ClubNation))
+			ret.push_back(c);
+	}
+	return ret;
+}
+
 BYTE* get_loaded_league(DWORD compID)
 {
 	return (BYTE*)*&(*comp_stats_list)[compID];
@@ -282,26 +293,26 @@ vector<DWORD> east_asia_nations() {
 	vector<DWORD> ret;
 	ret.push_back(NATION_JAPAN_9CF());
 	ret.push_back(NATION_SOUTH_KOREA_9CF());
-	ret.push_back(NATION_CHINA_9CF());
 	ret.push_back(NATION_THAILAND_9CF());
+	ret.push_back(NATION_CHINA_9CF());
 	ret.push_back(NATION_AUSTRALIA_9CF());
 	ret.push_back(NATION_MALAYSIA_9CF());
 	ret.push_back(NATION_VIETNAM_9CF());
-	ret.push_back(NATION_HONG_KONG_9CF());
 	ret.push_back(NATION_SINGAPORE_9CF());
-	ret.push_back(NATION_PHILIPPINES_9CF());
-	ret.push_back(NATION_INDONESIA_9CF());
-	ret.push_back(NATION_NORTH_KOREA_9CF());
+	ret.push_back(NATION_HONG_KONG_9CF());
 	ret.push_back(NATION_CAMBODIA_9CF());
+	ret.push_back(NATION_INDONESIA_9CF());
+	ret.push_back(NATION_PHILIPPINES_9CF());
 	ret.push_back(NATION_MYANMAR_9CF());
 	ret.push_back(NATION_CHINESE_TAIPEI_9CF());
+	ret.push_back(NATION_NORTH_KOREA_9CF());
 	ret.push_back(NATION_MONGOLIA_9CF());
 	ret.push_back(NATION_MACAU_9CF());
 	ret.push_back(NATION_LAOS_9CF());
 	ret.push_back(NATION_BRUNEI_9CF());
-	ret.push_back(NATION_GUAM_9CF());
-	//ret.push_back(NATION_NORTHERN_MARIANA_9CF());
 	ret.push_back(NATION_TIMOR_9CF());
+	ret.push_back(NATION_GUAM_9CF());
+	ret.push_back(NATION_NORTHERN_MARIANA_9CF());
 	return ret;
 }
 
@@ -315,23 +326,23 @@ vector<DWORD> west_asia_nations() {
 	ret.push_back(NATION_IRAQ_9CF());
 	ret.push_back(NATION_JORDAN_9CF());
 	ret.push_back(NATION_BAHRAIN_9CF());
-	ret.push_back(NATION_INDIA_9CF());
-	ret.push_back(NATION_TAJIKISTAN_9CF());
-	ret.push_back(NATION_TURKMENISTAN_9CF());
 	ret.push_back(NATION_OMAN_9CF());
-	ret.push_back(NATION_LEBANON_9CF());
+	ret.push_back(NATION_INDIA_9CF());
+	ret.push_back(NATION_TURKMENISTAN_9CF());
 	ret.push_back(NATION_KUWAIT_9CF());
+	ret.push_back(NATION_LEBANON_9CF());
+	ret.push_back(NATION_TAJIKISTAN_9CF());
+	ret.push_back(NATION_KYRGYZSTAN_9CF());
 	ret.push_back(NATION_BANGLADESH_9CF());
 	ret.push_back(NATION_SYRIA_9CF());
-	ret.push_back(NATION_KYRGYZSTAN_9CF());
 	ret.push_back(NATION_MALDIVES_9CF());
 	ret.push_back(NATION_PALESTINE_9CF());
-	ret.push_back(NATION_NEPAL_9CF());
-	ret.push_back(NATION_SRI_LANKA_9CF());
 	ret.push_back(NATION_BHUTAN_9CF());
+	ret.push_back(NATION_NEPAL_9CF());
 	ret.push_back(NATION_AFGHANISTAN_9CF());
-	ret.push_back(NATION_PAKISTAN_9CF());
+	ret.push_back(NATION_SRI_LANKA_9CF());
 	ret.push_back(NATION_YEMEN_9CF());
+	ret.push_back(NATION_PAKISTAN_9CF());
 	return ret;
 }
 
@@ -799,7 +810,7 @@ bool compareClubWEDiagNS(cm3_clubs* c1, cm3_clubs* c2)
 	return atan2(-lon1, lat1) > atan2(-lon2, lat2);
 }
 
-bool compareClubNation(cm3_clubs* c1, cm3_clubs* c2)
+bool compareClubNationID(cm3_clubs* c1, cm3_clubs* c2)
 {
 	long n1 = -1, n2 = -1;
 	if (c1->ClubNation)
@@ -811,6 +822,29 @@ bool compareClubNation(cm3_clubs* c1, cm3_clubs* c2)
 		n2 = c2->ClubNation->NationID;
 	}
 	return n1 < n2;
+}
+
+bool compareClubNationRep(cm3_nations* n1, cm3_nations* n2)
+{
+	return (n1->NationReputation > n2->NationReputation);
+}
+
+bool compareClubAFCElite(cm3_clubs* c1, cm3_clubs* c2)
+{
+	if (!c1->ClubNation || !c2->ClubNation) return compareClubRep(c1, c2);
+	vector<DWORD> asia_west = west_asia_nations();
+	vector<DWORD> asia_east = east_asia_nations();
+	int c1_west = distance(asia_west.begin(), find(asia_west.begin(), asia_west.end(), c1->ClubNation->NationID));
+	int c2_west = distance(asia_west.begin(), find(asia_west.begin(), asia_west.end(), c2->ClubNation->NationID));
+	int c1_east = distance(asia_east.begin(), find(asia_east.begin(), asia_east.end(), c1->ClubNation->NationID));
+	int c2_east = distance(asia_east.begin(), find(asia_east.begin(), asia_east.end(), c2->ClubNation->NationID));
+	if (c1_west == asia_west.size() || c2_west == asia_west.size()) {
+		if (c1_east == asia_east.size() || c2_east == asia_east.size()) return compareClubRep(c1, c2);
+		else if (c1_east == c2_east) return compareClubRep(c1, c2);
+		else return c1_east < c2_east;
+	}
+	else if (c1_west == c2_west) return compareClubRep(c1, c2);
+	else return c1_west < c2_west;
 }
 
 bool compareClubAsiaWestEast(cm3_clubs* c1, cm3_clubs* c2)
@@ -1129,4 +1163,15 @@ vector<wstring> split_string_spaces(const wstring& str) {
 	}
 
 	return tokens;
+}
+
+bool is_nation_non_fifa(cm3_nations* n) {
+	return n->NationID == NATION_NORTHERN_MARIANA_9CF() ||
+		n->NationID == NATION_GUADELOUPE_9CF() ||
+		n->NationID == NATION_BONAIRE_9CF() ||
+		n->NationID == NATION_FRENCH_GUIANA_9CF() ||
+		n->NationID == NATION_MARTINIQUE_9CF() ||
+		n->NationID == NATION_REUNION_9CF() ||
+		n->NationID == NATION_SAINT_MARTIN_9CF() ||
+		n->NationID == NATION_SINT_MAARTEN_9CF();
 }

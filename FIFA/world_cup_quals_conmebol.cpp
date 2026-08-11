@@ -238,7 +238,7 @@ void world_cup_quals_conmebol_teams(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	WORD year = data->year;
 
-	vector<cm3_clubs*> countries = get_national_teams_of_continent(SOUTH_AMERICA_9CF());
+	vector<cm3_clubs*> countries = get_national_teams_of_continent_fifa_members(SOUTH_AMERICA_9CF());
 
 	DWORD host1_id, host2_id;
 	WORD num_hosts = get_world_cup_hosts_in_continent(_this, SOUTH_AMERICA_9CF(), &host1_id, &host2_id);

@@ -230,7 +230,7 @@ void world_cup_quals_ofc_all_teams(BYTE* _this) {
 	WORD year = data->year;
 	//*(WORD*)(_this + 0xA7) = -1;
 
-	vector<cm3_clubs*> ofc_countries = get_national_teams_of_continent(OCEANIA_9CF());
+	vector<cm3_clubs*> ofc_countries = get_national_teams_of_continent_fifa_members(OCEANIA_9CF());
 	sort(ofc_countries.begin(), ofc_countries.end(), compareNationRanking);
 
 	DWORD host1_id, host2_id;

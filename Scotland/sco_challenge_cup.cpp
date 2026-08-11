@@ -66,7 +66,7 @@ void __declspec(naked) sco_challenge_cup_free_c()
 
 int sco_challenge_cup_set_champion(BYTE* _this) {
 	comp_stats* comp_data = (comp_stats*)_this;
-	BYTE* stage_data_for_history = (BYTE*)comp_data->stages[4];
+	BYTE* stage_data_for_history = (BYTE*)comp_data->stages[0];
 	DWORD v1 = *(DWORD*)stage_data_for_history;
 	return (*(int(__thiscall**)(BYTE*))(v1 + 0x30))(stage_data_for_history);
 }
@@ -87,7 +87,8 @@ void sco_challenge_cup_subs(BYTE* _this)
 {
 	comp_stats* comp_data = (comp_stats*)_this;
 
-	comp_data->n_rounds = 1;
+	comp_data->n_rounds = 0;
+	*((DWORD*)(_this + 0xA7)) = 6;
 	comp_data->pts_for_win = 3;
 	comp_data->pts_for_draw = 1;
 	comp_data->f196 = 4;
@@ -97,7 +98,7 @@ void sco_challenge_cup_subs(BYTE* _this)
 	comp_data->tiebreaker_3 = CurrentPositionTiebreaker;
 	comp_data->f82 = 3;
 
-	comp_data->promotions = 4;
+	comp_data->promotions = 22;
 	comp_data->prom_playoff = 0;
 	comp_data->rele_playoff = 0;
 	comp_data->relegations = 0;
@@ -129,26 +130,27 @@ void __declspec(naked) sco_challenge_cup_subs_c()
 
 DWORD sco_challenge_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
 {
-	if (stage_idx < 4) {
+	if (stage_idx == -1) {
 		if (a5)
 			*a5 = 1;
 		BYTE* pMem = NULL;
 		WORD year = ((comp_stats*)_this)->year;
-		*num_rounds = 5;
-		*stage_name_id = AlphabeticGroupStage + stage_idx;
+		*num_rounds = 6;
+		*stage_name_id = LeagueStage;
 
 		pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 12), year, Tuesday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 26), year, Tuesday, Evening);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 6), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 9), year, Tuesday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 23), year, Tuesday, Evening);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 11), year, Saturday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 11), year, Tuesday, Evening);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 27), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 14), year, Tuesday, Evening);
 
 		return (DWORD)pMem;
 	}
-	else if (stage_idx == 4) {
+	else if (stage_idx == 0) {
 		if (a5)
 			*a5 = 0;
 		BYTE* pMem = NULL;
@@ -159,23 +161,23 @@ DWORD sco_challenge_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, 
 		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 12), year, Wednesday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 9), year, Tuesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SecondRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 32, 16, 32, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("sco_chal_cup_r2_lose"));
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 15), year, Wednesday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 4), year, Tuesday, Evening);
+		FillFixtureDetails(pMem, fixture_id++, RoundOf32, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 32, 16, 32, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("sco_chal_cup_r2_lose"));
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 10), year, Wednesday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 1, 6), year, Tuesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 16, 8, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("sco_chal_cup_r3_lose"));
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 5), year, Wednesday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 25), year, Tuesday, Evening);
+		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 16, 8, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("sco_chal_cup_r3_lose"));
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 1, 7), year, Wednesday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 1, 27), year, Tuesday, Evening);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 26), year, Wednesday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 1, 13), year, Tuesday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 8, 4, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("sco_chal_cup_qtr_lose"));
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 1, 28), year, Wednesday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 2, 24), year, Tuesday, Evening);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 1, 14), year, Wednesday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 2, 10), year, Tuesday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 4, 2, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("sco_chal_cup_semi_lose"));
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 2, 25), year, Wednesday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 2, 11), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 5), year, Sunday, Afternoon, FACupSemiFinals);
 		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("sco_chal_cup_final_win"), prizeMoneyFile.GetInt("sco_chal_cup_final_lose"));
 
@@ -228,11 +230,8 @@ void sco_challenge_cup_reputation_setup(BYTE* _this) {
 		for (int i = 16; i < 32; i++) {
 			sub_4A2540((BYTE*)comp_data->f8, clubs[i], 17);
 		}
-		for (int i = 32; i < 35; i++) {
-			sub_4A2540((BYTE*)comp_data->f8, clubs[i], 33);
-		}
-		for (int i = 35; i < 40; i++) {
-			sub_4A2540((BYTE*)comp_data->f8, clubs[i], 36);
+		for (DWORD i = 32; i < comp_data->n_teams2; i++) {
+			sub_4A2540((BYTE*)comp_data->f8, clubs[i], (char)(i + 1));
 		}
 	}
 }
@@ -256,15 +255,15 @@ void sco_challenge_cup_reputation_calc(BYTE* _this, BYTE* club, char stage, char
 	char ret_current = current;
 	char ret_min = min;
 	char ret_max = max;
-	if (stage < 4) {
-		ret_current = 1 + 5 * (current - 1);
-		if (min < 5) ret_min = 1;
-		else ret_min = 1 + 5 * (min - 1);
-		if (max < 5) ret_max = 17;
-		else ret_max = 1 + 5 * (max - 1);
+	if (stage == -1) {
+		ret_current = current;
+		if (min < 23) ret_min = 1;
+		else ret_min = min;
+		if (max < 23) ret_max = 17;
+		else ret_max = max;
 		if (ret_current > ret_max) ret_current = ret_max;
 	}
-	else if (stage == 4) {
+	else if (stage == 0) {
 		// do nothing
 	}
 	ret[0x73] = ret_current;
@@ -292,7 +291,7 @@ void __declspec(naked) sco_challenge_cup_reputation_calc_c()
 int sco_challenge_cup_all_teams(BYTE* _this) {
 	vector<cm3_clubs*> vec;
 	comp_stats* comp_data = (comp_stats*)_this;
-	DWORD total_teams = 40;
+	DWORD total_teams = 50;
 	BYTE* pMem = (BYTE*)cm0102_malloc(4 * total_teams);
 
 	comp_data->n_teams2 = total_teams;
@@ -316,7 +315,7 @@ int sco_challenge_cup_all_teams(BYTE* _this) {
 	if ((selected & 4) != 0)
 	{
 		sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPos);
-		for (int i = 0; i < 5; i++)
+		for (int i = 0; i < 8; i++)
 		{
 			vec.push_back(division_clubs[i]);
 		}
@@ -344,7 +343,7 @@ int sco_challenge_cup_all_teams(BYTE* _this) {
 	if ((selected & 4) != 0)
 	{
 		sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPos);
-		for (int i = 0; i < 5; i++)
+		for (int i = 0; i < 12; i++)
 		{
 			vec.push_back(division_clubs[i]);
 		}
@@ -357,41 +356,30 @@ int sco_challenge_cup_all_teams(BYTE* _this) {
 			vec.push_back(club);
 		}
 	}
+	shuffle(vec.begin(), vec.end(), rng);
 	// League Two
 	division_clubs = find_clubs_of_comp(SCO_LEAGUE_2_9CF());
+	shuffle(division_clubs.begin(), division_clubs.end(), rng);
 	for (cm3_clubs* club : division_clubs)
 	{
 		vec.push_back(club);
 	}
 	// League One
 	division_clubs = find_clubs_of_comp(SCO_LEAGUE_1_9CF());
+	shuffle(division_clubs.begin(), division_clubs.end(), rng);
 	for (cm3_clubs* club : division_clubs)
 	{
 		vec.push_back(club);
 	}
 	// Championship
 	division_clubs = find_clubs_of_comp(SCO_CHAMP_9CF());
+	shuffle(division_clubs.begin(), division_clubs.end(), rng);
 	for (cm3_clubs* club : division_clubs)
 	{
 		vec.push_back(club);
 	}
 
-	shuffle(vec.begin(), vec.begin() + 5, rng);
-	shuffle(vec.begin() + 5, vec.begin() + 10, rng);
-	shuffle(vec.begin() + 10, vec.begin() + 15, rng);
-	shuffle(vec.begin() + 15, vec.begin() + 20, rng);
-	shuffle(vec.begin() + 20, vec.begin() + 25, rng);
-	shuffle(vec.begin() + 25, vec.begin() + 30, rng);
-	for (DWORD i = 0; i < 5; i++)
-	{
-		teams[i * 6] = (DWORD)vec[i];
-		teams[i * 6 + 1] = (DWORD)vec[i + 5];
-		teams[i * 6 + 2] = (DWORD)vec[i + 10];
-		teams[i * 6 + 3] = (DWORD)vec[i + 15];
-		teams[i * 6 + 4] = (DWORD)vec[i + 20];
-		teams[i * 6 + 5] = (DWORD)vec[i + 25];
-	}
-	for (DWORD i = 30; i < 40; i++)
+	for (DWORD i = 0; i < total_teams; i++)
 	{
 		teams[i] = (DWORD)vec[i];
 	}
@@ -399,11 +387,12 @@ int sco_challenge_cup_all_teams(BYTE* _this) {
 	return 1;
 }
 
-void sco_challenge_cup_setup_first_group(BYTE* _this) {
+void sco_challenge_cup_setup_league_stage(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
-	WORD total_teams = 6;
+	WORD total_teams = 40;
 	BYTE* pMem = (BYTE*)cm0102_malloc(league_team_list_sz * total_teams);
 
+	WORD year = data->year;
 	data->n_teams = total_teams;
 	data->team_league_table = (DWORD*)pMem;
 
@@ -411,33 +400,72 @@ void sco_challenge_cup_setup_first_group(BYTE* _this) {
 	BYTE teamsAdded = 0;
 	for (WORD i = 0; i < total_teams; i++)
 		add_team_call(_this, teamsAdded++, (cm3_clubs*)teams[i], 0, 0);
+
+
+	char matchups[6][40] = {
+		{ 11, 28, 30, 17, 31, 4, 32, 20, 33, 3, 21, 9, 34, 5, 22, 10, 13, 29, 14, 6, 23, 35, 24, 19, 25, 0, 37, 2, 39, 8, 26, 7, 16, 38, 18, 36, 27, 12, 15, 1, },
+		{ 10, 27, 11, 7, 20, 31, 32, 8, 33, 24, 12, 3, 35, 14, 36, 6, 22, 1, 13, 9, 25, 37, 38, 0, 15, 23, 26, 34, 16, 21, 17, 2, 18, 5, 19, 30, 28, 39, 29, 4, },
+		{ 10, 9, 20, 7, 30, 25, 31, 5, 21, 13, 34, 11, 12, 22, 35, 6, 36, 26, 14, 32, 23, 18, 24, 38, 37, 3, 39, 4, 16, 2, 17, 33, 19, 0, 27, 8, 28, 1, 29, 15, },
+		{ 11, 5, 30, 0, 31, 28, 32, 10, 33, 19, 21, 8, 34, 9, 22, 6, 13, 7, 14, 1, 23, 3, 24, 2, 25, 17, 37, 16, 38, 12, 39, 29, 26, 4, 18, 20, 27, 36, 15, 35, },
+		{ 10, 31, 11, 39, 20, 5, 32, 7, 33, 1, 12, 0, 35, 21, 36, 9, 22, 30, 13, 34, 25, 3, 37, 23, 38, 27, 15, 6, 26, 16, 17, 24, 19, 4, 28, 14, 29, 2, 18, 8, },
+		{ 10, 4, 20, 11, 30, 7, 31, 18, 21, 33, 34, 22, 12, 37, 35, 1, 36, 13, 14, 26, 23, 9, 24, 0, 38, 2, 39, 15, 16, 3, 17, 8, 19, 25, 27, 5, 28, 6, 29, 32, },
+	};
+
+	BYTE* pFixtures = (BYTE*)data->fixtures_table;
+	for (BYTE m = 0; m < 6; m++) {
+		BYTE* ptr_last = (BYTE*)(pFixtures + fixture_dates_sz * 7);
+		match_data* match = new match_data();
+		match->comp_id = data->competition_db->ClubCompID;
+		match->f8 = -1;
+		match->comp = data->competition_db;
+		match->end_year = year + *(WORD*)(ptr_last + 2);
+		match->end_day = *(WORD*)(ptr_last);
+		match->current_year = year;
+		match->sub_stage_id = 0;
+		match->main_stage_id = LeagueStage;
+		match->f54_0xdb = data->f219;
+		match->f56_0xab = data->f171;
+		match->f58_0xc4 = data->f196;
+		match->f59 = -1;
+		match->f61 = 0;
+		match->f62 = 0;
+		match->f64 = 1;
+		match->f65 = 1;
+		match->stage_number = -1;
+		match->goals_home2 = -1;
+		match->goals_away2 = -1;
+		match->f69 = -1;
+		match->f70 = -1;
+		match->goals_home1 = -1;
+		match->goals_away1 = -1;
+		match->f73 = -1;
+		match->f74 = -1;
+		match->f75 = -1;
+		match->f76 = -1;
+		match->subs = 0x59; // force 9/5 subs
+
+		vector<pair<char, char>> matchup_pairs;
+		for (char t = 0; t < 20; t++) {
+			char p1 = matchups[m][t * 2];
+			char p2 = matchups[m][t * 2 + 1];
+			cm3_clubs* home = (cm3_clubs*)teams[p1];
+			cm3_clubs* away = (cm3_clubs*)teams[p2];
+			BYTE* ptr = (BYTE*)(pFixtures + fixture_dates_sz * m);
+			match->home_team_id = home->ClubID;
+			match->away_team_id = away->ClubID;
+			match->home_team = home;
+			match->away_team = away;
+			match->fixture_year = year + *(WORD*)(ptr + 2);
+			match->fixture_day = *(WORD*)(ptr);
+			match->fixture_number = m;
+			match->f63 = *(BYTE*)(ptr + 4);
+
+			sub_85C260((BYTE*)*(DWORD*)0xDD7EF4, *(DWORD*)(ptr + 0x3D), (BYTE*)match, data->f36);
+			sub_5AA680((BYTE*)*(DWORD*)0xAE2A58, (BYTE*)match, 1);
+		}
+	}
+
 	sub_684230(_this);
-}
-
-void sco_challenge_cup_setup_groups(BYTE* _this, BYTE idx) {
-	DWORD v1 = *(DWORD*)_this;
-	WORD num_rounds = 0;
-	WORD stage_name_id = 0;
-	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, int, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, idx, &num_rounds, &stage_name_id, 0);
-	comp_stats* data = (comp_stats*)_this;
-	DWORD* pTeams = (DWORD*)cm0102_malloc(data->n_teams * 4);
-
-	DWORD* teams = data->teams2;
-	BYTE teamsAdded = 0;
-	for (WORD i = 0; i < data->n_teams; i++)
-		*((DWORD*)(&pTeams[teamsAdded++])) = teams[i + 6 * (idx + 1)];
-
-	WORD year = data->year;
-	BYTE* pStage = (BYTE*)cm0102_new(0xEE);
-	create_league_stage_data(pStage, _this, data->n_teams, pTeams, data->n_rounds, (DWORD)(data->competition_db), pFixtures, num_rounds,
-		data->pts_for_win, data->pts_for_draw, data->f196, &data->tiebreaker_1, &data->promotions,
-		year, idx, stage_name_id, data->f81, 2, 0, data->f217, -1, 0, 2);
-	DWORD* stages_arr = data->stages;
-	*((DWORD*)(&stages_arr[idx])) = (DWORD)pStage;
-	sub_9452CA_free(pTeams);
-	sub_9452CA_free(pFixtures);
-	sub_684230(pStage);
-	data->current_stage = idx;
 }
 
 char sco_challenge_cup_update(BYTE* _this) {
@@ -468,13 +496,10 @@ char sco_challenge_cup_update(BYTE* _this) {
 	DWORD v1 = *(DWORD*)_this;
 	(DWORD*)(*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
 	sco_challenge_cup_subs(_this);
-	sco_challenge_cup_setup_first_group(_this);
-	sub_6835C0(_this);
+	sco_challenge_cup_setup_league_stage(_this);
+	//sub_6835C0(_this); -> done in function above instead
 	BYTE* edx = 0;
 	sub_6827D0(_this, edx);
-	for (BYTE i = 0; i < 4; i++) {
-		sco_challenge_cup_setup_groups(_this, i);
-	}
 	return 1;
 }
 
@@ -493,16 +518,17 @@ void __declspec(naked) sco_challenge_cup_update_c()
 int sco_challenge_cup_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
-	if (stage < 4) {
+	if (stage == -1) {
 		switch (fate) {
 		case Qualified1:
-			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, SecondRound, 0x1E);
+			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, RoundOf32, 0x1E);
 			return 0;
 		default:
+			staff_history_knocked_out_86C000(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, LeagueStage, 0xF);
 			return 0;
 		}
 	}
-	else if (stage == 4) {
+	else if (stage == 0) {
 		WORD num_teams = comp_data->n_teams;
 		if (num_teams <= 0) return 0;
 		comp_stats* stage_data = (comp_stats*)(comp_data->stages[stage]);
@@ -547,62 +573,22 @@ void __declspec(naked) sco_challenge_cup_set_table_fate()
 }
 
 void sco_challenge_cup_final_stage_setup(BYTE* _this) {
-	char stage_num = 4;
+	char stage_num = 0;
 
 	comp_stats* comp_data = (comp_stats*)_this;
 	BYTE playoff_teams = 32;
 	DWORD* pTeams = (DWORD*)cm0102_malloc(playoff_teams * 4);
 
-	comp_stats* curr_stage = comp_data;
 	vector<cm3_clubs*> clubs;
-
-	for (char al = -1; al < 4; al++) {
-		if (al > -1) curr_stage = (comp_stats*)(comp_data->stages[al]);
-		team_league_stats* table_teams = (team_league_stats*)(curr_stage->team_league_table);
-		clubs.push_back(table_teams[0].club);
-		clubs.push_back(table_teams[1].club);
-		clubs.push_back(table_teams[2].club);
-		clubs.push_back(table_teams[3].club);
-	}
-
-	// get best fifth placeds
-	vector<team_league_stats> sort_fifths;
-	curr_stage = comp_data;
-	for (char al = -1; al < 4; al++) {
-		if (al >= 0) {
-			curr_stage = (comp_stats*)(comp_data->stages[al]);
-		}
-		team_league_stats* table_teams = (team_league_stats*)(curr_stage->team_league_table);
-		team_league_stats tls = table_teams[curr_stage->promotions];
-		sort_fifths.push_back(tls);
-	}
-	sort(sort_fifths.begin(), sort_fifths.end(), sortTLS);
-	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
-	for (int i = 0; i < 2; i++) {
-		team_league_stats second = sort_fifths[i];
-		clubs.push_back(second.club);
-		curr_stage = comp_data;
-		for (char al = -1; al < 4; al++) {
-			if (al >= 0) {
-				curr_stage = (comp_stats*)(comp_data->stages[al]);
-			}
-			team_league_stats* table_teams = (team_league_stats*)(curr_stage->team_league_table);
-			team_league_stats tls = table_teams[curr_stage->promotions];
-			if (tls.club == second.club) {
-				table_teams[curr_stage->promotions].league_fate = Qualified1;
-				curr_stage->promotions++;
-				staff_history_qualified_86BDD0(staff_hist_ptr, tls.club, (DWORD)(comp_data->competition_db), None, SecondRound, 0x1E);
-			}
-		}
-	}
+	team_league_stats* table_teams = (team_league_stats*)(comp_data->team_league_table);
 
 	for (WORD j = 0; j < 22; j++) {
-		*((DWORD*)(&pTeams[j])) = (DWORD)clubs[j];
+		*((DWORD*)(&pTeams[j])) = (DWORD)table_teams[j].club;
 	}
 
 	DWORD* teams = comp_data->teams2;
 	for (WORD j = 0; j < 10; j++) {
-		*((DWORD*)(&pTeams[22 + j])) = teams[30 + j];
+		*((DWORD*)(&pTeams[22 + j])) = teams[40 + j];
 	}
 
 	WORD num_rounds = 0;
@@ -620,19 +606,11 @@ void sco_challenge_cup_final_stage_setup(BYTE* _this) {
 	sub_51C410(new_stage, 0);
 
 	BYTE* ae2a38_ptr = (BYTE*)*ae2a38;
-	curr_stage = comp_data;
-	for (char al = -1; al < 4; al++) {
-		if (al > -1) curr_stage = (comp_stats*)(comp_data->stages[al]);
-		team_league_stats* table_teams = (team_league_stats*)(curr_stage->team_league_table);
-		for (int i = 0; i < 6; i++) {
-			team_league_stats t = ((team_league_stats*)(curr_stage->team_league_table))[i];
-			if (t.league_fate != Qualified1) {
-				staff_history_knocked_out_86C000(staff_hist_ptr, t.club, (DWORD)(comp_data->competition_db), None, GroupStage, 0xF);
-				int ret = sub_5A0590(ae2a38_ptr, (BYTE*)t.club);
-				AddToClubIncome((BYTE*)ret, prizeMoneyFile.GetInt("sco_chal_cup_groups_prize_eliminated"));
-				AddMoneyFromComp(_this, (BYTE*)t.club, prizeMoneyFile.GetInt("sco_chal_cup_groups_prize_eliminated"), 0, -1, GroupStage, 0, -2);
-			}
-		}
+	for (int i = 22; i < 40; i++) {
+		team_league_stats t = ((team_league_stats*)(comp_data->team_league_table))[i];
+		int ret = sub_5A0590(ae2a38_ptr, (BYTE*)t.club);
+		AddToClubIncome((BYTE*)ret, prizeMoneyFile.GetInt("sco_chal_cup_groups_prize_eliminated"));
+		AddMoneyFromComp(_this, (BYTE*)t.club, prizeMoneyFile.GetInt("sco_chal_cup_groups_prize_eliminated"), 0, -1, LeagueStage, 0, -2);
 	}
 }
 
@@ -643,7 +621,7 @@ void sco_challenge_cup_stages_create(BYTE* _this) {
 	if (current < max - 1) {
 		current++;
 		comp_data->current_stage = current;
-		if (current == 4) {
+		if (current == 0) {
 			sco_challenge_cup_final_stage_setup(_this);
 		}
 	}
@@ -665,7 +643,7 @@ int sco_challenge_cup_stage_news(BYTE* _this, int club_idx, char fate, char stag
 	comp_stats* data = (comp_stats*)_this;
 	cm3_club_comps* comp_data = data->competition_db;
 	cm3_clubs* club_data = get_club(club_idx);
-	if (stage_id < 4) {
+	if (stage_id == -1) {
 		if (fate == Qualified1) {
 			if (show_body_text) {
 				sub_66F4E0(0xDE1F64, (DWORD)&qualified_rd2_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderName, comp_data->ClubCompGenderName,
@@ -686,7 +664,7 @@ int sco_challenge_cup_stage_news(BYTE* _this, int club_idx, char fate, char stag
 		}
 		else if (fate == Eliminated) return sub_4B4590(club_idx, (WORD)stage_name_idx, (DWORD)comp_data, fate, show_body_text, ret_str_ptr);
 	}
-	else if (stage_id == 4) return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
+	else if (stage_id == 0) return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
 
 	return 0;
 }
@@ -737,7 +715,7 @@ void sco_challenge_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	if (loaded) return;
 	data->f68 = -1;
 	data->current_stage = -1;
-	data->num_stages = 5;
+	data->num_stages = 1;
 	data->stages = (DWORD*)cm0102_malloc(data->num_stages * 4);
 	sco_challenge_cup_all_teams(_this);
 	BYTE* pMem2 = (BYTE*)cm0102_new(0x5CE);
@@ -747,13 +725,10 @@ void sco_challenge_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->f8 = (DWORD*)pMem2;
 	sco_challenge_cup_reputation_setup(_this);
 	sco_challenge_cup_subs(_this);
-	sco_challenge_cup_setup_first_group(_this);
-	sub_6835C0(_this);
+	sco_challenge_cup_setup_league_stage(_this);
+	//sub_6835C0(_this); -> done in function above instead
 	BYTE* ebx = 0;
 	sub_6827D0(_this, ebx);
-	for (BYTE i = 0; i < 4; i++) {
-		sco_challenge_cup_setup_groups(_this, i);
-	}
 }
 
 void setup_sco_challenge_cup() {

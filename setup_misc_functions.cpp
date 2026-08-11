@@ -113,7 +113,7 @@ int show_extra_leagues_in_start(BYTE* nation, DWORD dest_ptr, int a3) {
 int parent_child_stages(int child_stage_id) {
 	if (child_stage_id >= 0x3e8 && child_stage_id <= 0x3fb) return GroupStage;
 	if (child_stage_id >= 0x41f && child_stage_id <= 0x42e) return GroupStage;
-	if (child_stage_id == EasternConference || child_stage_id == WesternConference || child_stage_id == CentralConference) return GroupStage;
+	//if (child_stage_id == EasternConference || child_stage_id == WesternConference || child_stage_id == EastLeagueStage) return GroupStage;
 	//if (child_stage_id == BestPlacedTeams) return GroupStage;
 	if (child_stage_id >= 0x475 && child_stage_id <= 0x47A) return LeagueA;
 	if (child_stage_id >= 0x459 && child_stage_id <= 0x45C) return LeagueB;
@@ -980,8 +980,10 @@ void update_fifa_coefficients(BYTE* _this, BYTE* match_data) {
 	cm3_stadiums* stadium = (cm3_stadiums*)*(DWORD*)(match_data + 0x18);
 	cm3_clubs* home_team = (cm3_clubs*)*(DWORD*)(match_data + 0x1C);
 	if (!home_team->ClubNation) return;
+	if (is_nation_non_fifa(home_team->ClubNation)) return;
 	cm3_clubs* away_team = (cm3_clubs*)*(DWORD*)(match_data + 0x20);
 	if (!away_team->ClubNation) return;
+	if (is_nation_non_fifa(away_team->ClubNation)) return;
 	WORD main_stage_id = *(WORD*)(match_data + 0x32);
 	WORD sub_stage_id = *(WORD*)(match_data + 0x30);
 	char goals_home = *(char*)(match_data + 0x47);
@@ -1289,6 +1291,8 @@ void __declspec(naked) quick_uefa_fix_1() {
 		je special_uefa_tables_1
 		cmp ecx, dword ptr ds : [0x9CF6EC]
 		je special_uefa_tables_1
+		cmp ecx, dword ptr ds : [0x9CF7B4]
+		je special_uefa_tables_1
 		push 0x49dbe0
 		ret
 		special_uefa_tables_1 :
@@ -1306,6 +1310,8 @@ void __declspec(naked) quick_uefa_fix_2() {
 		cmp ecx, dword ptr ds : [0x9CF6F0]
 		je special_uefa_tables_2
 		cmp ecx, dword ptr ds : [0x9CF6EC]
+		je special_uefa_tables_2
+		cmp ecx, dword ptr ds : [0x9CF7B4]
 		je special_uefa_tables_2
 		push 0x49e65a
 		ret
@@ -1564,6 +1570,14 @@ void setup_misc_functions()
 
 	// Enable Bosman signings from all countries
 	WriteBytes(0x544677, 1, 0xeb);
+
+	// enable transfer fees up to 50%
+	WriteBytes(0x8eabe1, 1, 50);
+	WriteBytes(0x8edb66, 1, 50);
+
+	// sim detail: continental comps in full detail even if no leagues from the continent are in foreground
+	WriteNOP(0x6b66c3, 2);
+	WriteBytes(0x6b692d, 1, 0xeb);
 
 	// "groups drawn" news message title adjustment => review this
 	WriteDWORD(0x77fcda + 1, ThirdRound);

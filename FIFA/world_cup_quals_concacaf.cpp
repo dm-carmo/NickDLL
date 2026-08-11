@@ -237,7 +237,7 @@ void world_cup_quals_concacaf_all_teams(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	WORD year = data->year;
 
-	vector<cm3_clubs*> countries = get_national_teams_of_continent(NORTH_AMERICA_9CF());
+	vector<cm3_clubs*> countries = get_national_teams_of_continent_fifa_members(NORTH_AMERICA_9CF());
 	sort(countries.begin(), countries.end(), compareNationRanking);
 
 	DWORD host1_id, host2_id;

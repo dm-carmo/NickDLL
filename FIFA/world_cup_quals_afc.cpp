@@ -11,7 +11,6 @@
 
 using namespace std;
 
-//DWORD* world_cup_quals_afc_vtable = (DWORD*)0x970B70;
 DWORD* world_cup_quals_afc_vtable = (DWORD*)0x970B84;
 
 void world_cup_quals_afc_free_under(BYTE* _this) {
@@ -276,7 +275,7 @@ void world_cup_quals_afc_all_teams(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	WORD year = data->year;
 
-	vector<cm3_clubs*> afc_countries = get_national_teams_of_continent(ASIA_9CF());
+	vector<cm3_clubs*> afc_countries = get_national_teams_of_continent_fifa_members(ASIA_9CF());
 	sort(afc_countries.begin(), afc_countries.end(), compareNationRanking);
 
 	DWORD host1_id, host2_id;
