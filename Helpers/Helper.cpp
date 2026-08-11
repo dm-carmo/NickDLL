@@ -7,7 +7,7 @@ char* szDebugFile = "";
 
 Config configFile = Config();
 Config prizeMoneyFile = Config();
-std::default_random_engine rng = std::default_random_engine{};
+std::default_random_engine rng = std::default_random_engine((unsigned int)time(0));
 
 void dprintf(const char* fmt, ...)
 {
@@ -350,27 +350,26 @@ vector<DWORD> caf_top_12_nations() {
 	vector<DWORD> ret;
 	ret.push_back(NATION_EGYPT_9CF());
 	ret.push_back(NATION_MOROCCO_9CF());
-	ret.push_back(NATION_SOUTH_AFRICA_9CF());
 	ret.push_back(NATION_ALGERIA_9CF());
+	ret.push_back(NATION_SOUTH_AFRICA_9CF());
 	ret.push_back(NATION_TANZANIA_9CF());
 	ret.push_back(NATION_TUNISIA_9CF());
 	ret.push_back(NATION_ANGOLA_9CF());
 	ret.push_back(NATION_DR_CONGO_9CF());
 	ret.push_back(NATION_SUDAN_9CF());
+	ret.push_back(NATION_MALI_9CF());
 	ret.push_back(NATION_IVORY_COAST_9CF());
-	ret.push_back(NATION_LIBYA_9CF());
 	ret.push_back(NATION_NIGERIA_9CF());
 	return ret;
 }
 
 vector<DWORD> caf_bottom_6_nations() {
 	vector<DWORD> ret;
-	ret.push_back(NATION_CHAD_9CF());
+	ret.push_back(NATION_CAPE_VERDE_9CF());
 	ret.push_back(NATION_ERITREA_9CF());
 	ret.push_back(NATION_SAO_TOME_PRINCIPE_9CF());
-	ret.push_back(NATION_SOMALIA_9CF());
-	ret.push_back(NATION_DJIBOUTI_9CF());
-	ret.push_back(NATION_SEYCHELLES_9CF());
+	ret.push_back(NATION_CONGO_9CF());
+	ret.push_back(NATION_CENTRAL_AFRICA_9CF());
 	return ret;
 }
 

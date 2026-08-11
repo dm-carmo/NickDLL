@@ -206,11 +206,12 @@ void caf_cl_team_selection() {
 	vector<DWORD> top12_ids = caf_top_12_nations();
 	vector<DWORD> bottom6_ids = caf_bottom_6_nations();
 	for (cm3_nations* caf_nation : caf_nations) {
+		if (is_nation_non_fifa(caf_nation)) continue;
 		BYTE count = 1;
 		if (find(top12_ids.begin(), top12_ids.end(), caf_nation->NationID) != top12_ids.end()) {
 			count = 2;
 		}
-		else if (excluded_count < 3 && find(bottom6_ids.begin(), bottom6_ids.end(), caf_nation->NationID) != bottom6_ids.end()) {
+		else if (excluded_count < 2 && find(bottom6_ids.begin(), bottom6_ids.end(), caf_nation->NationID) != bottom6_ids.end()) {
 			excluded_count++;
 			continue;
 		}

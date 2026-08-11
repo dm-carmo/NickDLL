@@ -785,7 +785,7 @@ void afc_champions_league_elite_group_stage_setup(BYTE* _this) {
 		//dprintf("-- POTS GROUP %d --\n", al + 1);
 		for (int j = 0; j < group_teams; j++) {
 			cm3_clubs* club = clubs_pots[j];
-			//dprintf("POT %d: %s\n", j / 4 + 1, club->ClubNameShort);
+			//dprintf("POT %d: %s [%s]\n", j / 4 + 1, club->ClubNameShort, club->ClubNation->NationNameThreeLetter);
 			*((DWORD*)(&pTeams[j])) = (DWORD)club;
 			int ret = sub_5A0590(ae2a38_ptr, (BYTE*)club);
 			AddToClubIncome((BYTE*)ret, prizeMoneyFile.GetInt("afc_cl_elite_groups_qualify"));
@@ -813,17 +813,23 @@ void afc_champions_league_elite_group_stage_setup(BYTE* _this) {
 				if (n_tries > 255)
 				{
 					//if (n_tries == 256 && m == 0) dprintf("[CLE] Tried to make draw without teams from the same country facing each other, but failed.\n");
-					multiple = pot_nations_c[club->ClubNation] > 3;
+					multiple = pot_nations_c[club->ClubNation] > 2;
 				}
 
 				if (!multiple)
 				{
 					if (opp->ClubNation == club->ClubNation) {
-						//if (n_tries > 255) dprintf("** FAILED ** clubs: %s vs %s\n", club->ClubNameShort, opp->ClubNameShort);
-						shuffle(clubs_pots.begin(), clubs_pots.begin() + 4, rng);
-						if (idx > 3) shuffle(clubs_pots.begin() + 4, clubs_pots.begin() + 8, rng);
-						if (idx > 7) shuffle(clubs_pots.begin() + 8, clubs_pots.begin() + 12, rng);
-						if (idx > 11) shuffle(clubs_pots.begin() + 12, clubs_pots.end(), rng);
+						//if (n_tries > 255) dprintf("** FAILED ** clubs: %s [%d] vs %s [%d]\n", club->ClubNameShort, t, opp->ClubNameShort, idx);
+						if (idx % 4 < 3) {
+							iter_swap(clubs_pots.begin() + idx, clubs_pots.begin() + idx + 1);
+						}
+						else {
+							//iter_swap(clubs_pots.begin() + idx - 1, clubs_pots.begin() + idx);
+							//iter_swap(clubs_pots.begin() + idx - 2, clubs_pots.begin() + idx - 1);
+							//iter_swap(clubs_pots.begin() + idx - 3, clubs_pots.begin() + idx - 2);
+							auto it = clubs_pots.begin() + idx;
+							rotate(clubs_pots.begin() + idx / 4 * 4, it, it + 1);
+						}
 						t = -1;
 						n_tries++;
 						break;
@@ -831,7 +837,7 @@ void afc_champions_league_elite_group_stage_setup(BYTE* _this) {
 				}
 				if (counts.find(opp->ClubNation) != counts.end()) {
 					int count = counts[opp->ClubNation];
-					if (count > 2 || (opp->ClubNation == club->ClubNation && count == 1)) {
+					if (opp->ClubNation == club->ClubNation && count == 1) {
 						shuffle(clubs_pots.begin(), clubs_pots.begin() + 4, rng);
 						if (idx > 3) shuffle(clubs_pots.begin() + 4, clubs_pots.begin() + 8, rng);
 						if (idx > 7) shuffle(clubs_pots.begin() + 8, clubs_pots.begin() + 12, rng);

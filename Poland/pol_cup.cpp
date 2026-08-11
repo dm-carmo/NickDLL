@@ -45,7 +45,8 @@ DWORD pol_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 4, 2, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("pol_cup_semi_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 4, 2), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 2), year, Saturday, Afternoon, NationalStadium);
+		Date national_day = Date(year + 1, 5, 2);
+		AddPlayoffFixture(pMem, fixture_id, national_day, year, (Day)national_day.DayOfWeek(), Afternoon, NationalStadium);
 		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("pol_cup_final_win"), prizeMoneyFile.GetInt("pol_cup_final_lose"));
 
 		return (DWORD)pMem;

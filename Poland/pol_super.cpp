@@ -20,8 +20,8 @@ DWORD pol_super_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 6, 29), year, Sunday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 13), year, Sunday, Afternoon, NeutralStadium);
-		FillFixtureDetails(pMem, fixture_id++, None, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 6, 2, 1, 2, 0, 0, 1, 0);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 13), year, Sunday);
+		FillFixtureDetails(pMem, fixture_id++, None, 8, FixedTeamOrderInCup + PenaltiesNoExtraTime_1, NoTiebreak_2, 6, 2, 1, 2, 0, 0, 1, 0);
 
 		return (DWORD)pMem;
 	}
@@ -47,4 +47,5 @@ void __declspec(naked) pol_super_fixture_caller()
 void setup_pol_super()
 {
 	WriteVTablePtr(pol_super_vtable, VTableFixtures, (DWORD)&pol_super_fixture_caller);
+	WriteBytes(0x7ccf56, 1, 1);
 }
