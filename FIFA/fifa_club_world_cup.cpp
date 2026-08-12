@@ -16,7 +16,6 @@ vtable* fifa_club_world_cup_vtable = new vtable((BYTE*)0x968BF4, 0xB4);
 void fifa_club_world_cup_free_under(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	data->comp_vtable = (DWORD*)(fifa_club_world_cup_vtable->vtable_ptr);
-	DWORD x = 0;
 	sub_687970(_this, 0);
 	if (data->fixtures_table) {
 		sub_9452CA_free(data->fixtures_table);
@@ -41,7 +40,6 @@ void fifa_club_world_cup_free_under(BYTE* _this) {
 		sub_49F450((BYTE*)(data->f8));
 		sub_944C94_free((BYTE*)(data->f8));
 	}
-	DWORD y = -1;
 	sub_682300(_this);
 }
 
@@ -733,9 +731,8 @@ void fifa_club_world_cup_setup_groups(BYTE* _this, BYTE idx) {
 
 char fifa_club_world_cup_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
-	BYTE* ebx = 0;
 	data->f76 = 0;
-	sub_687970(_this, ebx);
+	sub_687970(_this, 0);
 	if (data->fixtures_table) {
 		sub_9452CA_free(data->fixtures_table);
 		data->fixtures_table = 0;
@@ -1000,11 +997,8 @@ void fifa_club_world_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->num_stages = 8;
 	data->stages = (DWORD*)cm0102_malloc(data->num_stages * 4);
 	fifa_club_world_cup_subs(_this);
-	BYTE* ebx = 0;
 	BYTE* pMem2 = (BYTE*)cm0102_new(0x5CE);
-	BYTE unk1 = 1;
 	sub_49EE70(pMem2, _this);
-	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
 	data->f69 = 0;
 }

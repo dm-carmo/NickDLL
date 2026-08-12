@@ -279,9 +279,8 @@ void __declspec(naked) tur_third_reputation_setup_c()
 
 char tur_third_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
-	BYTE* ebx = 0;
 	data->f76 = 0;
-	sub_687970(_this, ebx);
+	sub_687970(_this, 0);
 	if (data->fixtures_table) {
 		sub_9452CA_free(data->fixtures_table);
 		data->fixtures_table = 0;
@@ -303,8 +302,7 @@ char tur_third_update(BYTE* _this) {
 	*((DWORD*)(_this + 0xA7)) = -1;
 	tur_third_subs(_this);
 	AddTeamsGroupLeague(_this, TUR_THIRD_G1_9CF());
-	BYTE* edx = 0;
-	sub_6827D0(_this, edx);
+	sub_6827D0(_this, 0);
 	sub_6835C0(_this);
 	for (BYTE i = 0; i < 1; i++) {
 		tur_third_setup_groups(_this, i);
@@ -549,12 +547,9 @@ void tur_third_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->stages = (DWORD*)cm0102_malloc(data->num_stages * 4);
 	tur_third_subs(_this);
 	AddTeamsGroupLeague(_this, TUR_THIRD_G1_9CF());
-	BYTE* ebx = 0;
-	sub_6827D0(_this, ebx);
+	sub_6827D0(_this, 0);
 	BYTE* pMem2 = (BYTE*)cm0102_new(0x5CE);
-	BYTE unk1 = 1;
 	sub_49EE70(pMem2, _this);
-	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
 	sub_6835C0(_this);
 	for (BYTE i = 0; i < 1; i++) {

@@ -36,7 +36,6 @@ void __declspec(naked) ita_ser_c_set_champion_c()
 void ita_ser_c_free_under(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	data->comp_vtable = (DWORD*)(ita_ser_c_vtable->vtable_ptr);
-	DWORD x = 0;
 	sub_687970(_this, 0);
 	if (data->fixtures_table) {
 		sub_9452CA_free(data->fixtures_table);
@@ -61,7 +60,6 @@ void ita_ser_c_free_under(BYTE* _this) {
 		sub_49F450((BYTE*)(data->f8));
 		sub_944C94_free((BYTE*)(data->f8));
 	}
-	DWORD y = -1;
 	sub_682300(_this);
 }
 
@@ -725,9 +723,8 @@ void __declspec(naked) ita_ser_c_set_table_fate()
 
 char ita_ser_c_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
-	BYTE* ebx = 0;
 	data->f76 = 0;
-	sub_687970(_this, ebx);
+	sub_687970(_this, 0);
 	if (data->fixtures_table) {
 		sub_9452CA_free(data->fixtures_table);
 		data->fixtures_table = 0;
@@ -748,8 +745,7 @@ char ita_ser_c_update(BYTE* _this) {
 	data->current_stage = -1;
 	ita_ser_c_subs(_this);
 	AddTeamsGroupLeague(_this, ITA_SERIE_C_A_9CF());
-	BYTE* edx = 0;
-	sub_6827D0(_this, edx);
+	sub_6827D0(_this, 0);
 	sub_6835C0(_this);
 	for (BYTE i = 0; i < 2; i++) {
 		ita_ser_c_setup_groups(_this, i);
@@ -901,12 +897,9 @@ void ita_ser_c_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->stages = (DWORD*)cm0102_malloc(data->num_stages * 4);
 	ita_ser_c_subs(_this);
 	AddTeamsGroupLeague(_this, ITA_SERIE_C_A_9CF());
-	BYTE* ebx = 0;
-	sub_6827D0(_this, ebx);
+	sub_6827D0(_this, 0);
 	BYTE* pMem2 = (BYTE*)cm0102_new(0x5CE);
-	BYTE unk1 = 1;
 	sub_49EE70(pMem2, _this);
-	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
 	sub_6835C0(_this);
 	for (BYTE i = 0; i < 2; i++) {

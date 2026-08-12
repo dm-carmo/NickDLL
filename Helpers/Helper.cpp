@@ -531,6 +531,10 @@ vector<cm3_clubs*> find_clubs_of_country_for_euro_playable(DWORD nation_id)
 			if (it != ret.end()) ret.erase(it);
 		}
 	}
+	// Special case: AFC Champions League Two winner
+	cm3_club_comps* cl_two = get_comp(AFC_CHAMPIONS_LEAGUE_TWO_9CF());
+	cm3_clubs* cl_two_winner = get_last_comp_winner(cl_two);
+	if (cl_two_winner && cl_two_winner->ClubNation && cl_two_winner->ClubNation->NationID == nation_id) ret.push_back(cl_two_winner);
 	return ret;
 }
 

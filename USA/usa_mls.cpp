@@ -410,12 +410,9 @@ void usa_mls_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	usa_mls_subs(_this);
 	usa_mls_add_teams(_this);
 	sub_6835C0(_this);
-	BYTE* ebx = 0;
-	sub_6827D0(_this, ebx);
+	sub_6827D0(_this, 0);
 	BYTE* pMem2 = (BYTE*)cm0102_new(0x5CE);
-	BYTE unk1 = 1;
 	sub_49EE70(pMem2, _this);
-	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
 	for (BYTE i = 0; i < 1; i++) {
 		usa_mls_setup_groups(_this, i);
@@ -425,11 +422,10 @@ void usa_mls_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 
 char usa_mls_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
-	BYTE* ebx = 0;
 	data->f76 = 0;
 	usa_mls_prom_rel_update(_this, 1);
 
-	sub_687970(_this, ebx);
+	sub_687970(_this, 0);
 	if (data->fixtures_table) {
 		sub_9452CA_free(data->fixtures_table);
 		data->fixtures_table = 0;
@@ -450,8 +446,7 @@ char usa_mls_update(BYTE* _this) {
 	data->current_stage = -1;
 	usa_mls_subs(_this);
 	usa_mls_add_teams(_this);
-	BYTE* edx = 0;
-	sub_6827D0(_this, edx);
+	sub_6827D0(_this, 0);
 	sub_6835C0(_this);
 	for (BYTE i = 0; i < 1; i++) {
 		usa_mls_setup_groups(_this, i);

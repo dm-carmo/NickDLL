@@ -17,7 +17,6 @@ DWORD* afc_champions_league_elite_vtable = (DWORD*)0x9674D4;
 void afc_champions_league_elite_free_under(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	data->comp_vtable = afc_champions_league_elite_vtable;
-	DWORD x = 0;
 	if (data->teams_list) {
 		sub_9452CA_free(data->teams_list);
 	}
@@ -52,7 +51,6 @@ void afc_champions_league_elite_free_under(BYTE* _this) {
 		sub_49F450((BYTE*)(data->f8));
 		sub_944C94_free((BYTE*)(data->f8));
 	}
-	DWORD y = -1;
 	sub_518690(_this);
 }
 
@@ -307,12 +305,13 @@ void afc_cl_elite_team_selection() {
 						nation_ptr = find_country(nation);
 						if (afc_nation == nation_ptr)
 						{
-							if (i < 1) required = 3;
-							else if (i < 2) required = 2;
+							if (i < 2) required = 4;
 							else if (i < 3) required = 3;
-							else if (i < 4) required = 2;
-							else if (i < 6) required = 1;
+							else if (i < 5) required = 2;
+							else if (i < 7) required = 1;
 							else required = 0;
+							if (extra_top && i == 0) required++;
+							if (i == extra_quals_same0) required--;
 							//dprintf("[CLE] Getting clubs from afc.cfg: %s - max %d\n", nation, required);
 						}
 						else {
@@ -365,6 +364,8 @@ void afc_cl_elite_team_selection() {
 							}
 							if (cup_winner->ClubEuroFlag == -1 || (cup_winner->ClubEuroFlag == AFC_CHAMPIONS_LEAGUE_ELITE_9CF() && cup_winner->ClubEuroSeeding > curr_seeding))
 							{
+								//dprintf("Setting club %s to Champions League Elite (cup winner)\n", (cup_winner->ClubName));
+								if (cup_winner->ClubEuroFlag != -1) quals[1]++;
 								cup_winner->ClubEuroFlag = AFC_CHAMPIONS_LEAGUE_ELITE_9CF();
 								cup_winner->ClubEuroSeeding = curr_seeding;
 								j++;
@@ -390,6 +391,8 @@ void afc_cl_elite_team_selection() {
 								}
 								if (cup_loser->ClubEuroFlag == -1 || (cup_loser->ClubEuroFlag == AFC_CHAMPIONS_LEAGUE_ELITE_9CF() && cup_loser->ClubEuroSeeding > curr_seeding))
 								{
+									//dprintf("Setting club %s to Champions League Elite (cup loser)\n", (cup_loser->ClubName));
+									if (cup_loser->ClubEuroFlag != -1) quals[1]++;
 									cup_loser->ClubEuroFlag = AFC_CHAMPIONS_LEAGUE_ELITE_9CF();
 									cup_loser->ClubEuroSeeding = curr_seeding;
 									j++;
@@ -405,13 +408,8 @@ void afc_cl_elite_team_selection() {
 				}
 			}
 
-			if (i < 2) required = 4;
-			else if (i < 3) required = 3;
-			else if (i < 5) required = 2;
-			else if (i < 7) required = 1;
-			else required = 0;
-			if (extra_top && i == 0) required++;
-			if (i == extra_quals_same0) required--;
+			//dprintf("[CLE] (%s) seeds: [%d, %d]\n", afc_nation->NationNameShort, quals[0], quals[1]);
+			required = quals[0] + quals[1];
 			//if (j < required) dprintf("[CLE] (%s) Getting clubs from database - best\n", afc_nation->NationNameShort);
 			vector<cm3_clubs*> clubs;
 			bool playable = afc_nation->NationLeagueSelected;
@@ -431,7 +429,8 @@ void afc_cl_elite_team_selection() {
 				int idx = 0;
 				if (!playable) idx = rand() % max_count;
 				cm3_clubs* afc_club = clubs[idx];
-				afc_club->ClubEuroFlag = AFC_CHAMPIONS_LEAGUE_ELITE_9CF();
+				int old_count = count;
+				int old_seeding = curr_seeding;
 				if (j >= count) {
 					for (int x = curr_seeding; x < 2; x++) {
 						count += quals[x];
@@ -440,8 +439,25 @@ void afc_cl_elite_team_selection() {
 					}
 					if (curr_seeding > 2) break;
 				}
+				if (afc_club->ClubEuroFlag == -1 || (afc_club->ClubEuroFlag == AFC_CHAMPIONS_LEAGUE_ELITE_9CF() && afc_club->ClubEuroSeeding > curr_seeding))
+				{
+					//dprintf("Setting club %s to Champions League Elite, seed=%d\n", (afc_club->ClubName), curr_seeding);
+					if (afc_club->ClubEuroFlag != -1) 
+					{
+						quals[1]++;
+						required++;
+					}
+					afc_club->ClubEuroFlag = AFC_CHAMPIONS_LEAGUE_ELITE_9CF();
+					afc_club->ClubEuroSeeding = curr_seeding;
+				}
+				else {
+					count = old_count;
+					curr_seeding = old_seeding;
+					j--;
+				}
 				//dprintf("Setting club %s to Champions League Elite, seed=%d\n", (afc_club->ClubName), curr_seeding);
-				afc_club->ClubEuroSeeding = curr_seeding;
+				//afc_club->ClubEuroFlag = AFC_CHAMPIONS_LEAGUE_ELITE_9CF();
+				//afc_club->ClubEuroSeeding = curr_seeding;
 				clubs.erase(clubs.begin() + idx);
 				max_count--;
 			}
@@ -607,7 +623,6 @@ void __declspec(naked) afc_champions_league_elite_reputation_calc_c()
 
 char afc_champions_league_elite_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
-	BYTE* ebx = 0;
 	data->f76 = 0;
 	if (data->teams_list) {
 		sub_9452CA_free(data->teams_list);
@@ -1187,9 +1202,7 @@ void afc_champions_league_elite_init(BYTE* _this, WORD year, cm3_club_comps* com
 	*((DWORD*)(_this + 0xA3)) = (DWORD)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0x3c, _this + 0x3a, 0);
 	cup_map_fixture_tree_518790(_this);
 	BYTE* pMem2 = (BYTE*)cm0102_new(0x5CE);
-	BYTE unk1 = 1;
 	sub_49EE70(pMem2, _this);
-	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
 	afc_champions_league_elite_reputation_setup(_this);
 }

@@ -259,7 +259,6 @@ void __fastcall rus_fake_lower_relegation(BYTE* _this)
 
 char rus_premier_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
-	BYTE* ebx = 0;
 	data->f76 = 0;
 
 	BYTE* rus_first = get_loaded_league(RUS_FIRST_9CF());
@@ -290,7 +289,7 @@ char rus_premier_update(BYTE* _this) {
 	rus_fake_lower_relegation(_this);
 	sort_rus_second_a_clubs();
 
-	sub_687970(_this, ebx);
+	sub_687970(_this, 0);
 	if (data->fixtures_table) {
 		sub_9452CA_free(data->fixtures_table);
 		data->fixtures_table = 0;
@@ -314,8 +313,7 @@ char rus_premier_update(BYTE* _this) {
 	data->prize_money_pool = SetupPrizeMoney(_this, prizeMoneyFile.GetInt("rus_prm_prize_money"));
 	data->f225 = 1;
 	sub_6835C0(_this);
-	BYTE* edx = 0;
-	sub_6827D0(_this, edx);
+	sub_6827D0(_this, 0);
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
 
 	v1 = *(DWORD*)rus_first;
@@ -343,7 +341,6 @@ void __declspec(naked) rus_premier_update_c()
 void rus_premier_free_under(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	data->comp_vtable = rus_premier_vtable;
-	DWORD x = 0;
 	sub_687970(_this, 0);
 	if (data->fixtures_table) {
 		sub_9452CA_free(data->fixtures_table);
@@ -368,7 +365,6 @@ void rus_premier_free_under(BYTE* _this) {
 		sub_49F450((BYTE*)(data->f8));
 		sub_944C94_free((BYTE*)(data->f8));
 	}
-	DWORD y = -1;
 	sub_682300(_this);
 }
 
@@ -615,12 +611,9 @@ void rus_premier_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->prize_money_pool = SetupPrizeMoney(_this, prizeMoneyFile.GetInt("rus_prm_prize_money"));
 	data->f225 = 1;
 	sub_6835C0(_this);
-	BYTE* ebx = 0;
-	sub_6827D0(_this, ebx);
+	sub_6827D0(_this, 0);
 	BYTE* pMem2 = (BYTE*)cm0102_new(0x5CE);
-	BYTE unk1 = 1;
 	sub_49EE70(pMem2, _this);
-	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
 	league_reputation_setup_generic_68A850(_this);
 }

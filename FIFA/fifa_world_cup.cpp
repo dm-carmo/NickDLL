@@ -702,8 +702,7 @@ char fifa_world_cup_update(BYTE* _this) {
 	v1 = *(DWORD*)wcq_playoffs;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(wcq_playoffs);
 
-	BYTE* ebx = 0;
-	sub_687970(_this, ebx);
+	sub_687970(_this, 0);
 	data->n_teams = 0;
 	data->f69 = 0;
 	if (data->fixtures_table) {
@@ -1418,11 +1417,8 @@ void fifa_world_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->stages = (DWORD*)cm0102_malloc(data->num_stages * 4);
 	fifa_world_cup_seeded_teams(_this);
 	fifa_world_cup_subs(_this);
-	BYTE* ebx = 0;
 	BYTE* pMem2 = (BYTE*)cm0102_new(0x5CE);
-	BYTE unk1 = 1;
 	sub_49EE70(pMem2, _this);
-	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
 	if (data->year == year) data->special_nteams_seedings = 48;
 	else data->f69 = 0;

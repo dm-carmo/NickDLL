@@ -521,9 +521,8 @@ void __declspec(naked) ofc_champions_league_reputation_calc_c()
 
 char ofc_champions_league_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
-	BYTE* ebx = 0;
 	data->f76 = 0;
-	sub_687970(_this, ebx);
+	sub_687970(_this, 0);
 	if (data->fixtures_table) {
 		sub_9452CA_free(data->fixtures_table);
 		data->fixtures_table = 0;
@@ -545,8 +544,7 @@ char ofc_champions_league_update(BYTE* _this) {
 	ofc_champions_league_subs(_this);
 	ofc_champions_league_all_teams(_this);
 	ofc_champions_league_qualifier_teams(_this);
-	BYTE* edx = 0;
-	sub_6827D0(_this, edx);
+	sub_6827D0(_this, 0);
 	sub_6835C0(_this);
 	DWORD v1 = *(DWORD*)_this;
 	(DWORD*)(*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
@@ -658,12 +656,9 @@ void ofc_champions_league_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	ofc_champions_league_all_teams(_this);
 	ofc_champions_league_qualifier_teams(_this);
 	sub_6835C0(_this);
-	BYTE* ebx = 0;
-	sub_6827D0(_this, ebx);
+	sub_6827D0(_this, 0);
 	BYTE* pMem2 = (BYTE*)cm0102_new(0x5CE);
-	BYTE unk1 = 1;
 	sub_49EE70(pMem2, _this);
-	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
 	ofc_champions_league_reputation_setup(_this);
 }

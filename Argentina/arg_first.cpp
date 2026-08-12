@@ -606,7 +606,6 @@ void __fastcall arg_third_inactive_relegation(BYTE* _this)
 
 char arg_first_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
-	BYTE* ebx = 0;
 	data->f76 = 0;
 
 	BYTE* arg_second = get_loaded_league(ARG_SECOND_9CF());
@@ -649,7 +648,7 @@ char arg_first_update(BYTE* _this) {
 		arg_third_inactive_relegation(_this);
 	}
 
-	sub_687970(_this, ebx);
+	sub_687970(_this, 0);
 	if (data->fixtures_table) {
 		sub_9452CA_free(data->fixtures_table);
 		data->fixtures_table = 0;
@@ -682,8 +681,7 @@ char arg_first_update(BYTE* _this) {
 	arg_first_open_playoff(_this);
 	arg_first_close_playoff(_this);
 	arg_first_league_table(_this);
-	BYTE* edx = 0;
-	sub_6827D0(_this, edx);
+	sub_6827D0(_this, 0);
 	DWORD v1 = *(DWORD*)_this;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
 
@@ -720,7 +718,6 @@ void __declspec(naked) arg_first_update_c()
 void arg_first_free_under(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	data->comp_vtable = arg_first_vtable;
-	DWORD x = 0;
 	sub_687970(_this, 0);
 	if (data->fixtures_table) {
 		sub_9452CA_free(data->fixtures_table);
@@ -745,7 +742,6 @@ void arg_first_free_under(BYTE* _this) {
 		sub_49F450((BYTE*)(data->f8));
 		sub_944C94_free((BYTE*)(data->f8));
 	}
-	DWORD y = -1;
 	sub_682300(_this);
 }
 
@@ -1117,9 +1113,7 @@ void arg_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 		arg_first_setup_groups_open(_this, i * 2 + 1);
 	}
 	BYTE* pMem2 = (BYTE*)cm0102_new(0x5CE);
-	BYTE unk1 = 1;
 	sub_49EE70(pMem2, _this);
-	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
 	for (BYTE i = 0; i < 2; i++) {
 		arg_first_setup_groups_close(_this, i * 2);
@@ -1127,8 +1121,7 @@ void arg_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	arg_first_open_playoff(_this);
 	arg_first_close_playoff(_this);
 	arg_first_league_table(_this);
-	BYTE* ebx = 0;
-	sub_6827D0(_this, ebx);
+	sub_6827D0(_this, 0);
 	arg_first_reputation_setup(_this);
 }
 

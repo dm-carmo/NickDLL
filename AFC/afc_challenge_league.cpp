@@ -15,7 +15,6 @@ vtable* afc_challenge_league_vtable = new vtable((BYTE*)0x967574, 0xA0);
 void afc_challenge_league_free_under(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	data->comp_vtable = (DWORD*)(afc_challenge_league_vtable->vtable_ptr);
-	DWORD x = 0;
 	if (data->teams_list) {
 		sub_9452CA_free(data->teams_list);
 	}
@@ -50,7 +49,6 @@ void afc_challenge_league_free_under(BYTE* _this) {
 		sub_49F450((BYTE*)(data->f8));
 		sub_944C94_free((BYTE*)(data->f8));
 	}
-	DWORD y = -1;
 	sub_518690(_this);
 }
 
@@ -314,19 +312,23 @@ void afc_challenge_team_selection() {
 				int idx = 0;
 				if (!playable) idx = rand() % max_count;
 				cm3_clubs* afc_club = clubs[idx];
-				//dprintf("Setting club %s to Challenge League\n", (afc_club->ClubName));
-				afc_club->ClubEuroFlag = AFC_CHALLENGE_LEAGUE_9CF();
-				if (j >= count) {
-					for (int x = curr_seeding; x < 2; x++) {
-						count += quals[x];
-						curr_seeding = x + 1;
-						if (quals[x] > 0) break;
+				if (afc_club->ClubEuroFlag == -1)
+				{
+					//dprintf("Setting club %s to Challenge League\n", (afc_club->ClubName));
+					afc_club->ClubEuroFlag = AFC_CHALLENGE_LEAGUE_9CF();
+					if (j >= count) {
+						for (int x = curr_seeding; x < 2; x++) {
+							count += quals[x];
+							curr_seeding = x + 1;
+							if (quals[x] > 0) break;
+						}
+						if (curr_seeding > 2) break;
 					}
-					if (curr_seeding > 2) break;
+					afc_club->ClubEuroSeeding = curr_seeding;
 				}
-				afc_club->ClubEuroSeeding = curr_seeding;
-				clubs.erase(clubs.begin() + idx);
+				else j--;
 				max_count--;
+				clubs.erase(clubs.begin() + idx);
 			}
 		}
 	}
@@ -496,7 +498,6 @@ void __declspec(naked) afc_challenge_league_reputation_calc_c()
 
 char afc_challenge_league_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
-	BYTE* ebx = 0;
 	data->f76 = 0;
 	if (data->teams_list) {
 		sub_9452CA_free(data->teams_list);
@@ -919,9 +920,7 @@ void afc_challenge_league_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	*((DWORD*)(_this + 0xA3)) = (DWORD)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0x3c, _this + 0x3a, 0);
 	cup_map_fixture_tree_518790(_this);
 	BYTE* pMem2 = (BYTE*)cm0102_new(0x5CE);
-	BYTE unk1 = 1;
 	sub_49EE70(pMem2, _this);
-	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
 	afc_challenge_league_reputation_setup(_this);
 }

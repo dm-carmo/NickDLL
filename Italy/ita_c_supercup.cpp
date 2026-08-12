@@ -9,7 +9,6 @@ DWORD* ita_c_supercup_vtable = (DWORD*)0x96C0C8;
 void ita_c_supercup_free_under(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	data->comp_vtable = ita_c_supercup_vtable;
-	DWORD x = 0;
 	sub_687970(_this, 0);
 	if (data->fixtures_table) {
 		sub_9452CA_free(data->fixtures_table);
@@ -34,7 +33,6 @@ void ita_c_supercup_free_under(BYTE* _this) {
 		sub_49F450((BYTE*)(data->f8));
 		sub_944C94_free((BYTE*)(data->f8));
 	}
-	DWORD y = -1;
 	sub_682300(_this);
 }
 
@@ -107,9 +105,8 @@ void __declspec(naked) ita_c_supercup_subs_c()
 
 char ita_c_supercup_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
-	BYTE* ebx = 0;
 	data->f76 = 0;
-	sub_687970(_this, ebx);
+	sub_687970(_this, 0);
 	if (data->fixtures_table) {
 		sub_9452CA_free(data->fixtures_table);
 		data->fixtures_table = 0;
@@ -261,9 +258,7 @@ void ita_c_supercup_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->num_stages = 0;
 	ita_c_supercup_subs(_this);
 	BYTE* pMem2 = (BYTE*)cm0102_new(0x5CE);
-	BYTE unk1 = 1;
 	sub_49EE70(pMem2, _this);
-	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
 	data->f69 = 0;
 }

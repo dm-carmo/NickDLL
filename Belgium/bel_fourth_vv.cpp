@@ -419,12 +419,9 @@ void bel_fourth_vv_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->stages = (DWORD*)cm0102_malloc(data->num_stages * 4);
 	bel_fourth_vv_subs(_this);
 	AddTeamsGroupLeague(_this, BEL_FOURTH_VV_A_9CF());
-	BYTE* ebx = 0;
-	sub_6827D0(_this, ebx);
+	sub_6827D0(_this, 0);
 	BYTE* pMem2 = (BYTE*)cm0102_new(0x5CE);
-	BYTE unk1 = 1;
 	sub_49EE70(pMem2, _this);
-	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
 	sub_6835C0(_this);
 	for (BYTE i = 0; i < 1; i++) {
@@ -436,9 +433,8 @@ void bel_fourth_vv_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 
 char bel_fourth_vv_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
-	BYTE* ebx = 0;
 	data->f76 = 0;
-	sub_687970(_this, ebx);
+	sub_687970(_this, 0);
 	if (data->fixtures_table) {
 		sub_9452CA_free(data->fixtures_table);
 		data->fixtures_table = 0;
@@ -459,8 +455,7 @@ char bel_fourth_vv_update(BYTE* _this) {
 	data->current_stage = -1;
 	bel_fourth_vv_subs(_this);
 	AddTeamsGroupLeague(_this, BEL_FOURTH_VV_A_9CF());
-	BYTE* edx = 0;
-	sub_6827D0(_this, edx);
+	sub_6827D0(_this, 0);
 	sub_6835C0(_this);
 	for (BYTE i = 0; i < 1; i++) {
 		bel_fourth_vv_setup_groups(_this, i);

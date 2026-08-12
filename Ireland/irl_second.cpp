@@ -11,7 +11,6 @@ vtable* irl_second_vtable = new vtable((BYTE*)0x970844, 0xB4);
 void irl_second_free_under(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	data->comp_vtable = (DWORD*)(irl_second_vtable->vtable_ptr);
-	DWORD x = 0;
 	sub_687970(_this, 0);
 	if (data->fixtures_table) {
 		sub_9452CA_free(data->fixtures_table);
@@ -36,7 +35,6 @@ void irl_second_free_under(BYTE* _this) {
 		sub_49F450((BYTE*)(data->f8));
 		sub_944C94_free((BYTE*)(data->f8));
 	}
-	DWORD y = -1;
 	sub_682300(_this);
 }
 
@@ -338,9 +336,8 @@ void __declspec(naked) irl_second_fixtures_c()
 
 char irl_second_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
-	BYTE* ebx = 0;
 	data->f76 = 0;
-	sub_687970(_this, ebx);
+	sub_687970(_this, 0);
 	if (data->fixtures_table) {
 		sub_9452CA_free(data->fixtures_table);
 		data->fixtures_table = 0;
@@ -361,8 +358,7 @@ char irl_second_update(BYTE* _this) {
 	data->current_stage = -1;
 	irl_second_subs(_this);
 	irl_second_add_teams(_this);
-	BYTE* edx = 0;
-	sub_6827D0(_this, edx);
+	sub_6827D0(_this, 0);
 	sub_6835C0(_this);
 	for (BYTE i = 0; i < 2; i++) {
 		irl_second_setup_groups(_this, i);
@@ -592,12 +588,9 @@ void irl_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	irl_second_subs(_this);
 	irl_second_add_teams(_this);
 	sub_6835C0(_this);
-	BYTE* ebx = 0;
-	sub_6827D0(_this, ebx);
+	sub_6827D0(_this, 0);
 	BYTE* pMem2 = (BYTE*)cm0102_new(0x5CE);
-	BYTE unk1 = 1;
 	sub_49EE70(pMem2, _this);
-	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
 	for (BYTE i = 0; i < 2; i++) {
 		irl_second_setup_groups(_this, i);

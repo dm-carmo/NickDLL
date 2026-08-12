@@ -16,7 +16,6 @@ vtable* fifa_intercontinental_cup_vtable = new vtable((BYTE*)0x971250, 0xA0);
 void fifa_intercontinental_cup_free_under(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	data->comp_vtable = (DWORD*)(fifa_intercontinental_cup_vtable->vtable_ptr);
-	DWORD x = 0;
 	if (data->teams_list) {
 		sub_9452CA_free(data->teams_list);
 	}
@@ -51,7 +50,6 @@ void fifa_intercontinental_cup_free_under(BYTE* _this) {
 		sub_49F450((BYTE*)(data->f8));
 		sub_944C94_free((BYTE*)(data->f8));
 	}
-	DWORD y = -1;
 	sub_518690(_this);
 }
 
@@ -469,7 +467,6 @@ void __declspec(naked) fifa_intercontinental_cup_set_table_fate()
 
 char fifa_intercontinental_cup_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
-	BYTE* ebx = 0;
 	data->f76 = 0;
 	if (data->special_teams_seedings) {
 		sub_9452CA_free(data->special_teams_seedings);
@@ -618,9 +615,7 @@ void fifa_intercontinental_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp
 	*((DWORD*)(_this + 0xA3)) = (DWORD)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0x3c, _this + 0x3a, 0);
 	cup_map_fixture_tree_518790(_this);
 	BYTE* pMem2 = (BYTE*)cm0102_new(0x5CE);
-	BYTE unk1 = 1;
 	sub_49EE70(pMem2, _this);
-	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
 	data->f69 = 0;
 }

@@ -11,7 +11,6 @@ DWORD* sco_league_1_vtable = (DWORD*)0x96F6BC;
 void sco_league_1_free_under(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	data->comp_vtable = sco_league_1_vtable;
-	DWORD x = 0;
 	sub_687970(_this, 0);
 	if (data->fixtures_table) {
 		sub_9452CA_free(data->fixtures_table);
@@ -36,7 +35,6 @@ void sco_league_1_free_under(BYTE* _this) {
 		sub_49F450((BYTE*)(data->f8));
 		sub_944C94_free((BYTE*)(data->f8));
 	}
-	DWORD y = -1;
 	sub_682300(_this);
 }
 
@@ -324,12 +322,9 @@ void sco_league_1_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->f225 = 1;
 	SetupTVMoney(_this, prizeMoneyFile.GetInt("sco_l1_tv_money"), 0);
 	sub_6835C0(_this);
-	BYTE* ebx = 0;
-	sub_6827D0(_this, ebx);
+	sub_6827D0(_this, 0);
 	BYTE* pMem2 = (BYTE*)cm0102_new(0x5CE);
-	BYTE unk1 = 1;
 	sub_49EE70(pMem2, _this);
-	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
 	league_reputation_setup_generic_68A850(_this);
 }
@@ -529,9 +524,8 @@ void __declspec(naked) sco_league_1_set_table_fate()
 
 char sco_league_1_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
-	BYTE* ebx = 0;
 	data->f76 = 0;
-	sub_687970(_this, ebx);
+	sub_687970(_this, 0);
 	if (data->fixtures_table) {
 		sub_9452CA_free(data->fixtures_table);
 		data->fixtures_table = 0;
@@ -556,8 +550,7 @@ char sco_league_1_update(BYTE* _this) {
 	data->f225 = 1;
 	SetupTVMoney(_this, prizeMoneyFile.GetInt("sco_l1_tv_money"), 0);
 	sub_6835C0(_this);
-	BYTE* edx = 0;
-	sub_6827D0(_this, edx);
+	sub_6827D0(_this, 0);
 	DWORD v1 = *(DWORD*)_this;
 	(DWORD*)(*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
 	sub_68AA80(_this);

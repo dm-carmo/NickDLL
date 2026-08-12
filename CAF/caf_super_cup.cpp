@@ -95,7 +95,6 @@ void __declspec(naked) caf_super_cup_teams_c()
 
 char caf_super_cup_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
-	BYTE* ebx = 0;
 	data->f76 = 0;
 	if (data->teams_list) {
 		sub_9452CA_free(data->teams_list);

@@ -245,9 +245,8 @@ void __declspec(naked) por_third_reputation_setup_c()
 
 char por_third_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
-	BYTE* ebx = 0;
 	data->f76 = 0;
-	sub_687970(_this, ebx);
+	sub_687970(_this, 0);
 	if (data->fixtures_table) {
 		sub_9452CA_free(data->fixtures_table);
 		data->fixtures_table = 0;
@@ -269,8 +268,7 @@ char por_third_update(BYTE* _this) {
 	por_third_subs(_this);
 	AddTeamsGroupLeague(_this, POR_THIRD_A_9CF());
 	SetupTVMoney(_this, prizeMoneyFile.GetInt("por_third_tv_money"), 0);
-	BYTE* edx = 0;
-	sub_6827D0(_this, edx);
+	sub_6827D0(_this, 0);
 	sub_6835C0(_this);
 	for (BYTE i = 0; i < 1; i++) {
 		por_third_setup_groups(_this, i);
@@ -327,12 +325,9 @@ void por_third_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	por_third_subs(_this);
 	AddTeamsGroupLeague(_this, POR_THIRD_A_9CF());
 	SetupTVMoney(_this, prizeMoneyFile.GetInt("por_third_tv_money"), 0);
-	BYTE* ebx = 0;
-	sub_6827D0(_this, ebx);
+	sub_6827D0(_this, 0);
 	BYTE* pMem2 = (BYTE*)cm0102_new(0x5CE);
-	BYTE unk1 = 1;
 	sub_49EE70(pMem2, _this);
-	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
 	sub_6835C0(_this);
 	for (BYTE i = 0; i < 1; i++) {

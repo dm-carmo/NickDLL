@@ -15,7 +15,6 @@ vtable* sco_challenge_cup_vtable = new vtable((BYTE*)0x96C264, 0xB4);
 void sco_challenge_cup_free_under(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	data->comp_vtable = (DWORD*)(sco_challenge_cup_vtable->vtable_ptr);
-	DWORD x = 0;
 	sub_687970(_this, 0);
 	if (data->fixtures_table) {
 		sub_9452CA_free(data->fixtures_table);
@@ -40,7 +39,6 @@ void sco_challenge_cup_free_under(BYTE* _this) {
 		sub_49F450((BYTE*)(data->f8));
 		sub_944C94_free((BYTE*)(data->f8));
 	}
-	DWORD y = -1;
 	sub_682300(_this);
 }
 
@@ -88,7 +86,6 @@ void sco_challenge_cup_subs(BYTE* _this)
 	comp_stats* comp_data = (comp_stats*)_this;
 
 	comp_data->n_rounds = 0;
-	*((DWORD*)(_this + 0xA7)) = 6;
 	comp_data->pts_for_win = 3;
 	comp_data->pts_for_draw = 1;
 	comp_data->f196 = 4;
@@ -464,15 +461,15 @@ void sco_challenge_cup_setup_league_stage(BYTE* _this) {
 			sub_5AA680((BYTE*)*(DWORD*)0xAE2A58, (BYTE*)match, 1);
 		}
 	}
+	*((DWORD*)(_this + 0xA7)) = 6;
 
 	sub_684230(_this);
 }
 
 char sco_challenge_cup_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
-	BYTE* ebx = 0;
 	data->f76 = 0;
-	sub_687970(_this, ebx);
+	sub_687970(_this, 0);
 	if (data->fixtures_table) {
 		sub_9452CA_free(data->fixtures_table);
 		data->fixtures_table = 0;
@@ -498,8 +495,7 @@ char sco_challenge_cup_update(BYTE* _this) {
 	sco_challenge_cup_subs(_this);
 	sco_challenge_cup_setup_league_stage(_this);
 	//sub_6835C0(_this); -> done in function above instead
-	BYTE* edx = 0;
-	sub_6827D0(_this, edx);
+	sub_6827D0(_this, 0);
 	return 1;
 }
 
@@ -719,16 +715,13 @@ void sco_challenge_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->stages = (DWORD*)cm0102_malloc(data->num_stages * 4);
 	sco_challenge_cup_all_teams(_this);
 	BYTE* pMem2 = (BYTE*)cm0102_new(0x5CE);
-	BYTE unk1 = 1;
 	sub_49EE70(pMem2, _this);
-	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
 	sco_challenge_cup_reputation_setup(_this);
 	sco_challenge_cup_subs(_this);
 	sco_challenge_cup_setup_league_stage(_this);
 	//sub_6835C0(_this); -> done in function above instead
-	BYTE* ebx = 0;
-	sub_6827D0(_this, ebx);
+	sub_6827D0(_this, 0);
 }
 
 void setup_sco_challenge_cup() {

@@ -10,7 +10,6 @@ vtable* arg_cup_vtable = new vtable((BYTE*)0x96E650, 0xA0);
 void arg_cup_free_under(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	data->comp_vtable = (DWORD*)(arg_cup_vtable->vtable_ptr);
-	DWORD x = 0;
 	if (data->teams_list) {
 		sub_9452CA_free(data->teams_list);
 	}
@@ -30,7 +29,6 @@ void arg_cup_free_under(BYTE* _this) {
 		sub_49F450((BYTE*)(data->f8));
 		sub_944C94_free((BYTE*)(data->f8));
 	}
-	DWORD y = -1;
 	sub_518690(_this);
 }
 
@@ -115,7 +113,6 @@ int arg_cup_teams(BYTE* _this) {
 
 char arg_cup_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
-	BYTE* ebx = 0;
 	data->f76 = 0;
 	if (data->teams_list) {
 		sub_9452CA_free(data->teams_list);
@@ -243,9 +240,7 @@ void arg_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	*((DWORD*)(_this + 0xA3)) = (DWORD)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0x3c, _this + 0x3a, 0);
 	cup_map_fixture_tree_518790(_this);
 	BYTE* pMem2 = (BYTE*)cm0102_new(0x5CE);
-	BYTE unk1 = 1;
 	sub_49EE70(pMem2, _this);
-	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
 	cup_reputation_setup_generic_5223A0(_this);
 }

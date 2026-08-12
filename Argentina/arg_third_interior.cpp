@@ -11,7 +11,6 @@ vtable* arg_third_interior_vtable = new vtable((BYTE*)0x970844, 0xB4);
 void arg_third_interior_free_under(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	data->comp_vtable = (DWORD*)(arg_third_interior_vtable->vtable_ptr);
-	DWORD x = 0;
 	sub_687970(_this, 0);
 	if (data->fixtures_table) {
 		sub_9452CA_free(data->fixtures_table);
@@ -36,7 +35,6 @@ void arg_third_interior_free_under(BYTE* _this) {
 		sub_49F450((BYTE*)(data->f8));
 		sub_944C94_free((BYTE*)(data->f8));
 	}
-	DWORD y = -1;
 	sub_682300(_this);
 }
 
@@ -423,9 +421,8 @@ void __declspec(naked) arg_third_interior_fixtures_c()
 
 char arg_third_interior_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
-	BYTE* ebx = 0;
 	data->f76 = 0;
-	sub_687970(_this, ebx);
+	sub_687970(_this, 0);
 	if (data->fixtures_table) {
 		sub_9452CA_free(data->fixtures_table);
 		data->fixtures_table = 0;
@@ -446,8 +443,7 @@ char arg_third_interior_update(BYTE* _this) {
 	data->current_stage = -1;
 	arg_third_interior_subs(_this);
 	arg_third_interior_add_teams(_this);
-	BYTE* edx = 0;
-	sub_6827D0(_this, edx);
+	sub_6827D0(_this, 0);
 	sub_6835C0(_this);
 	for (BYTE i = 0; i < 3; i++) {
 		arg_third_interior_setup_groups(_this, i);
@@ -900,12 +896,9 @@ void arg_third_interior_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	arg_third_interior_subs(_this);
 	arg_third_interior_add_teams(_this);
 	sub_6835C0(_this);
-	BYTE* ebx = 0;
-	sub_6827D0(_this, ebx);
+	sub_6827D0(_this, 0);
 	BYTE* pMem2 = (BYTE*)cm0102_new(0x5CE);
-	BYTE unk1 = 1;
 	sub_49EE70(pMem2, _this);
-	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
 	for (BYTE i = 0; i < 3; i++) {
 		arg_third_interior_setup_groups(_this, i);

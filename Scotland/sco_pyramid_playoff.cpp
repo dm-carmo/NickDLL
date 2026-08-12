@@ -9,7 +9,6 @@ vtable* sco_pyramid_playoff_vtable = new vtable((BYTE*)0x96C0C8, 0xB4);
 void sco_pyramid_playoff_free_under(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	data->comp_vtable = (DWORD*)(sco_pyramid_playoff_vtable->vtable_ptr);
-	DWORD x = 0;
 	sub_687970(_this, 0);
 	if (data->fixtures_table) {
 		sub_9452CA_free(data->fixtures_table);
@@ -34,7 +33,6 @@ void sco_pyramid_playoff_free_under(BYTE* _this) {
 		sub_49F450((BYTE*)(data->f8));
 		sub_944C94_free((BYTE*)(data->f8));
 	}
-	DWORD y = -1;
 	sub_682300(_this);
 }
 
@@ -108,9 +106,8 @@ void __declspec(naked) sco_pyramid_playoff_subs_c()
 
 char sco_pyramid_playoff_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
-	BYTE* ebx = 0;
 	data->f76 = 0;
-	sub_687970(_this, ebx);
+	sub_687970(_this, 0);
 	if (data->fixtures_table) {
 		sub_9452CA_free(data->fixtures_table);
 		data->fixtures_table = 0;
@@ -344,9 +341,7 @@ void sco_pyramid_playoff_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->num_stages = 0;
 	sco_pyramid_playoff_subs(_this);
 	BYTE* pMem2 = (BYTE*)cm0102_new(0x5CE);
-	BYTE unk1 = 1;
 	sub_49EE70(pMem2, _this);
-	unk1 = 0;
 	data->f8 = (DWORD*)pMem2;
 	data->f69 = 0;
 }
