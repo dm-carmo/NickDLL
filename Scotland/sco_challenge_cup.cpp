@@ -108,7 +108,14 @@ void sco_challenge_cup_subs(BYTE* _this)
 	comp_data->max_subs = 3;
 
 	DWORD v1 = *(DWORD*)_this;
-	comp_data->fixtures_table = (DWORD*)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0xA9, _this + 0x3A, 0);
+	//comp_data->fixtures_table = (DWORD*)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0xA9, _this + 0x3A, 0);
+	comp_data->fixtures_table = (DWORD*)cm0102_malloc(fixture_dates_sz);
+	BYTE* fixtures = (BYTE*)comp_data->fixtures_table;
+	*((WORD*)(fixtures)) = *(WORD*)current_date;
+	*((WORD*)(fixtures + 2)) = (*current_year) - comp_data->year;
+	*((BYTE*)(fixtures + 4)) = 0;
+	*((BYTE*)(_this + 0xA9)) = 1;
+	*((BYTE*)(_this + 0xDD)) = 0;
 
 	return;
 }
@@ -386,6 +393,7 @@ int sco_challenge_cup_all_teams(BYTE* _this) {
 
 void sco_challenge_cup_setup_league_stage(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
+	DWORD v1 = *(DWORD*)_this;
 	WORD total_teams = 40;
 	BYTE* pMem = (BYTE*)cm0102_malloc(league_team_list_sz * total_teams);
 
@@ -408,7 +416,12 @@ void sco_challenge_cup_setup_league_stage(BYTE* _this) {
 		{ 10, 4, 20, 11, 30, 7, 31, 18, 21, 33, 34, 22, 12, 37, 35, 1, 36, 13, 14, 26, 23, 9, 24, 0, 38, 2, 39, 15, 16, 3, 17, 8, 19, 25, 27, 5, 28, 6, 29, 32, },
 	};
 
-	BYTE* pFixtures = (BYTE*)data->fixtures_table;
+	WORD num_rounds = 0;
+	WORD stage_name_id = 0;
+	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, int, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, -1, &num_rounds, &stage_name_id, 0);
+	data->n_games = stage_name_id;
+	*((DWORD*)(_this + 0xA7)) = num_rounds;
+
 	for (BYTE m = 0; m < 6; m++) {
 		BYTE* ptr_last = (BYTE*)(pFixtures + fixture_dates_sz * 7);
 		match_data* match = new match_data();
@@ -419,7 +432,7 @@ void sco_challenge_cup_setup_league_stage(BYTE* _this) {
 		match->end_day = *(WORD*)(ptr_last);
 		match->current_year = year;
 		match->sub_stage_id = 0;
-		match->main_stage_id = LeagueStage;
+		match->main_stage_id = stage_name_id;
 		match->f54_0xdb = data->f219;
 		match->f56_0xab = data->f171;
 		match->f58_0xc4 = data->f196;
@@ -461,7 +474,6 @@ void sco_challenge_cup_setup_league_stage(BYTE* _this) {
 			sub_5AA680((BYTE*)*(DWORD*)0xAE2A58, (BYTE*)match, 1);
 		}
 	}
-	*((DWORD*)(_this + 0xA7)) = 6;
 
 	sub_684230(_this);
 }
