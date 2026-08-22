@@ -805,7 +805,6 @@ void afc_champions_league_elite_group_stage_setup(BYTE* _this) {
 			int ret = sub_5A0590(ae2a38_ptr, (BYTE*)club);
 			AddToClubIncome((BYTE*)ret, prizeMoneyFile.GetInt("afc_cl_elite_groups_qualify"));
 			AddMoneyFromComp(_this, (BYTE*)club, prizeMoneyFile.GetInt("afc_cl_elite_groups_qualify"), 0, -1, LeagueStage, 0, -2);
-			UpdateCountryCoefficient(club, 6);
 		}
 
 		WORD year = comp_data->year;

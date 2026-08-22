@@ -1572,8 +1572,8 @@ void setup_misc_functions()
 	WriteBytes(0x544677, 1, 0xeb);
 
 	// enable transfer fees up to 50%
-	WriteBytes(0x8eabe1, 1, 50);
-	WriteBytes(0x8edb66, 1, 50);
+	WriteBytes(0x8eabe2, 1, 50);
+	WriteBytes(0x8edb67, 1, 50);
 
 	// sim detail: continental comps in full detail even if no leagues from the continent are in foreground
 	WriteNOP(0x6b66c3, 2);
