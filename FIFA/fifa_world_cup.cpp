@@ -1332,8 +1332,14 @@ BYTE* fifa_world_cup_all_teams(BYTE* _this) {
 			counts[r]++;
 			update_continent_counts(club, r, counts_afc, counts_caf, counts_concacaf, counts_conmebol, counts_ofc, counts_uefa);
 		}
-		for (BYTE i = 0; i < num_hosts; i++) teamList[i].f5 = 1;
-		for (BYTE i = num_hosts; i < 48; i++) teamList[i].f5 = 6;
+		//for (BYTE i = 0; i < num_hosts; i++) teamList[i].f5 = 1;
+		//for (BYTE i = num_hosts; i < 48; i++) teamList[i].f5 = 6;
+		for (WORD i = 0; i < 48; i++) {
+			if (i < 12) teamList[i].f5 = 3;
+			else if (i < 24) teamList[i].f5 = 10;
+			else if (i < 36) teamList[i].f5 = 11;
+			else teamList[i].f5 = 12;
+		}
 	}
 	return pMem;
 }

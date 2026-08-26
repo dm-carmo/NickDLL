@@ -859,7 +859,7 @@ void uefa_conference_league_group_stage_setup(BYTE* _this) {
 			}
 			if (counts.find(opp->ClubNation) != counts.end()) {
 				int count = counts[opp->ClubNation];
-				if (count > 1 || (opp->ClubNation == club->ClubNation && count == 1)) {
+				if (count > 1 + multiple || (opp->ClubNation == club->ClubNation && count == 1)) {
 					shuffle(clubs.begin(), clubs.begin() + 6, rng);
 					if (idx > 5) shuffle(clubs.begin() + 6, clubs.begin() + 12, rng);
 					if (idx > 11) shuffle(clubs.begin() + 12, clubs.begin() + 18, rng);
@@ -877,7 +877,7 @@ void uefa_conference_league_group_stage_setup(BYTE* _this) {
 	}
 
 	for (BYTE m = 0; m < num_rounds; m++) {
-		BYTE* ptr_last = (BYTE*)(pFixtures + fixture_dates_sz * 7);
+		BYTE* ptr_last = (BYTE*)(pFixtures + fixture_dates_sz * 5);
 		match_data* match = new match_data();
 		match->comp_id = comp_data->competition_db->ClubCompID;
 		match->f8 = -1;

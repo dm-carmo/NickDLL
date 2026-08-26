@@ -37,6 +37,7 @@ extern char* qualified_gold_grp_msg;
 extern char* qualified_gold_grp_title_msg;
 extern char* qualified_silver_grp_msg;
 extern char* qualified_silver_grp_title_msg;
+extern char* qualified_wc_playoff_msg;
 extern char* uel_playoff_msg;
 extern char* qualified_best3rd_msg;
 extern char* qualified_wc_playoffs;

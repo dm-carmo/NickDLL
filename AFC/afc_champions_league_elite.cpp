@@ -838,9 +838,6 @@ void afc_champions_league_elite_group_stage_setup(BYTE* _this) {
 							iter_swap(clubs_pots.begin() + idx, clubs_pots.begin() + idx + 1);
 						}
 						else {
-							//iter_swap(clubs_pots.begin() + idx - 1, clubs_pots.begin() + idx);
-							//iter_swap(clubs_pots.begin() + idx - 2, clubs_pots.begin() + idx - 1);
-							//iter_swap(clubs_pots.begin() + idx - 3, clubs_pots.begin() + idx - 2);
 							auto it = clubs_pots.begin() + idx;
 							rotate(clubs_pots.begin() + idx / 4 * 4, it, it + 1);
 						}

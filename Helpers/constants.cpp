@@ -35,6 +35,7 @@ char* qualified_gold_grp_msg = "{}<%s - Team Name(e.g.Ajax)>{} have qualified fo
 char* qualified_gold_grp_title_msg = "{}<%s - Team Name(e.g.Ajax)>{} qualify for gold group";
 char* qualified_silver_grp_msg = "{}<%s - Team Name(e.g.Ajax)>{} have qualified for the {}<%s - Competition Name(e.g.Champions League)>{} Second Stage Silver Group.";
 char* qualified_silver_grp_title_msg = "{}<%s - Team Name(e.g.Ajax)>{} qualify for silver group";
+char* qualified_wc_playoff_msg = "{}<%s - Team Name(e.g.Ajax)>{} have qualified for the inter-confederation play-offs.";
 char* uel_playoff_msg = "{}<%s - Team Name(e.g.Ajax)>{} through to Playoff";
 char* qualified_best3rd_msg = "{}<%s - Team Name(e.g.Ajax)>{} have finished as one of the best third placed teams in the {}<%s - Competition Name(e.g.Champions League)>{} tournament.";
 char* qualified_wc_playoffs = "Qualified For Play-Offs";

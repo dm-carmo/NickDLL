@@ -908,7 +908,7 @@ void uefa_champions_league_group_stage_setup(BYTE* _this) {
 			}
 			if (counts.find(opp->ClubNation) != counts.end()) {
 				int count = counts[opp->ClubNation];
-				if (count > 1 || (opp->ClubNation == club->ClubNation && count == 1)) {
+				if (count > 1 + multiple || (opp->ClubNation == club->ClubNation && count == 1)) {
 					shuffle(clubs.begin(), clubs.begin() + 9, rng);
 					if (idx > 8) shuffle(clubs.begin() + 9, clubs.begin() + 18, rng);
 					if (idx > 17) shuffle(clubs.begin() + 18, clubs.begin() + 27, rng);
