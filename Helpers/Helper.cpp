@@ -128,12 +128,17 @@ DWORD Get9CF(DWORD id)
 	return *(DWORD*)id;
 }
 
-WORD get_world_cup_hosts_in_continent(BYTE* _this, DWORD continentID, DWORD* out_host1_id, DWORD* out_host2_id) {
+WORD get_comp_hosts_in_continent(BYTE* _this, DWORD compID, DWORD continentID, DWORD* out_host1_id, DWORD* out_host2_id) {
 	comp_stats* data = (comp_stats*)_this;
 	WORD year = data->year;
-	while (year % 4 != 2) year++;
+	WORD modulo = 0;
+	//if (compID == FIFA_WORLD_CUP_9CF()) modulo = 1;
+	if (compID == FIFA_WORLD_CUP_9CF()) modulo = 2;
+	//if (compID == FIFA_WORLD_CUP_9CF()) modulo = 3;
+	while (year % 4 != modulo) year++;
+
 	DWORD host1_id = -1, host2_id = -1;
-	char num_hosts = get_host_ids_5FA730((BYTE*)*b5e134, FIFA_WORLD_CUP_9CF(), year, &host1_id, &host2_id, 1);
+	char num_hosts = get_host_ids_5FA730((BYTE*)*b5e134, compID, year, &host1_id, &host2_id, 1);
 	WORD num_to_exclude = 0;
 	if (num_hosts > 0) {
 		cm3_nations* host1 = get_country(host1_id);
@@ -144,6 +149,7 @@ WORD get_world_cup_hosts_in_continent(BYTE* _this, DWORD continentID, DWORD* out
 		}
 		else if (out_host1_id) *out_host1_id = -1;
 	}
+	else if (out_host1_id) *out_host1_id = -1;
 	if (num_hosts > 1) {
 		cm3_nations* host2 = get_country(host2_id);
 		if (host2->NationContinent && host2->NationContinent->ContinentID == continentID)
@@ -153,6 +159,7 @@ WORD get_world_cup_hosts_in_continent(BYTE* _this, DWORD continentID, DWORD* out
 		}
 		else if (out_host2_id) *out_host2_id = -1;
 	}
+	else if (out_host2_id) *out_host2_id = -1;
 	return num_to_exclude;
 }
 
@@ -1123,20 +1130,20 @@ int UpdateCountryCoefficient(cm3_clubs* club, char coeff) {
 	return sub_9058B0((BYTE*)*uefa_seeding_list, nation, coeff);
 }
 
-void add_team_to_world_cup(cm3_clubs* club, bool send_news) {
+void qualify_team_for_international_comp(cm3_clubs* club, DWORD comp_id, bool send_news) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
-	BYTE* world_cup_bytes = get_loaded_league(FIFA_WORLD_CUP_9CF());
-	comp_stats* world_cup_data = (comp_stats*)world_cup_bytes;
-	teams_seeded* qualifiers = (teams_seeded*)world_cup_data->special_teams_seedings;
-	WORD insert_idx = world_cup_data->special_nteams_seedings;
-	if (insert_idx >= world_cup_data->f56) create_message_box("Error", "Tried to add team to World Cup, but already have enough teams", true);
+	BYTE* comp_bytes = get_loaded_league(comp_id);
+	comp_stats* comp_data = (comp_stats*)comp_bytes;
+	teams_seeded* qualifiers = (teams_seeded*)comp_data->special_teams_seedings;
+	WORD insert_idx = comp_data->special_nteams_seedings;
+	if (insert_idx >= comp_data->f56) create_message_box(comp_data->competition_db->ClubCompName, "Tried to add team to competition, but already have enough teams", true);
 	else {
 		qualifiers[insert_idx].club = club;
 		qualifiers[insert_idx].f5 = 6;
 		qualifiers[insert_idx].f6 = 0;
-		world_cup_data->special_nteams_seedings++;
-		staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)world_cup_data->competition_db, None, None, 0x64);
-		if (send_news) sub_7779B0((BYTE*)*b74318, club, world_cup_data->competition_db);
+		comp_data->special_nteams_seedings++;
+		staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)comp_data->competition_db, None, None, 0x64);
+		if (send_news) sub_7779B0((BYTE*)*b74318, club, comp_data->competition_db);
 	}
 }
 

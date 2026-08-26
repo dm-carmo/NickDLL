@@ -114,7 +114,7 @@ DWORD world_cup_quals_conmebol_fixtures(BYTE* _this, char stage_idx, WORD* num_r
 			*a5 = 1;
 		BYTE* pMem = NULL;
 		WORD year = data->year;
-		WORD num_hosts = get_world_cup_hosts_in_continent(_this, SOUTH_AMERICA_9CF(), 0, 0);
+		WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), SOUTH_AMERICA_9CF(), 0, 0);
 		BYTE numberOfLeagueTeams = 10 - num_hosts;
 		*num_rounds = (numberOfLeagueTeams - 1 + numberOfLeagueTeams % 2) * data->n_rounds;
 		*stage_name_id = None;
@@ -238,7 +238,7 @@ void world_cup_quals_conmebol_teams(BYTE* _this) {
 	vector<cm3_clubs*> countries = get_national_teams_of_continent_fifa_members(SOUTH_AMERICA_9CF());
 
 	DWORD host1_id, host2_id;
-	WORD num_hosts = get_world_cup_hosts_in_continent(_this, SOUTH_AMERICA_9CF(), &host1_id, &host2_id);
+	WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), SOUTH_AMERICA_9CF(), &host1_id, &host2_id);
 	data->promotions -= num_hosts;
 	data->prom_playoff += (num_hosts > 0);
 	WORD total_teams_in_comp = (WORD)countries.size() - num_hosts;
@@ -331,12 +331,10 @@ void __declspec(naked) world_cup_quals_conmebol_init2_c()
 int world_cup_quals_conmebol_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
-	BYTE* world_cup_bytes = get_loaded_league(FIFA_WORLD_CUP_9CF());
-	comp_stats* world_cup_data = (comp_stats*)world_cup_bytes;
 	if (stage == -1) {
 		switch (fate) {
 		case Qualified1:
-			add_team_to_world_cup(club);
+			qualify_team_for_international_comp(club, FIFA_WORLD_CUP_9CF());
 			return 0;
 		case TopPlayoff:
 			// has to be done separately

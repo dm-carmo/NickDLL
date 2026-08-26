@@ -862,10 +862,15 @@ void uefa_europa_league_group_stage_setup(BYTE* _this) {
 			if (idx < 0) idx = abs(idx) - 1;
 			cm3_clubs* opp = clubs[idx];
 			bool multiple = false;
-			if (n_tries > 255)
+			if (n_tries > 511)
 			{
-				//if (n_tries == 256 && m == 0) dprintf("[UEL] Tried to make draw without teams from the same country facing each other, but failed.\n");
+				//if (n_tries == 512 && m == 0) dprintf("[UEL] Tried to make draw without teams from the same country facing each other, but failed.\n");
 				multiple = pot_nations[club->ClubNation] > 3;
+			}
+			if (n_tries > 1023)
+			{
+				//if (n_tries == 1024 && m == 0) dprintf("[UEL] Tried to make draw without teams from the same country facing each other, but failed.\n");
+				multiple = pot_nations[club->ClubNation] > 2;
 			}
 
 			if (!multiple)

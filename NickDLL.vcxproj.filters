@@ -885,6 +885,12 @@
     <ClCompile Include="Ireland\irl_second.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FIFA National\ofc_nations_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FIFA National\african_nations_quals.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -1767,6 +1773,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Ireland\irl_second.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FIFA National\ofc_nations_cup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FIFA National\african_nations_quals.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

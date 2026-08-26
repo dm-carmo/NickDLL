@@ -105,6 +105,8 @@ void __declspec(naked) unknown_check_1()
 		je ret_add_1_year
 		cmp ebx, dword ptr ds : [0x9cf784]
 		je ret_add_2_year
+		cmp ebx, dword ptr ds : [0x9cf890]
+		je ret_add_2_year
 		ret_dont_add_years :
 		push 0x46b441
 			ret
@@ -142,6 +144,91 @@ void __declspec(naked) unknown_check_2()
 	}
 }
 
+void __declspec(naked) unknown_check_3()
+{
+	__asm
+	{
+		cmp eax, dword ptr ds : [0x9cf78c]
+		je unknown_3
+		cmp eax, dword ptr ds : [0x9cf890]
+		je unknown_3
+		push 0x669bb6
+		ret
+		unknown_3 :
+		push 0x669bbf
+			ret
+	}
+}
+
+void __declspec(naked) international_comps_to_continent()
+{
+	__asm
+	{
+		cmp edx, dword ptr ds : [0x9cf77c]
+		je to_africa
+		cmp edx, dword ptr ds : [0x9cf7ac]
+		je to_africa
+		cmp edx, dword ptr ds : [0x9cf890]
+		je to_africa
+		cmp edx, dword ptr ds : [0x9cf774]
+		je to_asia
+		cmp edx, dword ptr ds : [0x9cf790]
+		je to_asia
+		cmp edx, dword ptr ds : [0x9cf788]
+		je to_asia
+		cmp edx, dword ptr ds : [0x9cf770]
+		je to_n_america
+		cmp edx, dword ptr ds : [0x9cf78c]
+		je to_n_america
+		cmp edx, dword ptr ds : [0x9cf88c]
+		je to_n_america
+		cmp edx, dword ptr ds : [0x9cf780]
+		je to_europe
+		cmp edx, dword ptr ds : [0x9cf7a4]
+		je to_europe
+		cmp edx, dword ptr ds : [0x9cf784]
+		je to_europe
+		cmp edx, dword ptr ds : [0x9cf888]
+		je to_europe
+		cmp edx, dword ptr ds : [0x9cf76c]
+		je to_oceania
+		cmp edx, dword ptr ds : [0x9cf8a0]
+		je to_oceania
+		cmp edx, dword ptr ds : [0x9cf778]
+		je to_s_america
+		cmp edx, dword ptr ds : [0x9cf7a8]
+		je to_s_america
+		cmp edx, dword ptr ds : [0x9cf7a0]
+		je to_world
+		push 0x6b63f6
+		ret
+		to_africa :
+		mov ecx, dword ptr ds : [0x9cfa08]
+			jmp continent_end
+			to_asia :
+		mov ecx, dword ptr ds : [0x9cfa0c]
+			jmp continent_end
+			to_europe :
+		mov ecx, dword ptr ds : [0x9cfa10]
+			jmp continent_end
+			to_oceania :
+		mov ecx, dword ptr ds : [0x9cfa18]
+			jmp continent_end
+			to_n_america :
+		mov ecx, dword ptr ds : [0x9cfa14]
+			jmp continent_end
+			to_s_america :
+		mov ecx, dword ptr ds : [0x9cfa1c]
+			jmp continent_end
+			to_world :
+		push 0x6b6400
+			ret
+			continent_end :
+		push 0x6b63d7
+			ret
+	}
+}
+
 void setup_world_cup_comps() {
 	setup_fifa_world_cup();
 	setup_world_cup_quals_afc();
@@ -154,6 +241,10 @@ void setup_world_cup_comps() {
 
 	PatchFunction(0x66955c, (DWORD)&show_playoff_in_menu);
 	PatchFunction(0x46b409, (DWORD)&unknown_check_1);
+	// tag comp as being part of "World Cup" menu?
 	PatchFunction(0x669abe, (DWORD)&unknown_check_2);
+	// tag comp as being part of "International" menu?
+	PatchFunction(0x669bae, (DWORD)&unknown_check_3);
 	//006B63D1 => review this once new qualifiers are added
+	PatchFunction(0x6b6358, (DWORD)&international_comps_to_continent);
 }

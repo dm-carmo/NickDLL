@@ -76,7 +76,7 @@ void __declspec(naked) world_cup_quals_concacaf_free_c()
 DWORD world_cup_quals_concacaf_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
 {
 	comp_stats* data = (comp_stats*)_this;
-	WORD num_hosts = get_world_cup_hosts_in_continent(_this, NORTH_AMERICA_9CF(), 0, 0);
+	WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), NORTH_AMERICA_9CF(), 0, 0);
 	if (stage_idx == -1) {
 		if (a5)
 			*a5 = 0;
@@ -238,7 +238,7 @@ void world_cup_quals_concacaf_all_teams(BYTE* _this) {
 	sort(countries.begin(), countries.end(), compareNationRanking);
 
 	DWORD host1_id, host2_id;
-	WORD num_hosts = get_world_cup_hosts_in_continent(_this, NORTH_AMERICA_9CF(), &host1_id, &host2_id);
+	WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), NORTH_AMERICA_9CF(), &host1_id, &host2_id);
 	if (num_hosts == 2) data->num_stages--;
 	WORD total_teams_in_comp = (WORD)countries.size() - num_hosts;
 	data->special_nteams_seedings = total_teams_in_comp;
@@ -260,7 +260,7 @@ void world_cup_quals_concacaf_all_teams(BYTE* _this) {
 }
 
 void world_cup_quals_concacaf_qualifier_teams(BYTE* _this) {
-	WORD num_hosts = get_world_cup_hosts_in_continent(_this, NORTH_AMERICA_9CF(), 0, 0);
+	WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), NORTH_AMERICA_9CF(), 0, 0);
 	comp_stats* data = (comp_stats*)_this;
 	WORD total_teams = 22 - 2 * num_hosts;
 	BYTE* pMem = (BYTE*)cm0102_malloc(6 * total_teams);
@@ -347,7 +347,7 @@ void world_cup_quals_concacaf_reputation_calc(BYTE* _this, BYTE* club, char stag
 	comp_stats* comp_data = (comp_stats*)_this;
 	BYTE* ret = (BYTE*)sub_4A4850((BYTE*)comp_data->f8, club);
 	if (!ret) return;
-	WORD num_hosts = get_world_cup_hosts_in_continent(_this, NORTH_AMERICA_9CF(), 0, 0);
+	WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), NORTH_AMERICA_9CF(), 0, 0);
 	char ret_current = current;
 	char ret_min = min;
 	char ret_max = max;
@@ -405,7 +405,7 @@ void __declspec(naked) world_cup_quals_concacaf_reputation_calc_c()
 }
 
 void world_cup_quals_concacaf_best_placed_update(BYTE* _this) {
-	WORD num_hosts = get_world_cup_hosts_in_continent(_this, NORTH_AMERICA_9CF(), 0, 0);
+	WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), NORTH_AMERICA_9CF(), 0, 0);
 
 	comp_stats* data = (comp_stats*)_this;
 	BYTE* first_group_bytes = (BYTE*)data->stages[6];
@@ -466,7 +466,7 @@ void world_cup_quals_concacaf_best_placed_update(BYTE* _this) {
 }
 
 void world_cup_quals_concacaf_setup_best_placed(BYTE* _this) {
-	WORD num_hosts = get_world_cup_hosts_in_continent(_this, NORTH_AMERICA_9CF(), 0, 0);
+	WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), NORTH_AMERICA_9CF(), 0, 0);
 	char stage_num = 9;
 
 	comp_stats* data = (comp_stats*)_this;
@@ -497,7 +497,7 @@ void world_cup_quals_concacaf_setup_best_placed(BYTE* _this) {
 
 void world_cup_quals_concacaf_second_stage_setup(BYTE* _this) {
 	char stage_num = 0;
-	WORD num_hosts = get_world_cup_hosts_in_continent(_this, NORTH_AMERICA_9CF(), 0, 0);
+	WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), NORTH_AMERICA_9CF(), 0, 0);
 
 	comp_stats* comp_data = (comp_stats*)_this;
 	DWORD* stages_arr = comp_data->stages;
@@ -547,7 +547,7 @@ void world_cup_quals_concacaf_second_stage_setup(BYTE* _this) {
 
 void world_cup_quals_concacaf_third_stage_setup(BYTE* _this) {
 	char stage_num = 6;
-	WORD num_hosts = get_world_cup_hosts_in_continent(_this, NORTH_AMERICA_9CF(), 0, 0);
+	WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), NORTH_AMERICA_9CF(), 0, 0);
 
 	comp_stats* comp_data = (comp_stats*)_this;
 	DWORD* stages_arr = comp_data->stages;
@@ -605,7 +605,7 @@ void world_cup_quals_concacaf_third_stage_setup(BYTE* _this) {
 
 void world_cup_quals_concacaf_final_stage_setup(BYTE* _this) {
 	char stage_num = 10;
-	WORD num_hosts = get_world_cup_hosts_in_continent(_this, NORTH_AMERICA_9CF(), 0, 0);
+	WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), NORTH_AMERICA_9CF(), 0, 0);
 
 	comp_stats* comp_data = (comp_stats*)_this;
 	BYTE playoff_teams = 2 + 2 * (num_hosts == 1);
@@ -755,9 +755,7 @@ void __declspec(naked) world_cup_quals_concacaf_init2_c()
 int world_cup_quals_concacaf_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
-	BYTE* world_cup_bytes = get_loaded_league(FIFA_WORLD_CUP_9CF());
-	comp_stats* world_cup_data = (comp_stats*)world_cup_bytes;
-	WORD num_hosts = get_world_cup_hosts_in_continent(_this, NORTH_AMERICA_9CF(), 0, 0);
+	WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), NORTH_AMERICA_9CF(), 0, 0);
 	if (stage == -1) {
 		BYTE* rounds = comp_data->rounds_list;
 		WORD current_round = *(WORD*)(round_data + 0x34);
@@ -792,7 +790,7 @@ int world_cup_quals_concacaf_set_fates(BYTE* _this, cm3_clubs* club, char fate, 
 	else if (stage < 9) {
 		switch (fate) {
 		case Qualified1:
-			add_team_to_world_cup(club);
+			qualify_team_for_international_comp(club, FIFA_WORLD_CUP_9CF());
 			return 0;
 		case TopPlayoff:
 			if (num_hosts < 2) staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, FourthRound, 0x1E);
@@ -807,7 +805,7 @@ int world_cup_quals_concacaf_set_fates(BYTE* _this, cm3_clubs* club, char fate, 
 	else if (stage == 9) {
 		switch (fate) {
 		case Qualified1:
-			add_team_to_world_cup(club);
+			qualify_team_for_international_comp(club, FIFA_WORLD_CUP_9CF());
 			for (char al = 6; al < 9; al++) {
 				comp_stats* stage_data = (comp_stats*)(comp_data->stages[al]);
 				team_league_stats* table_teams = (team_league_stats*)(stage_data->team_league_table);
@@ -893,7 +891,7 @@ int world_cup_quals_concacaf_stage_news(BYTE* _this, int club_idx, char fate, ch
 	comp_stats* data = (comp_stats*)_this;
 	cm3_club_comps* comp_data = data->competition_db;
 	cm3_clubs* club_data = get_club(club_idx);
-	WORD num_hosts = get_world_cup_hosts_in_continent(_this, NORTH_AMERICA_9CF(), 0, 0);
+	WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), NORTH_AMERICA_9CF(), 0, 0);
 	if (stage_id == -1) {
 		if (show_body_text) return sub_4B0B80(club_idx, round_data, a9, fate, a7, ret_str_ptr);
 		else {
@@ -1069,7 +1067,7 @@ void __declspec(naked) world_cup_quals_concacaf_stage_news_c()
 }
 
 void world_cup_quals_concacaf_landmarks(BYTE* _this, DWORD dest_ptr, int a2, WORD main_stage_id, WORD sub_stage_id, char fate, cm3_clubs* club) {
-	WORD num_hosts = get_world_cup_hosts_in_continent(_this, NORTH_AMERICA_9CF(), 0, 0);
+	WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), NORTH_AMERICA_9CF(), 0, 0);
 	if ((main_stage_id >= 0x407 && main_stage_id <= 0x40B) || main_stage_id == SecondRoundGroupF) { // Second Round
 		if (fate != Qualified1) {
 			sub_66F4E0(dest_ptr, 0x9A7B94);

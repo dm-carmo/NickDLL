@@ -76,7 +76,7 @@ void world_cup_quals_caf_subs(BYTE* _this)
 	comp_data->tiebreaker_2 = GoalsForTiebreaker;
 	comp_data->tiebreaker_3 = CurrentPositionTiebreaker;
 	comp_data->tiebreaker_4 = GoalsForAwayTiebreaker;
-	WORD num_hosts = get_world_cup_hosts_in_continent(_this, AFRICA_9CF(), 0, 0);
+	WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), AFRICA_9CF(), 0, 0);
 	comp_data->promotions = num_hosts == 0;
 	comp_data->prom_playoff = 1;
 	comp_data->rele_playoff = 0;
@@ -110,7 +110,7 @@ void __declspec(naked) world_cup_quals_caf_subs_c()
 DWORD world_cup_quals_caf_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
 {
 	comp_stats* data = (comp_stats*)_this;
-	WORD num_hosts = get_world_cup_hosts_in_continent(_this, AFRICA_9CF(), 0, 0);
+	WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), AFRICA_9CF(), 0, 0);
 	if (stage_idx < 8 + (num_hosts == 1)) {
 		if (a5)
 			*a5 = 1;
@@ -239,7 +239,7 @@ void world_cup_quals_caf_reputation_setup(BYTE* _this) {
 		}
 		sort(clubs.begin(), clubs.end(), compareNationRanking);
 
-		WORD num_hosts = get_world_cup_hosts_in_continent(_this, AFRICA_9CF(), 0, 0);
+		WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), AFRICA_9CF(), 0, 0);
 		WORD num_groups = 9 + (num_hosts == 1);
 
 		for (int i = 0; i < num_groups; i++) {
@@ -283,7 +283,7 @@ void world_cup_quals_caf_reputation_calc(BYTE* _this, BYTE* club, char stage, ch
 	BYTE* ret = (BYTE*)sub_4A4850((BYTE*)comp_data->f8, club);
 	if (!ret) return;
 
-	WORD num_hosts = get_world_cup_hosts_in_continent(_this, AFRICA_9CF(), 0, 0);
+	WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), AFRICA_9CF(), 0, 0);
 	WORD num_groups = 9 + (num_hosts == 1);
 
 	char ret_current = current;
@@ -351,7 +351,7 @@ void world_cup_quals_caf_all_teams(BYTE* _this) {
 	sort(countries.begin(), countries.end(), compareNationRanking);
 
 	DWORD host1_id, host2_id;
-	WORD num_hosts = get_world_cup_hosts_in_continent(_this, AFRICA_9CF(), &host1_id, &host2_id);
+	WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), AFRICA_9CF(), &host1_id, &host2_id);
 	if (num_hosts == 2) data->num_stages--;
 	WORD total_teams_in_comp = (WORD)countries.size() - num_hosts;
 	data->special_nteams_seedings = total_teams_in_comp;
@@ -390,7 +390,7 @@ void world_cup_quals_caf_setup_first_group(BYTE* _this) {
 	teams_seeded* teams = (teams_seeded*)data->teams_list;
 	teams_seeded* qualifiers = (teams_seeded*)data->special_teams_seedings;
 
-	WORD num_hosts = get_world_cup_hosts_in_continent(_this, AFRICA_9CF(), 0, 0);
+	WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), AFRICA_9CF(), 0, 0);
 	WORD num_groups = 9 + (num_hosts == 1);
 
 	BYTE teamsAdded = 0;
@@ -410,7 +410,7 @@ void world_cup_quals_caf_setup_groups(BYTE* _this, BYTE idx) {
 	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, int, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, idx, &num_rounds, &stage_name_id, 0);
 	comp_stats* data = (comp_stats*)_this;
 
-	WORD num_hosts = get_world_cup_hosts_in_continent(_this, AFRICA_9CF(), 0, 0);
+	WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), AFRICA_9CF(), 0, 0);
 	WORD num_groups = 9 + (num_hosts == 1);
 	WORD num_teams = 5 + ((num_groups * 5 + idx + 1) < data->special_nteams_seedings);
 
@@ -439,7 +439,7 @@ void world_cup_quals_caf_setup_groups(BYTE* _this, BYTE idx) {
 }
 
 void world_cup_quals_caf_best_placed_update(BYTE* _this) {
-	WORD num_hosts = get_world_cup_hosts_in_continent(_this, AFRICA_9CF(), 0, 0);
+	WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), AFRICA_9CF(), 0, 0);
 	WORD num_groups = 9 + (num_hosts == 1);
 	comp_stats* data = (comp_stats*)_this;
 	char stage_num = num_groups - 1;
@@ -500,7 +500,7 @@ void world_cup_quals_caf_best_placed_update(BYTE* _this) {
 }
 
 void world_cup_quals_caf_setup_best_placed(BYTE* _this) {
-	WORD num_hosts = get_world_cup_hosts_in_continent(_this, AFRICA_9CF(), 0, 0);
+	WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), AFRICA_9CF(), 0, 0);
 	WORD num_groups = 9 + (num_hosts == 1);
 
 	char stage_num = num_groups - 1;
@@ -562,7 +562,7 @@ void world_cup_quals_caf_init2(BYTE* _this, DWORD current_date, int a3) {
 	WORD date_year = *(WORD*)(cm_date + 2);
 	if (date_day == *(WORD*)(current_date) && *(WORD*)(current_date + 2) == date_year) {
 		if (!data->f69 && a3) {
-			WORD num_hosts = get_world_cup_hosts_in_continent(_this, AFRICA_9CF(), 0, 0);
+			WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), AFRICA_9CF(), 0, 0);
 			sub_775070((BYTE*)*b74318, get_continent(AFRICA_9CF()), 0);
 			data->f69 = 1;
 			world_cup_quals_caf_all_teams(_this);
@@ -600,14 +600,12 @@ void __declspec(naked) world_cup_quals_caf_init2_c()
 int world_cup_quals_caf_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
-	BYTE* world_cup_bytes = get_loaded_league(FIFA_WORLD_CUP_9CF());
-	comp_stats* world_cup_data = (comp_stats*)world_cup_bytes;
-	WORD num_hosts = get_world_cup_hosts_in_continent(_this, AFRICA_9CF(), 0, 0);
+	WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), AFRICA_9CF(), 0, 0);
 	WORD num_groups = 9 + (num_hosts == 1);
 	if (stage < num_groups - 1) {
 		switch (fate) {
 		case Qualified1:
-			if (num_hosts == 0) add_team_to_world_cup(club);
+			if (num_hosts == 0) qualify_team_for_international_comp(club, FIFA_WORLD_CUP_9CF());
 			return 0;
 		case TopPlayoff:
 			//staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(get_comp(WORLD_CUP_PLAYOFFS_9CF())), None, None, 0x1E);
@@ -623,7 +621,7 @@ int world_cup_quals_caf_set_fates(BYTE* _this, cm3_clubs* club, char fate, char 
 		comp_stats* stage_data = comp_data;
 		switch (fate) {
 		case Qualified1:
-			add_team_to_world_cup(club);
+			qualify_team_for_international_comp(club, FIFA_WORLD_CUP_9CF());
 			for (char al = -1; al < num_groups - 1; al++) {
 				if (al >= 0) stage_data = (comp_stats*)(comp_data->stages[al]);
 				team_league_stats* table_teams = (team_league_stats*)(stage_data->team_league_table);
@@ -704,7 +702,7 @@ int world_cup_quals_caf_stage_news(BYTE* _this, int club_idx, char fate, char st
 	comp_stats* data = (comp_stats*)_this;
 	cm3_club_comps* comp_data = data->competition_db;
 	cm3_clubs* club_data = get_club(club_idx);
-	WORD num_hosts = get_world_cup_hosts_in_continent(_this, AFRICA_9CF(), 0, 0);
+	WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), AFRICA_9CF(), 0, 0);
 	WORD num_groups = 9 + (num_hosts == 1);
 	if (stage_id < num_groups - 1) {
 		if (fate == Qualified1)
@@ -886,7 +884,7 @@ WORD world_cup_quals_caf_vtable29(BYTE* _this, cm3_clubs* club) {
 	comp_stats* data = (comp_stats*)_this;
 	DWORD* f8 = data->f8;
 	WORD val = (WORD)sub_4A2E10((BYTE*)f8, club, 0x12);
-	WORD num_hosts = get_world_cup_hosts_in_continent(_this, AFRICA_9CF(), 0, 0);
+	WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), AFRICA_9CF(), 0, 0);
 	return (val < 9 + (num_hosts == 1)) - 3;
 }
 
@@ -909,7 +907,7 @@ BYTE world_cup_quals_caf_vtable30(BYTE* _this, cm3_clubs* club) {
 	BYTE bl = (BYTE)sub_4A2E10((BYTE*)f8, club, 0x13);
 	BYTE al = (BYTE)sub_4A2E10((BYTE*)f8, club, 0x12);
 
-	WORD num_hosts = get_world_cup_hosts_in_continent(_this, AFRICA_9CF(), 0, 0);
+	WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), AFRICA_9CF(), 0, 0);
 	if (al < 9 + (num_hosts == 1)) return (bl < 9 + (num_hosts == 1)) - 1;
 	else return (bl < 9 + (num_hosts == 1));
 }
@@ -962,7 +960,7 @@ void world_cup_quals_caf_stages_create(BYTE* _this) {
 	comp_stats* comp_data = (comp_stats*)_this;
 	long current = comp_data->current_stage;
 	long max = comp_data->num_stages;
-	WORD num_hosts = get_world_cup_hosts_in_continent(_this, AFRICA_9CF(), 0, 0);
+	WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), AFRICA_9CF(), 0, 0);
 	if (num_hosts == 0) {
 		if (current < max - 1) {
 			current++;

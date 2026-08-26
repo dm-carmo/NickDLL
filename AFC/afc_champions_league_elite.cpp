@@ -824,10 +824,15 @@ void afc_champions_league_elite_group_stage_setup(BYTE* _this) {
 				if (idx < 0) idx = abs(idx) - 1;
 				cm3_clubs* opp = clubs_pots[idx];
 				bool multiple = false;
-				if (n_tries > 255)
+				if (n_tries > 511)
 				{
-					//if (n_tries == 256 && m == 0) dprintf("[CLE] Tried to make draw without teams from the same country facing each other, but failed.\n");
+					//if (n_tries == 512 && m == 0) dprintf("[CLE] Tried to make draw without teams from the same country facing each other, but failed.\n");
 					multiple = pot_nations_c[club->ClubNation] > 2;
+				}
+				if (n_tries > 1023)
+				{
+					//if (n_tries == 1024 && m == 0) dprintf("[CLE] Tried to make draw without teams from the same country facing each other, but failed.\n");
+					multiple = pot_nations_c[club->ClubNation] > 1;
 				}
 
 				if (!multiple)
@@ -848,7 +853,7 @@ void afc_champions_league_elite_group_stage_setup(BYTE* _this) {
 				}
 				if (counts.find(opp->ClubNation) != counts.end()) {
 					int count = counts[opp->ClubNation];
-					if (opp->ClubNation == club->ClubNation && count == 1) {
+					if (opp->ClubNation == club->ClubNation && count > 0 + multiple) {
 						shuffle(clubs_pots.begin(), clubs_pots.begin() + 4, rng);
 						if (idx > 3) shuffle(clubs_pots.begin() + 4, clubs_pots.begin() + 8, rng);
 						if (idx > 7) shuffle(clubs_pots.begin() + 8, clubs_pots.begin() + 12, rng);

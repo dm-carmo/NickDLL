@@ -86,7 +86,7 @@ DWORD world_cup_playoffs_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds,
 
 		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
-		WORD uefa_hosts = get_world_cup_hosts_in_continent(_this, EUROPE_9CF(), 0, 0);
+		WORD uefa_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), EUROPE_9CF(), 0, 0);
 		WORD num_teams = 6 - (uefa_hosts > 0);
 		WORD r1_teams = num_teams - 2 - num_teams % 2;
 		int fixture_id = 0;
@@ -202,7 +202,7 @@ void world_cup_playoffs_get_conmebol_team(BYTE* _this) {
 void world_cup_playoffs_qualifier_teams(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	WORD total_teams = data->special_nteams_seedings;
-	WORD uefa_hosts = get_world_cup_hosts_in_continent(_this, EUROPE_9CF(), 0, 0);
+	WORD uefa_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), EUROPE_9CF(), 0, 0);
 	if (uefa_hosts > 0) data->f56--;
 	BYTE* pMem = (BYTE*)cm0102_malloc(6 * total_teams);
 
@@ -280,11 +280,9 @@ int world_cup_playoffs_set_fates(BYTE* _this, cm3_clubs* club, char fate, char s
 		if (num_teams <= 0) return 0;
 		BYTE* rounds = comp_data->rounds_list;
 		WORD current_round = *(WORD*)(round_data + 0x34);
-		BYTE* world_cup_bytes = get_loaded_league(FIFA_WORLD_CUP_9CF());
-		comp_stats* world_cup_data = (comp_stats*)world_cup_bytes;
 		switch (fate) {
 		case TopPlayoff:
-			add_team_to_world_cup(club, false);
+			qualify_team_for_international_comp(club, FIFA_WORLD_CUP_9CF(), false);
 			return 0;
 		case Promoted:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),

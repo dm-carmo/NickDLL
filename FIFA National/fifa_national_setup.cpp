@@ -2,6 +2,8 @@
 #include "Structures\CMHeader.h"
 #include "Helpers\generic_functions.h"
 #include <Helpers\9cf_constants.h>
+#include "ofc_nations_cup.h"
+#include "african_nations_quals.h"
 
 static DWORD(__thiscall* olympic_games_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
 (DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x79f530);
@@ -13,8 +15,6 @@ static DWORD(__thiscall* african_nations_setup)(BYTE* _this, WORD year, cm3_club
 (DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x401000);
 static DWORD(__thiscall* copa_america_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
 (DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x5e0660);
-static DWORD(__thiscall* ofc_nations_cup_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x7988b0);
 static DWORD(__thiscall* gold_cup_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
 (DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x929140);
 static DWORD(__thiscall* asian_cup_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
@@ -31,7 +31,7 @@ DWORD fifa_national_setup_c(playable_nation_data* nation_data) {
 	nation_data->contract_end_month = June;
 	nation_data->contract_end_year = *current_year;
 	nation_data->f70 = 5;
-	nation_data->num_of_comps = 8;
+	nation_data->num_of_comps = 9;
 	DWORD* nation_comps = (DWORD*)cm0102_malloc(nation_data->num_of_comps * 4);
 	nation_data->comps_list = (DWORD)nation_comps;
 
@@ -43,6 +43,10 @@ DWORD fifa_national_setup_c(playable_nation_data* nation_data) {
 
 	pMem = (BYTE*)cm0102_new(0xF4);
 	african_nations_setup(pMem, *current_year, get_comp(AFRICAN_CUP_OF_NATIONS_9CF()));
+	nation_comps[i++] = (DWORD)pMem;
+
+	pMem = (BYTE*)cm0102_new(0xB2);
+	african_nations_quals_init(pMem, *current_year, get_comp(AFRICAN_CUP_OF_NATIONS_QUALIFYING_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)cm0102_new(0xF4);
@@ -62,7 +66,7 @@ DWORD fifa_national_setup_c(playable_nation_data* nation_data) {
 	nation_comps[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)cm0102_new(0xF4);
-	ofc_nations_cup_setup(pMem, *current_year, get_comp(OFC_NATIONS_CUP_9CF()));
+	ofc_nations_cup_init(pMem, *current_year, get_comp(OFC_NATIONS_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)cm0102_new(0xF6);
@@ -79,4 +83,6 @@ DWORD fifa_national_setup_c(playable_nation_data* nation_data) {
 }
 
 void setup_fifa_national_comps() {
+	setup_ofc_nations_cup();
+	setup_african_nations_quals();
 }

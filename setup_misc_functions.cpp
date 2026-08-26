@@ -1485,8 +1485,15 @@ void setup_misc_functions()
 
 	// Fix hosts not syncing after some comps changed their year frequency
 	WriteBytes(0x5F9EDB + 3, 1, 32);
-	WriteBytes(0x5FA1A2 + 3, 1, 32);
+	WriteBytes(0x5FA1A2 + 3, 1, 24);
 	WriteBytes(0x5FA44F + 3, 1, 32);
+	// AFCON every 4 years (change later)
+	WriteBytes(0x5F9EE2 + 2, 1, 4);
+	WriteBytes(0x401d80 + 4, 1, 4);
+	WriteBytes(0x401054 + 2, 1, 3);
+	WriteBytes(0x401089 + 1, 1, 3);
+	WriteBytes(0x401076 + 2, 1, 0xfc);
+	WriteBytes(0x401091 + 2, 1, 0xfc);
 
 	// Change player search filters
 	if (configFile.GetBool("changePlayerSearchFilters", true)) {

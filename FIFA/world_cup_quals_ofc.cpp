@@ -86,7 +86,7 @@ DWORD world_cup_quals_ofc_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds
 
 		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
-		WORD num_to_exclude = get_world_cup_hosts_in_continent(_this, OCEANIA_9CF(), 0, 0);
+		WORD num_to_exclude = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), OCEANIA_9CF(), 0, 0);
 		WORD num_teams = 4 - num_to_exclude;
 		WORD r1_teams = num_teams - num_teams % 2;
 		int fixture_id = 0;
@@ -231,7 +231,7 @@ void world_cup_quals_ofc_all_teams(BYTE* _this) {
 	sort(ofc_countries.begin(), ofc_countries.end(), compareNationRanking);
 
 	DWORD host1_id, host2_id;
-	WORD num_to_exclude = get_world_cup_hosts_in_continent(_this, OCEANIA_9CF(), &host1_id, &host2_id);
+	WORD num_to_exclude = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), OCEANIA_9CF(), &host1_id, &host2_id);
 	WORD total_teams_in_comp = (WORD)ofc_countries.size() - num_to_exclude;
 	data->special_nteams_seedings = total_teams_in_comp;
 	data->f56 = total_teams_in_comp;
@@ -608,14 +608,12 @@ int world_cup_quals_ofc_set_fates(BYTE* _this, cm3_clubs* club, char fate, char 
 		comp_stats* stage_data = (comp_stats*)(comp_data->stages[stage]);
 		BYTE* rounds = ((comp_stats*)(comp_data->stages[stage]))->rounds_list;
 		WORD current_round = *(WORD*)(round_data + 0x34);
-		BYTE* world_cup_bytes = get_loaded_league(FIFA_WORLD_CUP_9CF());
-		comp_stats* world_cup_data = (comp_stats*)world_cup_bytes;
-		WORD num_hosts = get_world_cup_hosts_in_continent(_this, OCEANIA_9CF(), 0, 0);
+		WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), OCEANIA_9CF(), 0, 0);
 		switch (fate) {
 		case TopPlayoff:
 			if (num_hosts < 1)
 			{
-				add_team_to_world_cup(club);
+				qualify_team_for_international_comp(club, FIFA_WORLD_CUP_9CF());
 			}
 			else {
 				add_team_to_world_cup_playoffs(club);
@@ -693,7 +691,7 @@ int world_cup_quals_ofc_stage_news(BYTE* _this, int club_idx, char fate, char st
 	else if (stage_id == 2) {
 		if (show_body_text) return sub_4B0B80(club_idx, round_data, a9, fate, a7, ret_str_ptr);
 		else {
-			WORD num_hosts = get_world_cup_hosts_in_continent(_this, OCEANIA_9CF(), 0, 0);
+			WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), OCEANIA_9CF(), 0, 0);
 			switch (fate)
 			{
 			case TopPlayoff:
@@ -774,7 +772,7 @@ void world_cup_quals_ofc_landmarks(BYTE* _this, DWORD dest_ptr, int a2, WORD mai
 	}
 	if (main_stage_id == ThirdRound && sub_stage_id == SecondStage)
 	{
-		WORD num_hosts = get_world_cup_hosts_in_continent(_this, OCEANIA_9CF(), 0, 0);
+		WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), OCEANIA_9CF(), 0, 0);
 		if (num_hosts < 1 && fate == 1)
 		{
 			sub_66F4E0(dest_ptr, 0xAD4658, club->ClubGenderName, 0xAD9C64);
