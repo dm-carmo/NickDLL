@@ -12,7 +12,7 @@
 using namespace std;
 
 DWORD* fifa_world_cup_vtable = (DWORD*)0x9712F0;
-DWORD table_start_offset = 0xDEA000;
+DWORD wc_table_start_offset = 0xDEA000;
 
 int fifa_world_cup_set_champion(BYTE* _this) {
 	comp_stats* comp_data = (comp_stats*)_this;
@@ -927,9 +927,9 @@ void fifa_world_cup_paths_setup(BYTE* _this) {
 	char key[9] = { '\0' };
 	char indexes[9] = { '\0' };
 	for (int i = 0; i < 495; i++) {
-		strncpy_s(key, (char*)(table_start_offset + 16 * i), 8);
+		strncpy_s(key, (char*)(wc_table_start_offset + 16 * i), 8);
 		if (strcmp(key, best_third_letters) == 0) {
-			strncpy_s(indexes, (char*)(table_start_offset + 16 * i + 8), 8);
+			strncpy_s(indexes, (char*)(wc_table_start_offset + 16 * i + 8), 8);
 			break;
 		}
 	}
@@ -2196,7 +2196,7 @@ void setup_fifa_world_cup() {
 		{"ABCDEFGI", "CGBDAFEI"},
 		{"ABCDEFGH", "HGBCAFDE"},
 	};
-	DWORD off = table_start_offset;
+	DWORD off = wc_table_start_offset;
 	for (auto const& x : table)
 	{
 		for (int i = 0; i < 8; i++) WriteBytes(off++, 1, x.first[i]);

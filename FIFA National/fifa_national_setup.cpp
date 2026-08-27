@@ -3,6 +3,7 @@
 #include "Helpers\generic_functions.h"
 #include <Helpers\9cf_constants.h>
 #include "ofc_nations_cup.h"
+#include "african_nations.h"
 #include "african_nations_quals.h"
 
 static DWORD(__thiscall* olympic_games_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
@@ -11,8 +12,6 @@ static DWORD(__thiscall* uefa_euro_setup)(BYTE* _this, WORD year, cm3_club_comps
 (DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x57a890);
 static DWORD(__thiscall* uefa_euro_quals_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
 (DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x57ce10);
-static DWORD(__thiscall* african_nations_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x401000);
 static DWORD(__thiscall* copa_america_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
 (DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x5e0660);
 static DWORD(__thiscall* gold_cup_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
@@ -42,7 +41,7 @@ DWORD fifa_national_setup_c(playable_nation_data* nation_data) {
 	nation_comps[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)cm0102_new(0xF4);
-	african_nations_setup(pMem, *current_year, get_comp(AFRICAN_CUP_OF_NATIONS_9CF()));
+	african_nations_init(pMem, *current_year, get_comp(AFRICAN_CUP_OF_NATIONS_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)cm0102_new(0xB2);
@@ -84,5 +83,6 @@ DWORD fifa_national_setup_c(playable_nation_data* nation_data) {
 
 void setup_fifa_national_comps() {
 	setup_ofc_nations_cup();
+	setup_african_nations();
 	setup_african_nations_quals();
 }

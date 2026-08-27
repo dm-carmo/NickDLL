@@ -1487,13 +1487,8 @@ void setup_misc_functions()
 	WriteBytes(0x5F9EDB + 3, 1, 32);
 	WriteBytes(0x5FA1A2 + 3, 1, 24);
 	WriteBytes(0x5FA44F + 3, 1, 32);
-	// AFCON every 4 years (change later)
+	// AFCON every 4 years - host function change
 	WriteBytes(0x5F9EE2 + 2, 1, 4);
-	WriteBytes(0x401d80 + 4, 1, 4);
-	WriteBytes(0x401054 + 2, 1, 3);
-	WriteBytes(0x401089 + 1, 1, 3);
-	WriteBytes(0x401076 + 2, 1, 0xfc);
-	WriteBytes(0x401091 + 2, 1, 0xfc);
 
 	// Change player search filters
 	if (configFile.GetBool("changePlayerSearchFilters", true)) {
@@ -1518,7 +1513,6 @@ void setup_misc_functions()
 	// Show hosts for some other comps
 	WriteDWORD(0x96769C, 0x404480); // Asian Cup
 	WriteDWORD(0x96B488, 0x404480); // Copa América
-	WriteDWORD(0x9672F8, 0x404480); // AFCON
 
 	// Fixes a slight bug where B-teams can't qualify for relegation playoffs if they have the "CantBePromoted" flag set
 	WriteBytes(0x68527E, 1, 0xFC);
