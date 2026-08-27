@@ -40,7 +40,7 @@ DWORD fifa_national_setup_c(playable_nation_data* nation_data) {
 	olympic_games_setup(pMem, *current_year, get_comp(OLYMPIC_GAMES_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)cm0102_new(0xF4);
+	pMem = (BYTE*)cm0102_new(0xEE);
 	african_nations_init(pMem, *current_year, get_comp(AFRICAN_CUP_OF_NATIONS_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 

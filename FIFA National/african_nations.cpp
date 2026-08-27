@@ -225,7 +225,7 @@ DWORD african_nations_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WO
 		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 15), year, Thursday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 14), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 17), year, Saturday, Afternoon, LargestStadium4);
 		FillFixtureDetails(pMem, fixture_id++, None, 0, ExtraTimePenalties_1, NoTiebreak_2, 10, 2, 1, 2, 0, 0, 1, 0);
 
@@ -570,115 +570,6 @@ void __declspec(naked) african_nations_update_c()
 	}
 }
 
-int african_nations_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
-	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
-	comp_stats* comp_data = (comp_stats*)_this;
-	if (stage < 5) {
-		switch (fate) {
-		case Qualified1:
-			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, RoundOf16, 0x1E);
-			return 0;
-		default:
-			//staff_history_failed_qual_86C1D0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), GroupStage, 0x1E);
-			return 0;
-		}
-	}
-	else if (stage == 5) {
-		switch (fate) {
-		case Qualified1:
-			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, RoundOf16, 0x1E);
-			return 0;
-		default:
-			staff_history_failed_qual_86C1D0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), GroupStage, 0x1E);
-			return 0;
-		}
-	}
-	else if (stage == 6) {
-		WORD num_teams = comp_data->n_teams;
-		if (num_teams <= 0) return 0;
-		comp_stats* stage_data = (comp_stats*)(comp_data->stages[stage]);
-		BYTE* rounds = ((comp_stats*)(comp_data->stages[stage]))->rounds_list;
-		WORD current_round = *(WORD*)(round_data + 0x34);
-		char c;
-		switch (fate) {
-		case TopPlayoff:
-			staff_history_comp_winner_86A800(staff_hist_ptr, club, round_data, a7);
-			*a5 = 4;
-			break;
-		case Promoted:
-			c = sub_4BF850(50, 100, current_round, 5);
-			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
-				*(WORD*)(rounds + playoff_dates_sz * (current_round + 1) + 7), c);
-			return 0;
-		case BottomPlayoff:
-			staff_history_comp_runner_up_86B0B0(staff_hist_ptr, club, round_data, a7);
-			break;
-		default:
-			c = sub_4BF850(50, 100, current_round, 5);
-			staff_history_knocked_out_86C000(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
-				*(WORD*)(rounds + playoff_dates_sz * current_round + 7), c);
-			WORD round_name = *(WORD*)(rounds + playoff_dates_sz * current_round + 7);
-			if (round_name == SemiFinal) {
-				if (comp_data->current_stage < comp_data->num_stages - 1) comp_data->current_stage++;
-				comp_stats* stage = (comp_stats*)comp_data->stages[comp_data->current_stage];
-				teams_seeded* teams = (teams_seeded*)stage->teams_list;
-				if (!teams[0].club) teams[0].club = club;
-				else if (!teams[1].club) teams[1].club = club;
-			}
-			break;
-		}
-		sub_775000((BYTE*)*b74318, club->ClubNation);
-		return 0;
-	}
-	else if (stage == 7) {
-		WORD num_teams = comp_data->n_teams;
-		if (num_teams <= 0) return 0;
-		comp_stats* stage_data = (comp_stats*)(comp_data->stages[stage]);
-		BYTE* rounds = ((comp_stats*)(comp_data->stages[stage]))->rounds_list;
-		WORD current_round = *(WORD*)(round_data + 0x34);
-		char c;
-		switch (fate) {
-		case TopPlayoff:
-			staff_history_comp_third_place_86B710(staff_hist_ptr, club, round_data, a7);
-			*a5 = 4;
-			break;
-		case Promoted:
-			c = sub_4BF850(50, 100, current_round, 5);
-			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
-				*(WORD*)(rounds + playoff_dates_sz * (current_round + 1) + 7), c);
-			return 0;
-		case BottomPlayoff:
-			break;
-		default:
-			c = sub_4BF850(50, 100, current_round, 5);
-			staff_history_knocked_out_86C000(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
-				*(WORD*)(rounds + playoff_dates_sz * current_round + 7), c);
-			break;
-		}
-		sub_775000((BYTE*)*b74318, club->ClubNation);
-		return 0;
-	}
-	return 0;
-}
-
-void __declspec(naked) african_nations_set_table_fate()
-{
-	__asm
-	{
-		mov eax, esp
-		push dword ptr[eax + 0x18]
-		push dword ptr[eax + 0x14]
-		push dword ptr[eax + 0x10]
-		push dword ptr[eax + 0xC]
-		push dword ptr[eax + 0x8]
-		push dword ptr[eax + 0x4]
-		push ecx
-		call african_nations_set_fates
-		add esp, 0x1c
-		ret 0x18
-	}
-}
-
 #pragma warning(push)
 #pragma warning(disable:6385)
 void african_nations_final_stage_setup(BYTE* _this) {
@@ -756,7 +647,6 @@ void african_nations_final_stage_setup(BYTE* _this) {
 	DWORD* stages_arr = data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
 	sub_51C800(new_stage, 0);
-	stage_num++;
 
 	data->current_stage = (long)stage_num;
 }
@@ -781,7 +671,7 @@ void african_nations_third_place_setup(BYTE* _this) {
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
 	sub_51C800(new_stage, 0);
 
-	//data->current_stage = (long)stage_num;
+	data->current_stage = (long)stage_num;
 }
 
 void african_nations_stages_create(BYTE* _this) {
@@ -793,7 +683,6 @@ void african_nations_stages_create(BYTE* _this) {
 		comp_data->current_stage = current;
 		if (current == 6) {
 			african_nations_final_stage_setup(_this);
-			african_nations_third_place_setup(_this);
 		}
 	}
 }
@@ -919,14 +808,12 @@ void african_nations_all_teams(BYTE* _this) {
 		char num_hosts = get_host_ids_5FA730((BYTE*)*b5e134, data->competition_db->ClubCompID, year, &host1_id, &host2_id, 1);
 		vector<cm3_clubs*> clubs;
 		for (int i = 0; i < 24; i++) clubs.push_back(teamList[i].club);
-		sort(clubs.begin(), clubs.end(), compareNationRanking);
 		shuffle(clubs.begin() + num_hosts, clubs.begin() + 6, rng);
 		shuffle(clubs.begin() + 6, clubs.begin() + 12, rng);
 		shuffle(clubs.begin() + 12, clubs.begin() + 18, rng);
 		shuffle(clubs.begin() + 18, clubs.end(), rng);
 		for (int i = 0; i < 24; i++) teamList[i].club = clubs[i];
 	}
-	//return pMem;
 }
 
 void african_nations_setup2(BYTE* _this) {
@@ -1007,6 +894,115 @@ void african_nations_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	else data->f69 = 0;
 	data->team_league_table = 0;
 	data->n_teams = 0;
+}
+
+int african_nations_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
+	comp_stats* comp_data = (comp_stats*)_this;
+	if (stage < 5) {
+		switch (fate) {
+		case Qualified1:
+			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, RoundOf16, 0x1E);
+			return 0;
+		default:
+			//staff_history_failed_qual_86C1D0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), GroupStage, 0x1E);
+			return 0;
+		}
+	}
+	else if (stage == 5) {
+		switch (fate) {
+		case Qualified1:
+			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, RoundOf16, 0x1E);
+			return 0;
+		default:
+			staff_history_failed_qual_86C1D0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), GroupStage, 0x1E);
+			return 0;
+		}
+	}
+	else if (stage == 6) {
+		WORD num_teams = comp_data->n_teams;
+		if (num_teams <= 0) return 0;
+		comp_stats* stage_data = (comp_stats*)(comp_data->stages[stage]);
+		BYTE* rounds = ((comp_stats*)(comp_data->stages[stage]))->rounds_list;
+		WORD current_round = *(WORD*)(round_data + 0x34);
+		char c;
+		switch (fate) {
+		case TopPlayoff:
+			staff_history_comp_winner_86A800(staff_hist_ptr, club, round_data, a7);
+			*a5 = 4;
+			break;
+		case Promoted:
+			c = sub_4BF850(40, 100, current_round, 4);
+			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
+				*(WORD*)(rounds + playoff_dates_sz * (current_round + 1) + 7), c);
+			return 0;
+		case BottomPlayoff:
+			staff_history_comp_runner_up_86B0B0(staff_hist_ptr, club, round_data, a7);
+			break;
+		default:
+			c = sub_4BF850(40, 100, current_round, 4);
+			staff_history_knocked_out_86C000(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
+				*(WORD*)(rounds + playoff_dates_sz * current_round + 7), c);
+			WORD round_name = *(WORD*)(rounds + playoff_dates_sz * current_round + 7);
+			if (round_name == SemiFinal) {
+				if (comp_data->current_stage < comp_data->num_stages - 1) african_nations_third_place_setup(_this);
+				comp_stats* stage = (comp_stats*)comp_data->stages[comp_data->current_stage];
+				teams_seeded* teams = (teams_seeded*)stage->teams_list;
+				if (!teams[0].club) teams[0].club = club;
+				else if (!teams[1].club) teams[1].club = club;
+			}
+			break;
+		}
+		sub_775000((BYTE*)*b74318, club->ClubNation);
+		return 0;
+	}
+	else if (stage == 7) {
+		WORD num_teams = comp_data->n_teams;
+		if (num_teams <= 0) return 0;
+		comp_stats* stage_data = (comp_stats*)(comp_data->stages[stage]);
+		BYTE* rounds = ((comp_stats*)(comp_data->stages[stage]))->rounds_list;
+		WORD current_round = *(WORD*)(round_data + 0x34);
+		char c;
+		switch (fate) {
+		case TopPlayoff:
+			staff_history_comp_third_place_86B710(staff_hist_ptr, club, round_data, a7);
+			*a5 = 4;
+			break;
+		case Promoted:
+			c = sub_4BF850(40, 100, current_round, 4);
+			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
+				*(WORD*)(rounds + playoff_dates_sz * (current_round + 1) + 7), c);
+			return 0;
+		case BottomPlayoff:
+			break;
+		default:
+			c = sub_4BF850(40, 100, current_round, 4);
+			staff_history_knocked_out_86C000(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
+				*(WORD*)(rounds + playoff_dates_sz * current_round + 7), c);
+			break;
+		}
+		sub_775000((BYTE*)*b74318, club->ClubNation);
+		return 0;
+	}
+	return 0;
+}
+
+void __declspec(naked) african_nations_set_table_fate()
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x18]
+		push dword ptr[eax + 0x14]
+		push dword ptr[eax + 0x10]
+		push dword ptr[eax + 0xC]
+		push dword ptr[eax + 0x8]
+		push dword ptr[eax + 0x4]
+		push ecx
+		call african_nations_set_fates
+		add esp, 0x1c
+		ret 0x18
+	}
 }
 
 WORD african_nations_vtable29(BYTE* _this, cm3_clubs* club) {

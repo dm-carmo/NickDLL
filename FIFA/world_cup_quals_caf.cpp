@@ -125,12 +125,12 @@ DWORD world_cup_quals_caf_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds
 		int fixture_id = 0;
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 16), year, Thursday, Afternoon);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 21), year, Tuesday, Afternoon);
-		//AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 6, 6), year, Thursday, Afternoon);
-		//AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 6, 11), year, Tuesday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 21), year, Thursday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 26), year, Tuesday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 2, 3, 13), year, Thursday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 2, 3, 18), year, Tuesday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 6, 6), year, Thursday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 6, 11), year, Tuesday, Afternoon);
+		//AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 14), year, Thursday, Afternoon);
+		//AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 19), year, Tuesday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 2, 3, 20), year, Thursday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 2, 3, 25), year, Tuesday, Afternoon);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 2, 9, 4), year, Thursday, Afternoon);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 2, 9, 9), year, Tuesday, Afternoon);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 2, 10, 9), year, Thursday, Afternoon);

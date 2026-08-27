@@ -968,7 +968,12 @@ bool is_youth_competition(cm3_club_comps* comp) {
 	if (!comp) return false;
 	DWORD id = comp->ClubCompID;
 	if (id == OLYMPIC_GAMES_9CF()) return true;
+	if (id == UNDER_21_INTERNATIONAL_9CF()) return true;
 	return false;
+}
+
+bool is_final_knockout_rounds(WORD main_stage_id, WORD sub_stage_id) {
+	return (sub_stage_id == QuarterFinal || sub_stage_id == SemiFinal || sub_stage_id == Final || sub_stage_id == ThirdPlacePlayoff || main_stage_id == ThirdPlacePlayoff);
 }
 
 //static __int16(__thiscall* update_ranking)(BYTE* _this, cm3_nations* nation, __int16 a3, BYTE* match_data) =
@@ -998,7 +1003,7 @@ void update_fifa_coefficients(BYTE* _this, BYTE* match_data) {
 	// if Nations League && group stage, importance = 15
 	// if Nations League && playoffs, importance = 25
 	if (comp->ClubCompID == UEFA_NATIONS_LEAGUE_9CF()) {
-		if (sub_stage_id == QuarterFinal || sub_stage_id == SemiFinal || sub_stage_id == Final || sub_stage_id == ThirdPlacePlayoff || main_stage_id == ThirdPlacePlayoff) importance = 25;
+		if (is_final_knockout_rounds(main_stage_id, sub_stage_id)) importance = 25;
 		else importance = 15;
 	}
 	// if World Cup qualifiers or confederation qualifiers, importance = 25
@@ -1006,13 +1011,13 @@ void update_fifa_coefficients(BYTE* _this, BYTE* match_data) {
 	// if confederation finals (before quarter-finals), importance = 35
 	// if confederation finals (quarter-finals and later), importance = 40
 	if (is_continental_finals(comp)) {
-		if (sub_stage_id == QuarterFinal || sub_stage_id == SemiFinal || sub_stage_id == Final || sub_stage_id == ThirdPlacePlayoff || main_stage_id == ThirdPlacePlayoff) importance = 40;
+		if (is_final_knockout_rounds(main_stage_id, sub_stage_id)) importance = 40;
 		else importance = 30;
 	}
 	// if World Cup (before quarter-finals), importance = 50
 	// if World Cup (quarter-finals and later), importance = 60
 	if (comp->ClubCompID == FIFA_WORLD_CUP_9CF()) {
-		if (sub_stage_id == QuarterFinal || sub_stage_id == SemiFinal || sub_stage_id == Final || sub_stage_id == ThirdPlacePlayoff || main_stage_id == ThirdPlacePlayoff) importance = 60;
+		if (is_final_knockout_rounds(main_stage_id, sub_stage_id)) importance = 60;
 		else importance = 50;
 	}
 	float result_home = 0;
@@ -1036,12 +1041,17 @@ void update_fifa_coefficients(BYTE* _this, BYTE* match_data) {
 	float expected_away = (float)(1 / (pow(10, diff / 600) + 1));
 
 	// full formula: P = Pbefore + I * (W - We)
+	// check if World Cup or main continental comp, and if knockout rounds, don't lower rating
 	float new_rating_home = rating_home + importance * (result_home - expected_home);
 	if (new_rating_home < 0) new_rating_home = 0;
 	float new_rating_away = rating_away + importance * (result_away - expected_away);
 	if (new_rating_away < 0) new_rating_away = 0;
+	if (is_continental_finals(comp) && is_final_knockout_rounds(main_stage_id, sub_stage_id))
+	{
+		if (new_rating_home < rating_home) new_rating_home = rating_home;
+		if (new_rating_away < rating_away) new_rating_away = rating_away;
+	}
 
-	// check if World Cup or main continental comp, and if knockout rounds, don't lower rating?
 	setFIFARankingPoints(home_team->ClubNation, new_rating_home);
 	setFIFARankingPoints(away_team->ClubNation, new_rating_away);
 }
