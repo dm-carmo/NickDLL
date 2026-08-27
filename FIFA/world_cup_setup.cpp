@@ -85,7 +85,7 @@ void __declspec(naked) show_playoff_in_menu()
 	}
 }
 
-void __declspec(naked) unknown_check_1()
+void __declspec(naked) year_offset_in_landmarks()
 {
 	__asm
 	{
@@ -101,12 +101,14 @@ void __declspec(naked) unknown_check_1()
 		je ret_add_3_year
 		cmp ebx, dword ptr ds : [0x9cf780]
 		je ret_add_1_year
-		cmp ebx, dword ptr ds : [0x9cf928]
-		je ret_add_1_year
 		cmp ebx, dword ptr ds : [0x9cf784]
 		je ret_add_2_year
+		cmp ebx, dword ptr ds : [0x9cf928]
+		je ret_add_1_year
 		cmp ebx, dword ptr ds : [0x9cf890]
 		je ret_add_2_year
+		cmp ebx, dword ptr ds : [0x9cf788]
+		je ret_add_3_year
 		ret_dont_add_years :
 		push 0x46b441
 			ret
@@ -149,6 +151,8 @@ void __declspec(naked) unknown_check_3()
 	__asm
 	{
 		cmp eax, dword ptr ds : [0x9cf78c]
+		je unknown_3
+		cmp eax, dword ptr ds : [0x9cf788]
 		je unknown_3
 		cmp eax, dword ptr ds : [0x9cf890]
 		je unknown_3
@@ -240,11 +244,10 @@ void setup_world_cup_comps() {
 	setup_world_cup_playoffs();
 
 	PatchFunction(0x66955c, (DWORD)&show_playoff_in_menu);
-	PatchFunction(0x46b409, (DWORD)&unknown_check_1);
+	PatchFunction(0x46b409, (DWORD)&year_offset_in_landmarks);
 	// tag comp as being part of "World Cup" menu?
 	PatchFunction(0x669abe, (DWORD)&unknown_check_2);
 	// tag comp as being part of "International" menu?
 	PatchFunction(0x669bae, (DWORD)&unknown_check_3);
-	//006B63D1 => review this once new qualifiers are added
 	PatchFunction(0x6b6358, (DWORD)&international_comps_to_continent);
 }

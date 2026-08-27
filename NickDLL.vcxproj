@@ -241,6 +241,8 @@
     <ClCompile Include="England\eng_league_2.cpp" />
     <ClCompile Include="FIFA National\african_nations.cpp" />
     <ClCompile Include="FIFA National\african_nations_quals.cpp" />
+    <ClCompile Include="FIFA National\asian_cup.cpp" />
+    <ClCompile Include="FIFA National\asian_cup_quals.cpp" />
     <ClCompile Include="FIFA National\fifa_national_setup.cpp" />
     <ClCompile Include="FIFA National\ofc_nations_cup.cpp" />
     <ClCompile Include="FIFA\fifa_club_setup.cpp" />
@@ -538,6 +540,8 @@
     <ClInclude Include="England\eng_league_2.h" />
     <ClInclude Include="FIFA National\african_nations.h" />
     <ClInclude Include="FIFA National\african_nations_quals.h" />
+    <ClInclude Include="FIFA National\asian_cup.h" />
+    <ClInclude Include="FIFA National\asian_cup_quals.h" />
     <ClInclude Include="FIFA National\fifa_national_setup.h" />
     <ClInclude Include="FIFA National\ofc_nations_cup.h" />
     <ClInclude Include="FIFA\fifa_club_setup.h" />

@@ -5,6 +5,8 @@
 #include "ofc_nations_cup.h"
 #include "african_nations.h"
 #include "african_nations_quals.h"
+#include "asian_cup.h"
+#include "asian_cup_quals.h"
 
 static DWORD(__thiscall* olympic_games_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
 (DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x79f530);
@@ -16,8 +18,6 @@ static DWORD(__thiscall* copa_america_setup)(BYTE* _this, WORD year, cm3_club_co
 (DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x5e0660);
 static DWORD(__thiscall* gold_cup_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
 (DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x929140);
-static DWORD(__thiscall* asian_cup_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x40e860);
 
 DWORD fifa_national_setup_c(playable_nation_data* nation_data) {
 
@@ -30,7 +30,7 @@ DWORD fifa_national_setup_c(playable_nation_data* nation_data) {
 	nation_data->contract_end_month = June;
 	nation_data->contract_end_year = *current_year;
 	nation_data->f70 = 5;
-	nation_data->num_of_comps = 9;
+	nation_data->num_of_comps = 10;
 	DWORD* nation_comps = (DWORD*)cm0102_malloc(nation_data->num_of_comps * 4);
 	nation_data->comps_list = (DWORD)nation_comps;
 
@@ -48,8 +48,12 @@ DWORD fifa_national_setup_c(playable_nation_data* nation_data) {
 	african_nations_quals_init(pMem, *current_year, get_comp(AFRICAN_CUP_OF_NATIONS_QUALIFYING_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)cm0102_new(0xF4);
-	asian_cup_setup(pMem, *current_year, get_comp(ASIAN_CUP_9CF()));
+	pMem = (BYTE*)cm0102_new(0xEE);
+	asian_cup_init(pMem, *current_year, get_comp(ASIAN_CUP_9CF()));
+	nation_comps[i++] = (DWORD)pMem;
+
+	pMem = (BYTE*)cm0102_new(0xB2);
+	asian_cup_quals_init(pMem, *current_year, get_comp(ASIAN_CUP_QUALIFYING_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)cm0102_new(0xF4);
@@ -85,4 +89,6 @@ void setup_fifa_national_comps() {
 	setup_ofc_nations_cup();
 	setup_african_nations();
 	setup_african_nations_quals();
+	setup_asian_cup();
+	setup_asian_cup_quals();
 }

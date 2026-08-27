@@ -134,7 +134,7 @@ WORD get_comp_hosts_in_continent(BYTE* _this, DWORD compID, DWORD continentID, D
 	WORD modulo = 0;
 	//if (compID == FIFA_WORLD_CUP_9CF()) modulo = 1;
 	if (compID == FIFA_WORLD_CUP_9CF()) modulo = 2;
-	//if (compID == FIFA_WORLD_CUP_9CF()) modulo = 3;
+	if (compID == ASIAN_CUP_9CF()) modulo = 3;
 	while (year % 4 != modulo) year++;
 
 	DWORD host1_id = -1, host2_id = -1;

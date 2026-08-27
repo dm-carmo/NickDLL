@@ -11,11 +11,11 @@
 
 using namespace std;
 
-vtable* african_nations_quals_vtable = new vtable((BYTE*)0x970C24, 0xA0);
+vtable* asian_cup_quals_vtable = new vtable((BYTE*)0x970C24, 0xA0);
 
-void african_nations_quals_free_under(BYTE* _this) {
+void asian_cup_quals_free_under(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
-	data->comp_vtable = (DWORD*)african_nations_quals_vtable->vtable_ptr;
+	data->comp_vtable = (DWORD*)asian_cup_quals_vtable->vtable_ptr;
 	if (data->teams_list) {
 		sub_9452CA_free(data->teams_list);
 	}
@@ -53,27 +53,27 @@ void african_nations_quals_free_under(BYTE* _this) {
 	sub_518690(_this);
 }
 
-void african_nations_quals_free(BYTE* _this, BYTE a2) {
-	african_nations_quals_free_under(_this);
+void asian_cup_quals_free(BYTE* _this, BYTE a2) {
+	asian_cup_quals_free_under(_this);
 	if (a2 & 1) {
 		sub_944C94_free(_this);
 	}
 }
 
-void __declspec(naked) african_nations_quals_free_c()
+void __declspec(naked) asian_cup_quals_free_c()
 {
 	__asm
 	{
 		mov eax, esp
 		push dword ptr[eax + 0x4]
 		push ecx
-		call african_nations_quals_free
+		call asian_cup_quals_free
 		add esp, 0x8
 		ret 4
 	}
 }
 
-DWORD african_nations_quals_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
+DWORD asian_cup_quals_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
 {
 	comp_stats* data = (comp_stats*)_this;
 	if (stage_idx == -1) {
@@ -87,28 +87,31 @@ DWORD african_nations_quals_fixtures(BYTE* _this, char stage_idx, WORD* num_roun
 		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 28), year, Saturday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 25), year, Thursday, Afternoon);
-		FillFixtureDetails(pMem, fixture_id++, PreliminaryRound, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 10, 12, 6, 12, 0, 0, 2, 5);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 25), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 5), year, Thursday, Afternoon);
+		FillFixtureDetails(pMem, fixture_id++, Playoff, 4, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 10, 10, 5, 10, 0, 0, 2, 5);
 
 		return (DWORD)pMem;
 	}
-	else if (stage_idx < 12) {
+	else if (stage_idx < 6) {
 		if (a5)
 			*a5 = 1;
 		BYTE* pMem = NULL;
 		WORD year = data->year;
 		*num_rounds = 6;
-		*stage_name_id = AlphabeticGroupStage + stage_idx - 1;
+		*stage_name_id = ThirdRoundAlphabeticGroup + stage_idx;
+		if (stage_idx == 3) *stage_name_id = ThirdRoundGroupD;
+		if (stage_idx == 4) *stage_name_id = ThirdRoundGroupE;
+		if (stage_idx == 5) *stage_name_id = ThirdRoundGroupF;
 
 		pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 9, 24), year, Thursday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 9, 29), year, Tuesday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 11, 12), year, Thursday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 11, 17), year, Tuesday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 2, 3, 24), year, Thursday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 25), year, Tuesday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 6, 10), year, Tuesday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 10, 9), year, Thursday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 10, 14), year, Tuesday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 11, 18), year, Tuesday, Afternoon);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 2, 3, 29), year, Tuesday, Afternoon);
 
 		return (DWORD)pMem;
@@ -116,7 +119,7 @@ DWORD african_nations_quals_fixtures(BYTE* _this, char stage_idx, WORD* num_roun
 	return 0;
 }
 
-void __declspec(naked) african_nations_quals_fixture_caller()
+void __declspec(naked) asian_cup_quals_fixture_caller()
 {
 	__asm
 	{
@@ -126,13 +129,13 @@ void __declspec(naked) african_nations_quals_fixture_caller()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call african_nations_quals_fixtures
+		call asian_cup_quals_fixtures
 		add esp, 0x14
 		ret 0x10
 	}
 }
 
-char african_nations_quals_update(BYTE* _this) {
+char asian_cup_quals_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	data->f76 = 0;
 	if (data->special_teams_seedings) {
@@ -178,56 +181,96 @@ char african_nations_quals_update(BYTE* _this) {
 	return 1;
 }
 
-void __declspec(naked) african_nations_quals_update_c()
+void __declspec(naked) asian_cup_quals_update_c()
 {
 	__asm
 	{
 		mov eax, esp
 		push ecx
-		call african_nations_quals_update
+		call asian_cup_quals_update
 		add esp, 0x4
 		ret
 	}
 }
 
-void african_nations_quals_all_teams(BYTE* _this) {
+void asian_cup_quals_all_teams(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	WORD year = data->year;
 
-	vector<cm3_clubs*> caf_countries = get_national_teams_of_continent_fifa_members(AFRICA_9CF());
-	sort(caf_countries.begin(), caf_countries.end(), compareNationRanking);
-
-	DWORD host1_id, host2_id;
-	get_comp_hosts_in_continent(_this, AFRICAN_CUP_OF_NATIONS_9CF(), AFRICA_9CF(), &host1_id, &host2_id);
-	WORD total_teams_in_comp = (WORD)caf_countries.size();
+	WORD total_teams_in_comp = 29;
 	data->special_nteams_seedings = total_teams_in_comp;
 	data->f56 = total_teams_in_comp;
+	WORD count = 0;
 
 	if (data->special_teams_seedings) sub_9452CA_free(data->special_teams_seedings);
 	BYTE* pMem = (BYTE*)cm0102_malloc(6 * total_teams_in_comp);
 	data->special_teams_seedings = (DWORD*)pMem;
 	teams_seeded* teams = (teams_seeded*)data->special_teams_seedings;
 
-	for (WORD i = 0; i < total_teams_in_comp; i++) {
-		if (caf_countries[i]->ClubNation->NationID == host1_id || caf_countries[i]->ClubNation->NationID == host2_id)
-		{
-			auto it = caf_countries.begin() + i;
-			rotate(caf_countries.begin(), it, it + 1);
+	vector<cm3_clubs*> quals_countries;
+	quals_countries.push_back(get_national_team(NATION_NORTHERN_MARIANA_9CF()));
+
+	// get losers from first round
+	comp_stats* wc_asia_quals = (comp_stats*)get_loaded_league(WORLD_CUP_AFC_QUALIFYING_9CF());
+	comp_stats* r1_league = (comp_stats*)wc_asia_quals->stages[0];
+	team_league_stats* table = (team_league_stats*)r1_league->team_league_table;
+	bool best_team = false;
+	for (WORD i = 0; i < r1_league->n_teams; i++) {
+		team_league_stats tls = table[i];
+		if (tls.league_fate == Qualified1) continue;
+		if (best_team) {
+			quals_countries.push_back(tls.club);
+		}
+		else {
+			teams[count].club = tls.club;
+			teams[count].f5 = 10;
+			teams[count].f6 = 0;
+			count++;
+			best_team = true;
 		}
 	}
 
-	for (size_t i = 0, j = 0; i < caf_countries.size() && j < total_teams_in_comp; i++) {
-		teams[j].club = caf_countries[i];
-		if (j < 42) teams[j].f5 = 10;
-		else teams[j].f5 = 11;
-		teams[j].f6 = 0;
-		j++;
+	// get teams from second round
+	DWORD host3_id, host4_id;
+	get_comp_hosts_in_continent(_this, ASIAN_CUP_9CF(), ASIA_9CF(), &host3_id, &host4_id);
+
+	for (char al = 1; al < 10; al++) {
+		vector<cm3_clubs*> clubs_qual, clubs_po;
+
+		comp_stats* curr_stage = (comp_stats*)(wc_asia_quals->stages[al]);
+		WORD total_teams = curr_stage->n_teams;
+		team_league_stats* table_teams = (team_league_stats*)(curr_stage->team_league_table);
+		for (int i = 0; i < total_teams; i++) {
+			cm3_clubs* club = table_teams[i].club;
+			if (i < 2) clubs_qual.push_back(club);
+			else if (club->ClubNation->NationID == host3_id || club->ClubNation->NationID == host4_id) {
+				cm3_clubs* popped = clubs_qual[clubs_qual.size()];
+				clubs_qual.pop_back();
+				clubs_qual.push_back(club);
+				clubs_po.push_back(popped);
+			}
+			else clubs_po.push_back(club);
+		}
+
+		for (cm3_clubs* club : clubs_po) {
+			teams[count].club = club;
+			teams[count].f5 = 10;
+			teams[count].f6 = 0;
+			count++;
+		}
+	}
+
+	for (cm3_clubs* club : quals_countries) {
+		teams[count].club = club;
+		teams[count].f5 = 11;
+		teams[count].f6 = 0;
+		count++;
 	}
 }
 
-void african_nations_quals_qualifier_teams(BYTE* _this) {
+void asian_cup_quals_qualifier_teams(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
-	WORD total_teams = 12;
+	WORD total_teams = 10;
 	BYTE* pMem = (BYTE*)cm0102_malloc(6 * total_teams);
 
 	if (data->teams_list) sub_9452CA_free(data->teams_list);
@@ -247,27 +290,39 @@ void african_nations_quals_qualifier_teams(BYTE* _this) {
 
 	teams_seeded* teams = (teams_seeded*)data->teams_list;
 	teams_seeded* qualifiers = (teams_seeded*)data->special_teams_seedings;
+	WORD total_teams_in_comp = data->special_nteams_seedings;
+
+	vector<cm3_clubs*> quals_countries;
+	for (WORD i = 0; i < total_teams_in_comp; i++) {
+		if (qualifiers[i].f5 == 11) quals_countries.push_back(qualifiers[i].club);
+	}
+	sort(quals_countries.begin(), quals_countries.end(), compareNationRanking);
+	if (quals_countries.size() != total_teams)
+	{
+		string msg = "Wrong number of clubs: " + to_string(quals_countries.size());
+		create_message_box(data->competition_db->ClubCompName, msg.c_str(), true);
+	}
+
 	for (WORD i = 0; i < total_teams; i++) {
-		cm3_clubs* club = qualifiers[42 + i].club;
-		teams[i].club = club;
-		teams[i].f5 = 0;
+		teams[i].club = quals_countries[i];
+		teams[i].f5 = i >= (total_teams / 2);
 		teams[i].f6 = 0;
 	}
 }
 
-void african_nations_quals_init2(BYTE* _this, DWORD current_date, int a3) {
+void asian_cup_quals_init2(BYTE* _this, DWORD current_date, int a3) {
 	comp_stats* data = (comp_stats*)_this;
 	if (!data->f69) {
 		BYTE* cm_date = new BYTE[8];
-		convert_to_cm_date(cm_date, 1, December, data->year, -1);
+		convert_to_cm_date(cm_date, 18, July, data->year, -1);
 		WORD date_day = *(WORD*)(cm_date);
 		WORD date_year = *(WORD*)(cm_date + 2);
 		if (date_day == *(WORD*)(current_date) && *(WORD*)(current_date + 2) == date_year) {
 			if (a3) {
-				sub_775070((BYTE*)*b74318, get_continent(AFRICA_9CF()), 0);
+				sub_775070((BYTE*)*b74318, get_continent(ASIA_9CF()), 0);
 				data->f69 = 1;
-				african_nations_quals_all_teams(_this);
-				african_nations_quals_qualifier_teams(_this);
+				asian_cup_quals_all_teams(_this);
+				asian_cup_quals_qualifier_teams(_this);
 				DWORD v1 = *(DWORD*)_this;
 				(*(int(__thiscall**)(BYTE*))(v1 + 0x8C))(_this);
 				(*(int(__thiscall**)(BYTE*))(v1 + 0x94))(_this);
@@ -279,7 +334,7 @@ void african_nations_quals_init2(BYTE* _this, DWORD current_date, int a3) {
 	sub_51F890(_this, current_date, a3);
 }
 
-void __declspec(naked) african_nations_quals_init2_c()
+void __declspec(naked) asian_cup_quals_init2_c()
 {
 	__asm
 	{
@@ -287,13 +342,13 @@ void __declspec(naked) african_nations_quals_init2_c()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call african_nations_quals_init2
+		call asian_cup_quals_init2
 		add esp, 0xc
 		ret 8
 	}
 }
 
-int african_nations_quals_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int asian_cup_quals_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == -1) {
@@ -301,7 +356,7 @@ int african_nations_quals_set_fates(BYTE* _this, cm3_clubs* club, char fate, cha
 		WORD current_round = *(WORD*)(round_data + 0x34);
 		switch (fate) {
 		case TopPlayoff:
-			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, GroupStage, 0x1E);
+			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, ThirdRound, 0x1E);
 			return 0;
 		case Promoted:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
@@ -315,13 +370,13 @@ int african_nations_quals_set_fates(BYTE* _this, cm3_clubs* club, char fate, cha
 		sub_775000((BYTE*)*b74318, club->ClubNation);
 		return 0;
 	}
-	else if (stage < 12) {
+	else if (stage < 6) {
 		switch (fate) {
 		case Qualified1:
-			qualify_team_for_international_comp(club, AFRICAN_CUP_OF_NATIONS_9CF());
+			qualify_team_for_international_comp(club, ASIAN_CUP_9CF());
 			return 0;
 		default:
-			staff_history_knocked_out_86C000(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, GroupStage, 0xF);
+			staff_history_knocked_out_86C000(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, ThirdRound, 0xF);
 			break;
 		}
 		sub_775000((BYTE*)*b74318, club->ClubNation);
@@ -330,7 +385,7 @@ int african_nations_quals_set_fates(BYTE* _this, cm3_clubs* club, char fate, cha
 	return 0;
 }
 
-void __declspec(naked) african_nations_quals_set_table_fate()
+void __declspec(naked) asian_cup_quals_set_table_fate()
 {
 	__asm
 	{
@@ -342,13 +397,13 @@ void __declspec(naked) african_nations_quals_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call african_nations_quals_set_fates
+		call asian_cup_quals_set_fates
 		add esp, 0x1c
 		ret 0x18
 	}
 }
 
-int african_nations_quals_stage_news(BYTE* _this, int club_idx, char fate, char stage_id, int stage_name_idx, int round_data, __int16 a7, int a8, char a9, int show_body_text, LPVOID* ret_str_ptr) {
+int asian_cup_quals_stage_news(BYTE* _this, int club_idx, char fate, char stage_id, int stage_name_idx, int round_data, __int16 a7, int a8, char a9, int show_body_text, LPVOID* ret_str_ptr) {
 	comp_stats* data = (comp_stats*)_this;
 	cm3_club_comps* comp_data = data->competition_db;
 	cm3_clubs* club_data = get_club(club_idx);
@@ -377,12 +432,12 @@ int african_nations_quals_stage_news(BYTE* _this, int club_idx, char fate, char 
 			return 1;
 		}
 	}
-	else if (stage_id < 12) {
+	else if (stage_id < 6) {
 		if (fate == Qualified1)
 		{
 			if (show_body_text) return sub_4B4590(club_idx, (WORD)stage_name_idx, (DWORD)comp_data, fate, show_body_text, ret_str_ptr);
 			else {
-				cm3_club_comps* afcon = get_comp(AFRICAN_CUP_OF_NATIONS_9CF());
+				cm3_club_comps* afcon = get_comp(ASIAN_CUP_9CF());
 				sub_66F4E0(0xDE1F64, 0x9C470C, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, afcon->ClubCompGenderNameShort, afcon->ClubCompGenderNameShort,
 					&club_data->ClubNameShort[0], &afcon->ClubCompNameShort[0]);
 				sub_4AE660(ret_str_ptr, 0xDE1F64);
@@ -396,7 +451,7 @@ int african_nations_quals_stage_news(BYTE* _this, int club_idx, char fate, char 
 	return 0;
 }
 
-void __declspec(naked) african_nations_quals_stage_news_c()
+void __declspec(naked) asian_cup_quals_stage_news_c()
 {
 	__asm
 	{
@@ -412,16 +467,16 @@ void __declspec(naked) african_nations_quals_stage_news_c()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call african_nations_quals_stage_news
+		call asian_cup_quals_stage_news
 		add esp, 0x2c
 		ret 0x28
 	}
 }
 
-void african_nations_quals_landmarks(BYTE* _this, DWORD dest_ptr, int a2, WORD main_stage_id, WORD sub_stage_id, char fate, cm3_clubs* club) {
-	if (main_stage_id >= 0x41f && main_stage_id <= 0x42e)
+void asian_cup_quals_landmarks(BYTE* _this, DWORD dest_ptr, int a2, WORD main_stage_id, WORD sub_stage_id, char fate, cm3_clubs* club) {
+	if ((main_stage_id >= 0x40c && main_stage_id <= 0x40e) || main_stage_id == 0xBE || main_stage_id == 0x118 || main_stage_id == 0x122)
 	{
-		if (fate == CantBePromoted || fate == Qualified1) {
+		if (fate == Qualified1) {
 			sub_66F4E0(dest_ptr, 0x9C48A4, club->ClubGenderName, 0xAD9C64);
 			return;
 		}
@@ -433,7 +488,7 @@ void african_nations_quals_landmarks(BYTE* _this, DWORD dest_ptr, int a2, WORD m
 	return sub_48CAB0(_this, dest_ptr, a2, main_stage_id, sub_stage_id, fate, club);
 }
 
-void __declspec(naked) african_nations_quals_landmarks_c()
+void __declspec(naked) asian_cup_quals_landmarks_c()
 {
 	__asm
 	{
@@ -445,13 +500,13 @@ void __declspec(naked) african_nations_quals_landmarks_c()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call african_nations_quals_landmarks
+		call asian_cup_quals_landmarks
 		add esp, 0x1c
 		ret 0x18
 	}
 }
 
-void african_nations_quals_reputation_setup(BYTE* _this) {
+void asian_cup_quals_reputation_setup(BYTE* _this) {
 	comp_stats* comp_data = (comp_stats*)_this;
 
 	if (comp_data->f8)
@@ -465,20 +520,20 @@ void african_nations_quals_reputation_setup(BYTE* _this) {
 		}
 		sort(clubs.begin(), clubs.end(), compareNationRanking);
 
-		for (DWORD i = 0; i < 12; i++) {
+		for (DWORD i = 0; i < 6; i++) {
 			sub_4A2540((BYTE*)comp_data->f8, clubs[i], 1);
 		}
-		for (DWORD i = 12; i < 24; i++) {
+		for (DWORD i = 6; i < 12; i++) {
+			sub_4A2540((BYTE*)comp_data->f8, clubs[i], 7);
+		}
+		for (DWORD i = 12; i < 18; i++) {
 			sub_4A2540((BYTE*)comp_data->f8, clubs[i], 13);
 		}
-		for (DWORD i = 24; i < 36; i++) {
+		for (DWORD i = 18; i < 24; i++) {
+			sub_4A2540((BYTE*)comp_data->f8, clubs[i], 19);
+		}
+		for (DWORD i = 24; i < clubs.size(); i++) {
 			sub_4A2540((BYTE*)comp_data->f8, clubs[i], 25);
-		}
-		for (DWORD i = 36; i < 48; i++) {
-			sub_4A2540((BYTE*)comp_data->f8, clubs[i], 37);
-		}
-		for (DWORD i = 48; i < clubs.size(); i++) {
-			sub_4A2540((BYTE*)comp_data->f8, clubs[i], 49);
 		}
 		for (WORD i = 0; i < clubs.size(); i++) {
 			sub_775220((BYTE*)*b74318, clubs[i]->ClubNation, comp_data->competition_db);
@@ -486,19 +541,19 @@ void african_nations_quals_reputation_setup(BYTE* _this) {
 	}
 }
 
-void __declspec(naked) african_nations_quals_reputation_setup_c()
+void __declspec(naked) asian_cup_quals_reputation_setup_c()
 {
 	__asm
 	{
 		mov eax, esp
 		push ecx
-		call african_nations_quals_reputation_setup
+		call asian_cup_quals_reputation_setup
 		add esp, 0x4
 		ret
 	}
 }
 
-void african_nations_quals_reputation_calc(BYTE* _this, BYTE* club, char stage, char current, char min, char max) {
+void asian_cup_quals_reputation_calc(BYTE* _this, BYTE* club, char stage, char current, char min, char max) {
 	comp_stats* comp_data = (comp_stats*)_this;
 	BYTE* ret = (BYTE*)sub_4A4850((BYTE*)comp_data->f8, club);
 	if (!ret) return;
@@ -506,16 +561,14 @@ void african_nations_quals_reputation_calc(BYTE* _this, BYTE* club, char stage, 
 	char ret_min = min;
 	char ret_max = max;
 	if (stage == -1) {
-		ret_current = 47 + current;
-		if (ret_min != 1) ret_min = 47 + min;
-		ret_max = 47 + max;
+		ret_current = 23 + current;
+		if (ret_min != 1) ret_min = 23 + min;
+		ret_max = 23 + max;
 	}
-	else if (stage < 12) {
-		ret_current = 1 + 12 * (current - 1);
-		if (min < 3) ret_min = 1;
-		else ret_min = 1 + 12 * (min - 1);
-		if (max < 3) ret_max = 25;
-		else ret_max = 1 + 12 * (max - 1);
+	else if (stage < 6) {
+		ret_current = 1 + 6 * (current - 1);
+		ret_min = 1 + 6 * (min - 1);
+		ret_max = 1 + 6 * (max - 1);
 		if (ret_current > ret_max) ret_current = ret_max;
 	}
 	ret[0x73] = ret_current;
@@ -523,7 +576,7 @@ void african_nations_quals_reputation_calc(BYTE* _this, BYTE* club, char stage, 
 	ret[0x75] = ret_max;
 }
 
-void __declspec(naked) african_nations_quals_reputation_calc_c()
+void __declspec(naked) asian_cup_quals_reputation_calc_c()
 {
 	__asm
 	{
@@ -534,60 +587,48 @@ void __declspec(naked) african_nations_quals_reputation_calc_c()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call african_nations_quals_reputation_calc
+		call asian_cup_quals_reputation_calc
 		add esp, 0x18
 		ret 0x14
 	}
 }
 
-void block_hosts_from_qualifying_afcon(BYTE* stage, DWORD host1_id, DWORD host2_id) {
-	comp_stats* comp_data = (comp_stats*)stage;
-	WORD total_teams = comp_data->n_teams;
-	team_league_stats* table_teams = (team_league_stats*)(comp_data->team_league_table);
-	for (int i = 0; i < total_teams; i++) {
-		if (table_teams[i].club->ClubNation->NationID == host1_id ||
-			table_teams[i].club->ClubNation->NationID == host2_id) {
-			table_teams[i].league_fate = CantBePromoted;
-			comp_data->promotions--;
-		}
-	}
-}
-
-void african_nations_quals_second_stage_setup(BYTE* _this) {
+void asian_cup_quals_second_stage_setup(BYTE* _this) {
 	char stage_num = 0;
 
 	comp_stats* comp_data = (comp_stats*)_this;
 	DWORD* stages_arr = comp_data->stages;
 
-	char prom_rel[4] = { 2, 0, 0, 0 };
-	char tiebreaks[4] = { CurrentPositionTiebreaker, GoalDifferenceTiebreaker, GoalsForTiebreaker, GoalsForAwayTiebreaker };
+	char prom_rel[4] = { 1, 0, 0, 0 };
+	char tiebreaks[4] = { CurrentPositionTiebreaker, GoalDifferenceTiebreaker, GoalsForTiebreaker, NoTiebreaker };
 
 	vector<cm3_clubs*> clubs;
 	teams_seeded* teams = (teams_seeded*)comp_data->special_teams_seedings;
-	for (DWORD i = 0; i < 42; i++) clubs.push_back(teams[i].club);
+	WORD total_teams_in_comp = comp_data->special_nteams_seedings;
+	for (WORD i = 0; i < total_teams_in_comp; i++) {
+		if (teams[i].f5 == 10) clubs.push_back(teams[i].club);
+	}
 	teams = (teams_seeded*)comp_data->teams_list;
 	for (WORD i = 0; i < comp_data->n_teams; i++) {
 		if (teams[i].f6 == 1) clubs.push_back(teams[i].club);
 	}
 
 	sort(clubs.begin(), clubs.end(), compareNationRanking);
-	shuffle(clubs.begin(), clubs.begin() + 12, rng);
-	shuffle(clubs.begin() + 12, clubs.begin() + 24, rng);
-	shuffle(clubs.begin() + 24, clubs.begin() + 36, rng);
-	shuffle(clubs.begin() + 36, clubs.end(), rng);
+	shuffle(clubs.begin(), clubs.begin() + 6, rng);
+	shuffle(clubs.begin() + 6, clubs.begin() + 12, rng);
+	shuffle(clubs.begin() + 12, clubs.begin() + 18, rng);
+	shuffle(clubs.begin() + 18, clubs.end(), rng);
 
 	DWORD v1 = *(DWORD*)_this;
 	WORD group_teams = 4;
-	DWORD host1_id, host2_id;
-	get_comp_hosts_in_continent(_this, AFRICAN_CUP_OF_NATIONS_9CF(), AFRICA_9CF(), &host1_id, &host2_id);
-	for (int i = 0; i < 12; i++) {
+	for (int i = 0; i < 6; i++) {
 		WORD num_rounds = 0;
 		WORD stage_name_id = 0;
 		BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, int, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, i + stage_num, &num_rounds, &stage_name_id, 0);
 		DWORD* pTeams = (DWORD*)cm0102_malloc(group_teams * 4);
 
 		for (int j = 0; j < group_teams; j++) {
-			cm3_clubs* club = clubs[i + 12 * j];
+			cm3_clubs* club = clubs[i + 6 * j];
 			*((DWORD*)(&pTeams[j])) = (DWORD)club;
 		}
 
@@ -598,14 +639,13 @@ void african_nations_quals_second_stage_setup(BYTE* _this) {
 		DWORD* stages_arr = comp_data->stages;
 		*((DWORD*)(&stages_arr[i + stage_num])) = (DWORD)pStage;
 		sub_684230(pStage);
-		block_hosts_from_qualifying_afcon(pStage, host1_id, host2_id);
 		sub_9452CA_free(pTeams);
 		sub_9452CA_free(pFixtures);
 		comp_data->current_stage = i + stage_num;
 	}
 }
 
-void african_nations_quals_stages_create(BYTE* _this) {
+void asian_cup_quals_stages_create(BYTE* _this) {
 	comp_stats* comp_data = (comp_stats*)_this;
 	long current = comp_data->current_stage;
 	long max = comp_data->num_stages;
@@ -613,28 +653,28 @@ void african_nations_quals_stages_create(BYTE* _this) {
 		current++;
 		comp_data->current_stage = current;
 		if (current == 0) {
-			african_nations_quals_second_stage_setup(_this);
+			asian_cup_quals_second_stage_setup(_this);
 		}
 	}
 }
 
-void __declspec(naked) african_nations_quals_stages_create_c()
+void __declspec(naked) asian_cup_quals_stages_create_c()
 {
 	__asm
 	{
 		mov eax, esp
 		push ecx
-		call african_nations_quals_stages_create
+		call asian_cup_quals_stages_create
 		add esp, 0x4
 		ret
 	}
 }
 
-void __declspec(naked) african_nations_quals_vtable31_c()
+void __declspec(naked) asian_cup_quals_vtable31_c()
 {
 	__asm
 	{
-		mov ecx, dword ptr ds : [0x9cf7ac]
+		mov ecx, dword ptr ds : [0x9cf790]
 		lea eax, dword ptr ds : [ecx + ecx * 2]
 		lea eax, dword ptr ds : [eax + eax * 8]
 		shl eax, 2
@@ -645,69 +685,69 @@ void __declspec(naked) african_nations_quals_vtable31_c()
 	}
 }
 
-WORD african_nations_quals_vtable29(BYTE* _this, cm3_clubs* club) {
+WORD asian_cup_quals_vtable29(BYTE* _this, cm3_clubs* club) {
 	comp_stats* data = (comp_stats*)_this;
 	DWORD* f8 = data->f8;
 	WORD val = (WORD)sub_4A2E10((BYTE*)f8, club, 0x12);
-	return (val < 24) - 3;
+	return (val < 6) - 3;
 }
 
-void __declspec(naked) african_nations_quals_vtable29_c()
+void __declspec(naked) asian_cup_quals_vtable29_c()
 {
 	__asm
 	{
 		mov eax, esp
 		push dword ptr[eax + 0x4]
 		push ecx
-		call african_nations_quals_vtable29
+		call asian_cup_quals_vtable29
 		add esp, 0x8
 		ret 4
 	}
 }
 
-BYTE african_nations_quals_vtable30(BYTE* _this, cm3_clubs* club) {
+BYTE asian_cup_quals_vtable30(BYTE* _this, cm3_clubs* club) {
 	comp_stats* data = (comp_stats*)_this;
 	DWORD* f8 = data->f8;
 	BYTE bl = (BYTE)sub_4A2E10((BYTE*)f8, club, 0x13);
 	BYTE al = (BYTE)sub_4A2E10((BYTE*)f8, club, 0x12);
 
-	if (al < 24) return (bl < 24) - 1;
-	else return (bl < 24);
+	if (al < 6) return (bl < 6) - 1;
+	else return (bl < 6);
 }
 
-void __declspec(naked) african_nations_quals_vtable30_c()
+void __declspec(naked) asian_cup_quals_vtable30_c()
 {
 	__asm
 	{
 		mov eax, esp
 		push dword ptr[eax + 0x4]
 		push ecx
-		call african_nations_quals_vtable30
+		call asian_cup_quals_vtable30
 		add esp, 0x8
 		ret 4
 	}
 }
 
-void african_nations_quals_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
+void asian_cup_quals_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	sub_518640(_this);
 	comp_stats* data = (comp_stats*)_this;
 	data->competition_db = comp;
-	data->comp_vtable = (DWORD*)(african_nations_quals_vtable->vtable_ptr);
-	african_nations_quals_vtable->SetPointer(VTableInitFree, (DWORD)&african_nations_quals_free_c);
-	african_nations_quals_vtable->SetPointer(VTableEoSUpdate, (DWORD)&african_nations_quals_update_c);
-	african_nations_quals_vtable->SetPointer(VTableLeagueSplit, (DWORD)&african_nations_quals_init2_c);
-	african_nations_quals_vtable->SetPointer(VTablePlayoffQual, (DWORD)&african_nations_quals_stages_create_c);
-	african_nations_quals_vtable->SetPointer(VTableTableFates, (DWORD)&african_nations_quals_set_table_fate);
-	african_nations_quals_vtable->SetPointer(VTableReputationSetup, (DWORD)&african_nations_quals_reputation_setup_c);
-	african_nations_quals_vtable->SetPointer(VTableReputationCalc, (DWORD)&african_nations_quals_reputation_calc_c);
-	african_nations_quals_vtable->SetPointer(VTableFixtures, (DWORD)&african_nations_quals_fixture_caller);
-	african_nations_quals_vtable->SetPointer(VTableStageNews, (DWORD)&african_nations_quals_stage_news_c);
-	african_nations_quals_vtable->SetPointer(VTable29, (DWORD)&african_nations_quals_vtable29_c);
-	african_nations_quals_vtable->SetPointer(VTable30, (DWORD)&african_nations_quals_vtable30_c);
-	african_nations_quals_vtable->SetPointer(VTable31, (DWORD)&african_nations_quals_vtable31_c);
-	african_nations_quals_vtable->SetPointer(VTableClubLandmarks, (DWORD)&african_nations_quals_landmarks_c);
-	african_nations_quals_vtable->SetPointer(VTable9, 0x48CEB0);
-	african_nations_quals_vtable->SetPointer(VTable10, 0x48CEA0);
+	data->comp_vtable = (DWORD*)(asian_cup_quals_vtable->vtable_ptr);
+	asian_cup_quals_vtable->SetPointer(VTableInitFree, (DWORD)&asian_cup_quals_free_c);
+	asian_cup_quals_vtable->SetPointer(VTableEoSUpdate, (DWORD)&asian_cup_quals_update_c);
+	asian_cup_quals_vtable->SetPointer(VTableLeagueSplit, (DWORD)&asian_cup_quals_init2_c);
+	asian_cup_quals_vtable->SetPointer(VTablePlayoffQual, (DWORD)&asian_cup_quals_stages_create_c);
+	asian_cup_quals_vtable->SetPointer(VTableTableFates, (DWORD)&asian_cup_quals_set_table_fate);
+	asian_cup_quals_vtable->SetPointer(VTableReputationSetup, (DWORD)&asian_cup_quals_reputation_setup_c);
+	asian_cup_quals_vtable->SetPointer(VTableReputationCalc, (DWORD)&asian_cup_quals_reputation_calc_c);
+	asian_cup_quals_vtable->SetPointer(VTableFixtures, (DWORD)&asian_cup_quals_fixture_caller);
+	asian_cup_quals_vtable->SetPointer(VTableStageNews, (DWORD)&asian_cup_quals_stage_news_c);
+	asian_cup_quals_vtable->SetPointer(VTable29, (DWORD)&asian_cup_quals_vtable29_c);
+	asian_cup_quals_vtable->SetPointer(VTable30, (DWORD)&asian_cup_quals_vtable30_c);
+	asian_cup_quals_vtable->SetPointer(VTable31, (DWORD)&asian_cup_quals_vtable31_c);
+	asian_cup_quals_vtable->SetPointer(VTableClubLandmarks, (DWORD)&asian_cup_quals_landmarks_c);
+	asian_cup_quals_vtable->SetPointer(VTable9, 0x48CEB0);
+	asian_cup_quals_vtable->SetPointer(VTable10, 0x48CEA0);
 	data->comp_type = NATION_INTERNATIONAL;
 	data->promotes_to = -1;
 	data->relegates_to = -1;
@@ -715,8 +755,8 @@ void african_nations_quals_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->f82 = 3;
 	data->max_bench = 7;
 	data->max_subs = 3;
-	data->year = year - 1;
-	while (data->year % 4 != 2) data->year++;
+	data->year = year;
+	while (data->year % 4 != 0) data->year++;
 	data->f81 = 0xf;
 	data->special_nteams_seedings = 0;
 	data->f56 = 6;
@@ -726,10 +766,10 @@ void african_nations_quals_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->f171 = 0;
 	data->f68 = -1;
 	data->current_stage = -1;
-	data->num_stages = 12;
+	data->num_stages = 6;
 	data->stages = (DWORD*)cm0102_malloc(data->num_stages * 4);
 
-	data->n_teams = 12;
+	data->n_teams = 10;
 	BYTE* tMem = (BYTE*)cm0102_malloc(6 * data->n_teams);
 	data->teams_list = (DWORD*)tMem;
 
@@ -742,5 +782,17 @@ void african_nations_quals_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->f69 = 0;
 }
 
-void setup_african_nations_quals() {
+void setup_asian_cup_quals() {
+	char* r3_4 = "Third Round Group D";
+	char* r3_4_short = "3rd Rnd Grp D";
+	char* r3_5 = "Third Round Group E";
+	char* r3_5_short = "3rd Rnd Grp E";
+	char* r3_6 = "Third Round Group F";
+	char* r3_6_short = "3rd Rnd Grp F";
+	WriteDWORD(0x4B53a4 + 1, (DWORD)&r3_4[0]);
+	WriteDWORD(0x4B845e + 1, (DWORD)&r3_4_short[0]);
+	WriteDWORD(0x4B5766 + 1, (DWORD)&r3_5[0]);
+	WriteDWORD(0x4B85d2 + 1, (DWORD)&r3_5_short[0]);
+	WriteDWORD(0x4B57b4 + 1, (DWORD)&r3_6[0]);
+	WriteDWORD(0x4B862f + 1, (DWORD)&r3_6_short[0]);
 }

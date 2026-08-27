@@ -536,7 +536,7 @@ void world_cup_quals_caf_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->relegates_to = WORLD_CUP_UEFA_QUALIFYING_9CF();
 	data->rules = RulesInternational;
 	data->f82 = 3;
-	data->year = year;
+	data->year = year - 1;
 	while (data->year % 4 != 3) data->year++;
 	data->f81 = 0xf;
 	int loaded = sub_687B10(_this, 1);

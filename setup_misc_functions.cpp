@@ -123,7 +123,7 @@ int parent_child_stages(int child_stage_id) {
 	if ((child_stage_id >= 0x407 && child_stage_id <= 0x40B) || child_stage_id == SecondRoundGroupF ||
 		(child_stage_id >= 0x42f && child_stage_id <= 0x431)) return SecondRound;
 	if (child_stage_id >= 0x47e && child_stage_id <= 0x47f) return FourthRound;
-	if (child_stage_id >= 0x40c && child_stage_id <= 0x40e) return ThirdRound;
+	if ((child_stage_id >= 0x40c && child_stage_id <= 0x40e) || child_stage_id == 0xBE || child_stage_id == 0x118 || child_stage_id == 0x122) return ThirdRound;
 	//if (child_stage_id >= 0x43d && child_stage_id <= 0x43e) return AperturaGroupStage;
 	//if (child_stage_id >= 0x445 && child_stage_id <= 0x446) return ClausuraGroupStage;
 	if (child_stage_id >= 0x44d && child_stage_id <= 0x450) return PromotionGroupStage;
@@ -1499,6 +1499,8 @@ void setup_misc_functions()
 	WriteBytes(0x5FA44F + 3, 1, 32);
 	// AFCON every 4 years - host function change
 	WriteBytes(0x5F9EE2 + 2, 1, 4);
+	// Asian Cup hosts year sync
+	WriteDWORD(0x5fa525 + 1, 2003);
 
 	// Change player search filters
 	if (configFile.GetBool("changePlayerSearchFilters", true)) {
@@ -1521,7 +1523,6 @@ void setup_misc_functions()
 	}
 
 	// Show hosts for some other comps
-	WriteDWORD(0x96769C, 0x404480); // Asian Cup
 	WriteDWORD(0x96B488, 0x404480); // Copa América
 
 	// Fixes a slight bug where B-teams can't qualify for relegation playoffs if they have the "CantBePromoted" flag set

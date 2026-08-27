@@ -687,7 +687,7 @@ void world_cup_quals_concacaf_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->f82 = 3;
 	data->max_bench = 7;
 	data->max_subs = 3;
-	data->year = year;
+	data->year = year - 1;
 	while (data->year % 4 != 3) data->year++;
 	data->f81 = 0xf;
 	*((BYTE*)(_this + 0xB1)) = 0;

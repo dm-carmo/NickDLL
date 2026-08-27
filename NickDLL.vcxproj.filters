@@ -894,6 +894,12 @@
     <ClCompile Include="FIFA National\african_nations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FIFA National\asian_cup_quals.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FIFA National\asian_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -1785,6 +1791,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="FIFA National\african_nations.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FIFA National\asian_cup_quals.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FIFA National\asian_cup.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
