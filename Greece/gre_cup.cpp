@@ -415,7 +415,7 @@ void gre_cup_group_stage_setup(BYTE* _this) {
 
 
 	for (BYTE m = 0; m < num_rounds; m++) {
-		BYTE* ptr_last = (BYTE*)(pFixtures + fixture_dates_sz * 7);
+		BYTE* ptr_last = (BYTE*)(pFixtures + fixture_dates_sz * 3);
 		match_data* match = new match_data();
 		match->comp_id = comp_data->competition_db->ClubCompID;
 		match->f8 = -1;
@@ -479,6 +479,7 @@ void gre_cup_group_stage_setup(BYTE* _this) {
 
 	DWORD* stages_arr = data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)pStage;
+	sub_684230(pStage);
 	sub_9452CA_free(pTeams);
 	sub_9452CA_free(pFixtures);
 	data->current_stage = stage_num;

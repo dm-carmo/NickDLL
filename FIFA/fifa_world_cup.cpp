@@ -1695,9 +1695,6 @@ void setup_fifa_world_cup() {
 	WriteDWORD(0x4B5C3E + 1, (DWORD)&best_placed_text[0]);
 	WriteDWORD(0x4B88B9 + 1, (DWORD)&best_placed_text[0]);
 
-	// sync hosts
-	WriteDWORD(0x5f99bc, 2030);
-
 	// third placed teams table
 	map<char*, char*> table = {
 		{"EFGHIJKL", "EJIFHGLK"},

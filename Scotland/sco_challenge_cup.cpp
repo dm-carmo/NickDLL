@@ -423,7 +423,7 @@ void sco_challenge_cup_setup_league_stage(BYTE* _this) {
 	*((DWORD*)(_this + 0xA7)) = num_rounds;
 
 	for (BYTE m = 0; m < 6; m++) {
-		BYTE* ptr_last = (BYTE*)(pFixtures + fixture_dates_sz * 7);
+		BYTE* ptr_last = (BYTE*)(pFixtures + fixture_dates_sz * 5);
 		match_data* match = new match_data();
 		match->comp_id = data->competition_db->ClubCompID;
 		match->f8 = -1;
@@ -475,6 +475,7 @@ void sco_challenge_cup_setup_league_stage(BYTE* _this) {
 		}
 	}
 
+	sub_9452CA_free(pFixtures);
 	sub_684230(_this);
 }
 

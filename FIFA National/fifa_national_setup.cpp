@@ -7,13 +7,11 @@
 #include "african_nations_quals.h"
 #include "asian_cup.h"
 #include "asian_cup_quals.h"
+#include "euro_champ.h"
+#include "euro_champ_quals.h"
 
 static DWORD(__thiscall* olympic_games_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
 (DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x79f530);
-static DWORD(__thiscall* uefa_euro_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x57a890);
-static DWORD(__thiscall* uefa_euro_quals_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x57ce10);
 static DWORD(__thiscall* copa_america_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
 (DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x5e0660);
 static DWORD(__thiscall* gold_cup_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
@@ -60,12 +58,12 @@ DWORD fifa_national_setup_c(playable_nation_data* nation_data) {
 	gold_cup_setup(pMem, *current_year, get_comp(GOLD_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)cm0102_new(0x142);
-	uefa_euro_setup(pMem, *current_year, get_comp(UEFA_EURO_9CF()));
+	pMem = (BYTE*)cm0102_new(0xEE);
+	euro_champ_init(pMem, *current_year, get_comp(UEFA_EURO_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)cm0102_new(0x102);
-	uefa_euro_quals_setup(pMem, *current_year, get_comp(UEFA_EURO_QUALIFYING_9CF()));
+	pMem = (BYTE*)cm0102_new(0xEE);
+	euro_champ_quals_init(pMem, *current_year, get_comp(UEFA_EURO_QUALIFYING_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)cm0102_new(0xF4);
@@ -91,4 +89,6 @@ void setup_fifa_national_comps() {
 	setup_african_nations_quals();
 	setup_asian_cup();
 	setup_asian_cup_quals();
+	setup_euro_champ();
+	setup_euro_champ_quals();
 }

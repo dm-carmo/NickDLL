@@ -11,62 +11,11 @@
 
 using namespace std;
 
-DWORD* world_cup_quals_uefa_vtable = (DWORD*)0x970CC4;
+DWORD* euro_champ_quals_vtable = (DWORD*)0x96A0D4;
 
-void world_cup_quals_uefa_free_under(BYTE* _this) {
-	comp_stats* data = (comp_stats*)_this;
-	data->comp_vtable = world_cup_quals_uefa_vtable;
-	sub_687970(_this, 0);
-	if (data->fixtures_table) {
-		sub_9452CA_free(data->fixtures_table);
-		data->fixtures_table = 0;
-	}
-	long current = data->current_stage;
-	if (current >= 0) {
-		for (long i = 0; i <= current; i++) {
-			DWORD stage = data->stages[i];
-			if (stage) {
-				DWORD v1 = *(DWORD*)stage;
-				(DWORD*)(*(int(__thiscall**)(BYTE*, int a2))(v1))((BYTE*)stage, 1);
-			}
-			data->stages[i] = 0;
-		}
-	}
-	if (data->stages) {
-		sub_9452CA_free((BYTE*)(data->stages));
-		data->stages = 0;
-	}
-	if (data->f8) {
-		sub_49F450((BYTE*)(data->f8));
-		sub_944C94_free((BYTE*)(data->f8));
-	}
-	sub_682300(_this);
-}
-
-void world_cup_quals_uefa_free(BYTE* _this, BYTE a2) {
-	world_cup_quals_uefa_free_under(_this);
-	if (a2 & 1) {
-		sub_944C94_free(_this);
-	}
-}
-
-void __declspec(naked) world_cup_quals_uefa_free_c()
-{
-	__asm
-	{
-		mov eax, esp
-		push dword ptr[eax + 0x4]
-		push ecx
-		call world_cup_quals_uefa_free
-		add esp, 0x8
-		ret 4
-	}
-}
-
-void world_cup_quals_uefa_subs(BYTE* _this)
+void euro_champ_quals_subs(BYTE* _this)
 {
 	comp_stats* comp_data = (comp_stats*)_this;
-	WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), EUROPE_9CF(), 0, 0);
 
 	comp_data->n_rounds = 0;
 	comp_data->pts_for_win = 3;
@@ -77,9 +26,8 @@ void world_cup_quals_uefa_subs(BYTE* _this)
 	comp_data->tiebreaker_2 = GoalsForTiebreaker;
 	comp_data->tiebreaker_3 = CurrentPositionTiebreaker;
 	comp_data->tiebreaker_4 = GoalsForAwayTiebreaker;
-	comp_data->promotions = 4;
+	comp_data->promotions = 6;
 	comp_data->prom_playoff = 2;
-	if (num_hosts == 1) comp_data->prom_playoff = 1;
 	comp_data->rele_playoff = 0;
 	comp_data->relegations = 0;
 
@@ -88,6 +36,11 @@ void world_cup_quals_uefa_subs(BYTE* _this)
 
 	comp_data->max_bench = 7;
 	comp_data->max_subs = 3;
+
+	BYTE* cm_date = new BYTE[8];
+	convert_to_cm_date(cm_date, 6, December, comp_data->year - 1, Sunday);
+	*((WORD*)(_this + 0xB6)) = *(WORD*)(cm_date);
+	*((WORD*)(_this + 0xB8)) = -1;
 
 	DWORD v1 = *(DWORD*)_this;
 	comp_data->fixtures_table = (DWORD*)cm0102_malloc(fixture_dates_sz);
@@ -101,79 +54,64 @@ void world_cup_quals_uefa_subs(BYTE* _this)
 	return;
 }
 
-void __declspec(naked) world_cup_quals_uefa_subs_c()
+void __declspec(naked) euro_champ_quals_subs_c()
 {
 	__asm
 	{
 		mov eax, esp
 		push ecx
-		call world_cup_quals_uefa_subs
+		call euro_champ_quals_subs
 		add esp, 0x4
 		ret
 	}
 }
 
-DWORD world_cup_quals_uefa_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
+DWORD euro_champ_quals_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
 {
 	comp_stats* data = (comp_stats*)_this;
-	WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), EUROPE_9CF(), 0, 0);
 	if (stage_idx < 5) {
 		if (a5)
 			*a5 = 1;
 		BYTE* pMem = NULL;
 		WORD year = data->year;
 		*num_rounds = 6;
-		WORD rem = data->special_nteams_seedings % 3;
-		if (rem > 0 && stage_idx >= 2) *num_rounds = 6 - 2 * ((stage_idx - 2) >= rem);
 		if (stage_idx < 2) *stage_name_id = LeagueA1to6 + stage_idx + 1;
 		else *stage_name_id = LeagueB1to4 + stage_idx - 2;
 
 		pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		if (*num_rounds > 4) AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 4), year, Thursday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 9), year, Tuesday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 9), year, Thursday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 14), year, Tuesday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 16), year, Thursday, Afternoon);
-		if (*num_rounds > 4) AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 21), year, Tuesday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 23), year, Thursday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 26), year, Sunday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 29), year, Wednesday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 3), year, Sunday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 11), year, Wednesday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 14), year, Saturday, Afternoon);
 
 		return (DWORD)pMem;
 	}
 	// playoff
-	else if (stage_idx == 5 + (num_hosts != 1)) {
+	else if (stage_idx == 5) {
 		if (a5)
 			*a5 = 0;
 		BYTE* pMem = NULL;
 		WORD year = data->year;
-		*num_rounds = 2 - (num_hosts == 1);
-		*stage_name_id = Playoff;
+		*num_rounds = 1;
+		*stage_name_id = None;
 
 		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
-		WORD total_teams = 10;
-		if (num_hosts == 1) total_teams = 6;
-		else if (num_hosts == 2) total_teams = 8;
-		WORD teams_r1 = 4 + 2 * num_hosts;
-		WORD teams_r2 = total_teams - teams_r1 / 2;
-
 		int fixture_id = 0;
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 22), year, Wednesday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 24), year, Thursday, Afternoon);
-		FillFixtureDetails(pMem, fixture_id++, num_hosts == 1 ? Final : SemiFinal, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 10, teams_r1, teams_r1 / 2, teams_r1, 0, 0, 1 + (num_hosts == 1), 5);
-
-		if (num_hosts != 1) {
-			AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 25), year, Friday);
-			AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 29), year, Tuesday, Afternoon);
-			FillFixtureDetails(pMem, fixture_id++, Final, 0, FixedTeamOrderInCup3 + ExtraTimePenalties_1, NoTiebreak_2, 10, teams_r2, teams_r2 / 2, total_teams - teams_r1, teams_r1 * (total_teams != teams_r1), 0, 1, 0);
-		}
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 15), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 23), year, Thursday, Afternoon);
+		FillFixtureDetails(pMem, fixture_id++, Playoff, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 10, 12, 6, 12, 0, 0, 2, 5);
 
 		return (DWORD)pMem;
 	}
 	return 0;
 }
 
-void __declspec(naked) world_cup_quals_uefa_fixture_caller()
+void __declspec(naked) euro_champ_quals_fixture_caller()
 {
 	__asm
 	{
@@ -183,13 +121,13 @@ void __declspec(naked) world_cup_quals_uefa_fixture_caller()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call world_cup_quals_uefa_fixtures
+		call euro_champ_quals_fixtures
 		add esp, 0x14
 		ret 0x10
 	}
 }
 
-char world_cup_quals_uefa_update(BYTE* _this) {
+char euro_champ_quals_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	*((DWORD*)(_this + 0xA7)) = -1;
 	data->f76 = 0;
@@ -217,25 +155,24 @@ char world_cup_quals_uefa_update(BYTE* _this) {
 	}
 	if (data->year < *current_year) data->year += 4;
 	data->current_stage = -1;
-	data->num_stages = 7;
-	world_cup_quals_uefa_subs(_this);
+	euro_champ_quals_subs(_this);
 	data->f69 = 0;
 	return 1;
 }
 
-void __declspec(naked) world_cup_quals_uefa_update_c()
+void __declspec(naked) euro_champ_quals_update_c()
 {
 	__asm
 	{
 		mov eax, esp
 		push ecx
-		call world_cup_quals_uefa_update
+		call euro_champ_quals_update
 		add esp, 0x4
 		ret
 	}
 }
 
-void world_cup_quals_uefa_reputation_setup(BYTE* _this) {
+void euro_champ_quals_reputation_setup(BYTE* _this) {
 	comp_stats* comp_data = (comp_stats*)_this;
 
 	if (comp_data->f8)
@@ -292,24 +229,22 @@ void world_cup_quals_uefa_reputation_setup(BYTE* _this) {
 	}
 }
 
-void __declspec(naked) world_cup_quals_uefa_reputation_setup_c()
+void __declspec(naked) euro_champ_quals_reputation_setup_c()
 {
 	__asm
 	{
 		mov eax, esp
 		push ecx
-		call world_cup_quals_uefa_reputation_setup
+		call euro_champ_quals_reputation_setup
 		add esp, 0x4
 		ret
 	}
 }
 
-void world_cup_quals_uefa_reputation_calc(BYTE* _this, BYTE* club, char stage, char current, char min, char max) {
+void euro_champ_quals_reputation_calc(BYTE* _this, BYTE* club, char stage, char current, char min, char max) {
 	comp_stats* comp_data = (comp_stats*)_this;
 	BYTE* ret = (BYTE*)sub_4A4850((BYTE*)comp_data->f8, club);
 	if (!ret) return;
-
-	WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), EUROPE_9CF(), 0, 0);
 
 	char ret_current = current;
 	char ret_min = min;
@@ -327,28 +262,17 @@ void world_cup_quals_uefa_reputation_calc(BYTE* _this, BYTE* club, char stage, c
 		ret_min = 3 * (min + 1) + 1 + 3 * (min - 1);
 		ret_max = 3 * (max + 1) + 1 + 3 * (max - 1);
 	}
-	else if (stage == 5 && num_hosts != 1) {
-		char offset = 1;
-		if (num_hosts == 1) offset = 3;
-		if (num_hosts == 2) offset = 2;
-		if (current < offset + 1) ret_current = 12;
-		else ret_current = 16 - num_hosts + current;
-		if (min < offset + 1) ret_min = 12;
-		else ret_min = 16 - num_hosts + min;
-		if (max < offset + 1) ret_max = 16 - num_hosts;
-		else ret_max = 16 - num_hosts + max;
-	}
-	else if (stage == 5 + (num_hosts != 1)) {
-		ret_current = current + 12;
-		ret_min = min + 12;
-		ret_max = max + 12;
+	else if (stage == 5) {
+		ret_current = current + 18;
+		ret_min = min + 18;
+		ret_max = max + 18;
 	}
 	ret[0x73] = ret_current;
 	ret[0x74] = ret_min;
 	ret[0x75] = ret_max;
 }
 
-void __declspec(naked) world_cup_quals_uefa_reputation_calc_c()
+void __declspec(naked) euro_champ_quals_reputation_calc_c()
 {
 	__asm
 	{
@@ -359,13 +283,13 @@ void __declspec(naked) world_cup_quals_uefa_reputation_calc_c()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call world_cup_quals_uefa_reputation_calc
+		call euro_champ_quals_reputation_calc
 		add esp, 0x18
 		ret 0x14
 	}
 }
 
-void world_cup_quals_uefa_all_teams(BYTE* _this) {
+void euro_champ_quals_all_teams(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	WORD year = data->year;
 
@@ -373,12 +297,19 @@ void world_cup_quals_uefa_all_teams(BYTE* _this) {
 	sort(countries.begin(), countries.end(), compareNationRanking);
 
 	DWORD host1_id, host2_id;
-	WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), EUROPE_9CF(), &host1_id, &host2_id);
-	if (num_hosts == 1) data->num_stages--;
-	WORD total_teams_in_comp = (WORD)countries.size() - num_hosts;
+	get_comp_hosts_in_continent(_this, UEFA_EURO_9CF(), EUROPE_9CF(), &host1_id, &host2_id);
+	WORD total_teams_in_comp = (WORD)countries.size();
 	total_teams_in_comp--; // subtract Russia
 	data->special_nteams_seedings = total_teams_in_comp;
 	data->f56 = total_teams_in_comp;
+
+	for (WORD i = 0; i < total_teams_in_comp; i++) {
+		if (countries[i]->ClubNation->NationID == host1_id || countries[i]->ClubNation->NationID == host2_id)
+		{
+			auto it = countries.begin() + i;
+			rotate(countries.begin(), it, it + 1);
+		}
+	}
 
 	shuffle(countries.begin(), countries.begin() + 3, rng);
 	shuffle(countries.begin() + 3, countries.begin() + 6, rng);
@@ -405,7 +336,6 @@ void world_cup_quals_uefa_all_teams(BYTE* _this) {
 	teams_seeded* teams = (teams_seeded*)data->special_teams_seedings;
 
 	for (BYTE i = 0, j = 0; i < countries.size() && j < total_teams_in_comp; i++) {
-		if (countries[i]->ClubNation->NationID == host1_id || countries[i]->ClubNation->NationID == host2_id) continue;
 		if (countries[i]->ClubNation->NationID == NATION_RUSSIA_9CF()) continue; // review Russia ban at a later date
 		teams[j].club = countries[i];
 		if (j < 36) teams[j].f5 = 10;
@@ -415,7 +345,7 @@ void world_cup_quals_uefa_all_teams(BYTE* _this) {
 	}
 }
 
-void world_quals_uefa_create_league_a_matchups(BYTE* _this, BYTE* stage, vector<cm3_clubs*> clubs, BYTE idx) {
+void euro_champ_quals_create_league_a_matchups(BYTE* _this, BYTE* stage, vector<cm3_clubs*> clubs, BYTE idx) {
 	comp_stats* data = (comp_stats*)_this;
 	comp_stats* stage_data = (comp_stats*)stage;
 	DWORD v1 = *(DWORD*)_this;
@@ -494,7 +424,20 @@ void world_quals_uefa_create_league_a_matchups(BYTE* _this, BYTE* stage, vector<
 	sub_9452CA_free(pFixtures);
 }
 
-void world_cup_quals_uefa_setup_first_group(BYTE* _this) {
+void block_hosts_from_qualifying_euro_champ(BYTE* stage, DWORD host1_id, DWORD host2_id) {
+	comp_stats* comp_data = (comp_stats*)stage;
+	WORD total_teams = comp_data->n_teams;
+	team_league_stats* table_teams = (team_league_stats*)(comp_data->team_league_table);
+	for (int i = 0; i < total_teams; i++) {
+		if (table_teams[i].club->ClubNation->NationID == host1_id ||
+			table_teams[i].club->ClubNation->NationID == host2_id) {
+			table_teams[i].league_fate = CantBePromoted;
+			comp_data->promotions--;
+		}
+	}
+}
+
+void euro_champ_quals_setup_first_group(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	WORD total_teams = 12;
 	BYTE* pMem = (BYTE*)cm0102_malloc(league_team_list_sz * total_teams);
@@ -513,12 +456,15 @@ void world_cup_quals_uefa_setup_first_group(BYTE* _this) {
 		add_team_call(_this, i, qualifiers[3 * i].club, 0, 0);
 	}
 
-	world_quals_uefa_create_league_a_matchups(_this, _this, clubs, -1);
+	euro_champ_quals_create_league_a_matchups(_this, _this, clubs, -1);
+
+	DWORD host1_id, host2_id;
+	get_comp_hosts_in_continent(_this, UEFA_EURO_9CF(), EUROPE_9CF(), &host1_id, &host2_id);
 
 	sub_684230(_this);
 }
 
-void world_cup_quals_uefa_setup_groups_a(BYTE* _this, BYTE idx) {
+void euro_champ_quals_setup_groups_a(BYTE* _this, BYTE idx) {
 	DWORD v1 = *(DWORD*)_this;
 	WORD num_rounds = 0;
 	WORD stage_name_id = 0;
@@ -537,13 +483,18 @@ void world_cup_quals_uefa_setup_groups_a(BYTE* _this, BYTE idx) {
 		*((DWORD*)(&pTeams[i])) = (DWORD)qualifiers[3 * i + (idx + 1)].club;
 	}
 
+	char prom_rel[4] = { 6, 2, 0, 0 };
 	WORD year = data->year;
 	BYTE* pStage = (BYTE*)cm0102_new(0xEE);
 	create_league_stage_data(pStage, _this, num_teams, pTeams, 0, (DWORD)(data->competition_db), 0, num_rounds,
-		data->pts_for_win, data->pts_for_draw, data->f196, &data->tiebreaker_1, &data->promotions,
+		data->pts_for_win, data->pts_for_draw, data->f196, &data->tiebreaker_1, &prom_rel[0],
 		year, idx, stage_name_id, data->f81, 2, 0, data->f217, -1, 0, 2);
 
-	world_quals_uefa_create_league_a_matchups(_this, pStage, clubs, idx);
+	euro_champ_quals_create_league_a_matchups(_this, pStage, clubs, idx);
+
+	DWORD host1_id, host2_id;
+	get_comp_hosts_in_continent(_this, UEFA_EURO_9CF(), EUROPE_9CF(), &host1_id, &host2_id);
+	block_hosts_from_qualifying_euro_champ(pStage, host1_id, host2_id);
 
 	DWORD* stages_arr = data->stages;
 	*((DWORD*)(&stages_arr[idx])) = (DWORD)pStage;
@@ -553,17 +504,14 @@ void world_cup_quals_uefa_setup_groups_a(BYTE* _this, BYTE idx) {
 	data->current_stage = idx;
 }
 
-void world_cup_quals_uefa_setup_groups_b(BYTE* _this, BYTE idx) {
+void euro_champ_quals_setup_groups_b(BYTE* _this, BYTE idx) {
 	DWORD v1 = *(DWORD*)_this;
 	WORD num_rounds = 0;
 	WORD stage_name_id = 0;
 	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, int, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, idx, &num_rounds, &stage_name_id, 0);
 	comp_stats* data = (comp_stats*)_this;
 
-	WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), EUROPE_9CF(), 0, 0);
 	WORD num_teams = 6;
-	WORD rem = data->special_nteams_seedings % 3;
-	if (rem > 0) num_teams = 6 - ((idx - 2) >= rem);
 
 	DWORD* pTeams = (DWORD*)cm0102_malloc(num_teams * 4);
 
@@ -575,8 +523,7 @@ void world_cup_quals_uefa_setup_groups_b(BYTE* _this, BYTE idx) {
 		*((DWORD*)(&pTeams[i])) = (DWORD)qualifiers[36 + 3 * i + (idx - 2)].club;
 	}
 
-	char prom_rel[4] = { 1, 1, 0, 0 };
-	if (num_hosts > 0) prom_rel[1] = 0;
+	char prom_rel[4] = { 0, 2, 0, 0 };
 	WORD year = data->year;
 	BYTE* pStage = (BYTE*)cm0102_new(0xEE);
 	if (num_teams < 6) {
@@ -664,108 +611,19 @@ void world_cup_quals_uefa_setup_groups_b(BYTE* _this, BYTE idx) {
 	data->current_stage = idx;
 }
 
-void world_cup_quals_uefa_best_placed_update(BYTE* _this) {
-	WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), EUROPE_9CF(), 0, 0);
-	if (num_hosts == 1) return;
-	char start = 2;
-	if (num_hosts == 2) start = -1;
-	char end = 5;
-	if (num_hosts == 2) end = 2;
-	comp_stats* data = (comp_stats*)_this;
-	char stage_num = 5;
-
-	WORD start_date[4];
-	WORD end_date[4];
-	DWORD tmp1[2];
-	DWORD tmp2[2];
-	sub_54A110((BYTE*)start_date);
-	sub_54A110((BYTE*)end_date);
-
-	WORD year = data->year;
-	BYTE* ba = (BYTE*)data->fixtures_table;
-	BYTE* cm_date = new BYTE[8];
-	sub_549EF0(cm_date, *(WORD*)(ba), year + *(WORD*)(ba + 2));
-	sub_417C10((BYTE*)start_date, tmp1, cm_date);
-	WORD a9 = *(WORD*)(_this + 0xA9);
-	cm_date = new BYTE[8];
-	sub_549EF0(cm_date, *(WORD*)(ba + a9 * fixture_dates_sz - fixture_dates_sz),
-		year + *(WORD*)(ba + a9 * fixture_dates_sz - fixture_dates_sz + 2));
-	sub_54C770(cm_date, (BYTE*)tmp1, 1);
-	sub_417C10((BYTE*)end_date, tmp2, (BYTE*)tmp1);
-
-	WORD team_idx = 5;
-	if (start != -1) team_idx = 1;
-	WORD teams_to_check = 12;
-	if (start != -1) teams_to_check = 6 - (data->special_nteams_seedings % 3 > 0);
-	comp_stats* curr_stage = data;
-	for (char al = start; al < end; al++) {
-		if (al > -1) curr_stage = (comp_stats*)(data->stages[al]);
-		sub_6827D0((BYTE*)curr_stage, 0);
-		team_league_stats* table_teams = (team_league_stats*)(curr_stage->team_league_table);
-		team_league_stats tls_place = table_teams[team_idx];
-		cm3_clubs* tls_club = tls_place.club;
-		DWORD* pMem = (DWORD*)cm0102_malloc(4 * teams_to_check);
-		for (WORD i = 0; i < curr_stage->n_teams; i++) {
-			*((DWORD*)(&pMem[i])) = table_teams[i].club->ClubID;
-		}
-		BYTE* pStage = (BYTE*)cm0102_new(0xEE);
-		WORD n = data->n_teams; // always assume 12 teams
-		sub_88C6D0(pStage, teams_to_check, pMem, -1, -1, start_date, end_date, data->competition_db->ClubCompID, data->pts_for_win, data->pts_for_draw, &data->tiebreaker_1, 9 * (n * (n - 1)), data->f16);
-		comp_stats* stage_data = (comp_stats*)pStage;
-		table_teams = (team_league_stats*)stage_data->team_league_table;
-		WORD chk = 0;
-		for (; chk < teams_to_check; chk++) {
-			if (table_teams[chk].club == tls_club) break;
-		}
-		if (chk < teams_to_check) {
-			comp_stats* best_placed_stage = (comp_stats*)(data->stages[stage_num]);
-			team_league_stats* best_placed_table = (team_league_stats*)(best_placed_stage->team_league_table);
-			memcpy(&best_placed_table[al - start], &table_teams[chk], league_team_list_sz);
-			best_placed_table[al - start].position_history = 0;
-			best_placed_table[al - start].f4 = 0;
-		}
-		DWORD v1 = *(DWORD*)pStage;
-		(DWORD*)(*(int(__thiscall**)(BYTE*, int a2))(v1))((BYTE*)pStage, 1);
-		sub_9452CA_free((BYTE*)(pMem));
-	}
-	sub_6827D0((BYTE*)data->stages[stage_num], 0);
-}
-
-void world_cup_quals_uefa_setup_best_placed(BYTE* _this) {
-	WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), EUROPE_9CF(), 0, 0);
-	if (num_hosts == 1) return;
-	WORD num_teams = 3;
-
-	char stage_num = 5;
-	comp_stats* data = (comp_stats*)_this;
-	WORD year = data->year;
-	BYTE* pStage = (BYTE*)cm0102_new(0xEE);
-	char prom_rel[4] = { 0, 1, 0, 0 };
-	if (num_hosts == 2) prom_rel[1] = 2;
-
-	char tiebreaks[4] = { GoalDifferenceTiebreaker, GoalsForTiebreaker, GoalsForAwayTiebreaker, NoTiebreaker };
-	create_league_stage_data(pStage, _this, num_teams, 0, 0, (DWORD)(data->competition_db), 0, 0,
-		data->pts_for_win, data->pts_for_draw, data->f196, &tiebreaks[0], &prom_rel[0],
-		year, stage_num, BestPlacedTeams, 0, 1, 0, 0x28, -1, 0, 2);
-	DWORD* stages_arr = data->stages;
-	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)pStage;
-	data->current_stage = stage_num;
-	world_cup_quals_uefa_best_placed_update(_this);
-}
-
-void world_cup_quals_uefa_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
+void euro_champ_quals_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	sub_682200(_this);
 	comp_stats* data = (comp_stats*)_this;
 	data->competition_db = comp;
-	data->comp_vtable = world_cup_quals_uefa_vtable;
+	data->comp_vtable = euro_champ_quals_vtable;
 	data->year = year;
 	data->comp_type = NATION_INTERNATIONAL;
-	data->promotes_to = WORLD_CUP_CAF_QUALIFYING_9CF();
+	data->promotes_to = -1;
 	data->relegates_to = -1;
 	data->rules = RulesInternational;
 	data->f82 = 3;
-	data->year = year + 1;
-	while (data->year % 4 != 1) data->year++;
+	data->year = year;
+	while (data->year % 4 != 3) data->year++;
 	data->f81 = 0xf;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
@@ -773,47 +631,40 @@ void world_cup_quals_uefa_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->f68 = -1;
 	data->f217 = 0x28;
 	data->current_stage = -1;
-	data->num_stages = 7;
+	data->num_stages = 6;
 	data->stages = (DWORD*)cm0102_malloc(data->num_stages * 4);
-	world_cup_quals_uefa_subs(_this);
+	euro_champ_quals_subs(_this);
 	BYTE* pMem2 = (BYTE*)cm0102_new(0x5CE);
 	sub_49EE70(pMem2, _this);
 	data->f8 = (DWORD*)pMem2;
 	data->f69 = 0;
 }
 
-void world_cup_quals_uefa_init2(BYTE* _this, DWORD current_date, int a3) {
+void euro_champ_quals_init2(BYTE* _this, DWORD current_date, int a3) {
 	comp_stats* data = (comp_stats*)_this;
-	BYTE* cm_date = new BYTE[8];
-	convert_to_cm_date(cm_date, 26, July, data->year, -1);
-	WORD date_day = *(WORD*)(cm_date);
-	WORD date_year = *(WORD*)(cm_date + 2);
-	if (date_day == *(WORD*)(current_date) && *(WORD*)(current_date + 2) == date_year) {
+	WORD day2 = *(WORD*)(_this + 0xB6);
+	short year2 = *(short*)(_this + 0xB8);
+	if (day2 == *(WORD*)(current_date) && *(WORD*)(current_date + 2) == data->year + year2) {
 		if (!data->f69 && a3) {
 			sub_775070((BYTE*)*b74318, get_continent(EUROPE_9CF()), 0);
 			data->f69 = 1;
-			world_cup_quals_uefa_all_teams(_this);
-			world_cup_quals_uefa_setup_first_group(_this);
+			euro_champ_quals_all_teams(_this);
+			euro_champ_quals_setup_first_group(_this);
 			sub_6835C0(_this);
 			sub_6827D0(_this, 0);
 			for (BYTE i = 0; i < 2; i++) {
-				world_cup_quals_uefa_setup_groups_a(_this, i);
+				euro_champ_quals_setup_groups_a(_this, i);
 			}
 			for (BYTE i = 0; i < 3; i++) {
-				world_cup_quals_uefa_setup_groups_b(_this, i + 2);
+				euro_champ_quals_setup_groups_b(_this, i + 2);
 			}
-			world_cup_quals_uefa_setup_best_placed(_this);
-			world_cup_quals_uefa_reputation_setup(_this);
+			euro_champ_quals_reputation_setup(_this);
 		}
-	}
-	else if ((*(WORD*)(current_date) > date_day && *(WORD*)(current_date + 2) == date_year) || *(WORD*)(current_date + 2) > date_year) {
-		char ret = sub_5AE6D0((BYTE*)current_date, data->competition_db->ClubCompID);
-		if (ret) world_cup_quals_uefa_best_placed_update(_this);
 	}
 	sub_6847C0(_this, current_date, a3);
 }
 
-void __declspec(naked) world_cup_quals_uefa_init2_c()
+void __declspec(naked) euro_champ_quals_init2_c()
 {
 	__asm
 	{
@@ -821,23 +672,22 @@ void __declspec(naked) world_cup_quals_uefa_init2_c()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call world_cup_quals_uefa_init2
+		call euro_champ_quals_init2
 		add esp, 0xc
 		ret 8
 	}
 }
 
-int world_cup_quals_uefa_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int euro_champ_quals_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
-	WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), EUROPE_9CF(), 0, 0);
 	if (stage < 2) {
 		switch (fate) {
 		case Qualified1:
-			qualify_team_for_international_comp(club, FIFA_WORLD_CUP_9CF());
+			qualify_team_for_international_comp(club, UEFA_EURO_9CF());
 			return 0;
 		case TopPlayoff:
-			if (num_hosts != 1) staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), Playoff, None, 0x1E);
+			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, Playoff, 0x1E);
 			return 0;
 		default:
 			staff_history_failed_qual_86C1D0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, 0xF);
@@ -848,10 +698,8 @@ int world_cup_quals_uefa_set_fates(BYTE* _this, cm3_clubs* club, char fate, char
 	}
 	else if (stage < 5) {
 		switch (fate) {
-		case Qualified1:
-			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), Playoff, None, 0x1E);
-			return 0;
 		case TopPlayoff:
+			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, Playoff, 0x1E);
 			return 0;
 		default:
 			staff_history_failed_qual_86C1D0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, 0xF);
@@ -860,35 +708,7 @@ int world_cup_quals_uefa_set_fates(BYTE* _this, cm3_clubs* club, char fate, char
 		sub_775000((BYTE*)*b74318, club->ClubNation);
 		return 0;
 	}
-	else if (stage == 5 && num_hosts != 1) {
-		comp_stats* stage_data = comp_data;
-		char start = 2;
-		if (num_hosts == 2) start = -1;
-		char end = 5;
-		if (num_hosts == 2) end = 2;
-		WORD team_idx = 5;
-		if (start != -1) team_idx = 1;
-		switch (fate) {
-		case TopPlayoff:
-			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), Playoff, None, 0x1E);
-			break;
-		default:
-			staff_history_failed_qual_86C1D0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, 0xF);
-			for (char al = start; al < end; al++) {
-				if (al >= 0) stage_data = (comp_stats*)(comp_data->stages[al]);
-				team_league_stats* table_teams = (team_league_stats*)(stage_data->team_league_table);
-				if (table_teams[team_idx].club == club) {
-					stage_data->prom_playoff--;
-					table_teams[team_idx].league_fate = Eliminated;
-					break;
-				}
-			}
-			break;
-		}
-		sub_775000((BYTE*)*b74318, club->ClubNation);
-		return 0;
-	}
-	else if (stage == 5 + (num_hosts != 1)) {
+	else if (stage == 5) {
 		WORD num_teams = comp_data->n_teams;
 		if (num_teams <= 0) return 0;
 		comp_stats* stage_data = (comp_stats*)(comp_data->stages[stage]);
@@ -896,7 +716,8 @@ int world_cup_quals_uefa_set_fates(BYTE* _this, cm3_clubs* club, char fate, char
 		WORD current_round = *(WORD*)(round_data + 0x34);
 		switch (fate) {
 		case TopPlayoff:
-			qualify_team_for_international_comp(club, FIFA_WORLD_CUP_9CF(), num_hosts == 1);
+			qualify_team_for_international_comp(club, UEFA_EURO_9CF(), false);
+			if (a5) *a5 = 3;
 			return 0;
 		case Promoted:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
@@ -913,7 +734,7 @@ int world_cup_quals_uefa_set_fates(BYTE* _this, cm3_clubs* club, char fate, char
 	return 0;
 }
 
-void __declspec(naked) world_cup_quals_uefa_set_table_fate()
+void __declspec(naked) euro_champ_quals_set_table_fate()
 {
 	__asm
 	{
@@ -925,55 +746,48 @@ void __declspec(naked) world_cup_quals_uefa_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call world_cup_quals_uefa_set_fates
+		call euro_champ_quals_set_fates
 		add esp, 0x1c
 		ret 0x18
 	}
 }
 
-int world_cup_quals_uefa_stage_news(BYTE* _this, int club_idx, char fate, char stage_id, int stage_name_idx, int round_data, __int16 a7, int a8, char a9, int show_body_text, LPVOID* ret_str_ptr) {
+int euro_champ_quals_stage_news(BYTE* _this, int club_idx, char fate, char stage_id, int stage_name_idx, int round_data, __int16 a7, int a8, char a9, int show_body_text, LPVOID* ret_str_ptr) {
 	comp_stats* data = (comp_stats*)_this;
 	cm3_club_comps* comp_data = data->competition_db;
 	cm3_clubs* club_data = get_club(club_idx);
-	WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), EUROPE_9CF(), 0, 0);
 	if (stage_id < 2) {
 		if (fate == Qualified1)
 		{
-			if (show_body_text) {
-				sub_66F4E0(0xDE1F64, 0xAD4D6C, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderName, comp_data->ClubCompGenderName,
-					&club_data->ClubNameShort[0], &comp_data->ClubCompName[0]);
-				sub_4AE660(ret_str_ptr, 0xDE1F64);
-				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
-				sub_4AE8A0((BYTE*)ret_str_ptr, &comp_data->ClubCompName[0], 0x7d0, (DWORD)comp_data);
-				return 1;
-			}
+			if (show_body_text) return sub_4B4590(club_idx, (WORD)stage_name_idx, (DWORD)comp_data, fate, show_body_text, ret_str_ptr);
 			else {
-				sub_66F4E0(0xDE1F64, 0xAD4B78, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+				cm3_club_comps* uefa_euro = get_comp(UEFA_EURO_9CF());
+				sub_66F4E0(0xDE1F64, 0x9C470C, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, uefa_euro->ClubCompGenderNameShort, uefa_euro->ClubCompGenderNameShort,
+					&club_data->ClubNameShort[0], &uefa_euro->ClubCompNameShort[0]);
 				sub_4AE660(ret_str_ptr, 0xDE1F64);
 				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &uefa_euro->ClubCompNameShort[0], 0x7d0, (DWORD)uefa_euro);
 				return 1;
 			}
 		}
 		else if (fate == TopPlayoff) {
-			if (num_hosts != 1) {
-				if (show_body_text) {
-					sub_66F4E0(0xDE1F64, 0xAD4BE0, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
-					sub_4AE660(ret_str_ptr, 0xDE1F64);
-					sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
-					return 1;
-				}
-				else {
-					sub_66F4E0(0xDE1F64, 0xAD4BE0, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
-					sub_4AE660(ret_str_ptr, 0xDE1F64);
-					sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
-					return 1;
-				}
+			if (show_body_text) {
+				sub_66F4E0(0xDE1F64, 0xAD4BE0, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+				sub_4AE660(ret_str_ptr, 0xDE1F64);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+				return 1;
+			}
+			else {
+				sub_66F4E0(0xDE1F64, 0xAD4BE0, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+				sub_4AE660(ret_str_ptr, 0xDE1F64);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+				return 1;
 			}
 		}
 		else if (fate == Eliminated) return sub_4B4590(club_idx, (WORD)stage_name_idx, (DWORD)comp_data, fate, show_body_text, ret_str_ptr);
 	}
 	else if (stage_id < 5) {
-		if (fate == Qualified1)
+		if (fate == TopPlayoff)
 		{
 			if (show_body_text) {
 				sub_66F4E0(0xDE1F64, 0xAD4BE0, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
@@ -990,53 +804,40 @@ int world_cup_quals_uefa_stage_news(BYTE* _this, int club_idx, char fate, char s
 		}
 		else if (fate == Eliminated) return sub_4B4590(club_idx, (WORD)stage_name_idx, (DWORD)comp_data, fate, show_body_text, ret_str_ptr);
 	}
-	else if (stage_id == 5 && num_hosts != 1) {
-		if (fate == TopPlayoff) {
-			if (show_body_text) {
-				sub_66F4E0(0xDE1F64, 0xAD4BE0, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
-				sub_4AE660(ret_str_ptr, 0xDE1F64);
-				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
-				return 1;
-			}
-			else {
-				sub_66F4E0(0xDE1F64, 0xAD4BE0, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
-				sub_4AE660(ret_str_ptr, 0xDE1F64);
-				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
-				return 1;
-			}
-		}
-		else if (fate == Eliminated) return sub_4B4590(club_idx, (WORD)stage_name_idx, (DWORD)comp_data, fate, show_body_text, ret_str_ptr);
-	}
-	else if (stage_id == 5 + (num_hosts != 1)) {
+	else if (stage_id == 5) {
 		if (show_body_text) return sub_4B0B80(club_idx, round_data, a9, fate, a7, ret_str_ptr);
 		else {
+			cm3_club_comps* uefa_euro = get_comp(UEFA_EURO_9CF());
 			switch (fate)
 			{
 			case TopPlayoff:
-				sub_66F4E0(0xDE1F64, 0xAD4B78, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+				sub_66F4E0(0xDE1F64, 0x9C470C, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, uefa_euro->ClubCompGenderNameShort, uefa_euro->ClubCompGenderNameShort,
+					&club_data->ClubNameShort[0], &uefa_euro->ClubCompNameShort[0]);
 				sub_4AE660(ret_str_ptr, 0xDE1F64);
 				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &uefa_euro->ClubCompNameShort[0], 0x7d0, (DWORD)uefa_euro);
 				return 1;
 			case Promoted:
 				sub_66F4E0(0xDE1F64, 0x987198, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
 					&club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
-				break;
-			default:
-				sub_66F4E0(0xDE1F64, 0xAD4BA4, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
 				sub_4AE660(ret_str_ptr, 0xDE1F64);
 				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &comp_data->ClubCompNameShort[0], 0x7d0, (DWORD)comp_data);
+				return 1;
+			default:
+				sub_66F4E0(0xDE1F64, 0x9C46B8, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, uefa_euro->ClubCompGenderNameShort, uefa_euro->ClubCompGenderNameShort,
+					&club_data->ClubNameShort[0], &uefa_euro->ClubCompNameShort[0]);
+				sub_4AE660(ret_str_ptr, 0xDE1F64);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &uefa_euro->ClubCompNameShort[0], 0x7d0, (DWORD)uefa_euro);
 				return 1;
 			}
-			sub_4AE660(ret_str_ptr, 0xDE1F64);
-			sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
-			sub_4AE8A0((BYTE*)ret_str_ptr, &comp_data->ClubCompNameShort[0], 0x7d0, (DWORD)comp_data);
-			return 1;
 		}
 	}
 	return 0;
 }
 
-void __declspec(naked) world_cup_quals_uefa_stage_news_c()
+void __declspec(naked) euro_champ_quals_stage_news_c()
 {
 	__asm
 	{
@@ -1052,24 +853,21 @@ void __declspec(naked) world_cup_quals_uefa_stage_news_c()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call world_cup_quals_uefa_stage_news
+		call euro_champ_quals_stage_news
 		add esp, 0x2c
 		ret 0x28
 	}
 }
 
-void world_cup_quals_uefa_landmarks(BYTE* _this, DWORD dest_ptr, int a2, WORD main_stage_id, WORD sub_stage_id, char fate, cm3_clubs* club) {
-	WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), EUROPE_9CF(), 0, 0);
+void euro_champ_quals_landmarks(BYTE* _this, DWORD dest_ptr, int a2, WORD main_stage_id, WORD sub_stage_id, char fate, cm3_clubs* club) {
 	if (main_stage_id >= 0x475 && main_stage_id <= 0x47a) { // League A
-		if (fate == Qualified1) {
-			sub_66F4E0(dest_ptr, 0xAD4658, club->ClubGenderName, 0xAD9C64);
+		if (fate == Qualified1 || fate == CantBePromoted) {
+			sub_66F4E0(dest_ptr, 0x9C48A4, club->ClubGenderName, 0xAD9C64);
 			return;
 		}
 		else if (fate == TopPlayoff) {
-			if (num_hosts != 1) {
-				sub_66F4E0(dest_ptr, 0x9a4399);
-				return;
-			}
+			sub_66F4E0(dest_ptr, 0x9a4399);
+			return;
 		}
 		else {
 			sub_66F4E0(dest_ptr, (DWORD)&lge_a[0]);
@@ -1077,35 +875,27 @@ void world_cup_quals_uefa_landmarks(BYTE* _this, DWORD dest_ptr, int a2, WORD ma
 		}
 	}
 	if (main_stage_id >= 0x459 && main_stage_id <= 0x45c) { // League B
-		if (fate == Qualified1) {
+		if (fate == TopPlayoff) {
 			sub_66F4E0(dest_ptr, 0x9a4399);
 			return;
-		}
-		else if (fate == TopPlayoff) {
 		}
 		else {
 			sub_66F4E0(dest_ptr, (DWORD)&lge_b[0]);
 			return;
 		}
 	}
-	if (main_stage_id == BestPlacedTeams) {
-		if (fate == TopPlayoff) {
-			sub_66F4E0(dest_ptr, 0x9a4399);
-			return;
-		}
-	}
-	if (main_stage_id == Playoff)
+	if (main_stage_id == Playoff || sub_stage_id == Playoff)
 	{
 		if (fate == 1)
 		{
-			sub_66F4E0(dest_ptr, 0xAD4658, club->ClubGenderName, 0xAD9C64);
+			sub_66F4E0(dest_ptr, 0x9C48A4, club->ClubGenderName, 0xAD9C64);
 			return;
 		}
 	}
 	return sub_48CAB0(_this, dest_ptr, a2, main_stage_id, sub_stage_id, fate, club);
 }
 
-void __declspec(naked) world_cup_quals_uefa_landmarks_c()
+void __declspec(naked) euro_champ_quals_landmarks_c()
 {
 	__asm
 	{
@@ -1117,63 +907,60 @@ void __declspec(naked) world_cup_quals_uefa_landmarks_c()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call world_cup_quals_uefa_landmarks
+		call euro_champ_quals_landmarks
 		add esp, 0x1c
 		ret 0x18
 	}
 }
 
-WORD world_cup_quals_uefa_vtable29(BYTE* _this, cm3_clubs* club) {
+WORD euro_champ_quals_vtable29(BYTE* _this, cm3_clubs* club) {
 	comp_stats* data = (comp_stats*)_this;
 	DWORD* f8 = data->f8;
 	WORD val = (WORD)sub_4A2E10((BYTE*)f8, club, 0x12);
-	return (val < 16) - 3;
+	return (val < 24) - 3;
 }
 
-void __declspec(naked) world_cup_quals_uefa_vtable29_c()
+void __declspec(naked) euro_champ_quals_vtable29_c()
 {
 	__asm
 	{
 		mov eax, esp
 		push dword ptr[eax + 0x4]
 		push ecx
-		call world_cup_quals_uefa_vtable29
+		call euro_champ_quals_vtable29
 		add esp, 0x8
 		ret 4
 	}
 }
 
-BYTE world_cup_quals_uefa_vtable30(BYTE* _this, cm3_clubs* club) {
+BYTE euro_champ_quals_vtable30(BYTE* _this, cm3_clubs* club) {
 	comp_stats* data = (comp_stats*)_this;
 	DWORD* f8 = data->f8;
 	BYTE bl = (BYTE)sub_4A2E10((BYTE*)f8, club, 0x13);
 	BYTE al = (BYTE)sub_4A2E10((BYTE*)f8, club, 0x12);
 
-	if (al < 16) return (bl < 16) - 1;
-	else return (bl < 16);
+	if (al < 24) return (bl < 24) - 1;
+	else return (bl < 24);
 }
 
-void __declspec(naked) world_cup_quals_uefa_vtable30_c()
+void __declspec(naked) euro_champ_quals_vtable30_c()
 {
 	__asm
 	{
 		mov eax, esp
 		push dword ptr[eax + 0x4]
 		push ecx
-		call world_cup_quals_uefa_vtable30
+		call euro_champ_quals_vtable30
 		add esp, 0x8
 		ret 4
 	}
 }
 
-void world_cup_quals_uefa_final_stage_setup(BYTE* _this) {
-	WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), EUROPE_9CF(), 0, 0);
-	char stage_num = 5 + (num_hosts != 1);
+void euro_champ_quals_final_stage_setup(BYTE* _this) {
+	char stage_num = 5;
 
 	comp_stats* comp_data = (comp_stats*)_this;
-	BYTE playoff_teams = 10;
-	if (num_hosts == 1) playoff_teams = 6;
-	else if (num_hosts == 2) playoff_teams = 8;
+	BYTE playoff_teams = 12;
 	DWORD* pTeams = (DWORD*)cm0102_malloc(playoff_teams * 4);
 
 	comp_stats* curr_stage = comp_data;
@@ -1188,9 +975,6 @@ void world_cup_quals_uefa_final_stage_setup(BYTE* _this) {
 			if (tls.league_fate == TopPlayoff) {
 				clubs.push_back(tls.club);
 			}
-			else if (tls.league_fate == Qualified1 && al > 1) {
-				clubs.push_back(tls.club);
-			}
 		}
 	}
 	if (clubs.size() != playoff_teams)
@@ -1200,39 +984,9 @@ void world_cup_quals_uefa_final_stage_setup(BYTE* _this) {
 	}
 
 	reverse(clubs.begin(), clubs.end());
-	shuffle(clubs.begin(), clubs.begin() + 4 - num_hosts, rng);
-	shuffle(clubs.begin() + 4 - num_hosts, clubs.end(), rng);
-	BYTE team_order[10] = { 0 };
-	if (num_hosts == 0) {
-		team_order[0] = 0;
-		team_order[1] = 2;
-		team_order[2] = 3;
-		team_order[3] = 1;
-		team_order[4] = 4;
-		team_order[5] = 6;
-		team_order[6] = 8;
-		team_order[7] = 9;
-		team_order[8] = 7;
-		team_order[9] = 5;
-	}
-	else if (num_hosts == 1) {
-		team_order[0] = 0;
-		team_order[1] = 2;
-		team_order[2] = 4;
-		team_order[3] = 5;
-		team_order[4] = 3;
-		team_order[5] = 1;
-	}
-	else if (num_hosts == 2) {
-		team_order[0] = 0;
-		team_order[1] = 2;
-		team_order[2] = 4;
-		team_order[3] = 6;
-		team_order[4] = 7;
-		team_order[5] = 5;
-		team_order[6] = 3;
-		team_order[7] = 1;
-	}
+	shuffle(clubs.begin(), clubs.begin() + 6, rng);
+	shuffle(clubs.begin() + 6, clubs.end(), rng);
+	BYTE team_order[12] = { 0,2,4,6,8,10,1,3,5,7,9,11 };
 
 	for (WORD j = 0; j < playoff_teams; j++) {
 		*((DWORD*)(&pTeams[team_order[j]])) = (DWORD)clubs[j];
@@ -1251,168 +1005,49 @@ void world_cup_quals_uefa_final_stage_setup(BYTE* _this) {
 	comp_data->current_stage = (long)stage_num;
 }
 
-void world_cup_quals_uefa_stages_create(BYTE* _this) {
+void euro_champ_quals_stages_create(BYTE* _this) {
 	comp_stats* comp_data = (comp_stats*)_this;
 	long current = comp_data->current_stage;
 	long max = comp_data->num_stages;
 	if (current < max - 1) {
 		current++;
 		comp_data->current_stage = current;
-		WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), EUROPE_9CF(), 0, 0);
-		if (current == 5 + (num_hosts != 1)) {
-			world_cup_quals_uefa_final_stage_setup(_this);
+		if (current == 5) {
+			euro_champ_quals_final_stage_setup(_this);
 		}
 	}
 }
 
-void __declspec(naked) world_cup_quals_uefa_stages_create_c()
+void __declspec(naked) euro_champ_quals_stages_create_c()
 {
 	__asm
 	{
 		mov eax, esp
 		push ecx
-		call world_cup_quals_uefa_stages_create
+		call euro_champ_quals_stages_create
 		add esp, 0x4
 		ret
 	}
 }
 
-char* grp_c3_short = "Grp C3";
-void __declspec(naked) jmp_shortname_c3()
-{
-	__asm
-	{
-		push grp_c3_short
-		push ebx
-		push call_ret
-		push 0x66f4e0
-		ret
-		call_ret :
-		add esp, 0x8
-			mov eax, ebx
-			pop edi
-			pop esi
-			pop ebx
-			add esp, 0x200
-			ret
-	}
-}
+void setup_euro_champ_quals() {
+	WriteVTablePtr(euro_champ_quals_vtable, VTableEoSUpdate, (DWORD)&euro_champ_quals_update_c);
+	WriteVTablePtr(euro_champ_quals_vtable, VTableLeagueSplit, (DWORD)&euro_champ_quals_init2_c);
+	WriteVTablePtr(euro_champ_quals_vtable, VTableTableFates, (DWORD)&euro_champ_quals_set_table_fate);
+	WriteVTablePtr(euro_champ_quals_vtable, VTableFixtures, (DWORD)&euro_champ_quals_fixture_caller);
+	WriteVTablePtr(euro_champ_quals_vtable, VTableStageNews, (DWORD)&euro_champ_quals_stage_news_c);
+	WriteVTablePtr(euro_champ_quals_vtable, VTable29, (DWORD)&euro_champ_quals_vtable29_c);
+	WriteVTablePtr(euro_champ_quals_vtable, VTable30, (DWORD)&euro_champ_quals_vtable30_c);
+	WriteVTablePtr(euro_champ_quals_vtable, VTableClubLandmarks, (DWORD)&euro_champ_quals_landmarks_c);
 
-char* grp_c4_short = "Grp C4";
-void __declspec(naked) jmp_shortname_c4()
-{
-	__asm
-	{
-		push grp_c4_short
-		push ebx
-		push call_ret
-		push 0x66f4e0
-		ret
-		call_ret :
-		add esp, 0x8
-			mov eax, ebx
-			pop edi
-			pop esi
-			pop ebx
-			add esp, 0x200
-			ret
-	}
-}
+	WriteVTablePtr(euro_champ_quals_vtable, VTable9, 0x48CEB0);
+	WriteVTablePtr(euro_champ_quals_vtable, VTable10, 0x48CEA0);
 
-void setup_world_cup_quals_uefa() {
-	WriteVTablePtr(world_cup_quals_uefa_vtable, VTableInitFree, (DWORD)&world_cup_quals_uefa_free_c);
-	WriteVTablePtr(world_cup_quals_uefa_vtable, VTableEoSUpdate, (DWORD)&world_cup_quals_uefa_update_c);
-	WriteVTablePtr(world_cup_quals_uefa_vtable, VTableLeagueSplit, (DWORD)&world_cup_quals_uefa_init2_c);
-	WriteVTablePtr(world_cup_quals_uefa_vtable, VTableTableFates, (DWORD)&world_cup_quals_uefa_set_table_fate);
-	WriteVTablePtr(world_cup_quals_uefa_vtable, VTableFixtures, (DWORD)&world_cup_quals_uefa_fixture_caller);
-	WriteVTablePtr(world_cup_quals_uefa_vtable, VTableStageNews, (DWORD)&world_cup_quals_uefa_stage_news_c);
-	WriteVTablePtr(world_cup_quals_uefa_vtable, VTable29, (DWORD)&world_cup_quals_uefa_vtable29_c);
-	WriteVTablePtr(world_cup_quals_uefa_vtable, VTable30, (DWORD)&world_cup_quals_uefa_vtable30_c);
-	WriteVTablePtr(world_cup_quals_uefa_vtable, VTableClubLandmarks, (DWORD)&world_cup_quals_uefa_landmarks_c);
+	WriteVTablePtr(euro_champ_quals_vtable, VTableSubsRounds, (DWORD)&euro_champ_quals_subs_c);
 
-	WriteVTablePtr(world_cup_quals_uefa_vtable, VTable9, 0x48CEB0);
-	WriteVTablePtr(world_cup_quals_uefa_vtable, VTable10, 0x48CEA0);
-
-	WriteVTablePtr(world_cup_quals_uefa_vtable, VTableSubsRounds, (DWORD)&world_cup_quals_uefa_subs_c);
-
-	WriteVTablePtr(world_cup_quals_uefa_vtable, VTablePostMatchUpdate, 0x685d30); // check?
-	WriteVTablePtr(world_cup_quals_uefa_vtable, VTablePlayoffQual, (DWORD)&world_cup_quals_uefa_stages_create_c);
-	WriteVTablePtr(world_cup_quals_uefa_vtable, VTableReputationSetup, (DWORD)&world_cup_quals_uefa_reputation_setup_c);
-	WriteVTablePtr(world_cup_quals_uefa_vtable, VTableReputationCalc, (DWORD)&world_cup_quals_uefa_reputation_calc_c);
-	WriteVTablePtr(world_cup_quals_uefa_vtable, VTable38, 0x684cd0); // check?
-
-	WriteDWORD(0x4B5fde + 1, (DWORD)&lge_a[0]);
-	WriteDWORD(0x4B5ff8 + 1, (DWORD)&lge_b[0]);
-	WriteDWORD(0x4B6438 + 1, (DWORD)&lge_c[0]);
-	WriteDWORD(0x4B6452 + 1, (DWORD)&lge_d[0]);
-	WriteDWORD(0x4B8ae5 + 1, (DWORD)&lge_a_short[0]);
-	WriteDWORD(0x4B8aff + 1, (DWORD)&lge_b_short[0]);
-	WriteDWORD(0x4B8f25 + 1, (DWORD)&lge_c_short[0]);
-	WriteDWORD(0x4B8f3f + 1, (DWORD)&lge_d_short[0]);
-
-	char* grp_a1 = "Group A1";
-	char* grp_a2 = "Group A2";
-	char* grp_a3 = "Group A3";
-	char* grp_a4 = "Group A4";
-	char* grp_a5 = "Group A5";
-	char* grp_a6 = "Group A6";
-	char* grp_a1_short = "Grp A1";
-	char* grp_a2_short = "Grp A2";
-	char* grp_a3_short = "Grp A3";
-	char* grp_a4_short = "Grp A4";
-	char* grp_a5_short = "Grp A5";
-	char* grp_a6_short = "Grp A6";
-	WriteDWORD(0x4B67e5 + 1, (DWORD)&grp_a1[0]);
-	WriteDWORD(0x4B67ff + 1, (DWORD)&grp_a2[0]);
-	WriteDWORD(0x4B6819 + 1, (DWORD)&grp_a3[0]);
-	WriteDWORD(0x4B6833 + 1, (DWORD)&grp_a4[0]);
-	WriteDWORD(0x4B684d + 1, (DWORD)&grp_a5[0]);
-	WriteDWORD(0x4B6867 + 1, (DWORD)&grp_a6[0]);
-	WriteDWORD(0x4B9337 + 1, (DWORD)&grp_a1_short[0]);
-	WriteDWORD(0x4B9351 + 1, (DWORD)&grp_a2_short[0]);
-	WriteDWORD(0x4B936b + 1, (DWORD)&grp_a3_short[0]);
-	WriteDWORD(0x4B9385 + 1, (DWORD)&grp_a4_short[0]);
-	WriteDWORD(0x4B939f + 1, (DWORD)&grp_a5_short[0]);
-	WriteDWORD(0x4B93b9 + 1, (DWORD)&grp_a6_short[0]);
-
-	char* grp_b1 = "Group B1";
-	char* grp_b2 = "Group B2";
-	char* grp_b3 = "Group B3";
-	char* grp_b4 = "Group B4";
-	char* grp_b1_short = "Grp B1";
-	char* grp_b2_short = "Grp B2";
-	char* grp_b3_short = "Grp B3";
-	char* grp_b4_short = "Grp B4";
-	WriteDWORD(0x4B6611 + 1, (DWORD)&grp_b1[0]);
-	WriteDWORD(0x4B662b + 1, (DWORD)&grp_b2[0]);
-	WriteDWORD(0x4B6645 + 1, (DWORD)&grp_b3[0]);
-	WriteDWORD(0x4B665f + 1, (DWORD)&grp_b4[0]);
-	WriteDWORD(0x4B90fd + 1, (DWORD)&grp_b1_short[0]);
-	WriteDWORD(0x4B911c + 1, (DWORD)&grp_b2_short[0]);
-	WriteDWORD(0x4B913b + 1, (DWORD)&grp_b3_short[0]);
-	WriteDWORD(0x4B915a + 1, (DWORD)&grp_b4_short[0]);
-
-	char* grp_c1 = "Group C1";
-	char* grp_c2 = "Group C2";
-	char* grp_c3 = "Group C3";
-	char* grp_c4 = "Group C4";
-	char* grp_c1_short = "Grp C1";
-	char* grp_c2_short = "Grp C2";
-	WriteDWORD(0x4B5e4f + 1, (DWORD)&grp_c1[0]);
-	WriteDWORD(0x4B5e69 + 1, (DWORD)&grp_c2[0]);
-	WriteDWORD(0x4B5e83 + 1, (DWORD)&grp_c3[0]);
-	WriteDWORD(0x4B5e9d + 1, (DWORD)&grp_c4[0]);
-	WriteDWORD(0x4B899a + 1, (DWORD)&grp_c1_short[0]);
-	WriteDWORD(0x4B89a4 + 1, (DWORD)&grp_c2_short[0]);
-	WriteDWORD(0x4ba720, (DWORD)&jmp_shortname_c3); // the switch table
-	WriteDWORD(0x4ba724, (DWORD)&jmp_shortname_c4); // the switch table
-
-	char* grp_d1 = "Group D1";
-	char* grp_d2 = "Group D2";
-	char* grp_d1_short = "Grp D1";
-	char* grp_d2_short = "Grp D2";
-	WriteDWORD(0x4B67b1 + 1, (DWORD)&grp_d1[0]);
-	WriteDWORD(0x4B67cb + 1, (DWORD)&grp_d2[0]);
-	WriteDWORD(0x4B9303 + 1, (DWORD)&grp_d1_short[0]);
-	WriteDWORD(0x4B931d + 1, (DWORD)&grp_d2_short[0]);
+	WriteVTablePtr(euro_champ_quals_vtable, VTablePostMatchUpdate, 0x685d30); // check?
+	WriteVTablePtr(euro_champ_quals_vtable, VTablePlayoffQual, (DWORD)&euro_champ_quals_stages_create_c);
+	WriteVTablePtr(euro_champ_quals_vtable, VTableReputationSetup, (DWORD)&euro_champ_quals_reputation_setup_c);
+	WriteVTablePtr(euro_champ_quals_vtable, VTableReputationCalc, (DWORD)&euro_champ_quals_reputation_calc_c);
+	WriteVTablePtr(euro_champ_quals_vtable, VTable38, 0x684cd0); // check?
 }

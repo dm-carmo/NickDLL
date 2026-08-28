@@ -102,7 +102,7 @@ void __declspec(naked) year_offset_in_landmarks()
 		cmp ebx, dword ptr ds : [0x9cf780]
 		je ret_add_1_year
 		cmp ebx, dword ptr ds : [0x9cf784]
-		je ret_add_2_year
+		je ret_add_1_year
 		cmp ebx, dword ptr ds : [0x9cf928]
 		je ret_add_1_year
 		cmp ebx, dword ptr ds : [0x9cf890]

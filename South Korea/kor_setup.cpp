@@ -64,8 +64,6 @@ void setup_kor_nation() {
 	setup_kor_cup();
 	setup_kor_super();
 	setup_kor_awards();
-	// Fixes player values
-	WriteBytes(0x4d152a, 1, 0xeb);
 	// foreign player limits
 	WriteBytes(0x66e765, 1, 0x5);
 	WriteNOP(0x66e738, 4);

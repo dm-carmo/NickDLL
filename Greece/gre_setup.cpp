@@ -57,8 +57,6 @@ void setup_gre_nation() {
 	setup_gre_second();
 	setup_gre_cup();
 	setup_gre_super();
-	// Bypass check for 14 teams in Greek leagues
-	WriteBytes(0x8283b9, 1, 0xEB);
 }
 
 void greece_restructure() {

@@ -1493,15 +1493,6 @@ void setup_misc_functions()
 	WriteBytes(0x5cb872 + 1, 1, 28);
 	WriteBytes(0x5cb8b7 + 1, 1, 28);
 
-	// Fix hosts not syncing after some comps changed their year frequency
-	WriteBytes(0x5F9EDB + 3, 1, 32);
-	WriteBytes(0x5FA1A2 + 3, 1, 24);
-	WriteBytes(0x5FA44F + 3, 1, 32);
-	// AFCON every 4 years - host function change
-	WriteBytes(0x5F9EE2 + 2, 1, 4);
-	// Asian Cup hosts year sync
-	WriteDWORD(0x5fa525 + 1, 2003);
-
 	// Change player search filters
 	if (configFile.GetBool("changePlayerSearchFilters", true)) {
 		WriteBytes(0x80775C + 2, 1, 18);
@@ -1525,12 +1516,6 @@ void setup_misc_functions()
 	// Show hosts for some other comps
 	WriteDWORD(0x96B488, 0x404480); // Copa América
 
-	// Fixes a slight bug where B-teams can't qualify for relegation playoffs if they have the "CantBePromoted" flag set
-	WriteBytes(0x68527E, 1, 0xFC);
-
-	// Fix for all clubs appearing in the Select Team screen, when only one league is set as foreground
-	WriteNOP(0x822696, 2);
-
 	// Shows more teams in Team Stats, up to 127
 	WriteBytes(0x495976, 1, 0x7F);
 
@@ -1549,26 +1534,6 @@ void setup_misc_functions()
 	WriteDWORD(0x53687F, 1980 + year_diff);
 	WriteDWORD(0x537CA0, 1940 + year_diff);
 
-	// WC qualifiers calendar changes
-	WriteBytes(0x915395, 1, 1);
-	WriteBytes(0x915397, 1, 5);
-	WriteBytes(0x91539c, 1, 9);
-	WriteBytes(0x9153bd, 1, 1);
-	WriteBytes(0x9153bf, 1, 5);
-	WriteBytes(0x9153c4, 1, 23);
-	WriteBytes(0x9153e7, 1, 1);
-	WriteBytes(0x9153e9, 1, 5);
-	WriteBytes(0x9153ee, 1, 12);
-
-	WriteBytes(0x9207c9, 1, 8);
-	WriteBytes(0x9207cb, 1, 6);
-	WriteBytes(0x9207f5, 1, 1);
-	WriteBytes(0x9207f7, 1, 5);
-	WriteBytes(0x920801, 1, 10);
-	WriteBytes(0x920950, 1, 1);
-	WriteBytes(0x920956, 1, 5);
-	WriteBytes(0x92095c, 1, 12);
-
 	// Fix too many countries to select in player/scout filter, causing a (harmless) error
 	WriteBytes(0x80959d, 1, 9);
 	WriteNOP(0x8095a8, 2);
@@ -1582,14 +1547,6 @@ void setup_misc_functions()
 
 	// Enable Bosman signings from all countries
 	WriteBytes(0x544677, 1, 0xeb);
-
-	// enable transfer fees up to 50%
-	WriteBytes(0x8eabe2, 1, 50);
-	WriteBytes(0x8edb67, 1, 50);
-
-	// sim detail: continental comps in full detail even if no leagues from the continent are in foreground
-	WriteNOP(0x6b66c3, 2);
-	WriteBytes(0x6b692d, 1, 0xeb);
 
 	// "groups drawn" news message title adjustment => review this
 	WriteDWORD(0x77fcda + 1, ThirdRound);

@@ -1725,7 +1725,4 @@ void setup_uefa_champions_league() {
 
 	PatchFunction(0x904210, (DWORD)&ucl_team_selection_c);
 	PatchFunction(0x903CC0, (DWORD)&uefa_set_team_counts_c);
-
-	// weird hardcoded stuff with fixtures?
-	WriteBytes(0x68a03f, 1, 0xeb);
 }
