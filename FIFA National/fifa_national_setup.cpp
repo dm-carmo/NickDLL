@@ -9,6 +9,7 @@
 #include "asian_cup_quals.h"
 #include "euro_champ.h"
 #include "euro_champ_quals.h"
+#include "uefa_nations_league.h"
 
 static DWORD(__thiscall* olympic_games_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
 (DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x79f530);
@@ -28,7 +29,7 @@ DWORD fifa_national_setup_c(playable_nation_data* nation_data) {
 	nation_data->contract_end_month = June;
 	nation_data->contract_end_year = *current_year;
 	nation_data->f70 = 5;
-	nation_data->num_of_comps = 10;
+	nation_data->num_of_comps = 11;
 	DWORD* nation_comps = (DWORD*)cm0102_malloc(nation_data->num_of_comps * 4);
 	nation_data->comps_list = (DWORD)nation_comps;
 
@@ -66,7 +67,11 @@ DWORD fifa_national_setup_c(playable_nation_data* nation_data) {
 	euro_champ_quals_init(pMem, *current_year, get_comp(UEFA_EURO_QUALIFYING_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)cm0102_new(0xF4);
+	pMem = (BYTE*)cm0102_new(0xEE);
+	uefa_nations_league_init(pMem, *current_year, get_comp(UEFA_NATIONS_LEAGUE_9CF()));
+	nation_comps[i++] = (DWORD)pMem;
+
+	pMem = (BYTE*)cm0102_new(0xEE);
 	ofc_nations_cup_init(pMem, *current_year, get_comp(OFC_NATIONS_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
@@ -91,4 +96,5 @@ void setup_fifa_national_comps() {
 	setup_asian_cup_quals();
 	setup_euro_champ();
 	setup_euro_champ_quals();
+	setup_uefa_nations_league();
 }

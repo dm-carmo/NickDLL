@@ -1440,12 +1440,9 @@ WORD fifa_world_cup_vtable29(BYTE* _this, cm3_clubs* club) {
 	else if (val == 2) return Final;
 	else if (val < 5) return SemiFinal;
 	else if (val < 9) return QuarterFinal;
-	else if (val < 16) return RoundOf16;
-	else
-	{
-		short ret = (val > 32) - 1;
-		return (ret & 0x18) - 4;
-	}
+	else if (val < 17) return RoundOf16;
+	else if (val < 33) return RoundOf32;
+	else return GroupStage;
 }
 
 void __declspec(naked) fifa_world_cup_vtable29_c()
@@ -1464,27 +1461,41 @@ void __declspec(naked) fifa_world_cup_vtable29_c()
 BYTE fifa_world_cup_vtable30(BYTE* _this, cm3_clubs* club) {
 	comp_stats* data = (comp_stats*)_this;
 	DWORD* f8 = data->f8;
-	BYTE bl = (BYTE)sub_4A2E10((BYTE*)f8, club, 0x13);
-	BYTE al = (BYTE)sub_4A2E10((BYTE*)f8, club, 0x12);
+	BYTE bl = (BYTE)sub_4A2E10((BYTE*)f8, club, 0x13); // round reached?
+	BYTE al = (BYTE)sub_4A2E10((BYTE*)f8, club, 0x12); // round expectation?
 
 	if (al < 3) {
-		if (bl < 5) return 0;
+		if (bl < 2) return 1;
+		if (bl < 3) return 0;
+		else if (bl < 5) return -1;
+		else return (bl < 9) - 3;
+	}
+	else if (al < 5) {
+		if (bl < 2) return 2;
+		if (bl < 3) return 1;
+		else if (bl < 5) return 0;
 		else if (bl < 9) return -1;
 		else return (bl < 17) - 3;
 	}
 	else if (al < 9) {
-		if (bl < 5) return 2;
+		if (bl < 2) return 3;
+		if (bl < 3) return 2;
+		else if (bl < 5) return 1;
 		else if (bl < 9) return 0;
-		else return (bl < 17) - 2;
+		else if (bl < 17) return -1;
+		else return (bl < 33) - 3;
 	}
 	else if (al < 17) {
-		if (bl < 5) return 3;
-		else if (bl < 9) return 2;
-		else return (bl < 17) - 1;
+		if (bl < 3) return 3;
+		else if (bl < 5) return 2;
+		else if (bl < 9) return 1;
+		else if (bl < 17) return 0;
+		else return (bl < 33) - 2;
 	}
 	else {
 		if (bl < 9) return 3;
-		else return 2 * (bl < 17);
+		else if (bl < 17) return 2;
+		else return 2 * (bl < 33);
 	}
 }
 

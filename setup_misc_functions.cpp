@@ -115,7 +115,7 @@ int parent_child_stages(int child_stage_id) {
 	if (child_stage_id >= 0x41f && child_stage_id <= 0x42e) return GroupStage;
 	//if (child_stage_id == EasternConference || child_stage_id == WesternConference || child_stage_id == EastLeagueStage) return GroupStage;
 	//if (child_stage_id == BestPlacedTeams) return GroupStage;
-	if (child_stage_id >= 0x475 && child_stage_id <= 0x47A) return LeagueA;
+	if (child_stage_id >= 0x475 && child_stage_id <= 0x478) return LeagueA;
 	if (child_stage_id >= 0x459 && child_stage_id <= 0x45C) return LeagueB;
 	if (child_stage_id >= 0x40F && child_stage_id <= 0x412) return LeagueC;
 	if (child_stage_id >= 0x473 && child_stage_id <= 0x474) return LeagueD;
@@ -948,7 +948,6 @@ bool is_continental_qualifiers(cm3_club_comps* comp) {
 	if (id == UEFA_EURO_QUALIFYING_9CF()) return true;
 	if (id == ASIAN_CUP_QUALIFYING_9CF()) return true;
 	if (id == AFRICAN_CUP_OF_NATIONS_QUALIFYING_9CF()) return true;
-	if (id == CONCACAF_NATIONS_LEAGUE_9CF()) return true;
 	return false;
 }
 
@@ -1002,7 +1001,7 @@ void update_fifa_coefficients(BYTE* _this, BYTE* match_data) {
 	int importance = 10;
 	// if Nations League && group stage, importance = 15
 	// if Nations League && playoffs, importance = 25
-	if (comp->ClubCompID == UEFA_NATIONS_LEAGUE_9CF()) {
+	if (comp->ClubCompID == UEFA_NATIONS_LEAGUE_9CF() || comp->ClubCompID == CONCACAF_NATIONS_LEAGUE_9CF()) {
 		if (is_final_knockout_rounds(main_stage_id, sub_stage_id)) importance = 25;
 		else importance = 15;
 	}
@@ -1290,7 +1289,7 @@ void __declspec(naked) brazil_regens_common_names_3()
 	}
 }
 
-// make positions unclickable on reults page to avoid a crash
+// make positions unclickable on results page to avoid a crash
 void __declspec(naked) quick_uefa_fix_1() {
 	__asm {
 		mov eax, dword ptr ds : [esi + 0x14]
@@ -1379,6 +1378,472 @@ void __declspec(naked) print_country_date_info_start_c()
 	}
 }
 
+void __declspec(naked) show_playoff_in_menu()
+{
+	__asm
+	{
+		cmp eax, dword ptr ds : [0x9cf778]
+		je is_wc_comp
+		cmp eax, dword ptr ds : [0x9cf928]
+		je is_wc_comp
+		push 0x669511
+		ret
+		is_wc_comp :
+		push 0x669564
+			ret
+	}
+}
+
+void __declspec(naked) year_offset_in_landmarks()
+{
+	__asm
+	{
+		cmp ebx, dword ptr ds : [0x9cf76c]
+		je ret_add_2_year
+		cmp ebx, dword ptr ds : [0x9cf770]
+		je ret_add_3_year
+		cmp ebx, dword ptr ds : [0x9cf774]
+		je ret_add_3_year
+		cmp ebx, dword ptr ds : [0x9cf778]
+		je ret_add_3_year
+		cmp ebx, dword ptr ds : [0x9cf77c]
+		je ret_add_3_year
+		cmp ebx, dword ptr ds : [0x9cf780]
+		je ret_add_1_year
+		cmp ebx, dword ptr ds : [0x9cf784]
+		je ret_add_1_year
+		cmp ebx, dword ptr ds : [0x9cf928]
+		je ret_add_1_year
+		cmp ebx, dword ptr ds : [0x9cf890]
+		je ret_add_2_year
+		cmp ebx, dword ptr ds : [0x9cf788]
+		je ret_add_3_year
+		ret_dont_add_years :
+		push 0x46b441
+			ret
+			ret_add_1_year :
+		mov ax, word ptr ds : [esi + 4]
+			add ax, 1
+			push 0x46b44f
+			ret
+			ret_add_2_year :
+		mov ax, word ptr ds : [esi + 4]
+			add ax, 2
+			push 0x46b44f
+			ret
+			ret_add_3_year :
+		mov ax, word ptr ds : [esi + 4]
+			add ax, 3
+			push 0x46b44f
+			ret
+	}
+}
+
+void __declspec(naked) unknown_check_2()
+{
+	__asm
+	{
+		cmp eax, dword ptr ds : [0x9cf778]
+		je unknown_2
+		cmp eax, dword ptr ds : [0x9cf928]
+		je unknown_2
+		push 0x669ac6
+		ret
+		unknown_2 :
+		push 0x669acf
+			ret
+	}
+}
+
+void __declspec(naked) unknown_check_3()
+{
+	__asm
+	{
+		cmp eax, dword ptr ds : [0x9cf78c]
+		je unknown_3
+		cmp eax, dword ptr ds : [0x9cf788]
+		je unknown_3
+		cmp eax, dword ptr ds : [0x9cf890]
+		je unknown_3
+		cmp eax, dword ptr ds : [0x9cf888]
+		je unknown_3
+		push 0x669bb6
+		ret
+		unknown_3 :
+		push 0x669bbf
+			ret
+	}
+}
+
+void __declspec(naked) international_comps_to_continent()
+{
+	__asm
+	{
+		cmp edx, dword ptr ds : [0x9cf77c]
+		je to_africa
+		cmp edx, dword ptr ds : [0x9cf7ac]
+		je to_africa
+		cmp edx, dword ptr ds : [0x9cf890]
+		je to_africa
+		cmp edx, dword ptr ds : [0x9cf774]
+		je to_asia
+		cmp edx, dword ptr ds : [0x9cf790]
+		je to_asia
+		cmp edx, dword ptr ds : [0x9cf788]
+		je to_asia
+		cmp edx, dword ptr ds : [0x9cf770]
+		je to_n_america
+		cmp edx, dword ptr ds : [0x9cf78c]
+		je to_n_america
+		cmp edx, dword ptr ds : [0x9cf88c]
+		je to_n_america
+		cmp edx, dword ptr ds : [0x9cf780]
+		je to_europe
+		cmp edx, dword ptr ds : [0x9cf7a4]
+		je to_europe
+		cmp edx, dword ptr ds : [0x9cf784]
+		je to_europe
+		cmp edx, dword ptr ds : [0x9cf888]
+		je to_europe
+		cmp edx, dword ptr ds : [0x9cf76c]
+		je to_oceania
+		cmp edx, dword ptr ds : [0x9cf8a0]
+		je to_oceania
+		cmp edx, dword ptr ds : [0x9cf778]
+		je to_s_america
+		cmp edx, dword ptr ds : [0x9cf7a8]
+		je to_s_america
+		cmp edx, dword ptr ds : [0x9cf7a0]
+		je to_world
+		push 0x6b63f6
+		ret
+		to_africa :
+		mov ecx, dword ptr ds : [0x9cfa08]
+			jmp continent_end
+			to_asia :
+		mov ecx, dword ptr ds : [0x9cfa0c]
+			jmp continent_end
+			to_europe :
+		mov ecx, dword ptr ds : [0x9cfa10]
+			jmp continent_end
+			to_oceania :
+		mov ecx, dword ptr ds : [0x9cfa18]
+			jmp continent_end
+			to_n_america :
+		mov ecx, dword ptr ds : [0x9cfa14]
+			jmp continent_end
+			to_s_america :
+		mov ecx, dword ptr ds : [0x9cfa1c]
+			jmp continent_end
+			to_world :
+		push 0x6b6400
+			ret
+			continent_end :
+		push 0x6b63d7
+			ret
+	}
+}
+
+// 0076D94A
+void __declspec(naked) is_international_comp_no_qualifiers() {
+	__asm {
+		mov eax, dword ptr ss : [esp + 4]
+		test eax, eax
+		je ret_0_no_quals
+		mov eax, dword ptr ds : [eax]
+		cmp eax, dword ptr ds : [0x9cf79c]
+		je ret_1_quals
+		cmp eax, dword ptr ds : [0x9cf7a0]
+		je ret_1_quals
+		cmp eax, dword ptr ds : [0x9cf7a4]
+		je ret_1_quals
+		cmp eax, dword ptr ds : [0x9cf7a8]
+		je ret_1_quals
+		cmp eax, dword ptr ds : [0x9cf7ac]
+		je ret_1_quals
+		cmp eax, dword ptr ds : [0x9cf790]
+		je ret_1_quals
+		cmp eax, dword ptr ds : [0x9cf8a0]
+		je ret_1_quals
+		cmp eax, dword ptr ds : [0x9cf78c]
+		je ret_1_quals
+		cmp eax, dword ptr ds : [0x9cf888]
+		je ret_1_quals
+		cmp eax, dword ptr ds : [0x9cf88c]
+		je ret_1_quals
+		ret_0_no_quals :
+		mov eax, 1
+			ret 4
+			ret_1_quals :
+			xor eax, eax
+			ret 4
+	}
+}
+
+// 0076B455
+void __declspec(naked) unknown_int_comps_fix_1()
+{
+	__asm
+	{
+		cmp eax, dword ptr ds : [0x9cf79c]
+		je jmp_true_fix_1
+		cmp eax, dword ptr ds : [0x9cf7a0]
+		je jmp_true_fix_1
+		cmp eax, dword ptr ds : [0x9cf7a4]
+		je jmp_true_fix_1
+		cmp eax, dword ptr ds : [0x9cf7a8]
+		je jmp_true_fix_1
+		cmp eax, dword ptr ds : [0x9cf7ac]
+		je jmp_true_fix_1
+		cmp eax, dword ptr ds : [0x9cf790]
+		je jmp_true_fix_1
+		cmp eax, dword ptr ds : [0x9cf8a0]
+		je jmp_true_fix_1
+		cmp eax, dword ptr ds : [0x9cf78c]
+		je jmp_true_fix_1
+		cmp eax, dword ptr ds : [0x9cf888]
+		je jmp_true_fix_1
+		cmp eax, dword ptr ds : [0x9cf88c]
+		je jmp_true_fix_1
+		push 0x76B4C3
+		ret
+		jmp_true_fix_1 :
+		push 0x76B548
+			ret
+	}
+}
+
+// 0076C28F
+void __declspec(naked) unknown_int_comps_fix_2()
+{
+	__asm
+	{
+		cmp eax, dword ptr ds : [0x9cf79c]
+		je jmp_true_fix_2
+		cmp eax, dword ptr ds : [0x9cf7a0]
+		je jmp_true_fix_2
+		cmp eax, dword ptr ds : [0x9cf7a4]
+		je jmp_true_fix_2
+		cmp eax, dword ptr ds : [0x9cf7a8]
+		je jmp_true_fix_2
+		cmp eax, dword ptr ds : [0x9cf7ac]
+		je jmp_true_fix_2
+		cmp eax, dword ptr ds : [0x9cf790]
+		je jmp_true_fix_2
+		cmp eax, dword ptr ds : [0x9cf8a0]
+		je jmp_true_fix_2
+		cmp eax, dword ptr ds : [0x9cf78c]
+		je jmp_true_fix_2
+		cmp eax, dword ptr ds : [0x9cf888]
+		je jmp_true_fix_2
+		cmp eax, dword ptr ds : [0x9cf88c]
+		je jmp_true_fix_2
+		push 0x76C2DD
+		ret
+		jmp_true_fix_2 :
+		push 0x76C2D9
+			ret
+	}
+}
+
+// 00775293
+void __declspec(naked) unknown_int_comps_fix_3()
+{
+	__asm
+	{
+		cmp edx, dword ptr ds : [0x9cf79c]
+		je jmp_true_fix_3
+		cmp edx, dword ptr ds : [0x9cf7a0]
+		je jmp_true_fix_3
+		cmp edx, dword ptr ds : [0x9cf7a4]
+		je jmp_true_fix_3
+		cmp edx, dword ptr ds : [0x9cf7a8]
+		je jmp_true_fix_3
+		cmp edx, dword ptr ds : [0x9cf7ac]
+		je jmp_true_fix_3
+		cmp edx, dword ptr ds : [0x9cf790]
+		je jmp_true_fix_3
+		cmp edx, dword ptr ds : [0x9cf8a0]
+		je jmp_true_fix_3
+		cmp edx, dword ptr ds : [0x9cf78c]
+		je jmp_true_fix_3
+		cmp edx, dword ptr ds : [0x9cf888]
+		je jmp_true_fix_3
+		cmp edx, dword ptr ds : [0x9cf88c]
+		je jmp_true_fix_3
+		push 0x7752EF
+		ret
+		jmp_true_fix_3 :
+		push 0x7752D3
+			ret
+	}
+}
+
+// 007752FC
+void __declspec(naked) unknown_int_comps_fix_4()
+{
+	__asm
+	{
+		cmp edx, dword ptr ds : [0x9cf79c]
+		je jmp_true_fix_4
+		cmp edx, dword ptr ds : [0x9cf7a0]
+		je jmp_true_fix_4
+		cmp edx, dword ptr ds : [0x9cf7a4]
+		je jmp_true_fix_4
+		cmp edx, dword ptr ds : [0x9cf7a8]
+		je jmp_true_fix_4
+		cmp edx, dword ptr ds : [0x9cf7ac]
+		je jmp_true_fix_4
+		cmp edx, dword ptr ds : [0x9cf790]
+		je jmp_true_fix_4
+		cmp edx, dword ptr ds : [0x9cf8a0]
+		je jmp_true_fix_4
+		cmp edx, dword ptr ds : [0x9cf78c]
+		je jmp_true_fix_4
+		cmp edx, dword ptr ds : [0x9cf888]
+		je jmp_true_fix_4
+		cmp edx, dword ptr ds : [0x9cf88c]
+		je jmp_true_fix_4
+		push 0x775395
+		ret
+		jmp_true_fix_4 :
+		push 0x77533C
+			ret
+	}
+}
+
+// 0076B31C
+void __declspec(naked) unknown_int_comps_fix_5()
+{
+	__asm
+	{
+		cmp eax, dword ptr ds : [0x9cf79c]
+		je jmp_true_fix_5
+		cmp eax, dword ptr ds : [0x9cf7a0]
+		je jmp_true_fix_5
+		cmp eax, dword ptr ds : [0x9cf7a4]
+		je jmp_true_fix_5
+		cmp eax, dword ptr ds : [0x9cf7a8]
+		je jmp_true_fix_5
+		cmp eax, dword ptr ds : [0x9cf7ac]
+		je jmp_true_fix_5
+		cmp eax, dword ptr ds : [0x9cf790]
+		je jmp_true_fix_5
+		cmp eax, dword ptr ds : [0x9cf8a0]
+		je jmp_true_fix_5
+		cmp eax, dword ptr ds : [0x9cf78c]
+		je jmp_true_fix_5
+		cmp eax, dword ptr ds : [0x9cf888]
+		je jmp_true_fix_5
+		cmp eax, dword ptr ds : [0x9cf88c]
+		je jmp_true_fix_5
+		push 0x76B38A
+		ret
+		jmp_true_fix_5 :
+		push 0x76B410
+			ret
+	}
+}
+
+// 0076D6DF
+void __declspec(naked) unknown_int_comps_fix_6()
+{
+	__asm
+	{
+		cmp ecx, dword ptr ds : [0x9cf79c]
+		je jmp_true_fix_6
+		cmp ecx, dword ptr ds : [0x9cf7a0]
+		je jmp_true_fix_6
+		cmp ecx, dword ptr ds : [0x9cf7a4]
+		je jmp_true_fix_6
+		cmp ecx, dword ptr ds : [0x9cf7a8]
+		je jmp_true_fix_6
+		cmp ecx, dword ptr ds : [0x9cf7ac]
+		je jmp_true_fix_6
+		cmp ecx, dword ptr ds : [0x9cf790]
+		je jmp_true_fix_6
+		cmp ecx, dword ptr ds : [0x9cf8a0]
+		je jmp_true_fix_6
+		cmp ecx, dword ptr ds : [0x9cf78c]
+		je jmp_true_fix_6
+		cmp ecx, dword ptr ds : [0x9cf888]
+		je jmp_true_fix_6
+		cmp ecx, dword ptr ds : [0x9cf88c]
+		je jmp_true_fix_6
+		push 0x76D729
+		ret
+		jmp_true_fix_6 :
+		push 0x76D749
+			ret
+	}
+}
+
+// 0076F1EC
+void __declspec(naked) unknown_int_comps_fix_7()
+{
+	__asm
+	{
+		cmp eax, dword ptr ds : [0x9cf79c]
+		je jmp_true_fix_7
+		cmp eax, dword ptr ds : [0x9cf7a0]
+		je jmp_true_fix_7
+		cmp eax, dword ptr ds : [0x9cf7a4]
+		je jmp_true_fix_7
+		cmp eax, dword ptr ds : [0x9cf7a8]
+		je jmp_true_fix_7
+		cmp eax, dword ptr ds : [0x9cf7ac]
+		je jmp_true_fix_7
+		cmp eax, dword ptr ds : [0x9cf790]
+		je jmp_true_fix_7
+		cmp eax, dword ptr ds : [0x9cf8a0]
+		je jmp_true_fix_7
+		cmp eax, dword ptr ds : [0x9cf78c]
+		je jmp_true_fix_7
+		cmp eax, dword ptr ds : [0x9cf888]
+		je jmp_true_fix_7
+		cmp eax, dword ptr ds : [0x9cf88c]
+		je jmp_true_fix_7
+		push 0x76F23D
+		ret
+		jmp_true_fix_7 :
+		push 0x76F236
+			ret
+	}
+}
+
+// 0076D466
+void __declspec(naked) comps_callup_squad_size()
+{
+	__asm
+	{
+		cmp eax, dword ptr ds : [0x9cf79c]
+		je callup_size_finals
+		cmp eax, dword ptr ds : [0x9cf7a0]
+		je callup_size_finals
+		cmp eax, dword ptr ds : [0x9cf7a4]
+		je callup_size_finals
+		cmp eax, dword ptr ds : [0x9cf7a8]
+		je callup_size_finals
+		cmp eax, dword ptr ds : [0x9cf7ac]
+		je callup_size_finals
+		cmp eax, dword ptr ds : [0x9cf790]
+		je callup_size_finals
+		cmp eax, dword ptr ds : [0x9cf8a0]
+		je callup_size_finals
+		cmp eax, dword ptr ds : [0x9cf78c]
+		je callup_size_finals
+		cmp eax, dword ptr ds : [0x9cf888]
+		je callup_size_finals
+		cmp eax, dword ptr ds : [0x9cf88c]
+		je callup_size_finals
+		push 0x76D4C0
+		ret
+		callup_size_finals :
+		push 0x76D4B0
+			ret
+	}
+}
+
 void setup_misc_functions()
 {
 	// update game name
@@ -1459,29 +1924,29 @@ void setup_misc_functions()
 
 	// Move August 30's international friendlies forward two weeks
 	for (DWORD d : friendly_aug_30plus4) {
-		WriteBytes(d + 4, 1, 3);
+		WriteBytes(d + 4, 1, 24);
 	}
 	for (DWORD d : friendly_aug_30plus3) {
-		WriteBytes(d + 3, 1, 3);
+		WriteBytes(d + 3, 1, 24);
 	}
-	WriteBytes(0x5cb892 + 1, 1, 3);
-	WriteBytes(0x5cb8dc + 1, 1, 3);
+	WriteBytes(0x5cb892 + 1, 1, 24);
+	WriteBytes(0x5cb8dc + 1, 1, 24);
 	// Move September 3's international friendlies forward one week
 	for (DWORD d : friendly_sept_3plus4) {
-		WriteBytes(d + 4, 1, 6);
+		WriteBytes(d + 4, 1, 27);
 	}
 	for (DWORD d : friendly_sept_3plus3) {
-		WriteBytes(d + 3, 1, 6);
+		WriteBytes(d + 3, 1, 27);
 	}
-	WriteBytes(0x5caba1, 7, 0x66, 0xC7, 0x40, 0x01, 0x06, 0x08, 0x90);
-	WriteBytes(0x5cad0e, 7, 0x66, 0xC7, 0x40, 0x01, 0x06, 0x08, 0x90);
-	WriteBytes(0x5cb459, 7, 0x66, 0xC7, 0x40, 0x01, 0x06, 0x08, 0x90);
-	// Move October 4's international friendlies forward one week
+	WriteBytes(0x5caba1, 7, 0x66, 0xC7, 0x40, 0x01, 0x1b, 0x08, 0x90);
+	WriteBytes(0x5cad0e, 7, 0x66, 0xC7, 0x40, 0x01, 0x1b, 0x08, 0x90);
+	WriteBytes(0x5cb459, 7, 0x66, 0xC7, 0x40, 0x01, 0x1b, 0x08, 0x90);
+	// Move October 4's international friendlies forward one week => changed back
 	for (DWORD d : friendly_oct_4plus4) {
-		WriteBytes(d + 4, 1, 11);
+		WriteBytes(d + 4, 1, 4);
 	}
 	for (DWORD d : friendly_oct_4plus3) {
-		WriteBytes(d + 3, 1, 11);
+		WriteBytes(d + 3, 1, 4);
 	}
 	// Move March 21's international friendlies forward one week
 	for (DWORD d : friendly_march_21plus4) {
@@ -1515,6 +1980,23 @@ void setup_misc_functions()
 
 	// Show hosts for some other comps
 	WriteDWORD(0x96B488, 0x404480); // Copa América
+
+	PatchFunction(0x66955c, (DWORD)&show_playoff_in_menu);
+	PatchFunction(0x46b409, (DWORD)&year_offset_in_landmarks);
+	// tag comp as being part of "World Cup" menu?
+	PatchFunction(0x669abe, (DWORD)&unknown_check_2);
+	// tag comp as being part of "International" menu?
+	PatchFunction(0x669bae, (DWORD)&unknown_check_3);
+	PatchFunction(0x6b6358, (DWORD)&international_comps_to_continent);
+	PatchFunction(0x76D94A, (DWORD)&is_international_comp_no_qualifiers);
+	PatchFunction(0x76b455, (DWORD)&unknown_int_comps_fix_1);
+	PatchFunction(0x76C28F, (DWORD)&unknown_int_comps_fix_2);
+	PatchFunction(0x775293, (DWORD)&unknown_int_comps_fix_3);
+	PatchFunction(0x7752FC, (DWORD)&unknown_int_comps_fix_4);
+	PatchFunction(0x76B31C, (DWORD)&unknown_int_comps_fix_5);
+	PatchFunction(0x76D6DF, (DWORD)&unknown_int_comps_fix_6);
+	PatchFunction(0x76F1EC, (DWORD)&unknown_int_comps_fix_7);
+	PatchFunction(0x76D466, (DWORD)&comps_callup_squad_size);
 
 	// Shows more teams in Team Stats, up to 127
 	WriteBytes(0x495976, 1, 0x7F);

@@ -48,7 +48,7 @@ void euro_champ_quals_subs(BYTE* _this)
 	*((WORD*)(fixtures)) = *(WORD*)current_date;
 	*((WORD*)(fixtures + 2)) = (*current_year) - comp_data->year;
 	*((BYTE*)(fixtures + 4)) = 0;
-	*((BYTE*)(_this + 0xA9)) = 1;
+	*((WORD*)(_this + 0xA9)) = 1;
 	*((BYTE*)(_this + 0xDD)) = 0;
 
 	return;
@@ -75,7 +75,7 @@ DWORD euro_champ_quals_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, W
 		BYTE* pMem = NULL;
 		WORD year = data->year;
 		*num_rounds = 6;
-		if (stage_idx < 2) *stage_name_id = LeagueA1to6 + stage_idx + 1;
+		if (stage_idx < 2) *stage_name_id = LeagueA1to4 + stage_idx + 1;
 		else *stage_name_id = LeagueB1to4 + stage_idx - 2;
 
 		pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
@@ -104,7 +104,7 @@ DWORD euro_champ_quals_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, W
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 15), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 23), year, Thursday, Afternoon);
-		FillFixtureDetails(pMem, fixture_id++, Playoff, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 10, 12, 6, 12, 0, 0, 2, 5);
+		FillFixtureDetails(pMem, fixture_id++, Playoff, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 10, 12, 6, 12, 0, 0, 2, 5);
 
 		return (DWORD)pMem;
 	}
@@ -460,6 +460,7 @@ void euro_champ_quals_setup_first_group(BYTE* _this) {
 
 	DWORD host1_id, host2_id;
 	get_comp_hosts_in_continent(_this, UEFA_EURO_9CF(), EUROPE_9CF(), &host1_id, &host2_id);
+	block_hosts_from_qualifying_euro_champ(_this, host1_id, host2_id);
 
 	sub_684230(_this);
 }
@@ -860,7 +861,7 @@ void __declspec(naked) euro_champ_quals_stage_news_c()
 }
 
 void euro_champ_quals_landmarks(BYTE* _this, DWORD dest_ptr, int a2, WORD main_stage_id, WORD sub_stage_id, char fate, cm3_clubs* club) {
-	if (main_stage_id >= 0x475 && main_stage_id <= 0x47a) { // League A
+	if (main_stage_id >= 0x475 && main_stage_id <= 0x478) { // League A
 		if (fate == Qualified1 || fate == CantBePromoted) {
 			sub_66F4E0(dest_ptr, 0x9C48A4, club->ClubGenderName, 0xAD9C64);
 			return;

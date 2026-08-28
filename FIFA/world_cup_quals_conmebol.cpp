@@ -467,15 +467,50 @@ void __declspec(naked) world_cup_quals_conmebol_landmarks_c()
 	}
 }
 
+WORD world_cup_quals_conmebol_vtable29(BYTE* _this, cm3_clubs* club) {
+	comp_stats* data = (comp_stats*)_this;
+	DWORD* f8 = data->f8;
+	WORD val = (WORD)sub_4A2E10((BYTE*)f8, club, 0x12);
+
+	BYTE cutoff1 = data->promotions + 1;
+	BYTE cutoff2 = data->promotions + data->prom_playoff + 1;
+	if (val < cutoff1) return -3;
+	else return -5;
+}
+
+void __declspec(naked) world_cup_quals_conmebol_vtable29_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x4]
+		push ecx
+		call world_cup_quals_conmebol_vtable29
+		add esp, 0x8
+		ret 4
+	}
+}
+
 BYTE world_cup_quals_conmebol_vtable30(BYTE* _this, cm3_clubs* club) {
 	comp_stats* data = (comp_stats*)_this;
 	DWORD* f8 = data->f8;
 	BYTE bl = (BYTE)sub_4A2E10((BYTE*)f8, club, 0x13);
 	BYTE al = (BYTE)sub_4A2E10((BYTE*)f8, club, 0x12);
 
-	BYTE cutoff = data->promotions + data->prom_playoff;
-	if (al < cutoff) return (bl < cutoff) - 1;
-	else return bl < cutoff;
+	BYTE cutoff1 = data->promotions + 1;
+	BYTE cutoff2 = data->promotions + data->prom_playoff + 1;
+
+	if (al < cutoff1)
+	{
+		if (bl < cutoff1) return 1;
+		else return (bl < cutoff2) - 1;
+	}
+	else if (al < cutoff2)
+	{
+		if (bl < cutoff1) return 1;
+		else return (bl < cutoff2) - 1;
+	}
+	else return (bl < cutoff2) - 1;
 }
 
 void __declspec(naked) world_cup_quals_conmebol_vtable30_c()
@@ -498,7 +533,7 @@ void setup_world_cup_quals_conmebol() {
 	WriteVTablePtr(world_cup_quals_conmebol_vtable, VTableTableFates, (DWORD)&world_cup_quals_conmebol_set_table_fate);
 	WriteVTablePtr(world_cup_quals_conmebol_vtable, VTableFixtures, (DWORD)&world_cup_quals_conmebol_fixture_caller);
 	WriteVTablePtr(world_cup_quals_conmebol_vtable, VTableStageNews, (DWORD)&world_cup_quals_conmebol_stage_news_c);
-	//WriteVTablePtr(world_cup_quals_conmebol_vtable, VTable29, (DWORD)&world_cup_quals_conmebol_vtable29_c);
+	WriteVTablePtr(world_cup_quals_conmebol_vtable, VTable29, (DWORD)&world_cup_quals_conmebol_vtable29_c);
 	WriteVTablePtr(world_cup_quals_conmebol_vtable, VTable30, (DWORD)&world_cup_quals_conmebol_vtable30_c);
 	WriteVTablePtr(world_cup_quals_conmebol_vtable, VTableClubLandmarks, (DWORD)&world_cup_quals_conmebol_landmarks_c);
 

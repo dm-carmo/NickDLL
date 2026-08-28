@@ -114,7 +114,7 @@ void sco_challenge_cup_subs(BYTE* _this)
 	*((WORD*)(fixtures)) = *(WORD*)current_date;
 	*((WORD*)(fixtures + 2)) = (*current_year) - comp_data->year;
 	*((BYTE*)(fixtures + 4)) = 0;
-	*((BYTE*)(_this + 0xA9)) = 1;
+	*((WORD*)(_this + 0xA9)) = 1;
 	*((BYTE*)(_this + 0xDD)) = 0;
 
 	return;

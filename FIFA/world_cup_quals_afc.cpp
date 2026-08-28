@@ -1400,6 +1400,66 @@ void __declspec(naked) world_cup_quals_afc_landmarks_c()
 	}
 }
 
+WORD world_cup_quals_afc_vtable29(BYTE* _this, cm3_clubs* club) {
+	comp_stats* data = (comp_stats*)_this;
+	DWORD* f8 = data->f8;
+	WORD val = (WORD)sub_4A2E10((BYTE*)f8, club, 0x12);
+
+	WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), ASIA_9CF(), 0, 0);
+	WORD cutoff1 = 9 - num_hosts + 1;
+	WORD cutoff2 = cutoff1 + 1 + (num_hosts > 0);
+	if (val < cutoff1) return -3;
+	else return -5;
+}
+
+void __declspec(naked) world_cup_quals_afc_vtable29_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x4]
+		push ecx
+		call world_cup_quals_afc_vtable29
+		add esp, 0x8
+		ret 4
+	}
+}
+
+BYTE world_cup_quals_afc_vtable30(BYTE* _this, cm3_clubs* club) {
+	comp_stats* data = (comp_stats*)_this;
+	DWORD* f8 = data->f8;
+	BYTE bl = (BYTE)sub_4A2E10((BYTE*)f8, club, 0x13);
+	BYTE al = (BYTE)sub_4A2E10((BYTE*)f8, club, 0x12);
+
+	WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), ASIA_9CF(), 0, 0);
+	WORD cutoff1 = 9 - num_hosts + 1;
+	WORD cutoff2 = cutoff1 + 1 + (num_hosts > 0);
+	if (al < cutoff1)
+	{
+		if (bl < cutoff1) return 1;
+		else return (bl < cutoff2) - 1;
+	}
+	else if (al < cutoff2)
+	{
+		if (bl < cutoff1) return 1;
+		else return (bl < cutoff2) - 1;
+	}
+	else return (bl < cutoff2) - 1;
+}
+
+void __declspec(naked) world_cup_quals_afc_vtable30_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x4]
+		push ecx
+		call world_cup_quals_afc_vtable30
+		add esp, 0x8
+		ret 4
+	}
+}
+
 char* r2_1_short = "2nd Rnd Grp G";
 void __declspec(naked) jmp_shortname_r2g()
 {
@@ -1451,10 +1511,8 @@ void setup_world_cup_quals_afc() {
 	WriteVTablePtr(world_cup_quals_afc_vtable, VTable26, 0x5bb550);
 	WriteVTablePtr(world_cup_quals_afc_vtable, VTableReputationCalc, (DWORD)&world_cup_quals_afc_reputation_calc_c);
 	WriteVTablePtr(world_cup_quals_afc_vtable, VTable28, 0x583470);
-	//WriteVTablePtr(world_cup_quals_afc_vtable, VTable29, (DWORD)&world_cup_quals_afc_vtable29_c);
-	WriteVTablePtr(world_cup_quals_afc_vtable, VTable29, 0x911b80);
-	//WriteVTablePtr(world_cup_quals_afc_vtable, VTable30, (DWORD)&world_cup_quals_afc_vtable30_c);
-	WriteVTablePtr(world_cup_quals_afc_vtable, VTable30, 0x920260);
+	WriteVTablePtr(world_cup_quals_afc_vtable, VTable29, (DWORD)&world_cup_quals_afc_vtable29_c);
+	WriteVTablePtr(world_cup_quals_afc_vtable, VTable30, (DWORD)&world_cup_quals_afc_vtable30_c);
 	WriteVTablePtr(world_cup_quals_afc_vtable, VTable31, 0x91e1c0);
 	WriteVTablePtr(world_cup_quals_afc_vtable, VTable32, 0x48f2d0);
 	WriteVTablePtr(world_cup_quals_afc_vtable, VTable33, 0x522910);

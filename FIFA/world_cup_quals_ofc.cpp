@@ -804,6 +804,61 @@ void __declspec(naked) world_cup_quals_ofc_landmarks_c()
 	}
 }
 
+WORD world_cup_quals_ofc_vtable29(BYTE* _this, cm3_clubs* club) {
+	comp_stats* data = (comp_stats*)_this;
+	DWORD* f8 = data->f8;
+	WORD val = (WORD)sub_4A2E10((BYTE*)f8, club, 0x12);
+	//WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), OCEANIA_9CF(), 0, 0);
+	if (val < 2) return -3;
+	else return -5;
+}
+
+void __declspec(naked) world_cup_quals_ofc_vtable29_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x4]
+		push ecx
+		call world_cup_quals_ofc_vtable29
+		add esp, 0x8
+		ret 4
+	}
+}
+
+BYTE world_cup_quals_ofc_vtable30(BYTE* _this, cm3_clubs* club) {
+	comp_stats* data = (comp_stats*)_this;
+	DWORD* f8 = data->f8;
+	BYTE bl = (BYTE)sub_4A2E10((BYTE*)f8, club, 0x13);
+	BYTE al = (BYTE)sub_4A2E10((BYTE*)f8, club, 0x12);
+
+	WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), OCEANIA_9CF(), 0, 0);
+	if (al < 2)
+	{
+		if (bl < 2) return 1;
+		else return (bl < 3 + (num_hosts > 0)) - 1;
+	}
+	else if (al < 3 + (num_hosts > 0))
+	{
+		if (bl < 2) return 1;
+		else return (bl < 3 + (num_hosts > 0)) - 1;
+	}
+	else return (bl < 3 + (num_hosts > 0)) - 1;
+}
+
+void __declspec(naked) world_cup_quals_ofc_vtable30_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x4]
+		push ecx
+		call world_cup_quals_ofc_vtable30
+		add esp, 0x8
+		ret 4
+	}
+}
+
 void setup_world_cup_quals_ofc() {
 	WriteVTablePtr(world_cup_quals_ofc_vtable, VTableInitFree, (DWORD)&world_cup_quals_ofc_free_c);
 	WriteVTablePtr(world_cup_quals_ofc_vtable, VTableEoSUpdate, (DWORD)&world_cup_quals_ofc_update_c);

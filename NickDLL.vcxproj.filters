@@ -906,6 +906,9 @@
     <ClCompile Include="FIFA National\euro_champ.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FIFA National\uefa_nations_league.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -1809,6 +1812,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="FIFA National\euro_champ.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FIFA National\uefa_nations_league.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

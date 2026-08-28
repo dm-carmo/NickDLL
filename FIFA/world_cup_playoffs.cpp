@@ -400,6 +400,50 @@ void __declspec(naked) world_cup_playoffs_landmarks_c()
 	}
 }
 
+WORD world_cup_playoffs_vtable29(BYTE* _this, cm3_clubs* club) {
+	comp_stats* data = (comp_stats*)_this;
+	DWORD* f8 = data->f8;
+	WORD val = (WORD)sub_4A2E10((BYTE*)f8, club, 0x12);
+	if (val < 2) return -3;
+	else return -5;
+}
+
+void __declspec(naked) world_cup_playoffs_vtable29_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x4]
+		push ecx
+		call world_cup_playoffs_vtable29
+		add esp, 0x8
+		ret 4
+	}
+}
+
+BYTE world_cup_playoffs_vtable30(BYTE* _this, cm3_clubs* club) {
+	comp_stats* data = (comp_stats*)_this;
+	DWORD* f8 = data->f8;
+	BYTE bl = (BYTE)sub_4A2E10((BYTE*)f8, club, 0x13);
+	BYTE al = (BYTE)sub_4A2E10((BYTE*)f8, club, 0x12);
+
+	if (al < 2) return 2 * (bl < 2) - 1;
+	else return (bl < 2) - 1;
+}
+
+void __declspec(naked) world_cup_playoffs_vtable30_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x4]
+		push ecx
+		call world_cup_playoffs_vtable30
+		add esp, 0x8
+		ret 4
+	}
+}
+
 void world_cup_playoffs_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	sub_518640(_this);
 	comp_stats* data = (comp_stats*)_this;
@@ -414,8 +458,8 @@ void world_cup_playoffs_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	world_cup_playoffs_vtable->SetPointer(VTableReputationCalc, 0x48e380);
 	world_cup_playoffs_vtable->SetPointer(VTableFixtures, (DWORD)&world_cup_playoffs_fixture_caller);
 	world_cup_playoffs_vtable->SetPointer(VTableStageNews, (DWORD)&world_cup_playoffs_stage_news_c);
-	//world_cup_playoffs_vtable->SetPointer( VTable29, (DWORD)&world_cup_playoffs_vtable29_c);
-	//world_cup_playoffs_vtable->SetPointer( VTable30, (DWORD)&world_cup_playoffs_vtable30_c);
+	world_cup_playoffs_vtable->SetPointer(VTable29, (DWORD)&world_cup_playoffs_vtable29_c);
+	world_cup_playoffs_vtable->SetPointer(VTable30, (DWORD)&world_cup_playoffs_vtable30_c);
 	world_cup_playoffs_vtable->SetPointer(VTableClubLandmarks, (DWORD)&world_cup_playoffs_landmarks_c);
 	world_cup_playoffs_vtable->SetPointer(VTable9, 0x48CEB0);
 	world_cup_playoffs_vtable->SetPointer(VTable10, 0x48CEA0);

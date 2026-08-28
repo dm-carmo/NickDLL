@@ -884,8 +884,12 @@ WORD world_cup_quals_caf_vtable29(BYTE* _this, cm3_clubs* club) {
 	comp_stats* data = (comp_stats*)_this;
 	DWORD* f8 = data->f8;
 	WORD val = (WORD)sub_4A2E10((BYTE*)f8, club, 0x12);
+
 	WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), AFRICA_9CF(), 0, 0);
-	return (val < 9 + (num_hosts == 1)) - 3;
+	WORD cutoff1 = 10 - num_hosts + 1;
+	WORD cutoff2 = cutoff1 + 1 + (num_hosts > 0);
+	if (val < cutoff1) return -3;
+	else return -5;
 }
 
 void __declspec(naked) world_cup_quals_caf_vtable29_c()
@@ -908,8 +912,19 @@ BYTE world_cup_quals_caf_vtable30(BYTE* _this, cm3_clubs* club) {
 	BYTE al = (BYTE)sub_4A2E10((BYTE*)f8, club, 0x12);
 
 	WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), AFRICA_9CF(), 0, 0);
-	if (al < 9 + (num_hosts == 1)) return (bl < 9 + (num_hosts == 1)) - 1;
-	else return (bl < 9 + (num_hosts == 1));
+	WORD cutoff1 = 10 - num_hosts + 1;
+	WORD cutoff2 = cutoff1 + 1 + (num_hosts > 0);
+	if (al < cutoff1)
+	{
+		if (bl < cutoff1) return 1;
+		else return (bl < cutoff2) - 1;
+	}
+	else if (al < cutoff2)
+	{
+		if (bl < cutoff1) return 1;
+		else return (bl < cutoff2) - 1;
+	}
+	else return (bl < cutoff2) - 1;
 }
 
 void __declspec(naked) world_cup_quals_caf_vtable30_c()

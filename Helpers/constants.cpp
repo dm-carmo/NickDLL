@@ -49,6 +49,10 @@ char* lge_c_short = "Lge C";
 char* lge_d_short = "Lge D";
 char* r3_groups_drawn = "{}<%s - competition name(e.g.Champions League)>{} 3rd round groups drawn";
 char* r4_groups_drawn = "{}<%s - competition name(e.g.Champions League)>{} 4th round groups drawn";
+char* prom_lge_b = "Promoted From League B";
+char* prom_lge_c = "Promoted From League C";
+char* rele_lge_a = "Relegated From League A";
+char* rele_lge_b = "Relegated From League B";
 
 char* register_msg1 = "{}<%s - Club Name(e.g.Chelsea)>{} may register one more player to be eligible for the league phase of the {}<%s - Competition Name(e.g.UEFA Cup)>{}.";
 char* register_msg2 = "{}<%s - Club Name(e.g.Chelsea)>{} may register <%d - number(e.g.2)> more players to be eligible for the league phase of the {}<%s - Competition Name(e.g.UEFA Cup)>{}.";
