@@ -611,7 +611,7 @@ void setup_irl_premier()
 	WriteVTablePtr(irl_premier_vtable, VTablePlayoffQual, (DWORD)&irl_premier_playoffs_create);
 	WriteVTablePtr(irl_premier_vtable, VTableTableFates, (DWORD)&irl_premier_set_table_fate);
 	WriteVTablePtr(irl_premier_vtable, VTablePromRelUpdate, (DWORD)&irl_premier_prom_rel_update_c);
-	WriteVTablePtr(irl_premier_vtable, VTable9, 0x48CEB0);
-	WriteVTablePtr(irl_premier_vtable, VTable10, 0x48CEA0);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(irl_premier_vtable, VTable21, 0x4110b0);
+	WriteVTablePtr(irl_premier_vtable, VTableLoadCompInfo, 0x48CEB0);
+	WriteVTablePtr(irl_premier_vtable, VTableSaveCompInfo, 0x48CEA0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(irl_premier_vtable, VTableShowThirdInHistory, 0x4110b0);
 }

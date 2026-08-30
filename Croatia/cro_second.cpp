@@ -479,5 +479,5 @@ void setup_cro_second()
 	WriteVTablePtr(cro_second_vtable, VTableReputationCalc, (DWORD)&cro_second_reputation_calc_c);
 	WriteVTablePtr(cro_second_vtable, VTablePlayoffQual, (DWORD)&cro_second_playoffs_create);
 	WriteVTablePtr(cro_second_vtable, VTableTableFates, (DWORD)&cro_second_set_table_fate);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(cro_second_vtable, VTable21, 0x4110b0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(cro_second_vtable, VTableShowThirdInHistory, 0x4110b0);
 }

@@ -274,7 +274,7 @@ char egy_second_update(BYTE* _this) {
 	}
 	data->year++;
 	data->current_stage = -1;
-	*((DWORD*)(_this + 0xA7)) = -1;
+	*((WORD*)(_this + 0xA7)) = -1;
 	egy_second_subs(_this);
 	AddTeams(_this);
 	sub_6835C0(_this);
@@ -309,7 +309,7 @@ void egy_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	egy_second_vtable->SetPointer(VTableInitFree, (DWORD)&egy_second_free_c);
 	egy_second_vtable->SetPointer(VTableTableFates, (DWORD)&egy_second_set_table_fate);
 	egy_second_vtable->SetPointer(VTableReputationCalc, (DWORD)&egy_second_reputation_calc_c);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) egy_second_vtable->SetPointer(VTable21, 0x4110b0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) egy_second_vtable->SetPointer(VTableShowThirdInHistory, 0x4110b0);
 	data->year = year;
 	data->rules = RulesEgypt;
 	int loaded = sub_687B10(_this, 1);

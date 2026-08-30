@@ -766,7 +766,7 @@ void setup_por_third()
 	WriteVTablePtr(por_third_vtable, VTablePlayoffQual, (DWORD)&por_third_playoffs_create_c);
 	WriteVTablePtr(por_third_vtable, VTable39, 0x404480);
 	WriteVTablePtr(por_third_vtable, VTable40, 0x404480);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(por_third_vtable, VTable21, 0x4110b0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(por_third_vtable, VTableShowThirdInHistory, 0x4110b0);
 	char* rel_grp_a_text = "Relegation Group A";
 	char* rel_grp_a_text_short = "Rel. Grp A";
 	WriteDWORD(0x4B689B + 1, (DWORD)&rel_grp_a_text[0]);

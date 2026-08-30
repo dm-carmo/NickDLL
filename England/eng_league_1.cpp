@@ -93,12 +93,10 @@ DWORD eng_league_1_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD*
 		pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 2), year, Saturday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 9), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 16), year, Saturday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 19), year, Tuesday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 23), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 30), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 2), year, Tuesday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 6), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 13), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 20), year, Saturday);
@@ -106,11 +104,13 @@ DWORD eng_league_1_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD*
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 4), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 11), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 18), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 21), year, Tuesday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 25), year, Saturday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 8), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 1), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 15), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 22), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 29), year, Saturday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 12, 9), year, Tuesday, Evening);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 12, 2), year, Tuesday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 12, 13), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 12, 20), year, Saturday);
 		Date boxing_day = Date(year, 12, 26);
@@ -119,60 +119,116 @@ DWORD eng_league_1_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD*
 		AddFixtureNoTV(pMem, fixture_id++, boxing_day, year, (Day)boxing_day.DayOfWeek(), Evening);
 		boxing_day.addDays(3);
 		AddFixtureNoTV(pMem, fixture_id++, boxing_day, year, (Day)boxing_day.DayOfWeek(), Evening);
-		boxing_day.addDays(3);
-		AddFixtureNoTV(pMem, fixture_id++, boxing_day, year, (Day)boxing_day.DayOfWeek(), Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 1, 10), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 1, 17), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 1, 20), year, Tuesday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 1, 24), year, Saturday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 1, 27), year, Tuesday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 1, 31), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 7), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 10), year, Tuesday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 14), year, Saturday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 17), year, Tuesday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 21), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 28), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 7), year, Saturday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 10), year, Tuesday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 14), year, Saturday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 17), year, Tuesday, Evening);
 		Date easter_day = Date::easter_gregorian(year + 1);
 		Date easter_test = Date(year + 1, 3, 21);
 		int diff = abs(easter_test.DayOfYear() - easter_day.DayOfYear());
-		AddFixtureNoTV(pMem, fixture_id++, diff < 4 ? easter_day : easter_test, year, diff < 4 ? Friday : Saturday, diff < 4 ? Evening : Afternoon);
+		bool easter_done = false;
 		if (diff < 4) {
-			AddFixtureNoTV(pMem, fixture_id++, easter_day, year, Monday, Evening);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 20), year, Friday, Evening);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 23), year, Monday, Evening);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 28), year, Saturday);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 4), year, Saturday);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 7), year, Tuesday, Evening);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 11), year, Saturday);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 18), year, Saturday);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 21), year, Tuesday, Evening);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 25), year, Saturday);
+			easter_done = true;
 		}
-		easter_test = Date(year + 1, 3, 28);
-		diff = abs(easter_test.DayOfYear() - easter_day.DayOfYear());
-		AddFixtureNoTV(pMem, fixture_id++, diff < 4 ? easter_day : easter_test, year, diff < 4 ? Friday : Saturday, diff < 4 ? Evening : Afternoon);
-		if (diff < 4) {
-			AddFixtureNoTV(pMem, fixture_id++, easter_day, year, Monday, Evening);
+		if (!easter_done) {
+			easter_test = Date(year + 1, 3, 28);
+			diff = abs(easter_test.DayOfYear() - easter_day.DayOfYear());
+			if (diff < 4) {
+				AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 21), year, Saturday);
+				AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 27), year, Friday, Evening);
+				AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 30), year, Monday, Evening);
+				AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 4), year, Saturday);
+				AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 11), year, Saturday);
+				AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 14), year, Tuesday, Evening);
+				AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 18), year, Saturday);
+				AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 25), year, Saturday);
+				AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 28), year, Tuesday, Evening);
+				easter_done = true;
+			}
 		}
-		easter_test = Date(year + 1, 4, 4);
-		diff = abs(easter_test.DayOfYear() - easter_day.DayOfYear());
-		AddFixtureNoTV(pMem, fixture_id++, diff < 4 ? easter_day : easter_test, year, diff < 4 ? Friday : Saturday, diff < 4 ? Evening : Afternoon);
-		if (diff < 4) {
-			AddFixtureNoTV(pMem, fixture_id++, easter_day, year, Monday, Evening);
+		if (!easter_done) {
+			easter_test = Date(year + 1, 4, 4);
+			diff = abs(easter_test.DayOfYear() - easter_day.DayOfYear());
+			if (diff < 4) {
+				AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 21), year, Saturday);
+				AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 28), year, Saturday);
+				AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 3), year, Friday, Evening);
+				AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 6), year, Monday, Evening);
+				AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 11), year, Saturday);
+				AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 14), year, Tuesday, Evening);
+				AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 18), year, Saturday);
+				AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 25), year, Saturday);
+				AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 28), year, Tuesday, Evening);
+				easter_done = true;
+			}
 		}
-		easter_test = Date(year + 1, 4, 11);
-		diff = abs(easter_test.DayOfYear() - easter_day.DayOfYear());
-		AddFixtureNoTV(pMem, fixture_id++, diff < 4 ? easter_day : easter_test, year, diff < 4 ? Friday : Saturday, diff < 4 ? Evening : Afternoon);
-		if (diff < 4) {
-			AddFixtureNoTV(pMem, fixture_id++, easter_day, year, Monday, Evening);
+		if (!easter_done) {
+			easter_test = Date(year + 1, 4, 11);
+			diff = abs(easter_test.DayOfYear() - easter_day.DayOfYear());
+			if (diff < 4) {
+				AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 21), year, Saturday);
+				AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 28), year, Saturday);
+				AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 4), year, Saturday);
+				AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 10), year, Friday, Evening);
+				AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 13), year, Monday, Evening);
+				AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 18), year, Saturday);
+				AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 21), year, Tuesday, Evening);
+				AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 25), year, Saturday);
+				AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 28), year, Tuesday, Evening);
+				easter_done = true;
+			}
 		}
-		easter_test = Date(year + 1, 4, 18);
-		diff = abs(easter_test.DayOfYear() - easter_day.DayOfYear());
-		AddFixtureNoTV(pMem, fixture_id++, diff < 4 ? easter_day : easter_test, year, diff < 4 ? Friday : Saturday, diff < 4 ? Evening : Afternoon);
-		if (diff < 4) {
-			AddFixtureNoTV(pMem, fixture_id++, easter_day, year, Monday, Evening);
+		if (!easter_done) {
+			easter_test = Date(year + 1, 4, 18);
+			diff = abs(easter_test.DayOfYear() - easter_day.DayOfYear());
+			if (diff < 4) {
+				AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 21), year, Saturday);
+				AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 28), year, Saturday);
+				AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 4), year, Saturday);
+				AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 7), year, Tuesday, Evening);
+				AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 11), year, Saturday);
+				AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 17), year, Friday, Evening);
+				AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 20), year, Monday, Evening);
+				AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 25), year, Saturday);
+				AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 28), year, Tuesday, Evening);
+				easter_done = true;
+			}
 		}
-		easter_test = Date(year + 1, 4, 25);
-		diff = abs(easter_test.DayOfYear() - easter_day.DayOfYear());
-		AddFixtureNoTV(pMem, fixture_id++, diff < 4 ? easter_day : easter_test, year, diff < 4 ? Friday : Saturday, diff < 4 ? Evening : Afternoon);
-		if (diff < 4) {
-			AddFixtureNoTV(pMem, fixture_id++, easter_day, year, Monday, Evening);
+		if (!easter_done) {
+			easter_test = Date(year + 1, 4, 25);
+			diff = abs(easter_test.DayOfYear() - easter_day.DayOfYear());
+			if (diff < 4) {
+				AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 21), year, Saturday);
+				AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 28), year, Saturday);
+				AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 31), year, Tuesday, Evening);
+				AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 4), year, Saturday);
+				AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 11), year, Saturday);
+				AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 14), year, Tuesday, Evening);
+				AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 18), year, Saturday);
+				AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 24), year, Friday, Evening);
+				AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 27), year, Monday, Evening);
+				easter_done = true;
+			}
 		}
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 5, 2), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 5, 9), year, Saturday);
 
 		check_number_of_fixtures(_this, fixture_id, *num_rounds);
 
@@ -191,12 +247,12 @@ DWORD eng_league_1_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD*
 		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 3), year, Sunday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 9), year, Saturday, Evening);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 10), year, Sunday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 16), year, Saturday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup3 + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 5, 4, 2, 4, 0, 0, 2, 4);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 14), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 24), year, Sunday, Afternoon, NationalStadium);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 21), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 31), year, Sunday, Afternoon, NationalStadium);
 		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 0, 2, 1, 0, 0, 0, 1, 0);
 
 		return (DWORD)pMem;
@@ -298,6 +354,6 @@ void setup_eng_league_1() {
 	WriteVTablePtr(eng_league_1_vtable, VTableFixtures, (DWORD)&eng_league_1_fixture_caller);
 	WriteVTablePtr(eng_league_1_vtable, VTableSetChampion, (DWORD)&eng_league_1_set_champion_c);
 	WriteVTablePtr(eng_league_1_vtable, VTableSubsRounds, (DWORD)&eng_league_1_subs_c);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(eng_league_1_vtable, VTable21, 0x4110b0);
-	if (configFile.GetBool("showPlayoffWinnerInHistory", true)) WriteVTablePtr(eng_league_1_vtable, VTable35, 0x404480);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(eng_league_1_vtable, VTableShowThirdInHistory, 0x4110b0);
+	if (configFile.GetBool("showPlayoffWinnerInHistory", true)) WriteVTablePtr(eng_league_1_vtable, VTableShowHostsInHistory, 0x404480);
 }

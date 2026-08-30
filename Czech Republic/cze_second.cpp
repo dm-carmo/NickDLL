@@ -317,7 +317,7 @@ void cze_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	cze_second_vtable->SetPointer(VTableInitFree, (DWORD)&cze_second_free_c);
 	cze_second_vtable->SetPointer(VTableTableFates, (DWORD)&cze_second_set_table_fate);
 	cze_second_vtable->SetPointer(VTableReputationCalc, (DWORD)&cze_second_reputation_calc_c);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) cze_second_vtable->SetPointer(VTable21, 0x4110b0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) cze_second_vtable->SetPointer(VTableShowThirdInHistory, 0x4110b0);
 	data->year = year;
 	data->rules = RulesCzech;
 	int loaded = sub_687B10(_this, 1);

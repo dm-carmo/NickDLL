@@ -13,19 +13,19 @@ enum VTablePointers {
 	VTableLeagueSplit = 6, // Related to leagues with a split at the end of the regular season (Scotland), similar to 11 below
 	VTable7 = 7,
 	VTable8 = 8,
-	VTable9 = 9,
-	VTable10 = 10,
+	VTableLoadCompInfo = 9, // Called when loading a save game
+	VTableSaveCompInfo = 10, // Called when saving a save game
 	VTablePlayoffQual = 11, // Creates any later stages in competitions when needed (playoffs etc)
 	VTable12 = 12,
 	VTableSetChampion = 13, // Called when competition finishes, creates history entry with winner
-	VTable14 = 14,
+	VTable14 = 14, // average points?
 	VTableClubLandmarks = 15, // Text that shows in "Competitions" club page (Winners, round they were eliminated in, etc)
 	VTableFixtures = 16, // Creates fixtures for the competition
 	VTable17 = 17,
 	VTableTableFates = 18, // Sets table information (champions, promoted etc)
 	VTableStageNews = 19, // Sends out news (champions, promoted etc)
 	VTable20 = 20,
-	VTable21 = 21, // returns AL=3 to show third-place teams in history, AL=2 only shows winner and runner-up
+	VTableShowThirdInHistory = 21, // returns AL=3 to show third-place teams in history, AL=2 only shows winner and runner-up
 	VTable22 = 22,
 	VTable23 = 23,
 	VTableReputationSetup = 24, // Called during setup and update, is connected to club reputation update
@@ -33,16 +33,16 @@ enum VTablePointers {
 	VTable26 = 26,
 	VTableReputationCalc = 27, // Called often throughout the season, is connected to club reputation update
 	VTable28 = 28,
-	VTable29 = 29,
-	VTable30 = 30,
-	VTable31 = 31,
-	VTable32 = 32,
+	VTable29 = 29, // sets initial expectations?
+	VTable30 = 30, // calculates board happiness based on final position?
+	VTableGetFinalsComp = 31, // returns the corresponding "finals" competition => for World Cup qualifiers, returns World Cup for example
+	VTable32 = 32, // used in original Australian NSL?
 	VTable33 = 33,
 	VTable34 = 34,
-	VTable35 = 35, // AL=1 to show hosts in comp history, AL=0 otherwise
+	VTableShowHostsInHistory = 35, // AL=1 to show hosts in comp history, AL=0 otherwise
 	VTableSubsRounds = 36, // Sets things such as: number of substitutes, number of promoted/relegated teams, etc
 	VTable37 = 37,
-	VTable38 = 38,
+	VTable38 = 38, // used in original Belgian Second Division?
 	VTable39 = 39, // affects board expectations regarding promotion?
 	VTable40 = 40, // affects board expectations regarding relegation?
 	VTableAwardTeamsSetup = 41, // For leagues with groups, gets all the teams in the league for award purposes

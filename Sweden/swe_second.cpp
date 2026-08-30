@@ -782,7 +782,7 @@ void setup_swe_second()
 	WriteVTablePtr(swe_second_vtable, VTableTableFates, (DWORD)&swe_second_set_table_fate);
 	WriteVTablePtr(swe_second_vtable, VTablePlayoffQual, (DWORD)&swe_second_playoffs_create_c);
 	WriteVTablePtr(swe_second_vtable, VTableSetChampion, (DWORD)&swe_second_set_champion_c);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(swe_second_vtable, VTable21, 0x4110b0);
-	WriteVTablePtr(swe_second_vtable, VTable9, 0x48ceb0);
-	WriteVTablePtr(swe_second_vtable, VTable10, 0x48cea0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(swe_second_vtable, VTableShowThirdInHistory, 0x4110b0);
+	WriteVTablePtr(swe_second_vtable, VTableLoadCompInfo, 0x48ceb0);
+	WriteVTablePtr(swe_second_vtable, VTableSaveCompInfo, 0x48cea0);
 }

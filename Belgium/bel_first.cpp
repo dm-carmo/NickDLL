@@ -1004,5 +1004,5 @@ void setup_bel_first()
 	WriteVTablePtr(bel_first_vtable, VTableEoSUpdate, (DWORD)&bel_first_update_c);
 	WriteVTablePtr(bel_first_vtable, VTableFixtures, (DWORD)&bel_first_fixtures_c);
 	WriteVTablePtr(bel_first_vtable, VTablePromRelUpdate, (DWORD)&bel_first_prom_rel_update_c);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(bel_first_vtable, VTable21, 0x4110b0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(bel_first_vtable, VTableShowThirdInHistory, 0x4110b0);
 }

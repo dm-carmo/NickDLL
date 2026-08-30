@@ -704,10 +704,10 @@ void african_nations_quals_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	african_nations_quals_vtable->SetPointer(VTableStageNews, (DWORD)&african_nations_quals_stage_news_c);
 	african_nations_quals_vtable->SetPointer(VTable29, (DWORD)&african_nations_quals_vtable29_c);
 	african_nations_quals_vtable->SetPointer(VTable30, (DWORD)&african_nations_quals_vtable30_c);
-	african_nations_quals_vtable->SetPointer(VTable31, (DWORD)&african_nations_quals_vtable31_c);
+	african_nations_quals_vtable->SetPointer(VTableGetFinalsComp, (DWORD)&african_nations_quals_vtable31_c);
 	african_nations_quals_vtable->SetPointer(VTableClubLandmarks, (DWORD)&african_nations_quals_landmarks_c);
-	african_nations_quals_vtable->SetPointer(VTable9, 0x48CEB0);
-	african_nations_quals_vtable->SetPointer(VTable10, 0x48CEA0);
+	african_nations_quals_vtable->SetPointer(VTableLoadCompInfo, 0x48CEB0);
+	african_nations_quals_vtable->SetPointer(VTableSaveCompInfo, 0x48CEA0);
 	data->comp_type = NATION_INTERNATIONAL;
 	data->promotes_to = -1;
 	data->relegates_to = -1;

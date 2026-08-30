@@ -208,8 +208,8 @@ void setup_bra_super()
 	WriteVTablePtr(bra_super_vtable, VTableLeagueSplit, 0x51F890);
 	WriteVTablePtr(bra_super_vtable, VTable7, 0x51FC00);
 	WriteVTablePtr(bra_super_vtable, VTable8, 0x5210F0);
-	WriteVTablePtr(bra_super_vtable, VTable9, 0x48CEB0);
-	WriteVTablePtr(bra_super_vtable, VTable10, 0x48CEA0);
+	WriteVTablePtr(bra_super_vtable, VTableLoadCompInfo, 0x48CEB0);
+	WriteVTablePtr(bra_super_vtable, VTableSaveCompInfo, 0x48CEA0);
 	WriteVTablePtr(bra_super_vtable, VTablePlayoffQual, 0x5A8F60);
 	WriteVTablePtr(bra_super_vtable, VTableSetChampion, 0x519A90);
 	WriteVTablePtr(bra_super_vtable, VTable17, 0x519690);

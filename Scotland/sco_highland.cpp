@@ -286,7 +286,7 @@ void sco_highland_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	sco_highland_vtable->SetPointer(VTableFixtures, (DWORD)&sco_highland_fixtures_c);
 	sco_highland_vtable->SetPointer(VTableSubsRounds, (DWORD)&sco_highland_subs_c);
 	sco_highland_vtable->SetPointer(VTableTableFates, (DWORD)&sco_highland_set_table_fate);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) sco_highland_vtable->SetPointer(VTable21, 0x4110b0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) sco_highland_vtable->SetPointer(VTableShowThirdInHistory, 0x4110b0);
 	data->year = year;
 	data->rules = RulesScotlandLeague;
 	int loaded = sub_687B10(_this, 1);

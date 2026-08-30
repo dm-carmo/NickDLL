@@ -1215,8 +1215,8 @@ void setup_african_nations() {
 	WriteVTablePtr(african_nations_vtable, VTable29, (DWORD)&african_nations_vtable29_c);
 	WriteVTablePtr(african_nations_vtable, VTable30, (DWORD)&african_nations_vtable30_c);
 	WriteVTablePtr(african_nations_vtable, VTableClubLandmarks, (DWORD)&african_nations_landmarks_c);
-	WriteVTablePtr(african_nations_vtable, VTable35, 0x404480);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(african_nations_vtable, VTable21, 0x4110b0);
+	WriteVTablePtr(african_nations_vtable, VTableShowHostsInHistory, 0x404480);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(african_nations_vtable, VTableShowThirdInHistory, 0x4110b0);
 
 	// third placed teams table
 	map<char*, char*> table = {

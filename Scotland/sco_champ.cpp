@@ -681,5 +681,5 @@ void setup_sco_champ()
 	WriteVTablePtr(sco_champ_vtable, VTableReputationCalc, (DWORD)&sco_champ_reputation_calc_c);
 	WriteVTablePtr(sco_champ_vtable, VTablePlayoffQual, (DWORD)&sco_champ_playoffs_create);
 	WriteVTablePtr(sco_champ_vtable, VTableTableFates, (DWORD)&sco_champ_set_table_fate);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(sco_champ_vtable, VTable21, 0x4110b0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(sco_champ_vtable, VTableShowThirdInHistory, 0x4110b0);
 }

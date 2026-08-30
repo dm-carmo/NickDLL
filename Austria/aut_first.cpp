@@ -376,7 +376,7 @@ void aut_first_subs(BYTE* _this)
 	comp_stats* comp_data = (comp_stats*)_this;
 
 	comp_data->n_rounds = 2;
-	*((DWORD*)(_this + 0xA7)) = 32; // total number of games each team will play
+	*((WORD*)(_this + 0xA7)) = 32; // total number of games each team will play
 	*((DWORD*)(_this + 0xA3)) = 0;
 	comp_data->pts_for_win = 3;
 	comp_data->pts_for_draw = 1;
@@ -477,7 +477,7 @@ char aut_first_update(BYTE* _this) {
 	data->current_stage = -1;
 	data->num_stages = 0;
 	data->stages = 0;
-	*((DWORD*)(_this + 0xA7)) = -1;
+	*((WORD*)(_this + 0xA7)) = -1;
 	aut_first_subs(_this);
 	AddTeams(_this);
 	data->prize_money_pool = SetupPrizeMoney(_this, prizeMoneyFile.GetInt("aut_first_prize_money"));
@@ -604,7 +604,7 @@ void aut_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	aut_first_vtable->SetPointer(VTableLeagueSplit, (DWORD)&aut_first_table_split_c);
 	aut_first_vtable->SetPointer(VTableStageNews, 0x7f3080); // Scotland stage news contains champ/rel group news
 	aut_first_vtable->SetPointer(VTablePromRelUpdate, (DWORD)&aut_first_prom_rel_update_c);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) aut_first_vtable->SetPointer(VTable21, 0x4110b0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) aut_first_vtable->SetPointer(VTableShowThirdInHistory, 0x4110b0);
 	data->year = year;
 	data->rules = RulesAustria;
 	int loaded = sub_687B10(_this, 1);

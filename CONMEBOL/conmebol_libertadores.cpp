@@ -1023,8 +1023,8 @@ void setup_conmebol_libertadores() {
 	WriteVTablePtr(conmebol_libertadores_vtable, VTableLeagueSplit, 0x51F890);
 	WriteVTablePtr(conmebol_libertadores_vtable, VTable7, 0x51FC00);
 	WriteVTablePtr(conmebol_libertadores_vtable, VTable8, 0x5210F0);
-	WriteVTablePtr(conmebol_libertadores_vtable, VTable9, 0x48CEB0);
-	WriteVTablePtr(conmebol_libertadores_vtable, VTable10, 0x48CEA0);
+	WriteVTablePtr(conmebol_libertadores_vtable, VTableLoadCompInfo, 0x48CEB0);
+	WriteVTablePtr(conmebol_libertadores_vtable, VTableSaveCompInfo, 0x48CEA0);
 	WriteVTablePtr(conmebol_libertadores_vtable, VTable17, 0x519690);
 	WriteVTablePtr(conmebol_libertadores_vtable, VTable22, 0x5221F0);
 	WriteVTablePtr(conmebol_libertadores_vtable, VTable33, 0x522910);

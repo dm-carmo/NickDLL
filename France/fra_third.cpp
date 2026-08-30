@@ -463,6 +463,6 @@ void setup_fra_third()
 	WriteVTablePtr(fra_third_vtable, VTableSetChampion, (DWORD)&fra_third_set_champion_c);
 	WriteVTablePtr(fra_third_vtable, VTableReputationCalc, (DWORD)&fra_third_reputation_calc_c);
 	WriteVTablePtr(fra_third_vtable, VTableInitFree, (DWORD)&fra_third_free_c);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(fra_third_vtable, VTable21, 0x4110b0);
-	if (configFile.GetBool("showPlayoffWinnerInHistory", true)) WriteVTablePtr(fra_third_vtable, VTable35, 0x404480);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(fra_third_vtable, VTableShowThirdInHistory, 0x4110b0);
+	if (configFile.GetBool("showPlayoffWinnerInHistory", true)) WriteVTablePtr(fra_third_vtable, VTableShowHostsInHistory, 0x404480);
 }

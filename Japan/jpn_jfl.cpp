@@ -300,7 +300,7 @@ void jpn_jfl_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	jpn_jfl_vtable->SetPointer(VTableInitFree, (DWORD)&jpn_jfl_free_c);
 	jpn_jfl_vtable->SetPointer(VTableTableFates, (DWORD)&jpn_jfl_set_table_fate);
 	jpn_jfl_vtable->SetPointer(VTableReputationCalc, (DWORD)&jpn_jfl_reputation_calc_c);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) jpn_jfl_vtable->SetPointer(VTable21, 0x4110b0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) jpn_jfl_vtable->SetPointer(VTableShowThirdInHistory, 0x4110b0);
 	data->year = year;
 	data->rules = RulesJapanLeague;
 	int loaded = sub_687B10(_this, 1);

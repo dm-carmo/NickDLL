@@ -650,6 +650,6 @@ void setup_pol_second()
 	WriteVTablePtr(pol_second_vtable, VTablePlayoffQual, (DWORD)&pol_second_playoffs_create);
 	WriteVTablePtr(pol_second_vtable, VTableTableFates, (DWORD)&pol_second_set_table_fate);
 	WriteVTablePtr(pol_second_vtable, VTableSetChampion, (DWORD)&pol_second_set_champion_c);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(pol_second_vtable, VTable21, 0x4110b0);
-	if (configFile.GetBool("showPlayoffWinnerInHistory", true)) WriteVTablePtr(pol_second_vtable, VTable35, 0x404480);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(pol_second_vtable, VTableShowThirdInHistory, 0x4110b0);
+	if (configFile.GetBool("showPlayoffWinnerInHistory", true)) WriteVTablePtr(pol_second_vtable, VTableShowHostsInHistory, 0x404480);
 }

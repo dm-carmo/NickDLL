@@ -603,7 +603,7 @@ void bel_fourth_ac_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	bel_fourth_ac_vtable->SetPointer(VTableReputationCalc, (DWORD)&bel_fourth_ac_reputation_calc_c);
 	bel_fourth_ac_vtable->SetPointer(VTablePlayoffQual, (DWORD)&bel_fourth_ac_playoffs_create);
 	bel_fourth_ac_vtable->SetPointer(VTableSetChampion, (DWORD)&bel_fourth_ac_set_champion_c);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) bel_fourth_ac_vtable->SetPointer(VTable21, 0x4110b0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) bel_fourth_ac_vtable->SetPointer(VTableShowThirdInHistory, 0x4110b0);
 	data->year = year;
 	data->rules = RulesBelgiumLeague;
 	int loaded = sub_687B10(_this, 1);

@@ -223,7 +223,7 @@ void wal_first_s_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	wal_first_s_vtable->SetPointer(VTableEoSUpdate, (DWORD)&wal_first_s_update_c);
 	wal_first_s_vtable->SetPointer(VTableFixtures, (DWORD)&wal_first_s_fixtures_c);
 	wal_first_s_vtable->SetPointer(VTableSubsRounds, (DWORD)&wal_first_s_subs_c);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) wal_first_s_vtable->SetPointer(VTable21, 0x4110b0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) wal_first_s_vtable->SetPointer(VTableShowThirdInHistory, 0x4110b0);
 	data->year = year;
 	data->rules = RulesWales;
 	int loaded = sub_687B10(_this, 1);

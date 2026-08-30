@@ -388,7 +388,7 @@ void gre_cup_group_stage_setup(BYTE* _this) {
 	create_league_stage_data(pStage, _this, group_teams, pTeams, 0, (DWORD)(data->competition_db), 0, num_rounds,
 		3, 1, 2, &tiebreaks[0], &prom_rel[0], year, stage_num, stage_name_id, data->f81, 1, 0, 0x28, -1, 0, 2);
 
-	*((DWORD*)(pStage + 0xA7)) = num_rounds;
+	*((WORD*)(pStage + 0xA7)) = num_rounds;
 	comp_stats* stage_data = (comp_stats*)pStage;
 	char matchups[16][4] = {
 		{6,-15,11,-4},
@@ -929,8 +929,8 @@ void setup_gre_cup()
 	WriteVTablePtr(gre_cup_vtable, VTableLeagueSplit, 0x51F890);
 	WriteVTablePtr(gre_cup_vtable, VTable7, 0x51FC00);
 	WriteVTablePtr(gre_cup_vtable, VTable8, 0x5210F0);
-	WriteVTablePtr(gre_cup_vtable, VTable9, 0x48CEB0);
-	WriteVTablePtr(gre_cup_vtable, VTable10, 0x48CEA0);
+	WriteVTablePtr(gre_cup_vtable, VTableLoadCompInfo, 0x48CEB0);
+	WriteVTablePtr(gre_cup_vtable, VTableSaveCompInfo, 0x48CEA0);
 	WriteVTablePtr(gre_cup_vtable, VTable17, 0x519690);
 	WriteVTablePtr(gre_cup_vtable, VTable22, 0x5221F0);
 	WriteVTablePtr(gre_cup_vtable, VTable32, 0x48F2D0);

@@ -420,7 +420,7 @@ void sco_challenge_cup_setup_league_stage(BYTE* _this) {
 	WORD stage_name_id = 0;
 	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, int, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, -1, &num_rounds, &stage_name_id, 0);
 	data->n_games = stage_name_id;
-	*((DWORD*)(_this + 0xA7)) = num_rounds;
+	*((WORD*)(_this + 0xA7)) = num_rounds;
 
 	for (BYTE m = 0; m < 6; m++) {
 		BYTE* ptr_last = (BYTE*)(pFixtures + fixture_dates_sz * 5);

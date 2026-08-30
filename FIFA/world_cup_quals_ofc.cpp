@@ -91,11 +91,11 @@ DWORD world_cup_quals_ofc_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds
 		WORD r1_teams = num_teams - num_teams % 2;
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 1), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 6), year, Friday, Afternoon);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 27), year, Friday, Afternoon);
 		FillFixtureDetails(pMem, fixture_id++, FirstStage, 0, ExtraTimePenalties_1, NoTiebreak_2, 10, r1_teams, r1_teams / 2, r1_teams, 0, 0, 1, 0);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 7), year, Saturday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 9), year, Monday, Afternoon);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 28), year, Saturday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 30), year, Monday, Afternoon);
 		FillFixtureDetails(pMem, fixture_id++, SecondStage, 0, ExtraTimePenalties_1, NoTiebreak_2, 10, 2, 1, num_teams - r1_teams, r1_teams == num_teams ? 0 : r1_teams, 0, 1, 0);
 
 		return (DWORD)pMem;
@@ -112,12 +112,12 @@ DWORD world_cup_quals_ofc_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds
 
 		int fixture_id = 0;
 		if (stage_idx == 0) {
-			AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 10), year, Thursday, Afternoon);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 3), year, Thursday, Afternoon);
 			AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 14), year, Thursday, Afternoon);
 			AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 17), year, Saturday, Afternoon);
 		}
 		else {
-			AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 11), year, Friday, Afternoon);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 4), year, Friday, Afternoon);
 			AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 15), year, Friday, Afternoon);
 			AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 18), year, Sunday, Afternoon);
 		}
@@ -877,8 +877,8 @@ void setup_world_cup_quals_ofc() {
 	WriteVTablePtr(world_cup_quals_ofc_vtable, VTable5, 0x521E00);
 	WriteVTablePtr(world_cup_quals_ofc_vtable, VTable7, 0x51FC00);
 	WriteVTablePtr(world_cup_quals_ofc_vtable, VTable8, 0x5210F0);
-	WriteVTablePtr(world_cup_quals_ofc_vtable, VTable9, 0x48CEB0);
-	WriteVTablePtr(world_cup_quals_ofc_vtable, VTable10, 0x48CEA0);
+	WriteVTablePtr(world_cup_quals_ofc_vtable, VTableLoadCompInfo, 0x48CEB0);
+	WriteVTablePtr(world_cup_quals_ofc_vtable, VTableSaveCompInfo, 0x48CEA0);
 	WriteVTablePtr(world_cup_quals_ofc_vtable, VTable17, 0x519690);
 	WriteVTablePtr(world_cup_quals_ofc_vtable, VTable22, 0x5221F0);
 	WriteVTablePtr(world_cup_quals_ofc_vtable, VTable33, 0x522910);

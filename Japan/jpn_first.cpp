@@ -472,5 +472,5 @@ void setup_jpn_first()
 	WriteVTablePtr(jpn_first_vtable, VTableStageNews, 0x48c6d0);
 	WriteVTablePtr(jpn_first_vtable, VTableReputationCalc, 0x48e380);
 	WriteVTablePtr(jpn_first_vtable, VTable37, 0x68aad0);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(jpn_first_vtable, VTable21, 0x4110b0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(jpn_first_vtable, VTableShowThirdInHistory, 0x4110b0);
 }

@@ -85,7 +85,7 @@ void world_cup_quals_caf_subs(BYTE* _this)
 	comp_data->promotes_to = -1;
 	comp_data->relegates_to = -1;
 
-	*((DWORD*)(_this + 0xA7)) = -1;
+	*((WORD*)(_this + 0xA7)) = -1;
 	comp_data->max_bench = 7;
 	comp_data->max_subs = 3;
 
@@ -123,18 +123,18 @@ DWORD world_cup_quals_caf_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds
 		pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 16), year, Thursday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 21), year, Tuesday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 9), year, Thursday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 14), year, Tuesday, Afternoon);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 6, 6), year, Thursday, Afternoon);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 6, 11), year, Tuesday, Afternoon);
 		//AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 14), year, Thursday, Afternoon);
 		//AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 19), year, Tuesday, Afternoon);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 2, 3, 20), year, Thursday, Afternoon);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 2, 3, 25), year, Tuesday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 2, 9, 4), year, Thursday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 2, 9, 9), year, Tuesday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 2, 10, 9), year, Thursday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 2, 10, 14), year, Tuesday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 2, 9, 23), year, Thursday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 2, 9, 26), year, Sunday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 2, 9, 29), year, Wednesday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 2, 10, 3), year, Sunday, Afternoon);
 
 		return (DWORD)pMem;
 	}
@@ -150,7 +150,7 @@ DWORD world_cup_quals_caf_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds
 		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 2, 10, 15), year, Wednesday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 2, 10, 4), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 2, 11, 13), year, Thursday, Afternoon);
 		FillFixtureDetails(pMem, fixture_id++, FirstStage, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 10, 4, 2, 4, 0, 0, 1, 0);
 
@@ -181,7 +181,7 @@ void __declspec(naked) world_cup_quals_caf_fixture_caller()
 
 char world_cup_quals_caf_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
-	*((DWORD*)(_this + 0xA7)) = -1;
+	*((WORD*)(_this + 0xA7)) = -1;
 	data->f76 = 0;
 	sub_687970(_this, 0);
 	if (data->fixtures_table) {
@@ -1010,8 +1010,8 @@ void setup_world_cup_quals_caf() {
 	WriteVTablePtr(world_cup_quals_caf_vtable, VTable30, (DWORD)&world_cup_quals_caf_vtable30_c);
 	WriteVTablePtr(world_cup_quals_caf_vtable, VTableClubLandmarks, (DWORD)&world_cup_quals_caf_landmarks_c);
 
-	WriteVTablePtr(world_cup_quals_caf_vtable, VTable9, 0x48CEB0);
-	WriteVTablePtr(world_cup_quals_caf_vtable, VTable10, 0x48CEA0);
+	WriteVTablePtr(world_cup_quals_caf_vtable, VTableLoadCompInfo, 0x48CEB0);
+	WriteVTablePtr(world_cup_quals_caf_vtable, VTableSaveCompInfo, 0x48CEA0);
 
 	WriteVTablePtr(world_cup_quals_caf_vtable, VTableSubsRounds, (DWORD)&world_cup_quals_caf_subs_c);
 

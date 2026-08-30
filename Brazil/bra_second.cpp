@@ -531,6 +531,6 @@ void setup_bra_second()
 	WriteVTablePtr(bra_second_vtable, VTablePlayoffQual, (DWORD)&bra_second_playoffs_create);
 	WriteVTablePtr(bra_second_vtable, VTableTableFates, (DWORD)&bra_second_set_table_fate);
 	WriteVTablePtr(bra_second_vtable, VTable37, 0x68aad0);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(bra_second_vtable, VTable21, 0x4110b0);
-	if (configFile.GetBool("showPlayoffWinnerInHistory", true)) WriteVTablePtr(bra_second_vtable, VTable35, 0x404480);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(bra_second_vtable, VTableShowThirdInHistory, 0x4110b0);
+	if (configFile.GetBool("showPlayoffWinnerInHistory", true)) WriteVTablePtr(bra_second_vtable, VTableShowHostsInHistory, 0x404480);
 }

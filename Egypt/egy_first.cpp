@@ -449,7 +449,7 @@ char egy_first_update(BYTE* _this) {
 	}
 	data->year++;
 	data->current_stage = -1;
-	*((DWORD*)(_this + 0xA7)) = -1;
+	*((WORD*)(_this + 0xA7)) = -1;
 	egy_first_subs(_this);
 	AddTeams(_this);
 	data->prize_money_pool = SetupPrizeMoney(_this, prizeMoneyFile.GetInt("egy_first_prize_money"));
@@ -489,7 +489,7 @@ void egy_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	egy_first_vtable->SetPointer(VTableEoSUpdate, (DWORD)&egy_first_update_c);
 	egy_first_vtable->SetPointer(VTableFixtures, (DWORD)&egy_first_fixtures_c);
 	egy_first_vtable->SetPointer(VTablePromRelUpdate, (DWORD)&egy_first_prom_rel_update_c);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) egy_first_vtable->SetPointer(VTable21, 0x4110b0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) egy_first_vtable->SetPointer(VTableShowThirdInHistory, 0x4110b0);
 	data->year = year;
 	data->rules = RulesEgypt;
 	int loaded = sub_687B10(_this, 1);

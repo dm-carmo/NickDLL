@@ -686,6 +686,6 @@ void setup_hol_second()
 	WriteVTablePtr(hol_second_vtable, VTableTableFates, (DWORD)&hol_second_set_table_fate);
 	WriteVTablePtr(hol_second_vtable, VTableSetChampion, (DWORD)&hol_second_set_champion_c);
 	WriteVTablePtr(hol_second_vtable, VTableStageNews, 0x48c6d0);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(hol_second_vtable, VTable21, 0x4110b0);
-	if (configFile.GetBool("showPlayoffWinnerInHistory", true)) WriteVTablePtr(hol_second_vtable, VTable35, 0x404480);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(hol_second_vtable, VTableShowThirdInHistory, 0x4110b0);
+	if (configFile.GetBool("showPlayoffWinnerInHistory", true)) WriteVTablePtr(hol_second_vtable, VTableShowHostsInHistory, 0x404480);
 }

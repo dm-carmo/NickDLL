@@ -559,8 +559,8 @@ void chi_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	chi_first_vtable->SetPointer(VTableReputationCalc, (DWORD)&chi_first_reputation_calc_c);
 	chi_first_vtable->SetPointer(VTablePlayoffQual, (DWORD)&chi_first_playoffs_create);
 	chi_first_vtable->SetPointer(VTableSetChampion, (DWORD)&chi_first_set_champion_c);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) chi_first_vtable->SetPointer(VTable21, 0x4110b0);
-	if (configFile.GetBool("showPlayoffWinnerInHistory", true)) chi_first_vtable->SetPointer(VTable35, 0x404480);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) chi_first_vtable->SetPointer(VTableShowThirdInHistory, 0x4110b0);
+	if (configFile.GetBool("showPlayoffWinnerInHistory", true)) chi_first_vtable->SetPointer(VTableShowHostsInHistory, 0x404480);
 	data->year = year;
 	data->rules = RulesChile;
 	int loaded = sub_687B10(_this, 1);

@@ -694,5 +694,5 @@ void setup_por_second()
 	WriteVTablePtr(por_second_vtable, VTableReputationCalc, (DWORD)&por_second_reputation_calc_c);
 	WriteVTablePtr(por_second_vtable, VTablePlayoffQual, (DWORD)&por_second_playoffs_create);
 	WriteVTablePtr(por_second_vtable, VTableTableFates, (DWORD)&por_second_set_table_fate);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(por_second_vtable, VTable21, 0x4110b0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(por_second_vtable, VTableShowThirdInHistory, 0x4110b0);
 }

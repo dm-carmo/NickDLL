@@ -229,8 +229,8 @@ void setup_wal_league_cup()
 	WriteVTablePtr(wal_league_cup_vtable, VTableLeagueSplit, 0x51F890);
 	WriteVTablePtr(wal_league_cup_vtable, VTable7, 0x51FC00);
 	WriteVTablePtr(wal_league_cup_vtable, VTable8, 0x5210F0);
-	WriteVTablePtr(wal_league_cup_vtable, VTable9, 0x48CEB0);
-	WriteVTablePtr(wal_league_cup_vtable, VTable10, 0x48CEA0);
+	WriteVTablePtr(wal_league_cup_vtable, VTableLoadCompInfo, 0x48CEB0);
+	WriteVTablePtr(wal_league_cup_vtable, VTableSaveCompInfo, 0x48CEA0);
 	WriteVTablePtr(wal_league_cup_vtable, VTablePlayoffQual, 0x5A8F60);
 	WriteVTablePtr(wal_league_cup_vtable, VTableSetChampion, 0x519A90);
 	WriteVTablePtr(wal_league_cup_vtable, VTable17, 0x519690);

@@ -876,5 +876,5 @@ void setup_swe_premier()
 	WriteVTablePtr(swe_premier_vtable, VTablePlayoffQual, (DWORD)&swe_premier_playoffs_create);
 	WriteVTablePtr(swe_premier_vtable, VTableTableFates, (DWORD)&swe_premier_set_table_fate);
 	WriteVTablePtr(swe_premier_vtable, VTablePromRelUpdate, (DWORD)&swe_premier_prom_rel_update_c);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(swe_premier_vtable, VTable21, 0x4110b0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(swe_premier_vtable, VTableShowThirdInHistory, 0x4110b0);
 }

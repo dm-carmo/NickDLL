@@ -621,8 +621,8 @@ void pol_third_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	pol_third_vtable->SetPointer(VTableReputationCalc, (DWORD)&pol_third_reputation_calc_c);
 	pol_third_vtable->SetPointer(VTablePlayoffQual, (DWORD)&pol_third_playoffs_create);
 	pol_third_vtable->SetPointer(VTableSetChampion, (DWORD)&pol_third_set_champion_c);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) pol_third_vtable->SetPointer(VTable21, 0x4110b0);
-	if (configFile.GetBool("showPlayoffWinnerInHistory", true)) pol_third_vtable->SetPointer(VTable35, 0x404480);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) pol_third_vtable->SetPointer(VTableShowThirdInHistory, 0x4110b0);
+	if (configFile.GetBool("showPlayoffWinnerInHistory", true)) pol_third_vtable->SetPointer(VTableShowHostsInHistory, 0x404480);
 	data->year = year;
 	data->rules = RulesPoland;
 	int loaded = sub_687B10(_this, 1);

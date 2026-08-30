@@ -1058,10 +1058,10 @@ void setup_euro_champ() {
 	WriteVTablePtr(euro_champ_vtable, VTableStageNews, (DWORD)&euro_champ_stage_news_c);
 	WriteVTablePtr(euro_champ_vtable, VTable29, (DWORD)&euro_champ_vtable29_c);
 	WriteVTablePtr(euro_champ_vtable, VTable30, (DWORD)&euro_champ_vtable30_c);
-	WriteVTablePtr(euro_champ_vtable, VTable35, 0x404480);
+	WriteVTablePtr(euro_champ_vtable, VTableShowHostsInHistory, 0x404480);
 
-	WriteVTablePtr(euro_champ_vtable, VTable9, 0x48CEB0);
-	WriteVTablePtr(euro_champ_vtable, VTable10, 0x48CEA0);
+	WriteVTablePtr(euro_champ_vtable, VTableLoadCompInfo, 0x48CEB0);
+	WriteVTablePtr(euro_champ_vtable, VTableSaveCompInfo, 0x48CEA0);
 
 	// third placed teams table
 	map<char*, char*> table = {

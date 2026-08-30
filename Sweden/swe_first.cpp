@@ -622,5 +622,5 @@ void setup_swe_first()
 	WriteVTablePtr(swe_first_vtable, VTableReputationCalc, (DWORD)&swe_first_reputation_calc_c);
 	WriteVTablePtr(swe_first_vtable, VTablePlayoffQual, (DWORD)&swe_first_playoffs_create);
 	WriteVTablePtr(swe_first_vtable, VTableTableFates, (DWORD)&swe_first_set_table_fate);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(swe_first_vtable, VTable21, 0x4110b0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(swe_first_vtable, VTableShowThirdInHistory, 0x4110b0);
 }

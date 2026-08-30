@@ -131,12 +131,12 @@ DWORD world_cup_quals_uefa_fixtures(BYTE* _this, char stage_idx, WORD* num_round
 		pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		if (*num_rounds > 4) AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 4), year, Thursday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 9), year, Tuesday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 9), year, Thursday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 14), year, Tuesday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 16), year, Thursday, Afternoon);
-		if (*num_rounds > 4) AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 21), year, Tuesday, Afternoon);
+		 if (*num_rounds > 4) AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 23), year, Thursday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 26), year, Sunday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 29), year, Wednesday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 3), year, Sunday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 11), year, Wednesday, Afternoon);
+		if (*num_rounds > 4) AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 14), year, Saturday, Afternoon);
 
 		return (DWORD)pMem;
 	}
@@ -158,16 +158,16 @@ DWORD world_cup_quals_uefa_fixtures(BYTE* _this, char stage_idx, WORD* num_round
 		WORD teams_r2 = total_teams - teams_r1 / 2;
 
 		int fixture_id = 0;
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 22), year, Wednesday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 24), year, Thursday, Afternoon);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 15), year, Sunday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 23), year, Thursday, Afternoon);
 		if (num_hosts == 1)
 			FillFixtureDetails(pMem, fixture_id++, num_hosts == 1 ? Final : SemiFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 10, teams_r1, teams_r1 / 2, teams_r1, 0, 0, 2, 5);
 		else
 			FillFixtureDetails(pMem, fixture_id++, num_hosts == 1 ? Final : SemiFinal, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 10, teams_r1, teams_r1 / 2, teams_r1, 0, 0, 1, 0);
 
 		if (num_hosts != 1) {
-			AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 25), year, Friday);
-			AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 29), year, Tuesday, Afternoon);
+			AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 24), year, Friday);
+			AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 28), year, Tuesday, Afternoon);
 			FillFixtureDetails(pMem, fixture_id++, Final, 0, FixedTeamOrderInCup3 + ExtraTimePenalties_1, NoTiebreak_2, 10, teams_r2, teams_r2 / 2, total_teams - teams_r1, teams_r1 * (total_teams != teams_r1), 0, 1, 0);
 		}
 
@@ -194,7 +194,7 @@ void __declspec(naked) world_cup_quals_uefa_fixture_caller()
 
 char world_cup_quals_uefa_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
-	*((DWORD*)(_this + 0xA7)) = -1;
+	*((WORD*)(_this + 0xA7)) = -1;
 	data->f76 = 0;
 	sub_687970(_this, 0);
 	if (data->fixtures_table) {
@@ -440,7 +440,7 @@ void world_quals_uefa_create_league_a_matchups(BYTE* _this, BYTE* stage, vector<
 	WORD stage_name_id = 0;
 	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, int, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, idx, &num_rounds, &stage_name_id, 0);
 	*((WORD*)(stage + 0x3A)) = stage_name_id;
-	*((DWORD*)(stage + 0xA7)) = num_rounds;
+	*((WORD*)(stage + 0xA7)) = num_rounds;
 
 	for (BYTE m = 0; m < 6; m++) {
 		BYTE* ptr_last = (BYTE*)(pFixtures + fixture_dates_sz * 5);
@@ -592,7 +592,7 @@ void world_cup_quals_uefa_setup_groups_b(BYTE* _this, BYTE idx) {
 			data->pts_for_win, data->pts_for_draw, data->f196, &data->tiebreaker_1, &prom_rel[0],
 			year, idx, stage_name_id, data->f81, 2, 0, data->f217, -1, 0, 2);
 
-		*((DWORD*)(pStage + 0xA7)) = num_rounds;
+		*((WORD*)(pStage + 0xA7)) = num_rounds;
 		comp_stats* stage_data = (comp_stats*)pStage;
 
 		char matchups[6][6] = {
@@ -1339,8 +1339,8 @@ void setup_world_cup_quals_uefa() {
 	WriteVTablePtr(world_cup_quals_uefa_vtable, VTable30, (DWORD)&world_cup_quals_uefa_vtable30_c);
 	WriteVTablePtr(world_cup_quals_uefa_vtable, VTableClubLandmarks, (DWORD)&world_cup_quals_uefa_landmarks_c);
 
-	WriteVTablePtr(world_cup_quals_uefa_vtable, VTable9, 0x48CEB0);
-	WriteVTablePtr(world_cup_quals_uefa_vtable, VTable10, 0x48CEA0);
+	WriteVTablePtr(world_cup_quals_uefa_vtable, VTableLoadCompInfo, 0x48CEB0);
+	WriteVTablePtr(world_cup_quals_uefa_vtable, VTableSaveCompInfo, 0x48CEA0);
 
 	WriteVTablePtr(world_cup_quals_uefa_vtable, VTableSubsRounds, (DWORD)&world_cup_quals_uefa_subs_c);
 

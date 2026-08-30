@@ -579,6 +579,6 @@ void setup_ita_ser_b()
 	WriteVTablePtr(ita_ser_b_vtable, VTableReputationCalc, (DWORD)&ita_ser_b_reputation_calc_c);
 	WriteVTablePtr(ita_ser_b_vtable, VTableTableFates, (DWORD)&ita_ser_b_set_table_fate);
 	WriteVTablePtr(ita_ser_b_vtable, VTableSetChampion, (DWORD)&ita_ser_b_set_champion_c);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(ita_ser_b_vtable, VTable21, 0x4110b0);
-	if (configFile.GetBool("showPlayoffWinnerInHistory", true)) WriteVTablePtr(ita_ser_b_vtable, VTable35, 0x404480);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(ita_ser_b_vtable, VTableShowThirdInHistory, 0x4110b0);
+	if (configFile.GetBool("showPlayoffWinnerInHistory", true)) WriteVTablePtr(ita_ser_b_vtable, VTableShowHostsInHistory, 0x404480);
 }

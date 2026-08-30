@@ -816,5 +816,5 @@ void setup_arg_second()
 	WriteVTablePtr(arg_second_vtable, VTable14, 0x583470);
 	WriteVTablePtr(arg_second_vtable, VTableStageNews, 0x48c6d0);
 	WriteVTablePtr(arg_second_vtable, VTable39, 0x404480);
-	if (configFile.GetBool("showPlayoffWinnerInHistory", true)) WriteVTablePtr(arg_second_vtable, VTable35, 0x404480);
+	if (configFile.GetBool("showPlayoffWinnerInHistory", true)) WriteVTablePtr(arg_second_vtable, VTableShowHostsInHistory, 0x404480);
 }

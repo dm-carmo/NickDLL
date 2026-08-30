@@ -226,7 +226,7 @@ void nir_second_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	nir_second_vtable->SetPointer(VTableEoSUpdate, (DWORD)&nir_second_update_c);
 	nir_second_vtable->SetPointer(VTableFixtures, (DWORD)&nir_second_fixtures_c);
 	nir_second_vtable->SetPointer(VTableSubsRounds, (DWORD)&nir_second_subs_c);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) nir_second_vtable->SetPointer(VTable21, 0x4110b0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) nir_second_vtable->SetPointer(VTableShowThirdInHistory, 0x4110b0);
 	data->year = year;
 	data->rules = RulesNorthernIreland;
 	int loaded = sub_687B10(_this, 1);

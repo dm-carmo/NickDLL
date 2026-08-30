@@ -1058,7 +1058,7 @@ void setup_asian_cup() {
 	WriteVTablePtr(asian_cup_vtable, VTableStageNews, (DWORD)&asian_cup_stage_news_c);
 	WriteVTablePtr(asian_cup_vtable, VTable29, (DWORD)&asian_cup_vtable29_c);
 	WriteVTablePtr(asian_cup_vtable, VTable30, (DWORD)&asian_cup_vtable30_c);
-	WriteVTablePtr(asian_cup_vtable, VTable35, 0x404480);
+	WriteVTablePtr(asian_cup_vtable, VTableShowHostsInHistory, 0x404480);
 
 	// third placed teams table
 	map<char*, char*> table = {

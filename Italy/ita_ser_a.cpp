@@ -521,5 +521,5 @@ void setup_ita_ser_a()
 	WriteVTablePtr(ita_ser_a_vtable, VTablePromRelUpdate, (DWORD)&ita_ser_a_prom_rel_update_c);
 	WriteVTablePtr(ita_ser_a_vtable, VTableFixtures, (DWORD)&ita_ser_a_fixtures_c);
 	WriteVTablePtr(ita_ser_a_vtable, VTableSubsRounds, (DWORD)&ita_ser_a_subs_c);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(ita_ser_a_vtable, VTable21, 0x4110b0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(ita_ser_a_vtable, VTableShowThirdInHistory, 0x4110b0);
 }

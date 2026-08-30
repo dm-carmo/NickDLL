@@ -271,5 +271,5 @@ void setup_ita_c_supercup()
 	WriteVTablePtr(ita_c_supercup_vtable, VTableFixtures, (DWORD)&ita_c_supercup_fixtures_c);
 	WriteVTablePtr(ita_c_supercup_vtable, VTableSubsRounds, (DWORD)&ita_c_supercup_subs_c);
 	WriteVTablePtr(ita_c_supercup_vtable, VTableTableFates, 0x686940);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(ita_c_supercup_vtable, VTable21, 0x4110b0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(ita_c_supercup_vtable, VTableShowThirdInHistory, 0x4110b0);
 }

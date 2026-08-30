@@ -414,7 +414,7 @@ void sui_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	sui_first_vtable->SetPointer(VTableInitFree, (DWORD)&sui_first_free_c);
 	sui_first_vtable->SetPointer(VTableTableFates, (DWORD)&sui_first_set_table_fate);
 	sui_first_vtable->SetPointer(VTableReputationCalc, (DWORD)&sui_first_reputation_calc_c);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) sui_first_vtable->SetPointer(VTable21, 0x4110b0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) sui_first_vtable->SetPointer(VTableShowThirdInHistory, 0x4110b0);
 	data->year = year;
 	data->rules = RulesSwitzerland;
 	int loaded = sub_687B10(_this, 1);

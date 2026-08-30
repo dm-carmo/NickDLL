@@ -953,5 +953,5 @@ void setup_ger_first()
 	WriteVTablePtr(ger_first_vtable, VTablePlayoffQual, (DWORD)&ger_first_playoffs_create);
 	WriteVTablePtr(ger_first_vtable, VTableTableFates, (DWORD)&ger_first_set_table_fate);
 	WriteVTablePtr(ger_first_vtable, VTablePromRelUpdate, (DWORD)&ger_first_prom_rel_update_c);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(ger_first_vtable, VTable21, 0x4110b0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(ger_first_vtable, VTableShowThirdInHistory, 0x4110b0);
 }

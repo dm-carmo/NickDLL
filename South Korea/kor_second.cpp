@@ -626,7 +626,7 @@ void kor_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	kor_second_vtable->SetPointer(VTableTableFates, (DWORD)&kor_second_set_table_fate);
 	kor_second_vtable->SetPointer(VTableReputationCalc, (DWORD)&kor_second_reputation_calc_c);
 	kor_second_vtable->SetPointer(VTableSetChampion, (DWORD)&kor_second_set_champion_c);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) kor_second_vtable->SetPointer(VTable21, 0x4110b0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) kor_second_vtable->SetPointer(VTableShowThirdInHistory, 0x4110b0);
 	data->year = year;
 	data->rules = RulesSouthKorea;
 	int loaded = sub_687B10(_this, 1);

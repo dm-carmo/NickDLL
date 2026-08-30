@@ -98,7 +98,7 @@ void spa_fourth_subs(BYTE* _this)
 	comp_data->f82 = 2;
 	comp_data->promotions = 1;
 	comp_data->prom_playoff = 4;
-	comp_data->rele_playoff = 0;
+	comp_data->rele_playoff = 1;
 	comp_data->relegations = 5;
 
 	comp_data->promotes_to = SPA_THIRD_9CF();
@@ -452,8 +452,23 @@ void spa_fourth_playoffs_rele(BYTE* _this) {
 
 	vector<cm3_clubs*> clubs;
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
+	team_league_stats worst = sort_worst[0];
+	curr_stage = comp_data;
+	for (char al = -1; al < 4; al++) {
+		if (al >= 0) {
+			curr_stage = (comp_stats*)(comp_data->stages[al]);
+		}
+		WORD total_teams = curr_stage->n_teams;
+		WORD rel_pl_pos = total_teams - curr_stage->relegations - 1;
+		team_league_stats* table_teams = (team_league_stats*)(curr_stage->team_league_table);
+		team_league_stats tls = table_teams[rel_pl_pos];
+		if (tls.club == worst.club) {
+			table_teams[rel_pl_pos].league_fate = Eliminated;
+			curr_stage->rele_playoff--;
+		}
+	}
 	for (int i = 1; i < 5; i++) {
-		team_league_stats worst = sort_worst[i];
+		worst = sort_worst[i];
 		clubs.push_back(worst.club);
 		curr_stage = comp_data;
 		for (char al = -1; al < 4; al++) {
@@ -465,8 +480,6 @@ void spa_fourth_playoffs_rele(BYTE* _this) {
 			team_league_stats* table_teams = (team_league_stats*)(curr_stage->team_league_table);
 			team_league_stats tls = table_teams[rel_pl_pos];
 			if (tls.club == worst.club) {
-				table_teams[rel_pl_pos].league_fate = BottomPlayoff;
-				curr_stage->rele_playoff++;
 				staff_history_qualified_86BDD0(staff_hist_ptr, tls.club, (DWORD)(comp_data->competition_db), None, RelegationPlayoff, 0x1E);
 			}
 		}
@@ -530,7 +543,7 @@ int spa_fourth_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char st
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, PromotionPlayoff, 0x1E);
 			return 0;
 		case BottomPlayoff:
-			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, RelegationPlayoff, 0x1E);
+			//staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, RelegationPlayoff, 0x1E);
 			return 0;
 		case Relegated:
 			staff_history_relegated_86A1C0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));

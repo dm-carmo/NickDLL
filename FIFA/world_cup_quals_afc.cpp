@@ -119,7 +119,7 @@ DWORD world_cup_quals_afc_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 1), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 12), year, Thursday, Afternoon);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 28), year, Thursday, Afternoon);
 		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 10, 20, 10, 20, 0, 0, 2, 5);
 
 		return (DWORD)pMem;
@@ -138,8 +138,8 @@ DWORD world_cup_quals_afc_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds
 		pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 16), year, Thursday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 21), year, Tuesday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 9), year, Thursday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 14), year, Tuesday, Afternoon);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 21), year, Thursday, Afternoon);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 26), year, Tuesday, Afternoon);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 6, 6), year, Thursday, Afternoon);
@@ -158,10 +158,10 @@ DWORD world_cup_quals_afc_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds
 		pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 9, 5), year, Thursday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 9, 10), year, Tuesday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 10, 10), year, Thursday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 10, 15), year, Tuesday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 9, 23), year, Thursday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 9, 26), year, Sunday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 9, 29), year, Wednesday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 10, 3), year, Sunday, Afternoon);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 11, 14), year, Thursday, Afternoon);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 11, 19), year, Tuesday, Afternoon);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 2, 3, 20), year, Thursday, Afternoon);
@@ -182,9 +182,9 @@ DWORD world_cup_quals_afc_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds
 		pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 2, 10, 8), year, Wednesday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 2, 10, 11), year, Saturday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 2, 10, 14), year, Tuesday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 2, 10, 1), year, Wednesday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 2, 10, 4), year, Saturday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 2, 10, 7), year, Tuesday, Afternoon);
 
 		return (DWORD)pMem;
 	}
@@ -199,8 +199,8 @@ DWORD world_cup_quals_afc_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds
 		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 2, 10, 15), year, Wednesday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 2, 11, 13), year, Thursday, Afternoon);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 2, 10, 8), year, Wednesday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 2, 11, 6), year, Thursday, Afternoon);
 		FillFixtureDetails(pMem, fixture_id++, FifthRound, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 10, 2, 1, 2, 0, 0, 2, 5);
 
 		return (DWORD)pMem;
@@ -216,8 +216,8 @@ DWORD world_cup_quals_afc_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds
 		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 2, 10, 15), year, Wednesday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 2, 11, 13), year, Thursday, Afternoon);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 2, 10, 8), year, Wednesday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 2, 11, 6), year, Thursday, Afternoon);
 		FillFixtureDetails(pMem, fixture_id++, SixthRound, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 10, 2, 1, 2, 0, 0, 2, 5);
 
 		return (DWORD)pMem;
@@ -1491,8 +1491,8 @@ void setup_world_cup_quals_afc() {
 	WriteVTablePtr(world_cup_quals_afc_vtable, VTableLeagueSplit, (DWORD)&world_cup_quals_afc_init2_c);
 	WriteVTablePtr(world_cup_quals_afc_vtable, VTable7, 0x51FC00);
 	WriteVTablePtr(world_cup_quals_afc_vtable, VTable8, 0x5210F0);
-	WriteVTablePtr(world_cup_quals_afc_vtable, VTable9, 0x48CEB0);
-	WriteVTablePtr(world_cup_quals_afc_vtable, VTable10, 0x48CEA0);
+	WriteVTablePtr(world_cup_quals_afc_vtable, VTableLoadCompInfo, 0x48CEB0);
+	WriteVTablePtr(world_cup_quals_afc_vtable, VTableSaveCompInfo, 0x48CEA0);
 	WriteVTablePtr(world_cup_quals_afc_vtable, VTablePlayoffQual, (DWORD)&world_cup_quals_afc_stages_create_c);
 	WriteVTablePtr(world_cup_quals_afc_vtable, VTable12, 0x48ce70);
 	WriteVTablePtr(world_cup_quals_afc_vtable, VTableSetChampion, 0x90fbe0);
@@ -1503,7 +1503,7 @@ void setup_world_cup_quals_afc() {
 	WriteVTablePtr(world_cup_quals_afc_vtable, VTableStageNews, (DWORD)&world_cup_quals_afc_stage_news_c);
 	WriteVTablePtr(world_cup_quals_afc_vtable, VTableTableFates, (DWORD)&world_cup_quals_afc_set_table_fate);
 	WriteVTablePtr(world_cup_quals_afc_vtable, VTable20, 0x48dfa0);
-	WriteVTablePtr(world_cup_quals_afc_vtable, VTable21, 0x48e180);
+	WriteVTablePtr(world_cup_quals_afc_vtable, VTableShowThirdInHistory, 0x48e180);
 	WriteVTablePtr(world_cup_quals_afc_vtable, VTable22, 0x5221F0);
 	WriteVTablePtr(world_cup_quals_afc_vtable, VTable23, 0x48e1c0);
 	WriteVTablePtr(world_cup_quals_afc_vtable, VTableReputationSetup, (DWORD)&world_cup_quals_afc_reputation_setup_c);
@@ -1513,11 +1513,11 @@ void setup_world_cup_quals_afc() {
 	WriteVTablePtr(world_cup_quals_afc_vtable, VTable28, 0x583470);
 	WriteVTablePtr(world_cup_quals_afc_vtable, VTable29, (DWORD)&world_cup_quals_afc_vtable29_c);
 	WriteVTablePtr(world_cup_quals_afc_vtable, VTable30, (DWORD)&world_cup_quals_afc_vtable30_c);
-	WriteVTablePtr(world_cup_quals_afc_vtable, VTable31, 0x91e1c0);
+	WriteVTablePtr(world_cup_quals_afc_vtable, VTableGetFinalsComp, 0x91e1c0);
 	WriteVTablePtr(world_cup_quals_afc_vtable, VTable32, 0x48f2d0);
 	WriteVTablePtr(world_cup_quals_afc_vtable, VTable33, 0x522910);
 	WriteVTablePtr(world_cup_quals_afc_vtable, VTable34, 0x522C50);
-	WriteVTablePtr(world_cup_quals_afc_vtable, VTable35, 0x5dce00);
+	WriteVTablePtr(world_cup_quals_afc_vtable, VTableShowHostsInHistory, 0x5dce00);
 	WriteVTablePtr(world_cup_quals_afc_vtable, VTableSubsRounds, 0x858e70);
 	WriteVTablePtr(world_cup_quals_afc_vtable, VTable37, 0x522360);
 	WriteVTablePtr(world_cup_quals_afc_vtable, VTable38, 0x518790);

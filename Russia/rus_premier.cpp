@@ -840,5 +840,5 @@ void setup_rus_premier()
 	WriteVTablePtr(rus_premier_vtable, VTablePlayoffQual, (DWORD)&rus_premier_playoffs_create);
 	WriteVTablePtr(rus_premier_vtable, VTableTableFates, (DWORD)&rus_premier_set_table_fate);
 	WriteVTablePtr(rus_premier_vtable, VTablePromRelUpdate, (DWORD)&rus_premier_prom_rel_update_c);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(rus_premier_vtable, VTable21, 0x4110b0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(rus_premier_vtable, VTableShowThirdInHistory, 0x4110b0);
 }

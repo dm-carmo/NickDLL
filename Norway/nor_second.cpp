@@ -655,8 +655,8 @@ void nor_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	nor_second_vtable->SetPointer(VTablePlayoffQual, (DWORD)&nor_second_playoffs_create_c);
 	nor_second_vtable->SetPointer(VTableStageNews, 0x48c6d0);
 	nor_second_vtable->SetPointer(VTableSetChampion, (DWORD)&nor_second_set_champion_c);
-	nor_second_vtable->SetPointer(VTable9, 0x48ceb0);
-	nor_second_vtable->SetPointer(VTable10, 0x48cea0);
+	nor_second_vtable->SetPointer(VTableLoadCompInfo, 0x48ceb0);
+	nor_second_vtable->SetPointer(VTableSaveCompInfo, 0x48cea0);
 	data->year = year;
 	data->rules = RulesNorwayLeague;
 	int loaded = sub_687B10(_this, 1);

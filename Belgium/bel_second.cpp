@@ -531,7 +531,7 @@ char bel_second_update(BYTE* _this) {
 	}
 	data->year++;
 	data->current_stage = -1;
-	*((DWORD*)(_this + 0xA7)) = -1;
+	*((WORD*)(_this + 0xA7)) = -1;
 	bel_second_subs(_this);
 	AddTeams(_this);
 	SetupTVMoney(_this, prizeMoneyFile.GetInt("bel_second_tv_money"), 0);
@@ -601,10 +601,10 @@ void setup_bel_second()
 	WriteVTablePtr(bel_second_vtable, VTableTableFates, (DWORD)&bel_second_set_table_fate);
 	WriteVTablePtr(bel_second_vtable, VTableSetChampion, (DWORD)&bel_second_set_champion_c);
 	WriteVTablePtr(bel_second_vtable, VTablePostMatchUpdate, 0x685d30);
-	WriteVTablePtr(bel_second_vtable, VTable9, 0x48CEB0);
-	WriteVTablePtr(bel_second_vtable, VTable10, 0x48CEA0);
+	WriteVTablePtr(bel_second_vtable, VTableLoadCompInfo, 0x48CEB0);
+	WriteVTablePtr(bel_second_vtable, VTableSaveCompInfo, 0x48CEA0);
 	WriteVTablePtr(bel_second_vtable, VTableStageNews, 0x48C6D0);
 	WriteVTablePtr(bel_second_vtable, VTable38, 0x684cd0);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(bel_second_vtable, VTable21, 0x4110b0);
-	if (configFile.GetBool("showPlayoffWinnerInHistory", true)) WriteVTablePtr(bel_second_vtable, VTable35, 0x404480);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(bel_second_vtable, VTableShowThirdInHistory, 0x4110b0);
+	if (configFile.GetBool("showPlayoffWinnerInHistory", true)) WriteVTablePtr(bel_second_vtable, VTableShowHostsInHistory, 0x404480);
 }

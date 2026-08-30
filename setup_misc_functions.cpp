@@ -1467,6 +1467,10 @@ void __declspec(naked) unknown_check_3()
 		je unknown_3
 		cmp eax, dword ptr ds : [0x9cf888]
 		je unknown_3
+		cmp eax, dword ptr ds : [0x9cf95c]
+		je unknown_3
+		cmp eax, dword ptr ds : [0x9cf964]
+		je unknown_3
 		push 0x669bb6
 		ret
 		unknown_3 :
@@ -1497,6 +1501,8 @@ void __declspec(naked) international_comps_to_continent()
 		je to_n_america
 		cmp edx, dword ptr ds : [0x9cf88c]
 		je to_n_america
+		cmp edx, dword ptr ds : [0x9cf95c]
+		je to_n_america
 		cmp edx, dword ptr ds : [0x9cf780]
 		je to_europe
 		cmp edx, dword ptr ds : [0x9cf7a4]
@@ -1512,6 +1518,8 @@ void __declspec(naked) international_comps_to_continent()
 		cmp edx, dword ptr ds : [0x9cf778]
 		je to_s_america
 		cmp edx, dword ptr ds : [0x9cf7a8]
+		je to_s_america
+		cmp edx, dword ptr ds : [0x9cf964]
 		je to_s_america
 		cmp edx, dword ptr ds : [0x9cf7a0]
 		je to_world
@@ -1544,7 +1552,7 @@ void __declspec(naked) international_comps_to_continent()
 	}
 }
 
-// 0076D94A
+// 0076D940
 void __declspec(naked) is_international_comp_no_qualifiers() {
 	__asm {
 		mov eax, dword ptr ss : [esp + 4]
@@ -1572,10 +1580,10 @@ void __declspec(naked) is_international_comp_no_qualifiers() {
 		cmp eax, dword ptr ds : [0x9cf88c]
 		je ret_1_quals
 		ret_0_no_quals :
-		mov eax, 1
+		xor eax, eax
 			ret 4
 			ret_1_quals :
-			xor eax, eax
+			mov eax, 1
 			ret 4
 	}
 }
@@ -1614,7 +1622,8 @@ void __declspec(naked) unknown_int_comps_fix_1()
 }
 
 // 0076C28F
-void __declspec(naked) unknown_int_comps_fix_2()
+// do players stay with the international team until the end of the competition (Euros etc) or go back after each match window?
+void __declspec(naked) keep_players_in_comp_until_end()
 {
 	__asm
 	{
@@ -1633,10 +1642,6 @@ void __declspec(naked) unknown_int_comps_fix_2()
 		cmp eax, dword ptr ds : [0x9cf8a0]
 		je jmp_true_fix_2
 		cmp eax, dword ptr ds : [0x9cf78c]
-		je jmp_true_fix_2
-		cmp eax, dword ptr ds : [0x9cf888]
-		je jmp_true_fix_2
-		cmp eax, dword ptr ds : [0x9cf88c]
 		je jmp_true_fix_2
 		push 0x76C2DD
 		ret
@@ -1899,7 +1904,7 @@ void setup_misc_functions()
 		PatchFunction(0x7abd90, (DWORD)&brazil_regens_common_names_3);
 	}
 
-	// hide history button for certain comps -> set VTable21 to 0x48ce70
+	// hide history button for certain comps -> set VTableShowThirdInHistory to 0x48ce70
 	WriteBytes(0x4901c7, 12, 0x8B, 0x45, 0x00, 0xFF, 0x50, 0x50, 0x3C, 0x00, 0x90, 0x90, 0x90, 0x90);
 
 	// Show the hidden wing-back position
@@ -1988,9 +1993,9 @@ void setup_misc_functions()
 	// tag comp as being part of "International" menu?
 	PatchFunction(0x669bae, (DWORD)&unknown_check_3);
 	PatchFunction(0x6b6358, (DWORD)&international_comps_to_continent);
-	PatchFunction(0x76D94A, (DWORD)&is_international_comp_no_qualifiers);
+	PatchFunction(0x76D940, (DWORD)&is_international_comp_no_qualifiers);
 	PatchFunction(0x76b455, (DWORD)&unknown_int_comps_fix_1);
-	PatchFunction(0x76C28F, (DWORD)&unknown_int_comps_fix_2);
+	PatchFunction(0x76C28F, (DWORD)&keep_players_in_comp_until_end);
 	PatchFunction(0x775293, (DWORD)&unknown_int_comps_fix_3);
 	PatchFunction(0x7752FC, (DWORD)&unknown_int_comps_fix_4);
 	PatchFunction(0x76B31C, (DWORD)&unknown_int_comps_fix_5);

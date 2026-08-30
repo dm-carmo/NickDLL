@@ -257,7 +257,7 @@ char arg_third_metro_update(BYTE* _this) {
 	if (data->f8) sub_4A1C50((BYTE*)(data->f8), 1);
 	data->year++;
 	data->current_stage = -1;
-	*((DWORD*)(_this + 0xA7)) = -1;
+	*((WORD*)(_this + 0xA7)) = -1;
 	arg_third_metro_subs(_this);
 	AddTeams(_this);
 	sub_6835C0(_this);
@@ -456,8 +456,8 @@ void arg_third_metro_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	arg_third_metro_vtable->SetPointer(VTableTableFates, (DWORD)&arg_third_metro_set_table_fate);
 	arg_third_metro_vtable->SetPointer(VTableSetChampion, (DWORD)&arg_third_metro_set_champion_c);
 	arg_third_metro_vtable->SetPointer(VTableStageNews, 0x48c6d0);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) arg_third_metro_vtable->SetPointer(VTable21, 0x4110b0);
-	if (configFile.GetBool("showPlayoffWinnerInHistory", true)) arg_third_metro_vtable->SetPointer(VTable35, 0x404480);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) arg_third_metro_vtable->SetPointer(VTableShowThirdInHistory, 0x4110b0);
+	if (configFile.GetBool("showPlayoffWinnerInHistory", true)) arg_third_metro_vtable->SetPointer(VTableShowHostsInHistory, 0x404480);
 	data->year = year;
 	data->rules = RulesArgentina;
 	int loaded = sub_687B10(_this, 1);

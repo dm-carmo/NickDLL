@@ -88,7 +88,7 @@ void sui_premier_subs(BYTE* _this)
 	comp_data->prom_playoff = 0;
 	comp_data->rele_playoff = 1;
 	comp_data->relegations = 1;
-	*((DWORD*)(_this + 0xA7)) = 38; // total number of games each team will play
+	*((WORD*)(_this + 0xA7)) = 38; // total number of games each team will play
 
 	comp_data->promotes_to = -1;
 	comp_data->relegates_to = SUI_FIRST_9CF();
@@ -475,7 +475,7 @@ char sui_premier_update(BYTE* _this) {
 	data->current_stage = -1;
 	data->num_stages = 0;
 	data->stages = 0;
-	*((DWORD*)(_this + 0xA7)) = -1;
+	*((WORD*)(_this + 0xA7)) = -1;
 	sui_premier_subs(_this);
 	AddTeams(_this);
 	data->prize_money_pool = SetupPrizeMoney(_this, prizeMoneyFile.GetInt("sui_premier_prize_money"));
@@ -820,7 +820,7 @@ void sui_premier_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	sui_premier_vtable->SetPointer(VTableTableFates, (DWORD)&sui_premier_set_table_fate);
 	sui_premier_vtable->SetPointer(VTableStageNews, 0x7f3080); // Scotland stage news contains champ/rel group news
 	sui_premier_vtable->SetPointer(VTablePromRelUpdate, (DWORD)&sui_premier_prom_rel_update_c);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) sui_premier_vtable->SetPointer(VTable21, 0x4110b0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) sui_premier_vtable->SetPointer(VTableShowThirdInHistory, 0x4110b0);
 	data->year = year;
 	data->rules = RulesSwitzerland;
 	int loaded = sub_687B10(_this, 1);

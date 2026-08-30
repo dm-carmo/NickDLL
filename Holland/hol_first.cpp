@@ -688,5 +688,5 @@ void setup_hol_first()
 	WriteVTablePtr(hol_first_vtable, VTableReputationCalc, (DWORD)&hol_first_reputation_calc_c);
 	WriteVTablePtr(hol_first_vtable, VTablePlayoffQual, (DWORD)&hol_first_playoffs_create);
 	WriteVTablePtr(hol_first_vtable, VTableTableFates, (DWORD)&hol_first_set_table_fate);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(hol_first_vtable, VTable21, 0x4110b0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(hol_first_vtable, VTableShowThirdInHistory, 0x4110b0);
 }

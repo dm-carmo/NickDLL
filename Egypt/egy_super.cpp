@@ -389,7 +389,7 @@ void egy_super_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	egy_super_vtable->SetPointer(VTableReputationCalc, (DWORD)&egy_super_reputation_calc_c);
 	egy_super_vtable->SetPointer(VTableSetChampion, (DWORD)&egy_super_set_champion_c);
 	egy_super_vtable->SetPointer(VTableTableFates, (DWORD)&egy_super_set_fates_c);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) egy_super_vtable->SetPointer(VTable21, 0x4110b0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) egy_super_vtable->SetPointer(VTableShowThirdInHistory, 0x4110b0);
 	data->year = year;
 	data->f171 = 0;
 	data->f68 = -1;

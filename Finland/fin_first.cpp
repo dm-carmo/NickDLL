@@ -542,7 +542,7 @@ void fin_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	fin_first_vtable->SetPointer(VTableReputationCalc, (DWORD)&fin_first_reputation_calc_c);
 	fin_first_vtable->SetPointer(VTablePlayoffQual, (DWORD)&fin_first_playoffs_create);
 	fin_first_vtable->SetPointer(VTableTableFates, (DWORD)&fin_first_set_table_fate);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) fin_first_vtable->SetPointer(VTable21, 0x4110b0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) fin_first_vtable->SetPointer(VTableShowThirdInHistory, 0x4110b0);
 	data->year = year;
 	data->rules = RulesFinlandLeague;
 	int loaded = sub_687B10(_this, 1);

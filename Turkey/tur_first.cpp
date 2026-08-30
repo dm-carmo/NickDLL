@@ -695,5 +695,5 @@ void setup_tur_first()
 	WriteVTablePtr(tur_first_vtable, VTableFixtures, (DWORD)&tur_first_fixture_caller);
 	WriteVTablePtr(tur_first_vtable, VTablePromRelUpdate, (DWORD)&tur_first_prom_rel_update_c);
 	WriteVTablePtr(tur_first_vtable, VTablePostMatchUpdate, (DWORD)&tur_first_money_after_match_c);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(tur_first_vtable, VTable21, 0x4110b0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(tur_first_vtable, VTableShowThirdInHistory, 0x4110b0);
 }

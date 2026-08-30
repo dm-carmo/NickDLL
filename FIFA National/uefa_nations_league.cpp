@@ -409,7 +409,7 @@ void uefa_nations_league_prom_rel_update(BYTE* _this) {
 
 char uefa_nations_league_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
-	*((DWORD*)(_this + 0xA7)) = -1;
+	*((WORD*)(_this + 0xA7)) = -1;
 	data->f76 = 0;
 
 	uefa_nations_league_prom_rel_update(_this);
@@ -681,7 +681,7 @@ void uefa_nations_league_create_matchups(BYTE* _this, BYTE* stage, vector<cm3_cl
 	WORD stage_name_id = 0;
 	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, int, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, idx, &num_rounds, &stage_name_id, 0);
 	*((WORD*)(stage + 0x3A)) = stage_name_id;
-	*((DWORD*)(stage + 0xA7)) = num_rounds;
+	*((WORD*)(stage + 0xA7)) = num_rounds;
 
 	for (BYTE m = 0; m < 6; m++) {
 		BYTE* ptr_last = (BYTE*)(pFixtures + fixture_dates_sz * 5);
@@ -1822,16 +1822,18 @@ void uefa_nations_league_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	uefa_nations_league_vtable->SetPointer(VTable29, (DWORD)&uefa_nations_league_vtable29_c);
 	uefa_nations_league_vtable->SetPointer(VTable30, (DWORD)&uefa_nations_league_vtable30_c);
 	uefa_nations_league_vtable->SetPointer(VTableClubLandmarks, (DWORD)&uefa_nations_league_landmarks_c);
-	uefa_nations_league_vtable->SetPointer(VTable9, 0x48CEB0);
-	uefa_nations_league_vtable->SetPointer(VTable10, 0x48CEA0);
+	uefa_nations_league_vtable->SetPointer(VTableLoadCompInfo, 0x48CEB0);
+	uefa_nations_league_vtable->SetPointer(VTableSaveCompInfo, 0x48CEA0);
 	uefa_nations_league_vtable->SetPointer(VTable12, 0x48CE70);
+	uefa_nations_league_vtable->SetPointer(VTableGetFinalsComp, 0x5dce00);
+	uefa_nations_league_vtable->SetPointer(VTableShowHostsInHistory, 0x404480);
 	uefa_nations_league_vtable->SetPointer(VTableSubsRounds, (DWORD)&uefa_nations_league_subs_c);
 	uefa_nations_league_vtable->SetPointer(VTablePostMatchUpdate, 0x685d30); // check?
 	uefa_nations_league_vtable->SetPointer(VTablePlayoffQual, (DWORD)&uefa_nations_league_stages_create_c);
 	uefa_nations_league_vtable->SetPointer(VTableReputationSetup, (DWORD)&uefa_nations_league_reputation_setup_c);
 	uefa_nations_league_vtable->SetPointer(VTableReputationCalc, (DWORD)&uefa_nations_league_reputation_calc_c);
 	uefa_nations_league_vtable->SetPointer(VTable38, 0x684cd0); // check?
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) uefa_nations_league_vtable->SetPointer(VTable21, 0x4110b0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) uefa_nations_league_vtable->SetPointer(VTableShowThirdInHistory, 0x4110b0);
 	data->year = year;
 	data->comp_type = NATION_INTERNATIONAL;
 	data->promotes_to = -1;

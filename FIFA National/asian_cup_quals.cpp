@@ -88,7 +88,7 @@ DWORD asian_cup_quals_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WO
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 25), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 5), year, Thursday, Afternoon);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 26), year, Thursday, Afternoon);
 		FillFixtureDetails(pMem, fixture_id++, Playoff, 4, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 10, 10, 5, 10, 0, 0, 2, 5);
 
 		return (DWORD)pMem;
@@ -109,9 +109,9 @@ DWORD asian_cup_quals_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WO
 		int fixture_id = 0;
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 25), year, Tuesday, Afternoon);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 6, 10), year, Tuesday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 10, 9), year, Thursday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 10, 14), year, Tuesday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 11, 18), year, Tuesday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 9, 25), year, Thursday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 9, 30), year, Tuesday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 11, 11), year, Tuesday, Afternoon);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 2, 3, 29), year, Tuesday, Afternoon);
 
 		return (DWORD)pMem;
@@ -744,10 +744,10 @@ void asian_cup_quals_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	asian_cup_quals_vtable->SetPointer(VTableStageNews, (DWORD)&asian_cup_quals_stage_news_c);
 	asian_cup_quals_vtable->SetPointer(VTable29, (DWORD)&asian_cup_quals_vtable29_c);
 	asian_cup_quals_vtable->SetPointer(VTable30, (DWORD)&asian_cup_quals_vtable30_c);
-	asian_cup_quals_vtable->SetPointer(VTable31, (DWORD)&asian_cup_quals_vtable31_c);
+	asian_cup_quals_vtable->SetPointer(VTableGetFinalsComp, (DWORD)&asian_cup_quals_vtable31_c);
 	asian_cup_quals_vtable->SetPointer(VTableClubLandmarks, (DWORD)&asian_cup_quals_landmarks_c);
-	asian_cup_quals_vtable->SetPointer(VTable9, 0x48CEB0);
-	asian_cup_quals_vtable->SetPointer(VTable10, 0x48CEA0);
+	asian_cup_quals_vtable->SetPointer(VTableLoadCompInfo, 0x48CEB0);
+	asian_cup_quals_vtable->SetPointer(VTableSaveCompInfo, 0x48CEA0);
 	data->comp_type = NATION_INTERNATIONAL;
 	data->promotes_to = -1;
 	data->relegates_to = -1;

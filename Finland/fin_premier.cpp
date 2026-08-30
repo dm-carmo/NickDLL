@@ -362,7 +362,7 @@ void fin_premier_subs(BYTE* _this)
 	comp_stats* comp_data = (comp_stats*)_this;
 
 	comp_data->n_rounds = 2;
-	*((DWORD*)(_this + 0xA7)) = 32; // total number of games each team will play
+	*((WORD*)(_this + 0xA7)) = 32; // total number of games each team will play
 	*((DWORD*)(_this + 0xA3)) = 0;
 	comp_data->pts_for_win = 3;
 	comp_data->pts_for_draw = 1;
@@ -964,5 +964,5 @@ void setup_fin_premier()
 	WriteVTablePtr(fin_premier_vtable, VTablePlayoffQual, (DWORD)&fin_premier_playoffs_create);
 	WriteVTablePtr(fin_premier_vtable, VTableTableFates, (DWORD)&fin_premier_set_table_fate);
 	WriteVTablePtr(fin_premier_vtable, VTablePromRelUpdate, (DWORD)&fin_premier_prom_rel_update_c);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(fin_premier_vtable, VTable21, 0x4110b0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(fin_premier_vtable, VTableShowThirdInHistory, 0x4110b0);
 }

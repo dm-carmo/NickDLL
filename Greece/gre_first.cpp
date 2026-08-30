@@ -250,7 +250,7 @@ void gre_first_subs(BYTE* _this)
 	comp_stats* comp_data = (comp_stats*)_this;
 
 	comp_data->n_rounds = 2;
-	*((DWORD*)(_this + 0xA7)) = 32; // total number of games each team will play
+	*((WORD*)(_this + 0xA7)) = 32; // total number of games each team will play
 	*((DWORD*)(_this + 0xA3)) = 0;
 	comp_data->pts_for_win = 3;
 	comp_data->pts_for_draw = 1;
@@ -562,5 +562,5 @@ void setup_gre_first()
 	WriteVTablePtr(gre_first_vtable, VTableLeagueSplit, (DWORD)&gre_first_table_split_c);
 	WriteVTablePtr(gre_first_vtable, VTableStageNews, 0x7f3080); // Scotland stage news contains champ/rel group news
 	WriteVTablePtr(gre_first_vtable, VTablePromRelUpdate, (DWORD)&gre_first_prom_rel_update_c);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(gre_first_vtable, VTable21, 0x4110b0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(gre_first_vtable, VTableShowThirdInHistory, 0x4110b0);
 }

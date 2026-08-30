@@ -294,7 +294,7 @@ char gre_second_update(BYTE* _this) {
 	}
 	data->year++;
 	data->current_stage = -1;
-	*((DWORD*)(_this + 0xA7)) = -1;
+	*((WORD*)(_this + 0xA7)) = -1;
 	gre_second_subs(_this);
 	AddTeams(_this);
 	sub_6835C0(_this);
@@ -395,5 +395,5 @@ void setup_gre_second()
 	WriteVTablePtr(gre_second_vtable, VTableFixtures, (DWORD)&gre_second_fixtures_c);
 	WriteVTablePtr(gre_second_vtable, VTableSubsRounds, (DWORD)&gre_second_subs_c);
 	WriteVTablePtr(gre_second_vtable, VTableTableFates, (DWORD)&gre_second_set_table_fate);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(gre_second_vtable, VTable21, 0x4110b0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(gre_second_vtable, VTableShowThirdInHistory, 0x4110b0);
 }

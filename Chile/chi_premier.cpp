@@ -369,7 +369,7 @@ char chi_premier_update(BYTE* _this) {
 	data->current_stage = -1;
 	data->num_stages = 0;
 	data->stages = 0;
-	*((DWORD*)(_this + 0xA7)) = -1;
+	*((WORD*)(_this + 0xA7)) = -1;
 	chi_premier_subs(_this);
 	AddTeams(_this);
 	SetupTVMoney(_this, prizeMoneyFile.GetInt("chi_premier_tv_money"), 0);
@@ -407,7 +407,7 @@ void chi_premier_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	chi_premier_vtable->SetPointer(VTableEoSUpdate, (DWORD)&chi_premier_update_c);
 	chi_premier_vtable->SetPointer(VTableFixtures, (DWORD)&chi_premier_fixtures_c);
 	chi_premier_vtable->SetPointer(VTablePromRelUpdate, (DWORD)&chi_premier_prom_rel_update_c);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) chi_premier_vtable->SetPointer(VTable21, 0x4110b0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) chi_premier_vtable->SetPointer(VTableShowThirdInHistory, 0x4110b0);
 	data->year = year;
 	data->rules = RulesChile;
 	int loaded = sub_687B10(_this, 1);

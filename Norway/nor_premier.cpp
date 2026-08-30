@@ -897,5 +897,5 @@ void setup_nor_premier()
 	WriteVTablePtr(nor_premier_vtable, VTablePlayoffQual, (DWORD)&nor_premier_playoffs_create);
 	WriteVTablePtr(nor_premier_vtable, VTableTableFates, (DWORD)&nor_premier_set_table_fate);
 	WriteVTablePtr(nor_premier_vtable, VTablePromRelUpdate, (DWORD)&nor_premier_prom_rel_update_c);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(nor_premier_vtable, VTable21, 0x4110b0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(nor_premier_vtable, VTableShowThirdInHistory, 0x4110b0);
 }

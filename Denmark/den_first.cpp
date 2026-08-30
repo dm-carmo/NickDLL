@@ -248,7 +248,7 @@ void den_first_subs(BYTE* _this)
 	comp_stats* comp_data = (comp_stats*)_this;
 
 	comp_data->n_rounds = 2;
-	*((DWORD*)(_this + 0xA7)) = 32; // total number of games each team will play
+	*((WORD*)(_this + 0xA7)) = 32; // total number of games each team will play
 	*((DWORD*)(_this + 0xA3)) = 0;
 	comp_data->pts_for_win = 3;
 	comp_data->pts_for_draw = 1;
@@ -458,5 +458,5 @@ void setup_den_first()
 	WriteVTablePtr(den_first_vtable, VTableFixtures, (DWORD)&den_first_fixtures_c);
 	WriteVTablePtr(den_first_vtable, VTableLeagueSplit, (DWORD)&den_first_table_split_c);
 	WriteVTablePtr(den_first_vtable, VTableStageNews, 0x7f3080); // Scotland stage news contains champ/rel group news
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(den_first_vtable, VTable21, 0x4110b0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(den_first_vtable, VTableShowThirdInHistory, 0x4110b0);
 }

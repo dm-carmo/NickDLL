@@ -292,7 +292,7 @@ void bel_third_ac_subs(BYTE* _this)
 	comp_stats* comp_data = (comp_stats*)_this;
 
 	comp_data->n_rounds = 2;
-	*((DWORD*)(_this + 0xA7)) = 32; // total number of games each team will play
+	*((WORD*)(_this + 0xA7)) = 32; // total number of games each team will play
 	*((DWORD*)(_this + 0xA3)) = 0;
 	comp_data->pts_for_win = 3;
 	comp_data->pts_for_draw = 1;
@@ -495,7 +495,7 @@ void bel_third_ac_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	bel_third_ac_vtable->SetPointer(VTableFixtures, (DWORD)&bel_third_ac_fixtures_c);
 	bel_third_ac_vtable->SetPointer(VTableLeagueSplit, (DWORD)&bel_third_ac_table_split_c);
 	bel_third_ac_vtable->SetPointer(VTableStageNews, 0x7f3080); // Scotland stage news contains champ/rel group news
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) bel_third_ac_vtable->SetPointer(VTable21, 0x4110b0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) bel_third_ac_vtable->SetPointer(VTableShowThirdInHistory, 0x4110b0);
 	data->year = year;
 	data->rules = RulesBelgiumLeague;
 	int loaded = sub_687B10(_this, 1);

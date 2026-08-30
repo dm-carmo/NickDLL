@@ -622,5 +622,5 @@ void setup_ger_second()
 	WriteVTablePtr(ger_second_vtable, VTableReputationCalc, (DWORD)&ger_second_reputation_calc_c);
 	WriteVTablePtr(ger_second_vtable, VTablePlayoffQual, (DWORD)&ger_second_playoffs_create);
 	WriteVTablePtr(ger_second_vtable, VTableTableFates, (DWORD)&ger_second_set_table_fate);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(ger_second_vtable, VTable21, 0x4110b0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(ger_second_vtable, VTableShowThirdInHistory, 0x4110b0);
 }

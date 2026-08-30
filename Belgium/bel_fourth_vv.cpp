@@ -777,5 +777,5 @@ void setup_bel_fourth_vv()
 	WriteVTablePtr(bel_fourth_vv_vtable, VTableTableFates, (DWORD)&bel_fourth_vv_set_table_fate);
 	WriteVTablePtr(bel_fourth_vv_vtable, VTableStageNews, 0x48c6d0);
 	WriteVTablePtr(bel_fourth_vv_vtable, VTableSetChampion, (DWORD)&bel_fourth_vv_set_champion_c);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(bel_fourth_vv_vtable, VTable21, 0x4110b0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(bel_fourth_vv_vtable, VTableShowThirdInHistory, 0x4110b0);
 }

@@ -669,6 +669,6 @@ void setup_nor_first()
 	WriteVTablePtr(nor_first_vtable, VTablePlayoffQual, (DWORD)&nor_first_playoffs_create);
 	WriteVTablePtr(nor_first_vtable, VTableTableFates, (DWORD)&nor_first_set_table_fate);
 	WriteVTablePtr(nor_first_vtable, VTableSetChampion, (DWORD)&nor_first_set_champion_c);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(nor_first_vtable, VTable21, 0x4110b0);
-	if (configFile.GetBool("showPlayoffWinnerInHistory", true)) WriteVTablePtr(nor_first_vtable, VTable35, 0x404480);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(nor_first_vtable, VTableShowThirdInHistory, 0x4110b0);
+	if (configFile.GetBool("showPlayoffWinnerInHistory", true)) WriteVTablePtr(nor_first_vtable, VTableShowHostsInHistory, 0x404480);
 }

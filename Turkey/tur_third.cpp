@@ -299,7 +299,7 @@ char tur_third_update(BYTE* _this) {
 	}
 	data->year++;
 	data->current_stage = -1;
-	*((DWORD*)(_this + 0xA7)) = -1;
+	*((WORD*)(_this + 0xA7)) = -1;
 	tur_third_subs(_this);
 	AddTeamsGroupLeague(_this, TUR_THIRD_G1_9CF());
 	sub_6827D0(_this, 0);

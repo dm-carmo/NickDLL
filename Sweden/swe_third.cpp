@@ -663,8 +663,8 @@ void swe_third_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	swe_third_vtable->SetPointer(VTableTableFates, (DWORD)&swe_third_set_table_fate);
 	swe_third_vtable->SetPointer(VTablePlayoffQual, (DWORD)&swe_third_playoffs_create_c);
 	swe_third_vtable->SetPointer(VTableSetChampion, (DWORD)&swe_third_set_champion_c);
-	swe_third_vtable->SetPointer(VTable9, 0x48ceb0);
-	swe_third_vtable->SetPointer(VTable10, 0x48cea0);
+	swe_third_vtable->SetPointer(VTableLoadCompInfo, 0x48ceb0);
+	swe_third_vtable->SetPointer(VTableSaveCompInfo, 0x48cea0);
 	data->year = year;
 	data->rules = RulesSwedenLeague;
 	int loaded = sub_687B10(_this, 1);

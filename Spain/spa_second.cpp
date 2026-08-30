@@ -680,6 +680,6 @@ void setup_spa_second()
 	WriteVTablePtr(spa_second_vtable, VTablePlayoffQual, (DWORD)&spa_second_playoffs_create);
 	WriteVTablePtr(spa_second_vtable, VTableTableFates, (DWORD)&spa_second_set_table_fate);
 	WriteVTablePtr(spa_second_vtable, VTableSetChampion, (DWORD)&spa_second_set_champion_c);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(spa_second_vtable, VTable21, 0x4110b0);
-	if (configFile.GetBool("showPlayoffWinnerInHistory", true)) WriteVTablePtr(spa_second_vtable, VTable35, 0x404480);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(spa_second_vtable, VTableShowThirdInHistory, 0x4110b0);
+	if (configFile.GetBool("showPlayoffWinnerInHistory", true)) WriteVTablePtr(spa_second_vtable, VTableShowHostsInHistory, 0x404480);
 }

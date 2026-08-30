@@ -462,7 +462,7 @@ void aut_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	aut_second_vtable->SetPointer(VTableInitFree, (DWORD)&aut_second_free_c);
 	aut_second_vtable->SetPointer(VTableTableFates, (DWORD)&aut_second_set_table_fate);
 	aut_second_vtable->SetPointer(VTableReputationCalc, (DWORD)&aut_second_reputation_calc_c);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) aut_second_vtable->SetPointer(VTable21, 0x4110b0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) aut_second_vtable->SetPointer(VTableShowThirdInHistory, 0x4110b0);
 	data->year = year;
 	data->rules = RulesAustria;
 	int loaded = sub_687B10(_this, 1);

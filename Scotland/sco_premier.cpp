@@ -281,7 +281,7 @@ void sco_premier_subs(BYTE* _this)
 	comp_stats* comp_data = (comp_stats*)_this;
 
 	comp_data->n_rounds = 3;
-	*((DWORD*)(_this + 0xA7)) = 38; // total number of games each team will play
+	*((WORD*)(_this + 0xA7)) = 38; // total number of games each team will play
 	*((DWORD*)(_this + 0xA3)) = 0;
 	comp_data->pts_for_win = 3;
 	comp_data->pts_for_draw = 1;
@@ -868,5 +868,5 @@ void setup_sco_premier()
 	WriteVTablePtr(sco_premier_vtable, VTablePlayoffQual, (DWORD)&sco_premier_playoffs_create);
 	WriteVTablePtr(sco_premier_vtable, VTableTableFates, (DWORD)&sco_premier_set_table_fate);
 	WriteVTablePtr(sco_premier_vtable, VTablePromRelUpdate, (DWORD)&sco_premier_prom_rel_update_c);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(sco_premier_vtable, VTable21, 0x4110b0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(sco_premier_vtable, VTableShowThirdInHistory, 0x4110b0);
 }

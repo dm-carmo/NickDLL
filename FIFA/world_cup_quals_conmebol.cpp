@@ -84,7 +84,7 @@ void world_cup_quals_conmebol_subs(BYTE* _this)
 	comp_data->promotes_to = -1;
 	comp_data->relegates_to = -1;
 
-	*((DWORD*)(_this + 0xA7)) = -1;
+	*((WORD*)(_this + 0xA7)) = -1;
 	comp_data->max_bench = 7;
 	comp_data->max_subs = 3;
 
@@ -122,48 +122,42 @@ DWORD world_cup_quals_conmebol_fixtures(BYTE* _this, char stage_idx, WORD* num_r
 		pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		//AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 7), year, Thursday, Afternoon);
 		int tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year, 9, 7), year, Thursday, Afternoon);
+		AddFixture(pMem, fixture_id, Date(year, 9, 23), year, Thursday, Afternoon);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Friday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
-		if (numberOfLeagueTeams > 8) AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 12), year, Tuesday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 12), year, Thursday, Afternoon);
-		if (numberOfLeagueTeams > 8) AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 17), year, Tuesday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 16), year, Thursday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 21), year, Tuesday, Afternoon);
-		//AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 9, 5), year, Thursday, Afternoon);
+		if (numberOfLeagueTeams > 8) AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 26), year, Sunday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 29), year, Wednesday, Afternoon);
+		if (numberOfLeagueTeams > 8) AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 3), year, Sunday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 9), year, Thursday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 14), year, Tuesday, Afternoon);
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year + 1, 9, 5), year, Thursday, Afternoon);
+		AddFixture(pMem, fixture_id, Date(year + 1, 9, 23), year, Thursday, Afternoon);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Friday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
-		if (numberOfLeagueTeams > 8) AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 9, 10), year, Tuesday, Afternoon);
-		//AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 10, 10), year, Thursday, Afternoon);
+		if (numberOfLeagueTeams > 8) AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 9, 26), year, Sunday, Afternoon);
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year + 1, 10, 10), year, Thursday, Afternoon);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Friday, Afternoon);
+		AddFixture(pMem, fixture_id, Date(year + 1, 9, 29), year, Wednesday, Afternoon);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Thursday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
-		if (numberOfLeagueTeams > 8) AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 10, 15), year, Tuesday, Afternoon);
-		//AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 11, 14), year, Thursday, Afternoon);
+		if (numberOfLeagueTeams > 8) AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 10, 3), year, Sunday, Afternoon);
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year + 1, 11, 14), year, Thursday, Afternoon);
+		AddFixture(pMem, fixture_id, Date(year + 1, 11, 7), year, Thursday, Afternoon);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Friday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 11, 19), year, Tuesday, Afternoon);
-		//AddFixtureNoTV(pMem, fixture_id++, Date(year + 2, 3, 20), year, Thursday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 11, 12), year, Tuesday, Afternoon);
 		tv_id = 0;
 		AddFixture(pMem, fixture_id, Date(year + 2, 3, 20), year, Thursday, Afternoon);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Friday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 2, 3, 25), year, Tuesday, Afternoon);
-		//AddFixtureNoTV(pMem, fixture_id++, Date(year + 2, 6, 5), year, Thursday, Afternoon);
 		tv_id = 0;
 		AddFixture(pMem, fixture_id, Date(year + 2, 6, 5), year, Thursday, Afternoon);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Friday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 2, 6, 10), year, Tuesday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 2, 9, 4), year, Thursday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 2, 9, 9), year, Tuesday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 2, 9, 25), year, Thursday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 2, 9, 30), year, Tuesday, Afternoon);
 
 		return (DWORD)pMem;
 	}
@@ -188,7 +182,7 @@ void __declspec(naked) world_cup_quals_conmebol_fixture_caller()
 
 char world_cup_quals_conmebol_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
-	*((DWORD*)(_this + 0xA7)) = -1;
+	*((WORD*)(_this + 0xA7)) = -1;
 	data->f76 = 0;
 	sub_687970(_this, 0);
 	if (data->fixtures_table) {
@@ -537,8 +531,8 @@ void setup_world_cup_quals_conmebol() {
 	WriteVTablePtr(world_cup_quals_conmebol_vtable, VTable30, (DWORD)&world_cup_quals_conmebol_vtable30_c);
 	WriteVTablePtr(world_cup_quals_conmebol_vtable, VTableClubLandmarks, (DWORD)&world_cup_quals_conmebol_landmarks_c);
 
-	WriteVTablePtr(world_cup_quals_conmebol_vtable, VTable9, 0x48CEB0);
-	WriteVTablePtr(world_cup_quals_conmebol_vtable, VTable10, 0x48CEA0);
+	WriteVTablePtr(world_cup_quals_conmebol_vtable, VTableLoadCompInfo, 0x48CEB0);
+	WriteVTablePtr(world_cup_quals_conmebol_vtable, VTableSaveCompInfo, 0x48CEA0);
 
 	WriteVTablePtr(world_cup_quals_conmebol_vtable, VTableSubsRounds, (DWORD)&world_cup_quals_conmebol_subs_c);
 	//WriteVTablePtr(world_cup_quals_conmebol_vtable, VTableSetChampion, 0x519A90);

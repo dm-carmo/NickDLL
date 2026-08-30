@@ -989,8 +989,8 @@ void setup_spa_first()
 	WriteVTablePtr(spa_first_vtable, VTableInitFree, (DWORD)&spa_first_free_c);
 	WriteVTablePtr(spa_first_vtable, VTableFixtures, (DWORD)&spa_first_fixture_caller);
 	WriteVTablePtr(spa_first_vtable, VTablePromRelUpdate, (DWORD)&spa_first_prom_rel_update_c);
-	WriteVTablePtr(spa_first_vtable, VTable9, 0x48CEB0);
-	WriteVTablePtr(spa_first_vtable, VTable10, 0x48CEA0);
+	WriteVTablePtr(spa_first_vtable, VTableLoadCompInfo, 0x48CEB0);
+	WriteVTablePtr(spa_first_vtable, VTableSaveCompInfo, 0x48CEA0);
 	WriteVTablePtr(spa_first_vtable, VTableSubsRounds, (DWORD)&spa_first_subs_c);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(spa_first_vtable, VTable21, 0x4110b0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(spa_first_vtable, VTableShowThirdInHistory, 0x4110b0);
 }

@@ -1467,7 +1467,7 @@ void setup_arg_first()
 	WriteVTablePtr(arg_first_vtable, VTableLeagueSplit, (DWORD)&arg_first_table_split_c);
 	WriteVTablePtr(arg_first_vtable, VTableTableFates, (DWORD)&arg_first_set_table_fate);
 	WriteVTablePtr(arg_first_vtable, VTablePromRelUpdate, (DWORD)&arg_first_prom_rel_update_c);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(arg_first_vtable, VTable21, 0x4110b0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(arg_first_vtable, VTableShowThirdInHistory, 0x4110b0);
 	// 405ef0 average points table
 
 	// hardcoded thing in first division

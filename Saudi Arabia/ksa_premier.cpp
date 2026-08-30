@@ -425,7 +425,7 @@ void ksa_premier_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	ksa_premier_vtable->SetPointer(VTableEoSUpdate, (DWORD)&ksa_premier_update_c);
 	ksa_premier_vtable->SetPointer(VTableFixtures, (DWORD)&ksa_premier_fixtures_c);
 	ksa_premier_vtable->SetPointer(VTablePromRelUpdate, (DWORD)&ksa_premier_prom_rel_update_c);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) ksa_premier_vtable->SetPointer(VTable21, 0x4110b0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) ksa_premier_vtable->SetPointer(VTableShowThirdInHistory, 0x4110b0);
 	data->year = year;
 	data->rules = RulesSaudi;
 	int loaded = sub_687B10(_this, 1);

@@ -270,7 +270,7 @@ void nir_premier_subs(BYTE* _this)
 	comp_stats* comp_data = (comp_stats*)_this;
 
 	comp_data->n_rounds = 3;
-	*((DWORD*)(_this + 0xA7)) = 38; // total number of games each team will play
+	*((WORD*)(_this + 0xA7)) = 38; // total number of games each team will play
 	*((DWORD*)(_this + 0xA3)) = 0;
 	comp_data->pts_for_win = 3;
 	comp_data->pts_for_draw = 1;
@@ -723,5 +723,5 @@ void setup_nir_premier()
 	WriteVTablePtr(nir_premier_vtable, VTableReputationCalc, (DWORD)&nir_premier_reputation_calc_c);
 	WriteVTablePtr(nir_premier_vtable, VTablePlayoffQual, (DWORD)&nir_premier_playoffs_create);
 	WriteVTablePtr(nir_premier_vtable, VTableTableFates, (DWORD)&nir_premier_set_table_fate);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(nir_premier_vtable, VTable21, 0x4110b0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(nir_premier_vtable, VTableShowThirdInHistory, 0x4110b0);
 }

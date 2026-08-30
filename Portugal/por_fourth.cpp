@@ -557,7 +557,7 @@ char por_fourth_update(BYTE* _this) {
 	}
 	data->year++;
 	data->current_stage = -1;
-	*((DWORD*)(_this + 0xA7)) = -1;
+	*((WORD*)(_this + 0xA7)) = -1;
 	por_fourth_subs(_this);
 	AddTeamsGroupLeague(_this, POR_FOURTH_A_9CF());
 	sub_6827D0(_this, 0);

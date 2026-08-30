@@ -395,5 +395,5 @@ void setup_rus_first()
 	WriteVTablePtr(rus_first_vtable, VTableEoSUpdate, (DWORD)&rus_first_update_c);
 	WriteVTablePtr(rus_first_vtable, VTableFixtures, (DWORD)&rus_first_fixtures_c);
 	WriteVTablePtr(rus_first_vtable, VTableTableFates, (DWORD)&rus_first_set_table_fate);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(rus_first_vtable, VTable21, 0x4110b0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(rus_first_vtable, VTableShowThirdInHistory, 0x4110b0);
 }

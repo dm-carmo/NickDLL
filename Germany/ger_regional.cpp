@@ -555,7 +555,7 @@ void setup_ger_regional()
 	WriteVTablePtr(ger_regional_vtable, VTablePlayoffQual, (DWORD)&ger_regional_playoffs_create_c);
 	WriteVTablePtr(ger_regional_vtable, VTableSetChampion, (DWORD)&ger_regional_set_champion_c);
 	WriteVTablePtr(ger_regional_vtable, VTable39, 0x404480);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(ger_regional_vtable, VTable21, 0x4110b0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(ger_regional_vtable, VTableShowThirdInHistory, 0x4110b0);
 	char* bayern_text = "Bayern";
 	char* bayern_text_short = "Bay";
 	WriteDWORD(0x4B627E + 1, (DWORD)&bayern_text[0]);

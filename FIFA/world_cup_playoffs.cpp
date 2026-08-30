@@ -461,8 +461,8 @@ void world_cup_playoffs_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	world_cup_playoffs_vtable->SetPointer(VTable29, (DWORD)&world_cup_playoffs_vtable29_c);
 	world_cup_playoffs_vtable->SetPointer(VTable30, (DWORD)&world_cup_playoffs_vtable30_c);
 	world_cup_playoffs_vtable->SetPointer(VTableClubLandmarks, (DWORD)&world_cup_playoffs_landmarks_c);
-	world_cup_playoffs_vtable->SetPointer(VTable9, 0x48CEB0);
-	world_cup_playoffs_vtable->SetPointer(VTable10, 0x48CEA0);
+	world_cup_playoffs_vtable->SetPointer(VTableLoadCompInfo, 0x48CEB0);
+	world_cup_playoffs_vtable->SetPointer(VTableSaveCompInfo, 0x48CEA0);
 	data->year = year;
 	data->comp_type = NATION_INTERNATIONAL;
 	data->promotes_to = -1;

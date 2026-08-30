@@ -596,5 +596,5 @@ void setup_pol_first()
 	WriteVTablePtr(pol_first_vtable, VTableSetChampion, 0x684640);
 	WriteVTablePtr(pol_first_vtable, VTableStageNews, 0x48c6d0);
 	WriteVTablePtr(pol_first_vtable, VTableReputationSetup, 0x68a850);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(pol_first_vtable, VTable21, 0x4110b0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(pol_first_vtable, VTableShowThirdInHistory, 0x4110b0);
 }

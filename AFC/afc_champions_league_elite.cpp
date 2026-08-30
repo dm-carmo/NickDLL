@@ -812,7 +812,7 @@ void afc_champions_league_elite_group_stage_setup(BYTE* _this) {
 		create_league_stage_data(pStage, _this, group_teams, pTeams, 0, (DWORD)(comp_data->competition_db), 0, num_rounds,
 			3, 1, 8, &tiebreaks[0], &prom_rel[0], year, al + stage_num, stage_name_id, 0xf, 2, 0, 0x28, -1, 0, 2);
 
-		*((DWORD*)(pStage + 0xA7)) = num_rounds;
+		*((WORD*)(pStage + 0xA7)) = num_rounds;
 		comp_stats* stage_data = (comp_stats*)pStage;
 
 		int n_tries = 0;
@@ -824,12 +824,12 @@ void afc_champions_league_elite_group_stage_setup(BYTE* _this) {
 				if (idx < 0) idx = abs(idx) - 1;
 				cm3_clubs* opp = clubs_pots[idx];
 				bool multiple = false;
-				if (n_tries > 511)
+				if (n_tries > 255)
 				{
 					//if (n_tries == 512 && m == 0) dprintf("[CLE] Tried to make draw without teams from the same country facing each other, but failed.\n");
 					multiple = pot_nations_c[club->ClubNation] > 2;
 				}
-				if (n_tries > 1023)
+				if (n_tries > 511)
 				{
 					//if (n_tries == 1024 && m == 0) dprintf("[CLE] Tried to make draw without teams from the same country facing each other, but failed.\n");
 					multiple = pot_nations_c[club->ClubNation] > 1;

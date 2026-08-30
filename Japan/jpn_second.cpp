@@ -558,6 +558,6 @@ void setup_jpn_second()
 	WriteVTablePtr(jpn_second_vtable, VTableTableFates, (DWORD)&jpn_second_set_table_fate);
 	WriteVTablePtr(jpn_second_vtable, VTableReputationCalc, (DWORD)&jpn_second_reputation_calc_c);
 	WriteVTablePtr(jpn_second_vtable, VTableSetChampion, (DWORD)&jpn_second_set_champion_c);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(jpn_second_vtable, VTable21, 0x4110b0);
-	if (configFile.GetBool("showPlayoffWinnerInHistory", true)) WriteVTablePtr(jpn_second_vtable, VTable35, 0x404480);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(jpn_second_vtable, VTableShowThirdInHistory, 0x4110b0);
+	if (configFile.GetBool("showPlayoffWinnerInHistory", true)) WriteVTablePtr(jpn_second_vtable, VTableShowHostsInHistory, 0x404480);
 }

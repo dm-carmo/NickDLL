@@ -623,5 +623,5 @@ void setup_sco_league_1()
 	WriteVTablePtr(sco_league_1_vtable, VTableReputationCalc, (DWORD)&sco_league_1_reputation_calc_c);
 	WriteVTablePtr(sco_league_1_vtable, VTablePlayoffQual, (DWORD)&sco_league_1_playoffs_create);
 	WriteVTablePtr(sco_league_1_vtable, VTableTableFates, (DWORD)&sco_league_1_set_table_fate);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(sco_league_1_vtable, VTable21, 0x4110b0);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(sco_league_1_vtable, VTableShowThirdInHistory, 0x4110b0);
 }
