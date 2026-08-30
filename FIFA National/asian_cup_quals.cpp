@@ -437,12 +437,12 @@ int asian_cup_quals_stage_news(BYTE* _this, int club_idx, char fate, char stage_
 		{
 			if (show_body_text) return sub_4B4590(club_idx, (WORD)stage_name_idx, (DWORD)comp_data, fate, show_body_text, ret_str_ptr);
 			else {
-				cm3_club_comps* afcon = get_comp(ASIAN_CUP_9CF());
-				sub_66F4E0(0xDE1F64, 0x9C470C, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, afcon->ClubCompGenderNameShort, afcon->ClubCompGenderNameShort,
-					&club_data->ClubNameShort[0], &afcon->ClubCompNameShort[0]);
+				cm3_club_comps* asian_cup = get_comp(ASIAN_CUP_9CF());
+				sub_66F4E0(0xDE1F64, 0x9C470C, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, asian_cup->ClubCompGenderNameShort, asian_cup->ClubCompGenderNameShort,
+					&club_data->ClubNameShort[0], &asian_cup->ClubCompNameShort[0]);
 				sub_4AE660(ret_str_ptr, 0xDE1F64);
 				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
-				sub_4AE8A0((BYTE*)ret_str_ptr, &afcon->ClubCompNameShort[0], 0x7d0, (DWORD)afcon);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &asian_cup->ClubCompNameShort[0], 0x7d0, (DWORD)asian_cup);
 				return 1;
 			}
 		}

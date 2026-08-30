@@ -851,6 +851,10 @@ void world_cup_quals_caf_landmarks(BYTE* _this, DWORD dest_ptr, int a2, WORD mai
 			return;
 		}
 	}
+	if (main_stage_id == BestPlacedTeams) {
+		sub_66F4E0(dest_ptr, 0x9A7C04);
+		return;
+	}
 	if (main_stage_id == SecondRound && sub_stage_id == SecondStage)
 	{
 		if (fate == 1)
@@ -968,6 +972,8 @@ void world_cup_quals_caf_final_stage_setup(BYTE* _this) {
 	DWORD* stages_arr = comp_data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
 	sub_51C800(new_stage, 0);
+	sub_9452CA_free(pTeams);
+	sub_9452CA_free(pFixtures);
 	comp_data->current_stage = (long)stage_num;
 }
 

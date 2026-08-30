@@ -10,13 +10,14 @@
 #include "euro_champ.h"
 #include "euro_champ_quals.h"
 #include "uefa_nations_league.h"
+#include "concacaf_nations_league.h"
+#include "copa_america.h"
+#include "copa_america_quals.h"
+#include "gold_cup.h"
+#include "gold_cup_quals.h"
 
 static DWORD(__thiscall* olympic_games_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
 (DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x79f530);
-static DWORD(__thiscall* copa_america_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x5e0660);
-static DWORD(__thiscall* gold_cup_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x929140);
 
 DWORD fifa_national_setup_c(playable_nation_data* nation_data) {
 
@@ -29,7 +30,7 @@ DWORD fifa_national_setup_c(playable_nation_data* nation_data) {
 	nation_data->contract_end_month = June;
 	nation_data->contract_end_year = *current_year;
 	nation_data->f70 = 5;
-	nation_data->num_of_comps = 11;
+	nation_data->num_of_comps = 14;
 	DWORD* nation_comps = (DWORD*)cm0102_malloc(nation_data->num_of_comps * 4);
 	nation_data->comps_list = (DWORD)nation_comps;
 
@@ -55,10 +56,6 @@ DWORD fifa_national_setup_c(playable_nation_data* nation_data) {
 	asian_cup_quals_init(pMem, *current_year, get_comp(ASIAN_CUP_QUALIFYING_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)cm0102_new(0xF4);
-	gold_cup_setup(pMem, *current_year, get_comp(GOLD_CUP_9CF()));
-	nation_comps[i++] = (DWORD)pMem;
-
 	pMem = (BYTE*)cm0102_new(0xEE);
 	euro_champ_init(pMem, *current_year, get_comp(UEFA_EURO_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
@@ -72,11 +69,27 @@ DWORD fifa_national_setup_c(playable_nation_data* nation_data) {
 	nation_comps[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)cm0102_new(0xEE);
+	gold_cup_init(pMem, *current_year, get_comp(GOLD_CUP_9CF()));
+	nation_comps[i++] = (DWORD)pMem;
+
+	pMem = (BYTE*)cm0102_new(0xB2);
+	gold_cup_quals_init(pMem, *current_year, get_comp(GOLD_CUP_QUALIFYING_9CF()));
+	nation_comps[i++] = (DWORD)pMem;
+
+	pMem = (BYTE*)cm0102_new(0xEE);
+	concacaf_nations_league_init(pMem, *current_year, get_comp(CONCACAF_NATIONS_LEAGUE_9CF()));
+	nation_comps[i++] = (DWORD)pMem;
+
+	pMem = (BYTE*)cm0102_new(0xEE);
 	ofc_nations_cup_init(pMem, *current_year, get_comp(OFC_NATIONS_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)cm0102_new(0xF6);
-	copa_america_setup(pMem, *current_year, get_comp(COPA_AMERICA_9CF()));
+	pMem = (BYTE*)cm0102_new(0xEE);
+	copa_america_init(pMem, *current_year, get_comp(COPA_AMERICA_9CF()));
+	nation_comps[i++] = (DWORD)pMem;
+
+	pMem = (BYTE*)cm0102_new(0xB2);
+	copa_america_quals_init(pMem, *current_year, get_comp(COPA_AMERICA_QUALIFYING_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
 	BYTE* cm_date = new BYTE[8];
@@ -97,4 +110,9 @@ void setup_fifa_national_comps() {
 	setup_euro_champ();
 	setup_euro_champ_quals();
 	setup_uefa_nations_league();
+	setup_concacaf_nations_league();
+	setup_copa_america();
+	setup_copa_america_quals();
+	setup_gold_cup();
+	setup_gold_cup_quals();
 }

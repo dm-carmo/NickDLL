@@ -1418,10 +1418,11 @@ void __declspec(naked) year_offset_in_landmarks()
 		je ret_add_2_year
 		cmp ebx, dword ptr ds : [0x9cf788]
 		je ret_add_3_year
-		ret_dont_add_years :
+		cmp ebx, dword ptr ds : [0x9cf964]
+		je ret_add_2_year
 		push 0x46b441
-			ret
-			ret_add_1_year :
+		ret
+		ret_add_1_year :
 		mov ax, word ptr ds : [esi + 4]
 			add ax, 1
 			push 0x46b44f
@@ -1466,6 +1467,8 @@ void __declspec(naked) unknown_check_3()
 		cmp eax, dword ptr ds : [0x9cf890]
 		je unknown_3
 		cmp eax, dword ptr ds : [0x9cf888]
+		je unknown_3
+		cmp eax, dword ptr ds : [0x9cf88c]
 		je unknown_3
 		cmp eax, dword ptr ds : [0x9cf95c]
 		je unknown_3
@@ -1520,7 +1523,7 @@ void __declspec(naked) international_comps_to_continent()
 		cmp edx, dword ptr ds : [0x9cf7a8]
 		je to_s_america
 		cmp edx, dword ptr ds : [0x9cf964]
-		je to_s_america
+		je to_n_america
 		cmp edx, dword ptr ds : [0x9cf7a0]
 		je to_world
 		push 0x6b63f6
@@ -1849,6 +1852,52 @@ void __declspec(naked) comps_callup_squad_size()
 	}
 }
 
+void __declspec(naked) hosts_force_gold_cup_usa()
+{
+	__asm
+	{
+		mov ebp, dword ptr ss : [esp + 0x14]
+		cmp ebp, dword ptr ds : [0x9cf78c]
+		je usa_gold_cup
+		mov di, word ptr ss : [esp + 0x18]
+		push 0x5fa74a
+		ret
+		usa_gold_cup :
+		mov ecx, dword ptr ss : [esp + 0x1c]
+			mov edx, dword ptr ds : [0x9cf4f8] // USA
+			mov dword ptr ds : [ecx] , edx
+			mov eax, -1
+			mov edx, dword ptr ss : [esp + 0x20]
+			mov dword ptr ds : [edx] , eax
+			push 0x5fa7b2
+			ret
+	}
+}
+
+void __declspec(naked) hosts_force_gold_cup_usa_2()
+{
+	__asm
+	{
+		mov ecx, dword ptr ss : [esp + 0x8]
+		cmp ecx, dword ptr ds : [0x9cf78c]
+		je usa_gold_cup_2
+		xor edx, edx
+		test si, si
+		push 0x5fa7dc
+		ret
+		usa_gold_cup_2 :
+		push edi
+			mov ecx, dword ptr ss : [esp + 0x10]
+			mov edx, dword ptr ds : [0x9cf4f8] // USA
+			mov dword ptr ds : [ecx] , edx
+			mov eax, -1
+			mov edx, dword ptr ss : [esp + 0x14]
+			mov dword ptr ds : [edx] , eax
+			push 0x5fa82e
+			ret
+	}
+}
+
 void setup_misc_functions()
 {
 	// update game name
@@ -1983,9 +2032,6 @@ void setup_misc_functions()
 		WriteBytes(0xA7FFD8, 2, 0x33, 0x36);
 	}
 
-	// Show hosts for some other comps
-	WriteDWORD(0x96B488, 0x404480); // Copa América
-
 	PatchFunction(0x66955c, (DWORD)&show_playoff_in_menu);
 	PatchFunction(0x46b409, (DWORD)&year_offset_in_landmarks);
 	// tag comp as being part of "World Cup" menu?
@@ -2002,6 +2048,10 @@ void setup_misc_functions()
 	PatchFunction(0x76D6DF, (DWORD)&unknown_int_comps_fix_6);
 	PatchFunction(0x76F1EC, (DWORD)&unknown_int_comps_fix_7);
 	PatchFunction(0x76D466, (DWORD)&comps_callup_squad_size);
+
+	// Gold Cup always hosted in the USA
+	PatchFunction(0x5fa745, (DWORD)&hosts_force_gold_cup_usa);
+	PatchFunction(0x5fa7d7, (DWORD)&hosts_force_gold_cup_usa_2);
 
 	// Shows more teams in Team Stats, up to 127
 	WriteBytes(0x495976, 1, 0x7F);

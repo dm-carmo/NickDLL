@@ -404,6 +404,8 @@ void arg_first_open_playoff(BYTE* _this) {
 	DWORD* stages_arr = comp_data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
 	sub_51C800(new_stage, 0);
+	sub_9452CA_free(pTeams);
+	sub_9452CA_free(pFixtures);
 }
 
 void arg_first_close_playoff(BYTE* _this) {
@@ -422,6 +424,8 @@ void arg_first_close_playoff(BYTE* _this) {
 	DWORD* stages_arr = comp_data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
 	sub_51C800(new_stage, 0);
+	sub_9452CA_free(pTeams);
+	sub_9452CA_free(pFixtures);
 }
 
 void __fastcall arg_second_relegation(BYTE* _this)

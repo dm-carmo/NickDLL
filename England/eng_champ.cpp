@@ -509,6 +509,8 @@ void eng_champ_playoffs_under(BYTE* _this) {
 	DWORD* stages_arr = comp_data->stages;
 	*((DWORD*)(&stages_arr[stage_num * 4])) = (DWORD)new_stage;
 	sub_51C800(new_stage, 0);
+	sub_9452CA_free(pTeams);
+	sub_9452CA_free(pFixtures);
 }
 
 void eng_champ_playoffs(BYTE* _this) {

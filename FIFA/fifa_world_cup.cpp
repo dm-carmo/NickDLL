@@ -953,6 +953,8 @@ void fifa_world_cup_paths_setup(BYTE* _this) {
 	DWORD* stages_arr = data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
 	sub_51C800(new_stage, 0);
+	sub_9452CA_free(pTeams1);
+	sub_9452CA_free(pFixtures);
 	stage_num++;
 
 	num_rounds = 0;
@@ -962,6 +964,8 @@ void fifa_world_cup_paths_setup(BYTE* _this) {
 	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams2, num_rounds, (DWORD)(data->competition_db), pFixtures, year, stage_num, 4, stage_name_id, 0x14, 1, 0, 0, 0);
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
 	sub_51C800(new_stage, 0);
+	sub_9452CA_free(pTeams2);
+	sub_9452CA_free(pFixtures);
 
 	data->current_stage = (long)stage_num;
 }
@@ -1008,6 +1012,8 @@ void fifa_world_cup_final_stage_setup(BYTE* _this) {
 	DWORD* stages_arr = data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
 	sub_51C800(new_stage, 0);
+	sub_9452CA_free(pTeams2);
+	sub_9452CA_free(pFixtures);
 	stage_num++;
 
 	num_rounds = 0;
@@ -1017,6 +1023,8 @@ void fifa_world_cup_final_stage_setup(BYTE* _this) {
 	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams1, num_rounds, (DWORD)(data->competition_db), pFixtures, year, stage_num, 4, stage_name_id, 0x14, 1, 0, 0, 0);
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
 	sub_51C800(new_stage, 0);
+	sub_9452CA_free(pTeams1);
+	sub_9452CA_free(pFixtures);
 
 	data->current_stage = (long)stage_num;
 }
@@ -1075,7 +1083,6 @@ void fifa_world_cup_setup1(BYTE* _this) {
 			string msg = "Something went wrong... only have " + to_string(n) + " teams for the World Cup!";
 			create_message_box(data->competition_db->ClubCompName, msg.c_str(), true);
 		}
-		sort(qualified_teams.begin(), qualified_teams.end(), compareNationRanking);
 		WORD year = data->year;
 		DWORD host1_id = -1, host2_id = -1;
 		char num_hosts = get_host_ids_5FA730((BYTE*)*b5e134, data->competition_db->ClubCompID, year, &host1_id, &host2_id, 1);
@@ -1640,6 +1647,10 @@ void __declspec(naked) fifa_world_cup_stage_news_c()
 }
 
 void fifa_world_cup_landmarks(BYTE* _this, DWORD dest_ptr, int a2, WORD main_stage_id, WORD sub_stage_id, char fate, cm3_clubs* club) {
+	if (main_stage_id == BestPlacedTeams) {
+		sub_66F4E0(dest_ptr, 0x99B800);
+		return;
+	}
 	if (main_stage_id == WorldCupPath1 || main_stage_id == WorldCupPath2)
 	{
 		if (sub_stage_id == SemiFinal)

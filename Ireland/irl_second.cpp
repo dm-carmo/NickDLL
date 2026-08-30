@@ -532,6 +532,8 @@ void irl_second_playoff_finals(BYTE* _this) {
 	DWORD* stages_arr = comp_data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
 	sub_51C800(new_stage, 0);
+	sub_9452CA_free(pTeams);
+	sub_9452CA_free(pFixtures);
 }
 
 void irl_second_playoffs_c(BYTE* _this) {

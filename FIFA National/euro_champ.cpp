@@ -618,6 +618,8 @@ void euro_champ_final_stage_setup(BYTE* _this) {
 	DWORD* stages_arr = data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
 	sub_51C800(new_stage, 0);
+	sub_9452CA_free(pTeams);
+	sub_9452CA_free(pFixtures);
 
 	data->current_stage = (long)stage_num;
 }
@@ -674,7 +676,6 @@ void euro_champ_setup1(BYTE* _this) {
 			string msg = "Something went wrong... only have " + to_string(n) + " teams for the Tuesday!";
 			create_message_box(data->competition_db->ClubCompName, msg.c_str(), true);
 		}
-		sort(qualified_teams.begin(), qualified_teams.end(), compareNationRanking);
 		WORD year = data->year;
 		DWORD host1_id = -1, host2_id = -1;
 		char num_hosts = get_host_ids_5FA730((BYTE*)*b5e134, data->competition_db->ClubCompID, year, &host1_id, &host2_id, 1);
@@ -1045,6 +1046,32 @@ void __declspec(naked) euro_champ_stage_news_c()
 	}
 }
 
+void euro_champ_landmarks(BYTE* _this, DWORD dest_ptr, int a2, WORD main_stage_id, WORD sub_stage_id, char fate, cm3_clubs* club) {
+	if (main_stage_id == BestPlacedTeams) {
+		sub_66F4E0(dest_ptr, 0x99B800);
+		return;
+	}
+	return sub_48CAB0(_this, dest_ptr, a2, main_stage_id, sub_stage_id, fate, club);
+}
+
+void __declspec(naked) euro_champ_landmarks_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x18]
+		push dword ptr[eax + 0x14]
+		push dword ptr[eax + 0x10]
+		push dword ptr[eax + 0xc]
+		push dword ptr[eax + 0x8]
+		push dword ptr[eax + 0x4]
+		push ecx
+		call euro_champ_landmarks
+		add esp, 0x1c
+		ret 0x18
+	}
+}
+
 void setup_euro_champ() {
 	WriteVTablePtr(euro_champ_vtable, VTableSubsRounds, (DWORD)&euro_champ_subs_c);
 	WriteVTablePtr(euro_champ_vtable, VTableLeagueSplit, (DWORD)&euro_champ_init2_c);
@@ -1058,6 +1085,7 @@ void setup_euro_champ() {
 	WriteVTablePtr(euro_champ_vtable, VTableStageNews, (DWORD)&euro_champ_stage_news_c);
 	WriteVTablePtr(euro_champ_vtable, VTable29, (DWORD)&euro_champ_vtable29_c);
 	WriteVTablePtr(euro_champ_vtable, VTable30, (DWORD)&euro_champ_vtable30_c);
+	WriteVTablePtr(euro_champ_vtable, VTableClubLandmarks, (DWORD)&euro_champ_landmarks_c);
 	WriteVTablePtr(euro_champ_vtable, VTableShowHostsInHistory, 0x404480);
 
 	WriteVTablePtr(euro_champ_vtable, VTableLoadCompInfo, 0x48CEB0);

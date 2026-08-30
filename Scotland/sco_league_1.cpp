@@ -365,6 +365,8 @@ void sco_league_1_playoff_rele(BYTE* _this) {
 	DWORD* stages_arr = comp_data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
 	sub_51C800(new_stage, 0);
+	sub_9452CA_free(pTeams);
+	sub_9452CA_free(pFixtures);
 }
 
 void sco_champ_playoff_send_teams(BYTE* _this) {

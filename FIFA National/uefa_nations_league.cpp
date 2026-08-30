@@ -561,19 +561,19 @@ void uefa_nations_league_reputation_calc(BYTE* _this, BYTE* club, char stage, ch
 		ret_max = max + 6;
 	}
 	else if (stage < 6) {
-		ret_current = 18 + 3 * (current - 1);
-		ret_min = 18 + 3 * (min - 1);
-		ret_max = 18 + 3 * (max - 1);
+		ret_current = 19 + 3 * (current - 1);
+		ret_min = 19 + 3 * (min - 1);
+		ret_max = 19 + 3 * (max - 1);
 	}
 	else if (stage < 9) {
-		ret_current = 36 + 3 * (current - 1);
-		ret_min = 36 + 3 * (min - 1);
-		ret_max = 36 + 3 * (max - 1);
+		ret_current = 37 + 3 * (current - 1);
+		ret_min = 37 + 3 * (min - 1);
+		ret_max = 37 + 3 * (max - 1);
 	}
 	else if (stage == 9) {
 		ret_current = 12 * current + 1;
-		ret_min = 12 * current + 1;
-		ret_max = 12 * current + 1;
+		ret_min = 12 * min + 1;
+		ret_max = 12 * max + 1;
 	}
 	else if (stage == 10) {
 		ret_current = 12 * current + 19;
@@ -610,7 +610,6 @@ void __declspec(naked) uefa_nations_league_reputation_calc_c()
 	}
 }
 
-// review: this is for first year only
 void uefa_nations_league_all_teams(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	WORD year = data->year;
@@ -1045,6 +1044,8 @@ void uefa_nations_league_a_b_playoff_setup(BYTE* _this) {
 	DWORD* stages_arr = comp_data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
 	sub_51C800(new_stage, 0);
+	sub_9452CA_free(pTeams);
+	sub_9452CA_free(pFixtures);
 }
 
 void uefa_nations_league_b_c_playoff_setup(BYTE* _this) {
@@ -1102,6 +1103,8 @@ void uefa_nations_league_b_c_playoff_setup(BYTE* _this) {
 	DWORD* stages_arr = comp_data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
 	sub_51C800(new_stage, 0);
+	sub_9452CA_free(pTeams);
+	sub_9452CA_free(pFixtures);
 }
 
 void uefa_nations_league_final_stage_setup(BYTE* _this) {
@@ -1175,6 +1178,8 @@ void uefa_nations_league_final_stage_setup(BYTE* _this) {
 	DWORD* stages_arr = comp_data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
 	sub_51C800(new_stage, 0);
+	sub_9452CA_free(pTeams);
+	sub_9452CA_free(pFixtures);
 	comp_data->current_stage = (long)stage_num;
 }
 
@@ -1196,6 +1201,8 @@ void uefa_nations_league_third_place_setup(BYTE* _this) {
 	DWORD* stages_arr = data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
 	sub_51C800(new_stage, 0);
+	sub_9452CA_free(pTeams);
+	sub_9452CA_free(pFixtures);
 
 	data->current_stage = (long)stage_num;
 }
@@ -1288,6 +1295,7 @@ int uefa_nations_league_set_fates(BYTE* _this, cm3_clubs* club, char fate, char 
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, LeagueBCPlayoff, 0x1E);
 			return 0;
 		default:
+			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, LeagueC, 0x1E);
 			break;
 		}
 		sub_775000((BYTE*)*b74318, club->ClubNation);
@@ -1538,13 +1546,13 @@ int uefa_nations_league_stage_news(BYTE* _this, int club_idx, char fate, char st
 	}
 	else if (stage_id < 6) {
 		if (fate == Promoted) return sub_4B4590(club_idx, (WORD)stage_name_idx, (DWORD)comp_data, fate, show_body_text, ret_str_ptr);
-		if (fate == TopPlayoff) return sub_4B4590(club_idx, (WORD)stage_name_idx, (DWORD)comp_data, fate, show_body_text, ret_str_ptr);
+		else if (fate == TopPlayoff) return sub_4B4590(club_idx, (WORD)stage_name_idx, (DWORD)comp_data, fate, show_body_text, ret_str_ptr);
 		else if (fate == BottomPlayoff) return sub_4B4590(club_idx, (WORD)stage_name_idx, (DWORD)comp_data, fate, show_body_text, ret_str_ptr);
 		else if (fate == Relegated) return sub_4B4590(club_idx, (WORD)stage_name_idx, (DWORD)comp_data, fate, show_body_text, ret_str_ptr);
 	}
 	else if (stage_id < 9) {
 		if (fate == Promoted) return sub_4B4590(club_idx, (WORD)stage_name_idx, (DWORD)comp_data, fate, show_body_text, ret_str_ptr);
-		if (fate == TopPlayoff) return sub_4B4590(club_idx, (WORD)stage_name_idx, (DWORD)comp_data, fate, show_body_text, ret_str_ptr);
+		else if (fate == TopPlayoff) return sub_4B4590(club_idx, (WORD)stage_name_idx, (DWORD)comp_data, fate, show_body_text, ret_str_ptr);
 	}
 	else if (stage_id == 9) return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
 	else if (stage_id == 10) return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
@@ -1638,6 +1646,10 @@ void uefa_nations_league_landmarks(BYTE* _this, DWORD dest_ptr, int a2, WORD mai
 			return;
 		}
 	}
+	if (main_stage_id == BestPlacedTeams) {
+		sub_66F4E0(dest_ptr, 0x99B800);
+		return;
+	}
 	if (main_stage_id == LeagueABPlayoff || sub_stage_id == LeagueABPlayoff) return sub_48CAB0(_this, dest_ptr, a2, None, LeagueABPlayoff, 0, club);
 	if (main_stage_id == LeagueBCPlayoff || sub_stage_id == LeagueBCPlayoff) return sub_48CAB0(_this, dest_ptr, a2, None, LeagueBCPlayoff, 0, club);
 	if (main_stage_id == None)
@@ -1679,7 +1691,6 @@ void __declspec(naked) uefa_nations_league_landmarks_c()
 	}
 }
 
-// review
 WORD uefa_nations_league_vtable29(BYTE* _this, cm3_clubs* club) {
 	comp_stats* data = (comp_stats*)_this;
 	DWORD* f8 = data->f8;
@@ -1708,7 +1719,6 @@ void __declspec(naked) uefa_nations_league_vtable29_c()
 	}
 }
 
-// review
 BYTE uefa_nations_league_vtable30(BYTE* _this, cm3_clubs* club) {
 	comp_stats* data = (comp_stats*)_this;
 	DWORD* f8 = data->f8;
@@ -1826,7 +1836,7 @@ void uefa_nations_league_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	uefa_nations_league_vtable->SetPointer(VTableSaveCompInfo, 0x48CEA0);
 	uefa_nations_league_vtable->SetPointer(VTable12, 0x48CE70);
 	uefa_nations_league_vtable->SetPointer(VTableGetFinalsComp, 0x5dce00);
-	uefa_nations_league_vtable->SetPointer(VTableShowHostsInHistory, 0x404480);
+	uefa_nations_league_vtable->SetPointer(VTableShowHostsInHistory, 0x5dce00);
 	uefa_nations_league_vtable->SetPointer(VTableSubsRounds, (DWORD)&uefa_nations_league_subs_c);
 	uefa_nations_league_vtable->SetPointer(VTablePostMatchUpdate, 0x685d30); // check?
 	uefa_nations_league_vtable->SetPointer(VTablePlayoffQual, (DWORD)&uefa_nations_league_stages_create_c);
