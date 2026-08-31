@@ -107,29 +107,29 @@ DWORD ger_regional_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD*
 		pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 7, 26), year, Saturday);
+		if (numberOfLeagueTeams > 18) AddFixtureNoTV(pMem, fixture_id++, Date(year, 7, 26), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 2), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 9), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 13), year, Wednesday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 16), year, Saturday);
-		if (numberOfLeagueTeams > 18) AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 20), year, Wednesday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 23), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 30), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 6), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 13), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 17), year, Wednesday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 20), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 27), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 4), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 11), year, Saturday);
 		if (numberOfLeagueTeams > 18) AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 15), year, Wednesday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 18), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 25), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 1), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 8), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 15), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 22), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 29), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 12, 6), year, Saturday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 1, 24), year, Saturday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 1, 31), year, Saturday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 7), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 14), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 21), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 28), year, Saturday);
@@ -144,7 +144,7 @@ DWORD ger_regional_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD*
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 25), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 5, 2), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 5, 9), year, Saturday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 5, 16), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 5, 23), year, Saturday);
 
 		check_number_of_fixtures(_this, fixture_id, *num_rounds);
 

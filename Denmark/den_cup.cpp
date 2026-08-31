@@ -25,26 +25,26 @@ DWORD den_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 92, 46, 92, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 7), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 3), year, Wednesday, Evening);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 27), year, Wednesday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, SecondRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 52, 26, 6, 92, 0, 1, 0);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 4), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 24), year, Wednesday, Evening);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 28), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 17), year, Wednesday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 32, 16, 6, 98, 0, 1, 0);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 25), year, Thursday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 18), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 29), year, Wednesday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, FourthRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 16, 8, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("den_cup_r4_win"), 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 30), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 3), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 6, 8, 4, 0, 0, 0, 2, 10, 0, prizeMoneyFile.GetInt("den_cup_qtr_win"), 0);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 6, 8, 4, 0, 0, 0, 2, 11, 0, prizeMoneyFile.GetInt("den_cup_qtr_win"), 0);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 14), year, Sunday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 2, 11), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 6, 4, 2, 0, 0, 0, 2, 24, 0, prizeMoneyFile.GetInt("den_cup_semi_win"), prizeMoneyFile.GetInt("den_cup_semi_lose"));
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 15), year, Monday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 2, 15), year, Sunday);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 6, 4, 2, 0, 0, 0, 2, 17, 0, prizeMoneyFile.GetInt("den_cup_semi_win"), prizeMoneyFile.GetInt("den_cup_semi_lose"));
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 8), year, Sunday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 5), year, Thursday);
 		Date easter_day = Date::easter_gregorian(year + 1);
 		easter_day.addDays(39);
 		AddPlayoffFixture(pMem, fixture_id, easter_day, year, Thursday, Evening, NationalStadium);

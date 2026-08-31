@@ -483,10 +483,9 @@ int sco_champ_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char sta
 		}
 	}
 	else if (stage == 1) {
-		cm3_clubs* club_ptr = (cm3_clubs*)club;
 		cm3_club_comps* sco_league_1 = get_comp(SCO_LEAGUE_1_9CF());
 		BYTE* rounds = ((comp_stats*)(comp_data->stages[stage]))->rounds_list;
-		if (club_ptr->ClubDivision == sco_league_1) {
+		if (club->ClubDivision == sco_league_1) {
 			WORD current_round = *(WORD*)(round_data + 0x34);
 			comp_stats* sco_league_1_data = (comp_stats*)get_loaded_league(SCO_LEAGUE_1_9CF());
 			WORD num_teams = sco_league_1_data->n_teams;

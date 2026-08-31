@@ -498,12 +498,12 @@ DWORD ger_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 
 		int fixture_id = 0;
 		int tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year, 8, 23), year, Saturday);
+		AddFixture(pMem, fixture_id, Date(year, 8, 30), year, Saturday);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year, 8, 30), year, Saturday);
+		AddFixture(pMem, fixture_id, Date(year, 9, 6), year, Saturday);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
@@ -518,12 +518,7 @@ DWORD ger_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year, 9, 27), year, Saturday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
-		AddFixtureTV(pMem, fixture_id++, tv_id++);
-		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year, 10, 4), year, Saturday);
+		AddFixture(pMem, fixture_id, Date(year, 10, 11), year, Saturday);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
@@ -618,6 +613,11 @@ DWORD ger_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
+		AddFixture(pMem, fixture_id, Date(year + 1, 3, 4), year, Wednesday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Tuesday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Thursday, Evening);
+		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		tv_id = 0;
 		AddFixture(pMem, fixture_id, Date(year + 1, 3, 7), year, Saturday);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
@@ -653,16 +653,16 @@ DWORD ger_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year + 1, 5, 2), year, Saturday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
-		AddFixtureTV(pMem, fixture_id++, tv_id++);
-		tv_id = 0;
 		AddFixture(pMem, fixture_id, Date(year + 1, 5, 9), year, Saturday);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 5, 16), year, Saturday);
+		tv_id = 0;
+		AddFixture(pMem, fixture_id, Date(year + 1, 5, 16), year, Saturday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Sunday, Afternoon);
+		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 5, 23), year, Saturday);
 
 		check_number_of_fixtures(_this, fixture_id, *num_rounds);
 
@@ -679,8 +679,8 @@ DWORD ger_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 17), year, Sunday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 21), year, Thursday, Evening);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 24), year, Sunday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 28), year, Thursday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, Playoff, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 5, 2, 1, 2, 0, 0, 2, 4);
 
 		return (DWORD)pMem;
@@ -808,10 +808,9 @@ int ger_first_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char sta
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == 0) {
-		cm3_clubs* club_ptr = (cm3_clubs*)club;
 		cm3_club_comps* ger_second = get_comp(GER_SECOND_9CF());
 		BYTE* rounds = ((comp_stats*)(comp_data->stages[stage]))->rounds_list;
-		if (club_ptr->ClubDivision == ger_second) {
+		if (club->ClubDivision == ger_second) {
 			comp_stats* ger_second_data = (comp_stats*)get_loaded_league(GER_SECOND_9CF());
 			WORD num_teams = ger_second_data->n_teams;
 			if (num_teams <= 0) return 0;

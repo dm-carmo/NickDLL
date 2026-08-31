@@ -461,9 +461,8 @@ int kor_second_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char st
 		}
 	}
 	else if (stage == 1) {
-		cm3_clubs* club_ptr = (cm3_clubs*)club;
 		BYTE* rounds = ((comp_stats*)(comp_data->stages[stage]))->rounds_list;
-		if (club_ptr->ClubDivision == comp_data->competition_db) {
+		if (club->ClubDivision == comp_data->competition_db) {
 			WORD num_teams = comp_data->n_teams;
 			if (num_teams <= 0) return 0;
 			team_league_stats* table = (team_league_stats*)(comp_data->team_league_table);

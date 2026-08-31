@@ -476,10 +476,9 @@ int por_second_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char st
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == 0) {
-		cm3_clubs* club_ptr = (cm3_clubs*)club;
 		cm3_club_comps* por_third = get_comp(POR_THIRD_9CF());
 		BYTE* rounds = ((comp_stats*)(comp_data->stages[stage]))->rounds_list;
-		if (club_ptr->ClubDivision == por_third) {
+		if (club->ClubDivision == por_third) {
 			WORD current_round = *(WORD*)(round_data + 0x34);
 			comp_stats* por_third_data = (comp_stats*)get_loaded_league(POR_THIRD_9CF());
 			comp_stats* curr_stage = por_third_data;

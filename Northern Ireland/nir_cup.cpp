@@ -10,7 +10,7 @@ DWORD* nir_cup_vtable = (DWORD*)0x96DAC4;
 int nir_cup_teams(BYTE* _this) {
 	vector<cm3_clubs*> vec;
 	comp_stats* comp_data = (comp_stats*)_this;
-	WORD total_teams = 40;
+	WORD total_teams = 44;
 	BYTE* pMem = (BYTE*)cm0102_malloc(6 * total_teams);
 
 	comp_data->n_teams = total_teams;
@@ -19,13 +19,12 @@ int nir_cup_teams(BYTE* _this) {
 	teams_seeded* teams = (teams_seeded*)comp_data->teams_list;
 	// Lower
 	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_NORTHERN_IRELAND_9CF());
-	vector<cm3_clubs*> division_clubs = get_random_weighted_clubs(lower_clubs, 2, true);
-	// Currently not used
-	//for (cm3_clubs* club : division_clubs)
-	//{
-	//	vec.push_back(club);
-	//}
-	// NIFL Intermediate
+	vector<cm3_clubs*> division_clubs = get_random_weighted_clubs(lower_clubs, 4, true);
+	for (cm3_clubs* club : division_clubs)
+	{
+		vec.push_back(club);
+	}
+	// NIFL Conference
 	division_clubs = find_clubs_of_comp(NIR_SECOND_9CF());
 	for (cm3_clubs* club : division_clubs)
 	{
@@ -84,18 +83,22 @@ DWORD nir_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		FillFixtureDetails(pMem, fixture_id++, FourthRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 16, 8, 16, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 23), year, Sunday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 6), year, Saturday);
+		FillFixtureDetails(pMem, fixture_id++, FifthRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 8, 4, 0, 0, 0, 1, 0);
+
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 7), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 1, 10), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, FifthRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 32, 16, 24, 16, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, SixthRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 32, 16, 28, 16, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 1, 11), year, Sunday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 2, 7), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, SixthRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 16, 8, 0, 0, 0, 1, 0);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 2, 14), year, Saturday);
+		FillFixtureDetails(pMem, fixture_id++, SeventhRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 16, 8, 0, 0, 0, 1, 0);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 2, 8), year, Sunday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 7), year, Saturday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 2, 15), year, Sunday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 14), year, Saturday);
 		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 8, 4, 0, 0, 0, 1, 0, prizeMoneyFile.GetInt("nir_cup_qtr_qualify"));
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 8), year, Sunday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 15), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 4), year, Saturday, Afternoon, NeutralStadium);
 		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 4, 2, 0, 0, 0, 1, 0, prizeMoneyFile.GetInt("nir_cup_semi_qualify"));
 

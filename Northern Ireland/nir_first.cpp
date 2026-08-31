@@ -41,6 +41,7 @@ DWORD nir_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Sunday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 12), year, Tuesday, Evening);
 		tv_id = 0;
 		AddFixture(pMem, fixture_id, Date(year, 8, 16), year, Saturday);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
@@ -138,8 +139,6 @@ DWORD nir_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		Date boxing_day = Date(year, 12, 26);
 		AddFixtureNoTV(pMem, fixture_id++, boxing_day, year, (Day)boxing_day.DayOfWeek(), Evening);
-		boxing_day.addDays(4);
-		AddFixtureNoTV(pMem, fixture_id++, boxing_day, year, (Day)boxing_day.DayOfWeek(), Evening);
 		tv_id = 0;
 		AddFixture(pMem, fixture_id, Date(year + 1, 1, 3), year, Saturday);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
@@ -161,7 +160,7 @@ DWORD nir_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Sunday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year + 1, 2, 14), year, Saturday);
+		AddFixture(pMem, fixture_id, Date(year + 1, 2, 7), year, Saturday);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Sunday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
@@ -178,11 +177,6 @@ DWORD nir_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 7), year, Saturday);
 		// next phase starts here
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year + 1, 3, 14), year, Saturday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Sunday, Afternoon);
-		AddFixtureTV(pMem, fixture_id++, tv_id++);
-		tv_id = 0;
 		AddFixture(pMem, fixture_id, Date(year + 1, 3, 21), year, Saturday);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Sunday, Afternoon);
@@ -197,6 +191,7 @@ DWORD nir_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Sunday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 7), year, Tuesday, Evening);
 		tv_id = 0;
 		AddFixture(pMem, fixture_id, Date(year + 1, 4, 11), year, Saturday);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
@@ -207,7 +202,7 @@ DWORD nir_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Sunday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 24), year, Friday, Evening);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 25), year, Saturday);
 
 		check_number_of_fixtures(_this, fixture_id, *num_rounds);
 
@@ -243,13 +238,13 @@ DWORD nir_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 14), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 21), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 28), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 4), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 7), year, Tuesday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 11), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 18), year, Saturday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 24), year, Friday, Evening);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 25), year, Saturday);
 
 		check_number_of_fixtures(_this, fixture_id, *num_rounds);
 
@@ -553,10 +548,9 @@ int nir_first_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char sta
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == 0) {
-		cm3_clubs* club_ptr = (cm3_clubs*)club;
 		cm3_club_comps* nir_second = get_comp(NIR_SECOND_9CF());
 		BYTE* rounds = ((comp_stats*)(comp_data->stages[stage]))->rounds_list;
-		if (club_ptr->ClubDivision == nir_second) {
+		if (club->ClubDivision == nir_second) {
 			comp_stats* nir_second_data = (comp_stats*)get_loaded_league(NIR_SECOND_9CF());
 			WORD num_teams = nir_second_data->n_teams;
 			if (num_teams <= 0) return 0;

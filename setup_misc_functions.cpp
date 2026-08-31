@@ -37,10 +37,10 @@ vector<DWORD> friendly_march_21plus3 = {
 };
 
 vector<DWORD> replace_titlebar_bg = {
-	0x81BB1A + 3, 0x81CA55 + 3, 0x81D0D3 + 3, 0x81C99C + 2, 0x81CAE6 + 3, 0x81EE2C + 3, 0x81F1EC + 3, 0x81F94F + 3, 0x825D9B + 3, 0x820FB7 + 3, 0x821AD0 + 2, 0x8222B2 + 3, 0x822AF1 + 3, 0x81FF46 + 3, 0x8F4656 + 3, 0x8766E6 + 3, 0x81E932 + 3,
+	0x81BB1A + 3, 0x81CA55 + 3, 0x81D0D3 + 3, 0x81C99C + 2, 0x81CAE6 + 3, 0x81EE2C + 3, 0x81F1EC + 3, 0x81F94F + 3, 0x825D9B + 3, 0x820FB7 + 3, 0x821AD0 + 2, 0x8222B2 + 3, 0x822AF1 + 3, 0x81FF46 + 3, 0x8F4656 + 3, 0x8766E6 + 3, 0x81E932 + 3, 0x8217E9 + 3, 0x821706 + 2, 0x761866 + 2, 0x762720 + 2, 0x7627EA + 3, 0x762946 + 2, 0x762B20 + 3, 0x81C864 + 3, 0x81CBC7 + 3, 0x821834 + 3, 0x821880 + 2, 0x823328 + 2, 0x8389ED + 3, 0x838A24 + 3,
 };
 vector<DWORD> replace_titlebar_fg = {
-	0x81BB13 + 3, 0x81CA61 + 3, 0x81D0CC + 3, 0x81C9BC + 3, 0x81CAED + 3, 0x81EE25 + 3, 0x81F1E6 + 2, 0x81F949 + 2, 0x825D95 + 2, 0x820FB0 + 3, 0x821AC9 + 3, 0x8222AC + 2, 0x822AEA + 3, 0x81FF40 + 2, 0x8F465D + 2, 0x8766DF + 3, 0x81E92B + 3,
+	0x81BB13 + 3, 0x81CA61 + 3, 0x81D0CC + 3, 0x81C9BC + 3, 0x81CAED + 3, 0x81EE25 + 3, 0x81F1E6 + 2, 0x81F949 + 2, 0x825D95 + 2, 0x820FB0 + 3, 0x821AC9 + 3, 0x8222AC + 2, 0x822AEA + 3, 0x81FF40 + 2, 0x8F465D + 2, 0x8766DF + 3, 0x81E92B + 3, 0x8217F0 + 2, 0x82170C + 3, 0x76186C + 3, 0x762726 + 3, 0x7627F1 + 3, 0x76294C + 3, 0x762B27 + 3, 0x81C86B + 3, 0x81CBCE + 2, 0x82183B + 2, 0x821886 + 3, 0x82332E + 3, 0x8389F4 + 3, 0x838A2B + 3,
 };
 
 int show_extra_leagues_in_start(BYTE* nation, DWORD dest_ptr, int a3) {
@@ -1460,6 +1460,8 @@ void __declspec(naked) unknown_check_3()
 {
 	__asm
 	{
+		cmp eax, dword ptr ds : [0x9cf790]
+		je unknown_3
 		cmp eax, dword ptr ds : [0x9cf78c]
 		je unknown_3
 		cmp eax, dword ptr ds : [0x9cf788]
@@ -1474,10 +1476,10 @@ void __declspec(naked) unknown_check_3()
 		je unknown_3
 		cmp eax, dword ptr ds : [0x9cf964]
 		je unknown_3
-		push 0x669bb6
+		push 0x669bae
 		ret
 		unknown_3 :
-		push 0x669bbf
+		push 0x669bb7
 			ret
 	}
 }
@@ -1874,18 +1876,43 @@ void __declspec(naked) hosts_force_gold_cup_usa()
 	}
 }
 
-void __declspec(naked) hosts_force_gold_cup_usa_2()
+char fix_hosts_news_function(BYTE* _this, long comp_id, DWORD* host1_ptr, DWORD* host2_ptr) {
+	comp_stats* comp = (comp_stats*)get_loaded_league(comp_id);
+	return get_host_ids_5FA730(_this, comp_id, comp->year, host1_ptr, host2_ptr, 1);
+}
+
+void __declspec(naked) fix_hosts_news_function_c()
 {
-	__asm
-	{
-		mov ecx, dword ptr ss : [esp + 0x8]
-		cmp ecx, dword ptr ds : [0x9cf78c]
-		je usa_gold_cup_2
-		xor edx, edx
-		test si, si
-		push 0x5fa7dc
-		ret
-		usa_gold_cup_2 :
+	__asm {
+		mov edx, dword ptr ds : [0xADADFC]
+		test edx, edx
+		je no_comp_stats
+		push ecx
+		mov ecx, dword ptr ds : [esp + 8]
+		mov edx, dword ptr ds : [edx + ecx * 4]
+		pop ecx
+		test edx, edx
+		je no_comp_stats
+		mov eax, esp
+		push dword ptr[eax + 0xc]
+		push dword ptr[eax + 0x8]
+		push dword ptr[eax + 0x4]
+		push ecx
+		call fix_hosts_news_function
+		add esp, 0x10
+		ret 0xc
+		no_comp_stats:
+		mov eax, dword ptr ds : [ecx]
+			push esi
+			mov si, word ptr ds : [ecx + 4]
+			mov ecx, dword ptr ss : [esp + 0x8]
+			cmp ecx, dword ptr ds : [0x9cf78c]
+			je usa_gold_cup_2
+			xor edx, edx
+			test si, si
+			push 0x5fa7dc
+			ret
+			usa_gold_cup_2 :
 		push edi
 			mov ecx, dword ptr ss : [esp + 0x10]
 			mov edx, dword ptr ds : [0x9cf4f8] // USA
@@ -1995,12 +2022,12 @@ void setup_misc_functions()
 	WriteBytes(0x5caba1, 7, 0x66, 0xC7, 0x40, 0x01, 0x1b, 0x08, 0x90);
 	WriteBytes(0x5cad0e, 7, 0x66, 0xC7, 0x40, 0x01, 0x1b, 0x08, 0x90);
 	WriteBytes(0x5cb459, 7, 0x66, 0xC7, 0x40, 0x01, 0x1b, 0x08, 0x90);
-	// Move October 4's international friendlies forward one week => changed back
+	// Move October 4's international friendlies back 3 days
 	for (DWORD d : friendly_oct_4plus4) {
-		WriteBytes(d + 4, 1, 4);
+		WriteBytes(d + 4, 1, 1);
 	}
 	for (DWORD d : friendly_oct_4plus3) {
-		WriteBytes(d + 3, 1, 4);
+		WriteBytes(d + 3, 1, 1);
 	}
 	// Move March 21's international friendlies forward one week
 	for (DWORD d : friendly_march_21plus4) {
@@ -2037,7 +2064,7 @@ void setup_misc_functions()
 	// tag comp as being part of "World Cup" menu?
 	PatchFunction(0x669abe, (DWORD)&unknown_check_2);
 	// tag comp as being part of "International" menu?
-	PatchFunction(0x669bae, (DWORD)&unknown_check_3);
+	PatchFunction(0x669ba6, (DWORD)&unknown_check_3);
 	PatchFunction(0x6b6358, (DWORD)&international_comps_to_continent);
 	PatchFunction(0x76D940, (DWORD)&is_international_comp_no_qualifiers);
 	PatchFunction(0x76b455, (DWORD)&unknown_int_comps_fix_1);
@@ -2051,7 +2078,7 @@ void setup_misc_functions()
 
 	// Gold Cup always hosted in the USA
 	PatchFunction(0x5fa745, (DWORD)&hosts_force_gold_cup_usa);
-	PatchFunction(0x5fa7d7, (DWORD)&hosts_force_gold_cup_usa_2);
+	PatchFunction(0x5fa7d0, (DWORD)&fix_hosts_news_function_c);
 
 	// Shows more teams in Team Stats, up to 127
 	WriteBytes(0x495976, 1, 0x7F);

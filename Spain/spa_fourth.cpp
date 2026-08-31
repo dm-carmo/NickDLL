@@ -557,7 +557,6 @@ int spa_fourth_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char st
 		}
 	}
 	else if (stage == 4) {
-		cm3_clubs* club_ptr = (cm3_clubs*)club;
 		WORD num_teams = comp_data->n_teams;
 		if (num_teams <= 0) return 0;
 		BYTE* rounds = ((comp_stats*)(comp_data->stages[stage]))->rounds_list;
@@ -591,7 +590,6 @@ int spa_fourth_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char st
 		}
 	}
 	else if (stage == 5) {
-		cm3_clubs* club_ptr = (cm3_clubs*)club;
 		WORD num_teams = comp_data->n_teams;
 		if (num_teams <= 0) return 0;
 		BYTE* rounds = ((comp_stats*)(comp_data->stages[stage]))->rounds_list;

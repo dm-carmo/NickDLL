@@ -336,10 +336,9 @@ int fin_first_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char sta
 	comp_stats* comp_data = (comp_stats*)_this;
 	cm3_club_comps* fin_premier = get_comp(FIN_PREMIER_9CF());
 	if (stage == 0) {
-		cm3_clubs* club_ptr = (cm3_clubs*)club;
 		cm3_club_comps* fin_second = get_comp(FIN_SECOND_9CF());
 		BYTE* rounds = ((comp_stats*)(comp_data->stages[stage]))->rounds_list;
-		if (club_ptr->ClubDivision == fin_second) {
+		if (club->ClubDivision == fin_second) {
 			WORD current_round = *(WORD*)(round_data + 0x34);
 			comp_stats* fin_second_data = (comp_stats*)get_loaded_league(FIN_SECOND_9CF());
 			WORD num_teams = fin_second_data->n_teams;

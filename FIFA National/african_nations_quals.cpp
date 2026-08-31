@@ -671,8 +671,8 @@ BYTE african_nations_quals_vtable30(BYTE* _this, cm3_clubs* club) {
 	BYTE bl = (BYTE)sub_4A2E10((BYTE*)f8, club, 0x13);
 	BYTE al = (BYTE)sub_4A2E10((BYTE*)f8, club, 0x12);
 
-	if (al < 24) return (bl < 24) - 1;
-	else return (bl < 24);
+	if (al < 24) return 2 * (bl < 24) - 1;
+	else return 2 * (bl < 24);
 }
 
 void __declspec(naked) african_nations_quals_vtable30_c()

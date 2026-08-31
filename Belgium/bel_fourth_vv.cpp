@@ -684,7 +684,6 @@ int bel_fourth_vv_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char
 		if (fate == TopPlayoff) staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, PromotionPlayoff, 0x1E);
 	}
 	else if (stage == 7) {
-		cm3_clubs* club_ptr = (cm3_clubs*)club;
 		WORD num_teams = comp_data->n_teams;
 		if (num_teams <= 0) return 0;
 		BYTE* rounds = ((comp_stats*)(comp_data->stages[stage]))->rounds_list;
@@ -718,7 +717,6 @@ int bel_fourth_vv_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char
 		}
 	}
 	else if (stage == 8) {
-		cm3_clubs* club_ptr = (cm3_clubs*)club;
 		WORD num_teams = comp_data->n_teams;
 		if (num_teams <= 0) return 0;
 		BYTE* rounds = ((comp_stats*)(comp_data->stages[stage]))->rounds_list;

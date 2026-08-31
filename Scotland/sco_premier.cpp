@@ -723,10 +723,9 @@ int sco_premier_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char s
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == 0) {
-		cm3_clubs* club_ptr = (cm3_clubs*)club;
 		cm3_club_comps* sco_champ = get_comp(SCO_CHAMP_9CF());
 		BYTE* rounds = ((comp_stats*)(comp_data->stages[stage]))->rounds_list;
-		if (club_ptr->ClubDivision == sco_champ) {
+		if (club->ClubDivision == sco_champ) {
 			comp_stats* sco_first_data = (comp_stats*)get_loaded_league(SCO_CHAMP_9CF());
 			WORD num_teams = sco_first_data->n_teams;
 			if (num_teams <= 0) return 0;

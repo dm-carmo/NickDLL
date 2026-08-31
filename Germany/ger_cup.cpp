@@ -21,10 +21,10 @@ DWORD ger_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 6, 29), year, Sunday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 16), year, Saturday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 23), year, Saturday);
 		FillFixtureDetails(pMem, fixture_id++, FirstRound, 1, ExtraTimePenalties_1, NoTiebreak_2, 4, 64, 32, 64, 0, 0, 1, 0, prizeMoneyFile.GetInt("ger_cup_r1_qualify"));
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 17), year, Sunday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 24), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 29), year, Wednesday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, SecondRound, 1, ExtraTimePenalties_1, NoTiebreak_2, 4, 32, 16, 0, 0, 0, 1, 0, prizeMoneyFile.GetInt("ger_cup_r2_qualify"));
 
@@ -41,7 +41,7 @@ DWORD ger_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 1, ExtraTimePenalties_1, NoTiebreak_2, 6, 4, 2, 0, 0, 0, 1, 0, prizeMoneyFile.GetInt("ger_cup_semi_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 4, 23), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 23), year, Saturday, Afternoon, NationalStadium);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 30), year, Saturday, Afternoon, NationalStadium);
 		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("ger_cup_final_win"), prizeMoneyFile.GetInt("ger_cup_final_lose"));
 
 		return (DWORD)pMem;

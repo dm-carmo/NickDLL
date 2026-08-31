@@ -1104,6 +1104,7 @@ int world_cup_quals_afc_stage_news(BYTE* _this, int club_idx, char fate, char st
 	comp_stats* data = (comp_stats*)_this;
 	cm3_club_comps* comp_data = data->competition_db;
 	cm3_clubs* club_data = get_club(club_idx);
+	// This condition breaks aftr the World Cup resets
 	WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), ASIA_9CF(), 0, 0);
 	if (stage_id == -1) {
 		if (show_body_text) return sub_4B0B80(club_idx, round_data, a9, fate, a7, ret_str_ptr);

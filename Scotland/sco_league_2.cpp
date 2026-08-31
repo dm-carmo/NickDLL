@@ -455,11 +455,10 @@ int sco_league_2_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char 
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == 0) {
-		cm3_clubs* club_ptr = (cm3_clubs*)club;
 		cm3_club_comps* sco_highland = get_comp(SCO_HIGHLAND_9CF());
 		cm3_club_comps* sco_lowland = get_comp(SCO_LOWLAND_9CF());
 		BYTE* rounds = ((comp_stats*)(comp_data->stages[stage]))->rounds_list;
-		if (club_ptr->ClubDivision == sco_highland) {
+		if (club->ClubDivision == sco_highland) {
 			WORD current_round = *(WORD*)(round_data + 0x34);
 			comp_stats* sco_highland_data = (comp_stats*)get_loaded_league(SCO_HIGHLAND_9CF());
 			if (sco_highland_data) {
@@ -484,7 +483,7 @@ int sco_league_2_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char 
 				}
 			}
 		}
-		else if (club_ptr->ClubDivision == sco_lowland) {
+		else if (club->ClubDivision == sco_lowland) {
 			WORD current_round = *(WORD*)(round_data + 0x34);
 			comp_stats* sco_lowland_data = (comp_stats*)get_loaded_league(SCO_LOWLAND_9CF());
 			if (sco_lowland_data) {

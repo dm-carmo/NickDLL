@@ -592,10 +592,9 @@ int kor_first_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char sta
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == 0) {
-		cm3_clubs* club_ptr = (cm3_clubs*)club;
 		cm3_club_comps* kor_second = get_comp(KOR_SECOND_9CF());
 		BYTE* rounds = ((comp_stats*)(comp_data->stages[stage]))->rounds_list;
-		if (club_ptr->ClubDivision == kor_second) {
+		if (club->ClubDivision == kor_second) {
 			comp_stats* kor_second_data = (comp_stats*)get_loaded_league(KOR_SECOND_9CF());
 			WORD num_teams = kor_second_data->n_teams;
 			if (num_teams <= 0) return 0;

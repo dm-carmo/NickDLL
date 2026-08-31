@@ -22,7 +22,7 @@ DWORD bel_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 8), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 9), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 106, 53, 106, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 106, 53, 106, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 10), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 16), year, Saturday);
@@ -33,10 +33,10 @@ DWORD bel_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		FillFixtureDetails(pMem, fixture_id++, FifthRound, 1, ExtraTimePenalties_1, NoTiebreak_2, 4, 38, 19, 0, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 24), year, Sunday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 6), year, Saturday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 27), year, Saturday);
 		FillFixtureDetails(pMem, fixture_id++, SixthRound, 1, ExtraTimePenalties_1, NoTiebreak_2, 4, 32, 16, 13, 129, 0, 1, 0);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 7), year, Sunday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 28), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 29), year, Wednesday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, SeventhRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 32, 16, 16, 142, 0, 1, 0);
 

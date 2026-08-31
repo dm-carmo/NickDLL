@@ -711,8 +711,8 @@ BYTE asian_cup_quals_vtable30(BYTE* _this, cm3_clubs* club) {
 	BYTE bl = (BYTE)sub_4A2E10((BYTE*)f8, club, 0x13);
 	BYTE al = (BYTE)sub_4A2E10((BYTE*)f8, club, 0x12);
 
-	if (al < 6) return (bl < 6) - 1;
-	else return (bl < 6);
+	if (al < 6) return 2 * (bl < 6) - 1;
+	else return 2 * (bl < 6);
 }
 
 void __declspec(naked) asian_cup_quals_vtable30_c()

@@ -818,10 +818,9 @@ int fin_premier_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char s
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == 0) {
-		cm3_clubs* club_ptr = (cm3_clubs*)club;
 		cm3_club_comps* fin_first = get_comp(FIN_FIRST_9CF());
 		BYTE* rounds = ((comp_stats*)(comp_data->stages[stage]))->rounds_list;
-		if (club_ptr->ClubDivision == fin_first) {
+		if (club->ClubDivision == fin_first) {
 			comp_stats* fin_first_data = (comp_stats*)get_loaded_league(FIN_FIRST_9CF());
 			WORD num_teams = fin_first_data->n_teams;
 			if (num_teams <= 0) return 0;

@@ -333,9 +333,8 @@ int cro_second_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char st
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == 0) {
-		cm3_clubs* club_ptr = (cm3_clubs*)club;
 		cm3_club_comps* cro_third = get_comp(CRO_THIRD_9CF());
-		if (club_ptr->ClubDivision == cro_third) {
+		if (club->ClubDivision == cro_third) {
 			comp_stats* cro_third_data = (comp_stats*)get_loaded_league(CRO_THIRD_9CF());
 			WORD num_teams = cro_third_data->n_teams;
 			if (num_teams <= 0) return 0;

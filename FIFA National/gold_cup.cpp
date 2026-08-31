@@ -155,9 +155,9 @@ DWORD gold_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* sta
 		int fixture_id = 0;
 		AddFixture(pMem, 0, Date(year, 6, 19), year, Monday, Afternoon, VenueUnknown_1);
 		AddFixtureTV(pMem, 0, 2);
-		AddFixture(pMem, 1, Date(year, 6, 22), year, Thursday, Afternoon, VenueUnknown_1);
+		AddFixture(pMem, 1, Date(year, 6, 23), year, Friday, Afternoon, VenueUnknown_1);
 		AddFixtureTV(pMem, 1, 2);
-		AddFixture(pMem, 2, Date(year, 6, 25), year, Sunday, Afternoon, VenueUnknown_1);
+		AddFixture(pMem, 2, Date(year, 6, 26), year, Monday, Afternoon, VenueUnknown_1);
 		AddFixtureTV(pMem, 2, 2);
 		if (stage_idx == -1) {
 			AddFixtureTV(pMem, 0, 0, 3, Saturday, Afternoon, NationalStadium);
@@ -756,24 +756,21 @@ BYTE gold_cup_vtable30(BYTE* _this, cm3_clubs* club) {
 	BYTE al = (BYTE)sub_4A2E10((BYTE*)f8, club, 0x12);
 
 	if (al < 3) {
-		if (bl < 2) return 1;
-		if (bl < 3) return 0;
-		else if (bl < 5) return -1;
-		else return (bl < 9) - 3;
-	}
-	else if (al < 5) {
-		if (bl < 2) return 2;
 		if (bl < 3) return 1;
 		else if (bl < 5) return 0;
-		else if (bl < 9) return -1;
-		else return (bl < 17) - 3;
+		else return (bl < 9) - 2;
 	}
-	else if (al < 9) {
-		if (bl < 2) return 3;
+	else if (al < 5) {
 		if (bl < 3) return 2;
 		else if (bl < 5) return 1;
 		else if (bl < 9) return 0;
-		else return (bl < 13) - 2;
+		else return (bl < 17) - 2;
+	}
+	else if (al < 9) {
+		if (bl < 3) return 3;
+		else if (bl < 5) return 2;
+		else if (bl < 9) return 1;
+		else return (bl < 13) - 1;
 	}
 	else {
 		if (bl < 3) return 3;
@@ -848,7 +845,6 @@ void gold_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	gold_cup_vtable->SetPointer(VTableStageNews, (DWORD)&gold_cup_stage_news_c);
 	gold_cup_vtable->SetPointer(VTable29, (DWORD)&gold_cup_vtable29_c);
 	gold_cup_vtable->SetPointer(VTable30, (DWORD)&gold_cup_vtable30_c);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) gold_cup_vtable->SetPointer(VTableShowThirdInHistory, 0x4110b0);
 	data->comp_type = NATION_INTERNATIONAL;
 	data->promotes_to = -1;
 	data->relegates_to = -1;

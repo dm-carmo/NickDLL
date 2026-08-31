@@ -154,16 +154,14 @@ DWORD fra_third_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 26), year, Friday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 3), year, Friday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 17), year, Friday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 21), year, Tuesday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 31), year, Friday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 7), year, Friday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 21), year, Friday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 12, 5), year, Friday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 12, 12), year, Friday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 1, 9), year, Friday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 1, 16), year, Friday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 1, 23), year, Friday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 1, 30), year, Friday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 1, 27), year, Tuesday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 6), year, Friday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 13), year, Friday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 20), year, Friday);
@@ -178,6 +176,8 @@ DWORD fra_third_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 24), year, Friday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 5, 1), year, Friday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 5, 8), year, Friday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 5, 15), year, Friday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 5, 22), year, Friday);
 
 		check_number_of_fixtures(_this, fixture_id, *num_rounds);
 
@@ -194,12 +194,12 @@ DWORD fra_third_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 9), year, Saturday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 12), year, Tuesday, Evening);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 23), year, Saturday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 26), year, Tuesday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 5, 4, 2, 4, 0, 0, 1, 0);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 13), year, Wednesday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 15), year, Friday, Evening);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 27), year, Wednesday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 29), year, Friday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, Final, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0);
 
 		return (DWORD)pMem;

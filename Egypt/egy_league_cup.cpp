@@ -139,43 +139,43 @@ DWORD egy_league_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WOR
 
 		int fixture_id = 0;
 		int tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year, 12, 10), year, Wednesday, Evening);
+		AddFixture(pMem, fixture_id, Date(year, 10, 7), year, Wednesday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Tuesday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Thursday, Evening);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year, 12, 19), year, Friday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Thursday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Saturday, Evening);
-		AddFixtureTV(pMem, fixture_id++, tv_id++);
-		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year, 12, 24), year, Wednesday, Evening);
+		AddFixture(pMem, fixture_id, Date(year, 12, 2), year, Wednesday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Tuesday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Thursday, Evening);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		if (*num_rounds > 5) {
 			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year, 12, 31), year, Wednesday, Evening);
+			AddFixture(pMem, fixture_id, Date(year, 12, 9), year, Wednesday, Evening);
 			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Tuesday, Evening);
 			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Thursday, Evening);
 			AddFixtureTV(pMem, fixture_id++, tv_id++);
 		}
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year + 1, 1, 5), year, Monday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Sunday, Evening);
+		AddFixture(pMem, fixture_id, Date(year + 1, 1, 13), year, Wednesday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Tuesday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Thursday, Evening);
+		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		tv_id = 0;
+		AddFixture(pMem, fixture_id, Date(year + 1, 1, 20), year, Wednesday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Tuesday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Thursday, Evening);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		if (*num_rounds > 6) {
 			tv_id = 0;
-			AddFixture(pMem, fixture_id, Date(year + 1, 1, 11), year, Sunday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Saturday, Evening);
-			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Monday, Evening);
+			AddFixture(pMem, fixture_id, Date(year + 1, 2, 3), year, Wednesday, Evening);
+			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Tuesday, Evening);
+			AddFixtureTV(pMem, fixture_id, tv_id++, 1, Thursday, Evening);
 			AddFixtureTV(pMem, fixture_id++, tv_id++);
 		}
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year + 1, 1, 16), year, Friday, Evening);
+		AddFixture(pMem, fixture_id, Date(year + 2, 2, 17), year, Wednesday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Tuesday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Thursday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Saturday, Evening);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 
 		return (DWORD)pMem;
@@ -191,7 +191,7 @@ DWORD egy_league_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WOR
 		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 1, 18), year, Sunday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 2, 18), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 25), year, Wednesday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, NoTiebreak_1, AwayGoalsPenaltiesNoExtraTime_2, 4, 8, 4, 8, 0, 0, 2, 4);
 

@@ -169,10 +169,10 @@ DWORD egy_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 1, ExtraTimePenalties_1, NoTiebreak_2, 4, 16, 8, 0, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 1, 15), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 2, 14), year, Saturday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 2, 11), year, Wednesday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 1, ExtraTimePenalties_1, NoTiebreak_2, 6, 8, 4, 0, 0, 0, 1, 0);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 2, 15), year, Sunday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 2, 12), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 18), year, Wednesday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 1, ExtraTimePenalties_1, NoTiebreak_2, 6, 4, 2, 0, 0, 0, 1, 0);
 

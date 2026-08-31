@@ -93,7 +93,7 @@ DWORD fifa_national_setup_c(playable_nation_data* nation_data) {
 	nation_comps[i++] = (DWORD)pMem;
 
 	BYTE* cm_date = new BYTE[8];
-	convert_to_cm_date(cm_date, 15, August, START_YEAR, -1);
+	convert_to_cm_date(cm_date, 1, August, START_YEAR, -1);
 	nation_data->update_day = *(WORD*)cm_date;
 	nation_data->update_year = *current_year;
 	nation_data->f29 = 2;

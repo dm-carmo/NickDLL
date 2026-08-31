@@ -139,6 +139,11 @@ DWORD bel_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
+		AddFixture(pMem, fixture_id, Date(year, 9, 7), year, Sunday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		tv_id = 0;
 		AddFixture(pMem, fixture_id, Date(year, 9, 14), year, Sunday);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
@@ -149,17 +154,7 @@ DWORD bel_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year, 9, 28), year, Sunday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-		AddFixtureTV(pMem, fixture_id++, tv_id++);
-		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year, 10, 5), year, Sunday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-		AddFixtureTV(pMem, fixture_id++, tv_id++);
-		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year, 10, 19), year, Sunday);
+		AddFixture(pMem, fixture_id, Date(year, 10, 12), year, Sunday);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
@@ -185,11 +180,6 @@ DWORD bel_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		tv_id = 0;
 		AddFixture(pMem, fixture_id, Date(year, 11, 30), year, Sunday);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
-		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
-		AddFixtureTV(pMem, fixture_id++, tv_id++);
-		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year, 12, 7), year, Sunday);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
@@ -283,7 +273,17 @@ DWORD bel_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 5, 10), year, Sunday);
+		tv_id = 0;
+		AddFixture(pMem, fixture_id, Date(year + 1, 5, 10), year, Sunday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		tv_id = 0;
+		AddFixture(pMem, fixture_id, Date(year + 1, 5, 17), year, Sunday);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Friday, Evening);
+		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Saturday, Afternoon);
+		AddFixtureTV(pMem, fixture_id++, tv_id++);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 5, 24), year, Sunday);
 
 		check_number_of_fixtures(_this, fixture_id, *num_rounds);
 

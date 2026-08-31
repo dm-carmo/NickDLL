@@ -165,7 +165,7 @@ char gold_cup_quals_update(BYTE* _this) {
 	}
 	data->current_stage = -1;
 	if (data->f8) sub_4A1C50((BYTE*)(data->f8), 1);
-	if (data->year < *current_year) data->year += 4;
+	if (data->year < *current_year) data->year += 2;
 	data->f171 = 0;
 	*((BYTE*)(_this + 0xB1)) = 0;
 	DWORD v1 = *(DWORD*)_this;
@@ -738,7 +738,7 @@ BYTE gold_cup_quals_vtable30(BYTE* _this, cm3_clubs* club) {
 	BYTE bl = (BYTE)sub_4A2E10((BYTE*)f8, club, 0x13);
 	BYTE al = (BYTE)sub_4A2E10((BYTE*)f8, club, 0x12);
 
-	return 0;
+	return (bl < 7);
 }
 
 void __declspec(naked) gold_cup_quals_vtable30_c()

@@ -440,7 +440,6 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 		if ((DWORD)to_check->ClubID == CLUB_PAU_9CF()) return (BYTE*)get_club(CLUB_PAU_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_QUEVILLY_ROUEN_9CF()) return (BYTE*)get_club(CLUB_QUEVILLY_ROUEN_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_STRASBOURG_9CF()) return (BYTE*)get_club(CLUB_STRASBOURG_B_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_LENS_9CF()) return (BYTE*)get_club(CLUB_LENS_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_RODEZ_9CF()) return (BYTE*)get_club(CLUB_RODEZ_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_BASTIA_9CF()) return (BYTE*)get_club(CLUB_BASTIA_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_CAEN_9CF()) return (BYTE*)get_club(CLUB_CAEN_B_9CF());
@@ -786,7 +785,6 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 		if ((DWORD)to_check->ClubID == CLUB_PAU_B_9CF()) return (BYTE*)get_club(CLUB_PAU_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_QUEVILLY_ROUEN_B_9CF()) return (BYTE*)get_club(CLUB_QUEVILLY_ROUEN_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_STRASBOURG_B_9CF()) return (BYTE*)get_club(CLUB_STRASBOURG_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_LENS_B_9CF()) return (BYTE*)get_club(CLUB_LENS_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_RODEZ_B_9CF()) return (BYTE*)get_club(CLUB_RODEZ_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_BASTIA_B_9CF()) return (BYTE*)get_club(CLUB_BASTIA_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_CAEN_B_9CF()) return (BYTE*)get_club(CLUB_CAEN_9CF());
@@ -907,7 +905,9 @@ void setup_name_injection()
 			int delim = entry.find(";");
 			string code = entry.substr(0, delim);
 			string name = entry.substr(delim + 1, entry.length());
-			club_dword_match.insert({ name, stoul(code, nullptr, 16) });
+			DWORD ptr = stoul(code, nullptr, 16);
+			club_dword_match.insert({ name, ptr });
+			WriteDWORD(ptr, -1);
 		}
 	}
 	else {
@@ -929,7 +929,9 @@ void setup_name_injection()
 			int delim = entry.find(";");
 			string code = entry.substr(0, delim);
 			string name = entry.substr(delim + 1, entry.length());
-			league_dword_match.insert({ name, stoul(code, nullptr, 16) });
+			DWORD ptr = stoul(code, nullptr, 16);
+			league_dword_match.insert({ name, ptr });
+			WriteDWORD(ptr, -1);
 		}
 	}
 	else {
@@ -950,7 +952,9 @@ void setup_name_injection()
 			int delim = entry.find(";");
 			string code = entry.substr(0, delim);
 			string name = entry.substr(delim + 1, entry.length());
-			award_dword_match.insert({ name, stoul(code, nullptr, 16) });
+			DWORD ptr = stoul(code, nullptr, 16);
+			award_dword_match.insert({ name, ptr });
+			WriteDWORD(ptr, -1);
 		}
 	}
 	else {
@@ -971,7 +975,9 @@ void setup_name_injection()
 			int delim = entry.find(";");
 			string code = entry.substr(0, delim);
 			string name = entry.substr(delim + 1, entry.length());
-			nation_dword_match.insert({ name, stoul(code, nullptr, 16) });
+			DWORD ptr = stoul(code, nullptr, 16);
+			nation_dword_match.insert({ name, ptr });
+			WriteDWORD(ptr, -1);
 		}
 	}
 	else {

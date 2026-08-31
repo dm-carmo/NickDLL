@@ -146,8 +146,8 @@ DWORD ita_ser_c_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 31), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 7), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 14), year, Sunday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 18), year, Thursday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 21), year, Sunday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 25), year, Thursday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 28), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 5), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 12), year, Sunday);
@@ -168,7 +168,7 @@ DWORD ita_ser_c_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 1), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 8), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 11), year, Wednesday, Evening);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 18), year, Wednesday, Evening);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 15), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 22), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 1), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 4), year, Wednesday, Evening);
@@ -628,7 +628,7 @@ int ita_ser_c_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char sta
 			}
 			team_league_stats* table = (team_league_stats*)(curr_stage->team_league_table);
 			for (int i = 0; i < num_teams; i++) {
-					if (table[i].club != club) continue;
+				if (table[i].club != club) continue;
 				switch (fate) {
 				case TopPlayoff:
 					staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), 0x32);
@@ -660,7 +660,7 @@ int ita_ser_c_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char sta
 			}
 			team_league_stats* table = (team_league_stats*)(curr_stage->team_league_table);
 			for (int i = 0; i < num_teams; i++) {
-					if (table[i].club != club) continue;
+				if (table[i].club != club) continue;
 				switch (fate) {
 				case BottomPlayoff:
 					staff_history_relegated_86A1C0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));

@@ -468,10 +468,9 @@ int nor_first_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char sta
 		}
 	}
 	else if (stage == 1) {
-		cm3_clubs* club_ptr = (cm3_clubs*)club;
 		cm3_club_comps* nor_second = get_comp(NOR_SECOND_9CF());
 		BYTE* rounds = ((comp_stats*)(comp_data->stages[stage]))->rounds_list;
-		if (club_ptr->ClubDivision == nor_second) {
+		if (club->ClubDivision == nor_second) {
 			WORD current_round = *(WORD*)(round_data + 0x34);
 			comp_stats* nor_second_data = (comp_stats*)get_loaded_league(NOR_SECOND_9CF());
 			comp_stats* curr_stage = nor_second_data;

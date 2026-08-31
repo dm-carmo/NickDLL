@@ -693,6 +693,7 @@ int world_cup_quals_ofc_stage_news(BYTE* _this, int club_idx, char fate, char st
 	else if (stage_id == 2) {
 		if (show_body_text) return sub_4B0B80(club_idx, round_data, a9, fate, a7, ret_str_ptr);
 		else {
+			// This condition breaks aftr the World Cup resets
 			WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), OCEANIA_9CF(), 0, 0);
 			switch (fate)
 			{

@@ -78,10 +78,10 @@ DWORD hol_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 52, 26, 32, 72, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("hol_cup_r1_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 31), year, Friday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 17), year, Wednesday, Evening);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 3), year, Wednesday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, SecondRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 32, 16, 6, 104, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("hol_cup_r2_lose"));
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 19), year, Friday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 5), year, Friday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 1, 14), year, Wednesday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 16, 8, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("hol_cup_r3_lose"));
 

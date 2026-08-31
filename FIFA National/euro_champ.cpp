@@ -953,32 +953,30 @@ BYTE euro_champ_vtable30(BYTE* _this, cm3_clubs* club) {
 	BYTE al = (BYTE)sub_4A2E10((BYTE*)f8, club, 0x12);
 
 	if (al < 3) {
-		if (bl < 2) return 1;
-		if (bl < 3) return 0;
-		else if (bl < 5) return -1;
-		else return (bl < 9) - 3;
-	}
-	else if (al < 5) {
-		if (bl < 2) return 2;
 		if (bl < 3) return 1;
 		else if (bl < 5) return 0;
 		else if (bl < 9) return -1;
 		else return (bl < 17) - 3;
 	}
-	else if (al < 9) {
-		if (bl < 2) return 3;
+	else if (al < 5) {
 		if (bl < 3) return 2;
 		else if (bl < 5) return 1;
 		else if (bl < 9) return 0;
-		else if (bl < 17) return -1;
-		else return (bl < 33) - 3;
+		else return (bl < 17) - 2;
+	}
+	else if (al < 9) {
+		if (bl < 3) return 3;
+		else if (bl < 5) return 2;
+		else if (bl < 9) return 1;
+		else if (bl < 17) return 0;
+		else return (bl < 25) - 1;
 	}
 	else if (al < 17) {
 		if (bl < 3) return 3;
 		else if (bl < 5) return 2;
 		else if (bl < 9) return 1;
 		else if (bl < 17) return 0;
-		else return -2;
+		else return -1;
 	}
 	else {
 		if (bl < 5) return 3;

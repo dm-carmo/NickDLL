@@ -455,7 +455,6 @@ int tur_fourth_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char st
 		}
 	}
 	else if (stage == 2) {
-		cm3_clubs* club_ptr = (cm3_clubs*)club;
 		WORD num_teams = comp_data->n_teams;
 		if (num_teams <= 0) return 0;
 		BYTE* rounds = ((comp_stats*)(comp_data->stages[stage]))->rounds_list;

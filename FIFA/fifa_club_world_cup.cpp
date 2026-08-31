@@ -503,6 +503,11 @@ void fifa_club_world_cup_all_teams(BYTE* _this) {
 	for (int i = 0; i < 4 && !ofc_club; i++) {
 		ofc_club = get_last_comp_winner_by_year(get_comp(OFC_CHAMPIONS_LEAGUE_9CF()), year - i - 1);
 	}
+	if (!ofc_club) {
+		high_rep_clubs = find_clubs_of_continent(OCEANIA_9CF());
+		sort(high_rep_clubs.begin(), high_rep_clubs.end(), compareClubRep);
+		ofc_club = high_rep_clubs[0];
+	}
 	// UEFA (12)
 	// - last 4 winners of UCL, last 4 winners of UEL, get UCL runner-ups as backup
 	vector<cm3_clubs*> uefa_clubs;
