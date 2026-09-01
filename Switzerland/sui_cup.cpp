@@ -205,10 +205,10 @@ DWORD sui_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		FillFixtureDetails(pMem, fixture_id++, FirstRound, 1, ExtraTimePenalties_1, NoTiebreak_2, 4, 64, 32, 64, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 17), year, Sunday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 20), year, Saturday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 18), year, Saturday);
 		FillFixtureDetails(pMem, fixture_id++, SecondRound, 1, ExtraTimePenalties_1, NoTiebreak_2, 4, 32, 16, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("sui_cup_r2_lose"));
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 21), year, Sunday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 19), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 3), year, Wednesday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 1, ExtraTimePenalties_1, NoTiebreak_2, 4, 16, 8, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("sui_cup_r3_lose"));
 
@@ -217,11 +217,11 @@ DWORD sui_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 1, ExtraTimePenalties_1, NoTiebreak_2, 6, 8, 4, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("sui_cup_qtr_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 2, 5), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 18), year, Saturday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 2), year, Saturday);
 		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 1, ExtraTimePenalties_1, NoTiebreak_2, 6, 4, 2, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("sui_cup_semi_lose"));
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 4, 19), year, Sunday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 24), year, Sunday, Afternoon, NationalStadium);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 3), year, Sunday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 6, 7), year, Sunday, Afternoon, NationalStadium);
 		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("sui_cup_final_win"), prizeMoneyFile.GetInt("sui_cup_final_lose"));
 
 		return (DWORD)pMem;

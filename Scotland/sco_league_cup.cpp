@@ -163,10 +163,10 @@ DWORD sco_league_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WOR
 		FillFixtureDetails(pMem, fixture_id++, SecondRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 16, 8, 16, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("sco_league_cup_r2_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 17), year, Sunday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 20), year, Saturday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 13), year, Saturday);
 		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 8, 4, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("sco_league_cup_qtr_lose"));
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 21), year, Sunday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 14), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 1), year, Saturday);
 		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 4, 2, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("sco_league_cup_semi_lose"));
 

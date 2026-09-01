@@ -313,7 +313,7 @@ DWORD irl_premier_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* 
 		AddFixture(pMem, fixture_id, Date(year, 9, 26), year, Friday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Saturday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 3), year, Friday, Evening);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 10), year, Friday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 17), year, Friday, Evening);
 		tv_id = 0;
 		AddFixture(pMem, fixture_id, Date(year, 10, 24), year, Friday, Evening);

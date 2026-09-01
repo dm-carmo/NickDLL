@@ -145,8 +145,11 @@ DWORD rus_second_a_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD*
 		pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 7, 20), year, Sunday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 7, 27), year, Sunday);
+		if (numberOfLeagueTeams > 8)
+		{
+			AddFixtureNoTV(pMem, fixture_id++, Date(year, 7, 20), year, Sunday);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year, 7, 27), year, Sunday);
+		}
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 3), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 10), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 17), year, Sunday);
@@ -155,17 +158,17 @@ DWORD rus_second_a_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD*
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 7), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 14), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 21), year, Sunday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 28), year, Sunday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 5), year, Sunday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 12), year, Sunday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 19), year, Sunday);
 		if (numberOfLeagueTeams > 8)
 		{
-			AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 26), year, Sunday);
-			AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 2), year, Sunday);
-			AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 9), year, Sunday);
-			AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 16), year, Sunday);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 28), year, Sunday);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 5), year, Sunday);
 		}
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 12), year, Sunday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 19), year, Sunday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 26), year, Sunday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 2), year, Sunday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 9), year, Sunday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 16), year, Sunday);
 
 		check_number_of_fixtures(_this, fixture_id, *num_rounds);
 
@@ -178,7 +181,7 @@ DWORD rus_second_a_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD*
 		comp_stats* data = ((comp_stats*)_this);
 		WORD year = data->year;
 		BYTE numberOfLeagueTeams = 10;
-		if (year == 2026 && stage_idx == 2) numberOfLeagueTeams = 7;
+		if (year == 2026 && stage_idx == 2) numberOfLeagueTeams = 8;
 		*num_rounds = (numberOfLeagueTeams - 1) * 2;
 		*stage_name_id = SecondStageGoldSilver + stage_idx - 1;
 
@@ -187,6 +190,7 @@ DWORD rus_second_a_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD*
 		int fixture_id = 0;
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 1), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 8), year, Sunday);
+		if (numberOfLeagueTeams > 8) AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 11), year, Wednesday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 15), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 22), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 29), year, Sunday);
@@ -195,17 +199,13 @@ DWORD rus_second_a_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD*
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 12), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 19), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 26), year, Sunday);
+		if (numberOfLeagueTeams > 8) AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 29), year, Wednesday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 5, 3), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 5, 10), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 5, 17), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 5, 24), year, Sunday);
-		if (numberOfLeagueTeams > 8) AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 5, 27), year, Wednesday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 5, 31), year, Sunday);
-		if (numberOfLeagueTeams > 8)
-		{
-			AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 6, 7), year, Sunday);
-			AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 6, 14), year, Sunday);
-		}
+		if (numberOfLeagueTeams > 8) AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 6, 7), year, Sunday);
 
 		check_number_of_fixtures(_this, fixture_id, *num_rounds);
 

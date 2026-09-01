@@ -71,7 +71,7 @@ DWORD nir_league_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WOR
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 13), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 7), year, Tuesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 32, 16, 24, 12, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 32, 16, 24, 16, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 8), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 4), year, Tuesday, Evening);

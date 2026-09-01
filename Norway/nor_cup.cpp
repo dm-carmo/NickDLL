@@ -29,10 +29,10 @@ DWORD nor_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		FillFixtureDetails(pMem, fixture_id++, SecondRound, 1, ExtraTimePenalties_1, NoTiebreak_2, 4, 32, 16, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("nor_cup_r2_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 28), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 24), year, Wednesday, Evening);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 17), year, Wednesday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 1, ExtraTimePenalties_1, NoTiebreak_2, 4, 32, 16, 16, 64, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("nor_cup_r3_lose"));
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 25), year, Thursday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 18), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 7), year, Saturday);
 		FillFixtureDetails(pMem, fixture_id++, FourthRound, 1, ExtraTimePenalties_1, NoTiebreak_2, 4, 16, 8, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("nor_cup_r4_lose"));
 

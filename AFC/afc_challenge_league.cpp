@@ -103,14 +103,14 @@ DWORD afc_challenge_league_fixtures(BYTE* _this, char stage_idx, WORD* num_round
 
 		int fixture_id = 0;
 		if (stage_idx < 3) {
-			AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 25), year, Saturday, Evening);
-			AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 28), year, Tuesday, Evening);
-			AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 31), year, Friday, Evening);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 18), year, Saturday, Evening);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 21), year, Tuesday, Evening);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 24), year, Friday, Evening);
 		}
 		else {
-			AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 26), year, Sunday, Evening);
-			AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 29), year, Wednesday, Evening);
-			AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 1), year, Saturday, Evening);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 19), year, Sunday, Evening);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 22), year, Wednesday, Evening);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 25), year, Saturday, Evening);
 		}
 
 		return (DWORD)pMem;
@@ -126,11 +126,11 @@ DWORD afc_challenge_league_fixtures(BYTE* _this, char stage_idx, WORD* num_round
 		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 2), year, Sunday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 26), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 5), year, Thursday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 8, 4, 8, 0, 0, 2, 7, prizeMoneyFile.GetInt("afc_challenge_qtr_qualify"));
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 8, 4, 8, 0, 0, 2, 14, prizeMoneyFile.GetInt("afc_challenge_qtr_qualify"));
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 13), year, Friday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 20), year, Friday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 9), year, Thursday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 4, 2, 0, 0, 0, 2, 7, prizeMoneyFile.GetInt("afc_challenge_semi_qualify"));
 

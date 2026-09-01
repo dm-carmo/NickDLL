@@ -106,6 +106,16 @@ DWORD afc_champions_league_elite_fixtures(BYTE* _this, char stage_idx, WORD* num
 
 		int fixture_id = 0;
 		if (stage_idx == 0) {
+			AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 15), year, Monday, Evening);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 13), year, Monday, Evening);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 27), year, Monday, Evening);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 3), year, Monday, Evening);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 24), year, Monday, Evening);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year, 12, 8), year, Monday, Evening);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 9), year, Monday, Evening);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 16), year, Monday, Evening);
+		}
+		else {
 			AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 16), year, Tuesday, Evening);
 			AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 14), year, Tuesday, Evening);
 			AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 28), year, Tuesday, Evening);
@@ -114,16 +124,6 @@ DWORD afc_champions_league_elite_fixtures(BYTE* _this, char stage_idx, WORD* num
 			AddFixtureNoTV(pMem, fixture_id++, Date(year, 12, 9), year, Tuesday, Evening);
 			AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 10), year, Tuesday, Evening);
 			AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 17), year, Tuesday, Evening);
-		}
-		else {
-			AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 17), year, Wednesday, Evening);
-			AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 15), year, Wednesday, Evening);
-			AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 29), year, Wednesday, Evening);
-			AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 5), year, Wednesday, Evening);
-			AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 26), year, Wednesday, Evening);
-			AddFixtureNoTV(pMem, fixture_id++, Date(year, 12, 10), year, Wednesday, Evening);
-			AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 11), year, Wednesday, Evening);
-			AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 18), year, Wednesday, Evening);
 		}
 
 		return (DWORD)pMem;
@@ -140,19 +140,19 @@ DWORD afc_champions_league_elite_fixtures(BYTE* _this, char stage_idx, WORD* num
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 2, 19), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 3), year, Tuesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 16, 8, 16, 0, 0, 2, 7, prizeMoneyFile.GetInt("afc_cl_elite_r16_qualify"));
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 2), year, Monday, Evening);
+		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 16, 8, 16, 0, 0, 2, 14, prizeMoneyFile.GetInt("afc_cl_elite_r16_qualify"));
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 11), year, Wednesday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 16), year, Thursday, Evening);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 17), year, Tuesday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 25), year, Sunday);
 		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 8, 8, 4, 0, 0, 0, 1, 0, prizeMoneyFile.GetInt("afc_cl_elite_qtr_qualify"));
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 4, 17), year, Friday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 21), year, Tuesday, Evening);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 4, 26), year, Monday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 28), year, Wednesday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 8, 4, 2, 0, 0, 0, 1, 0, prizeMoneyFile.GetInt("afc_cl_elite_semi_qualify"));
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 4, 22), year, Wednesday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 25), year, Saturday, Afternoon, NationalStadium);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 4, 29), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 1), year, Saturday, Afternoon, NationalStadium);
 		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 8, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("afc_cl_elite_final_win"), prizeMoneyFile.GetInt("afc_cl_elite_final_lose"));
 
 		return (DWORD)pMem;
@@ -442,7 +442,7 @@ void afc_cl_elite_team_selection() {
 				if (afc_club->ClubEuroFlag == -1 || (afc_club->ClubEuroFlag == AFC_CHAMPIONS_LEAGUE_ELITE_9CF() && afc_club->ClubEuroSeeding > curr_seeding))
 				{
 					//dprintf("Setting club %s to Champions League Elite, seed=%d\n", (afc_club->ClubName), curr_seeding);
-					if (afc_club->ClubEuroFlag != -1) 
+					if (afc_club->ClubEuroFlag != -1)
 					{
 						quals[1]++;
 						required++;

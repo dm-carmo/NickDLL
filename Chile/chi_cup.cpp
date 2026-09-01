@@ -168,10 +168,10 @@ DWORD chi_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup + Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 4, 8, 4, 0, 0, 0, 2, 4);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 28), year, Monday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 14), year, Wednesday, Evening);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 21), year, Wednesday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 6, 4, 2, 0, 0, 0, 2, 4);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 19), year, Monday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 26), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 9), year, Wednesday, Evening, NationalStadium);
 		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0);
 

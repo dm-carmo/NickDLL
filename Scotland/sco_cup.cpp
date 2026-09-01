@@ -103,10 +103,10 @@ DWORD sco_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 31), year, Sunday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 27), year, Saturday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 4), year, Saturday);
 		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 8, 4, 8, 0, 0, 1, 0, prizeMoneyFile.GetInt("sco_cup_r1_qualify"));
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 28), year, Sunday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 5), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 25), year, Saturday);
 		FillFixtureDetails(pMem, fixture_id++, SecondRound, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 40, 20, 36, 8, 0, 1, 0, prizeMoneyFile.GetInt("sco_cup_r2_qualify"));
 
@@ -128,7 +128,10 @@ DWORD sco_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 8), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 19), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 6, 4, 2, 0, 0, 0, 1, 0, prizeMoneyFile.GetInt("sco_cup_semi_qualify"));
+		AddPlayoffTVFixture(pMem, fixture_id, 0, 1, Saturday, Afternoon, NationalStadium);
+		AddPlayoffTVFixture(pMem, fixture_id, 1, 1, Sunday, Afternoon, NationalStadium);
+		AddPlayoffTVFixture(pMem, fixture_id, 2);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup2 + PenaltiesNoExtraTime_1, NoTiebreak_2, 6, 4, 2, 0, 0, 0, 1, 0, prizeMoneyFile.GetInt("sco_cup_semi_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 4, 20), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 23), year, Saturday, Afternoon, NationalStadium);

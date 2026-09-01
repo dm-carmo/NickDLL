@@ -317,11 +317,11 @@ DWORD usa_mls_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 16), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 23), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 30), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 6), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 13), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 17), year, Wednesday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 20), year, Saturday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 27), year, Saturday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 4), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 11), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 18), year, Saturday);
 
 		check_number_of_fixtures(_this, fixture_id, *num_rounds);

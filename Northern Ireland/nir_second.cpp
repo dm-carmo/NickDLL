@@ -384,6 +384,7 @@ void nir_second_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	nir_second_vtable->SetPointer(VTableSubsRounds, (DWORD)&nir_second_subs_c);
 	//nir_second_vtable->SetPointer(VTableStageNews, 0x7f3080); // Scotland stage news contains champ/rel group news
 	nir_second_vtable->SetPointer(VTableStageNews, (DWORD)&nir_second_stage_news_c);
+	nir_second_vtable->SetPointer(VTableLeagueSplit, (DWORD)&nir_second_table_split_c);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) nir_second_vtable->SetPointer(VTableShowThirdInHistory, 0x4110b0);
 	data->year = year;
 	data->rules = RulesNorthernIreland;

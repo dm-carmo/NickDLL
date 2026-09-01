@@ -148,23 +148,23 @@ DWORD ksa_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 8), year, Sunday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 24), year, Wednesday, Evening);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 17), year, Monday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, FirstRound, 1, ExtraTimePenalties_1, NoTiebreak_2, 4, 32, 16, 32, 0, 0, 1, 0);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 25), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 29), year, Wednesday, Evening);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 18), year, Tuesday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 19), year, Monday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, SecondRound, 1, ExtraTimePenalties_1, NoTiebreak_2, 4, 16, 8, 0, 0, 0, 1, 0);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 30), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 29), year, Wednesday, Evening);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 20), year, Tuesday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 2, 22), year, Monday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 1, ExtraTimePenalties_1, NoTiebreak_2, 6, 8, 4, 0, 0, 0, 1, 0);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 30), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 18), year, Wednesday, Evening);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 2, 23), year, Tuesday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 3), year, Monday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 1, ExtraTimePenalties_1, NoTiebreak_2, 6, 4, 2, 0, 0, 0, 1, 0);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 19), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 8), year, Friday, Evening, NationalStadium);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 4), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 28), year, Friday, Evening, NationalStadium);
 		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("ksa_cup_final_win"), prizeMoneyFile.GetInt("ksa_cup_final_lose"));
 
 		return (DWORD)pMem;

@@ -107,8 +107,11 @@ int setup_9cf_nations(char* nation_name, DWORD nation_id) {
 // a bit ugly and lengthy but works with no issues
 BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD a3) {
 	if (!to_check) return NULL;
-	if (a3 != 0 && to_check->ClubHasLinkedClub == 0) return NULL;
+	// Commented to try and avoid issues related to B-teams unlinking
+	//if (a3 != 0 && to_check->ClubHasLinkedClub == 0) return NULL;
 	if (!to_check->ClubNation) return NULL;
+	// Added to try and avoid issues related to B-teams unlinking
+	to_check->ClubHasLinkedClub = 1;
 	// Main teams check
 	if (is_main_club) *is_main_club = 1;
 	char* db_club_name = get_db_club_name(to_check);

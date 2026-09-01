@@ -1983,6 +1983,10 @@ void setup_misc_functions()
 	// hide history button for certain comps -> set VTableShowThirdInHistory to 0x48ce70
 	WriteBytes(0x4901c7, 12, 0x8B, 0x45, 0x00, 0xFF, 0x50, 0x50, 0x3C, 0x00, 0x90, 0x90, 0x90, 0x90);
 
+	// club home match day becomes unused, was forcing N.Irish teams to not play on Sundays
+	WriteBytes(0x5AA77A, 6, 0xe9, 0x3, 0x1, 0, 0, 0x90);
+	WriteNOP(0x5adcf1, 2);
+
 	// Show the hidden wing-back position
 	if (configFile.GetBool("showWingBacks", false)) {
 		PatchFunction(0x53f2cd, (DWORD)&show_wing_back_position);
@@ -2108,6 +2112,8 @@ void setup_misc_functions()
 
 	// temporary: suppresses hall_of_fame 315 error
 	WriteNOP(0x5ef93b, 5);
+	// hopefully temporary: suppresses discipline 1149 error
+	WriteNOP(0x556e20, 5);
 
 	// Enable Bosman signings from all countries
 	WriteBytes(0x544677, 1, 0xeb);

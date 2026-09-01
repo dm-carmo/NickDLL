@@ -85,10 +85,10 @@ DWORD wal_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		FillFixtureDetails(pMem, fixture_id++, SecondRound, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 64, 32, 64, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("wal_cup_r2_win"), 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 19), year, Sunday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 22), year, Saturday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 15), year, Saturday);
 		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 32, 16, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("wal_cup_r3_win"), prizeMoneyFile.GetInt("wal_cup_r3_lose"));
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 23), year, Sunday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 16), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 13), year, Saturday);
 		FillFixtureDetails(pMem, fixture_id++, FourthRound, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 16, 8, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("wal_cup_r4_win"), prizeMoneyFile.GetInt("wal_cup_r4_lose"));
 
@@ -101,7 +101,7 @@ DWORD wal_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 6, 4, 2, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("wal_cup_semi_win"), 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 8), year, Sunday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 12), year, Saturday, Afternoon, NationalStadium);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 19), year, Saturday, Afternoon, NationalStadium);
 		FillFixtureDetails(pMem, fixture_id++, Final, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("wal_cup_final_win"), 0);
 
 		return (DWORD)pMem;
