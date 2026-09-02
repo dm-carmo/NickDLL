@@ -504,6 +504,7 @@ void setup_eng_conf() {
 	WriteVTablePtr(eng_conf_vtable, VTableSubsRounds, (DWORD)&eng_conf_subs_c);
 	WriteVTablePtr(eng_conf_vtable, VTableReputationCalc, (DWORD)&eng_conf_reputation_calc_c);
 	WriteVTablePtr(eng_conf_vtable, VTableSetChampion, (DWORD)&eng_conf_set_champion_c);
+	WriteVTablePtr(eng_conf_vtable, VTableStageNews, 0x5785b0);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(eng_conf_vtable, VTableShowThirdInHistory, 0x4110b0);
 	if (configFile.GetBool("showPlayoffWinnerInHistory", true)) WriteVTablePtr(eng_conf_vtable, VTableShowHostsInHistory, 0x404480);
 }

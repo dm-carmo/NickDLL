@@ -55,6 +55,7 @@ extern char* prom_lge_b;
 extern char* prom_lge_c;
 extern char* rele_lge_a;
 extern char* rele_lge_b;
+extern char* qualify_upper_comp_title_msg;
 
 extern char* register_msg1;
 extern char* register_msg2;

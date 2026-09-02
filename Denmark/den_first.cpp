@@ -457,6 +457,5 @@ void setup_den_first()
 	WriteVTablePtr(den_first_vtable, VTableEoSUpdate, (DWORD)&den_first_update_c);
 	WriteVTablePtr(den_first_vtable, VTableFixtures, (DWORD)&den_first_fixtures_c);
 	WriteVTablePtr(den_first_vtable, VTableLeagueSplit, (DWORD)&den_first_table_split_c);
-	WriteVTablePtr(den_first_vtable, VTableStageNews, 0x7f3080); // Scotland stage news contains champ/rel group news
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(den_first_vtable, VTableShowThirdInHistory, 0x4110b0);
 }

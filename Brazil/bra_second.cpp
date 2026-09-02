@@ -528,7 +528,7 @@ void setup_bra_second()
 	WriteVTablePtr(bra_second_vtable, VTableFixtures, (DWORD)&bra_second_fixtures_c);
 	WriteVTablePtr(bra_second_vtable, VTableEoSUpdate, (DWORD)&bra_second_update_c);
 	WriteVTablePtr(bra_second_vtable, VTableSetChampion, (DWORD)&bra_second_set_champion_c);
-	WriteVTablePtr(bra_second_vtable, VTableStageNews, 0x48c6d0);
+	WriteVTablePtr(bra_second_vtable, VTableStageNews, 0x5785b0);
 	WriteVTablePtr(bra_second_vtable, VTableReputationCalc, (DWORD)&bra_second_reputation_calc_c);
 	WriteVTablePtr(bra_second_vtable, VTablePlayoffQual, (DWORD)&bra_second_playoffs_create);
 	WriteVTablePtr(bra_second_vtable, VTableTableFates, (DWORD)&bra_second_set_table_fate);

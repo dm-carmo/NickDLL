@@ -712,6 +712,7 @@ void setup_tur_second()
 	WriteVTablePtr(tur_second_vtable, VTableTableFates, (DWORD)&tur_second_set_table_fate);
 	WriteVTablePtr(tur_second_vtable, VTablePostMatchUpdate, (DWORD)&tur_second_money_after_match_c);
 	WriteVTablePtr(tur_second_vtable, VTableSetChampion, (DWORD)&tur_second_set_champion_c);
+	WriteVTablePtr(tur_second_vtable, VTableStageNews, 0x5785b0);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(tur_second_vtable, VTableShowThirdInHistory, 0x4110b0);
 	if (configFile.GetBool("showPlayoffWinnerInHistory", true)) WriteVTablePtr(tur_second_vtable, VTableShowHostsInHistory, 0x404480);
 }

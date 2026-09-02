@@ -874,6 +874,54 @@ void __declspec(naked) ita_ser_c_reputation_calc_c()
 	}
 }
 
+int ita_ser_c_stage_news(BYTE* _this, int club_idx, char fate, char stage_id, int stage_name_idx, int round_data, __int16 a7, int a8, char a9, int show_body_text, LPVOID* ret_str_ptr) {
+	comp_stats* data = (comp_stats*)_this;
+	cm3_club_comps* comp_data = data->competition_db;
+	cm3_clubs* club_data = get_club(club_idx);
+	if (stage_id < 2) return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
+	else if (stage_id == 2) {
+		if (fate == TopPlayoff && !show_body_text) {
+			sub_66F4E0(0xDE1F64, 0x9876CC, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+			sub_4AE660(ret_str_ptr, 0xDE1F64);
+			sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+			return 1;
+		}
+		return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
+	}
+	else if (stage_id == 3) {
+		if (fate == BottomPlayoff && !show_body_text) {
+			sub_66F4E0(0xDE1F64, 0x987784, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+			sub_4AE660(ret_str_ptr, 0xDE1F64);
+			sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+			return 1;
+		}
+		return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
+	}
+	else return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
+}
+
+void __declspec(naked) ita_ser_c_stage_news_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x28]
+		push dword ptr[eax + 0x24]
+		push dword ptr[eax + 0x20]
+		push dword ptr[eax + 0x1c]
+		push dword ptr[eax + 0x18]
+		push dword ptr[eax + 0x14]
+		push dword ptr[eax + 0x10]
+		push dword ptr[eax + 0xc]
+		push dword ptr[eax + 0x8]
+		push dword ptr[eax + 0x4]
+		push ecx
+		call ita_ser_c_stage_news
+		add esp, 0x2c
+		ret 0x28
+	}
+}
+
 void ita_ser_c_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 {
 	sub_682200(_this);
@@ -890,6 +938,7 @@ void ita_ser_c_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	ita_ser_c_vtable->SetPointer(VTableAwardTeamsSetup, (DWORD)&ita_7D2B80_c);
 	ita_ser_c_vtable->SetPointer(VTableSubsRounds, (DWORD)&ita_ser_c_subs_c);
 	ita_ser_c_vtable->SetPointer(VTableSetChampion, (DWORD)&ita_ser_c_set_champion_c);
+	ita_ser_c_vtable->SetPointer(VTableStageNews, (DWORD)&ita_ser_c_stage_news_c);
 	data->year = year;
 	data->rules = RulesItalyLeague;
 	int loaded = sub_687B10(_this, 1);

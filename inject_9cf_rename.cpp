@@ -110,6 +110,7 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 	// Commented to try and avoid issues related to B-teams unlinking
 	//if (a3 != 0 && to_check->ClubHasLinkedClub == 0) return NULL;
 	if (!to_check->ClubNation) return NULL;
+	if (to_check->ClubID >= (long)(*clubs_count - 2 * *nations_count)) return NULL;
 	// Added to try and avoid issues related to B-teams unlinking
 	to_check->ClubHasLinkedClub = 1;
 	// Main teams check

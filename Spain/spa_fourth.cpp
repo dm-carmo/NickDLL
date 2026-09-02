@@ -718,6 +718,54 @@ void __declspec(naked) spa_fourth_reputation_calc_c()
 	}
 }
 
+int spa_fourth_stage_news(BYTE* _this, int club_idx, char fate, char stage_id, int stage_name_idx, int round_data, __int16 a7, int a8, char a9, int show_body_text, LPVOID* ret_str_ptr) {
+	comp_stats* data = (comp_stats*)_this;
+	cm3_club_comps* comp_data = data->competition_db;
+	cm3_clubs* club_data = get_club(club_idx);
+	if (stage_id < 4) return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
+	else if (stage_id == 4) {
+		if (fate == TopPlayoff && !show_body_text) {
+			sub_66F4E0(0xDE1F64, 0x9876CC, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+			sub_4AE660(ret_str_ptr, 0xDE1F64);
+			sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+			return 1;
+		}
+		return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
+	}
+	else if (stage_id == 5) {
+		if (fate == BottomPlayoff && !show_body_text) {
+			sub_66F4E0(0xDE1F64, 0x987784, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+			sub_4AE660(ret_str_ptr, 0xDE1F64);
+			sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+			return 1;
+		}
+		return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
+	}
+	else return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
+}
+
+void __declspec(naked) spa_fourth_stage_news_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x28]
+		push dword ptr[eax + 0x24]
+		push dword ptr[eax + 0x20]
+		push dword ptr[eax + 0x1c]
+		push dword ptr[eax + 0x18]
+		push dword ptr[eax + 0x14]
+		push dword ptr[eax + 0x10]
+		push dword ptr[eax + 0xc]
+		push dword ptr[eax + 0x8]
+		push dword ptr[eax + 0x4]
+		push ecx
+		call spa_fourth_stage_news
+		add esp, 0x2c
+		ret 0x28
+	}
+}
+
 void spa_fourth_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 {
 	sub_682200(_this);
@@ -734,7 +782,7 @@ void spa_fourth_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	spa_fourth_vtable->SetPointer(VTableTableFates, (DWORD)&spa_fourth_set_table_fate);
 	spa_fourth_vtable->SetPointer(VTablePlayoffQual, (DWORD)&spa_fourth_playoffs_create_c);
 	spa_fourth_vtable->SetPointer(VTableSetChampion, (DWORD)&spa_fourth_set_champion_c);
-	spa_fourth_vtable->SetPointer(VTableStageNews, 0x48c6d0);
+	spa_fourth_vtable->SetPointer(VTableStageNews, (DWORD)&spa_fourth_stage_news_c);
 	data->year = year;
 	data->rules = RulesSpainLeague;
 	int loaded = sub_687B10(_this, 1);

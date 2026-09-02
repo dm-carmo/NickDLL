@@ -319,6 +319,46 @@ void __declspec(naked) sco_pyramid_playoff_63B300_c()
 	}
 }
 
+int sco_pyramid_playoff_stage_news(BYTE* _this, int club_idx, char fate, char stage_id, int stage_name_idx, int round_data, __int16 a7, int a8, char a9, int show_body_text, LPVOID* ret_str_ptr) {
+	comp_stats* data = (comp_stats*)_this;
+	cm3_club_comps* comp_data = data->competition_db;
+	cm3_clubs* club_data = get_club(club_idx);
+	if (stage_id == -1) {
+		if (fate == TopPlayoff && !show_body_text) {
+			cm3_club_comps* upper_comp = get_comp(SCO_LEAGUE_2_9CF());
+			sub_66F4E0(0xDE1F64, (DWORD)&qualify_upper_comp_title_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, upper_comp->ClubCompGenderNameShort, upper_comp->ClubCompGenderNameShort, &club_data->ClubNameShort[0], &upper_comp->ClubCompNameShort[0]);
+			sub_4AE660(ret_str_ptr, 0xDE1F64);
+			sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+			sub_4AE8A0((BYTE*)ret_str_ptr, &upper_comp->ClubCompNameShort[0], 0x7d0, (DWORD)upper_comp);
+			return 1;
+		}
+		return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
+	}
+	return 0;
+}
+
+void __declspec(naked) sco_pyramid_playoff_stage_news_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x28]
+		push dword ptr[eax + 0x24]
+		push dword ptr[eax + 0x20]
+		push dword ptr[eax + 0x1c]
+		push dword ptr[eax + 0x18]
+		push dword ptr[eax + 0x14]
+		push dword ptr[eax + 0x10]
+		push dword ptr[eax + 0xc]
+		push dword ptr[eax + 0x8]
+		push dword ptr[eax + 0x4]
+		push ecx
+		call sco_pyramid_playoff_stage_news
+		add esp, 0x2c
+		ret 0x28
+	}
+}
+
 void sco_pyramid_playoff_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 {
 	sub_682200(_this);
@@ -331,6 +371,7 @@ void sco_pyramid_playoff_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	sco_pyramid_playoff_vtable->SetPointer(VTableFixtures, (DWORD)&sco_pyramid_playoff_fixtures_c);
 	sco_pyramid_playoff_vtable->SetPointer(VTableSubsRounds, (DWORD)&sco_pyramid_playoff_subs_c);
 	sco_pyramid_playoff_vtable->SetPointer(VTableTableFates, (DWORD)&sco_pyramid_playoff_set_table_fate);
+	sco_pyramid_playoff_vtable->SetPointer(VTableStageNews, (DWORD)&sco_pyramid_playoff_stage_news_c);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) sco_pyramid_playoff_vtable->SetPointer(VTableShowThirdInHistory, 0x4110b0);
 	data->year = year;
 	data->rules = RulesScotlandLeague;

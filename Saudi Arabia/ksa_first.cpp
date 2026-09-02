@@ -579,6 +579,7 @@ void ksa_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	ksa_first_vtable->SetPointer(VTableReputationCalc, (DWORD)&ksa_first_reputation_calc_c);
 	ksa_first_vtable->SetPointer(VTablePlayoffQual, (DWORD)&ksa_first_playoffs_create);
 	ksa_first_vtable->SetPointer(VTableSetChampion, (DWORD)&ksa_first_set_champion_c);
+	ksa_first_vtable->SetPointer(VTableStageNews, 0x5785b0);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) ksa_first_vtable->SetPointer(VTableShowThirdInHistory, 0x4110b0);
 	if (configFile.GetBool("showPlayoffWinnerInHistory", true)) ksa_first_vtable->SetPointer(VTableShowHostsInHistory, 0x404480);
 	data->year = year;

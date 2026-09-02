@@ -53,6 +53,7 @@ char* prom_lge_b = "Promoted From League B";
 char* prom_lge_c = "Promoted From League C";
 char* rele_lge_a = "Relegated From League A";
 char* rele_lge_b = "Relegated From League B";
+char* qualify_upper_comp_title_msg = "{}<%s - Team Name(e.g.Ajax)>{} qualify for {}<%s - Competition Name(e.g.Champions League)>{} playoff";
 
 char* register_msg1 = "{}<%s - Club Name(e.g.Chelsea)>{} may register one more player to be eligible for the league phase of the {}<%s - Competition Name(e.g.UEFA Cup)>{}.";
 char* register_msg2 = "{}<%s - Club Name(e.g.Chelsea)>{} may register <%d - number(e.g.2)> more players to be eligible for the league phase of the {}<%s - Competition Name(e.g.UEFA Cup)>{}.";

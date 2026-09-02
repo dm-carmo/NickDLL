@@ -605,7 +605,7 @@ void setup_bel_second()
 	WriteVTablePtr(bel_second_vtable, VTablePostMatchUpdate, 0x685d30);
 	WriteVTablePtr(bel_second_vtable, VTableLoadCompInfo, 0x48CEB0);
 	WriteVTablePtr(bel_second_vtable, VTableSaveCompInfo, 0x48CEA0);
-	WriteVTablePtr(bel_second_vtable, VTableStageNews, 0x48C6D0);
+	WriteVTablePtr(bel_second_vtable, VTableStageNews, 0x5785b0);
 	WriteVTablePtr(bel_second_vtable, VTable38, 0x684cd0);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(bel_second_vtable, VTableShowThirdInHistory, 0x4110b0);
 	if (configFile.GetBool("showPlayoffWinnerInHistory", true)) WriteVTablePtr(bel_second_vtable, VTableShowHostsInHistory, 0x404480);

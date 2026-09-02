@@ -494,7 +494,6 @@ void bel_third_ac_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	bel_third_ac_vtable->SetPointer(VTableEoSUpdate, (DWORD)&bel_third_ac_update_c);
 	bel_third_ac_vtable->SetPointer(VTableFixtures, (DWORD)&bel_third_ac_fixtures_c);
 	bel_third_ac_vtable->SetPointer(VTableLeagueSplit, (DWORD)&bel_third_ac_table_split_c);
-	bel_third_ac_vtable->SetPointer(VTableStageNews, 0x7f3080); // Scotland stage news contains champ/rel group news
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) bel_third_ac_vtable->SetPointer(VTableShowThirdInHistory, 0x4110b0);
 	data->year = year;
 	data->rules = RulesBelgiumLeague;

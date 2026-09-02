@@ -2114,6 +2114,8 @@ void setup_misc_functions()
 	WriteNOP(0x5ef93b, 5);
 	// hopefully temporary: suppresses discipline 1149 error
 	WriteNOP(0x556e20, 5);
+	// background change bug with Spain?
+	WriteBytes(0x460476, 6, 0xe9, 0xbb, 0x00, 0x00, 0x00, 0x90);
 
 	// Enable Bosman signings from all countries
 	WriteBytes(0x544677, 1, 0xeb);

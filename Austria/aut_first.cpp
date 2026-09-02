@@ -603,7 +603,6 @@ void aut_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	aut_first_vtable->SetPointer(VTableEoSUpdate, (DWORD)&aut_first_update_c);
 	aut_first_vtable->SetPointer(VTableFixtures, (DWORD)&aut_first_fixtures_c);
 	aut_first_vtable->SetPointer(VTableLeagueSplit, (DWORD)&aut_first_table_split_c);
-	aut_first_vtable->SetPointer(VTableStageNews, 0x7f3080); // Scotland stage news contains champ/rel group news
 	aut_first_vtable->SetPointer(VTablePromRelUpdate, (DWORD)&aut_first_prom_rel_update_c);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) aut_first_vtable->SetPointer(VTableShowThirdInHistory, 0x4110b0);
 	data->year = year;

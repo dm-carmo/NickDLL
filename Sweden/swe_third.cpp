@@ -650,6 +650,66 @@ void __declspec(naked) swe_third_reputation_calc_c()
 	}
 }
 
+int swe_third_stage_news(BYTE* _this, int club_idx, char fate, char stage_id, int stage_name_idx, int round_data, __int16 a7, int a8, char a9, int show_body_text, LPVOID* ret_str_ptr) {
+	comp_stats* data = (comp_stats*)_this;
+	cm3_club_comps* comp_data = data->competition_db;
+	cm3_clubs* club_data = get_club(club_idx);
+	if (stage_id < 5) return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
+	else if (stage_id < 7) {
+		if (fate == TopPlayoff && !show_body_text) {
+			cm3_club_comps* upper_comp = get_comp(SWE_SECOND_9CF());
+			sub_66F4E0(0xDE1F64, (DWORD)&qualify_upper_comp_title_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, upper_comp->ClubCompGenderNameShort, upper_comp->ClubCompGenderNameShort, &club_data->ClubNameShort[0], &upper_comp->ClubCompNameShort[0]);
+			sub_4AE660(ret_str_ptr, 0xDE1F64);
+			sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+			sub_4AE8A0((BYTE*)ret_str_ptr, &upper_comp->ClubCompNameShort[0], 0x7d0, (DWORD)upper_comp);
+			return 1;
+		}
+		return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
+	}
+	else if (stage_id == 7) {
+		if (club_data->ClubDivision == comp_data) {
+			if (fate == BottomPlayoff && !show_body_text) {
+				sub_66F4E0(0xDE1F64, 0x987784, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+				sub_4AE660(ret_str_ptr, 0xDE1F64);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+				return 1;
+			}
+		}
+		else {
+			if (fate == TopPlayoff && !show_body_text) {
+				sub_66F4E0(0xDE1F64, 0x9876CC, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+				sub_4AE660(ret_str_ptr, 0xDE1F64);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+				return 1;
+			}
+		}
+		return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
+	}
+	else return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
+}
+
+void __declspec(naked) swe_third_stage_news_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x28]
+		push dword ptr[eax + 0x24]
+		push dword ptr[eax + 0x20]
+		push dword ptr[eax + 0x1c]
+		push dword ptr[eax + 0x18]
+		push dword ptr[eax + 0x14]
+		push dword ptr[eax + 0x10]
+		push dword ptr[eax + 0xc]
+		push dword ptr[eax + 0x8]
+		push dword ptr[eax + 0x4]
+		push ecx
+		call swe_third_stage_news
+		add esp, 0x2c
+		ret 0x28
+	}
+}
+
 void swe_third_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 {
 	sub_682200(_this);
@@ -665,6 +725,7 @@ void swe_third_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	swe_third_vtable->SetPointer(VTableTableFates, (DWORD)&swe_third_set_table_fate);
 	swe_third_vtable->SetPointer(VTablePlayoffQual, (DWORD)&swe_third_playoffs_create_c);
 	swe_third_vtable->SetPointer(VTableSetChampion, (DWORD)&swe_third_set_champion_c);
+	swe_third_vtable->SetPointer(VTableStageNews, (DWORD)&swe_third_stage_news_c);
 	swe_third_vtable->SetPointer(VTableLoadCompInfo, 0x48ceb0);
 	swe_third_vtable->SetPointer(VTableSaveCompInfo, 0x48cea0);
 	data->year = year;

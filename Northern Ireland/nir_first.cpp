@@ -562,7 +562,26 @@ int nir_first_stage_news(BYTE* _this, int club_idx, char fate, char stage_id, in
 	cm3_club_comps* comp_data = data->competition_db;
 	cm3_clubs* club_data = get_club(club_idx);
 	if (stage_id == -1) return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
-	return 0;
+	else if (stage_id == 0) {
+		if (club_data->ClubDivision == comp_data) {
+			if (fate == BottomPlayoff && !show_body_text) {
+				sub_66F4E0(0xDE1F64, 0x987784, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+				sub_4AE660(ret_str_ptr, 0xDE1F64);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+				return 1;
+			}
+		}
+		else {
+			if (fate == TopPlayoff && !show_body_text) {
+				sub_66F4E0(0xDE1F64, 0x9876CC, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+				sub_4AE660(ret_str_ptr, 0xDE1F64);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+				return 1;
+			}
+		}
+		return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
+	}
+	else return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
 }
 
 void __declspec(naked) nir_first_stage_news_c()
@@ -593,7 +612,6 @@ void setup_nir_first()
 	WriteVTablePtr(nir_first_vtable, VTableEoSUpdate, (DWORD)&nir_first_update_c);
 	WriteVTablePtr(nir_first_vtable, VTableFixtures, (DWORD)&nir_first_fixtures_c);
 	WriteVTablePtr(nir_first_vtable, VTableLeagueSplit, (DWORD)&nir_first_table_split_c);
-	//WriteVTablePtr(nir_first_vtable, VTableStageNews, 0x7f3080); // Scotland stage news contains champ/rel group news
 	WriteVTablePtr(nir_first_vtable, VTableStageNews, (DWORD)&nir_first_stage_news_c);
 	WriteVTablePtr(nir_first_vtable, VTableReputationCalc, (DWORD)&nir_first_reputation_calc_c);
 	WriteVTablePtr(nir_first_vtable, VTablePlayoffQual, (DWORD)&nir_first_playoffs_create);

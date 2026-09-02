@@ -343,36 +343,6 @@ void __declspec(naked) nir_second_table_split_c()
 	}
 }
 
-int nir_second_stage_news(BYTE* _this, int club_idx, char fate, char stage_id, int stage_name_idx, int round_data, __int16 a7, int a8, char a9, int show_body_text, LPVOID* ret_str_ptr) {
-	comp_stats* data = (comp_stats*)_this;
-	cm3_club_comps* comp_data = data->competition_db;
-	cm3_clubs* club_data = get_club(club_idx);
-	if (stage_id == -1) return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
-	return 0;
-}
-
-void __declspec(naked) nir_second_stage_news_c()
-{
-	__asm
-	{
-		mov eax, esp
-		push dword ptr[eax + 0x28]
-		push dword ptr[eax + 0x24]
-		push dword ptr[eax + 0x20]
-		push dword ptr[eax + 0x1c]
-		push dword ptr[eax + 0x18]
-		push dword ptr[eax + 0x14]
-		push dword ptr[eax + 0x10]
-		push dword ptr[eax + 0xc]
-		push dword ptr[eax + 0x8]
-		push dword ptr[eax + 0x4]
-		push ecx
-		call nir_second_stage_news
-		add esp, 0x2c
-		ret 0x28
-	}
-}
-
 void nir_second_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	sub_682200(_this);
 	comp_stats* data = (comp_stats*)_this;
@@ -382,8 +352,6 @@ void nir_second_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	nir_second_vtable->SetPointer(VTableEoSUpdate, (DWORD)&nir_second_update_c);
 	nir_second_vtable->SetPointer(VTableFixtures, (DWORD)&nir_second_fixtures_c);
 	nir_second_vtable->SetPointer(VTableSubsRounds, (DWORD)&nir_second_subs_c);
-	//nir_second_vtable->SetPointer(VTableStageNews, 0x7f3080); // Scotland stage news contains champ/rel group news
-	nir_second_vtable->SetPointer(VTableStageNews, (DWORD)&nir_second_stage_news_c);
 	nir_second_vtable->SetPointer(VTableLeagueSplit, (DWORD)&nir_second_table_split_c);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) nir_second_vtable->SetPointer(VTableShowThirdInHistory, 0x4110b0);
 	data->year = year;
