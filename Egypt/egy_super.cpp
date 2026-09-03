@@ -98,11 +98,11 @@ DWORD egy_super_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 6, 29), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 6), year, Thursday, Evening, NeutralStadium);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 6, 4, 2, 4, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, Penalties, NoTiebreak, 6, 4, 2, 4, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 7), year, Friday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 9), year, Sunday, Afternoon, NeutralStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("egy_super_final_win"), prizeMoneyFile.GetInt("egy_super_final_lose"));
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, Penalties, NoTiebreak, 6, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("egy_super_final_win"), prizeMoneyFile.GetInt("egy_super_final_lose"));
 
 		return (DWORD)pMem;
 	}
@@ -119,7 +119,7 @@ DWORD egy_super_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 7), year, Friday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 9), year, Sunday, Afternoon, NeutralStadium);
-		FillFixtureDetails(pMem, fixture_id++, None, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 6, 2, 1, 2, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("egy_super_3rdplace_win"), prizeMoneyFile.GetInt("egy_super_3rdplace_lose"));
+		FillFixtureDetails(pMem, fixture_id++, None, 0, Penalties, NoTiebreak, 6, 2, 1, 2, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("egy_super_3rdplace_win"), prizeMoneyFile.GetInt("egy_super_3rdplace_lose"));
 
 		return (DWORD)pMem;
 	}
@@ -182,7 +182,7 @@ int egy_super_teams(BYTE* _this) {
 	for (DWORD i = 0; i < vec.size(); i++)
 	{
 		teams[i].club = vec[i];
-		teams[i].f5 = 0;
+		teams[i].seeding = 0;
 		teams[i].f6 = 0;
 	}
 
@@ -302,7 +302,7 @@ void __declspec(naked) egy_super_reputation_calc_c()
 	}
 }
 
-int egy_super_set_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int egy_super_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == 0) {
@@ -359,7 +359,7 @@ int egy_super_set_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYT
 	return 0;
 }
 
-void __declspec(naked) egy_super_set_fates_c()
+void __declspec(naked) egy_super_table_fates_c()
 {
 	__asm
 	{
@@ -371,7 +371,7 @@ void __declspec(naked) egy_super_set_fates_c()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call egy_super_set_fates
+		call egy_super_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -388,7 +388,7 @@ void egy_super_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	egy_super_vtable->SetPointer(VTableFixtures, (DWORD)&egy_super_fixture_caller);
 	egy_super_vtable->SetPointer(VTableReputationCalc, (DWORD)&egy_super_reputation_calc_c);
 	egy_super_vtable->SetPointer(VTableSetChampion, (DWORD)&egy_super_set_champion_c);
-	egy_super_vtable->SetPointer(VTableTableFates, (DWORD)&egy_super_set_fates_c);
+	egy_super_vtable->SetPointer(VTableTableFates, (DWORD)&egy_super_table_fates_c);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) egy_super_vtable->SetPointer(VTableShowThirdInHistory, 0x4110b0);
 	data->year = year;
 	data->f171 = 0;

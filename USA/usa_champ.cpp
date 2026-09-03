@@ -311,19 +311,19 @@ DWORD usa_champ_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 27), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 2), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 5, 16, 8, 16, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 5, 16, 8, 16, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 3), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 9), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 5, 8, 4, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 5, 8, 4, 0, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 10), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 16), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 5, 4, 2, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 5, 4, 2, 0, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 17), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 23), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 5, 2, 1, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 5, 2, 1, 0, 0, 0, 1, 0);
 
 		return (DWORD)pMem;
 	}
@@ -393,7 +393,7 @@ void __declspec(naked) usa_champ_update_c()
 	}
 }
 
-int usa_champ_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int usa_champ_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage < 1) {
@@ -456,7 +456,7 @@ int usa_champ_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYT
 	return 0;
 }
 
-void __declspec(naked) usa_champ_set_table_fate()
+void __declspec(naked) usa_champ_table_fates_c()
 {
 	__asm
 	{
@@ -468,7 +468,7 @@ void __declspec(naked) usa_champ_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call usa_champ_set_fates
+		call usa_champ_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -586,7 +586,7 @@ void usa_champ_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	usa_champ_vtable->SetPointer(VTableEoSUpdate, (DWORD)&usa_champ_update_c);
 	usa_champ_vtable->SetPointer(VTableReputationCalc, (DWORD)&usa_champ_reputation_calc_c);
 	usa_champ_vtable->SetPointer(VTableSetChampion, (DWORD)&usa_champ_set_champion_c);
-	usa_champ_vtable->SetPointer(VTableTableFates, (DWORD)&usa_champ_set_table_fate);
+	usa_champ_vtable->SetPointer(VTableTableFates, (DWORD)&usa_champ_table_fates_c);
 	usa_champ_vtable->SetPointer(VTableStageNews, 0x48c6d0);
 	usa_champ_vtable->SetPointer(VTablePlayoffQual, (DWORD)&usa_champ_playoffs_create);
 	usa_champ_vtable->SetPointer(VTablePostMatchUpdate, 0x685d30);

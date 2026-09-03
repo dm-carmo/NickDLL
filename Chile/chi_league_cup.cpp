@@ -161,11 +161,11 @@ DWORD chi_league_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WOR
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 6, 7), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 8), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 6, 4, 2, 4, 0, 0, 2, 4);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | NoAwayGoals, 6, 4, 2, 4, 0, 0, 2, 4);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 13), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 19), year, Sunday, Afternoon, NeutralStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, Penalties | ExtraTime, NoTiebreak, 6, 2, 1, 0, 0, 0, 1, 0);
 
 		return (DWORD)pMem;
 	}
@@ -393,7 +393,7 @@ void __declspec(naked) chi_league_cup_update_c()
 	}
 }
 
-int chi_league_cup_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int chi_league_cup_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage < 3) {
@@ -431,7 +431,7 @@ int chi_league_cup_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage
 	return 0;
 }
 
-void __declspec(naked) chi_league_cup_set_table_fate()
+void __declspec(naked) chi_league_cup_table_fates_c()
 {
 	__asm
 	{
@@ -443,7 +443,7 @@ void __declspec(naked) chi_league_cup_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call chi_league_cup_set_fates
+		call chi_league_cup_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -587,7 +587,7 @@ void chi_league_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	chi_league_cup_vtable->SetPointer(VTableSetChampion, (DWORD)&chi_league_cup_set_champion_c);
 	chi_league_cup_vtable->SetPointer(VTableClubLandmarks, 0x48cab0);
 	chi_league_cup_vtable->SetPointer(VTableFixtures, (DWORD)&chi_league_cup_fixture_caller);
-	chi_league_cup_vtable->SetPointer(VTableTableFates, (DWORD)&chi_league_cup_set_table_fate);
+	chi_league_cup_vtable->SetPointer(VTableTableFates, (DWORD)&chi_league_cup_table_fates_c);
 	chi_league_cup_vtable->SetPointer(VTableStageNews, (DWORD)&chi_league_cup_stage_news_c);
 	chi_league_cup_vtable->SetPointer(VTableReputationSetup, (DWORD)&chi_league_cup_reputation_setup_c);
 	chi_league_cup_vtable->SetPointer(VTableReputationCalc, (DWORD)&chi_league_cup_reputation_calc_c);

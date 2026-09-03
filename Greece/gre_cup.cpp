@@ -104,11 +104,11 @@ DWORD gre_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 4), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 13), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, FirstPreliminaryRound, 1, ExtraTimePenalties_1, NoTiebreak_2, 4, 6, 3, 6, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, FirstPreliminaryRound, 1, Penalties | ExtraTime, NoTiebreak, 4, 6, 3, 6, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 14), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 20), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SecondPreliminaryRound, 1, ExtraTimePenalties_1, NoTiebreak_2, 4, 22, 11, 19, 6, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, SecondPreliminaryRound, 1, Penalties | ExtraTime, NoTiebreak, 4, 22, 11, 19, 6, 0, 1, 0);
 
 		return (DWORD)pMem;
 	}
@@ -147,7 +147,7 @@ DWORD gre_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 18), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 24), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, Playoff, 1, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 6, 8, 4, 8, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, Playoff, 1, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 6, 8, 4, 8, 0, 0, 1, 0);
 
 		return (DWORD)pMem;
 	}
@@ -164,15 +164,15 @@ DWORD gre_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 25), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 1, 15), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 1, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 6, 8, 4, 8, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 1, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 6, 8, 4, 8, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 1, 16), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 2, 4), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 1, NoTiebreak_2, ExtraTimePenaltiesNoAwayGoals_2, 6, 4, 2, 0, 0, 0, 2, 7);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 1, NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 6, 4, 2, 0, 0, 0, 2, 7);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 2, 11), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 30), year, Saturday, Afternoon, NationalStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, Penalties | ExtraTime, NoTiebreak, 6, 2, 1, 0, 0, 0, 1, 0);
 
 		return (DWORD)pMem;
 	}
@@ -263,7 +263,7 @@ int gre_cup_teams(BYTE* _this) {
 	for (DWORD i = 0; i < vec.size(); i++)
 	{
 		teams[i].club = vec[i];
-		teams[i].f5 = 0;
+		teams[i].seeding = 0;
 		teams[i].f6 = 0;
 	}
 
@@ -426,7 +426,7 @@ void gre_cup_group_stage_setup(BYTE* _this) {
 		match->sub_stage_id = 0;
 		match->main_stage_id = stage_name_id;
 		match->f54_0xdb = stage_data->f219;
-		match->f56_0xab = stage_data->f171;
+		match->tiebreaks = stage_data->f171;
 		match->f58_0xc4 = stage_data->f196;
 		match->f59 = -1;
 		match->f61 = 0;
@@ -602,7 +602,7 @@ void __declspec(naked) gre_cup_stages_create_c()
 	}
 }
 
-int gre_cup_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int gre_cup_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == -1) {
@@ -680,7 +680,7 @@ int gre_cup_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE*
 	return 0;
 }
 
-void __declspec(naked) gre_cup_set_table_fate()
+void __declspec(naked) gre_cup_table_fates_c()
 {
 	__asm
 	{
@@ -692,7 +692,7 @@ void __declspec(naked) gre_cup_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call gre_cup_set_fates
+		call gre_cup_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -923,7 +923,7 @@ void setup_gre_cup()
 	WriteVTablePtr(gre_cup_vtable, VTableEoSUpdate, (DWORD)&gre_cup_update_c);
 	WriteVTablePtr(gre_cup_vtable, VTablePlayoffQual, (DWORD)&gre_cup_stages_create_c);
 	WriteVTablePtr(gre_cup_vtable, VTableSetChampion, (DWORD)&gre_cup_set_champion_c);
-	WriteVTablePtr(gre_cup_vtable, VTableTableFates, (DWORD)&gre_cup_set_table_fate);
+	WriteVTablePtr(gre_cup_vtable, VTableTableFates, (DWORD)&gre_cup_table_fates_c);
 	WriteVTablePtr(gre_cup_vtable, VTableStageNews, (DWORD)&gre_cup_stage_news_c);
 	WriteVTablePtr(gre_cup_vtable, VTableReputationSetup, (DWORD)&gre_cup_reputation_setup_c);
 	WriteVTablePtr(gre_cup_vtable, VTableReputationCalc, (DWORD)&gre_cup_reputation_calc_c);

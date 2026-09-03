@@ -47,7 +47,7 @@ int eng_fa_trophy_teams(BYTE* _this) {
 	for (DWORD i = 0; i < vec.size(); i++)
 	{
 		teams[i].club = vec[i];
-		teams[i].f5 = 0;
+		teams[i].seeding = 0;
 		teams[i].f6 = 0;
 	}
 
@@ -81,35 +81,35 @@ DWORD eng_fa_trophy_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 5), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 25), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 64, 32, 64, 0, 0, 1, 0, prizeMoneyFile.GetInt("eng_fa_trophy_r1_qualify"), prizeMoneyFile.GetInt("eng_fa_trophy_r1_win"), prizeMoneyFile.GetInt("eng_fa_trophy_r1_lose"));
+		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, Penalties, NoTiebreak, 4, 64, 32, 64, 0, 0, 1, 0, prizeMoneyFile.GetInt("eng_fa_trophy_r1_qualify"), prizeMoneyFile.GetInt("eng_fa_trophy_r1_win"), prizeMoneyFile.GetInt("eng_fa_trophy_r1_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 26), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 15), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, SecondRound, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 80, 40, 48, 64, 0, 1, 0, 0, prizeMoneyFile.GetInt("eng_fa_trophy_r2_win"), prizeMoneyFile.GetInt("eng_fa_trophy_r2_lose"));
+		FillFixtureDetails(pMem, fixture_id++, SecondRound, 0, Penalties, NoTiebreak, 4, 80, 40, 48, 64, 0, 1, 0, 0, prizeMoneyFile.GetInt("eng_fa_trophy_r2_win"), prizeMoneyFile.GetInt("eng_fa_trophy_r2_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 16), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 13), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 64, 32, 24, 112, 0, 1, 0, 0, prizeMoneyFile.GetInt("eng_fa_trophy_r3_win"), prizeMoneyFile.GetInt("eng_fa_trophy_r3_lose"));
+		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 0, Penalties, NoTiebreak, 4, 64, 32, 24, 112, 0, 1, 0, 0, prizeMoneyFile.GetInt("eng_fa_trophy_r3_win"), prizeMoneyFile.GetInt("eng_fa_trophy_r3_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 14), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 1, 17), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, FourthRound, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 32, 16, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("eng_fa_trophy_r4_win"), prizeMoneyFile.GetInt("eng_fa_trophy_r4_lose"));
+		FillFixtureDetails(pMem, fixture_id++, FourthRound, 0, Penalties, NoTiebreak, 4, 32, 16, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("eng_fa_trophy_r4_win"), prizeMoneyFile.GetInt("eng_fa_trophy_r4_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 1, 18), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 2, 7), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, FifthRound, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 16, 8, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("eng_fa_trophy_r5_win"), prizeMoneyFile.GetInt("eng_fa_trophy_r5_lose"));
+		FillFixtureDetails(pMem, fixture_id++, FifthRound, 0, Penalties, NoTiebreak, 4, 16, 8, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("eng_fa_trophy_r5_win"), prizeMoneyFile.GetInt("eng_fa_trophy_r5_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 2, 8), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 7), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 6, 8, 4, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("eng_fa_trophy_qtr_win"), prizeMoneyFile.GetInt("eng_fa_trophy_qtr_lose"));
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, Penalties, NoTiebreak, 6, 8, 4, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("eng_fa_trophy_qtr_win"), prizeMoneyFile.GetInt("eng_fa_trophy_qtr_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 8), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 4), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 6, 4, 2, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("eng_fa_trophy_semi_win"), prizeMoneyFile.GetInt("eng_fa_trophy_semi_lose"));
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, Penalties, NoTiebreak, 6, 4, 2, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("eng_fa_trophy_semi_win"), prizeMoneyFile.GetInt("eng_fa_trophy_semi_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 4, 5), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 17), year, Sunday, Afternoon, NationalStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("eng_fa_trophy_final_win"), prizeMoneyFile.GetInt("eng_fa_trophy_final_lose"));
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, Penalties, NoTiebreak, 6, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("eng_fa_trophy_final_win"), prizeMoneyFile.GetInt("eng_fa_trophy_final_lose"));
 
 		return (DWORD)pMem;
 	}

@@ -170,18 +170,18 @@ DWORD copa_america_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD*
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Saturday, Afternoon, LargestStadium5);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Saturday, Afternoon, LargestStadium7);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup2 + ExtraTimePenalties_1, NoTiebreak_2, 10, 8, 4, 8, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup2 | Penalties | ExtraTime, NoTiebreak, 10, 8, 4, 8, 0, 0, 1, 0);
 		tv_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 7), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 10), year, Wednesday, Afternoon, VenueUnknown_1);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Tuesday, Afternoon, LargestStadium1);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Wednesday, Afternoon, LargestStadium3);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup2 + ExtraTimePenalties_1, NoTiebreak_2, 10, 4, 2, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup2 | Penalties | ExtraTime, NoTiebreak, 10, 4, 2, 0, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 11), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 14), year, Sunday, Afternoon, NationalStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 10, 2, 1, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, Penalties | ExtraTime, NoTiebreak, 10, 2, 1, 0, 0, 0, 1, 0);
 
 		return (DWORD)pMem;
 	}
@@ -198,7 +198,7 @@ DWORD copa_america_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD*
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 10), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 13), year, Saturday, Afternoon, LargestStadium2);
-		FillFixtureDetails(pMem, fixture_id++, None, 0, ExtraTimePenalties_1, NoTiebreak_2, 10, 2, 1, 2, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, None, 0, Penalties | ExtraTime, NoTiebreak, 10, 2, 1, 2, 0, 0, 1, 0);
 
 		return (DWORD)pMem;
 	}
@@ -369,26 +369,26 @@ void copa_america_seeded_teams(BYTE* _this) {
 	WORD num_hosts = get_comp_hosts_in_continent(_this, COPA_AMERICA_9CF(), SOUTH_AMERICA_9CF(), &host1_id, &host2_id);
 	if (num_hosts > 0) {
 		teamList[count].club = get_national_team(host1_id);
-		teamList[count].f5 = 1;
+		teamList[count].seeding = 1;
 		count++;
 	}
 	if (num_hosts > 1) {
 		teamList[count].club = get_national_team(host2_id);
-		teamList[count].f5 = 1;
+		teamList[count].seeding = 1;
 		count++;
 	}
 	vector<cm3_clubs*> sam_countries = get_national_teams_of_continent(SOUTH_AMERICA_9CF());
 	for (cm3_clubs* c : sam_countries) {
 		if (c->ClubNation->NationID != host1_id && c->ClubNation->NationID != host2_id) {
 			teamList[count].club = c;
-			teamList[count].f5 = 6;
+			teamList[count].seeding = 6;
 			count++;
 		}
 	}
 	for (WORD i = count; i < 16; i++)
 	{
 		teamList[i].club = 0;
-		teamList[i].f5 = 6;
+		teamList[i].seeding = 6;
 	}
 	if (year == 2024) {
 		teamList[count++].club = get_national_team(NATION_ARGENTINA_9CF());
@@ -607,10 +607,10 @@ void copa_america_setup1(BYTE* _this) {
 		for (WORD i = 0; i < n; i++) {
 			cm3_clubs* c = qualified_teams[i];
 			teamList[i].club = c;
-			if (i < 4) teamList[i].f5 = 3;
-			else if (i < 8) teamList[i].f5 = 10;
-			else if (i < 12) teamList[i].f5 = 11;
-			else teamList[i].f5 = 12;
+			if (i < 4) teamList[i].seeding = 3;
+			else if (i < 8) teamList[i].seeding = 10;
+			else if (i < 12) teamList[i].seeding = 11;
+			else teamList[i].seeding = 12;
 		}
 	}
 }
@@ -663,10 +663,10 @@ BYTE* copa_america_all_teams(BYTE* _this) {
 
 		for (BYTE i = 0; i < 16; i++) {
 			teamList[i].club = get_club(*((DWORD*)(pMem + 5 * i)));
-			teamList[i].f5 = 6;
+			teamList[i].seeding = 6;
 			*((BYTE*)(pMem + 5 * i + 4)) = (i >> 2) + 1;
 		}
-		teamList[0].f5 = 1;
+		teamList[0].seeding = 1;
 		data->special_nteams_seedings = 16;
 	}
 	else
@@ -682,21 +682,21 @@ BYTE* copa_america_all_teams(BYTE* _this) {
 			if (i == 0) {
 				*((DWORD*)(pMem)) = teamList[0].club->ClubID;
 				*((BYTE*)(pMem + 4)) = 1;
-				teamList[0].f5 = -1;
+				teamList[0].seeding = -1;
 				copa_america_update_continent_counts(teamList[0].club, 0, counts_concacaf, counts_conmebol);
 			}
 			else if (i == 1 && num_hosts > 1) {
 				*((DWORD*)(pMem + 5)) = teamList[1].club->ClubID;
 				*((BYTE*)(pMem + 9)) = 2;
-				teamList[1].f5 = -1;
+				teamList[1].seeding = -1;
 				copa_america_update_continent_counts(teamList[1].club, 1, counts_concacaf, counts_conmebol);
 			}
 			else {
 				BYTE r = rand() % offset + num_hosts;
-				while (teamList[r].f5 == -1) r = rand() % offset + num_hosts;
+				while (teamList[r].seeding == -1) r = rand() % offset + num_hosts;
 				*((DWORD*)(pMem + 5 * i)) = teamList[r].club->ClubID;
 				*((BYTE*)(pMem + 5 * i + 4)) = i + 1;
-				teamList[r].f5 = -1;
+				teamList[r].seeding = -1;
 				copa_america_update_continent_counts(teamList[r].club, i, counts_concacaf, counts_conmebol);
 			}
 		}
@@ -718,7 +718,7 @@ BYTE* copa_america_all_teams(BYTE* _this) {
 				break;
 			}
 			if (!valid) {
-				for (DWORD j = 4; j <= i; j++) teamList[j].f5 = 6;
+				for (DWORD j = 4; j <= i; j++) teamList[j].seeding = 6;
 				for (DWORD j = 0; j < 4; j++)
 				{
 					counts[j] = 1;
@@ -734,15 +734,15 @@ BYTE* copa_america_all_teams(BYTE* _this) {
 			}
 			*((DWORD*)(pMem + 5 * i)) = club->ClubID;
 			*((BYTE*)(pMem + 5 * i + 4)) = (BYTE)(r + 1);
-			teamList[i].f5 = -1;
+			teamList[i].seeding = -1;
 			counts[r]++;
 			copa_america_update_continent_counts(club, r, counts_concacaf, counts_conmebol);
 		}
 		for (WORD i = 0; i < 16; i++) {
-			if (i < 4) teamList[i].f5 = 3;
-			else if (i < 8) teamList[i].f5 = 10;
-			else if (i < 12) teamList[i].f5 = 11;
-			else teamList[i].f5 = 12;
+			if (i < 4) teamList[i].seeding = 3;
+			else if (i < 8) teamList[i].seeding = 10;
+			else if (i < 12) teamList[i].seeding = 11;
+			else teamList[i].seeding = 12;
 		}
 	}
 	return pMem;
@@ -824,7 +824,7 @@ void copa_america_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->n_teams = 0;
 }
 
-int copa_america_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int copa_america_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage < 3) {
@@ -906,7 +906,7 @@ int copa_america_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, 
 	return 0;
 }
 
-void __declspec(naked) copa_america_set_table_fate()
+void __declspec(naked) copa_america_table_fates_c()
 {
 	__asm
 	{
@@ -918,7 +918,7 @@ void __declspec(naked) copa_america_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call copa_america_set_fates
+		call copa_america_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -1108,7 +1108,7 @@ void setup_copa_america() {
 	WriteVTablePtr(copa_america_vtable, VTableSetChampion, (DWORD)&copa_america_set_champion_c);
 	WriteVTablePtr(copa_america_vtable, VTableFixtures, (DWORD)&copa_america_fixture_caller);
 	WriteVTablePtr(copa_america_vtable, VTablePlayoffQual, (DWORD)&copa_america_stages_create_c);
-	WriteVTablePtr(copa_america_vtable, VTableTableFates, (DWORD)&copa_america_set_table_fate);
+	WriteVTablePtr(copa_america_vtable, VTableTableFates, (DWORD)&copa_america_table_fates_c);
 	WriteVTablePtr(copa_america_vtable, VTableStageNews, (DWORD)&copa_america_stage_news_c);
 	WriteVTablePtr(copa_america_vtable, VTable29, (DWORD)&copa_america_vtable29_c);
 	WriteVTablePtr(copa_america_vtable, VTable30, (DWORD)&copa_america_vtable30_c);

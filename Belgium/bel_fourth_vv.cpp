@@ -267,15 +267,15 @@ DWORD bel_fourth_vv_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 4, 26), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 3), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 5, 8, 4, 8, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 5, 8, 4, 8, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 4), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 10), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 5, 4, 2, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 5, 4, 2, 0, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 11), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 17), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, Penalties | ExtraTime, NoTiebreak, 6, 2, 1, 0, 0, 0, 1, 0);
 
 		return (DWORD)pMem;
 	}
@@ -292,7 +292,7 @@ DWORD bel_fourth_vv_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 4, 26), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 3), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 5, 4, 2, 4, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 5, 4, 2, 4, 0, 0, 1, 0);
 
 		return (DWORD)pMem;
 	}
@@ -656,7 +656,7 @@ void __declspec(naked) bel_fourth_vv_playoffs_create()
 	}
 }
 
-int bel_fourth_vv_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int bel_fourth_vv_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage < 1) {
@@ -750,7 +750,7 @@ int bel_fourth_vv_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char
 	return 0;
 }
 
-void __declspec(naked) bel_fourth_vv_set_table_fate()
+void __declspec(naked) bel_fourth_vv_table_fates_c()
 {
 	__asm
 	{
@@ -762,7 +762,7 @@ void __declspec(naked) bel_fourth_vv_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call bel_fourth_vv_table_indicators
+		call bel_fourth_vv_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -776,7 +776,7 @@ void setup_bel_fourth_vv()
 	WriteVTablePtr(bel_fourth_vv_vtable, VTableFixtures, (DWORD)&bel_fourth_vv_fixtures_c);
 	WriteVTablePtr(bel_fourth_vv_vtable, VTableReputationCalc, (DWORD)&bel_fourth_vv_reputation_calc_c);
 	WriteVTablePtr(bel_fourth_vv_vtable, VTablePlayoffQual, (DWORD)&bel_fourth_vv_playoffs_create);
-	WriteVTablePtr(bel_fourth_vv_vtable, VTableTableFates, (DWORD)&bel_fourth_vv_set_table_fate);
+	WriteVTablePtr(bel_fourth_vv_vtable, VTableTableFates, (DWORD)&bel_fourth_vv_table_fates_c);
 	WriteVTablePtr(bel_fourth_vv_vtable, VTableStageNews, 0x48c6d0);
 	WriteVTablePtr(bel_fourth_vv_vtable, VTableSetChampion, (DWORD)&bel_fourth_vv_set_champion_c);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(bel_fourth_vv_vtable, VTableShowThirdInHistory, 0x4110b0);

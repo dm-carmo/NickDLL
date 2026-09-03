@@ -387,11 +387,11 @@ DWORD ksa_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 14), year, Friday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 17), year, Monday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 6, 4, 2, 4, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 6, 4, 2, 4, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 18), year, Tuesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 22), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, Penalties | ExtraTime, NoTiebreak, 6, 2, 1, 0, 0, 0, 1, 0);
 
 		return (DWORD)pMem;
 	}
@@ -414,7 +414,7 @@ void __declspec(naked) ksa_first_fixtures_c()
 	}
 }
 
-int ksa_first_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int ksa_first_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == 0) {
@@ -467,7 +467,7 @@ int ksa_first_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char sta
 	return 0;
 }
 
-void __declspec(naked) ksa_first_set_table_fate()
+void __declspec(naked) ksa_first_table_fates_c()
 {
 	__asm
 	{
@@ -479,7 +479,7 @@ void __declspec(naked) ksa_first_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call ksa_first_table_indicators
+		call ksa_first_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -575,7 +575,7 @@ void ksa_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	ksa_first_vtable->SetPointer(VTableSubsRounds, (DWORD)&ksa_first_subs_c);
 	ksa_first_vtable->SetPointer(VTableFixtures, (DWORD)&ksa_first_fixtures_c);
 	ksa_first_vtable->SetPointer(VTableInitFree, (DWORD)&ksa_first_free_c);
-	ksa_first_vtable->SetPointer(VTableTableFates, (DWORD)&ksa_first_set_table_fate);
+	ksa_first_vtable->SetPointer(VTableTableFates, (DWORD)&ksa_first_table_fates_c);
 	ksa_first_vtable->SetPointer(VTableReputationCalc, (DWORD)&ksa_first_reputation_calc_c);
 	ksa_first_vtable->SetPointer(VTablePlayoffQual, (DWORD)&ksa_first_playoffs_create);
 	ksa_first_vtable->SetPointer(VTableSetChampion, (DWORD)&ksa_first_set_champion_c);

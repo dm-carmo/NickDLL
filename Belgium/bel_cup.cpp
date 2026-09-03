@@ -22,39 +22,39 @@ DWORD bel_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 8), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 9), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 106, 53, 106, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 0, Penalties, NoTiebreak, 4, 106, 53, 106, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 10), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 16), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, FourthRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 76, 38, 23, 106, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, FourthRound, 0, Penalties | ExtraTime, NoTiebreak, 4, 76, 38, 23, 106, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 17), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 23), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, FifthRound, 1, ExtraTimePenalties_1, NoTiebreak_2, 4, 38, 19, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, FifthRound, 1, Penalties | ExtraTime, NoTiebreak, 4, 38, 19, 0, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 24), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 27), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, SixthRound, 1, ExtraTimePenalties_1, NoTiebreak_2, 4, 32, 16, 13, 129, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, SixthRound, 1, Penalties | ExtraTime, NoTiebreak, 4, 32, 16, 13, 129, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 28), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 29), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SeventhRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 32, 16, 16, 142, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, SeventhRound, 0, Penalties | ExtraTime, NoTiebreak, 4, 32, 16, 16, 142, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 30), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 3), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, EighthRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 16, 8, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, EighthRound, 0, Penalties | ExtraTime, NoTiebreak, 4, 16, 8, 0, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 4), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 1, 14), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 8, 4, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("bel_cup_qtr_lose"));
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, Penalties | ExtraTime, NoTiebreak, 6, 8, 4, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("bel_cup_qtr_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 1, 15), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 2, 4), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 6, 4, 2, 0, 0, 0, 2, 7, 0, 0, prizeMoneyFile.GetInt("bel_cup_semi_lose"));
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 6, 4, 2, 0, 0, 0, 2, 7, 0, 0, prizeMoneyFile.GetInt("bel_cup_semi_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 2, 12), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 15), year, Thursday, Evening, NationalStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("bel_cup_final_win"), prizeMoneyFile.GetInt("bel_cup_final_lose"));
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, Penalties | ExtraTime, NoTiebreak, 6, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("bel_cup_final_win"), prizeMoneyFile.GetInt("bel_cup_final_lose"));
 
 		return (DWORD)pMem;
 	}
@@ -153,7 +153,7 @@ int bel_cup_teams(BYTE* _this) {
 	for (DWORD i = 0; i < vec.size(); i++)
 	{
 		teams[i].club = vec[i];
-		teams[i].f5 = 0;
+		teams[i].seeding = 0;
 		teams[i].f6 = 0;
 	}
 

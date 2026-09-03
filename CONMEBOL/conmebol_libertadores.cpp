@@ -132,15 +132,15 @@ DWORD conmebol_libertadores_fixtures(BYTE* _this, char stage_idx, WORD* num_roun
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 1, 5), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 2, 5), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, FirstRound, 4, Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 6, 3, 6, 0, 0, 2, 7, prizeMoneyFile.GetInt("conmebol_liber_r1_qualify"));
+		FillFixtureDetails(pMem, fixture_id++, FirstRound, 4, NoAwayGoals, Penalties | NoAwayGoals, 8, 6, 3, 6, 0, 0, 2, 7, prizeMoneyFile.GetInt("conmebol_liber_r1_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 2, 13), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 2, 19), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SecondRound, 4, Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 16, 8, 13, 6, 0, 2, 7, prizeMoneyFile.GetInt("conmebol_liber_r2_qualify"));
+		FillFixtureDetails(pMem, fixture_id++, SecondRound, 4, NoAwayGoals, Penalties | NoAwayGoals, 8, 16, 8, 13, 6, 0, 2, 7, prizeMoneyFile.GetInt("conmebol_liber_r2_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 2, 27), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 3, 5), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 4, Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 8, 4, 0, 0, 0, 2, 7, prizeMoneyFile.GetInt("conmebol_liber_r3_qualify"));
+		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 4, NoAwayGoals, Penalties | NoAwayGoals, 8, 8, 4, 0, 0, 0, 2, 7, prizeMoneyFile.GetInt("conmebol_liber_r3_qualify"));
 
 		return (DWORD)pMem;
 	}
@@ -187,19 +187,19 @@ DWORD conmebol_libertadores_fixtures(BYTE* _this, char stage_idx, WORD* num_roun
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 5, 29), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 13), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 8, FixedTeamOrderInCup + Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 16, 8, 16, 0, 0, 2, 7, prizeMoneyFile.GetInt("conmebol_liber_r16_qualify"));
+		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 8, FixedTeamOrderInCup | NoAwayGoals, Penalties | NoAwayGoals, 8, 16, 8, 16, 0, 0, 2, 7, prizeMoneyFile.GetInt("conmebol_liber_r16_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 21), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 17), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 8, FixedTeamOrderInCup + Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 8, 4, 0, 0, 0, 2, 7, prizeMoneyFile.GetInt("conmebol_liber_qtr_qualify"));
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 8, FixedTeamOrderInCup | NoAwayGoals, Penalties | NoAwayGoals, 8, 8, 4, 0, 0, 0, 2, 7, prizeMoneyFile.GetInt("conmebol_liber_qtr_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 25), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 22), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 8, FixedTeamOrderInCup + Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 4, 2, 0, 0, 0, 2, 7, prizeMoneyFile.GetInt("conmebol_liber_semi_qualify"));
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 8, FixedTeamOrderInCup | NoAwayGoals, Penalties | NoAwayGoals, 8, 4, 2, 0, 0, 0, 2, 7, prizeMoneyFile.GetInt("conmebol_liber_semi_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 29), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 29), year, Saturday, Afternoon, NationalStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 8, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("conmebol_liber_final_win"), prizeMoneyFile.GetInt("conmebol_liber_final_lose"));
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, Penalties | ExtraTime, NoTiebreak, 8, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("conmebol_liber_final_win"), prizeMoneyFile.GetInt("conmebol_liber_final_lose"));
 
 		return (DWORD)pMem;
 	}
@@ -436,19 +436,19 @@ void conmebol_libertadores_all_teams(BYTE* _this) {
 			BYTE seed = club->ClubEuroSeeding;
 			if (seed == 1 && teams_r1 < 28) {
 				teams[teams_r1].club = club;
-				teams[teams_r1].f5 = 7;
+				teams[teams_r1].seeding = 7;
 				teams[teams_r1].f6 = 0;
 				teams_r1++;
 			}
 			else if (seed == 3 && teams_r3 < 13) {
 				teams[teams_r3 + 28].club = club;
-				teams[teams_r3 + 28].f5 = 8;
+				teams[teams_r3 + 28].seeding = 8;
 				teams[teams_r3 + 28].f6 = 0;
 				teams_r3++;
 			}
 			else if (seed == 4 && teams_r4 < 6) {
 				teams[teams_r4 + 41].club = club;
-				teams[teams_r4 + 41].f5 = 0;
+				teams[teams_r4 + 41].seeding = 0;
 				teams[teams_r4 + 41].f6 = 0;
 				teams_r4++;
 			}
@@ -469,14 +469,14 @@ void conmebol_libertadores_qualifier_teams(BYTE* _this) {
 	WORD count = 0;
 	DWORD total_count = data->special_nteams_seedings;
 	for (WORD i = 0; i < total_count; i++) {
-		char seed = qualifiers[i].f5;
+		char seed = qualifiers[i].seeding;
 		if (seed == 0 || seed == 8) {
 			teams[total_teams - count - 1].club = qualifiers[i].club;
 			if (seed == 8) {
-				teams[total_teams - count - 1].f5 = 1;
+				teams[total_teams - count - 1].seeding = 1;
 			}
 			else {
-				teams[total_teams - count - 1].f5 = 0;
+				teams[total_teams - count - 1].seeding = 0;
 			}
 			teams[total_teams - count - 1].f6 = 0;
 			count++;
@@ -802,7 +802,7 @@ void __declspec(naked) conmebol_libertadores_stages_create_c()
 	}
 }
 
-int conmebol_libertadores_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int conmebol_libertadores_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	BYTE* sudam_bytes = get_loaded_league(COPA_SUDAMERICANA_9CF());
@@ -829,7 +829,7 @@ int conmebol_libertadores_set_fates(BYTE* _this, cm3_clubs* club, char fate, cha
 				teams_seeded* qualifiers = (teams_seeded*)sudam_data->special_teams_seedings;
 				WORD insert_idx = sudam_data->special_nteams_seedings;
 				qualifiers[insert_idx].club = club;
-				qualifiers[insert_idx].f5 = 3;
+				qualifiers[insert_idx].seeding = 3;
 				qualifiers[insert_idx].f6 = 0;
 				sudam_data->special_nteams_seedings++;
 
@@ -879,7 +879,7 @@ int conmebol_libertadores_set_fates(BYTE* _this, cm3_clubs* club, char fate, cha
 	return 0;
 }
 
-void __declspec(naked) conmebol_libertadores_set_table_fate()
+void __declspec(naked) conmebol_libertadores_table_fates_c()
 {
 	__asm
 	{
@@ -891,7 +891,7 @@ void __declspec(naked) conmebol_libertadores_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call conmebol_libertadores_set_fates
+		call conmebol_libertadores_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -1016,7 +1016,7 @@ void setup_conmebol_libertadores() {
 	WriteVTablePtr(conmebol_libertadores_vtable, VTableSetChampion, (DWORD)&conmebol_libertadores_set_champion_c);
 	WriteVTablePtr(conmebol_libertadores_vtable, VTableClubLandmarks, 0x48cab0); // review? -> 586fa0
 	WriteVTablePtr(conmebol_libertadores_vtable, VTableFixtures, (DWORD)&conmebol_libertadores_fixture_caller);
-	WriteVTablePtr(conmebol_libertadores_vtable, VTableTableFates, (DWORD)&conmebol_libertadores_set_table_fate);
+	WriteVTablePtr(conmebol_libertadores_vtable, VTableTableFates, (DWORD)&conmebol_libertadores_table_fates_c);
 	WriteVTablePtr(conmebol_libertadores_vtable, VTableStageNews, (DWORD)&liber_stage_news_c);
 	WriteVTablePtr(conmebol_libertadores_vtable, VTableReputationSetup, (DWORD)&conmebol_libertadores_reputation_setup_c);
 	WriteVTablePtr(conmebol_libertadores_vtable, VTableReputationCalc, (DWORD)&conmebol_libertadores_reputation_calc_c);

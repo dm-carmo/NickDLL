@@ -328,11 +328,11 @@ DWORD fra_second_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 23), year, Saturday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 26), year, Tuesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 5, 2, 1, 2, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 5, 2, 1, 2, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 27), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 29), year, Friday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 1, 2, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 6, 2, 1, 1, 2, 0, 1, 0);
 
 		return (DWORD)pMem;
 	}
@@ -349,7 +349,7 @@ DWORD fra_second_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 30), year, Saturday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 6, 2), year, Tuesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, Playoff, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 5, 2, 1, 2, 0, 0, 2, 5);
+		FillFixtureDetails(pMem, fixture_id++, Playoff, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 5, 2, 1, 2, 0, 0, 2, 5);
 
 		return (DWORD)pMem;
 	}
@@ -502,7 +502,7 @@ void __declspec(naked) fra_second_playoffs_create()
 	}
 }
 
-int fra_second_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int fra_second_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == 0) {
@@ -605,7 +605,7 @@ int fra_second_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char st
 	return 0;
 }
 
-void __declspec(naked) fra_second_set_table_fate()
+void __declspec(naked) fra_second_table_fates_c()
 {
 	__asm
 	{
@@ -617,7 +617,7 @@ void __declspec(naked) fra_second_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call fra_second_table_indicators
+		call fra_second_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -785,7 +785,7 @@ void setup_fra_second()
 	WriteVTablePtr(fra_second_vtable, VTableFixtures, (DWORD)&fra_second_fixtures_c);
 	WriteVTablePtr(fra_second_vtable, VTableReputationCalc, (DWORD)&fra_second_reputation_calc_c);
 	WriteVTablePtr(fra_second_vtable, VTablePlayoffQual, (DWORD)&fra_second_playoffs_create);
-	WriteVTablePtr(fra_second_vtable, VTableTableFates, (DWORD)&fra_second_set_table_fate);
+	WriteVTablePtr(fra_second_vtable, VTableTableFates, (DWORD)&fra_second_table_fates_c);
 	WriteVTablePtr(fra_second_vtable, VTableSetChampion, (DWORD)&fra_second_set_champion_c);
 	WriteVTablePtr(fra_second_vtable, VTableStageNews, (DWORD)&fra_second_stage_news_c);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(fra_second_vtable, VTableShowThirdInHistory, 0x4110b0);

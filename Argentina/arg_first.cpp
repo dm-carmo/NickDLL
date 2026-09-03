@@ -993,19 +993,19 @@ DWORD arg_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 5, 4), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 5, 10), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 8, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreaker, 5, 16, 8, 16, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 8, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreaker, 5, 16, 8, 16, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 5, 11), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 5, 17), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 8, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreaker, 5, 8, 4, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 8, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreaker, 5, 8, 4, 0, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 5, 18), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 5, 24), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 8, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreaker, 5, 4, 2, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 8, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreaker, 5, 4, 2, 0, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 5, 25), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 6, 1), year, Saturday, Afternoon, NeutralStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreaker, 5, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("arg_prm_playoff_winner_money"), prizeMoneyFile.GetInt("arg_prm_playoff_runner_up_money"));
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, Penalties | ExtraTime, NoTiebreaker, 5, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("arg_prm_playoff_winner_money"), prizeMoneyFile.GetInt("arg_prm_playoff_runner_up_money"));
 
 		return (DWORD)pMem;
 	}
@@ -1022,19 +1022,19 @@ DWORD arg_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 16), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 22), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 8, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreaker, 5, 16, 8, 16, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 8, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreaker, 5, 16, 8, 16, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 23), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 29), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 8, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreaker, 5, 8, 4, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 8, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreaker, 5, 8, 4, 0, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 30), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 6), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 8, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreaker, 5, 4, 2, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 8, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreaker, 5, 4, 2, 0, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 7), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 13), year, Saturday, Afternoon, NeutralStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreaker, 5, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("arg_prm_playoff_winner_money"), prizeMoneyFile.GetInt("arg_prm_playoff_runner_up_money"));
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, Penalties | ExtraTime, NoTiebreaker, 5, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("arg_prm_playoff_winner_money"), prizeMoneyFile.GetInt("arg_prm_playoff_runner_up_money"));
 
 		return (DWORD)pMem;
 	}
@@ -1155,7 +1155,7 @@ void arg_first_open_playoff_teams(BYTE* _this) {
 
 	for (char i = 0; i < playoff_teams; i++) {
 		teams[team_order[i]].club = clubs[i];
-		teams[team_order[i]].f5 = 8 - (i % 8);
+		teams[team_order[i]].seeding = 8 - (i % 8);
 	}
 }
 
@@ -1185,11 +1185,11 @@ void arg_first_close_playoff_teams(BYTE* _this) {
 
 	for (char i = 0; i < playoff_teams; i++) {
 		teams[team_order[i]].club = clubs[i];
-		teams[team_order[i]].f5 = 8 - (i % 8);
+		teams[team_order[i]].seeding = 8 - (i % 8);
 	}
 }
 
-int arg_first_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int arg_first_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == -1 || stage == 1) {
@@ -1329,7 +1329,7 @@ int arg_first_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char sta
 	return 0;
 }
 
-void __declspec(naked) arg_first_set_table_fate()
+void __declspec(naked) arg_first_table_fates_c()
 {
 	__asm
 	{
@@ -1341,7 +1341,7 @@ void __declspec(naked) arg_first_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call arg_first_table_indicators
+		call arg_first_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -1469,7 +1469,7 @@ void setup_arg_first()
 	WriteVTablePtr(arg_first_vtable, VTableReputationSetup, (DWORD)&arg_first_reputation_setup_c);
 	WriteVTablePtr(arg_first_vtable, VTableReputationCalc, (DWORD)&arg_first_reputation_calc_c);
 	WriteVTablePtr(arg_first_vtable, VTableLeagueSplit, (DWORD)&arg_first_table_split_c);
-	WriteVTablePtr(arg_first_vtable, VTableTableFates, (DWORD)&arg_first_set_table_fate);
+	WriteVTablePtr(arg_first_vtable, VTableTableFates, (DWORD)&arg_first_table_fates_c);
 	WriteVTablePtr(arg_first_vtable, VTablePromRelUpdate, (DWORD)&arg_first_prom_rel_update_c);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(arg_first_vtable, VTableShowThirdInHistory, 0x4110b0);
 	// 405ef0 average points table

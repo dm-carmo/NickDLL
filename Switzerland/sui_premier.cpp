@@ -298,7 +298,7 @@ DWORD sui_premier_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 31), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 6, 3), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, Playoff, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 5, 2, 1, 2, 0, 0, 2, 3);
+		FillFixtureDetails(pMem, fixture_id++, Playoff, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 5, 2, 1, 2, 0, 0, 2, 3);
 
 		return (DWORD)pMem;
 	}
@@ -668,7 +668,7 @@ void __declspec(naked) sui_premier_playoffs_create()
 	}
 }
 
-int sui_premier_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int sui_premier_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == 0) {
@@ -745,7 +745,7 @@ int sui_premier_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char s
 	return 0;
 }
 
-void __declspec(naked) sui_premier_set_table_fate()
+void __declspec(naked) sui_premier_table_fates_c()
 {
 	__asm
 	{
@@ -757,7 +757,7 @@ void __declspec(naked) sui_premier_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call sui_premier_table_indicators
+		call sui_premier_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -870,7 +870,7 @@ void sui_premier_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	sui_premier_vtable->SetPointer(VTableLeagueSplit, (DWORD)&sui_premier_table_split_c);
 	sui_premier_vtable->SetPointer(VTableReputationCalc, (DWORD)&sui_premier_reputation_calc_c);
 	sui_premier_vtable->SetPointer(VTablePlayoffQual, (DWORD)&sui_premier_playoffs_create);
-	sui_premier_vtable->SetPointer(VTableTableFates, (DWORD)&sui_premier_set_table_fate);
+	sui_premier_vtable->SetPointer(VTableTableFates, (DWORD)&sui_premier_table_fates_c);
 	sui_premier_vtable->SetPointer(VTablePromRelUpdate, (DWORD)&sui_premier_prom_rel_update_c);
 	sui_premier_vtable->SetPointer(VTableStageNews, (DWORD)&sui_premier_stage_news_c);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) sui_premier_vtable->SetPointer(VTableShowThirdInHistory, 0x4110b0);

@@ -2,10 +2,6 @@
 #include <algorithm>
 #include <Helpers/Helper.h>
 
-WORD FixedTeamOrderInCup = 0x200;
-WORD FixedTeamOrderInCup2 = 0x300;
-WORD FixedTeamOrderInCup3 = 0x400;
-
 cm3_staff_comps** awards = (cm3_staff_comps**)0xAE23E0;
 DWORD* awards_count = (DWORD*)0xAE2388;
 

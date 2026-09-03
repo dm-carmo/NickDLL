@@ -139,7 +139,7 @@ void aus_league_setup_extra_games(BYTE* _this) {
 		match->sub_stage_id = 0;
 		match->main_stage_id = stage_name_id;
 		match->f54_0xdb = data->f219;
-		match->f56_0xab = data->f171;
+		match->tiebreaks = data->f171;
 		match->f58_0xc4 = data->f196;
 		match->f59 = -1;
 		match->f61 = 0;
@@ -665,15 +665,15 @@ DWORD aus_league_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 10), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 16), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, EliminationFinal, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 5, 4, 2, 4, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, EliminationFinal, 0, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 5, 4, 2, 4, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 17), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 23), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup3 + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 5, 4, 2, 2, 4, 0, 2, 7);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup3 | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 5, 4, 2, 2, 4, 0, 2, 7);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 31), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 6, 6), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, GrandFinal, 0, ExtraTimePenalties_1, NoTiebreak_2, 0, 2, 1, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, GrandFinal, 0, Penalties | ExtraTime, NoTiebreak, 0, 2, 1, 0, 0, 0, 1, 0);
 
 		return (DWORD)pMem;
 	}
@@ -774,7 +774,7 @@ void __declspec(naked) aus_league_playoffs_create()
 	}
 }
 
-int aus_league_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int aus_league_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == 0) {
@@ -831,7 +831,7 @@ int aus_league_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char st
 	return 0;
 }
 
-void __declspec(naked) aus_league_set_table_fate()
+void __declspec(naked) aus_league_table_fates_c()
 {
 	__asm
 	{
@@ -843,7 +843,7 @@ void __declspec(naked) aus_league_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call aus_league_table_indicators
+		call aus_league_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -887,7 +887,7 @@ void setup_aus_league()
 	WriteVTablePtr(aus_league_vtable, VTableEoSUpdate, (DWORD)&aus_league_update_c);
 	WriteVTablePtr(aus_league_vtable, VTableFixtures, (DWORD)&aus_league_fixtures_c);
 	WriteVTablePtr(aus_league_vtable, VTablePlayoffQual, (DWORD)&aus_league_playoffs_create);
-	WriteVTablePtr(aus_league_vtable, VTableTableFates, (DWORD)&aus_league_set_table_fate);
+	WriteVTablePtr(aus_league_vtable, VTableTableFates, (DWORD)&aus_league_table_fates_c);
 	WriteVTablePtr(aus_league_vtable, VTableStageNews, 0x48c6d0);
 	WriteVTablePtr(aus_league_vtable, VTable32, 0x48F2D0);
 	WriteVTablePtr(aus_league_vtable, VTableSetChampion, (DWORD)&aus_league_set_champion_c);

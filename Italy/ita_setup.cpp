@@ -19,12 +19,12 @@ DWORD ita_setup_c(playable_nation_data* nation_data) {
 	nation_data->contract_start_day = 6;
 	nation_data->contract_start_month = August;
 	nation_data->contract_start_year = *current_year;
-	nation_data->f55 = 6;
+	nation_data->contract_start_day_of_week = 6;
 	
 	nation_data->contract_end_day = 8;
 	nation_data->contract_end_month = June;
 	nation_data->contract_end_year = *current_year + 1;
-	nation_data->f70 = 6;
+	nation_data->contract_end_day_of_week = 6;
 	BYTE selected = nation_data->nation->NationLeagueSelected;
 	if ((selected & 4) == 0) {
 		nation_data->num_of_comps = 7;

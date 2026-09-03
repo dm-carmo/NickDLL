@@ -307,11 +307,11 @@ DWORD irl_second_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 1), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 8), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, ExtraTimePenalties_1, NoTiebreak_2, 5, 4, 2, 4, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, Penalties | ExtraTime, NoTiebreak, 5, 4, 2, 4, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 9), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 15), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 5, 2, 1, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, Penalties | ExtraTime, NoTiebreak, 5, 2, 1, 0, 0, 0, 1, 0);
 
 		return (DWORD)pMem;
 	}
@@ -381,7 +381,7 @@ void __declspec(naked) irl_second_update_c()
 	}
 }
 
-int irl_second_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int irl_second_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage < 2) {
@@ -446,7 +446,7 @@ int irl_second_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BY
 	return 0;
 }
 
-void __declspec(naked) irl_second_set_table_fate()
+void __declspec(naked) irl_second_table_fates_c()
 {
 	__asm
 	{
@@ -458,7 +458,7 @@ void __declspec(naked) irl_second_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call irl_second_set_fates
+		call irl_second_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -574,7 +574,7 @@ void irl_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	irl_second_vtable->SetPointer(VTableEoSUpdate, (DWORD)&irl_second_update_c);
 	irl_second_vtable->SetPointer(VTableReputationCalc, (DWORD)&irl_second_reputation_calc_c);
 	irl_second_vtable->SetPointer(VTableSetChampion, (DWORD)&irl_second_set_champion_c);
-	irl_second_vtable->SetPointer(VTableTableFates, (DWORD)&irl_second_set_table_fate);
+	irl_second_vtable->SetPointer(VTableTableFates, (DWORD)&irl_second_table_fates_c);
 	irl_second_vtable->SetPointer(VTableStageNews, 0x48c6d0);
 	irl_second_vtable->SetPointer(VTablePlayoffQual, (DWORD)&irl_second_playoffs_create);
 	irl_second_vtable->SetPointer(VTablePostMatchUpdate, 0x685d30);

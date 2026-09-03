@@ -143,7 +143,7 @@ void __declspec(naked) sco_pyramid_playoff_update_c()
 	}
 }
 
-int sco_pyramid_playoff_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int sco_pyramid_playoff_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	cm3_club_comps* sco_l2 = get_comp(SCO_LEAGUE_2_9CF());
@@ -167,7 +167,7 @@ int sco_pyramid_playoff_set_fates(BYTE* _this, cm3_clubs* club, char fate, char 
 	return 0;
 }
 
-void __declspec(naked) sco_pyramid_playoff_set_table_fate()
+void __declspec(naked) sco_pyramid_playoff_table_fates_c()
 {
 	__asm
 	{
@@ -179,7 +179,7 @@ void __declspec(naked) sco_pyramid_playoff_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call sco_pyramid_playoff_set_fates
+		call sco_pyramid_playoff_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -370,7 +370,7 @@ void sco_pyramid_playoff_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	sco_pyramid_playoff_vtable->SetPointer(VTableLeagueSplit, (DWORD)&sco_pyramid_playoff_63B300_c);
 	sco_pyramid_playoff_vtable->SetPointer(VTableFixtures, (DWORD)&sco_pyramid_playoff_fixtures_c);
 	sco_pyramid_playoff_vtable->SetPointer(VTableSubsRounds, (DWORD)&sco_pyramid_playoff_subs_c);
-	sco_pyramid_playoff_vtable->SetPointer(VTableTableFates, (DWORD)&sco_pyramid_playoff_set_table_fate);
+	sco_pyramid_playoff_vtable->SetPointer(VTableTableFates, (DWORD)&sco_pyramid_playoff_table_fates_c);
 	sco_pyramid_playoff_vtable->SetPointer(VTableStageNews, (DWORD)&sco_pyramid_playoff_stage_news_c);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) sco_pyramid_playoff_vtable->SetPointer(VTableShowThirdInHistory, 0x4110b0);
 	data->year = year;

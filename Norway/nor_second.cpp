@@ -263,7 +263,7 @@ DWORD nor_second_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 26), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 2), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, Playoff, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 5, 2, 1, 2, 0, 0, 2, 7);
+		FillFixtureDetails(pMem, fixture_id++, Playoff, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 5, 2, 1, 2, 0, 0, 2, 7);
 
 		return (DWORD)pMem;
 	}
@@ -483,7 +483,7 @@ void __declspec(naked) nor_second_playoffs_create_c()
 	}
 }
 
-int nor_second_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int nor_second_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	cm3_club_comps* nor_first = get_comp(NOR_FIRST_9CF());
@@ -549,7 +549,7 @@ int nor_second_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char st
 	return 0;
 }
 
-void __declspec(naked) nor_second_set_table_fate()
+void __declspec(naked) nor_second_table_fates_c()
 {
 	__asm
 	{
@@ -561,7 +561,7 @@ void __declspec(naked) nor_second_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call nor_second_table_indicators
+		call nor_second_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -652,7 +652,7 @@ void nor_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	nor_second_vtable->SetPointer(VTableReputationCalc, (DWORD)&nor_second_reputation_calc_c);
 	nor_second_vtable->SetPointer(VTableAwardTeamsSetup, (DWORD)&nor_second_awards_c);
 	nor_second_vtable->SetPointer(VTableSubsRounds, (DWORD)&nor_second_subs_c);
-	nor_second_vtable->SetPointer(VTableTableFates, (DWORD)&nor_second_set_table_fate);
+	nor_second_vtable->SetPointer(VTableTableFates, (DWORD)&nor_second_table_fates_c);
 	nor_second_vtable->SetPointer(VTablePlayoffQual, (DWORD)&nor_second_playoffs_create_c);
 	nor_second_vtable->SetPointer(VTableStageNews, 0x48c6d0);
 	nor_second_vtable->SetPointer(VTableSetChampion, (DWORD)&nor_second_set_champion_c);

@@ -479,7 +479,7 @@ void __declspec(naked) por_third_playoffs_create_c()
 	}
 }
 
-int por_third_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int por_third_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	cm3_club_comps* por_second = get_comp(POR_SECOND_9CF());
@@ -574,7 +574,7 @@ int por_third_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char sta
 	return 0;
 }
 
-void __declspec(naked) por_third_set_table_fate()
+void __declspec(naked) por_third_table_fates_c()
 {
 	__asm
 	{
@@ -586,7 +586,7 @@ void __declspec(naked) por_third_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call por_third_table_indicators
+		call por_third_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -761,7 +761,7 @@ void setup_por_third()
 	WriteVTablePtr(por_third_vtable, VTableReputationCalc, (DWORD)&por_third_reputation_calc_c);
 	WriteVTablePtr(por_third_vtable, VTableAwardTeamsSetup, (DWORD)&por_7D2B80_c);
 	WriteVTablePtr(por_third_vtable, VTableSubsRounds, (DWORD)&por_third_subs_c);
-	WriteVTablePtr(por_third_vtable, VTableTableFates, (DWORD)&por_third_set_table_fate);
+	WriteVTablePtr(por_third_vtable, VTableTableFates, (DWORD)&por_third_table_fates_c);
 	WriteVTablePtr(por_third_vtable, VTableStageNews, (DWORD)&por_third_stage_news_c);
 	WriteVTablePtr(por_third_vtable, VTablePlayoffQual, (DWORD)&por_third_playoffs_create_c);
 	WriteVTablePtr(por_third_vtable, VTable39, 0x404480);

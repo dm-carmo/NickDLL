@@ -88,11 +88,11 @@ DWORD caf_confederation_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_roun
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 6, 28), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 21), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, FirstQualifyingPhase, 0, NoTiebreak_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 64, 32, 64, 0, 0, 2, 7, 0, 0, prizeMoneyFile.GetInt("caf_confed_qr1_lose"));
+		FillFixtureDetails(pMem, fixture_id++, FirstQualifyingPhase, 0, NoTiebreak, Penalties, 8, 64, 32, 64, 0, 0, 2, 7, 0, 0, prizeMoneyFile.GetInt("caf_confed_qr1_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 29), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 19), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, SecondQualifyingPhase, 0, NoTiebreak_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 32, 16, 0, 0, 0, 2, 7, 0, 0, prizeMoneyFile.GetInt("caf_confed_qr2_lose"));
+		FillFixtureDetails(pMem, fixture_id++, SecondQualifyingPhase, 0, NoTiebreak, Penalties, 8, 32, 16, 0, 0, 0, 2, 7, 0, 0, prizeMoneyFile.GetInt("caf_confed_qr2_lose"));
 
 		return (DWORD)pMem;
 	}
@@ -129,15 +129,15 @@ DWORD caf_confederation_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_roun
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 2, 16), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 15), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 8, 4, 8, 0, 0, 2, 7, 0, 0, prizeMoneyFile.GetInt("caf_confed_qtr_lose"));
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup | NoTiebreak, Penalties, 8, 8, 4, 8, 0, 0, 2, 7, 0, 0, prizeMoneyFile.GetInt("caf_confed_qtr_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 23), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 12), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 4, 2, 0, 0, 0, 2, 7, 0, 0, prizeMoneyFile.GetInt("caf_confed_semi_lose"));
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup | NoTiebreak, Penalties, 8, 4, 2, 0, 0, 0, 2, 7, 0, 0, prizeMoneyFile.GetInt("caf_confed_semi_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 4, 20), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 9), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, NoTiebreak_1, AwayGoalsPenaltiesNoExtraTime_2, 8, 2, 1, 0, 0, 0, 2, 7, 0, prizeMoneyFile.GetInt("caf_confed_final_win"), prizeMoneyFile.GetInt("caf_confed_final_lose"));
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, NoTiebreak, Penalties, 8, 2, 1, 0, 0, 0, 2, 7, 0, prizeMoneyFile.GetInt("caf_confed_final_win"), prizeMoneyFile.GetInt("caf_confed_final_lose"));
 
 		return (DWORD)pMem;
 	}
@@ -311,7 +311,7 @@ void caf_confederation_cup_all_teams(BYTE* _this) {
 		if (club->ClubEuroFlag == CAF_CONFEDERATION_CUP_9CF()) {
 			BYTE seed = club->ClubEuroSeeding;
 			teams[teams_r1].club = club;
-			teams[teams_r1].f5 = 0;
+			teams[teams_r1].seeding = 0;
 			teams[teams_r1].f6 = 0;
 			teams_r1++;
 		}
@@ -332,7 +332,7 @@ void caf_confederation_cup_qualifier_teams(BYTE* _this) {
 	DWORD total_count = data->special_nteams_seedings;
 	for (WORD i = 0; i < total_count; i++) {
 		teams[i].club = qualifiers[i].club;
-		teams[i].f5 = 0;
+		teams[i].seeding = 0;
 		teams[i].f6 = 0;
 	}
 }
@@ -633,7 +633,7 @@ void __declspec(naked) caf_confederation_cup_stages_create_c()
 	}
 }
 
-int caf_confederation_cup_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int caf_confederation_cup_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == -1) {
@@ -693,7 +693,7 @@ int caf_confederation_cup_set_fates(BYTE* _this, cm3_clubs* club, char fate, cha
 	return 0;
 }
 
-void __declspec(naked) caf_confederation_cup_set_table_fate()
+void __declspec(naked) caf_confederation_cup_table_fates_c()
 {
 	__asm
 	{
@@ -705,7 +705,7 @@ void __declspec(naked) caf_confederation_cup_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call caf_confederation_cup_set_fates
+		call caf_confederation_cup_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -787,7 +787,7 @@ void caf_confederation_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	caf_confederation_cup_vtable->SetPointer(VTableSetChampion, (DWORD)&caf_confederation_cup_set_champion_c);
 	caf_confederation_cup_vtable->SetPointer(VTableClubLandmarks, 0x48cab0);
 	caf_confederation_cup_vtable->SetPointer(VTableFixtures, (DWORD)&caf_confederation_cup_fixture_caller);
-	caf_confederation_cup_vtable->SetPointer(VTableTableFates, (DWORD)&caf_confederation_cup_set_table_fate);
+	caf_confederation_cup_vtable->SetPointer(VTableTableFates, (DWORD)&caf_confederation_cup_table_fates_c);
 	caf_confederation_cup_vtable->SetPointer(VTableStageNews, (DWORD)&caf_confed_stage_news_c);
 	caf_confederation_cup_vtable->SetPointer(VTableReputationSetup, (DWORD)&caf_confederation_cup_reputation_setup_c);
 	caf_confederation_cup_vtable->SetPointer(VTableReputationCalc, (DWORD)&caf_confederation_cup_reputation_calc_c);

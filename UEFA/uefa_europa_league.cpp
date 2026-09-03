@@ -108,19 +108,19 @@ DWORD uefa_europa_league_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds,
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 6, 28), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 10), year, Thursday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, FirstQualifyingPhase, 4, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 12, 6, 12, 0, 0, 2, 7, 0, 0, prizeMoneyFile.GetInt("uefa_uel_qr1_lose"));
+		FillFixtureDetails(pMem, fixture_id++, FirstQualifyingPhase, 4, NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 8, 12, 6, 12, 0, 0, 2, 7, 0, 0, prizeMoneyFile.GetInt("uefa_uel_qr1_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 6, 29), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 24), year, Thursday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SecondQualifyingPhase, 4, FixedTeamOrderInCup3 + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 18, 9, 12, 12, 0, 2, 7, 0, 0, prizeMoneyFile.GetInt("uefa_uel_qr2_lose"));
+		FillFixtureDetails(pMem, fixture_id++, SecondQualifyingPhase, 4, FixedTeamOrderInCup3 | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 8, 18, 9, 12, 12, 0, 2, 7, 0, 0, prizeMoneyFile.GetInt("uefa_uel_qr2_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 21), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 7), year, Thursday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, ThirdQualifyingPhase, 4, FixedTeamOrderInCup3 + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 14, 7, 5, 24, 0, 2, 7, 0, 0, prizeMoneyFile.GetInt("uefa_uel_qr3_lose"));
+		FillFixtureDetails(pMem, fixture_id++, ThirdQualifyingPhase, 4, FixedTeamOrderInCup3 | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 8, 14, 7, 5, 24, 0, 2, 7, 0, 0, prizeMoneyFile.GetInt("uefa_uel_qr3_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 4), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 21), year, Thursday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, Playoff, 4, FixedTeamOrderInCup3 + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 24, 12, 17, 29, 0, 2, 7, 0, 0, prizeMoneyFile.GetInt("uefa_uel_po_lose"));
+		FillFixtureDetails(pMem, fixture_id++, Playoff, 4, FixedTeamOrderInCup3 | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 8, 24, 12, 17, 29, 0, 2, 7, 0, 0, prizeMoneyFile.GetInt("uefa_uel_po_lose"));
 
 		return (DWORD)pMem;
 	}
@@ -137,7 +137,7 @@ DWORD uefa_europa_league_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds,
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 21), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 7), year, Thursday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, ThirdQualifyingPhase, 4, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 12, 6, 12, 0, 0, 2, 7, 0, 0, prizeMoneyFile.GetInt("uefa_uel_qr3_lose"));
+		FillFixtureDetails(pMem, fixture_id++, ThirdQualifyingPhase, 4, NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 8, 12, 6, 12, 0, 0, 2, 7, 0, 0, prizeMoneyFile.GetInt("uefa_uel_qr3_lose"));
 
 		return (DWORD)pMem;
 	}
@@ -181,7 +181,7 @@ DWORD uefa_europa_league_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds,
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 1, 30), year, Friday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 2, 19), year, Thursday, Evening);
 		AddPlayoffTVFixture(pMem, fixture_id, 0);
-		FillFixtureDetails(pMem, fixture_id++, KnockoutPlayoff, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 16, 8, 16, 0, 0, 2, 7, 0, 0, prizeMoneyFile.GetInt("uefa_uel_ko_lose"));
+		FillFixtureDetails(pMem, fixture_id++, KnockoutPlayoff, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 8, 16, 8, 16, 0, 0, 2, 7, 0, 0, prizeMoneyFile.GetInt("uefa_uel_ko_lose"));
 
 		return (DWORD)pMem;
 	}
@@ -200,22 +200,22 @@ DWORD uefa_europa_league_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds,
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 2, 27), year, Friday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 12), year, Thursday, Evening);
 		AddPlayoffTVFixture(pMem, fixture_id, 0);
-		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 16, 8, 16, 0, 0, 2, 7, prizeMoneyFile.GetInt("uefa_uel_r16_qualify"));
+		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 8, 16, 8, 16, 0, 0, 2, 7, prizeMoneyFile.GetInt("uefa_uel_r16_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 19), year, Friday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 9), year, Thursday, Evening);
 		AddPlayoffTVFixture(pMem, fixture_id, 0);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 8, 4, 0, 0, 0, 2, 7, prizeMoneyFile.GetInt("uefa_uel_qtr_qualify"));
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 8, 8, 4, 0, 0, 0, 2, 7, prizeMoneyFile.GetInt("uefa_uel_qtr_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 4, 17), year, Friday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 30), year, Thursday, Evening);
 		AddPlayoffTVFixture(pMem, fixture_id, 0);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 4, 2, 0, 0, 0, 2, 7, prizeMoneyFile.GetInt("uefa_uel_semi_qualify"));
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 8, 4, 2, 0, 0, 0, 2, 7, prizeMoneyFile.GetInt("uefa_uel_semi_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 8), year, Friday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 27), year, Wednesday, Evening, NationalStadium);
 		AddPlayoffTVFixture(pMem, fixture_id, 0);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 8, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("uefa_uel_final_win"), prizeMoneyFile.GetInt("uefa_uel_final_lose"));
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, Penalties | ExtraTime, NoTiebreak, 8, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("uefa_uel_final_win"), prizeMoneyFile.GetInt("uefa_uel_final_lose"));
 
 		return (DWORD)pMem;
 	}
@@ -261,31 +261,31 @@ void uefa_europa_league_all_teams(BYTE* _this) {
 			BYTE seed = club->ClubEuroSeeding;
 			if (seed == 1 && teams_r1 < 13) {
 				teams[teams_r1].club = club;
-				teams[teams_r1].f5 = 7;
+				teams[teams_r1].seeding = 7;
 				teams[teams_r1].f6 = 0;
 				teams_r1++;
 			}
 			else if (seed == 2 && teams_r2 < 5) {
 				teams[teams_r2 + 13].club = club;
-				teams[teams_r2 + 13].f5 = 8;
+				teams[teams_r2 + 13].seeding = 8;
 				teams[teams_r2 + 13].f6 = 0;
 				teams_r2++;
 			}
 			else if (seed == 3 && teams_r3 < 3) {
 				teams[teams_r3 + 18].club = club;
-				teams[teams_r3 + 18].f5 = 6;
+				teams[teams_r3 + 18].seeding = 6;
 				teams[teams_r3 + 18].f6 = 0;
 				teams_r3++;
 			}
 			else if (seed == 4 && teams_r4 < 12) {
 				teams[teams_r4 + 21].club = club;
-				teams[teams_r4 + 21].f5 = 13;
+				teams[teams_r4 + 21].seeding = 13;
 				teams[teams_r4 + 21].f6 = 0;
 				teams_r4++;
 			}
 			else if (seed == 5 && teams_r5 < 12) {
 				teams[teams_r5 + 33].club = club;
-				teams[teams_r5 + 33].f5 = 0;
+				teams[teams_r5 + 33].seeding = 0;
 				teams[teams_r5 + 33].f6 = 0;
 				teams_r5++;
 			}
@@ -306,7 +306,7 @@ void uefa_europa_league_main_path_teams(BYTE* _this) {
 	for (DWORD i = 0; i < total_teams; i++)
 	{
 		teams[i].club = 0;
-		teams[i].f5 = 0;
+		teams[i].seeding = 0;
 		teams[i].f6 = 0;
 	}
 
@@ -314,38 +314,38 @@ void uefa_europa_league_main_path_teams(BYTE* _this) {
 	teams_seeded* qualifiers = (teams_seeded*)data->special_teams_seedings;
 	DWORD total_count = data->special_nteams_seedings;
 	for (WORD i = 0; i < total_count; i++) {
-		char seed = qualifiers[i].f5;
+		char seed = qualifiers[i].seeding;
 		if (seed == 0) {
 			teams[count].club = qualifiers[i].club;
-			teams[count].f5 = 0;
+			teams[count].seeding = 0;
 			teams[count].f6 = 0;
 			count++;
 		}
 	}
 	for (WORD i = 0; i < total_count; i++) {
-		char seed = qualifiers[i].f5;
+		char seed = qualifiers[i].seeding;
 		if (seed == 13) {
 			teams[count].club = qualifiers[i].club;
-			teams[count].f5 = 1;
+			teams[count].seeding = 1;
 			teams[count].f6 = 0;
 			count++;
 		}
 	}
 	for (WORD i = 0; i < total_count; i++) {
-		char seed = qualifiers[i].f5;
+		char seed = qualifiers[i].seeding;
 		if (seed == 6) {
 			teams[count].club = qualifiers[i].club;
-			teams[count].f5 = 2;
+			teams[count].seeding = 2;
 			teams[count].f6 = 0;
 			count++;
 		}
 	}
 	count += 2;
 	for (WORD i = 0; i < total_count; i++) {
-		char seed = qualifiers[i].f5;
+		char seed = qualifiers[i].seeding;
 		if (seed == 8) {
 			teams[count].club = qualifiers[i].club;
-			teams[count].f5 = 3;
+			teams[count].seeding = 3;
 			teams[count].f6 = 0;
 			count++;
 		}
@@ -578,7 +578,7 @@ int uel_register_squad(BYTE* _this, DWORD* a2, char a3) {
 		int count = 0;
 		for (WORD i = 0; i < data->special_nteams_seedings; i++) {
 			teams_seeded t = teams[i];
-			if (t.club->ClubEuroFlag == data->competition_db->ClubCompID && t.f5 != 7 && t.f5 != 8) {
+			if (t.club->ClubEuroFlag == data->competition_db->ClubCompID && t.seeding != 7 && t.seeding != 8) {
 				*(DWORD*)(pMem + 4 * count) = (DWORD)t.club;
 				count++;
 			}
@@ -751,7 +751,7 @@ void uefa_europa_league_group_stage_setup(BYTE* _this) {
 		if (t.f6 == 2) {
 			WORD insert_idx = comp_data->special_nteams_seedings;
 			teams[insert_idx].club = t.club;
-			teams[insert_idx].f5 = 5;
+			teams[insert_idx].seeding = 5;
 			teams[insert_idx].f6 = 0;
 			comp_data->special_nteams_seedings++;
 		}
@@ -761,7 +761,7 @@ void uefa_europa_league_group_stage_setup(BYTE* _this) {
 		if (t.f6 == 2) {
 			WORD insert_idx = comp_data->special_nteams_seedings;
 			teams[insert_idx].club = t.club;
-			teams[insert_idx].f5 = 5;
+			teams[insert_idx].seeding = 5;
 			teams[insert_idx].f6 = 0;
 			comp_data->special_nteams_seedings++;
 		}
@@ -919,7 +919,7 @@ void uefa_europa_league_group_stage_setup(BYTE* _this) {
 		match->sub_stage_id = 0;
 		match->main_stage_id = stage_name_id;
 		match->f54_0xdb = stage_data->f219;
-		match->f56_0xab = stage_data->f171;
+		match->tiebreaks = stage_data->f171;
 		match->f58_0xc4 = stage_data->f196;
 		match->f59 = -1;
 		match->f61 = 0;
@@ -1131,7 +1131,7 @@ void __declspec(naked) uefa_europa_league_stages_create_c()
 	}
 }
 
-int uefa_europa_league_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int uefa_europa_league_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	BYTE* uecl_bytes = get_loaded_league(UEFA_CONFERENCE_LEAGUE_9CF());
@@ -1158,7 +1158,7 @@ int uefa_europa_league_set_fates(BYTE* _this, cm3_clubs* club, char fate, char s
 				teams_seeded* qualifiers = (teams_seeded*)uecl_data->special_teams_seedings;
 				WORD insert_idx = uecl_data->special_nteams_seedings;
 				qualifiers[insert_idx].club = club;
-				qualifiers[insert_idx].f5 = 4;
+				qualifiers[insert_idx].seeding = 4;
 				qualifiers[insert_idx].f6 = 0;
 				uecl_data->special_nteams_seedings++;
 
@@ -1166,7 +1166,7 @@ int uefa_europa_league_set_fates(BYTE* _this, cm3_clubs* club, char fate, char s
 				insert_idx = 0;
 				while (teams[insert_idx].club) insert_idx++;
 				teams[insert_idx].club = club;
-				teams[insert_idx].f5 = 2;
+				teams[insert_idx].seeding = 2;
 				teams[insert_idx].f6 = 0;
 
 				staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(uecl_data->competition_db), ChampionsPath,
@@ -1192,7 +1192,7 @@ int uefa_europa_league_set_fates(BYTE* _this, cm3_clubs* club, char fate, char s
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), MainPath, Playoff, 0x1E);
 			while (teams[insert_idx].club) insert_idx++;
 			teams[insert_idx].club = club;
-			teams[insert_idx].f5 = 2;
+			teams[insert_idx].seeding = 2;
 			teams[insert_idx].f6 = 0;
 			return 0;
 		case Promoted:
@@ -1209,7 +1209,7 @@ int uefa_europa_league_set_fates(BYTE* _this, cm3_clubs* club, char fate, char s
 				teams_seeded* qualifiers = (teams_seeded*)uecl_data->special_teams_seedings;
 				WORD insert_idx = uecl_data->special_nteams_seedings;
 				qualifiers[insert_idx].club = club;
-				qualifiers[insert_idx].f5 = 4;
+				qualifiers[insert_idx].seeding = 4;
 				qualifiers[insert_idx].f6 = 0;
 				uecl_data->special_nteams_seedings++;
 
@@ -1218,7 +1218,7 @@ int uefa_europa_league_set_fates(BYTE* _this, cm3_clubs* club, char fate, char s
 				insert_idx = 0;
 				while (teams[insert_idx].club) insert_idx++;
 				teams[insert_idx].club = club;
-				teams[insert_idx].f5 = 2;
+				teams[insert_idx].seeding = 2;
 				teams[insert_idx].f6 = 0;
 
 				staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(uecl_data->competition_db), ChampionsPath, Playoff, 0x1E);
@@ -1293,7 +1293,7 @@ int uefa_europa_league_set_fates(BYTE* _this, cm3_clubs* club, char fate, char s
 	return 0;
 }
 
-void __declspec(naked) uefa_europa_league_set_table_fate()
+void __declspec(naked) uefa_europa_league_table_fates_c()
 {
 	__asm
 	{
@@ -1305,7 +1305,7 @@ void __declspec(naked) uefa_europa_league_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call uefa_europa_league_set_fates
+		call uefa_europa_league_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -1688,7 +1688,7 @@ void setup_uefa_europa_league() {
 	WriteVTablePtr(uefa_europa_league_vtable, VTableClubLandmarks, (DWORD)&uel_landmarks_c);
 	WriteVTablePtr(uefa_europa_league_vtable, VTableSubsRounds, 0x858e70);
 	WriteVTablePtr(uefa_europa_league_vtable, VTableFixtures, (DWORD)&uefa_europa_league_fixture_caller);
-	WriteVTablePtr(uefa_europa_league_vtable, VTableTableFates, (DWORD)&uefa_europa_league_set_table_fate);
+	WriteVTablePtr(uefa_europa_league_vtable, VTableTableFates, (DWORD)&uefa_europa_league_table_fates_c);
 	WriteVTablePtr(uefa_europa_league_vtable, VTableStageNews, (DWORD)&uel_stage_news_c);
 	WriteVTablePtr(uefa_europa_league_vtable, VTable23, (DWORD)&uel_register_squad_c);
 	WriteVTablePtr(uefa_europa_league_vtable, VTableReputationSetup, (DWORD)&uefa_europa_league_reputation_setup_c);

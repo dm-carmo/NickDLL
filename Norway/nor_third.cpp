@@ -265,7 +265,7 @@ void nor_third_setup_groups(BYTE* _this, BYTE idx) {
 	data->current_stage = idx;
 }
 
-int nor_third_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int nor_third_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage < 5) {
@@ -292,7 +292,7 @@ int nor_third_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char sta
 	return 0;
 }
 
-void __declspec(naked) nor_third_set_table_fate()
+void __declspec(naked) nor_third_table_fates_c()
 {
 	__asm
 	{
@@ -304,7 +304,7 @@ void __declspec(naked) nor_third_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call nor_third_table_indicators
+		call nor_third_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -456,7 +456,7 @@ void nor_third_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	nor_third_vtable->SetPointer(VTableReputationSetup, (DWORD)&nor_third_reputation_setup_c);
 	nor_third_vtable->SetPointer(VTableReputationCalc, (DWORD)&nor_third_reputation_calc_c);
 	nor_third_vtable->SetPointer(VTableSubsRounds, (DWORD)&nor_third_subs_c);
-	nor_third_vtable->SetPointer(VTableTableFates, (DWORD)&nor_third_set_table_fate);
+	nor_third_vtable->SetPointer(VTableTableFates, (DWORD)&nor_third_table_fates_c);
 	nor_third_vtable->SetPointer(VTablePlayoffQual, 0x5a8f60);
 	nor_third_vtable->SetPointer(VTableAwardTeamsSetup, (DWORD)&nor_third_awards_c);
 	nor_third_vtable->SetPointer(VTableSetChampion, (DWORD)&nor_third_set_champion_c);

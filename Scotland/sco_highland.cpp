@@ -87,7 +87,7 @@ int sco_highland_subs(BYTE* _this)
 	return 1;
 }
 
-int sco_highland_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int sco_highland_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	cm3_club_comps* sco_playoff = get_comp(SCO_PYRAMID_PLAYOFF_9CF());
@@ -114,7 +114,7 @@ int sco_highland_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, 
 	return 0;
 }
 
-void __declspec(naked) sco_highland_set_table_fate()
+void __declspec(naked) sco_highland_table_fates_c()
 {
 	__asm
 	{
@@ -126,7 +126,7 @@ void __declspec(naked) sco_highland_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call sco_highland_set_fates
+		call sco_highland_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -285,7 +285,7 @@ void sco_highland_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	sco_highland_vtable->SetPointer(VTableEoSUpdate, (DWORD)&sco_highland_update_c);
 	sco_highland_vtable->SetPointer(VTableFixtures, (DWORD)&sco_highland_fixtures_c);
 	sco_highland_vtable->SetPointer(VTableSubsRounds, (DWORD)&sco_highland_subs_c);
-	sco_highland_vtable->SetPointer(VTableTableFates, (DWORD)&sco_highland_set_table_fate);
+	sco_highland_vtable->SetPointer(VTableTableFates, (DWORD)&sco_highland_table_fates_c);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) sco_highland_vtable->SetPointer(VTableShowThirdInHistory, 0x4110b0);
 	data->year = year;
 	data->rules = RulesScotlandLeague;

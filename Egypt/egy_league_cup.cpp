@@ -193,15 +193,15 @@ DWORD egy_league_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WOR
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 2, 18), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 25), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, NoTiebreak_1, AwayGoalsPenaltiesNoExtraTime_2, 4, 8, 4, 8, 0, 0, 2, 4);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, NoTiebreak, Penalties, 4, 8, 4, 8, 0, 0, 2, 4);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 30), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 30), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, NoTiebreak_1, AwayGoalsPenaltiesNoExtraTime_2, 6, 4, 2, 0, 0, 0, 2, 4);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, NoTiebreak, Penalties, 6, 4, 2, 0, 0, 0, 2, 4);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 6, 4), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 6, 7), year, Sunday, Afternoon, NeutralStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("egy_league_cup_final_win"), prizeMoneyFile.GetInt("egy_league_cup_final_lose"));
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, Penalties, NoTiebreak, 6, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("egy_league_cup_final_win"), prizeMoneyFile.GetInt("egy_league_cup_final_lose"));
 
 		return (DWORD)pMem;
 	}
@@ -438,7 +438,7 @@ void __declspec(naked) egy_league_cup_update_c()
 	}
 }
 
-int egy_league_cup_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int egy_league_cup_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage < 2) {
@@ -476,7 +476,7 @@ int egy_league_cup_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage
 	return 0;
 }
 
-void __declspec(naked) egy_league_cup_set_table_fate()
+void __declspec(naked) egy_league_cup_table_fates_c()
 {
 	__asm
 	{
@@ -488,7 +488,7 @@ void __declspec(naked) egy_league_cup_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call egy_league_cup_set_fates
+		call egy_league_cup_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -663,7 +663,7 @@ void egy_league_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	egy_league_cup_vtable->SetPointer(VTableSetChampion, (DWORD)&egy_league_cup_set_champion_c);
 	egy_league_cup_vtable->SetPointer(VTableClubLandmarks, 0x48cab0);
 	egy_league_cup_vtable->SetPointer(VTableFixtures, (DWORD)&egy_league_cup_fixture_caller);
-	egy_league_cup_vtable->SetPointer(VTableTableFates, (DWORD)&egy_league_cup_set_table_fate);
+	egy_league_cup_vtable->SetPointer(VTableTableFates, (DWORD)&egy_league_cup_table_fates_c);
 	egy_league_cup_vtable->SetPointer(VTableStageNews, (DWORD)&egy_league_cup_stage_news_c);
 	egy_league_cup_vtable->SetPointer(VTableReputationSetup, (DWORD)&egy_league_cup_reputation_setup_c);
 	egy_league_cup_vtable->SetPointer(VTableReputationCalc, (DWORD)&egy_league_cup_reputation_calc_c);

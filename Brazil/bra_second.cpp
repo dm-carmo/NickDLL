@@ -264,7 +264,7 @@ DWORD bra_second_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 16), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 22), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, None, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 5, 4, 2, 4, 0, 0, 2, 7);
+		FillFixtureDetails(pMem, fixture_id++, None, 0, FixedTeamOrderInCup | NoAwayGoals, HigherSeedingTiebreak | NoAwayGoals, 5, 4, 2, 4, 0, 0, 2, 7);
 
 		return (DWORD)pMem;
 	}
@@ -365,6 +365,7 @@ void bra_second_prom_playoffs(BYTE* _this) {
 	WORD total_teams = comp_data->n_teams;
 	DWORD* pTeams = (DWORD*)cm0102_malloc(playoff_teams * 4);
 	BYTE team_order[4] = { 0,2,3,1 };
+	BYTE seeds[4] = { 0 };
 
 	vector<cm3_clubs*> clubs;
 	team_league_stats* table_teams = (team_league_stats*)(comp_data->team_league_table);
@@ -375,6 +376,7 @@ void bra_second_prom_playoffs(BYTE* _this) {
 		}
 	}
 	for (char i = 0; i < playoff_teams; i++) {
+		seeds[team_order[i]] = i;
 		*((DWORD*)(&pTeams[team_order[i]])) = (DWORD)clubs[i];
 	}
 
@@ -384,7 +386,7 @@ void bra_second_prom_playoffs(BYTE* _this) {
 	DWORD v1 = *(DWORD*)_this;
 	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, char, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
 	BYTE* new_stage = (BYTE*)cm0102_new(0xB2);
-	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)(comp_data->competition_db), pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, 0);
+	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)(comp_data->competition_db), pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, &seeds[0]);
 	DWORD* stages_arr = comp_data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
 	sub_51C800(new_stage, 0);
@@ -417,7 +419,7 @@ void __declspec(naked) bra_second_playoffs_create()
 	}
 }
 
-int bra_second_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int bra_second_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == 0) {
@@ -470,7 +472,7 @@ int bra_second_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char st
 	return 0;
 }
 
-void __declspec(naked) bra_second_set_table_fate()
+void __declspec(naked) bra_second_table_fates_c()
 {
 	__asm
 	{
@@ -482,7 +484,7 @@ void __declspec(naked) bra_second_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call bra_second_table_indicators
+		call bra_second_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -531,7 +533,7 @@ void setup_bra_second()
 	WriteVTablePtr(bra_second_vtable, VTableStageNews, 0x5785b0);
 	WriteVTablePtr(bra_second_vtable, VTableReputationCalc, (DWORD)&bra_second_reputation_calc_c);
 	WriteVTablePtr(bra_second_vtable, VTablePlayoffQual, (DWORD)&bra_second_playoffs_create);
-	WriteVTablePtr(bra_second_vtable, VTableTableFates, (DWORD)&bra_second_set_table_fate);
+	WriteVTablePtr(bra_second_vtable, VTableTableFates, (DWORD)&bra_second_table_fates_c);
 	WriteVTablePtr(bra_second_vtable, VTable37, 0x68aad0);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(bra_second_vtable, VTableShowThirdInHistory, 0x4110b0);
 	if (configFile.GetBool("showPlayoffWinnerInHistory", true)) WriteVTablePtr(bra_second_vtable, VTableShowHostsInHistory, 0x404480);

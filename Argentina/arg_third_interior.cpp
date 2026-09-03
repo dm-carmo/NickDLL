@@ -388,15 +388,15 @@ DWORD arg_third_interior_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds,
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 16), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 22), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup + Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 5, 8, 4, 8, 0, 0, 2, 7);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | NoAwayGoals, 5, 8, 4, 8, 0, 0, 2, 7);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 30), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 6), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 5, 4, 2, 0, 0, 0, 2, 4);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | NoAwayGoals, 5, 4, 2, 0, 0, 0, 2, 4);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 11), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 13), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 5, 2, 1, 0, 0, 0, 2, 7);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, NoAwayGoals, Penalties | NoAwayGoals, 5, 2, 1, 0, 0, 0, 2, 7);
 
 		return (DWORD)pMem;
 	}
@@ -466,7 +466,7 @@ void __declspec(naked) arg_third_interior_update_c()
 	}
 }
 
-int arg_third_interior_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int arg_third_interior_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage < 3) {
@@ -619,7 +619,7 @@ int arg_third_interior_set_fates(BYTE* _this, cm3_clubs* club, char fate, char s
 	return 0;
 }
 
-void __declspec(naked) arg_third_interior_set_table_fate()
+void __declspec(naked) arg_third_interior_table_fates_c()
 {
 	__asm
 	{
@@ -631,7 +631,7 @@ void __declspec(naked) arg_third_interior_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call arg_third_interior_set_fates
+		call arg_third_interior_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -879,7 +879,7 @@ void arg_third_interior_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	arg_third_interior_vtable->SetPointer(VTableEoSUpdate, (DWORD)&arg_third_interior_update_c);
 	arg_third_interior_vtable->SetPointer(VTableReputationCalc, (DWORD)&arg_third_interior_reputation_calc_c);
 	arg_third_interior_vtable->SetPointer(VTableSetChampion, (DWORD)&arg_third_interior_set_champion_c);
-	arg_third_interior_vtable->SetPointer(VTableTableFates, (DWORD)&arg_third_interior_set_table_fate);
+	arg_third_interior_vtable->SetPointer(VTableTableFates, (DWORD)&arg_third_interior_table_fates_c);
 	arg_third_interior_vtable->SetPointer(VTableStageNews, (DWORD)&arg_third_interior_stage_news_c);
 	arg_third_interior_vtable->SetPointer(VTablePlayoffQual, (DWORD)&arg_third_interior_playoffs_create);
 	arg_third_interior_vtable->SetPointer(VTablePostMatchUpdate, 0x685d30);

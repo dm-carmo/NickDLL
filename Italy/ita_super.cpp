@@ -23,7 +23,7 @@ DWORD ita_super_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		int tv_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 6, 29), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 22), year, Saturday, Afternoon, AhAhliKSAStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 6, 2, 1, 2, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("ita_super_final_win"), prizeMoneyFile.GetInt("ita_super_final_lose"));
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, Penalties, NoTiebreak, 6, 2, 1, 2, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("ita_super_final_win"), prizeMoneyFile.GetInt("ita_super_final_lose"));
 
 		return (DWORD)pMem;
 	}
@@ -75,7 +75,7 @@ int ita_super_teams(BYTE* _this) {
 	for (DWORD i = 0; i < vec.size(); i++)
 	{
 		teams[i].club = vec[i];
-		teams[i].f5 = 0;
+		teams[i].seeding = 0;
 		teams[i].f6 = 0;
 	}
 

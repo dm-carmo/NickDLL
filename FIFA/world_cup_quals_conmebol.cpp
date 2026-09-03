@@ -251,7 +251,7 @@ void world_cup_quals_conmebol_teams(BYTE* _this) {
 	for (BYTE i = 0, j = 0; i < countries.size() && j < total_teams_in_comp; i++) {
 		if (countries[i]->ClubNation->NationID == host1_id || countries[i]->ClubNation->NationID == host2_id) continue;
 		teams[j].club = countries[i];
-		teams[j].f5 = 6;
+		teams[j].seeding = 6;
 		teams[j].f6 = 0;
 		add_team_call(_this, j++, countries[i], 0, 0);
 	}
@@ -322,7 +322,7 @@ void __declspec(naked) world_cup_quals_conmebol_init2_c()
 	}
 }
 
-int world_cup_quals_conmebol_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int world_cup_quals_conmebol_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == -1) {
@@ -344,7 +344,7 @@ int world_cup_quals_conmebol_set_fates(BYTE* _this, cm3_clubs* club, char fate, 
 	return 0;
 }
 
-void __declspec(naked) world_cup_quals_conmebol_set_table_fate()
+void __declspec(naked) world_cup_quals_conmebol_table_fates_c()
 {
 	__asm
 	{
@@ -356,7 +356,7 @@ void __declspec(naked) world_cup_quals_conmebol_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call world_cup_quals_conmebol_set_fates
+		call world_cup_quals_conmebol_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -524,7 +524,7 @@ void setup_world_cup_quals_conmebol() {
 	WriteVTablePtr(world_cup_quals_conmebol_vtable, VTableInitFree, (DWORD)&world_cup_quals_conmebol_free_c);
 	WriteVTablePtr(world_cup_quals_conmebol_vtable, VTableEoSUpdate, (DWORD)&world_cup_quals_conmebol_update_c);
 	WriteVTablePtr(world_cup_quals_conmebol_vtable, VTableLeagueSplit, (DWORD)&world_cup_quals_conmebol_init2_c);
-	WriteVTablePtr(world_cup_quals_conmebol_vtable, VTableTableFates, (DWORD)&world_cup_quals_conmebol_set_table_fate);
+	WriteVTablePtr(world_cup_quals_conmebol_vtable, VTableTableFates, (DWORD)&world_cup_quals_conmebol_table_fates_c);
 	WriteVTablePtr(world_cup_quals_conmebol_vtable, VTableFixtures, (DWORD)&world_cup_quals_conmebol_fixture_caller);
 	WriteVTablePtr(world_cup_quals_conmebol_vtable, VTableStageNews, (DWORD)&world_cup_quals_conmebol_stage_news_c);
 	WriteVTablePtr(world_cup_quals_conmebol_vtable, VTable29, (DWORD)&world_cup_quals_conmebol_vtable29_c);

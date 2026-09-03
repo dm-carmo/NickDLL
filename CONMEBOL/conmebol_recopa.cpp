@@ -23,7 +23,7 @@ DWORD conmebol_recopa_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WO
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 1, 10), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 2, 20), year, Thursday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, None, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 6, 2, 1, 2, 0, 0, 2, 7, 0, prizeMoneyFile.GetInt("conmebol_recopa_final_win"), prizeMoneyFile.GetInt("conmebol_recopa_final_lose"));
+		FillFixtureDetails(pMem, fixture_id++, None, 0, NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 6, 2, 1, 2, 0, 0, 2, 7, 0, prizeMoneyFile.GetInt("conmebol_recopa_final_win"), prizeMoneyFile.GetInt("conmebol_recopa_final_lose"));
 
 		return (DWORD)pMem;
 	}

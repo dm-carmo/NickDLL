@@ -223,11 +223,11 @@ DWORD tur_fourth_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 4, 27), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 3), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 6, 12, 6, 12, 0, 0, 2, 7);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 6, 12, 6, 12, 0, 0, 2, 7);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 11), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 17), year, Sunday, Afternoon, NeutralStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 6, 6, 3, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 6, 6, 3, 0, 0, 0, 1, 0);
 
 		return (DWORD)pMem;
 	}
@@ -430,7 +430,7 @@ void __declspec(naked) tur_fourth_playoffs_create_c()
 	}
 }
 
-int tur_fourth_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int tur_fourth_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage < 2) {
@@ -490,7 +490,7 @@ int tur_fourth_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char st
 	return 0;
 }
 
-void __declspec(naked) tur_fourth_set_table_fate()
+void __declspec(naked) tur_fourth_table_fates_c()
 {
 	__asm
 	{
@@ -502,7 +502,7 @@ void __declspec(naked) tur_fourth_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call tur_fourth_table_indicators
+		call tur_fourth_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -598,7 +598,7 @@ void tur_fourth_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	tur_fourth_vtable->SetPointer(VTableReputationSetup, (DWORD)&tur_fourth_reputation_setup_c);
 	tur_fourth_vtable->SetPointer(VTableReputationCalc, (DWORD)&tur_fourth_reputation_calc_c);
 	tur_fourth_vtable->SetPointer(VTableSubsRounds, (DWORD)&tur_fourth_subs_c);
-	tur_fourth_vtable->SetPointer(VTableTableFates, (DWORD)&tur_fourth_set_table_fate);
+	tur_fourth_vtable->SetPointer(VTableTableFates, (DWORD)&tur_fourth_table_fates_c);
 	tur_fourth_vtable->SetPointer(VTablePlayoffQual, (DWORD)&tur_fourth_playoffs_create_c);
 	tur_fourth_vtable->SetPointer(VTableSetChampion, (DWORD)&tur_fourth_set_champion_c);
 	tur_fourth_vtable->SetPointer(VTableUpdateLastDivision, (DWORD)&tur_fourth_last_positions_c);

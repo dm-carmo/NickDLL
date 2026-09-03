@@ -317,18 +317,15 @@ DWORD ita_ser_b_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 17), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 23), year, Saturday);
-		// highest team wins after et/pens
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 5, 4, 2, 4, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 8, FixedTeamOrderInCup | HigherSeedingTiebreak, NoTiebreak, 5, 4, 2, 4, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 24), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 27), year, Wednesday, Evening);
-		// highest team wins, no et/pens
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup3 + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 6, 4, 2, 2, 4, 0, 2, 4);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 8, FixedTeamOrderInCup3 | NoAwayGoals, HigherSeedingTiebreak | NoAwayGoals, 6, 4, 2, 2, 4, 0, 2, 4);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 6, 1), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 6, 3), year, Thursday, Evening);
-		// highest team wins, no et/pens
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 6, 2, 1, 0, 0, 0, 2, 3);
+		FillFixtureDetails(pMem, fixture_id++, Final, 8, FixedTeamOrderInCup | NoAwayGoals, HigherSeedingTiebreak | NoAwayGoals, 6, 2, 1, 0, 0, 0, 2, 3);
 
 		return (DWORD)pMem;
 	}
@@ -345,8 +342,7 @@ DWORD ita_ser_b_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 17), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 21), year, Thursday);
-		// highest team wins, no et/pens
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 5, 2, 1, 2, 0, 0, 2, 7);
+		FillFixtureDetails(pMem, fixture_id++, Final, 8, FixedTeamOrderInCup | NoAwayGoals, HigherSeedingTiebreak | NoAwayGoals, 5, 2, 1, 2, 0, 0, 2, 7);
 
 		return (DWORD)pMem;
 	}
@@ -509,9 +505,11 @@ void ita_ser_b_prom_playoffs(BYTE* _this) {
 	WORD total_teams = comp_data->n_teams;
 	DWORD* pTeams = (DWORD*)cm0102_malloc(playoff_teams * 4);
 	BYTE team_order[6] = { 4,5,0,3,2,1 };
+	BYTE seeds[6] = { 0 };
 
 	team_league_stats* table_teams = (team_league_stats*)(comp_data->team_league_table);
 	for (char i = comp_data->promotions, j = 0; i < total_teams && j < playoff_teams; i++) {
+		seeds[team_order[j]] = i;
 		*((DWORD*)(&pTeams[team_order[j++]])) = (DWORD)table_teams[i].club;
 	}
 
@@ -521,7 +519,7 @@ void ita_ser_b_prom_playoffs(BYTE* _this) {
 	DWORD v1 = *(DWORD*)_this;
 	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, char, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
 	BYTE* new_stage = (BYTE*)cm0102_new(0xB2);
-	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)(comp_data->competition_db), pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, 0);
+	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)(comp_data->competition_db), pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, &seeds[0]);
 	DWORD* stages_arr = comp_data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
 	sub_51C800(new_stage, 0);
@@ -533,6 +531,7 @@ void ita_ser_b_rele_playoffs(BYTE* _this) {
 	char stage_num = 1;
 	comp_stats* comp_data = (comp_stats*)_this;
 	BYTE playoff_teams = comp_data->rele_playoff;
+	BYTE seeds[2] = { 0 };
 	WORD total_teams = comp_data->n_teams;
 	DWORD* pTeams = (DWORD*)cm0102_malloc(playoff_teams * 4);
 	int j = 0;
@@ -540,6 +539,7 @@ void ita_ser_b_rele_playoffs(BYTE* _this) {
 	for (int i = 0; i < total_teams && j < playoff_teams; i++) {
 		team_league_stats tls = table_teams[i];
 		if (tls.league_fate == BottomPlayoff) {
+			seeds[playoff_teams - j - 1] = i;
 			*((DWORD*)(&pTeams[playoff_teams - j - 1])) = (DWORD)tls.club;
 			j++;
 		}
@@ -550,7 +550,7 @@ void ita_ser_b_rele_playoffs(BYTE* _this) {
 	DWORD v1 = *(DWORD*)_this;
 	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, char, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
 	BYTE* new_stage = (BYTE*)cm0102_new(0xB2);
-	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)(comp_data->competition_db), pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, 0);
+	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)(comp_data->competition_db), pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, &seeds[0]);
 	DWORD* stages_arr = comp_data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
 	sub_51C800(new_stage, 0);
@@ -585,7 +585,7 @@ void __declspec(naked) ita_ser_b_playoffs_create()
 	}
 }
 
-int ita_ser_b_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int ita_ser_b_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == 0) {
@@ -662,7 +662,7 @@ int ita_ser_b_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char sta
 	return 0;
 }
 
-void __declspec(naked) ita_ser_b_set_table_fate()
+void __declspec(naked) ita_ser_b_table_fates_c()
 {
 	__asm
 	{
@@ -674,7 +674,7 @@ void __declspec(naked) ita_ser_b_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call ita_ser_b_table_indicators
+		call ita_ser_b_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -775,7 +775,7 @@ void setup_ita_ser_b()
 	WriteVTablePtr(ita_ser_b_vtable, VTablePlayoffQual, (DWORD)&ita_ser_b_playoffs_create);
 	WriteVTablePtr(ita_ser_b_vtable, VTableFixtures, (DWORD)&ita_ser_b_fixtures_c);
 	WriteVTablePtr(ita_ser_b_vtable, VTableReputationCalc, (DWORD)&ita_ser_b_reputation_calc_c);
-	WriteVTablePtr(ita_ser_b_vtable, VTableTableFates, (DWORD)&ita_ser_b_set_table_fate);
+	WriteVTablePtr(ita_ser_b_vtable, VTableTableFates, (DWORD)&ita_ser_b_table_fates_c);
 	WriteVTablePtr(ita_ser_b_vtable, VTableSetChampion, (DWORD)&ita_ser_b_set_champion_c);
 	WriteVTablePtr(ita_ser_b_vtable, VTableStageNews, (DWORD)&ita_ser_b_stage_news_c);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(ita_ser_b_vtable, VTableShowThirdInHistory, 0x4110b0);

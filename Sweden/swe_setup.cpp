@@ -19,12 +19,12 @@ DWORD swe_setup_c(playable_nation_data* nation_data) {
 	nation_data->contract_start_day = 1;
 	nation_data->contract_start_month = March;
 	nation_data->contract_start_year = start_year;
-	nation_data->f55 = 6;
+	nation_data->contract_start_day_of_week = 6;
 
 	nation_data->contract_end_day = 30;
 	nation_data->contract_end_month = November;
 	nation_data->contract_end_year = start_year;
-	nation_data->f70 = 6;
+	nation_data->contract_end_day_of_week = 6;
 	BYTE selected = nation_data->nation->NationLeagueSelected;
 	if ((selected & 4) == 0) {
 		nation_data->num_of_comps = 4;

@@ -68,7 +68,7 @@ int eng_league_cup_teams(BYTE* _this) {
 	for (DWORD i = 0; i < vec.size(); i++)
 	{
 		teams[i].club = vec[i];
-		teams[i].f5 = 0;
+		teams[i].seeding = 0;
 		teams[i].f6 = 0;
 	}
 
@@ -90,35 +90,35 @@ DWORD eng_league_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WOR
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 6, 26), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 2), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, PreliminaryRound, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 4, 2, 4, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("eng_league_cup_pr_win"), 0);
+		FillFixtureDetails(pMem, fixture_id++, PreliminaryRound, 0, Penalties, NoTiebreak, 4, 4, 2, 4, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("eng_league_cup_pr_win"), 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 3), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 9), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 70, 35, 68, 4, 0, 1, 0, 0, prizeMoneyFile.GetInt("eng_league_cup_r1_win"), 0);
+		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, Penalties, NoTiebreak, 4, 70, 35, 68, 4, 0, 1, 0, 0, prizeMoneyFile.GetInt("eng_league_cup_r1_win"), 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 10), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 26), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SecondRound, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 46, 23, 11, 72, 0, 1, 0, 0, prizeMoneyFile.GetInt("eng_league_cup_r2_win"), 0);
+		FillFixtureDetails(pMem, fixture_id++, SecondRound, 0, Penalties, NoTiebreak, 4, 46, 23, 11, 72, 0, 1, 0, 0, prizeMoneyFile.GetInt("eng_league_cup_r2_win"), 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 27), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 16), year, Tuesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 32, 16, 9, 83, 0, 1, 0, 0, prizeMoneyFile.GetInt("eng_league_cup_r3_win"), 0);
+		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 0, Penalties, NoTiebreak, 4, 32, 16, 9, 83, 0, 1, 0, 0, prizeMoneyFile.GetInt("eng_league_cup_r3_win"), 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 17), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 29), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, FourthRound, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 16, 8, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("eng_league_cup_r4_win"), 0);
+		FillFixtureDetails(pMem, fixture_id++, FourthRound, 0, Penalties, NoTiebreak, 4, 16, 8, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("eng_league_cup_r4_win"), 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 30), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 17), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 6, 8, 4, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("eng_league_cup_qtr_win"), 0);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, Penalties, NoTiebreak, 6, 8, 4, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("eng_league_cup_qtr_win"), 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 18), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 1, 14), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 6, 4, 2, 0, 0, 0, 2, 21, 0, prizeMoneyFile.GetInt("eng_league_cup_semi_win"), 0);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, NoAwayGoals, Penalties | NoAwayGoals, 6, 4, 2, 0, 0, 0, 2, 21, 0, prizeMoneyFile.GetInt("eng_league_cup_semi_win"), 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 2, 5), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 22), year, Sunday, Afternoon, NationalStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("eng_league_cup_final_win"), prizeMoneyFile.GetInt("eng_league_cup_final_lose"));
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, Penalties | ExtraTime, NoTiebreak, 6, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("eng_league_cup_final_win"), prizeMoneyFile.GetInt("eng_league_cup_final_lose"));
 
 		return (DWORD)pMem;
 	}

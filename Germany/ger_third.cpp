@@ -389,7 +389,7 @@ void __declspec(naked) ger_third_update_c()
 	}
 }
 
-int ger_third_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int ger_third_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	cm3_club_comps* ger_second = get_comp(GER_SECOND_9CF());
@@ -416,7 +416,7 @@ int ger_third_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char sta
 	return 0;
 }
 
-void __declspec(naked) ger_third_set_table_fate()
+void __declspec(naked) ger_third_table_fates_c()
 {
 	__asm
 	{
@@ -428,7 +428,7 @@ void __declspec(naked) ger_third_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call ger_third_table_indicators
+		call ger_third_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -444,7 +444,7 @@ void ger_third_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	ger_third_vtable->SetPointer(VTableEoSUpdate, (DWORD)&ger_third_update_c);
 	ger_third_vtable->SetPointer(VTableFixtures, (DWORD)&ger_third_fixtures_c);
 	ger_third_vtable->SetPointer(VTableSubsRounds, (DWORD)&ger_third_subs_c);
-	ger_third_vtable->SetPointer(VTableTableFates, (DWORD)&ger_third_set_table_fate);
+	ger_third_vtable->SetPointer(VTableTableFates, (DWORD)&ger_third_table_fates_c);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) ger_third_vtable->SetPointer(VTableShowThirdInHistory, 0x4110b0);
 	data->year = year;
 	data->rules = RulesGermanyLeague;

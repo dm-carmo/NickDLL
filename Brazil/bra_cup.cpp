@@ -23,39 +23,39 @@ DWORD bra_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 1, 5), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 2, 19), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 28, 14, 28, 0, 0, 1, 0, prizeMoneyFile.GetInt("bra_cup_r1_qualify"));
+		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, Penalties, NoTiebreak, 4, 28, 14, 28, 0, 0, 1, 0, prizeMoneyFile.GetInt("bra_cup_r1_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 2, 20), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 2, 26), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SecondRound, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 88, 44, 74, 28, 0, 1, 0, prizeMoneyFile.GetInt("bra_cup_r2_qualify"));
+		FillFixtureDetails(pMem, fixture_id++, SecondRound, 0, Penalties, NoTiebreak, 4, 88, 44, 74, 28, 0, 1, 0, prizeMoneyFile.GetInt("bra_cup_r2_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 2, 27), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 3, 12), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 48, 24, 4, 102, 0, 1, 0, prizeMoneyFile.GetInt("bra_cup_r3_qualify"));
+		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 0, Penalties, NoTiebreak, 4, 48, 24, 4, 102, 0, 1, 0, prizeMoneyFile.GetInt("bra_cup_r3_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 3, 13), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 3, 19), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, FourthRound, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 24, 12, 0, 0, 0, 1, 0, prizeMoneyFile.GetInt("bra_cup_r4_qualify"));
+		FillFixtureDetails(pMem, fixture_id++, FourthRound, 0, Penalties, NoTiebreak, 4, 24, 12, 0, 0, 0, 1, 0, prizeMoneyFile.GetInt("bra_cup_r4_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 3, 20), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 4, 23), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, FifthRound, 4, Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 4, 32, 16, 20, 106, 0, 2, 21, prizeMoneyFile.GetInt("bra_cup_r5_qualify"));
+		FillFixtureDetails(pMem, fixture_id++, FifthRound, 4, NoAwayGoals, Penalties | NoAwayGoals, 4, 32, 16, 20, 106, 0, 2, 21, prizeMoneyFile.GetInt("bra_cup_r5_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 5, 15), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 3), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 4, 16, 8, 0, 0, 0, 2, 3, prizeMoneyFile.GetInt("bra_cup_r6_qualify"));
+		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, NoAwayGoals, Penalties | NoAwayGoals, 4, 16, 8, 0, 0, 0, 2, 3, prizeMoneyFile.GetInt("bra_cup_r6_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 7), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 27), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 4, 8, 4, 0, 0, 0, 2, 7, prizeMoneyFile.GetInt("bra_cup_qtr_qualify"));
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, NoAwayGoals, Penalties | NoAwayGoals, 4, 8, 4, 0, 0, 0, 2, 7, prizeMoneyFile.GetInt("bra_cup_qtr_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 4), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 2), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 6, 4, 2, 0, 0, 0, 2, 7, prizeMoneyFile.GetInt("bra_cup_semi_qualify"));
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, NoAwayGoals, Penalties | NoAwayGoals, 6, 4, 2, 0, 0, 0, 2, 7, prizeMoneyFile.GetInt("bra_cup_semi_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 10), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 7), year, Sunday, Evening, Neutral50k_20);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("bra_cup_final_win"), prizeMoneyFile.GetInt("bra_cup_final_lose"));
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, Penalties, NoTiebreak, 6, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("bra_cup_final_win"), prizeMoneyFile.GetInt("bra_cup_final_lose"));
 
 		return (DWORD)pMem;
 	}
@@ -92,7 +92,7 @@ int bra_cup_teams(BYTE* _this) {
 	for (DWORD i = 0; i < total_teams; i++)
 	{
 		teams[i].club = qualifiers[i].club;
-		teams[i].f5 = qualifiers[i].f5;
+		teams[i].seeding = qualifiers[i].seeding;
 		teams[i].f6 = 0;
 	}
 
@@ -170,14 +170,14 @@ void bra_cup_first_year_teams(BYTE* _this) {
 	for (i = 0; i < first_phase.size(); i++)
 	{
 		teams[i].club = first_phase[i];
-		teams[i].f5 = 0;
+		teams[i].seeding = 0;
 		teams[i].f6 = 0;
 	}
 	WORD d1_teams = 20;
 	for (size_t j = 0; i < total_teams && j < all_clubs.size(); i++, j++)
 	{
 		teams[i].club = all_clubs[j];
-		teams[i].f5 = 0 + 3 * (j >= (all_clubs.size() - d1_teams));
+		teams[i].seeding = 0 + 3 * (j >= (all_clubs.size() - d1_teams));
 		teams[i].f6 = 0;
 	}
 }

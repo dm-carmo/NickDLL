@@ -351,7 +351,7 @@ void __declspec(naked) bel_third_vv_update_c()
 	}
 }
 
-int bel_third_vv_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int bel_third_vv_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	cm3_club_comps* ger_second = get_comp(GER_SECOND_9CF());
@@ -378,7 +378,7 @@ int bel_third_vv_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char 
 	return 0;
 }
 
-void __declspec(naked) bel_third_vv_set_table_fate()
+void __declspec(naked) bel_third_vv_table_fates_c()
 {
 	__asm
 	{
@@ -390,7 +390,7 @@ void __declspec(naked) bel_third_vv_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call bel_third_vv_table_indicators
+		call bel_third_vv_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -406,7 +406,7 @@ void bel_third_vv_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	bel_third_vv_vtable->SetPointer(VTableEoSUpdate, (DWORD)&bel_third_vv_update_c);
 	bel_third_vv_vtable->SetPointer(VTableFixtures, (DWORD)&bel_third_vv_fixtures_c);
 	bel_third_vv_vtable->SetPointer(VTableSubsRounds, (DWORD)&bel_third_vv_subs_c);
-	bel_third_vv_vtable->SetPointer(VTableTableFates, (DWORD)&bel_third_vv_set_table_fate);
+	bel_third_vv_vtable->SetPointer(VTableTableFates, (DWORD)&bel_third_vv_table_fates_c);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) bel_third_vv_vtable->SetPointer(VTableShowThirdInHistory, 0x4110b0);
 	data->year = year;
 	data->rules = RulesBelgiumLeague;

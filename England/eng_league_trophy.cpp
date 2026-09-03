@@ -211,23 +211,23 @@ DWORD eng_league_trophy_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 26), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 9), year, Tuesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, RoundOf32, 0, FixedTeamOrderInCup2 + PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 32, 16, 32, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("eng_league_trophy_r32_win"), 0);
+		FillFixtureDetails(pMem, fixture_id++, RoundOf32, 0, FixedTeamOrderInCup2 | Penalties, NoTiebreak, 4, 32, 16, 32, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("eng_league_trophy_r32_win"), 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 3), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 1, 13), year, Tuesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, FixedTeamOrderInCup2 + PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 16, 8, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("eng_league_trophy_r16_win"), 0);
+		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, FixedTeamOrderInCup2 | Penalties, NoTiebreak, 4, 16, 8, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("eng_league_trophy_r16_win"), 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 1, 14), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 2, 17), year, Tuesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup2 + PenaltiesNoExtraTime_1, NoTiebreak_2, 4, 8, 4, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("eng_league_trophy_qtr_win"), 0);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup2 | Penalties, NoTiebreak, 4, 8, 4, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("eng_league_trophy_qtr_win"), 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 2, 18), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 10), year, Tuesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup2 + PenaltiesNoExtraTime_1, NoTiebreak_2, 6, 4, 2, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("eng_league_trophy_semi_win"), 0);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup2 | Penalties, NoTiebreak, 6, 4, 2, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("eng_league_trophy_semi_win"), 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 11), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 12), year, Sunday, Afternoon, NationalStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("eng_league_trophy_final_win"), 0);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, Penalties | ExtraTime, NoTiebreak, 6, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("eng_league_trophy_final_win"), 0);
 
 		return (DWORD)pMem;
 	}
@@ -494,7 +494,7 @@ void __declspec(naked) eng_league_trophy_update_c()
 	}
 }
 
-int eng_league_trophy_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int eng_league_trophy_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage < 15) {
@@ -533,7 +533,7 @@ int eng_league_trophy_set_fates(BYTE* _this, cm3_clubs* club, char fate, char st
 	return 0;
 }
 
-void __declspec(naked) eng_league_trophy_set_table_fate()
+void __declspec(naked) eng_league_trophy_table_fates_c()
 {
 	__asm
 	{
@@ -545,7 +545,7 @@ void __declspec(naked) eng_league_trophy_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call eng_league_trophy_set_fates
+		call eng_league_trophy_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -695,7 +695,7 @@ void eng_league_trophy_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	eng_league_trophy_vtable->SetPointer(VTableSetChampion, (DWORD)&eng_league_trophy_set_champion_c);
 	eng_league_trophy_vtable->SetPointer(VTableClubLandmarks, 0x48cab0);
 	eng_league_trophy_vtable->SetPointer(VTableFixtures, (DWORD)&eng_league_trophy_fixture_caller);
-	eng_league_trophy_vtable->SetPointer(VTableTableFates, (DWORD)&eng_league_trophy_set_table_fate);
+	eng_league_trophy_vtable->SetPointer(VTableTableFates, (DWORD)&eng_league_trophy_table_fates_c);
 	eng_league_trophy_vtable->SetPointer(VTableStageNews, (DWORD)&eng_league_trophy_stage_news_c);
 	eng_league_trophy_vtable->SetPointer(VTableReputationSetup, (DWORD)&eng_league_trophy_reputation_setup_c);
 	eng_league_trophy_vtable->SetPointer(VTableReputationCalc, (DWORD)&eng_league_trophy_reputation_calc_c);

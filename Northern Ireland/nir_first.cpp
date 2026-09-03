@@ -94,7 +94,7 @@ DWORD nir_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 4, 25), year, Saturday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 5), year, Tuesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, Playoff, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 5, 2, 1, 2, 0, 0, 2, 3);
+		FillFixtureDetails(pMem, fixture_id++, Playoff, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 5, 2, 1, 2, 0, 0, 2, 3);
 
 		return (DWORD)pMem;
 	}
@@ -417,7 +417,7 @@ void __declspec(naked) nir_first_playoffs_create()
 	}
 }
 
-int nir_first_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int nir_first_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == 0) {
@@ -494,7 +494,7 @@ int nir_first_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char sta
 	return 0;
 }
 
-void __declspec(naked) nir_first_set_table_fate()
+void __declspec(naked) nir_first_table_fates_c()
 {
 	__asm
 	{
@@ -506,7 +506,7 @@ void __declspec(naked) nir_first_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call nir_first_table_indicators
+		call nir_first_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -615,6 +615,6 @@ void setup_nir_first()
 	WriteVTablePtr(nir_first_vtable, VTableStageNews, (DWORD)&nir_first_stage_news_c);
 	WriteVTablePtr(nir_first_vtable, VTableReputationCalc, (DWORD)&nir_first_reputation_calc_c);
 	WriteVTablePtr(nir_first_vtable, VTablePlayoffQual, (DWORD)&nir_first_playoffs_create);
-	WriteVTablePtr(nir_first_vtable, VTableTableFates, (DWORD)&nir_first_set_table_fate);
+	WriteVTablePtr(nir_first_vtable, VTableTableFates, (DWORD)&nir_first_table_fates_c);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(nir_first_vtable, VTableShowThirdInHistory, 0x4110b0);
 }

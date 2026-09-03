@@ -89,7 +89,7 @@ DWORD asian_cup_quals_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WO
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 25), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 26), year, Thursday, Afternoon);
-		FillFixtureDetails(pMem, fixture_id++, Playoff, 4, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 10, 10, 5, 10, 0, 0, 2, 5);
+		FillFixtureDetails(pMem, fixture_id++, Playoff, 4, NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 10, 10, 5, 10, 0, 0, 2, 5);
 
 		return (DWORD)pMem;
 	}
@@ -223,7 +223,7 @@ void asian_cup_quals_all_teams(BYTE* _this) {
 		}
 		else {
 			teams[count].club = tls.club;
-			teams[count].f5 = 10;
+			teams[count].seeding = 10;
 			teams[count].f6 = 0;
 			count++;
 			best_team = true;
@@ -254,7 +254,7 @@ void asian_cup_quals_all_teams(BYTE* _this) {
 
 		for (cm3_clubs* club : clubs_po) {
 			teams[count].club = club;
-			teams[count].f5 = 10;
+			teams[count].seeding = 10;
 			teams[count].f6 = 0;
 			count++;
 		}
@@ -262,7 +262,7 @@ void asian_cup_quals_all_teams(BYTE* _this) {
 
 	for (cm3_clubs* club : quals_countries) {
 		teams[count].club = club;
-		teams[count].f5 = 11;
+		teams[count].seeding = 11;
 		teams[count].f6 = 0;
 		count++;
 	}
@@ -294,7 +294,7 @@ void asian_cup_quals_qualifier_teams(BYTE* _this) {
 
 	vector<cm3_clubs*> quals_countries;
 	for (WORD i = 0; i < total_teams_in_comp; i++) {
-		if (qualifiers[i].f5 == 11) quals_countries.push_back(qualifiers[i].club);
+		if (qualifiers[i].seeding == 11) quals_countries.push_back(qualifiers[i].club);
 	}
 	sort(quals_countries.begin(), quals_countries.end(), compareNationRanking);
 	if (quals_countries.size() != total_teams)
@@ -305,7 +305,7 @@ void asian_cup_quals_qualifier_teams(BYTE* _this) {
 
 	for (WORD i = 0; i < total_teams; i++) {
 		teams[i].club = quals_countries[i];
-		teams[i].f5 = i >= (total_teams / 2);
+		teams[i].seeding = i >= (total_teams / 2);
 		teams[i].f6 = 0;
 	}
 }
@@ -348,7 +348,7 @@ void __declspec(naked) asian_cup_quals_init2_c()
 	}
 }
 
-int asian_cup_quals_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int asian_cup_quals_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == -1) {
@@ -385,7 +385,7 @@ int asian_cup_quals_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stag
 	return 0;
 }
 
-void __declspec(naked) asian_cup_quals_set_table_fate()
+void __declspec(naked) asian_cup_quals_table_fates_c()
 {
 	__asm
 	{
@@ -397,7 +397,7 @@ void __declspec(naked) asian_cup_quals_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call asian_cup_quals_set_fates
+		call asian_cup_quals_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -606,7 +606,7 @@ void asian_cup_quals_second_stage_setup(BYTE* _this) {
 	teams_seeded* teams = (teams_seeded*)comp_data->special_teams_seedings;
 	WORD total_teams_in_comp = comp_data->special_nteams_seedings;
 	for (WORD i = 0; i < total_teams_in_comp; i++) {
-		if (teams[i].f5 == 10) clubs.push_back(teams[i].club);
+		if (teams[i].seeding == 10) clubs.push_back(teams[i].club);
 	}
 	teams = (teams_seeded*)comp_data->teams_list;
 	for (WORD i = 0; i < comp_data->n_teams; i++) {
@@ -737,7 +737,7 @@ void asian_cup_quals_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	asian_cup_quals_vtable->SetPointer(VTableEoSUpdate, (DWORD)&asian_cup_quals_update_c);
 	asian_cup_quals_vtable->SetPointer(VTableLeagueSplit, (DWORD)&asian_cup_quals_init2_c);
 	asian_cup_quals_vtable->SetPointer(VTablePlayoffQual, (DWORD)&asian_cup_quals_stages_create_c);
-	asian_cup_quals_vtable->SetPointer(VTableTableFates, (DWORD)&asian_cup_quals_set_table_fate);
+	asian_cup_quals_vtable->SetPointer(VTableTableFates, (DWORD)&asian_cup_quals_table_fates_c);
 	asian_cup_quals_vtable->SetPointer(VTableReputationSetup, (DWORD)&asian_cup_quals_reputation_setup_c);
 	asian_cup_quals_vtable->SetPointer(VTableReputationCalc, (DWORD)&asian_cup_quals_reputation_calc_c);
 	asian_cup_quals_vtable->SetPointer(VTableFixtures, (DWORD)&asian_cup_quals_fixture_caller);

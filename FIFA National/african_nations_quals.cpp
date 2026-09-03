@@ -89,7 +89,7 @@ DWORD african_nations_quals_fixtures(BYTE* _this, char stage_idx, WORD* num_roun
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 28), year, Saturday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 25), year, Thursday, Afternoon);
-		FillFixtureDetails(pMem, fixture_id++, PreliminaryRound, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 10, 12, 6, 12, 0, 0, 2, 5);
+		FillFixtureDetails(pMem, fixture_id++, PreliminaryRound, 0, NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 10, 12, 6, 12, 0, 0, 2, 5);
 
 		return (DWORD)pMem;
 	}
@@ -218,8 +218,8 @@ void african_nations_quals_all_teams(BYTE* _this) {
 
 	for (size_t i = 0, j = 0; i < caf_countries.size() && j < total_teams_in_comp; i++) {
 		teams[j].club = caf_countries[i];
-		if (j < 42) teams[j].f5 = 10;
-		else teams[j].f5 = 11;
+		if (j < 42) teams[j].seeding = 10;
+		else teams[j].seeding = 11;
 		teams[j].f6 = 0;
 		j++;
 	}
@@ -250,7 +250,7 @@ void african_nations_quals_qualifier_teams(BYTE* _this) {
 	for (WORD i = 0; i < total_teams; i++) {
 		cm3_clubs* club = qualifiers[42 + i].club;
 		teams[i].club = club;
-		teams[i].f5 = 0;
+		teams[i].seeding = 0;
 		teams[i].f6 = 0;
 	}
 }
@@ -293,7 +293,7 @@ void __declspec(naked) african_nations_quals_init2_c()
 	}
 }
 
-int african_nations_quals_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int african_nations_quals_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == -1) {
@@ -330,7 +330,7 @@ int african_nations_quals_set_fates(BYTE* _this, cm3_clubs* club, char fate, cha
 	return 0;
 }
 
-void __declspec(naked) african_nations_quals_set_table_fate()
+void __declspec(naked) african_nations_quals_table_fates_c()
 {
 	__asm
 	{
@@ -342,7 +342,7 @@ void __declspec(naked) african_nations_quals_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call african_nations_quals_set_fates
+		call african_nations_quals_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -697,7 +697,7 @@ void african_nations_quals_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	african_nations_quals_vtable->SetPointer(VTableEoSUpdate, (DWORD)&african_nations_quals_update_c);
 	african_nations_quals_vtable->SetPointer(VTableLeagueSplit, (DWORD)&african_nations_quals_init2_c);
 	african_nations_quals_vtable->SetPointer(VTablePlayoffQual, (DWORD)&african_nations_quals_stages_create_c);
-	african_nations_quals_vtable->SetPointer(VTableTableFates, (DWORD)&african_nations_quals_set_table_fate);
+	african_nations_quals_vtable->SetPointer(VTableTableFates, (DWORD)&african_nations_quals_table_fates_c);
 	african_nations_quals_vtable->SetPointer(VTableReputationSetup, (DWORD)&african_nations_quals_reputation_setup_c);
 	african_nations_quals_vtable->SetPointer(VTableReputationCalc, (DWORD)&african_nations_quals_reputation_calc_c);
 	african_nations_quals_vtable->SetPointer(VTableFixtures, (DWORD)&african_nations_quals_fixture_caller);

@@ -245,7 +245,7 @@ DWORD swe_third_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 19), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 25), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, Playoff, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 5, 12, 6, 12, 0, 0, 2, 7);
+		FillFixtureDetails(pMem, fixture_id++, Playoff, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 5, 12, 6, 12, 0, 0, 2, 7);
 
 		return (DWORD)pMem;
 	}
@@ -303,7 +303,7 @@ void swe_third_setup_groups(BYTE* _this, BYTE idx) {
 	data->current_stage = idx;
 }
 
-int swe_third_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int swe_third_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage < 5) {
@@ -403,7 +403,7 @@ int swe_third_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char sta
 	return 0;
 }
 
-void __declspec(naked) swe_third_set_table_fate()
+void __declspec(naked) swe_third_table_fates_c()
 {
 	__asm
 	{
@@ -415,7 +415,7 @@ void __declspec(naked) swe_third_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call swe_third_table_indicators
+		call swe_third_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -722,7 +722,7 @@ void swe_third_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	swe_third_vtable->SetPointer(VTableReputationSetup, (DWORD)&swe_third_reputation_setup_c);
 	swe_third_vtable->SetPointer(VTableReputationCalc, (DWORD)&swe_third_reputation_calc_c);
 	swe_third_vtable->SetPointer(VTableSubsRounds, (DWORD)&swe_third_subs_c);
-	swe_third_vtable->SetPointer(VTableTableFates, (DWORD)&swe_third_set_table_fate);
+	swe_third_vtable->SetPointer(VTableTableFates, (DWORD)&swe_third_table_fates_c);
 	swe_third_vtable->SetPointer(VTablePlayoffQual, (DWORD)&swe_third_playoffs_create_c);
 	swe_third_vtable->SetPointer(VTableSetChampion, (DWORD)&swe_third_set_champion_c);
 	swe_third_vtable->SetPointer(VTableStageNews, (DWORD)&swe_third_stage_news_c);

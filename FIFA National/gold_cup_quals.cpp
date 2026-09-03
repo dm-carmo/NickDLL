@@ -89,7 +89,7 @@ DWORD gold_cup_quals_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WOR
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 4), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 12), year, Thursday, Afternoon);
-		FillFixtureDetails(pMem, fixture_id++, PreliminaryRound, 4, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 10, 8, 4, 8, 0, 0, 2, 5);
+		FillFixtureDetails(pMem, fixture_id++, PreliminaryRound, 4, NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 10, 8, 4, 8, 0, 0, 2, 5);
 
 		return (DWORD)pMem;
 	}
@@ -106,7 +106,7 @@ DWORD gold_cup_quals_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WOR
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 18), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 19), year, Monday, Afternoon);
-		FillFixtureDetails(pMem, fixture_id++, Playoff, 4, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 10, 14, 7, 14, 0, 0, 2, 3);
+		FillFixtureDetails(pMem, fixture_id++, Playoff, 4, NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 10, 14, 7, 14, 0, 0, 2, 3);
 
 		return (DWORD)pMem;
 	}
@@ -231,7 +231,7 @@ void gold_cup_quals_all_teams(BYTE* _this) {
 	teams_seeded* teams = (teams_seeded*)data->special_teams_seedings;
 	for (; count < quals_countries.size(); count++) {
 		teams[count].club = quals_countries[count];
-		teams[count].f5 = 6;
+		teams[count].seeding = 6;
 		teams[count].f6 = 0;
 	}
 }
@@ -273,7 +273,7 @@ void gold_cup_quals_qualifier_teams(BYTE* _this) {
 
 	for (WORD i = 0; i < total_teams; i++) {
 		teams[i].club = quals_countries[i];
-		teams[i].f5 = i >= (total_teams / 2);
+		teams[i].seeding = i >= (total_teams / 2);
 		teams[i].f6 = 0;
 	}
 }
@@ -337,7 +337,7 @@ void gold_cup_quals_second_stage_setup(BYTE* _this) {
 		{
 			quals_countries.push_back(teams[i].club);
 			qualifiers[idx].club = teams[i].club;
-			qualifiers[idx].f5 = 6;
+			qualifiers[idx].seeding = 6;
 			qualifiers[idx].f6 = 0;
 			idx++;
 		}
@@ -351,7 +351,7 @@ void gold_cup_quals_second_stage_setup(BYTE* _this) {
 			team_league_stats* table = (team_league_stats*)(curr_stage->team_league_table);
 			quals_countries.push_back(table[i].club);
 			qualifiers[idx].club = table[i].club;
-			qualifiers[idx].f5 = 6;
+			qualifiers[idx].seeding = 6;
 			qualifiers[idx].f6 = 0;
 			idx++;
 		}
@@ -362,7 +362,7 @@ void gold_cup_quals_second_stage_setup(BYTE* _this) {
 	for (int i = 0; i < 2; i++) {
 		quals_countries.push_back(table[i].club);
 		qualifiers[idx].club = table[i].club;
-		qualifiers[idx].f5 = 6;
+		qualifiers[idx].seeding = 6;
 		qualifiers[idx].f6 = 0;
 		idx++;
 	}
@@ -436,7 +436,7 @@ void __declspec(naked) gold_cup_quals_stages_create_c()
 	}
 }
 
-int gold_cup_quals_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int gold_cup_quals_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == -1) {
@@ -481,7 +481,7 @@ int gold_cup_quals_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage
 	return 0;
 }
 
-void __declspec(naked) gold_cup_quals_set_table_fate()
+void __declspec(naked) gold_cup_quals_table_fates_c()
 {
 	__asm
 	{
@@ -493,7 +493,7 @@ void __declspec(naked) gold_cup_quals_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call gold_cup_quals_set_fates
+		call gold_cup_quals_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -763,7 +763,7 @@ void gold_cup_quals_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	gold_cup_quals_vtable->SetPointer(VTableEoSUpdate, (DWORD)&gold_cup_quals_update_c);
 	gold_cup_quals_vtable->SetPointer(VTableLeagueSplit, (DWORD)&gold_cup_quals_init2_c);
 	gold_cup_quals_vtable->SetPointer(VTablePlayoffQual, (DWORD)&gold_cup_quals_stages_create_c);
-	gold_cup_quals_vtable->SetPointer(VTableTableFates, (DWORD)&gold_cup_quals_set_table_fate);
+	gold_cup_quals_vtable->SetPointer(VTableTableFates, (DWORD)&gold_cup_quals_table_fates_c);
 	gold_cup_quals_vtable->SetPointer(VTableReputationSetup, (DWORD)&gold_cup_quals_reputation_setup_c);
 	gold_cup_quals_vtable->SetPointer(VTableReputationCalc, (DWORD)&gold_cup_quals_reputation_calc_c);
 	gold_cup_quals_vtable->SetPointer(VTableFixtures, (DWORD)&gold_cup_quals_fixture_caller);

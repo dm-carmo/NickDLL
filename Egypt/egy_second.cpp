@@ -180,7 +180,7 @@ void __declspec(naked) egy_second_fixtures_c()
 	}
 }
 
-int egy_second_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int egy_second_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == -1) {
@@ -205,7 +205,7 @@ int egy_second_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char st
 	return 0;
 }
 
-void __declspec(naked) egy_second_set_table_fate()
+void __declspec(naked) egy_second_table_fates_c()
 {
 	__asm
 	{
@@ -217,7 +217,7 @@ void __declspec(naked) egy_second_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call egy_second_table_indicators
+		call egy_second_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -307,7 +307,7 @@ void egy_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	egy_second_vtable->SetPointer(VTableSubsRounds, (DWORD)&egy_second_subs_c);
 	egy_second_vtable->SetPointer(VTableFixtures, (DWORD)&egy_second_fixtures_c);
 	egy_second_vtable->SetPointer(VTableInitFree, (DWORD)&egy_second_free_c);
-	egy_second_vtable->SetPointer(VTableTableFates, (DWORD)&egy_second_set_table_fate);
+	egy_second_vtable->SetPointer(VTableTableFates, (DWORD)&egy_second_table_fates_c);
 	egy_second_vtable->SetPointer(VTableReputationCalc, (DWORD)&egy_second_reputation_calc_c);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) egy_second_vtable->SetPointer(VTableShowThirdInHistory, 0x4110b0);
 	data->year = year;

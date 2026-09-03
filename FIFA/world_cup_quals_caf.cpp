@@ -152,11 +152,11 @@ DWORD world_cup_quals_caf_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 2, 10, 4), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 2, 11, 13), year, Thursday, Afternoon);
-		FillFixtureDetails(pMem, fixture_id++, FirstStage, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 10, 4, 2, 4, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, FirstStage, 0, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 10, 4, 2, 4, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 2, 11, 14), year, Friday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 2, 11, 16), year, Sunday, Afternoon);
-		FillFixtureDetails(pMem, fixture_id++, SecondStage, 0, ExtraTimePenalties_1, NoTiebreak_2, 10, 2, 1, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, SecondStage, 0, Penalties | ExtraTime, NoTiebreak, 10, 2, 1, 0, 0, 0, 1, 0);
 
 		return (DWORD)pMem;
 	}
@@ -373,7 +373,7 @@ void world_cup_quals_caf_all_teams(BYTE* _this) {
 	for (BYTE i = 0, j = 0; i < countries.size() && j < total_teams_in_comp; i++) {
 		if (countries[i]->ClubNation->NationID == host1_id || countries[i]->ClubNation->NationID == host2_id) continue;
 		teams[j].club = countries[i];
-		teams[j].f5 = 6;
+		teams[j].seeding = 6;
 		teams[j].f6 = 0;
 		j++;
 	}
@@ -597,7 +597,7 @@ void __declspec(naked) world_cup_quals_caf_init2_c()
 	}
 }
 
-int world_cup_quals_caf_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int world_cup_quals_caf_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), AFRICA_9CF(), 0, 0);
@@ -680,7 +680,7 @@ int world_cup_quals_caf_set_fates(BYTE* _this, cm3_clubs* club, char fate, char 
 	return 0;
 }
 
-void __declspec(naked) world_cup_quals_caf_set_table_fate()
+void __declspec(naked) world_cup_quals_caf_table_fates_c()
 {
 	__asm
 	{
@@ -692,7 +692,7 @@ void __declspec(naked) world_cup_quals_caf_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call world_cup_quals_caf_set_fates
+		call world_cup_quals_caf_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -1009,7 +1009,7 @@ void setup_world_cup_quals_caf() {
 	WriteVTablePtr(world_cup_quals_caf_vtable, VTableInitFree, (DWORD)&world_cup_quals_caf_free_c);
 	WriteVTablePtr(world_cup_quals_caf_vtable, VTableEoSUpdate, (DWORD)&world_cup_quals_caf_update_c);
 	WriteVTablePtr(world_cup_quals_caf_vtable, VTableLeagueSplit, (DWORD)&world_cup_quals_caf_init2_c);
-	WriteVTablePtr(world_cup_quals_caf_vtable, VTableTableFates, (DWORD)&world_cup_quals_caf_set_table_fate);
+	WriteVTablePtr(world_cup_quals_caf_vtable, VTableTableFates, (DWORD)&world_cup_quals_caf_table_fates_c);
 	WriteVTablePtr(world_cup_quals_caf_vtable, VTableFixtures, (DWORD)&world_cup_quals_caf_fixture_caller);
 	WriteVTablePtr(world_cup_quals_caf_vtable, VTableStageNews, (DWORD)&world_cup_quals_caf_stage_news_c);
 	WriteVTablePtr(world_cup_quals_caf_vtable, VTable29, (DWORD)&world_cup_quals_caf_vtable29_c);

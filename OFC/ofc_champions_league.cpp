@@ -69,11 +69,11 @@ DWORD ofc_champions_league_fixtures(BYTE* _this, char stage_idx, WORD* num_round
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 17), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 19), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 8, 4, 2, 4, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("ofc_cl_semi_lose"));
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 8, 4, 2, 4, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("ofc_cl_semi_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 20), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 22), year, Saturday, Evening, NationalStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 8, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("ofc_cl_final_win"), prizeMoneyFile.GetInt("ofc_cl_final_lose"));
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, Penalties | ExtraTime, NoTiebreak, 8, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("ofc_cl_final_win"), prizeMoneyFile.GetInt("ofc_cl_final_lose"));
 
 		return (DWORD)pMem;
 	}
@@ -256,7 +256,7 @@ void ofc_champions_league_all_teams(BYTE* _this) {
 		if (club->ClubEuroFlag == OFC_CHAMPIONS_LEAGUE_9CF()) {
 			BYTE seed = club->ClubEuroSeeding;
 			teams[teams_r1].club = club;
-			teams[teams_r1].f5 = 3 * seed;
+			teams[teams_r1].seeding = 3 * seed;
 			teams[teams_r1].f6 = 0;
 			teams_r1++;
 		}
@@ -277,7 +277,7 @@ void ofc_champions_league_qualifier_teams(BYTE* _this) {
 	BYTE teamsAdded = 0;
 	DWORD total_count = data->special_nteams_seedings;
 	for (WORD i = 0; i < total_count; i++) {
-		if (qualifiers[i].f5 == 0)
+		if (qualifiers[i].seeding == 0)
 		{
 			add_team_call(_this, teamsAdded++, qualifiers[i].club, 0, 0);
 		}
@@ -665,7 +665,7 @@ void ofc_champions_league_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	ofc_champions_league_reputation_setup(_this);
 }
 
-int ofc_champions_league_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int ofc_champions_league_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == -1) {
@@ -717,7 +717,7 @@ int ofc_champions_league_set_fates(BYTE* _this, cm3_clubs* club, char fate, char
 	return 0;
 }
 
-void __declspec(naked) ofc_champions_league_set_table_fate()
+void __declspec(naked) ofc_champions_league_table_fates_c()
 {
 	__asm
 	{
@@ -729,7 +729,7 @@ void __declspec(naked) ofc_champions_league_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call ofc_champions_league_set_fates
+		call ofc_champions_league_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -740,7 +740,7 @@ void setup_ofc_champions_league() {
 	WriteVTablePtr(ofc_champions_league_vtable, VTablePlayoffQual, (DWORD)&ofc_champions_league_stages_create_c);
 	WriteVTablePtr(ofc_champions_league_vtable, VTableSetChampion, (DWORD)&ofc_champions_league_set_champion_c);
 	WriteVTablePtr(ofc_champions_league_vtable, VTableFixtures, (DWORD)&ofc_champions_league_fixture_caller);
-	WriteVTablePtr(ofc_champions_league_vtable, VTableTableFates, (DWORD)&ofc_champions_league_set_table_fate);
+	WriteVTablePtr(ofc_champions_league_vtable, VTableTableFates, (DWORD)&ofc_champions_league_table_fates_c);
 	WriteVTablePtr(ofc_champions_league_vtable, VTableStageNews, (DWORD)&ofc_cl_stage_news_c);
 	WriteVTablePtr(ofc_champions_league_vtable, VTableReputationSetup, (DWORD)&ofc_champions_league_reputation_setup_c);
 	WriteVTablePtr(ofc_champions_league_vtable, VTableReputationCalc, (DWORD)&ofc_champions_league_reputation_calc_c);

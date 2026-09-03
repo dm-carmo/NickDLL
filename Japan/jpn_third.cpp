@@ -300,11 +300,11 @@ DWORD jpn_third_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 24), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 29), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 5, 4, 2, 4, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 5, 4, 2, 4, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 30), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 6, 5), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 0, 2, 1, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, Penalties | ExtraTime, NoTiebreak, 0, 2, 1, 0, 0, 0, 1, 0);
 
 		return (DWORD)pMem;
 	}
@@ -323,7 +323,7 @@ DWORD jpn_third_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 24), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 29), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, Playoff, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 0, 2, 1, 2, 0, 0, 2, 7);
+		FillFixtureDetails(pMem, fixture_id++, Playoff, 0, NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 0, 2, 1, 2, 0, 0, 2, 7);
 
 		return (DWORD)pMem;
 	}
@@ -465,7 +465,7 @@ void __declspec(naked) jpn_third_playoffs_create()
 	}
 }
 
-int jpn_third_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int jpn_third_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == 0) {
@@ -572,7 +572,7 @@ int jpn_third_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char sta
 	return 0;
 }
 
-void __declspec(naked) jpn_third_set_table_fate()
+void __declspec(naked) jpn_third_table_fates_c()
 {
 	__asm
 	{
@@ -584,7 +584,7 @@ void __declspec(naked) jpn_third_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call jpn_third_table_indicators
+		call jpn_third_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -758,7 +758,7 @@ void jpn_third_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	jpn_third_vtable->SetPointer(VTableFixtures, (DWORD)&jpn_third_fixtures_c);
 	jpn_third_vtable->SetPointer(VTableInitFree, (DWORD)&jpn_third_free_c);
 	jpn_third_vtable->SetPointer(VTablePlayoffQual, (DWORD)&jpn_third_playoffs_create);
-	jpn_third_vtable->SetPointer(VTableTableFates, (DWORD)&jpn_third_set_table_fate);
+	jpn_third_vtable->SetPointer(VTableTableFates, (DWORD)&jpn_third_table_fates_c);
 	jpn_third_vtable->SetPointer(VTableReputationCalc, (DWORD)&jpn_third_reputation_calc_c);
 	jpn_third_vtable->SetPointer(VTableSetChampion, (DWORD)&jpn_third_set_champion_c);
 	jpn_third_vtable->SetPointer(VTableStageNews, (DWORD)&jpn_third_stage_news_c);

@@ -200,15 +200,15 @@ DWORD bra_reg_parana_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WOR
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 1, 26), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 2, 1), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup + Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 5, 8, 4, 8, 0, 0, 2, 7);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | NoAwayGoals, 5, 8, 4, 8, 0, 0, 2, 7);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 2, 9), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 2, 15), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 5, 4, 2, 0, 0, 0, 2, 7);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | NoAwayGoals, 5, 4, 2, 0, 0, 0, 2, 7);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 2, 23), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 3, 1), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 5, 2, 1, 0, 0, 0, 2, 7);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, NoAwayGoals, Penalties | NoAwayGoals, 5, 2, 1, 0, 0, 0, 2, 7);
 
 		return (DWORD)pMem;
 	}
@@ -225,7 +225,7 @@ DWORD bra_reg_parana_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WOR
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 1, 26), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 2, 1), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, None, 0, FixedTeamOrderInCup + Libertadores_1, AwayGoalsPenaltiesNoExtraTime_2, 5, 4, 2, 4, 0, 0, 2, 7);
+		FillFixtureDetails(pMem, fixture_id++, None, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | NoAwayGoals, 5, 4, 2, 4, 0, 0, 2, 7);
 
 		return (DWORD)pMem;
 	}
@@ -248,7 +248,7 @@ void __declspec(naked) bra_reg_parana_fixtures_c()
 	}
 }
 
-int bra_reg_parana_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int bra_reg_parana_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage < 1) {
@@ -348,7 +348,7 @@ int bra_reg_parana_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage
 	return 0;
 }
 
-void __declspec(naked) bra_reg_parana_set_table_fate()
+void __declspec(naked) bra_reg_parana_table_fates_c()
 {
 	__asm
 	{
@@ -360,7 +360,7 @@ void __declspec(naked) bra_reg_parana_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call bra_reg_parana_set_fates
+		call bra_reg_parana_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -645,7 +645,7 @@ void setup_bra_reg_parana() {
 	WriteVTablePtr(bra_reg_parana_vtable, VTableEoSUpdate, (DWORD)&bra_reg_parana_update_c);
 	WriteVTablePtr(bra_reg_parana_vtable, VTableReputationCalc, (DWORD)&bra_reg_parana_reputation_calc_c);
 	WriteVTablePtr(bra_reg_parana_vtable, VTableSetChampion, (DWORD)&bra_reg_parana_set_champion_c);
-	WriteVTablePtr(bra_reg_parana_vtable, VTableTableFates, (DWORD)&bra_reg_parana_set_table_fate);
+	WriteVTablePtr(bra_reg_parana_vtable, VTableTableFates, (DWORD)&bra_reg_parana_table_fates_c);
 	WriteVTablePtr(bra_reg_parana_vtable, VTablePlayoffQual, (DWORD)&bra_reg_parana_playoffs_create);
 	WriteVTablePtr(bra_reg_parana_vtable, VTableAwardTeamsSetup, (DWORD)&bra_reg_parana_award_teams_c);
 }

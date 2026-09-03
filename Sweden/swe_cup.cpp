@@ -101,11 +101,11 @@ DWORD swe_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 2), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 9), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, FirstRound, 1, ExtraTimePenalties_1, NoTiebreak_2, 4, 64, 32, 64, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, FirstRound, 1, Penalties | ExtraTime, NoTiebreak, 4, 64, 32, 64, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 10), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 20), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SecondRound, 1, ExtraTimePenalties_1, NoTiebreak_2, 4, 64, 32, 32, 64, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, SecondRound, 1, Penalties | ExtraTime, NoTiebreak, 4, 64, 32, 32, 64, 0, 1, 0);
 
 		return (DWORD)pMem;
 	}
@@ -144,15 +144,15 @@ DWORD swe_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 8), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 15), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 1, ExtraTimePenalties_1, NoTiebreak_2, 6, 8, 4, 8, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 1, Penalties | ExtraTime, NoTiebreak, 6, 8, 4, 8, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 16), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 22), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 1, ExtraTimePenalties_1, NoTiebreak_2, 6, 4, 2, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 1, Penalties | ExtraTime, NoTiebreak, 6, 4, 2, 0, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 23), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 14), year, Thursday, Evening, NationalStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("swe_cup_final_win"), 0);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, Penalties | ExtraTime, NoTiebreak, 6, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("swe_cup_final_win"), 0);
 
 		return (DWORD)pMem;
 	}
@@ -246,7 +246,7 @@ int swe_cup_teams(BYTE* _this) {
 	for (DWORD i = 0; i < vec.size(); i++)
 	{
 		teams[i].club = vec[i];
-		teams[i].f5 = 0;
+		teams[i].seeding = 0;
 		teams[i].f6 = 0;
 	}
 
@@ -434,7 +434,7 @@ void __declspec(naked) swe_cup_stages_create_c()
 	}
 }
 
-int swe_cup_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int swe_cup_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == -1) {
@@ -489,7 +489,7 @@ int swe_cup_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE*
 	return 0;
 }
 
-void __declspec(naked) swe_cup_set_table_fate()
+void __declspec(naked) swe_cup_table_fates_c()
 {
 	__asm
 	{
@@ -501,7 +501,7 @@ void __declspec(naked) swe_cup_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call swe_cup_set_fates
+		call swe_cup_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -704,7 +704,7 @@ void setup_swe_cup()
 	WriteVTablePtr(swe_cup_vtable, VTableEoSUpdate, (DWORD)&swe_cup_update_c);
 	WriteVTablePtr(swe_cup_vtable, VTablePlayoffQual, (DWORD)&swe_cup_stages_create_c);
 	WriteVTablePtr(swe_cup_vtable, VTableSetChampion, (DWORD)&swe_cup_set_champion_c);
-	WriteVTablePtr(swe_cup_vtable, VTableTableFates, (DWORD)&swe_cup_set_table_fate);
+	WriteVTablePtr(swe_cup_vtable, VTableTableFates, (DWORD)&swe_cup_table_fates_c);
 	WriteVTablePtr(swe_cup_vtable, VTableStageNews, (DWORD)&swe_cup_stage_news_c);
 	WriteVTablePtr(swe_cup_vtable, VTableReputationSetup, (DWORD)&swe_cup_reputation_setup_c);
 	WriteVTablePtr(swe_cup_vtable, VTableReputationCalc, (DWORD)&swe_cup_reputation_calc_c);

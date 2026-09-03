@@ -1040,7 +1040,7 @@ bool sortTLS(team_league_stats s1, team_league_stats s2)
 
 bool sortTeamSeeding(teams_seeded s1, teams_seeded s2)
 {
-	if (s1.f5 != s2.f5) return s1.f5 < s2.f5;
+	if (s1.seeding != s2.seeding) return s1.seeding < s2.seeding;
 	return s1.club->ClubReputation > s2.club->ClubReputation;
 }
 
@@ -1139,7 +1139,7 @@ void qualify_team_for_international_comp(cm3_clubs* club, DWORD comp_id, bool se
 	if (insert_idx >= comp_data->f56) create_message_box(comp_data->competition_db->ClubCompName, "Tried to add team to competition, but already have enough teams", true);
 	else {
 		qualifiers[insert_idx].club = club;
-		qualifiers[insert_idx].f5 = 6;
+		qualifiers[insert_idx].seeding = 6;
 		qualifiers[insert_idx].f6 = 0;
 		comp_data->special_nteams_seedings++;
 		staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)comp_data->competition_db, None, None, 0x64);
@@ -1156,7 +1156,7 @@ void add_team_to_world_cup_playoffs(cm3_clubs* club) {
 	if (insert_idx >= world_cup_data->f56 - 1) create_message_box("Error", "Tried to add team to World Cup Playoffs, but already have enough teams", true);
 	else {
 		qualifiers[insert_idx].club = club;
-		qualifiers[insert_idx].f5 = 6;
+		qualifiers[insert_idx].seeding = 6;
 		qualifiers[insert_idx].f6 = 0;
 		world_cup_data->special_nteams_seedings++;
 		staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)world_cup_data->competition_db, None, None, 0x1E);

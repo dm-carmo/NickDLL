@@ -104,7 +104,7 @@ DWORD euro_champ_quals_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, W
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 15), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 23), year, Thursday, Afternoon);
-		FillFixtureDetails(pMem, fixture_id++, Playoff, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 10, 12, 6, 12, 0, 0, 2, 5);
+		FillFixtureDetails(pMem, fixture_id++, Playoff, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 10, 12, 6, 12, 0, 0, 2, 5);
 
 		return (DWORD)pMem;
 	}
@@ -338,8 +338,8 @@ void euro_champ_quals_all_teams(BYTE* _this) {
 	for (BYTE i = 0, j = 0; i < countries.size() && j < total_teams_in_comp; i++) {
 		if (countries[i]->ClubNation->NationID == NATION_RUSSIA_9CF()) continue; // review Russia ban at a later date
 		teams[j].club = countries[i];
-		if (j < 36) teams[j].f5 = 10;
-		else teams[j].f5 = 11;
+		if (j < 36) teams[j].seeding = 10;
+		else teams[j].seeding = 11;
 		teams[j].f6 = 0;
 		j++;
 	}
@@ -381,7 +381,7 @@ void euro_champ_quals_create_league_a_matchups(BYTE* _this, BYTE* stage, vector<
 		match->sub_stage_id = 0;
 		match->main_stage_id = stage_name_id;
 		match->f54_0xdb = stage_data->f219;
-		match->f56_0xab = stage_data->f171;
+		match->tiebreaks = stage_data->f171;
 		match->f58_0xc4 = stage_data->f196;
 		match->f59 = -1;
 		match->f61 = 0;
@@ -561,7 +561,7 @@ void euro_champ_quals_setup_groups_b(BYTE* _this, BYTE idx) {
 			match->sub_stage_id = 0;
 			match->main_stage_id = stage_name_id;
 			match->f54_0xdb = data->f219;
-			match->f56_0xab = data->f171;
+			match->tiebreaks = data->f171;
 			match->f58_0xc4 = data->f196;
 			match->f59 = -1;
 			match->f61 = 0;
@@ -679,7 +679,7 @@ void __declspec(naked) euro_champ_quals_init2_c()
 	}
 }
 
-int euro_champ_quals_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int euro_champ_quals_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage < 2) {
@@ -735,7 +735,7 @@ int euro_champ_quals_set_fates(BYTE* _this, cm3_clubs* club, char fate, char sta
 	return 0;
 }
 
-void __declspec(naked) euro_champ_quals_set_table_fate()
+void __declspec(naked) euro_champ_quals_table_fates_c()
 {
 	__asm
 	{
@@ -747,7 +747,7 @@ void __declspec(naked) euro_champ_quals_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call euro_champ_quals_set_fates
+		call euro_champ_quals_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -1036,7 +1036,7 @@ void __declspec(naked) euro_champ_quals_stages_create_c()
 void setup_euro_champ_quals() {
 	WriteVTablePtr(euro_champ_quals_vtable, VTableEoSUpdate, (DWORD)&euro_champ_quals_update_c);
 	WriteVTablePtr(euro_champ_quals_vtable, VTableLeagueSplit, (DWORD)&euro_champ_quals_init2_c);
-	WriteVTablePtr(euro_champ_quals_vtable, VTableTableFates, (DWORD)&euro_champ_quals_set_table_fate);
+	WriteVTablePtr(euro_champ_quals_vtable, VTableTableFates, (DWORD)&euro_champ_quals_table_fates_c);
 	WriteVTablePtr(euro_champ_quals_vtable, VTableFixtures, (DWORD)&euro_champ_quals_fixture_caller);
 	WriteVTablePtr(euro_champ_quals_vtable, VTableStageNews, (DWORD)&euro_champ_quals_stage_news_c);
 	WriteVTablePtr(euro_champ_quals_vtable, VTable29, (DWORD)&euro_champ_quals_vtable29_c);

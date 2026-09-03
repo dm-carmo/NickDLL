@@ -505,7 +505,7 @@ DWORD fra_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 6, 1), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 6, 4), year, Thursday);
-		FillFixtureDetails(pMem, fixture_id++, Playoff, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 5, 2, 1, 2, 0, 0, 2, 3);
+		FillFixtureDetails(pMem, fixture_id++, Playoff, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 5, 2, 1, 2, 0, 0, 2, 3);
 
 		return (DWORD)pMem;
 	}
@@ -629,7 +629,7 @@ void __declspec(naked) fra_first_playoffs_create()
 	}
 }
 
-int fra_first_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int fra_first_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == 0) {
@@ -706,7 +706,7 @@ int fra_first_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char sta
 	return 0;
 }
 
-void __declspec(naked) fra_first_set_table_fate()
+void __declspec(naked) fra_first_table_fates_c()
 {
 	__asm
 	{
@@ -718,7 +718,7 @@ void __declspec(naked) fra_first_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call fra_first_table_indicators
+		call fra_first_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -826,7 +826,7 @@ void setup_fra_first()
 	WriteVTablePtr(fra_first_vtable, VTableFixtures, (DWORD)&fra_first_fixtures_c);
 	WriteVTablePtr(fra_first_vtable, VTableReputationCalc, (DWORD)&fra_first_reputation_calc_c);
 	WriteVTablePtr(fra_first_vtable, VTablePlayoffQual, (DWORD)&fra_first_playoffs_create);
-	WriteVTablePtr(fra_first_vtable, VTableTableFates, (DWORD)&fra_first_set_table_fate);
+	WriteVTablePtr(fra_first_vtable, VTableTableFates, (DWORD)&fra_first_table_fates_c);
 	WriteVTablePtr(fra_first_vtable, VTablePromRelUpdate, (DWORD)&fra_first_prom_rel_update_c);
 	WriteVTablePtr(fra_first_vtable, VTableStageNews, (DWORD)&fra_first_stage_news_c);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(fra_first_vtable, VTableShowThirdInHistory, 0x4110b0);

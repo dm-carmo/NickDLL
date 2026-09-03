@@ -312,15 +312,15 @@ DWORD hol_second_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 16), year, Saturday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 19), year, Tuesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 5, 6, 3, 6, 0, 0, 2, 4);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 5, 6, 3, 6, 0, 0, 2, 4);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 24), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 26), year, Tuesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup3 + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 5, 4, 2, 1, 6, 0, 2, 4);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup3 | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 5, 4, 2, 1, 6, 0, 2, 4);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 31), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 6, 2), year, Tuesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 6, 2, 1, 0, 0, 0, 2, 4);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 6, 2, 1, 0, 0, 0, 2, 4);
 
 		return (DWORD)pMem;
 	}
@@ -617,7 +617,7 @@ void __declspec(naked) hol_second_playoffs_create()
 	}
 }
 
-int hol_second_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int hol_second_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == 4) {
@@ -694,7 +694,7 @@ int hol_second_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char st
 	return 0;
 }
 
-void __declspec(naked) hol_second_set_table_fate()
+void __declspec(naked) hol_second_table_fates_c()
 {
 	__asm
 	{
@@ -706,7 +706,7 @@ void __declspec(naked) hol_second_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call hol_second_table_indicators
+		call hol_second_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -720,7 +720,7 @@ void setup_hol_second()
 	WriteVTablePtr(hol_second_vtable, VTableFixtures, (DWORD)&hol_second_fixtures_c);
 	WriteVTablePtr(hol_second_vtable, VTableReputationCalc, (DWORD)&hol_second_reputation_calc_c);
 	WriteVTablePtr(hol_second_vtable, VTablePlayoffQual, (DWORD)&hol_second_playoffs_create);
-	WriteVTablePtr(hol_second_vtable, VTableTableFates, (DWORD)&hol_second_set_table_fate);
+	WriteVTablePtr(hol_second_vtable, VTableTableFates, (DWORD)&hol_second_table_fates_c);
 	WriteVTablePtr(hol_second_vtable, VTableSetChampion, (DWORD)&hol_second_set_champion_c);
 	WriteVTablePtr(hol_second_vtable, VTableStageNews, 0x48c6d0);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(hol_second_vtable, VTableShowThirdInHistory, 0x4110b0);

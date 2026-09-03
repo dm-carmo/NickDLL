@@ -137,11 +137,11 @@ DWORD fin_third_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 5), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 12), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 5, 8, 4, 8, 0, 0, 2, 7);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 5, 8, 4, 8, 0, 0, 2, 7);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 20), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 26), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 5, 4, 2, 0, 0, 0, 2, 7);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 5, 4, 2, 0, 0, 0, 2, 7);
 
 		return (DWORD)pMem;
 	}
@@ -424,7 +424,7 @@ void __declspec(naked) fin_third_playoffs_create_c()
 	}
 }
 
-int fin_third_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int fin_third_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == 2) {
@@ -485,7 +485,7 @@ int fin_third_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char sta
 	return 0;
 }
 
-void __declspec(naked) fin_third_set_table_fate()
+void __declspec(naked) fin_third_table_fates_c()
 {
 	__asm
 	{
@@ -497,7 +497,7 @@ void __declspec(naked) fin_third_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call fin_third_table_indicators
+		call fin_third_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -549,7 +549,7 @@ void setup_fin_third()
 	WriteVTablePtr(fin_third_vtable, VTableReputationSetup, (DWORD)&fin_third_reputation_setup_c);
 	WriteVTablePtr(fin_third_vtable, VTableReputationCalc, (DWORD)&fin_third_reputation_calc_c);
 	WriteVTablePtr(fin_third_vtable, VTableSubsRounds, (DWORD)&fin_third_subs_c);
-	WriteVTablePtr(fin_third_vtable, VTableTableFates, (DWORD)&fin_third_set_table_fate);
+	WriteVTablePtr(fin_third_vtable, VTableTableFates, (DWORD)&fin_third_table_fates_c);
 	WriteVTablePtr(fin_third_vtable, VTablePlayoffQual, (DWORD)&fin_third_playoffs_create_c);
 	WriteVTablePtr(fin_third_vtable, VTableSetChampion, (DWORD)&fin_third_set_champion_c);
 	WriteVTablePtr(fin_third_vtable, VTable39, 0x404480);

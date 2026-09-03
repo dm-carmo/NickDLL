@@ -88,7 +88,7 @@ DWORD afc_champions_league_2_fixtures(BYTE* _this, char stage_idx, WORD* num_rou
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 6, 28), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 13), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, PreliminaryRound, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 8, 6, 3, 6, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, PreliminaryRound, 0, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 8, 6, 3, 6, 0, 0, 1, 0);
 
 		return (DWORD)pMem;
 	}
@@ -135,19 +135,19 @@ DWORD afc_champions_league_2_fixtures(BYTE* _this, char stage_idx, WORD* num_rou
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 11), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 2, 11), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 16, 8, 16, 0, 0, 2, 7, prizeMoneyFile.GetInt("afc_cl_two_r16_qualify"));
+		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 8, 16, 8, 16, 0, 0, 2, 7, prizeMoneyFile.GetInt("afc_cl_two_r16_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 2, 19), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 4), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 8, 4, 0, 0, 0, 2, 14, prizeMoneyFile.GetInt("afc_cl_two_qtr_qualify"));
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 8, 8, 4, 0, 0, 0, 2, 14, prizeMoneyFile.GetInt("afc_cl_two_qtr_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 19), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 8), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 8, 4, 2, 0, 0, 0, 2, 7, prizeMoneyFile.GetInt("afc_cl_two_semi_qualify"));
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 8, 4, 2, 0, 0, 0, 2, 7, prizeMoneyFile.GetInt("afc_cl_two_semi_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 4, 16), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 16), year, Saturday, Afternoon, NationalStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 8, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("afc_cl_two_final_win"), prizeMoneyFile.GetInt("afc_cl_two_final_lose"));
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, Penalties | ExtraTime, NoTiebreak, 8, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("afc_cl_two_final_win"), prizeMoneyFile.GetInt("afc_cl_two_final_lose"));
 
 		return (DWORD)pMem;
 	}
@@ -412,13 +412,13 @@ void afc_champions_league_2_all_teams(BYTE* _this) {
 			BYTE seed = club->ClubEuroSeeding;
 			if (seed == 1 && teams_r1 < 25) {
 				teams[teams_r1].club = club;
-				teams[teams_r1].f5 = 7;
+				teams[teams_r1].seeding = 7;
 				teams[teams_r1].f6 = 0;
 				teams_r1++;
 			}
 			else if (seed == 2 && teams_r2 < 6) {
 				teams[teams_r2 + 25].club = club;
-				teams[teams_r2 + 25].f5 = 8;
+				teams[teams_r2 + 25].seeding = 8;
 				teams[teams_r2 + 25].f6 = 0;
 				teams_r2++;
 			}
@@ -440,7 +440,7 @@ void afc_champions_league_2_qualifier_teams(BYTE* _this) {
 	DWORD total_count = data->special_nteams_seedings;
 	vector<cm3_clubs*> qual_clubs;
 	for (WORD i = 0; i < total_count; i++) {
-		char seed = qualifiers[i].f5;
+		char seed = qualifiers[i].seeding;
 		if (seed == 8) {
 			qual_clubs.push_back(qualifiers[i].club);
 			count++;
@@ -451,7 +451,7 @@ void afc_champions_league_2_qualifier_teams(BYTE* _this) {
 	shuffle(qual_clubs.begin() + 4, qual_clubs.end(), rng);
 	for (WORD i = 0; i < qual_clubs.size(); i++) {
 		teams[i].club = qual_clubs[i];
-		teams[i].f5 = i % 2;
+		teams[i].seeding = i % 2;
 		teams[i].f6 = 0;
 	}
 }
@@ -770,7 +770,7 @@ void __declspec(naked) afc_champions_league_2_stages_create_c()
 	}
 }
 
-int afc_champions_league_2_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int afc_champions_league_2_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	BYTE* chal_lge_bytes = get_loaded_league(AFC_CHALLENGE_LEAGUE_9CF());
@@ -797,7 +797,7 @@ int afc_champions_league_2_set_fates(BYTE* _this, cm3_clubs* club, char fate, ch
 				teams_seeded* qualifiers = (teams_seeded*)chal_lge_data->special_teams_seedings;
 				WORD insert_idx = chal_lge_data->special_nteams_seedings;
 				qualifiers[insert_idx].club = club;
-				qualifiers[insert_idx].f5 = 3;
+				qualifiers[insert_idx].seeding = 3;
 				qualifiers[insert_idx].f6 = 0;
 				chal_lge_data->special_nteams_seedings++;
 
@@ -847,7 +847,7 @@ int afc_champions_league_2_set_fates(BYTE* _this, cm3_clubs* club, char fate, ch
 	return 0;
 }
 
-void __declspec(naked) afc_champions_league_2_set_table_fate()
+void __declspec(naked) afc_champions_league_2_table_fates_c()
 {
 	__asm
 	{
@@ -859,7 +859,7 @@ void __declspec(naked) afc_champions_league_2_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call afc_champions_league_2_set_fates
+		call afc_champions_league_2_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -978,7 +978,7 @@ void setup_afc_champions_league_2() {
 	WriteVTablePtr(afc_champions_league_2_vtable, VTableSetChampion, (DWORD)&afc_champions_league_2_set_champion_c);
 	WriteVTablePtr(afc_champions_league_2_vtable, VTableClubLandmarks, 0x48cab0);
 	WriteVTablePtr(afc_champions_league_2_vtable, VTableFixtures, (DWORD)&afc_champions_league_2_fixture_caller);
-	WriteVTablePtr(afc_champions_league_2_vtable, VTableTableFates, (DWORD)&afc_champions_league_2_set_table_fate);
+	WriteVTablePtr(afc_champions_league_2_vtable, VTableTableFates, (DWORD)&afc_champions_league_2_table_fates_c);
 	WriteVTablePtr(afc_champions_league_2_vtable, VTableStageNews, (DWORD)&afc_cl_two_stage_news_c);
 	WriteVTablePtr(afc_champions_league_2_vtable, VTableReputationSetup, (DWORD)&afc_champions_league_2_reputation_setup_c);
 	WriteVTablePtr(afc_champions_league_2_vtable, VTableReputationCalc, (DWORD)&afc_champions_league_2_reputation_calc_c);

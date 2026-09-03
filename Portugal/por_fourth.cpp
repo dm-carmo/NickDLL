@@ -263,7 +263,7 @@ DWORD por_fourth_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 
 		Date portugal_day = Date(year + 1, 6, 10);
 		AddPlayoffFixture(pMem, fixture_id, portugal_day, year, (Day)portugal_day.DayOfWeek(), Afternoon, NationalStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 5, 2, 1, 2, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, Penalties | ExtraTime, NoTiebreak, 5, 2, 1, 2, 0, 0, 1, 0);
 
 		return (DWORD)pMem;
 	}
@@ -280,7 +280,7 @@ DWORD por_fourth_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 4, 19), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 3), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 5, 8, 4, 8, 0, 0, 2, 7);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 5, 8, 4, 8, 0, 0, 2, 7);
 
 		return (DWORD)pMem;
 	}
@@ -336,7 +336,7 @@ void por_fourth_setup_groups(BYTE* _this, BYTE idx) {
 	data->current_stage = idx;
 }
 
-int por_fourth_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int por_fourth_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage < 3) {
@@ -490,7 +490,7 @@ int por_fourth_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char st
 	return 0;
 }
 
-void __declspec(naked) por_fourth_set_table_fate()
+void __declspec(naked) por_fourth_table_fates_c()
 {
 	__asm
 	{
@@ -502,7 +502,7 @@ void __declspec(naked) por_fourth_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call por_fourth_table_indicators
+		call por_fourth_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -796,7 +796,7 @@ void por_fourth_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	por_fourth_vtable->SetPointer(VTableReputationSetup, (DWORD)&por_fourth_reputation_setup_c);
 	por_fourth_vtable->SetPointer(VTableReputationCalc, (DWORD)&por_fourth_reputation_calc_c);
 	por_fourth_vtable->SetPointer(VTableSubsRounds, (DWORD)&por_fourth_subs_c);
-	por_fourth_vtable->SetPointer(VTableTableFates, (DWORD)&por_fourth_set_table_fate);
+	por_fourth_vtable->SetPointer(VTableTableFates, (DWORD)&por_fourth_table_fates_c);
 	por_fourth_vtable->SetPointer(VTablePlayoffQual, (DWORD)&por_fourth_playoffs_create_c);
 	por_fourth_vtable->SetPointer(VTable39, 0x404480);
 	data->year = year;

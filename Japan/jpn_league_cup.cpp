@@ -22,31 +22,31 @@ DWORD jpn_league_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WOR
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 6), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 2), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, FirstRound, 1, ExtraTimePenalties_1, NoTiebreak_2, 4, 54, 27, 54, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, FirstRound, 1, Penalties | ExtraTime, NoTiebreak, 4, 54, 27, 54, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 3), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 30), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SecondRound, 1, ExtraTimePenalties_1, NoTiebreak_2, 4, 28, 14, 1, 54, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, SecondRound, 1, Penalties | ExtraTime, NoTiebreak, 4, 28, 14, 1, 54, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 1), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 14), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 1, ExtraTimePenalties_1, NoTiebreak_2, 4, 14, 7, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 1, Penalties | ExtraTime, NoTiebreak, 4, 14, 7, 0, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 15), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 28), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, FourthRound, 1, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 4, 8, 4, 1, 55, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, FourthRound, 1, NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 4, 8, 4, 1, 55, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 29), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 11), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 1, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 6, 8, 4, 4, 56, 0, 2, 4);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 1, NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 6, 8, 4, 4, 56, 0, 2, 4);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 16), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 24), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 1, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 6, 4, 2, 0, 0, 0, 2, 4, 0, 0, prizeMoneyFile.GetInt("jpn_league_cup_semi_lose"));
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 1, NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 6, 4, 2, 0, 0, 0, 2, 4, 0, 0, prizeMoneyFile.GetInt("jpn_league_cup_semi_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 29), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 14), year, Wednesday, Evening, NationalStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("jpn_league_cup_final_win"), prizeMoneyFile.GetInt("jpn_league_cup_final_lose"));
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, Penalties | ExtraTime, NoTiebreak, 6, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("jpn_league_cup_final_win"), prizeMoneyFile.GetInt("jpn_league_cup_final_lose"));
 
 		return (DWORD)pMem;
 	}
@@ -105,7 +105,7 @@ int jpn_league_cup_teams(BYTE* _this) {
 	for (DWORD i = 0; i < vec.size(); i++)
 	{
 		teams[i].club = vec[i];
-		teams[i].f5 = 0;
+		teams[i].seeding = 0;
 		teams[i].f6 = 0;
 	}
 

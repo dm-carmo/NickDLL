@@ -167,23 +167,23 @@ DWORD sco_challenge_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 15), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 4), year, Tuesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, RoundOf32, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 32, 16, 32, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("sco_chal_cup_r2_lose"));
+		FillFixtureDetails(pMem, fixture_id++, RoundOf32, 0, Penalties | ExtraTime, NoTiebreak, 4, 32, 16, 32, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("sco_chal_cup_r2_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 5), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 25), year, Tuesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 16, 8, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("sco_chal_cup_r3_lose"));
+		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, Penalties | ExtraTime, NoTiebreak, 4, 16, 8, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("sco_chal_cup_r3_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 26), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 1, 13), year, Tuesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, ExtraTimePenalties_1, NoTiebreak_2, 4, 8, 4, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("sco_chal_cup_qtr_lose"));
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, Penalties | ExtraTime, NoTiebreak, 4, 8, 4, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("sco_chal_cup_qtr_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 1, 14), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 2, 10), year, Tuesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 4, 2, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("sco_chal_cup_semi_lose"));
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, Penalties | ExtraTime, NoTiebreak, 6, 4, 2, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("sco_chal_cup_semi_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 2, 11), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 5), year, Sunday, Afternoon, FACupSemiFinals);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("sco_chal_cup_final_win"), prizeMoneyFile.GetInt("sco_chal_cup_final_lose"));
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, Penalties | ExtraTime, NoTiebreak, 6, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("sco_chal_cup_final_win"), prizeMoneyFile.GetInt("sco_chal_cup_final_lose"));
 
 		return (DWORD)pMem;
 	}
@@ -434,7 +434,7 @@ void sco_challenge_cup_setup_league_stage(BYTE* _this) {
 		match->sub_stage_id = 0;
 		match->main_stage_id = stage_name_id;
 		match->f54_0xdb = data->f219;
-		match->f56_0xab = data->f171;
+		match->tiebreaks = data->f171;
 		match->f58_0xc4 = data->f196;
 		match->f59 = -1;
 		match->f61 = 0;
@@ -524,7 +524,7 @@ void __declspec(naked) sco_challenge_cup_update_c()
 	}
 }
 
-int sco_challenge_cup_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int sco_challenge_cup_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == -1) {
@@ -563,7 +563,7 @@ int sco_challenge_cup_set_fates(BYTE* _this, cm3_clubs* club, char fate, char st
 	return 0;
 }
 
-void __declspec(naked) sco_challenge_cup_set_table_fate()
+void __declspec(naked) sco_challenge_cup_table_fates_c()
 {
 	__asm
 	{
@@ -575,7 +575,7 @@ void __declspec(naked) sco_challenge_cup_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call sco_challenge_cup_set_fates
+		call sco_challenge_cup_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -712,7 +712,7 @@ void sco_challenge_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	sco_challenge_cup_vtable->SetPointer(VTableSetChampion, (DWORD)&sco_challenge_cup_set_champion_c);
 	sco_challenge_cup_vtable->SetPointer(VTableClubLandmarks, 0x48cab0);
 	sco_challenge_cup_vtable->SetPointer(VTableFixtures, (DWORD)&sco_challenge_cup_fixture_caller);
-	sco_challenge_cup_vtable->SetPointer(VTableTableFates, (DWORD)&sco_challenge_cup_set_table_fate);
+	sco_challenge_cup_vtable->SetPointer(VTableTableFates, (DWORD)&sco_challenge_cup_table_fates_c);
 	sco_challenge_cup_vtable->SetPointer(VTableStageNews, (DWORD)&sco_challenge_cup_stage_news_c);
 	sco_challenge_cup_vtable->SetPointer(VTableReputationSetup, (DWORD)&sco_challenge_cup_reputation_setup_c);
 	sco_challenge_cup_vtable->SetPointer(VTableReputationCalc, (DWORD)&sco_challenge_cup_reputation_calc_c);

@@ -341,7 +341,7 @@ DWORD usa_mls_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 19), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 22), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, FixedTeamOrderInCup + PenaltiesNoExtraTime_1, NoTiebreak_2, 5, 4, 2, 4, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, FixedTeamOrderInCup | Penalties, NoTiebreak, 5, 4, 2, 4, 0, 0, 1, 0);
 
 		return (DWORD)pMem;
 	}
@@ -358,19 +358,19 @@ DWORD usa_mls_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 23), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 25), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, SecondRound, 0, FixedTeamOrderInCup + YardShootout_1, YardShootout_2, 5, 16, 8, 16, 0, 0, 2, 7, 0, 0, 0, YardShootout_3);
+		FillFixtureDetails(pMem, fixture_id++, SecondRound, 0, FixedTeamOrderInCup | USBestOf3 | YardShootout, USBestOf3 | YardShootout, 5, 16, 8, 16, 0, 0, 2, 7, 0, 0, 0, YardShootout);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 9), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 22), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 5, 8, 4, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 5, 8, 4, 0, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 23), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 29), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 5, 4, 2, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 5, 4, 2, 0, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 30), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 6), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, MLSCup, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 5, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("usa_mls_final_win"), prizeMoneyFile.GetInt("usa_mls_final_lose"));
+		FillFixtureDetails(pMem, fixture_id++, MLSCup, 0, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 5, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("usa_mls_final_win"), prizeMoneyFile.GetInt("usa_mls_final_lose"));
 
 		return (DWORD)pMem;
 	}
@@ -475,7 +475,7 @@ void __declspec(naked) usa_mls_update_c()
 	}
 }
 
-int usa_mls_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int usa_mls_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage < 1) {
@@ -572,7 +572,7 @@ int usa_mls_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE*
 	return 0;
 }
 
-void __declspec(naked) usa_mls_set_table_fate()
+void __declspec(naked) usa_mls_table_fates_c()
 {
 	__asm
 	{
@@ -584,7 +584,7 @@ void __declspec(naked) usa_mls_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call usa_mls_set_fates
+		call usa_mls_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -735,7 +735,7 @@ void setup_usa_mls() {
 	WriteVTablePtr(usa_mls_vtable, VTableEoSUpdate, (DWORD)&usa_mls_update_c);
 	WriteVTablePtr(usa_mls_vtable, VTableReputationCalc, (DWORD)&usa_mls_reputation_calc_c);
 	WriteVTablePtr(usa_mls_vtable, VTableSetChampion, (DWORD)&usa_mls_set_champion_c);
-	WriteVTablePtr(usa_mls_vtable, VTableTableFates, (DWORD)&usa_mls_set_table_fate);
+	WriteVTablePtr(usa_mls_vtable, VTableTableFates, (DWORD)&usa_mls_table_fates_c);
 	WriteVTablePtr(usa_mls_vtable, VTableStageNews, 0x48c6d0);
 	WriteVTablePtr(usa_mls_vtable, VTablePlayoffQual, (DWORD)&usa_mls_playoffs_create);
 	WriteVTablePtr(usa_mls_vtable, VTablePostMatchUpdate, 0x685d30);

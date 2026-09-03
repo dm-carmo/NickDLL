@@ -254,7 +254,7 @@ DWORD bra_third_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 12), year, Monday);
 
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 18), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 5, 2, 1, 2, 0, 0, 2, 7, 0, prizeMoneyFile.GetInt("bra_third_playoff_winner_money"), prizeMoneyFile.GetInt("bra_third_playoff_runner_up_money"));
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, NoAwayGoals, Penalties | NoAwayGoals, 5, 2, 1, 2, 0, 0, 2, 7, 0, prizeMoneyFile.GetInt("bra_third_playoff_winner_money"), prizeMoneyFile.GetInt("bra_third_playoff_runner_up_money"));
 
 		return (DWORD)pMem;
 	}
@@ -463,7 +463,7 @@ void __declspec(naked) bra_third_playoffs_create_c()
 	}
 }
 
-int bra_third_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int bra_third_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == -1) {
@@ -570,7 +570,7 @@ int bra_third_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYT
 	return 0;
 }
 
-void __declspec(naked) bra_third_set_table_fate()
+void __declspec(naked) bra_third_table_fates_c()
 {
 	__asm
 	{
@@ -582,7 +582,7 @@ void __declspec(naked) bra_third_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call bra_third_set_fates
+		call bra_third_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -600,7 +600,7 @@ void bra_third_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	bra_third_vtable->SetPointer(VTableEoSUpdate, (DWORD)&bra_third_update_c);
 	bra_third_vtable->SetPointer(VTablePlayoffQual, (DWORD)&bra_third_playoffs_create_c);
 	bra_third_vtable->SetPointer(VTableSetChampion, (DWORD)&bra_third_set_champion_c);
-	bra_third_vtable->SetPointer(VTableTableFates, (DWORD)&bra_third_set_table_fate);
+	bra_third_vtable->SetPointer(VTableTableFates, (DWORD)&bra_third_table_fates_c);
 	bra_third_vtable->SetPointer(VTableStageNews, 0x48c6d0);
 	bra_third_vtable->SetPointer(VTableReputationCalc, (DWORD)&bra_third_reputation_calc_c);
 	bra_third_vtable->SetPointer(VTable37, 0x68aad0);

@@ -437,7 +437,7 @@ void __declspec(naked) fin_second_table_split_c()
 	}
 }
 
-int fin_second_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int fin_second_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	cm3_club_comps* fin_first = get_comp(FIN_FIRST_9CF());
@@ -465,7 +465,7 @@ int fin_second_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char st
 	return 0;
 }
 
-void __declspec(naked) fin_second_set_table_fate()
+void __declspec(naked) fin_second_table_fates_c()
 {
 	__asm
 	{
@@ -477,7 +477,7 @@ void __declspec(naked) fin_second_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call fin_second_table_indicators
+		call fin_second_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -512,7 +512,7 @@ void fin_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	fin_second_vtable->SetPointer(VTableInitFree, (DWORD)&fin_second_free_c);
 	fin_second_vtable->SetPointer(VTableEoSUpdate, (DWORD)&fin_second_update_c);
 	fin_second_vtable->SetPointer(VTableFixtures, (DWORD)&fin_second_fixtures_c);
-	fin_second_vtable->SetPointer(VTableTableFates, (DWORD)&fin_second_set_table_fate);
+	fin_second_vtable->SetPointer(VTableTableFates, (DWORD)&fin_second_table_fates_c);
 	fin_second_vtable->SetPointer(VTableLeagueSplit, (DWORD)&fin_second_table_split_c);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) fin_second_vtable->SetPointer(VTableShowThirdInHistory, 0x4110b0);
 	data->year = year;

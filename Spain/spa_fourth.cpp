@@ -195,11 +195,11 @@ DWORD spa_fourth_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 4), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 10), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 6, 20, 10, 20, 0, 0, 2, 7);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 6, 20, 10, 20, 0, 0, 2, 7);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 18), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 24), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 6, 10, 5, 0, 0, 0, 2, 7);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 6, 10, 5, 0, 0, 0, 2, 7);
 
 		return (DWORD)pMem;
 	}
@@ -216,7 +216,7 @@ DWORD spa_fourth_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 4), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 10), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, None, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 6, 4, 2, 4, 0, 0, 2, 7);
+		FillFixtureDetails(pMem, fixture_id++, None, 0, NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 6, 4, 2, 4, 0, 0, 2, 7);
 
 		return (DWORD)pMem;
 	}
@@ -532,7 +532,7 @@ void __declspec(naked) spa_fourth_playoffs_create_c()
 	}
 }
 
-int spa_fourth_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int spa_fourth_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage < 4) {
@@ -623,7 +623,7 @@ int spa_fourth_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char st
 	return 0;
 }
 
-void __declspec(naked) spa_fourth_set_table_fate()
+void __declspec(naked) spa_fourth_table_fates_c()
 {
 	__asm
 	{
@@ -635,7 +635,7 @@ void __declspec(naked) spa_fourth_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call spa_fourth_table_indicators
+		call spa_fourth_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -779,7 +779,7 @@ void spa_fourth_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	spa_fourth_vtable->SetPointer(VTableReputationCalc, (DWORD)&spa_fourth_reputation_calc_c);
 	spa_fourth_vtable->SetPointer(VTableAwardTeamsSetup, (DWORD)&spa_fourth_awards_c);
 	spa_fourth_vtable->SetPointer(VTableSubsRounds, (DWORD)&spa_fourth_subs_c);
-	spa_fourth_vtable->SetPointer(VTableTableFates, (DWORD)&spa_fourth_set_table_fate);
+	spa_fourth_vtable->SetPointer(VTableTableFates, (DWORD)&spa_fourth_table_fates_c);
 	spa_fourth_vtable->SetPointer(VTablePlayoffQual, (DWORD)&spa_fourth_playoffs_create_c);
 	spa_fourth_vtable->SetPointer(VTableSetChampion, (DWORD)&spa_fourth_set_champion_c);
 	spa_fourth_vtable->SetPointer(VTableStageNews, (DWORD)&spa_fourth_stage_news_c);

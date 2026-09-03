@@ -201,7 +201,7 @@ DWORD kor_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 1), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 3), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, Playoff, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 5, 4, 2, 4, 0, 0, 2, 4);
+		FillFixtureDetails(pMem, fixture_id++, Playoff, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 5, 4, 2, 4, 0, 0, 2, 4);
 
 		return (DWORD)pMem;
 	}
@@ -588,7 +588,7 @@ void __declspec(naked) kor_first_playoffs_create()
 	}
 }
 
-int kor_first_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int kor_first_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == 0) {
@@ -665,7 +665,7 @@ int kor_first_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char sta
 	return 0;
 }
 
-void __declspec(naked) kor_first_set_table_fate()
+void __declspec(naked) kor_first_table_fates_c()
 {
 	__asm
 	{
@@ -677,7 +677,7 @@ void __declspec(naked) kor_first_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call kor_first_table_indicators
+		call kor_first_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -785,7 +785,7 @@ void setup_kor_first()
 	WriteVTablePtr(kor_first_vtable, VTableLeagueSplit, (DWORD)&kor_first_table_split_c);
 	WriteVTablePtr(kor_first_vtable, VTableReputationCalc, (DWORD)&kor_first_reputation_calc_c);
 	WriteVTablePtr(kor_first_vtable, VTablePlayoffQual, (DWORD)&kor_first_playoffs_create);
-	WriteVTablePtr(kor_first_vtable, VTableTableFates, (DWORD)&kor_first_set_table_fate);
+	WriteVTablePtr(kor_first_vtable, VTableTableFates, (DWORD)&kor_first_table_fates_c);
 	WriteVTablePtr(kor_first_vtable, VTableStageNews, (DWORD)&kor_first_stage_news_c);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(kor_first_vtable, VTableShowThirdInHistory, 0x4110b0);
 }

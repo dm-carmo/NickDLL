@@ -278,7 +278,7 @@ void __declspec(naked) sui_first_fixtures_c()
 	}
 }
 
-int sui_first_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int sui_first_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	cm3_club_comps* sui_premier = get_comp(SUI_PREMIER_9CF());
@@ -305,7 +305,7 @@ int sui_first_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char sta
 	return 0;
 }
 
-void __declspec(naked) sui_first_set_table_fate()
+void __declspec(naked) sui_first_table_fates_c()
 {
 	__asm
 	{
@@ -317,7 +317,7 @@ void __declspec(naked) sui_first_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call sui_first_table_indicators
+		call sui_first_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -409,7 +409,7 @@ void sui_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	sui_first_vtable->SetPointer(VTableSubsRounds, (DWORD)&sui_first_subs_c);
 	sui_first_vtable->SetPointer(VTableFixtures, (DWORD)&sui_first_fixtures_c);
 	sui_first_vtable->SetPointer(VTableInitFree, (DWORD)&sui_first_free_c);
-	sui_first_vtable->SetPointer(VTableTableFates, (DWORD)&sui_first_set_table_fate);
+	sui_first_vtable->SetPointer(VTableTableFates, (DWORD)&sui_first_table_fates_c);
 	sui_first_vtable->SetPointer(VTableReputationCalc, (DWORD)&sui_first_reputation_calc_c);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) sui_first_vtable->SetPointer(VTableShowThirdInHistory, 0x4110b0);
 	data->year = year;

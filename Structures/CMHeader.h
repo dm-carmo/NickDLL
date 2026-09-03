@@ -11,10 +11,6 @@
 #define START_YEAR 2026
 #define VERSION "26/27 V1"
 
-extern WORD FixedTeamOrderInCup;
-extern WORD FixedTeamOrderInCup2;
-extern WORD FixedTeamOrderInCup3;
-
 enum CompetitionType : char {
 	CLUB_DOMESTIC = 1,
 	CLUB_INTERNATIONAL = 2,
@@ -187,29 +183,18 @@ enum RoundNames : WORD {
 	LeaguePath = 0x483
 };
 
-enum Game1Tiebreaks : WORD {
-	NoTiebreak_1 = 0,
-	PenaltiesNoExtraTime_1 = 1,
-	ExtraTimeNoPenalties_1 = 2,
-	ExtraTimePenalties_1 = 3,
-	Libertadores_1 = 4,
-	YardShootout_1 = 0x30,
-	GoldenGoal_1 = 0x83
-};
-
-enum Game2Tiebreaks : WORD {
-	NoTiebreak_2 = 0,
-	AwayGoalsPenaltiesNoExtraTime_2 = 1,
-	AwayGoalsExtraTimePenalties_2 = 3,
-	ExtraTimePenaltiesNoAwayGoals_2 = 7,
-	YardShootout_2 = 0x30,
-	GoldenGoal_2 = 0x83
-};
-
-enum Game3Tiebreaks : WORD {
-	NoTiebreak_3 = 0,
-	ExtraTimePenalties_3 = 3,
-	YardShootout_3 = 0x20
+enum CupTiebreaks : WORD {
+	NoTiebreak = 0x0,
+	Penalties = 0x1,
+	ExtraTime = 0x2,
+	NoAwayGoals = 0x4,
+	USBestOf3 = 0x10,
+	YardShootout = 0x20,
+	GoldenGoal = 0x80,
+	FixedTeamOrderInCup = 0x200, // not sure how these work
+	FixedTeamOrderInCup2 = 0x300, // not sure how these work
+	FixedTeamOrderInCup3 = 0x400, // not sure how these work
+	HigherSeedingTiebreak = 0x800
 };
 
 enum StadiumType {
@@ -787,7 +772,7 @@ typedef struct COMP_STATS
 typedef struct TEAMS_SEEDED
 {
 	CM3_CLUBS* club;
-	char f5;
+	char seeding;
 	char f6;
 } teams_seeded;
 #pragma pack(pop)
@@ -865,12 +850,12 @@ typedef struct PLAYABLE_NATION_DATA
 	WORD contract_start_day; // 50
 	BYTE contract_start_month; // 52
 	WORD contract_start_year; // 53
-	WORD f55; // 55
+	WORD contract_start_day_of_week; // 55
 	BYTE end_date[8]; // 57
 	WORD contract_end_day; // 65
 	BYTE contract_end_month; // 67
 	WORD contract_end_year; // 68
-	WORD f70; // 70
+	WORD contract_end_day_of_week; // 70
 
 	PLAYABLE_NATION_DATA()
 	{
@@ -891,12 +876,12 @@ typedef struct PLAYABLE_NATION_DATA
 		contract_start_day = 0;
 		contract_start_month = 0;
 		contract_start_year = 0;
-		f55 = 0;
+		contract_start_day_of_week = 0;
 		for (int i = 0; i < 8; i++) end_date[i] = 0;
 		contract_end_day = 0;
 		contract_end_month = 0;
 		contract_end_year = 0;
-		f70 = 0;
+		contract_end_day_of_week = 0;
 	}
 } playable_nation_data;
 #pragma pack(pop)
@@ -978,7 +963,7 @@ typedef struct MATCH_DATA
 	WORD main_stage_id;
 	WORD fixture_number;
 	WORD f54_0xdb;
-	WORD f56_0xab;
+	WORD tiebreaks;
 	BYTE f58_0xc4;
 	BYTE f59;
 	BYTE f60;

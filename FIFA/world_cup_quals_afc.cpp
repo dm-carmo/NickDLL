@@ -120,7 +120,7 @@ DWORD world_cup_quals_afc_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 1), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 28), year, Thursday, Afternoon);
-		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 10, 20, 10, 20, 0, 0, 2, 5);
+		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 10, 20, 10, 20, 0, 0, 2, 5);
 
 		return (DWORD)pMem;
 	}
@@ -201,7 +201,7 @@ DWORD world_cup_quals_afc_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 2, 10, 8), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 2, 11, 6), year, Thursday, Afternoon);
-		FillFixtureDetails(pMem, fixture_id++, FifthRound, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 10, 2, 1, 2, 0, 0, 2, 5);
+		FillFixtureDetails(pMem, fixture_id++, FifthRound, 0, NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 10, 2, 1, 2, 0, 0, 2, 5);
 
 		return (DWORD)pMem;
 	}
@@ -218,7 +218,7 @@ DWORD world_cup_quals_afc_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 2, 10, 8), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 2, 11, 6), year, Thursday, Afternoon);
-		FillFixtureDetails(pMem, fixture_id++, SixthRound, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 10, 2, 1, 2, 0, 0, 2, 5);
+		FillFixtureDetails(pMem, fixture_id++, SixthRound, 0, NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 10, 2, 1, 2, 0, 0, 2, 5);
 
 		return (DWORD)pMem;
 	}
@@ -335,8 +335,8 @@ void world_cup_quals_afc_all_teams(BYTE* _this) {
 
 	for (size_t i = 0, j = 0; i < afc_countries.size() && j < total_teams_in_comp; i++) {
 		teams[j].club = afc_countries[i];
-		if (j < 26) teams[j].f5 = 10;
-		else teams[j].f5 = 11;
+		if (j < 26) teams[j].seeding = 10;
+		else teams[j].seeding = 11;
 		teams[j].f6 = 0;
 		j++;
 	}
@@ -367,7 +367,7 @@ void world_cup_quals_afc_qualifier_teams(BYTE* _this) {
 	for (WORD i = 0; i < total_teams; i++) {
 		cm3_clubs* club = qualifiers[26 + i].club;
 		teams[i].club = club;
-		teams[i].f5 = 0;
+		teams[i].seeding = 0;
 		teams[i].f6 = 0;
 	}
 
@@ -920,7 +920,7 @@ void __declspec(naked) world_cup_quals_afc_init2_c()
 	}
 }
 
-int world_cup_quals_afc_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int world_cup_quals_afc_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), ASIA_9CF(), 0, 0);
@@ -1082,7 +1082,7 @@ int world_cup_quals_afc_set_fates(BYTE* _this, cm3_clubs* club, char fate, char 
 	return 0;
 }
 
-void __declspec(naked) world_cup_quals_afc_set_table_fate()
+void __declspec(naked) world_cup_quals_afc_table_fates_c()
 {
 	__asm
 	{
@@ -1094,7 +1094,7 @@ void __declspec(naked) world_cup_quals_afc_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call world_cup_quals_afc_set_fates
+		call world_cup_quals_afc_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -1506,7 +1506,7 @@ void setup_world_cup_quals_afc() {
 	WriteVTablePtr(world_cup_quals_afc_vtable, VTableFixtures, (DWORD)&world_cup_quals_afc_fixture_caller);
 	WriteVTablePtr(world_cup_quals_afc_vtable, VTable17, 0x519690);
 	WriteVTablePtr(world_cup_quals_afc_vtable, VTableStageNews, (DWORD)&world_cup_quals_afc_stage_news_c);
-	WriteVTablePtr(world_cup_quals_afc_vtable, VTableTableFates, (DWORD)&world_cup_quals_afc_set_table_fate);
+	WriteVTablePtr(world_cup_quals_afc_vtable, VTableTableFates, (DWORD)&world_cup_quals_afc_table_fates_c);
 	WriteVTablePtr(world_cup_quals_afc_vtable, VTable20, 0x48dfa0);
 	WriteVTablePtr(world_cup_quals_afc_vtable, VTableShowThirdInHistory, 0x48e180);
 	WriteVTablePtr(world_cup_quals_afc_vtable, VTable22, 0x5221F0);

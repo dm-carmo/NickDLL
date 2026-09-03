@@ -90,7 +90,7 @@ DWORD world_cup_quals_concacaf_fixtures(BYTE* _this, char stage_idx, WORD* num_r
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 1), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 21), year, Thursday, Afternoon);
-		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 10, 22 - num_hosts * 2, 11 - num_hosts, 22 - num_hosts * 2, 0, 0, 2, 5);
+		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 10, 22 - num_hosts * 2, 11 - num_hosts, 22 - num_hosts * 2, 0, 0, 2, 5);
 
 		return (DWORD)pMem;
 	}
@@ -148,7 +148,7 @@ DWORD world_cup_quals_concacaf_fixtures(BYTE* _this, char stage_idx, WORD* num_r
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 2, 10, 4), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 2, 11, 6), year, Thursday, Afternoon);
-		FillFixtureDetails(pMem, fixture_id++, FourthRound, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 10, 2 + 2 * (num_hosts == 1), 1 + (num_hosts == 1), 2 + 2 * (num_hosts == 1), 0, 0, 2, 5);
+		FillFixtureDetails(pMem, fixture_id++, FourthRound, 0, NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 10, 2 + 2 * (num_hosts == 1), 1 + (num_hosts == 1), 2 + 2 * (num_hosts == 1), 0, 0, 2, 5);
 
 		return (DWORD)pMem;
 	}
@@ -252,8 +252,8 @@ void world_cup_quals_concacaf_all_teams(BYTE* _this) {
 	for (WORD i = 0, j = 0; i < countries.size() && j < total_teams_in_comp; i++) {
 		if (countries[i]->ClubNation->NationID == host1_id || countries[i]->ClubNation->NationID == host2_id) continue;
 		teams[j].club = countries[i];
-		if (j < 13 + num_hosts) teams[j].f5 = 10;
-		else teams[j].f5 = 11;
+		if (j < 13 + num_hosts) teams[j].seeding = 10;
+		else teams[j].seeding = 11;
 		teams[j].f6 = 0;
 		j++;
 	}
@@ -285,7 +285,7 @@ void world_cup_quals_concacaf_qualifier_teams(BYTE* _this) {
 	for (WORD i = 0; i < total_teams; i++) {
 		cm3_clubs* club = qualifiers[13 + num_hosts + i].club;
 		teams[i].club = club;
-		teams[i].f5 = 0;
+		teams[i].seeding = 0;
 		teams[i].f6 = 0;
 	}
 }
@@ -753,7 +753,7 @@ void __declspec(naked) world_cup_quals_concacaf_init2_c()
 	}
 }
 
-int world_cup_quals_concacaf_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int world_cup_quals_concacaf_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), NORTH_AMERICA_9CF(), 0, 0);
@@ -870,7 +870,7 @@ int world_cup_quals_concacaf_set_fates(BYTE* _this, cm3_clubs* club, char fate, 
 	return 0;
 }
 
-void __declspec(naked) world_cup_quals_concacaf_set_table_fate()
+void __declspec(naked) world_cup_quals_concacaf_table_fates_c()
 {
 	__asm
 	{
@@ -882,7 +882,7 @@ void __declspec(naked) world_cup_quals_concacaf_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call world_cup_quals_concacaf_set_fates
+		call world_cup_quals_concacaf_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -1189,7 +1189,7 @@ void setup_world_cup_quals_concacaf() {
 	WriteVTablePtr(world_cup_quals_concacaf_vtable, VTableClubLandmarks, (DWORD)&world_cup_quals_concacaf_landmarks_c);
 	WriteVTablePtr(world_cup_quals_concacaf_vtable, VTableFixtures, (DWORD)&world_cup_quals_concacaf_fixture_caller);
 	WriteVTablePtr(world_cup_quals_concacaf_vtable, VTableStageNews, (DWORD)&world_cup_quals_concacaf_stage_news_c);
-	WriteVTablePtr(world_cup_quals_concacaf_vtable, VTableTableFates, (DWORD)&world_cup_quals_concacaf_set_table_fate);
+	WriteVTablePtr(world_cup_quals_concacaf_vtable, VTableTableFates, (DWORD)&world_cup_quals_concacaf_table_fates_c);
 	WriteVTablePtr(world_cup_quals_concacaf_vtable, VTableReputationSetup, (DWORD)&world_cup_quals_concacaf_reputation_setup_c);
 	WriteVTablePtr(world_cup_quals_concacaf_vtable, VTableReputationCalc, (DWORD)&world_cup_quals_concacaf_reputation_calc_c);
 	WriteVTablePtr(world_cup_quals_concacaf_vtable, VTable29, (DWORD)&world_cup_quals_concacaf_vtable29_c);

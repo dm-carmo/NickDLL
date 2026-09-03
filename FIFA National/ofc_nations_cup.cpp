@@ -99,11 +99,11 @@ DWORD ofc_nations_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WO
 		AddPlayoffTVFixture(pMem, fixture_id, 0, 3, Thursday, Afternoon, LargestStadium2);
 		AddPlayoffTVFixture(pMem, fixture_id, 1, 3, Thursday, Evening, LargestStadium1);
 		AddPlayoffTVFixture(pMem, fixture_id, 2);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup2 + ExtraTimePenalties_1, NoTiebreak_2, 10, 4, 2, 4, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup2 | Penalties | ExtraTime, NoTiebreak, 10, 4, 2, 4, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 6, 28), year, Friday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 6, 30), year, Sunday, Evening, NationalStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 10, 2, 1, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, Penalties | ExtraTime, NoTiebreak, 10, 2, 1, 0, 0, 0, 1, 0);
 
 		return (DWORD)pMem;
 	}
@@ -211,8 +211,8 @@ void ofc_nations_cup_all_teams(BYTE* _this) {
 
 	for (size_t j = 0; j < total_teams_in_comp; j++) {
 		teams[j].club = ofc_countries[j];
-		if (j < 7) teams[j].f5 = 3;
-		else teams[j].f5 = 10;
+		if (j < 7) teams[j].seeding = 3;
+		else teams[j].seeding = 10;
 		teams[j].f6 = 0;
 	}
 }
@@ -231,7 +231,7 @@ void ofc_nations_cup_qualifier_teams(BYTE* _this) {
 	BYTE teamsAdded = 0;
 	DWORD total_count = data->special_nteams_seedings;
 	for (WORD i = 0; i < total_count; i++) {
-		if (qualifiers[i].f5 == 10)
+		if (qualifiers[i].seeding == 10)
 		{
 			add_team_call(_this, teamsAdded++, qualifiers[i].club, 0, 0);
 		}
@@ -632,7 +632,7 @@ void __declspec(naked) ofc_nations_cup_init2_c()
 	}
 }
 
-int ofc_nations_cup_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int ofc_nations_cup_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == -1) {
@@ -682,7 +682,7 @@ int ofc_nations_cup_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stag
 	return 0;
 }
 
-void __declspec(naked) ofc_nations_cup_set_table_fate()
+void __declspec(naked) ofc_nations_cup_table_fates_c()
 {
 	__asm
 	{
@@ -694,7 +694,7 @@ void __declspec(naked) ofc_nations_cup_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call ofc_nations_cup_set_fates
+		call ofc_nations_cup_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -705,7 +705,7 @@ void setup_ofc_nations_cup() {
 	WriteVTablePtr(ofc_nations_cup_vtable, VTablePlayoffQual, (DWORD)&ofc_nations_cup_stages_create_c);
 	WriteVTablePtr(ofc_nations_cup_vtable, VTableSetChampion, (DWORD)&ofc_nations_cup_set_champion_c);
 	WriteVTablePtr(ofc_nations_cup_vtable, VTableFixtures, (DWORD)&ofc_nations_cup_fixture_caller);
-	WriteVTablePtr(ofc_nations_cup_vtable, VTableTableFates, (DWORD)&ofc_nations_cup_set_table_fate);
+	WriteVTablePtr(ofc_nations_cup_vtable, VTableTableFates, (DWORD)&ofc_nations_cup_table_fates_c);
 	WriteVTablePtr(ofc_nations_cup_vtable, VTableStageNews, (DWORD)&ofc_nations_cup_stage_news_c);
 	WriteVTablePtr(ofc_nations_cup_vtable, VTableReputationSetup, (DWORD)&ofc_nations_cup_reputation_setup_c);
 	WriteVTablePtr(ofc_nations_cup_vtable, VTableReputationCalc, (DWORD)&ofc_nations_cup_reputation_calc_c);

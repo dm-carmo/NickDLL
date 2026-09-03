@@ -183,7 +183,7 @@ DWORD euro_champ_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Tuesday, Afternoon, LargestStadium8);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Sunday, Afternoon, LargestStadium3);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Saturday, Afternoon, LargestStadium4);
-		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, FixedTeamOrderInCup2 + ExtraTimePenalties_1, NoTiebreak_2, 10, 16, 8, 16, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, FixedTeamOrderInCup2 | Penalties | ExtraTime, NoTiebreak, 10, 16, 8, 16, 0, 0, 1, 0);
 		tv_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 6, 28), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 6, 30), year, Friday, Afternoon, VenueUnknown_1);
@@ -192,18 +192,18 @@ DWORD euro_champ_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Saturday, Afternoon, LargestStadium6);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Saturday, Afternoon, LargestStadium1);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup2 + ExtraTimePenalties_1, NoTiebreak_2, 10, 8, 4, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup2 | Penalties | ExtraTime, NoTiebreak, 10, 8, 4, 0, 0, 0, 1, 0);
 		tv_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 2), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 4), year, Tuesday, Afternoon, VenueUnknown_1);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Tuesday, Afternoon, NationalStadium);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Wednesday, Afternoon, NationalStadium);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup2 + ExtraTimePenalties_1, NoTiebreak_2, 10, 4, 2, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup2 | Penalties | ExtraTime, NoTiebreak, 10, 4, 2, 0, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 6), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 9), year, Sunday, Afternoon, NationalStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 10, 2, 1, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, Penalties | ExtraTime, NoTiebreak, 10, 2, 1, 0, 0, 0, 1, 0);
 
 		return (DWORD)pMem;
 	}
@@ -449,18 +449,18 @@ void euro_champ_seeded_teams(BYTE* _this) {
 	char num_hosts = get_host_ids_5FA730((BYTE*)*b5e134, data->competition_db->ClubCompID, year, &host1_id, &host2_id, 1);
 	if (num_hosts > 0) {
 		teamList[count].club = get_national_team(host1_id);
-		teamList[count].f5 = 1;
+		teamList[count].seeding = 1;
 		count++;
 	}
 	if (num_hosts > 1) {
 		teamList[count].club = get_national_team(host2_id);
-		teamList[count].f5 = 1;
+		teamList[count].seeding = 1;
 		count++;
 	}
 	for (WORD i = count; i < 24; i++)
 	{
 		teamList[i].club = 0;
-		teamList[i].f5 = 6;
+		teamList[i].seeding = 6;
 	}
 	if (year == 2024) {
 		teamList[count++].club = get_national_team(NATION_GERMANY_9CF());
@@ -704,10 +704,10 @@ void euro_champ_setup1(BYTE* _this) {
 		for (WORD i = 0; i < n; i++) {
 			cm3_clubs* c = qualified_teams[i];
 			teamList[i].club = c;
-			if (i < 6) teamList[i].f5 = 3;
-			else if (i < 12) teamList[i].f5 = 10;
-			else if (i < 18) teamList[i].f5 = 11;
-			else teamList[i].f5 = 12;
+			if (i < 6) teamList[i].seeding = 3;
+			else if (i < 12) teamList[i].seeding = 10;
+			else if (i < 18) teamList[i].seeding = 11;
+			else teamList[i].seeding = 12;
 		}
 	}
 }
@@ -745,9 +745,9 @@ void euro_champ_all_teams(BYTE* _this) {
 
 		for (BYTE i = 0; i < 24; i++) {
 			teamList[i].club = clubs[i];
-			teamList[i].f5 = 6;
+			teamList[i].seeding = 6;
 		}
-		teamList[0].f5 = 1;
+		teamList[0].seeding = 1;
 		data->special_nteams_seedings = 24;
 	}
 	else
@@ -844,7 +844,7 @@ void euro_champ_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->n_teams = 0;
 }
 
-int euro_champ_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int euro_champ_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage < 5) {
@@ -899,7 +899,7 @@ int euro_champ_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BY
 	return 0;
 }
 
-void __declspec(naked) euro_champ_set_table_fate()
+void __declspec(naked) euro_champ_table_fates_c()
 {
 	__asm
 	{
@@ -911,7 +911,7 @@ void __declspec(naked) euro_champ_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call euro_champ_set_fates
+		call euro_champ_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -1079,7 +1079,7 @@ void setup_euro_champ() {
 	WriteVTablePtr(euro_champ_vtable, VTableSetChampion, (DWORD)&euro_champ_set_champion_c);
 	WriteVTablePtr(euro_champ_vtable, VTableFixtures, (DWORD)&euro_champ_fixture_caller);
 	WriteVTablePtr(euro_champ_vtable, VTablePlayoffQual, (DWORD)&euro_champ_stages_create_c);
-	WriteVTablePtr(euro_champ_vtable, VTableTableFates, (DWORD)&euro_champ_set_table_fate);
+	WriteVTablePtr(euro_champ_vtable, VTableTableFates, (DWORD)&euro_champ_table_fates_c);
 	WriteVTablePtr(euro_champ_vtable, VTableStageNews, (DWORD)&euro_champ_stage_news_c);
 	WriteVTablePtr(euro_champ_vtable, VTable29, (DWORD)&euro_champ_vtable29_c);
 	WriteVTablePtr(euro_champ_vtable, VTable30, (DWORD)&euro_champ_vtable30_c);

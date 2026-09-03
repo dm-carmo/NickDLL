@@ -198,27 +198,27 @@ DWORD ita_ser_c_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 4, 27), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 3), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 5, 18, 9, 18, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, FirstRound, 8, FixedTeamOrderInCup | HigherSeedingTiebreak, NoTiebreak, 5, 18, 9, 18, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 4), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 7), year, Thursday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SecondRound, 0, ExtraTimePenalties_1, NoTiebreak_2, 5, 12, 6, 3, 18, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, SecondRound, 8, HigherSeedingTiebreak, NoTiebreak, 5, 12, 6, 3, 18, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 8), year, Friday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 10), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 5, 10, 5, 4, 21, 0, 2, 3);
+		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 8, NoAwayGoals, HigherSeedingTiebreak | NoAwayGoals, 5, 10, 5, 4, 21, 0, 2, 3);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 15), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 18), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 5, 8, 4, 3, 25, 0, 2, 3);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 8, NoAwayGoals, HigherSeedingTiebreak | NoAwayGoals, 5, 8, 4, 3, 25, 0, 2, 3);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 19), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 25), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 6, 4, 2, 0, 0, 0, 2, 3);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 8, NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 6, 4, 2, 0, 0, 0, 2, 3);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 26), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 6, 3), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 6, 2, 1, 0, 0, 0, 2, 4);
+		FillFixtureDetails(pMem, fixture_id++, Final, 8, NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 6, 2, 1, 0, 0, 0, 2, 4);
 
 		return (DWORD)pMem;
 	}
@@ -235,7 +235,7 @@ DWORD ita_ser_c_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 4, 27), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 10), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 5, 12, 6, 12, 0, 0, 2, 7);
+		FillFixtureDetails(pMem, fixture_id++, Final, 8, FixedTeamOrderInCup | NoAwayGoals, HigherSeedingTiebreak | NoAwayGoals, 5, 12, 6, 12, 0, 0, 2, 7);
 
 		return (DWORD)pMem;
 	}
@@ -393,6 +393,7 @@ void ita_c_playoffs_prom(BYTE* _this) {
 	DWORD* pTeams = (DWORD*)cm0102_malloc(playoff_teams * 4);
 	char fallback_group = -1;
 	bool use_fallback = false;
+	BYTE seeds[28] = { 0 };
 
 	comp_stats* curr_stage = comp_data;
 	vector<cm3_clubs*> clubs_rnd1;
@@ -519,16 +520,20 @@ void ita_c_playoffs_prom(BYTE* _this) {
 	// add them all now
 	BYTE team_order[18] = { 0,2,4,5,3,1,6,8,10,11,9,7,12,14,16,17,15,13 };
 	for (size_t i = 0; i < clubs_rnd1.size(); i++) {
+		seeds[team_order[i]] = (BYTE)i + 10;
 		*((DWORD*)(&pTeams[team_order[i]])) = (DWORD)clubs_rnd1[i];
 	}
 	size_t j = clubs_rnd1.size();
 	for (size_t i = 0; i < clubs_rnd2.size(); i++) {
+		seeds[j] = (BYTE)i + 7;
 		*((DWORD*)(&pTeams[j++])) = (DWORD)clubs_rnd2[i];
 	}
 	for (size_t i = 0; i < clubs_rnd3.size(); i++) {
+		seeds[j] = (BYTE)i + 3;
 		*((DWORD*)(&pTeams[j++])) = (DWORD)clubs_rnd3[i];
 	}
 	for (size_t i = 0; i < clubs_rnd4.size(); i++) {
+		seeds[j] = (BYTE)i;
 		*((DWORD*)(&pTeams[j++])) = (DWORD)clubs_rnd4[i];
 	}
 
@@ -538,8 +543,8 @@ void ita_c_playoffs_prom(BYTE* _this) {
 	DWORD v1 = *(DWORD*)_this;
 	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, char, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
 	BYTE* new_stage = (BYTE*)cm0102_new(0xB2);
-	BYTE seeds[28] = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,2,2,2,2,3,3,3 };
-	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)(comp_data->competition_db), pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, seeds);
+	//BYTE seeds[28] = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,2,2,2,2,3,3,3 };
+	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)(comp_data->competition_db), pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, &seeds[0]);
 	DWORD* stages_arr = comp_data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
 	sub_51C800(new_stage, 0);
@@ -553,6 +558,7 @@ void ita_c_playoffs_rele(BYTE* _this) {
 	BYTE playoff_teams = 12;
 	DWORD* pTeams = (DWORD*)cm0102_malloc(playoff_teams * 4);
 	BYTE team_order[12] = { 0,3,2,1,4,7,6,5,8,11,10,9 };
+	BYTE seeds[12] = { 0 };
 
 	comp_stats* curr_stage = comp_data;
 	vector<cm3_clubs*> clubs;
@@ -569,6 +575,7 @@ void ita_c_playoffs_rele(BYTE* _this) {
 	}
 
 	for (size_t i = 0; i < clubs.size(); i++) {
+		seeds[team_order[i]] = (BYTE)i;
 		*((DWORD*)(&pTeams[team_order[i]])) = (DWORD)clubs[i];
 	}
 
@@ -578,7 +585,7 @@ void ita_c_playoffs_rele(BYTE* _this) {
 	DWORD v1 = *(DWORD*)_this;
 	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, char, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
 	BYTE* new_stage = (BYTE*)cm0102_new(0xB2);
-	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)(comp_data->competition_db), pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, 0);
+	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)(comp_data->competition_db), pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, &seeds[0]);
 	DWORD* stages_arr = comp_data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
 	sub_51C800(new_stage, 0);
@@ -613,7 +620,7 @@ void __declspec(naked) ita_c_playoffs_create()
 	}
 }
 
-int ita_ser_c_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int ita_ser_c_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == 2) {
@@ -707,7 +714,7 @@ int ita_ser_c_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char sta
 	return 0;
 }
 
-void __declspec(naked) ita_ser_c_set_table_fate()
+void __declspec(naked) ita_ser_c_table_fates_c()
 {
 	__asm
 	{
@@ -719,7 +726,7 @@ void __declspec(naked) ita_ser_c_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call ita_ser_c_table_indicators
+		call ita_ser_c_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -932,7 +939,7 @@ void ita_ser_c_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	ita_ser_c_vtable->SetPointer(VTableEoSUpdate, (DWORD)&ita_ser_c_update_c);
 	ita_ser_c_vtable->SetPointer(VTablePlayoffQual, (DWORD)&ita_c_playoffs_create);
 	ita_ser_c_vtable->SetPointer(VTableFixtures, (DWORD)&ita_ser_c_fixtures_c);
-	ita_ser_c_vtable->SetPointer(VTableTableFates, (DWORD)&ita_ser_c_set_table_fate);
+	ita_ser_c_vtable->SetPointer(VTableTableFates, (DWORD)&ita_ser_c_table_fates_c);
 	ita_ser_c_vtable->SetPointer(VTableReputationSetup, (DWORD)&ita_ser_c_reputation_setup_c);
 	ita_ser_c_vtable->SetPointer(VTableReputationCalc, (DWORD)&ita_ser_c_reputation_calc_c);
 	ita_ser_c_vtable->SetPointer(VTableAwardTeamsSetup, (DWORD)&ita_7D2B80_c);

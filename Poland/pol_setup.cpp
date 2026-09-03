@@ -19,12 +19,12 @@ DWORD pol_setup_c(playable_nation_data* nation_data) {
 	nation_data->contract_start_day = 17;
 	nation_data->contract_start_month = July;
 	nation_data->contract_start_year = *current_year;
-	nation_data->f55 = 5;
+	nation_data->contract_start_day_of_week = 5;
 	
 	nation_data->contract_end_day = 3;
 	nation_data->contract_end_month = June;
 	nation_data->contract_end_year = *current_year + 1;
-	nation_data->f70 = 5;
+	nation_data->contract_end_day_of_week = 5;
 	nation_data->num_of_comps = 5;
 	DWORD* nation_comps = (DWORD*)cm0102_malloc(nation_data->num_of_comps * 4);
 	nation_data->comps_list = (DWORD)nation_comps;

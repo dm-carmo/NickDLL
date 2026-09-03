@@ -161,14 +161,14 @@ DWORD world_cup_quals_uefa_fixtures(BYTE* _this, char stage_idx, WORD* num_round
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 15), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 23), year, Thursday, Afternoon);
 		if (num_hosts == 1)
-			FillFixtureDetails(pMem, fixture_id++, num_hosts == 1 ? Final : SemiFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 10, teams_r1, teams_r1 / 2, teams_r1, 0, 0, 2, 5);
+			FillFixtureDetails(pMem, fixture_id++, num_hosts == 1 ? Final : SemiFinal, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 10, teams_r1, teams_r1 / 2, teams_r1, 0, 0, 2, 5);
 		else
-			FillFixtureDetails(pMem, fixture_id++, num_hosts == 1 ? Final : SemiFinal, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 10, teams_r1, teams_r1 / 2, teams_r1, 0, 0, 1, 0);
+			FillFixtureDetails(pMem, fixture_id++, num_hosts == 1 ? Final : SemiFinal, 0, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 10, teams_r1, teams_r1 / 2, teams_r1, 0, 0, 1, 0);
 
 		if (num_hosts != 1) {
 			AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 24), year, Friday);
 			AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 28), year, Tuesday, Afternoon);
-			FillFixtureDetails(pMem, fixture_id++, Final, 0, FixedTeamOrderInCup3 + ExtraTimePenalties_1, NoTiebreak_2, 10, teams_r2, teams_r2 / 2, total_teams - teams_r1, teams_r1 * (total_teams != teams_r1), 0, 1, 0);
+			FillFixtureDetails(pMem, fixture_id++, Final, 0, FixedTeamOrderInCup3 | Penalties | ExtraTime, NoTiebreak, 10, teams_r2, teams_r2 / 2, total_teams - teams_r1, teams_r1 * (total_teams != teams_r1), 0, 1, 0);
 		}
 
 		return (DWORD)pMem;
@@ -411,8 +411,8 @@ void world_cup_quals_uefa_all_teams(BYTE* _this) {
 		if (countries[i]->ClubNation->NationID == host1_id || countries[i]->ClubNation->NationID == host2_id) continue;
 		if (countries[i]->ClubNation->NationID == NATION_RUSSIA_9CF()) continue; // review Russia ban at a later date
 		teams[j].club = countries[i];
-		if (j < 36) teams[j].f5 = 10;
-		else teams[j].f5 = 11;
+		if (j < 36) teams[j].seeding = 10;
+		else teams[j].seeding = 11;
 		teams[j].f6 = 0;
 		j++;
 	}
@@ -454,7 +454,7 @@ void world_cup_quals_uefa_create_league_a_matchups(BYTE* _this, BYTE* stage, vec
 		match->sub_stage_id = 0;
 		match->main_stage_id = stage_name_id;
 		match->f54_0xdb = stage_data->f219;
-		match->f56_0xab = stage_data->f171;
+		match->tiebreaks = stage_data->f171;
 		match->f58_0xc4 = stage_data->f196;
 		match->f59 = -1;
 		match->f61 = 0;
@@ -616,7 +616,7 @@ void world_cup_quals_uefa_setup_groups_b(BYTE* _this, BYTE idx) {
 			match->sub_stage_id = 0;
 			match->main_stage_id = stage_name_id;
 			match->f54_0xdb = data->f219;
-			match->f56_0xab = data->f171;
+			match->tiebreaks = data->f171;
 			match->f58_0xc4 = data->f196;
 			match->f59 = -1;
 			match->f61 = 0;
@@ -830,7 +830,7 @@ void __declspec(naked) world_cup_quals_uefa_init2_c()
 	}
 }
 
-int world_cup_quals_uefa_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int world_cup_quals_uefa_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), EUROPE_9CF(), 0, 0);
@@ -916,7 +916,7 @@ int world_cup_quals_uefa_set_fates(BYTE* _this, cm3_clubs* club, char fate, char
 	return 0;
 }
 
-void __declspec(naked) world_cup_quals_uefa_set_table_fate()
+void __declspec(naked) world_cup_quals_uefa_table_fates_c()
 {
 	__asm
 	{
@@ -928,7 +928,7 @@ void __declspec(naked) world_cup_quals_uefa_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call world_cup_quals_uefa_set_fates
+		call world_cup_quals_uefa_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -1332,7 +1332,7 @@ void setup_world_cup_quals_uefa() {
 	WriteVTablePtr(world_cup_quals_uefa_vtable, VTableInitFree, (DWORD)&world_cup_quals_uefa_free_c);
 	WriteVTablePtr(world_cup_quals_uefa_vtable, VTableEoSUpdate, (DWORD)&world_cup_quals_uefa_update_c);
 	WriteVTablePtr(world_cup_quals_uefa_vtable, VTableLeagueSplit, (DWORD)&world_cup_quals_uefa_init2_c);
-	WriteVTablePtr(world_cup_quals_uefa_vtable, VTableTableFates, (DWORD)&world_cup_quals_uefa_set_table_fate);
+	WriteVTablePtr(world_cup_quals_uefa_vtable, VTableTableFates, (DWORD)&world_cup_quals_uefa_table_fates_c);
 	WriteVTablePtr(world_cup_quals_uefa_vtable, VTableFixtures, (DWORD)&world_cup_quals_uefa_fixture_caller);
 	WriteVTablePtr(world_cup_quals_uefa_vtable, VTableStageNews, (DWORD)&world_cup_quals_uefa_stage_news_c);
 	WriteVTablePtr(world_cup_quals_uefa_vtable, VTable29, (DWORD)&world_cup_quals_uefa_vtable29_c);

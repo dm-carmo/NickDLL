@@ -483,7 +483,7 @@ void __declspec(naked) rus_second_a_playoffs_create_c()
 	}
 }
 
-int rus_second_a_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int rus_second_a_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage < 1) {
@@ -572,7 +572,7 @@ int rus_second_a_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char 
 	return 0;
 }
 
-void __declspec(naked) rus_second_a_set_table_fate()
+void __declspec(naked) rus_second_a_table_fates_c()
 {
 	__asm
 	{
@@ -584,7 +584,7 @@ void __declspec(naked) rus_second_a_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call rus_second_a_table_indicators
+		call rus_second_a_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -730,7 +730,7 @@ void rus_second_a_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	rus_second_a_vtable->SetPointer(VTableReputationSetup, (DWORD)&rus_second_a_reputation_setup_c);
 	rus_second_a_vtable->SetPointer(VTableReputationCalc, (DWORD)&rus_second_a_reputation_calc_c);
 	rus_second_a_vtable->SetPointer(VTableSubsRounds, (DWORD)&rus_second_a_subs_c);
-	rus_second_a_vtable->SetPointer(VTableTableFates, (DWORD)&rus_second_a_set_table_fate);
+	rus_second_a_vtable->SetPointer(VTableTableFates, (DWORD)&rus_second_a_table_fates_c);
 	rus_second_a_vtable->SetPointer(VTablePlayoffQual, (DWORD)&rus_second_a_playoffs_create_c);
 	rus_second_a_vtable->SetPointer(VTableUpdateLastDivision, (DWORD)&rus_second_a_last_positions_c);
 	rus_second_a_vtable->SetPointer(VTable39, 0x404480);

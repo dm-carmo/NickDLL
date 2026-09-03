@@ -552,7 +552,7 @@ void __declspec(naked) hol_first_playoffs_create()
 	}
 }
 
-int hol_first_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int hol_first_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	BYTE* hol_second = get_loaded_league(HOL_SECOND_9CF());
@@ -578,7 +578,7 @@ int hol_first_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char sta
 	return 0;
 }
 
-void __declspec(naked) hol_first_set_table_fate()
+void __declspec(naked) hol_first_table_fates_c()
 {
 	__asm
 	{
@@ -590,7 +590,7 @@ void __declspec(naked) hol_first_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call hol_first_table_indicators
+		call hol_first_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -633,7 +633,7 @@ void setup_hol_first()
 	WriteVTablePtr(hol_first_vtable, VTableFixtures, (DWORD)&hol_first_fixtures_c);
 	WriteVTablePtr(hol_first_vtable, VTableReputationCalc, (DWORD)&hol_first_reputation_calc_c);
 	WriteVTablePtr(hol_first_vtable, VTablePlayoffQual, (DWORD)&hol_first_playoffs_create);
-	WriteVTablePtr(hol_first_vtable, VTableTableFates, (DWORD)&hol_first_set_table_fate);
+	WriteVTablePtr(hol_first_vtable, VTableTableFates, (DWORD)&hol_first_table_fates_c);
 	WriteVTablePtr(hol_first_vtable, VTableSetChampion, (DWORD)&hol_first_set_champion_c);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(hol_first_vtable, VTableShowThirdInHistory, 0x4110b0);
 }

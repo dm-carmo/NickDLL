@@ -174,11 +174,11 @@ DWORD bra_reg_north_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 3, 1), year, Saturday);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Sunday, Afternoon);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup2 + PenaltiesNoExtraTime_1, NoTiebreak_2, 5, 4, 2, 4, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup2 | Penalties, NoTiebreak, 5, 4, 2, 4, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 3, 2), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 3, 8), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, PenaltiesNoExtraTime_1, NoTiebreak_2, 5, 2, 1, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, Penalties, NoTiebreak, 5, 2, 1, 0, 0, 0, 1, 0);
 
 		return (DWORD)pMem;
 	}
@@ -201,7 +201,7 @@ void __declspec(naked) bra_reg_north_fixtures_c()
 	}
 }
 
-int bra_reg_north_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int bra_reg_north_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage < 0) {
@@ -257,7 +257,7 @@ int bra_reg_north_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage,
 	return 0;
 }
 
-void __declspec(naked) bra_reg_north_set_table_fate()
+void __declspec(naked) bra_reg_north_table_fates_c()
 {
 	__asm
 	{
@@ -269,7 +269,7 @@ void __declspec(naked) bra_reg_north_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call bra_reg_north_set_fates
+		call bra_reg_north_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -401,6 +401,6 @@ void setup_bra_reg_north() {
 	WriteVTablePtr(bra_reg_north_vtable, VTableEoSUpdate, (DWORD)&bra_reg_north_update_c);
 	WriteVTablePtr(bra_reg_north_vtable, VTableReputationCalc, (DWORD)&bra_reg_north_reputation_calc_c);
 	WriteVTablePtr(bra_reg_north_vtable, VTableSetChampion, (DWORD)&bra_reg_north_set_champion_c);
-	WriteVTablePtr(bra_reg_north_vtable, VTableTableFates, (DWORD)&bra_reg_north_set_table_fate);
+	WriteVTablePtr(bra_reg_north_vtable, VTableTableFates, (DWORD)&bra_reg_north_table_fates_c);
 	WriteVTablePtr(bra_reg_north_vtable, VTablePlayoffQual, (DWORD)&bra_reg_north_playoffs_create);
 }

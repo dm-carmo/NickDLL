@@ -183,7 +183,7 @@ DWORD asian_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Monday, Afternoon, LargestStadium3);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Saturday, Afternoon, LargestStadium2);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Sunday, Afternoon, LargestStadium5);
-		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, FixedTeamOrderInCup2 + ExtraTimePenalties_1, NoTiebreak_2, 10, 16, 8, 16, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, FixedTeamOrderInCup2 | Penalties | ExtraTime, NoTiebreak, 10, 16, 8, 16, 0, 0, 1, 0);
 		tv_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 1, 26), year, Tuesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 1, 28), year, Thursday, Afternoon, VenueUnknown_1);
@@ -192,18 +192,18 @@ DWORD asian_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Friday, Afternoon, NationalStadium);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Friday, Afternoon, LargestStadium2);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup2 + ExtraTimePenalties_1, NoTiebreak_2, 10, 8, 4, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup2 | Penalties | ExtraTime, NoTiebreak, 10, 8, 4, 0, 0, 0, 1, 0);
 		tv_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 1, 30), year, Saturday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 2, 2), year, Tuesday, Afternoon, VenueUnknown_1);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Monday, Afternoon, LargestStadium2);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Tuesday, Afternoon, LargestStadium1);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup2 + ExtraTimePenalties_1, NoTiebreak_2, 10, 4, 2, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup2 | Penalties | ExtraTime, NoTiebreak, 10, 4, 2, 0, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 2, 3), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 2, 5), year, Friday, Afternoon, NationalStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 10, 2, 1, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, Penalties | ExtraTime, NoTiebreak, 10, 2, 1, 0, 0, 0, 1, 0);
 
 		return (DWORD)pMem;
 	}
@@ -449,18 +449,18 @@ void asian_cup_seeded_teams(BYTE* _this) {
 	char num_hosts = get_host_ids_5FA730((BYTE*)*b5e134, data->competition_db->ClubCompID, year, &host1_id, &host2_id, 1);
 	if (num_hosts > 0) {
 		teamList[count].club = get_national_team(host1_id);
-		teamList[count].f5 = 1;
+		teamList[count].seeding = 1;
 		count++;
 	}
 	if (num_hosts > 1) {
 		teamList[count].club = get_national_team(host2_id);
-		teamList[count].f5 = 1;
+		teamList[count].seeding = 1;
 		count++;
 	}
 	for (WORD i = count; i < 24; i++)
 	{
 		teamList[i].club = 0;
-		teamList[i].f5 = 6;
+		teamList[i].seeding = 6;
 	}
 	if (year == 2027) {
 		teamList[count++].club = get_national_team(NATION_SAUDI_ARABIA_9CF());
@@ -704,10 +704,10 @@ void asian_cup_setup1(BYTE* _this) {
 		for (WORD i = 0; i < n; i++) {
 			cm3_clubs* c = qualified_teams[i];
 			teamList[i].club = c;
-			if (i < 6) teamList[i].f5 = 3;
-			else if (i < 12) teamList[i].f5 = 10;
-			else if (i < 18) teamList[i].f5 = 11;
-			else teamList[i].f5 = 12;
+			if (i < 6) teamList[i].seeding = 3;
+			else if (i < 12) teamList[i].seeding = 10;
+			else if (i < 18) teamList[i].seeding = 11;
+			else teamList[i].seeding = 12;
 		}
 	}
 }
@@ -745,9 +745,9 @@ void asian_cup_all_teams(BYTE* _this) {
 
 		for (BYTE i = 0; i < 24; i++) {
 			teamList[i].club = clubs[i];
-			teamList[i].f5 = 6;
+			teamList[i].seeding = 6;
 		}
-		teamList[0].f5 = 1;
+		teamList[0].seeding = 1;
 		data->special_nteams_seedings = 24;
 	}
 	else
@@ -844,7 +844,7 @@ void asian_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->n_teams = 0;
 }
 
-int asian_cup_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int asian_cup_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage < 5) {
@@ -899,7 +899,7 @@ int asian_cup_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYT
 	return 0;
 }
 
-void __declspec(naked) asian_cup_set_table_fate()
+void __declspec(naked) asian_cup_table_fates_c()
 {
 	__asm
 	{
@@ -911,7 +911,7 @@ void __declspec(naked) asian_cup_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call asian_cup_set_fates
+		call asian_cup_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -1079,7 +1079,7 @@ void setup_asian_cup() {
 	WriteVTablePtr(asian_cup_vtable, VTableSetChampion, (DWORD)&asian_cup_set_champion_c);
 	WriteVTablePtr(asian_cup_vtable, VTableFixtures, (DWORD)&asian_cup_fixture_caller);
 	WriteVTablePtr(asian_cup_vtable, VTablePlayoffQual, (DWORD)&asian_cup_stages_create_c);
-	WriteVTablePtr(asian_cup_vtable, VTableTableFates, (DWORD)&asian_cup_set_table_fate);
+	WriteVTablePtr(asian_cup_vtable, VTableTableFates, (DWORD)&asian_cup_table_fates_c);
 	WriteVTablePtr(asian_cup_vtable, VTableStageNews, (DWORD)&asian_cup_stage_news_c);
 	WriteVTablePtr(asian_cup_vtable, VTable29, (DWORD)&asian_cup_vtable29_c);
 	WriteVTablePtr(asian_cup_vtable, VTable30, (DWORD)&asian_cup_vtable30_c);

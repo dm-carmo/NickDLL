@@ -198,7 +198,7 @@ DWORD concacaf_nations_league_fixtures(BYTE* _this, char stage_idx, WORD* num_ro
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 4), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 12), year, Thursday, Afternoon);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 10, 8, 4, 8, 0, 0, 2, 5);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 10, 8, 4, 8, 0, 0, 2, 5);
 
 		// semi + final to be played at host country eventually
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 18), year, Wednesday);
@@ -206,11 +206,11 @@ DWORD concacaf_nations_league_fixtures(BYTE* _this, char stage_idx, WORD* num_ro
 		AddPlayoffTVFixture(pMem, fixture_id, 0, 3, Wednesday, Afternoon);
 		AddPlayoffTVFixture(pMem, fixture_id, 0, 3, Thursday, Afternoon);
 		AddPlayoffTVFixture(pMem, fixture_id, 1);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup2 + ExtraTimePenalties_1, NoTiebreak_2, 10, 4, 2, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup2 | Penalties | ExtraTime, NoTiebreak, 10, 4, 2, 0, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 24), year, Friday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 26), year, Sunday, Afternoon);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 10, 2, 1, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, Penalties | ExtraTime, NoTiebreak, 10, 2, 1, 0, 0, 0, 1, 0);
 
 		return (DWORD)pMem;
 	}
@@ -228,7 +228,7 @@ DWORD concacaf_nations_league_fixtures(BYTE* _this, char stage_idx, WORD* num_ro
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 23), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 26), year, Sunday, Afternoon);
-		FillFixtureDetails(pMem, fixture_id++, None, 0, ExtraTimePenalties_1, NoTiebreak_2, 10, 2, 1, 2, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, None, 0, Penalties | ExtraTime, NoTiebreak, 10, 2, 1, 2, 0, 0, 1, 0);
 
 		return (DWORD)pMem;
 	}
@@ -246,10 +246,10 @@ DWORD concacaf_nations_league_fixtures(BYTE* _this, char stage_idx, WORD* num_ro
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 15), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 23), year, Thursday, Afternoon);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 10, 4, 2, 4, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 10, 4, 2, 4, 0, 0, 1, 0);
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 24), year, Friday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 26), year, Sunday, Afternoon);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 10, 2, 1, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, Penalties | ExtraTime, NoTiebreak, 10, 2, 1, 0, 0, 0, 1, 0);
 
 		return (DWORD)pMem;
 	}
@@ -267,10 +267,10 @@ DWORD concacaf_nations_league_fixtures(BYTE* _this, char stage_idx, WORD* num_ro
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 4), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 25), year, Saturday, Afternoon);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 10, 4, 2, 4, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 10, 4, 2, 4, 0, 0, 1, 0);
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 26), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 28), year, Tuesday, Afternoon);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 10, 2, 1, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, Penalties | ExtraTime, NoTiebreak, 10, 2, 1, 0, 0, 0, 1, 0);
 
 		return (DWORD)pMem;
 	}
@@ -389,19 +389,19 @@ void concacaf_nations_league_prom_rel_update(BYTE* _this) {
 	size_t i = 0;
 	for (; i < lge_a.size(); i++) {
 		teams[i].club = lge_a[i];
-		if (i < 4) teams[i].f5 = 3;
-		else teams[i].f5 = 10;
+		if (i < 4) teams[i].seeding = 3;
+		else teams[i].seeding = 10;
 		teams[i].f6 = 0;
 	}
 	size_t j = 0;
 	for (; j < lge_b.size(); j++) {
 		teams[i + j].club = lge_b[j];
-		teams[i + j].f5 = 11;
+		teams[i + j].seeding = 11;
 		teams[i + j].f6 = 0;
 	}
 	for (size_t k = 0; k < lge_c.size(); k++) {
 		teams[i + j + k].club = lge_c[k];
-		teams[i + j + k].f5 = 12;
+		teams[i + j + k].seeding = 12;
 		teams[i + j + k].f6 = 0;
 	}
 }
@@ -664,10 +664,10 @@ void concacaf_nations_league_all_teams(BYTE* _this) {
 
 	for (BYTE i = 0; i < total_teams_in_comp; i++) {
 		teams[i].club = countries[i];
-		if (i < 4) teams[i].f5 = 3;
-		else if (i < 16) teams[i].f5 = 10;
-		else if (i < 32) teams[i].f5 = 11;
-		else teams[i].f5 = 12;
+		if (i < 4) teams[i].seeding = 3;
+		else if (i < 16) teams[i].seeding = 10;
+		else if (i < 32) teams[i].seeding = 11;
+		else teams[i].seeding = 12;
 		teams[i].f6 = 0;
 	}
 }
@@ -702,7 +702,7 @@ void concacaf_nations_league_create_matchups(BYTE* _this, BYTE* stage, vector<cm
 		match->sub_stage_id = 0;
 		match->main_stage_id = stage_name_id;
 		match->f54_0xdb = data->f219;
-		match->f56_0xab = data->f171;
+		match->tiebreaks = data->f171;
 		match->f58_0xc4 = data->f196;
 		match->f59 = -1;
 		match->f61 = 0;
@@ -1338,7 +1338,7 @@ void __declspec(naked) concacaf_nations_league_init2_c()
 	}
 }
 
-int concacaf_nations_league_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int concacaf_nations_league_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage < 1) {
@@ -1565,7 +1565,7 @@ int concacaf_nations_league_set_fates(BYTE* _this, cm3_clubs* club, char fate, c
 	return 0;
 }
 
-void __declspec(naked) concacaf_nations_league_set_table_fate()
+void __declspec(naked) concacaf_nations_league_table_fates_c()
 {
 	__asm
 	{
@@ -1577,7 +1577,7 @@ void __declspec(naked) concacaf_nations_league_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call concacaf_nations_league_set_fates
+		call concacaf_nations_league_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -1877,7 +1877,7 @@ void concacaf_nations_league_init(BYTE* _this, WORD year, cm3_club_comps* comp) 
 	concacaf_nations_league_vtable->SetPointer(VTableInitFree, (DWORD)&concacaf_nations_league_free_c);
 	concacaf_nations_league_vtable->SetPointer(VTableEoSUpdate, (DWORD)&concacaf_nations_league_update_c);
 	concacaf_nations_league_vtable->SetPointer(VTableLeagueSplit, (DWORD)&concacaf_nations_league_init2_c);
-	concacaf_nations_league_vtable->SetPointer(VTableTableFates, (DWORD)&concacaf_nations_league_set_table_fate);
+	concacaf_nations_league_vtable->SetPointer(VTableTableFates, (DWORD)&concacaf_nations_league_table_fates_c);
 	concacaf_nations_league_vtable->SetPointer(VTableFixtures, (DWORD)&concacaf_nations_league_fixture_caller);
 	concacaf_nations_league_vtable->SetPointer(VTableStageNews, (DWORD)&concacaf_nations_league_stage_news_c);
 	concacaf_nations_league_vtable->SetPointer(VTableSetChampion, (DWORD)&concacaf_nations_league_set_champion_c);

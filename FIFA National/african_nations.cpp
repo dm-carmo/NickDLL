@@ -190,7 +190,7 @@ DWORD african_nations_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WO
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Tuesday, Afternoon, LargestStadium5);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Sunday, Afternoon, LargestStadium8);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Sunday, Afternoon, NationalStadium);
-		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, FixedTeamOrderInCup2 + ExtraTimePenalties_1, NoTiebreak_2, 10, 16, 8, 16, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, FixedTeamOrderInCup2 | Penalties | ExtraTime, NoTiebreak, 10, 16, 8, 16, 0, 0, 1, 0);
 		tv_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 7), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 9), year, Friday, Afternoon, VenueUnknown_1);
@@ -199,18 +199,18 @@ DWORD african_nations_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WO
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Saturday, Afternoon, LargestStadium3);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Friday, Afternoon, NationalStadium);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup2 + ExtraTimePenalties_1, NoTiebreak_2, 10, 8, 4, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup2 | Penalties | ExtraTime, NoTiebreak, 10, 8, 4, 0, 0, 0, 1, 0);
 		tv_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 11), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 14), year, Wednesday, Afternoon, VenueUnknown_1);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Wednesday, Afternoon, LargestStadium1);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Wednesday, Afternoon, NationalStadium);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup2 + ExtraTimePenalties_1, NoTiebreak_2, 10, 4, 2, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup2 | Penalties | ExtraTime, NoTiebreak, 10, 4, 2, 0, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 15), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 18), year, Sunday, Afternoon, NationalStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, ExtraTimePenalties_1, NoTiebreak_2, 10, 2, 1, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, Penalties | ExtraTime, NoTiebreak, 10, 2, 1, 0, 0, 0, 1, 0);
 
 		return (DWORD)pMem;
 	}
@@ -227,7 +227,7 @@ DWORD african_nations_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WO
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 14), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 17), year, Saturday, Afternoon, LargestStadium4);
-		FillFixtureDetails(pMem, fixture_id++, None, 0, ExtraTimePenalties_1, NoTiebreak_2, 10, 2, 1, 2, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, None, 0, Penalties | ExtraTime, NoTiebreak, 10, 2, 1, 2, 0, 0, 1, 0);
 
 		return (DWORD)pMem;
 	}
@@ -478,18 +478,18 @@ void african_nations_seeded_teams(BYTE* _this) {
 	char num_hosts = get_host_ids_5FA730((BYTE*)*b5e134, data->competition_db->ClubCompID, year, &host1_id, &host2_id, 1);
 	if (num_hosts > 0) {
 		teamList[count].club = get_national_team(host1_id);
-		teamList[count].f5 = 1;
+		teamList[count].seeding = 1;
 		count++;
 	}
 	if (num_hosts > 1) {
 		teamList[count].club = get_national_team(host2_id);
-		teamList[count].f5 = 1;
+		teamList[count].seeding = 1;
 		count++;
 	}
 	for (WORD i = count; i < 24; i++)
 	{
 		teamList[i].club = 0;
-		teamList[i].f5 = 6;
+		teamList[i].seeding = 6;
 	}
 	if (year == 2025) {
 		teamList[count++].club = get_national_team(NATION_MOROCCO_9CF());
@@ -757,10 +757,10 @@ void african_nations_setup1(BYTE* _this) {
 		for (WORD i = 0; i < n; i++) {
 			cm3_clubs* c = qualified_teams[i];
 			teamList[i].club = c;
-			if (i < 6) teamList[i].f5 = 3;
-			else if (i < 12) teamList[i].f5 = 10;
-			else if (i < 18) teamList[i].f5 = 11;
-			else teamList[i].f5 = 12;
+			if (i < 6) teamList[i].seeding = 3;
+			else if (i < 12) teamList[i].seeding = 10;
+			else if (i < 18) teamList[i].seeding = 11;
+			else teamList[i].seeding = 12;
 		}
 	}
 }
@@ -798,9 +798,9 @@ void african_nations_all_teams(BYTE* _this) {
 
 		for (BYTE i = 0; i < 24; i++) {
 			teamList[i].club = clubs[i];
-			teamList[i].f5 = 6;
+			teamList[i].seeding = 6;
 		}
-		teamList[0].f5 = 1;
+		teamList[0].seeding = 1;
 		data->special_nteams_seedings = 24;
 	}
 	else
@@ -897,7 +897,7 @@ void african_nations_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->n_teams = 0;
 }
 
-int african_nations_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int african_nations_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage < 5) {
@@ -988,7 +988,7 @@ int african_nations_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stag
 	return 0;
 }
 
-void __declspec(naked) african_nations_set_table_fate()
+void __declspec(naked) african_nations_table_fates_c()
 {
 	__asm
 	{
@@ -1000,7 +1000,7 @@ void __declspec(naked) african_nations_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call african_nations_set_fates
+		call african_nations_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -1215,7 +1215,7 @@ void setup_african_nations() {
 	WriteVTablePtr(african_nations_vtable, VTableSetChampion, (DWORD)&african_nations_set_champion_c);
 	WriteVTablePtr(african_nations_vtable, VTableFixtures, (DWORD)&african_nations_fixture_caller);
 	WriteVTablePtr(african_nations_vtable, VTablePlayoffQual, (DWORD)&african_nations_stages_create_c);
-	WriteVTablePtr(african_nations_vtable, VTableTableFates, (DWORD)&african_nations_set_table_fate);
+	WriteVTablePtr(african_nations_vtable, VTableTableFates, (DWORD)&african_nations_table_fates_c);
 	WriteVTablePtr(african_nations_vtable, VTableStageNews, (DWORD)&african_nations_stage_news_c);
 	WriteVTablePtr(african_nations_vtable, VTable29, (DWORD)&african_nations_vtable29_c);
 	WriteVTablePtr(african_nations_vtable, VTable30, (DWORD)&african_nations_vtable30_c);

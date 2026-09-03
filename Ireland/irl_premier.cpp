@@ -338,7 +338,7 @@ DWORD irl_premier_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 2), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 7), year, Friday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, Playoff, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreaker, 5, 2, 1, 2, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, Playoff, 0, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreaker, 5, 2, 1, 2, 0, 0, 1, 0);
 
 		return (DWORD)pMem;
 	}
@@ -462,7 +462,7 @@ void __declspec(naked) irl_premier_playoffs_create()
 	}
 }
 
-int irl_premier_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int irl_premier_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == 0) {
@@ -539,7 +539,7 @@ int irl_premier_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char s
 	return 0;
 }
 
-void __declspec(naked) irl_premier_set_table_fate()
+void __declspec(naked) irl_premier_table_fates_c()
 {
 	__asm
 	{
@@ -551,7 +551,7 @@ void __declspec(naked) irl_premier_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call irl_premier_table_indicators
+		call irl_premier_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -659,7 +659,7 @@ void setup_irl_premier()
 	WriteVTablePtr(irl_premier_vtable, VTableFixtures, (DWORD)&irl_premier_fixtures_c);
 	WriteVTablePtr(irl_premier_vtable, VTableReputationCalc, (DWORD)&irl_premier_reputation_calc_c);
 	WriteVTablePtr(irl_premier_vtable, VTablePlayoffQual, (DWORD)&irl_premier_playoffs_create);
-	WriteVTablePtr(irl_premier_vtable, VTableTableFates, (DWORD)&irl_premier_set_table_fate);
+	WriteVTablePtr(irl_premier_vtable, VTableTableFates, (DWORD)&irl_premier_table_fates_c);
 	WriteVTablePtr(irl_premier_vtable, VTablePromRelUpdate, (DWORD)&irl_premier_prom_rel_update_c);
 	WriteVTablePtr(irl_premier_vtable, VTableStageNews, (DWORD)&irl_premier_stage_news_c);
 	WriteVTablePtr(irl_premier_vtable, VTableLoadCompInfo, 0x48CEB0);

@@ -196,11 +196,11 @@ DWORD fra_third_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 23), year, Saturday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 26), year, Tuesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 5, 4, 2, 4, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 5, 4, 2, 4, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 27), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 29), year, Friday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, FixedTeamOrderInCup + ExtraTimePenalties_1, NoTiebreak_2, 6, 2, 1, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 6, 2, 1, 0, 0, 0, 1, 0);
 
 		return (DWORD)pMem;
 	}
@@ -350,7 +350,7 @@ void __declspec(naked) fra_third_playoffs_create()
 	}
 }
 
-int fra_third_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int fra_third_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == 0) {
@@ -403,7 +403,7 @@ int fra_third_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char sta
 	return 0;
 }
 
-void __declspec(naked) fra_third_set_table_fate()
+void __declspec(naked) fra_third_table_fates_c()
 {
 	__asm
 	{
@@ -415,7 +415,7 @@ void __declspec(naked) fra_third_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call fra_third_table_indicators
+		call fra_third_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -501,7 +501,7 @@ void setup_fra_third()
 	WriteVTablePtr(fra_third_vtable, VTableSubsRounds, (DWORD)&fra_third_subs_c);
 	WriteVTablePtr(fra_third_vtable, VTableEoSUpdate, (DWORD)&fra_third_update_c);
 	WriteVTablePtr(fra_third_vtable, VTableFixtures, (DWORD)&fra_third_fixtures_c);
-	WriteVTablePtr(fra_third_vtable, VTableTableFates, (DWORD)&fra_third_set_table_fate);
+	WriteVTablePtr(fra_third_vtable, VTableTableFates, (DWORD)&fra_third_table_fates_c);
 	WriteVTablePtr(fra_third_vtable, VTablePlayoffQual, (DWORD)&fra_third_playoffs_create);
 	WriteVTablePtr(fra_third_vtable, VTableSetChampion, (DWORD)&fra_third_set_champion_c);
 	WriteVTablePtr(fra_third_vtable, VTableReputationCalc, (DWORD)&fra_third_reputation_calc_c);

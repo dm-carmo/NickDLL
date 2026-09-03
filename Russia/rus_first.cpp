@@ -343,7 +343,7 @@ void rus_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	league_reputation_setup_generic_68A850(_this);
 }
 
-int rus_first_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int rus_first_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	cm3_club_comps* rus_premier = get_comp(RUS_PREMIER_9CF());
@@ -371,7 +371,7 @@ int rus_first_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char sta
 	return 0;
 }
 
-void __declspec(naked) rus_first_set_table_fate()
+void __declspec(naked) rus_first_table_fates_c()
 {
 	__asm
 	{
@@ -383,7 +383,7 @@ void __declspec(naked) rus_first_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call rus_first_table_indicators
+		call rus_first_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -394,6 +394,6 @@ void setup_rus_first()
 	WriteVTablePtr(rus_first_vtable, VTableSubsRounds, (DWORD)&rus_first_subs_c);
 	WriteVTablePtr(rus_first_vtable, VTableEoSUpdate, (DWORD)&rus_first_update_c);
 	WriteVTablePtr(rus_first_vtable, VTableFixtures, (DWORD)&rus_first_fixtures_c);
-	WriteVTablePtr(rus_first_vtable, VTableTableFates, (DWORD)&rus_first_set_table_fate);
+	WriteVTablePtr(rus_first_vtable, VTableTableFates, (DWORD)&rus_first_table_fates_c);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(rus_first_vtable, VTableShowThirdInHistory, 0x4110b0);
 }

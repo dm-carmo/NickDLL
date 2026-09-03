@@ -275,11 +275,11 @@ DWORD sco_champ_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 2), year, Saturday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 6), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 5, 2, 1, 2, 0, 0, 2, 3);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 5, 2, 1, 2, 0, 0, 2, 3);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 10), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 13), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 6, 2, 1, 1, 2, 0, 2, 3);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 6, 2, 1, 1, 2, 0, 2, 3);
 
 		return (DWORD)pMem;
 	}
@@ -296,11 +296,11 @@ DWORD sco_champ_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 2), year, Saturday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 6), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 5, 4, 2, 4, 0, 0, 2, 3);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 5, 4, 2, 4, 0, 0, 2, 3);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 10), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 13), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 6, 2, 1, 0, 0, 0, 2, 3);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 6, 2, 1, 0, 0, 0, 2, 3);
 
 		return (DWORD)pMem;
 	}
@@ -453,7 +453,7 @@ void __declspec(naked) sco_champ_playoffs_create()
 	}
 }
 
-int sco_champ_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int sco_champ_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == 0) {
@@ -560,7 +560,7 @@ int sco_champ_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char sta
 	return 0;
 }
 
-void __declspec(naked) sco_champ_set_table_fate()
+void __declspec(naked) sco_champ_table_fates_c()
 {
 	__asm
 	{
@@ -572,7 +572,7 @@ void __declspec(naked) sco_champ_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call sco_champ_table_indicators
+		call sco_champ_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -743,7 +743,7 @@ void setup_sco_champ()
 	WriteVTablePtr(sco_champ_vtable, VTableFixtures, (DWORD)&sco_champ_fixtures_c);
 	WriteVTablePtr(sco_champ_vtable, VTableReputationCalc, (DWORD)&sco_champ_reputation_calc_c);
 	WriteVTablePtr(sco_champ_vtable, VTablePlayoffQual, (DWORD)&sco_champ_playoffs_create);
-	WriteVTablePtr(sco_champ_vtable, VTableTableFates, (DWORD)&sco_champ_set_table_fate);
+	WriteVTablePtr(sco_champ_vtable, VTableTableFates, (DWORD)&sco_champ_table_fates_c);
 	WriteVTablePtr(sco_champ_vtable, VTableStageNews, (DWORD)&sco_champ_stage_news_c);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(sco_champ_vtable, VTableShowThirdInHistory, 0x4110b0);
 }

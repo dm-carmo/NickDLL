@@ -315,7 +315,7 @@ void __declspec(naked) gre_second_update_c()
 	}
 }
 
-int gre_second_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int gre_second_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == -1) {
@@ -342,7 +342,7 @@ int gre_second_table_indicators(BYTE* _this, cm3_clubs* club, char fate, char st
 	return 0;
 }
 
-void __declspec(naked) gre_second_set_table_fate()
+void __declspec(naked) gre_second_table_fates_c()
 {
 	__asm
 	{
@@ -354,7 +354,7 @@ void __declspec(naked) gre_second_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call gre_second_table_indicators
+		call gre_second_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -392,6 +392,6 @@ void setup_gre_second()
 	WriteVTablePtr(gre_second_vtable, VTableEoSUpdate, (DWORD)&gre_second_update_c);
 	WriteVTablePtr(gre_second_vtable, VTableFixtures, (DWORD)&gre_second_fixtures_c);
 	WriteVTablePtr(gre_second_vtable, VTableSubsRounds, (DWORD)&gre_second_subs_c);
-	WriteVTablePtr(gre_second_vtable, VTableTableFates, (DWORD)&gre_second_set_table_fate);
+	WriteVTablePtr(gre_second_vtable, VTableTableFates, (DWORD)&gre_second_table_fates_c);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(gre_second_vtable, VTableShowThirdInHistory, 0x4110b0);
 }

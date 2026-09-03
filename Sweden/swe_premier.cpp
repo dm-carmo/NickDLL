@@ -607,7 +607,7 @@ DWORD swe_premier_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 10), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 22), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, Playoff, 0, NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 5, 2, 1, 2, 0, 0, 2, 7);
+		FillFixtureDetails(pMem, fixture_id++, Playoff, 0, NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 5, 2, 1, 2, 0, 0, 2, 7);
 
 		return (DWORD)pMem;
 	}
@@ -727,7 +727,7 @@ void __declspec(naked) swe_premier_playoffs_create()
 	}
 }
 
-int swe_premier_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int swe_premier_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == 0) {
@@ -804,7 +804,7 @@ int swe_premier_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char s
 	return 0;
 }
 
-void __declspec(naked) swe_premier_set_table_fate()
+void __declspec(naked) swe_premier_table_fates_c()
 {
 	__asm
 	{
@@ -816,7 +816,7 @@ void __declspec(naked) swe_premier_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call swe_premier_table_indicators
+		call swe_premier_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -924,7 +924,7 @@ void setup_swe_premier()
 	WriteVTablePtr(swe_premier_vtable, VTableFixtures, (DWORD)&swe_premier_fixtures_c);
 	WriteVTablePtr(swe_premier_vtable, VTableReputationCalc, (DWORD)&swe_premier_reputation_calc_c);
 	WriteVTablePtr(swe_premier_vtable, VTablePlayoffQual, (DWORD)&swe_premier_playoffs_create);
-	WriteVTablePtr(swe_premier_vtable, VTableTableFates, (DWORD)&swe_premier_set_table_fate);
+	WriteVTablePtr(swe_premier_vtable, VTableTableFates, (DWORD)&swe_premier_table_fates_c);
 	WriteVTablePtr(swe_premier_vtable, VTablePromRelUpdate, (DWORD)&swe_premier_prom_rel_update_c);
 	WriteVTablePtr(swe_premier_vtable, VTableStageNews, (DWORD)&swe_premier_stage_news_c);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(swe_premier_vtable, VTableShowThirdInHistory, 0x4110b0);

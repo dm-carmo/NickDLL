@@ -275,7 +275,7 @@ DWORD sco_league_2_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD*
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 3), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 9), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 5, 2, 1, 2, 0, 0, 2, 7);
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 5, 2, 1, 2, 0, 0, 2, 7);
 
 		return (DWORD)pMem;
 	}
@@ -451,7 +451,7 @@ void __declspec(naked) sco_league_2_playoffs_create()
 	}
 }
 
-int sco_league_2_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int sco_league_2_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == 0) {
@@ -562,7 +562,7 @@ int sco_league_2_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char 
 	return 0;
 }
 
-void __declspec(naked) sco_league_2_set_table_fate()
+void __declspec(naked) sco_league_2_table_fates_c()
 {
 	__asm
 	{
@@ -574,7 +574,7 @@ void __declspec(naked) sco_league_2_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call sco_league_2_table_indicators
+		call sco_league_2_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -726,7 +726,7 @@ void setup_sco_league_2()
 	WriteVTablePtr(sco_league_2_vtable, VTableFixtures, (DWORD)&sco_league_2_fixtures_c);
 	WriteVTablePtr(sco_league_2_vtable, VTableReputationCalc, (DWORD)&sco_league_2_reputation_calc_c);
 	WriteVTablePtr(sco_league_2_vtable, VTablePlayoffQual, (DWORD)&sco_league_2_playoffs_create);
-	WriteVTablePtr(sco_league_2_vtable, VTableTableFates, (DWORD)&sco_league_2_set_table_fate);
+	WriteVTablePtr(sco_league_2_vtable, VTableTableFates, (DWORD)&sco_league_2_table_fates_c);
 	WriteVTablePtr(sco_league_2_vtable, VTableStageNews, (DWORD)&sco_league_2_stage_news_c);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(sco_league_2_vtable, VTableShowThirdInHistory, 0x4110b0);
 }

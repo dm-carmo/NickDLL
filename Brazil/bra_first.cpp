@@ -573,14 +573,14 @@ void __fastcall bra_qualify_teams_for_cup(BYTE* _this) {
 	for (i = 0; i < first_phase.size(); i++)
 	{
 		teams[i].club = first_phase[i];
-		teams[i].f5 = 0;
+		teams[i].seeding = 0;
 		teams[i].f6 = 0;
 	}
 	WORD d1_teams = 20;
 	for (size_t j = 0; i < total_teams && j < all_clubs.size(); i++, j++)
 	{
 		teams[i].club = all_clubs[j];
-		teams[i].f5 = 0 + 3 * (j >= (all_clubs.size() - d1_teams));
+		teams[i].seeding = 0 + 3 * (j >= (all_clubs.size() - d1_teams));
 		teams[i].f6 = 0;
 	}
 }

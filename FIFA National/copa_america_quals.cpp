@@ -89,7 +89,7 @@ DWORD copa_america_quals_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds,
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 18), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 2, 3, 23), year, Thursday, Afternoon);
-		FillFixtureDetails(pMem, fixture_id++, Playoff, 4, ExtraTimePenalties_1, NoTiebreak_2, 10, 4, 2, 4, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, Playoff, 4, Penalties | ExtraTime, NoTiebreak, 10, 4, 2, 4, 0, 0, 1, 0);
 
 		return (DWORD)pMem;
 	}
@@ -196,7 +196,7 @@ void copa_america_quals_all_teams(BYTE* _this) {
 	teams = (teams_seeded*)data->special_teams_seedings;
 	for (cm3_clubs* club : quals_countries) {
 		teams[count].club = club;
-		teams[count].f5 = 6;
+		teams[count].seeding = 6;
 		teams[count].f6 = 0;
 		count++;
 	}
@@ -239,7 +239,7 @@ void copa_america_quals_qualifier_teams(BYTE* _this) {
 
 	for (WORD i = 0; i < total_teams; i++) {
 		teams[i].club = quals_countries[i];
-		teams[i].f5 = i >= (total_teams / 2);
+		teams[i].seeding = i >= (total_teams / 2);
 		teams[i].f6 = 0;
 	}
 }
@@ -282,7 +282,7 @@ void __declspec(naked) copa_america_quals_init2_c()
 	}
 }
 
-int copa_america_quals_set_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int copa_america_quals_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == -1) {
@@ -308,7 +308,7 @@ int copa_america_quals_set_fates(BYTE* _this, cm3_clubs* club, char fate, char s
 	return 0;
 }
 
-void __declspec(naked) copa_america_quals_set_table_fate()
+void __declspec(naked) copa_america_quals_table_fates_c()
 {
 	__asm
 	{
@@ -320,7 +320,7 @@ void __declspec(naked) copa_america_quals_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call copa_america_quals_set_fates
+		call copa_america_quals_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -552,7 +552,7 @@ void copa_america_quals_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	copa_america_quals_vtable->SetPointer(VTableEoSUpdate, (DWORD)&copa_america_quals_update_c);
 	copa_america_quals_vtable->SetPointer(VTableLeagueSplit, (DWORD)&copa_america_quals_init2_c);
 	copa_america_quals_vtable->SetPointer(VTablePlayoffQual, 0x5a8f60);
-	copa_america_quals_vtable->SetPointer(VTableTableFates, (DWORD)&copa_america_quals_set_table_fate);
+	copa_america_quals_vtable->SetPointer(VTableTableFates, (DWORD)&copa_america_quals_table_fates_c);
 	copa_america_quals_vtable->SetPointer(VTableReputationSetup, (DWORD)&copa_america_quals_reputation_setup_c);
 	copa_america_quals_vtable->SetPointer(VTableReputationCalc, (DWORD)&copa_america_quals_reputation_calc_c);
 	copa_america_quals_vtable->SetPointer(VTableFixtures, (DWORD)&copa_america_quals_fixture_caller);

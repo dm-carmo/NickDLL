@@ -323,7 +323,7 @@ DWORD cze_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 31), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 6, 4), year, Thursday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, Playoff, 0, FixedTeamOrderInCup + NoTiebreak_1, ExtraTimePenaltiesNoAwayGoals_2, 6, 4, 2, 4, 0, 0, 2, 3);
+		FillFixtureDetails(pMem, fixture_id++, Playoff, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 6, 4, 2, 4, 0, 0, 2, 3);
 
 		return (DWORD)pMem;
 	}
@@ -750,7 +750,7 @@ void __declspec(naked) cze_first_playoffs_create()
 	}
 }
 
-int cze_first_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int cze_first_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == 0) {
@@ -827,7 +827,7 @@ int cze_first_table_indicators(BYTE* _this, cm3_clubs* club, BYTE fate, char sta
 	return 0;
 }
 
-void __declspec(naked) cze_first_set_table_fate()
+void __declspec(naked) cze_first_table_fates_c()
 {
 	__asm
 	{
@@ -839,7 +839,7 @@ void __declspec(naked) cze_first_set_table_fate()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call cze_first_table_indicators
+		call cze_first_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
@@ -952,7 +952,7 @@ void cze_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	cze_first_vtable->SetPointer(VTableLeagueSplit, (DWORD)&cze_first_table_split_c);
 	cze_first_vtable->SetPointer(VTableReputationCalc, (DWORD)&cze_first_reputation_calc_c);
 	cze_first_vtable->SetPointer(VTablePlayoffQual, (DWORD)&cze_first_playoffs_create);
-	cze_first_vtable->SetPointer(VTableTableFates, (DWORD)&cze_first_set_table_fate);
+	cze_first_vtable->SetPointer(VTableTableFates, (DWORD)&cze_first_table_fates_c);
 	cze_first_vtable->SetPointer(VTablePromRelUpdate, (DWORD)&cze_first_prom_rel_update_c);
 	cze_first_vtable->SetPointer(VTableStageNews, (DWORD)&cze_first_stage_news_c);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) cze_first_vtable->SetPointer(VTableShowThirdInHistory, 0x4110b0);

@@ -199,7 +199,7 @@ void eng_conf_n_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	eng_conf_n_vtable->SetPointer(VTableEoSUpdate, (DWORD)&eng_conf_n_update_c);
 	eng_conf_n_vtable->SetPointer(VTablePlayoffQual, (DWORD)&eng_conf_playoffs_c);
 	eng_conf_n_vtable->SetPointer(VTableFixtures, (DWORD)&eng_conf_fixtures_c);
-	eng_conf_n_vtable->SetPointer(VTableTableFates, (DWORD)&eng_conf_set_table_fate);
+	eng_conf_n_vtable->SetPointer(VTableTableFates, (DWORD)&eng_conf_table_fates_c);
 	eng_conf_n_vtable->SetPointer(VTableSubsRounds, (DWORD)&eng_conf_n_subs_c);
 	eng_conf_n_vtable->SetPointer(VTableReputationCalc, (DWORD)&eng_conf_n_reputation_calc_c);
 	eng_conf_n_vtable->SetPointer(VTableSetChampion, (DWORD)&eng_conf_n_set_champion_c);

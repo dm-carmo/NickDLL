@@ -16,12 +16,12 @@ DWORD hol_setup_c(playable_nation_data* nation_data) {
 	nation_data->contract_start_day = 1;
 	nation_data->contract_start_month = August;
 	nation_data->contract_start_year = *current_year;
-	nation_data->f55 = 5;
+	nation_data->contract_start_day_of_week = 5;
 	
 	nation_data->contract_end_day = 31;
 	nation_data->contract_end_month = May;
 	nation_data->contract_end_year = *current_year + 1;
-	nation_data->f70 = 5;
+	nation_data->contract_end_day_of_week = 5;
 	nation_data->num_of_comps = 4;
 	DWORD* nation_comps = (DWORD*)cm0102_malloc(nation_data->num_of_comps * 4);
 	nation_data->comps_list = (DWORD)nation_comps;
