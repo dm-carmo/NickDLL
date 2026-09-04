@@ -476,6 +476,9 @@ void olympics_seeded_teams(BYTE* _this) {
 	else {
 		vector<cm3_clubs*> nations = get_national_teams_of_continent_fifa_members(EUROPE_9CF(), true);
 		sort(nations.begin(), nations.end(), compareNationRanking);
+		cm3_clubs* russia = get_national_team(NATION_RUSSIA_9CF(), true);
+		auto it = find(nations.begin(), nations.end(), russia);
+		if (it != nations.end()) nations.erase(it);
 		size_t size = 16;
 		vector<cm3_clubs*> nations_filter = vector(nations.begin(), nations.begin() + size);
 		vector<cm3_clubs*> quals = get_random_weighted_national_teams(nations_filter, 3 - (host_continent == EUROPE_9CF()));

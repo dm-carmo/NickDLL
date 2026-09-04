@@ -68,4 +68,6 @@ void setup_den_nation()
 	setup_den_awards();
 
 	WriteNOP(0x550a7a, 7);
+	// loans not possible outside transfer window
+	WriteDWORD(0x969880, 0x412dd0);
 }
