@@ -15,9 +15,7 @@
 #include "copa_america_quals.h"
 #include "gold_cup.h"
 #include "gold_cup_quals.h"
-
-static DWORD(__thiscall* olympic_games_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x79f530);
+#include "olympics.h"
 
 DWORD fifa_national_setup_c(playable_nation_data* nation_data) {
 
@@ -36,8 +34,8 @@ DWORD fifa_national_setup_c(playable_nation_data* nation_data) {
 
 	BYTE i = 0;
 
-	BYTE* pMem = (BYTE*)cm0102_new(0xF6);
-	olympic_games_setup(pMem, *current_year, get_comp(OLYMPIC_GAMES_9CF()));
+	BYTE* pMem = (BYTE*)cm0102_new(0xEE);
+	olympics_init(pMem, *current_year, get_comp(OLYMPIC_GAMES_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)cm0102_new(0xEE);
@@ -93,7 +91,7 @@ DWORD fifa_national_setup_c(playable_nation_data* nation_data) {
 	nation_comps[i++] = (DWORD)pMem;
 
 	BYTE* cm_date = new BYTE[8];
-	convert_to_cm_date(cm_date, 1, August, START_YEAR, -1);
+	convert_to_cm_date(cm_date, 6, August, START_YEAR, -1);
 	nation_data->update_day = *(WORD*)cm_date;
 	nation_data->update_year = *current_year;
 	nation_data->f29 = 2;
@@ -115,4 +113,5 @@ void setup_fifa_national_comps() {
 	setup_copa_america_quals();
 	setup_gold_cup();
 	setup_gold_cup_quals();
+	setup_olympics();
 }

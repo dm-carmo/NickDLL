@@ -71,7 +71,7 @@ DWORD nir_premier_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* 
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 1), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 7), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 22), year, Sunday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 27), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 28), year, Saturday);
 		// next phase starts here
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 4), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 7), year, Tuesday, Evening);

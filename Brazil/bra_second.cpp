@@ -264,7 +264,7 @@ DWORD bra_second_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 16), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 22), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, None, 0, FixedTeamOrderInCup | NoAwayGoals, HigherSeedingTiebreak | NoAwayGoals, 5, 4, 2, 4, 0, 0, 2, 7);
+		FillFixtureDetails(pMem, fixture_id++, None, 1, FixedTeamOrderInCup | NoAwayGoals, HigherSeedingTiebreak | NoAwayGoals, 5, 4, 2, 4, 0, 0, 2, 7);
 
 		return (DWORD)pMem;
 	}

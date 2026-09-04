@@ -21,7 +21,7 @@ DWORD kor_super_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 1, 11), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 2, 21), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, None, 0, Penalties | ExtraTime, NoTiebreak, 6, 2, 1, 2, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("kor_super_final_win"), prizeMoneyFile.GetInt("kor_super_final_lose"));
+		FillFixtureDetails(pMem, fixture_id++, None, 8, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 6, 2, 1, 2, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("kor_super_final_win"), prizeMoneyFile.GetInt("kor_super_final_lose"));
 
 		return (DWORD)pMem;
 	}
@@ -47,4 +47,5 @@ void __declspec(naked) kor_super_fixture_caller()
 void setup_kor_super()
 {
 	WriteVTablePtr(kor_super_vtable, VTableFixtures, (DWORD)&kor_super_fixture_caller);
+	WriteBytes(0x66de56, 1, 1);
 }

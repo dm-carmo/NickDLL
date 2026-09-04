@@ -1580,10 +1580,10 @@ void __declspec(naked) is_international_comp_no_qualifiers() {
 		je ret_1_quals
 		cmp eax, dword ptr ds : [0x9cf78c]
 		je ret_1_quals
-		cmp eax, dword ptr ds : [0x9cf888]
-		je ret_1_quals
-		cmp eax, dword ptr ds : [0x9cf88c]
-		je ret_1_quals
+		//cmp eax, dword ptr ds : [0x9cf888]
+		//je ret_1_quals
+		//cmp eax, dword ptr ds : [0x9cf88c]
+		//je ret_1_quals
 		ret_0_no_quals :
 		xor eax, eax
 			ret 4
@@ -1861,6 +1861,20 @@ void __declspec(naked) hosts_force_gold_cup_usa()
 		mov ebp, dword ptr ss : [esp + 0x14]
 		cmp ebp, dword ptr ds : [0x9cf78c]
 		je usa_gold_cup
+		cmp ebp, dword ptr ds : [0x9cf7ac]
+		jnz not_afcon_special
+		mov ebp, dword ptr ss : [esp + 0x18]
+		cmp ebp, 2027
+		jnz not_afcon_special
+		mov ecx, dword ptr ss : [esp + 0x1c]
+		mov edx, dword ptr ds : [0x9cf4ec] // Uganda
+		mov dword ptr ds : [ecx] , edx
+		mov eax, dword ptr ds : [0x9cf4c0] // Tanzania
+		mov edx, dword ptr ss : [esp + 0x20]
+		mov dword ptr ds : [edx] , eax
+		push 0x5fa7b2
+		ret
+		not_afcon_special :
 		mov di, word ptr ss : [esp + 0x18]
 		push 0x5fa74a
 		ret

@@ -924,6 +924,9 @@
     <ClCompile Include="FIFA National\gold_cup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FIFA National\olympics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -1845,6 +1848,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="FIFA National\gold_cup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FIFA National\olympics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -214,7 +214,7 @@ void african_nations_quals_all_teams(BYTE* _this) {
 			auto it = caf_countries.begin() + i;
 			rotate(caf_countries.begin(), it, it + 1);
 		}
-	}
+		}
 
 	for (size_t i = 0, j = 0; i < caf_countries.size() && j < total_teams_in_comp; i++) {
 		teams[j].club = caf_countries[i];

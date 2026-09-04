@@ -298,11 +298,11 @@ DWORD kor_second_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 24), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 27), year, Thursday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 5, 2, 1, 2, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 1, FixedTeamOrderInCup | HigherSeedingTiebreak, NoTiebreak, 5, 2, 1, 2, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 28), year, Friday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 30), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, Penalties | ExtraTime, NoTiebreak, 0, 2, 1, 1, 2, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, Final, 1, FixedTeamOrderInCup | HigherSeedingTiebreak, NoTiebreak, 0, 2, 1, 1, 2, 0, 1, 0);
 
 		return (DWORD)pMem;
 	}
@@ -319,7 +319,7 @@ DWORD kor_second_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 24), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 30), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, None, 0, Penalties | ExtraTime, NoTiebreak, 0, 2, 1, 2, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, None, 1, Penalties | ExtraTime, NoTiebreak, 0, 2, 1, 2, 0, 0, 1, 0);
 
 		return (DWORD)pMem;
 	}
@@ -348,9 +348,11 @@ void kor_second_playoffs_prom(BYTE* _this) {
 	BYTE playoff_teams = 3;
 	WORD total_teams = comp_data->n_teams;
 	DWORD* pTeams = (DWORD*)cm0102_malloc(playoff_teams * 4);
+	BYTE seeds[3] = { 0 };
 
 	team_league_stats* table_teams = (team_league_stats*)(comp_data->team_league_table);
 	for (char i = comp_data->promotions + comp_data->prom_playoff - 1, j = 0; i > 0 && j < 3; i--, j++) {
+		seeds[j] = i;
 		*((DWORD*)(&pTeams[j])) = (DWORD)table_teams[i].club;
 	}
 
@@ -360,7 +362,7 @@ void kor_second_playoffs_prom(BYTE* _this) {
 	DWORD v1 = *(DWORD*)_this;
 	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, char, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
 	BYTE* new_stage = (BYTE*)cm0102_new(0xB2);
-	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)comp_data->competition_db, pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, 0);
+	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)comp_data->competition_db, pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, &seeds[0]);
 	DWORD* stages_arr = comp_data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
 	sub_51C800(new_stage, 0);

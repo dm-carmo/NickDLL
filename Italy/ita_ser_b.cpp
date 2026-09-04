@@ -317,15 +317,15 @@ DWORD ita_ser_b_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 17), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 23), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 8, FixedTeamOrderInCup | HigherSeedingTiebreak, NoTiebreak, 5, 4, 2, 4, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 1, FixedTeamOrderInCup | HigherSeedingTiebreak, NoTiebreak, 5, 4, 2, 4, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 24), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 27), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 8, FixedTeamOrderInCup3 | NoAwayGoals, HigherSeedingTiebreak | NoAwayGoals, 6, 4, 2, 2, 4, 0, 2, 4);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 1, FixedTeamOrderInCup3 | NoAwayGoals, HigherSeedingTiebreak | NoAwayGoals, 6, 4, 2, 2, 4, 0, 2, 4);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 6, 1), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 6, 3), year, Thursday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, Final, 8, FixedTeamOrderInCup | NoAwayGoals, HigherSeedingTiebreak | NoAwayGoals, 6, 2, 1, 0, 0, 0, 2, 3);
+		FillFixtureDetails(pMem, fixture_id++, Final, 1, FixedTeamOrderInCup | NoAwayGoals, HigherSeedingTiebreak | NoAwayGoals, 6, 2, 1, 0, 0, 0, 2, 3);
 
 		return (DWORD)pMem;
 	}
@@ -342,7 +342,7 @@ DWORD ita_ser_b_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 17), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 21), year, Thursday);
-		FillFixtureDetails(pMem, fixture_id++, Final, 8, FixedTeamOrderInCup | NoAwayGoals, HigherSeedingTiebreak | NoAwayGoals, 5, 2, 1, 2, 0, 0, 2, 7);
+		FillFixtureDetails(pMem, fixture_id++, Final, 1, FixedTeamOrderInCup | NoAwayGoals, HigherSeedingTiebreak | NoAwayGoals, 5, 2, 1, 2, 0, 0, 2, 7);
 
 		return (DWORD)pMem;
 	}

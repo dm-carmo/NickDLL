@@ -132,10 +132,13 @@ WORD get_comp_hosts_in_continent(BYTE* _this, DWORD compID, DWORD continentID, D
 	comp_stats* data = (comp_stats*)_this;
 	WORD year = data->year;
 	WORD modulo = 0;
-	//if (compID == FIFA_WORLD_CUP_9CF()) modulo = 1;
-	if (compID == FIFA_WORLD_CUP_9CF()) modulo = 2;
-	if (compID == ASIAN_CUP_9CF()) modulo = 3;
-	while (year % 4 != modulo) year++;
+	if (compID == AFRICAN_CUP_OF_NATIONS_9CF() && year == 2025) year = 2027;
+	else
+	{
+		if (compID == FIFA_WORLD_CUP_9CF()) modulo = 2;
+		if (compID == ASIAN_CUP_9CF()) modulo = 3;
+		while (year % 4 != modulo) year++;
+	}
 
 	DWORD host1_id = -1, host2_id = -1;
 	char num_hosts = get_host_ids_5FA730((BYTE*)*b5e134, compID, year, &host1_id, &host2_id, 1);
@@ -168,38 +171,42 @@ cm3_clubs* get_club(DWORD clubID)
 	return (clubID != -1L) ? &(*clubs)[clubID] : NULL;
 }
 
-cm3_clubs* get_national_team(DWORD nationID)
+cm3_clubs* get_national_team(DWORD nationID, bool youth)
 {
-	return (nationID != -1L) ? &(*clubs)[*clubs_count + (nationID - 2 * *nations_count)] : NULL;
+	int mult = (youth) ? 1 : 2;
+	return (nationID != -1L) ? &(*clubs)[*clubs_count + (nationID - mult * *nations_count)] : NULL;
 }
 
-vector<cm3_clubs*> get_all_national_teams() {
+vector<cm3_clubs*> get_all_national_teams(bool youth) {
+	int mult = (youth) ? 1 : 2;
 	vector<cm3_clubs*> ret;
 	for (DWORD i = 0; i < *nations_count; i++)
 	{
-		cm3_clubs* c = &(*clubs)[*clubs_count + (i - 2 * *nations_count)];
+		cm3_clubs* c = &(*clubs)[*clubs_count + (i - mult * *nations_count)];
 		if (c->ClubNation && c->ClubNation->NationContinent)
 			ret.push_back(c);
 	}
 	return ret;
 }
 
-vector<cm3_clubs*> get_national_teams_of_continent(DWORD continentID) {
+vector<cm3_clubs*> get_national_teams_of_continent(DWORD continentID, bool youth) {
+	int mult = (youth) ? 1 : 2;
 	vector<cm3_clubs*> ret;
 	for (DWORD i = 0; i < *nations_count; i++)
 	{
-		cm3_clubs* c = &(*clubs)[*clubs_count + (i - 2 * *nations_count)];
+		cm3_clubs* c = &(*clubs)[*clubs_count + (i - mult * *nations_count)];
 		if (c->ClubNation && c->ClubNation->NationContinent && c->ClubNation->NationContinent->ContinentID == continentID)
 			ret.push_back(c);
 	}
 	return ret;
 }
 
-vector<cm3_clubs*> get_national_teams_of_continent_fifa_members(DWORD continentID) {
+vector<cm3_clubs*> get_national_teams_of_continent_fifa_members(DWORD continentID, bool youth) {
+	int mult = (youth) ? 1 : 2;
 	vector<cm3_clubs*> ret;
 	for (DWORD i = 0; i < *nations_count; i++)
 	{
-		cm3_clubs* c = &(*clubs)[*clubs_count + (i - 2 * *nations_count)];
+		cm3_clubs* c = &(*clubs)[*clubs_count + (i - mult * *nations_count)];
 		if (c->ClubNation && c->ClubNation->NationContinent && c->ClubNation->NationContinent->ContinentID == continentID && !is_nation_non_fifa(c->ClubNation))
 			ret.push_back(c);
 	}
@@ -1093,6 +1100,37 @@ vector<cm3_clubs*> weighted_reservoir_sampling_invert_weights(vector<cm3_clubs*>
 vector<cm3_clubs*> get_random_weighted_clubs(vector<cm3_clubs*> list, unsigned int amount, bool to_promote) {
 	if (to_promote) return weighted_reservoir_sampling(list, amount);
 	else return weighted_reservoir_sampling_invert_weights(list, amount);
+}
+
+vector<cm3_clubs*> get_random_weighted_national_teams(vector<cm3_clubs*> population, unsigned int sample_size) {
+	unsigned int i = 0;
+	vector<cm3_clubs*> reservoir;
+	if (sample_size < 1) return reservoir;
+	vector<double> keys;
+	for (; i < sample_size; i++) {
+		cm3_clubs* c = population[i];
+		reservoir.push_back(c);
+		//double val = 2000. * getFIFARankingPoints(c->ClubNation);
+		double val = (((getFIFARankingPoints(c->ClubNation) - 700) * 10000) / 1300); // 1300 = max - min
+		//double logx = val * log(val);
+		double logx = val;
+		keys.push_back(pow(((double)rand() / (RAND_MAX)), 1.0f / logx));
+	}
+	for (; i < population.size(); i++) {
+		cm3_clubs* c = population[i];
+		auto threshold = min_element(keys.begin(), keys.end());
+		int member_idx = distance(begin(keys), threshold);
+		//double val = 2000. * getFIFARankingPoints(c->ClubNation);
+		double val = (((getFIFARankingPoints(c->ClubNation) - 700) * 10000) / 1300); // 1300 = max - min
+		//double logx = val * log(val);
+		double logx = val;
+		double new_key = pow(((double)rand() / (RAND_MAX)), 1.0f / logx);
+		if (new_key > *threshold) {
+			keys[member_idx] = new_key;
+			reservoir[member_idx] = c;
+		}
+	}
+	return reservoir;
 }
 
 void generic_prom_rel(DWORD nation_id, DWORD promote_from, DWORD relegate_from, int num_child_comps, ...) {

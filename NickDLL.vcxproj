@@ -252,6 +252,7 @@
     <ClCompile Include="FIFA National\gold_cup.cpp" />
     <ClCompile Include="FIFA National\gold_cup_quals.cpp" />
     <ClCompile Include="FIFA National\ofc_nations_cup.cpp" />
+    <ClCompile Include="FIFA National\olympics.cpp" />
     <ClCompile Include="FIFA National\uefa_nations_league.cpp" />
     <ClCompile Include="FIFA\fifa_club_setup.cpp" />
     <ClCompile Include="FIFA\fifa_club_world_cup.cpp" />
@@ -559,6 +560,7 @@
     <ClInclude Include="FIFA National\gold_cup.h" />
     <ClInclude Include="FIFA National\gold_cup_quals.h" />
     <ClInclude Include="FIFA National\ofc_nations_cup.h" />
+    <ClInclude Include="FIFA National\olympics.h" />
     <ClInclude Include="FIFA National\uefa_nations_league.h" />
     <ClInclude Include="FIFA\fifa_club_setup.h" />
     <ClInclude Include="FIFA\fifa_club_world_cup.h" />
