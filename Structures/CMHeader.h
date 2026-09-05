@@ -67,6 +67,7 @@ enum CompetitionRules : BYTE {
 	RulesSaudi,
 	RulesChile,
 	RulesEgypt,
+	RulesNorthAmerica,
 	CompetitionRules_LENGTH
 };
 
@@ -225,6 +226,24 @@ enum ClubStatus : char {
 	Professional = 1,
 	SemiProfessional = 2,
 	Amateur = 3
+};
+
+enum NationActualRegion : BYTE {
+	NotSet,
+	Africa,
+	Asia,
+	Caribbean,
+	CentralAmerica,
+	CentralEurope,
+	EasternEurope,
+	MiddleEast,
+	NorthAfrica,
+	NorthAmerica,
+	Oceania,
+	Scandinavia,
+	SouthAmerica,
+	SouthernEurope,
+	UKandIreland,
 };
 
 typedef struct cm3_continents CM3_CONTINENTS;

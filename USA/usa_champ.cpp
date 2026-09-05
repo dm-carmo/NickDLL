@@ -267,30 +267,33 @@ DWORD usa_champ_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 3, 9), year, Sunday);
+		if (numberOfLeagueTeams > 12) AddFixtureNoTV(pMem, fixture_id++, Date(year, 3, 9), year, Sunday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 3, 16), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 3, 23), year, Sunday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 3, 30), year, Sunday);
+		//AddFixtureNoTV(pMem, fixture_id++, Date(year, 3, 30), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 4, 6), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 4, 13), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 4, 20), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 5, 4), year, Sunday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 5, 18), year, Sunday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 5, 11), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 5, 25), year, Sunday);
-		if(numberOfLeagueTeams > 12) AddFixtureNoTV(pMem, fixture_id++, Date(year, 6, 1), year, Sunday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 6, 1), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 6, 15), year, Sunday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 6, 22), year, Sunday);
-		if (numberOfLeagueTeams > 12) AddFixtureNoTV(pMem, fixture_id++, Date(year, 6, 29), year, Sunday);
+		if (numberOfLeagueTeams > 12) AddFixtureNoTV(pMem, fixture_id++, Date(year, 6, 22), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 7, 6), year, Sunday);
-		if (numberOfLeagueTeams > 12) AddFixtureNoTV(pMem, fixture_id++, Date(year, 7, 20), year, Sunday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 7, 20), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 7, 27), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 3), year, Sunday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 10), year, Sunday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 24), year, Sunday);
-		if (numberOfLeagueTeams > 12) AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 31), year, Sunday);
+		if (numberOfLeagueTeams > 12) AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 10), year, Sunday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 17), year, Sunday);
+		if (numberOfLeagueTeams > 12) AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 24), year, Sunday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 31), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 7), year, Sunday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 14), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 21), year, Sunday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 28), year, Sunday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 5), year, Sunday);
+		//AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 28), year, Sunday);
+		//AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 5), year, Sunday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 12), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 19), year, Sunday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 26), year, Sunday);
 
@@ -429,7 +432,7 @@ int usa_champ_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, B
 			}
 			team_league_stats* table = (team_league_stats*)(curr_stage->team_league_table);
 			for (int i = 0; i < num_teams; i++) {
-					if (table[i].club != club) continue;
+				if (table[i].club != club) continue;
 				switch (fate) {
 				case TopPlayoff:
 					staff_history_champion_868C50(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));

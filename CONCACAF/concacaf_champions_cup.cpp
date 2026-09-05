@@ -27,19 +27,19 @@ DWORD concacaf_champions_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rou
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 1, 14), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 2, 5), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 2, 22, 11, 22, 0, 0, 2, 14);
+		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, NoTiebreak, Penalties | ExtraTime, 2, 22, 11, 22, 0, 0, 2, 14);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 2, 27), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 3, 5), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 2, 16, 8, 5, 22, 0, 2, 7);
+		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, NoTiebreak, Penalties | ExtraTime, 2, 16, 8, 5, 22, 0, 2, 7);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 3, 13), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 4, 2), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 2, 8, 4, 0, 0, 0, 2, 7);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, NoTiebreak, Penalties | ExtraTime, 2, 8, 4, 0, 0, 0, 2, 7);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 4, 10), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 4, 23), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 2, 4, 2, 0, 0, 0, 2, 7, 0, 0, prizeMoneyFile.GetInt("concacaf_cl_semi_lose"));
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, NoTiebreak, Penalties | ExtraTime, 2, 4, 2, 0, 0, 0, 2, 7, 0, 0, prizeMoneyFile.GetInt("concacaf_cl_semi_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 5, 1), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 6, 1), year, Sunday, Afternoon, NationalStadium);
@@ -515,7 +515,7 @@ void concacaf_champions_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->f82 = 3;
 	data->max_bench = 7;
 	data->max_subs = 3;
-	data->rules = RulesSouthAmerica;
+	data->rules = RulesNorthAmerica;
 	data->f81 = 0xa;
 	*((BYTE*)(_this + 0xB1)) = 0;
 	int loaded = sub_51FC00(_this, 1);

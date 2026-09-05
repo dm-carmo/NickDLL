@@ -1,5 +1,7 @@
 #pragma once
 
+#include "CONCACAF\concacaf_setup.h"
+
 #include "Austria\aut_setup.h"
 #include "Chile\chi_setup.h"
 #include "Czech Republic\cze_setup.h"

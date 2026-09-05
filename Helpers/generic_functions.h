@@ -234,6 +234,7 @@ static char (*sub_4BF850)(char a1, char a2, WORD current_round, __int16 a4) =
 
 static char* (*get_db_nation_name)(cm3_nations* nation) = (char* (*)(cm3_nations * nation))(0x5453F0);
 static char* (*get_db_club_name)(cm3_clubs* club) = (char* (*)(cm3_clubs * club))(0x545880);
+static int (*sub_616F20)(char a1, char* a2, __int16 a3, char a4) = (int (*)(char a1, char* a2, __int16 a3, char a4))(0x616F20);
 
 static BYTE* (__thiscall* rb_international_setup)(BYTE* _this, int* a2) = (BYTE * (__thiscall*)(BYTE * _this, int* a2))(0x7DF180);
 static BYTE* (__thiscall* rb_europe_setup)(BYTE* _this, int* a2) = (BYTE * (__thiscall*)(BYTE * _this, int* a2))(0x7DD400);
@@ -278,6 +279,8 @@ static BYTE* (__thiscall* rb_russia_setup)(BYTE* _this, int* a2) = (BYTE * (__th
 static BYTE* (__thiscall* rb_wales_setup)(BYTE* _this, int* a2) = (BYTE * (__thiscall*)(BYTE * _this, int* a2))(0x7E43C0);
 static BYTE* (__thiscall* rb_asia_setup)(BYTE* _this, int* a2) = (BYTE * (__thiscall*)(BYTE * _this, int* a2))(0x7DB360);
 static BYTE* (__thiscall* rb_south_korea_setup)(BYTE* _this, int* a2) = (BYTE * (__thiscall*)(BYTE * _this, int* a2))(0x7E0730);
+
+static BYTE* (__thiscall* sub_7E7760)(BYTE* _this, int* a2) = (BYTE * (__thiscall*)(BYTE * _this, int* a2))(0x7E7760);
 
 int AddTeams(BYTE* _this);
 int AddTeamsReserveDivision(BYTE* _this);

@@ -21,18 +21,18 @@ DWORD nor_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 16), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 13), year, Wednesday, Evening);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 20), year, Wednesday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, FirstRound, 1, Penalties | ExtraTime, NoTiebreak, 4, 64, 32, 64, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("nor_cup_r1_lose"));
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 14), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 27), year, Wednesday, Evening);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 21), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 17), year, Wednesday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, SecondRound, 1, Penalties | ExtraTime, NoTiebreak, 4, 32, 16, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("nor_cup_r2_lose"));
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 28), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 17), year, Wednesday, Evening);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 18), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 29), year, Wednesday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 1, Penalties | ExtraTime, NoTiebreak, 4, 32, 16, 16, 64, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("nor_cup_r3_lose"));
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 18), year, Thursday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 30), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 7), year, Saturday);
 		FillFixtureDetails(pMem, fixture_id++, FourthRound, 1, Penalties | ExtraTime, NoTiebreak, 4, 16, 8, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("nor_cup_r4_lose"));
 

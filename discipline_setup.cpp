@@ -413,6 +413,10 @@ void replacement_55D420(BYTE* _this, int* a2) {
 	{
 		pMem[idx++] = 0;
 	}
+
+	dMem = (BYTE*)cm0102_new(0x23);
+	if (dMem) rb_concacaf_init(dMem, a2);
+	pMem[idx++] = (DWORD)dMem;
 }
 
 void __declspec(naked) replacement_55D420_c()
@@ -454,6 +458,18 @@ void __declspec(naked) rb_croatia_generic_fix2()
 	}
 }
 
+void __declspec(naked) rb_south_america_generic_fix()
+{
+	__asm
+	{
+		mov edx, dword ptr ss : [esp + 0xc]
+		mov dl, byte ptr ds : [edx + 5]
+		mov byte ptr ss : [esp + 0x2a] , dl
+		push 0x7e2b3a
+		ret
+	}
+}
+
 void setup_discipline_setup()
 {
 	PatchFunction(0x55D420, (DWORD)&replacement_55D420_c);
@@ -467,4 +483,6 @@ void setup_discipline_setup()
 	WriteBytes(0x7dcaab, 5, 0x8b, 0x41, 0x17, 0x90, 0x90);
 	PatchFunction(0x7dc9bb, (DWORD)&rb_croatia_generic_fix);
 	PatchFunction(0x7dc8f3, (DWORD)&rb_croatia_generic_fix2);
+	// rb_south_america edit
+	PatchFunction(0x7e2b35, (DWORD)&rb_south_america_generic_fix);
 }

@@ -298,31 +298,35 @@ DWORD usa_mls_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 3, 8), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 3, 15), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 3, 22), year, Saturday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 3, 29), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 4, 5), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 4, 12), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 4, 19), year, Saturday);
+		//AddFixtureNoTV(pMem, fixture_id++, Date(year, 4, 23), year, Wednesday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 4, 26), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 5, 3), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 5, 10), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 5, 14), year, Wednesday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 5, 17), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 5, 24), year, Saturday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 5, 31), year, Saturday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 6, 7), year, Saturday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 7, 12), year, Saturday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 7, 16), year, Wednesday, Evening);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 7, 19), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 7, 23), year, Wednesday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 7, 26), year, Saturday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 9), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 2), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 16), year, Saturday);
+		//AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 20), year, Wednesday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 23), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 30), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 6), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 10), year, Wednesday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 13), year, Saturday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 17), year, Wednesday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 20), year, Saturday);
+		//AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 27), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 11), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 15), year, Wednesday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 18), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 25), year, Saturday);
+		//AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 29), year, Wednesday, Evening);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 1), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 8), year, Saturday);
 
 		check_number_of_fixtures(_this, fixture_id, *num_rounds);
 
@@ -339,8 +343,8 @@ DWORD usa_mls_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 19), year, Sunday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 22), year, Wednesday, Evening);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 9), year, Sunday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 19), year, Wednesday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, FixedTeamOrderInCup | Penalties, NoTiebreak, 5, 4, 2, 4, 0, 0, 1, 0);
 
 		return (DWORD)pMem;
@@ -356,20 +360,20 @@ DWORD usa_mls_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 23), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 25), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, SecondRound, 0, FixedTeamOrderInCup | USBestOf3 | YardShootout, USBestOf3 | YardShootout, 5, 16, 8, 16, 0, 0, 2, 7, 0, 0, 0, YardShootout);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 20), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 21), year, Friday, Evening);
+		FillFixtureDetails(pMem, fixture_id++, SecondRound, 0, FixedTeamOrderInCup | USBestOf3 | YardShootout, USBestOf3 | YardShootout, 5, 16, 8, 16, 0, 0, 2, 6, 0, 0, 0, YardShootout);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 9), year, Sunday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 22), year, Saturday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 4), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 6), year, Saturday);
 		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 5, 8, 4, 0, 0, 0, 1, 0);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 23), year, Sunday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 29), year, Saturday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 7), year, Sunday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 12), year, Friday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 5, 4, 2, 0, 0, 0, 1, 0);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 30), year, Sunday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 6), year, Saturday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 13), year, Saturday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 19), year, Friday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, MLSCup, 0, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 5, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("usa_mls_final_win"), prizeMoneyFile.GetInt("usa_mls_final_lose"));
 
 		return (DWORD)pMem;

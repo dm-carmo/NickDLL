@@ -3,6 +3,9 @@
 #include "Helpers\generic_functions.h"
 #include <Helpers\9cf_constants.h>
 #include "concacaf_champions_cup.h"
+#include "Structures\vtable.h"
+
+vtable* concacaf_discipline_vtable = new vtable((BYTE*)0x96EE34, 0x20);
 
 DWORD concacaf_setup_c(playable_nation_data* nation_data) {
 	BYTE* start_date = new BYTE[8];
@@ -36,6 +39,41 @@ DWORD concacaf_setup_c(playable_nation_data* nation_data) {
 	nation_data->f29 = 1;
 	nation_data->super_cup = 0;
 	return 1;
+}
+
+void rb_concacaf_ban_text(BYTE* _this, char* ret_str, int a2, int a3) {
+	if(a2 >= 20) sub_616F20(NorthAmerica, ret_str, a2, 4);
+}
+
+void __declspec(naked) rb_concacaf_ban_text_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0xc]
+		push dword ptr[eax + 0x8]
+		push dword ptr[eax + 0x4]
+		push ecx
+		call rb_concacaf_ban_text
+		add esp, 0x10
+		ret 0xc
+	}
+}
+
+BYTE* rb_concacaf_init(BYTE* _this, int* a2) {
+	sub_7E7760(_this, a2);
+	*((DWORD*)(_this)) = (DWORD)(concacaf_discipline_vtable->vtable_ptr);
+	concacaf_discipline_vtable->SetPointer(VTableDBanText, (DWORD)&rb_concacaf_ban_text_c);
+	*((BYTE*)(_this + 0x4)) = 2;
+	*((BYTE*)(_this + 0x5)) = RulesNorthAmerica;
+	*((BYTE*)(_this + 0x6)) = 10;
+	*((DWORD*)(_this + 0x17)) = -1;
+	*((DWORD*)(_this + 0x1B)) = NORTH_AMERICA_9CF();
+	*((BYTE*)(_this + 0x1F)) = 0xFF;
+	*((BYTE*)(_this + 0x20)) = 0xFF;
+	*((BYTE*)(_this + 0x21)) = RulesNorthAmerica;
+	*((BYTE*)(_this + 0x22)) = 0;
+	return _this;
 }
 
 void setup_concacaf_continent() {

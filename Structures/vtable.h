@@ -52,40 +52,48 @@ enum VTablePointers {
 	VTablePromRelUpdate = 45, // Relevant in top leagues with league structures that involve groups
 };
 
+enum DisciplineVTablePointers {
+	VTableD1 = 1,
+	VTableD2 = 2,
+	VTableD3 = 3,
+	VTableD4 = 4,
+	VTableDBanText = 5, // gets part of the text to show in the ban mssage
+	VTableD6 = 6,
+	VTableD7 = 7,
+	VTableD8 = 8,
+};
+
 class vtable
 {
 public:
-	vtable() {
-		std::fill(std::begin(vtable_bytes), std::end(vtable_bytes), 0xFF);
-	}
+	//vtable() {
+	//	std::fill(std::begin(vtable_bytes), std::end(vtable_bytes), 0xFF);
+	//}
 
 	vtable(BYTE* src, int amt) {
+		sz = amt;
+		vtable_bytes = new BYTE[amt];
+		vtable_ptr = vtable_bytes;
 		for (int i = 0; i < amt; i++) vtable_bytes[i] = src[i];
 	}
 
 	void SetPointer(int pos, DWORD funcAddr)
 	{
+		if (pos * 4 > sz) return;
 		WriteDWORD((DWORD)(&vtable_ptr[(pos - 1) * 4]), funcAddr);
-	}
-
-	static void PrintVTable(DWORD addr, const char* tableName = "")
-	{
-		BYTE* ptr = (BYTE*)addr;
-		dprintf("%s VTable at %08X:\n", tableName, addr);
-		for (BYTE i = 0; i < sizeof(addr); i += 4)
-			dprintf("%02X = %08X\n", i, (*(DWORD*)&ptr[i]));
 	}
 
 	void PrintVTable()
 	{
-		for (BYTE i = 0; i < sizeof(vtable_bytes); i += 4)
+		for (BYTE i = 0; i < sz / 4; i += 4)
 			dprintf("%02X = %08X\n", i, (*(DWORD*)&vtable_bytes[i]));
 	}
 
-	// mov eax, dword ptr[vtable_eng_league_2.vtable_ptr]
-	// vtable::PrintVTable(0x969E84, "eng_league_2");
-	BYTE* vtable_ptr = vtable_bytes;
+	BYTE* vtable_ptr;// = vtable_bytes;
 	// Cup competitions (with no group stage) only use 0xA0 bytes
-	BYTE vtable_bytes[0xB4] = { 0x0 };
+	//BYTE vtable_bytes[0xB4] = { 0x0 };
+	BYTE* vtable_bytes;
 
+private:
+	int sz;
 };

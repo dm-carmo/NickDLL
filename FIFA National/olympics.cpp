@@ -25,16 +25,16 @@ int olympics_set_champion(BYTE* _this) {
 	cm3_clubs* third = 0;
 	teams_seeded* teams = (teams_seeded*)third_playoff_data->teams_list;
 	for (WORD i = 0; i < third_playoff_data->n_teams; i++) {
-		if (teams[i].f6 == 1) third = teams[i].club;
+		if (teams[i].f6 == 1) third = get_national_team(teams[i].club->ClubNation->NationID);
 	}
 	teams = (teams_seeded*)final_data->teams_list;
 	for (WORD i = 0; i < final_data->n_teams; i++) {
-		if (teams[i].f6 == 1) first = teams[i].club;
-		else if (teams[i].f6 == 2) second = teams[i].club;
+		if (teams[i].f6 == 1) first = get_national_team(teams[i].club->ClubNation->NationID);
+		else if (teams[i].f6 == 2) second = get_national_team(teams[i].club->ClubNation->NationID);
 	}
 	DWORD host1_id = -1, host2_id = -1;
 	char num_hosts = get_host_ids_5FA730((BYTE*)*b5e134, comp_data->competition_db->ClubCompID, comp_data->year, &host1_id, &host2_id, 1);
-	sub_4AFCE0_add_history_entry(_this, first, second, third, num_hosts > 0 ? get_national_team(host1_id, true) : 0);
+	sub_4AFCE0_add_history_entry(_this, first, second, third, num_hosts > 0 ? get_national_team(host1_id) : 0);
 	return 0;
 }
 

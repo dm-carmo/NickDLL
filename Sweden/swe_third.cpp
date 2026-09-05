@@ -192,7 +192,7 @@ DWORD swe_third_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 5, 31), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 6, 7), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 6, 14), year, Saturday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 6, 18), year, Wednesday, Evening);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 6, 21), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 6, 28), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 2), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 9), year, Saturday);
