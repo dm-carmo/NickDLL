@@ -132,7 +132,7 @@ WORD get_comp_hosts_in_continent(BYTE* _this, DWORD compID, DWORD continentID, D
 	comp_stats* data = (comp_stats*)_this;
 	WORD year = data->year;
 	WORD modulo = 0;
-	if (compID == AFRICAN_CUP_OF_NATIONS_9CF() && year == 2025) year = 2027;
+	if (compID == AFCON_9CF() && year == 2025) year = 2027;
 	else
 	{
 		if (compID == FIFA_WORLD_CUP_9CF()) modulo = 2;

@@ -65,8 +65,8 @@ void ger_regional_subs(BYTE* _this)
 	comp_data->relegates_to = -1;
 
 	comp_data->f217 = 0x42;
-	comp_data->max_bench = 7;
-	comp_data->max_subs = 3;
+	comp_data->max_bench = 9;
+	comp_data->max_subs = 5;
 
 	DWORD v1 = *(DWORD*)_this;
 	comp_data->fixtures_table = (DWORD*)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0xA9, _this + 0x3A, 0);

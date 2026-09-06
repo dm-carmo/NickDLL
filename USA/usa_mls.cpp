@@ -257,8 +257,8 @@ void usa_mls_subs(BYTE* _this)
 
 	comp_data->f217 = 0x2;
 	comp_data->f82 = 2;
-	comp_data->max_bench = 7;
-	comp_data->max_subs = 3;
+	comp_data->max_bench = 9;
+	comp_data->max_subs = 5;
 
 	DWORD v1 = *(DWORD*)_this;
 	comp_data->fixtures_table = (DWORD*)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0xA9, _this + 0x3A, 0);
@@ -746,6 +746,8 @@ void setup_usa_mls() {
 	WriteVTablePtr(usa_mls_vtable, VTableAwardTeamsSetup, (DWORD)&usa_awards_teams_c);
 	WriteVTablePtr(usa_mls_vtable, VTablePromRelUpdate, (DWORD)&usa_mls_prom_rel_update_c);
 	WriteVTablePtr(usa_mls_vtable, VTableUpdateLastDivision, (DWORD)&usa_mls_last_positions_c);
+	WriteVTablePtr(usa_mls_vtable, VTableLoadCompInfo, 0x48CEB0);
+	WriteVTablePtr(usa_mls_vtable, VTableSaveCompInfo, 0x48CEA0);
 
 	// Remove hardcoded MLS details in fixtures
 	WriteNOP(0x444394, 6);

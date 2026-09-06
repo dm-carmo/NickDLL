@@ -8,11 +8,6 @@
 #include "fra_cup.h"
 #include "fra_super.h"
 
-static DWORD(__thiscall* fra_cup_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x5BA130);
-static DWORD(__thiscall* fra_super_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x5BF320);
-
 DWORD fra_setup_c(playable_nation_data* nation_data) {
 	
 	nation_data->contract_start_day = 4;
@@ -44,11 +39,11 @@ DWORD fra_setup_c(playable_nation_data* nation_data) {
 	nation_comps[i++] = (DWORD)pMem;
 	// Cup
 	pMem = (BYTE*)cm0102_new(0xB2);
-	fra_cup_setup(pMem, *current_year, get_comp(FRA_CUP_9CF()));
+	fra_cup_init(pMem, *current_year, get_comp(FRA_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Super Cup
 	pMem = (BYTE*)cm0102_new(0xB2);
-	fra_super_setup(pMem, *current_year, get_comp(FRA_SUPER_CUP_9CF()));
+	fra_super_init(pMem, *current_year, get_comp(FRA_SUPER_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	BYTE* cm_date = new BYTE[8];
 	convert_to_cm_date(cm_date, 20, June, START_YEAR, -1);
@@ -66,6 +61,4 @@ void setup_fra_nation()
 	setup_fra_third();
 	setup_fra_cup();
 	setup_fra_super();
-
-	WriteNOP(0x5ba202, 7);
 }

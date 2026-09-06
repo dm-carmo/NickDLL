@@ -278,8 +278,8 @@ void arg_third_interior_subs(BYTE* _this)
 
 	comp_data->f217 = 0x2;
 	comp_data->f82 = 2;
-	comp_data->max_bench = 7;
-	comp_data->max_subs = 3;
+	comp_data->max_bench = 9;
+	comp_data->max_subs = 5;
 
 	DWORD v1 = *(DWORD*)_this;
 	comp_data->fixtures_table = (DWORD*)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0xA9, _this + 0x3A, 0);
@@ -887,6 +887,8 @@ void arg_third_interior_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	arg_third_interior_vtable->SetPointer(VTableUpdateLastDivision, (DWORD)&arg_third_interior_last_positions_c);
 	arg_third_interior_vtable->SetPointer(VTable39, 0x404480);
 	arg_third_interior_vtable->SetPointer(VTable40, 0x404480);
+	arg_third_interior_vtable->SetPointer(VTableLoadCompInfo, 0x48CEB0);
+	arg_third_interior_vtable->SetPointer(VTableSaveCompInfo, 0x48CEA0);
 	data->year = year;
 	data->rules = RulesArgentina;
 	int loaded = sub_687B10(_this, 1);

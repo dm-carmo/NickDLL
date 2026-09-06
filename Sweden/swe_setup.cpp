@@ -8,9 +8,6 @@
 #include "swe_third.h"
 #include "swe_cup.h"
 
-static DWORD(__thiscall* swe_cup_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x88CBB0);
-
 DWORD swe_setup_c(playable_nation_data* nation_data) {
 	BYTE* start_date = new BYTE[8];
 	sub_54C770((BYTE*)dd6ec8, start_date, 4);

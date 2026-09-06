@@ -81,18 +81,6 @@ int caf_super_cup_teams(BYTE* _this) {
 	return 1;
 }
 
-void __declspec(naked) caf_super_cup_teams_c()
-{
-	__asm
-	{
-		mov eax, esp
-		push ecx
-		call caf_super_cup_teams
-		add esp, 0x4
-		ret
-	}
-}
-
 char caf_super_cup_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	data->f76 = 0;
@@ -137,9 +125,35 @@ void __declspec(naked) caf_super_cup_update_c()
 	}
 }
 
+void caf_super_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp)
+{
+	sub_518640(_this);
+	comp_stats* data = (comp_stats*)_this;
+	data->competition_db = comp;
+	data->comp_vtable = caf_super_cup_vtable;
+	data->year = year;
+	data->f171 = 0;
+	data->f68 = -1;
+	data->current_stage = -1;
+	data->num_stages = 0;
+	data->comp_type = CLUB_DOMESTIC;
+	data->max_bench = 9;
+	data->max_subs = 5;
+	data->rules = RulesAfrica;
+	*((BYTE*)(_this + 0xB1)) = 0;
+	int loaded = sub_51FC00(_this, 1);
+	if (loaded) return;
+	caf_super_cup_teams(_this);
+	DWORD v1 = *(DWORD*)_this;
+	*((DWORD*)(_this + 0xA3)) = (DWORD)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0x3c, _this + 0x3a, 0);
+	cup_map_fixture_tree_518790(_this);
+	BYTE* pMem2 = (BYTE*)cm0102_new(0x5CE);
+	sub_49EE70(pMem2, _this);
+	data->f8 = (DWORD*)pMem2;
+}
+
 void setup_caf_super_cup()
 {
 	WriteVTablePtr(caf_super_cup_vtable, VTableFixtures, (DWORD)&caf_super_cup_fixture_caller);
 	WriteVTablePtr(caf_super_cup_vtable, VTableEoSUpdate, (DWORD)&caf_super_cup_update_c);
-	PatchFunction(0x410a50, (DWORD)&caf_super_cup_teams_c);
 }

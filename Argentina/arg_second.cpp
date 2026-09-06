@@ -68,8 +68,8 @@ void arg_second_subs(BYTE* _this)
 	}
 
 	comp_data->f217 = 0x2;
-	comp_data->max_bench = 7;
-	comp_data->max_subs = 3;
+	comp_data->max_bench = 9;
+	comp_data->max_subs = 5;
 
 	DWORD v1 = *(DWORD*)_this;
 	comp_data->fixtures_table = (DWORD*)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0xA9, _this + 0x3A, 0);
@@ -818,5 +818,7 @@ void setup_arg_second()
 	WriteVTablePtr(arg_second_vtable, VTable14, 0x583470);
 	WriteVTablePtr(arg_second_vtable, VTableStageNews, 0x48c6d0);
 	WriteVTablePtr(arg_second_vtable, VTable39, 0x404480);
+	WriteVTablePtr(arg_second_vtable, VTableLoadCompInfo, 0x48CEB0);
+	WriteVTablePtr(arg_second_vtable, VTableSaveCompInfo, 0x48CEA0);
 	if (configFile.GetBool("showPlayoffWinnerInHistory", true)) WriteVTablePtr(arg_second_vtable, VTableShowHostsInHistory, 0x404480);
 }

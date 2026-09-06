@@ -39,11 +39,11 @@ DWORD fifa_national_setup_c(playable_nation_data* nation_data) {
 	nation_comps[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)cm0102_new(0xEE);
-	african_nations_init(pMem, *current_year, get_comp(AFRICAN_CUP_OF_NATIONS_9CF()));
+	african_nations_init(pMem, *current_year, get_comp(AFCON_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)cm0102_new(0xB2);
-	african_nations_quals_init(pMem, *current_year, get_comp(AFRICAN_CUP_OF_NATIONS_QUALIFYING_9CF()));
+	african_nations_quals_init(pMem, *current_year, get_comp(AFCON_QUALIFYING_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)cm0102_new(0xEE);

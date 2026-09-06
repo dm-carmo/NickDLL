@@ -198,7 +198,7 @@ void african_nations_quals_all_teams(BYTE* _this) {
 	sort(caf_countries.begin(), caf_countries.end(), compareNationRanking);
 
 	DWORD host1_id, host2_id;
-	get_comp_hosts_in_continent(_this, AFRICAN_CUP_OF_NATIONS_9CF(), AFRICA_9CF(), &host1_id, &host2_id);
+	get_comp_hosts_in_continent(_this, AFCON_9CF(), AFRICA_9CF(), &host1_id, &host2_id);
 	WORD total_teams_in_comp = (WORD)caf_countries.size();
 	data->special_nteams_seedings = total_teams_in_comp;
 	data->f56 = total_teams_in_comp;
@@ -318,7 +318,7 @@ int african_nations_quals_table_fates(BYTE* _this, cm3_clubs* club, char fate, c
 	else if (stage < 12) {
 		switch (fate) {
 		case Qualified1:
-			qualify_team_for_international_comp(club, AFRICAN_CUP_OF_NATIONS_9CF());
+			qualify_team_for_international_comp(club, AFCON_9CF());
 			return 0;
 		default:
 			staff_history_knocked_out_86C000(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, GroupStage, 0xF);
@@ -382,7 +382,7 @@ int african_nations_quals_stage_news(BYTE* _this, int club_idx, char fate, char 
 		{
 			if (show_body_text) return sub_4B4590(club_idx, (WORD)stage_name_idx, (DWORD)comp_data, fate, show_body_text, ret_str_ptr);
 			else {
-				cm3_club_comps* afcon = get_comp(AFRICAN_CUP_OF_NATIONS_9CF());
+				cm3_club_comps* afcon = get_comp(AFCON_9CF());
 				sub_66F4E0(0xDE1F64, 0x9C470C, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, afcon->ClubCompGenderNameShort, afcon->ClubCompGenderNameShort,
 					&club_data->ClubNameShort[0], &afcon->ClubCompNameShort[0]);
 				sub_4AE660(ret_str_ptr, 0xDE1F64);
@@ -579,7 +579,7 @@ void african_nations_quals_second_stage_setup(BYTE* _this) {
 	DWORD v1 = *(DWORD*)_this;
 	WORD group_teams = 4;
 	DWORD host1_id, host2_id;
-	get_comp_hosts_in_continent(_this, AFRICAN_CUP_OF_NATIONS_9CF(), AFRICA_9CF(), &host1_id, &host2_id);
+	get_comp_hosts_in_continent(_this, AFCON_9CF(), AFRICA_9CF(), &host1_id, &host2_id);
 	for (int i = 0; i < 12; i++) {
 		WORD num_rounds = 0;
 		WORD stage_name_id = 0;
@@ -713,8 +713,8 @@ void african_nations_quals_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->relegates_to = -1;
 	data->rules = RulesInternational;
 	data->f82 = 3;
-	data->max_bench = 7;
-	data->max_subs = 3;
+	data->max_bench = 9;
+	data->max_subs = 5;
 	data->year = year - 1;
 	while (data->year % 4 != 2) data->year++;
 	data->f81 = 0xf;

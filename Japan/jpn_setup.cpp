@@ -10,13 +10,6 @@
 #include "jpn_league_cup.h"
 #include "jpn_super.h"
 
-static DWORD(__thiscall* jpn_cup_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x661D30);
-static DWORD(__thiscall* jpn_league_cup_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x665380);
-static DWORD(__thiscall* jpn_super_cup_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x665D70);
-
 DWORD jpn_setup_c(playable_nation_data* nation_data) {
 
 	nation_data->contract_start_day = 6;
@@ -59,15 +52,15 @@ DWORD jpn_setup_c(playable_nation_data* nation_data) {
 	}
 	// Cup
 	pMem = (BYTE*)cm0102_new(0xB2);
-	jpn_cup_setup(pMem, *current_year, get_comp(JPN_EMPEROR_CUP_9CF()));
+	jpn_cup_init(pMem, *current_year, get_comp(JPN_EMPEROR_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// League Cup
 	pMem = (BYTE*)cm0102_new(0xB2);
-	jpn_league_cup_setup(pMem, *current_year, get_comp(JPN_LEAGUE_CUP_9CF()));
+	jpn_league_cup_init(pMem, *current_year, get_comp(JPN_LEAGUE_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Super Cup
 	pMem = (BYTE*)cm0102_new(0xB2);
-	jpn_super_cup_setup(pMem, *current_year, get_comp(JPN_SUPER_CUP_9CF()));
+	jpn_super_init(pMem, *current_year, get_comp(JPN_SUPER_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
 	BYTE* cm_date = new BYTE[8];
@@ -87,7 +80,4 @@ void setup_jpn_nation() {
 	setup_jpn_cup();
 	setup_jpn_league_cup();
 	setup_jpn_super();
-
-	WriteNOP(0x661e02, 7);
-	WriteNOP(0x665452, 7);
 }

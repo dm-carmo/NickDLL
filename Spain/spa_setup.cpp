@@ -9,9 +9,6 @@
 #include "spa_cup.h"
 #include "spa_super.h"
 
-static DWORD(__thiscall* spa_super_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x8586B0);
-
 DWORD spa_setup_c(playable_nation_data* nation_data) {
 
 	nation_data->contract_start_day = 1;
@@ -57,7 +54,7 @@ DWORD spa_setup_c(playable_nation_data* nation_data) {
 	nation_comps[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)cm0102_new(0xB2);
-	spa_super_setup(pMem, *current_year, get_comp(SPA_SUPER_CUP_9CF()));
+	spa_super_init(pMem, *current_year, get_comp(SPA_SUPER_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	BYTE* cm_date = new BYTE[8];
 	convert_to_cm_date(cm_date, 20, June, START_YEAR, -1);

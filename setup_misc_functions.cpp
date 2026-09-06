@@ -107,6 +107,11 @@ int show_extra_leagues_in_start(BYTE* nation, DWORD dest_ptr, int a3) {
 		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
 		return 1;
 	}
+	if (cm3_nation->NationID == NATION_SERBIA_9CF()) {
+		league_str = "Srpska Liga";
+		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
+		return 1;
+	}
 	return 0;
 }
 
@@ -947,7 +952,7 @@ bool is_continental_qualifiers(cm3_club_comps* comp) {
 	if (id == WORLD_CUP_PLAYOFFS_9CF()) return true;
 	if (id == UEFA_EURO_QUALIFYING_9CF()) return true;
 	if (id == ASIAN_CUP_QUALIFYING_9CF()) return true;
-	if (id == AFRICAN_CUP_OF_NATIONS_QUALIFYING_9CF()) return true;
+	if (id == AFCON_QUALIFYING_9CF()) return true;
 	return false;
 }
 
@@ -958,7 +963,7 @@ bool is_continental_finals(cm3_club_comps* comp) {
 	if (id == GOLD_CUP_9CF()) return true;
 	if (id == COPA_AMERICA_9CF()) return true;
 	if (id == ASIAN_CUP_9CF()) return true;
-	if (id == AFRICAN_CUP_OF_NATIONS_9CF()) return true;
+	if (id == AFCON_9CF()) return true;
 	if (id == UEFA_EURO_9CF()) return true;
 	return false;
 }
@@ -1863,7 +1868,7 @@ void __declspec(naked) hosts_force_gold_cup_usa()
 		je usa_gold_cup
 		cmp ebp, dword ptr ds : [0x9cf7ac]
 		jnz not_afcon_special
-		mov ebp, dword ptr ss : [esp + 0x18]
+		movsx ebp, word ptr ss : [esp + 0x18]
 		cmp ebp, 2027
 		jnz not_afcon_special
 		mov ecx, dword ptr ss : [esp + 0x1c]

@@ -251,18 +251,6 @@ int spa_cup_teams(BYTE* _this) {
 	return 1;
 }
 
-extern "C" _declspec(naked) void spa_cup_teams_c()
-{
-	_asm
-	{
-		mov eax, esp
-		push ecx
-		call spa_cup_teams
-		add esp, 0x4
-		ret
-	}
-}
-
 void spa_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 {
 	sub_518640(_this);
@@ -275,8 +263,8 @@ void spa_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->current_stage = -1;
 	data->num_stages = 0;
 	data->comp_type = CLUB_DOMESTIC;
-	data->max_bench = 7;
-	data->max_subs = 3;
+	data->max_bench = 9;
+	data->max_subs = 5;
 	data->rules = RulesSpainCup;
 	*((BYTE*)(_this + 0xB1)) = 0;
 	int loaded = sub_51FC00(_this, 1);
@@ -357,4 +345,5 @@ void setup_spa_cup()
 	WriteVTablePtr(spa_cup_vtable, VTableEoSUpdate, (DWORD)&spa_cup_update_c);
 	WriteVTablePtr(spa_cup_vtable, VTableFixtures, (DWORD)&spa_cup_fixture_caller);
 	WriteVTablePtr(spa_cup_vtable, VTableLeagueSplit, 0x51F890);
+	WriteVTablePtr(spa_cup_vtable, VTableSubsRounds, 0x858e70);
 }

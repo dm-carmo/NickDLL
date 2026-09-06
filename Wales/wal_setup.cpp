@@ -8,9 +8,6 @@
 #include "wal_cup.h"
 #include "wal_league_cup.h"
 
-static DWORD(__thiscall* wal_cup_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x924420);
-
 DWORD wal_setup_c(playable_nation_data* nation_data) {
 	
 	nation_data->contract_start_day = 15;
@@ -42,7 +39,7 @@ DWORD wal_setup_c(playable_nation_data* nation_data) {
 	nation_comps[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)cm0102_new(0xB2);
-	wal_cup_setup(pMem, *current_year, get_comp(WAL_CUP_9CF()));
+	wal_cup_init(pMem, *current_year, get_comp(WAL_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
 	//pMem = (BYTE*)cm0102_new(0xB2);
@@ -65,6 +62,4 @@ void setup_wal_nation()
 	setup_wal_first_s();
 	setup_wal_cup();
 	setup_wal_league_cup();
-
-	WriteNOP(0x9244ea, 7);
 }

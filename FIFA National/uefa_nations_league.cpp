@@ -120,8 +120,8 @@ void uefa_nations_league_subs(BYTE* _this)
 	comp_data->promotes_to = -1;
 	comp_data->relegates_to = -1;
 
-	comp_data->max_bench = 7;
-	comp_data->max_subs = 3;
+	comp_data->max_bench = 9;
+	comp_data->max_subs = 5;
 
 	BYTE* cm_date = new BYTE[8];
 	convert_to_cm_date(cm_date, 10, May, comp_data->year, Sunday);

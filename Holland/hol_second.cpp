@@ -70,8 +70,8 @@ void hol_second_subs(BYTE* _this)
 	comp_data->relegates_to = -1;
 
 	comp_data->f82 = 2;
-	comp_data->max_bench = 7;
-	comp_data->max_subs = 3;
+	comp_data->max_bench = 9;
+	comp_data->max_subs = 5;
 
 	*(BYTE*)(_this + 0xEE) = 0;
 	*(BYTE*)(_this + 0xEF) = 0;

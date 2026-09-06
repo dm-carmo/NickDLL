@@ -9,11 +9,6 @@
 #include "pol_super.h"
 #include "pol_awards.h"
 
-static DWORD(__thiscall* pol_cup_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x7C7D80);
-static DWORD(__thiscall* pol_super_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x7CC920);
-
 DWORD pol_setup_c(playable_nation_data* nation_data) {
 	
 	nation_data->contract_start_day = 17;
@@ -44,11 +39,11 @@ DWORD pol_setup_c(playable_nation_data* nation_data) {
 	nation_comps[i++] = (DWORD)pMem;
 	// Cup
 	pMem = (BYTE*)cm0102_new(0xB2);
-	pol_cup_setup(pMem, *current_year, get_comp(POL_CUP_9CF()));
+	pol_cup_init(pMem, *current_year, get_comp(POL_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Super Cup
 	pMem = (BYTE*)cm0102_new(0xB2);
-	pol_super_setup(pMem, *current_year, get_comp(POL_SUPER_CUP_9CF()));
+	pol_super_init(pMem, *current_year, get_comp(POL_SUPER_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	BYTE* cm_date = new BYTE[8];
 	convert_to_cm_date(cm_date, 20, June, START_YEAR, -1);
@@ -67,6 +62,4 @@ void setup_pol_nation()
 	setup_pol_cup();
 	setup_pol_super();
 	setup_pol_awards();
-
-	WriteNOP(0x7c7e52, 7);
 }

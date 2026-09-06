@@ -927,6 +927,12 @@
     <ClCompile Include="FIFA National\olympics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Serbia\srb_setup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="England\eng_charity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -1851,6 +1857,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="FIFA National\olympics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Serbia\srb_setup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="England\eng_charity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

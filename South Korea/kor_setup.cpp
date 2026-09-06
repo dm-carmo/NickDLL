@@ -8,11 +8,6 @@
 #include "kor_super.h"
 #include "kor_awards.h"
 
-static DWORD(__thiscall* kor_cup_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x66A460);
-static DWORD(__thiscall* kor_super_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x66D820);
-
 DWORD kor_setup_c(playable_nation_data* nation_data) {
 	BYTE* start_date = new BYTE[8];
 	sub_54C770((BYTE*)dd6ec8, start_date, 4);
@@ -42,11 +37,11 @@ DWORD kor_setup_c(playable_nation_data* nation_data) {
 	nation_comps[i++] = (DWORD)pMem;
 	// Cup
 	pMem = (BYTE*)cm0102_new(0xB2);
-	kor_cup_setup(pMem, start_year, get_comp(KOR_CUP_9CF()));
+	kor_cup_init(pMem, start_year, get_comp(KOR_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Super Cup
 	pMem = (BYTE*)cm0102_new(0xB2);
-	kor_super_setup(pMem, start_year, get_comp(KOR_SUPER_CUP_9CF()));
+	kor_super_init(pMem, start_year, get_comp(KOR_SUPER_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
 	BYTE* cm_date = new BYTE[8];
@@ -95,5 +90,6 @@ void setup_kor_nation() {
 	WriteBytes(0x66e720, 2, 9, July);
 	WriteBytes(0x66e72a, 2, 19, August);
 
-	WriteNOP(0x66a52a, 7);
+	// loans not possible outside transfer window
+	WriteDWORD(0x96d00c, 0x412dd0);
 }

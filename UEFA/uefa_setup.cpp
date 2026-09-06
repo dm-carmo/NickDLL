@@ -8,9 +8,6 @@
 #include "uefa_super_cup.h"
 #include <Helpers/constants.h>
 
-static DWORD(__thiscall* uefa_super_cup_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x57A100);
-
 DWORD uefa_setup_c(playable_nation_data* nation_data) {
 
 	nation_data->contract_start_day = 23;
@@ -33,16 +30,16 @@ DWORD uefa_setup_c(playable_nation_data* nation_data) {
 	uefa_champions_league_init(pMem, *current_year, get_comp(UEFA_CHAMPIONS_LEAGUE_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)cm0102_new(0xB6);
+	pMem = (BYTE*)cm0102_new(0xB2);
 	uefa_europa_league_init(pMem, *current_year, get_comp(UEFA_EUROPA_LEAGUE_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
-	pMem = (BYTE*)cm0102_new(0xB6);
+	pMem = (BYTE*)cm0102_new(0xB2);
 	uefa_conference_league_init(pMem, *current_year, get_comp(UEFA_CONFERENCE_LEAGUE_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)cm0102_new(0xB2);
-	uefa_super_cup_setup(pMem, *current_year, get_comp(UEFA_SUPER_CUP_9CF()));
+	uefa_super_cup_init(pMem, *current_year, get_comp(UEFA_SUPER_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
 	BYTE* cm_date = new BYTE[8];

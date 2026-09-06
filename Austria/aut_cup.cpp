@@ -5,7 +5,7 @@
 #include <map>
 #include <Helpers\9cf_constants.h>
 
-vtable* aut_cup_vtable = new vtable((BYTE*)0x96E650, 0xA0);
+vtable* aut_cup_vtable = new vtable((BYTE*)0x96C8B8, 0xA0);
 
 void aut_cup_free_under(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
@@ -176,7 +176,7 @@ DWORD aut_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 7), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 29), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 0, Penalties | ExtraTime, NoTiebreak, 4, 16, 8, 0, 0, 0, 1, 0, prizeMoneyFile.GetInt("aut_cup_r3_qualify"));
+		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 1, Penalties | ExtraTime, NoTiebreak, 4, 16, 8, 0, 0, 0, 1, 0, prizeMoneyFile.GetInt("aut_cup_r3_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 30), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 2, 11), year, Wednesday, Evening);
@@ -227,8 +227,8 @@ void aut_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->current_stage = -1;
 	data->num_stages = 0;
 	data->comp_type = CLUB_DOMESTIC;
-	data->max_bench = 7;
-	data->max_subs = 3;
+	data->max_bench = 9;
+	data->max_subs = 5;
 	data->rules = RulesAustria;
 	*((BYTE*)(_this + 0xB1)) = 0;
 	int loaded = sub_51FC00(_this, 1);

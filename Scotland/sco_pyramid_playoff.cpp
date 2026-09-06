@@ -78,8 +78,8 @@ void sco_pyramid_playoff_subs(BYTE* _this)
 
 	comp_data->f217 = 2;
 	comp_data->f82 = 2;
-	comp_data->max_bench = 7;
-	comp_data->max_subs = 3;
+	comp_data->max_bench = 9;
+	comp_data->max_subs = 5;
 
 	BYTE* cm_date = new BYTE[8];
 	convert_to_cm_date(cm_date, 19, April, comp_data->year + 1, Sunday);

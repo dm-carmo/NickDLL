@@ -13,10 +13,6 @@
 #include "sco_challenge_cup.h"
 #include <Helpers\9cf_constants.h>
 
-static DWORD(__thiscall* sco_cup_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x7ed310);
-static DWORD(__thiscall* sco_challenge_cup_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x570C00);
 
 DWORD sco_setup_c(playable_nation_data* nation_data) {
 	
@@ -71,7 +67,7 @@ DWORD sco_setup_c(playable_nation_data* nation_data) {
 	}
 
 	pMem = (BYTE*)cm0102_new(0xB2);
-	sco_cup_setup(pMem, *current_year, get_comp(SCO_CUP_9CF()));
+	sco_cup_init(pMem, *current_year, get_comp(SCO_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)cm0102_new(0xF6);
@@ -101,6 +97,4 @@ void setup_sco_nation() {
 	setup_sco_cup();
 	setup_sco_league_cup();
 	setup_sco_challenge_cup();
-
-	WriteNOP(0x7ed3e2, 7);
 }

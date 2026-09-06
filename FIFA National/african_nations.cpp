@@ -72,8 +72,8 @@ void african_nations_subs(BYTE* _this)
 	data->relegations = 0;
 
 	data->n_games = 1000;
-	data->max_bench = 7;
-	data->max_subs = 3;
+	data->max_bench = 9;
+	data->max_subs = 5;
 
 	BYTE* cm_date = new BYTE[8];
 	convert_to_cm_date(cm_date, 13, April, data->year, -1);
@@ -618,7 +618,7 @@ char african_nations_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	data->f76 = 0;
 
-	BYTE* afcon_quals = get_loaded_league(AFRICAN_CUP_OF_NATIONS_QUALIFYING_9CF());
+	BYTE* afcon_quals = get_loaded_league(AFCON_QUALIFYING_9CF());
 
 	DWORD v1 = *(DWORD*)afcon_quals;
 	if (data->year != 2027) (*(int(__thiscall**)(BYTE*))(v1 + 0x8))(afcon_quals);

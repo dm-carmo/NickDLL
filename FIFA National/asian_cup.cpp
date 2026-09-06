@@ -65,8 +65,8 @@ void asian_cup_subs(BYTE* _this)
 	data->relegations = 0;
 
 	data->n_games = 1000;
-	data->max_bench = 7;
-	data->max_subs = 3;
+	data->max_bench = 9;
+	data->max_subs = 5;
 
 	BYTE* cm_date = new BYTE[8];
 	convert_to_cm_date(cm_date, 9, May, data->year - 1, Saturday);

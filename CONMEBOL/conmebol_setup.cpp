@@ -6,9 +6,6 @@
 #include "conmebol_sudamericana.h"
 #include "conmebol_recopa.h"
 
-static DWORD(__thiscall* conmebol_recopa_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x632080);
-
 DWORD conmebol_setup_c(playable_nation_data* nation_data) {
 	BYTE* start_date = new BYTE[8];
 	sub_54C770((BYTE*)dd6ec8, start_date, 4);
@@ -39,7 +36,7 @@ DWORD conmebol_setup_c(playable_nation_data* nation_data) {
 	nation_comps[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)cm0102_new(0xB2);
-	conmebol_recopa_setup(pMem, start_year, get_comp(RECOPA_9CF()));
+	conmebol_recopa_init(pMem, start_year, get_comp(RECOPA_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
 	BYTE* cm_date = new BYTE[8];

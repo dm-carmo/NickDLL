@@ -10,11 +10,6 @@
 #include "ger_awards.h"
 #include <Helpers\9cf_constants.h>
 
-static DWORD(__thiscall* ger_cup_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x5D8C20);
-static DWORD(__thiscall* ger_super_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x92B4B0);
-
 DWORD ger_setup_c(playable_nation_data* nation_data) {
 	
 	nation_data->contract_start_day = 21;
@@ -57,11 +52,11 @@ DWORD ger_setup_c(playable_nation_data* nation_data) {
 	}
 	// Cup
 	pMem = (BYTE*)cm0102_new(0xB2);
-	ger_cup_setup(pMem, *current_year, get_comp(GER_CUP_9CF()));
+	ger_cup_init(pMem, *current_year, get_comp(GER_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Supercup
 	pMem = (BYTE*)cm0102_new(0xB2);
-	ger_super_setup(pMem, *current_year, get_comp(GER_SUPER_CUP_9CF()));
+	ger_super_init(pMem, *current_year, get_comp(GER_SUPER_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
 	BYTE* cm_date = new BYTE[8];
@@ -71,6 +66,28 @@ DWORD ger_setup_c(playable_nation_data* nation_data) {
 	nation_data->f29 = 1;
 	nation_data->super_cup = get_comp(GER_SUPER_CUP_9CF());
 	return 1;
+}
+
+void __declspec(naked) germany_foreign_rules()
+{
+	__asm
+	{
+		mov eax, dword ptr ds : [eax + 0x14]
+		test eax, eax
+		je check_ger_fgn_ret
+		mov eax, dword ptr ds : [eax + 0x5d]
+		test eax, eax
+		je check_ger_fgn_ret
+		mov eax, dword ptr ds : [eax]
+		cmp eax, dword ptr ds : [0x9CF228]
+		je aut_fgn
+		mov byte ptr ds : [edx + 5] , 5
+		ret 8
+		aut_fgn :
+		mov byte ptr ds : [edx + 5] , 7
+		check_ger_fgn_ret:
+		ret 8
+	}
 }
 
 void setup_ger_nation()
@@ -83,7 +100,9 @@ void setup_ger_nation()
 	setup_ger_super();
 	setup_ger_awards();
 
-	WriteNOP(0x5d8cf2, 7);
+	// loans not possible outside transfer window
+	WriteDWORD(0x96b3ec, 0x412dd0);
+	PatchFunction(0x5e02ec, (DWORD)&germany_foreign_rules);
 }
 
 void germany_restructure() {

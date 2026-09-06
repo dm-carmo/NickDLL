@@ -9,11 +9,6 @@
 #include "nir_league_cup.h"
 #include "nir_charity.h"
 
-static DWORD(__thiscall* nir_cup_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x78a5b0);
-static DWORD(__thiscall* nir_charity_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x789df0);
-
 DWORD nir_setup_c(playable_nation_data* nation_data) {
 	
 	nation_data->contract_start_day = 1;
@@ -44,7 +39,7 @@ DWORD nir_setup_c(playable_nation_data* nation_data) {
 	nation_comps[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)cm0102_new(0xB2);
-	nir_cup_setup(pMem, *current_year, get_comp(NIR_CUP_9CF()));
+	nir_cup_init(pMem, *current_year, get_comp(NIR_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)cm0102_new(0xB2);
@@ -52,7 +47,7 @@ DWORD nir_setup_c(playable_nation_data* nation_data) {
 	nation_comps[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)cm0102_new(0xB2);
-	nir_charity_setup(pMem, *current_year, get_comp(NIR_CHARITY_SHIELD_9CF()));
+	nir_charity_init(pMem, *current_year, get_comp(NIR_CHARITY_SHIELD_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
 	BYTE* cm_date = new BYTE[8];

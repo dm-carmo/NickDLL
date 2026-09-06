@@ -469,8 +469,8 @@ void world_cup_playoffs_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->relegates_to = -1;
 	data->rules = RulesInternational;
 	data->f82 = 3;
-	data->max_bench = 7;
-	data->max_subs = 3;
+	data->max_bench = 9;
+	data->max_subs = 5;
 	data->year = year + 1;
 	while (data->year % 4 != 1) data->year++;
 	data->f81 = 0xf;

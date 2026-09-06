@@ -277,8 +277,8 @@ int sco_lowland_subs(BYTE* _this)
 
 	comp_data->f217 = 0x2;
 	comp_data->f82 = 2;
-	comp_data->max_bench = 7;
-	comp_data->max_subs = 3;
+	comp_data->max_bench = 9;
+	comp_data->max_subs = 5;
 
 	DWORD v1 = *(DWORD*)_this;
 	comp_data->fixtures_table = (DWORD*)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0xA9, _this + 0x3A, 0);
@@ -490,6 +490,8 @@ void sco_lowland_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	sco_lowland_vtable->SetPointer(VTableTableFates, (DWORD)&sco_lowland_table_fates_c);
 	sco_lowland_vtable->SetPointer(VTableAwardTeamsSetup, (DWORD)&sco_lowland_awards_teams_c);
 	sco_lowland_vtable->SetPointer(VTableStageNews, 0x48c6d0);
+	sco_lowland_vtable->SetPointer(VTableLoadCompInfo, 0x48CEB0);
+	sco_lowland_vtable->SetPointer(VTableSaveCompInfo, 0x48CEA0);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) sco_lowland_vtable->SetPointer(VTableShowThirdInHistory, 0x4110b0);
 	data->year = year;
 	data->rules = RulesScotlandLeague;

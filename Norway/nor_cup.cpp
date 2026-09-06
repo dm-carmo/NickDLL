@@ -167,18 +167,6 @@ int nor_cup_teams(BYTE* _this) {
 	return 1;
 }
 
-extern "C" _declspec(naked) void nor_cup_teams_c()
-{
-	_asm
-	{
-		mov eax, esp
-		push ecx
-		call nor_cup_teams
-		add esp, 0x4
-		ret
-	}
-}
-
 char nor_cup_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	data->f76 = 0;
@@ -248,8 +236,8 @@ void nor_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->current_stage = -1;
 	data->num_stages = 0;
 	data->comp_type = CLUB_DOMESTIC;
-	data->max_bench = 7;
-	data->max_subs = 3;
+	data->max_bench = 9;
+	data->max_subs = 5;
 	data->rules = RulesNorwayCup;
 	*((BYTE*)(_this + 0xB1)) = 0;
 	int loaded = sub_51FC00(_this, 1);
@@ -268,7 +256,6 @@ void setup_nor_cup()
 {
 	WriteVTablePtr(nor_cup_vtable, VTableFixtures, (DWORD)&nor_cup_fixture_caller);
 	WriteVTablePtr(nor_cup_vtable, VTableEoSUpdate, (DWORD)&nor_cup_update_c);
-	PatchFunction(0x78f890, (DWORD)&nor_cup_teams_c);
 	WriteVTablePtr(nor_cup_vtable, VTableStageNews, 0x48C6D0);
 	WriteVTablePtr(nor_cup_vtable, VTableSubsRounds, 0x858e70);
 	WriteVTablePtr(nor_cup_vtable, VTableLeagueSplit, 0x88d8a0); // same as Swedish Cup

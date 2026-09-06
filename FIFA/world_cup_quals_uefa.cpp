@@ -86,8 +86,8 @@ void world_cup_quals_uefa_subs(BYTE* _this)
 	comp_data->promotes_to = -1;
 	comp_data->relegates_to = -1;
 
-	comp_data->max_bench = 7;
-	comp_data->max_subs = 3;
+	comp_data->max_bench = 9;
+	comp_data->max_subs = 5;
 
 	DWORD v1 = *(DWORD*)_this;
 	comp_data->fixtures_table = (DWORD*)cm0102_malloc(fixture_dates_sz);

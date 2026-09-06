@@ -7,9 +7,6 @@
 #include "usa_cup.h"
 #include "usa_awards.h"
 
-static DWORD(__thiscall* usa_cup_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x90AEB0);
-
 DWORD usa_setup_c(playable_nation_data* nation_data) {
 	BYTE* start_date = new BYTE[8];
 	sub_54C770((BYTE*)dd6ec8, start_date, 4);
@@ -39,7 +36,7 @@ DWORD usa_setup_c(playable_nation_data* nation_data) {
 	nation_comps[i++] = (DWORD)pMem;
 	// Cup
 	pMem = (BYTE*)cm0102_new(0xB2);
-	usa_cup_setup(pMem, start_year, get_comp(USA_OPEN_CUP_9CF()));
+	usa_cup_init(pMem, start_year, get_comp(USA_OPEN_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
 	BYTE* cm_date = new BYTE[8];
@@ -60,8 +57,6 @@ void setup_usa_nation() {
 	WriteBytes(0x5ae103, 1, 0xeb);
 	WriteBytes(0x7759eb, 6, 0xE9, 0xE9, 0x00, 0x00, 0x00, 0x90);
 	WriteNOP(0x90ba86, 2);
-
-	WriteNOP(0x90af7a, 7);
 }
 
 void usa_restructure() {

@@ -227,8 +227,8 @@ void eng_fa_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	BYTE* pMem2 = (BYTE*)cm0102_new(0x5CE);
 	sub_49EE70(pMem2, _this);
 	data->f8 = (DWORD*)pMem2;
-	data->max_bench = 7;
-	data->max_subs = 3;
+	data->max_bench = 9;
+	data->max_subs = 5;
 	cup_reputation_setup_generic_5223A0(_this);
 }
 
@@ -295,5 +295,8 @@ void setup_eng_fa_cup() {
 	WriteVTablePtr(eng_fa_cup_vtable, VTableInitFree, (DWORD)&eng_fa_cup_free_c);
 	WriteVTablePtr(eng_fa_cup_vtable, VTableEoSUpdate, (DWORD)&eng_fa_cup_update_c);
 	WriteVTablePtr(eng_fa_cup_vtable, VTableFixtures, (DWORD)&eng_fa_cup_fixture_caller);
+	WriteVTablePtr(eng_fa_cup_vtable, VTableSubsRounds, 0x858e70);
 	WriteVTablePtr(eng_fa_cup_vtable, VTableLeagueSplit, 0x51F890);
+	WriteVTablePtr(eng_fa_cup_vtable, VTableLoadCompInfo, 0x48CEB0);
+	WriteVTablePtr(eng_fa_cup_vtable, VTableSaveCompInfo, 0x48CEA0);
 }

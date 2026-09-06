@@ -30,8 +30,8 @@ void por_first_subs(BYTE* _this)
 	comp_data->relegates_to = POR_SECOND_9CF();
 
 	comp_data->f82 = 2;
-	comp_data->max_bench = 7;
-	comp_data->max_subs = 3;
+	comp_data->max_bench = 9;
+	comp_data->max_subs = 5;
 
 	DWORD v1 = *(DWORD*)_this;
 	comp_data->fixtures_table = (DWORD*)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0xA9, _this + 0x3A, 0);
@@ -239,7 +239,7 @@ void __fastcall por_d4_inactive_relegation(BYTE* _this)
 	}
 	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(available_clubs, relegated_clubs.size() + (comp_data->year == 2026 ? 8 : 0), true);
 
-	for (unsigned int j = 0; j < promoted_clubs.size(); j++) {
+	for (unsigned int j = 0; j < relegated_clubs.size(); j++) {
 		cm3_clubs* clubToRelegate = relegated_clubs[j];
 		cm3_clubs* clubToPromote = promoted_clubs[j];
 
@@ -252,7 +252,7 @@ void __fastcall por_d4_inactive_relegation(BYTE* _this)
 
 	if (comp_data->year == 2026) {
 		for (unsigned int j = relegated_clubs.size(); j < promoted_clubs.size(); j++) {
-			promote_club_6830B0((BYTE*)promoted_clubs[j], (DWORD)comp_data->competition_db, 1);
+			promote_club_6830B0((BYTE*)promoted_clubs[j], (DWORD)get_comp(POR_FOURTH_9CF()), 1);
 		}
 	}
 }

@@ -115,9 +115,4 @@ void turkey_restructure() {
 		club->ClubReserveDivision = club->ClubDivision;
 		club->ClubDivision = d4;
 	}
-	vector<cm3_clubs*> d4_4 = find_clubs_of_comp(TUR_FOURTH_G4_9CF());
-	for (cm3_clubs* club : d4_4) {
-		club->ClubReserveDivision = club->ClubDivision;
-		club->ClubDivision = d4;
-	}
 }

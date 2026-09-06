@@ -7,9 +7,6 @@
 #include "gre_super.h"
 #include <Helpers\9cf_constants.h>
 
-static DWORD(__thiscall* gre_super_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x5ec040);
-
 DWORD gre_setup_c(playable_nation_data* nation_data) {
 	
 	nation_data->contract_start_day = 10;
@@ -40,7 +37,7 @@ DWORD gre_setup_c(playable_nation_data* nation_data) {
 	nation_comps[i++] = (DWORD)pMem;
 	// Supercup
 	pMem = (BYTE*)cm0102_new(0xB2);
-	gre_super_setup(pMem, *current_year, get_comp(GRE_SUPER_CUP_9CF()));
+	gre_super_init(pMem, *current_year, get_comp(GRE_SUPER_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
 	BYTE* cm_date = new BYTE[8];
@@ -57,18 +54,4 @@ void setup_gre_nation() {
 	setup_gre_second();
 	setup_gre_cup();
 	setup_gre_super();
-}
-
-void greece_restructure() {
-	cm3_club_comps* d2 = get_comp(GRE_SECOND_9CF());
-	vector<cm3_clubs*> d2_n = find_clubs_of_comp(GRE_SECOND_NORTH_9CF());
-	for (cm3_clubs* club : d2_n) {
-		club->ClubReserveDivision = club->ClubDivision;
-		club->ClubDivision = d2;
-	}
-	vector<cm3_clubs*> d2_s = find_clubs_of_comp(GRE_SECOND_SOUTH_9CF());
-	for (cm3_clubs* club : d2_s) {
-		club->ClubReserveDivision = club->ClubDivision;
-		club->ClubDivision = d2;
-	}
 }

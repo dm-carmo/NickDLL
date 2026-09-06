@@ -12,13 +12,9 @@
 #include "eng_league_cup.h"
 #include "eng_league_trophy.h"
 #include "eng_fa_trophy.h"
+#include "eng_charity.h"
 #include "eng_awards.h"
 #include <Helpers\9cf_constants.h>
-
-static DWORD(__thiscall* eng_charity_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x56D380);
-static DWORD(__thiscall* eng_fa_trophy_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x570C00);
 
 DWORD eng_setup_c(playable_nation_data* nation_data) {
 	
@@ -73,11 +69,11 @@ DWORD eng_setup_c(playable_nation_data* nation_data) {
 		nation_comps[i++] = (DWORD)pMem;
 	}
 	// FA Cup
-	pMem = (BYTE*)cm0102_new(0xB5);
+	pMem = (BYTE*)cm0102_new(0xB2);
 	eng_fa_cup_init(pMem, *current_year, get_comp(ENG_FA_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// League Cup
-	pMem = (BYTE*)cm0102_new(0xB3);
+	pMem = (BYTE*)cm0102_new(0xB2);
 	eng_league_cup_init(pMem, *current_year, get_comp(ENG_LEAGUE_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// League Trophy
@@ -86,12 +82,12 @@ DWORD eng_setup_c(playable_nation_data* nation_data) {
 	nation_comps[i++] = (DWORD)pMem;
 	// Charity Shield
 	pMem = (BYTE*)cm0102_new(0xB2);
-	eng_charity_setup(pMem, *current_year, get_comp(ENG_CHARITY_SHIELD_9CF()));
+	eng_charity_init(pMem, *current_year, get_comp(ENG_CHARITY_SHIELD_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// FA Trophy
 	if ((selected & 4) != 0) {
 		pMem = (BYTE*)cm0102_new(0xB2);
-		eng_fa_trophy_setup(pMem, *current_year, get_comp(ENG_FA_TROPHY_9CF()));
+		eng_fa_trophy_init(pMem, *current_year, get_comp(ENG_FA_TROPHY_9CF()));
 		nation_comps[i++] = (DWORD)pMem;
 	}
 	BYTE* cm_date = new BYTE[8];
@@ -115,10 +111,8 @@ void setup_eng_nation() {
 	setup_eng_league_cup();
 	setup_eng_league_trophy();
 	setup_eng_fa_trophy();
+	setup_eng_charity();
 	setup_eng_awards();
-
-	WriteNOP(0x570cd2, 7);
-	WriteNOP(0x56d452, 7);
 }
 
 void england_restructure() {

@@ -9,9 +9,6 @@
 #include "den_cup.h"
 #include "den_awards.h"
 
-static DWORD(__thiscall* den_cup_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x5509B0);
-
 DWORD den_setup_c(playable_nation_data* nation_data) {
 	
 	nation_data->contract_start_day = 14;
@@ -47,7 +44,7 @@ DWORD den_setup_c(playable_nation_data* nation_data) {
 	nation_comps[i++] = (DWORD)pMem;
 	// Cup
 	pMem = (BYTE*)cm0102_new(0xB2);
-	den_cup_setup(pMem, *current_year, get_comp(DEN_CUP_9CF()));
+	den_cup_init(pMem, *current_year, get_comp(DEN_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	BYTE* cm_date = new BYTE[8];
 	convert_to_cm_date(cm_date, 20, June, START_YEAR, -1);
@@ -67,7 +64,9 @@ void setup_den_nation()
 	setup_den_cup();
 	setup_den_awards();
 
-	WriteNOP(0x550a7a, 7);
+	// transfer windows
+	WriteBytes(0x4e9760, 2, 31, December);
+	WriteBytes(0x4e976a, 2, 2, February);
 	// loans not possible outside transfer window
 	WriteDWORD(0x969880, 0x412dd0);
 }

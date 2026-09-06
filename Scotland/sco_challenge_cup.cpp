@@ -104,8 +104,8 @@ void sco_challenge_cup_subs(BYTE* _this)
 	comp_data->relegates_to = -1;
 
 	comp_data->f217 = 0x28;
-	comp_data->max_bench = 7;
-	comp_data->max_subs = 3;
+	comp_data->max_bench = 9;
+	comp_data->max_subs = 5;
 
 	DWORD v1 = *(DWORD*)_this;
 	//comp_data->fixtures_table = (DWORD*)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0xA9, _this + 0x3A, 0);
@@ -718,6 +718,8 @@ void sco_challenge_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	sco_challenge_cup_vtable->SetPointer(VTableReputationCalc, (DWORD)&sco_challenge_cup_reputation_calc_c);
 	sco_challenge_cup_vtable->SetPointer(VTableSubsRounds, (DWORD)&sco_challenge_cup_subs_c);
 	sco_challenge_cup_vtable->SetPointer(VTableLeagueSplit, 0x6847c0);
+	sco_challenge_cup_vtable->SetPointer(VTableLoadCompInfo, 0x48CEB0);
+	sco_challenge_cup_vtable->SetPointer(VTableSaveCompInfo, 0x48CEA0);
 	data->rules = RulesScotlandCup;
 	data->f81 = 0xc;
 	int loaded = sub_687B10(_this, 1);

@@ -396,8 +396,8 @@ void aut_first_subs(BYTE* _this)
 	comp_data->relegates_to = AUT_SECOND_9CF();
 
 	comp_data->f82 = 2;
-	comp_data->max_bench = 7;
-	comp_data->max_subs = 3;
+	comp_data->max_bench = 9;
+	comp_data->max_subs = 5;
 
 	DWORD v1 = *(DWORD*)_this;
 	comp_data->fixtures_table = (DWORD*)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0xA9, _this + 0x3A, 0);
@@ -448,7 +448,7 @@ char aut_first_update(BYTE* _this) {
 	update_club_pro_status_68A980(_this, Professional, Relegated, -3, 1);
 	update_club_pro_status_68A980(_this, Professional, -3, Relegated, 1);
 	// All teams that were relegated from D2 must be semi-professional
-	update_club_pro_status_68A980(aut_second, SemiProfessional, -3, Relegated, 1);
+	update_club_pro_status_68A980(aut_second, SemiProfessional, -3, Relegated, 0);
 
 	DWORD v1 = *(DWORD*)_this;
 	aut_check_reserve_teams(_this);

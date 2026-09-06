@@ -270,18 +270,6 @@ int gre_cup_teams(BYTE* _this) {
 	return 1;
 }
 
-extern "C" _declspec(naked) void gre_cup_teams_c()
-{
-	_asm
-	{
-		mov eax, esp
-		push ecx
-		call gre_cup_teams
-		add esp, 0x4
-		ret
-	}
-}
-
 char gre_cup_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	data->f76 = 0;
@@ -895,8 +883,8 @@ void gre_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->comp_vtable = gre_cup_vtable;
 	data->year = year;
 	data->comp_type = CLUB_DOMESTIC;
-	data->max_bench = 7;
-	data->max_subs = 3;
+	data->max_bench = 9;
+	data->max_subs = 5;
 	data->rules = RulesGreece;
 	*((BYTE*)(_this + 0xB1)) = 0;
 	int loaded = sub_51FC00(_this, 1);

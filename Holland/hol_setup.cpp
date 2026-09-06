@@ -8,9 +8,6 @@
 #include "hol_super.h"
 #include "hol_awards.h"
 
-static DWORD(__thiscall* hol_super_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x5F8820);
-
 DWORD hol_setup_c(playable_nation_data* nation_data) {
 	
 	nation_data->contract_start_day = 1;
@@ -41,7 +38,7 @@ DWORD hol_setup_c(playable_nation_data* nation_data) {
 	nation_comps[i++] = (DWORD)pMem;
 	// Supercup
 	pMem = (BYTE*)cm0102_new(0xB2);
-	hol_super_setup(pMem, *current_year, get_comp(HOL_SUPER_CUP_9CF()));
+	hol_super_init(pMem, *current_year, get_comp(HOL_SUPER_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
 	BYTE* cm_date = new BYTE[8];

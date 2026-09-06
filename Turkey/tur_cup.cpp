@@ -283,18 +283,6 @@ void __declspec(naked) tur_cup_update_c()
 	}
 }
 
-extern "C" _declspec(naked) void tur_cup_teams_c()
-{
-	_asm
-	{
-		mov eax, esp
-		push ecx
-		call tur_cup_teams
-		add esp, 0x4
-		ret
-	}
-}
-
 void tur_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 {
 	sub_518640(_this);
@@ -303,8 +291,8 @@ void tur_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->comp_vtable = tur_cup_vtable;
 	data->year = year;
 	data->comp_type = CLUB_DOMESTIC;
-	data->max_bench = 7;
-	data->max_subs = 3;
+	data->max_bench = 9;
+	data->max_subs = 5;
 	data->rules = RulesTurkeyCup;
 	*((BYTE*)(_this + 0xB1)) = 0;
 	int loaded = sub_51FC00(_this, 1);

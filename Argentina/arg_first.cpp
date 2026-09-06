@@ -173,8 +173,8 @@ void arg_first_subs(BYTE* _this)
 
 	comp_data->f217 = 0x2;
 	comp_data->f82 = 2;
-	comp_data->max_bench = 7;
-	comp_data->max_subs = 3;
+	comp_data->max_bench = 9;
+	comp_data->max_subs = 5;
 
 	DWORD v1 = *(DWORD*)_this;
 	comp_data->fixtures_table = (DWORD*)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0xA9, _this + 0x3A, 0);
@@ -1471,6 +1471,8 @@ void setup_arg_first()
 	WriteVTablePtr(arg_first_vtable, VTableLeagueSplit, (DWORD)&arg_first_table_split_c);
 	WriteVTablePtr(arg_first_vtable, VTableTableFates, (DWORD)&arg_first_table_fates_c);
 	WriteVTablePtr(arg_first_vtable, VTablePromRelUpdate, (DWORD)&arg_first_prom_rel_update_c);
+	WriteVTablePtr(arg_first_vtable, VTableLoadCompInfo, 0x48CEB0);
+	WriteVTablePtr(arg_first_vtable, VTableSaveCompInfo, 0x48CEA0);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(arg_first_vtable, VTableShowThirdInHistory, 0x4110b0);
 	// 405ef0 average points table
 

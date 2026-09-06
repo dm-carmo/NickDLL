@@ -9,9 +9,6 @@
 #include "cro_awards.h"
 #include <Helpers\9cf_constants.h>
 
-static DWORD(__thiscall* cro_cup_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x517480);
-
 DWORD cro_setup_c(playable_nation_data* nation_data) {
 	
 	nation_data->contract_start_day = 1;
@@ -42,7 +39,7 @@ DWORD cro_setup_c(playable_nation_data* nation_data) {
 	nation_comps[i++] = (DWORD)pMem;
 	// Cup
 	pMem = (BYTE*)cm0102_new(0xB2);
-	cro_cup_setup(pMem, *current_year, get_comp(CRO_CUP_9CF()));
+	cro_cup_init(pMem, *current_year, get_comp(CRO_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Supercup
 	pMem = (BYTE*)cm0102_new(0xB2);
@@ -65,6 +62,4 @@ void setup_cro_nation() {
 	setup_cro_cup();
 	setup_cro_super();
 	setup_cro_awards();
-
-	WriteNOP(0x517552, 7);
 }

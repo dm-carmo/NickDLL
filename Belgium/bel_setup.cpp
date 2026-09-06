@@ -12,11 +12,6 @@
 #include "bel_super.h"
 #include "bel_awards.h"
 
-static DWORD(__thiscall* bel_cup_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x41d050);
-static DWORD(__thiscall* bel_super_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x420ef0);
-
 DWORD bel_setup_c(playable_nation_data* nation_data) {
 
 	nation_data->contract_start_day = 1;
@@ -67,11 +62,11 @@ DWORD bel_setup_c(playable_nation_data* nation_data) {
 	}
 
 	pMem = (BYTE*)cm0102_new(0xB2);
-	bel_cup_setup(pMem, *current_year, get_comp(BEL_CUP_9CF()));
+	bel_cup_init(pMem, *current_year, get_comp(BEL_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)cm0102_new(0xB2);
-	bel_super_setup(pMem, *current_year, get_comp(BEL_SUPER_CUP_9CF()));
+	bel_super_init(pMem, *current_year, get_comp(BEL_SUPER_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
 	BYTE* cm_date = new BYTE[8];
@@ -93,8 +88,6 @@ void setup_bel_nation() {
 	setup_bel_cup();
 	setup_bel_super();
 	setup_bel_awards();
-
-	WriteNOP(0x41d122, 7);
 }
 
 void belgium_restructure() {

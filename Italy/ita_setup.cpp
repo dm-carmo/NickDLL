@@ -11,9 +11,6 @@
 #include "ita_c_supercup.h"
 #include "ita_awards.h"
 
-static DWORD(__thiscall* ita_supercup_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x65F670);
-
 DWORD ita_setup_c(playable_nation_data* nation_data) {
 	
 	nation_data->contract_start_day = 6;
@@ -45,22 +42,22 @@ DWORD ita_setup_c(playable_nation_data* nation_data) {
 	ita_ser_b_init(pMem, *current_year, get_comp(ITA_SERIE_B_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Serie C
-	pMem = (BYTE*)cm0102_new(0xEF);
+	pMem = (BYTE*)cm0102_new(0xEE);
 	ita_ser_c_init(pMem, *current_year, get_comp(ITA_SERIE_C_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	if ((selected & 4) != 0) {
 		// not used for now
 	}
 	// Coppa Italia
-	pMem = (BYTE*)cm0102_new(0xB4);
+	pMem = (BYTE*)cm0102_new(0xB2);
 	ita_cup_init(pMem, *current_year, get_comp(ITA_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Supercoppa Italia
 	pMem = (BYTE*)cm0102_new(0xB2);
-	ita_supercup_setup(pMem, *current_year, get_comp(ITA_SUPER_CUP_9CF()));
+	ita_super_init(pMem, *current_year, get_comp(ITA_SUPER_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Coppa Serie C
-	pMem = (BYTE*)cm0102_new(0xB4);
+	pMem = (BYTE*)cm0102_new(0xB2);
 	ita_c_cup_init(pMem, *current_year, get_comp(ITA_SERIE_C_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// Supercoppa Serie C

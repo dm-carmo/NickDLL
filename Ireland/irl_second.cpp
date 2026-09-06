@@ -228,8 +228,8 @@ void irl_second_subs(BYTE* _this)
 
 	comp_data->f217 = 0x2;
 	comp_data->f82 = 2;
-	comp_data->max_bench = 7;
-	comp_data->max_subs = 3;
+	comp_data->max_bench = 9;
+	comp_data->max_subs = 5;
 
 	DWORD v1 = *(DWORD*)_this;
 	comp_data->fixtures_table = (DWORD*)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0xA9, _this + 0x3A, 0);
@@ -579,6 +579,8 @@ void irl_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	irl_second_vtable->SetPointer(VTablePlayoffQual, (DWORD)&irl_second_playoffs_create);
 	irl_second_vtable->SetPointer(VTablePostMatchUpdate, 0x685d30);
 	irl_second_vtable->SetPointer(VTable39, 0x404480);
+	irl_second_vtable->SetPointer(VTableLoadCompInfo, 0x48CEB0);
+	irl_second_vtable->SetPointer(VTableSaveCompInfo, 0x48CEA0);
 	data->year = year;
 	data->rules = RulesIreland;
 	int loaded = sub_687B10(_this, 1);

@@ -437,8 +437,8 @@ void rus_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	BYTE* pMem2 = (BYTE*)cm0102_new(0x5CE);
 	sub_49EE70(pMem2, _this);
 	data->f8 = (DWORD*)pMem2;
-	data->max_bench = 7;
-	data->max_subs = 3;
+	data->max_bench = 9;
+	data->max_subs = 5;
 	for (BYTE i = 0; i < 4; i++) {
 		rus_cup_setup_groups(_this, i);
 	}
@@ -843,6 +843,7 @@ void setup_rus_cup() {
 	WriteVTablePtr(rus_cup_vtable, VTableTableFates, (DWORD)&rus_cup_table_fates_c);
 	WriteVTablePtr(rus_cup_vtable, VTablePlayoffQual, (DWORD)&rus_cup_stages_create_c);
 	WriteVTablePtr(rus_cup_vtable, VTableSetChampion, (DWORD)&rus_cup_set_champion_c);
+	WriteVTablePtr(rus_cup_vtable, VTableSubsRounds, 0x858e70);
 	char* rpl_path_text = "RPL Path";
 	char* rpl_path_short = "RPL Path";
 	WriteDWORD(0x4B63d0 + 1, (DWORD)&rpl_path_text[0]);

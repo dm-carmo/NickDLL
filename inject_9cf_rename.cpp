@@ -19,10 +19,8 @@ map<string, char*> clubs_rename_long = {
 	{"Baskonia C.D.", "CD Basconia"},
 	{"Extremadura C.F.", "CD Extremadura"},
 	{"Merthyr Tydfil", "Merthyr Town"},
-	//{"AZ", "AZ Alkmaar"},
 	{"Bor. M'gladbach Amateure", "Borussia M'gladbach II"},
 	{"SJK Seinäjoki II", "SJK Seinäjoki Akatemia"},
-	{"Associação Lusitano de Évora 1911", "Lusitano de Évora GC"},
 };
 
 map<string, DWORD> club_dword_match;

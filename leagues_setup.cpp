@@ -302,8 +302,8 @@ int replacement_667150() {
 	cm_date = new BYTE[8];
 	pnd_list[idx].nation = get_country(NATION_NORWAY_9CF());
 	pnd_list[idx].setup_function_addr = (DWORD)&nor_setup_c;
-	convert_to_cm_date(pnd_list[idx].start_date, 30, March, *current_year + 1, -1);
-	convert_to_cm_date(pnd_list[idx].end_date, 14, December, *current_year + 1, -1);
+	convert_to_cm_date(pnd_list[idx].start_date, 14, March, *current_year + 1, -1);
+	convert_to_cm_date(pnd_list[idx].end_date, 18, December, *current_year + 1, -1);
 	convert_to_cm_date(cm_date, 1, January, START_YEAR, -1);
 	pnd_list[idx].updates_in_june = 0;
 	pnd_list[idx].update_day = *(WORD*)(cm_date);
@@ -498,6 +498,17 @@ int replacement_667150() {
 	pnd_list[idx].league_cup = get_comp(EGY_LEAGUE_CUP_9CF());
 	idx++;
 
+	cm_date = new BYTE[8];
+	pnd_list[idx].nation = get_country(NATION_SERBIA_9CF());
+	pnd_list[idx].setup_function_addr = (DWORD)&srb_setup_c;
+	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
+	convert_to_cm_date(pnd_list[idx].end_date, 25, May, *current_year, -1);
+	pnd_list[idx].updates_in_june = 1;
+	convert_to_cm_date(cm_date, 20, June, START_YEAR, -1);
+	pnd_list[idx].update_day = *(WORD*)(cm_date);
+	pnd_list[idx].main_cup = get_comp(SRB_CUP_9CF());
+	idx++;
+
 	return 1;
 }
 
@@ -604,7 +615,6 @@ void league_restructure_init()
 	england_restructure();
 	finland_restructure();
 	germany_restructure();
-	greece_restructure();
 	italy_restructure();
 	norway_restructure();
 	portugal_restructure();

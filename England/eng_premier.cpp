@@ -29,8 +29,8 @@ int eng_premier_subs(BYTE* _this)
 	comp_data->relegates_to = ENG_CHAMP_9CF();
 
 	comp_data->f82 = 2;
-	comp_data->max_bench = 7;
-	comp_data->max_subs = 3;
+	comp_data->max_bench = 9;
+	comp_data->max_subs = 5;
 
 	DWORD v1 = *(DWORD*)_this;
 	comp_data->fixtures_table = (DWORD*)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0xA9, _this + 0x3A, 0);
@@ -568,6 +568,4 @@ void setup_eng_premier()
 	WriteVTablePtr(eng_premier_vtable, VTablePromRelUpdate, (DWORD)&eng_premier_prom_rel_update_c);
 	WriteVTablePtr(eng_premier_vtable, VTableSubsRounds, (DWORD)&eng_premier_subs_c);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(eng_premier_vtable, VTableShowThirdInHistory, 0x4110b0);
-	// Charity Shield day
-	WriteBytes(0x56d718, 1, 17);
 }

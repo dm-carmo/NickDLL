@@ -9,11 +9,6 @@
 #include "irl_presidents.h"
 #include "irl_awards.h"
 
-static DWORD(__thiscall* irl_cup_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x6340a0);
-static DWORD(__thiscall* irl_presidents_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x639280);
-
 DWORD irl_setup_c(playable_nation_data* nation_data) {
 	BYTE* start_date = new BYTE[8];
 	sub_54C770((BYTE*)dd6ec8, start_date, 4);
@@ -47,11 +42,11 @@ DWORD irl_setup_c(playable_nation_data* nation_data) {
 	nation_comps[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)cm0102_new(0xB2);
-	irl_cup_setup(pMem, start_year, get_comp(IRL_CHALLENGE_CUP_9CF()));
+	irl_cup_init(pMem, start_year, get_comp(IRL_CHALLENGE_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)cm0102_new(0xB2);
-	irl_presidents_setup(pMem, start_year, get_comp(IRL_PRESIDENTS_CUP_9CF()));
+	irl_presidents_init(pMem, start_year, get_comp(IRL_PRESIDENTS_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
 	BYTE* cm_date = new BYTE[8];
@@ -70,6 +65,4 @@ void setup_irl_nation() {
 	setup_irl_cup();
 	setup_irl_presidents();
 	setup_irl_awards();
-
-	WriteNOP(0x634172, 7);
 }

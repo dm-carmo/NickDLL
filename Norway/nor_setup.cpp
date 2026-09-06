@@ -9,9 +9,6 @@
 #include "nor_cup.h"
 #include "nor_awards.h"
 
-static DWORD(__thiscall* nor_cup_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x78F020);
-
 DWORD nor_setup_c(playable_nation_data* nation_data) {
 	BYTE* start_date = new BYTE[8];
 	sub_54C770((BYTE*)dd6ec8, start_date, 4);
@@ -57,7 +54,7 @@ DWORD nor_setup_c(playable_nation_data* nation_data) {
 	}
 	// Cup
 	pMem = (BYTE*)cm0102_new(0xB2);
-	nor_cup_setup(pMem, *current_year, get_comp(NOR_CUP_9CF()));
+	nor_cup_init(pMem, *current_year, get_comp(NOR_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	BYTE* cm_date = new BYTE[8];
 	convert_to_cm_date(cm_date, 1, January, START_YEAR, -1);

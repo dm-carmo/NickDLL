@@ -5,7 +5,7 @@
 #include <map>
 #include <Helpers\9cf_constants.h>
 
-vtable* egy_cup_vtable = new vtable((BYTE*)0x96E650, 0xA0);
+vtable* egy_cup_vtable = new vtable((BYTE*)0x96C8B8, 0xA0);
 
 void egy_cup_free_under(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
@@ -216,8 +216,8 @@ void egy_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->current_stage = -1;
 	data->num_stages = 0;
 	data->comp_type = CLUB_DOMESTIC;
-	data->max_bench = 7;
-	data->max_subs = 3;
+	data->max_bench = 9;
+	data->max_subs = 5;
 	data->rules = RulesEgypt;
 	*((BYTE*)(_this + 0xB1)) = 0;
 	int loaded = sub_51FC00(_this, 1);

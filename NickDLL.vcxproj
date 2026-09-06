@@ -227,6 +227,7 @@
     <ClCompile Include="Egypt\egy_setup.cpp" />
     <ClCompile Include="Egypt\egy_super.cpp" />
     <ClCompile Include="England\eng_awards.cpp" />
+    <ClCompile Include="England\eng_charity.cpp" />
     <ClCompile Include="England\eng_conf.cpp" />
     <ClCompile Include="England\eng_conf_n.cpp" />
     <ClCompile Include="England\eng_conf_s.cpp" />
@@ -386,6 +387,7 @@
     <ClCompile Include="Scotland\sco_premier.cpp" />
     <ClCompile Include="Scotland\sco_pyramid_playoff.cpp" />
     <ClCompile Include="Scotland\sco_setup.cpp" />
+    <ClCompile Include="Serbia\srb_setup.cpp" />
     <ClCompile Include="setup_misc_functions.cpp" />
     <ClCompile Include="South Korea\kor_awards.cpp" />
     <ClCompile Include="South Korea\kor_cup.cpp" />
@@ -535,6 +537,7 @@
     <ClInclude Include="Egypt\egy_setup.h" />
     <ClInclude Include="Egypt\egy_super.h" />
     <ClInclude Include="England\eng_awards.h" />
+    <ClInclude Include="England\eng_charity.h" />
     <ClInclude Include="England\eng_conf.h" />
     <ClInclude Include="England\eng_conf_n.h" />
     <ClInclude Include="England\eng_conf_s.h" />
@@ -695,6 +698,7 @@
     <ClInclude Include="Scotland\sco_premier.h" />
     <ClInclude Include="Scotland\sco_pyramid_playoff.h" />
     <ClInclude Include="Scotland\sco_setup.h" />
+    <ClInclude Include="Serbia\srb_setup.h" />
     <ClInclude Include="setup_misc_functions.h" />
     <ClInclude Include="South Korea\kor_awards.h" />
     <ClInclude Include="South Korea\kor_cup.h" />

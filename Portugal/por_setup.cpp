@@ -11,11 +11,6 @@
 #include "por_super.h"
 #include "por_awards.h"
 
-static DWORD(__thiscall* por_cup_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x7CD980);
-static DWORD(__thiscall* por_super_setup)(BYTE* _this, WORD year, cm3_club_comps* comp) =
-(DWORD(__thiscall*)(BYTE * _this, WORD year, cm3_club_comps * comp))(0x7D2E40);
-
 DWORD por_setup_c(playable_nation_data* nation_data) {
 	
 	nation_data->contract_start_day = 1;
@@ -58,7 +53,7 @@ DWORD por_setup_c(playable_nation_data* nation_data) {
 	}
 	// Cup
 	pMem = (BYTE*)cm0102_new(0xB2);
-	por_cup_setup(pMem, *current_year, get_comp(POR_CUP_9CF()));
+	por_cup_init(pMem, *current_year, get_comp(POR_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	// League Cup
 	pMem = (BYTE*)cm0102_new(0xB2);
@@ -66,7 +61,7 @@ DWORD por_setup_c(playable_nation_data* nation_data) {
 	nation_comps[i++] = (DWORD)pMem;
 	// Super Cup
 	pMem = (BYTE*)cm0102_new(0xB2);
-	por_super_setup(pMem, *current_year, get_comp(POR_SUPER_CUP_9CF()));
+	por_super_init(pMem, *current_year, get_comp(POR_SUPER_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	BYTE* cm_date = new BYTE[8];
 	convert_to_cm_date(cm_date, 20, June, START_YEAR, -1);
@@ -88,7 +83,6 @@ void setup_por_nation()
 	setup_por_super();
 	setup_por_awards();
 
-	WriteNOP(0x7cda4a, 7);
 	// loans adjustment - only full season loans + can't loan outside transfer window
 	WriteDWORD(0x96e9e0, 0x412dd0);
 	WriteDWORD(0x96e9e8, 0x90f1a0);
