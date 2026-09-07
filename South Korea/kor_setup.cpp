@@ -7,6 +7,9 @@
 #include "kor_cup.h"
 #include "kor_super.h"
 #include "kor_awards.h"
+#include "Structures\vtable.h"
+
+DWORD* kor_rules_vtable = (DWORD*)0x96CFEC;
 
 DWORD kor_setup_c(playable_nation_data* nation_data) {
 	BYTE* start_date = new BYTE[8];
@@ -53,25 +56,63 @@ DWORD kor_setup_c(playable_nation_data* nation_data) {
 	return 1;
 }
 
-void __declspec(naked) korea_foreign_rules()
+void kor_foreign_rules(BYTE* _this, cm3_club_comps* comp, BYTE* fgn_rule_arr) {
+	memset(fgn_rule_arr, -1, 42);
+	BYTE max_fgn = 5;
+	if (comp) {
+		if (comp->ClubCompID == KOR_SECOND_9CF()) max_fgn = 4;
+	}
+	*((BYTE*)(fgn_rule_arr + 0x2)) = max_fgn;
+}
+
+void __declspec(naked) kor_foreign_rules_c()
 {
 	__asm
 	{
-		mov eax, dword ptr ss : [esp + 8]
-		pop edi
-		test eax, eax
-		jnz check_kor_fgn
-		ret 8
-		check_kor_fgn :
-		mov eax, dword ptr ds : [eax]
-		cmp eax, dword ptr ds : [0x9CF9FC]
-		je kor_d2_fgn
-		mov byte ptr ds : [edx] , 5
-		ret 8
-		kor_d2_fgn :
-		mov byte ptr ds : [edx] , 4
+		mov eax, esp
+		push dword ptr[eax + 0x8]
+		push dword ptr[eax + 0x4]
+		push ecx
+		call kor_foreign_rules
+		add esp, 0xc
 		ret 8
 	}
+}
+
+BYTE* setup_korea_rules(BYTE* _this, char idx, DWORD country_id, DWORD continent_id, int a5, int a6) {
+	generic_rules_setup(_this, idx, country_id, continent_id, a5, a6);
+	*((DWORD*)(_this)) = (DWORD)kor_rules_vtable;
+	BYTE num_of_windows = 2;
+	*((BYTE*)(_this + 0x8)) = num_of_windows;
+	BYTE* wMem = (BYTE*)cm0102_malloc(num_of_windows * 12);
+	transfer_window* windows = (transfer_window*)wMem;
+	*((DWORD*)(_this + 0x4)) = (DWORD)wMem;
+
+	BYTE window_id = 0;
+	windows[window_id].idx_1 = windows[window_id].idx_2 = idx;
+	windows[window_id].window_num_1 = windows[window_id].window_num_2 = window_id;
+	windows[window_id].start_day_of_week = -1;
+	windows[window_id].start_day = 1;
+	windows[window_id].start_month = January;
+	windows[window_id].is_start_1 = 1;
+	windows[window_id].end_day_of_week = -1;
+	windows[window_id].end_day = 27;
+	windows[window_id].end_month = March;
+	windows[window_id].is_start_2 = 0;
+	window_id++;
+
+	windows[window_id].idx_1 = windows[window_id].idx_2 = idx;
+	windows[window_id].window_num_1 = windows[window_id].window_num_2 = window_id;
+	windows[window_id].start_day_of_week = -1;
+	windows[window_id].start_day = 9;
+	windows[window_id].start_month = July;
+	windows[window_id].is_start_1 = 1;
+	windows[window_id].end_day_of_week = -1;
+	windows[window_id].end_day = 19;
+	windows[window_id].end_month = August;
+	windows[window_id].is_start_2 = 0;
+
+	return _this;
 }
 
 void setup_kor_nation() {
@@ -80,16 +121,13 @@ void setup_kor_nation() {
 	setup_kor_cup();
 	setup_kor_super();
 	setup_kor_awards();
-	// foreign player limits
-	//WriteBytes(0x66e765, 1, 0x5);
-	PatchFunction(0x66e763, (DWORD)&korea_foreign_rules);
-	WriteNOP(0x66e738, 4);
+
 	// transfer windows
 	WriteBytes(0x66e70a, 1, 15);
 	WriteBytes(0x66e714, 1, 26);
 	WriteBytes(0x66e720, 2, 9, July);
 	WriteBytes(0x66e72a, 2, 19, August);
 
-	// loans not possible outside transfer window
-	WriteDWORD(0x96d00c, 0x412dd0);
+	WriteVTablePtr(kor_rules_vtable, VTableRLoanOutsideWindow, 0x412dd0);
+	WriteVTablePtr(kor_rules_vtable, VTableRForeignRules, (DWORD)kor_foreign_rules_c);
 }

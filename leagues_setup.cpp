@@ -622,7 +622,6 @@ void league_restructure_init()
 	spain_restructure();
 	sweden_restructure();
 	turkey_restructure();
-	usa_restructure();
 }
 
 extern "C" _declspec(naked) void inject_league_restructure_init()

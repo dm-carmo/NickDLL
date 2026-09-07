@@ -63,6 +63,22 @@ enum DisciplineVTablePointers {
 	VTableD8 = 8,
 };
 
+enum RulesVTablePointers {
+	VTableR1 = 1,
+	VTableR2 = 2,
+	VTableR3 = 3,
+	VTableR4 = 4,
+	VTableR5 = 5,
+	VTableR6 = 6,
+	VTableR7 = 7,
+	VTableRForeignRules = 8, // foreign player restrictions
+	VTableRLoanOutsideWindow = 9, // can loan players outside transfer window?
+	VTableRLoanRules = 10, // specific rules to allow (or not) loans between specific teams
+	VTableRLoanLength = 11, // allowed lengths for loans
+	VTableRSendWindowNews = 12, // creates the news themselves
+	VTableRWindowNewsText = 13, // deadline lifted/ending/ended news
+};
+
 class vtable
 {
 public:
@@ -91,6 +107,8 @@ public:
 
 	BYTE* vtable_ptr;// = vtable_bytes;
 	// Cup competitions (with no group stage) only use 0xA0 bytes
+	// Discipline uses 0x20 bytes
+	// Rules uses 0x34 bytes
 	//BYTE vtable_bytes[0xB4] = { 0x0 };
 	BYTE* vtable_bytes;
 

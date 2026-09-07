@@ -1008,6 +1008,24 @@ typedef struct MATCH_DATA
 } match_data;
 #pragma pack(pop)
 
+#pragma pack(push, 1)
+typedef struct TRANSFER_WINDOW
+{
+	BYTE idx_1;
+	BYTE window_num_1;
+	BYTE start_day_of_week;
+	BYTE start_day;
+	BYTE start_month;
+	BYTE is_start_1;
+	BYTE idx_2;
+	BYTE window_num_2;
+	BYTE end_day_of_week;
+	BYTE end_day;
+	BYTE end_month;
+	BYTE is_start_2;
+} transfer_window;
+#pragma pack(pop)
+
 enum LeagueFates : char {
 	Promoted = 0,
 	TopPlayoff = 1,

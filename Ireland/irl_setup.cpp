@@ -8,6 +8,9 @@
 #include "irl_cup.h"
 #include "irl_presidents.h"
 #include "irl_awards.h"
+#include "Structures\vtable.h"
+
+DWORD* irl_rules_vtable = (DWORD*)0x96C190;
 
 DWORD irl_setup_c(playable_nation_data* nation_data) {
 	BYTE* start_date = new BYTE[8];
@@ -58,6 +61,62 @@ DWORD irl_setup_c(playable_nation_data* nation_data) {
 	return 1;
 }
 
+void irl_foreign_rules(BYTE* _this, cm3_club_comps* comp, BYTE* fgn_rule_arr) {
+	memset(fgn_rule_arr, -1, 42);
+	*((BYTE*)(fgn_rule_arr + 0x5)) = 4;
+}
+
+void __declspec(naked) irl_foreign_rules_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x8]
+		push dword ptr[eax + 0x4]
+		push ecx
+		call irl_foreign_rules
+		add esp, 0xc
+		ret 8
+	}
+}
+
+BYTE* setup_ireland_rules(BYTE* _this, char idx, DWORD country_id, DWORD continent_id, int a5, int a6) {
+	generic_rules_setup(_this, idx, country_id, continent_id, a5, a6);
+	*((DWORD*)(_this)) = (DWORD)irl_rules_vtable;
+	*((BYTE*)(_this + 0x12)) = 4; // maximum number of non-EU players at the club
+	BYTE num_of_windows = 2;
+	*((BYTE*)(_this + 0x8)) = num_of_windows;
+	BYTE* wMem = (BYTE*)cm0102_malloc(num_of_windows * 12);
+	transfer_window* windows = (transfer_window*)wMem;
+	*((DWORD*)(_this + 0x4)) = (DWORD)wMem;
+
+	BYTE window_id = 0;
+	windows[window_id].idx_1 = windows[window_id].idx_2 = idx;
+	windows[window_id].window_num_1 = windows[window_id].window_num_2 = window_id;
+	windows[window_id].start_day_of_week = -1;
+	windows[window_id].start_day = 1;
+	windows[window_id].start_month = December;
+	windows[window_id].is_start_1 = 1;
+	windows[window_id].end_day_of_week = -1;
+	windows[window_id].end_day = 22;
+	windows[window_id].end_month = February;
+	windows[window_id].is_start_2 = 0;
+	window_id++;
+
+	windows[window_id].idx_1 = windows[window_id].idx_2 = idx;
+	windows[window_id].window_num_1 = windows[window_id].window_num_2 = window_id;
+	windows[window_id].start_day_of_week = -1;
+	windows[window_id].start_day = 1;
+	windows[window_id].start_month = July;
+	windows[window_id].is_start_1 = 1;
+	windows[window_id].end_day_of_week = -1;
+	windows[window_id].end_day = 28;
+	windows[window_id].end_month = July;
+	windows[window_id].is_start_2 = 0;
+
+	return _this;
+}
+
 void setup_irl_nation() {
 	setup_irl_premier();
 	setup_irl_first();
@@ -65,4 +124,6 @@ void setup_irl_nation() {
 	setup_irl_cup();
 	setup_irl_presidents();
 	setup_irl_awards();
+
+	WriteVTablePtr(irl_rules_vtable, VTableRForeignRules, (DWORD)irl_foreign_rules_c);
 }

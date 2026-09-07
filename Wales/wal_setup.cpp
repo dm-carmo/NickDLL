@@ -7,6 +7,9 @@
 #include "wal_first_s.h"
 #include "wal_cup.h"
 #include "wal_league_cup.h"
+#include <Structures/vtable.h>
+
+DWORD* wal_rules_vtable = (DWORD*)0x970A9C;
 
 DWORD wal_setup_c(playable_nation_data* nation_data) {
 	
@@ -55,11 +58,67 @@ DWORD wal_setup_c(playable_nation_data* nation_data) {
 	return 1;
 }
 
+void wal_foreign_rules(BYTE* _this, cm3_club_comps* comp, BYTE* fgn_rule_arr) {
+	memset(fgn_rule_arr, -1, 42);
+}
+
+void __declspec(naked) wal_foreign_rules_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x8]
+		push dword ptr[eax + 0x4]
+		push ecx
+		call wal_foreign_rules
+		add esp, 0xc
+		ret 8
+	}
+}
+
+BYTE* setup_wales_rules(BYTE* _this, char idx, DWORD country_id, DWORD continent_id, int a5, int a6) {
+	generic_rules_setup(_this, idx, country_id, continent_id, a5, a6);
+	*((DWORD*)(_this)) = (DWORD)wal_rules_vtable;
+	BYTE num_of_windows = 2;
+	*((BYTE*)(_this + 0x8)) = num_of_windows;
+	BYTE* wMem = (BYTE*)cm0102_malloc(num_of_windows * 12);
+	transfer_window* windows = (transfer_window*)wMem;
+	*((DWORD*)(_this + 0x4)) = (DWORD)wMem;
+
+	BYTE window_id = 0;
+	windows[window_id].idx_1 = windows[window_id].idx_2 = idx;
+	windows[window_id].window_num_1 = windows[window_id].window_num_2 = window_id;
+	windows[window_id].start_day_of_week = -1;
+	windows[window_id].start_day = 15;
+	windows[window_id].start_month = June;
+	windows[window_id].is_start_1 = 1;
+	windows[window_id].end_day_of_week = -1;
+	windows[window_id].end_day = 1;
+	windows[window_id].end_month = September;
+	windows[window_id].is_start_2 = 0;
+	window_id++;
+
+	windows[window_id].idx_1 = windows[window_id].idx_2 = idx;
+	windows[window_id].window_num_1 = windows[window_id].window_num_2 = window_id;
+	windows[window_id].start_day_of_week = -1;
+	windows[window_id].start_day = 1;
+	windows[window_id].start_month = January;
+	windows[window_id].is_start_1 = 1;
+	windows[window_id].end_day_of_week = -1;
+	windows[window_id].end_day = 1;
+	windows[window_id].end_month = February;
+	windows[window_id].is_start_2 = 0;
+
+	return _this;
+}
+
 void setup_wal_nation()
 {
 	setup_wal_premier();
 	setup_wal_first_n();
 	setup_wal_first_s();
 	setup_wal_cup();
-	setup_wal_league_cup();
+	//setup_wal_league_cup();
+
+	WriteVTablePtr(wal_rules_vtable, VTableRForeignRules, (DWORD)wal_foreign_rules_c);
 }

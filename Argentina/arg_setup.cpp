@@ -9,6 +9,9 @@
 #include "arg_cup.h"
 #include "arg_champ_cup.h"
 #include "arg_super.h"
+#include "Structures\vtable.h"
+
+DWORD* arg_rules_vtable = (DWORD*)0x9674A0;
 
 DWORD arg_setup_c(playable_nation_data* nation_data) {
 	BYTE* start_date = new BYTE[8];
@@ -75,6 +78,62 @@ DWORD arg_setup_c(playable_nation_data* nation_data) {
 	return 1;
 }
 
+void arg_foreign_rules(BYTE* _this, cm3_club_comps* comp, BYTE* fgn_rule_arr) {
+	memset(fgn_rule_arr, -1, 42);
+	*((BYTE*)(fgn_rule_arr + 0x2)) = 5;
+}
+
+void __declspec(naked) arg_foreign_rules_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x8]
+		push dword ptr[eax + 0x4]
+		push ecx
+		call arg_foreign_rules
+		add esp, 0xc
+		ret 8
+	}
+}
+
+BYTE* setup_argentina_rules(BYTE* _this, char idx, DWORD country_id, DWORD continent_id, int a5, int a6) {
+	generic_rules_setup(_this, idx, country_id, continent_id, a5, a6);
+	*((DWORD*)(_this)) = (DWORD)arg_rules_vtable;
+	*((BYTE*)(_this + 0x13)) = 6; // maximum number of foreign players at the club
+	BYTE num_of_windows = 2;
+	*((BYTE*)(_this + 0x8)) = num_of_windows;
+	BYTE* wMem = (BYTE*)cm0102_malloc(num_of_windows * 12);
+	transfer_window* windows = (transfer_window*)wMem;
+	*((DWORD*)(_this + 0x4)) = (DWORD)wMem;
+
+	BYTE window_id = 0;
+	windows[window_id].idx_1 = windows[window_id].idx_2 = idx;
+	windows[window_id].window_num_1 = windows[window_id].window_num_2 = window_id;
+	windows[window_id].start_day_of_week = -1;
+	windows[window_id].start_day = 14;
+	windows[window_id].start_month = January;
+	windows[window_id].is_start_1 = 1;
+	windows[window_id].end_day_of_week = -1;
+	windows[window_id].end_day = 10;
+	windows[window_id].end_month = March;
+	windows[window_id].is_start_2 = 0;
+	window_id++;
+
+	windows[window_id].idx_1 = windows[window_id].idx_2 = idx;
+	windows[window_id].window_num_1 = windows[window_id].window_num_2 = window_id;
+	windows[window_id].start_day_of_week = -1;
+	windows[window_id].start_day = 9;
+	windows[window_id].start_month = July;
+	windows[window_id].is_start_1 = 1;
+	windows[window_id].end_day_of_week = -1;
+	windows[window_id].end_day = 2;
+	windows[window_id].end_month = September;
+	windows[window_id].is_start_2 = 0;
+
+	return _this;
+}
+
 void setup_arg_nation() {
 	setup_arg_first();
 	setup_arg_second();
@@ -84,20 +143,7 @@ void setup_arg_nation() {
 	setup_arg_champ_cup();
 	setup_arg_super();
 
-	// transfer window adjustment
-	WriteBytes(0x40a6ae, 1, Saturday);
-	WriteBytes(0x40a6af, 1, 0x14);
-	WriteBytes(0x40a6b4, 1, 0xb);
-	WriteBytes(0x40a6c9, 1, Tuesday);
-	WriteBytes(0x40a6ca, 1, 0x1b);
-	WriteBytes(0x40a6cf, 1, 0x0);
-	WriteBytes(0x40a6e4, 1, 0x6);
-	WriteBytes(0x40a6e6, 4, 0xc6, 0x40, 0x4, 0x6);
-	WriteBytes(0x40a701, 1, 0x1e);
-	WriteBytes(0x40a706, 1, 0x7);
-	// loans adjustment - only full season loans + can't loan outside transfer window
-	WriteDWORD(0x9674c0, 0x412dd0);
-	WriteDWORD(0x9674c8, 0x90f1a0);
-	// Max foreign players in club - separate from match restriction
-	WriteBytes(0x40a5d9, 1, 0x6);
+	WriteVTablePtr(arg_rules_vtable, VTableRLoanOutsideWindow, 0x412dd0);
+	WriteVTablePtr(arg_rules_vtable, VTableRForeignRules, (DWORD)arg_foreign_rules_c);
+	WriteVTablePtr(arg_rules_vtable, VTableRLoanLength, 0x90f1a0);
 }

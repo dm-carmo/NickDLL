@@ -281,6 +281,7 @@ static BYTE* (__thiscall* rb_asia_setup)(BYTE* _this, int* a2) = (BYTE * (__this
 static BYTE* (__thiscall* rb_south_korea_setup)(BYTE* _this, int* a2) = (BYTE * (__thiscall*)(BYTE * _this, int* a2))(0x7E0730);
 
 static BYTE* (__thiscall* sub_7E7760)(BYTE* _this, int* a2) = (BYTE * (__thiscall*)(BYTE * _this, int* a2))(0x7E7760);
+static BYTE* (__thiscall* generic_rules_setup)(BYTE* _this, char idx, DWORD country_id, DWORD continent_id, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char idx, DWORD country_id, DWORD continent_id, int a5, int a6))(0x8E84A0);
 
 int AddTeams(BYTE* _this);
 int AddTeamsReserveDivision(BYTE* _this);

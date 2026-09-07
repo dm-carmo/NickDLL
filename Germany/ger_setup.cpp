@@ -9,6 +9,9 @@
 #include "ger_super.h"
 #include "ger_awards.h"
 #include <Helpers\9cf_constants.h>
+#include <Structures/vtable.h>
+
+DWORD* ger_rules_vtable = (DWORD*)0x96B3CC;
 
 DWORD ger_setup_c(playable_nation_data* nation_data) {
 	
@@ -68,26 +71,63 @@ DWORD ger_setup_c(playable_nation_data* nation_data) {
 	return 1;
 }
 
-void __declspec(naked) germany_foreign_rules()
+void ger_foreign_rules(BYTE* _this, cm3_club_comps* comp, BYTE* fgn_rule_arr) {
+	memset(fgn_rule_arr, -1, 42);
+	if (comp) {
+		if (comp->ClubCompID == GER_THIRD_9CF()) *((BYTE*)(fgn_rule_arr + 0x5)) = 3;
+		else if (comp->ClubCompID == GER_REGIONAL_9CF()) *((BYTE*)(fgn_rule_arr + 0x5)) = 0;
+	}
+}
+
+void __declspec(naked) ger_foreign_rules_c()
 {
 	__asm
 	{
-		mov eax, dword ptr ds : [eax + 0x14]
-		test eax, eax
-		je check_ger_fgn_ret
-		mov eax, dword ptr ds : [eax + 0x5d]
-		test eax, eax
-		je check_ger_fgn_ret
-		mov eax, dword ptr ds : [eax]
-		cmp eax, dword ptr ds : [0x9CF228]
-		je aut_fgn
-		mov byte ptr ds : [edx + 5] , 5
-		ret 8
-		aut_fgn :
-		mov byte ptr ds : [edx + 5] , 7
-		check_ger_fgn_ret:
+		mov eax, esp
+		push dword ptr[eax + 0x8]
+		push dword ptr[eax + 0x4]
+		push ecx
+		call ger_foreign_rules
+		add esp, 0xc
 		ret 8
 	}
+}
+
+BYTE* setup_germany_rules(BYTE* _this, char idx, DWORD country_id, DWORD continent_id, int a5, int a6) {
+	generic_rules_setup(_this, idx, country_id, continent_id, a5, a6);
+	*((DWORD*)(_this)) = (DWORD)ger_rules_vtable;
+	*((BYTE*)(_this + 0x12)) = 38; // maximum number of non-EU players at the club
+	BYTE num_of_windows = 2;
+	*((BYTE*)(_this + 0x8)) = num_of_windows;
+	BYTE* wMem = (BYTE*)cm0102_malloc(num_of_windows * 12);
+	transfer_window* windows = (transfer_window*)wMem;
+	*((DWORD*)(_this + 0x4)) = (DWORD)wMem;
+
+	BYTE window_id = 0;
+	windows[window_id].idx_1 = windows[window_id].idx_2 = idx;
+	windows[window_id].window_num_1 = windows[window_id].window_num_2 = window_id;
+	windows[window_id].start_day_of_week = -1;
+	windows[window_id].start_day = 1;
+	windows[window_id].start_month = July;
+	windows[window_id].is_start_1 = 1;
+	windows[window_id].end_day_of_week = -1;
+	windows[window_id].end_day = 1;
+	windows[window_id].end_month = September;
+	windows[window_id].is_start_2 = 0;
+	window_id++;
+
+	windows[window_id].idx_1 = windows[window_id].idx_2 = idx;
+	windows[window_id].window_num_1 = windows[window_id].window_num_2 = window_id;
+	windows[window_id].start_day_of_week = -1;
+	windows[window_id].start_day = 1;
+	windows[window_id].start_month = January;
+	windows[window_id].is_start_1 = 1;
+	windows[window_id].end_day_of_week = -1;
+	windows[window_id].end_day = 1;
+	windows[window_id].end_month = February;
+	windows[window_id].is_start_2 = 0;
+
+	return _this;
 }
 
 void setup_ger_nation()
@@ -100,9 +140,8 @@ void setup_ger_nation()
 	setup_ger_super();
 	setup_ger_awards();
 
-	// loans not possible outside transfer window
-	WriteDWORD(0x96b3ec, 0x412dd0);
-	PatchFunction(0x5e02ec, (DWORD)&germany_foreign_rules);
+	WriteVTablePtr(ger_rules_vtable, VTableRForeignRules, (DWORD)ger_foreign_rules_c);
+	WriteVTablePtr(ger_rules_vtable, VTableRLoanOutsideWindow, 0x412dd0);
 }
 
 void germany_restructure() {

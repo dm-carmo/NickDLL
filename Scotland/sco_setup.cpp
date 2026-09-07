@@ -12,7 +12,9 @@
 #include "sco_league_cup.h"
 #include "sco_challenge_cup.h"
 #include <Helpers\9cf_constants.h>
+#include <Structures/vtable.h>
 
+DWORD* sco_rules_vtable = (DWORD*)0x96F838;
 
 DWORD sco_setup_c(playable_nation_data* nation_data) {
 	
@@ -86,6 +88,60 @@ DWORD sco_setup_c(playable_nation_data* nation_data) {
 	return 1;
 }
 
+void sco_foreign_rules(BYTE* _this, cm3_club_comps* comp, BYTE* fgn_rule_arr) {
+	memset(fgn_rule_arr, -1, 42);
+}
+
+void __declspec(naked) sco_foreign_rules_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x8]
+		push dword ptr[eax + 0x4]
+		push ecx
+		call sco_foreign_rules
+		add esp, 0xc
+		ret 8
+	}
+}
+
+BYTE* setup_scotland_rules(BYTE* _this, char idx, DWORD country_id, DWORD continent_id, int a5, int a6) {
+	generic_rules_setup(_this, idx, country_id, continent_id, a5, a6);
+	*((DWORD*)(_this)) = (DWORD)sco_rules_vtable;
+	BYTE num_of_windows = 2;
+	*((BYTE*)(_this + 0x8)) = num_of_windows;
+	BYTE* wMem = (BYTE*)cm0102_malloc(num_of_windows * 12);
+	transfer_window* windows = (transfer_window*)wMem;
+	*((DWORD*)(_this + 0x4)) = (DWORD)wMem;
+
+	BYTE window_id = 0;
+	windows[window_id].idx_1 = windows[window_id].idx_2 = idx;
+	windows[window_id].window_num_1 = windows[window_id].window_num_2 = window_id;
+	windows[window_id].start_day_of_week = -1;
+	windows[window_id].start_day = 15;
+	windows[window_id].start_month = June;
+	windows[window_id].is_start_1 = 1;
+	windows[window_id].end_day_of_week = -1;
+	windows[window_id].end_day = 3;
+	windows[window_id].end_month = September;
+	windows[window_id].is_start_2 = 0;
+	window_id++;
+
+	windows[window_id].idx_1 = windows[window_id].idx_2 = idx;
+	windows[window_id].window_num_1 = windows[window_id].window_num_2 = window_id;
+	windows[window_id].start_day_of_week = -1;
+	windows[window_id].start_day = 5;
+	windows[window_id].start_month = January;
+	windows[window_id].is_start_1 = 1;
+	windows[window_id].end_day_of_week = -1;
+	windows[window_id].end_day = 4;
+	windows[window_id].end_month = February;
+	windows[window_id].is_start_2 = 0;
+
+	return _this;
+}
+
 void setup_sco_nation() {
 	setup_sco_premier();
 	setup_sco_champ();
@@ -97,4 +153,6 @@ void setup_sco_nation() {
 	setup_sco_cup();
 	setup_sco_league_cup();
 	setup_sco_challenge_cup();
+
+	WriteVTablePtr(sco_rules_vtable, VTableRForeignRules, (DWORD)sco_foreign_rules_c);
 }

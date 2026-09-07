@@ -8,6 +8,9 @@
 #include "rus_super.h"
 #include "rus_awards.h"
 #include <Helpers\9cf_constants.h>
+#include <Structures/vtable.h>
+
+DWORD* rus_rules_vtable = (DWORD*)0x96F340;
 
 DWORD rus_setup_c(playable_nation_data* nation_data) {
 
@@ -55,39 +58,65 @@ DWORD rus_setup_c(playable_nation_data* nation_data) {
 	return 1;
 }
 
-void __declspec(naked) russia_foreign_rules()
+void rus_foreign_rules(BYTE* _this, cm3_club_comps* comp, BYTE* fgn_rule_arr) {
+	memset(fgn_rule_arr, -1, 42);
+	BYTE max_fgn = 8;
+	if (comp) {
+		if (comp->ClubCompID == RUS_FIRST_9CF()) max_fgn = 4;
+		else if (comp->ClubCompID == RUS_SECOND_A_9CF()) max_fgn = 0;
+	}
+	*((BYTE*)(fgn_rule_arr + 0x2)) = max_fgn;
+}
+
+void __declspec(naked) rus_foreign_rules_c()
 {
 	__asm
 	{
-		mov eax, dword ptr ds : [eax]
-		cmp eax, dword ptr ds : [0x9CF930]
-		je rus_prm_fgn
-		cmp eax, 0xc4 // temp for saudi
-		je rus_prm_fgn
-		cmp eax, 0x179 // temp for saudi
-		je rus_prm_fgn
-		cmp eax, 0x18d // temp for saudi
-		je rus_prm_fgn
-		cmp eax, dword ptr ds : [0x9CF92C]
-		je rus_first_fgn
-		cmp eax, 0x18c // temp for saudi
-		je rus_first_fgn
-		cmp eax, dword ptr ds : [0x9CF918]
-		je rus_second_fgn
-		cmp eax, dword ptr ds : [0x9CF934]
-		je rus_prm_fgn
-		mov byte ptr ds : [edx + 2] , -1
-		ret 8
-		rus_prm_fgn :
-		mov byte ptr ds : [edx + 2] , 8
-		ret 8
-		rus_first_fgn :
-		mov byte ptr ds : [edx + 2] , 4
-		ret 8
-		rus_second_fgn :
-		mov byte ptr ds : [edx + 2] , 0
+		mov eax, esp
+		push dword ptr[eax + 0x8]
+		push dword ptr[eax + 0x4]
+		push ecx
+		call rus_foreign_rules
+		add esp, 0xc
 		ret 8
 	}
+}
+
+BYTE* setup_russia_rules(BYTE* _this, char idx, DWORD country_id, DWORD continent_id, int a5, int a6) {
+	generic_rules_setup(_this, idx, country_id, continent_id, a5, a6);
+	*((DWORD*)(_this)) = (DWORD)rus_rules_vtable;
+	*((BYTE*)(_this + 0x13)) = 10; // maximum number of foreign players at the club
+	BYTE num_of_windows = 2;
+	*((BYTE*)(_this + 0x8)) = num_of_windows;
+	BYTE* wMem = (BYTE*)cm0102_malloc(num_of_windows * 12);
+	transfer_window* windows = (transfer_window*)wMem;
+	*((DWORD*)(_this + 0x4)) = (DWORD)wMem;
+
+	BYTE window_id = 0;
+	windows[window_id].idx_1 = windows[window_id].idx_2 = idx;
+	windows[window_id].window_num_1 = windows[window_id].window_num_2 = window_id;
+	windows[window_id].start_day_of_week = -1;
+	windows[window_id].start_day = 18;
+	windows[window_id].start_month = July;
+	windows[window_id].is_start_1 = 1;
+	windows[window_id].end_day_of_week = -1;
+	windows[window_id].end_day = 10;
+	windows[window_id].end_month = September;
+	windows[window_id].is_start_2 = 0;
+	window_id++;
+
+	windows[window_id].idx_1 = windows[window_id].idx_2 = idx;
+	windows[window_id].window_num_1 = windows[window_id].window_num_2 = window_id;
+	windows[window_id].start_day_of_week = -1;
+	windows[window_id].start_day = 23;
+	windows[window_id].start_month = January;
+	windows[window_id].is_start_1 = 1;
+	windows[window_id].end_day_of_week = -1;
+	windows[window_id].end_day = 19;
+	windows[window_id].end_month = February;
+	windows[window_id].is_start_2 = 0;
+
+	return _this;
 }
 
 void setup_rus_nation() {
@@ -98,7 +127,7 @@ void setup_rus_nation() {
 	setup_rus_super();
 	setup_rus_awards();
 
-	PatchFunction(0x7ec96c, (DWORD)&russia_foreign_rules);
+	WriteVTablePtr(rus_rules_vtable, VTableRForeignRules, (DWORD)rus_foreign_rules_c);
 }
 
 void russia_restructure() {

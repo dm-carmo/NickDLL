@@ -370,6 +370,38 @@ void liber_team_selection() {
 							}
 						}
 					}
+					if (playable.nation == conmebol_nation && playable.league_cup) {
+						cm3_clubs* cup_winner = get_last_comp_winner(playable.league_cup);
+						if (cup_winner && cup_winner->ClubNation == conmebol_nation && cup_winner->ClubEuroFlag == -1) {
+							cup_winner->ClubEuroFlag = COPA_LIBERTADORES_9CF();
+							if (j >= count) {
+								for (int x = curr_seeding; x < 4; x++) {
+									count += quals[x];
+									curr_seeding = x + 1;
+									if (quals[x] > 0) break;
+								}
+								if (curr_seeding > 4) break;
+							}
+							cup_winner->ClubEuroSeeding = curr_seeding;
+							j++;
+						}
+						else {
+							cm3_clubs* cup_loser = get_last_comp_runner_up(playable.league_cup);
+							if (cup_loser && cup_loser->ClubNation == conmebol_nation && cup_loser->ClubEuroFlag == -1) {
+								cup_loser->ClubEuroFlag = COPA_LIBERTADORES_9CF();
+								if (j >= count) {
+									for (int x = curr_seeding; x < 4; x++) {
+										count += quals[x];
+										curr_seeding = x + 1;
+										if (quals[x] > 0) break;
+									}
+									if (curr_seeding > 4) break;
+								}
+								cup_loser->ClubEuroSeeding = curr_seeding;
+								j++;
+							}
+						}
+					}
 				}
 			}
 		}

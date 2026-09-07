@@ -6,6 +6,9 @@
 #include "usa_champ.h"
 #include "usa_cup.h"
 #include "usa_awards.h"
+#include "Structures\vtable.h"
+
+DWORD* usa_rules_vtable = (DWORD*)0x970A38;
 
 DWORD usa_setup_c(playable_nation_data* nation_data) {
 	BYTE* start_date = new BYTE[8];
@@ -48,31 +51,69 @@ DWORD usa_setup_c(playable_nation_data* nation_data) {
 	return 1;
 }
 
+void usa_foreign_rules(BYTE* _this, cm3_club_comps* comp, BYTE* fgn_rule_arr) {
+	memset(fgn_rule_arr, -1, 42);
+}
+
+void __declspec(naked) usa_foreign_rules_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x8]
+		push dword ptr[eax + 0x4]
+		push ecx
+		call usa_foreign_rules
+		add esp, 0xc
+		ret 8
+	}
+}
+
+BYTE* setup_usa_rules(BYTE* _this, char idx, DWORD country_id, DWORD continent_id, int a5, int a6) {
+	generic_rules_setup(_this, idx, country_id, continent_id, a5, a6);
+	*((DWORD*)(_this)) = (DWORD)usa_rules_vtable;
+	BYTE num_of_windows = 2;
+	*((BYTE*)(_this + 0x8)) = num_of_windows;
+	BYTE* wMem = (BYTE*)cm0102_malloc(num_of_windows * 12);
+	transfer_window* windows = (transfer_window*)wMem;
+	*((DWORD*)(_this + 0x4)) = (DWORD)wMem;
+
+	BYTE window_id = 0;
+	windows[window_id].idx_1 = windows[window_id].idx_2 = idx;
+	windows[window_id].window_num_1 = windows[window_id].window_num_2 = window_id;
+	windows[window_id].start_day_of_week = -1;
+	windows[window_id].start_day = 26;
+	windows[window_id].start_month = January;
+	windows[window_id].is_start_1 = 1;
+	windows[window_id].end_day_of_week = -1;
+	windows[window_id].end_day = 26;
+	windows[window_id].end_month = March;
+	windows[window_id].is_start_2 = 0;
+	window_id++;
+
+	windows[window_id].idx_1 = windows[window_id].idx_2 = idx;
+	windows[window_id].window_num_1 = windows[window_id].window_num_2 = window_id;
+	windows[window_id].start_day_of_week = -1;
+	windows[window_id].start_day = 13;
+	windows[window_id].start_month = July;
+	windows[window_id].is_start_1 = 1;
+	windows[window_id].end_day_of_week = -1;
+	windows[window_id].end_day = 2;
+	windows[window_id].end_month = September;
+	windows[window_id].is_start_2 = 0;
+
+	return _this;
+}
+
 void setup_usa_nation() {
 	setup_usa_mls();
 	setup_usa_champ();
 	setup_usa_cup();
 	setup_usa_awards();
+
+	WriteVTablePtr(usa_rules_vtable, VTableRForeignRules, (DWORD)usa_foreign_rules_c);
 	// disables some offsets related to the all-star game
 	WriteBytes(0x5ae103, 1, 0xeb);
 	WriteBytes(0x7759eb, 6, 0xE9, 0xE9, 0x00, 0x00, 0x00, 0x90);
 	WriteNOP(0x90ba86, 2);
-}
-
-void usa_restructure() {
-	cm3_cities* austin = find_city("Austin");
-	if (austin && austin->CityLongitude > 0) austin->CityLongitude = -austin->CityLongitude;
-	cm3_cities* seaside = find_city("Seaside");
-	if (seaside && seaside->CityLongitude > 0) seaside->CityLongitude = -seaside->CityLongitude;
-	cm3_cities* oakland = find_city("Oakland");
-	if (oakland && oakland->CityLongitude > 0) oakland->CityLongitude = -oakland->CityLongitude;
-	cm3_cities* irvine = find_city("Irvine (USA)");
-	if (irvine && irvine->CityLongitude > 0) irvine->CityLongitude = -irvine->CityLongitude;
-	cm3_cities* scottsdale = find_city("Scottsdale");
-	if (scottsdale && scottsdale->CityLongitude > 0) scottsdale->CityLongitude = -scottsdale->CityLongitude;
-	cm3_stadiums* bc_place = find_stadium("BC Place");
-	if (bc_place) {
-		cm3_clubs* vancouver = find_club("Vancouver Whitecaps FC");
-		if (vancouver) vancouver->ClubStadium = bc_place;
-	}
 }

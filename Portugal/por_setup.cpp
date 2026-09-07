@@ -10,6 +10,9 @@
 #include "por_league_cup.h"
 #include "por_super.h"
 #include "por_awards.h"
+#include <Structures/vtable.h>
+
+DWORD* por_rules_vtable = (DWORD*)0x96E9C0;
 
 DWORD por_setup_c(playable_nation_data* nation_data) {
 	
@@ -72,6 +75,60 @@ DWORD por_setup_c(playable_nation_data* nation_data) {
 	return 1;
 }
 
+void por_foreign_rules(BYTE* _this, cm3_club_comps* comp, BYTE* fgn_rule_arr) {
+	memset(fgn_rule_arr, -1, 42);
+}
+
+void __declspec(naked) por_foreign_rules_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x8]
+		push dword ptr[eax + 0x4]
+		push ecx
+		call por_foreign_rules
+		add esp, 0xc
+		ret 8
+	}
+}
+
+BYTE* setup_portugal_rules(BYTE* _this, char idx, DWORD country_id, DWORD continent_id, int a5, int a6) {
+	generic_rules_setup(_this, idx, country_id, continent_id, a5, a6);
+	*((DWORD*)(_this)) = (DWORD)por_rules_vtable;
+	BYTE num_of_windows = 2;
+	*((BYTE*)(_this + 0x8)) = num_of_windows;
+	BYTE* wMem = (BYTE*)cm0102_malloc(num_of_windows * 12);
+	transfer_window* windows = (transfer_window*)wMem;
+	*((DWORD*)(_this + 0x4)) = (DWORD)wMem;
+
+	BYTE window_id = 0;
+	windows[window_id].idx_1 = windows[window_id].idx_2 = idx;
+	windows[window_id].window_num_1 = windows[window_id].window_num_2 = window_id;
+	windows[window_id].start_day_of_week = -1;
+	windows[window_id].start_day = 1;
+	windows[window_id].start_month = July;
+	windows[window_id].is_start_1 = 1;
+	windows[window_id].end_day_of_week = -1;
+	windows[window_id].end_day = 4;
+	windows[window_id].end_month = September;
+	windows[window_id].is_start_2 = 0;
+	window_id++;
+
+	windows[window_id].idx_1 = windows[window_id].idx_2 = idx;
+	windows[window_id].window_num_1 = windows[window_id].window_num_2 = window_id;
+	windows[window_id].start_day_of_week = -1;
+	windows[window_id].start_day = 2;
+	windows[window_id].start_month = January;
+	windows[window_id].is_start_1 = 1;
+	windows[window_id].end_day_of_week = -1;
+	windows[window_id].end_day = 3;
+	windows[window_id].end_month = February;
+	windows[window_id].is_start_2 = 0;
+
+	return _this;
+}
+
 void setup_por_nation()
 {
 	setup_por_first();
@@ -83,9 +140,9 @@ void setup_por_nation()
 	setup_por_super();
 	setup_por_awards();
 
-	// loans adjustment - only full season loans + can't loan outside transfer window
-	WriteDWORD(0x96e9e0, 0x412dd0);
-	WriteDWORD(0x96e9e8, 0x90f1a0);
+	WriteVTablePtr(por_rules_vtable, VTableRForeignRules, (DWORD)por_foreign_rules_c);
+	WriteVTablePtr(por_rules_vtable, VTableRLoanOutsideWindow, 0x412dd0);
+	WriteVTablePtr(por_rules_vtable, VTableRLoanLength, 0x90f1a0);
 }
 
 void portugal_restructure() {
