@@ -83,7 +83,7 @@ void __declspec(naked) fra_foreign_rules_c()
 BYTE* setup_france_rules(BYTE* _this, char idx, DWORD country_id, DWORD continent_id, int a5, int a6) {
 	generic_rules_setup(_this, idx, country_id, continent_id, a5, a6);
 	*((DWORD*)(_this)) = (DWORD)fra_rules_vtable;
-	*((BYTE*)(_this + 0x12)) = 4; // maximum number of non-UE players at the club
+	//*((BYTE*)(_this + 0x12)) = 4; // maximum number of non-UE players at the club, not working
 	BYTE num_of_windows = 3;
 	*((BYTE*)(_this + 0x8)) = num_of_windows;
 	BYTE* wMem = (BYTE*)cm0102_malloc(num_of_windows * 12);

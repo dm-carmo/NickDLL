@@ -16,7 +16,7 @@
 * +0x17 -> max over-age players
 * 
 * Pointers for foreign player rules (club):
-* +0x12 -> max non-EU players
+* +0x12 -> max non-EU players, doesn't work? might be +0x14 instead but that doesn't work either
 * +0x13 -> max foreign players
 */
 

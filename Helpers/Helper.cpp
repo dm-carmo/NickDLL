@@ -304,96 +304,97 @@ vector<cm3_nations*> caribbean_countries()
 }
 
 vector<DWORD> east_asia_nations() {
-	vector<DWORD> ret;
-	ret.push_back(NATION_JAPAN_9CF());
-	ret.push_back(NATION_SOUTH_KOREA_9CF());
-	ret.push_back(NATION_THAILAND_9CF());
-	ret.push_back(NATION_CHINA_9CF());
-	ret.push_back(NATION_AUSTRALIA_9CF());
-	ret.push_back(NATION_MALAYSIA_9CF());
-	ret.push_back(NATION_VIETNAM_9CF());
-	ret.push_back(NATION_SINGAPORE_9CF());
-	ret.push_back(NATION_HONG_KONG_9CF());
-	ret.push_back(NATION_CAMBODIA_9CF());
-	ret.push_back(NATION_INDONESIA_9CF());
-	ret.push_back(NATION_PHILIPPINES_9CF());
-	ret.push_back(NATION_MYANMAR_9CF());
-	ret.push_back(NATION_CHINESE_TAIPEI_9CF());
-	ret.push_back(NATION_NORTH_KOREA_9CF());
-	ret.push_back(NATION_MONGOLIA_9CF());
-	ret.push_back(NATION_MACAU_9CF());
-	ret.push_back(NATION_LAOS_9CF());
-	ret.push_back(NATION_BRUNEI_9CF());
-	ret.push_back(NATION_TIMOR_9CF());
-	ret.push_back(NATION_GUAM_9CF());
-	ret.push_back(NATION_NORTHERN_MARIANA_9CF());
-	return ret;
+	return {
+		NATION_JAPAN_9CF(),
+		NATION_SOUTH_KOREA_9CF(),
+		NATION_THAILAND_9CF(),
+		NATION_CHINA_9CF(),
+		NATION_AUSTRALIA_9CF(),
+		NATION_MALAYSIA_9CF(),
+		NATION_VIETNAM_9CF(),
+		NATION_SINGAPORE_9CF(),
+		NATION_HONG_KONG_9CF(),
+		NATION_CAMBODIA_9CF(),
+		NATION_INDONESIA_9CF(),
+		NATION_PHILIPPINES_9CF(),
+		NATION_MYANMAR_9CF(),
+		NATION_CHINESE_TAIPEI_9CF(),
+		NATION_NORTH_KOREA_9CF(),
+		NATION_MONGOLIA_9CF(),
+		NATION_MACAU_9CF(),
+		NATION_LAOS_9CF(),
+		NATION_BRUNEI_9CF(),
+		NATION_TIMOR_LESTE_9CF(),
+		NATION_GUAM_9CF(),
+		NATION_NORTHERN_MARIANA_9CF(),
+	};
 }
 
 vector<DWORD> west_asia_nations() {
-	vector<DWORD> ret;
-	ret.push_back(NATION_SAUDI_ARABIA_9CF());
-	ret.push_back(NATION_UAE_9CF());
-	ret.push_back(NATION_QATAR_9CF());
-	ret.push_back(NATION_IRAN_9CF());
-	ret.push_back(NATION_UZBEKISTAN_9CF());
-	ret.push_back(NATION_IRAQ_9CF());
-	ret.push_back(NATION_JORDAN_9CF());
-	ret.push_back(NATION_BAHRAIN_9CF());
-	ret.push_back(NATION_OMAN_9CF());
-	ret.push_back(NATION_INDIA_9CF());
-	ret.push_back(NATION_TURKMENISTAN_9CF());
-	ret.push_back(NATION_KUWAIT_9CF());
-	ret.push_back(NATION_LEBANON_9CF());
-	ret.push_back(NATION_TAJIKISTAN_9CF());
-	ret.push_back(NATION_KYRGYZSTAN_9CF());
-	ret.push_back(NATION_BANGLADESH_9CF());
-	ret.push_back(NATION_SYRIA_9CF());
-	ret.push_back(NATION_MALDIVES_9CF());
-	ret.push_back(NATION_PALESTINE_9CF());
-	ret.push_back(NATION_BHUTAN_9CF());
-	ret.push_back(NATION_NEPAL_9CF());
-	ret.push_back(NATION_AFGHANISTAN_9CF());
-	ret.push_back(NATION_SRI_LANKA_9CF());
-	ret.push_back(NATION_YEMEN_9CF());
-	ret.push_back(NATION_PAKISTAN_9CF());
-	return ret;
+	return {
+		NATION_SAUDI_ARABIA_9CF(),
+		NATION_UAE_9CF(),
+		NATION_QATAR_9CF(),
+		NATION_IRAN_9CF(),
+		NATION_UZBEKISTAN_9CF(),
+		NATION_IRAQ_9CF(),
+		NATION_JORDAN_9CF(),
+		NATION_BAHRAIN_9CF(),
+		NATION_OMAN_9CF(),
+		NATION_INDIA_9CF(),
+		NATION_TURKMENISTAN_9CF(),
+		NATION_KUWAIT_9CF(),
+		NATION_LEBANON_9CF(),
+		NATION_TAJIKISTAN_9CF(),
+		NATION_KYRGYZSTAN_9CF(),
+		NATION_BANGLADESH_9CF(),
+		NATION_SYRIA_9CF(),
+		NATION_MALDIVES_9CF(),
+		NATION_PALESTINE_9CF(),
+		NATION_BHUTAN_9CF(),
+		NATION_NEPAL_9CF(),
+		NATION_AFGHANISTAN_9CF(),
+		NATION_SRI_LANKA_9CF(),
+		NATION_YEMEN_9CF(),
+		NATION_PAKISTAN_9CF(),
+	};
 }
 
 vector<DWORD> caf_top_12_nations() {
-	vector<DWORD> ret;
-	ret.push_back(NATION_EGYPT_9CF());
-	ret.push_back(NATION_MOROCCO_9CF());
-	ret.push_back(NATION_ALGERIA_9CF());
-	ret.push_back(NATION_SOUTH_AFRICA_9CF());
-	ret.push_back(NATION_TANZANIA_9CF());
-	ret.push_back(NATION_TUNISIA_9CF());
-	ret.push_back(NATION_ANGOLA_9CF());
-	ret.push_back(NATION_DR_CONGO_9CF());
-	ret.push_back(NATION_SUDAN_9CF());
-	ret.push_back(NATION_MALI_9CF());
-	ret.push_back(NATION_IVORY_COAST_9CF());
-	ret.push_back(NATION_NIGERIA_9CF());
-	return ret;
+	return {
+		NATION_EGYPT_9CF(),
+		NATION_MOROCCO_9CF(),
+		NATION_ALGERIA_9CF(),
+		NATION_SOUTH_AFRICA_9CF(),
+		NATION_TANZANIA_9CF(),
+		NATION_TUNISIA_9CF(),
+		NATION_ANGOLA_9CF(),
+		NATION_DR_CONGO_9CF(),
+		NATION_SUDAN_9CF(),
+		NATION_MALI_9CF(),
+		NATION_IVORY_COAST_9CF(),
+		NATION_NIGERIA_9CF(),
+	};
 }
 
 vector<DWORD> caf_bottom_6_nations() {
-	vector<DWORD> ret;
-	ret.push_back(NATION_CAPE_VERDE_9CF());
-	ret.push_back(NATION_ERITREA_9CF());
-	ret.push_back(NATION_SAO_TOME_PRINCIPE_9CF());
-	ret.push_back(NATION_CONGO_9CF());
-	ret.push_back(NATION_CENTRAL_AFRICA_9CF());
-	return ret;
+	return {
+		NATION_CAPE_VERDE_9CF(),
+		NATION_ERITREA_9CF(),
+		NATION_SAO_TOME_PRINCIPE_9CF(),
+		NATION_CONGO_9CF(),
+		NATION_CENTRAL_AFRICA_9CF(),
+	};
 }
 
 vector<DWORD> ofc_bottom_4_nations() {
-	vector<DWORD> ret;
-	ret.push_back(NATION_AMERICAN_SAMOA_9CF());
-	ret.push_back(NATION_COOK_ISLANDS_9CF());
-	ret.push_back(NATION_SAMOA_9CF());
-	ret.push_back(NATION_TONGA_9CF());
-	return ret;
+	return
+	{
+		NATION_AMERICAN_SAMOA_9CF(),
+		NATION_COOK_ISLANDS_9CF(),
+		NATION_SAMOA_9CF(),
+		NATION_TONGA_9CF(),
+	};
 }
 
 vector<cm3_nations*> get_countries_of_continent(DWORD continentID) {

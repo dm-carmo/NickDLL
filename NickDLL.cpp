@@ -17,7 +17,6 @@
 #include "Helpers\YearChanger.h"
 
 #include "inject_9cf_rename.h"
-#include "setup_misc_functions.h"
 #include <leagues_setup.h>
 #include <currency.h>
 #include <discipline_setup.h>

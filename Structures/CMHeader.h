@@ -230,7 +230,7 @@ enum ClubStatus : char {
 	Amateur = 3
 };
 
-enum NationActualRegion : BYTE {
+enum NationActualRegion : char {
 	NotSet,
 	Africa,
 	Asia,
@@ -287,7 +287,7 @@ struct cm3_names
 struct cm3_players
 {
 	// original data
-	long StaffPlayerID;
+	DWORD StaffPlayerID;
 	char StaffPlayerSquadNumber;
 	short StaffPlayerCurrentAbility;
 	short StaffPlayerPotentialAbility;
@@ -357,7 +357,7 @@ struct cm3_players
 #pragma pack(push, 1)
 struct cm3_non_players
 {
-	long StaffNonPlayerID;
+	DWORD StaffNonPlayerID;
 	short StaffNonPlayerCurrentAbility;
 	short StaffNonPlayerPotentialAbility;
 	short StaffNonPlayerHomeReputation; // Version 0x02 - Changed char->short
@@ -399,7 +399,7 @@ struct cm3_non_players
 #pragma pack(push, 1)
 struct cm3_staff_preferences
 {
-	long StaffPreferencesID;
+	DWORD StaffPreferencesID;
 	CM3_CLUBS* StaffFavouriteClubs1;
 	CM3_CLUBS* StaffFavouriteClubs2;
 	CM3_CLUBS* StaffFavouriteClubs3;
@@ -418,7 +418,7 @@ struct cm3_staff_preferences
 #pragma pack(push, 1)
 struct cm3_staff
 {
-	long StaffID;
+	DWORD StaffID;
 	CM3_NAMES* StaffFirstName;
 	CM3_NAMES* StaffSecondName;
 	CM3_NAMES* StaffCommonName;
@@ -462,7 +462,7 @@ struct cm3_staff
 struct cm3_continents
 {
 	// original data
-	long ContinentID;
+	DWORD ContinentID;
 	char ContinentName[SHORT_TXT_LENGTH];
 	char ContinentGenderName;
 	char ContinentNameThreeLetter[4];
@@ -479,7 +479,7 @@ struct cm3_continents
 struct cm3_nations
 {
 	// original data
-	long NationID;
+	DWORD NationID;
 	char NationName[STANDARD_TXT_LENGTH];
 	char NationGenderName;
 	char NationNameShort[SHORT_TXT_LENGTH];
@@ -538,7 +538,7 @@ struct cm3_nations
 struct cm3_cities
 {
 	// original data
-	long CityID;
+	DWORD CityID;
 	char CityName[SHORT_TXT_LENGTH];
 	char CityGenderName;
 	CM3_NATIONS* CityNation;
@@ -553,7 +553,7 @@ struct cm3_cities
 #pragma pack(push, 1)
 struct cm3_colours
 {
-	long ColourID;
+	DWORD ColourID;
 	char ColourName[STANDARD_TXT_LENGTH];
 	unsigned char ColourRedIntensity;
 	unsigned char ColourGreenIntensity;
@@ -565,7 +565,7 @@ struct cm3_colours
 struct cm3_stadiums
 {
 	// original data
-	long StadiumID;
+	DWORD StadiumID;
 	char StadiumName[STANDARD_TXT_LENGTH];
 	char StadiumGenderName;
 	CM3_CITIES* StadiumCity;
@@ -595,7 +595,7 @@ struct cm3_stadiums
 struct cm3_clubs
 {
 	// original data
-	long ClubID;
+	DWORD ClubID;
 	char ClubName[STANDARD_TXT_LENGTH];
 	char ClubGenderName;
 	char ClubNameShort[SHORT_TXT_LENGTH];
@@ -654,7 +654,7 @@ struct cm3_clubs
 #pragma pack(push, 1)
 struct cm3_club_comps
 {
-	long ClubCompID;
+	DWORD ClubCompID;
 	char ClubCompName[STANDARD_TXT_LENGTH];
 	char ClubCompGenderName;
 	char ClubCompNameShort[SHORT_TXT_LENGTH];
@@ -673,7 +673,7 @@ struct cm3_club_comps
 #pragma pack(push, 1)
 struct cm3_club_comp_history
 {
-	long ClubCompHistoryID;
+	DWORD ClubCompHistoryID;
 	CM3_CLUB_COMPS* ClubCompHistoryClubComp;
 	short ClubCompHistoryYear;
 	CM3_CLUBS* ClubCompHistoryWinners;
@@ -686,7 +686,7 @@ struct cm3_club_comp_history
 #pragma pack(push, 1)
 struct cm3_staff_comps
 {
-	long StaffCompID;
+	DWORD StaffCompID;
 	char StaffCompName[STANDARD_TXT_LENGTH];
 	char StaffCompGenderName;
 	char StaffCompNameShort[SHORT_TXT_LENGTH];
@@ -702,7 +702,7 @@ struct cm3_staff_comps
 #pragma pack(push, 1)
 struct cm3_staff_comp_history
 {
-	long StaffCompHistoryID;
+	DWORD StaffCompHistoryID;
 	CM3_STAFF_COMPS* StaffCompHistoryStaffComp;
 	short StaffCompHistoryYear;
 	char* StaffCompHistoryFirstPlacedFirstName;

@@ -91,7 +91,7 @@ void __declspec(naked) sui_foreign_rules_c()
 BYTE* setup_switzerland_rules(BYTE* _this, char idx, DWORD country_id, DWORD continent_id, int a5, int a6) {
 	generic_rules_setup(_this, idx, country_id, continent_id, a5, a6);
 	*((DWORD*)(_this)) = (DWORD)sui_rules_vtable->vtable_ptr;
-	*((BYTE*)(_this + 0x12)) = 10; // maximum number of non-EU players at the club
+	//*((BYTE*)(_this + 0x12)) = 10; // maximum number of non-EU players at the club, not working
 	sui_rules_vtable->SetPointer(VTableRLoanOutsideWindow, 0x412dd0);
 	sui_rules_vtable->SetPointer(VTableRSendWindowNews, 0x8e9080);
 	sui_rules_vtable->SetPointer(VTableR5, 0x8e8560);

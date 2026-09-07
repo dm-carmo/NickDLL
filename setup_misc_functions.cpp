@@ -5,6 +5,47 @@
 #include "Helpers/Helper.h"
 #include <Helpers/constants.h>
 
+// lists for foreign/non-EU player exceptions
+vector<DWORD> france_overseas = {};
+vector<DWORD> england_overseas = {};
+vector<DWORD> brazil_fgn = {};
+vector<DWORD> russia_fgn = {};
+vector<DWORD> finland_fgn = {};
+vector<DWORD> czech_fgn = {};
+vector<DWORD> greece_fgn = {};
+vector<DWORD> france_fgn = {};
+vector<DWORD> spain_fgn = {};
+vector<DWORD> germany_fgn = {};
+vector<DWORD> japan_fgn = {};
+vector<DWORD> turkic = {};
+vector<DWORD> cotonou = {};
+
+// lists for player naturalization
+
+vector<DWORD> naturalize_never = {};
+vector<DWORD> naturalize_2_years = {};
+vector<DWORD> naturalize_3_years = {};
+vector<DWORD> naturalize_4_years = {};
+vector<DWORD> naturalize_6_years = {};
+vector<DWORD> naturalize_7_years = {};
+vector<DWORD> naturalize_8_years = {};
+vector<DWORD> naturalize_9_years = {};
+vector<DWORD> naturalize_10_years = {};
+vector<DWORD> naturalize_12_years = {};
+vector<DWORD> naturalize_14_years = {};
+vector<DWORD> naturalize_15_years = {};
+vector<DWORD> naturalize_20_years = {};
+vector<DWORD> naturalize_25_years = {};
+vector<DWORD> naturalize_40_years = {};
+vector<DWORD> commonwealth = {};
+vector<DWORD> hispanic_american = {};
+vector<DWORD> caribbean = {};
+vector<DWORD> central_america = {};
+vector<DWORD> special_spain = {};
+vector<DWORD> special_mexico = {};
+vector<DWORD> special_portugal = {};
+vector<DWORD> arab = {};
+
 static WORD(*rgb_to_word_5E4800)(unsigned char a1, unsigned char a2, unsigned char a3, DWORD* a4) =
 (WORD(*)(unsigned char a1, unsigned char a2, unsigned char a3, DWORD * a4))(0x5E4800);
 
@@ -261,393 +302,6 @@ void __declspec(naked) club_pro_status_with_continental_comp_c() {
 }
 
 void player_gain_nationality() {
-	vector<DWORD> naturalize_never = {
-		NATION_AMERICAN_SAMOA_9CF(),
-		NATION_ARUBA_9CF(),
-		NATION_BRITISH_VIRGIN_ISLANDS_9CF(),
-		NATION_US_VIRGIN_ISLANDS_9CF(),
-		NATION_CHINA_9CF(),
-		NATION_CURACAO_9CF(),
-		NATION_FRENCH_GUIANA_9CF(),
-		NATION_GUADELOUPE_9CF(),
-		NATION_GUAM_9CF(),
-		NATION_KUWAIT_9CF(),
-		NATION_LEBANON_9CF(),
-		NATION_LIBERIA_9CF(),
-		NATION_MARTINIQUE_9CF(),
-		NATION_MONTSERRAT_9CF(),
-		NATION_MYANMAR_9CF(),
-		NATION_NEW_CALEDONIA_9CF(),
-		NATION_NORTH_KOREA_9CF(),
-		NATION_NORTHERN_MARIANA_9CF(),
-		NATION_PALESTINE_9CF(),
-		NATION_PUERTO_RICO_9CF(),
-		NATION_REUNION_9CF(),
-		NATION_SAINT_MARTIN_9CF(),
-		NATION_SINT_MAARTEN_9CF(),
-		NATION_TAHITI_9CF(),
-	};
-	vector<DWORD> naturalize_2_years = {
-		NATION_ARGENTINA_9CF(),
-		NATION_GIBRALTAR_9CF(),
-	};
-	vector<DWORD> naturalize_3_years = {
-		NATION_ARMENIA_9CF(),
-		NATION_BOLIVIA_9CF(),
-		NATION_CANADA_9CF(),
-		NATION_HONDURAS_9CF(),
-		NATION_ISRAEL_9CF(),
-		NATION_POLAND_9CF(),
-		NATION_SERBIA_9CF(),
-	};
-	vector<DWORD> naturalize_4_years = {
-		NATION_AUSTRALIA_9CF(),
-		NATION_BRAZIL_9CF(),
-		NATION_ETHIOPIA_9CF(),
-		NATION_NICARAGUA_9CF(),
-	};
-	vector<DWORD> naturalize_6_years = {
-		NATION_ANTIGUA_BARBUDA_9CF(),
-		NATION_BAHAMAS_9CF(),
-		NATION_GHANA_9CF(),
-		NATION_GUINEA_BISSAU_9CF(),
-		NATION_MAURITIUS_9CF(),
-	};
-	vector<DWORD> naturalize_7_years = {
-		NATION_ALGERIA_9CF(),
-		NATION_BELARUS_9CF(),
-		NATION_CAMBODIA_9CF(),
-		NATION_COSTA_RICA_9CF(),
-		NATION_DOMINICA_9CF(),
-		NATION_DR_CONGO_9CF(),
-		NATION_GREECE_9CF(),
-		NATION_GRENADA_9CF(),
-		NATION_GUYANA_9CF(),
-		NATION_HONG_KONG_9CF(),
-		NATION_ICELAND_9CF(),
-		NATION_JAMAICA_9CF(),
-		NATION_KENYA_9CF(),
-		NATION_MACAU_9CF(),
-		NATION_MALAWI_9CF(),
-		NATION_SOMALIA_9CF(),
-		NATION_ST_LUCIA_9CF(),
-		NATION_TANZANIA_9CF(),
-		NATION_TURKMENISTAN_9CF(),
-	};
-	vector<DWORD> naturalize_8_years = {
-		NATION_BOSNIA_9CF(),
-		NATION_CROATIA_9CF(),
-		NATION_ESTONIA_9CF(),
-		NATION_FINLAND_9CF(),
-		NATION_HUNGARY_9CF(),
-		NATION_NORTH_MACEDONIA_9CF(),
-		NATION_NORWAY_9CF(),
-		NATION_PAPUA_NEW_GUINEA_9CF(),
-		NATION_ROMANIA_9CF(),
-		NATION_SLOVAKIA_9CF(),
-		NATION_TRINIDAD_TOBAGO_9CF(),
-	};
-	vector<DWORD> naturalize_9_years = {
-		NATION_DENMARK_9CF(),
-		NATION_FAROE_ISLANDS_9CF(),
-		NATION_ST_VINCENT_9CF(),
-	};
-	vector<DWORD> naturalize_10_years = {
-		NATION_ANGOLA_9CF(),
-		NATION_AUSTRIA_9CF(),
-		NATION_BENIN_9CF(),
-		NATION_BERMUDA_9CF(),
-		NATION_BOTSWANA_9CF(),
-		NATION_BURKINA_FASO_9CF(),
-		NATION_BURUNDI_9CF(),
-		NATION_COMOROS_9CF(),
-		NATION_CONGO_9CF(),
-		NATION_COOK_ISLANDS_9CF(),
-		NATION_DJIBOUTI_9CF(),
-		NATION_TIMOR_9CF(),
-		NATION_EGYPT_9CF(),
-		NATION_GEORGIA_9CF(),
-		NATION_IRAQ_9CF(),
-		NATION_ITALY_9CF(),
-		NATION_LAOS_9CF(),
-		NATION_LIBYA_9CF(),
-		NATION_LIECHTENSTEIN_9CF(),
-		NATION_LITHUANIA_9CF(),
-		NATION_MALAYSIA_9CF(),
-		NATION_MALI_9CF(),
-		NATION_MAURITANIA_9CF(),
-		NATION_MOLDOVA_9CF(),
-		NATION_MONTENEGRO_9CF(),
-		NATION_NAMIBIA_9CF(),
-		NATION_NIGER_9CF(),
-		NATION_PHILIPPINES_9CF(),
-		NATION_PORTUGAL_9CF(),
-		NATION_SOUTH_SUDAN_9CF(),
-		NATION_SAUDI_ARABIA_9CF(),
-		NATION_SENEGAL_9CF(),
-		NATION_SEYCHELLES_9CF(),
-		NATION_SINGAPORE_9CF(),
-		NATION_SLOVENIA_9CF(),
-		NATION_SPAIN_9CF(),
-		NATION_SUDAN_9CF(),
-		NATION_SWITZERLAND_9CF(),
-		NATION_UGANDA_9CF(),
-		NATION_VANUATU_9CF(),
-		NATION_VENEZUELA_9CF(),
-		NATION_YEMEN_9CF(),
-		NATION_ZAMBIA_9CF(),
-		NATION_ZIMBABWE_9CF(),
-	};
-	vector<DWORD> naturalize_12_years = {
-		NATION_INDIA_9CF(),
-		NATION_MALDIVES_9CF(),
-	};
-	vector<DWORD> naturalize_14_years = {
-		NATION_ST_KITTS_NEVIS_9CF(),
-	};
-	vector<DWORD> naturalize_15_years = {
-		NATION_CHAD_9CF(),
-		NATION_GAMBIA_9CF(),
-		NATION_JORDAN_9CF(),
-		NATION_NEPAL_9CF(),
-		NATION_NIGERIA_9CF(),
-		NATION_OMAN_9CF(),
-		NATION_SIERRA_LEONE_9CF(),
-	};
-	vector<DWORD> naturalize_20_years = {
-		NATION_ANDORRA_9CF(),
-		NATION_BAHRAIN_9CF(),
-		NATION_BHUTAN_9CF(),
-		NATION_BRUNEI_9CF(),
-		NATION_ERITREA_9CF(),
-		NATION_SAN_MARINO_9CF(),
-	};
-	vector<DWORD> naturalize_25_years = {
-		//NATION_QATAR_9CF(),
-	};
-	vector<DWORD> naturalize_40_years = {
-		NATION_EQUATORIAL_GUINEA_9CF(),
-	};
-	vector<DWORD> uk_ireland = {
-		NATION_ENGLAND_9CF(),
-		NATION_IRELAND_9CF(),
-		NATION_NORTHERN_IRELAND_9CF(),
-		NATION_SCOTLAND_9CF(),
-		NATION_WALES_9CF(),
-	};
-	vector<DWORD> commonwealth = {
-		NATION_ANTIGUA_BARBUDA_9CF(),
-		NATION_AUSTRALIA_9CF(),
-		NATION_BAHAMAS_9CF(),
-		NATION_BANGLADESH_9CF(),
-		NATION_BARBADOS_9CF(),
-		NATION_BELIZE_9CF(),
-		NATION_BOTSWANA_9CF(),
-		NATION_BRUNEI_9CF(),
-		NATION_CAMEROON_9CF(),
-		NATION_CANADA_9CF(),
-		NATION_CYPRUS_9CF(),
-		NATION_DOMINICA_9CF(),
-		NATION_ESWATINI_9CF(),
-		NATION_FIJI_9CF(),
-		NATION_GABON_9CF(),
-		NATION_GAMBIA_9CF(),
-		NATION_GHANA_9CF(),
-		NATION_GRENADA_9CF(),
-		NATION_GUYANA_9CF(),
-		NATION_INDIA_9CF(),
-		NATION_JAMAICA_9CF(),
-		NATION_KENYA_9CF(),
-		NATION_LESOTHO_9CF(),
-		NATION_MALAWI_9CF(),
-		NATION_MALAYSIA_9CF(),
-		NATION_MALDIVES_9CF(),
-		NATION_MALTA_9CF(),
-		NATION_MAURITIUS_9CF(),
-		NATION_MOZAMBIQUE_9CF(),
-		NATION_NAMIBIA_9CF(),
-		NATION_NEW_ZEALAND_9CF(),
-		NATION_NIGERIA_9CF(),
-		NATION_PAKISTAN_9CF(),
-		NATION_PAPUA_NEW_GUINEA_9CF(),
-		NATION_RWANDA_9CF(),
-		NATION_ST_KITTS_NEVIS_9CF(),
-		NATION_ST_LUCIA_9CF(),
-		NATION_ST_VINCENT_9CF(),
-		NATION_SAMOA_9CF(),
-		NATION_SEYCHELLES_9CF(),
-		NATION_SIERRA_LEONE_9CF(),
-		NATION_SINGAPORE_9CF(),
-		NATION_SOLOMON_ISLANDS_9CF(),
-		NATION_SOUTH_AFRICA_9CF(),
-		NATION_SRI_LANKA_9CF(),
-		NATION_TANZANIA_9CF(),
-		NATION_TOGO_9CF(),
-		NATION_TONGA_9CF(),
-		NATION_TRINIDAD_TOBAGO_9CF(),
-		NATION_UGANDA_9CF(),
-		NATION_ENGLAND_9CF(),
-		NATION_SCOTLAND_9CF(),
-		NATION_WALES_9CF(),
-		NATION_NORTHERN_IRELAND_9CF(),
-		NATION_VANUATU_9CF(),
-		NATION_ZAMBIA_9CF(),
-	};
-	vector<DWORD> hispanic_american = {
-		NATION_ARGENTINA_9CF(),
-		NATION_BOLIVIA_9CF(),
-		NATION_CHILE_9CF(),
-		NATION_COLOMBIA_9CF(),
-		NATION_COSTA_RICA_9CF(),
-		NATION_CUBA_9CF(),
-		NATION_DOMINICAN_REPUBLIC_9CF(),
-		NATION_ECUADOR_9CF(),
-		NATION_EL_SALVADOR_9CF(),
-		NATION_GUATEMALA_9CF(),
-		NATION_HONDURAS_9CF(),
-		NATION_MEXICO_9CF(),
-		NATION_NICARAGUA_9CF(),
-		NATION_PANAMA_9CF(),
-		NATION_PARAGUAY_9CF(),
-		NATION_PERU_9CF(),
-		NATION_PUERTO_RICO_9CF(),
-		NATION_URUGUAY_9CF(),
-		NATION_VENEZUELA_9CF(),
-	};
-	vector<DWORD> caribbean = {
-		NATION_ANGUILLA_9CF(),
-		NATION_ANTIGUA_BARBUDA_9CF(),
-		NATION_ARUBA_9CF(),
-		NATION_BAHAMAS_9CF(),
-		NATION_BARBADOS_9CF(),
-		NATION_BERMUDA_9CF(),
-		NATION_BELIZE_9CF(),
-		NATION_BONAIRE_9CF(),
-		NATION_BRITISH_VIRGIN_ISLANDS_9CF(),
-		NATION_CAYMAN_ISLANDS_9CF(),
-		NATION_CUBA_9CF(),
-		NATION_CURACAO_9CF(),
-		NATION_DOMINICA_9CF(),
-		NATION_DOMINICAN_REPUBLIC_9CF(),
-		NATION_GRENADA_9CF(),
-		NATION_GUADELOUPE_9CF(),
-		NATION_GUYANA_9CF(),
-		NATION_HAITI_9CF(),
-		NATION_JAMAICA_9CF(),
-		NATION_MARTINIQUE_9CF(),
-		NATION_MONTSERRAT_9CF(),
-		NATION_PUERTO_RICO_9CF(),
-		NATION_ST_KITTS_NEVIS_9CF(),
-		NATION_ST_LUCIA_9CF(),
-		NATION_SAINT_MARTIN_9CF(),
-		NATION_ST_VINCENT_9CF(),
-		NATION_SINT_MAARTEN_9CF(),
-		NATION_SURINAM_9CF(),
-		NATION_NICARAGUA_9CF(),
-		NATION_TRINIDAD_TOBAGO_9CF(),
-		NATION_TURKS_AND_CAICOS_9CF(),
-		NATION_US_VIRGIN_ISLANDS_9CF(),
-	};
-	vector<DWORD> central_america = {
-		NATION_COSTA_RICA_9CF(),
-		NATION_EL_SALVADOR_9CF(),
-		NATION_GUATEMALA_9CF(),
-		NATION_HONDURAS_9CF(),
-		NATION_MEXICO_9CF(),
-		NATION_NICARAGUA_9CF(),
-		NATION_PANAMA_9CF(),
-	};
-	vector<DWORD> special_spain = {
-		NATION_ANDORRA_9CF(),
-		NATION_BRAZIL_9CF(),
-		NATION_PHILIPPINES_9CF(),
-		NATION_PORTUGAL_9CF(),
-	};
-	vector<DWORD> special_mexico = {
-		NATION_ANDORRA_9CF(),
-		NATION_BRAZIL_9CF(),
-		NATION_GIBRALTAR_9CF(),
-		NATION_PORTUGAL_9CF(),
-	};
-	vector<DWORD> special_portugal = {
-		NATION_ANGOLA_9CF(),
-		NATION_BRAZIL_9CF(),
-		NATION_CAPE_VERDE_9CF(),
-		NATION_GUINEA_BISSAU_9CF(),
-		NATION_EQUATORIAL_GUINEA_9CF(),
-		NATION_MOZAMBIQUE_9CF(),
-		NATION_PORTUGAL_9CF(),
-		NATION_SAO_TOME_PRINCIPE_9CF(),
-		NATION_TIMOR_9CF(),
-	};
-	vector<DWORD> arab = {
-		NATION_ALGERIA_9CF(),
-		NATION_BAHRAIN_9CF(),
-		NATION_COMOROS_9CF(),
-		NATION_DJIBOUTI_9CF(),
-		NATION_EGYPT_9CF(),
-		NATION_IRAQ_9CF(),
-		NATION_JORDAN_9CF(),
-		NATION_KUWAIT_9CF(),
-		NATION_LEBANON_9CF(),
-		NATION_LIBYA_9CF(),
-		NATION_MAURITANIA_9CF(),
-		NATION_MOROCCO_9CF(),
-		NATION_OMAN_9CF(),
-		NATION_PALESTINE_9CF(),
-		NATION_QATAR_9CF(),
-		NATION_SAUDI_ARABIA_9CF(),
-		NATION_SOMALIA_9CF(),
-		NATION_SUDAN_9CF(),
-		NATION_SYRIA_9CF(),
-		NATION_TUNISIA_9CF(),
-		NATION_UAE_9CF(),
-		NATION_YEMEN_9CF(),
-	};
-	vector<DWORD> eea = {
-		NATION_ICELAND_9CF(),
-		NATION_LIECHTENSTEIN_9CF(),
-		NATION_NORWAY_9CF(),
-		NATION_SWITZERLAND_9CF(),
-	};
-	vector<DWORD> european_union = {
-		NATION_AUSTRIA_9CF(),
-		NATION_BELGIUM_9CF(),
-		NATION_BULGARIA_9CF(),
-		NATION_CROATIA_9CF(),
-		NATION_CYPRUS_9CF(),
-		NATION_CZECH_REPUBLIC_9CF(),
-		NATION_DENMARK_9CF(),
-		NATION_ESTONIA_9CF(),
-		NATION_FINLAND_9CF(),
-		NATION_FRANCE_9CF(),
-		NATION_GERMANY_9CF(),
-		NATION_GREECE_9CF(),
-		NATION_HUNGARY_9CF(),
-		NATION_IRELAND_9CF(),
-		NATION_ITALY_9CF(),
-		NATION_LATVIA_9CF(),
-		NATION_LITHUANIA_9CF(),
-		NATION_LUXEMBOURG_9CF(),
-		NATION_MALTA_9CF(),
-		NATION_NETHERLANDS_9CF(),
-		NATION_POLAND_9CF(),
-		NATION_PORTUGAL_9CF(),
-		NATION_ROMANIA_9CF(),
-		NATION_SLOVAKIA_9CF(),
-		NATION_SLOVENIA_9CF(),
-		NATION_SPAIN_9CF(),
-		NATION_SWEDEN_9CF(),
-	};
-	vector<DWORD> nordics = {
-		NATION_DENMARK_9CF(),
-		NATION_FAROE_ISLANDS_9CF(),
-		NATION_ICELAND_9CF(),
-		NATION_SWEDEN_9CF(),
-		NATION_NORWAY_9CF(),
-		NATION_FINLAND_9CF(),
-	};
-
 	for (DWORD i = 0; i < *staff_count; i++) {
 		cm3_staff* person = get_staff(i);
 		// if staff already has a second nationality, can't add one
@@ -675,7 +329,7 @@ void player_gain_nationality() {
 		DWORD club_nation_id = club_nation->NationID;
 		if (vector_contains_element(naturalize_never, club_nation_id)) continue;
 		// don't try to naturalize players in the UK+Ireland, this is done somewhere else?
-		if (vector_contains_element(uk_ireland, club_nation_id)) continue;
+		if (club_nation->NationActualRegion == UKandIreland) continue;
 		WORD min_years = 5;
 		if (vector_contains_element(naturalize_2_years, club_nation_id)) min_years = 2;
 		else if (vector_contains_element(naturalize_3_years, club_nation_id)) min_years = 3;
@@ -698,8 +352,7 @@ void player_gain_nationality() {
 			min_years = 2;
 		// special case for Portugal: some countries can gain nationality after 7 years instead of 10
 		if (club_nation_id == NATION_PORTUGAL_9CF() &&
-			(vector_contains_element(special_portugal, (DWORD)person->StaffNation->NationID) ||
-				vector_contains_element(european_union, (DWORD)person->StaffNation->NationID)))
+			(vector_contains_element(special_portugal, (DWORD)person->StaffNation->NationID) || person->StaffNation->NationGroupMembership == 2))
 			min_years = 7;
 		// special case for Mexico: some countries can gain nationality after 2 years instead of 5
 		if (club_nation_id == NATION_MEXICO_9CF() &&
@@ -756,28 +409,23 @@ void player_gain_nationality() {
 		if (club_nation_id == NATION_JORDAN_9CF() && vector_contains_element(arab, (DWORD)person->StaffNation->NationID))
 			min_years = 4;
 		// special case for Austria: some countries can gain nationality after 6 years instead of 10
-		if (club_nation_id == NATION_AUSTRIA_9CF() && (vector_contains_element(european_union, (DWORD)person->StaffNation->NationID) ||
-			vector_contains_element(eea, (DWORD)person->StaffNation->NationID)))
+		if (club_nation_id == NATION_AUSTRIA_9CF() && person->StaffNation->NationGroupMembership == 2)
 			min_years = 6;
 		// special case for Czech Republic: some countries can gain nationality after 3 years instead of 5
-		if (club_nation_id == NATION_CZECH_REPUBLIC_9CF() && vector_contains_element(european_union, (DWORD)person->StaffNation->NationID))
+		if (club_nation_id == NATION_CZECH_REPUBLIC_9CF() && person->StaffNation->NationGroupMembership == 2)
 			min_years = 3;
 		// special case for Denmark, Finland, Sweden: some countries can gain nationality after 2 years instead of 9
 		if ((club_nation_id == NATION_DENMARK_9CF() || club_nation_id == NATION_FINLAND_9CF() || club_nation_id == NATION_SWEDEN_9CF()) &&
-			vector_contains_element(nordics, (DWORD)person->StaffNation->NationID))
+			person->StaffNation->NationActualRegion == Scandinavia)
 			min_years = 2;
 		// special case for Iceland: some countries can gain nationality after 4 years instead of 7
-		if (club_nation_id == NATION_ICELAND_9CF() && vector_contains_element(nordics, (DWORD)person->StaffNation->NationID))
+		if (club_nation_id == NATION_ICELAND_9CF() && person->StaffNation->NationActualRegion == Scandinavia)
 			min_years = 4;
-		// special case for Norway: some countries can gain nationality after 2 or 3 years instead of 8
-		if (club_nation_id == NATION_NORWAY_9CF()) {
-			if (vector_contains_element(eea, (DWORD)person->StaffNation->NationID))
-				min_years = 3;
-			if (vector_contains_element(nordics, (DWORD)person->StaffNation->NationID))
-				min_years = 2;
-		}
+		// special case for Norway: some countries can gain nationality after 2 years instead of 8
+		if (club_nation_id == NATION_NORWAY_9CF() && person->StaffNation->NationActualRegion == Scandinavia)
+			min_years = 2;
 		// special case for Italy: some countries can gain nationality after 4 years instead of 10
-		if (club_nation_id == NATION_ITALY_9CF() && vector_contains_element(european_union, (DWORD)person->StaffNation->NationID))
+		if (club_nation_id == NATION_ITALY_9CF() && person->StaffNation->NationGroupMembership == 2)
 			min_years = 4;
 		// if staff has been at the club for long enough, add second nationality
 		WORD diff = year - join_year;
@@ -816,6 +464,102 @@ extern "C" _declspec(naked) void player_gain_nationality_c()
 		push 0x8c5cd5
 		ret
 	}
+}
+
+// returns 1 if player is EU
+int player_check_if_eu(cm3_staff* person, cm3_nations* nation) {
+	if (!nation) return 0;
+	cm3_nations* first = person->StaffNation;
+	cm3_nations* second = person->StaffSecondNation;
+	if (first == nation || second == nation) return 1;
+	if (nation->NationActualRegion == UKandIreland) {
+		if (first && first->NationActualRegion == UKandIreland) return 1;
+		if (second && second->NationActualRegion == UKandIreland) return 1;
+		if (nation->NationID != NATION_IRELAND_9CF()) {
+			if (first && vector_contains_element(england_overseas, first->NationID)) return 1;
+			if (second && vector_contains_element(england_overseas, second->NationID)) return 1;
+		}
+	}
+	if (nation->NationGroupMembership == 2) {
+		if (first && first->NationGroupMembership == 2) return 1;
+		if (second && second->NationGroupMembership == 2) return 1;
+	}
+	// Ukraine counts as EU in EU leagues?
+	if (nation->NationGroupMembership == 2) {
+		if (first && (first->NationID == NATION_UKRAINE_9CF() || vector_contains_element(france_overseas, first->NationID))) return 1;
+		if (second && (second->NationID == NATION_UKRAINE_9CF() || vector_contains_element(france_overseas, second->NationID))) return 1;
+	}
+	if (nation->NationID == NATION_CZECH_REPUBLIC_9CF() || nation->NationID == NATION_FRANCE_9CF() || nation->NationID == NATION_SPAIN_9CF()) {
+		if (first && vector_contains_element(czech_fgn, first->NationID)) return 1;
+		if (second && vector_contains_element(czech_fgn, second->NationID)) return 1;
+	}
+	if (nation->NationID == NATION_DENMARK_9CF() || nation->NationID == NATION_FINLAND_9CF() || nation->NationID == NATION_FRANCE_9CF() || nation->NationID == NATION_SPAIN_9CF()) {
+		if (first && vector_contains_element(cotonou, first->NationID)) return 1;
+		if (second && vector_contains_element(cotonou, second->NationID)) return 1;
+	}
+	if (nation->NationID == NATION_FINLAND_9CF() || nation->NationID == NATION_FRANCE_9CF() || nation->NationID == NATION_GREECE_9CF() || nation->NationID == NATION_SPAIN_9CF()) {
+		if (first && vector_contains_element(finland_fgn, first->NationID)) return 1;
+		if (second && vector_contains_element(finland_fgn, second->NationID)) return 1;
+	}
+	if (nation->NationID == NATION_GERMANY_9CF()) {
+		if (first && vector_contains_element(germany_fgn, first->NationID)) return 1;
+		if (second && vector_contains_element(germany_fgn, second->NationID)) return 1;
+	}
+	if (nation->NationID == NATION_GREECE_9CF()) {
+		if (first && vector_contains_element(greece_fgn, first->NationID)) return 1;
+		if (second && vector_contains_element(greece_fgn, second->NationID)) return 1;
+	}
+	if (nation->NationID == NATION_PORTUGAL_9CF()) {
+		if (first && first->NationID == NATION_BRAZIL_9CF()) return 1;
+		if (second && second->NationID == NATION_BRAZIL_9CF()) return 1;
+	}
+	if (nation->NationID == NATION_SPAIN_9CF()) {
+		if (first && vector_contains_element(turkic, first->NationID)) return 1;
+		if (second && vector_contains_element(turkic, second->NationID)) return 1;
+	}
+	if (nation->NationID == NATION_SPAIN_9CF() || nation->NationID == NATION_FRANCE_9CF()) {
+		if (first && vector_contains_element(spain_fgn, first->NationID)) return 1;
+		if (second && vector_contains_element(spain_fgn, second->NationID)) return 1;
+	}
+	return 0;
+}
+
+// returns 1 if player is foreign
+int player_check_if_foreign(cm3_staff* person, cm3_nations* nation, int a3) {
+	if (!nation) return 1;
+	cm3_nations* first = person->StaffNation;
+	cm3_nations* second = person->StaffSecondNation;
+	if (first == nation || second == nation) return 0;
+	if (!a3) return 1;
+	if (nation->NationID == NATION_AUSTRALIA_9CF() || nation->NationID == NATION_NEW_ZEALAND_9CF()) {
+		if (first && (first->NationID == NATION_AUSTRALIA_9CF() || first->NationID == NATION_NEW_ZEALAND_9CF())) return 0;
+		if (second && (second->NationID == NATION_AUSTRALIA_9CF() || second->NationID == NATION_NEW_ZEALAND_9CF())) return 0;
+	}
+	if (nation->NationID == NATION_USA_9CF() || nation->NationID == NATION_CANADA_9CF()) {
+		if (first && (first->NationID == NATION_USA_9CF() || first->NationID == NATION_CANADA_9CF())) return 0;
+		if (second && (second->NationID == NATION_USA_9CF() || second->NationID == NATION_CANADA_9CF())) return 0;
+	}
+	if (nation->NationID == NATION_EGYPT_9CF()) {
+		if (first && (first->NationID == NATION_PALESTINE_9CF())) return 0;
+		if (second && (second->NationID == NATION_PALESTINE_9CF())) return 0;
+	}
+	if (nation->NationID == NATION_BRAZIL_9CF()) {
+		if (first && vector_contains_element(brazil_fgn, first->NationID)) return 0;
+		if (second && vector_contains_element(brazil_fgn, second->NationID)) return 0;
+	}
+	if (nation->NationID == NATION_JAPAN_9CF()) {
+		if (first && vector_contains_element(japan_fgn, first->NationID)) return 0;
+		if (second && vector_contains_element(japan_fgn, second->NationID)) return 0;
+	}
+	if (nation->NationID == NATION_RUSSIA_9CF()) {
+		if (first && vector_contains_element(russia_fgn, first->NationID)) return 0;
+		if (second && vector_contains_element(russia_fgn, second->NationID)) return 0;
+	}
+	if (nation->NationID == NATION_SOUTH_KOREA_9CF()) {
+		if (first && (first->NationID == NATION_NORTH_KOREA_9CF())) return 0;
+		if (second && (second->NationID == NATION_NORTH_KOREA_9CF())) return 0;
+	}
+	return 1;
 }
 
 void __declspec(naked) show_wing_back_position()
@@ -1589,7 +1333,7 @@ void __declspec(naked) is_international_comp_no_qualifiers() {
 		//je ret_1_quals
 		//cmp eax, dword ptr ds : [0x9cf88c]
 		//je ret_1_quals
-		ret_0_no_quals :
+	ret_0_no_quals:
 		xor eax, eax
 			ret 4
 			ret_1_quals :
@@ -1881,9 +1625,9 @@ void __declspec(naked) hosts_force_gold_cup_usa()
 		ret
 		not_afcon_special :
 		mov di, word ptr ss : [esp + 0x18]
-		push 0x5fa74a
-		ret
-		usa_gold_cup :
+			push 0x5fa74a
+			ret
+			usa_gold_cup :
 		mov ecx, dword ptr ss : [esp + 0x1c]
 			mov edx, dword ptr ds : [0x9cf4f8] // USA
 			mov dword ptr ds : [ecx] , edx
@@ -1967,6 +1711,8 @@ void setup_misc_functions()
 	WriteDWORD(0x823b58, (DWORD)&__DATE__[0]);
 	WriteDWORD(0x823b53, (DWORD)&__TIME__[0]);
 
+	PatchFunction(0x53d980, (DWORD)&player_check_if_foreign);
+	PatchFunction(0x53d740, (DWORD)&player_check_if_eu);
 	if (configFile.GetBool("competitionColoursPatch", true)) PatchFunction(0x53b7c0, (DWORD)&comp_colours_in_header);
 	PatchFunction(0x669f50, (DWORD)&show_extra_leagues_in_start);
 	PatchFunction(0x4B01D0, (DWORD)&parent_child_stages);
