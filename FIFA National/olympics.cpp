@@ -1043,6 +1043,7 @@ int olympics_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BY
 				teams_seeded* teams = (teams_seeded*)stage->teams_list;
 				if (!teams[0].club) teams[0].club = club;
 				else if (!teams[1].club) teams[1].club = club;
+				return 0;
 			}
 			return 0;
 		}

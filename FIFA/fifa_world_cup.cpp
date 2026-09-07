@@ -12,7 +12,7 @@
 using namespace std;
 
 DWORD* fifa_world_cup_vtable = (DWORD*)0x9712F0;
-DWORD wc_table_start_offset = 0xDEA000;
+DWORD wc_table_start_offset = 0x92C290;
 
 int fifa_world_cup_set_champion(BYTE* _this) {
 	comp_stats* comp_data = (comp_stats*)_this;
