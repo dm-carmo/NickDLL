@@ -1224,3 +1224,45 @@ bool is_nation_non_fifa(cm3_nations* n) {
 		n->NationID == NATION_SAINT_MARTIN_9CF() ||
 		n->NationID == NATION_SINT_MAARTEN_9CF();
 }
+
+// Possible future implementation of 0x7E9180, for international competitions:
+/*
+mov eax,dword ptr ds:[ecx+0x13]
+push edi
+xor edi,edi
+test eax,eax
+jle reset_int_bans_end
+push ebx
+mov ebx,dword ptr ss:[esp+0xc]
+push ebp
+push esi
+xor esi,esi
+reset_int_bans_loop:
+mov edx,dword ptr ds:[ecx+0xb]
+add edx,esi
+mov eax,dword ptr ds:[edx]
+cmp eax,-1
+je reset_int_bans_jmp1
+test ebx,ebx
+je reset_int_bans_clear
+lea ebp,dword ptr ds:[eax+eax*4]
+lea eax,dword ptr ds:[eax+ebp*2]
+mov ebp,dword ptr ds:[0xae23bc]
+lea eax,dword ptr ds:[eax+eax*4]
+cmp dword ptr ss:[ebp+eax*2+0x1a],ebx
+jnz reset_int_bans_jmp1
+reset_int_bans_clear:
+mov byte ptr ds:[edx+4],0
+reset_int_bans_jmp1:
+mov eax,dword ptr ds:[ecx+0x13]
+inc edi
+add esi,0xe
+cmp edi,eax
+jl reset_int_bans_loop
+pop esi
+pop ebp
+pop ebx
+reset_int_bans_end:
+pop edi
+ret 4
+*/

@@ -126,9 +126,6 @@
     <ClCompile Include="Helpers\9cf_constants.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Helpers\YearChanger.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Germany\ger_regional.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -1074,9 +1071,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Helpers\9cf_constants.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Helpers\YearChanger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Germany\ger_regional.h">
