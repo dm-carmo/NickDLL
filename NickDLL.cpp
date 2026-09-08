@@ -14,13 +14,12 @@
 #include "Structures\CMHeader.h"
 #include "Helpers\generic_functions.h"
 #include "Helpers\Helper.h"
-#include "Helpers\YearChanger.h"
 
-#include "inject_9cf_rename.h"
-#include <leagues_setup.h>
-#include <currency.h>
-#include <discipline_setup.h>
-#include <rules_setup.h>
+#include "Generic\inject_9cf_rename.h"
+#include "Generic\currency.h"
+#include "Generic\leagues_setup.h"
+#include "Generic\discipline_setup.h"
+#include "Generic\rules_setup.h"
 
 using namespace std;
 

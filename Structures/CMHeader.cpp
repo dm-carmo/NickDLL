@@ -1,6 +1,6 @@
 #include "CMHeader.h"
 #include <algorithm>
-#include <Helpers/Helper.h>
+#include "Helpers\Helper.h"
 
 cm3_staff_comps** awards = (cm3_staff_comps**)0xAE23E0;
 DWORD* awards_count = (DWORD*)0xAE2388;

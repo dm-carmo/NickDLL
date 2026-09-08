@@ -3,7 +3,7 @@
 #include "Structures\CMHeader.h"
 #include "Helper.h"
 #include "constants.h"
-#include <currency.h>
+#include "Generic\currency.h"
 
 // Generic function that will add teams to a league competition
 int AddTeams(BYTE* _this)
