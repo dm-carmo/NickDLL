@@ -933,6 +933,27 @@
     <ClCompile Include="England\eng_charity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Serbia\srb_first.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Serbia\srb_second.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Serbia\srb_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Serbia\srb_vojvodina.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Serbia\srb_belgrade.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Serbia\srb_east.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Serbia\srb_west.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -1863,6 +1884,27 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="England\eng_charity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Serbia\srb_first.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Serbia\srb_second.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Serbia\srb_cup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Serbia\srb_vojvodina.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Serbia\srb_belgrade.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Serbia\srb_east.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Serbia\srb_west.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

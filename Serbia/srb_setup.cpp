@@ -1,13 +1,13 @@
 #include <windows.h>
 #include "Structures\CMHeader.h"
 #include "Helpers\generic_functions.h"
-//#include "srb_first.h"
-//#include "srb_second.h"
-//#include "srb_vojvodina.h"
-//#include "srb_east.h"
-//#include "srb_west.h"
-//#include "srb_belgrade.h"
-//#include "srb_cup.h"
+#include "srb_first.h"
+#include "srb_second.h"
+#include "srb_vojvodina.h"
+#include "srb_east.h"
+#include "srb_west.h"
+#include "srb_belgrade.h"
+#include "srb_cup.h"
 #include <Helpers\9cf_constants.h>
 #include "Structures\vtable.h"
 
@@ -15,13 +15,13 @@ vtable* srb_rules_vtable = new vtable((BYTE*)0x969394, 0x34);
 
 DWORD srb_setup_c(playable_nation_data* nation_data) {
 
-	nation_data->contract_start_day = 15;
-	nation_data->contract_start_month = July;
+	nation_data->contract_start_day = 1;
+	nation_data->contract_start_month = August;
 	nation_data->contract_start_year = *current_year;
 	nation_data->contract_start_day_of_week = 5;
 
-	nation_data->contract_end_day = 31;
-	nation_data->contract_end_month = May;
+	nation_data->contract_end_day = 15;
+	nation_data->contract_end_month = June;
 	nation_data->contract_end_year = *current_year + 1;
 	nation_data->contract_end_day_of_week = 5;
 	BYTE selected = nation_data->nation->NationLeagueSelected;
@@ -36,35 +36,35 @@ DWORD srb_setup_c(playable_nation_data* nation_data) {
 
 	BYTE i = 0;
 
-	//BYTE* pMem = (BYTE*)cm0102_new(0xEE);
-	//srb_first_init(pMem, *current_year, get_comp(SRB_FIRST_9CF()));
-	//nation_comps[i++] = (DWORD)pMem;
+	BYTE* pMem = (BYTE*)cm0102_new(0xEE);
+	srb_first_init(pMem, *current_year, get_comp(SRB_FIRST_9CF()));
+	nation_comps[i++] = (DWORD)pMem;
 
-	//pMem = (BYTE*)cm0102_new(0xEE);
-	//srb_second_init(pMem, *current_year, get_comp(SRB_SECOND_9CF()));
-	//nation_comps[i++] = (DWORD)pMem;
+	pMem = (BYTE*)cm0102_new(0xEE);
+	srb_second_init(pMem, *current_year, get_comp(SRB_SECOND_9CF()));
+	nation_comps[i++] = (DWORD)pMem;
 
-	//if ((selected & 4) != 0) {
-	//	pMem = (BYTE*)cm0102_new(0xEE);
-	//	srb_vojvodina_init(pMem, *current_year, get_comp(SRB_VOJVODINA_9CF()));
-	//	nation_comps[i++] = (DWORD)pMem;
+	if ((selected & 4) != 0) {
+		pMem = (BYTE*)cm0102_new(0xEE);
+		srb_vojvodina_init(pMem, *current_year, get_comp(SRB_VOJVODINA_9CF()));
+		nation_comps[i++] = (DWORD)pMem;
 
-	//	pMem = (BYTE*)cm0102_new(0xEE);
-	//	srb_east_init(pMem, *current_year, get_comp(SRB_EAST_9CF()));
-	//	nation_comps[i++] = (DWORD)pMem;
+		pMem = (BYTE*)cm0102_new(0xEE);
+		srb_belgrade_init(pMem, *current_year, get_comp(SRB_BELGRADE_9CF()));
+		nation_comps[i++] = (DWORD)pMem;
 
-	//	pMem = (BYTE*)cm0102_new(0xEE);
-	//	srb_west_init(pMem, *current_year, get_comp(SRB_WEST_9CF()));
-	//	nation_comps[i++] = (DWORD)pMem;
+		pMem = (BYTE*)cm0102_new(0xEE);
+		srb_east_init(pMem, *current_year, get_comp(SRB_EAST_9CF()));
+		nation_comps[i++] = (DWORD)pMem;
 
-	//	pMem = (BYTE*)cm0102_new(0xEE);
-	//	srb_belgrade_init(pMem, *current_year, get_comp(SRB_BELGRADE_9CF()));
-	//	nation_comps[i++] = (DWORD)pMem;
-	//}
+		pMem = (BYTE*)cm0102_new(0xEE);
+		srb_west_init(pMem, *current_year, get_comp(SRB_WEST_9CF()));
+		nation_comps[i++] = (DWORD)pMem;
+	}
 
-	//pMem = (BYTE*)cm0102_new(0xB2);
-	//srb_cup_init(pMem, *current_year, get_comp(SRB_CUP_9CF()));
-	//nation_comps[i++] = (DWORD)pMem;
+	pMem = (BYTE*)cm0102_new(0xB2);
+	srb_cup_init(pMem, *current_year, get_comp(SRB_CUP_9CF()));
+	nation_comps[i++] = (DWORD)pMem;
 
 	BYTE* cm_date = new BYTE[8];
 	convert_to_cm_date(cm_date, 20, June, START_YEAR, -1);
@@ -145,11 +145,11 @@ BYTE* setup_serbia_rules(BYTE* _this, char idx, DWORD country_id, DWORD continen
 }
 
 void setup_srb_nation() {
-	//setup_srb_first();
-	//setup_srb_second();
-	//setup_srb_vojvodina();
-	//setup_srb_east();
-	//setup_srb_west();
-	//setup_srb_belgrade();
-	//setup_srb_cup();
+	setup_srb_first();
+	setup_srb_second();
+	setup_srb_vojvodina();
+	setup_srb_east();
+	setup_srb_west();
+	setup_srb_belgrade();
+	setup_srb_cup();
 }

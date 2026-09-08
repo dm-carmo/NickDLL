@@ -468,10 +468,19 @@ extern "C" _declspec(naked) void player_gain_nationality_c()
 
 // returns 1 if player is EU
 int player_check_if_eu(cm3_staff* person, cm3_nations* nation) {
-	if (!nation) return 0;
 	cm3_nations* first = person->StaffNation;
 	cm3_nations* second = person->StaffSecondNation;
+	if (!nation) 
+	{
+		if (first && first->NationGroupMembership == 2) return 1;
+		if (second && second->NationGroupMembership == 2) return 1;
+		return 0;
+	}
 	if (first == nation || second == nation) return 1;
+	if (nation->NationGroupMembership == 2) {
+		if (first && first->NationGroupMembership == 2) return 1;
+		if (second && second->NationGroupMembership == 2) return 1;
+	}
 	if (nation->NationActualRegion == UKandIreland) {
 		if (first && first->NationActualRegion == UKandIreland) return 1;
 		if (second && second->NationActualRegion == UKandIreland) return 1;
@@ -479,10 +488,6 @@ int player_check_if_eu(cm3_staff* person, cm3_nations* nation) {
 			if (first && vector_contains_element(england_overseas, first->NationID)) return 1;
 			if (second && vector_contains_element(england_overseas, second->NationID)) return 1;
 		}
-	}
-	if (nation->NationGroupMembership == 2) {
-		if (first && first->NationGroupMembership == 2) return 1;
-		if (second && second->NationGroupMembership == 2) return 1;
 	}
 	// Ukraine counts as EU in EU leagues?
 	if (nation->NationGroupMembership == 2) {

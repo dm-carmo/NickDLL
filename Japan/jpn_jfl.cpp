@@ -215,35 +215,6 @@ void __declspec(naked) jpn_jfl_table_fates_c()
 	}
 }
 
-void jpn_jfl_reputation_calc(BYTE* _this, BYTE* club, char stage, char current, char min, char max) {
-	comp_stats* comp_data = (comp_stats*)_this;
-	BYTE* ret = (BYTE*)sub_4A4850((BYTE*)comp_data->f8, club);
-	if (!ret) return;
-	char ret_current = current;
-	char ret_min = min;
-	char ret_max = max;
-	ret[0x73] = ret_current;
-	ret[0x74] = ret_min;
-	ret[0x75] = ret_max;
-}
-
-void __declspec(naked) jpn_jfl_reputation_calc_c()
-{
-	__asm
-	{
-		mov eax, esp
-		push dword ptr[eax + 0x14]
-		push dword ptr[eax + 0x10]
-		push dword ptr[eax + 0xc]
-		push dword ptr[eax + 0x8]
-		push dword ptr[eax + 0x4]
-		push ecx
-		call jpn_jfl_reputation_calc
-		add esp, 0x18
-		ret 0x14
-	}
-}
-
 char jpn_jfl_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	data->f76 = 0;
@@ -299,7 +270,6 @@ void jpn_jfl_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	jpn_jfl_vtable->SetPointer(VTableFixtures, (DWORD)&jpn_jfl_fixtures_c);
 	jpn_jfl_vtable->SetPointer(VTableInitFree, (DWORD)&jpn_jfl_free_c);
 	jpn_jfl_vtable->SetPointer(VTableTableFates, (DWORD)&jpn_jfl_table_fates_c);
-	jpn_jfl_vtable->SetPointer(VTableReputationCalc, (DWORD)&jpn_jfl_reputation_calc_c);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) jpn_jfl_vtable->SetPointer(VTableShowThirdInHistory, 0x4110b0);
 	data->year = year;
 	data->rules = RulesJapanLeague;

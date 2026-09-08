@@ -6,11 +6,11 @@
 #include "Helpers\constants.h"
 #include <Helpers\9cf_constants.h>
 
-vtable* sui_second_vtable = new vtable((BYTE*)0x96CAF4, 0xB4);
+vtable* srb_east_vtable = new vtable((BYTE*)0x96CAF4, 0xB4);
 
-void sui_second_free_under(BYTE* _this) {
+void srb_east_free_under(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
-	data->comp_vtable = (DWORD*)(sui_second_vtable->vtable_ptr);
+	data->comp_vtable = (DWORD*)(srb_east_vtable->vtable_ptr);
 	sub_687970(_this, 0);
 	if (data->fixtures_table) {
 		sub_9452CA_free(data->fixtures_table);
@@ -38,27 +38,27 @@ void sui_second_free_under(BYTE* _this) {
 	sub_682300(_this);
 }
 
-void sui_second_free(BYTE* _this, BYTE a2) {
-	sui_second_free_under(_this);
+void srb_east_free(BYTE* _this, BYTE a2) {
+	srb_east_free_under(_this);
 	if (a2 & 1) {
 		sub_944C94_free(_this);
 	}
 }
 
-void __declspec(naked) sui_second_free_c()
+void __declspec(naked) srb_east_free_c()
 {
 	__asm
 	{
 		mov eax, esp
 		push dword ptr[eax + 0x4]
 		push ecx
-		call sui_second_free
+		call srb_east_free
 		add esp, 0x8
 		ret 4
 	}
 }
 
-void sui_second_subs(BYTE* _this)
+void srb_east_subs(BYTE* _this)
 {
 	comp_stats* comp_data = (comp_stats*)_this;
 
@@ -67,15 +67,16 @@ void sui_second_subs(BYTE* _this)
 	comp_data->pts_for_draw = 1;
 	comp_data->f196 = 2;
 	comp_data->comp_type = CLUB_DOMESTIC;
-	comp_data->tiebreaker_1 = GoalDifferenceTiebreaker;
-	comp_data->tiebreaker_2 = GoalsForTiebreaker;
-	comp_data->tiebreaker_3 = GoalsForAwayTiebreaker;
+	comp_data->tiebreaker_1 = CurrentPositionTiebreaker;
+	comp_data->tiebreaker_2 = GoalDifferenceTiebreaker;
+	comp_data->tiebreaker_3 = GoalsForTiebreaker;
+	comp_data->tiebreaker_4 = GoalsForAwayTiebreaker;
 	comp_data->promotions = 1;
 	comp_data->prom_playoff = 0;
 	comp_data->rele_playoff = 0;
-	comp_data->relegations = 2;
+	comp_data->relegations = 4;
 
-	comp_data->promotes_to = SUI_FIRST_9CF();
+	comp_data->promotes_to = SRB_SECOND_9CF();
 	comp_data->relegates_to = -1;
 
 	comp_data->f82 = 2;
@@ -88,19 +89,19 @@ void sui_second_subs(BYTE* _this)
 	return;
 }
 
-void __declspec(naked) sui_second_subs_c()
+void __declspec(naked) srb_east_subs_c()
 {
 	__asm
 	{
 		mov eax, esp
 		push ecx
-		call sui_second_subs
+		call srb_east_subs
 		add esp, 0x4
 		ret
 	}
 }
 
-DWORD sui_second_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
+DWORD srb_east_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
 {
 	if (stage_idx == -1) {
 		if (a5)
@@ -110,15 +111,13 @@ DWORD sui_second_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 		WORD year = data->year;
 		DWORD CompID = data->competition_db->ClubCompID;
 		BYTE numberOfLeagueTeams = (BYTE)CountNumberOfTeamsInComp(CompID);
-		*num_rounds = (numberOfLeagueTeams - 1 + numberOfLeagueTeams % 2) * data->n_rounds;
+		*num_rounds = (numberOfLeagueTeams - 1) * data->n_rounds;
 		*stage_name_id = None;
 
 		pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 2), year, Saturday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 9), year, Saturday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 20), year, Wednesday, Evening);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 16), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 23), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 30), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 6), year, Saturday);
@@ -133,16 +132,12 @@ DWORD sui_second_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 8), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 15), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 22), year, Saturday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 14), year, Saturday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 21), year, Saturday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 28), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 7), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 14), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 21), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 28), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 4), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 11), year, Saturday);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 15), year, Wednesday, Evening);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 18), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 4, 25), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 5, 2), year, Saturday);
@@ -150,6 +145,8 @@ DWORD sui_second_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 5, 16), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 5, 23), year, Saturday);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 5, 30), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 6, 6), year, Saturday);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 6, 13), year, Saturday);
 
 		check_number_of_fixtures(_this, fixture_id, *num_rounds);
 
@@ -158,7 +155,7 @@ DWORD sui_second_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 	return 0;
 }
 
-void __declspec(naked) sui_second_fixtures_c()
+void __declspec(naked) srb_east_fixtures_c()
 {
 	__asm
 	{
@@ -168,13 +165,13 @@ void __declspec(naked) sui_second_fixtures_c()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call sui_second_fixtures
+		call srb_east_fixtures
 		add esp, 0x14
 		ret 0x10
 	}
 }
 
-int sui_second_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
+int srb_east_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
 	if (stage == -1) {
@@ -199,7 +196,7 @@ int sui_second_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, 
 	return 0;
 }
 
-void __declspec(naked) sui_second_table_fates_c()
+void __declspec(naked) srb_east_table_fates_c()
 {
 	__asm
 	{
@@ -211,26 +208,13 @@ void __declspec(naked) sui_second_table_fates_c()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call sui_second_table_fates
+		call srb_east_table_fates
 		add esp, 0x1c
 		ret 0x18
 	}
 }
 
-void sui_second_block_promotion(BYTE* _this) {
-	comp_stats* data = (comp_stats*)_this;
-	WORD total_teams = data->n_teams;
-	team_league_stats* table_teams = (team_league_stats*)(data->team_league_table);
-	for (int i = 0; i < total_teams; i++) {
-		DWORD is_main_club;
-		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)table_teams[i].club, &is_main_club, 1);
-		if (ret_club && !is_main_club) {
-			table_teams[i].league_fate = CantBePromoted;
-		}
-	}
-}
-
-char sui_second_update(BYTE* _this) {
+char srb_east_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	data->f76 = 0;
 	sub_687970(_this, 0);
@@ -252,9 +236,8 @@ char sui_second_update(BYTE* _this) {
 	}
 	data->year++;
 	data->current_stage = -1;
-	sui_second_subs(_this);
+	srb_east_subs(_this);
 	AddTeams(_this);
-	sui_second_block_promotion(_this);
 	sub_6835C0(_this);
 	sub_6827D0(_this, 0);
 	DWORD v1 = *(DWORD*)_this;
@@ -263,40 +246,39 @@ char sui_second_update(BYTE* _this) {
 	return sub_79CEE0((BYTE*)*b74340, (BYTE*)(data->competition_db));
 }
 
-void __declspec(naked) sui_second_update_c()
+void __declspec(naked) srb_east_update_c()
 {
 	__asm
 	{
 		mov eax, esp
 		push ecx
-		call sui_second_update
+		call srb_east_update
 		add esp, 0x4
 		ret
 	}
 }
 
-void sui_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
+void srb_east_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 {
 	sub_682200(_this);
 	comp_stats* data = (comp_stats*)_this;
 	data->competition_db = comp;
-	data->comp_vtable = (DWORD*)(sui_second_vtable->vtable_ptr);
-	sui_second_vtable->SetPointer(VTableEoSUpdate, (DWORD)&sui_second_update_c);
-	sui_second_vtable->SetPointer(VTableSubsRounds, (DWORD)&sui_second_subs_c);
-	sui_second_vtable->SetPointer(VTableFixtures, (DWORD)&sui_second_fixtures_c);
-	sui_second_vtable->SetPointer(VTableInitFree, (DWORD)&sui_second_free_c);
-	sui_second_vtable->SetPointer(VTableTableFates, (DWORD)&sui_second_table_fates_c);
-	if (configFile.GetBool("showThirdPlaceInHistory", true)) sui_second_vtable->SetPointer(VTableShowThirdInHistory, 0x4110b0);
+	data->comp_vtable = (DWORD*)(srb_east_vtable->vtable_ptr);
+	srb_east_vtable->SetPointer(VTableEoSUpdate, (DWORD)&srb_east_update_c);
+	srb_east_vtable->SetPointer(VTableSubsRounds, (DWORD)&srb_east_subs_c);
+	srb_east_vtable->SetPointer(VTableFixtures, (DWORD)&srb_east_fixtures_c);
+	srb_east_vtable->SetPointer(VTableInitFree, (DWORD)&srb_east_free_c);
+	srb_east_vtable->SetPointer(VTableTableFates, (DWORD)&srb_east_table_fates_c);
+	if (configFile.GetBool("showThirdPlaceInHistory", true)) srb_east_vtable->SetPointer(VTableShowThirdInHistory, 0x4110b0);
 	data->year = year;
-	data->rules = RulesSwitzerland;
+	data->rules = RulesSerbia;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 0;
-	sui_second_subs(_this);
+	srb_east_subs(_this);
 	AddTeams(_this);
-	sui_second_block_promotion(_this);
 	sub_6835C0(_this);
 	sub_6827D0(_this, 0);
 	BYTE* pMem2 = (BYTE*)cm0102_new(0x5CE);
@@ -305,7 +287,7 @@ void sui_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	league_reputation_setup_generic_68A850(_this);
 }
 
-void setup_sui_second()
+void setup_srb_east()
 {
 
 }

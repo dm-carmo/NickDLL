@@ -435,9 +435,11 @@ void olympics_seeded_teams(BYTE* _this) {
 	DWORD host1_id = -1, host2_id = -1;
 	DWORD host_continent = -1;
 	char num_hosts = get_host_ids_5FA730((BYTE*)*b5e134, data->competition_db->ClubCompID, year, &host1_id, &host2_id, 1);
+	cm3_clubs* host_nation_team;
 	if (num_hosts > 0) {
 		teamList[count].club = get_national_team(host1_id, true);
 		teamList[count].seeding = 1;
+		host_nation_team = get_national_team(teamList[count].club->ClubNation->NationID, true);
 		host_continent = teamList[count].club->ClubNation->NationContinent->ContinentID;
 		count++;
 	}
@@ -479,6 +481,8 @@ void olympics_seeded_teams(BYTE* _this) {
 		cm3_clubs* russia = get_national_team(NATION_RUSSIA_9CF(), true);
 		auto it = find(nations.begin(), nations.end(), russia);
 		if (it != nations.end()) nations.erase(it);
+		it = find(nations.begin(), nations.end(), host_nation_team);
+		if (it != nations.end()) nations.erase(it);
 		size_t size = 16;
 		vector<cm3_clubs*> nations_filter = vector(nations.begin(), nations.begin() + size);
 		vector<cm3_clubs*> quals = get_random_weighted_national_teams(nations_filter, 3 - (host_continent == EUROPE_9CF()));
@@ -486,6 +490,8 @@ void olympics_seeded_teams(BYTE* _this) {
 
 		nations = get_national_teams_of_continent_fifa_members(AFRICA_9CF(), true);
 		sort(nations.begin(), nations.end(), compareNationRanking);
+		it = find(nations.begin(), nations.end(), host_nation_team);
+		if (it != nations.end()) nations.erase(it);
 		size = 12;
 		nations_filter = vector(nations.begin(), nations.begin() + size);
 		quals = get_random_weighted_national_teams(nations_filter, 2 - (host_continent == AFRICA_9CF()));
@@ -493,6 +499,8 @@ void olympics_seeded_teams(BYTE* _this) {
 
 		nations = get_national_teams_of_continent_fifa_members(ASIA_9CF(), true);
 		sort(nations.begin(), nations.end(), compareNationRanking);
+		it = find(nations.begin(), nations.end(), host_nation_team);
+		if (it != nations.end()) nations.erase(it);
 		size = 12;
 		nations_filter = vector(nations.begin(), nations.begin() + size);
 		quals = get_random_weighted_national_teams(nations_filter, 2 - (host_continent == ASIA_9CF()));
@@ -500,6 +508,8 @@ void olympics_seeded_teams(BYTE* _this) {
 
 		nations = get_national_teams_of_continent_fifa_members(NORTH_AMERICA_9CF(), true);
 		sort(nations.begin(), nations.end(), compareNationRanking);
+		it = find(nations.begin(), nations.end(), host_nation_team);
+		if (it != nations.end()) nations.erase(it);
 		size = 8;
 		nations_filter = vector(nations.begin(), nations.begin() + size);
 		quals = get_random_weighted_national_teams(nations_filter, 2 - (host_continent == NORTH_AMERICA_9CF()));
@@ -507,6 +517,8 @@ void olympics_seeded_teams(BYTE* _this) {
 
 		nations = get_national_teams_of_continent_fifa_members(SOUTH_AMERICA_9CF(), true);
 		sort(nations.begin(), nations.end(), compareNationRanking);
+		it = find(nations.begin(), nations.end(), host_nation_team);
+		if (it != nations.end()) nations.erase(it);
 		size = 6;
 		nations_filter = vector(nations.begin(), nations.begin() + size);
 		quals = get_random_weighted_national_teams(nations_filter, 2 - (host_continent == SOUTH_AMERICA_9CF()));
@@ -514,6 +526,8 @@ void olympics_seeded_teams(BYTE* _this) {
 
 		nations = get_national_teams_of_continent_fifa_members(OCEANIA_9CF(), true);
 		sort(nations.begin(), nations.end(), compareNationRanking);
+		it = find(nations.begin(), nations.end(), host_nation_team);
+		if (it != nations.end()) nations.erase(it);
 		size = 2;
 		nations_filter = vector(nations.begin(), nations.begin() + size);
 		quals = get_random_weighted_national_teams(nations_filter, 1 - (host_continent == OCEANIA_9CF()));

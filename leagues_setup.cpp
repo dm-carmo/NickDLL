@@ -502,7 +502,7 @@ int replacement_667150() {
 	pnd_list[idx].nation = get_country(NATION_SERBIA_9CF());
 	pnd_list[idx].setup_function_addr = (DWORD)&srb_setup_c;
 	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
-	convert_to_cm_date(pnd_list[idx].end_date, 25, May, *current_year, -1);
+	convert_to_cm_date(pnd_list[idx].end_date, 13, June, *current_year, -1);
 	pnd_list[idx].updates_in_june = 1;
 	convert_to_cm_date(cm_date, 20, June, START_YEAR, -1);
 	pnd_list[idx].update_day = *(WORD*)(cm_date);

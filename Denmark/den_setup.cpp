@@ -105,7 +105,7 @@ BYTE* setup_denmark_rules(BYTE* _this, char idx, DWORD country_id, DWORD contine
 	windows[window_id].start_month = January;
 	windows[window_id].is_start_1 = 1;
 	windows[window_id].end_day_of_week = -1;
-	windows[window_id].end_day = 2;
+	windows[window_id].end_day = 1;
 	windows[window_id].end_month = February;
 	windows[window_id].is_start_2 = 0;
 

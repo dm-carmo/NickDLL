@@ -26,23 +26,23 @@ DWORD concacaf_champions_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rou
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 1, 14), year, Wednesday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 2, 5), year, Wednesday, Evening);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 2, 4), year, Wednesday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, NoTiebreak, Penalties | ExtraTime, 2, 22, 11, 22, 0, 0, 2, 14);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 2, 27), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 3, 5), year, Wednesday, Evening);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 2, 19), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 3, 11), year, Wednesday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, NoTiebreak, Penalties | ExtraTime, 2, 16, 8, 5, 22, 0, 2, 7);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 3, 13), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 4, 2), year, Wednesday, Evening);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 3, 19), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 4, 8), year, Wednesday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, NoTiebreak, Penalties | ExtraTime, 2, 8, 4, 0, 0, 0, 2, 7);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 4, 10), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 4, 23), year, Wednesday, Evening);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 4, 16), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 4, 29), year, Wednesday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, NoTiebreak, Penalties | ExtraTime, 2, 4, 2, 0, 0, 0, 2, 7, 0, 0, prizeMoneyFile.GetInt("concacaf_cl_semi_lose"));
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 5, 1), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 6, 1), year, Sunday, Afternoon, NationalStadium);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 5, 7), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 5, 30), year, Saturday, Afternoon, NationalStadium);
 		FillFixtureDetails(pMem, fixture_id++, Final, 0, Penalties | ExtraTime, NoTiebreak, 0, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("concacaf_cl_final_win"), prizeMoneyFile.GetInt("concacaf_cl_final_lose"));
 
 		return (DWORD)pMem;
