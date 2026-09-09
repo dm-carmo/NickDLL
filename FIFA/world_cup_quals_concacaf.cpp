@@ -89,8 +89,8 @@ DWORD world_cup_quals_concacaf_fixtures(BYTE* _this, char stage_idx, WORD* num_r
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 1), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 21), year, Thursday, Afternoon);
-		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 10, 22 - num_hosts * 2, 11 - num_hosts, 22 - num_hosts * 2, 0, 0, 2, 5);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 20), year, Wednesday, Afternoon);
+		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 10, 22 - num_hosts * 2, 11 - num_hosts, 22 - num_hosts * 2, 0, 0, 2, 3);
 
 		return (DWORD)pMem;
 	}
@@ -106,8 +106,8 @@ DWORD world_cup_quals_concacaf_fixtures(BYTE* _this, char stage_idx, WORD* num_r
 		pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 4), year, Wednesday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 7), year, Saturday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 27), year, Wednesday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 30), year, Saturday, Afternoon);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 9), year, Thursday, Afternoon);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 14), year, Tuesday, Afternoon);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 21), year, Thursday, Afternoon);
@@ -147,7 +147,7 @@ DWORD world_cup_quals_concacaf_fixtures(BYTE* _this, char stage_idx, WORD* num_r
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 2, 10, 4), year, Monday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 2, 11, 6), year, Thursday, Afternoon);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 2, 11, 13), year, Thursday, Afternoon);
 		FillFixtureDetails(pMem, fixture_id++, FourthRound, 0, NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 10, 2 + 2 * (num_hosts == 1), 1 + (num_hosts == 1), 2 + 2 * (num_hosts == 1), 0, 0, 2, 5);
 
 		return (DWORD)pMem;

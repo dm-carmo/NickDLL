@@ -396,14 +396,12 @@ char ita_ser_a_update(BYTE* _this) {
 	// All teams that were not relegated from D3 must be professional
 	// All teams that were relegated from D3 must be semi-professional
 	update_club_pro_status_68A980(ita_ser_c, Professional, Relegated, -3, 1);
-	update_club_pro_status_68A980(ita_ser_c, SemiProfessional, -3, Relegated, 1);
 	update_club_pro_status_68A980(ita_ser_c, SemiProfessional, -3, Relegated, 0);
 	comp_stats* ita_ser_c_data = (comp_stats*)ita_ser_c;
 	for (int i = 0; i < 2; i++)
 	{
 		BYTE* ita_ser_c_grp = (BYTE*)ita_ser_c_data->stages[i];
 		update_club_pro_status_68A980(ita_ser_c_grp, Professional, Relegated, -3, 1);
-		update_club_pro_status_68A980(ita_ser_c_grp, SemiProfessional, -3, Relegated, 1);
 		update_club_pro_status_68A980(ita_ser_c_grp, SemiProfessional, -3, Relegated, 0);
 	}
 

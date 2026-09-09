@@ -43,5 +43,5 @@ void setup_fifa_club_comps() {
 	setup_fifa_club_world_cup();
 	setup_fifa_intercontinental_cup();
 
-	WriteNOP(0x5ad939, 2);
+	//WriteNOP(0x5ad939, 2);
 }

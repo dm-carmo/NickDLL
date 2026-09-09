@@ -445,11 +445,11 @@ char sui_premier_update(BYTE* _this) {
 	update_club_pro_status_68A980(_this, Professional, Relegated, -3, 1);
 	update_club_pro_status_68A980(_this, Professional, -3, Relegated, 1);
 	// All teams that were relegated from D2 must be semi-professional
-	update_club_pro_status_68A980(sui_first, SemiProfessional, -3, Relegated, 1);
+	update_club_pro_status_68A980(sui_first, SemiProfessional, -3, Relegated, 0);
 	// All teams that were not relegated from D3 must be semi-professional
 	// All teams that were relegated from D3 must be amateur
 	update_club_pro_status_68A980(sui_second, SemiProfessional, Relegated, -3, 1);
-	update_club_pro_status_68A980(sui_second, Amateur, -3, Relegated, 1);
+	update_club_pro_status_68A980(sui_second, Amateur, -3, Relegated, 0);
 
 	DWORD v1 = *(DWORD*)_this;
 	sui_check_reserve_teams(_this);

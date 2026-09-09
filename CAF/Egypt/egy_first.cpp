@@ -424,7 +424,7 @@ char egy_first_update(BYTE* _this) {
 	update_club_pro_status_68A980(_this, Professional, Relegated, -3, 1);
 	update_club_pro_status_68A980(_this, Professional, -3, Relegated, 1);
 	// All teams that were relegated from D2 must be semi-professional
-	update_club_pro_status_68A980(egy_second, SemiProfessional, -3, Relegated, 1);
+	update_club_pro_status_68A980(egy_second, SemiProfessional, -3, Relegated, 0);
 
 	DWORD v1 = *(DWORD*)_this;
 	egy_first_prom_rel_update(_this, 1);

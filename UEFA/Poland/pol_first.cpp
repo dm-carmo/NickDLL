@@ -207,7 +207,6 @@ char pol_first_update(BYTE* _this) {
 	// All teams that were not relegated from D3 must be professional
 	// All teams that were relegated from D3 must be semi-professional
 	update_club_pro_status_68A980(pol_third, Professional, Relegated, -3, 1);
-	update_club_pro_status_68A980(pol_third, SemiProfessional, -3, Relegated, 1);
 	update_club_pro_status_68A980(pol_third, SemiProfessional, -3, Relegated, 0);
 
 	pol_check_reserve_teams(_this);

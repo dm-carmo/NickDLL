@@ -409,7 +409,6 @@ char gre_first_update(BYTE* _this) {
 	// All teams that were not relegated from D2 must be professional
 	// All teams that were relegated from D2 must be semi-professional
 	update_club_pro_status_68A980(gre_second, Professional, Relegated, -3, 1);
-	update_club_pro_status_68A980(gre_second, SemiProfessional, -3, Relegated, 1);
 	update_club_pro_status_68A980(gre_second, SemiProfessional, -3, Relegated, 0);
 
 	DWORD v1 = *(DWORD*)_this;

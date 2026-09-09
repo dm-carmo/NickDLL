@@ -162,10 +162,10 @@ char fra_first_update(BYTE* _this) {
 	// All teams that were in D2 must be professional
 	update_club_pro_status_68A980(fra_second, Professional, Relegated, -3, 1);
 	update_club_pro_status_68A980(fra_second, Professional, -3, Relegated, 1);
-	// All teams that were n ot relegated from D3 must be professional
+	// All teams that were not relegated from D3 must be professional
 	update_club_pro_status_68A980(fra_third, Professional, Relegated, -3, 1);
 	// All teams that were relegated from D3 must be semi-professional
-	update_club_pro_status_68A980(fra_third, SemiProfessional, -3, Relegated, 1);
+	update_club_pro_status_68A980(fra_third, SemiProfessional, -3, Relegated, 0);
 
 	fra_first_prom_rel_update(_this, 1);
 	fra_national_relegation(_this);

@@ -760,7 +760,9 @@ char srb_first_update(BYTE* _this) {
 	// All teams that were in D1 must be professional
 	update_club_pro_status_68A980(_this, Professional, Relegated, -3, 1);
 	update_club_pro_status_68A980(_this, Professional, -3, Relegated, 1);
+	// All teams that were not relegated from D2 must be professional
 	// All teams that were relegated from D2 must be semi-professional
+	update_club_pro_status_68A980(srb_second, Professional, Relegated, -3, 1);
 	update_club_pro_status_68A980(srb_second, SemiProfessional, -3, Relegated, 0);
 	// All teams that were relegated from D3 must be amateur
 	if (vojvodina && belgrade && east && west) {

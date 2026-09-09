@@ -341,7 +341,7 @@ char chi_premier_update(BYTE* _this) {
 	// All teams that were relegated from D2 must be semi-professional
 	// All teams that were not relegated from D2 must be professional
 	update_club_pro_status_68A980(chi_first, Professional, Relegated, -3, 1);
-	update_club_pro_status_68A980(chi_first, SemiProfessional, -3, Relegated, 1);
+	update_club_pro_status_68A980(chi_first, SemiProfessional, -3, Relegated, 0);
 
 	DWORD v1 = *(DWORD*)_this;
 	chi_premier_prom_rel_update(_this, 1);

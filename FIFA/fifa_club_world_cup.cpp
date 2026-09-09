@@ -624,33 +624,33 @@ void fifa_club_world_cup_all_teams(BYTE* _this) {
 	}
 	// Pot 3: The two top-ranked teams from each of AFC, CAF and CONCACAF, and the remaining two teams from CONMEBOL
 	for (int i = 0; i < 2; i++) {
-		teams[i + 16].club = afc_clubs[i];
+		teams[i + 16].club = conmebol_clubs[i + 4];
 		teams[i + 16].seeding = 12;
 		teams[i + 16].f6 = 0;
-		int ret = sub_5A0590(ae2a38_ptr, (BYTE*)afc_clubs[i]);
-		AddToClubIncome((BYTE*)ret, prizeMoneyFile.GetInt("fifa_cwc_afc_participation_money"));
-		AddMoneyFromComp(_this, (BYTE*)afc_clubs[i], prizeMoneyFile.GetInt("fifa_cwc_afc_participation_money"), 0, -1, GroupStage, 0, -2);
+		int ret = sub_5A0590(ae2a38_ptr, (BYTE*)conmebol_clubs[i + 4]);
+		AddToClubIncome((BYTE*)ret, prizeMoneyFile.GetInt("fifa_cwc_conmebol_participation_money"));
+		AddMoneyFromComp(_this, (BYTE*)conmebol_clubs[i + 4], prizeMoneyFile.GetInt("fifa_cwc_conmebol_participation_money"), 0, -1, GroupStage, 0, -2);
 
-		teams[i + 18].club = caf_clubs[i];
+		teams[i + 18].club = concacaf_clubs[i];
 		teams[i + 18].seeding = 12;
 		teams[i + 18].f6 = 0;
-		ret = sub_5A0590(ae2a38_ptr, (BYTE*)caf_clubs[i]);
-		AddToClubIncome((BYTE*)ret, prizeMoneyFile.GetInt("fifa_cwc_caf_participation_money"));
-		AddMoneyFromComp(_this, (BYTE*)caf_clubs[i], prizeMoneyFile.GetInt("fifa_cwc_caf_participation_money"), 0, -1, GroupStage, 0, -2);
-
-		teams[i + 20].club = concacaf_clubs[i];
-		teams[i + 20].seeding = 12;
-		teams[i + 20].f6 = 0;
 		ret = sub_5A0590(ae2a38_ptr, (BYTE*)concacaf_clubs[i]);
 		AddToClubIncome((BYTE*)ret, prizeMoneyFile.GetInt("fifa_cwc_concacaf_participation_money"));
 		AddMoneyFromComp(_this, (BYTE*)concacaf_clubs[i], prizeMoneyFile.GetInt("fifa_cwc_concacaf_participation_money"), 0, -1, GroupStage, 0, -2);
 
-		teams[i + 22].club = conmebol_clubs[i + 4];
+		teams[i + 20].club = caf_clubs[i];
+		teams[i + 20].seeding = 12;
+		teams[i + 20].f6 = 0;
+		ret = sub_5A0590(ae2a38_ptr, (BYTE*)caf_clubs[i]);
+		AddToClubIncome((BYTE*)ret, prizeMoneyFile.GetInt("fifa_cwc_caf_participation_money"));
+		AddMoneyFromComp(_this, (BYTE*)caf_clubs[i], prizeMoneyFile.GetInt("fifa_cwc_caf_participation_money"), 0, -1, GroupStage, 0, -2);
+
+		teams[i + 22].club = afc_clubs[i];
 		teams[i + 22].seeding = 12;
 		teams[i + 22].f6 = 0;
-		ret = sub_5A0590(ae2a38_ptr, (BYTE*)conmebol_clubs[i + 4]);
-		AddToClubIncome((BYTE*)ret, prizeMoneyFile.GetInt("fifa_cwc_conmebol_participation_money"));
-		AddMoneyFromComp(_this, (BYTE*)conmebol_clubs[i + 4], prizeMoneyFile.GetInt("fifa_cwc_conmebol_participation_money"), 0, -1, GroupStage, 0, -2);
+		ret = sub_5A0590(ae2a38_ptr, (BYTE*)afc_clubs[i]);
+		AddToClubIncome((BYTE*)ret, prizeMoneyFile.GetInt("fifa_cwc_afc_participation_money"));
+		AddMoneyFromComp(_this, (BYTE*)afc_clubs[i], prizeMoneyFile.GetInt("fifa_cwc_afc_participation_money"), 0, -1, GroupStage, 0, -2);
 	}
 	// Pot 4: The remaining teams from AFC, CAF, CONCACAF, OFC and host country
 	for (int i = 0; i < 2; i++) {

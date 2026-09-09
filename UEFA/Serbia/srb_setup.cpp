@@ -87,10 +87,10 @@ void srb_foreign_rules(BYTE* _this, cm3_club_comps* comp, BYTE* fgn_rule_arr) {
 	memset(fgn_rule_arr, -1, 42);
 	BYTE max_fgn = 4;
 	if (comp) {
-		if (comp->ClubCompID == SRB_SECOND_9CF()) max_fgn = 2;
-		else if (comp->ClubCompID == SRB_VOJVODINA_9CF() || comp->ClubCompID == SRB_BELGRADE_9CF() || comp->ClubCompID == SRB_EAST_9CF() || comp->ClubCompID == SRB_WEST_9CF()) max_fgn = 1;
+		if (comp->ClubCompID == SRB_FIRST_9CF() || comp->ClubCompID == SRB_CUP_9CF()) *((BYTE*)(fgn_rule_arr + 0x5)) = 4;
+		if (comp->ClubCompID == SRB_SECOND_9CF()) *((BYTE*)(fgn_rule_arr + 0x5)) = 2;
+		else if (comp->ClubCompID == SRB_VOJVODINA_9CF() || comp->ClubCompID == SRB_BELGRADE_9CF() || comp->ClubCompID == SRB_EAST_9CF() || comp->ClubCompID == SRB_WEST_9CF()) *((BYTE*)(fgn_rule_arr + 0x2)) = 2;
 	}
-	*((BYTE*)(fgn_rule_arr + 0x5)) = max_fgn;
 }
 
 void __declspec(naked) srb_foreign_rules_c()

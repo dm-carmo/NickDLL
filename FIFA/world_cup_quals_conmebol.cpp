@@ -142,10 +142,10 @@ DWORD world_cup_quals_conmebol_fixtures(BYTE* _this, char stage_idx, WORD* num_r
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
 		if (numberOfLeagueTeams > 8) AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 10, 3), year, Sunday, Afternoon);
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year + 1, 11, 7), year, Thursday, Afternoon);
+		AddFixture(pMem, fixture_id, Date(year + 1, 11, 14), year, Thursday, Afternoon);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Friday, Afternoon);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 11, 12), year, Tuesday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 11, 19), year, Tuesday, Afternoon);
 		tv_id = 0;
 		AddFixture(pMem, fixture_id, Date(year + 2, 3, 20), year, Thursday, Afternoon);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 2, Friday, Afternoon);

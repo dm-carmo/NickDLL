@@ -196,7 +196,6 @@ char nir_premier_update(BYTE* _this) {
 	// All teams that were not relegated from D1 must be semi-professional or higher
 	// All teams that were relegated from D1 must be semi-professional
 	update_club_pro_status_68A980(_this, SemiProfessional, Relegated, -3, 1);
-	update_club_pro_status_68A980(_this, SemiProfessional, -3, Relegated, 1);
 	update_club_pro_status_68A980(_this, SemiProfessional, -3, Relegated, 0);
 	// All teams that were in D2 must be semi-professional
 	update_club_pro_status_68A980(nir_first, SemiProfessional, Relegated, -3, 1);

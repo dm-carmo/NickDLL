@@ -273,12 +273,10 @@ char rus_premier_update(BYTE* _this) {
 	// All teams that were not relegated from D3 must be professional
 	// All teams that were relegated from D3 must be semi-professional
 	update_club_pro_status_68A980(rus_second_a, Professional, Relegated, -3, 1);
-	update_club_pro_status_68A980(rus_second_a, SemiProfessional, -3, Relegated, 1);
 	update_club_pro_status_68A980(rus_second_a, SemiProfessional, -3, Relegated, 0);
 	comp_stats* rus_second_a_data = (comp_stats*)rus_second_a;
 	BYTE* rus_second_a_grp = (BYTE*)rus_second_a_data->stages[0];
 	update_club_pro_status_68A980(rus_second_a_grp, Professional, Relegated, -3, 1);
-	update_club_pro_status_68A980(rus_second_a_grp, SemiProfessional, -3, Relegated, 1);
 	update_club_pro_status_68A980(rus_second_a_grp, SemiProfessional, -3, Relegated, 0);
 
 	rus_check_reserve_teams(_this);

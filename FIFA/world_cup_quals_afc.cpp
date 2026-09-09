@@ -200,7 +200,7 @@ DWORD world_cup_quals_afc_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 2, 10, 8), year, Wednesday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 2, 11, 6), year, Thursday, Afternoon);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 2, 11, 13), year, Thursday, Afternoon);
 		FillFixtureDetails(pMem, fixture_id++, FifthRound, 0, NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 10, 2, 1, 2, 0, 0, 2, 5);
 
 		return (DWORD)pMem;
@@ -217,7 +217,7 @@ DWORD world_cup_quals_afc_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 2, 10, 8), year, Wednesday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 2, 11, 6), year, Thursday, Afternoon);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 2, 11, 13), year, Thursday, Afternoon);
 		FillFixtureDetails(pMem, fixture_id++, SixthRound, 0, NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 10, 2, 1, 2, 0, 0, 2, 5);
 
 		return (DWORD)pMem;

@@ -87,6 +87,7 @@ BYTE* setup_saudi_rules(BYTE* _this, char idx, DWORD country_id, DWORD continent
 	*((DWORD*)(_this)) = (DWORD)ksa_rules_vtable->vtable_ptr;
 	*((BYTE*)(_this + 0x13)) = 10; // maximum number of foreign players at the club
 	ksa_rules_vtable->SetPointer(VTableRForeignRules, (DWORD)ksa_foreign_rules_c);
+	ksa_rules_vtable->SetPointer(VTableRLoanOutsideWindow, 0x412dd0);
 	BYTE num_of_windows = 2;
 	*((BYTE*)(_this + 0x8)) = num_of_windows;
 	BYTE* wMem = (BYTE*)cm0102_malloc(num_of_windows * 12);
