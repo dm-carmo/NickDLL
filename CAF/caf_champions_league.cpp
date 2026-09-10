@@ -306,7 +306,7 @@ void caf_champions_league_all_teams(BYTE* _this) {
 		if (club->ClubEuroFlag == CAF_CHAMPIONS_LEAGUE_9CF()) {
 			BYTE seed = club->ClubEuroSeeding;
 			teams[teams_r1].club = club;
-			teams[teams_r1].seeding = 0;
+			teams[teams_r1].seeding = 9;
 			teams[teams_r1].f6 = 0;
 			teams_r1++;
 		}

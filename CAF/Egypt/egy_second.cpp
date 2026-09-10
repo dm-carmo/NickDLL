@@ -180,49 +180,6 @@ void __declspec(naked) egy_second_fixtures_c()
 	}
 }
 
-int egy_second_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
-	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
-	comp_stats* comp_data = (comp_stats*)_this;
-	if (stage == -1) {
-		switch (fate) {
-		case Champions:
-			staff_history_champion_868C50(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));
-			return 0;
-		case Promoted:
-			staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), 0x64);
-			return 0;
-		case TopPlayoff:
-			return 0;
-		case BottomPlayoff:
-			return 0;
-		case Relegated:
-			staff_history_relegated_86A1C0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));
-			return 0;
-		default:
-			return 0;
-		}
-	}
-	return 0;
-}
-
-void __declspec(naked) egy_second_table_fates_c()
-{
-	__asm
-	{
-		mov eax, esp
-		push dword ptr[eax + 0x18]
-		push dword ptr[eax + 0x14]
-		push dword ptr[eax + 0x10]
-		push dword ptr[eax + 0xC]
-		push dword ptr[eax + 0x8]
-		push dword ptr[eax + 0x4]
-		push ecx
-		call egy_second_table_fates
-		add esp, 0x1c
-		ret 0x18
-	}
-}
-
 char egy_second_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	data->f76 = 0;
@@ -278,7 +235,6 @@ void egy_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	egy_second_vtable->SetPointer(VTableSubsRounds, (DWORD)&egy_second_subs_c);
 	egy_second_vtable->SetPointer(VTableFixtures, (DWORD)&egy_second_fixtures_c);
 	egy_second_vtable->SetPointer(VTableInitFree, (DWORD)&egy_second_free_c);
-	egy_second_vtable->SetPointer(VTableTableFates, (DWORD)&egy_second_table_fates_c);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) egy_second_vtable->SetPointer(VTableShowThirdInHistory, 0x4110b0);
 	data->year = year;
 	data->rules = RulesEgypt;

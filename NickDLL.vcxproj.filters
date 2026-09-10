@@ -966,6 +966,21 @@
     <ClCompile Include="AFC\Iran\irn_super.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CAF\Morocco\mar_setup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CAF\Morocco\mar_first.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CAF\Morocco\mar_second.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CAF\Morocco\mar_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CAF\Morocco\mar_league_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -1929,6 +1944,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AFC\Iran\irn_super.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CAF\Morocco\mar_setup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CAF\Morocco\mar_first.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CAF\Morocco\mar_second.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CAF\Morocco\mar_cup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CAF\Morocco\mar_league_cup.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

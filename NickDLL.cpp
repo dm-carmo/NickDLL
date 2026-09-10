@@ -94,8 +94,6 @@ void Setup()
 	setup_ger_nation();
 	dprintf("Applying Greece changes\n");
 	setup_gre_nation();
-	dprintf("Applying Holland changes\n");
-	setup_hol_nation();
 	if (strlen(configFile.GetValue("replaceIrelandWith", "")) == 0)
 	{
 		dprintf("Applying Ireland changes\n");
@@ -105,6 +103,8 @@ void Setup()
 	setup_ita_nation();
 	dprintf("Applying Japan changes\n");
 	setup_jpn_nation();
+	dprintf("Applying Netherlands changes\n");
+	setup_hol_nation();
 	if (strlen(configFile.GetValue("replaceNIrelandWith", "")) == 0)
 	{
 		dprintf("Applying Northern Ireland changes\n");
@@ -145,14 +145,16 @@ void Setup()
 	setup_cze_nation();
 	dprintf("New nation: Egypt\n");
 	setup_egy_nation();
-	dprintf("New nation: Saudi Arabia\n");
-	setup_ksa_nation();
-	dprintf("New nation: Switzerland\n");
-	setup_sui_nation();
-	dprintf("New nation: Serbia\n");
-	setup_srb_nation();
 	dprintf("New nation: Iran\n");
 	setup_irn_nation();
+	dprintf("New nation: Morocco\n");
+	setup_mar_nation();
+	dprintf("New nation: Saudi Arabia\n");
+	setup_ksa_nation();
+	dprintf("New nation: Serbia\n");
+	setup_srb_nation();
+	dprintf("New nation: Switzerland\n");
+	setup_sui_nation();
 	dprintf("------------------------------\n");
 
 	dprintf("Applying FIFA changes (World Cup)\n");

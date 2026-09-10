@@ -421,6 +421,7 @@ int chi_cup_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYT
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, RoundOf16, 0x1E);
 			return 0;
 		default:
+			staff_history_knocked_out_86C000(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, GroupStage, 0xF);
 			return 0;
 		}
 	}
@@ -503,19 +504,6 @@ void chi_cup_final_stage_setup(BYTE* _this) {
 	sub_9452CA_free(pTeams);
 	sub_9452CA_free(pFixtures);
 	sub_51C410(new_stage, 0);
-
-	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
-	curr_stage = comp_data;
-	for (char al = -1; al < 7; al++) {
-		if (al > -1) curr_stage = (comp_stats*)(comp_data->stages[al]);
-		team_league_stats* table_teams = (team_league_stats*)(curr_stage->team_league_table);
-		for (int i = 0; i < 4; i++) {
-			team_league_stats t = ((team_league_stats*)(curr_stage->team_league_table))[i];
-			if (t.league_fate != Qualified1) {
-				staff_history_knocked_out_86C000(staff_hist_ptr, t.club, (DWORD)(comp_data->competition_db), None, GroupStage, 0xF);
-			}
-		}
-	}
 }
 
 void chi_cup_stages_create(BYTE* _this) {

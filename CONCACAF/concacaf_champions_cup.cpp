@@ -360,7 +360,7 @@ void concacaf_champions_cup_all_teams(BYTE* _this) {
 		if (club->ClubEuroFlag == CONCACAF_CHAMPIONS_CUP_9CF()) {
 			BYTE seed = club->ClubEuroSeeding;
 			teams[teams_r1].club = club;
-			teams[teams_r1].seeding = 0 + 3 * seed;
+			teams[teams_r1].seeding = 9 - 6 * seed; // 0 = 9, 1 = 3
 			teams[teams_r1].f6 = 0;
 			teams_r1++;
 		}

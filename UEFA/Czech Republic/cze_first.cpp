@@ -805,14 +805,14 @@ void cze_first_reputation_calc(BYTE* _this, BYTE* club, char stage, char current
 		if (club_data->ClubDivision->ClubCompID == CZE_SECOND_9CF()) {
 			ret = (BYTE*)sub_4A4850((BYTE*)d2_comp_data->f8, club);
 			if (!ret) return;
-			ret_current = 3;
-			ret_min = 3;
-			ret_max = 3;
+			ret_current = 2 + current;
+			ret_min = 2 + min;
+			ret_max = 2 + max;
 		}
 		else {
-			ret_current = 16;
-			ret_min = 16;
-			ret_max = 16;
+			ret_current = 12 + current;
+			ret_min = 12 + min;
+			ret_max = 12 + min;
 		}
 	}
 	ret[0x73] = ret_current;

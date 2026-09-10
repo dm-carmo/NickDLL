@@ -40,7 +40,7 @@ static int(*sub_8E5590)(const void* a1, const void* a2) = (int(*)(const void* a1
 
 static BYTE* (__thiscall* europe_rules_583280)(BYTE* _this, char a2, int a3, int a4, int a5, int a6) = (BYTE * (__thiscall*)(BYTE * _this, char a2, int a3, int a4, int a5, int a6))(0x583280);
 
-void replacement_8D26B0(BYTE* _this) {
+void init_nation_rules(BYTE* _this) {
 	DWORD rules_count = pnd_count - 8;
 	DWORD* rules_array = (DWORD*)cm0102_malloc(4 * rules_count);
 	int idx = 0;
@@ -189,6 +189,10 @@ void replacement_8D26B0(BYTE* _this) {
 	if (dMem) setup_iran_rules(dMem, idx, NATION_IRAN_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
+	dMem = (BYTE*)cm0102_new(0x19);
+	if (dMem) setup_morocco_rules(dMem, idx, NATION_MOROCCO_9CF(), -1, 1, 0);
+	rules_array[idx++] = (DWORD)dMem;
+
 	*((DWORD*)(_this + 0x8ac)) = (DWORD)rules_array;
 
 	DWORD unknown_8a8 = 0;
@@ -222,13 +226,13 @@ void replacement_8D26B0(BYTE* _this) {
 	*((DWORD*)(_this + 0x8a4)) = (DWORD)pMem;
 }
 
-void __declspec(naked) replacement_8D26B0_c()
+void __declspec(naked) init_nation_rules_c()
 {
 	__asm
 	{
 		mov eax, esp
 		push ecx
-		call replacement_8D26B0
+		call init_nation_rules
 		add esp, 0x4
 		ret
 	}
@@ -291,7 +295,7 @@ void __declspec(naked) jmp_8E05B5()
 
 void setup_rules_setup()
 {
-	PatchFunction(0x8D26B0, (DWORD)&replacement_8D26B0_c);
+	PatchFunction(0x8D26B0, (DWORD)&init_nation_rules_c);
 	PatchFunction(0x8C6D1C, (DWORD)&jmp_8C6D1C);
 	PatchFunction(0x8C6D37, (DWORD)&jmp_8C6D37);
 	PatchFunction(0x8C6D48, (DWORD)&jmp_8C6D48);

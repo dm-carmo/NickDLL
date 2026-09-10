@@ -6,6 +6,7 @@
 #include "AFC\Saudi Arabia\ksa_setup.h"
 #include "AFC\South Korea\kor_setup.h"
 #include "CAF\Egypt\egy_setup.h"
+#include "CAF\Morocco\mar_setup.h"
 #include "CONCACAF\USA\usa_setup.h"
 #include "CONMEBOL\Argentina\arg_setup.h"
 #include "CONMEBOL\Brazil\bra_setup.h"

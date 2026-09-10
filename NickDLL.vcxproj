@@ -143,6 +143,11 @@
     <ClCompile Include="AFC\Iran\irn_second.cpp" />
     <ClCompile Include="AFC\Iran\irn_setup.cpp" />
     <ClCompile Include="AFC\Iran\irn_super.cpp" />
+    <ClCompile Include="CAF\Morocco\mar_cup.cpp" />
+    <ClCompile Include="CAF\Morocco\mar_first.cpp" />
+    <ClCompile Include="CAF\Morocco\mar_league_cup.cpp" />
+    <ClCompile Include="CAF\Morocco\mar_second.cpp" />
+    <ClCompile Include="CAF\Morocco\mar_setup.cpp" />
     <ClCompile Include="CONMEBOL\Argentina\arg_champ_cup.cpp" />
     <ClCompile Include="CONMEBOL\Argentina\arg_cup.cpp" />
     <ClCompile Include="CONMEBOL\Argentina\arg_first.cpp" />
@@ -462,6 +467,11 @@
     <ClInclude Include="AFC\Iran\irn_second.h" />
     <ClInclude Include="AFC\Iran\irn_setup.h" />
     <ClInclude Include="AFC\Iran\irn_super.h" />
+    <ClInclude Include="CAF\Morocco\mar_cup.h" />
+    <ClInclude Include="CAF\Morocco\mar_first.h" />
+    <ClInclude Include="CAF\Morocco\mar_league_cup.h" />
+    <ClInclude Include="CAF\Morocco\mar_second.h" />
+    <ClInclude Include="CAF\Morocco\mar_setup.h" />
     <ClInclude Include="CONMEBOL\Argentina\arg_champ_cup.h" />
     <ClInclude Include="CONMEBOL\Argentina\arg_cup.h" />
     <ClInclude Include="CONMEBOL\Argentina\arg_first.h" />
