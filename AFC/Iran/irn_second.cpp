@@ -286,6 +286,19 @@ void __declspec(naked) irn_second_fixtures_c()
 	}
 }
 
+void irn_second_block_promotion(BYTE* _this) {
+	comp_stats* data = (comp_stats*)_this;
+	WORD total_teams = data->n_teams;
+	team_league_stats* table_teams = (team_league_stats*)(data->team_league_table);
+	for (int i = 0; i < total_teams; i++) {
+		DWORD is_main_club;
+		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)table_teams[i].club, &is_main_club, 1);
+		if (ret_club && !is_main_club) {
+			table_teams[i].league_fate = CantBePromoted;
+		}
+	}
+}
+
 char irn_second_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	data->f76 = 0;
@@ -310,6 +323,7 @@ char irn_second_update(BYTE* _this) {
 	data->current_stage = -1;
 	irn_second_subs(_this);
 	AddTeams(_this);
+	irn_second_block_promotion(_this);
 	sub_6835C0(_this);
 	sub_6827D0(_this, 0);
 	DWORD v1 = *(DWORD*)_this;
@@ -351,6 +365,7 @@ void irn_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->num_stages = 0;
 	irn_second_subs(_this);
 	AddTeams(_this);
+	irn_second_block_promotion(_this);
 	sub_6835C0(_this);
 	sub_6827D0(_this, 0);
 	BYTE* pMem2 = (BYTE*)cm0102_new(0x5CE);

@@ -335,6 +335,16 @@ void __fastcall irn_non_league_promotion(BYTE* _this)
 	vector<cm3_clubs*> relegated_clubs = get_relegated_teams(IRN_SECOND_9CF());
 
 	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_IRAN_9CF());
+	for (size_t i = 0; i < available_clubs.size(); i++) {
+		cm3_clubs* c = available_clubs[i];
+		DWORD is_main_club;
+		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)c, &is_main_club, 1);
+		if (ret_club && !is_main_club && ret_club->ClubDivision->ClubCompID != IRN_FIRST_9CF())
+		{
+			available_clubs.erase(available_clubs.begin() + i);
+			i--;
+		}
+	}
 	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(available_clubs, relegated_clubs.size(), true);
 
 	for (unsigned int j = 0; j < promoted_clubs.size(); j++) {
@@ -345,6 +355,39 @@ void __fastcall irn_non_league_promotion(BYTE* _this)
 		cm3_club_comps* bottomDivision = clubToPromote->ClubDivision;
 		relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
 		promote_club_6830B0((BYTE*)clubToPromote, (DWORD)topDivision, 1);
+	}
+}
+
+void __fastcall irn_check_reserve_teams(BYTE* _this) {
+	comp_stats* irn_second_data = (comp_stats*)get_loaded_league(IRN_SECOND_9CF());
+	// Check teams from L2: main team relegated from L1 - add relegation
+	for (WORD num = 0; num < irn_second_data->n_teams; num++) {
+		team_league_stats* table_teams = (team_league_stats*)irn_second_data->team_league_table;
+		DWORD is_main_club;
+		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)table_teams[num].club, &is_main_club, 1);
+		// If it is a reserve team
+		if (ret_club && !is_main_club)
+		{
+			// If reserve team was not relegated
+			if (table_teams[num].league_fate != Relegated) {
+				// If main team is in the first league
+				if (ret_club->ClubDivision->ClubCompID == IRN_FIRST_9CF()) {
+					team_league_stats* main_club_data = get_team_league_stats(IRN_FIRST_9CF(), ret_club);
+					// If the main team was relegated
+					if (main_club_data->league_fate == Relegated) {
+						table_teams[num].league_fate = Relegated;
+						// Relegate the reserve team, and relegate one less team from L2
+						team_league_stats* d2_table = (team_league_stats*)irn_second_data->team_league_table;
+						for (WORD i = irn_second_data->n_teams - irn_second_data->relegations; i < irn_second_data->n_teams; i++) {
+							if (d2_table[i].league_fate == Relegated) {
+								d2_table[i].league_fate = Eliminated;
+								break;
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 }
 
@@ -363,6 +406,7 @@ char irn_first_update(BYTE* _this) {
 	update_club_pro_status_68A980(irn_second, SemiProfessional, -3, Relegated, 0);
 
 	DWORD v1 = *(DWORD*)_this;
+	irn_check_reserve_teams(_this);
 	irn_first_prom_rel_update(_this, 1);
 
 	irn_non_league_promotion(_this);

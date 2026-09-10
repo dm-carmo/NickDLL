@@ -334,6 +334,67 @@ void __fastcall cro_fake_lower_relegation(BYTE* _this)
 	}
 }
 
+void __fastcall cro_check_reserve_teams(BYTE* _this) {
+	comp_stats* cro_second_data = (comp_stats*)get_loaded_league(CRO_SECOND_9CF());
+	comp_stats* cro_third_data = (comp_stats*)get_loaded_league(CRO_THIRD_9CF());
+	// Check teams from D2: main team relegated from D1 - add relegation + remove one relegation
+	for (WORD num = 0; num < cro_third_data->n_teams; num++) {
+		team_league_stats* table_teams = (team_league_stats*)cro_third_data->team_league_table;
+		DWORD is_main_club;
+		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)table_teams[num].club, &is_main_club, 1);
+		// If it is a reserve team
+		if (ret_club && !is_main_club)
+		{
+			// If reserve team was not relegated
+			if (table_teams[num].league_fate != Relegated) {
+				// If main team is in the premier league
+				if (ret_club->ClubDivision->ClubCompID == CRO_SECOND_9CF()) {
+					team_league_stats* main_club_data = get_team_league_stats(CRO_SECOND_9CF(), ret_club);
+					// If the main team was relegated
+					if (main_club_data->league_fate == Relegated) {
+						table_teams[num].league_fate = Relegated;
+						// Relegate the reserve team, and relegate one less team from the second league
+						for (WORD i = cro_third_data->n_teams - cro_third_data->relegations; i < cro_third_data->n_teams; i++) {
+							if (i != num && table_teams[i].league_fate == Relegated) {
+								table_teams[i].league_fate = Eliminated;
+								break;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	// Check teams from D1: main team relegated from PEM - add relegation + remove one relegation
+	for (WORD num = 0; num < cro_second_data->n_teams; num++) {
+		team_league_stats* table_teams = (team_league_stats*)cro_second_data->team_league_table;
+		DWORD is_main_club;
+		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)table_teams[num].club, &is_main_club, 1);
+		// If it is a reserve team
+		if (ret_club && !is_main_club)
+		{
+			// If reserve team was not relegated
+			if (table_teams[num].league_fate != Relegated) {
+				// If main team is in the premier league
+				if (ret_club->ClubDivision->ClubCompID == CRO_FIRST_9CF()) {
+					team_league_stats* main_club_data = get_team_league_stats(CRO_FIRST_9CF(), ret_club);
+					// If the main team was relegated
+					if (main_club_data->league_fate == Relegated) {
+						table_teams[num].league_fate = Relegated;
+						// Relegate the reserve team, and relegate one less team from the first league
+						for (WORD i = cro_second_data->n_teams - cro_second_data->relegations; i < cro_second_data->n_teams; i++) {
+							if (i != num && table_teams[i].league_fate == Relegated) {
+								table_teams[i].league_fate = Eliminated;
+								break;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
 char cro_first_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	data->f76 = 0;
@@ -355,6 +416,7 @@ char cro_first_update(BYTE* _this) {
 	update_club_pro_status_68A980(cro_third, SemiProfessional, -3, Promoted, 1);
 
 	DWORD v1 = *(DWORD*)_this;
+	cro_check_reserve_teams(_this);
 	(*(void(__thiscall**)(BYTE*, int))(v1 + 0xB0))(_this, 1);
 	cro_non_league_promotion(_this);
 

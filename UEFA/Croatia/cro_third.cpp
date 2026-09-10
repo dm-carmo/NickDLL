@@ -272,6 +272,17 @@ void cro_third_playoff_under(BYTE* _this) {
 	}
 
 	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(CRO_FOURTH_9CF());
+	for (size_t i = 0; i < available_clubs.size(); i++) {
+		cm3_clubs* c = available_clubs[i];
+		DWORD is_main_club;
+		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)c, &is_main_club, 1);
+		if (ret_club && !is_main_club && (!ret_club->ClubDivision || ret_club->ClubDivision->ClubCompID != CRO_FIRST_9CF()
+			|| ret_club->ClubDivision->ClubCompID != CRO_SECOND_9CF()))
+		{
+			available_clubs.erase(available_clubs.begin() + i);
+			i--;
+		}
+	}
 	vector<cm3_clubs*> playoff_clubs = get_random_weighted_clubs(available_clubs, playoff_teams - 1, true);
 	for (int i = 0; i < playoff_teams - 1; i++)
 	{

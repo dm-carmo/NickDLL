@@ -6,7 +6,6 @@
 #include <fstream>
 
 map<string, char*> clubs_rename_short = {
-	{"SJK Seinäjoki II", "SJK Akatemia"},
 };
 
 map<string, char*> clubs_rename_long = {
@@ -20,7 +19,6 @@ map<string, char*> clubs_rename_long = {
 	{"Extremadura C.F.", "CD Extremadura"},
 	{"Merthyr Tydfil", "Merthyr Town"},
 	{"Bor. M'gladbach Amateure", "Borussia M'gladbach II"},
-	{"SJK Seinäjoki II", "SJK Seinäjoki Akatemia"},
 };
 
 map<string, DWORD> club_dword_match;
@@ -117,9 +115,12 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 	if (to_check->ClubNation->NationID == NATION_GERMANY_9CF()) {
 		if ((DWORD)to_check->ClubID == CLUB_1860_MUNICH_9CF()) return (BYTE*)get_club(CLUB_1860_MUNICH_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_AUGSBURG_9CF()) return (BYTE*)get_club(CLUB_AUGSBURG_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_BAYER_LEVERKUSEN_9CF()) return (BYTE*)get_club(CLUB_BAYER_LEVERKUSEN_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_BIELEFELD_9CF()) return (BYTE*)get_club(CLUB_BIELEFELD_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_BOCHUM_9CF()) return (BYTE*)get_club(CLUB_BOCHUM_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_COTTBUS_9CF()) return (BYTE*)get_club(CLUB_COTTBUS_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_DORTMUND_9CF()) return (BYTE*)get_club(CLUB_DORTMUND_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_DUISBURG_9CF()) return (BYTE*)get_club(CLUB_DUISBURG_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_DUSSELDORF_9CF()) return (BYTE*)get_club(CLUB_DUSSELDORF_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_FC_BAYERN_9CF()) return (BYTE*)get_club(CLUB_FC_BAYERN_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_FRANKFURT_9CF()) return (BYTE*)get_club(CLUB_FRANKFURT_II_9CF());
@@ -130,32 +131,29 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 		if ((DWORD)to_check->ClubID == CLUB_HERTHA_BSC_9CF()) return (BYTE*)get_club(CLUB_HERTHA_BSC_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_HOFFENHEIM_9CF()) return (BYTE*)get_club(CLUB_HOFFENHEIM_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_INGOLSTADT_9CF()) return (BYTE*)get_club(CLUB_INGOLSTADT_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_JENA_9CF()) return (BYTE*)get_club(CLUB_JENA_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_KAISERSLAUTERN_9CF()) return (BYTE*)get_club(CLUB_KAISERSLAUTERN_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_KARLSRUHE_9CF()) return (BYTE*)get_club(CLUB_KARLSRUHE_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_KIEL_9CF()) return (BYTE*)get_club(CLUB_KIEL_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_KOLN_9CF()) return (BYTE*)get_club(CLUB_KOLN_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_M_GLADBACH_9CF()) return (BYTE*)get_club(CLUB_M_GLADBACH_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_MAGDEBURG_9CF()) return (BYTE*)get_club(CLUB_MAGDEBURG_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_MAINZ_9CF()) return (BYTE*)get_club(CLUB_MAINZ_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_NURNBERG_9CF()) return (BYTE*)get_club(CLUB_NURNBERG_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_OBERHAUSEN_9CF()) return (BYTE*)get_club(CLUB_OBERHAUSEN_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_PADERBORN_9CF()) return (BYTE*)get_club(CLUB_PADERBORN_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_REGENSBURG_9CF()) return (BYTE*)get_club(CLUB_REGENSBURG_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_ROSTOCK_9CF()) return (BYTE*)get_club(CLUB_ROSTOCK_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SAARBRUCKEN_9CF()) return (BYTE*)get_club(CLUB_SAARBRUCKEN_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_SCHALKE_04_9CF()) return (BYTE*)get_club(CLUB_SCHALKE_04_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_ST_PAULI_9CF()) return (BYTE*)get_club(CLUB_ST_PAULI_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_STUTTGART_9CF()) return (BYTE*)get_club(CLUB_STUTTGART_II_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_UNTERHACHING_9CF()) return (BYTE*)get_club(CLUB_UNTERHACHING_II_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_WERDER_BREMEN_9CF()) return (BYTE*)get_club(CLUB_WERDER_BREMEN_II_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_JENA_9CF()) return (BYTE*)get_club(CLUB_JENA_II_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_COTTBUS_9CF()) return (BYTE*)get_club(CLUB_COTTBUS_II_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_DUISBURG_9CF()) return (BYTE*)get_club(CLUB_DUISBURG_II_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_BAYER_LEVERKUSEN_9CF()) return (BYTE*)get_club(CLUB_BAYER_LEVERKUSEN_II_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_MAGDEBURG_9CF()) return (BYTE*)get_club(CLUB_MAGDEBURG_II_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_SAARBRUCKEN_9CF()) return (BYTE*)get_club(CLUB_SAARBRUCKEN_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_STUTTGARTER_KICKERS_9CF()) return (BYTE*)get_club(CLUB_STUTTGARTER_KICKERS_II_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_WOLFSBURG_9CF()) return (BYTE*)get_club(CLUB_WOLFSBURG_II_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_OBERHAUSEN_9CF()) return (BYTE*)get_club(CLUB_OBERHAUSEN_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_ULM_9CF()) return (BYTE*)get_club(CLUB_ULM_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_UNTERHACHING_9CF()) return (BYTE*)get_club(CLUB_UNTERHACHING_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_WATTENSCHEID_9CF()) return (BYTE*)get_club(CLUB_WATTENSCHEID_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_WERDER_BREMEN_9CF()) return (BYTE*)get_club(CLUB_WERDER_BREMEN_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_WOLFSBURG_9CF()) return (BYTE*)get_club(CLUB_WOLFSBURG_II_9CF());
 	}
 	else if (to_check->ClubNation->NationID == NATION_SPAIN_9CF()) {
 		if ((DWORD)to_check->ClubID == CLUB_ALAVES_9CF()) return (BYTE*)get_club(CLUB_ALAVES_B_9CF());
@@ -178,6 +176,7 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 		if ((DWORD)to_check->ClubID == CLUB_ELCHE_9CF()) return (BYTE*)get_club(CLUB_ELCHE_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_ESPANYOL_9CF()) return (BYTE*)get_club(CLUB_ESPANYOL_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_GETAFE_9CF()) return (BYTE*)get_club(CLUB_GETAFE_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_GIRONA_9CF()) return (BYTE*)get_club(CLUB_GIRONA_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_GRANADA_9CF()) return (BYTE*)get_club(CLUB_GRANADA_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_HUESCA_9CF()) return (BYTE*)get_club(CLUB_HUESCA_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_LAS_PALMAS_9CF()) return (BYTE*)get_club(CLUB_LAS_PALMAS_B_9CF());
@@ -195,7 +194,9 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 		if ((DWORD)to_check->ClubID == CLUB_RAYO_9CF()) return (BYTE*)get_club(CLUB_RAYO_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_REAL_MADRID_9CF()) return (BYTE*)get_club(CLUB_REAL_MADRID_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_REAL_SOCIEDAD_9CF()) return (BYTE*)get_club(CLUB_REAL_SOCIEDAD_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_REAL_UNION_9CF()) return (BYTE*)get_club(CLUB_REAL_UNION_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_RECREATIVO_9CF()) return (BYTE*)get_club(CLUB_RECREATIVO_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SALAMANCA_9CF()) return (BYTE*)get_club(CLUB_SALAMANCA_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_SEVILLA_9CF()) return (BYTE*)get_club(CLUB_SEVILLA_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_SPORTING_GIJON_9CF()) return (BYTE*)get_club(CLUB_SPORTING_GIJON_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_TENERIFE_9CF()) return (BYTE*)get_club(CLUB_TENERIFE_B_9CF());
@@ -203,8 +204,6 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 		if ((DWORD)to_check->ClubID == CLUB_VALLADOLID_9CF()) return (BYTE*)get_club(CLUB_VALLADOLID_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_VILLARREAL_9CF()) return (BYTE*)get_club(CLUB_VILLARREAL_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_ZARAGOZA_9CF()) return (BYTE*)get_club(CLUB_ZARAGOZA_B_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_GIRONA_9CF()) return (BYTE*)get_club(CLUB_GIRONA_B_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_SALAMANCA_9CF()) return (BYTE*)get_club(CLUB_SALAMANCA_B_9CF());
 	}
 	else if (to_check->ClubNation->NationID == NATION_PORTUGAL_9CF()) {
 		if ((DWORD)to_check->ClubID == CLUB_ALVERCA_9CF()) return (BYTE*)get_club(CLUB_ALVERCA_B_9CF());
@@ -213,9 +212,9 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 		if ((DWORD)to_check->ClubID == CLUB_CHAVES_9CF()) return (BYTE*)get_club(CLUB_CHAVES_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_MARITIMO_9CF()) return (BYTE*)get_club(CLUB_MARITIMO_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_PORTO_9CF()) return (BYTE*)get_club(CLUB_PORTO_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SANTA_CLARA_9CF()) return (BYTE*)get_club(CLUB_SANTA_CLARA_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_SPORTING_CP_9CF()) return (BYTE*)get_club(CLUB_SPORTING_CP_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_VIT_GUIMARAES_9CF()) return (BYTE*)get_club(CLUB_VIT_GUIMARAES_B_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_SANTA_CLARA_9CF()) return (BYTE*)get_club(CLUB_SANTA_CLARA_B_9CF());
 	}
 	else if (to_check->ClubNation->NationID == NATION_NORWAY_9CF()) {
 		if ((DWORD)to_check->ClubID == CLUB_AALESUND_9CF()) return (BYTE*)get_club(CLUB_AALESUND_II_9CF());
@@ -257,30 +256,32 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 		if ((DWORD)to_check->ClubID == CLUB_START_9CF()) return (BYTE*)get_club(CLUB_START_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_STROMMEN_9CF()) return (BYTE*)get_club(CLUB_STROMMEN_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_STROMSGODSET_9CF()) return (BYTE*)get_club(CLUB_STROMSGODSET_II_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_TROMSO_9CF()) return (BYTE*)get_club(CLUB_TROMSO_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_TRAEFF_9CF()) return (BYTE*)get_club(CLUB_TRAEFF_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_TROMSO_9CF()) return (BYTE*)get_club(CLUB_TROMSO_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_ULL_KISA_9CF()) return (BYTE*)get_club(CLUB_ULL_KISA_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_VALERENGA_9CF()) return (BYTE*)get_club(CLUB_VALERENGA_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_VARD_HAUGESUND_9CF()) return (BYTE*)get_club(CLUB_VARD_HAUGESUND_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_VIKING_9CF()) return (BYTE*)get_club(CLUB_VIKING_II_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_VALERENGA_9CF()) return (BYTE*)get_club(CLUB_VALERENGA_II_9CF());
 	}
 	else if (to_check->ClubNation->NationID == NATION_FINLAND_9CF()) {
 		if ((DWORD)to_check->ClubID == CLUB_ATLANTIS_9CF()) return (BYTE*)get_club(CLUB_ATLANTIS_II_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_HJK_9CF()) return (BYTE*)get_club(CLUB_KLUBI_04_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_ESPOO_9CF()) return (BYTE*)get_club(CLUB_ESPOO_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_HIFK_9CF()) return (BYTE*)get_club(CLUB_HIFK_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_HJK_9CF()) return (BYTE*)get_club(CLUB_KLUBI_04_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_HONKA_9CF()) return (BYTE*)get_club(CLUB_HONKA_II_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_INTER_TURKU_9CF()) return (BYTE*)get_club(CLUB_INTER_TURKU_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_ILVES_9CF()) return (BYTE*)get_club(CLUB_ILVES_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_INTER_TURKU_9CF()) return (BYTE*)get_club(CLUB_INTER_TURKU_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_JARO_9CF()) return (BYTE*)get_club(CLUB_JARO_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_KUPS_9CF()) return (BYTE*)get_club(CLUB_KUPS_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_ROPS_9CF()) return (BYTE*)get_club(CLUB_ROPS_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SJK_9CF()) return (BYTE*)get_club(CLUB_SJK_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_VPS_9CF()) return (BYTE*)get_club(CLUB_VPS_II_9CF());
 
 	}
 	else if (to_check->ClubNation->NationID == NATION_POLAND_9CF()) {
 		if ((DWORD)to_check->ClubID == CLUB_CHROBRY_GLOGOW_9CF()) return (BYTE*)get_club(CLUB_CHROBRY_GLOGOW_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_CRACOVIA_9CF()) return (BYTE*)get_club(CLUB_CRACOVIA_II_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_GORNIK_ZABRZE_9CF()) return (BYTE*)get_club(CLUB_GORNIK_ZABRZE_II_9CF());
+		//if ((DWORD)to_check->ClubID == CLUB_GORNIK_ZABRZE_9CF()) return (BYTE*)get_club(CLUB_GORNIK_ZABRZE_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_JAGIELLONIA_9CF()) return (BYTE*)get_club(CLUB_JAGIELLONIA_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_KIELCE_9CF()) return (BYTE*)get_club(CLUB_KIELCE_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_LECH_POZNAN_9CF()) return (BYTE*)get_club(CLUB_LECH_POZNAN_II_9CF());
@@ -292,6 +293,7 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 		if ((DWORD)to_check->ClubID == CLUB_RAKOW_9CF()) return (BYTE*)get_club(CLUB_RAKOW_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_SLASK_WROCLAW_9CF()) return (BYTE*)get_club(CLUB_SLASK_WROCLAW_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_WIDZEW_LODZ_9CF()) return (BYTE*)get_club(CLUB_WIDZEW_LODZ_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_WIECZYSTA_9CF()) return (BYTE*)get_club(CLUB_WIECZYSTA_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_WISLA_KRAKOW_9CF()) return (BYTE*)get_club(CLUB_WISLA_KRAKOW_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_WISLA_PLOCK_9CF()) return (BYTE*)get_club(CLUB_WISLA_PLOCK_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_ZAGLEBIE_LUBIN_9CF()) return (BYTE*)get_club(CLUB_ZAGLEBIE_LUBIN_II_9CF());
@@ -299,7 +301,7 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 	}
 	else if (to_check->ClubNation->NationID == NATION_SCOTLAND_9CF()) {
 		if ((DWORD)to_check->ClubID == CLUB_CELTIC_9CF()) return (BYTE*)get_club(CLUB_CELTIC_B_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_HEARTS_9CF()) return (BYTE*)get_club(CLUB_HEARTS_B_9CF());
+		//if ((DWORD)to_check->ClubID == CLUB_HEARTS_9CF()) return (BYTE*)get_club(CLUB_HEARTS_B_9CF());
 	}
 	else if (to_check->ClubNation->NationID == NATION_GREECE_9CF()) {
 		if ((DWORD)to_check->ClubID == CLUB_ASTERAS_AKTOR_9CF()) return (BYTE*)get_club(CLUB_ASTERAS_AKTOR_B_9CF());
@@ -311,6 +313,7 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 		if ((DWORD)to_check->ClubID == CLUB_AZ_9CF()) return (BYTE*)get_club(CLUB_JONG_AZ_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_AJAX_9CF()) return (BYTE*)get_club(CLUB_JONG_AJAX_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_ALMERE_CITY_9CF()) return (BYTE*)get_club(CLUB_JONG_ALMERE_CITY_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_FEYENOORD_9CF()) return (BYTE*)get_club(CLUB_JONG_FEYENOORD_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_PSV_9CF()) return (BYTE*)get_club(CLUB_JONG_PSV_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_SPARTA_ROTTERDAM_9CF()) return (BYTE*)get_club(CLUB_JONG_SPARTA_ROTTERDAM_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_UTRECHT_9CF()) return (BYTE*)get_club(CLUB_JONG_UTRECHT_9CF());
@@ -333,128 +336,139 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 	}
 	else if (to_check->ClubNation->NationID == NATION_RUSSIA_9CF()) {
 		if ((DWORD)to_check->ClubID == CLUB_AKRON_9CF()) return (BYTE*)get_club(CLUB_AKRON_2_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_ALANIA_9CF()) return (BYTE*)get_club(CLUB_ALANIA_2_9CF());
+		//if ((DWORD)to_check->ClubID == CLUB_ALANIA_9CF()) return (BYTE*)get_club(CLUB_ALANIA_2_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_ARSENAL_TULA_9CF()) return (BYTE*)get_club(CLUB_ARSENAL_2_TULA_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_BALTIKA_9CF()) return (BYTE*)get_club(CLUB_BALTIKA_2_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_CSKA_MOSCOW_9CF()) return (BYTE*)get_club(CLUB_CSKA_2_MOSCOW_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_CHELYABINSK_9CF()) return (BYTE*)get_club(CLUB_CHELYABINSK_2_9CF());
+		//if ((DWORD)to_check->ClubID == CLUB_CSKA_MOSCOW_9CF()) return (BYTE*)get_club(CLUB_CSKA_2_MOSCOW_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_DINAMO_MAKHACHKALA_9CF()) return (BYTE*)get_club(CLUB_DINAMO_2_MAKHACHKALA_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_DYNAMO_MOSCOW_9CF()) return (BYTE*)get_club(CLUB_DYNAMO_2_MOSCOW_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_ENISEY_9CF()) return (BYTE*)get_club(CLUB_ENISEY_2_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_FAKEL_VORONEZH_9CF()) return (BYTE*)get_club(CLUB_FAKEL_M_VORONEZH_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_KHIMKI_9CF()) return (BYTE*)get_club(CLUB_KHIMKI_2_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_ORENBURG_9CF()) return (BYTE*)get_club(CLUB_ORENBURG_2_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_ROSTOV_9CF()) return (BYTE*)get_club(CLUB_ROSTOV_2_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_UFA_9CF()) return (BYTE*)get_club(CLUB_UFA_2_9CF());
+		//if ((DWORD)to_check->ClubID == CLUB_KHIMKI_9CF()) return (BYTE*)get_club(CLUB_KHIMKI_2_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_KOSMOS_KHIMKI_9CF()) return (BYTE*)get_club(CLUB_KOSMOS_2_DOLGOPRUDNYI_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_KRYLYA_SOVETOV_9CF()) return (BYTE*)get_club(CLUB_KRYLYA_SOVETOV_2_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_LOKOMOTIV_MOSCOW_9CF()) return (BYTE*)get_club(CLUB_LOKOMOTIV_KAZANKA_MOSKOW_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ORENBURG_9CF()) return (BYTE*)get_club(CLUB_ORENBURG_2_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_RODINA_MOSCOW_9CF()) return (BYTE*)get_club(CLUB_RODINA_2_MOSCOW_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ROSTOV_9CF()) return (BYTE*)get_club(CLUB_ROSTOV_2_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_ROTOR_9CF()) return (BYTE*)get_club(CLUB_ROTOR_2_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_RUBIN_KAZAN_9CF()) return (BYTE*)get_club(CLUB_RUBIN_2_KAZAN_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_SKA_KHABAROVSK_9CF()) return (BYTE*)get_club(CLUB_SKA_KHABAROVSK_2_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_SPARTAK_MOSCOW_9CF()) return (BYTE*)get_club(CLUB_SPARTAK_2_MOSCOW_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_UFA_9CF()) return (BYTE*)get_club(CLUB_UFA_2_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_URAL_9CF()) return (BYTE*)get_club(CLUB_URAL_2_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_ZENIT_9CF()) return (BYTE*)get_club(CLUB_ZENIT_2_9CF());
 	}
 	else if (to_check->ClubNation->NationID == NATION_CZECH_REPUBLIC_9CF()) {
-		if ((DWORD)to_check->ClubID == CLUB_SLOVACKO_9CF()) return (BYTE*)get_club(CLUB_SLOVACKO_B_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_SPARTA_PRAGUE_9CF()) return (BYTE*)get_club(CLUB_SPARTA_PRAGUE_B_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_BOHEMIANS_1905_9CF()) return (BYTE*)get_club(CLUB_BOHEMIANS_1905_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ARTIS_BRNO_9CF()) return (BYTE*)get_club(CLUB_ARTIS_BRNO_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_BANIK_OSTRAVA_9CF()) return (BYTE*)get_club(CLUB_BANIK_OSTRAVA_B_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_HRADEC_KRALOVE_9CF()) return (BYTE*)get_club(CLUB_HRADEC_KRALOVE_B_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_TABORSKO_9CF()) return (BYTE*)get_club(CLUB_TABORSKO_B_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_SLOVAN_LIBEREC_9CF()) return (BYTE*)get_club(CLUB_SLOVAN_LIBEREC_B_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_VIKTORIA_PLZEN_9CF()) return (BYTE*)get_club(CLUB_VIKTORIA_PLZEN_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_BOHEMIANS_1905_9CF()) return (BYTE*)get_club(CLUB_BOHEMIANS_1905_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_BRNO_9CF()) return (BYTE*)get_club(CLUB_BRNO_B_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_ZLIN_9CF()) return (BYTE*)get_club(CLUB_ZLIN_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_CESKE_BUDEJOVICE_9CF()) return (BYTE*)get_club(CLUB_CESKE_BUDEJOVICE_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_DUKLA_PRAGUE_9CF()) return (BYTE*)get_club(CLUB_DUKLA_PRAGUE_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_HRADEC_KRALOVE_9CF()) return (BYTE*)get_club(CLUB_HRADEC_KRALOVE_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_JABLONEC_9CF()) return (BYTE*)get_club(CLUB_JABLONEC_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_KARVINA_9CF()) return (BYTE*)get_club(CLUB_KARVINA_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_MLADA_BOLESLAV_9CF()) return (BYTE*)get_club(CLUB_MLADA_BOLESLAV_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_PARDUBICE_9CF()) return (BYTE*)get_club(CLUB_PARDUBICE_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_PRIBRAM_9CF()) return (BYTE*)get_club(CLUB_PRIBRAM_B_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_TEPLICE_9CF()) return (BYTE*)get_club(CLUB_TEPLICE_B_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_KARVINA_9CF()) return (BYTE*)get_club(CLUB_KARVINA_B_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_CESKE_BUDEJOVICE_9CF()) return (BYTE*)get_club(CLUB_CESKE_BUDEJOVICE_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_SIGMA_OLOMOUC_9CF()) return (BYTE*)get_club(CLUB_SIGMA_OLOMOUC_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_SLAVIA_PRAGUE_9CF()) return (BYTE*)get_club(CLUB_SLAVIA_PRAGUE_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SLOVACKO_9CF()) return (BYTE*)get_club(CLUB_SLOVACKO_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SLOVAN_LIBEREC_9CF()) return (BYTE*)get_club(CLUB_SLOVAN_LIBEREC_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SPARTA_PRAGUE_9CF()) return (BYTE*)get_club(CLUB_SPARTA_PRAGUE_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_TABORSKO_9CF()) return (BYTE*)get_club(CLUB_TABORSKO_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_TEPLICE_9CF()) return (BYTE*)get_club(CLUB_TEPLICE_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_VIKTORIA_PLZEN_9CF()) return (BYTE*)get_club(CLUB_VIKTORIA_PLZEN_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ZLIN_9CF()) return (BYTE*)get_club(CLUB_ZLIN_B_9CF());
 	}
 	else if (to_check->ClubNation->NationID == NATION_AUSTRIA_9CF()) {
 		if ((DWORD)to_check->ClubID == CLUB_ADMIRA_WACKER_9CF()) return (BYTE*)get_club(CLUB_ADMIRA_WACKER_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ALTACH_9CF()) return (BYTE*)get_club(CLUB_ALTACH_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_AUSTRIA_LUSTENAU_9CF()) return (BYTE*)get_club(CLUB_AUSTRIA_LUSTENAU_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_AUSTRIA_VIENNA_9CF()) return (BYTE*)get_club(CLUB_AUSTRIA_VIENNA_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_HARTBERG_9CF()) return (BYTE*)get_club(CLUB_HARTBERG_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_LASK_9CF()) return (BYTE*)get_club(CLUB_LASK_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_RAPID_VIENNA_9CF()) return (BYTE*)get_club(CLUB_RAPID_VIENNA_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_RB_SALZBURG_9CF()) return (BYTE*)get_club(CLUB_LIEFERING_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_AUSTRIA_LUSTENAU_9CF()) return (BYTE*)get_club(CLUB_AUSTRIA_LUSTENAU_II_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_ALTACH_9CF()) return (BYTE*)get_club(CLUB_ALTACH_II_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_STURM_GRAZ_9CF()) return (BYTE*)get_club(CLUB_STURM_GRAZ_II_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_ST_POLTEN_9CF()) return (BYTE*)get_club(CLUB_ST_POLTEN_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_RIED_9CF()) return (BYTE*)get_club(CLUB_RIED_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ST_POLTEN_9CF()) return (BYTE*)get_club(CLUB_ST_POLTEN_II_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_STURM_GRAZ_9CF()) return (BYTE*)get_club(CLUB_STURM_GRAZ_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_WOLFSBERG_9CF()) return (BYTE*)get_club(CLUB_WOLFSBERG_II_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_WSG_TIROL_9CF()) return (BYTE*)get_club(CLUB_WSG_TIROL_II_9CF());
 
 	}
 	else if (to_check->ClubNation->NationID == NATION_SWITZERLAND_9CF()) {
-		if ((DWORD)to_check->ClubID == CLUB_YOUNG_BOYS_9CF()) return (BYTE*)get_club(CLUB_YOUNG_BOYS_U21_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_GRASSHOPPERS_9CF()) return (BYTE*)get_club(CLUB_GRASSHOPPERS_U21_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_BASEL_9CF()) return (BYTE*)get_club(CLUB_BASEL_U21_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_GRASSHOPPERS_9CF()) return (BYTE*)get_club(CLUB_GRASSHOPPERS_U21_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_LAUSANNE_9CF()) return (BYTE*)get_club(CLUB_LAUSANNE_U21_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_LUGANO_9CF()) return (BYTE*)get_club(CLUB_LUGANO_U21_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_LUZERN_9CF()) return (BYTE*)get_club(CLUB_LUZERN_U21_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SERVETTE_9CF()) return (BYTE*)get_club(CLUB_SERVETTE_U21_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_SION_9CF()) return (BYTE*)get_club(CLUB_SION_U21_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_ST_GALLEN_9CF()) return (BYTE*)get_club(CLUB_ST_GALLEN_U21_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_WINTERTHUR_9CF()) return (BYTE*)get_club(CLUB_WINTERTHUR_U21_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_YOUNG_BOYS_9CF()) return (BYTE*)get_club(CLUB_YOUNG_BOYS_U21_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_ZURICH_9CF()) return (BYTE*)get_club(CLUB_ZURICH_U21_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_SERVETTE_9CF()) return (BYTE*)get_club(CLUB_SERVETTE_U21_9CF());
 	}
 	else if (to_check->ClubNation->NationID == NATION_FRANCE_9CF()) {
 		if ((DWORD)to_check->ClubID == CLUB_AJACCIO_9CF()) return (BYTE*)get_club(CLUB_AJACCIO_B_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_LE_HAVRE_9CF()) return (BYTE*)get_club(CLUB_LE_HAVRE_B_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_AUXERRE_9CF()) return (BYTE*)get_club(CLUB_AUXERRE_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_AMIENS_9CF()) return (BYTE*)get_club(CLUB_AMIENS_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_ANGERS_9CF()) return (BYTE*)get_club(CLUB_ANGERS_B_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_MONACO_9CF()) return (BYTE*)get_club(CLUB_MONACO_B_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_NANCY_9CF()) return (BYTE*)get_club(CLUB_NANCY_B_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_SAINT_ETIENNE_9CF()) return (BYTE*)get_club(CLUB_SAINT_ETIENNE_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_AUXERRE_9CF()) return (BYTE*)get_club(CLUB_AUXERRE_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_AVRANCHES_9CF()) return (BYTE*)get_club(CLUB_AVRANCHES_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_BASTIA_9CF()) return (BYTE*)get_club(CLUB_BASTIA_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_BORDEAUX_9CF()) return (BYTE*)get_club(CLUB_BORDEAUX_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_BOULOGNE_9CF()) return (BYTE*)get_club(CLUB_BOULOGNE_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_BOURGES_9CF()) return (BYTE*)get_club(CLUB_BOURGES_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_BREST_9CF()) return (BYTE*)get_club(CLUB_BREST_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_CAEN_9CF()) return (BYTE*)get_club(CLUB_CAEN_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_CHATEAUROUX_9CF()) return (BYTE*)get_club(CLUB_CHATEAUROUX_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_CLERMONT_9CF()) return (BYTE*)get_club(CLUB_CLERMONT_B_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_SEDAN_9CF()) return (BYTE*)get_club(CLUB_SEDAN_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_DIJON_9CF()) return (BYTE*)get_club(CLUB_DIJON_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_GUINGAMP_9CF()) return (BYTE*)get_club(CLUB_GUINGAMP_B_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_TROYES_9CF()) return (BYTE*)get_club(CLUB_TROYES_B_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_BORDEAUX_9CF()) return (BYTE*)get_club(CLUB_BORDEAUX_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LAVAL_9CF()) return (BYTE*)get_club(CLUB_LAVAL_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LE_HAVRE_9CF()) return (BYTE*)get_club(CLUB_LE_HAVRE_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_LE_MANS_9CF()) return (BYTE*)get_club(CLUB_LE_MANS_B_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_LORIENT_9CF()) return (BYTE*)get_club(CLUB_LORIENT_B_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_METZ_9CF()) return (BYTE*)get_club(CLUB_METZ_B_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_NANTES_9CF()) return (BYTE*)get_club(CLUB_NANTES_B_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_SOCHAUX_9CF()) return (BYTE*)get_club(CLUB_SOCHAUX_B_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_CHATEAUROUX_9CF()) return (BYTE*)get_club(CLUB_CHATEAUROUX_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_LE_PUY_9CF()) return (BYTE*)get_club(CLUB_LE_PUY_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_LES_HERBIERS_9CF()) return (BYTE*)get_club(CLUB_LES_HERBIERS_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_LILLE_9CF()) return (BYTE*)get_club(CLUB_LILLE_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LORIENT_9CF()) return (BYTE*)get_club(CLUB_LORIENT_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LYON_9CF()) return (BYTE*)get_club(CLUB_LYON_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_LYON_LA_DUCHERE_9CF()) return (BYTE*)get_club(CLUB_LYON_LA_DUCHERE_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_MARIGNANE_9CF()) return (BYTE*)get_club(CLUB_MARIGNANE_B_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_MONTPELLIER_9CF()) return (BYTE*)get_club(CLUB_MONTPELLIER_B_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_NICE_9CF()) return (BYTE*)get_club(CLUB_NICE_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_MARSEILLE_9CF()) return (BYTE*)get_club(CLUB_MARSEILLE_B_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_LYON_9CF()) return (BYTE*)get_club(CLUB_LYON_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_METZ_9CF()) return (BYTE*)get_club(CLUB_METZ_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_MONACO_9CF()) return (BYTE*)get_club(CLUB_MONACO_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_MONTPELLIER_9CF()) return (BYTE*)get_club(CLUB_MONTPELLIER_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_NANCY_9CF()) return (BYTE*)get_club(CLUB_NANCY_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_NANTES_9CF()) return (BYTE*)get_club(CLUB_NANTES_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_NICE_9CF()) return (BYTE*)get_club(CLUB_NICE_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ORLEANS_9CF()) return (BYTE*)get_club(CLUB_ORLEANS_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_PARIS_FC_9CF()) return (BYTE*)get_club(CLUB_PARIS_FC_B_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_PSG_9CF()) return (BYTE*)get_club(CLUB_PSG_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_PAU_9CF()) return (BYTE*)get_club(CLUB_PAU_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_PSG_9CF()) return (BYTE*)get_club(CLUB_PSG_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_QUEVILLY_ROUEN_9CF()) return (BYTE*)get_club(CLUB_QUEVILLY_ROUEN_B_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_STRASBOURG_9CF()) return (BYTE*)get_club(CLUB_STRASBOURG_B_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_RODEZ_9CF()) return (BYTE*)get_club(CLUB_RODEZ_B_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_BASTIA_9CF()) return (BYTE*)get_club(CLUB_BASTIA_B_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_CAEN_9CF()) return (BYTE*)get_club(CLUB_CAEN_B_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_BREST_9CF()) return (BYTE*)get_club(CLUB_BREST_B_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_ST_BRIEUC_9CF()) return (BYTE*)get_club(CLUB_ST_BRIEUC_B_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_LAVAL_9CF()) return (BYTE*)get_club(CLUB_LAVAL_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_REIMS_9CF()) return (BYTE*)get_club(CLUB_REIMS_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_RENNES_9CF()) return (BYTE*)get_club(CLUB_RENNES_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_RODEZ_9CF()) return (BYTE*)get_club(CLUB_RODEZ_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SAINT_ETIENNE_9CF()) return (BYTE*)get_club(CLUB_SAINT_ETIENNE_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SEDAN_9CF()) return (BYTE*)get_club(CLUB_SEDAN_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SOCHAUX_9CF()) return (BYTE*)get_club(CLUB_SOCHAUX_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ST_BRIEUC_9CF()) return (BYTE*)get_club(CLUB_ST_BRIEUC_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_STRASBOURG_9CF()) return (BYTE*)get_club(CLUB_STRASBOURG_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_TOULOUSE_9CF()) return (BYTE*)get_club(CLUB_TOULOUSE_B_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_AVRANCHES_9CF()) return (BYTE*)get_club(CLUB_AVRANCHES_B_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_BOULOGNE_9CF()) return (BYTE*)get_club(CLUB_BOULOGNE_B_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_ORLEANS_9CF()) return (BYTE*)get_club(CLUB_ORLEANS_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_TROYES_9CF()) return (BYTE*)get_club(CLUB_TROYES_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_VALENCIENNES_9CF()) return (BYTE*)get_club(CLUB_VALENCIENNES_B_9CF());
+	}
+	else if (to_check->ClubNation->NationID == NATION_CROATIA_9CF()) {
+		if ((DWORD)to_check->ClubID == CLUB_DINAMO_ZAGREB_9CF()) return (BYTE*)get_club(CLUB_DINAMO_ZAGREB_II_9CF());
+	}
+	else if (to_check->ClubNation->NationID == NATION_IRAN_9CF()) {
+		if ((DWORD)to_check->ClubID == CLUB_ESTEGHLAL_9CF()) return (BYTE*)get_club(CLUB_ESTEGHLAL_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_FOOLAD_9CF()) return (BYTE*)get_club(CLUB_FOOLAD_B_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SEPAHAN_9CF()) return (BYTE*)get_club(CLUB_SEPAHAN_B_9CF());
 	}
 
 	// Reserve teams check
@@ -462,9 +476,12 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 	if (to_check->ClubNation->NationID == NATION_GERMANY_9CF()) {
 		if ((DWORD)to_check->ClubID == CLUB_1860_MUNICH_II_9CF()) return (BYTE*)get_club(CLUB_1860_MUNICH_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_AUGSBURG_II_9CF()) return (BYTE*)get_club(CLUB_AUGSBURG_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_BAYER_LEVERKUSEN_II_9CF()) return (BYTE*)get_club(CLUB_BAYER_LEVERKUSEN_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_BIELEFELD_II_9CF()) return (BYTE*)get_club(CLUB_BIELEFELD_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_BOCHUM_II_9CF()) return (BYTE*)get_club(CLUB_BOCHUM_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_COTTBUS_II_9CF()) return (BYTE*)get_club(CLUB_COTTBUS_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_DORTMUND_II_9CF()) return (BYTE*)get_club(CLUB_DORTMUND_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_DUISBURG_II_9CF()) return (BYTE*)get_club(CLUB_DUISBURG_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_DUSSELDORF_II_9CF()) return (BYTE*)get_club(CLUB_DUSSELDORF_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_FC_BAYERN_II_9CF()) return (BYTE*)get_club(CLUB_FC_BAYERN_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_FRANKFURT_II_9CF()) return (BYTE*)get_club(CLUB_FRANKFURT_9CF());
@@ -475,32 +492,29 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 		if ((DWORD)to_check->ClubID == CLUB_HERTHA_BSC_II_9CF()) return (BYTE*)get_club(CLUB_HERTHA_BSC_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_HOFFENHEIM_II_9CF()) return (BYTE*)get_club(CLUB_HOFFENHEIM_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_INGOLSTADT_II_9CF()) return (BYTE*)get_club(CLUB_INGOLSTADT_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_JENA_II_9CF()) return (BYTE*)get_club(CLUB_JENA_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_KAISERSLAUTERN_II_9CF()) return (BYTE*)get_club(CLUB_KAISERSLAUTERN_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_KARLSRUHE_II_9CF()) return (BYTE*)get_club(CLUB_KARLSRUHE_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_KIEL_II_9CF()) return (BYTE*)get_club(CLUB_KIEL_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_KOLN_II_9CF()) return (BYTE*)get_club(CLUB_KOLN_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_M_GLADBACH_II_9CF()) return (BYTE*)get_club(CLUB_M_GLADBACH_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_MAGDEBURG_II_9CF()) return (BYTE*)get_club(CLUB_MAGDEBURG_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_MAINZ_II_9CF()) return (BYTE*)get_club(CLUB_MAINZ_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_NURNBERG_II_9CF()) return (BYTE*)get_club(CLUB_NURNBERG_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_OBERHAUSEN_II_9CF()) return (BYTE*)get_club(CLUB_OBERHAUSEN_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_PADERBORN_II_9CF()) return (BYTE*)get_club(CLUB_PADERBORN_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_REGENSBURG_II_9CF()) return (BYTE*)get_club(CLUB_REGENSBURG_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_ROSTOCK_II_9CF()) return (BYTE*)get_club(CLUB_ROSTOCK_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SAARBRUCKEN_II_9CF()) return (BYTE*)get_club(CLUB_SAARBRUCKEN_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_SCHALKE_04_II_9CF()) return (BYTE*)get_club(CLUB_SCHALKE_04_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_ST_PAULI_II_9CF()) return (BYTE*)get_club(CLUB_ST_PAULI_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_STUTTGART_II_9CF()) return (BYTE*)get_club(CLUB_STUTTGART_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_UNTERHACHING_II_9CF()) return (BYTE*)get_club(CLUB_UNTERHACHING_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_WERDER_BREMEN_II_9CF()) return (BYTE*)get_club(CLUB_WERDER_BREMEN_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_JENA_II_9CF()) return (BYTE*)get_club(CLUB_JENA_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_COTTBUS_II_9CF()) return (BYTE*)get_club(CLUB_COTTBUS_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_DUISBURG_II_9CF()) return (BYTE*)get_club(CLUB_DUISBURG_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_BAYER_LEVERKUSEN_II_9CF()) return (BYTE*)get_club(CLUB_BAYER_LEVERKUSEN_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_MAGDEBURG_II_9CF()) return (BYTE*)get_club(CLUB_MAGDEBURG_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_SAARBRUCKEN_II_9CF()) return (BYTE*)get_club(CLUB_SAARBRUCKEN_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_STUTTGARTER_KICKERS_II_9CF()) return (BYTE*)get_club(CLUB_STUTTGARTER_KICKERS_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_WOLFSBURG_II_9CF()) return (BYTE*)get_club(CLUB_WOLFSBURG_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_OBERHAUSEN_II_9CF()) return (BYTE*)get_club(CLUB_OBERHAUSEN_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_ULM_II_9CF()) return (BYTE*)get_club(CLUB_ULM_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_UNTERHACHING_II_9CF()) return (BYTE*)get_club(CLUB_UNTERHACHING_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_WATTENSCHEID_II_9CF()) return (BYTE*)get_club(CLUB_WATTENSCHEID_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_WERDER_BREMEN_II_9CF()) return (BYTE*)get_club(CLUB_WERDER_BREMEN_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_WOLFSBURG_II_9CF()) return (BYTE*)get_club(CLUB_WOLFSBURG_9CF());
 	}
 	else if (to_check->ClubNation->NationID == NATION_SPAIN_9CF()) {
 		if ((DWORD)to_check->ClubID == CLUB_ALAVES_B_9CF()) return (BYTE*)get_club(CLUB_ALAVES_9CF());
@@ -523,6 +537,7 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 		if ((DWORD)to_check->ClubID == CLUB_ELCHE_B_9CF()) return (BYTE*)get_club(CLUB_ELCHE_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_ESPANYOL_B_9CF()) return (BYTE*)get_club(CLUB_ESPANYOL_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_GETAFE_B_9CF()) return (BYTE*)get_club(CLUB_GETAFE_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_GIRONA_B_9CF()) return (BYTE*)get_club(CLUB_GIRONA_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_GRANADA_B_9CF()) return (BYTE*)get_club(CLUB_GRANADA_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_HUESCA_B_9CF()) return (BYTE*)get_club(CLUB_HUESCA_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_LAS_PALMAS_B_9CF()) return (BYTE*)get_club(CLUB_LAS_PALMAS_9CF());
@@ -540,7 +555,9 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 		if ((DWORD)to_check->ClubID == CLUB_RAYO_B_9CF()) return (BYTE*)get_club(CLUB_RAYO_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_REAL_MADRID_B_9CF()) return (BYTE*)get_club(CLUB_REAL_MADRID_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_REAL_SOCIEDAD_B_9CF()) return (BYTE*)get_club(CLUB_REAL_SOCIEDAD_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_REAL_UNION_B_9CF()) return (BYTE*)get_club(CLUB_REAL_UNION_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_RECREATIVO_B_9CF()) return (BYTE*)get_club(CLUB_RECREATIVO_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SALAMANCA_B_9CF()) return (BYTE*)get_club(CLUB_SALAMANCA_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_SEVILLA_B_9CF()) return (BYTE*)get_club(CLUB_SEVILLA_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_SPORTING_GIJON_B_9CF()) return (BYTE*)get_club(CLUB_SPORTING_GIJON_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_TENERIFE_B_9CF()) return (BYTE*)get_club(CLUB_TENERIFE_9CF());
@@ -548,8 +565,6 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 		if ((DWORD)to_check->ClubID == CLUB_VALLADOLID_B_9CF()) return (BYTE*)get_club(CLUB_VALLADOLID_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_VILLARREAL_B_9CF()) return (BYTE*)get_club(CLUB_VILLARREAL_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_ZARAGOZA_B_9CF()) return (BYTE*)get_club(CLUB_ZARAGOZA_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_GIRONA_B_9CF()) return (BYTE*)get_club(CLUB_GIRONA_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_SALAMANCA_B_9CF()) return (BYTE*)get_club(CLUB_SALAMANCA_9CF());
 	}
 	else if (to_check->ClubNation->NationID == NATION_PORTUGAL_9CF()) {
 		if ((DWORD)to_check->ClubID == CLUB_ALVERCA_B_9CF()) return (BYTE*)get_club(CLUB_ALVERCA_9CF());
@@ -558,9 +573,9 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 		if ((DWORD)to_check->ClubID == CLUB_CHAVES_B_9CF()) return (BYTE*)get_club(CLUB_CHAVES_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_MARITIMO_B_9CF()) return (BYTE*)get_club(CLUB_MARITIMO_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_PORTO_B_9CF()) return (BYTE*)get_club(CLUB_PORTO_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SANTA_CLARA_B_9CF()) return (BYTE*)get_club(CLUB_SANTA_CLARA_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_SPORTING_CP_B_9CF()) return (BYTE*)get_club(CLUB_SPORTING_CP_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_VIT_GUIMARAES_B_9CF()) return (BYTE*)get_club(CLUB_VIT_GUIMARAES_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_SANTA_CLARA_B_9CF()) return (BYTE*)get_club(CLUB_SANTA_CLARA_9CF());
 	}
 	else if (to_check->ClubNation->NationID == NATION_NORWAY_9CF()) {
 		if ((DWORD)to_check->ClubID == CLUB_AALESUND_II_9CF()) return (BYTE*)get_club(CLUB_AALESUND_9CF());
@@ -602,30 +617,32 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 		if ((DWORD)to_check->ClubID == CLUB_START_II_9CF()) return (BYTE*)get_club(CLUB_START_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_STROMMEN_II_9CF()) return (BYTE*)get_club(CLUB_STROMMEN_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_STROMSGODSET_II_9CF()) return (BYTE*)get_club(CLUB_STROMSGODSET_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_TROMSO_II_9CF()) return (BYTE*)get_club(CLUB_TROMSO_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_TRAEFF_II_9CF()) return (BYTE*)get_club(CLUB_TRAEFF_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_TROMSO_II_9CF()) return (BYTE*)get_club(CLUB_TROMSO_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_ULL_KISA_II_9CF()) return (BYTE*)get_club(CLUB_ULL_KISA_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_VALERENGA_II_9CF()) return (BYTE*)get_club(CLUB_VALERENGA_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_VARD_HAUGESUND_II_9CF()) return (BYTE*)get_club(CLUB_VARD_HAUGESUND_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_VIKING_II_9CF()) return (BYTE*)get_club(CLUB_VIKING_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_VALERENGA_II_9CF()) return (BYTE*)get_club(CLUB_VALERENGA_9CF());
 	}
 	else if (to_check->ClubNation->NationID == NATION_FINLAND_9CF()) {
 		if ((DWORD)to_check->ClubID == CLUB_ATLANTIS_II_9CF()) return (BYTE*)get_club(CLUB_ATLANTIS_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_KLUBI_04_9CF()) return (BYTE*)get_club(CLUB_HJK_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_ESPOO_II_9CF()) return (BYTE*)get_club(CLUB_ESPOO_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_HIFK_II_9CF()) return (BYTE*)get_club(CLUB_HIFK_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_HONKA_II_9CF()) return (BYTE*)get_club(CLUB_HONKA_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_INTER_TURKU_II_9CF()) return (BYTE*)get_club(CLUB_INTER_TURKU_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_ILVES_II_9CF()) return (BYTE*)get_club(CLUB_ILVES_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_INTER_TURKU_II_9CF()) return (BYTE*)get_club(CLUB_INTER_TURKU_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_JARO_II_9CF()) return (BYTE*)get_club(CLUB_JARO_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_KLUBI_04_9CF()) return (BYTE*)get_club(CLUB_HJK_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_KUPS_II_9CF()) return (BYTE*)get_club(CLUB_KUPS_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_ROPS_II_9CF()) return (BYTE*)get_club(CLUB_ROPS_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SJK_II_9CF()) return (BYTE*)get_club(CLUB_SJK_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_VPS_II_9CF()) return (BYTE*)get_club(CLUB_VPS_9CF());
 
 	}
 	else if (to_check->ClubNation->NationID == NATION_POLAND_9CF()) {
 		if ((DWORD)to_check->ClubID == CLUB_CHROBRY_GLOGOW_II_9CF()) return (BYTE*)get_club(CLUB_CHROBRY_GLOGOW_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_CRACOVIA_II_9CF()) return (BYTE*)get_club(CLUB_CRACOVIA_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_GORNIK_ZABRZE_II_9CF()) return (BYTE*)get_club(CLUB_GORNIK_ZABRZE_9CF());
+		//if ((DWORD)to_check->ClubID == CLUB_GORNIK_ZABRZE_II_9CF()) return (BYTE*)get_club(CLUB_GORNIK_ZABRZE_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_JAGIELLONIA_II_9CF()) return (BYTE*)get_club(CLUB_JAGIELLONIA_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_KIELCE_II_9CF()) return (BYTE*)get_club(CLUB_KIELCE_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_LECH_POZNAN_II_9CF()) return (BYTE*)get_club(CLUB_LECH_POZNAN_9CF());
@@ -637,13 +654,14 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 		if ((DWORD)to_check->ClubID == CLUB_RAKOW_II_9CF()) return (BYTE*)get_club(CLUB_RAKOW_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_SLASK_WROCLAW_II_9CF()) return (BYTE*)get_club(CLUB_SLASK_WROCLAW_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_WIDZEW_LODZ_II_9CF()) return (BYTE*)get_club(CLUB_WIDZEW_LODZ_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_WIECZYSTA_II_9CF()) return (BYTE*)get_club(CLUB_WIECZYSTA_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_WISLA_KRAKOW_II_9CF()) return (BYTE*)get_club(CLUB_WISLA_KRAKOW_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_WISLA_PLOCK_II_9CF()) return (BYTE*)get_club(CLUB_WISLA_PLOCK_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_ZAGLEBIE_LUBIN_II_9CF()) return (BYTE*)get_club(CLUB_ZAGLEBIE_LUBIN_9CF());
 	}
 	else if (to_check->ClubNation->NationID == NATION_SCOTLAND_9CF()) {
 		if ((DWORD)to_check->ClubID == CLUB_CELTIC_B_9CF()) return (BYTE*)get_club(CLUB_CELTIC_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_HEARTS_B_9CF()) return (BYTE*)get_club(CLUB_HEARTS_9CF());
+		//if ((DWORD)to_check->ClubID == CLUB_HEARTS_B_9CF()) return (BYTE*)get_club(CLUB_HEARTS_9CF());
 	}
 	else if (to_check->ClubNation->NationID == NATION_GREECE_9CF()) {
 		if ((DWORD)to_check->ClubID == CLUB_ASTERAS_AKTOR_B_9CF()) return (BYTE*)get_club(CLUB_ASTERAS_AKTOR_9CF());
@@ -655,6 +673,7 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 		if ((DWORD)to_check->ClubID == CLUB_JONG_AZ_9CF()) return (BYTE*)get_club(CLUB_AZ_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_JONG_AJAX_9CF()) return (BYTE*)get_club(CLUB_AJAX_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_JONG_ALMERE_CITY_9CF()) return (BYTE*)get_club(CLUB_ALMERE_CITY_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_JONG_FEYENOORD_9CF()) return (BYTE*)get_club(CLUB_FEYENOORD_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_JONG_PSV_9CF()) return (BYTE*)get_club(CLUB_PSV_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_JONG_SPARTA_ROTTERDAM_9CF()) return (BYTE*)get_club(CLUB_SPARTA_ROTTERDAM_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_JONG_UTRECHT_9CF()) return (BYTE*)get_club(CLUB_UTRECHT_9CF());
@@ -678,15 +697,16 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 	}
 	else if (to_check->ClubNation->NationID == NATION_RUSSIA_9CF()) {
 		if ((DWORD)to_check->ClubID == CLUB_AKRON_2_9CF()) return (BYTE*)get_club(CLUB_AKRON_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_ALANIA_2_9CF()) return (BYTE*)get_club(CLUB_ALANIA_9CF());
+		//if ((DWORD)to_check->ClubID == CLUB_ALANIA_2_9CF()) return (BYTE*)get_club(CLUB_ALANIA_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_ARSENAL_2_TULA_9CF()) return (BYTE*)get_club(CLUB_ARSENAL_TULA_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_BALTIKA_2_9CF()) return (BYTE*)get_club(CLUB_BALTIKA_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_CSKA_2_MOSCOW_9CF()) return (BYTE*)get_club(CLUB_CSKA_MOSCOW_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_CHELYABINSK_2_9CF()) return (BYTE*)get_club(CLUB_CHELYABINSK_9CF());
+		//if ((DWORD)to_check->ClubID == CLUB_CSKA_2_MOSCOW_9CF()) return (BYTE*)get_club(CLUB_CSKA_MOSCOW_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_DINAMO_2_MAKHACHKALA_9CF()) return (BYTE*)get_club(CLUB_DINAMO_MAKHACHKALA_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_DYNAMO_2_MOSCOW_9CF()) return (BYTE*)get_club(CLUB_DYNAMO_MOSCOW_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_ENISEY_2_9CF()) return (BYTE*)get_club(CLUB_ENISEY_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_FAKEL_M_VORONEZH_9CF()) return (BYTE*)get_club(CLUB_FAKEL_VORONEZH_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_KHIMKI_2_9CF()) return (BYTE*)get_club(CLUB_KHIMKI_9CF());
+		//if ((DWORD)to_check->ClubID == CLUB_KHIMKI_2_9CF()) return (BYTE*)get_club(CLUB_KHIMKI_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_ORENBURG_2_9CF()) return (BYTE*)get_club(CLUB_ORENBURG_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_ROSTOV_2_9CF()) return (BYTE*)get_club(CLUB_ROSTOV_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_UFA_2_9CF()) return (BYTE*)get_club(CLUB_UFA_9CF());
@@ -702,104 +722,114 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 		if ((DWORD)to_check->ClubID == CLUB_ZENIT_2_9CF()) return (BYTE*)get_club(CLUB_ZENIT_9CF());
 	}
 	else if (to_check->ClubNation->NationID == NATION_CZECH_REPUBLIC_9CF()) {
-		if ((DWORD)to_check->ClubID == CLUB_SLOVACKO_B_9CF()) return (BYTE*)get_club(CLUB_SLOVACKO_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_SPARTA_PRAGUE_B_9CF()) return (BYTE*)get_club(CLUB_SPARTA_PRAGUE_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_BOHEMIANS_1905_B_9CF()) return (BYTE*)get_club(CLUB_BOHEMIANS_1905_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ARTIS_BRNO_B_9CF()) return (BYTE*)get_club(CLUB_ARTIS_BRNO_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_BANIK_OSTRAVA_B_9CF()) return (BYTE*)get_club(CLUB_BANIK_OSTRAVA_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_HRADEC_KRALOVE_B_9CF()) return (BYTE*)get_club(CLUB_HRADEC_KRALOVE_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_TABORSKO_B_9CF()) return (BYTE*)get_club(CLUB_TABORSKO_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_SLOVAN_LIBEREC_B_9CF()) return (BYTE*)get_club(CLUB_SLOVAN_LIBEREC_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_VIKTORIA_PLZEN_B_9CF()) return (BYTE*)get_club(CLUB_VIKTORIA_PLZEN_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_BOHEMIANS_1905_B_9CF()) return (BYTE*)get_club(CLUB_BOHEMIANS_1905_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_BRNO_B_9CF()) return (BYTE*)get_club(CLUB_BRNO_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_ZLIN_B_9CF()) return (BYTE*)get_club(CLUB_ZLIN_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_CESKE_BUDEJOVICE_B_9CF()) return (BYTE*)get_club(CLUB_CESKE_BUDEJOVICE_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_DUKLA_PRAGUE_B_9CF()) return (BYTE*)get_club(CLUB_DUKLA_PRAGUE_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_HRADEC_KRALOVE_B_9CF()) return (BYTE*)get_club(CLUB_HRADEC_KRALOVE_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_JABLONEC_B_9CF()) return (BYTE*)get_club(CLUB_JABLONEC_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_KARVINA_B_9CF()) return (BYTE*)get_club(CLUB_KARVINA_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_MLADA_BOLESLAV_B_9CF()) return (BYTE*)get_club(CLUB_MLADA_BOLESLAV_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_PARDUBICE_B_9CF()) return (BYTE*)get_club(CLUB_PARDUBICE_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_PRIBRAM_B_9CF()) return (BYTE*)get_club(CLUB_PRIBRAM_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_TEPLICE_B_9CF()) return (BYTE*)get_club(CLUB_TEPLICE_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_KARVINA_B_9CF()) return (BYTE*)get_club(CLUB_KARVINA_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_CESKE_BUDEJOVICE_B_9CF()) return (BYTE*)get_club(CLUB_CESKE_BUDEJOVICE_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_SIGMA_OLOMOUC_B_9CF()) return (BYTE*)get_club(CLUB_SIGMA_OLOMOUC_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_SLAVIA_PRAGUE_B_9CF()) return (BYTE*)get_club(CLUB_SLAVIA_PRAGUE_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SLOVACKO_B_9CF()) return (BYTE*)get_club(CLUB_SLOVACKO_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SLOVAN_LIBEREC_B_9CF()) return (BYTE*)get_club(CLUB_SLOVAN_LIBEREC_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SPARTA_PRAGUE_B_9CF()) return (BYTE*)get_club(CLUB_SPARTA_PRAGUE_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_TABORSKO_B_9CF()) return (BYTE*)get_club(CLUB_TABORSKO_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_TEPLICE_B_9CF()) return (BYTE*)get_club(CLUB_TEPLICE_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_VIKTORIA_PLZEN_B_9CF()) return (BYTE*)get_club(CLUB_VIKTORIA_PLZEN_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ZLIN_B_9CF()) return (BYTE*)get_club(CLUB_ZLIN_9CF());
 	}
 	else if (to_check->ClubNation->NationID == NATION_AUSTRIA_9CF()) {
 		if ((DWORD)to_check->ClubID == CLUB_ADMIRA_WACKER_II_9CF()) return (BYTE*)get_club(CLUB_ADMIRA_WACKER_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_AUSTRIA_VIENNA_II_9CF()) return (BYTE*)get_club(CLUB_AUSTRIA_VIENNA_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_LASK_II_9CF()) return (BYTE*)get_club(CLUB_LASK_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_RAPID_VIENNA_II_9CF()) return (BYTE*)get_club(CLUB_RAPID_VIENNA_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_LIEFERING_9CF()) return (BYTE*)get_club(CLUB_RB_SALZBURG_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_AUSTRIA_LUSTENAU_II_9CF()) return (BYTE*)get_club(CLUB_AUSTRIA_LUSTENAU_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_ALTACH_II_9CF()) return (BYTE*)get_club(CLUB_ALTACH_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_STURM_GRAZ_II_9CF()) return (BYTE*)get_club(CLUB_STURM_GRAZ_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_ST_POLTEN_II_9CF()) return (BYTE*)get_club(CLUB_ST_POLTEN_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_AUSTRIA_LUSTENAU_II_9CF()) return (BYTE*)get_club(CLUB_AUSTRIA_LUSTENAU_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_AUSTRIA_VIENNA_II_9CF()) return (BYTE*)get_club(CLUB_AUSTRIA_VIENNA_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_HARTBERG_II_9CF()) return (BYTE*)get_club(CLUB_HARTBERG_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LASK_II_9CF()) return (BYTE*)get_club(CLUB_LASK_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LIEFERING_9CF()) return (BYTE*)get_club(CLUB_RB_SALZBURG_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_RAPID_VIENNA_II_9CF()) return (BYTE*)get_club(CLUB_RAPID_VIENNA_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_RIED_II_9CF()) return (BYTE*)get_club(CLUB_RIED_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ST_POLTEN_II_9CF()) return (BYTE*)get_club(CLUB_ST_POLTEN_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_STURM_GRAZ_II_9CF()) return (BYTE*)get_club(CLUB_STURM_GRAZ_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_WOLFSBERG_II_9CF()) return (BYTE*)get_club(CLUB_WOLFSBERG_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_WSG_TIROL_II_9CF()) return (BYTE*)get_club(CLUB_WSG_TIROL_9CF());
 
 	}
 	else if (to_check->ClubNation->NationID == NATION_SWITZERLAND_9CF()) {
-		if ((DWORD)to_check->ClubID == CLUB_YOUNG_BOYS_U21_9CF()) return (BYTE*)get_club(CLUB_YOUNG_BOYS_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_GRASSHOPPERS_U21_9CF()) return (BYTE*)get_club(CLUB_GRASSHOPPERS_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_BASEL_U21_9CF()) return (BYTE*)get_club(CLUB_BASEL_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_GRASSHOPPERS_U21_9CF()) return (BYTE*)get_club(CLUB_GRASSHOPPERS_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_LAUSANNE_U21_9CF()) return (BYTE*)get_club(CLUB_LAUSANNE_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_LUGANO_U21_9CF()) return (BYTE*)get_club(CLUB_LUGANO_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_LUZERN_U21_9CF()) return (BYTE*)get_club(CLUB_LUZERN_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SERVETTE_U21_9CF()) return (BYTE*)get_club(CLUB_SERVETTE_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_SION_U21_9CF()) return (BYTE*)get_club(CLUB_SION_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_ST_GALLEN_U21_9CF()) return (BYTE*)get_club(CLUB_ST_GALLEN_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_WINTERTHUR_U21_9CF()) return (BYTE*)get_club(CLUB_WINTERTHUR_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_YOUNG_BOYS_U21_9CF()) return (BYTE*)get_club(CLUB_YOUNG_BOYS_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_ZURICH_U21_9CF()) return (BYTE*)get_club(CLUB_ZURICH_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_SERVETTE_U21_9CF()) return (BYTE*)get_club(CLUB_SERVETTE_9CF());
 	}
 	else if (to_check->ClubNation->NationID == NATION_FRANCE_9CF()) {
 		if ((DWORD)to_check->ClubID == CLUB_AJACCIO_B_9CF()) return (BYTE*)get_club(CLUB_AJACCIO_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_LE_HAVRE_B_9CF()) return (BYTE*)get_club(CLUB_LE_HAVRE_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_AUXERRE_B_9CF()) return (BYTE*)get_club(CLUB_AUXERRE_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_AMIENS_B_9CF()) return (BYTE*)get_club(CLUB_AMIENS_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_ANGERS_B_9CF()) return (BYTE*)get_club(CLUB_ANGERS_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_MONACO_B_9CF()) return (BYTE*)get_club(CLUB_MONACO_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_NANCY_B_9CF()) return (BYTE*)get_club(CLUB_NANCY_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_SAINT_ETIENNE_B_9CF()) return (BYTE*)get_club(CLUB_SAINT_ETIENNE_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_AUXERRE_B_9CF()) return (BYTE*)get_club(CLUB_AUXERRE_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_AVRANCHES_B_9CF()) return (BYTE*)get_club(CLUB_AVRANCHES_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_BASTIA_B_9CF()) return (BYTE*)get_club(CLUB_BASTIA_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_BORDEAUX_B_9CF()) return (BYTE*)get_club(CLUB_BORDEAUX_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_BOULOGNE_B_9CF()) return (BYTE*)get_club(CLUB_BOULOGNE_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_BOURGES_B_9CF()) return (BYTE*)get_club(CLUB_BOURGES_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_BREST_B_9CF()) return (BYTE*)get_club(CLUB_BREST_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_CAEN_B_9CF()) return (BYTE*)get_club(CLUB_CAEN_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_CHATEAUROUX_B_9CF()) return (BYTE*)get_club(CLUB_CHATEAUROUX_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_CLERMONT_B_9CF()) return (BYTE*)get_club(CLUB_CLERMONT_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_SEDAN_B_9CF()) return (BYTE*)get_club(CLUB_SEDAN_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_DIJON_B_9CF()) return (BYTE*)get_club(CLUB_DIJON_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_GUINGAMP_B_9CF()) return (BYTE*)get_club(CLUB_GUINGAMP_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_TROYES_B_9CF()) return (BYTE*)get_club(CLUB_TROYES_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_BORDEAUX_B_9CF()) return (BYTE*)get_club(CLUB_BORDEAUX_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LAVAL_B_9CF()) return (BYTE*)get_club(CLUB_LAVAL_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LE_HAVRE_B_9CF()) return (BYTE*)get_club(CLUB_LE_HAVRE_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_LE_MANS_B_9CF()) return (BYTE*)get_club(CLUB_LE_MANS_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_LORIENT_B_9CF()) return (BYTE*)get_club(CLUB_LORIENT_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_METZ_B_9CF()) return (BYTE*)get_club(CLUB_METZ_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_NANTES_B_9CF()) return (BYTE*)get_club(CLUB_NANTES_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_SOCHAUX_B_9CF()) return (BYTE*)get_club(CLUB_SOCHAUX_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_CHATEAUROUX_B_9CF()) return (BYTE*)get_club(CLUB_CHATEAUROUX_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_LE_PUY_B_9CF()) return (BYTE*)get_club(CLUB_LE_PUY_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_LES_HERBIERS_B_9CF()) return (BYTE*)get_club(CLUB_LES_HERBIERS_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_LILLE_B_9CF()) return (BYTE*)get_club(CLUB_LILLE_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LORIENT_B_9CF()) return (BYTE*)get_club(CLUB_LORIENT_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_LYON_B_9CF()) return (BYTE*)get_club(CLUB_LYON_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_LYON_LA_DUCHERE_B_9CF()) return (BYTE*)get_club(CLUB_LYON_LA_DUCHERE_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_MARIGNANE_B_9CF()) return (BYTE*)get_club(CLUB_MARIGNANE_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_MONTPELLIER_B_9CF()) return (BYTE*)get_club(CLUB_MONTPELLIER_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_NICE_B_9CF()) return (BYTE*)get_club(CLUB_NICE_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_MARSEILLE_B_9CF()) return (BYTE*)get_club(CLUB_MARSEILLE_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_LYON_B_9CF()) return (BYTE*)get_club(CLUB_LYON_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_METZ_B_9CF()) return (BYTE*)get_club(CLUB_METZ_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_MONACO_B_9CF()) return (BYTE*)get_club(CLUB_MONACO_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_MONTPELLIER_B_9CF()) return (BYTE*)get_club(CLUB_MONTPELLIER_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_NANCY_B_9CF()) return (BYTE*)get_club(CLUB_NANCY_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_NANTES_B_9CF()) return (BYTE*)get_club(CLUB_NANTES_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_NICE_B_9CF()) return (BYTE*)get_club(CLUB_NICE_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ORLEANS_B_9CF()) return (BYTE*)get_club(CLUB_ORLEANS_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_PARIS_FC_B_9CF()) return (BYTE*)get_club(CLUB_PARIS_FC_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_PSG_B_9CF()) return (BYTE*)get_club(CLUB_PSG_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_PAU_B_9CF()) return (BYTE*)get_club(CLUB_PAU_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_PSG_B_9CF()) return (BYTE*)get_club(CLUB_PSG_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_QUEVILLY_ROUEN_B_9CF()) return (BYTE*)get_club(CLUB_QUEVILLY_ROUEN_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_STRASBOURG_B_9CF()) return (BYTE*)get_club(CLUB_STRASBOURG_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_RODEZ_B_9CF()) return (BYTE*)get_club(CLUB_RODEZ_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_BASTIA_B_9CF()) return (BYTE*)get_club(CLUB_BASTIA_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_CAEN_B_9CF()) return (BYTE*)get_club(CLUB_CAEN_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_BREST_B_9CF()) return (BYTE*)get_club(CLUB_BREST_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_ST_BRIEUC_B_9CF()) return (BYTE*)get_club(CLUB_ST_BRIEUC_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_LAVAL_B_9CF()) return (BYTE*)get_club(CLUB_LAVAL_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_REIMS_B_9CF()) return (BYTE*)get_club(CLUB_REIMS_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_RENNES_B_9CF()) return (BYTE*)get_club(CLUB_RENNES_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_RODEZ_B_9CF()) return (BYTE*)get_club(CLUB_RODEZ_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SAINT_ETIENNE_B_9CF()) return (BYTE*)get_club(CLUB_SAINT_ETIENNE_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SEDAN_B_9CF()) return (BYTE*)get_club(CLUB_SEDAN_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SOCHAUX_B_9CF()) return (BYTE*)get_club(CLUB_SOCHAUX_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_ST_BRIEUC_B_9CF()) return (BYTE*)get_club(CLUB_ST_BRIEUC_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_STRASBOURG_B_9CF()) return (BYTE*)get_club(CLUB_STRASBOURG_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_TOULOUSE_B_9CF()) return (BYTE*)get_club(CLUB_TOULOUSE_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_AVRANCHES_B_9CF()) return (BYTE*)get_club(CLUB_AVRANCHES_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_BOULOGNE_B_9CF()) return (BYTE*)get_club(CLUB_BOULOGNE_9CF());
-		if ((DWORD)to_check->ClubID == CLUB_ORLEANS_B_9CF()) return (BYTE*)get_club(CLUB_ORLEANS_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_TROYES_B_9CF()) return (BYTE*)get_club(CLUB_TROYES_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_VALENCIENNES_B_9CF()) return (BYTE*)get_club(CLUB_VALENCIENNES_9CF());
+	}
+	else if (to_check->ClubNation->NationID == NATION_CROATIA_9CF()) {
+		if ((DWORD)to_check->ClubID == CLUB_DINAMO_ZAGREB_II_9CF()) return (BYTE*)get_club(CLUB_DINAMO_ZAGREB_9CF());
+	}
+	else if (to_check->ClubNation->NationID == NATION_IRAN_9CF()) {
+		if ((DWORD)to_check->ClubID == CLUB_ESTEGHLAL_B_9CF()) return (BYTE*)get_club(CLUB_ESTEGHLAL_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_FOOLAD_B_9CF()) return (BYTE*)get_club(CLUB_FOOLAD_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_SEPAHAN_B_9CF()) return (BYTE*)get_club(CLUB_SEPAHAN_9CF());
 	}
 
 	// default case if none found

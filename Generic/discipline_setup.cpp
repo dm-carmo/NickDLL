@@ -424,6 +424,14 @@ void replacement_55D420(BYTE* _this, int* a2) {
 		pMem[idx++] = 0;
 	}
 
+	dMem = (BYTE*)cm0102_new(0x23);
+	if (dMem) rb_concacaf_init(dMem, a2);
+	pMem[idx++] = (DWORD)dMem;
+
+	dMem = (BYTE*)cm0102_new(0x23);
+	if (dMem) rb_africa_init(dMem, a2);
+	pMem[idx++] = (DWORD)dMem;
+
 	if (get_country(NATION_IRAN_9CF())->NationLeagueSelected) {
 		dMem = (BYTE*)cm0102_new(0x23);
 		if (dMem) rb_iran_init(dMem, a2);
@@ -433,14 +441,6 @@ void replacement_55D420(BYTE* _this, int* a2) {
 	{
 		pMem[idx++] = 0;
 	}
-
-	dMem = (BYTE*)cm0102_new(0x23);
-	if (dMem) rb_concacaf_init(dMem, a2);
-	pMem[idx++] = (DWORD)dMem;
-
-	dMem = (BYTE*)cm0102_new(0x23);
-	if (dMem) rb_africa_init(dMem, a2);
-	pMem[idx++] = (DWORD)dMem;
 }
 
 void __declspec(naked) replacement_55D420_c()
