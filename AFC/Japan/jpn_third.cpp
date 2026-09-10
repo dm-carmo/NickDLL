@@ -287,7 +287,6 @@ DWORD jpn_third_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		return (DWORD)pMem;
 	}
 	else if (stage_idx == 0) {
-
 		if (a5)
 			*a5 = 0;
 		BYTE* pMem = NULL;

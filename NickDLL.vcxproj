@@ -138,6 +138,11 @@
     <ClCompile Include="AFC\afc_champions_league_2.cpp" />
     <ClCompile Include="AFC\afc_champions_league_elite.cpp" />
     <ClCompile Include="AFC\afc_club_setup.cpp" />
+    <ClCompile Include="AFC\Iran\irn_cup.cpp" />
+    <ClCompile Include="AFC\Iran\irn_first.cpp" />
+    <ClCompile Include="AFC\Iran\irn_second.cpp" />
+    <ClCompile Include="AFC\Iran\irn_setup.cpp" />
+    <ClCompile Include="AFC\Iran\irn_super.cpp" />
     <ClCompile Include="CONMEBOL\Argentina\arg_champ_cup.cpp" />
     <ClCompile Include="CONMEBOL\Argentina\arg_cup.cpp" />
     <ClCompile Include="CONMEBOL\Argentina\arg_first.cpp" />
@@ -452,6 +457,11 @@
     <ClInclude Include="AFC\afc_champions_league_2.h" />
     <ClInclude Include="AFC\afc_champions_league_elite.h" />
     <ClInclude Include="AFC\afc_club_setup.h" />
+    <ClInclude Include="AFC\Iran\irn_cup.h" />
+    <ClInclude Include="AFC\Iran\irn_first.h" />
+    <ClInclude Include="AFC\Iran\irn_second.h" />
+    <ClInclude Include="AFC\Iran\irn_setup.h" />
+    <ClInclude Include="AFC\Iran\irn_super.h" />
     <ClInclude Include="CONMEBOL\Argentina\arg_champ_cup.h" />
     <ClInclude Include="CONMEBOL\Argentina\arg_cup.h" />
     <ClInclude Include="CONMEBOL\Argentina\arg_first.h" />

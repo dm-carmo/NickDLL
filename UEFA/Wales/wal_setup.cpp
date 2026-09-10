@@ -12,7 +12,6 @@
 DWORD* wal_rules_vtable = (DWORD*)0x970A9C;
 
 DWORD wal_setup_c(playable_nation_data* nation_data) {
-	
 	nation_data->contract_start_day = 15;
 	nation_data->contract_start_month = July;
 	nation_data->contract_start_year = *current_year;

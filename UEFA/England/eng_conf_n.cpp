@@ -1,4 +1,3 @@
-#pragma warning (disable : 4733)
 #include <windows.h>
 #include "Helpers\generic_functions.h"
 #include "Helpers\constants.h"

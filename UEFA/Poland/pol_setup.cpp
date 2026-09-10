@@ -13,7 +13,6 @@
 DWORD* pol_rules_vtable = (DWORD*)0x96E61C;
 
 DWORD pol_setup_c(playable_nation_data* nation_data) {
-	
 	nation_data->contract_start_day = 17;
 	nation_data->contract_start_month = July;
 	nation_data->contract_start_year = *current_year;

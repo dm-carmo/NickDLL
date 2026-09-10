@@ -151,6 +151,8 @@ void Setup()
 	setup_sui_nation();
 	dprintf("New nation: Serbia\n");
 	setup_srb_nation();
+	dprintf("New nation: Iran\n");
+	setup_irn_nation();
 	dprintf("------------------------------\n");
 
 	dprintf("Applying FIFA changes (World Cup)\n");

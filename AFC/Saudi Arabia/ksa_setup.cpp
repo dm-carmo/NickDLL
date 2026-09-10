@@ -11,7 +11,6 @@
 vtable* ksa_rules_vtable = new vtable((BYTE*)0x96F340, 0x34);
 
 DWORD ksa_setup_c(playable_nation_data* nation_data) {
-
 	nation_data->contract_start_day = 15;
 	nation_data->contract_start_month = August;
 	nation_data->contract_start_year = *current_year;

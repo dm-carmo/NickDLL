@@ -13,7 +13,6 @@
 DWORD* den_rules_vtable = (DWORD*)0x969860;
 
 DWORD den_setup_c(playable_nation_data* nation_data) {
-	
 	nation_data->contract_start_day = 14;
 	nation_data->contract_start_month = July;
 	nation_data->contract_start_year = *current_year;

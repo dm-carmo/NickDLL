@@ -9,7 +9,6 @@
 DWORD* aus_rules_vtable = (DWORD*)0x967830;
 
 DWORD aus_setup_c(playable_nation_data* nation_data) {
-	
 	nation_data->contract_start_day = 1;
 	nation_data->contract_start_month = August;
 	nation_data->contract_start_year = *current_year;

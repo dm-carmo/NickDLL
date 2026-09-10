@@ -1,4 +1,3 @@
-#pragma warning (disable : 4733)
 #include <windows.h>
 #include "Helpers\generic_functions.h"
 #include "Helpers\constants.h"
@@ -441,7 +440,6 @@ void __declspec(naked) sco_lowland_update_c()
 }
 
 void sco_lowland_awards_teams(BYTE* _this, DWORD** team_list, WORD* total_teams) {
-
 	comp_stats* comp_data = (comp_stats*)_this;
 	*total_teams = 33;
 	if (comp_data->year > 2026) (*total_teams)--;

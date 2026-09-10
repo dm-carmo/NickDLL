@@ -1922,7 +1922,6 @@ void concacaf_nations_league_init(BYTE* _this, WORD year, cm3_club_comps* comp) 
 }
 
 void setup_concacaf_nations_league() {
-
 	char* lge_b_finals = "League B Finals";
 	char* lge_b_finals_short = "Lge B Finals";
 	WriteDWORD(0x4B58B8 + 1, (DWORD)&lge_b_finals[0]);

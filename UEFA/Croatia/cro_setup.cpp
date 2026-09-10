@@ -13,7 +13,6 @@
 DWORD* cro_rules_vtable = (DWORD*)0x969394;
 
 DWORD cro_setup_c(playable_nation_data* nation_data) {
-	
 	nation_data->contract_start_day = 1;
 	nation_data->contract_start_month = August;
 	nation_data->contract_start_year = *current_year;

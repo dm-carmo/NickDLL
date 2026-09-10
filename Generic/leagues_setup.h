@@ -1,6 +1,7 @@
 #pragma once
 
 #include "AFC\Australia\aus_setup.h"
+#include "AFC\Iran\irn_setup.h"
 #include "AFC\Japan\jpn_setup.h"
 #include "AFC\Saudi Arabia\ksa_setup.h"
 #include "AFC\South Korea\kor_setup.h"

@@ -302,7 +302,6 @@ void cro_second_playoffs_c(BYTE* _this) {
 	long current = comp_data->current_stage;
 	long max = comp_data->num_stages;
 	if (current < max - 1) {
-
 		BYTE* cro_third = get_loaded_league(CRO_THIRD_9CF());
 		DWORD v1 = *(DWORD*)cro_third;
 		char ret = (*(int(__thiscall**)(BYTE*, int, int))(v1 + 0x10))(cro_third, 0, 1);

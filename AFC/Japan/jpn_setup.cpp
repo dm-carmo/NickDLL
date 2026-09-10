@@ -14,7 +14,6 @@
 DWORD* jpn_rules_vtable = (DWORD*)0x96CCFC;
 
 DWORD jpn_setup_c(playable_nation_data* nation_data) {
-
 	nation_data->contract_start_day = 6;
 	nation_data->contract_start_month = August;
 	nation_data->contract_start_year = *current_year;

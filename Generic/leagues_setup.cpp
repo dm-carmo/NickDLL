@@ -4,7 +4,7 @@
 #include "Helpers\9cf_constants.h"
 #include "leagues_setup.h"
 
-int replacement_667150() {
+int init_leagues_list() {
 	int idx = 0;
 	pnd_list[idx].nation = 0;
 	pnd_list[idx].continent = 0;
@@ -509,6 +509,17 @@ int replacement_667150() {
 	pnd_list[idx].main_cup = get_comp(SRB_CUP_9CF());
 	idx++;
 
+	cm_date = new BYTE[8];
+	pnd_list[idx].nation = get_country(NATION_IRAN_9CF());
+	pnd_list[idx].setup_function_addr = (DWORD)&irn_setup_c;
+	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
+	convert_to_cm_date(pnd_list[idx].end_date, 13, June, *current_year, -1);
+	pnd_list[idx].updates_in_june = 1;
+	convert_to_cm_date(cm_date, 20, June, START_YEAR, -1);
+	pnd_list[idx].update_day = *(WORD*)(cm_date);
+	pnd_list[idx].main_cup = get_comp(IRN_CUP_9CF());
+	idx++;
+
 	return 1;
 }
 
@@ -641,7 +652,7 @@ extern "C" _declspec(naked) void inject_league_restructure_init()
 }
 
 void setup_leagues_setup() {
-	PatchFunction(0x667150, (DWORD)&replacement_667150);
+	PatchFunction(0x667150, (DWORD)&init_leagues_list);
 	PatchFunction(0x828389, (DWORD)inject_league_restructure_init);
 	// fix for the extra continent (Africa)
 	WriteBytes(0x48df27, 1, 8);

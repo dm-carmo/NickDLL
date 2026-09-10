@@ -9,7 +9,6 @@
 #include "Helpers\constants.h"
 
 DWORD uefa_club_setup_c(playable_nation_data* nation_data) {
-
 	nation_data->contract_start_day = 23;
 	nation_data->contract_start_month = June;
 	nation_data->contract_start_year = *current_year;

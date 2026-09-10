@@ -951,6 +951,21 @@
     <ClCompile Include="UEFA\Serbia\srb_west.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AFC\Iran\irn_setup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AFC\Iran\irn_first.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AFC\Iran\irn_second.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AFC\Iran\irn_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AFC\Iran\irn_super.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -1899,6 +1914,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="UEFA\Serbia\srb_west.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AFC\Iran\irn_setup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AFC\Iran\irn_first.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AFC\Iran\irn_second.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AFC\Iran\irn_cup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AFC\Iran\irn_super.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

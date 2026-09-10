@@ -10,7 +10,6 @@
 vtable* cze_rules_vtable = new vtable((BYTE*)0x969394, 0x34);
 
 DWORD cze_setup_c(playable_nation_data* nation_data) {
-
 	nation_data->contract_start_day = 8;
 	nation_data->contract_start_month = July;
 	nation_data->contract_start_year = *current_year;

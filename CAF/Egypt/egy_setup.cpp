@@ -12,7 +12,6 @@
 vtable* egy_rules_vtable = new vtable((BYTE*)0x96CFEC, 0x34);
 
 DWORD egy_setup_c(playable_nation_data* nation_data) {
-
 	nation_data->contract_start_day = 15;
 	nation_data->contract_start_month = July;
 	nation_data->contract_start_year = *current_year;

@@ -7,7 +7,6 @@
 #include "afc_challenge_league.h"
 
 DWORD afc_club_setup_c(playable_nation_data* nation_data) {
-	
 	nation_data->contract_start_day = 1;
 	nation_data->contract_start_month = June;
 	nation_data->contract_start_year = *current_year;
