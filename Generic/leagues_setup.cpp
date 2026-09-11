@@ -820,5 +820,16 @@ void setup_leagues_setup() {
 		WriteDWORD(d, pnd_count_calc - 2);
 	}
 
+	// fix game crash when trying to select more than 35 playable nations
+	DWORD default_offset = 0x1d08;
+	if ((pnd_count - 9) > 35) {
+		default_offset += (0xd4 * (pnd_count - 9 - 35));
+		WriteDWORD(0x81e8df, default_offset);
+		WriteDWORD(0x81e913, default_offset + 24);
+		WriteDWORD(0x81eac9, default_offset + 8);
+		WriteDWORD(0x81eae6, default_offset);
+		WriteDWORD(0x81eaf3, default_offset + 12);
+	}
+
 	dprintf("Added %d playable nations!\n", pnd_count_calc - 9);
 }
