@@ -68,7 +68,8 @@ void world_cup_quals_uefa_subs(BYTE* _this)
 	comp_stats* comp_data = (comp_stats*)_this;
 	WORD num_hosts = get_comp_hosts_in_continent(_this, FIFA_WORLD_CUP_9CF(), EUROPE_9CF(), 0, 0);
 
-	comp_data->n_rounds = 0;
+	*((WORD*)(_this + 0xA7)) = 6;
+	comp_data->n_rounds = 1;
 	comp_data->pts_for_win = 3;
 	comp_data->pts_for_draw = 1;
 	comp_data->f67 = 2;
@@ -542,9 +543,9 @@ void world_cup_quals_uefa_setup_groups_a(BYTE* _this, BYTE idx) {
 
 	WORD year = data->year;
 	BYTE* pStage = (BYTE*)cm0102_new(0xEE);
-	create_league_stage_data(pStage, _this, num_teams, pTeams, 0, (DWORD)(data->competition_db), 0, num_rounds,
+	create_league_stage_data(pStage, _this, num_teams, pTeams, 1, (DWORD)(data->competition_db), 0, num_rounds,
 		data->pts_for_win, data->pts_for_draw, data->f196, &data->tiebreaker_1, &data->promotions,
-		year, idx, stage_name_id, data->f81, 2, 0, data->f217, -1, 0, 2);
+		year, idx, stage_name_id, data->f81, 2, 0, data->f217, num_rounds, 0, 2);
 
 	world_cup_quals_uefa_create_league_a_matchups(_this, pStage, clubs, idx);
 
@@ -588,9 +589,9 @@ void world_cup_quals_uefa_setup_groups_b(BYTE* _this, BYTE idx) {
 			year, idx, stage_name_id, data->f81, 2, 0, data->f217, -1, 0, 2);
 	}
 	else {
-		create_league_stage_data(pStage, _this, num_teams, pTeams, 0, (DWORD)(data->competition_db), 0, num_rounds,
+		create_league_stage_data(pStage, _this, num_teams, pTeams, 1, (DWORD)(data->competition_db), 0, num_rounds,
 			data->pts_for_win, data->pts_for_draw, data->f196, &data->tiebreaker_1, &prom_rel[0],
-			year, idx, stage_name_id, data->f81, 2, 0, data->f217, -1, 0, 2);
+			year, idx, stage_name_id, data->f81, 2, 0, data->f217, num_rounds, 0, 2);
 
 		*((WORD*)(pStage + 0xA7)) = num_rounds;
 		comp_stats* stage_data = (comp_stats*)pStage;
@@ -797,7 +798,7 @@ void world_cup_quals_uefa_init2(BYTE* _this, DWORD current_date, int a3) {
 			data->f69 = 1;
 			world_cup_quals_uefa_all_teams(_this);
 			world_cup_quals_uefa_setup_first_group(_this);
-			sub_6835C0(_this);
+			//sub_6835C0(_this);
 			sub_6827D0(_this, 0);
 			for (BYTE i = 0; i < 2; i++) {
 				world_cup_quals_uefa_setup_groups_a(_this, i);

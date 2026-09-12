@@ -103,7 +103,7 @@ void uefa_nations_league_subs(BYTE* _this)
 {
 	comp_stats* comp_data = (comp_stats*)_this;
 
-	comp_data->n_rounds = 0;
+	comp_data->n_rounds = 1;
 	comp_data->pts_for_win = 3;
 	comp_data->pts_for_draw = 1;
 	comp_data->f67 = 2;
@@ -782,9 +782,9 @@ void uefa_nations_league_setup_groups_a(BYTE* _this, BYTE idx) {
 
 	WORD year = data->year;
 	BYTE* pStage = (BYTE*)cm0102_new(0xEE);
-	create_league_stage_data(pStage, _this, num_teams, pTeams, 0, (DWORD)(data->competition_db), 0, num_rounds,
+	create_league_stage_data(pStage, _this, num_teams, pTeams, 1, (DWORD)(data->competition_db), 0, num_rounds,
 		data->pts_for_win, data->pts_for_draw, data->f196, &data->tiebreaker_1, &data->promotions,
-		year, idx, stage_name_id, data->f81, 2, 0, data->f217, -1, 0, 2);
+		year, idx, stage_name_id, data->f81, 2, 0, data->f217, num_rounds, 0, 2);
 
 	uefa_nations_league_create_matchups(_this, pStage, clubs, idx);
 
@@ -819,9 +819,9 @@ void uefa_nations_league_setup_groups_b(BYTE* _this, BYTE idx) {
 	WORD year = data->year;
 	WORD f217 = 0x2;
 	BYTE* pStage = (BYTE*)cm0102_new(0xEE);
-	create_league_stage_data(pStage, _this, num_teams, pTeams, 0, (DWORD)(data->competition_db), 0, num_rounds,
+	create_league_stage_data(pStage, _this, num_teams, pTeams, 1, (DWORD)(data->competition_db), 0, num_rounds,
 		data->pts_for_win, data->pts_for_draw, data->f196, &data->tiebreaker_1, &prom_rel[0],
-		year, idx, stage_name_id, data->f81, 2, 0, f217, -1, 0, 2);
+		year, idx, stage_name_id, data->f81, 2, 0, f217, num_rounds, 0, 2);
 
 	uefa_nations_league_create_matchups(_this, pStage, clubs, idx);
 
@@ -856,9 +856,9 @@ void uefa_nations_league_setup_groups_c(BYTE* _this, BYTE idx) {
 	WORD year = data->year;
 	WORD f217 = 0x2;
 	BYTE* pStage = (BYTE*)cm0102_new(0xEE);
-	create_league_stage_data(pStage, _this, num_teams, pTeams, 0, (DWORD)(data->competition_db), 0, num_rounds,
+	create_league_stage_data(pStage, _this, num_teams, pTeams, 1, (DWORD)(data->competition_db), 0, num_rounds,
 		data->pts_for_win, data->pts_for_draw, data->f196, &data->tiebreaker_1, &prom_rel[0],
-		year, idx, stage_name_id, data->f81, 2, 0, f217, -1, 0, 2);
+		year, idx, stage_name_id, data->f81, 2, 0, f217, num_rounds, 0, 2);
 
 	uefa_nations_league_create_matchups(_this, pStage, clubs, idx);
 
@@ -952,7 +952,7 @@ void uefa_nations_league_init2(BYTE* _this, DWORD current_date, int a3) {
 			data->f69 = 1;
 			uefa_nations_league_all_teams(_this);
 			uefa_nations_league_setup_first_group(_this);
-			sub_6835C0(_this);
+			//sub_6835C0(_this);
 			sub_6827D0(_this, 0);
 			for (BYTE i = 0; i < 2; i++) {
 				uefa_nations_league_setup_groups_a(_this, i);

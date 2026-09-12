@@ -381,7 +381,7 @@ void concacaf_champions_cup_qualifier_teams(BYTE* _this) {
 	DWORD total_count = data->special_nteams_seedings;
 	for (WORD i = 0; i < total_count; i++) {
 		char seed = qualifiers[i].seeding;
-		if (seed == 0) {
+		if (seed == 9) {
 			teams[count].club = qualifiers[i].club;
 			teams[count].seeding = 0;
 			teams[count].f6 = 0;

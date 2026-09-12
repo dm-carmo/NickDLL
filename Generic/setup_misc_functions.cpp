@@ -1043,47 +1043,6 @@ void __declspec(naked) brazil_regens_common_names_3()
 	}
 }
 
-// make positions unclickable on results page to avoid a crash
-void __declspec(naked) quick_uefa_fix_1() {
-	__asm {
-		mov eax, dword ptr ds : [esi + 0x14]
-		mov ecx, dword ptr ds : [eax]
-		cmp ecx, dword ptr ds : [0x9CF6E8]
-		je special_uefa_tables_1
-		cmp ecx, dword ptr ds : [0x9CF6F0]
-		je special_uefa_tables_1
-		cmp ecx, dword ptr ds : [0x9CF6EC]
-		je special_uefa_tables_1
-		cmp ecx, dword ptr ds : [0x9CF7B4]
-		je special_uefa_tables_1
-		push 0x49dbe0
-		ret
-		special_uefa_tables_1 :
-		push 0x49DC9B
-			ret
-	}
-}
-
-void __declspec(naked) quick_uefa_fix_2() {
-	__asm {
-		mov eax, dword ptr ds : [eax + 0x14]
-		mov ecx, dword ptr ds : [eax]
-		cmp ecx, dword ptr ds : [0x9CF6E8]
-		je special_uefa_tables_2
-		cmp ecx, dword ptr ds : [0x9CF6F0]
-		je special_uefa_tables_2
-		cmp ecx, dword ptr ds : [0x9CF6EC]
-		je special_uefa_tables_2
-		cmp ecx, dword ptr ds : [0x9CF7B4]
-		je special_uefa_tables_2
-		push 0x49e65a
-		ret
-		special_uefa_tables_2 :
-		push 0x49E75D
-			ret
-	}
-}
-
 char* playoff_winner = "Playoff Winner";
 void __declspec(naked) playoff_winner_in_history() {
 	__asm {
@@ -1727,8 +1686,6 @@ void setup_misc_functions()
 	PatchFunction(0x460d75, (DWORD)&show_club_country_based);
 	PatchFunction(0x8c5bd2, (DWORD)&player_gain_nationality_c);
 	PatchFunction(0x58CF70, (DWORD)&update_fifa_coefficients_c);
-	PatchFunction(0x49dbcd, (DWORD)&quick_uefa_fix_1);
-	PatchFunction(0x49e647, (DWORD)&quick_uefa_fix_2);
 	PatchFunction(0x81e9be, (DWORD)&print_country_date_info_start_c);
 	char* select_start = "Select Start Date";
 	WriteDWORD(0x81e959, (DWORD)&select_start[0]);

@@ -87,7 +87,7 @@ DWORD gold_cup_quals_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WOR
 		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 4), year, Monday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 7), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 12), year, Thursday, Afternoon);
 		FillFixtureDetails(pMem, fixture_id++, PreliminaryRound, 4, NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 10, 8, 4, 8, 0, 0, 2, 5);
 
@@ -282,7 +282,7 @@ void gold_cup_quals_init2(BYTE* _this, DWORD current_date, int a3) {
 	comp_stats* data = (comp_stats*)_this;
 	if (!data->f69) {
 		BYTE* cm_date = new BYTE[8];
-		convert_to_cm_date(cm_date, 11, October, data->year, Monday);
+		convert_to_cm_date(cm_date, 7, October, data->year, Wednesday);
 		WORD date_day = *(WORD*)(cm_date);
 		WORD date_year = *(WORD*)(cm_date + 2);
 		if (date_day == *(WORD*)(current_date) && *(WORD*)(current_date + 2) == date_year) {

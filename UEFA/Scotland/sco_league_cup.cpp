@@ -389,6 +389,7 @@ int sco_league_cup_all_teams(BYTE* _this) {
 		if (!vector_contains_element(vec_uefa, club)) vec.push_back(club);
 	}
 
+	sort(vec_uefa.begin(), vec_uefa.end(), compareClubLastDivPosUEFAInv);
 	for (cm3_clubs* club : vec_uefa)
 	{
 		vec.push_back(club);

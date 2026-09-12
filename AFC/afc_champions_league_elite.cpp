@@ -809,8 +809,8 @@ void afc_champions_league_elite_group_stage_setup(BYTE* _this) {
 
 		WORD year = comp_data->year;
 		BYTE* pStage = (BYTE*)cm0102_new(0xEE);
-		create_league_stage_data(pStage, _this, group_teams, pTeams, 0, (DWORD)(comp_data->competition_db), 0, num_rounds,
-			3, 1, 8, &tiebreaks[0], &prom_rel[0], year, al + stage_num, stage_name_id, 0xf, 2, 0, 0x28, -1, 0, 2);
+		create_league_stage_data(pStage, _this, group_teams, pTeams, 1, (DWORD)(comp_data->competition_db), 0, num_rounds,
+			3, 1, 8, &tiebreaks[0], &prom_rel[0], year, al + stage_num, stage_name_id, 0xf, 2, 0, 0x28, num_rounds, 0, 2);
 
 		*((WORD*)(pStage + 0xA7)) = num_rounds;
 		comp_stats* stage_data = (comp_stats*)pStage;

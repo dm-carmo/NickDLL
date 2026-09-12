@@ -764,6 +764,30 @@ bool compareClubLastDivPosInv(cm3_clubs* c1, cm3_clubs* c2)
 	return compareClubLastDivPos(c2, c1);
 }
 
+bool compareClubLastDivPosUEFA(cm3_clubs* c1, cm3_clubs* c2)
+{
+	if (c1->ClubEuroFlag < 0 || c2->ClubEuroFlag < 0) return compareClubLastDivPos(c1, c2);
+	short c1_euro_comp = 10;
+	short c2_euro_comp = 10;
+
+	if (c1->ClubEuroFlag == UEFA_CHAMPIONS_LEAGUE_9CF()) c1_euro_comp = 1;
+	else if (c1->ClubEuroFlag == UEFA_EUROPA_LEAGUE_9CF()) c1_euro_comp = 2;
+	else if (c1->ClubEuroFlag == UEFA_CONFERENCE_LEAGUE_9CF()) c1_euro_comp = 3;
+
+	if (c2->ClubEuroFlag == UEFA_CHAMPIONS_LEAGUE_9CF()) c2_euro_comp = 1;
+	else if (c2->ClubEuroFlag == UEFA_EUROPA_LEAGUE_9CF()) c2_euro_comp = 2;
+	else if (c2->ClubEuroFlag == UEFA_CONFERENCE_LEAGUE_9CF()) c2_euro_comp = 3;
+
+	if (c1_euro_comp != c2_euro_comp) return (c1_euro_comp < c2_euro_comp);
+	if (c1->ClubEuroSeeding != c2->ClubEuroSeeding) return (c1->ClubEuroSeeding < c2->ClubEuroSeeding);
+	return compareClubLastDivPos(c1, c2);
+}
+
+bool compareClubLastDivPosUEFAInv(cm3_clubs* c1, cm3_clubs* c2)
+{
+	return compareClubLastDivPosUEFA(c2, c1);
+}
+
 bool compareClubLatitude(cm3_clubs* c1, cm3_clubs* c2)
 {
 	double l1 = 0, l2 = 0;

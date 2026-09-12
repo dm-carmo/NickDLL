@@ -82,6 +82,8 @@ bool compareClubRep(cm3_clubs* c1, cm3_clubs* c2);
 bool compareClubRepInv(cm3_clubs* c1, cm3_clubs* c2);
 bool compareClubLastDivPos(cm3_clubs* c1, cm3_clubs* c2);
 bool compareClubLastDivPosInv(cm3_clubs* c1, cm3_clubs* c2);
+bool compareClubLastDivPosUEFA(cm3_clubs* c1, cm3_clubs* c2);
+bool compareClubLastDivPosUEFAInv(cm3_clubs* c1, cm3_clubs* c2);
 bool compareClubLatitude(cm3_clubs* c1, cm3_clubs* c2);
 bool compareClubLatitudeInv(cm3_clubs* c1, cm3_clubs* c2);
 bool compareClubLongitude(cm3_clubs* c1, cm3_clubs* c2);

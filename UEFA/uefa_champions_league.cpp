@@ -217,22 +217,22 @@ DWORD uefa_champions_league_fixtures(BYTE* _this, char stage_idx, WORD* num_roun
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 2, 27), year, Friday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 11), year, Wednesday, Evening);
 		AddPlayoffTVFixture(pMem, fixture_id, 0);
-		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 8, 16, 8, 16, 0, 0, 2, 7, prizeMoneyFile.GetInt("uefa_ucl_r16_qualify"));
+		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 8, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 8, 16, 8, 16, 0, 0, 2, 7, prizeMoneyFile.GetInt("uefa_ucl_r16_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 18), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 8), year, Wednesday, Evening);
 		AddPlayoffTVFixture(pMem, fixture_id, 0);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 8, 8, 4, 0, 0, 0, 2, 7, prizeMoneyFile.GetInt("uefa_ucl_qtr_qualify"));
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 8, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 8, 8, 4, 0, 0, 0, 2, 7, prizeMoneyFile.GetInt("uefa_ucl_qtr_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 4, 16), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 29), year, Wednesday, Evening);
 		AddPlayoffTVFixture(pMem, fixture_id, 0);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 8, 4, 2, 0, 0, 0, 2, 7, prizeMoneyFile.GetInt("uefa_ucl_semi_qualify"));
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 8, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 8, 4, 2, 0, 0, 0, 2, 7, prizeMoneyFile.GetInt("uefa_ucl_semi_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 7), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 6, 4), year, Saturday, Evening, NationalStadium);
 		AddPlayoffTVFixture(pMem, fixture_id, 0);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, Penalties | ExtraTime, NoTiebreak, 8, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("uefa_ucl_final_win"), prizeMoneyFile.GetInt("uefa_ucl_final_lose"));
+		FillFixtureDetails(pMem, fixture_id++, Final, 8, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 8, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("uefa_ucl_final_win"), prizeMoneyFile.GetInt("uefa_ucl_final_lose"));
 
 		return (DWORD)pMem;
 	}
@@ -824,8 +824,8 @@ void uefa_champions_league_group_stage_setup(BYTE* _this) {
 
 	WORD year = comp_data->year;
 	BYTE* pStage = (BYTE*)cm0102_new(0xEE);
-	create_league_stage_data(pStage, _this, group_teams, pTeams, 0, (DWORD)(comp_data->competition_db), 0, num_rounds,
-		3, 1, 8, &tiebreaks[0], &prom_rel[0], year, stage_num, stage_name_id, 0xf, 2, 0, 0x28, -1, 0, 2);
+	create_league_stage_data(pStage, _this, group_teams, pTeams, 1, (DWORD)(comp_data->competition_db), 0, num_rounds,
+		3, 1, 8, &tiebreaks[0], &prom_rel[0], year, stage_num, stage_name_id, 0xf, 2, 0, 0x28, num_rounds, 0, 2);
 
 	*((WORD*)(pStage + 0xA7)) = num_rounds;
 	comp_stats* stage_data = (comp_stats*)pStage;
@@ -1077,6 +1077,7 @@ void uefa_champions_league_final_stage_setup(BYTE* _this) {
 	DWORD* pTeams = (DWORD*)cm0102_malloc(playoff_teams * 4);
 	vector<cm3_clubs*> clubs;
 	BYTE team_order[16] = { 0 };
+	BYTE seeds[16] = { 0 };
 
 	BYTE shuf_ord[2] = { 0,8 };
 	shuffle(begin(shuf_ord), end(shuf_ord), rng);
@@ -1144,6 +1145,7 @@ void uefa_champions_league_final_stage_setup(BYTE* _this) {
 	for (int i = 0; i < playoff_teams; i++)
 	{
 		*((DWORD*)(&pTeams[team_order[i]])) = (DWORD)clubs[i];
+		seeds[team_order[i]] = i;
 	}
 
 	// for each team in pteams:
@@ -1155,7 +1157,7 @@ void uefa_champions_league_final_stage_setup(BYTE* _this) {
 	DWORD v1 = *(DWORD*)_this;
 	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, char, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
 	BYTE* new_stage = (BYTE*)cm0102_new(0xB2);
-	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)(comp_data->competition_db), pFixtures, year, stage_num, 2, stage_name_id, 0x14, 1, 0, 0, 0);
+	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)(comp_data->competition_db), pFixtures, year, stage_num, 2, stage_name_id, 0x14, 0, 0, 0, &seeds[0]);
 	DWORD* stages_arr = comp_data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
 	sub_51C800(new_stage, 0);

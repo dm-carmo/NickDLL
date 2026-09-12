@@ -85,7 +85,8 @@ void sco_challenge_cup_subs(BYTE* _this)
 {
 	comp_stats* comp_data = (comp_stats*)_this;
 
-	comp_data->n_rounds = 0;
+	*((WORD*)(_this + 0xA7)) = 6;
+	comp_data->n_rounds = 1;
 	comp_data->pts_for_win = 3;
 	comp_data->pts_for_draw = 1;
 	comp_data->f196 = 4;

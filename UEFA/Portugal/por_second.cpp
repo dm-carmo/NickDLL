@@ -332,9 +332,9 @@ DWORD por_second_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 18), year, Monday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 23), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, Playoff, 0, NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 5, 2, 1, 2, 0, 0, 2, 15);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 25), year, Monday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 30), year, Saturday);
+		FillFixtureDetails(pMem, fixture_id++, Playoff, 0, NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 5, 2, 1, 2, 0, 0, 2, 8);
 
 		return (DWORD)pMem;
 	}
