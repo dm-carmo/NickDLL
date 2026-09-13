@@ -76,7 +76,7 @@ void ita_c_supercup_subs(BYTE* _this)
 	comp_data->promotes_to = -1;
 	comp_data->relegates_to = -1;
 
-	comp_data->f82 = 2;
+	//comp_data->f82 = 2;
 	comp_data->max_bench = 9;
 	comp_data->max_subs = 5;
 

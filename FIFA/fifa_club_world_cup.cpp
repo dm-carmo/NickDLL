@@ -94,7 +94,7 @@ void fifa_club_world_cup_subs(BYTE* _this)
 	comp_data->tiebreaker_1 = CurrentPositionTiebreaker;
 	comp_data->tiebreaker_2 = GoalDifferenceTiebreaker;
 	comp_data->tiebreaker_3 = GoalsForTiebreaker;
-	comp_data->f82 = 3;
+	//comp_data->f82 = 3;
 
 	comp_data->promotions = 2;
 	comp_data->prom_playoff = 0;

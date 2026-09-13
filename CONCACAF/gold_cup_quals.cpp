@@ -778,7 +778,7 @@ void gold_cup_quals_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->promotes_to = -1;
 	data->relegates_to = -1;
 	data->rules = RulesInternational;
-	data->f82 = 3;
+	//data->f82 = 3;
 	data->max_bench = 9;
 	data->max_subs = 5;
 	data->year = year;

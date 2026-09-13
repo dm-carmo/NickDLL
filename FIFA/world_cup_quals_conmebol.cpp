@@ -268,7 +268,7 @@ void world_cup_quals_conmebol_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->promotes_to = WORLD_CUP_OFC_QUALIFYING_9CF();
 	data->relegates_to = WORLD_CUP_CAF_QUALIFYING_9CF();
 	data->rules = RulesInternational;
-	data->f82 = 3;
+	//data->f82 = 3;
 	data->year = year - 1;
 	while (data->year % 4 != 3) data->year++;
 	data->f81 = 0xf;

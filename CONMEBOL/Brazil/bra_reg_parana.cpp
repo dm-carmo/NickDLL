@@ -128,7 +128,7 @@ void bra_reg_parana_subs(BYTE* _this)
 	comp_data->relegates_to = -1;
 
 	comp_data->f217 = 0x2;
-	comp_data->f82 = 2;
+	//comp_data->f82 = 2;
 	comp_data->max_bench = 9;
 	comp_data->max_subs = 5;
 

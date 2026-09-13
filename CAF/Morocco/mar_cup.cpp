@@ -55,7 +55,7 @@ void __declspec(naked) mar_cup_free_c()
 int mar_cup_teams(BYTE* _this) {
 	vector<cm3_clubs*> vec;
 	comp_stats* comp_data = (comp_stats*)_this;
-	WORD total_teams = 32;
+	WORD total_teams = 48;
 	BYTE* pMem = (BYTE*)cm0102_malloc(6 * total_teams);
 
 	comp_data->n_teams = total_teams;
@@ -63,9 +63,9 @@ int mar_cup_teams(BYTE* _this) {
 
 	teams_seeded* teams = (teams_seeded*)comp_data->teams_list;
 
-	// D1
-	vector<cm3_clubs*> division_clubs = find_clubs_of_comp(MAR_FIRST_9CF());
-	sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPosInv);
+	// Lower
+	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_MOROCCO_9CF());
+	vector<cm3_clubs*> division_clubs = get_random_weighted_clubs(lower_clubs, 16, true);
 	for (cm3_clubs* club : division_clubs)
 	{
 		vec.push_back(club);
@@ -76,13 +76,13 @@ int mar_cup_teams(BYTE* _this) {
 	{
 		vec.push_back(club);
 	}
-	// Lower
-	//vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_MOROCCO_9CF());
-	//division_clubs = get_random_weighted_clubs(lower_clubs, 16, true);
-	//for (cm3_clubs* club : division_clubs)
-	//{
-	//	vec.push_back(club);
-	//}
+	// D1
+	division_clubs = find_clubs_of_comp(MAR_FIRST_9CF());
+	//sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPosInv);
+	for (cm3_clubs* club : division_clubs)
+	{
+		vec.push_back(club);
+	}
 
 	for (DWORD i = 0; i < vec.size(); i++)
 	{
@@ -146,19 +146,19 @@ DWORD mar_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 			*a5 = 0;
 		BYTE* pMem = NULL;
 		WORD year = ((comp_stats*)_this)->year;
-		*num_rounds = 5;
+		*num_rounds = 6;
 		*stage_name_id = None;
 
 		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 1), year, Sunday);
-		//AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 16), year, Wednesday, Evening);
-		//FillFixtureDetails(pMem, fixture_id++, FirstRound, 1, Penalties, NoTiebreak, 4, 64, 32, 64, 0, 0, 1, 0);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 16), year, Wednesday, Evening);
+		FillFixtureDetails(pMem, fixture_id++, FirstRound, 1, Penalties, NoTiebreak, 4, 32, 16, 32, 0, 0, 1, 0);
 
-		//AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 17), year, Thursday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 17), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 1, 2), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, RoundOf32, 1, Penalties, NoTiebreak, 4, 32, 16, 32, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, RoundOf32, 1, Penalties, NoTiebreak, 4, 32, 16, 16, 32, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 1, 3), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 3), year, Wednesday, Evening);

@@ -94,7 +94,7 @@ void sco_challenge_cup_subs(BYTE* _this)
 	comp_data->tiebreaker_1 = GoalDifferenceTiebreaker;
 	comp_data->tiebreaker_2 = GoalsForTiebreaker;
 	comp_data->tiebreaker_3 = CurrentPositionTiebreaker;
-	comp_data->f82 = 3;
+	//comp_data->f82 = 3;
 
 	comp_data->promotions = 22;
 	comp_data->prom_playoff = 0;

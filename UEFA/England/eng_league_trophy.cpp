@@ -147,7 +147,7 @@ void eng_league_trophy_subs(BYTE* _this)
 	comp_data->tiebreaker_1 = GoalDifferenceTiebreaker;
 	comp_data->tiebreaker_2 = GoalsForTiebreaker;
 	comp_data->tiebreaker_3 = GamesWonTiebreaker;
-	comp_data->f82 = 3;
+	//comp_data->f82 = 3;
 
 	comp_data->promotions = 2;
 	comp_data->prom_playoff = 0;

@@ -94,7 +94,7 @@ void chi_cup_subs(BYTE* _this)
 	comp_data->tiebreaker_2 = GamesWonTiebreaker;
 	comp_data->tiebreaker_3 = GoalsForTiebreaker;
 	comp_data->tiebreaker_4 = GoalsForAwayTiebreaker;
-	comp_data->f82 = 3;
+	//comp_data->f82 = 3;
 
 	comp_data->promotions = 2;
 	comp_data->prom_playoff = 0;
