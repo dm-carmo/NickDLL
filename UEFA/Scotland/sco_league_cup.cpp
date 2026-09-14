@@ -304,7 +304,6 @@ int sco_league_cup_all_teams(BYTE* _this) {
 	{
 		if (club->ClubEuroFlag != -1) vec_uefa.push_back(club);
 	}
-	sort(vec_uefa.begin(), vec_uefa.end(), compareClubLastDivPosInv);
 
 	BYTE selected = get_country(NATION_SCOTLAND_9CF())->NationLeagueSelected;
 	// Highland

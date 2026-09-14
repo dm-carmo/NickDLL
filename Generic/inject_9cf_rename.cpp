@@ -470,6 +470,13 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 		if ((DWORD)to_check->ClubID == CLUB_FOOLAD_9CF()) return (BYTE*)get_club(CLUB_FOOLAD_B_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_SEPAHAN_9CF()) return (BYTE*)get_club(CLUB_SEPAHAN_B_9CF());
 	}
+	else if (to_check->ClubNation->NationID == NATION_UKRAINE_9CF()) {
+		if ((DWORD)to_check->ClubID == CLUB_KOLOS_KOVALIVKA_9CF()) return (BYTE*)get_club(CLUB_KOLOS_2_KOVALIVKA_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_NYVA_TERNOPIL_9CF()) return (BYTE*)get_club(CLUB_NYVA_2_TERNOPIL_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_OLEKSANDRIYA_9CF()) return (BYTE*)get_club(CLUB_OLEKSANDRIYA_2_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_POLISSYA_ZHYTOMYR_9CF()) return (BYTE*)get_club(CLUB_POLISSYA_2_ZHYTOMYR_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_POLTAVA_9CF()) return (BYTE*)get_club(CLUB_POLTAVA_2_9CF());
+	}
 
 	// Reserve teams check
 	if (is_main_club) *is_main_club = 0;
@@ -830,6 +837,13 @@ BYTE* check_if_reserve_team_new(cm3_clubs* to_check, DWORD* is_main_club, DWORD 
 		if ((DWORD)to_check->ClubID == CLUB_ESTEGHLAL_B_9CF()) return (BYTE*)get_club(CLUB_ESTEGHLAL_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_FOOLAD_B_9CF()) return (BYTE*)get_club(CLUB_FOOLAD_9CF());
 		if ((DWORD)to_check->ClubID == CLUB_SEPAHAN_B_9CF()) return (BYTE*)get_club(CLUB_SEPAHAN_9CF());
+	}
+	else if (to_check->ClubNation->NationID == NATION_UKRAINE_9CF()) {
+		if ((DWORD)to_check->ClubID == CLUB_KOLOS_2_KOVALIVKA_9CF()) return (BYTE*)get_club(CLUB_KOLOS_KOVALIVKA_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_NYVA_2_TERNOPIL_9CF()) return (BYTE*)get_club(CLUB_NYVA_TERNOPIL_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_OLEKSANDRIYA_2_9CF()) return (BYTE*)get_club(CLUB_OLEKSANDRIYA_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_POLISSYA_2_ZHYTOMYR_9CF()) return (BYTE*)get_club(CLUB_POLISSYA_ZHYTOMYR_9CF());
+		if ((DWORD)to_check->ClubID == CLUB_POLTAVA_2_9CF()) return (BYTE*)get_club(CLUB_POLTAVA_9CF());
 	}
 
 	// default case if none found

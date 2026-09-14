@@ -981,6 +981,18 @@
     <ClCompile Include="CAF\Morocco\mar_league_cup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="UEFA\Ukraine\ukr_setup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UEFA\Ukraine\ukr_premier.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UEFA\Ukraine\ukr_first.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UEFA\Ukraine\ukr_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -1959,6 +1971,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CAF\Morocco\mar_league_cup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UEFA\Ukraine\ukr_setup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UEFA\Ukraine\ukr_premier.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UEFA\Ukraine\ukr_first.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UEFA\Ukraine\ukr_cup.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

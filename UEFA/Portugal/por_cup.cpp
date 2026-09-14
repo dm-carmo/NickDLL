@@ -97,7 +97,6 @@ int por_cup_teams(BYTE* _this) {
 			if (club->ClubDivision && club->ClubDivision->ClubCompID == A_LOWER_9CF()) lower_teams--;
 		}
 	}
-	sort(vec_uefa.begin(), vec_uefa.end(), compareClubLastDivPosInv);
 
 	// Lower
 	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_PORTUGAL_9CF());

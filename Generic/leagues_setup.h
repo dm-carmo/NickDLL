@@ -35,6 +35,7 @@
 #include "UEFA\Sweden\swe_setup.h"
 #include "UEFA\Switzerland\sui_setup.h"
 #include "UEFA\Turkey\tur_setup.h"
+#include "UEFA\Ukraine\ukr_setup.h"
 #include "UEFA\Wales\wal_setup.h"
 
 #include "FIFA\world_cup_comps_setup.h"

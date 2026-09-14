@@ -423,7 +423,7 @@ cm3_club_comps* get_comp(DWORD compID)
 	return (compID != -1L) ? &(*club_comps)[compID] : NULL;
 }
 
-vector<cm3_clubs*> find_clubs_of_comp(DWORD comp_id, long nation_id)
+vector<cm3_clubs*> find_clubs_of_comp(DWORD comp_id, DWORD nation_id)
 {
 	vector<cm3_clubs*> ret;
 	for (DWORD i = 0; i < *clubs_count; i++)
@@ -436,7 +436,7 @@ vector<cm3_clubs*> find_clubs_of_comp(DWORD comp_id, long nation_id)
 	return ret;
 }
 
-vector<cm3_clubs*> find_clubs_of_comp_reserve_division(DWORD comp_id, long nation_id)
+vector<cm3_clubs*> find_clubs_of_comp_reserve_division(DWORD comp_id, DWORD nation_id)
 {
 	vector<cm3_clubs*> ret;
 	for (DWORD i = 0; i < *clubs_count; i++)
@@ -449,7 +449,7 @@ vector<cm3_clubs*> find_clubs_of_comp_reserve_division(DWORD comp_id, long natio
 	return ret;
 }
 
-vector<cm3_clubs*> find_clubs_of_comp_main_reserve_division(DWORD main_comp_id, DWORD reserve_comp_id, long nation_id)
+vector<cm3_clubs*> find_clubs_of_comp_main_reserve_division(DWORD main_comp_id, DWORD reserve_comp_id, DWORD nation_id)
 {
 	vector<cm3_clubs*> ret;
 	for (DWORD i = 0; i < *clubs_count; i++)
@@ -464,7 +464,7 @@ vector<cm3_clubs*> find_clubs_of_comp_main_reserve_division(DWORD main_comp_id, 
 	return ret;
 }
 
-vector<cm3_clubs*> find_clubs_of_comp_last_division(DWORD comp_id, long nation_id)
+vector<cm3_clubs*> find_clubs_of_comp_last_division(DWORD comp_id, DWORD nation_id)
 {
 	vector<cm3_clubs*> ret;
 	for (DWORD i = 0; i < *clubs_count; i++)
@@ -960,37 +960,37 @@ cm3_clubs* get_last_comp_runner_up_by_year(cm3_club_comps* comp, WORD year)
 	return NULL;
 }
 
-WORD CountNumberOfTeamsInComp(DWORD CompID)
+WORD CountNumberOfTeamsInComp(DWORD CompID, DWORD nation_id)
 {
 	WORD numberOfLeagueTeams = 0;
 	for (DWORD i = 0; i < *clubs_count; i++)
 	{
 		cm3_clubs* club = &(*clubs)[i];
-		if (club->ClubDivision && club->ClubDivision->ClubCompID == CompID)
+		if (club->ClubNation && club->ClubDivision && club->ClubDivision->ClubCompID == CompID && (nation_id == -1 || club->ClubNation->NationID == nation_id))
 			numberOfLeagueTeams++;
 	}
 	return numberOfLeagueTeams;
 }
 
-WORD CountNumberOfTeamsInReserveComp(DWORD CompID)
+WORD CountNumberOfTeamsInReserveComp(DWORD CompID, DWORD nation_id)
 {
 	WORD numberOfLeagueTeams = 0;
 	for (DWORD i = 0; i < *clubs_count; i++)
 	{
 		cm3_clubs* club = &(*clubs)[i];
-		if (club->ClubReserveDivision && club->ClubReserveDivision->ClubCompID == CompID)
+		if (club->ClubNation && club->ClubReserveDivision && club->ClubReserveDivision->ClubCompID == CompID && (nation_id == -1 || club->ClubNation->NationID == nation_id))
 			numberOfLeagueTeams++;
 	}
 	return numberOfLeagueTeams;
 }
 
-WORD CountNumberOfTeamsInCompNoReserve(DWORD CompID)
+WORD CountNumberOfTeamsInCompNoReserve(DWORD CompID, DWORD nation_id)
 {
 	WORD numberOfLeagueTeams = 0;
 	for (DWORD i = 0; i < *clubs_count; i++)
 	{
 		cm3_clubs* club = &(*clubs)[i];
-		if (club->ClubDivision && club->ClubDivision->ClubCompID == CompID)
+		if (club->ClubNation && club->ClubDivision && club->ClubDivision->ClubCompID == CompID && (nation_id == -1 || club->ClubNation->NationID == nation_id))
 		{
 			DWORD is_main_club;
 			cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)club, &is_main_club, 1);
@@ -1000,14 +1000,14 @@ WORD CountNumberOfTeamsInCompNoReserve(DWORD CompID)
 	return numberOfLeagueTeams;
 }
 
-WORD CountNumberOfTeamsInCompWithGroup(DWORD CompID, DWORD GroupID)
+WORD CountNumberOfTeamsInCompWithGroup(DWORD CompID, DWORD GroupID, DWORD nation_id)
 {
 	WORD numberOfLeagueTeams = 0;
 	for (DWORD i = 0; i < *clubs_count; i++)
 	{
 		cm3_clubs* club = &(*clubs)[i];
-		if (club->ClubDivision && club->ClubDivision->ClubCompID == CompID
-			&& club->ClubReserveDivision && club->ClubReserveDivision->ClubCompID == GroupID)
+		if (club->ClubNation && club->ClubDivision && club->ClubDivision->ClubCompID == CompID
+			&& club->ClubReserveDivision && club->ClubReserveDivision->ClubCompID == GroupID && (nation_id == -1 || club->ClubNation->NationID == nation_id))
 			numberOfLeagueTeams++;
 	}
 	return numberOfLeagueTeams;

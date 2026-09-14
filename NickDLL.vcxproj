@@ -450,6 +450,10 @@
     <ClCompile Include="CONCACAF\USA\usa_cup.cpp" />
     <ClCompile Include="CONCACAF\USA\usa_mls.cpp" />
     <ClCompile Include="CONCACAF\USA\usa_setup.cpp" />
+    <ClCompile Include="UEFA\Ukraine\ukr_cup.cpp" />
+    <ClCompile Include="UEFA\Ukraine\ukr_first.cpp" />
+    <ClCompile Include="UEFA\Ukraine\ukr_premier.cpp" />
+    <ClCompile Include="UEFA\Ukraine\ukr_setup.cpp" />
     <ClCompile Include="UEFA\Wales\wal_cup.cpp" />
     <ClCompile Include="UEFA\Wales\wal_first_n.cpp" />
     <ClCompile Include="UEFA\Wales\wal_first_s.cpp" />
@@ -778,6 +782,10 @@
     <ClInclude Include="CONCACAF\USA\usa_cup.h" />
     <ClInclude Include="CONCACAF\USA\usa_mls.h" />
     <ClInclude Include="CONCACAF\USA\usa_setup.h" />
+    <ClInclude Include="UEFA\Ukraine\ukr_cup.h" />
+    <ClInclude Include="UEFA\Ukraine\ukr_first.h" />
+    <ClInclude Include="UEFA\Ukraine\ukr_premier.h" />
+    <ClInclude Include="UEFA\Ukraine\ukr_setup.h" />
     <ClInclude Include="UEFA\Wales\wal_cup.h" />
     <ClInclude Include="UEFA\Wales\wal_first_n.h" />
     <ClInclude Include="UEFA\Wales\wal_first_s.h" />

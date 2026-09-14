@@ -27,7 +27,6 @@ int eng_league_cup_teams(BYTE* _this) {
 			|| club->ClubDivision->ClubCompID == ENG_LEAGUE_2_9CF()))
 			vec_uefa.push_back(club);
 	}
-	sort(vec_uefa.begin(), vec_uefa.end(), compareClubLastDivPosInv);
 
 	// League 2
 	division_clubs = find_clubs_of_comp(ENG_LEAGUE_2_9CF());

@@ -135,7 +135,6 @@ int hol_cup_teams(BYTE* _this) {
 	{
 		if (club->ClubEuroFlag != -1) vec_uefa.push_back(club);
 	}
-	sort(vec_uefa.begin(), vec_uefa.end(), compareClubLastDivPosInv);
 
 	WORD main_teams = CountNumberOfTeamsInComp(HOL_FIRST_9CF()) + CountNumberOfTeamsInCompNoReserve(HOL_SECOND_9CF());
 	WORD lower_teams = total_teams - main_teams;

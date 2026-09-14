@@ -87,7 +87,6 @@ int pol_cup_teams(BYTE* _this) {
 	{
 		if (club->ClubEuroFlag != -1) vec_uefa.push_back(club);
 	}
-	sort(vec_uefa.begin(), vec_uefa.end(), compareClubLastDivPosInv);
 
 	// Lower
 	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(POL_LOWER_9CF());
