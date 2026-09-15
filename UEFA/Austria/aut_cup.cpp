@@ -101,7 +101,9 @@ int aut_cup_teams(BYTE* _this) {
 	for (DWORD i = 0; i < vec.size(); i++)
 	{
 		teams[i].club = vec[i];
-		teams[i].seeding = 0;
+		if (vec[i]->ClubDivision->ClubCompID == AUT_FIRST_9CF()) teams[i].seeding = 7;
+		else if (vec[i]->ClubDivision->ClubCompID == AUT_SECOND_9CF()) teams[i].seeding = 8;
+		else teams[i].seeding = 0;
 		teams[i].f6 = 0;
 	}
 
@@ -168,11 +170,11 @@ DWORD aut_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 8), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 26), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, FirstRound, 1, Penalties | ExtraTime, NoTiebreak, 4, 64, 32, 64, 0, 0, 1, 0, prizeMoneyFile.GetInt("aut_cup_r1_qualify"));
+		FillFixtureDetails(pMem, fixture_id++, FirstRound, 1 | 4, Penalties | ExtraTime, NoTiebreak, 4, 64, 32, 64, 0, 0, 1, 0, prizeMoneyFile.GetInt("aut_cup_r1_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 27), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 6), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, SecondRound, 1, Penalties | ExtraTime, NoTiebreak, 4, 32, 16, 0, 0, 0, 1, 0, prizeMoneyFile.GetInt("aut_cup_r2_qualify"));
+		FillFixtureDetails(pMem, fixture_id++, SecondRound, 1 | 4, Penalties | ExtraTime, NoTiebreak, 4, 32, 16, 0, 0, 0, 1, 0, prizeMoneyFile.GetInt("aut_cup_r2_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 7), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 29), year, Wednesday, Evening);

@@ -244,9 +244,10 @@ void usa_mls_subs(BYTE* _this)
 	comp_data->pts_for_draw = 1;
 	comp_data->f196 = 2;
 	comp_data->comp_type = CLUB_DOMESTIC;
-	comp_data->tiebreaker_1 = GoalDifferenceTiebreaker;
-	comp_data->tiebreaker_2 = GoalsForTiebreaker;
-	comp_data->tiebreaker_3 = GamesWonTiebreaker;
+	comp_data->tiebreaker_1 = GamesWonTiebreaker;
+	comp_data->tiebreaker_2 = GoalDifferenceTiebreaker;
+	comp_data->tiebreaker_3 = GoalsForTiebreaker;
+	comp_data->tiebreaker_4 = GoalsForAwayTiebreaker;
 	comp_data->promotions = 0;
 	comp_data->prom_playoff = 9;
 	comp_data->rele_playoff = 0;
@@ -344,8 +345,8 @@ DWORD usa_mls_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 9), year, Sunday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 19), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, FixedTeamOrderInCup | Penalties, NoTiebreak, 5, 4, 2, 4, 0, 0, 1, 0);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 21), year, Friday, Evening);
+		FillFixtureDetails(pMem, fixture_id++, FirstRound, 8, FixedTeamOrderInCup | Penalties, NoTiebreak, 5, 4, 2, 4, 0, 0, 1, 0);
 
 		return (DWORD)pMem;
 	}
@@ -360,21 +361,21 @@ DWORD usa_mls_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 20), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 21), year, Friday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SecondRound, 0, FixedTeamOrderInCup | USBestOf3 | YardShootout, USBestOf3 | YardShootout, 5, 16, 8, 16, 0, 0, 2, 6, 0, 0, 0, YardShootout);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 22), year, Saturday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 23), year, Sunday);
+		FillFixtureDetails(pMem, fixture_id++, SecondRound, 8, FixedTeamOrderInCup | USBestOf3 | Penalties, USBestOf3 | Penalties, 5, 16, 8, 16, 0, 0, 2, 6, 0, 0, 0, Penalties);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 4), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 6), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 5, 8, 4, 0, 0, 0, 1, 0);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 6), year, Saturday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 9), year, Tuesday, Evening);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 8, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 5, 8, 4, 0, 0, 0, 1, 0);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 7), year, Sunday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 12), year, Friday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 5, 4, 2, 0, 0, 0, 1, 0);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 10), year, Wednesday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 14), year, Sunday);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 8, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 5, 4, 2, 0, 0, 0, 1, 0);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 13), year, Saturday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 19), year, Friday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, MLSCup, 0, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 5, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("usa_mls_final_win"), prizeMoneyFile.GetInt("usa_mls_final_lose"));
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 15), year, Monday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 20), year, Saturday, Evening);
+		FillFixtureDetails(pMem, fixture_id++, MLSCup, 8, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 5, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("usa_mls_final_win"), prizeMoneyFile.GetInt("usa_mls_final_lose"));
 
 		return (DWORD)pMem;
 	}
@@ -519,7 +520,7 @@ int usa_mls_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYT
 				switch (fate) {
 				case TopPlayoff:
 					staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, SecondRound, 0x1E);
-					*a5 = 1;
+					//*a5 = 1;
 					return 0;
 				case Promoted:
 					staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
@@ -554,7 +555,7 @@ int usa_mls_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, BYT
 				case TopPlayoff:
 					staff_history_champion_868C50(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));
 					table[i].league_fate = Champions;
-					*a5 = 1;
+					*a5 = 2;
 					return 0;
 				case Promoted:
 					staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
@@ -599,6 +600,7 @@ void usa_mls_playoff_wildcard(BYTE* _this) {
 	comp_stats* comp_data = (comp_stats*)_this;
 	BYTE playoff_teams = 4;
 	DWORD* pTeams = (DWORD*)cm0102_malloc(playoff_teams * 4);
+	BYTE seeds[4] = { 1,0,1,0 };
 
 	vector<cm3_clubs*> clubs;
 	comp_stats* curr_stage = comp_data;
@@ -622,7 +624,7 @@ void usa_mls_playoff_wildcard(BYTE* _this) {
 	DWORD v1 = *(DWORD*)_this;
 	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, char, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
 	BYTE* new_stage = (BYTE*)cm0102_new(0xB2);
-	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)comp_data->competition_db, pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, 0);
+	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)comp_data->competition_db, pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, &seeds[0]);
 	DWORD* stages_arr = comp_data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
 	sub_51C800(new_stage, 0);
@@ -652,8 +654,10 @@ void usa_mls_playoff_finals(BYTE* _this) {
 		}
 	}
 	BYTE team_order[16] = { 0,6,4,2,3,5,7,1,8,14,12,10,11,13,15,9 };
+	BYTE seeds[16] = { 0 };
 
 	for (char i = 0; i < playoff_teams; i++) {
+		seeds[team_order[i]] = 16 - i;
 		*((DWORD*)(&pTeams[team_order[i]])) = (DWORD)clubs[i];
 	}
 
@@ -663,7 +667,7 @@ void usa_mls_playoff_finals(BYTE* _this) {
 	DWORD v1 = *(DWORD*)_this;
 	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, char, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
 	BYTE* new_stage = (BYTE*)cm0102_new(0xB2);
-	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)comp_data->competition_db, pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, 0);
+	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)comp_data->competition_db, pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, &seeds[0]);
 	DWORD* stages_arr = comp_data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
 	sub_51C800(new_stage, 0);

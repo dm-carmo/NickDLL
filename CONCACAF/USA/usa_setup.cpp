@@ -53,6 +53,11 @@ DWORD usa_setup_c(playable_nation_data* nation_data) {
 
 void usa_foreign_rules(BYTE* _this, cm3_club_comps* comp, BYTE* fgn_rule_arr) {
 	memset(fgn_rule_arr, -1, 42);
+	BYTE max_fgn = 8;
+	if (comp) {
+		if (comp->ClubCompID == USA_SECOND_9CF()) max_fgn = 7;
+	}
+	*((BYTE*)(fgn_rule_arr + 0x2)) = max_fgn;
 }
 
 void __declspec(naked) usa_foreign_rules_c()

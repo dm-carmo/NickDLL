@@ -125,5 +125,6 @@ void setup_cro_nation() {
 	setup_cro_super();
 	setup_cro_awards();
 
+	WriteVTablePtr(cro_rules_vtable, VTableRLoanOutsideWindow, 0x412dd0);
 	WriteVTablePtr(cro_rules_vtable, VTableRForeignRules, (DWORD)cro_foreign_rules_c);
 }

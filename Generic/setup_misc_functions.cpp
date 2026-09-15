@@ -498,7 +498,7 @@ int player_check_if_eu(cm3_staff* person, cm3_nations* nation) {
 		if (first && vector_contains_element(czech_fgn, first->NationID)) return 1;
 		if (second && vector_contains_element(czech_fgn, second->NationID)) return 1;
 	}
-	if (nation->NationID == NATION_DENMARK_9CF() || nation->NationID == NATION_FINLAND_9CF() || nation->NationID == NATION_FRANCE_9CF() || nation->NationID == NATION_SPAIN_9CF()) {
+	if (nation->NationID == NATION_DENMARK_9CF() || nation->NationID == NATION_FINLAND_9CF() || nation->NationID == NATION_FRANCE_9CF() || nation->NationID == NATION_SPAIN_9CF() || nation->NationID == NATION_ROMANIA_9CF()) {
 		if (first && vector_contains_element(cotonou, first->NationID)) return 1;
 		if (second && vector_contains_element(cotonou, second->NationID)) return 1;
 	}
@@ -1652,6 +1652,119 @@ void __declspec(naked) fix_hosts_news_function_c()
 	}
 }
 
+void __declspec(naked) fix_number_screen()
+{
+	__asm {
+		mov byte ptr ss : [esp + 0x30] , al
+		push - 1
+		movsx eax, word ptr ds : [0xb77c7a]
+		push 0
+		push 1
+		push 0
+		push 1
+		push 0
+		lea eax, dword ptr ds : [eax + eax * 2]
+		push 0x19
+		push 0x211
+		shl eax, 8
+		push 0x30c
+		push 0x1fd
+		mov ecx, dword ptr ds : [eax + 0xb74c4c]
+		push 0x6e
+		push screen_ret_1
+		push 0x55fba0
+		ret
+		screen_ret_1 :
+		mov byte ptr ss : [esp + 0x31] , al
+			push - 1
+			movsx eax, word ptr ds : [0xb77c7a]
+			push 0
+			push 1
+			push 0
+			push 1
+			push 0
+			lea eax, dword ptr ds : [eax + eax * 2]
+			push 0x19
+			push 0x226
+			shl eax, 8
+			push 0x30c
+			push 0x212
+			mov ecx, dword ptr ds : [eax + 0xb74c4c]
+			push 0x6e
+			push screen_ret_2
+			push 0x55fba0
+			ret
+			screen_ret_2 :
+		mov byte ptr ss : [esp + 0x32] , al
+			xor esi, esi
+			push 0x4776b2
+			ret
+	}
+}
+
+void __declspec(naked) fix_number_screen_2()
+{
+	__asm {
+		mov eax, dword ptr ss : [esp + 0x18]
+		cmp eax, 25
+		je change_3
+		cmp eax, 50
+		je change_2
+		cmp eax, 75
+		je change_1
+		change_ret :
+		push 0x47781B
+			ret
+			change_1 :
+		movsx ebp, byte ptr ss : [esp + 0x30]
+			xor esi, esi
+			jmp change_ret
+			change_2 :
+		movsx ebp, byte ptr ss : [esp + 0x31]
+			xor esi, esi
+			jmp change_ret
+			change_3 :
+		movsx ebp, byte ptr ss : [esp + 0x32]
+			xor esi, esi
+			jmp change_ret
+	}
+}
+
+void __declspec(naked) fix_number_screen_3()
+{
+	__asm {
+		mov eax, dword ptr ss : [esp + 4]
+		mov dx, word ptr ds : [0xaebdec]
+		push - 1
+		push 0
+		push 0
+		push 0
+		push eax
+		push edx
+		movsx eax, word ptr ds : [ecx + 0x382a]
+		push 6
+		push 0xc
+		push 0
+		push 0
+		push 2
+		push 0
+		push 0
+		lea eax, dword ptr ds : [eax + eax * 2]
+		push 0x77
+		push 0x316
+		shl eax, 8
+		push 0x4a
+		push 0x64
+		mov ecx, dword ptr ds : [eax + ecx + 0x7fc]
+		push 1
+		push copy_803f80_ret
+		push 0x55f990
+		ret
+		copy_803f80_ret :
+		ret 8
+	}
+}
+
 void setup_misc_functions()
 {
 	// update game name
@@ -1987,4 +2100,45 @@ void setup_misc_functions()
 	WriteNOP(0x761731, 10);
 	WriteBytes(0x761731, 2, 0x66, 0xa1);
 	WriteDWORD(0x761733, titlebar_fg_hex);
+
+	if (configFile.GetBool("expandSquadNumbers", false))
+	{
+		WriteDWORD(0x4759DF, 0x90);
+		WriteDWORD(0x4759EC, 0x7C);
+
+		WriteDWORD(0x47754E, 0x90);
+		WriteDWORD(0x47755B, 0x7C);
+
+		WriteDWORD(0x477615, 0xB8);
+		WriteDWORD(0x47761F, 0x95);
+
+		WriteDWORD(0x47785B, 0x1FA);
+		WriteDWORD(0x477863, 0xE7);
+
+		WriteDWORD(0x477634, 0xBB);
+		WriteDWORD(0x477659, 0xCF);
+
+		WriteDWORD(0x47768E, 0xE5);
+		WriteDWORD(0x47769B, 0xD1);
+
+		WriteDWORD(0x4776BB, 99);
+		WriteBytes(0x85A881, 1, -99);
+		WriteBytes(0x85A88A, 1, 99);
+
+		WriteDWORD(0x4C78BF, 99);
+		WriteBytes(0x4C78BD, 1, 99);
+
+		WriteDWORD(0x859F70, 99);
+		WriteBytes(0x859F6C, 1, 99);
+
+		WriteDWORD(0x859FEF, 99);
+		WriteDWORD(0x85A005, 99);
+		WriteBytes(0x85A072, 1, 99);
+
+		WriteBytes(0x90DB0D, 1, 100);
+
+		PatchFunction(0x4776AC, (DWORD)&fix_number_screen);
+		PatchFunction(0x47780C, (DWORD)&fix_number_screen_2);
+		WriteDWORD(0x4759B2, (DWORD)&fix_number_screen_3 - 0x4759B2 - 4);
+	}
 }

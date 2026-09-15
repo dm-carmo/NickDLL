@@ -235,5 +235,6 @@ void setup_bra_nation() {
 	setup_bra_super();
 	setup_bra_awards();
 
+	WriteVTablePtr(bra_rules_vtable, VTableRLoanOutsideWindow, 0x412dd0);
 	WriteVTablePtr(bra_rules_vtable, VTableRForeignRules, (DWORD)bra_foreign_rules_c);
 }

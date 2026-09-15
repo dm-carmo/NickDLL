@@ -143,5 +143,6 @@ void setup_jpn_nation() {
 	setup_jpn_league_cup();
 	setup_jpn_super();
 
+	WriteVTablePtr(jpn_rules_vtable, VTableRLoanOutsideWindow, 0x412dd0);
 	WriteVTablePtr(jpn_rules_vtable, VTableRForeignRules, (DWORD)jpn_foreign_rules_c);
 }

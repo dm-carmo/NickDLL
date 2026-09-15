@@ -305,6 +305,8 @@ int sco_challenge_cup_all_teams(BYTE* _this) {
 	DWORD* teams = comp_data->teams2;
 
 	BYTE selected = get_country(NATION_SCOTLAND_9CF())->NationLeagueSelected;
+	BYTE sco_highland_count = 8;
+	BYTE sco_lowland_count = 12;
 	// Highland
 	vector<cm3_clubs*> division_clubs = find_clubs_of_comp(SCO_HIGHLAND_9CF());
 	for (size_t i = 0; i < division_clubs.size(); i++) {
@@ -320,14 +322,14 @@ int sco_challenge_cup_all_teams(BYTE* _this) {
 	if ((selected & 4) != 0)
 	{
 		sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPos);
-		for (int i = 0; i < 8; i++)
+		for (int i = 0; i < sco_highland_count; i++)
 		{
 			vec.push_back(division_clubs[i]);
 		}
 	}
 	else
 	{
-		vector<cm3_clubs*> available_clubs = get_random_weighted_clubs(division_clubs, 5, true);
+		vector<cm3_clubs*> available_clubs = get_random_weighted_clubs(division_clubs, sco_highland_count, true);
 		for (cm3_clubs* club : available_clubs)
 		{
 			vec.push_back(club);
@@ -348,14 +350,14 @@ int sco_challenge_cup_all_teams(BYTE* _this) {
 	if ((selected & 4) != 0)
 	{
 		sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPos);
-		for (int i = 0; i < 12; i++)
+		for (int i = 0; i < sco_lowland_count; i++)
 		{
 			vec.push_back(division_clubs[i]);
 		}
 	}
 	else
 	{
-		vector<cm3_clubs*> available_clubs = get_random_weighted_clubs(division_clubs, 5, true);
+		vector<cm3_clubs*> available_clubs = get_random_weighted_clubs(division_clubs, sco_lowland_count, true);
 		for (cm3_clubs* club : available_clubs)
 		{
 			vec.push_back(club);
@@ -382,6 +384,11 @@ int sco_challenge_cup_all_teams(BYTE* _this) {
 	for (cm3_clubs* club : division_clubs)
 	{
 		vec.push_back(club);
+	}
+	if (vec.size() != total_teams)
+	{
+		string msg = "Wrong number of clubs: " + to_string(vec.size());
+		create_message_box(comp_data->competition_db->ClubCompName, msg.c_str(), true);
 	}
 
 	for (DWORD i = 0; i < total_teams; i++)

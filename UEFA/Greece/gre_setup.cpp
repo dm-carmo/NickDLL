@@ -113,5 +113,6 @@ void setup_gre_nation() {
 	setup_gre_cup();
 	setup_gre_super();
 
+	WriteVTablePtr(gre_rules_vtable, VTableRLoanOutsideWindow, 0x412dd0);
 	WriteVTablePtr(gre_rules_vtable, VTableRForeignRules, (DWORD)gre_foreign_rules_c);
 }

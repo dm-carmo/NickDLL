@@ -149,6 +149,8 @@ void Setup()
 	setup_irn_nation();
 	dprintf("New nation: Morocco\n");
 	setup_mar_nation();
+	dprintf("New nation: Romania\n");
+	setup_rom_nation();
 	dprintf("New nation: Saudi Arabia\n");
 	setup_ksa_nation();
 	dprintf("New nation: Serbia\n");

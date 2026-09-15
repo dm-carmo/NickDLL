@@ -119,5 +119,6 @@ void setup_pol_nation()
 	setup_pol_super();
 	setup_pol_awards();
 
+	WriteVTablePtr(pol_rules_vtable, VTableRLoanOutsideWindow, 0x412dd0);
 	WriteVTablePtr(pol_rules_vtable, VTableRForeignRules, (DWORD)pol_foreign_rules_c);
 }

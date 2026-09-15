@@ -92,11 +92,11 @@ BYTE* setup_korea_rules(BYTE* _this, char idx, DWORD country_id, DWORD continent
 	windows[window_id].idx_1 = windows[window_id].idx_2 = idx;
 	windows[window_id].window_num_1 = windows[window_id].window_num_2 = window_id;
 	windows[window_id].start_day_of_week = -1;
-	windows[window_id].start_day = 1;
+	windows[window_id].start_day = 16;
 	windows[window_id].start_month = January;
 	windows[window_id].is_start_1 = 1;
 	windows[window_id].end_day_of_week = -1;
-	windows[window_id].end_day = 27;
+	windows[window_id].end_day = 26;
 	windows[window_id].end_month = March;
 	windows[window_id].is_start_2 = 0;
 	window_id++;

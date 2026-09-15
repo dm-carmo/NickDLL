@@ -129,6 +129,7 @@ void setup_swe_nation()
 	setup_swe_third();
 	setup_swe_cup();
 
+	WriteVTablePtr(swe_rules_vtable, VTableRLoanOutsideWindow, 0x412dd0);
 	WriteVTablePtr(swe_rules_vtable, VTableRForeignRules, (DWORD)swe_foreign_rules_c);
 }
 

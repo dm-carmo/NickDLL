@@ -14,7 +14,7 @@ void usa_awards(BYTE* _this, int a2) {
 
 	// MLS awards
 	BYTE* pMem = (BYTE*)cm0102_new(0xA2);
-	monthly_person_award_setup_766E10(pMem, edi, i, MLS_PLAYER_OF_MONTH_9CF(), 3000, 500, USA_MLS_9CF(), February, *current_year, November, *current_year, a2, 1);
+	monthly_person_award_setup_766E10(pMem, edi, i, MLS_PLAYER_OF_MONTH_9CF(), 3000, 500, USA_MLS_9CF(), February, *current_year, December, *current_year, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)cm0102_new(0x2B);
@@ -59,7 +59,7 @@ char usa_awards_2(BYTE* _this, DWORD current_date) {
 	DWORD nation = *(DWORD*)(_this + 0xE);
 	DWORD* awards_list = (DWORD*)*(DWORD*)(_this + 0x4);
 	BYTE* cm_date = new BYTE[8];
-	convert_to_cm_date(cm_date, 16, December, *(WORD*)(current_date + 2), -1);
+	convert_to_cm_date(cm_date, 23, December, *(WORD*)(current_date + 2), Tuesday);
 	WORD date_day = *(WORD*)(cm_date);
 	WORD date_year = *(WORD*)(cm_date + 2);
 	//DWORD leap = *(DWORD*)(cm_date + 4);

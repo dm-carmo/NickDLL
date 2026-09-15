@@ -28,6 +28,7 @@
 #include "UEFA\Norway\nor_setup.h"
 #include "UEFA\Poland\pol_setup.h"
 #include "UEFA\Portugal\por_setup.h"
+#include "UEFA\Romania\rom_setup.h"
 #include "UEFA\Russia\rus_setup.h"
 #include "UEFA\Scotland\sco_setup.h"
 #include "UEFA\Serbia\srb_setup.h"

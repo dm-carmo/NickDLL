@@ -662,9 +662,9 @@ void por_third_reputation_calc(BYTE* _this, BYTE* club, char stage, char current
 		ret_max = max;
 	}
 	else if (stage <= 3) {
-		ret_current = current + 8;
-		ret_min = min + 8;
-		ret_max = max + 8;
+		ret_current = 9 + 2 * (current - 1);
+		ret_min = 9 + 2 * (min - 1);
+		ret_max = 9 + 2 * (max - 1);
 	}
 	ret[0x73] = ret_current;
 	ret[0x74] = ret_min;

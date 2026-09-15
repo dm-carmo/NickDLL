@@ -76,6 +76,7 @@ void __declspec(naked) cze_foreign_rules_c()
 BYTE* setup_czech_rules(BYTE* _this, char idx, DWORD country_id, DWORD continent_id, int a5, int a6) {
 	generic_rules_setup(_this, idx, country_id, continent_id, a5, a6);
 	*((DWORD*)(_this)) = (DWORD)cze_rules_vtable->vtable_ptr;
+	cze_rules_vtable->SetPointer(VTableRLoanOutsideWindow, 0x412dd0);
 	cze_rules_vtable->SetPointer(VTableRForeignRules, (DWORD)cze_foreign_rules_c);
 	BYTE num_of_windows = 2;
 	*((BYTE*)(_this + 0x8)) = num_of_windows;

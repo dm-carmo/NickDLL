@@ -82,7 +82,7 @@ int ksa_cup_teams(BYTE* _this) {
 	for (DWORD i = 0; i < vec.size(); i++)
 	{
 		teams[i].club = vec[i];
-		teams[i].seeding = 0;
+		teams[i].seeding = 3 * (vec[i]->ClubDivision->ClubCompID == KSA_PREMIER_9CF());
 		teams[i].f6 = 0;
 	}
 

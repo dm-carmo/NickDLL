@@ -26,11 +26,11 @@ DWORD den_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 7), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 27), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SecondRound, 1, Penalties | ExtraTime, NoTiebreak, 4, 52, 26, 6, 92, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, SecondRound, 1 | 4, Penalties | ExtraTime, NoTiebreak, 4, 52, 26, 6, 92, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 28), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 17), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 1, Penalties | ExtraTime, NoTiebreak, 4, 32, 16, 6, 98, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 1 | 4, Penalties | ExtraTime, NoTiebreak, 4, 32, 16, 6, 98, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 18), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 29), year, Wednesday, Evening);
@@ -125,7 +125,7 @@ int den_cup_teams(BYTE* _this) {
 	for (DWORD i = 0; i < vec.size(); i++)
 	{
 		teams[i].club = vec[i];
-		teams[i].seeding = 0;
+		teams[i].seeding = 3 * (vec[i]->ClubDivision->ClubCompID == DEN_PREMIER_9CF());
 		teams[i].f6 = 0;
 	}
 

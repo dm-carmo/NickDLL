@@ -146,6 +146,7 @@ void setup_bel_nation() {
 	setup_bel_awards();
 
 	WriteVTablePtr(bel_rules_vtable, VTableR5, 0x8e8560);
+	WriteVTablePtr(bel_rules_vtable, VTableRLoanOutsideWindow, 0x412dd0);
 	WriteVTablePtr(bel_rules_vtable, VTableRForeignRules, (DWORD)bel_foreign_rules_c);
 }
 
