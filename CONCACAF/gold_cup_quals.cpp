@@ -88,7 +88,7 @@ DWORD gold_cup_quals_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WOR
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 7), year, Wednesday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 12), year, Thursday, Afternoon);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 13), year, Thursday, Afternoon);
 		FillFixtureDetails(pMem, fixture_id++, PreliminaryRound, 4, NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 10, 8, 4, 8, 0, 0, 2, 5);
 
 		return (DWORD)pMem;
@@ -104,7 +104,7 @@ DWORD gold_cup_quals_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WOR
 		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 18), year, Wednesday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 19), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 19), year, Monday, Afternoon);
 		FillFixtureDetails(pMem, fixture_id++, Playoff, 4, NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 10, 14, 7, 14, 0, 0, 2, 3);
 

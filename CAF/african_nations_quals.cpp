@@ -104,8 +104,8 @@ DWORD african_nations_quals_fixtures(BYTE* _this, char stage_idx, WORD* num_roun
 		pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 9, 24), year, Thursday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 9, 29), year, Tuesday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 9, 23), year, Wednesday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 9, 27), year, Sunday, Afternoon);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 11, 12), year, Thursday, Afternoon);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 11, 17), year, Tuesday, Afternoon);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 2, 3, 24), year, Thursday, Afternoon);

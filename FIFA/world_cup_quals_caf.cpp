@@ -123,12 +123,10 @@ DWORD world_cup_quals_caf_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds
 		pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 9), year, Thursday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 14), year, Tuesday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 1), year, Thursday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 6), year, Tuesday, Afternoon);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 9, 19), year, Thursday, Afternoon);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 9, 24), year, Tuesday, Afternoon);
-		//AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 14), year, Thursday, Afternoon);
-		//AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 19), year, Tuesday, Afternoon);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 2, 3, 20), year, Thursday, Afternoon);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 2, 3, 25), year, Tuesday, Afternoon);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 2, 9, 30), year, Thursday, Afternoon);

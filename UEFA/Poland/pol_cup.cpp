@@ -22,27 +22,27 @@ DWORD pol_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 6, 29), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 6), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, PreliminaryRound, 0, Penalties | ExtraTime, NoTiebreak, 4, 20, 10, 20, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, PreliminaryRound, 4 | 8, Penalties | ExtraTime, NoTiebreak, 4, 22, 11, 22, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 7), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 3), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, FirstRound, 1, Penalties | ExtraTime, NoTiebreak, 4, 56, 28, 46, 20, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("pol_cup_r1_lose"));
+		FillFixtureDetails(pMem, fixture_id++, FirstRound, 1, Penalties | ExtraTime, NoTiebreak, 4, 54, 27, 43, 22, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("pol_cup_r1_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 4), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 29), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SecondRound, 1, Penalties | ExtraTime, NoTiebreak, 4, 32, 16, 4, 66, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("pol_cup_r2_lose"));
+		FillFixtureDetails(pMem, fixture_id++, RoundOf32, 1, Penalties | ExtraTime, NoTiebreak, 4, 32, 16, 5, 65, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("pol_cup_r2_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 30), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 3), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 0, Penalties | ExtraTime, NoTiebreak, 4, 16, 8, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("pol_cup_r3_lose"));
+		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 1, Penalties | ExtraTime, NoTiebreak, 4, 16, 8, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("pol_cup_r3_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 4), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 4), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, Penalties | ExtraTime, NoTiebreak, 6, 8, 4, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("pol_cup_qtr_lose"));
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 1, Penalties | ExtraTime, NoTiebreak, 6, 8, 4, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("pol_cup_qtr_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 5), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 8), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, Penalties | ExtraTime, NoTiebreak, 6, 4, 2, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("pol_cup_semi_lose"));
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 1, Penalties | ExtraTime, NoTiebreak, 6, 4, 2, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("pol_cup_semi_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 4, 9), year, Thursday);
 		Date national_day = Date(year + 1, 5, 2);
@@ -88,6 +88,13 @@ int pol_cup_teams(BYTE* _this) {
 		if (club->ClubEuroFlag != -1) vec_uefa.push_back(club);
 	}
 
+	// II Liga
+	division_clubs = find_clubs_of_comp(POL_THIRD_9CF());
+	sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPosInv);
+	for (cm3_clubs* club : division_clubs)
+	{
+		if (!vector_contains_element(vec_uefa, club)) vec.push_back(club);
+	}
 	// Lower
 	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(POL_LOWER_9CF());
 	for (size_t i = 0; i < lower_clubs.size(); i++) {
@@ -103,19 +110,16 @@ int pol_cup_teams(BYTE* _this) {
 	{
 		vec.push_back(club);
 	}
-	// II Liga
-	division_clubs = find_clubs_of_comp(POL_THIRD_9CF());
-	sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPosInv);
-	for (cm3_clubs* club : division_clubs)
-	{
-		if (!vector_contains_element(vec_uefa, club)) vec.push_back(club);
-	}
 	// I Liga
 	division_clubs = find_clubs_of_comp(POL_SECOND_9CF());
 	sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPosInv);
 	for (cm3_clubs* club : division_clubs)
 	{
-		if (!vector_contains_element(vec_uefa, club)) vec.push_back(club);
+		if (!vector_contains_element(vec_uefa, club)) 
+		{
+			if (vec.size() < 38) vec.insert(vec.begin() + 18, club);
+			else vec.push_back(club);
+		}
 	}
 	// Ekstraklasa
 	division_clubs = find_clubs_of_comp(POL_FIRST_9CF());
@@ -132,13 +136,13 @@ int pol_cup_teams(BYTE* _this) {
 	}
 
 	while (vec.size() > total_teams) {
-		vec.erase(vec.begin());
+		vec.erase(vec.begin() + 20);
 	}
 
 	for (DWORD i = 0; i < vec.size(); i++)
 	{
 		teams[i].club = vec[i];
-		teams[i].seeding = 0;
+		teams[i].seeding = 3 * (i >= 18 && i < 22);
 		teams[i].f6 = 0;
 	}
 

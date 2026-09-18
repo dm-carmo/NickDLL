@@ -111,6 +111,7 @@ BYTE* setup_serbia_rules(BYTE* _this, char idx, DWORD country_id, DWORD continen
 	*((DWORD*)(_this)) = (DWORD)srb_rules_vtable->vtable_ptr;
 	srb_rules_vtable->SetPointer(VTableRLoanOutsideWindow, 0x412dd0);
 	srb_rules_vtable->SetPointer(VTableRForeignRules, (DWORD)srb_foreign_rules_c);
+	*((BYTE*)(_this + 0x13)) = 15; // maximum number of foreign players at the club
 	BYTE num_of_windows = 2;
 	*((BYTE*)(_this + 0x8)) = num_of_windows;
 	BYTE* wMem = (BYTE*)cm0102_malloc(num_of_windows * 12);

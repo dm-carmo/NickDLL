@@ -1847,16 +1847,16 @@ void setup_misc_functions()
 		WriteBytes(0x59dce7, 1, 6);
 	}
 
-	// Move August 30's international friendlies forward two weeks
+	// Move August 30's international friendlies forward 4 weeks
 	for (DWORD d : friendly_aug_30plus4) {
-		WriteBytes(d + 4, 1, 24);
+		WriteBytes(d + 4, 1, 25);
 	}
 	for (DWORD d : friendly_aug_30plus3) {
-		WriteBytes(d + 3, 1, 24);
+		WriteBytes(d + 3, 1, 25);
 	}
-	WriteBytes(0x5cb892 + 1, 1, 24);
-	WriteBytes(0x5cb8dc + 1, 1, 24);
-	// Move September 3's international friendlies forward one week
+	WriteBytes(0x5cb892 + 1, 1, 25);
+	WriteBytes(0x5cb8dc + 1, 1, 25);
+	// Move September 3's international friendlies forward 3 weeks
 	for (DWORD d : friendly_sept_3plus4) {
 		WriteBytes(d + 4, 1, 27);
 	}
@@ -1873,15 +1873,15 @@ void setup_misc_functions()
 	for (DWORD d : friendly_oct_4plus3) {
 		WriteBytes(d + 3, 1, 1);
 	}
-	// Move March 21's international friendlies forward one week
+	// Move March 21's international friendlies forward 5 days
 	for (DWORD d : friendly_march_21plus4) {
-		WriteBytes(d + 4, 1, 28);
+		WriteBytes(d + 4, 1, 26);
 	}
 	for (DWORD d : friendly_march_21plus3) {
-		WriteBytes(d + 3, 1, 28);
+		WriteBytes(d + 3, 1, 26);
 	}
-	WriteBytes(0x5cb872 + 1, 1, 28);
-	WriteBytes(0x5cb8b7 + 1, 1, 28);
+	WriteBytes(0x5cb872 + 1, 1, 26);
+	WriteBytes(0x5cb8b7 + 1, 1, 26);
 
 	// Change player search filters
 	if (configFile.GetBool("changePlayerSearchFilters", true)) {

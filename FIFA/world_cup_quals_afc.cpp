@@ -142,8 +142,8 @@ DWORD world_cup_quals_afc_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 14), year, Tuesday, Afternoon);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 21), year, Thursday, Afternoon);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 26), year, Tuesday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 6, 6), year, Thursday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 6, 11), year, Tuesday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 6, 4), year, Thursday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 6, 9), year, Tuesday, Afternoon);
 
 		return (DWORD)pMem;
 	}
@@ -1529,16 +1529,12 @@ void setup_world_cup_quals_afc() {
 	WriteVTablePtr(world_cup_quals_afc_vtable, VTable39, 0x51C020);
 	WriteVTablePtr(world_cup_quals_afc_vtable, VTable40, 0x51F2F0);
 
-	char* r3_1 = "Third Round Group A";
-	char* r3_1_short = "3rd Rnd Grp A";
-	char* r3_2 = "Third Round Group B";
-	char* r3_2_short = "3rd Rnd Grp B";
 	char* r3_3 = "Third Round Group C";
 	char* r3_3_short = "3rd Rnd Grp C";
-	WriteDWORD(0x4B5e01 + 1, (DWORD)&r3_1[0]);
-	WriteDWORD(0x4B897c + 1, (DWORD)&r3_1_short[0]);
-	WriteDWORD(0x4B5e1b + 1, (DWORD)&r3_2[0]);
-	WriteDWORD(0x4B8986 + 1, (DWORD)&r3_2_short[0]);
+	WriteDWORD(0x4B5e01 + 1, 0x9A6400); // 3rd A
+	WriteDWORD(0x4B897c + 1, 0x9A40AC); // 3rd A short
+	WriteDWORD(0x4B5e1b + 1, 0x9A63EC); // 3rd B
+	WriteDWORD(0x4B8986 + 1, 0x9A409C); // 3rd B short
 	WriteDWORD(0x4B5e35 + 1, (DWORD)&r3_3[0]);
 	WriteDWORD(0x4B8990 + 1, (DWORD)&r3_3_short[0]);
 

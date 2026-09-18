@@ -132,10 +132,10 @@ DWORD world_cup_quals_uefa_fixtures(BYTE* _this, char stage_idx, WORD* num_round
 		pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		if (*num_rounds > 4) AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 23), year, Thursday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 26), year, Sunday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 29), year, Wednesday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 3), year, Sunday, Afternoon);
+		if (*num_rounds > 4) AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 24), year, Thursday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 27), year, Sunday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 30), year, Wednesday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 4), year, Sunday, Afternoon);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 11), year, Wednesday, Afternoon);
 		if (*num_rounds > 4) AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 14), year, Saturday, Afternoon);
 

@@ -110,8 +110,8 @@ DWORD world_cup_quals_concacaf_fixtures(BYTE* _this, char stage_idx, WORD* num_r
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 30), year, Saturday, Afternoon);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 9), year, Thursday, Afternoon);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 14), year, Tuesday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 21), year, Thursday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 26), year, Tuesday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 20), year, Wednesday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 3, 24), year, Sunday, Afternoon);
 
 		return (DWORD)pMem;
 	}
@@ -126,12 +126,12 @@ DWORD world_cup_quals_concacaf_fixtures(BYTE* _this, char stage_idx, WORD* num_r
 		pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 6, 6), year, Thursday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 6, 11), year, Tuesday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 2, 9, 23), year, Thursday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 2, 9, 26), year, Sunday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 2, 9, 29), year, Wednesday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year + 2, 10, 3), year, Sunday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 6, 4), year, Thursday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 6, 9), year, Tuesday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 2, 9, 29), year, Thursday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 2, 10, 2), year, Sunday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 2, 10, 5), year, Wednesday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year + 2, 10, 9), year, Sunday, Afternoon);
 
 		return (DWORD)pMem;
 	}
@@ -146,7 +146,7 @@ DWORD world_cup_quals_concacaf_fixtures(BYTE* _this, char stage_idx, WORD* num_r
 		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 2, 10, 4), year, Monday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 2, 10, 10), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 2, 11, 13), year, Thursday, Afternoon);
 		FillFixtureDetails(pMem, fixture_id++, FourthRound, 0, NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 10, 2 + 2 * (num_hosts == 1), 1 + (num_hosts == 1), 2 + 2 * (num_hosts == 1), 0, 0, 2, 5);
 

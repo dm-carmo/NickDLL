@@ -121,4 +121,11 @@ void setup_pol_nation()
 
 	WriteVTablePtr(pol_rules_vtable, VTableRLoanOutsideWindow, 0x412dd0);
 	WriteVTablePtr(pol_rules_vtable, VTableRForeignRules, (DWORD)pol_foreign_rules_c);
+
+	// remove hard-coded parts related to saving club's league history
+	WriteBytes(0x442f88, 1, 0xeb);
+	WriteBytes(0x442f8f, 6, 0xe9, 0xb6, 0, 0, 0, 0x90);
+	WriteBytes(0x44301c, 1, 0xeb);
+	WriteBytes(0x44431a, 1, 0xeb);
+	WriteBytes(0x492159, 1, 0xeb);
 }

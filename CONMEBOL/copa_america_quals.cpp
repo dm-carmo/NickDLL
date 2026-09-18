@@ -88,7 +88,7 @@ DWORD copa_america_quals_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds,
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 18), year, Wednesday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 2, 3, 23), year, Thursday, Afternoon);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 2, 3, 27), year, Wednesday, Afternoon);
 		FillFixtureDetails(pMem, fixture_id++, Playoff, 4, Penalties | ExtraTime, NoTiebreak, 10, 4, 2, 4, 0, 0, 1, 0);
 
 		return (DWORD)pMem;

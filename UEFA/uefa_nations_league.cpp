@@ -173,8 +173,8 @@ DWORD uefa_nations_league_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 26), year, Sunday, Afternoon);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 29), year, Wednesday, Afternoon);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 3), year, Sunday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 11), year, Wednesday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 14), year, Saturday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 12), year, Wednesday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 15), year, Saturday, Afternoon);
 
 		return (DWORD)pMem;
 	}
