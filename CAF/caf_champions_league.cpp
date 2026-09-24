@@ -87,10 +87,10 @@ DWORD caf_champions_league_fixtures(BYTE* _this, char stage_idx, WORD* num_round
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 6, 28), year, Wednesday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 20), year, Saturday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 6), year, Saturday);
 		FillFixtureDetails(pMem, fixture_id++, FirstQualifyingPhase, 0, NoTiebreak, Penalties, 8, 64, 32, 64, 0, 0, 2, 7, 0, 0, prizeMoneyFile.GetInt("caf_cl_qr1_lose"));
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 28), year, Sunday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 14), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 18), year, Saturday);
 		FillFixtureDetails(pMem, fixture_id++, SecondQualifyingPhase, 0, NoTiebreak, Penalties, 8, 32, 16, 0, 0, 0, 2, 7, 0, 0, prizeMoneyFile.GetInt("caf_cl_qr2_lose"));
 
@@ -108,20 +108,20 @@ DWORD caf_champions_league_fixtures(BYTE* _this, char stage_idx, WORD* num_round
 
 		int fixture_id = 0;
 		if (stage_idx < 2) {
-			AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 22), year, Saturday);
 			AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 29), year, Saturday);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year, 12, 6), year, Saturday);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year, 12, 20), year, Saturday);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 1, 10), year, Saturday);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 1, 17), year, Saturday);
 			AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 1, 24), year, Saturday);
-			AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 1, 31), year, Saturday);
-			AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 7), year, Saturday);
-			AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 14), year, Saturday);
 		}
 		else {
-			AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 23), year, Sunday);
 			AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 30), year, Sunday);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year, 12, 7), year, Sunday);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year, 12, 21), year, Sunday);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 1, 11), year, Sunday);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 1, 18), year, Sunday);
 			AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 1, 25), year, Sunday);
-			AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 1), year, Sunday);
-			AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 8), year, Sunday);
-			AddFixtureNoTV(pMem, fixture_id++, Date(year + 1, 2, 15), year, Sunday);
 		}
 
 		return (DWORD)pMem;
@@ -137,11 +137,11 @@ DWORD caf_champions_league_fixtures(BYTE* _this, char stage_idx, WORD* num_round
 		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 2, 16), year, Monday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 14), year, Saturday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 1, 26), year, Monday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 2, 28), year, Saturday);
 		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup | NoTiebreak, Penalties, 8, 8, 4, 8, 0, 0, 2, 7, 0, 0, prizeMoneyFile.GetInt("caf_cl_qtr_lose"));
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 22), year, Sunday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 8), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 11), year, Saturday);
 		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup | NoTiebreak, Penalties, 8, 4, 2, 0, 0, 0, 2, 7, 0, 0, prizeMoneyFile.GetInt("caf_cl_semi_lose"));
 

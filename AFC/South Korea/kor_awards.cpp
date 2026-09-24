@@ -14,35 +14,35 @@ void kormany_awards(BYTE* _this, int a2) {
 
 	// General awards
 	BYTE* pMem = (BYTE*)cm0102_new(0x25D);
-	team_award_setup_8AF520(pMem, edi, i, KOR_BEST_11_OF_YEAR_9CF(), 2500, 1250, -1, 0, 0, a2, 1);
+	team_award_setup_8AF520(pMem, edi, i, KOR_BEST_11_OF_YEAR_9CF(), 2500, 1250, KOR_FIRST_9CF(), 0, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)cm0102_new(0xA2);
-	monthly_person_award_setup_766E10(pMem, edi, i, KOR_MANAGER_OF_MONTH_9CF(), 1500, 750, -1, February, *current_year, November, *current_year, a2, 0);
+	monthly_person_award_setup_766E10(pMem, edi, i, KOR_MANAGER_OF_MONTH_9CF(), 1500, 750, KOR_FIRST_9CF(), February, *current_year, November, *current_year, a2, 0);
 	awards_list[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)cm0102_new(0xA2);
-	monthly_person_award_setup_766E10(pMem, edi, i, KOR_PLAYER_OF_MONTH_9CF(), 1500, 750, -1, February, *current_year, November, *current_year, a2, 1);
+	monthly_person_award_setup_766E10(pMem, edi, i, KOR_PLAYER_OF_MONTH_9CF(), 1500, 750, KOR_FIRST_9CF(), February, *current_year, November, *current_year, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)cm0102_new(0x2B);
-	yearly_person_award_setup_92FE80(pMem, edi, i, KOR_MANAGER_OF_YEAR_9CF(), 1000, 500, -1, 0, 0, 0, a2, 0);
+	yearly_person_award_setup_92FE80(pMem, edi, i, KOR_MANAGER_OF_YEAR_9CF(), 1000, 500, KOR_FIRST_9CF(), 0, 0, 0, a2, 0);
 	awards_list[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)cm0102_new(0x2B);
-	yearly_person_award_setup_92FE80(pMem, edi, i, KOR_PLAYER_OF_YEAR_9CF(), 1500, 500, -1, 0, 0, 0, a2, 1);
+	yearly_person_award_setup_92FE80(pMem, edi, i, KOR_PLAYER_OF_YEAR_9CF(), 1500, 500, KOR_FIRST_9CF(), 0, 0, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)cm0102_new(0x2B);
-	yearly_person_award_setup_92FE80(pMem, edi, i, KOR_TOP_GOAL_SCORER_9CF(), 1000, 500, -1, 0, 0, 1, a2, 1);
+	yearly_person_award_setup_92FE80(pMem, edi, i, KOR_TOP_GOAL_SCORER_9CF(), 1000, 500, KOR_FIRST_9CF(), 0, 0, 1, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)cm0102_new(0x2B);
-	yearly_person_award_setup_92FE80(pMem, edi, i, KOR_YOUNG_PLAYER_OF_YEAR_9CF(), 500, 250, -1, 0, 0, 0, a2, 1);
+	yearly_person_award_setup_92FE80(pMem, edi, i, KOR_YOUNG_PLAYER_OF_YEAR_9CF(), 500, 250, KOR_FIRST_9CF(), 0, 0, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)cm0102_new(0x2B);
-	yearly_person_award_setup_92FE80(pMem, edi, i, KOR_MOST_ASSISTED_9CF(), 1000, 500, -1, 0, 0, 0, a2, 1);
+	yearly_person_award_setup_92FE80(pMem, edi, i, KOR_MOST_ASSISTED_9CF(), 1000, 500, KOR_FIRST_9CF(), 0, 0, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 }
 
@@ -70,10 +70,10 @@ char kor_awards_2(BYTE* _this, DWORD current_date) {
 	if (date_year == *(WORD*)(current_date + 2) && date_day == *(WORD*)(current_date)) {
 		yearly_team_award_nominate_7698F0(_this, KOR_FIRST_9CF(), awards_list[0]);
 		yearly_staff_award_nominate_768940(_this, current_date, awards_list[3], KOR_FIRST_9CF());
-		yearly_player_award_nominate_769380(_this, current_date, awards_list[4], NATION_SOUTH_KOREA_9CF(), -1, -1, -1, -1, 0, 17);
-		yearly_player_award_nominate_769380(_this, current_date, awards_list[5], NATION_SOUTH_KOREA_9CF(), -1, -1, -1, -1, 0, 2);
-		yearly_player_award_nominate_769380(_this, current_date, awards_list[6], NATION_SOUTH_KOREA_9CF(), -1, -1, -1, 21, 0, 17);
-		yearly_player_award_nominate_769380(_this, current_date, awards_list[7], NATION_SOUTH_KOREA_9CF(), -1, -1, -1, -1, 0, 5);
+		yearly_player_award_nominate_769380(_this, current_date, awards_list[4], -1, -1, -1, NATION_SOUTH_KOREA_9CF(), -1, 0, 17);
+		yearly_player_award_nominate_769380(_this, current_date, awards_list[5], -1, -1, -1, NATION_SOUTH_KOREA_9CF(), -1, 0, 2);
+		yearly_player_award_nominate_769380(_this, current_date, awards_list[6], -1, -1, -1, NATION_SOUTH_KOREA_9CF(), 21, 0, 17);
+		yearly_player_award_nominate_769380(_this, current_date, awards_list[7], -1, -1, -1, NATION_SOUTH_KOREA_9CF(), -1, 0, 5);
 	}
 	BYTE sub_669340_ret = sub_669340(nation);
 	WORD nation_day = pnd_list[sub_669340_ret].update_day;

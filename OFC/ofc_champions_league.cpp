@@ -26,9 +26,9 @@ DWORD ofc_champions_league_fixtures(BYTE* _this, char stage_idx, WORD* num_round
 		pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 1, 31), year, Saturday, Evening);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 2, 3), year, Tuesday, Evening);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 2, 6), year, Friday, Evening);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 1, 31), year, Saturday, Evening, NeutralStadium);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 2, 3), year, Tuesday, Evening, NeutralStadium);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 2, 6), year, Friday, Evening, NeutralStadium);
 
 		return (DWORD)pMem;
 	}
@@ -44,14 +44,14 @@ DWORD ofc_champions_league_fixtures(BYTE* _this, char stage_idx, WORD* num_round
 
 		int fixture_id = 0;
 		if (stage_idx == 0) {
-			AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 9), year, Sunday, Evening);
-			AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 12), year, Wednesday, Evening);
-			AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 15), year, Saturday, Evening);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 9), year, Sunday, Evening, NeutralStadium);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 12), year, Wednesday, Evening, NeutralStadium);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 15), year, Saturday, Evening, NeutralStadium);
 		}
 		else {
-			AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 10), year, Monday, Evening);
-			AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 13), year, Thursday, Evening);
-			AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 16), year, Sunday, Evening);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 10), year, Monday, Evening, NeutralStadium);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 13), year, Thursday, Evening, NeutralStadium);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year, 8, 16), year, Sunday, Evening, NeutralStadium);
 		}
 
 		return (DWORD)pMem;
@@ -68,7 +68,7 @@ DWORD ofc_champions_league_fixtures(BYTE* _this, char stage_idx, WORD* num_round
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 17), year, Monday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 19), year, Wednesday, Evening);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 19), year, Wednesday, Evening, NeutralStadium);
 		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 8, 4, 2, 4, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("ofc_cl_semi_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 20), year, Thursday);
@@ -124,9 +124,9 @@ void ofc_champions_league_subs(BYTE* _this)
 	comp_data->pts_for_draw = 1;
 	comp_data->f196 = 8;
 	comp_data->comp_type = CLUB_INTERNATIONAL;
-	comp_data->tiebreaker_1 = CurrentPositionTiebreaker;
-	comp_data->tiebreaker_2 = GoalDifferenceTiebreaker;
-	comp_data->tiebreaker_3 = GoalsForTiebreaker;
+	comp_data->tiebreaker_1 = GoalDifferenceTiebreaker;
+	comp_data->tiebreaker_2 = GoalsForTiebreaker;
+	comp_data->tiebreaker_3 = CurrentPositionTiebreaker;
 	comp_data->f82 = 3;
 
 	comp_data->promotions = 1;
@@ -302,7 +302,6 @@ void ofc_champions_league_group_stage_setup(BYTE* _this) {
 	}
 
 	char prom_rel[4] = { 2, 0, 0, 0 };
-	char tiebreaks[4] = { CurrentPositionTiebreaker, GoalDifferenceTiebreaker, GoalsForTiebreaker, NoTiebreaker };
 
 	vector<cm3_clubs*> clubs;
 	teams_seeded* teams = (teams_seeded*)comp_data->special_teams_seedings;
@@ -337,7 +336,7 @@ void ofc_champions_league_group_stage_setup(BYTE* _this) {
 		WORD year = comp_data->year;
 		BYTE* pStage = (BYTE*)cm0102_new(0xEE);
 		create_league_stage_data(pStage, _this, group_teams, pTeams, 1, (DWORD)(comp_data->competition_db), pFixtures, num_rounds,
-			3, 1, 8, &tiebreaks[0], &prom_rel[0], year, i + stage_num, stage_name_id, 0xf, 2, 0, 0x28, -1, 0, 2);
+			3, 1, 8, &comp_data->tiebreaker_1, &prom_rel[0], year, i + stage_num, stage_name_id, 0xf, 2, 0, 0x28, -1, 0, 2);
 		DWORD* stages_arr = comp_data->stages;
 		*((DWORD*)(&stages_arr[i + stage_num])) = (DWORD)pStage;
 		sub_684230(pStage);

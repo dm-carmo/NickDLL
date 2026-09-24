@@ -524,12 +524,18 @@ void fifa_club_world_cup_all_teams(BYTE* _this) {
 		cwc_try_add_club(backup, conmebol_clubs, counts);
 	}
 	// OFC (1)
-	// - last winner of OFC CL
+	// - highest rep winner in last 4 years of OFC CL
 	cm3_clubs* ofc_club = 0;
-	for (int i = 0; i < 4 && !ofc_club; i++) {
-		ofc_club = get_last_comp_winner_by_year(get_comp(OFC_CHAMPIONS_LEAGUE_9CF()), year - i - 1);
+	vector<cm3_clubs*> ofc_clubs;
+	for (int i = 0; i < 4; i++) {
+		cm3_clubs* winner = get_last_comp_winner_by_year(get_comp(OFC_CHAMPIONS_LEAGUE_9CF()), year - i - 1);
+		if(winner && !vector_contains_element(ofc_clubs, winner)) ofc_clubs.push_back(winner);
 	}
-	if (!ofc_club) {
+	if (ofc_clubs.size() > 0) {
+		sort(ofc_clubs.begin(), ofc_clubs.end(), compareClubRep);
+		ofc_club = ofc_clubs[0];
+	}
+	else {
 		high_rep_clubs = find_clubs_of_continent(OCEANIA_9CF());
 		sort(high_rep_clubs.begin(), high_rep_clubs.end(), compareClubRep);
 		ofc_club = high_rep_clubs[0];
