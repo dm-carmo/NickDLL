@@ -335,6 +335,7 @@ void __fastcall cro_fake_lower_relegation(BYTE* _this)
 }
 
 void __fastcall cro_check_reserve_teams(BYTE* _this) {
+	comp_stats* cro_first_data = (comp_stats*)_this;
 	comp_stats* cro_second_data = (comp_stats*)get_loaded_league(CRO_SECOND_9CF());
 	comp_stats* cro_third_data = (comp_stats*)get_loaded_league(CRO_THIRD_9CF());
 	// Check teams from D2: main team relegated from D1 - add relegation + remove one relegation
@@ -353,6 +354,7 @@ void __fastcall cro_check_reserve_teams(BYTE* _this) {
 					// If the main team was relegated
 					if (main_club_data->league_fate == Relegated) {
 						table_teams[num].league_fate = Relegated;
+						sub_48ECE0((BYTE*)cro_third_data, cro_second_data->competition_db, table_teams[num].club, ret_club, 1);
 						// Relegate the reserve team, and relegate one less team from the second league
 						for (WORD i = cro_third_data->n_teams - cro_third_data->relegations; i < cro_third_data->n_teams; i++) {
 							if (i != num && table_teams[i].league_fate == Relegated) {
@@ -365,7 +367,7 @@ void __fastcall cro_check_reserve_teams(BYTE* _this) {
 			}
 		}
 	}
-	// Check teams from D1: main team relegated from PEM - add relegation + remove one relegation
+	// Check teams from D1: main team relegated from PRM - add relegation + remove one relegation
 	for (WORD num = 0; num < cro_second_data->n_teams; num++) {
 		team_league_stats* table_teams = (team_league_stats*)cro_second_data->team_league_table;
 		DWORD is_main_club;
@@ -381,6 +383,7 @@ void __fastcall cro_check_reserve_teams(BYTE* _this) {
 					// If the main team was relegated
 					if (main_club_data->league_fate == Relegated) {
 						table_teams[num].league_fate = Relegated;
+						sub_48ECE0((BYTE*)cro_second_data, cro_first_data->competition_db, table_teams[num].club, ret_club, 1);
 						// Relegate the reserve team, and relegate one less team from the first league
 						for (WORD i = cro_second_data->n_teams - cro_second_data->relegations; i < cro_second_data->n_teams; i++) {
 							if (i != num && table_teams[i].league_fate == Relegated) {

@@ -51,7 +51,7 @@ void __declspec(naked) nor_premier_subs_c()
 }
 
 void __fastcall nor_check_reserve_teams(BYTE* _this) {
-	comp_stats* nor_premier_data = (comp_stats*)get_loaded_league(NOR_PREMIER_9CF());
+	comp_stats* nor_premier_data = (comp_stats*)_this;
 	comp_stats* nor_first_data = (comp_stats*)get_loaded_league(NOR_FIRST_9CF());
 	comp_stats* nor_second_data = (comp_stats*)get_loaded_league(NOR_SECOND_9CF());
 	BYTE* nor_third = get_loaded_league(NOR_THIRD_9CF());
@@ -79,6 +79,7 @@ void __fastcall nor_check_reserve_teams(BYTE* _this) {
 							if (main_club_data->league_fate == Relegated) {
 								// Relegate the reserve team
 								table_teams[num].league_fate = Relegated;
+								sub_48ECE0((BYTE*)nor_third_data, nor_first_data->competition_db, table_teams[num].club, ret_club, 1);
 							}
 						}
 					}
@@ -107,6 +108,7 @@ void __fastcall nor_check_reserve_teams(BYTE* _this) {
 						// If the main team was relegated
 						if (main_club_data->league_fate == Relegated) {
 							table_teams[num].league_fate = Relegated;
+							sub_48ECE0((BYTE*)nor_second_data, nor_premier_data->competition_db, table_teams[num].club, ret_club, 1);
 							// Relegate the reserve team, and relegate one less team from the second league
 							for (WORD i = curr_stage->n_teams - curr_stage->relegations; i < curr_stage->n_teams; i++) {
 								if (i != num && table_teams[i].league_fate == Relegated) {

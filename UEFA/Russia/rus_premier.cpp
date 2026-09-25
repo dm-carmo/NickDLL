@@ -96,6 +96,7 @@ void __fastcall rus_non_league_promotion(BYTE* _this)
 }
 
 void __fastcall rus_check_reserve_teams(BYTE* _this) {
+	comp_stats* rus_premier_data = (comp_stats*)_this;
 	comp_stats* rus_first_data = (comp_stats*)get_loaded_league(RUS_FIRST_9CF());
 	comp_stats* rus_second_a_data = (comp_stats*)get_loaded_league(RUS_SECOND_A_9CF());
 	// Check teams from L3: promoted but main team relegated from L1 - remove promotion + remove one relegation from L2
@@ -140,6 +141,7 @@ void __fastcall rus_check_reserve_teams(BYTE* _this) {
 						if (main_club_data->league_fate == Relegated) {
 							// Relegate the reserve team
 							table_teams[num].league_fate = Relegated;
+							sub_48ECE0((BYTE*)rus_second_a_data, rus_first_data->competition_db, table_teams[num].club, ret_club, 1);
 						}
 					}
 				}
@@ -162,6 +164,7 @@ void __fastcall rus_check_reserve_teams(BYTE* _this) {
 					// If the main team was relegated
 					if (main_club_data->league_fate == Relegated) {
 						table_teams[num].league_fate = Relegated;
+						sub_48ECE0((BYTE*)rus_first_data, rus_premier_data->competition_db, table_teams[num].club, ret_club, 1);
 						// Relegate the reserve team, and relegate one less team from the second league
 						team_league_stats* d2_table = (team_league_stats*)rus_first_data->team_league_table;
 						for (WORD i = rus_first_data->n_teams - rus_first_data->relegations - rus_first_data->rele_playoff; i < rus_first_data->n_teams; i++) {

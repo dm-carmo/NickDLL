@@ -343,6 +343,7 @@ void __fastcall gre_second_relegation(BYTE* _this)
 }
 
 void __fastcall gre_check_reserve_teams(BYTE* _this) {
+	comp_stats* gre_first_data = (comp_stats*)_this;
 	comp_stats* gre_second_data = (comp_stats*)get_loaded_league(GRE_SECOND_9CF());
 	// Check teams from L2: main team relegated from L1 - add relegation + remove one relegation
 	comp_stats* curr_stage = gre_second_data;
@@ -361,6 +362,7 @@ void __fastcall gre_check_reserve_teams(BYTE* _this) {
 					// If the main team was relegated
 					if (main_club_data->league_fate == Relegated) {
 						table_teams[num].league_fate = Relegated;
+						sub_48ECE0((BYTE*)gre_second_data, gre_first_data->competition_db, table_teams[num].club, ret_club, 1);
 						// Relegate the reserve team, and relegate one less team from the second league
 						team_league_stats* d2_table = (team_league_stats*)curr_stage->team_league_table;
 						for (WORD i = curr_stage->n_teams - curr_stage->relegations - curr_stage->rele_playoff; i < curr_stage->n_teams; i++) {

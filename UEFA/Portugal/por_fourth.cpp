@@ -592,7 +592,7 @@ void por_fourth_playoffs_rele(BYTE* _this) {
 
 	comp_stats* curr_stage = comp_data;
 	vector<cm3_clubs*> clubs;
-	for (char al = -1; al < 4; al++) {
+	for (char al = -1; al < 3; al++) {
 		if (al >= 0) {
 			curr_stage = (comp_stats*)(comp_data->stages[al]);
 		}
@@ -604,7 +604,7 @@ void por_fourth_playoffs_rele(BYTE* _this) {
 		}
 	}
 
-	for (size_t i = 0; i < clubs.size(); i++) {
+	for (size_t i = 0; i < playoff_teams; i++) {
 		*((DWORD*)(&pTeams[team_order[i]])) = (DWORD)clubs[i];
 	}
 

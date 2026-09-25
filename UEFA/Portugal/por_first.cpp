@@ -318,6 +318,7 @@ void sort_por_fourth_clubs(WORD year) {
 }
 
 void __fastcall por_check_reserve_teams(BYTE* _this) {
+	comp_stats* por_first_data = (comp_stats*)_this;
 	comp_stats* por_second_data = (comp_stats*)get_loaded_league(POR_SECOND_9CF());
 	comp_stats* por_third_data = (comp_stats*)get_loaded_league(POR_THIRD_9CF());
 	BYTE* por_fourth = get_loaded_league(POR_FOURTH_9CF());
@@ -371,6 +372,7 @@ void __fastcall por_check_reserve_teams(BYTE* _this) {
 							if (main_club_data->league_fate == Relegated) {
 								// Relegate the reserve team
 								table_teams[num].league_fate = Relegated;
+								sub_48ECE0((BYTE*)por_fourth_data, por_third_data->competition_db, table_teams[num].club, ret_club, 1);
 							}
 						}
 					}
@@ -419,6 +421,7 @@ void __fastcall por_check_reserve_teams(BYTE* _this) {
 						// If the main team was relegated
 						if (main_club_data->league_fate == Relegated) {
 							table_teams[num].league_fate = Relegated;
+							sub_48ECE0((BYTE*)por_third_data, por_second_data->competition_db, table_teams[num].club, ret_club, 1);
 							// Relegate the reserve team, and relegate one less team from the third league
 							team_league_stats* d3_table = (team_league_stats*)l3_curr_stage->team_league_table;
 							for (WORD i = l3_curr_stage->n_teams - l3_curr_stage->rele_playoff; i < l3_curr_stage->n_teams; i++) {
@@ -449,6 +452,7 @@ void __fastcall por_check_reserve_teams(BYTE* _this) {
 					// If the main team was relegated
 					if (main_club_data->league_fate == Relegated) {
 						table_teams[num].league_fate = Relegated;
+						sub_48ECE0((BYTE*)por_second_data, por_first_data->competition_db, table_teams[num].club, ret_club, 1);
 						// Relegate the reserve team, and relegate one less team from the second league
 						team_league_stats* d2_table = (team_league_stats*)por_second_data->team_league_table;
 						for (WORD i = por_second_data->n_teams - por_second_data->relegations - por_second_data->rele_playoff; i < por_second_data->n_teams; i++) {

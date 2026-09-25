@@ -225,6 +225,7 @@ void __fastcall ger_d4_inactive_relegation(BYTE* _this)
 }
 
 void __fastcall ger_check_reserve_teams(BYTE* _this) {
+	comp_stats* ger_second_data = (comp_stats*)get_loaded_league(GER_SECOND_9CF());
 	comp_stats* ger_third_data = (comp_stats*)get_loaded_league(GER_THIRD_9CF());
 	BYTE* ger_regional = get_loaded_league(GER_REGIONAL_9CF());
 	if (ger_regional) {
@@ -271,6 +272,7 @@ void __fastcall ger_check_reserve_teams(BYTE* _this) {
 							if (main_club_data->league_fate == Relegated) {
 								// Relegate the reserve team
 								table_teams[num].league_fate = Relegated;
+								sub_48ECE0((BYTE*)ger_regional_data, ger_third_data->competition_db, table_teams[num].club, ret_club, 1);
 							}
 						}
 					}
@@ -294,6 +296,7 @@ void __fastcall ger_check_reserve_teams(BYTE* _this) {
 					// If the main team was relegated
 					if (main_club_data->league_fate == Relegated) {
 						table_teams[num].league_fate = Relegated;
+						sub_48ECE0((BYTE*)ger_third_data, ger_second_data->competition_db, table_teams[num].club, ret_club, 1);
 						// Relegate the reserve team, and relegate one less team from the third league
 						team_league_stats* d3_table = (team_league_stats*)ger_third_data->team_league_table;
 						for (WORD i = ger_third_data->n_teams - ger_third_data->relegations; i < ger_third_data->n_teams; i++) {

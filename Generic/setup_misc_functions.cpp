@@ -159,7 +159,7 @@ int show_extra_leagues_in_start(BYTE* nation, DWORD dest_ptr, int a3) {
 int parent_child_stages(int child_stage_id) {
 	if (child_stage_id >= 0x3e8 && child_stage_id <= 0x3fb) return GroupStage;
 	if (child_stage_id >= 0x41f && child_stage_id <= 0x42e) return GroupStage;
-	//if (child_stage_id == EasternConference || child_stage_id == WesternConference || child_stage_id == EastLeagueStage) return GroupStage;
+	//if (child_stage_id == EasternConference || child_stage_id == WesternConference) return GroupStage;
 	//if (child_stage_id == BestPlacedTeams) return GroupStage;
 	if (child_stage_id >= 0x475 && child_stage_id <= 0x478) return LeagueA;
 	if (child_stage_id >= 0x459 && child_stage_id <= 0x45C) return LeagueB;
@@ -1765,6 +1765,98 @@ void __declspec(naked) fix_number_screen_3()
 	}
 }
 
+void __declspec(naked) jmp_translate_demonym_1()
+{
+	__asm {
+		push ebp
+		push ebx
+		push esi
+		push edi
+		push ecx
+		push eax
+		mov ebp, dword ptr ss : [esp + 0x1c]
+		lea edi, dword ptr ds : [eax + 0x57]
+		or ecx, 0xffffffff
+		xor eax, eax
+		repne scas byte ptr es : [edi]
+		not ecx
+		sub edi, ecx
+		mov edx, ecx
+		mov esi, edi
+		mov edi, ebp
+		shr ecx, 2
+		rep movs dword ptr es : [edi] , dword ptr ds : [esi]
+		mov ecx, edx
+		and ecx, 3
+		rep movs byte ptr es : [edi] , byte ptr ds : [esi]
+		pop eax
+		pop ecx
+		pop edi
+		pop esi
+		pop ebx
+		pop ebp
+		push 0x874e48
+		ret
+	}
+}
+
+void __declspec(naked) jmp_translate_demonym_2()
+{
+	__asm {
+		push ebp
+		push ebx
+		push esi
+		push edi
+		push ecx
+		push eax
+		mov ebp, dword ptr ss : [esp + 0x1c]
+		lea edi, dword ptr ds : [eax + 0x57]
+		or ecx, 0xffffffff
+		xor eax, eax
+		repne scas byte ptr es : [edi]
+		not ecx
+		sub edi, ecx
+		mov edx, ecx
+		mov esi, edi
+		mov edi, ebp
+		shr ecx, 2
+		rep movs dword ptr es : [edi] , dword ptr ds : [esi]
+		mov ecx, edx
+		and ecx, 3
+		rep movs byte ptr es : [edi] , byte ptr ds : [esi]
+		pop eax
+		pop ecx
+		pop edi
+		pop esi
+		pop ebx
+		pop ebp
+		push 0x87502a
+		ret
+	}
+}
+
+char* semi_short = "Semi Final<%s - COMMENT - short name>";
+void __declspec(naked) jmp_shortname_semi()
+{
+	__asm
+	{
+		push 0x00AD9C64
+		push semi_short
+		push ebx
+		push call_ret
+		push 0x66f4e0
+		ret
+		call_ret :
+		add esp, 0xc
+			mov eax, ebx
+			pop edi
+			pop esi
+			pop ebx
+			add esp, 0x200
+			ret
+	}
+}
+
 void setup_misc_functions()
 {
 	// update game name
@@ -1787,6 +1879,13 @@ void setup_misc_functions()
 	WriteNOP(0x823b50, 2);
 	WriteDWORD(0x823b58, (DWORD)&__DATE__[0]);
 	WriteDWORD(0x823b53, (DWORD)&__TIME__[0]);
+
+	// translations adjustment=
+	PatchFunction(0x874E43, (DWORD)&jmp_translate_demonym_1);
+	PatchFunction(0x875025, (DWORD)&jmp_translate_demonym_2);
+
+	// Semi Final short name (for translations)
+	WriteDWORD(0x4ba3d8, (DWORD)&jmp_shortname_semi); // the switch table
 
 	PatchFunction(0x53d980, (DWORD)&player_check_if_foreign);
 	PatchFunction(0x53d740, (DWORD)&player_check_if_eu);

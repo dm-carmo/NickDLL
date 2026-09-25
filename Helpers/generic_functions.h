@@ -52,6 +52,8 @@ static BYTE* (*check_if_reserve_team_540A50)(BYTE* club, DWORD* a2, int a3) =
 static char* (__thiscall* sub_684640)(BYTE* _this) = (char* (__thiscall*)(BYTE * _this))(0x684640);
 static char(__stdcall* sub_5AE6D0)(BYTE* a1, DWORD comp_id) =
 (char(__stdcall*)(BYTE * a1, DWORD comp_id))(0x5AE6D0);
+static void(__thiscall* sub_48ECE0)(BYTE* _this, cm3_club_comps* main_team_rel, cm3_clubs* b_club, cm3_clubs* main_club, char a5) =
+(void(__thiscall*)(BYTE * _this, cm3_club_comps * main_team_rel, cm3_clubs * b_club, cm3_clubs * main_club, char a5))(0x48ECE0);
 
 static BYTE* (__thiscall* create_cup_stage_data)(BYTE* _this, BYTE* main_comp, __int16 n_teams, DWORD* teamsPtr, __int16 n_rounds, int comp_id, const void* fixturesPtr,
 	__int16 year, char stage_num, char a10, __int16 stage_name_id, char a12, int a13, int a14, int a15, BYTE* a16) =

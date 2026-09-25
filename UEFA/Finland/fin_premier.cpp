@@ -22,7 +22,7 @@ int fin_premier_7F3220(DWORD a1, DWORD a2) {
 }
 
 void __fastcall fin_check_reserve_teams(BYTE* _this) {
-	comp_stats* fin_premier_data = (comp_stats*)get_loaded_league(FIN_PREMIER_9CF());
+	comp_stats* fin_premier_data = (comp_stats*)_this;
 	comp_stats* fin_first_data = (comp_stats*)get_loaded_league(FIN_FIRST_9CF());
 	comp_stats* fin_second_data = (comp_stats*)get_loaded_league(FIN_SECOND_9CF());
 	BYTE* fin_third = get_loaded_league(FIN_THIRD_9CF());
@@ -50,6 +50,7 @@ void __fastcall fin_check_reserve_teams(BYTE* _this) {
 							if (main_club_data->league_fate == Relegated) {
 								// Relegate the reserve team
 								table_teams[num].league_fate = Relegated;
+								sub_48ECE0((BYTE*)fin_third_data, fin_second_data->competition_db, table_teams[num].club, ret_club, 1);
 							}
 						}
 					}
@@ -73,6 +74,7 @@ void __fastcall fin_check_reserve_teams(BYTE* _this) {
 					// If the main team was relegated
 					if (main_club_data->league_fate == Relegated) {
 						table_teams[num].league_fate = Relegated;
+						sub_48ECE0((BYTE*)fin_second_data, fin_first_data->competition_db, table_teams[num].club, ret_club, 1);
 						// Relegate the reserve team, and relegate one less team from the second league
 						for (WORD i = fin_second_data->n_teams - fin_second_data->relegations; i < fin_second_data->n_teams; i++) {
 							if (i != num && table_teams[i].league_fate == Relegated) {
@@ -101,6 +103,7 @@ void __fastcall fin_check_reserve_teams(BYTE* _this) {
 					// If the main team was relegated
 					if (main_club_data->league_fate == Relegated) {
 						table_teams[num].league_fate = Relegated;
+						sub_48ECE0((BYTE*)fin_first_data, fin_premier_data->competition_db, table_teams[num].club, ret_club, 1);
 						// Relegate the reserve team, and relegate one less team from the first league
 						for (WORD i = fin_first_data->n_teams - fin_first_data->relegations; i < fin_first_data->n_teams; i++) {
 							if (i != num && table_teams[i].league_fate == Relegated) {

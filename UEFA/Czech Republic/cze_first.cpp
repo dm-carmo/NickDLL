@@ -343,6 +343,7 @@ void __declspec(naked) cze_first_prom_rel_update_c()
 }
 
 void __fastcall cze_check_reserve_teams(BYTE* _this) {
+	comp_stats* cze_first_data = (comp_stats*)_this;
 	comp_stats* cze_second_data = (comp_stats*)get_loaded_league(CZE_SECOND_9CF());
 	// Check teams from L2: main team relegated from L1 - add relegation
 	for (WORD num = 0; num < cze_second_data->n_teams; num++) {
@@ -360,6 +361,7 @@ void __fastcall cze_check_reserve_teams(BYTE* _this) {
 					// If the main team was relegated
 					if (main_club_data->league_fate == Relegated) {
 						table_teams[num].league_fate = Relegated;
+						sub_48ECE0((BYTE*)cze_second_data, cze_first_data->competition_db, table_teams[num].club, ret_club, 1);
 						// Relegate the reserve team, and relegate one less team from L2
 						team_league_stats* d3_table = (team_league_stats*)cze_second_data->team_league_table;
 						for (WORD i = cze_second_data->n_teams - cze_second_data->relegations; i < cze_second_data->n_teams; i++) {

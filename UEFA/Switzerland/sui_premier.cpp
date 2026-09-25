@@ -374,6 +374,7 @@ void __declspec(naked) sui_premier_prom_rel_update_c()
 }
 
 void __fastcall sui_check_reserve_teams(BYTE* _this) {
+	comp_stats* sui_first_data = (comp_stats*)get_loaded_league(SUI_FIRST_9CF());
 	comp_stats* sui_second_data = (comp_stats*)get_loaded_league(SUI_SECOND_9CF());
 	// Check teams from L2: main team relegated from L1 - add relegation
 	for (WORD num = 0; num < sui_second_data->n_teams; num++) {
@@ -391,6 +392,7 @@ void __fastcall sui_check_reserve_teams(BYTE* _this) {
 					// If the main team was relegated
 					if (main_club_data->league_fate == Relegated) {
 						table_teams[num].league_fate = Relegated;
+						sub_48ECE0((BYTE*)sui_second_data, sui_first_data->competition_db, table_teams[num].club, ret_club, 1);
 						// Relegate the reserve team, and relegate one less team from L2
 						team_league_stats* d3_table = (team_league_stats*)sui_second_data->team_league_table;
 						for (WORD i = sui_second_data->n_teams - sui_second_data->relegations; i < sui_second_data->n_teams; i++) {

@@ -333,6 +333,7 @@ void __declspec(naked) hol_first_fixtures_c()
 }
 
 void __fastcall hol_check_reserve_teams(BYTE* _this) {
+	comp_stats* hol_first_data = (comp_stats*)_this;
 	comp_stats* hol_second_data = (comp_stats*)get_loaded_league(HOL_SECOND_9CF());
 	// Check teams from L2: main team relegated from L1 - add relegation
 	for (WORD num = 0; num < hol_second_data->n_teams; num++) {
@@ -348,7 +349,11 @@ void __fastcall hol_check_reserve_teams(BYTE* _this) {
 				if (ret_club->ClubDivision->ClubCompID == HOL_FIRST_9CF()) {
 					team_league_stats* main_club_data = get_team_league_stats(HOL_FIRST_9CF(), ret_club);
 					// If the main team was relegated
-					if (main_club_data->league_fate == Relegated) table_teams[num].league_fate = Relegated;
+					if (main_club_data->league_fate == Relegated) 
+					{
+						table_teams[num].league_fate = Relegated;
+						sub_48ECE0((BYTE*)hol_second_data, hol_first_data->competition_db, table_teams[num].club, ret_club, 1);
+					}
 				}
 			}
 		}

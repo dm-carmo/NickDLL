@@ -617,6 +617,7 @@ void sort_bel_fourth_clubs() {
 }
 
 void __fastcall bel_check_reserve_teams(BYTE* _this) {
+	comp_stats* bel_first_data = (comp_stats*)_this;
 	comp_stats* bel_second_data = (comp_stats*)get_loaded_league(BEL_SECOND_9CF());
 	comp_stats* bel_third_vv_data = (comp_stats*)get_loaded_league(BEL_THIRD_VV_9CF());
 	comp_stats* bel_third_ac_data = (comp_stats*)get_loaded_league(BEL_THIRD_ACFF_9CF());
@@ -665,6 +666,7 @@ void __fastcall bel_check_reserve_teams(BYTE* _this) {
 							if (main_club_data->league_fate == Relegated) {
 								// Relegate the reserve team
 								table_teams[num].league_fate = Relegated;
+								sub_48ECE0((BYTE*)bel_fourth_vv_data, bel_third_vv_data->competition_db, table_teams[num].club, ret_club, 1);
 							}
 						}
 						else if (ret_club->ClubDivision->ClubCompID == BEL_THIRD_ACFF_9CF()) {
@@ -673,6 +675,7 @@ void __fastcall bel_check_reserve_teams(BYTE* _this) {
 							if (main_club_data->league_fate == Relegated) {
 								// Relegate the reserve team
 								table_teams[num].league_fate = Relegated;
+								sub_48ECE0((BYTE*)bel_fourth_vv_data, bel_third_ac_data->competition_db, table_teams[num].club, ret_club, 1);
 							}
 						}
 					}
@@ -720,6 +723,7 @@ void __fastcall bel_check_reserve_teams(BYTE* _this) {
 						if (main_club_data->league_fate == Relegated) {
 							// Relegate the reserve team
 							table_teams[num].league_fate = Relegated;
+							sub_48ECE0((BYTE*)bel_fourth_ac_data, bel_third_vv_data->competition_db, table_teams[num].club, ret_club, 1);
 						}
 					}
 					else if (ret_club->ClubDivision->ClubCompID == BEL_THIRD_ACFF_9CF()) {
@@ -728,6 +732,7 @@ void __fastcall bel_check_reserve_teams(BYTE* _this) {
 						if (main_club_data->league_fate == Relegated) {
 							// Relegate the reserve team
 							table_teams[num].league_fate = Relegated;
+							sub_48ECE0((BYTE*)bel_fourth_ac_data, bel_third_ac_data->competition_db, table_teams[num].club, ret_club, 1);
 						}
 					}
 				}
@@ -770,6 +775,7 @@ void __fastcall bel_check_reserve_teams(BYTE* _this) {
 					// If the main team was relegated
 					if (main_club_data->league_fate == Relegated) {
 						table_teams[num].league_fate = Relegated;
+						sub_48ECE0((BYTE*)bel_third_vv_data, bel_second_data->competition_db, table_teams[num].club, ret_club, 1);
 						// Relegate the reserve team, and relegate one less team from the third league
 						team_league_stats* d3_table = (team_league_stats*)bel_third_vv_data->team_league_table;
 						for (WORD i = bel_third_vv_data->n_teams - bel_third_vv_data->rele_playoff; i < bel_third_vv_data->n_teams; i++) {
@@ -817,6 +823,7 @@ void __fastcall bel_check_reserve_teams(BYTE* _this) {
 					// If the main team was relegated
 					if (main_club_data->league_fate == Relegated) {
 						table_teams[num].league_fate = Relegated;
+						sub_48ECE0((BYTE*)bel_third_ac_data, bel_second_data->competition_db, table_teams[num].club, ret_club, 1);
 						// Relegate the reserve team, and relegate one less team from the third league
 						team_league_stats* d3_table = (team_league_stats*)bel_third_ac_data->team_league_table;
 						for (WORD i = bel_third_ac_data->n_teams - bel_third_ac_data->rele_playoff; i < bel_third_ac_data->n_teams; i++) {
@@ -846,6 +853,7 @@ void __fastcall bel_check_reserve_teams(BYTE* _this) {
 					// If the main team was relegated
 					if (main_club_data->league_fate == Relegated) {
 						table_teams[num].league_fate = Relegated;
+						sub_48ECE0((BYTE*)bel_second_data, bel_first_data->competition_db, table_teams[num].club, ret_club, 1);
 						// Relegate the reserve team, and relegate one less team from the second league
 						team_league_stats* d2_table = (team_league_stats*)bel_second_data->team_league_table;
 						for (WORD i = bel_second_data->n_teams - bel_second_data->relegations - bel_second_data->rele_playoff; i < bel_second_data->n_teams; i++) {
