@@ -148,6 +148,10 @@
     <ClCompile Include="CAF\Morocco\mar_league_cup.cpp" />
     <ClCompile Include="CAF\Morocco\mar_second.cpp" />
     <ClCompile Include="CAF\Morocco\mar_setup.cpp" />
+    <ClCompile Include="CONCACAF\Mexico\mex_first.cpp" />
+    <ClCompile Include="CONCACAF\Mexico\mex_second.cpp" />
+    <ClCompile Include="CONCACAF\Mexico\mex_setup.cpp" />
+    <ClCompile Include="CONCACAF\Mexico\mex_super.cpp" />
     <ClCompile Include="CONMEBOL\Argentina\arg_champ_cup.cpp" />
     <ClCompile Include="CONMEBOL\Argentina\arg_cup.cpp" />
     <ClCompile Include="CONMEBOL\Argentina\arg_first.cpp" />
@@ -481,6 +485,10 @@
     <ClInclude Include="CAF\Morocco\mar_league_cup.h" />
     <ClInclude Include="CAF\Morocco\mar_second.h" />
     <ClInclude Include="CAF\Morocco\mar_setup.h" />
+    <ClInclude Include="CONCACAF\Mexico\mex_first.h" />
+    <ClInclude Include="CONCACAF\Mexico\mex_second.h" />
+    <ClInclude Include="CONCACAF\Mexico\mex_setup.h" />
+    <ClInclude Include="CONCACAF\Mexico\mex_super.h" />
     <ClInclude Include="CONMEBOL\Argentina\arg_champ_cup.h" />
     <ClInclude Include="CONMEBOL\Argentina\arg_cup.h" />
     <ClInclude Include="CONMEBOL\Argentina\arg_first.h" />

@@ -61,7 +61,7 @@ void swe_second_subs(BYTE* _this)
 	}
 
 	comp_data->f217 = 0x2;
-	comp_data->max_bench = 9;
+	comp_data->max_bench = 7;
 	comp_data->max_subs = 5;
 
 	DWORD v1 = *(DWORD*)_this;
@@ -261,7 +261,7 @@ DWORD swe_second_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 10), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 16), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, Playoff, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 5, 4, 2, 4, 0, 0, 2, 5);
+		FillFixtureDetails(pMem, fixture_id++, Playoff, 8, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 5, 4, 2, 4, 0, 0, 2, 5);
 
 		return (DWORD)pMem;
 	}
@@ -430,6 +430,7 @@ void swe_second_playoffs_under(BYTE* _this) {
 	comp_stats* comp_data = (comp_stats*)_this;
 	BYTE playoff_teams = 4;
 	DWORD* pTeams = (DWORD*)cm0102_malloc(playoff_teams * 4);
+	BYTE seeds[4] = { 0,1,0,1 };
 
 	comp_stats* curr_stage = comp_data;
 	int j = 0;
@@ -463,6 +464,19 @@ void swe_second_playoffs_under(BYTE* _this) {
 				if (tls.league_fate == TopPlayoff) {
 					playoff_clubs.push_back(tls.club);
 				}
+				else {
+					for (char al = -1; al < 5; al++) {
+						if (al >= 0) curr_stage = (comp_stats*)(swe_third_data->stages[al]);
+						else curr_stage = swe_third_data;
+						WORD num_teams = curr_stage->n_teams;
+						team_league_stats* table = (team_league_stats*)(curr_stage->team_league_table);
+						for (int i = 0; i < num_teams; i++) {
+							if (table[i].club != tls.club) continue;
+							table[i].league_fate = Eliminated;
+							break;
+						}
+					}
+				}
 			}
 		}
 	}
@@ -475,9 +489,9 @@ void swe_second_playoffs_under(BYTE* _this) {
 			cm3_clubs* available = random_lower[i + 6];
 			playoff_clubs.push_back(available);
 		}
+		shuffle(playoff_clubs.begin(), playoff_clubs.end(), rng);
 	}
 
-	shuffle(playoff_clubs.begin(), playoff_clubs.end(), rng);
 	j = 0;
 	for (cm3_clubs* c : playoff_clubs) {
 		*((DWORD*)(&pTeams[j * 2 + 1])) = (DWORD)c;
@@ -490,7 +504,7 @@ void swe_second_playoffs_under(BYTE* _this) {
 	DWORD v1 = *(DWORD*)_this;
 	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, char, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
 	BYTE* new_stage = (BYTE*)cm0102_new(0xB2);
-	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)comp_data->competition_db, pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, 0);
+	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)comp_data->competition_db, pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, &seeds[0]);
 	DWORD* stages_arr = comp_data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
 	sub_51C800(new_stage, 0);
@@ -599,7 +613,7 @@ int swe_second_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, 
 							//return 0;
 							break;
 						default:
-							//table[i].league_fate = Eliminated;
+							table[i].league_fate = Eliminated;
 							//return 0;
 							break;
 						}
@@ -624,7 +638,7 @@ int swe_second_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, 
 							//	*(WORD*)(rounds + playoff_dates_sz * (current_round + 1) + 7), 0xF);
 							return 0;
 						default:
-							//table[i].league_fate = Eliminated;
+							table[i].league_fate = Eliminated;
 							return 0;
 						}
 					}

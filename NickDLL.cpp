@@ -147,6 +147,8 @@ void Setup()
 	setup_egy_nation();
 	dprintf("New nation: Iran\n");
 	setup_irn_nation();
+	dprintf("New nation: Mexico\n");
+	setup_mex_nation();
 	dprintf("New nation: Morocco\n");
 	setup_mar_nation();
 	dprintf("New nation: Romania\n");

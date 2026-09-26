@@ -74,6 +74,7 @@ enum CompetitionRules : BYTE {
 	RulesMorocco,
 	RulesUkraine,
 	RulesRomania,
+	RulesMexico,
 	CompetitionRules_LENGTH
 };
 
@@ -143,8 +144,8 @@ enum RoundNames : WORD {
 	SecondRoundGroupGtoI = 0x42F,
 	FirstStage = 0x432,
 	SecondStage = 0x433,
-	AperturaPlayoffs = 0x434,
-	ClausuraPlayoffs = 0x435,
+	Apertura = 0x434,
+	Clausura = 0x435,
 	Bayern = 0x436,
 	MainPath = 0x437,
 	RelegationGroupStage = 0x438,
@@ -177,7 +178,8 @@ enum RoundNames : WORD {
 	WestGotaland = 0x470,
 	SouthGotaland = 0x471,
 	SecondRoundGroupF = 0x472,
-	LeagueD1to2 = 0x473,
+	AperturaPlayoffs = 0x473,
+	ClausuraPlayoffs = 0x474,
 	LeagueA1to4 = 0x475,
 	LeagueABPlayoff = 0x479,
 	LeagueBCPlayoff = 0x47A,

@@ -1008,6 +1008,18 @@
     <ClCompile Include="UEFA\Romania\rom_super.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CONCACAF\Mexico\mex_setup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CONCACAF\Mexico\mex_first.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CONCACAF\Mexico\mex_second.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CONCACAF\Mexico\mex_super.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -2013,6 +2025,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="UEFA\Romania\rom_super.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CONCACAF\Mexico\mex_setup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CONCACAF\Mexico\mex_first.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CONCACAF\Mexico\mex_second.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CONCACAF\Mexico\mex_super.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

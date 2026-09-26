@@ -1415,13 +1415,4 @@ void setup_world_cup_quals_uefa() {
 	WriteDWORD(0x4B89a4 + 1, (DWORD)&grp_c2_short[0]);
 	WriteDWORD(0x4ba720, (DWORD)&jmp_shortname_c3); // the switch table
 	WriteDWORD(0x4ba724, (DWORD)&jmp_shortname_c4); // the switch table
-
-	char* grp_d1 = "Group D1";
-	char* grp_d2 = "Group D2";
-	char* grp_d1_short = "Grp D1";
-	char* grp_d2_short = "Grp D2";
-	WriteDWORD(0x4B67b1 + 1, (DWORD)&grp_d1[0]);
-	WriteDWORD(0x4B67cb + 1, (DWORD)&grp_d2[0]);
-	WriteDWORD(0x4B9303 + 1, (DWORD)&grp_d1_short[0]);
-	WriteDWORD(0x4B931d + 1, (DWORD)&grp_d2_short[0]);
 }

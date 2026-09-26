@@ -286,9 +286,11 @@ char swe_premier_update(BYTE* _this) {
 	comp_stats* swe_second_data = (comp_stats*)swe_second;
 	BYTE* swe_second_grp = (BYTE*)swe_second_data->stages[0];
 	update_club_pro_status_68A980(swe_second, SemiProfessional, Relegated, -3, 1);
+	update_club_pro_status_68A980(swe_second, SemiProfessional, Relegated, -3, 0);
 	update_club_pro_status_68A980(swe_second, SemiProfessional, -3, Relegated, 1);
 	update_club_pro_status_68A980(swe_second, SemiProfessional, -3, Relegated, 0);
 	update_club_pro_status_68A980(swe_second_grp, SemiProfessional, Relegated, -3, 1);
+	update_club_pro_status_68A980(swe_second_grp, SemiProfessional, Relegated, -3, 0);
 	update_club_pro_status_68A980(swe_second_grp, SemiProfessional, -3, Relegated, 1);
 	update_club_pro_status_68A980(swe_second_grp, SemiProfessional, -3, Relegated, 0);
 	if (swe_third)

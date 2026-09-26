@@ -164,7 +164,7 @@ int parent_child_stages(int child_stage_id) {
 	if (child_stage_id >= 0x475 && child_stage_id <= 0x478) return LeagueA;
 	if (child_stage_id >= 0x459 && child_stage_id <= 0x45C) return LeagueB;
 	if (child_stage_id >= 0x40F && child_stage_id <= 0x412) return LeagueC;
-	if (child_stage_id >= 0x473 && child_stage_id <= 0x474) return LeagueD;
+	//if (child_stage_id >= 0x473 && child_stage_id <= 0x474) return LeagueD;
 	if (child_stage_id >= 0x3fd && child_stage_id <= 0x406) return FirstRound;
 	if ((child_stage_id >= 0x407 && child_stage_id <= 0x40B) || child_stage_id == SecondRoundGroupF ||
 		(child_stage_id >= 0x42f && child_stage_id <= 0x431)) return SecondRound;

@@ -67,7 +67,7 @@ DWORD arg_champ_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 14), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 20), year, Saturday, Afternoon, NeutralStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, Penalties | ExtraTime, NoTiebreak, 6, 2, 1, 2, 0, 0, 1, 00);
+		FillFixtureDetails(pMem, fixture_id++, None, 0, Penalties | ExtraTime, NoTiebreak, 6, 2, 1, 2, 0, 0, 1, 00);
 
 		return (DWORD)pMem;
 	}

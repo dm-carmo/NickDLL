@@ -553,6 +553,17 @@ int init_leagues_list() {
 	pnd_list[idx].main_cup = get_comp(ROM_CUP_9CF());
 	idx++;
 
+	cm_date = new BYTE[8];
+	pnd_list[idx].nation = get_country(NATION_MEXICO_9CF());
+	pnd_list[idx].setup_function_addr = (DWORD)&mex_setup_c;
+	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
+	convert_to_cm_date(pnd_list[idx].end_date, 31, May, *current_year, -1);
+	pnd_list[idx].updates_in_june = 1;
+	convert_to_cm_date(cm_date, 20, June, START_YEAR, -1);
+	pnd_list[idx].update_day = *(WORD*)(cm_date);
+	pnd_list[idx].main_cup = 0;
+	idx++;
+
 	return 1;
 }
 
