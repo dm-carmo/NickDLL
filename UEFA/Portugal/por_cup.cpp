@@ -80,6 +80,7 @@ int por_cup_teams(BYTE* _this) {
 	WORD total_teams = 146;
 	BYTE* pMem = (BYTE*)cm0102_malloc(6 * total_teams);
 
+	if (comp_data->teams_list) sub_9452CA_free(comp_data->teams_list);
 	comp_data->n_teams = total_teams;
 	comp_data->teams_list = (DWORD*)pMem;
 
@@ -161,7 +162,7 @@ int por_cup_teams(BYTE* _this) {
 
 	for (DWORD i = 0; i < total_teams; i++)
 	{
-		teams[i].club = vec[total_teams - i - 1];
+		teams[i].club = vec[i];
 		teams[i].seeding = 0;
 		teams[i].f6 = 0;
 	}
@@ -184,7 +185,12 @@ void por_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	*((BYTE*)(_this + 0xB1)) = 0;
 	int loaded = sub_51FC00(_this, 1);
 	if (loaded) return;
-	por_cup_teams(_this);
+
+	// to prevent error when saving before cup has been init'd
+	data->n_teams = 1;
+	BYTE* tMem = (BYTE*)cm0102_malloc(6 * data->n_teams);
+	data->teams_list = (DWORD*)tMem;
+
 	DWORD v1 = *(DWORD*)_this;
 	*((DWORD*)(_this + 0xA3)) = (DWORD)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0x3c, _this + 0x3a, 0);
 	cup_map_fixture_tree_518790(_this);
@@ -193,7 +199,7 @@ void por_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	data->f8 = (DWORD*)pMem2;
 	data->max_bench = 9;
 	data->max_subs = 5;
-	cup_reputation_setup_generic_5223A0(_this);
+	data->f69 = 0;
 }
 
 void __declspec(naked) por_cup_init_c()
@@ -236,11 +242,17 @@ char por_cup_update(BYTE* _this) {
 	data->year++;
 	data->f171 = 0;
 	*((BYTE*)(_this + 0xB1)) = 0;
-	por_cup_teams(_this);
+
+	// to prevent error when saving before cup has been init'd
+	data->n_teams = 1;
+	BYTE* tMem = (BYTE*)cm0102_malloc(6 * data->n_teams);
+	data->teams_list = (DWORD*)tMem;
+
 	DWORD v1 = *(DWORD*)_this;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x8C))(_this);
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x94))(_this);
-	return (*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
+	data->f69 = 0;
+	return 1;
 }
 
 void __declspec(naked) por_cup_update_c()
@@ -255,9 +267,46 @@ void __declspec(naked) por_cup_update_c()
 	}
 }
 
+void por_cup_init2(BYTE* _this, DWORD current_date, int a3) {
+	comp_stats* data = (comp_stats*)_this;
+	if (!data->f69) {
+		BYTE* cm_date = new BYTE[8];
+		convert_to_cm_date(cm_date, 23, June, data->year, -1);
+		WORD date_day = *(WORD*)(cm_date);
+		WORD date_year = *(WORD*)(cm_date + 2);
+		if (date_day == *(WORD*)(current_date) && *(WORD*)(current_date + 2) == date_year) {
+			if (a3) {
+				data->f69 = 1;
+				por_cup_teams(_this);
+				DWORD v1 = *(DWORD*)_this;
+				(*(int(__thiscall**)(BYTE*))(v1 + 0x8C))(_this);
+				(*(int(__thiscall**)(BYTE*))(v1 + 0x94))(_this);
+				cup_reputation_setup_generic_5223A0(_this);
+				sub_51C800(_this, 0);
+			}
+		}
+	}
+	sub_51F890(_this, current_date, a3);
+}
+
+void __declspec(naked) por_cup_init2_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x8]
+		push dword ptr[eax + 0x4]
+		push ecx
+		call por_cup_init2
+		add esp, 0xc
+		ret 8
+	}
+}
+
 void setup_por_cup()
 {
 	WriteVTablePtr(por_cup_vtable, VTableFixtures, (DWORD)&por_cup_fixture_caller);
 	WriteVTablePtr(por_cup_vtable, VTableEoSUpdate, (DWORD)&por_cup_update_c);
 	WriteVTablePtr(por_cup_vtable, VTableSubsRounds, 0x858e70);
+	WriteVTablePtr(por_cup_vtable, VTableLeagueSplit, (DWORD)&por_cup_init2_c);
 }

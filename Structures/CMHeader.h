@@ -107,6 +107,7 @@ enum RoundNames : WORD {
 	Final = 0x96,
 	Playoff = 0xA0,
 	ThirdRoundGroupD = 0xBE,
+	PromRelPlayoff = 0xBF,
 	FirstPreliminaryRound = 0xC8,
 	SecondPreliminaryRound = 0xD2,
 	QualifyingRound = 0xDC,

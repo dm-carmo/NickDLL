@@ -1020,6 +1020,9 @@
     <ClCompile Include="CONCACAF\Mexico\mex_super.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Generic\setup_default_titlebar_colours.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -2037,6 +2040,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CONCACAF\Mexico\mex_super.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Generic\setup_default_titlebar_colours.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

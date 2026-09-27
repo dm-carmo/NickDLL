@@ -154,7 +154,7 @@ int sco_pyramid_playoff_table_fates(BYTE* _this, cm3_clubs* club, char fate, cha
 		case Promoted:
 			return 0;
 		case TopPlayoff:
-			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)sco_l2, None, Playoff, 0x1E);
+			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)sco_l2, PromRelPlayoff, None, 0x1E);
 			return 0;
 		case BottomPlayoff:
 			return 0;

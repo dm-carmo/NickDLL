@@ -144,11 +144,11 @@ DWORD swe_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 8), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 15), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 1, Penalties | ExtraTime, NoTiebreak, 6, 8, 4, 8, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 8, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 6, 8, 4, 8, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 16), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 22), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 1, Penalties | ExtraTime, NoTiebreak, 6, 4, 2, 0, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, Penalties | ExtraTime, NoTiebreak, 6, 4, 2, 0, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 23), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 14), year, Thursday, Evening, NationalStadium);
@@ -193,8 +193,9 @@ int swe_cup_teams(BYTE* _this) {
 		// D2 - 32 teams
 		for (cm3_clubs* club : division_clubs)
 		{
-			if (club->ClubLastDivision && club->ClubLastDivision->ClubCompID == SWE_THIRD_9CF() &&
-				club->ClubLastPosition > 0 && club->ClubLastPosition < 7 && d2_count < 32) {
+			if (club->ClubLastDivision && (club->ClubLastDivision->ClubCompID == SWE_SECOND_9CF() ||
+				(club->ClubLastDivision->ClubCompID == SWE_THIRD_9CF() &&
+					club->ClubLastPosition > 0 && club->ClubLastPosition < 6)) && d2_count < 32) {
 				vec.push_back(club);
 				d2_count++;
 			}
@@ -370,13 +371,23 @@ void swe_cup_final_stage_setup(BYTE* _this) {
 	comp_stats* comp_data = (comp_stats*)_this;
 	BYTE playoff_teams = 8;
 	DWORD* pTeams = (DWORD*)cm0102_malloc(playoff_teams * 4);
+	BYTE seeds[8] = { 1,0,1,0,1,0,1,0 };
 
 	comp_stats* curr_stage = comp_data;
 
+	vector<team_league_stats> sort_tls;
 	for (char al = 0; al < 8; al++) {
 		curr_stage = (comp_stats*)(comp_data->stages[al]);
 		team_league_stats* table_teams = (team_league_stats*)(curr_stage->team_league_table);
-		*((DWORD*)(&pTeams[al])) = (DWORD)table_teams[0].club;
+		sort_tls.push_back(table_teams[0]);
+	}
+	sort(sort_tls.begin(), sort_tls.end(), sortTLS);
+	shuffle(sort_tls.begin(), sort_tls.begin() + 4, rng);
+	shuffle(sort_tls.begin() + 4, sort_tls.end(), rng);
+
+	for (WORD j = 0; j < playoff_teams / 2; j++) {
+		*((DWORD*)(&pTeams[j * 2])) = (DWORD)sort_tls[j].club;
+		*((DWORD*)(&pTeams[j * 2 + 1])) = (DWORD)sort_tls[j + 4].club;
 	}
 
 	WORD num_rounds = 0;
@@ -385,7 +396,7 @@ void swe_cup_final_stage_setup(BYTE* _this) {
 	DWORD v1 = *(DWORD*)_this;
 	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, char, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
 	BYTE* new_stage = (BYTE*)cm0102_new(0xB2);
-	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)(comp_data->competition_db), pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, 0);
+	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)(comp_data->competition_db), pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, &seeds[0]);
 	DWORD* stages_arr = comp_data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
 	sub_51C800(new_stage, 0);

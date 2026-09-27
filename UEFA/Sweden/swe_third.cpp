@@ -238,14 +238,14 @@ DWORD swe_third_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		BYTE* pMem = NULL;
 		WORD year = ((comp_stats*)_this)->year;
 		*num_rounds = 1;
-		*stage_name_id = None;
+		*stage_name_id = PromRelPlayoff;
 
 		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 19), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 25), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, Playoff, 8, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 5, 12, 6, 12, 0, 0, 2, 7);
+		FillFixtureDetails(pMem, fixture_id++, None, 8, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 5, 12, 6, 12, 0, 0, 2, 7);
 
 		return (DWORD)pMem;
 	}
@@ -318,7 +318,7 @@ int swe_third_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, B
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, PromotionPlayoff, 0x1E);
 			return 0;
 		case BottomPlayoff:
-			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, Playoff, 0x1E);
+			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), PromRelPlayoff, None, 0x1E);
 			return 0;
 		case Relegated:
 			staff_history_relegated_86A1C0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));
@@ -349,7 +349,7 @@ int swe_third_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, B
 					table[i].league_fate = Promoted;
 					return 0;
 				case TopPlayoff:
-					staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(swe_second), None, Playoff, 0x1E);
+					staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(swe_second), PromRelPlayoff, None, 0x1E);
 					table[i].league_fate = TopPlayoff;
 					return 0;
 				default:

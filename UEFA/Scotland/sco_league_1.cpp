@@ -268,7 +268,7 @@ DWORD sco_league_1_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD*
 		BYTE* pMem = NULL;
 		WORD year = ((comp_stats*)_this)->year;
 		*num_rounds = 2;
-		*stage_name_id = Playoff;
+		*stage_name_id = PromRelPlayoff;
 
 		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
@@ -427,6 +427,7 @@ void __declspec(naked) sco_league_1_playoffs_create()
 int sco_league_1_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
+	cm3_club_comps* sco_champ = get_comp(SCO_CHAMP_9CF());
 	if (stage == 0) {
 		cm3_club_comps* sco_league_2 = get_comp(SCO_LEAGUE_2_9CF());
 		BYTE* rounds = ((comp_stats*)(comp_data->stages[stage]))->rounds_list;
@@ -490,10 +491,10 @@ int sco_league_1_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage
 			staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), 0x64);
 			return 0;
 		case TopPlayoff:
-			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, PromotionPlayoff, 0x1E);
+			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)sco_champ, PromRelPlayoff, None, 0x1E);
 			return 0;
 		case BottomPlayoff:
-			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, Playoff, 0x1E);
+			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), PromRelPlayoff, None, 0x1E);
 			return 0;
 		case Relegated:
 			staff_history_relegated_86A1C0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));

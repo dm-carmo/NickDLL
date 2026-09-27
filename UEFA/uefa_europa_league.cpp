@@ -213,7 +213,9 @@ DWORD uefa_europa_league_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds,
 		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 8, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 8, 4, 2, 0, 0, 0, 2, 7, prizeMoneyFile.GetInt("uefa_uel_semi_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 8), year, Friday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 26), year, Wednesday, Evening, NationalStadium);
+		Date final_day = Date(year + 1, 5, 27);
+		if (year % 2 == 1) final_day = Date(year + 1, 5, 20);
+		AddPlayoffFixture(pMem, fixture_id, final_day, year, Wednesday, Evening, NationalStadium);
 		AddPlayoffTVFixture(pMem, fixture_id, 0);
 		FillFixtureDetails(pMem, fixture_id++, Final, 8, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 8, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("uefa_uel_final_win"), prizeMoneyFile.GetInt("uefa_uel_final_lose"));
 

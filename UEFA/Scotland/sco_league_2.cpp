@@ -268,14 +268,14 @@ DWORD sco_league_2_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD*
 		BYTE* pMem = NULL;
 		WORD year = ((comp_stats*)_this)->year;
 		*num_rounds = 1;
-		*stage_name_id = Playoff;
+		*stage_name_id = PromRelPlayoff;
 
 		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 3), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 9), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 5, 2, 1, 2, 0, 0, 2, 7);
+		FillFixtureDetails(pMem, fixture_id++, None, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 5, 2, 1, 2, 0, 0, 2, 7);
 
 		return (DWORD)pMem;
 	}
@@ -454,6 +454,7 @@ void __declspec(naked) sco_league_2_playoffs_create()
 int sco_league_2_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
+	cm3_club_comps* sco_league_1 = get_comp(SCO_LEAGUE_1_9CF());
 	if (stage == 0) {
 		cm3_club_comps* sco_highland = get_comp(SCO_HIGHLAND_9CF());
 		cm3_club_comps* sco_lowland = get_comp(SCO_LOWLAND_9CF());
@@ -547,10 +548,10 @@ int sco_league_2_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage
 			staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), 0x64);
 			return 0;
 		case TopPlayoff:
-			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, PromotionPlayoff, 0x1E);
+			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)sco_league_1, PromRelPlayoff, None, 0x1E);
 			return 0;
 		case BottomPlayoff:
-			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, Playoff, 0x1E);
+			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), PromRelPlayoff, None, 0x1E);
 			return 0;
 		case Relegated:
 			staff_history_relegated_86A1C0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));

@@ -194,14 +194,14 @@ DWORD kor_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		BYTE* pMem = NULL;
 		WORD year = ((comp_stats*)_this)->year;
 		*num_rounds = 1;
-		*stage_name_id = None;
+		*stage_name_id = PromRelPlayoff;
 
 		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 7), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 9), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, Playoff, 8, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 5, 4, 2, 4, 0, 0, 2, 3);
+		FillFixtureDetails(pMem, fixture_id++, None, 8, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 5, 4, 2, 4, 0, 0, 2, 3);
 
 		return (DWORD)pMem;
 	}
@@ -536,7 +536,7 @@ void kor_first_playoff_under(BYTE* _this) {
 			if (j == 0)
 			{
 				BYTE* staff_hist_ptr = (BYTE*)*staff_history;
-				staff_history_qualified_86BDD0(staff_hist_ptr, tls.club, (DWORD)comp_data->competition_db, None, Playoff, 0xF);
+				staff_history_qualified_86BDD0(staff_hist_ptr, tls.club, (DWORD)comp_data->competition_db, PromRelPlayoff, None, 0xF);
 			}
 			j++;
 		}
@@ -654,7 +654,7 @@ int kor_first_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, B
 		case TopPlayoff:
 			return 0;
 		case BottomPlayoff:
-			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, Playoff, 0x1E);
+			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), PromRelPlayoff, None, 0x1E);
 			return 0;
 		case Relegated:
 			staff_history_relegated_86A1C0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));

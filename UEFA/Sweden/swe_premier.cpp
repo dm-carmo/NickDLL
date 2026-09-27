@@ -602,14 +602,14 @@ DWORD swe_premier_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* 
 		BYTE* pMem = NULL;
 		WORD year = ((comp_stats*)_this)->year;
 		*num_rounds = 1;
-		*stage_name_id = None;
+		*stage_name_id = PromRelPlayoff;
 
 		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 1), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 6), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, Playoff, 0, NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 5, 2, 1, 2, 0, 0, 2, 7);
+		FillFixtureDetails(pMem, fixture_id++, None, 8, NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 5, 2, 1, 2, 0, 0, 2, 7);
 
 		return (DWORD)pMem;
 	}
@@ -664,6 +664,7 @@ void swe_premier_playoff_under(BYTE* _this) {
 	BYTE playoff_teams = 2;
 	WORD total_teams = comp_data->n_teams;
 	DWORD* pTeams = (DWORD*)cm0102_malloc(playoff_teams * 4);
+	BYTE seeds[2] = { 0,1 };
 
 	team_league_stats* table_teams = (team_league_stats*)(comp_data->team_league_table);
 	for (int i = 0; i < total_teams; i++) {
@@ -690,7 +691,7 @@ void swe_premier_playoff_under(BYTE* _this) {
 	DWORD v1 = *(DWORD*)_this;
 	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, char, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
 	BYTE* new_stage = (BYTE*)cm0102_new(0xB2);
-	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)comp_data->competition_db, pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, 0);
+	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)comp_data->competition_db, pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, &seeds[0]);
 	DWORD* stages_arr = comp_data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
 	sub_51C800(new_stage, 0);
@@ -704,14 +705,17 @@ void swe_premier_playoffs_c(BYTE* _this) {
 	long max = comp_data->num_stages;
 	if (current < max - 1) {
 		BYTE* swe_first = get_loaded_league(SWE_FIRST_9CF());
-		DWORD v1 = *(DWORD*)swe_first;
-		char ret = (*(int(__thiscall**)(BYTE*, int, int))(v1 + 0x10))(swe_first, 0, 1);
-		if (ret != 0) {
-			(*(void(__thiscall**)(BYTE*))(v1 + 0x94))(swe_first);
-			current++;
-			comp_data->current_stage = current;
-			if (current == 0) {
-				swe_premier_playoff_under(_this);
+		comp_stats* swe_first_data = (comp_stats*)swe_first;
+		BYTE* prom_playoff = (BYTE*)swe_first_data->stages[0];
+		if (prom_playoff) {
+			DWORD v1 = *(DWORD*)prom_playoff;
+			char ret = (*(int(__thiscall**)(BYTE*, int, int))(v1 + 0x10))(prom_playoff, 0, 1);
+			if (ret != 0) {
+				current++;
+				if (current == 0) {
+					comp_data->current_stage = current;
+					swe_premier_playoff_under(_this);
+				}
 			}
 		}
 	}

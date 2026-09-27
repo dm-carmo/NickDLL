@@ -354,7 +354,6 @@ void __declspec(naked) bel_third_vv_update_c()
 int bel_third_vv_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
-	cm3_club_comps* ger_second = get_comp(GER_SECOND_9CF());
 	if (stage == -1) {
 		switch (fate) {
 		case Champions:
@@ -362,11 +361,6 @@ int bel_third_vv_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage
 			return 0;
 		case Promoted:
 			staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), 0x64);
-			return 0;
-		case TopPlayoff:
-			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(ger_second), None, Playoff, 0x1E);
-			return 0;
-		case BottomPlayoff:
 			return 0;
 		case Relegated:
 			staff_history_relegated_86A1C0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));

@@ -526,7 +526,7 @@ int por_third_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, B
 					table[i].league_fate = Promoted;
 					return 0;
 				case TopPlayoff:
-					staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(por_second), None, Playoff, 0x1E);
+					staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(por_second), PromRelPlayoff, None, 0x1E);
 					table[i].league_fate = TopPlayoff;
 					return 0;
 				case Eliminated:

@@ -354,7 +354,7 @@ DWORD eng_conf_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* sta
 		BYTE* pMem = NULL;
 		WORD year = ((comp_stats*)_this)->year;
 		*num_rounds = 3;
-		*stage_name_id = Playoff;
+		*stage_name_id = PromotionPlayoff;
 
 		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
@@ -430,7 +430,7 @@ int eng_conf_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BY
 			staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)comp_data->competition_db, 0x64);
 			return 0;
 		case TopPlayoff:
-			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)comp_data->competition_db, Playoff, None, 0x1E);
+			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)comp_data->competition_db, PromotionPlayoff, None, 0x1E);
 			return 0;
 		case Relegated:
 			staff_history_relegated_86A1C0(staff_hist_ptr, club, (DWORD)comp_data->competition_db);

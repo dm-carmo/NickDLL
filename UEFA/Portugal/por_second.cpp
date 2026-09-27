@@ -327,14 +327,14 @@ DWORD por_second_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 		BYTE* pMem = NULL;
 		WORD year = ((comp_stats*)_this)->year;
 		*num_rounds = 1;
-		*stage_name_id = None;
+		*stage_name_id = PromRelPlayoff;
 
 		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 25), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 30), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, Playoff, 0, NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 5, 2, 1, 2, 0, 0, 2, 8);
+		FillFixtureDetails(pMem, fixture_id++, None, 0, NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 5, 2, 1, 2, 0, 0, 2, 8);
 
 		return (DWORD)pMem;
 	}
@@ -477,6 +477,7 @@ void __declspec(naked) por_second_playoffs_create()
 int por_second_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
+	cm3_club_comps* por_first = get_comp(POR_FIRST_9CF());
 	if (stage == 0) {
 		cm3_club_comps* por_third = get_comp(POR_THIRD_9CF());
 		BYTE* rounds = ((comp_stats*)(comp_data->stages[stage]))->rounds_list;
@@ -565,9 +566,10 @@ int por_second_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, 
 			staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), 0x64);
 			return 0;
 		case TopPlayoff:
+			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(por_first), PromRelPlayoff, None, 0x1E);
 			return 0;
 		case BottomPlayoff:
-			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, Playoff, 0x1E);
+			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), PromRelPlayoff, None, 0x1E);
 			return 0;
 		case Relegated:
 			staff_history_relegated_86A1C0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));

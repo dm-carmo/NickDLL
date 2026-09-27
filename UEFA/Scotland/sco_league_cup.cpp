@@ -62,11 +62,21 @@ void __declspec(naked) sco_league_cup_free_c()
 	}
 }
 
-int sco_league_cup_set_champion(BYTE* _this) {
+char* sco_league_cup_set_champion(BYTE* _this) {
 	comp_stats* comp_data = (comp_stats*)_this;
-	BYTE* stage_data_for_history = (BYTE*)comp_data->stages[7];
-	DWORD v1 = *(DWORD*)stage_data_for_history;
-	return (*(int(__thiscall**)(BYTE*))(v1 + 0x30))(stage_data_for_history);
+	comp_stats* stage_data = (comp_stats*)comp_data->stages[7];
+
+	cm3_clubs* first = 0;
+	cm3_clubs* second = 0;
+	teams_seeded* teams = (teams_seeded*)stage_data->teams_list;
+	for (WORD i = 0; i < stage_data->n_teams; i++) {
+		if (teams[i].f6 == 1) first = teams[i].club;
+		else if (teams[i].f6 == 2) second = teams[i].club;
+	}
+
+	char* ret_hist = sub_4AFCE0_add_history_entry(_this, first, second, 0, 0);
+	if (ret_hist) *(WORD*)(ret_hist + 8) = comp_data->year + 1;
+	return ret_hist;
 }
 
 void __declspec(naked) sco_league_cup_set_champion_c()
@@ -294,6 +304,7 @@ int sco_league_cup_all_teams(BYTE* _this) {
 	DWORD total_teams = 45;
 	BYTE* pMem = (BYTE*)cm0102_malloc(4 * total_teams);
 
+	if (comp_data->teams2) sub_9452CA_free(comp_data->teams2);
 	comp_data->n_teams2 = total_teams;
 	comp_data->teams2 = (DWORD*)pMem;
 
@@ -483,16 +494,14 @@ char sco_league_cup_update(BYTE* _this) {
 	}
 	data->year++;
 	data->current_stage = -1;
-	sco_league_cup_all_teams(_this);
-	DWORD v1 = *(DWORD*)_this;
-	(DWORD*)(*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
+
+	// to prevent error when saving before cup has been init'd
+	data->n_teams2 = 1;
+	BYTE* tMem = (BYTE*)cm0102_malloc(4 * data->n_teams);
+	data->teams2 = (DWORD*)tMem;
+
 	sco_league_cup_subs(_this);
-	sco_league_cup_setup_first_group(_this);
-	sub_6835C0(_this);
-	sub_6827D0(_this, 0);
-	for (BYTE i = 0; i < 7; i++) {
-		sco_league_cup_setup_groups(_this, i);
-	}
+	data->f69 = 0;
 	return 1;
 }
 
@@ -729,6 +738,44 @@ void __declspec(naked) sco_league_cup_stage_news_c()
 	}
 }
 
+void sco_league_cup_init2(BYTE* _this, DWORD current_date, int a3) {
+	comp_stats* data = (comp_stats*)_this;
+	if (!data->f69) {
+		BYTE* cm_date = new BYTE[8];
+		convert_to_cm_date(cm_date, 23, June, data->year, -1);
+		WORD date_day = *(WORD*)(cm_date);
+		WORD date_year = *(WORD*)(cm_date + 2);
+		if (date_day == *(WORD*)(current_date) && *(WORD*)(current_date + 2) == date_year) {
+			if (a3) {
+				data->f69 = 1;
+				sco_league_cup_all_teams(_this);
+				sco_league_cup_setup_first_group(_this);
+				sub_6835C0(_this);
+				sub_6827D0(_this, 0);
+				for (BYTE i = 0; i < 7; i++) {
+					sco_league_cup_setup_groups(_this, i);
+				}
+				sco_league_cup_reputation_setup(_this);
+			}
+		}
+	}
+	sub_6847C0(_this, current_date, a3);
+}
+
+void __declspec(naked) sco_league_cup_init2_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x8]
+		push dword ptr[eax + 0x4]
+		push ecx
+		call sco_league_cup_init2
+		add esp, 0xc
+		ret 8
+	}
+}
+
 void sco_league_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	sub_682200(_this);
 	comp_stats* data = (comp_stats*)_this;
@@ -746,27 +793,26 @@ void sco_league_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp) {
 	sco_league_cup_vtable->SetPointer(VTableReputationSetup, (DWORD)&sco_league_cup_reputation_setup_c);
 	sco_league_cup_vtable->SetPointer(VTableReputationCalc, (DWORD)&sco_league_cup_reputation_calc_c);
 	sco_league_cup_vtable->SetPointer(VTableSubsRounds, (DWORD)&sco_league_cup_subs_c);
-	sco_league_cup_vtable->SetPointer(VTableLeagueSplit, 0x6847c0);
+	sco_league_cup_vtable->SetPointer(VTableLeagueSplit, (DWORD)&sco_league_cup_init2_c);
 	data->rules = RulesScotlandCup;
-	data->f81 = 0xc;
+	data->f81 = 0xf;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 8;
 	data->stages = (DWORD*)cm0102_malloc(data->num_stages * 4);
-	sco_league_cup_all_teams(_this);
+
+	// to prevent error when saving before cup has been init'd
+	data->n_teams2 = 1;
+	BYTE* tMem = (BYTE*)cm0102_malloc(4 * data->n_teams);
+	data->teams2 = (DWORD*)tMem;
+
+	sco_league_cup_subs(_this);
 	BYTE* pMem2 = (BYTE*)cm0102_new(0x5CE);
 	sub_49EE70(pMem2, _this);
 	data->f8 = (DWORD*)pMem2;
-	sco_league_cup_reputation_setup(_this);
-	sco_league_cup_subs(_this);
-	sco_league_cup_setup_first_group(_this);
-	sub_6835C0(_this);
-	sub_6827D0(_this, 0);
-	for (BYTE i = 0; i < 7; i++) {
-		sco_league_cup_setup_groups(_this, i);
-	}
+	data->f69 = 0;
 }
 
 void setup_sco_league_cup() {

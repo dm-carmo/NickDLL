@@ -71,7 +71,7 @@ void swe_first_subs(BYTE* _this)
 	comp_data->tiebreaker_2 = GoalsForTiebreaker;
 	comp_data->tiebreaker_3 = CurrentPositionTiebreaker;
 	comp_data->promotions = 2;
-	comp_data->prom_playoff = 1;
+	comp_data->prom_playoff = 2;
 	comp_data->rele_playoff = 2;
 	comp_data->relegations = 2;
 
@@ -271,14 +271,31 @@ DWORD swe_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		BYTE* pMem = NULL;
 		WORD year = ((comp_stats*)_this)->year;
 		*num_rounds = 1;
-		*stage_name_id = None;
+		*stage_name_id = PromotionPlayoff;
 
 		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 10), year, Monday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 20), year, Thursday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, Playoff, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 5, 4, 2, 4, 0, 0, 2, 3);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 22), year, Saturday);
+		FillFixtureDetails(pMem, fixture_id++, None, 8, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 5, 2, 1, 2, 0, 0, 2, 7);
+
+		return (DWORD)pMem;
+	}
+	else if (stage_idx == 1) {
+		if (a5)
+			*a5 = 0;
+		BYTE* pMem = NULL;
+		WORD year = ((comp_stats*)_this)->year;
+		*num_rounds = 1;
+		*stage_name_id = PromRelPlayoff;
+
+		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
+
+		int fixture_id = 0;
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 10), year, Monday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 22), year, Saturday);
+		FillFixtureDetails(pMem, fixture_id++, None, 8, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 5, 4, 2, 4, 0, 0, 2, 7);
 
 		return (DWORD)pMem;
 	}
@@ -313,7 +330,7 @@ void swe_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	if (loaded) return;
 	data->f68 = -1;
 	data->current_stage = -1;
-	data->num_stages = 1;
+	data->num_stages = 2;
 	data->stages = (DWORD*)cm0102_malloc(data->num_stages * 4);
 	swe_first_subs(_this);
 	AddTeams(_this);
@@ -327,12 +344,13 @@ void swe_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	league_reputation_setup_generic_68A850(_this);
 }
 
-void swe_first_playoff_under(BYTE* _this) {
-	char stage_num = 0;
+void swe_first_playoff_rele(BYTE* _this) {
+	char stage_num = 1;
 	comp_stats* comp_data = (comp_stats*)_this;
 	BYTE playoff_teams = 4;
 	WORD total_teams = comp_data->n_teams;
 	DWORD* pTeams = (DWORD*)cm0102_malloc(playoff_teams * 4);
+	BYTE seeds[4] = { 0,1,0,1 };
 
 	team_league_stats* table_teams = (team_league_stats*)(comp_data->team_league_table);
 	int j = 0;
@@ -361,7 +379,7 @@ void swe_first_playoff_under(BYTE* _this) {
 			}
 		}
 	}
-	shuffle(clubs.begin(), clubs.end(), rng);
+
 	j = 0;
 	for (cm3_clubs* c : clubs) {
 		*((DWORD*)(&pTeams[j * 2 + 1])) = (DWORD)c;
@@ -374,7 +392,39 @@ void swe_first_playoff_under(BYTE* _this) {
 	DWORD v1 = *(DWORD*)_this;
 	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, char, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
 	BYTE* new_stage = (BYTE*)cm0102_new(0xB2);
-	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)comp_data->competition_db, pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, 0);
+	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)comp_data->competition_db, pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, &seeds[0]);
+	DWORD* stages_arr = comp_data->stages;
+	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
+	sub_51C800(new_stage, 0);
+	sub_9452CA_free(pTeams);
+	sub_9452CA_free(pFixtures);
+	comp_data->current_stage = (long)stage_num;
+}
+
+void swe_first_playoff_prom(BYTE* _this) {
+	char stage_num = 0;
+	comp_stats* comp_data = (comp_stats*)_this;
+	BYTE playoff_teams = comp_data->prom_playoff;
+	WORD total_teams = comp_data->n_teams;
+	DWORD* pTeams = (DWORD*)cm0102_malloc(playoff_teams * 4);
+	BYTE seeds[2] = { 0,1 };
+
+	team_league_stats* table_teams = (team_league_stats*)(comp_data->team_league_table);
+	for (int i = comp_data->promotions, j = 0; i < total_teams && j < playoff_teams; i++) {
+		team_league_stats tls = table_teams[i];
+		if (tls.league_fate == TopPlayoff) {
+			*((DWORD*)(&pTeams[j])) = (DWORD)tls.club;
+			j++;
+		}
+	}
+
+	WORD num_rounds = 0;
+	WORD stage_name_id = 0;
+	WORD year = comp_data->year;
+	DWORD v1 = *(DWORD*)_this;
+	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, char, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
+	BYTE* new_stage = (BYTE*)cm0102_new(0xB2);
+	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)comp_data->competition_db, pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, &seeds[0]);
 	DWORD* stages_arr = comp_data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
 	sub_51C800(new_stage, 0);
@@ -400,9 +450,9 @@ void swe_first_playoffs_c(BYTE* _this) {
 				(*(void(__thiscall**)(BYTE*))(v1 + 0x94))(swe_second_n);
 				(*(void(__thiscall**)(BYTE*))(v2 + 0x94))(swe_second_s);
 				current++;
-				comp_data->current_stage = current;
 				if (current == 0) {
-					swe_first_playoff_under(_this);
+					swe_first_playoff_prom(_this);
+					swe_first_playoff_rele(_this);
 				}
 			}
 		}
@@ -424,8 +474,33 @@ void __declspec(naked) swe_first_playoffs_create()
 int swe_first_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, BYTE* a5, BYTE* round_data, int a7) {
 	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
 	comp_stats* comp_data = (comp_stats*)_this;
-	cm3_club_comps* swe_premier = get_comp(SWE_PREMIER_9CF());
 	if (stage == 0) {
+		cm3_club_comps* swe_premier = get_comp(SWE_PREMIER_9CF());
+		WORD num_teams = comp_data->n_teams;
+		if (num_teams <= 0) return 0;
+		team_league_stats* table = (team_league_stats*)(comp_data->team_league_table);
+		BYTE* rounds = ((comp_stats*)(comp_data->stages[stage]))->rounds_list;
+		WORD current_round = *(WORD*)(round_data + 0x34);
+		for (int i = 0; i < num_teams; i++) {
+			if (table[i].club != club) continue;
+			switch (fate) {
+			case TopPlayoff:
+				staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)swe_premier, PromRelPlayoff, None, 0xF);
+				*a5 = 1;
+				return 0;
+			case Promoted:
+				staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
+					*(WORD*)(rounds + playoff_dates_sz * (current_round + 1) + 7), 0xF);
+				return 0;
+			default:
+				staff_history_knocked_out_86C000(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
+					*(WORD*)(rounds + playoff_dates_sz * current_round + 7), 0xF);
+				table[i].league_fate = Eliminated;
+				return 0;
+			}
+		}
+	}
+	else if (stage == 1) {
 		cm3_club_comps* swe_second = get_comp(SWE_SECOND_9CF());
 		BYTE* rounds = ((comp_stats*)(comp_data->stages[stage]))->rounds_list;
 		if (club->ClubDivision == swe_second) {
@@ -439,7 +514,7 @@ int swe_first_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, B
 				WORD num_teams = curr_stage->n_teams;
 				team_league_stats* table = (team_league_stats*)(curr_stage->team_league_table);
 				for (int i = 0; i < num_teams; i++) {
-							if (table[i].club != club) continue;
+					if (table[i].club != club) continue;
 					switch (fate) {
 					case TopPlayoff:
 						staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)swe_second, 0x32);
@@ -463,7 +538,7 @@ int swe_first_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, B
 			team_league_stats* table = (team_league_stats*)(comp_data->team_league_table);
 			WORD current_round = *(WORD*)(round_data + 0x34);
 			for (int i = 0; i < num_teams; i++) {
-					if (table[i].club != club) continue;
+				if (table[i].club != club) continue;
 				switch (fate) {
 				case BottomPlayoff:
 					staff_history_relegated_86A1C0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));
@@ -490,10 +565,10 @@ int swe_first_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, B
 			staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), 0x64);
 			return 0;
 		case TopPlayoff:
-			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(swe_premier), None, Playoff, 0x1E);
+			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, PromotionPlayoff, 0x1E);
 			return 0;
 		case BottomPlayoff:
-			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, Playoff, 0x1E);
+			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), PromRelPlayoff, None, 0x1E);
 			return 0;
 		case Relegated:
 			staff_history_relegated_86A1C0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));
@@ -620,6 +695,17 @@ int swe_first_stage_news(BYTE* _this, int club_idx, char fate, char stage_id, in
 	cm3_clubs* club_data = get_club(club_idx);
 	if (stage_id == -1) return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
 	else if (stage_id == 0) {
+		if (fate == TopPlayoff && !show_body_text) {
+			cm3_club_comps* upper_comp = get_comp(SWE_PREMIER_9CF());
+			sub_66F4E0(0xDE1F64, (DWORD)&qualify_upper_comp_title_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, upper_comp->ClubCompGenderNameShort, upper_comp->ClubCompGenderNameShort, &club_data->ClubNameShort[0], &upper_comp->ClubCompNameShort[0]);
+			sub_4AE660(ret_str_ptr, 0xDE1F64);
+			sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+			sub_4AE8A0((BYTE*)ret_str_ptr, &upper_comp->ClubCompNameShort[0], 0x7d0, (DWORD)upper_comp);
+			return 1;
+		}
+		return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
+	}
+	else if (stage_id == 1) {
 		if (club_data->ClubDivision == comp_data) {
 			if (fate == BottomPlayoff && !show_body_text) {
 				sub_66F4E0(0xDE1F64, 0x987784, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);

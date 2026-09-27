@@ -422,7 +422,7 @@ int irl_second_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, 
 				switch (fate) {
 				case TopPlayoff:
 					staff_history_champion_868C50(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));
-					if (comp_data->year > 2026) staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)irl_first, None, Playoff, 0x1E);
+					if (comp_data->year > 2026) staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)irl_first, PromRelPlayoff, None, 0x1E);
 					table[i].league_fate = Champions;
 					*a5 = 1;
 					return 0;

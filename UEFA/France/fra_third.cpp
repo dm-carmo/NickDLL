@@ -364,7 +364,7 @@ int fra_third_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, B
 			if (table[i].club != club) continue;
 			switch (fate) {
 			case TopPlayoff:
-				staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)fra_second, None, Playoff, 0xF);
+				staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)fra_second, PromRelPlayoff, None, 0xF);
 				*a5 = 1;
 				return 0;
 			case Promoted:
@@ -389,9 +389,6 @@ int fra_third_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, B
 			return 0;
 		case TopPlayoff:
 			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, PromotionPlayoff, 0x1E);
-			return 0;
-		case BottomPlayoff:
-			staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), None, Playoff, 0x1E);
 			return 0;
 		case Relegated:
 			staff_history_relegated_86A1C0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));

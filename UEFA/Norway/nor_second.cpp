@@ -185,14 +185,14 @@ DWORD nor_second_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 		BYTE* pMem = NULL;
 		WORD year = ((comp_stats*)_this)->year;
 		*num_rounds = 1;
-		*stage_name_id = None;
+		*stage_name_id = PromotionPlayoff;
 
 		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 2), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 8), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, Playoff, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 5, 2, 1, 2, 0, 0, 2, 7);
+		FillFixtureDetails(pMem, fixture_id++, None, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 5, 2, 1, 2, 0, 0, 2, 7);
 
 		return (DWORD)pMem;
 	}
@@ -454,7 +454,7 @@ int nor_second_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, 
 				if (table[i].club != club) continue;
 				switch (fate) {
 				case TopPlayoff:
-					staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)nor_first, None, Playoff, 0xF);
+					staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)nor_first, PromRelPlayoff, None, 0xF);
 					*a5 = 1;
 					if (playoff_stage)
 					{
