@@ -105,7 +105,7 @@ DWORD swe_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 24), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 20), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SecondRound, 1, Penalties | ExtraTime, NoTiebreak, 4, 64, 32, 32, 64, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, SecondRound, 1 | 4, Penalties | ExtraTime, NoTiebreak, 4, 64, 32, 32, 64, 0, 1, 0);
 
 		return (DWORD)pMem;
 	}
@@ -247,7 +247,7 @@ int swe_cup_teams(BYTE* _this) {
 	for (DWORD i = 0; i < vec.size(); i++)
 	{
 		teams[i].club = vec[i];
-		teams[i].seeding = 0;
+		teams[i].seeding = 3 * (vec[i]->ClubDivision->ClubCompID == SWE_PREMIER_9CF() || vec[i]->ClubDivision->ClubCompID == SWE_FIRST_9CF());
 		teams[i].f6 = 0;
 	}
 
@@ -361,6 +361,7 @@ void swe_cup_group_stage_setup(BYTE* _this) {
 		*((DWORD*)(&stages_arr[i])) = (DWORD)pStage;
 		sub_9452CA_free(pTeams);
 		sub_9452CA_free(pFixtures);
+		sub_684230(pStage);
 		data->current_stage = i;
 	}
 }

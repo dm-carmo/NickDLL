@@ -564,6 +564,17 @@ int init_leagues_list() {
 	pnd_list[idx].main_cup = 0;
 	idx++;
 
+	cm_date = new BYTE[8];
+	pnd_list[idx].nation = get_country(NATION_COLOMBIA_9CF());
+	pnd_list[idx].setup_function_addr = (DWORD)&col_setup_c;
+	convert_to_cm_date(pnd_list[idx].start_date, 1, February, *current_year + 1, -1);
+	convert_to_cm_date(pnd_list[idx].end_date, 17, December, *current_year + 1, -1);
+	convert_to_cm_date(cm_date, 1, January, START_YEAR, -1);
+	pnd_list[idx].update_day = *(WORD*)(cm_date);
+	pnd_list[idx].main_cup = get_comp(COL_CUP_9CF());
+	pnd_list[idx].updates_in_june = 0;
+	idx++;
+
 	return 1;
 }
 

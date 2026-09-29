@@ -1023,6 +1023,12 @@
     <ClCompile Include="Generic\setup_default_titlebar_colours.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CONMEBOL\Colombia\col_setup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CONMEBOL\Colombia\col_first.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -2043,6 +2049,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Generic\setup_default_titlebar_colours.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CONMEBOL\Colombia\col_setup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CONMEBOL\Colombia\col_first.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

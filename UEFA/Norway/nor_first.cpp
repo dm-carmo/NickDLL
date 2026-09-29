@@ -694,7 +694,7 @@ int nor_first_stage_news(BYTE* _this, int club_idx, char fate, char stage_id, in
 	if (stage_id == -1) return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
 	else if (stage_id == 0) {
 		if (fate == TopPlayoff && !show_body_text) {
-			cm3_club_comps* upper_comp = get_comp(FRA_FIRST_9CF());
+			cm3_club_comps* upper_comp = get_comp(NOR_PREMIER_9CF());
 			sub_66F4E0(0xDE1F64, (DWORD)&qualify_upper_comp_title_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, upper_comp->ClubCompGenderNameShort, upper_comp->ClubCompGenderNameShort, &club_data->ClubNameShort[0], &upper_comp->ClubCompNameShort[0]);
 			sub_4AE660(ret_str_ptr, 0xDE1F64);
 			sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);

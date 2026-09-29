@@ -8,8 +8,8 @@ using namespace std;
 
 char* qualified_lge_stage_msg = "{}<%s - Team Name(e.g.Ajax)>{} have guaranteed a place in the league phase of the {}<%s - Competition Name(e.g.Champions League)>{}.";
 char* qualified_lge_stage_title_msg = "{}<%s - Team Name(e.g.Ajax)>{} qualify for {}<%s - Competition Name(e.g.Champions League)>{} league phase";
-char* qualified_grp_msg = "{}<%s - Team Name(e.g.Ajax)>{} have guaranteed a place in the league phase of the {}<%s - Competition Name(e.g.Champions League)>{}.";
-char* qualified_grp_title_msg = "{}<%s - Team Name(e.g.Ajax)>{} qualify for {}<%s - Competition Name(e.g.Champions League)>{} league phase";
+char* qualified_grp_msg = "{}<%s - Team Name(e.g.Ajax)>{} have guaranteed a place in the group stage of the {}<%s - Competition Name(e.g.Champions League)>{}.";
+char* qualified_grp_title_msg = "{}<%s - Team Name(e.g.Ajax)>{} qualify for {}<%s - Competition Name(e.g.Champions League)>{} group stage";
 char* drop_down_title_msg = "{}<%s - Team Name(e.g.Ajax)>{} drop down to {}<%s - Competition Name(e.g.Champions League)>{}";
 char* drop_down_lge_stage_title_msg = "{}<%s - Team Name(e.g.Ajax)>{} drop down to {}<%s - Competition Name(e.g.Champions League)>{} league phase";
 char* drop_down_grp_title_msg = "{}<%s - Team Name(e.g.Ajax)>{} drop down to {}<%s - Competition Name(e.g.Champions League)>{} group stage";

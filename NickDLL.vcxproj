@@ -163,6 +163,8 @@
     <ClCompile Include="AFC\Australia\aus_cup.cpp" />
     <ClCompile Include="AFC\Australia\aus_league.cpp" />
     <ClCompile Include="AFC\Australia\aus_setup.cpp" />
+    <ClCompile Include="CONMEBOL\Colombia\col_first.cpp" />
+    <ClCompile Include="CONMEBOL\Colombia\col_setup.cpp" />
     <ClCompile Include="Generic\setup_default_titlebar_colours.cpp" />
     <ClCompile Include="UEFA\Austria\aut_cup.cpp" />
     <ClCompile Include="UEFA\Austria\aut_first.cpp" />
@@ -501,6 +503,8 @@
     <ClInclude Include="AFC\Australia\aus_cup.h" />
     <ClInclude Include="AFC\Australia\aus_league.h" />
     <ClInclude Include="AFC\Australia\aus_setup.h" />
+    <ClInclude Include="CONMEBOL\Colombia\col_first.h" />
+    <ClInclude Include="CONMEBOL\Colombia\col_setup.h" />
     <ClInclude Include="Generic\setup_default_titlebar_colours.h" />
     <ClInclude Include="UEFA\Austria\aut_cup.h" />
     <ClInclude Include="UEFA\Austria\aut_first.h" />

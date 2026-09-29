@@ -12,6 +12,7 @@
 #include "CONMEBOL\Argentina\arg_setup.h"
 #include "CONMEBOL\Brazil\bra_setup.h"
 #include "CONMEBOL\Chile\chi_setup.h"
+#include "CONMEBOL\Colombia\col_setup.h"
 #include "UEFA\Austria\aut_setup.h"
 #include "UEFA\Belgium\bel_setup.h"
 #include "UEFA\Croatia\cro_setup.h"

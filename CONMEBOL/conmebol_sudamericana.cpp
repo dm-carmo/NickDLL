@@ -148,19 +148,19 @@ DWORD conmebol_sudamericana_fixtures(BYTE* _this, char stage_idx, WORD* num_roun
 
 		int fixture_id = 0;
 		if (stage_idx < 4) {
-			AddFixtureNoTV(pMem, fixture_id++, Date(year, 4, 1), year, Tuesday, Evening);
 			AddFixtureNoTV(pMem, fixture_id++, Date(year, 4, 8), year, Tuesday, Evening);
-			AddFixtureNoTV(pMem, fixture_id++, Date(year, 4, 22), year, Tuesday, Evening);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year, 4, 15), year, Tuesday, Evening);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year, 4, 29), year, Tuesday, Evening);
 			AddFixtureNoTV(pMem, fixture_id++, Date(year, 5, 6), year, Tuesday, Evening);
-			AddFixtureNoTV(pMem, fixture_id++, Date(year, 5, 13), year, Tuesday, Evening);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year, 5, 20), year, Tuesday, Evening);
 			AddFixtureNoTV(pMem, fixture_id++, Date(year, 5, 27), year, Tuesday, Evening);
 		}
 		else {
-			AddFixtureNoTV(pMem, fixture_id++, Date(year, 4, 2), year, Wednesday, Evening);
 			AddFixtureNoTV(pMem, fixture_id++, Date(year, 4, 9), year, Wednesday, Evening);
-			AddFixtureNoTV(pMem, fixture_id++, Date(year, 4, 23), year, Wednesday, Evening);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year, 4, 16), year, Wednesday, Evening);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year, 4, 30), year, Wednesday, Evening);
 			AddFixtureNoTV(pMem, fixture_id++, Date(year, 5, 7), year, Wednesday, Evening);
-			AddFixtureNoTV(pMem, fixture_id++, Date(year, 5, 14), year, Wednesday, Evening);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year, 5, 21), year, Wednesday, Evening);
 			AddFixtureNoTV(pMem, fixture_id++, Date(year, 5, 28), year, Wednesday, Evening);
 		}
 
@@ -179,7 +179,7 @@ DWORD conmebol_sudamericana_fixtures(BYTE* _this, char stage_idx, WORD* num_roun
 		int fixture_id = 0;
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 5, 29), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 16), year, Wednesday, Evening);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 23), year, Wednesday, Evening);
 		AddPlayoffTVFixture(pMem, fixture_id, 0);
 		FillFixtureDetails(pMem, fixture_id++, KnockoutPlayoff, 8, FixedTeamOrderInCup | NoAwayGoals, Penalties | NoAwayGoals, 8, 16, 8, 16, 0, 0, 2, 7, prizeMoneyFile.GetInt("conmebol_sudam_ko_qualify"));
 
@@ -196,19 +196,19 @@ DWORD conmebol_sudamericana_fixtures(BYTE* _this, char stage_idx, WORD* num_roun
 		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 24), year, Thursday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 31), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 13), year, Wednesday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 8, FixedTeamOrderInCup | NoAwayGoals, Penalties | NoAwayGoals, 8, 16, 8, 16, 0, 0, 2, 7, prizeMoneyFile.GetInt("conmebol_sudam_r16_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 21), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 17), year, Wednesday, Evening);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 10), year, Wednesday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 8, FixedTeamOrderInCup | NoAwayGoals, Penalties | NoAwayGoals, 8, 8, 4, 0, 0, 0, 2, 7, prizeMoneyFile.GetInt("conmebol_sudam_qtr_qualify"));
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 25), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 22), year, Wednesday, Evening);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 18), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 15), year, Wednesday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 8, FixedTeamOrderInCup | NoAwayGoals, Penalties | NoAwayGoals, 8, 4, 2, 0, 0, 0, 2, 7, prizeMoneyFile.GetInt("conmebol_sudam_semi_qualify"));
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 29), year, Thursday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 23), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 22), year, Saturday, Afternoon, NationalStadium);
 		FillFixtureDetails(pMem, fixture_id++, Final, 0, Penalties | ExtraTime, NoTiebreak, 8, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("conmebol_sudam_final_win"), prizeMoneyFile.GetInt("conmebol_sudam_final_lose"));
 
