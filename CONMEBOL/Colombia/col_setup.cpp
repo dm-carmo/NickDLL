@@ -2,9 +2,9 @@
 #include "Structures\CMHeader.h"
 #include "Helpers\generic_functions.h"
 #include "col_first.h"
-//#include "col_second.h"
+#include "col_second.h"
 //#include "col_cup.h"
-//#include "col_super.h"
+#include "col_super.h"
 #include "Helpers\9cf_constants.h"
 #include "Structures\vtable.h"
 
@@ -34,17 +34,17 @@ DWORD col_setup_c(playable_nation_data* nation_data) {
 	col_first_init(pMem, start_year, get_comp(COL_FIRST_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
-	//pMem = (BYTE*)cm0102_new(0xEE);
-	//col_second_init(pMem, start_year, get_comp(COL_SECOND_9CF()));
-	//nation_comps[i++] = (DWORD)pMem;
+	pMem = (BYTE*)cm0102_new(0xF2);
+	col_second_init(pMem, start_year, get_comp(COL_SECOND_9CF()));
+	nation_comps[i++] = (DWORD)pMem;
 
 	//pMem = (BYTE*)cm0102_new(0xF6);
 	//col_cup_init(pMem, start_year, get_comp(COL_CUP_9CF()));
 	//nation_comps[i++] = (DWORD)pMem;
 
-	//pMem = (BYTE*)cm0102_new(0xB2);
-	//col_super_init(pMem, start_year, get_comp(COL_SUPER_CUP_9CF()));
-	//nation_comps[i++] = (DWORD)pMem;
+	pMem = (BYTE*)cm0102_new(0xB2);
+	col_super_init(pMem, start_year, get_comp(COL_SUPER_CUP_9CF()));
+	nation_comps[i++] = (DWORD)pMem;
 
 	BYTE* cm_date = new BYTE[8];
 	convert_to_cm_date(cm_date, 1, January, START_YEAR, -1);
@@ -124,7 +124,7 @@ BYTE* setup_colombia_rules(BYTE* _this, char idx, DWORD country_id, DWORD contin
 
 void setup_col_nation() {
 	setup_col_first();
-	//setup_col_second();
+	setup_col_second();
 	//setup_col_cup();
-	//setup_col_super();
+	setup_col_super();
 }
