@@ -279,15 +279,15 @@ DWORD nor_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 10), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 23), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 5, 2, 1, 2, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 8, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 5, 2, 1, 2, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 24), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 30), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 5, 2, 1, 1, 2, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 8, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 5, 2, 1, 1, 2, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 1), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 7), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 5, 2, 1, 1, 3, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, Final, 8, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 5, 2, 1, 1, 3, 0, 1, 0);
 
 		return (DWORD)pMem;
 	}
@@ -362,6 +362,7 @@ void nor_first_playoff_prom(BYTE* _this) {
 	BYTE playoff_teams = comp_data->prom_playoff;
 	WORD total_teams = comp_data->n_teams;
 	DWORD* pTeams = (DWORD*)cm0102_malloc(playoff_teams * 4);
+	BYTE seeds[4] = { 0,1,2,3 };
 
 	team_league_stats* table_teams = (team_league_stats*)(comp_data->team_league_table);
 	for (int i = comp_data->promotions, j = playoff_teams; i < total_teams && j > 0; i++) {
@@ -378,7 +379,7 @@ void nor_first_playoff_prom(BYTE* _this) {
 	DWORD v1 = *(DWORD*)_this;
 	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, char, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
 	BYTE* new_stage = (BYTE*)cm0102_new(0xB2);
-	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)comp_data->competition_db, pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, 0);
+	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)comp_data->competition_db, pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, &seeds[0]);
 	DWORD* stages_arr = comp_data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
 	sub_51C800(new_stage, 0);
@@ -511,7 +512,8 @@ int nor_first_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, B
 					case TopPlayoff:
 						staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)nor_second, 0x32);
 						table[i].league_fate = Promoted;
-						*a5 = 1;
+						//*a5 = 1;
+						*a5 = 2;
 						return 0;
 					case Promoted:
 						staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
@@ -535,7 +537,8 @@ int nor_first_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, B
 				case BottomPlayoff:
 					staff_history_relegated_86A1C0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));
 					table[i].league_fate = Relegated;
-					*a5 = 1;
+					//*a5 = 1;
+					*a5 = 2;
 					return 0;
 				case Relegated:
 					staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
@@ -706,7 +709,7 @@ int nor_first_stage_news(BYTE* _this, int club_idx, char fate, char stage_id, in
 	else if (stage_id == 1) {
 		if (club_data->ClubDivision == comp_data) {
 			if (fate == BottomPlayoff && !show_body_text) {
-				sub_66F4E0(0xDE1F64, 0x987784, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+				sub_66F4E0(0xDE1F64, relegated_msg, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
 				sub_4AE660(ret_str_ptr, 0xDE1F64);
 				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
 				return 1;
@@ -714,7 +717,7 @@ int nor_first_stage_news(BYTE* _this, int club_idx, char fate, char stage_id, in
 		}
 		else {
 			if (fate == TopPlayoff && !show_body_text) {
-				sub_66F4E0(0xDE1F64, 0x9876CC, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+				sub_66F4E0(0xDE1F64, win_promotion_msg, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
 				sub_4AE660(ret_str_ptr, 0xDE1F64);
 				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
 				return 1;

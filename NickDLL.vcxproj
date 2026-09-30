@@ -163,6 +163,7 @@
     <ClCompile Include="AFC\Australia\aus_cup.cpp" />
     <ClCompile Include="AFC\Australia\aus_league.cpp" />
     <ClCompile Include="AFC\Australia\aus_setup.cpp" />
+    <ClCompile Include="CONMEBOL\Colombia\col_cup.cpp" />
     <ClCompile Include="CONMEBOL\Colombia\col_first.cpp" />
     <ClCompile Include="CONMEBOL\Colombia\col_second.cpp" />
     <ClCompile Include="CONMEBOL\Colombia\col_setup.cpp" />
@@ -505,6 +506,7 @@
     <ClInclude Include="AFC\Australia\aus_cup.h" />
     <ClInclude Include="AFC\Australia\aus_league.h" />
     <ClInclude Include="AFC\Australia\aus_setup.h" />
+    <ClInclude Include="CONMEBOL\Colombia\col_cup.h" />
     <ClInclude Include="CONMEBOL\Colombia\col_first.h" />
     <ClInclude Include="CONMEBOL\Colombia\col_second.h" />
     <ClInclude Include="CONMEBOL\Colombia\col_setup.h" />

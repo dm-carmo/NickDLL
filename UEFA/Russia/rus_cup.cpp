@@ -47,6 +47,21 @@ void rus_cup_free_under(BYTE* _this) {
 		}
 		sub_9452CA_free(data->f173);
 	}
+	long current = data->current_stage;
+	if (current >= 0) {
+		for (long i = 0; i <= current; i++) {
+			DWORD stage = data->stages[i];
+			if (stage) {
+				DWORD v1 = *(DWORD*)stage;
+				(DWORD*)(*(int(__thiscall**)(BYTE*, int a2))(v1))((BYTE*)stage, 1);
+			}
+			data->stages[i] = 0;
+		}
+	}
+	if (data->stages) {
+		sub_9452CA_free((BYTE*)(data->stages));
+		data->stages = 0;
+	}
 	if (data->f8) {
 		sub_49F450((BYTE*)(data->f8));
 		sub_944C94_free((BYTE*)(data->f8));
@@ -833,6 +848,75 @@ void __declspec(naked) rus_cup_stages_create_c()
 	}
 }
 
+void rus_cup_landmarks(BYTE* _this, DWORD dest_ptr, int a2, WORD main_stage_id, WORD sub_stage_id, char fate, cm3_clubs* club) {
+	if (main_stage_id == QualifyingRound && sub_stage_id == SixthRound && fate == 1)
+		sub_48CAB0(_this, dest_ptr, a2, RegionsPath, RoundOf16, 2, club);
+	else sub_48CAB0(_this, dest_ptr, a2, main_stage_id, sub_stage_id, fate, club);
+}
+
+void __declspec(naked) rus_cup_landmarks_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x18]
+		push dword ptr[eax + 0x14]
+		push dword ptr[eax + 0x10]
+		push dword ptr[eax + 0xc]
+		push dword ptr[eax + 0x8]
+		push dword ptr[eax + 0x4]
+		push ecx
+		call rus_cup_landmarks
+		add esp, 0x1c
+		ret 0x18
+	}
+}
+
+int rus_cup_stage_news(BYTE* _this, int club_idx, char fate, char stage_id, int stage_name_idx, int round_data, __int16 a7, int a8, char a9, int show_body_text, LPVOID* ret_str_ptr) {
+	comp_stats* data = (comp_stats*)_this;
+	cm3_club_comps* comp_data = data->competition_db;
+	cm3_clubs* club_data = get_club(club_idx);
+	if (stage_id < 4) {
+		if (fate == Qualified1) {
+			if (show_body_text) return sub_4B4590(club_idx, (WORD)stage_name_idx, (DWORD)comp_data, fate, show_body_text, ret_str_ptr);
+			else {
+				sub_66F4E0(0xDE1F64, through_to_next_round_msg, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
+					&club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+				sub_4AE660(ret_str_ptr, 0xDE1F64);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &comp_data->ClubCompNameShort[0], 0x7d0, (DWORD)comp_data);
+				return 1;
+			}
+		}
+		//else if (fate == Eliminated) return sub_4B4590(club_idx, (WORD)stage_name_idx, (DWORD)comp_data, fate, show_body_text, ret_str_ptr);
+	}
+	return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
+
+	return 0;
+}
+
+void __declspec(naked) rus_cup_stage_news_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x28]
+		push dword ptr[eax + 0x24]
+		push dword ptr[eax + 0x20]
+		push dword ptr[eax + 0x1c]
+		push dword ptr[eax + 0x18]
+		push dword ptr[eax + 0x14]
+		push dword ptr[eax + 0x10]
+		push dword ptr[eax + 0xc]
+		push dword ptr[eax + 0x8]
+		push dword ptr[eax + 0x4]
+		push ecx
+		call rus_cup_stage_news
+		add esp, 0x2c
+		ret 0x28
+	}
+}
+
 void setup_rus_cup() {
 	WriteVTablePtr(rus_cup_vtable, VTableLeagueSplit, 0x51F890);
 	WriteVTablePtr(rus_cup_vtable, VTableInitFree, (DWORD)&rus_cup_free_c);
@@ -843,6 +927,8 @@ void setup_rus_cup() {
 	WriteVTablePtr(rus_cup_vtable, VTableTableFates, (DWORD)&rus_cup_table_fates_c);
 	WriteVTablePtr(rus_cup_vtable, VTablePlayoffQual, (DWORD)&rus_cup_stages_create_c);
 	WriteVTablePtr(rus_cup_vtable, VTableSetChampion, (DWORD)&rus_cup_set_champion_c);
+	WriteVTablePtr(rus_cup_vtable, VTableClubLandmarks, (DWORD)&rus_cup_landmarks_c);
+	WriteVTablePtr(rus_cup_vtable, VTableStageNews, (DWORD)&rus_cup_stage_news_c);
 	WriteVTablePtr(rus_cup_vtable, VTableSubsRounds, 0x858e70);
 	char* rpl_path_text = "RPL Path";
 	char* rpl_path_short = "RPL Path";

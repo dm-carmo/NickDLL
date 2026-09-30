@@ -1035,6 +1035,9 @@
     <ClCompile Include="CONMEBOL\Colombia\col_super.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CONMEBOL\Colombia\col_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -2067,6 +2070,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CONMEBOL\Colombia\col_super.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CONMEBOL\Colombia\col_cup.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -510,15 +510,15 @@ int gold_cup_quals_stage_news(BYTE* _this, int club_idx, char fate, char stage_i
 			switch (fate)
 			{
 			case TopPlayoff:
-				sub_66F4E0(0xDE1F64, 0x987198, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
+				sub_66F4E0(0xDE1F64, through_to_next_round_msg, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
 					&club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
 				break;
 			case Promoted:
-				sub_66F4E0(0xDE1F64, 0x987198, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
+				sub_66F4E0(0xDE1F64, through_to_next_round_msg, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
 					&club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
 				break;
 			default:
-				sub_66F4E0(0xDE1F64, 0xAD4BA4, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+				sub_66F4E0(0xDE1F64, knocked_out_of_wc_qual_msg, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
 				sub_4AE660(ret_str_ptr, 0xDE1F64);
 				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
 				return 1;
@@ -538,7 +538,7 @@ int gold_cup_quals_stage_news(BYTE* _this, int club_idx, char fate, char stage_i
 				if (show_body_text) return sub_4B4590(club_idx, (WORD)stage_name_idx, (DWORD)comp_data, fate, show_body_text, ret_str_ptr);
 				else {
 					cm3_club_comps* gold_cup = get_comp(GOLD_CUP_9CF());
-					sub_66F4E0(0xDE1F64, 0x9C470C, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, gold_cup->ClubCompGenderNameShort, gold_cup->ClubCompGenderNameShort,
+					sub_66F4E0(0xDE1F64, qualified_for_comp_msg, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, gold_cup->ClubCompGenderNameShort, gold_cup->ClubCompGenderNameShort,
 						&club_data->ClubNameShort[0], &gold_cup->ClubCompNameShort[0]);
 					sub_4AE660(ret_str_ptr, 0xDE1F64);
 					sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
@@ -546,11 +546,11 @@ int gold_cup_quals_stage_news(BYTE* _this, int club_idx, char fate, char stage_i
 					return 1;
 				}
 			case Promoted:
-				sub_66F4E0(0xDE1F64, 0x987198, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
+				sub_66F4E0(0xDE1F64, through_to_next_round_msg, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
 					&club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
 				break;
 			default:
-				sub_66F4E0(0xDE1F64, 0xAD4BA4, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+				sub_66F4E0(0xDE1F64, knocked_out_of_wc_qual_msg, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
 				sub_4AE660(ret_str_ptr, 0xDE1F64);
 				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
 				return 1;
@@ -590,7 +590,7 @@ void gold_cup_quals_landmarks(BYTE* _this, DWORD dest_ptr, int a2, WORD main_sta
 	if (main_stage_id == Playoff || sub_stage_id == Playoff)
 	{
 		if (fate == 1) {
-			sub_66F4E0(dest_ptr, 0x9C48A4, club->ClubGenderName, 0xAD9C64);
+			sub_66F4E0(dest_ptr, qualified_for_finals_str, club->ClubGenderName, 0xAD9C64);
 			return;
 		}
 	}

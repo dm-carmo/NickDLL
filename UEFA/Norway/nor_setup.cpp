@@ -137,6 +137,7 @@ void setup_nor_nation()
 	setup_nor_awards();
 
 	WriteVTablePtr(nor_rules_vtable, VTableRForeignRules, (DWORD)nor_foreign_rules_c);
+	WriteVTablePtr(nor_rules_vtable, VTableRPlayerEligibility, 0x66E770);
 }
 
 void norway_restructure() {

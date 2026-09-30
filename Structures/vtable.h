@@ -70,7 +70,7 @@ enum RulesVTablePointers {
 	VTableR4 = 4,
 	VTableR5 = 5,
 	VTableR6 = 6,
-	VTableR7 = 7,
+	VTableRPlayerEligibility = 7, // related to eligibility? (Norway "can't use player bought after date X")
 	VTableRForeignRules = 8, // foreign player restrictions
 	VTableRLoanOutsideWindow = 9, // can loan players outside transfer window?
 	VTableRLoanRules = 10, // specific rules to allow (or not) loans between specific teams

@@ -686,7 +686,7 @@ int spa_third_stage_news(BYTE* _this, int club_idx, char fate, char stage_id, in
 	if (stage_id < 1) return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
 	else if (stage_id == 1) {
 		if (fate == TopPlayoff && !show_body_text) {
-			sub_66F4E0(0xDE1F64, 0x9876CC, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+			sub_66F4E0(0xDE1F64, win_promotion_msg, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
 			sub_4AE660(ret_str_ptr, 0xDE1F64);
 			sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
 			return 1;

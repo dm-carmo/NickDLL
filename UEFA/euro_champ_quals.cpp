@@ -764,7 +764,7 @@ int euro_champ_quals_stage_news(BYTE* _this, int club_idx, char fate, char stage
 			if (show_body_text) return sub_4B4590(club_idx, (WORD)stage_name_idx, (DWORD)comp_data, fate, show_body_text, ret_str_ptr);
 			else {
 				cm3_club_comps* uefa_euro = get_comp(UEFA_EURO_9CF());
-				sub_66F4E0(0xDE1F64, 0x9C470C, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, uefa_euro->ClubCompGenderNameShort, uefa_euro->ClubCompGenderNameShort,
+				sub_66F4E0(0xDE1F64, qualified_for_comp_msg, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, uefa_euro->ClubCompGenderNameShort, uefa_euro->ClubCompGenderNameShort,
 					&club_data->ClubNameShort[0], &uefa_euro->ClubCompNameShort[0]);
 				sub_4AE660(ret_str_ptr, 0xDE1F64);
 				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
@@ -774,13 +774,13 @@ int euro_champ_quals_stage_news(BYTE* _this, int club_idx, char fate, char stage
 		}
 		else if (fate == TopPlayoff) {
 			if (show_body_text) {
-				sub_66F4E0(0xDE1F64, 0xAD4BE0, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+				sub_66F4E0(0xDE1F64, qualify_for_playoff_msg, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
 				sub_4AE660(ret_str_ptr, 0xDE1F64);
 				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
 				return 1;
 			}
 			else {
-				sub_66F4E0(0xDE1F64, 0xAD4BE0, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+				sub_66F4E0(0xDE1F64, qualify_for_playoff_msg, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
 				sub_4AE660(ret_str_ptr, 0xDE1F64);
 				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
 				return 1;
@@ -792,13 +792,13 @@ int euro_champ_quals_stage_news(BYTE* _this, int club_idx, char fate, char stage
 		if (fate == TopPlayoff)
 		{
 			if (show_body_text) {
-				sub_66F4E0(0xDE1F64, 0xAD4BE0, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+				sub_66F4E0(0xDE1F64, qualify_for_playoff_msg, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
 				sub_4AE660(ret_str_ptr, 0xDE1F64);
 				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
 				return 1;
 			}
 			else {
-				sub_66F4E0(0xDE1F64, 0xAD4BE0, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+				sub_66F4E0(0xDE1F64, qualify_for_playoff_msg, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
 				sub_4AE660(ret_str_ptr, 0xDE1F64);
 				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
 				return 1;
@@ -813,21 +813,21 @@ int euro_champ_quals_stage_news(BYTE* _this, int club_idx, char fate, char stage
 			switch (fate)
 			{
 			case TopPlayoff:
-				sub_66F4E0(0xDE1F64, 0x9C470C, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, uefa_euro->ClubCompGenderNameShort, uefa_euro->ClubCompGenderNameShort,
+				sub_66F4E0(0xDE1F64, qualified_for_comp_msg, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, uefa_euro->ClubCompGenderNameShort, uefa_euro->ClubCompGenderNameShort,
 					&club_data->ClubNameShort[0], &uefa_euro->ClubCompNameShort[0]);
 				sub_4AE660(ret_str_ptr, 0xDE1F64);
 				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
 				sub_4AE8A0((BYTE*)ret_str_ptr, &uefa_euro->ClubCompNameShort[0], 0x7d0, (DWORD)uefa_euro);
 				return 1;
 			case Promoted:
-				sub_66F4E0(0xDE1F64, 0x987198, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
+				sub_66F4E0(0xDE1F64, through_to_next_round_msg, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderNameShort, comp_data->ClubCompGenderNameShort,
 					&club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
 				sub_4AE660(ret_str_ptr, 0xDE1F64);
 				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
 				sub_4AE8A0((BYTE*)ret_str_ptr, &comp_data->ClubCompNameShort[0], 0x7d0, (DWORD)comp_data);
 				return 1;
 			default:
-				sub_66F4E0(0xDE1F64, 0x9C46B8, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, uefa_euro->ClubCompGenderNameShort, uefa_euro->ClubCompGenderNameShort,
+				sub_66F4E0(0xDE1F64, out_of_comp_msg, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, uefa_euro->ClubCompGenderNameShort, uefa_euro->ClubCompGenderNameShort,
 					&club_data->ClubNameShort[0], &uefa_euro->ClubCompNameShort[0]);
 				sub_4AE660(ret_str_ptr, 0xDE1F64);
 				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
@@ -864,11 +864,11 @@ void __declspec(naked) euro_champ_quals_stage_news_c()
 void euro_champ_quals_landmarks(BYTE* _this, DWORD dest_ptr, int a2, WORD main_stage_id, WORD sub_stage_id, char fate, cm3_clubs* club) {
 	if (main_stage_id >= 0x475 && main_stage_id <= 0x478) { // League A
 		if (fate == Qualified1 || fate == CantBePromoted) {
-			sub_66F4E0(dest_ptr, 0x9C48A4, club->ClubGenderName, 0xAD9C64);
+			sub_66F4E0(dest_ptr, qualified_for_finals_str, club->ClubGenderName, 0xAD9C64);
 			return;
 		}
 		else if (fate == TopPlayoff) {
-			sub_66F4E0(dest_ptr, 0x9a4399);
+			sub_66F4E0(dest_ptr, playoff_str);
 			return;
 		}
 		else {
@@ -878,7 +878,7 @@ void euro_champ_quals_landmarks(BYTE* _this, DWORD dest_ptr, int a2, WORD main_s
 	}
 	if (main_stage_id >= 0x459 && main_stage_id <= 0x45c) { // League B
 		if (fate == TopPlayoff) {
-			sub_66F4E0(dest_ptr, 0x9a4399);
+			sub_66F4E0(dest_ptr, playoff_str);
 			return;
 		}
 		else {
@@ -890,7 +890,7 @@ void euro_champ_quals_landmarks(BYTE* _this, DWORD dest_ptr, int a2, WORD main_s
 	{
 		if (fate == 1)
 		{
-			sub_66F4E0(dest_ptr, 0x9C48A4, club->ClubGenderName, 0xAD9C64);
+			sub_66F4E0(dest_ptr, qualified_for_finals_str, club->ClubGenderName, 0xAD9C64);
 			return;
 		}
 	}

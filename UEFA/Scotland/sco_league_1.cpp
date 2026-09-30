@@ -442,7 +442,8 @@ int sco_league_1_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage
 				case TopPlayoff:
 					staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)sco_league_2, 0x32);
 					table[i].league_fate = Promoted;
-					*a5 = 1;
+					//*a5 = 1;
+					*a5 = 2;
 					return 0;
 				case Promoted:
 					staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
@@ -462,21 +463,18 @@ int sco_league_1_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage
 			for (int i = 0; i < num_teams; i++) {
 				if (table[i].club != club) continue;
 				switch (fate) {
-				case BottomPlayoff:
-					staff_history_relegated_86A1C0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));
-					table[i].league_fate = Relegated;
+				case TopPlayoff:
+					table[i].league_fate = Eliminated;
 					*a5 = 1;
 					return 0;
 				case Promoted:
 					staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
 						*(WORD*)(rounds + playoff_dates_sz * (current_round + 1) + 7), 0xF);
 					return 0;
-				case TopPlayoff:
-					table[i].league_fate = Eliminated;
-					return 0;
 				default:
 					staff_history_relegated_86A1C0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));
 					table[i].league_fate = Relegated;
+					*a5 = 2;
 					return 0;
 				}
 			}
@@ -624,7 +622,7 @@ int sco_league_1_stage_news(BYTE* _this, int club_idx, char fate, char stage_id,
 	else if (stage_id == 0) {
 		if (club_data->ClubDivision == comp_data) {
 			if (fate == BottomPlayoff && !show_body_text) {
-				sub_66F4E0(0xDE1F64, 0x987784, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+				sub_66F4E0(0xDE1F64, relegated_msg, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
 				sub_4AE660(ret_str_ptr, 0xDE1F64);
 				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
 				return 1;
@@ -632,7 +630,7 @@ int sco_league_1_stage_news(BYTE* _this, int club_idx, char fate, char stage_id,
 		}
 		else {
 			if (fate == TopPlayoff && !show_body_text) {
-				sub_66F4E0(0xDE1F64, 0x9876CC, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+				sub_66F4E0(0xDE1F64, win_promotion_msg, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
 				sub_4AE660(ret_str_ptr, 0xDE1F64);
 				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
 				return 1;

@@ -710,7 +710,6 @@ DWORD col_first_fixtures_dummy(BYTE* _this, char stage_idx, WORD* num_rounds, WO
 	return 0;
 }
 
-// prom/rel after d2 is finished
 void col_first_prom_rel_update(BYTE* _this, int a2) {
 	BYTE idx = 7;
 	comp_stats* data = (comp_stats*)_this;
@@ -722,7 +721,8 @@ void col_first_prom_rel_update(BYTE* _this, int a2) {
 	BYTE* col_second = get_loaded_league(COL_SECOND_9CF());
 	v1 = *(DWORD*)col_second;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(col_second);
-	//process_promotion_relegation_689C80(_this, (BYTE*)data->stages[idx], col_second, 1, a2, -1, -1);
+	comp_stats* d2_data = (comp_stats*)col_second;
+	process_promotion_relegation_689C80(_this, (BYTE*)data->stages[idx], (BYTE*)d2_data->stages[7], 1, a2, -1, -1);
 }
 
 void __declspec(naked) col_first_prom_rel_update_c()

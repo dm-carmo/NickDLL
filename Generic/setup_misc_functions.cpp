@@ -1836,7 +1836,7 @@ void __declspec(naked) jmp_shortname_semi()
 {
 	__asm
 	{
-		push 0x00AD9C64
+		push 0xAD9C64
 		push semi_short
 		push ebx
 		push call_ret
@@ -1849,6 +1849,24 @@ void __declspec(naked) jmp_shortname_semi()
 			pop esi
 			pop ebx
 			add esp, 0x200
+			ret
+	}
+}
+
+char* polynesian = "Polynesian<%s - COMMENT - language>";
+void __declspec(naked) jmp_polynesian()
+{
+	__asm
+	{
+		push 0xAD9C64
+		push polynesian
+		push 0xAE21D4
+		push polynesian_call_ret
+		push 0x66f4e0
+		ret
+		polynesian_call_ret :
+		add esp, 0xc
+			mov eax, 0xAE21D4
 			ret
 	}
 }
@@ -1882,6 +1900,9 @@ void setup_misc_functions()
 
 	// Semi Final short name (for translations)
 	WriteDWORD(0x4ba3d8, (DWORD)&jmp_shortname_semi); // the switch table
+
+	// Polynesian language name
+	WriteDWORD(0x53d6bc, (DWORD)&jmp_polynesian); // the switch table
 
 	PatchFunction(0x53d980, (DWORD)&player_check_if_foreign);
 	PatchFunction(0x53d740, (DWORD)&player_check_if_eu);
@@ -2037,10 +2058,11 @@ void setup_misc_functions()
 	WriteDWORD(0x53687F, 1980 + year_diff);
 	WriteDWORD(0x537CA0, 1940 + year_diff);
 
-	// Fix too many countries to select in player/scout filter, causing a (harmless) error
+	// Fix too many countries to select in player/scout filters, causing a (harmless) error
 	WriteBytes(0x80959d, 1, 9);
 	WriteNOP(0x8095a8, 2);
 	WriteBytes(0x8149a1, 1, 9);
+	WriteBytes(0x815ba2, 1, 9);
 	// Hopefully temporary: hide Area.cpp 507/838 error for other cases
 	WriteNOP(0x40344c, 5);
 	WriteNOP(0x403c32, 5);
@@ -2072,12 +2094,7 @@ void setup_misc_functions()
 	WriteDWORD(0x839598, 0xae317e);
 	WriteDWORD(0x8395a0, 0xae3154);
 
-	/* "Create Manager Note" edit
-	MOV EAX,DWORD PTR DS:[EDI+1A]
-	PUSH EAX
-	CALL 0053B3D0
-	ADD ESP,4
-	*/
+	// "Create Manager Note" edit
 	WriteNOP(0x796474, 26);
 	WriteBytes(0x796474, 12, 0x8b, 0x47, 0x1a, 0x50, 0xe8, 0x53, 0x4f, 0xda, 0xff, 0x83, 0xc4, 0x04);
 
@@ -2127,4 +2144,8 @@ void setup_misc_functions()
 	char* pro_rel_short = "Pro/Rel Playoff";
 	WriteDWORD(0x4B53be + 1, (DWORD)&pro_rel[0]);
 	WriteDWORD(0x4B8465 + 1, (DWORD)&pro_rel_short[0]);
+
+	// first/second name generation minimum requirement lowered from 100 to 50
+	WriteBytes(0x539c8e, 1, 50);
+	WriteBytes(0x53a1df, 1, 50);
 }

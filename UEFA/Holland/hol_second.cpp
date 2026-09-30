@@ -315,8 +315,8 @@ DWORD hol_second_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 5, 6, 3, 6, 0, 0, 2, 4);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 24), year, Sunday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 26), year, Tuesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup3 | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 5, 4, 2, 1, 6, 0, 2, 4);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 27), year, Wednesday, Evening);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup3 | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 5, 4, 2, 1, 6, 0, 2, 3);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 31), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 6, 2), year, Tuesday, Evening);
@@ -642,6 +642,7 @@ int hol_second_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, 
 				default:
 					staff_history_relegated_86A1C0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db));
 					table[i].league_fate = Relegated;
+					*a5 = 2;
 					return 0;
 				}
 			}
@@ -657,7 +658,8 @@ int hol_second_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, 
 				case TopPlayoff:
 					staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)hol_first, 0x32);
 					table[i].league_fate = Promoted;
-					*a5 = 1;
+					//*a5 = 1;
+					*a5 = 2;
 					return 0;
 				case Promoted:
 					staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
@@ -712,6 +714,55 @@ void __declspec(naked) hol_second_table_fates_c()
 	}
 }
 
+int hol_second_stage_news(BYTE* _this, int club_idx, char fate, char stage_id, int stage_name_idx, int round_data, __int16 a7, int a8, char a9, int show_body_text, LPVOID* ret_str_ptr) {
+	comp_stats* data = (comp_stats*)_this;
+	cm3_club_comps* comp_data = data->competition_db;
+	cm3_clubs* club_data = get_club(club_idx);
+	if (stage_id < 4) return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
+	else if (stage_id == 4) {
+		if (club_data->ClubDivision == comp_data) {
+			if (fate == TopPlayoff && !show_body_text) {
+				sub_66F4E0(0xDE1F64, win_promotion_msg, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+				sub_4AE660(ret_str_ptr, 0xDE1F64);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+				return 1;
+			}
+		}
+		else {
+			if ((fate == BottomPlayoff || fate == NoFate) && !show_body_text) {
+				sub_66F4E0(0xDE1F64, relegated_msg, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+				sub_4AE660(ret_str_ptr, 0xDE1F64);
+				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
+				return 1;
+			}
+		}
+		return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
+	}
+	else return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
+}
+
+void __declspec(naked) hol_second_stage_news_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x28]
+		push dword ptr[eax + 0x24]
+		push dword ptr[eax + 0x20]
+		push dword ptr[eax + 0x1c]
+		push dword ptr[eax + 0x18]
+		push dword ptr[eax + 0x14]
+		push dword ptr[eax + 0x10]
+		push dword ptr[eax + 0xc]
+		push dword ptr[eax + 0x8]
+		push dword ptr[eax + 0x4]
+		push ecx
+		call hol_second_stage_news
+		add esp, 0x2c
+		ret 0x28
+	}
+}
+
 void setup_hol_second()
 {
 	WriteVTablePtr(hol_second_vtable, VTableSubsRounds, (DWORD)&hol_second_subs_c);
@@ -722,7 +773,7 @@ void setup_hol_second()
 	WriteVTablePtr(hol_second_vtable, VTablePlayoffQual, (DWORD)&hol_second_playoffs_create);
 	WriteVTablePtr(hol_second_vtable, VTableTableFates, (DWORD)&hol_second_table_fates_c);
 	WriteVTablePtr(hol_second_vtable, VTableSetChampion, (DWORD)&hol_second_set_champion_c);
-	WriteVTablePtr(hol_second_vtable, VTableStageNews, 0x48c6d0);
+	WriteVTablePtr(hol_second_vtable, VTableStageNews, (DWORD)hol_second_stage_news_c);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) WriteVTablePtr(hol_second_vtable, VTableShowThirdInHistory, 0x4110b0);
 	if (configFile.GetBool("showPlayoffWinnerInHistory", true)) WriteVTablePtr(hol_second_vtable, VTableShowHostsInHistory, 0x404480);
 }

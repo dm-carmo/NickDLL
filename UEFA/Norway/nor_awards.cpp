@@ -34,7 +34,7 @@ void norway_awards(BYTE* _this, int a2) {
 
 	// Eliteserien awards
 	pMem = (BYTE*)cm0102_new(0x25D);
-	team_award_setup_8AF520(pMem, edi, i, NOR_PREMIER_TEAM_OF_WEEK_9CF(), 3000, 500, NOR_PREMIER_9CF(), 0, 1, a2, 1);
+	team_award_setup_8AF520(pMem, edi, i, NOR_PREMIER_TEAM_OF_WEEK_9CF(), 3000, 500, NOR_PREMIER_9CF(), 1, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)cm0102_new(0xA2);
@@ -47,7 +47,7 @@ void norway_awards(BYTE* _this, int a2) {
 
 	// 1. Divisjon awards
 	pMem = (BYTE*)cm0102_new(0x25D);
-	team_award_setup_8AF520(pMem, edi, i, NOR_FIRST_TEAM_OF_WEEK_9CF(), 1000, 100, NOR_FIRST_9CF(), 0, 1, a2, 1);
+	team_award_setup_8AF520(pMem, edi, i, NOR_FIRST_TEAM_OF_WEEK_9CF(), 1000, 100, NOR_FIRST_9CF(), 1, 0, a2, 1);
 	awards_list[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)cm0102_new(0xA2);

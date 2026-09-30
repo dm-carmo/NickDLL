@@ -67,7 +67,7 @@ DWORD col_super_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 1, 6), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 1, 14), year, Wednesday);
-		FillFixtureDetails(pMem, fixture_id++, None, 8, NoAwayGoals, Penalties | NoAwayGoals, 6, 2, 1, 2, 0, 0, 2, 7);
+		FillFixtureDetails(pMem, fixture_id++, None, 8, NoAwayGoals, Penalties | NoAwayGoals, 6, 2, 1, 2, 0, 0, 2, 7, 0, prizeMoneyFile.GetInt("col_super_final_win"), prizeMoneyFile.GetInt("col_super_final_lose"));
 
 		return (DWORD)pMem;
 	}
