@@ -1537,39 +1537,6 @@ void __declspec(naked) col_second_playoffs_create()
 	}
 }
 
-//
-int col_second_stage_news(BYTE* _this, int club_idx, char fate, char stage_id, int stage_name_idx, int round_data, __int16 a7, int a8, char a9, int show_body_text, LPVOID* ret_str_ptr) {
-	comp_stats* data = (comp_stats*)_this;
-	cm3_club_comps* comp_data = data->competition_db;
-	cm3_clubs* club_data = get_club(club_idx);
-	if (stage_id == 7) {
-
-	}
-	return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
-}
-
-void __declspec(naked) col_second_stage_news_c()
-{
-	__asm
-	{
-		mov eax, esp
-		push dword ptr[eax + 0x28]
-		push dword ptr[eax + 0x24]
-		push dword ptr[eax + 0x20]
-		push dword ptr[eax + 0x1c]
-		push dword ptr[eax + 0x18]
-		push dword ptr[eax + 0x14]
-		push dword ptr[eax + 0x10]
-		push dword ptr[eax + 0xc]
-		push dword ptr[eax + 0x8]
-		push dword ptr[eax + 0x4]
-		push ecx
-		call col_second_stage_news
-		add esp, 0x2c
-		ret 0x28
-	}
-}
-
 void col_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 {
 	sub_682200(_this);

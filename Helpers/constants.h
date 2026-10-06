@@ -38,6 +38,7 @@ extern char* prom_lge_c;
 extern char* rele_lge_a;
 extern char* rele_lge_b;
 extern char* qualify_upper_comp_title_msg;
+extern char* knocked_out_of_quals_title_msg;
 
 extern char* register_msg1;
 extern char* register_msg2;
@@ -61,6 +62,7 @@ extern DWORD out_of_comp_msg;
 extern DWORD qualified_for_comp_msg;
 extern DWORD qualified_for_world_cup_msg;
 extern DWORD knocked_out_of_wc_qual_msg;
+extern DWORD knocked_out_of_wc_playoff_msg;
 extern DWORD qualify_for_playoff_msg;
 extern DWORD qualified_from_comp_msg;
 extern DWORD group_stage_str;

@@ -35,6 +35,7 @@ char* prom_lge_c = "Promoted From League C";
 char* rele_lge_a = "Relegated From League A";
 char* rele_lge_b = "Relegated From League B";
 char* qualify_upper_comp_title_msg = "{}<%s - Team Name(e.g.Ajax)>{} qualify for {}<%s - Competition Name(e.g.Champions League)>{} playoff";
+char* knocked_out_of_quals_title_msg = "{}<%s - Team Name>{} knocked out of {}<%s - Competition Name>{} qualifying";
 
 char* register_msg1 = "{}<%s - Club Name(e.g.Chelsea)>{} may register one more player to be eligible for the league phase of the {}<%s - Competition Name(e.g.UEFA Cup)>{}.";
 char* register_msg2 = "{}<%s - Club Name(e.g.Chelsea)>{} may register <%d - number(e.g.2)> more players to be eligible for the league phase of the {}<%s - Competition Name(e.g.UEFA Cup)>{}.";
@@ -57,6 +58,7 @@ DWORD out_of_comp_msg = 0x9C46B8;
 DWORD qualified_for_comp_msg = 0x9C470C;
 DWORD qualified_for_world_cup_msg = 0xAD4B78;
 DWORD knocked_out_of_wc_qual_msg = 0xAD4BA4;
+DWORD knocked_out_of_wc_playoff_msg = 0xAD4B40;
 DWORD qualify_for_playoff_msg = 0xAD4BE0;
 DWORD qualified_from_comp_msg = 0xAD4D6C;
 DWORD group_stage_str = 0x99B800;

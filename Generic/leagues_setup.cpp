@@ -874,6 +874,19 @@ void setup_leagues_setup() {
 		WriteDWORD(0x81eae6, default_offset);
 		WriteDWORD(0x81eaf3, default_offset + 12);
 	}
+	// extra adjustments
+	WriteBytes(0x5ed3d6, 6, 0xe9, 0xff, 0x00, 0x00, 0x00, 0x90);
+	WriteBytes(0x5ed469, 3, 0x0f, 0xbe, 0xd3);
+	WriteNOP(0x5ed46c, 6);
+	WriteNOP(0x5ed478, 2);
+	WriteBytes(0x5ed480, 3, 0x0f, 0xbe, 0xd3);
+	WriteNOP(0x5ed483, 6);
+	WriteNOP(0x5ed48f, 2);
+	WriteBytes(0x5ed5bd, 1, 0x70);
+	WriteBytes(0x5ed5c1, 3, 0x0f, 0xbe, 0xd1);
+	WriteNOP(0x5ed5c4, 4);
+	WriteBytes(0x5ed5c8, 3, 0x3b, 0xc2, 0x75);
+	WriteBytes(0x81d5e3, 1, pnd_count - 9);
 
 	dprintf("Added %d playable nations!\n", pnd_count_calc - 9);
 }

@@ -9,9 +9,11 @@
   "financeTweaks": true,
   "russiaBan": true,
   "brazilRegenNames": true,
+  "expandSquadNumbers": false,
   "replaceNIrelandWith": "",
   "replaceIrelandWith": "",
   "replaceWalesWith": "",
   "defaultTitleBackground": "0xAE3150",
-  "defaultTitleForeground": "0xAEBDEC"
+  "defaultTitleForeground": "0xAEBDEC",
+  "removeExtraBorders": false
 }

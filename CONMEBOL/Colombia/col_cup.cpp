@@ -207,10 +207,10 @@ void col_cup_setup_groups(BYTE* _this, BYTE idx) {
 char col_cup_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	data->f76 = 0;
-	//if (data->teams_list) {
-	//	sub_9452CA_free(data->teams_list);
-	//	data->teams_list = 0;
-	//}
+	if (data->teams_list) {
+		sub_9452CA_free(data->teams_list);
+		data->teams_list = 0;
+	}
 	if (data->rounds_list) {
 		sub_9452CA_free(data->rounds_list);
 		data->rounds_list = 0;
@@ -242,6 +242,12 @@ char col_cup_update(BYTE* _this) {
 	data->year++;
 	data->f171 = 0;
 	*((BYTE*)(_this + 0xB1)) = 0;
+
+	// to prevent error when saving before cup has been init'd
+	data->n_teams = 1;
+	BYTE* tMem = (BYTE*)cm0102_malloc(6 * data->n_teams);
+	data->teams_list = (DWORD*)tMem;
+
 	DWORD v1 = *(DWORD*)_this;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x8C))(_this);
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x94))(_this);
@@ -764,6 +770,12 @@ void col_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	*((BYTE*)(_this + 0xB1)) = 0;
 	int loaded = sub_51FC00(_this, 1);
 	if (loaded) return;
+
+	// to prevent error when saving before cup has been init'd
+	data->n_teams = 1;
+	BYTE* tMem = (BYTE*)cm0102_malloc(6 * data->n_teams);
+	data->teams_list = (DWORD*)tMem;
+
 	DWORD v1 = *(DWORD*)_this;
 	*((DWORD*)(_this + 0xA3)) = (DWORD)(*(int(__thiscall**)(BYTE*, int, BYTE*, BYTE*, DWORD))(v1 + 0x3C))(_this, -1, _this + 0x3c, _this + 0x3a, 0);
 	cup_map_fixture_tree_518790(_this);

@@ -327,7 +327,7 @@ int world_cup_playoffs_stage_news(BYTE* _this, int club_idx, char fate, char sta
 			switch (fate)
 			{
 			case TopPlayoff:
-				sub_66F4E0(0xDE1F64, qualified_for_world_cup_msg, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+				sub_66F4E0(0xDE1F64, qualified_for_world_cup_msg, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0]);
 				sub_4AE660(ret_str_ptr, 0xDE1F64);
 				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
 				return 1;
@@ -336,7 +336,7 @@ int world_cup_playoffs_stage_news(BYTE* _this, int club_idx, char fate, char sta
 					&club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
 				break;
 			default:
-				sub_66F4E0(0xDE1F64, knocked_out_of_wc_qual_msg, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0], &comp_data->ClubCompNameShort[0]);
+				sub_66F4E0(0xDE1F64, knocked_out_of_wc_playoff_msg, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0]);
 				sub_4AE660(ret_str_ptr, 0xDE1F64);
 				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
 				return 1;

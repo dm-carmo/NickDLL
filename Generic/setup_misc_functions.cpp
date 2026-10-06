@@ -77,6 +77,9 @@ vector<DWORD> friendly_march_21plus4 = {
 vector<DWORD> friendly_march_21plus3 = {
 	0x5CA743, 0x5CA9D6, 0x5CAA6C, 0x5CB083, 0x5CB187, 0x5CB283, 0x5CB393, 0x5CB4B7,
 };
+vector<DWORD> remove_blue_borders = {
+	0x5ED5CF + 1, 0x5ED5F0 + 1, 0x82120E + 1, 0x821312 + 1, 0x821113 + 1, 0x82101E + 1, 0x58FBFC + 1, 0x58FC50 + 1,
+};
 
 int show_extra_leagues_in_start(BYTE* nation, DWORD dest_ptr, int a3) {
 	if (!nation || !dest_ptr || a3 < 20) return 0;
@@ -2148,4 +2151,10 @@ void setup_misc_functions()
 	// first/second name generation minimum requirement lowered from 100 to 50
 	WriteBytes(0x539c8e, 1, 50);
 	WriteBytes(0x53a1df, 1, 50);
+
+	if (configFile.GetBool("removeExtraBorders", false)) {
+		for (DWORD d : remove_blue_borders) {
+			WriteBytes(d, 1, 0x12);
+		}
+	}
 }

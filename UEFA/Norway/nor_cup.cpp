@@ -22,27 +22,27 @@ DWORD nor_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 16), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 20), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, FirstRound, 1, Penalties | ExtraTime, NoTiebreak, 4, 64, 32, 64, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("nor_cup_r1_lose"));
+		FillFixtureDetails(pMem, fixture_id++, FirstRound, 1 | 4, Penalties | ExtraTime, NoTiebreak, 4, 128, 64, 128, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("nor_cup_r1_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 21), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 17), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SecondRound, 1, Penalties | ExtraTime, NoTiebreak, 4, 32, 16, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("nor_cup_r2_lose"));
+		FillFixtureDetails(pMem, fixture_id++, SecondRound, 1 | 4, Penalties | ExtraTime, NoTiebreak, 4, 64, 32, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("nor_cup_r2_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 18), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 29), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 1, Penalties | ExtraTime, NoTiebreak, 4, 32, 16, 16, 64, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("nor_cup_r3_lose"));
+		FillFixtureDetails(pMem, fixture_id++, ThirdRound, 0, Penalties | ExtraTime, NoTiebreak, 4, 32, 16, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("nor_cup_r3_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 30), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 7), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, FourthRound, 1, Penalties | ExtraTime, NoTiebreak, 4, 16, 8, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("nor_cup_r4_lose"));
+		FillFixtureDetails(pMem, fixture_id++, FourthRound, 0, Penalties | ExtraTime, NoTiebreak, 4, 16, 8, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("nor_cup_r4_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 8), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 18), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 1, Penalties | ExtraTime, NoTiebreak, 6, 8, 4, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("nor_cup_qtr_lose"));
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, Penalties | ExtraTime, NoTiebreak, 6, 8, 4, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("nor_cup_qtr_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 19), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 22), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 1, Penalties | ExtraTime, NoTiebreak, 6, 4, 2, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("nor_cup_semi_lose"));
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, Penalties | ExtraTime, NoTiebreak, 6, 4, 2, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("nor_cup_semi_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 23), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 9), year, Saturday, Afternoon, NationalStadium);
@@ -72,7 +72,7 @@ void __declspec(naked) nor_cup_fixture_caller()
 int nor_cup_teams(BYTE* _this) {
 	vector<cm3_clubs*> vec;
 	comp_stats* comp_data = (comp_stats*)_this;
-	WORD total_teams = 80;
+	WORD total_teams = 128;
 	BYTE* pMem = (BYTE*)cm0102_malloc(6 * total_teams);
 
 	comp_data->n_teams = total_teams;
@@ -80,8 +80,6 @@ int nor_cup_teams(BYTE* _this) {
 
 	teams_seeded* teams = (teams_seeded*)comp_data->teams_list;
 
-	int main_teams_count = 0;
-	int d2_count = 0;
 	// 2. divisjon
 	vector<cm3_clubs*> division_clubs = find_clubs_of_comp(NOR_SECOND_9CF());
 	for (cm3_clubs* club : division_clubs)
@@ -90,58 +88,6 @@ int nor_cup_teams(BYTE* _this) {
 		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)club, &is_main_club, 1);
 		if (!ret_club || is_main_club) {
 			vec.push_back(club);
-			main_teams_count++;
-		}
-	}
-
-	division_clubs = find_clubs_of_comp(NOR_THIRD_9CF());
-	BYTE selected = get_country(NATION_NORWAY_9CF())->NationLeagueSelected;
-	if ((selected & 4) != 0) {
-		// 3. divisjon
-		for (cm3_clubs* club : division_clubs)
-		{
-			if (club->ClubLastDivision && club->ClubLastDivision->ClubCompID == NOR_THIRD_9CF() &&
-				club->ClubLastPosition > 0 && club->ClubLastPosition < 7 && d2_count < 18) {
-				DWORD is_main_club;
-				cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)club, &is_main_club, 1);
-				if (!ret_club || is_main_club) {
-					vec.push_back(club);
-					main_teams_count++;
-				}
-				d2_count++;
-			}
-		}
-		// extra lower
-		division_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_NORWAY_9CF());
-		sort(division_clubs.begin(), division_clubs.end(), compareClubRep);
-		while (main_teams_count < 48)
-		{
-			int availableIdx = rand() % division_clubs.size();
-			cm3_clubs* lower_club = division_clubs[availableIdx];
-			DWORD is_main_club;
-			cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)lower_club, &is_main_club, 1);
-			if (!ret_club || is_main_club) {
-				vec.push_back(lower_club);
-				main_teams_count++;
-			}
-			division_clubs.erase(division_clubs.begin() + availableIdx);
-		}
-	}
-	else {
-		sort(division_clubs.begin(), division_clubs.end(), compareClubRep);
-		int max_to_check = division_clubs.size() / 2;
-		while (main_teams_count < 48)
-		{
-			int availableIdx = rand() % max_to_check;
-			cm3_clubs* club = division_clubs[availableIdx];
-			DWORD is_main_club;
-			cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)club, &is_main_club, 1);
-			if (!ret_club || is_main_club) {
-				vec.push_back(club);
-				main_teams_count++;
-			}
-			division_clubs.erase(division_clubs.begin() + availableIdx);
-			max_to_check = division_clubs.size() / 2;
 		}
 	}
 	// 1. divisjon
@@ -157,10 +103,73 @@ int nor_cup_teams(BYTE* _this) {
 		vec.push_back(club);
 	}
 
-	for (DWORD i = 0; i < vec.size(); i++)
+	division_clubs = find_clubs_of_comp(NOR_THIRD_9CF());
+	BYTE selected = get_country(NATION_NORWAY_9CF())->NationLeagueSelected;
+	if ((selected & 4) != 0) {
+		// 3. divisjon
+		for (cm3_clubs* club : division_clubs)
+		{
+			if (vec.size() == total_teams) break;
+			if (club->ClubLastDivision) {
+				DWORD is_main_club;
+				cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)club, &is_main_club, 1);
+				if (!ret_club || is_main_club) {
+					vec.push_back(club);
+				}
+			}
+		}
+		if (vec.size() < total_teams) {
+			// extra lower
+			division_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_NORWAY_9CF());
+			sort(division_clubs.begin(), division_clubs.end(), compareClubRep);
+			while (vec.size() < total_teams)
+			{
+				int availableIdx = rand() % division_clubs.size();
+				cm3_clubs* lower_club = division_clubs[availableIdx];
+				DWORD is_main_club;
+				cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)lower_club, &is_main_club, 1);
+				if (!ret_club || is_main_club) {
+					vec.push_back(lower_club);
+				}
+				division_clubs.erase(division_clubs.begin() + availableIdx);
+			}
+		}
+	}
+	else {
+		sort(division_clubs.begin(), division_clubs.end(), compareClubRep);
+		while (vec.size() < total_teams && division_clubs.size() > 0)
+		{
+			cm3_clubs* club = division_clubs[0];
+			DWORD is_main_club;
+			cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)club, &is_main_club, 1);
+			if (!ret_club || is_main_club) {
+				vec.push_back(club);
+			}
+			division_clubs.erase(division_clubs.begin());
+		}
+		if (vec.size() < total_teams) {
+			division_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_NORWAY_9CF());
+			sort(division_clubs.begin(), division_clubs.end(), compareClubRep);
+			while (vec.size() < total_teams)
+			{
+				int availableIdx = rand() % division_clubs.size();
+				cm3_clubs* lower_club = division_clubs[availableIdx];
+				DWORD is_main_club;
+				cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)lower_club, &is_main_club, 1);
+				if (!ret_club || is_main_club) {
+					vec.push_back(lower_club);
+				}
+				division_clubs.erase(division_clubs.begin() + availableIdx);
+			}
+		}
+	}
+
+	for (DWORD i = 0; i < total_teams; i++)
 	{
 		teams[i].club = vec[i];
-		teams[i].seeding = 0;
+		if (vec[i]->ClubDivision->ClubCompID == NOR_PREMIER_9CF()) teams[i].seeding = 7;
+		else if (vec[i]->ClubDivision->ClubCompID == NOR_FIRST_9CF()) teams[i].seeding = 8;
+		else teams[i].seeding = 0;
 		teams[i].f6 = 0;
 	}
 
