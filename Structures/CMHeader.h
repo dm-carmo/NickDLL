@@ -76,6 +76,7 @@ enum CompetitionRules : BYTE {
 	RulesRomania,
 	RulesMexico,
 	RulesColombia,
+	RulesUruguay,
 	CompetitionRules_LENGTH
 };
 
@@ -117,6 +118,8 @@ enum RoundNames : WORD {
 	QualifyingRound = 0xDC,
 	PreliminaryRound = 0xE6,
 	WestLeagueStage = 0xF0,
+	IntermedioGroupA = 0xF3,
+	IntermedioGroupB = 0xF4,
 	FirstQualifyingPhase = 0xFA,
 	SecondQualifyingPhase = 0x104,
 	ThirdQualifyingPhase = 0x10E,
@@ -124,10 +127,12 @@ enum RoundNames : WORD {
 	ClausuraSemiGroupB = 0x11B,
 	AperturaFinal = 0x11C,
 	ThirdRoundGroupF = 0x122,
+	IntermedioFinal = 0x126,
 	ClausuraFinal = 0x125,
 	EliminationFinal = 0x140,
 	KnockoutPlayoff = 0x14A,
 	LeagueBFinals = 0x154,
+	Intermedio = 0x157,
 	LeagueCFinals = 0x15E,
 	GrandFinal = 0x168,
 	LeagueStage = 0x172,

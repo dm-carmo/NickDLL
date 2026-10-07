@@ -233,6 +233,40 @@ void __declspec(naked) nor_cup_update_c()
 	}
 }
 
+void nor_cup_init2(BYTE* _this, DWORD current_date, int a3) {
+	comp_stats* data = (comp_stats*)_this;
+	if (a3) {
+		DWORD v1 = *(DWORD*)_this;
+		if ((*(short(__thiscall**)(BYTE*))(v1 + 0xC))(_this)) {
+			BYTE* cm_date = new BYTE[8];
+			// this competition needs to reset at a different time
+			convert_to_cm_date(cm_date, 20, June, *(WORD*)(current_date + 2), -1);
+			WORD date_day = *(WORD*)(cm_date);
+			WORD date_year = *(WORD*)(cm_date + 2);
+			if (date_day == *(WORD*)(current_date) && *(WORD*)(current_date + 2) == date_year) {
+				(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(_this);
+				BYTE* ae28f0_ptr = (BYTE*)*(DWORD*)*ae28f0;
+				sub_556210(ae28f0_ptr, data->competition_db);
+			}
+		}
+	}
+	sub_51F890(_this, current_date, a3);
+}
+
+void __declspec(naked) nor_cup_init2_c()
+{
+	__asm
+	{
+		mov eax, esp
+		push dword ptr[eax + 0x8]
+		push dword ptr[eax + 0x4]
+		push ecx
+		call nor_cup_init2
+		add esp, 0xc
+		ret 8
+	}
+}
+
 void nor_cup_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 {
 	sub_518640(_this);
@@ -267,5 +301,5 @@ void setup_nor_cup()
 	WriteVTablePtr(nor_cup_vtable, VTableEoSUpdate, (DWORD)&nor_cup_update_c);
 	WriteVTablePtr(nor_cup_vtable, VTableStageNews, 0x48C6D0);
 	WriteVTablePtr(nor_cup_vtable, VTableSubsRounds, 0x858e70);
-	WriteVTablePtr(nor_cup_vtable, VTableLeagueSplit, 0x88d8a0); // same as Swedish Cup
+	WriteVTablePtr(nor_cup_vtable, VTableLeagueSplit, (DWORD)nor_cup_init2_c);
 }

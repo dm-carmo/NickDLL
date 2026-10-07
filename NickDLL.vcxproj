@@ -168,6 +168,9 @@
     <ClCompile Include="CONMEBOL\Colombia\col_second.cpp" />
     <ClCompile Include="CONMEBOL\Colombia\col_setup.cpp" />
     <ClCompile Include="CONMEBOL\Colombia\col_super.cpp" />
+    <ClCompile Include="CONMEBOL\Uruguay\uru_first.cpp" />
+    <ClCompile Include="CONMEBOL\Uruguay\uru_second.cpp" />
+    <ClCompile Include="CONMEBOL\Uruguay\uru_setup.cpp" />
     <ClCompile Include="Generic\setup_default_titlebar_colours.cpp" />
     <ClCompile Include="UEFA\Austria\aut_cup.cpp" />
     <ClCompile Include="UEFA\Austria\aut_first.cpp" />
@@ -511,6 +514,9 @@
     <ClInclude Include="CONMEBOL\Colombia\col_second.h" />
     <ClInclude Include="CONMEBOL\Colombia\col_setup.h" />
     <ClInclude Include="CONMEBOL\Colombia\col_super.h" />
+    <ClInclude Include="CONMEBOL\Uruguay\uru_first.h" />
+    <ClInclude Include="CONMEBOL\Uruguay\uru_second.h" />
+    <ClInclude Include="CONMEBOL\Uruguay\uru_setup.h" />
     <ClInclude Include="Generic\setup_default_titlebar_colours.h" />
     <ClInclude Include="UEFA\Austria\aut_cup.h" />
     <ClInclude Include="UEFA\Austria\aut_first.h" />

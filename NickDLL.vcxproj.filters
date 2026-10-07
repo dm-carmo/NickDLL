@@ -1038,6 +1038,15 @@
     <ClCompile Include="CONMEBOL\Colombia\col_cup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CONMEBOL\Uruguay\uru_setup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CONMEBOL\Uruguay\uru_first.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CONMEBOL\Uruguay\uru_second.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -2073,6 +2082,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CONMEBOL\Colombia\col_cup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CONMEBOL\Uruguay\uru_setup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CONMEBOL\Uruguay\uru_first.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CONMEBOL\Uruguay\uru_second.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -175,6 +175,7 @@ int parent_child_stages(int child_stage_id) {
 	if (child_stage_id >= 0x441 && child_stage_id <= 0x442) return SecondStage;
 	if (child_stage_id == AperturaSemiGroupA || child_stage_id == AperturaSemiGroupB || child_stage_id == AperturaFinal) return AperturaPlayoffs;
 	if (child_stage_id == ClausuraSemiGroupA || child_stage_id == ClausuraSemiGroupB || child_stage_id == ClausuraFinal) return ClausuraPlayoffs;
+	if (child_stage_id == IntermedioGroupA || child_stage_id == IntermedioGroupB || child_stage_id == IntermedioFinal) return Intermedio;
 	return -1;
 }
 

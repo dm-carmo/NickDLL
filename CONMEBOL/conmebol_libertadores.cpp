@@ -198,7 +198,7 @@ DWORD conmebol_libertadores_fixtures(BYTE* _this, char stage_idx, WORD* num_roun
 		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 8, FixedTeamOrderInCup | NoAwayGoals, Penalties | NoAwayGoals, 8, 4, 2, 0, 0, 0, 2, 7, prizeMoneyFile.GetInt("conmebol_liber_semi_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 23), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 29), year, Saturday, Afternoon, NationalStadium);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 27), year, Saturday, Afternoon, NationalStadium);
 		FillFixtureDetails(pMem, fixture_id++, Final, 0, Penalties | ExtraTime, NoTiebreak, 8, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("conmebol_liber_final_win"), prizeMoneyFile.GetInt("conmebol_liber_final_lose"));
 
 		return (DWORD)pMem;

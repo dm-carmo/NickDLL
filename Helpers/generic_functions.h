@@ -233,6 +233,8 @@ static int(__thiscall* sub_7E9180)(BYTE* _this, int a2) =
 (int(__thiscall*)(BYTE * _this, int a2))(0x7E9180);
 static char (*sub_4BF850)(char a1, char a2, WORD current_round, __int16 a4) =
 (char (*)(char a1, char a2, WORD current_round, __int16 a4))(0x4BF850);
+static char(__thiscall* sub_556210)(BYTE* _this, cm3_club_comps* a2) =
+(char(__thiscall*)(BYTE * _this, cm3_club_comps * a2))(0x556210);
 
 static char* (*get_db_nation_name)(cm3_nations* nation) = (char* (*)(cm3_nations * nation))(0x5453F0);
 static char* (*get_db_club_name)(cm3_clubs* club) = (char* (*)(cm3_clubs * club))(0x545880);

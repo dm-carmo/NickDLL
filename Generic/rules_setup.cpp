@@ -209,6 +209,10 @@ void init_nation_rules(BYTE* _this) {
 	if (dMem) setup_colombia_rules(dMem, idx, NATION_COLOMBIA_9CF(), -1, 1, 0);
 	rules_array[idx++] = (DWORD)dMem;
 
+	dMem = (BYTE*)cm0102_new(0x19);
+	if (dMem) setup_uruguay_rules(dMem, idx, NATION_URUGUAY_9CF(), -1, 1, 0);
+	rules_array[idx++] = (DWORD)dMem;
+
 	*((DWORD*)(_this + 0x8ac)) = (DWORD)rules_array;
 
 	DWORD unknown_8a8 = 0;
