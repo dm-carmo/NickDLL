@@ -381,7 +381,7 @@ void __declspec(naked) bra_awards_team_of_week_c()
 }
 
 void setup_bra_awards() {
-	PatchFunction(0x43D340, (DWORD)&bra_awards_c);
-	PatchFunction(0x43E990, (DWORD)&bra_awards_2_c);
-	PatchFunction(0x43F070, (DWORD)&bra_awards_team_of_week_c);
+	WriteJMP(0x43D340, (DWORD)&bra_awards_c);
+	WriteJMP(0x43E990, (DWORD)&bra_awards_2_c);
+	WriteJMP(0x43F070, (DWORD)&bra_awards_team_of_week_c);
 }

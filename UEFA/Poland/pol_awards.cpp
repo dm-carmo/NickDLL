@@ -143,8 +143,8 @@ void __declspec(naked) pol_awards_team_of_week_c()
 }
 
 void setup_pol_awards() {
-	PatchFunction(0x7CD1C0, (DWORD)&pol_awards_c);
-	PatchFunction(0x7CD630, (DWORD)&pol_awards_2_c);
-	PatchFunction(0x7CD790, (DWORD)&pol_awards_staff_history_c);
-	PatchFunction(0x7CD810, (DWORD)&pol_awards_team_of_week_c);
+	WriteJMP(0x7CD1C0, (DWORD)&pol_awards_c);
+	WriteJMP(0x7CD630, (DWORD)&pol_awards_2_c);
+	WriteJMP(0x7CD790, (DWORD)&pol_awards_staff_history_c);
+	WriteJMP(0x7CD810, (DWORD)&pol_awards_team_of_week_c);
 }

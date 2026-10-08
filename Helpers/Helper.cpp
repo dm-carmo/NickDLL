@@ -92,11 +92,18 @@ void WriteDWORD(DWORD addr, DWORD data)
 	VirtualProtect((void*)addr, 4, dwOldProt, &dwOldProt2);
 }
 
-void PatchFunction(DWORD addr, DWORD jmpTo)
+void WriteJMP(DWORD addr, DWORD jmpTo)
 {
 	DWORD relAddr = (jmpTo - addr) - 5;
 	WriteBytes(addr, 1, 0xE9);
 	WriteDWORD(addr + 1, relAddr);
+}
+
+void WriteJNZ(DWORD addr, DWORD jmpTo)
+{
+	DWORD relAddr = (jmpTo - addr) - 6;
+	WriteBytes(addr, 2, 0xF, 0x85);
+	WriteDWORD(addr + 2, relAddr);
 }
 
 int GetKey()

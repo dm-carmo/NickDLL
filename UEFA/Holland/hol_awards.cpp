@@ -143,7 +143,7 @@ void __declspec(naked) hol_awards_team_of_week_c()
 }
 
 void setup_hol_awards() {
-	PatchFunction(0x5F9070, (DWORD)&hol_awards_c);
-	PatchFunction(0x5F94C0, (DWORD)&hol_awards_2_c);
-	PatchFunction(0x5F9670, (DWORD)&hol_awards_team_of_week_c);
+	WriteJMP(0x5F9070, (DWORD)&hol_awards_c);
+	WriteJMP(0x5F94C0, (DWORD)&hol_awards_2_c);
+	WriteJMP(0x5F9670, (DWORD)&hol_awards_team_of_week_c);
 }

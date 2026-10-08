@@ -191,7 +191,7 @@ void __declspec(naked) ita_awards_team_of_week_c()
 
 void setup_ita_awards()
 {
-	PatchFunction(0x65FEC0, (DWORD)&ita_awards_c);
-	PatchFunction(0x660EC0, (DWORD)&ita_awards_2_c);
-	PatchFunction(0x661330, (DWORD)&ita_awards_team_of_week_c);
+	WriteJMP(0x65FEC0, (DWORD)&ita_awards_c);
+	WriteJMP(0x660EC0, (DWORD)&ita_awards_2_c);
+	WriteJMP(0x661330, (DWORD)&ita_awards_team_of_week_c);
 }

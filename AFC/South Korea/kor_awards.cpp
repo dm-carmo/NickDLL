@@ -124,7 +124,7 @@ void __declspec(naked) kor_awards_staff_history_c()
 
 void setup_kor_awards()
 {
-	PatchFunction(0x66E170, (DWORD)&kor_awards_c);
-	PatchFunction(0x66E4D0, (DWORD)&kor_awards_2_c);
-	PatchFunction(0x66E610, (DWORD)&kor_awards_staff_history_c);
+	WriteJMP(0x66E170, (DWORD)&kor_awards_c);
+	WriteJMP(0x66E4D0, (DWORD)&kor_awards_2_c);
+	WriteJMP(0x66E610, (DWORD)&kor_awards_staff_history_c);
 }

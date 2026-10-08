@@ -22,7 +22,6 @@ vector<DWORD> turkic = {};
 vector<DWORD> cotonou = {};
 
 // lists for player naturalization
-
 vector<DWORD> naturalize_never = {};
 vector<DWORD> naturalize_2_years = {};
 vector<DWORD> naturalize_3_years = {};
@@ -1899,8 +1898,8 @@ void setup_misc_functions()
 	WriteDWORD(0x823b53, (DWORD)&__TIME__[0]);
 
 	// translations adjustments (nationality names)
-	PatchFunction(0x874E43, (DWORD)&jmp_translate_demonym_1);
-	PatchFunction(0x875025, (DWORD)&jmp_translate_demonym_2);
+	WriteJMP(0x874E43, (DWORD)&jmp_translate_demonym_1);
+	WriteJMP(0x875025, (DWORD)&jmp_translate_demonym_2);
 
 	// Semi Final short name (for translations)
 	WriteDWORD(0x4ba3d8, (DWORD)&jmp_shortname_semi); // the switch table
@@ -1908,18 +1907,18 @@ void setup_misc_functions()
 	// Polynesian language name
 	WriteDWORD(0x53d6bc, (DWORD)&jmp_polynesian); // the switch table
 
-	PatchFunction(0x53d980, (DWORD)&player_check_if_foreign);
-	PatchFunction(0x53d740, (DWORD)&player_check_if_eu);
-	if (configFile.GetBool("competitionColoursPatch", true)) PatchFunction(0x53b7c0, (DWORD)&comp_colours_in_header);
-	PatchFunction(0x669f50, (DWORD)&show_extra_leagues_in_start);
-	PatchFunction(0x4B01D0, (DWORD)&parent_child_stages);
-	PatchFunction(0x46B71E, (DWORD)&aus_minor_premier_in_history);
-	PatchFunction(0x499535, (DWORD)&playoff_winner_in_history);
-	PatchFunction(0x460ec6, (DWORD)&club_pro_status_with_continental_comp_c);
-	PatchFunction(0x460d75, (DWORD)&show_club_country_based);
-	PatchFunction(0x8c5bd2, (DWORD)&player_gain_nationality_c);
-	PatchFunction(0x58CF70, (DWORD)&update_fifa_coefficients_c);
-	PatchFunction(0x81e9be, (DWORD)&print_country_date_info_start_c);
+	WriteJMP(0x53d980, (DWORD)&player_check_if_foreign);
+	WriteJMP(0x53d740, (DWORD)&player_check_if_eu);
+	if (configFile.GetBool("competitionColoursPatch", true)) WriteJMP(0x53b7c0, (DWORD)&comp_colours_in_header);
+	WriteJMP(0x669f50, (DWORD)&show_extra_leagues_in_start);
+	WriteJMP(0x4B01D0, (DWORD)&parent_child_stages);
+	WriteJMP(0x46B71E, (DWORD)&aus_minor_premier_in_history);
+	WriteJMP(0x499535, (DWORD)&playoff_winner_in_history);
+	WriteJMP(0x460ec6, (DWORD)&club_pro_status_with_continental_comp_c);
+	WriteJMP(0x460d75, (DWORD)&show_club_country_based);
+	WriteJMP(0x8c5bd2, (DWORD)&player_gain_nationality_c);
+	WriteJMP(0x58CF70, (DWORD)&update_fifa_coefficients_c);
+	WriteJMP(0x81e9be, (DWORD)&print_country_date_info_start_c);
 	char* select_start = "Select Start Date";
 	WriteDWORD(0x81e959, (DWORD)&select_start[0]);
 	// block the old coefficients update function
@@ -1929,15 +1928,15 @@ void setup_misc_functions()
 	if (configFile.GetBool("brazilRegenNames", false)) {
 		// point 1
 		WriteNOP(0x7ab3e0, 6);
-		PatchFunction(0x7ab3e0, (DWORD)&brazil_regens_common_names_1);
+		WriteJMP(0x7ab3e0, (DWORD)&brazil_regens_common_names_1);
 		// point 2, needs extra changes
 		WriteBytes(0x59eba4, 1, 0xb6);
 		WriteBytes(0x59ebaf, 1, 0x8);
 		WriteNOP(0x59ebb9, 6);
-		PatchFunction(0x59ebb9, (DWORD)&brazil_regens_common_names_2);
+		WriteJMP(0x59ebb9, (DWORD)&brazil_regens_common_names_2);
 		// point 3
 		WriteNOP(0x7abd90, 6);
-		PatchFunction(0x7abd90, (DWORD)&brazil_regens_common_names_3);
+		WriteJMP(0x7abd90, (DWORD)&brazil_regens_common_names_3);
 	}
 
 	// hide history button for certain comps -> set VTableShowThirdInHistory to 0x48ce70
@@ -1949,7 +1948,7 @@ void setup_misc_functions()
 
 	// Show the hidden wing-back position
 	if (configFile.GetBool("showWingBacks", false)) {
-		PatchFunction(0x53f2cd, (DWORD)&show_wing_back_position);
+		WriteJMP(0x53f2cd, (DWORD)&show_wing_back_position);
 		WriteBytes(0x9b75b9, 2, 'W', 'B');
 	}
 
@@ -2023,29 +2022,34 @@ void setup_misc_functions()
 		WriteBytes(0xA7FFD8, 2, 0x33, 0x36);
 	}
 
-	PatchFunction(0x66955c, (DWORD)&show_playoff_in_menu);
-	PatchFunction(0x46b409, (DWORD)&year_offset_in_landmarks);
+	WriteJMP(0x66955c, (DWORD)&show_playoff_in_menu);
+	WriteJMP(0x46b409, (DWORD)&year_offset_in_landmarks);
 	// tag comp as being part of "World Cup" menu?
-	PatchFunction(0x669abe, (DWORD)&unknown_check_2);
+	WriteJMP(0x669abe, (DWORD)&unknown_check_2);
 	// tag comp as being part of "International" menu?
-	PatchFunction(0x669ba6, (DWORD)&unknown_check_3);
-	PatchFunction(0x6b6358, (DWORD)&international_comps_to_continent);
-	PatchFunction(0x76D940, (DWORD)&is_international_comp_no_qualifiers);
-	PatchFunction(0x76b455, (DWORD)&unknown_int_comps_fix_1);
-	PatchFunction(0x76C28F, (DWORD)&keep_players_in_comp_until_end);
-	PatchFunction(0x775293, (DWORD)&unknown_int_comps_fix_3);
-	PatchFunction(0x7752FC, (DWORD)&unknown_int_comps_fix_4);
-	PatchFunction(0x76B31C, (DWORD)&unknown_int_comps_fix_5);
-	PatchFunction(0x76D6DF, (DWORD)&unknown_int_comps_fix_6);
-	PatchFunction(0x76F1EC, (DWORD)&unknown_int_comps_fix_7);
-	PatchFunction(0x76D466, (DWORD)&comps_callup_squad_size);
+	WriteJMP(0x669ba6, (DWORD)&unknown_check_3);
+	WriteJMP(0x6b6358, (DWORD)&international_comps_to_continent);
+	WriteJMP(0x76D940, (DWORD)&is_international_comp_no_qualifiers);
+	WriteJMP(0x76b455, (DWORD)&unknown_int_comps_fix_1);
+	WriteJMP(0x76C28F, (DWORD)&keep_players_in_comp_until_end);
+	WriteJMP(0x775293, (DWORD)&unknown_int_comps_fix_3);
+	WriteJMP(0x7752FC, (DWORD)&unknown_int_comps_fix_4);
+	WriteJMP(0x76B31C, (DWORD)&unknown_int_comps_fix_5);
+	WriteJMP(0x76D6DF, (DWORD)&unknown_int_comps_fix_6);
+	WriteJMP(0x76F1EC, (DWORD)&unknown_int_comps_fix_7);
+	WriteJMP(0x76D466, (DWORD)&comps_callup_squad_size);
 
 	// Gold Cup always hosted in the USA
-	PatchFunction(0x5fa745, (DWORD)&hosts_force_gold_cup_usa);
-	PatchFunction(0x5fa7d0, (DWORD)&fix_hosts_news_function_c);
+	WriteJMP(0x5fa745, (DWORD)&hosts_force_gold_cup_usa);
+	WriteJMP(0x5fa7d0, (DWORD)&fix_hosts_news_function_c);
 
 	// Shows more teams in Team Stats, up to 127
 	WriteBytes(0x495976, 1, 0x7F);
+
+	// club history fix - Uruguay D2
+	WriteBytes(0x44306b, 2, 0x8b, 0xf0); // MOV ESI,EAX
+	WriteBytes(0x44306d, 2, 0x75, 0xd9); // JNZ SHORT 0x443048
+	WriteNOP(0x44306f, 4);
 
 	// Change manager's starting age
 	WriteDWORD(0x820e01, (START_YEAR - 34));
@@ -2086,7 +2090,7 @@ void setup_misc_functions()
 	WriteDWORD(0x77fcfe + 1, (DWORD)&r3_groups_drawn[0]);
 	WriteDWORD(0x77fd05 + 1, FourthRound);
 	WriteDWORD(0x77fd28 + 1, (DWORD)&r4_groups_drawn[0]);
-	PatchFunction(0x77fd2f, (DWORD)&fixed_groups_drawn_news_title);
+	WriteJMP(0x77fd2f, (DWORD)&fixed_groups_drawn_news_title);
 	// misspelling
 	WriteBytes(0xa0aa2a, 2, 'y', '\'');
 
@@ -2139,8 +2143,8 @@ void setup_misc_functions()
 
 		WriteBytes(0x90DB0D, 1, 100);
 
-		PatchFunction(0x4776AC, (DWORD)&fix_number_screen);
-		PatchFunction(0x47780C, (DWORD)&fix_number_screen_2);
+		WriteJMP(0x4776AC, (DWORD)&fix_number_screen);
+		WriteJMP(0x47780C, (DWORD)&fix_number_screen_2);
 		WriteDWORD(0x4759B2, (DWORD)&fix_number_screen_3 - 0x4759B2 - 4);
 	}
 

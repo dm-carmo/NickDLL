@@ -200,8 +200,8 @@ void __declspec(naked) irl_awards_team_of_week_c()
 }
 
 void setup_irl_awards() {
-	PatchFunction(0x63b790, (DWORD)&irl_awards_c);
-	PatchFunction(0x63bf10, (DWORD)&irl_awards_2_c);
-	PatchFunction(0x63c160, (DWORD)&irl_awards_staff_history_c);
-	PatchFunction(0x63c1f0, (DWORD)&irl_awards_team_of_week_c);
+	WriteJMP(0x63b790, (DWORD)&irl_awards_c);
+	WriteJMP(0x63bf10, (DWORD)&irl_awards_2_c);
+	WriteJMP(0x63c160, (DWORD)&irl_awards_staff_history_c);
+	WriteJMP(0x63c1f0, (DWORD)&irl_awards_team_of_week_c);
 }

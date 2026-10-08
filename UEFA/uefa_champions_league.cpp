@@ -1791,6 +1791,6 @@ void setup_uefa_champions_league() {
 	WriteVTablePtr(uefa_champions_league_vtable, VTableReputationSetup, (DWORD)&uefa_champions_league_reputation_setup_c);
 	WriteVTablePtr(uefa_champions_league_vtable, VTableReputationCalc, (DWORD)&uefa_champions_league_reputation_calc_c);
 
-	PatchFunction(0x904210, (DWORD)&ucl_team_selection_c);
-	PatchFunction(0x903CC0, (DWORD)&uefa_set_team_counts_c);
+	WriteJMP(0x904210, (DWORD)&ucl_team_selection_c);
+	WriteJMP(0x903CC0, (DWORD)&uefa_set_team_counts_c);
 }

@@ -23,7 +23,8 @@ void WriteString(DWORD addr, int length, char* bytes);
 void WriteNOP(DWORD addr, int bytes);
 void WriteWORD(DWORD addr, WORD data);
 void WriteDWORD(DWORD addr, DWORD data);
-void PatchFunction(DWORD addr, DWORD jmpTo);
+void WriteJMP(DWORD addr, DWORD jmpTo);
+void WriteJNZ(DWORD addr, DWORD jmpTo);
 int GetKey();
 
 void* cm0102_malloc(int size);

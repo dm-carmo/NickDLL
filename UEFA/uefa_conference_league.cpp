@@ -1649,5 +1649,5 @@ void setup_uefa_conference_league() {
 	WriteVTablePtr(uefa_conference_league_vtable, VTableReputationSetup, (DWORD)&uefa_conference_league_reputation_setup_c);
 	WriteVTablePtr(uefa_conference_league_vtable, VTableReputationCalc, (DWORD)&uefa_conference_league_reputation_calc_c);
 
-	PatchFunction(0x904E30, (DWORD)&uecl_team_selection_c);
+	WriteJMP(0x904E30, (DWORD)&uecl_team_selection_c);
 }

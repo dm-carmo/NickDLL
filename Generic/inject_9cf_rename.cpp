@@ -1427,17 +1427,17 @@ extern "C" _declspec(naked) int check_9cf_c()
 void setup_name_injection()
 {
 	// Add call to our name function after all player setups have been loaded
-	PatchFunction(0x5CCCC1, (DWORD)inject_club_names);
-	PatchFunction(0x60D810, (DWORD)setup_9cf_nations);
-	PatchFunction(0x60EFD0, (DWORD)setup_9cf_leagues);
-	PatchFunction(0x6115E0, (DWORD)setup_9cf_awards);
-	PatchFunction(0x6146B0, (DWORD)setup_9cf_clubs);
+	WriteJMP(0x5CCCC1, (DWORD)inject_club_names);
+	WriteJMP(0x60D810, (DWORD)setup_9cf_nations);
+	WriteJMP(0x60EFD0, (DWORD)setup_9cf_leagues);
+	WriteJMP(0x6115E0, (DWORD)setup_9cf_awards);
+	WriteJMP(0x6146B0, (DWORD)setup_9cf_clubs);
 
-	PatchFunction(0x605144, (DWORD)check_9cf_c);
+	WriteJMP(0x605144, (DWORD)check_9cf_c);
 
-	PatchFunction(0x60BA80, (DWORD)force_load_9cf_clubs);
+	WriteJMP(0x60BA80, (DWORD)force_load_9cf_clubs);
 
-	PatchFunction(0x540A50, (DWORD)check_if_reserve_team_new);
+	WriteJMP(0x540A50, (DWORD)check_if_reserve_team_new);
 
 	if (filesystem::exists("Data/clubs_9cf.cfg")) {
 		ifstream in("Data/clubs_9cf.cfg", ios_base::in);

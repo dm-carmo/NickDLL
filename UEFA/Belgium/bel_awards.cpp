@@ -180,7 +180,7 @@ void __declspec(naked) bel_awards_team_of_week_c()
 
 void setup_bel_awards()
 {
-	PatchFunction(0x424510, (DWORD)&bel_awards_c);
-	PatchFunction(0x4249c0, (DWORD)&bel_awards_2_c);
-	PatchFunction(0x424b60, (DWORD)&bel_awards_team_of_week_c);
+	WriteJMP(0x424510, (DWORD)&bel_awards_c);
+	WriteJMP(0x4249c0, (DWORD)&bel_awards_2_c);
+	WriteJMP(0x424b60, (DWORD)&bel_awards_team_of_week_c);
 }

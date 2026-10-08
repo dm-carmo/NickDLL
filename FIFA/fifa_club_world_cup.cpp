@@ -1084,5 +1084,5 @@ void __declspec(naked) fifa_cwc_hosts_adjustment()
 
 void setup_fifa_club_world_cup() {
 	WriteBytes(0x5fa452, 1, 24);
-	PatchFunction(0x5fa453, (DWORD)&fifa_cwc_hosts_adjustment);
+	WriteJMP(0x5fa453, (DWORD)&fifa_cwc_hosts_adjustment);
 }

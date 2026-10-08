@@ -184,8 +184,8 @@ void __declspec(naked) fin_awards_staff_history_c()
 
 void setup_fin_awards()
 {
-	PatchFunction(0x5A90B0, (DWORD)&fin_awards_c);
-	PatchFunction(0x5A96E0, (DWORD)&fin_awards_2_c);
-	PatchFunction(0x5A9930, (DWORD)&fin_awards_team_of_week_c);
-	PatchFunction(0x5A9890, (DWORD)&fin_awards_staff_history_c);
+	WriteJMP(0x5A90B0, (DWORD)&fin_awards_c);
+	WriteJMP(0x5A96E0, (DWORD)&fin_awards_2_c);
+	WriteJMP(0x5A9930, (DWORD)&fin_awards_team_of_week_c);
+	WriteJMP(0x5A9890, (DWORD)&fin_awards_staff_history_c);
 }

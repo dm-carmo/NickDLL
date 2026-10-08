@@ -315,12 +315,12 @@ void __declspec(naked) jmp_8E05B5()
 
 void setup_rules_setup()
 {
-	PatchFunction(0x8D26B0, (DWORD)&init_nation_rules_c);
-	PatchFunction(0x8C6D1C, (DWORD)&jmp_8C6D1C);
-	PatchFunction(0x8C6D37, (DWORD)&jmp_8C6D37);
-	PatchFunction(0x8C6D48, (DWORD)&jmp_8C6D48);
-	PatchFunction(0x8C6D68, (DWORD)&jmp_8C6D68);
-	PatchFunction(0x8E05B5, (DWORD)&jmp_8E05B5);
+	WriteJMP(0x8D26B0, (DWORD)&init_nation_rules_c);
+	WriteJMP(0x8C6D1C, (DWORD)&jmp_8C6D1C);
+	WriteJMP(0x8C6D37, (DWORD)&jmp_8C6D37);
+	WriteJMP(0x8C6D48, (DWORD)&jmp_8C6D48);
+	WriteJMP(0x8C6D68, (DWORD)&jmp_8C6D68);
+	WriteJMP(0x8E05B5, (DWORD)&jmp_8E05B5);
 
 	DWORD rules_count = pnd_count - 8;
 

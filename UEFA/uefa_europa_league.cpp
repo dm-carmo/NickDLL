@@ -1754,5 +1754,5 @@ void setup_uefa_europa_league() {
 	WriteVTablePtr(uefa_europa_league_vtable, VTableReputationSetup, (DWORD)&uefa_europa_league_reputation_setup_c);
 	WriteVTablePtr(uefa_europa_league_vtable, VTableReputationCalc, (DWORD)&uefa_europa_league_reputation_calc_c);
 
-	PatchFunction(0x904580, (DWORD)&uel_team_selection_c);
+	WriteJMP(0x904580, (DWORD)&uel_team_selection_c);
 }

@@ -112,7 +112,7 @@ void __declspec(naked) usa_awards_staff_history_c()
 
 void setup_usa_awards()
 {
-	PatchFunction(0x906AC0, (DWORD)&usa_awards_c);
-	PatchFunction(0x906E10, (DWORD)&usa_awards_2_c);
-	PatchFunction(0x906F60, (DWORD)&usa_awards_staff_history_c);
+	WriteJMP(0x906AC0, (DWORD)&usa_awards_c);
+	WriteJMP(0x906E10, (DWORD)&usa_awards_2_c);
+	WriteJMP(0x906F60, (DWORD)&usa_awards_staff_history_c);
 }

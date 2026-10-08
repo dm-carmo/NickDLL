@@ -152,7 +152,7 @@ void __declspec(naked) den_awards_team_of_week_c()
 
 void setup_den_awards()
 {
-	PatchFunction(0x554E50, (DWORD)&den_awards_c);
-	PatchFunction(0x5552A0, (DWORD)&den_awards_2_c);
-	PatchFunction(0x555430, (DWORD)&den_awards_team_of_week_c);
+	WriteJMP(0x554E50, (DWORD)&den_awards_c);
+	WriteJMP(0x5552A0, (DWORD)&den_awards_2_c);
+	WriteJMP(0x555430, (DWORD)&den_awards_team_of_week_c);
 }

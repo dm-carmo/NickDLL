@@ -165,8 +165,8 @@ void __declspec(naked) nor_awards_team_of_week_c()
 }
 
 void setup_nor_awards() {
-	PatchFunction(0x793A80, (DWORD)&nor_awards_c);
-	PatchFunction(0x7942C0, (DWORD)&nor_awards_2_c);
-	PatchFunction(0x794430, (DWORD)&nor_awards_staff_history_c);
-	PatchFunction(0x7944D0, (DWORD)&nor_awards_team_of_week_c);
+	WriteJMP(0x793A80, (DWORD)&nor_awards_c);
+	WriteJMP(0x7942C0, (DWORD)&nor_awards_2_c);
+	WriteJMP(0x794430, (DWORD)&nor_awards_staff_history_c);
+	WriteJMP(0x7944D0, (DWORD)&nor_awards_team_of_week_c);
 }

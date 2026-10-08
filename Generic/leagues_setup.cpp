@@ -718,8 +718,8 @@ extern "C" _declspec(naked) void inject_league_restructure_init()
 }
 
 void setup_leagues_setup() {
-	PatchFunction(0x667150, (DWORD)&init_leagues_list);
-	PatchFunction(0x828389, (DWORD)inject_league_restructure_init);
+	WriteJMP(0x667150, (DWORD)&init_leagues_list);
+	WriteJMP(0x828389, (DWORD)inject_league_restructure_init);
 	// fix for the extra continent (Africa)
 	WriteBytes(0x48df27, 1, 8);
 	WriteBytes(0x5accb2, 1, 9);

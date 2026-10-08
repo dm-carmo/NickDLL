@@ -128,7 +128,7 @@ void __declspec(naked) cro_awards_team_of_week_c()
 
 void setup_cro_awards()
 {
-	PatchFunction(0x517FA0, (DWORD)&cro_awards_c);
-	PatchFunction(0x5183A0, (DWORD)&cro_awards_2_c);
-	PatchFunction(0x5184D0, (DWORD)&cro_awards_team_of_week_c);
+	WriteJMP(0x517FA0, (DWORD)&cro_awards_c);
+	WriteJMP(0x5183A0, (DWORD)&cro_awards_2_c);
+	WriteJMP(0x5184D0, (DWORD)&cro_awards_team_of_week_c);
 }

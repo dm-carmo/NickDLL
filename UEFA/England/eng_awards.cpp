@@ -421,8 +421,8 @@ void __declspec(naked) eng_awards_team_of_week_c()
 }
 
 void setup_eng_awards() {
-	PatchFunction(0x5788C0, (DWORD)&eng_awards_c);
-	PatchFunction(0x579610, (DWORD)&eng_awards_2_c);
-	PatchFunction(0x579900, (DWORD)&eng_awards_staff_history_c);
-	PatchFunction(0x579AF0, (DWORD)&eng_awards_team_of_week_c);
+	WriteJMP(0x5788C0, (DWORD)&eng_awards_c);
+	WriteJMP(0x579610, (DWORD)&eng_awards_2_c);
+	WriteJMP(0x579900, (DWORD)&eng_awards_staff_history_c);
+	WriteJMP(0x579AF0, (DWORD)&eng_awards_team_of_week_c);
 }

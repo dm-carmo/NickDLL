@@ -173,7 +173,7 @@ void __declspec(naked) por_awards_team_of_week_c()
 
 void setup_por_awards()
 {
-	PatchFunction(0x7D36C0, (DWORD)&por_awards_c);
-	PatchFunction(0x7D3BE0, (DWORD)&por_awards_2_c);
-	PatchFunction(0x7D3D60, (DWORD)&por_awards_team_of_week_c);
+	WriteJMP(0x7D36C0, (DWORD)&por_awards_c);
+	WriteJMP(0x7D3BE0, (DWORD)&por_awards_2_c);
+	WriteJMP(0x7D3D60, (DWORD)&por_awards_team_of_week_c);
 }

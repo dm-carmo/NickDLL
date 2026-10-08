@@ -245,9 +245,11 @@ int uru_first_last_positions(BYTE* _this) {
 	teams_seeded* interm_final_teams = (teams_seeded*)(interm_final->teams_list);
 	WORD interm_final_nteams = interm_final->n_teams;
 
+	cm3_clubs* interm_bak = 0;
 	for (WORD j = 0; j < interm_final_nteams; j++) {
 		teams_seeded t = interm_final_teams[j];
 		if (t.f6 == 1) interm_5 = t.club;
+		else interm_bak = t.club;
 	}
 
 	vector<cm3_clubs*> clubs;
@@ -271,6 +273,12 @@ int uru_first_last_positions(BYTE* _this) {
 		clubs[i]->ClubLastDivision = data->competition_db;
 		clubs[i]->ClubLastPosition = (char)i + 1;
 	}
+
+	comp_stats* uru_super = (comp_stats*)get_loaded_league(URU_SUPER_CUP_9CF());
+	teams_seeded* teams = (teams_seeded*)uru_super->teams_list;
+	teams[0].club = first_1;
+	if (first_1 != interm_5) teams[1].club = interm_5;
+	else teams[1].club = interm_bak;
 
 	return 1;
 }
@@ -687,16 +695,16 @@ DWORD uru_first_fixtures_dummy(BYTE* _this, char stage_idx, WORD* num_rounds, WO
 	return 0;
 }
 
-// TO DO - uru_second
 void uru_first_prom_rel_update(BYTE* _this, int a2) {
 	comp_stats* data = (comp_stats*)_this;
 	DWORD v1 = *(DWORD*)_this;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(_this);
 
-	//BYTE* uru_second = get_loaded_league(URU_SECOND_9CF());
-	//v1 = *(DWORD*)uru_second;
-	//(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(uru_second);
-	//process_promotion_relegation_689C80(_this, _this, uru_second, 1, a2, -1, -1);
+	BYTE* uru_second = get_loaded_league(URU_SECOND_9CF());
+	comp_stats* uru_second_data = (comp_stats*)uru_second;
+	v1 = *(DWORD*)uru_second;
+	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(uru_second);
+	process_promotion_relegation_689C80(_this, (BYTE*)data->stages[4], (BYTE*)uru_second_data->stages[2], 1, a2, -1, -1);
 }
 
 void __declspec(naked) uru_first_prom_rel_update_c()
@@ -812,7 +820,16 @@ void uru_first_league_table(BYTE* _this) {
 
 void __fastcall uru_non_league_promotion(BYTE* _this)
 {
-	vector<cm3_clubs*> relegated_clubs = get_relegated_teams(URU_SECOND_9CF());
+	vector<cm3_clubs*> relegated_clubs;
+
+	comp_stats* comp_data = (comp_stats*)get_loaded_league(URU_SECOND_9CF());
+	comp_stats* curr_stage = (comp_stats*)comp_data->stages[2];
+	for (WORD num = 0; num < curr_stage->n_teams; num++) {
+		team_league_stats table_pos = ((team_league_stats*)curr_stage->team_league_table)[num];
+		if (table_pos.league_fate == Relegated) {
+			relegated_clubs.push_back(table_pos.club);
+		}
+	}
 
 	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_URUGUAY_9CF());
 	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(available_clubs, relegated_clubs.size(), true);
@@ -828,25 +845,25 @@ void __fastcall uru_non_league_promotion(BYTE* _this)
 	}
 }
 
-// TO DO - uru_second
 char uru_first_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	data->f76 = 0;
 
-	//BYTE* uru_second = get_loaded_league(URU_SECOND_9CF());
+	BYTE* uru_second = get_loaded_league(URU_SECOND_9CF());
+	comp_stats* uru_second_data = (comp_stats*)uru_second;
 
 	// All teams that were in D1 must be professional
-	update_club_pro_status_68A980(_this, Professional, Relegated, -3, 1);
-	update_club_pro_status_68A980(_this, Professional, -3, Relegated, 1);
+	update_club_pro_status_68A980((BYTE*)data->stages[4], Professional, Relegated, -3, 1);
+	update_club_pro_status_68A980((BYTE*)data->stages[4], Professional, -3, Relegated, 1);
 	// All teams that were relegated from D2 must be semi-professional
 	// All teams that were not relegated from D2 must be professional
-	//update_club_pro_status_68A980(uru_second, Professional, Relegated, -3, 1);
-	//update_club_pro_status_68A980(uru_second, SemiProfessional, -3, Relegated, 0);
+	update_club_pro_status_68A980((BYTE*)uru_second_data->stages[2], Professional, Relegated, -3, 1);
+	update_club_pro_status_68A980((BYTE*)uru_second_data->stages[2], SemiProfessional, -3, Relegated, 0);
 
 	DWORD v1 = *(DWORD*)_this;
 	uru_first_prom_rel_update(_this, 1);
 
-	//uru_non_league_promotion(_this);
+	uru_non_league_promotion(_this);
 
 	sub_687970(_this, 0);
 	if (data->fixtures_table) {
@@ -878,8 +895,8 @@ char uru_first_update(BYTE* _this) {
 	sub_6827D0(_this, 0);
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
 
-	//v1 = *(DWORD*)uru_second;
-	//(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(uru_second);
+	v1 = *(DWORD*)uru_second;
+	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(uru_second);
 
 	sub_68AA80(_this);
 	return sub_79CEE0((BYTE*)*b74340, (BYTE*)(data->competition_db));

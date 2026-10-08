@@ -556,7 +556,7 @@ void __declspec(naked) rb_south_america_generic_fix()
 
 void setup_discipline_setup()
 {
-	PatchFunction(0x55D420, (DWORD)&replacement_55D420_c);
+	WriteJMP(0x55D420, (DWORD)&replacement_55D420_c);
 	WriteDWORD(0x55624c + 1, CompetitionRules_LENGTH);
 	WriteDWORD(0x555f2e + 1, CompetitionRules_LENGTH);
 	WriteDWORD(0x5557e6 + 1, CompetitionRules_LENGTH);
@@ -565,8 +565,8 @@ void setup_discipline_setup()
 	WriteBytes(0x7dca9c, 1, 0x94);
 	WriteBytes(0x7dcaa2, 8, 0x52, 0x8B, 0x94, 0x24, 0x08, 0x02, 0x00, 0x00);
 	WriteBytes(0x7dcaab, 5, 0x8b, 0x41, 0x17, 0x90, 0x90);
-	PatchFunction(0x7dc9bb, (DWORD)&rb_croatia_generic_fix);
-	PatchFunction(0x7dc8f3, (DWORD)&rb_croatia_generic_fix2);
+	WriteJMP(0x7dc9bb, (DWORD)&rb_croatia_generic_fix);
+	WriteJMP(0x7dc8f3, (DWORD)&rb_croatia_generic_fix2);
 	// rb_south_america edit
-	PatchFunction(0x7e2b35, (DWORD)&rb_south_america_generic_fix);
+	WriteJMP(0x7e2b35, (DWORD)&rb_south_america_generic_fix);
 }

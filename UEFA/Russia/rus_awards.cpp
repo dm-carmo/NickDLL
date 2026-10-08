@@ -113,7 +113,7 @@ void __declspec(naked) rus_awards_team_of_week_c()
 
 void setup_rus_awards()
 {
-	PatchFunction(0x7ec2a0, (DWORD)&rus_awards_c);
-	PatchFunction(0x7ec600, (DWORD)&rus_awards_2_c);
-	PatchFunction(0x7ec6a0, (DWORD)&rus_awards_team_of_week_c);
+	WriteJMP(0x7ec2a0, (DWORD)&rus_awards_c);
+	WriteJMP(0x7ec600, (DWORD)&rus_awards_2_c);
+	WriteJMP(0x7ec6a0, (DWORD)&rus_awards_team_of_week_c);
 }
