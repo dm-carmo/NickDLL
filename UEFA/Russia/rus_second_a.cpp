@@ -660,7 +660,7 @@ int rus_second_a_stage_news(BYTE* _this, int club_idx, char fate, char stage_id,
 	if (stage_id < 1) {
 		if (fate == TopPlayoff) {
 			if (show_body_text) {
-				sub_66F4E0(0xDE1F64, (DWORD)&qualified_gold_grp_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderName, comp_data->ClubCompGenderName,
+				sub_66F4E0(0xDE1F64, qualify_champ_grp_msg, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderName, comp_data->ClubCompGenderName,
 					&club_data->ClubNameShort[0], &comp_data->ClubCompName[0]);
 				sub_4AE660(ret_str_ptr, 0xDE1F64);
 				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
@@ -668,7 +668,7 @@ int rus_second_a_stage_news(BYTE* _this, int club_idx, char fate, char stage_id,
 				return 1;
 			}
 			else {
-				sub_66F4E0(0xDE1F64, (DWORD)&qualified_gold_grp_title_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0]);
+				sub_66F4E0(0xDE1F64, qualify_champ_grp_title_msg, club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0]);
 				sub_4AE660(ret_str_ptr, 0xDE1F64);
 				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
 				return 1;
@@ -676,7 +676,7 @@ int rus_second_a_stage_news(BYTE* _this, int club_idx, char fate, char stage_id,
 		}
 		else if (fate == BottomPlayoff) {
 			if (show_body_text) {
-				sub_66F4E0(0xDE1F64, (DWORD)&qualified_silver_grp_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderName, comp_data->ClubCompGenderName,
+				sub_66F4E0(0xDE1F64, (DWORD)&qualified_rel_grp_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, comp_data->ClubCompGenderName, comp_data->ClubCompGenderName,
 					&club_data->ClubNameShort[0], &comp_data->ClubCompName[0]);
 				sub_4AE660(ret_str_ptr, 0xDE1F64);
 				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
@@ -684,7 +684,7 @@ int rus_second_a_stage_news(BYTE* _this, int club_idx, char fate, char stage_id,
 				return 1;
 			}
 			else {
-				sub_66F4E0(0xDE1F64, (DWORD)&qualified_silver_grp_title_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0]);
+				sub_66F4E0(0xDE1F64, (DWORD)&qualified_rel_grp_title_msg[0], club_data->ClubGenderNameShort, club_data->ClubGenderNameShort, &club_data->ClubNameShort[0]);
 				sub_4AE660(ret_str_ptr, 0xDE1F64);
 				sub_4AE8A0((BYTE*)ret_str_ptr, &club_data->ClubNameShort[0], 0x7d5, (DWORD)club_data);
 				return 1;

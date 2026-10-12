@@ -1053,6 +1053,9 @@
     <ClCompile Include="CONMEBOL\Uruguay\uru_super.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CONMEBOL\Uruguay\uru_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -2103,6 +2106,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CONMEBOL\Uruguay\uru_super.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CONMEBOL\Uruguay\uru_cup.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

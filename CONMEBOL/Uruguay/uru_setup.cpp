@@ -3,7 +3,7 @@
 #include "Helpers\generic_functions.h"
 #include "uru_first.h"
 #include "uru_second.h"
-//#include "uru_cup.h"
+#include "uru_cup.h"
 #include "uru_league_cup.h"
 #include "uru_super.h"
 #include "Helpers\9cf_constants.h"
@@ -39,9 +39,9 @@ DWORD uru_setup_c(playable_nation_data* nation_data) {
 	uru_second_init(pMem, start_year, get_comp(URU_SECOND_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 
-	//pMem = (BYTE*)cm0102_new(0xB2);
-	//uru_cup_init(pMem, start_year, get_comp(URU_CUP_9CF()));
-	//nation_comps[i++] = (DWORD)pMem;
+	pMem = (BYTE*)cm0102_new(0xB2);
+	uru_cup_init(pMem, start_year, get_comp(URU_CUP_9CF()));
+	nation_comps[i++] = (DWORD)pMem;
 
 	pMem = (BYTE*)cm0102_new(0xB2);
 	uru_league_cup_init(pMem, start_year, get_comp(URU_LEAGUE_CUP_9CF()));
@@ -130,7 +130,7 @@ BYTE* setup_uruguay_rules(BYTE* _this, char idx, DWORD country_id, DWORD contine
 void setup_uru_nation() {
 	setup_uru_first();
 	setup_uru_second();
-	//setup_uru_cup();
+	setup_uru_cup();
 	setup_uru_league_cup();
 	setup_uru_super();
 }

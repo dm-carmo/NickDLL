@@ -168,6 +168,7 @@
     <ClCompile Include="CONMEBOL\Colombia\col_second.cpp" />
     <ClCompile Include="CONMEBOL\Colombia\col_setup.cpp" />
     <ClCompile Include="CONMEBOL\Colombia\col_super.cpp" />
+    <ClCompile Include="CONMEBOL\Uruguay\uru_cup.cpp" />
     <ClCompile Include="CONMEBOL\Uruguay\uru_first.cpp" />
     <ClCompile Include="CONMEBOL\Uruguay\uru_league_cup.cpp" />
     <ClCompile Include="CONMEBOL\Uruguay\uru_second.cpp" />
@@ -516,6 +517,7 @@
     <ClInclude Include="CONMEBOL\Colombia\col_second.h" />
     <ClInclude Include="CONMEBOL\Colombia\col_setup.h" />
     <ClInclude Include="CONMEBOL\Colombia\col_super.h" />
+    <ClInclude Include="CONMEBOL\Uruguay\uru_cup.h" />
     <ClInclude Include="CONMEBOL\Uruguay\uru_first.h" />
     <ClInclude Include="CONMEBOL\Uruguay\uru_league_cup.h" />
     <ClInclude Include="CONMEBOL\Uruguay\uru_second.h" />

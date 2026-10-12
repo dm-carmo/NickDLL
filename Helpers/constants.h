@@ -73,3 +73,5 @@ extern DWORD first_round_str;
 extern DWORD qualified_for_finals_str;
 extern DWORD qualified_for_world_cup_str;
 extern DWORD league_stage_str;
+extern DWORD qualify_champ_grp_title_msg;
+extern DWORD qualify_champ_grp_msg;

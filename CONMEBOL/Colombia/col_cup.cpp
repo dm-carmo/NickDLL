@@ -629,7 +629,7 @@ bool col_cup_check_open_finishes(BYTE* _this) {
 }
 
 void col_cup_landmarks(BYTE* _this, DWORD dest_ptr, int a2, WORD main_stage_id, WORD sub_stage_id, char fate, cm3_clubs* club) {
-	if (main_stage_id == QualifyingRound && sub_stage_id == FirstRound && fate == 1)
+	if (sub_stage_id == QualifyingRound && fate == 1)
 		sub_48CAB0(_this, dest_ptr, a2, None, RoundOf16, 2, club);
 	else sub_48CAB0(_this, dest_ptr, a2, main_stage_id, sub_stage_id, fate, club);
 }
@@ -656,6 +656,7 @@ int col_cup_stage_news(BYTE* _this, int club_idx, char fate, char stage_id, int 
 	comp_stats* data = (comp_stats*)_this;
 	cm3_club_comps* comp_data = data->competition_db;
 	cm3_clubs* club_data = get_club(club_idx);
+	if (stage_id == -1) return sub_48C6D0(_this, club_idx, fate, stage_id, stage_name_idx, round_data, a7, 0, a9, show_body_text, ret_str_ptr);
 	if (stage_id < 4) {
 		if (fate == Qualified1) {
 			if (show_body_text) return sub_4B4590(club_idx, (WORD)stage_name_idx, (DWORD)comp_data, fate, show_body_text, ret_str_ptr);

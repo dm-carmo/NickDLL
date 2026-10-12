@@ -952,10 +952,10 @@ void uru_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	uru_second_add_teams(_this);
 	SetupTVMoney(_this, prizeMoneyFile.GetInt("uru_second_tv_money"), 0);
 	sub_6835C0(_this);
+	uru_second_setup_groups(_this);
 	BYTE* pMem2 = (BYTE*)cm0102_new(0x5CE);
 	sub_49EE70(pMem2, _this);
 	data->f8 = (DWORD*)pMem2;
-	uru_second_setup_groups(_this);
 	uru_second_setup_league(_this);
 	sub_6827D0(_this, 0);
 	league_reputation_setup_generic_68A850(_this);
