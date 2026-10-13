@@ -16,6 +16,7 @@
 #include "CONMEBOL\Uruguay\uru_setup.h"
 #include "UEFA\Austria\aut_setup.h"
 #include "UEFA\Belgium\bel_setup.h"
+#include "UEFA\Bulgaria\bul_setup.h"
 #include "UEFA\Croatia\cro_setup.h"
 #include "UEFA\Czech Republic\cze_setup.h"
 #include "UEFA\Denmark\den_setup.h"

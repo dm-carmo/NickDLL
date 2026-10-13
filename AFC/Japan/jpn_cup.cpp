@@ -80,8 +80,8 @@ int jpn_cup_teams(BYTE* _this) {
 
 	teams_seeded* teams = (teams_seeded*)comp_data->teams_list;
 
-	// Regionals
-	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(JPN_REGIONAL_9CF());
+	// Lower
+	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_JAPAN_9CF());
 	vector<cm3_clubs*> division_clubs = get_random_weighted_clubs(lower_clubs, 12, true);
 	for (cm3_clubs* club : division_clubs)
 	{

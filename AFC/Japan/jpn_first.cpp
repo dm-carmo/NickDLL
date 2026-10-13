@@ -127,7 +127,7 @@ void __fastcall jpn_third_relegation(BYTE* _this)
 void __fastcall jpn_fake_lower_relegation(BYTE* _this)
 {
 	vector<cm3_clubs*> jfl_clubs = find_clubs_of_comp(JPN_JFL_9CF(), NATION_JAPAN_9CF());
-	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(JPN_REGIONAL_9CF(), NATION_JAPAN_9CF());
+	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_JAPAN_9CF());
 
 	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(lower_clubs, 2, true);
 	vector<cm3_clubs*> relegated_clubs = get_random_weighted_clubs(jfl_clubs, 2, false);
@@ -171,7 +171,7 @@ char jpn_first_update(BYTE* _this) {
 	jpn_first_prom_rel_update(_this, 1);
 
 	if (jpn_jfl) {
-		generic_prom_rel(NATION_JAPAN_9CF(), JPN_REGIONAL_9CF(), JPN_JFL_9CF(), 0);
+		generic_prom_rel(NATION_JAPAN_9CF(), A_LOWER_9CF(), JPN_JFL_9CF(), 0);
 	}
 	else {
 		jpn_third_relegation(_this);

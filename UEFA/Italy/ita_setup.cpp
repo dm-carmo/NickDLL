@@ -5,9 +5,11 @@
 #include "ita_ser_a.h"
 #include "ita_ser_b.h"
 #include "ita_ser_c.h"
+#include "ita_ser_d.h"
 #include "ita_cup.h"
 #include "ita_super.h"
 #include "ita_c_cup.h"
+#include "ita_d_cup.h"
 #include "ita_c_supercup.h"
 #include "ita_awards.h"
 #include "Structures\vtable.h"
@@ -19,7 +21,7 @@ DWORD ita_setup_c(playable_nation_data* nation_data) {
 	nation_data->contract_start_month = August;
 	nation_data->contract_start_year = *current_year;
 	nation_data->contract_start_day_of_week = 6;
-	
+
 	nation_data->contract_end_day = 8;
 	nation_data->contract_end_month = June;
 	nation_data->contract_end_year = *current_year + 1;
@@ -28,12 +30,12 @@ DWORD ita_setup_c(playable_nation_data* nation_data) {
 	if ((selected & 4) == 0) {
 		nation_data->num_of_comps = 7;
 	}
-	else { // C2 selected, not used for now
-		nation_data->num_of_comps = 7;
+	else {
+		nation_data->num_of_comps = 9;
 	}
 	DWORD* nation_comps = (DWORD*)cm0102_malloc(nation_data->num_of_comps * 4);
 	nation_data->comps_list = (DWORD)nation_comps;
-	
+
 	BYTE i = 0;
 	// Serie A
 	BYTE* pMem = (BYTE*)cm0102_new(0xEE);
@@ -48,7 +50,10 @@ DWORD ita_setup_c(playable_nation_data* nation_data) {
 	ita_ser_c_init(pMem, *current_year, get_comp(ITA_SERIE_C_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
 	if ((selected & 4) != 0) {
-		// not used for now
+		// Serie D
+		pMem = (BYTE*)cm0102_new(0xEE);
+		ita_ser_d_init(pMem, *current_year, get_comp(ITA_SERIE_D_9CF()));
+		nation_comps[i++] = (DWORD)pMem;
 	}
 	// Coppa Italia
 	pMem = (BYTE*)cm0102_new(0xB2);
@@ -66,6 +71,12 @@ DWORD ita_setup_c(playable_nation_data* nation_data) {
 	pMem = (BYTE*)cm0102_new(0xEE);
 	ita_c_supercup_init(pMem, *current_year, get_comp(ITA_C1_SUPER_CUP_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
+	if ((selected & 4) != 0) {
+		// Coppa Serie D
+		pMem = (BYTE*)cm0102_new(0xB2);
+		ita_d_cup_init(pMem, *current_year, get_comp(ITA_SERIE_D_CUP_9CF()));
+		nation_comps[i++] = (DWORD)pMem;
+	}
 
 	BYTE* cm_date = new BYTE[8];
 	convert_to_cm_date(cm_date, 20, June, START_YEAR, -1);
@@ -134,9 +145,11 @@ void setup_ita_nation() {
 	setup_ita_ser_a();
 	setup_ita_ser_b();
 	setup_ita_ser_c();
+	setup_ita_ser_d();
 	setup_ita_cup();
 	setup_ita_super();
 	setup_ita_c_cup();
+	setup_ita_d_cup();
 	setup_ita_c_supercup();
 	setup_ita_awards();
 
@@ -169,5 +182,25 @@ void italy_restructure() {
 	for (cm3_clubs* club : ser_c_c) {
 		club->ClubReserveDivision = club->ClubDivision;
 		club->ClubDivision = ser_c;
+	}
+
+	cm3_club_comps* ser_d = get_comp(ITA_SERIE_D_9CF());
+	vector<DWORD> ser_d_grps = {
+		ITA_SERIE_D_A_9CF(),
+		ITA_SERIE_D_B_9CF(),
+		ITA_SERIE_D_C_9CF(),
+		ITA_SERIE_D_D_9CF(),
+		ITA_SERIE_D_E_9CF(),
+		ITA_SERIE_D_F_9CF(),
+		ITA_SERIE_D_G_9CF(),
+		ITA_SERIE_D_H_9CF(),
+		ITA_SERIE_D_I_9CF()
+	};
+	for (DWORD ser_d_grp : ser_d_grps) {
+		vector<cm3_clubs*> ser_d_grp_teams = find_clubs_of_comp(ser_d_grp);
+		for (cm3_clubs* club : ser_d_grp_teams) {
+			club->ClubReserveDivision = club->ClubDivision;
+			club->ClubDivision = ser_d;
+		}
 	}
 }

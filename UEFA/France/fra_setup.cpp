@@ -5,6 +5,7 @@
 #include "fra_first.h"
 #include "fra_second.h"
 #include "fra_third.h"
+#include "fra_national.h"
 #include "fra_cup.h"
 #include "fra_super.h"
 #include "Structures\vtable.h"
@@ -22,7 +23,12 @@ DWORD fra_setup_c(playable_nation_data* nation_data) {
 	nation_data->contract_end_year = *current_year + 1;
 	nation_data->contract_end_day_of_week = 5;
 	BYTE selected = nation_data->nation->NationLeagueSelected;
-	nation_data->num_of_comps = 5;
+	if ((selected & 4) == 0) {
+		nation_data->num_of_comps = 5;
+	}
+	else {
+		nation_data->num_of_comps = 6;
+	}
 	DWORD* nation_comps = (DWORD*)cm0102_malloc(nation_data->num_of_comps * 4);
 	nation_data->comps_list = (DWORD)nation_comps;
 
@@ -35,10 +41,16 @@ DWORD fra_setup_c(playable_nation_data* nation_data) {
 	pMem = (BYTE*)cm0102_new(0xEE);
 	fra_second_init(pMem, *current_year, get_comp(FRA_SECOND_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
-	// National
+	// Ligue 3
 	pMem = (BYTE*)cm0102_new(0xEE);
 	fra_third_init(pMem, *current_year, get_comp(FRA_THIRD_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
+	if ((selected & 4) != 0) {
+		// National 1
+		pMem = (BYTE*)cm0102_new(0xEE);
+		fra_national_init(pMem, *current_year, get_comp(FRA_NATIONAL_1_9CF()));
+		nation_comps[i++] = (DWORD)pMem;
+	}
 	// Cup
 	pMem = (BYTE*)cm0102_new(0xB2);
 	fra_cup_init(pMem, *current_year, get_comp(FRA_CUP_9CF()));
@@ -133,8 +145,28 @@ void setup_fra_nation()
 	setup_fra_first();
 	setup_fra_second();
 	setup_fra_third();
+	setup_fra_national();
 	setup_fra_cup();
 	setup_fra_super();
 
 	WriteVTablePtr(fra_rules_vtable, VTableRForeignRules, (DWORD)fra_foreign_rules_c);
+}
+
+void france_restructure() {
+	cm3_club_comps* nat1 = get_comp(FRA_NATIONAL_1_9CF());
+	vector<cm3_clubs*> nat1_a = find_clubs_of_comp(FRA_NATIONAL_1_A_9CF());
+	for (cm3_clubs* club : nat1_a) {
+		club->ClubReserveDivision = club->ClubDivision;
+		club->ClubDivision = nat1;
+	}
+	vector<cm3_clubs*> nat1_b = find_clubs_of_comp(FRA_NATIONAL_1_B_9CF());
+	for (cm3_clubs* club : nat1_b) {
+		club->ClubReserveDivision = club->ClubDivision;
+		club->ClubDivision = nat1;
+	}
+	vector<cm3_clubs*> nat1_c = find_clubs_of_comp(FRA_NATIONAL_1_C_9CF());
+	for (cm3_clubs* club : nat1_c) {
+		club->ClubReserveDivision = club->ClubDivision;
+		club->ClubDivision = nat1;
+	}
 }

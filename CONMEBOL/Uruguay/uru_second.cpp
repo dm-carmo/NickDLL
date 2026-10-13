@@ -938,6 +938,8 @@ void uru_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	uru_second_vtable->SetPointer(VTablePostMatchUpdate, (DWORD)&uru_second_vtable2_c);
 	uru_second_vtable->SetPointer(VTableUpdateLastDivision, (DWORD)&uru_second_last_positions_c);
 	uru_second_vtable->SetPointer(VTableSetChampion, (DWORD)&uru_second_set_champion_c);
+	uru_second_vtable->SetPointer(VTable39, 0x404480);
+	uru_second_vtable->SetPointer(VTable40, 0x404480);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) uru_second_vtable->SetPointer(VTableShowThirdInHistory, 0x4110b0);
 	if (configFile.GetBool("showPlayoffWinnerInHistory", true)) uru_second_vtable->SetPointer(VTableShowHostsInHistory, 0x404480);
 	data->year = year;

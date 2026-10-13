@@ -1056,6 +1056,33 @@
     <ClCompile Include="CONMEBOL\Uruguay\uru_cup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="UEFA\Bulgaria\bul_setup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UEFA\Bulgaria\bul_first.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UEFA\Bulgaria\bul_second.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UEFA\Bulgaria\bul_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UEFA\Bulgaria\bul_super.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UEFA\Bulgaria\bul_league_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UEFA\Italy\ita_ser_d.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UEFA\Italy\ita_d_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UEFA\France\fra_national.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -2109,6 +2136,33 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CONMEBOL\Uruguay\uru_cup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UEFA\Bulgaria\bul_setup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UEFA\Bulgaria\bul_first.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UEFA\Bulgaria\bul_second.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UEFA\Bulgaria\bul_cup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UEFA\Bulgaria\bul_super.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UEFA\Bulgaria\bul_league_cup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UEFA\Italy\ita_ser_d.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UEFA\Italy\ita_d_cup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UEFA\France\fra_national.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

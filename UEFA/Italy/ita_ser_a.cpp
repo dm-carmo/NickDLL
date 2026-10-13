@@ -320,6 +320,40 @@ void ita_ser_a_prom_rel_update(BYTE* _this, int a2) {
 	process_promotion_relegation_689C80(_this, ita_ser_b, ita_ser_c, 1, a2, -1, -1);
 	process_promotion_relegation_689C80(_this, ita_ser_b, ita_ser_c_b, 1, a2, -1, -1);
 	process_promotion_relegation_689C80(_this, ita_ser_b, ita_ser_c_c, 1, a2, -1, -1);
+
+	BYTE* ita_ser_d = get_loaded_league(ITA_SERIE_D_9CF());
+	if (ita_ser_d) {
+		comp_stats* ita_ser_d_data = (comp_stats*)ita_ser_d;
+		v1 = *(DWORD*)ita_ser_d;
+		(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(ita_ser_d);
+		for (int i = 0; i < 8; i++)
+		{
+			BYTE* ita_ser_d_grp = (BYTE*)ita_ser_d_data->stages[i];
+			v1 = *(DWORD*)ita_ser_d_grp;
+			(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(ita_ser_d_grp);
+		}
+
+		process_promotion_relegation_689C80(_this, ita_ser_c, ita_ser_d, 1, a2, -1, -1);
+		for (int i = 0; i < 8; i++)
+		{
+			BYTE* ita_ser_d_grp = (BYTE*)ita_ser_d_data->stages[i];
+			process_promotion_relegation_689C80(_this, ita_ser_c, ita_ser_d_grp, 1, a2, -1, -1);
+		}
+
+		process_promotion_relegation_689C80(_this, ita_ser_c_b, ita_ser_d, 1, a2, -1, -1);
+		for (int i = 0; i < 8; i++)
+		{
+			BYTE* ita_ser_d_grp = (BYTE*)ita_ser_d_data->stages[i];
+			process_promotion_relegation_689C80(_this, ita_ser_c_b, ita_ser_d_grp, 1, a2, -1, -1);
+		}
+
+		process_promotion_relegation_689C80(_this, ita_ser_c_c, ita_ser_d, 1, a2, -1, -1);
+		for (int i = 0; i < 8; i++)
+		{
+			BYTE* ita_ser_d_grp = (BYTE*)ita_ser_d_data->stages[i];
+			process_promotion_relegation_689C80(_this, ita_ser_c_c, ita_ser_d_grp, 1, a2, -1, -1);
+		}
+	}
 }
 
 void __declspec(naked) ita_ser_a_prom_rel_update_c()
@@ -335,7 +369,40 @@ void __declspec(naked) ita_ser_a_prom_rel_update_c()
 	}
 }
 
-void __fastcall serie_d_promotion(BYTE* _this)
+void __fastcall ita_non_league_promotion(BYTE* _this)
+{
+	vector<cm3_clubs*> relegated_clubs;
+
+	comp_stats* comp_data = (comp_stats*)get_loaded_league(ITA_SERIE_D_9CF());
+	comp_stats* curr_stage = comp_data;
+	for (char al = -1; al < 8; al++) {
+		if (al >= 0) {
+			curr_stage = (comp_stats*)(comp_data->stages[al]);
+		}
+		for (WORD num = 0; num < curr_stage->n_teams; num++) {
+			team_league_stats table_pos = ((team_league_stats*)curr_stage->team_league_table)[num];
+			if (table_pos.league_fate == Relegated) {
+				relegated_clubs.push_back(table_pos.club);
+			}
+		}
+	}
+
+	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_ITALY_9CF());
+	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(available_clubs, relegated_clubs.size(), true);
+
+	for (unsigned int j = 0; j < promoted_clubs.size(); j++) {
+		cm3_clubs* clubToRelegate = relegated_clubs[j];
+		cm3_clubs* clubToPromote = promoted_clubs[j];
+
+		cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
+		cm3_club_comps* bottomDivision = clubToPromote->ClubDivision;
+		relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
+		promote_club_6830B0((BYTE*)clubToPromote, (DWORD)topDivision, 1);
+		clubToRelegate->ClubReserveDivision = 0;
+	}
+}
+
+void __fastcall ita_ser_c_relegaton(BYTE* _this)
 {
 	vector<cm3_clubs*> relegated_clubs;
 
@@ -353,10 +420,62 @@ void __fastcall serie_d_promotion(BYTE* _this)
 		}
 	}
 
-	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(ITA_SERIE_D_9CF(), NATION_ITALY_9CF());
-	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(available_clubs, relegated_clubs.size(), true);
+	vector<cm3_clubs*> promoted_clubs;
+	vector<DWORD> d4_groups = {
+		ITA_SERIE_D_A_9CF(),
+		ITA_SERIE_D_B_9CF(),
+		ITA_SERIE_D_C_9CF(),
+		ITA_SERIE_D_D_9CF(),
+		ITA_SERIE_D_E_9CF(),
+		ITA_SERIE_D_F_9CF(),
+		ITA_SERIE_D_G_9CF(),
+		ITA_SERIE_D_H_9CF(),
+		ITA_SERIE_D_I_9CF()
+	};
+	for (DWORD id : d4_groups) {
+		vector<cm3_clubs*> available_clubs = find_clubs_of_comp_main_reserve_division(ITA_SERIE_D_9CF(), id, NATION_ITALY_9CF());
+		vector<cm3_clubs*> ret = get_random_weighted_clubs(available_clubs, 1, true);
+		move(ret.begin(), ret.end(), back_inserter(promoted_clubs));
+	}
 
 	for (unsigned int j = 0; j < promoted_clubs.size(); j++) {
+		cm3_clubs* clubToRelegate = relegated_clubs[j];
+		cm3_clubs* clubToPromote = promoted_clubs[j];
+
+		cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
+		cm3_club_comps* bottomDivision = clubToPromote->ClubDivision;
+		relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
+		promote_club_6830B0((BYTE*)clubToPromote, (DWORD)topDivision, 1);
+		clubToPromote->ClubReserveDivision = 0;
+		clubToRelegate->ClubReserveDivision = 0;
+	}
+}
+
+void __fastcall ita_ser_d_inactive_relegation(BYTE* _this)
+{
+	comp_stats* comp_data = (comp_stats*)_this;
+	vector<cm3_clubs*> relegated_clubs;
+	vector<DWORD> d4_groups = {
+		ITA_SERIE_D_A_9CF(),
+		ITA_SERIE_D_B_9CF(),
+		ITA_SERIE_D_C_9CF(),
+		ITA_SERIE_D_D_9CF(),
+		ITA_SERIE_D_E_9CF(),
+		ITA_SERIE_D_F_9CF(),
+		ITA_SERIE_D_G_9CF(),
+		ITA_SERIE_D_H_9CF(),
+		ITA_SERIE_D_I_9CF()
+	};
+	for (DWORD id : d4_groups) {
+		vector<cm3_clubs*> available_clubs = find_clubs_of_comp_main_reserve_division(ITA_SERIE_D_9CF(), id, NATION_ITALY_9CF());
+		vector<cm3_clubs*> ret = get_random_weighted_clubs(available_clubs, 4, false);
+		move(ret.begin(), ret.end(), back_inserter(relegated_clubs));
+	}
+
+	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_ITALY_9CF());
+	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(available_clubs, relegated_clubs.size(), true);
+
+	for (unsigned int j = 0; j < relegated_clubs.size(); j++) {
 		cm3_clubs* clubToRelegate = relegated_clubs[j];
 		cm3_clubs* clubToPromote = promoted_clubs[j];
 
@@ -380,12 +499,34 @@ void sort_serie_c_clubs() {
 	}
 }
 
+void sort_serie_d_clubs() {
+	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(ITA_SERIE_D_9CF());
+	sort(available_clubs.begin(), available_clubs.end(), compareClubLatitude);
+	sort(available_clubs.begin(), available_clubs.begin() + 54, compareClubLongitudeInv);
+	sort(available_clubs.begin() + 54, available_clubs.begin() + 108, compareClubLongitudeInv);
+	sort(available_clubs.begin() + 108, available_clubs.end(), compareClubLongitudeInv);
+
+	for (size_t i = 0; i < available_clubs.size(); i++)
+	{
+		if (i < 18) available_clubs[i]->ClubReserveDivision = get_comp(ITA_SERIE_D_A_9CF());
+		else if (i < 36) available_clubs[i]->ClubReserveDivision = get_comp(ITA_SERIE_D_B_9CF());
+		else if (i < 54) available_clubs[i]->ClubReserveDivision = get_comp(ITA_SERIE_D_C_9CF());
+		else if (i < 72) available_clubs[i]->ClubReserveDivision = get_comp(ITA_SERIE_D_D_9CF());
+		else if (i < 90) available_clubs[i]->ClubReserveDivision = get_comp(ITA_SERIE_D_E_9CF());
+		else if (i < 108) available_clubs[i]->ClubReserveDivision = get_comp(ITA_SERIE_D_F_9CF());
+		else if (i < 126) available_clubs[i]->ClubReserveDivision = get_comp(ITA_SERIE_D_G_9CF());
+		else if (i < 144) available_clubs[i]->ClubReserveDivision = get_comp(ITA_SERIE_D_H_9CF());
+		else available_clubs[i]->ClubReserveDivision = get_comp(ITA_SERIE_D_I_9CF());
+	}
+}
+
 char ita_ser_a_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	data->f76 = 0;
 
 	BYTE* ita_ser_b = get_loaded_league(ITA_SERIE_B_9CF());
 	BYTE* ita_ser_c = get_loaded_league(ITA_SERIE_C_9CF());
+	BYTE* ita_ser_d = get_loaded_league(ITA_SERIE_D_9CF());
 
 	// All teams that were in D1 must be professional
 	update_club_pro_status_68A980(_this, Professional, Relegated, -3, 1);
@@ -404,10 +545,39 @@ char ita_ser_a_update(BYTE* _this) {
 		update_club_pro_status_68A980(ita_ser_c_grp, Professional, Relegated, -3, 1);
 		update_club_pro_status_68A980(ita_ser_c_grp, SemiProfessional, -3, Relegated, 0);
 	}
+	if (ita_ser_d)
+	{
+		comp_stats* ita_ser_d_data = (comp_stats*)ita_ser_d;
+		// All teams that were promoted from D4 must be professional
+		// All teams that were not relegated from D4 must be semi-professional
+		// All teams that were relegated from D4 must be amateur
+		update_club_pro_status_68A980(ita_ser_d, SemiProfessional, Promoted, -3, 1);
+		update_club_pro_status_68A980(ita_ser_d, SemiProfessional, Promoted, -3, 0);
+		update_club_pro_status_68A980(ita_ser_d, Professional, -3, Champions, 1);
+		update_club_pro_status_68A980(ita_ser_d, Professional, -3, Promoted, 1);
+		update_club_pro_status_68A980(ita_ser_d, Amateur, -3, Relegated, 0);
+		for (int i = 0; i < 8; i++)
+		{
+			BYTE* ita_ser_d_grp = (BYTE*)ita_ser_d_data->stages[i];
+			update_club_pro_status_68A980(ita_ser_d_grp, SemiProfessional, Promoted, -3, 1);
+			update_club_pro_status_68A980(ita_ser_d_grp, SemiProfessional, Promoted, -3, 0);
+			update_club_pro_status_68A980(ita_ser_d_grp, Professional, -3, Champions, 1);
+			update_club_pro_status_68A980(ita_ser_d_grp, Professional, -3, Promoted, 1);
+			update_club_pro_status_68A980(ita_ser_d_grp, Amateur, -3, Relegated, 0);
+		}
+	}
 
 	ita_ser_a_prom_rel_update(_this, 1);
-	serie_d_promotion(_this);
+
+	if (ita_ser_d) {
+		ita_non_league_promotion(_this);
+	}
+	else {
+		ita_ser_c_relegaton(_this);
+		ita_ser_d_inactive_relegation(_this);
+	}
 	sort_serie_c_clubs();
+	sort_serie_d_clubs();
 
 	sub_687970(_this, 0);
 	if (data->fixtures_table) {
@@ -443,6 +613,11 @@ char ita_ser_a_update(BYTE* _this) {
 
 	v1 = *(DWORD*)ita_ser_c;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(ita_ser_c);
+
+	if (ita_ser_d) {
+		v1 = *(DWORD*)ita_ser_d;
+		(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(ita_ser_d);
+	}
 
 	sub_68AA80(_this);
 	return sub_79CEE0((BYTE*)*b74340, (BYTE*)(data->competition_db));

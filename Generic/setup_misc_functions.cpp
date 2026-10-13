@@ -104,8 +104,18 @@ int show_extra_leagues_in_start(BYTE* nation, DWORD dest_ptr, int a3) {
 		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
 		return 1;
 	}
+	if (cm3_nation->NationID == NATION_FRANCE_9CF()) {
+		league_str = "National 1";
+		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
+		return 1;
+	}
 	if (cm3_nation->NationID == NATION_GERMANY_9CF()) {
 		league_str = "Regionalliga";
+		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
+		return 1;
+	}
+	if (cm3_nation->NationID == NATION_ITALY_9CF()) {
+		league_str = "Serie D";
 		sub_66F4E0(dest_ptr, (DWORD)&league_str[0]);
 		return 1;
 	}

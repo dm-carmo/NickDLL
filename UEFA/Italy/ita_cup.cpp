@@ -65,7 +65,7 @@ DWORD ita_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 6), year, Thursday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 6, 30), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 10), year, Sunday);
 		FillFixtureDetails(pMem, fixture_id++, QualifyingRound, 0, Penalties, NoTiebreak, 4, 8, 4, 8, 0, 0, 1, 0, prizeMoneyFile.GetInt("ita_cup_qr_qualify"));
 

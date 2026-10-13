@@ -102,7 +102,13 @@ void ita_ser_c_subs(BYTE* _this)
 	comp_data->relegations = 1;
 
 	comp_data->promotes_to = ITA_SERIE_B_9CF();
-	comp_data->relegates_to = -1;
+	BYTE selected = get_country(NATION_ITALY_9CF())->NationLeagueSelected;
+	if ((selected & 4) == 0) {
+		comp_data->relegates_to = -1;
+	}
+	else {
+		comp_data->relegates_to = ITA_SERIE_D_9CF();
+	}
 
 	comp_data->f82 = 2;
 	comp_data->f217 = 0x2;
@@ -386,7 +392,7 @@ void set_playoff_place(BYTE* _this, cm3_clubs* club) {
 	}
 }
 
-void ita_c_playoffs_prom(BYTE* _this) {
+void ita_ser_c_playoffs_prom(BYTE* _this) {
 	char stage_num = 2;
 	comp_stats* comp_data = (comp_stats*)_this;
 	BYTE playoff_teams = 28;
@@ -552,7 +558,7 @@ void ita_c_playoffs_prom(BYTE* _this) {
 	sub_9452CA_free(pFixtures);
 }
 
-void ita_c_playoffs_rele(BYTE* _this) {
+void ita_ser_c_playoffs_rele(BYTE* _this) {
 	char stage_num = 3;
 	comp_stats* comp_data = (comp_stats*)_this;
 	BYTE playoff_teams = 12;
@@ -594,7 +600,7 @@ void ita_c_playoffs_rele(BYTE* _this) {
 	comp_data->current_stage = (long)stage_num;
 }
 
-void ita_c_playoffs_create_c(BYTE* _this) {
+void ita_ser_c_playoffs_create_c(BYTE* _this) {
 	comp_stats* comp_data = (comp_stats*)_this;
 	long current = comp_data->current_stage;
 	long max = comp_data->num_stages;
@@ -602,19 +608,19 @@ void ita_c_playoffs_create_c(BYTE* _this) {
 		current++;
 		comp_data->current_stage = current;
 		if (current == 2) {
-			ita_c_playoffs_prom(_this);
-			ita_c_playoffs_rele(_this);
+			ita_ser_c_playoffs_prom(_this);
+			ita_ser_c_playoffs_rele(_this);
 		}
 	}
 }
 
-void __declspec(naked) ita_c_playoffs_create()
+void __declspec(naked) ita_ser_c_playoffs_create()
 {
 	__asm
 	{
 		mov eax, esp
 		push ecx
-		call ita_c_playoffs_create_c
+		call ita_ser_c_playoffs_create_c
 		add esp, 0x4
 		ret
 	}
@@ -804,7 +810,7 @@ void ita_ser_c_points_deductions(BYTE* _this, WORD current_year)
 	}
 }
 
-void ita_7D2B80(BYTE* _this, DWORD** team_list, WORD* total_teams) {
+void ita_ser_c_awards(BYTE* _this, DWORD** team_list, WORD* total_teams) {
 	*total_teams = 60;
 	DWORD* pMem = (DWORD*)cm0102_malloc(4 * (*total_teams));
 	*team_list = pMem;
@@ -823,7 +829,7 @@ void ita_7D2B80(BYTE* _this, DWORD** team_list, WORD* total_teams) {
 	}
 }
 
-void __declspec(naked) ita_7D2B80_c()
+void __declspec(naked) ita_ser_c_awards_c()
 {
 	__asm
 	{
@@ -831,7 +837,7 @@ void __declspec(naked) ita_7D2B80_c()
 		push dword ptr[eax + 0x8]
 		push dword ptr[eax + 0x4]
 		push ecx
-		call ita_7D2B80
+		call ita_ser_c_awards
 		add esp, 0xc
 		ret 8
 	}
@@ -937,12 +943,12 @@ void ita_ser_c_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->comp_vtable = (DWORD*)(ita_ser_c_vtable->vtable_ptr);
 	ita_ser_c_vtable->SetPointer(VTableInitFree, (DWORD)&ita_ser_c_free_c);
 	ita_ser_c_vtable->SetPointer(VTableEoSUpdate, (DWORD)&ita_ser_c_update_c);
-	ita_ser_c_vtable->SetPointer(VTablePlayoffQual, (DWORD)&ita_c_playoffs_create);
+	ita_ser_c_vtable->SetPointer(VTablePlayoffQual, (DWORD)&ita_ser_c_playoffs_create);
 	ita_ser_c_vtable->SetPointer(VTableFixtures, (DWORD)&ita_ser_c_fixtures_c);
 	ita_ser_c_vtable->SetPointer(VTableTableFates, (DWORD)&ita_ser_c_table_fates_c);
 	ita_ser_c_vtable->SetPointer(VTableReputationSetup, (DWORD)&ita_ser_c_reputation_setup_c);
 	ita_ser_c_vtable->SetPointer(VTableReputationCalc, (DWORD)&ita_ser_c_reputation_calc_c);
-	ita_ser_c_vtable->SetPointer(VTableAwardTeamsSetup, (DWORD)&ita_7D2B80_c);
+	ita_ser_c_vtable->SetPointer(VTableAwardTeamsSetup, (DWORD)&ita_ser_c_awards_c);
 	ita_ser_c_vtable->SetPointer(VTableSubsRounds, (DWORD)&ita_ser_c_subs_c);
 	ita_ser_c_vtable->SetPointer(VTableSetChampion, (DWORD)&ita_ser_c_set_champion_c);
 	ita_ser_c_vtable->SetPointer(VTableStageNews, (DWORD)&ita_ser_c_stage_news_c);

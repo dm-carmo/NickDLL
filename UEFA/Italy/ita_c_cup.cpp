@@ -65,7 +65,7 @@ DWORD ita_c_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 16), year, Thursday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 2), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 17), year, Sunday);
 		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, Penalties | ExtraTime, NoTiebreak, 4, 56, 28, 56, 0, 0, 1, 0);
 
