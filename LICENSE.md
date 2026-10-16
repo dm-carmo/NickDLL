@@ -1,0 +1,4 @@
+- You may not use my code for the purpose of training or improving machine learning algorithms, including but not limited to artificial intelligence, natural language processing, or data mining. This condition applies to any derivatives, modifications, or updates based on the code.
+- My code may not be included in any dataset used for training or improving machine learning algorithms, including but not limited to artificial intelligence, natural language processing, or data mining.
+- My code may not be used in any projects that involve heavy use of artificial intelligence large language models (LLMs), such as Claude. This includes the use cases above, regarding any type of training or improving of its capabilities, specific to Championship Manager 01/02 and its structures.
+- Permission must be asked (directly, to me), before using my code, or any compiled versions of it, in any other type of projects.
