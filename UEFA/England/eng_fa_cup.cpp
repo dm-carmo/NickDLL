@@ -63,9 +63,31 @@ int eng_fa_cup_teams(BYTE* _this) {
 
 	teams_seeded* teams = (teams_seeded*)comp_data->teams_list;
 	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_ENGLAND_9CF());
-	vector<cm3_clubs*> lower_clubs2 = find_clubs_of_comp(A_LOWER_B_9CF(), NATION_ENGLAND_9CF());
-	move(lower_clubs2.begin(), lower_clubs2.end(), back_inserter(lower_clubs));
-	vector<cm3_clubs*> division_clubs = get_random_weighted_clubs(lower_clubs, 112, true);
+	vector<cm3_clubs*> division_clubs = get_random_weighted_clubs(lower_clubs, 24, true);
+	for (cm3_clubs* club : division_clubs)
+	{
+		vec.push_back(club);
+	}
+	// Northern Premier
+	division_clubs = find_clubs_of_comp(ENG_NORTHERN_9CF());
+	for (cm3_clubs* club : division_clubs)
+	{
+		vec.push_back(club);
+	}
+	// Isthmian Premier
+	division_clubs = find_clubs_of_comp(ENG_ISTHMIAN_9CF());
+	for (cm3_clubs* club : division_clubs)
+	{
+		vec.push_back(club);
+	}
+	// Southern Premier South
+	division_clubs = find_clubs_of_comp(ENG_SOUTHERN_SOUTH_9CF());
+	for (cm3_clubs* club : division_clubs)
+	{
+		vec.push_back(club);
+	}
+	// Southern Premier Central
+	division_clubs = find_clubs_of_comp(ENG_SOUTHERN_CENTRAL_9CF());
 	for (cm3_clubs* club : division_clubs)
 	{
 		vec.push_back(club);

@@ -363,9 +363,7 @@ int eng_league_trophy_all_teams(BYTE* _this) {
 	}
 	// use National League teams otherwise, or as backup if there aren't enough academy teams
 	division_clubs = find_clubs_of_comp(ENG_CONFERENCE_9CF());
-	BYTE selected = get_country(NATION_ENGLAND_9CF())->NationLeagueSelected;
-	if ((selected & 4) != 0) sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPos);
-	else sort(division_clubs.begin(), division_clubs.end(), compareClubRep);
+	sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPos);
 	for (int j = 0; i < 16 && j < 16; i++, j++)
 	{
 		vec.push_back(division_clubs[i]);

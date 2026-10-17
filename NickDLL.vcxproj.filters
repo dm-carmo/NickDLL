@@ -1083,6 +1083,18 @@
     <ClCompile Include="UEFA\France\fra_national.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="UEFA\England\eng_northern.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UEFA\England\eng_isthmian.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UEFA\England\eng_southern_central.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UEFA\England\eng_southern_south.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -2163,6 +2175,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="UEFA\France\fra_national.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UEFA\England\eng_northern.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UEFA\England\eng_isthmian.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UEFA\England\eng_southern_central.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UEFA\England\eng_southern_south.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

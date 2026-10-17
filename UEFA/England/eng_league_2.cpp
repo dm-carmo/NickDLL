@@ -24,13 +24,7 @@ int eng_league_2_subs(BYTE* _this)
 	comp_data->relegations = 2;
 
 	comp_data->promotes_to = ENG_LEAGUE_1_9CF();
-	BYTE selected = get_country(NATION_ENGLAND_9CF())->NationLeagueSelected;
-	if ((selected & 4) == 0) {
-		comp_data->relegates_to = -1;
-	}
-	else {
-		comp_data->relegates_to = ENG_CONFERENCE_9CF();
-	}
+	comp_data->relegates_to = ENG_CONFERENCE_9CF();
 
 	comp_data->f82 = 2;
 	comp_data->max_bench = 9;

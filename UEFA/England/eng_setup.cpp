@@ -8,6 +8,10 @@
 #include "eng_conf.h"
 #include "eng_conf_n.h"
 #include "eng_conf_s.h"
+#include "eng_northern.h"
+#include "eng_isthmian.h"
+#include "eng_southern_central.h"
+#include "eng_southern_south.h"
 #include "eng_fa_cup.h"
 #include "eng_league_cup.h"
 #include "eng_league_trophy.h"
@@ -24,21 +28,21 @@ DWORD eng_setup_c(playable_nation_data* nation_data) {
 	nation_data->contract_start_month = August;
 	nation_data->contract_start_year = *current_year;
 	nation_data->contract_start_day_of_week = 5;
-	
+
 	nation_data->contract_end_day = 29;
 	nation_data->contract_end_month = May;
 	nation_data->contract_end_year = *current_year + 1;
 	nation_data->contract_end_day_of_week = 5;
 	BYTE selected = nation_data->nation->NationLeagueSelected;
 	if ((selected & 4) == 0) {
-		nation_data->num_of_comps = 8;
+		nation_data->num_of_comps = 12;
 	}
 	else {
-		nation_data->num_of_comps = 12;
+		nation_data->num_of_comps = 16;
 	}
 	DWORD* nation_comps = (DWORD*)cm0102_malloc(nation_data->num_of_comps * 4);
 	nation_data->comps_list = (DWORD)nation_comps;
-	
+
 	BYTE i = 0;
 	// Premier League
 	BYTE* pMem = (BYTE*)cm0102_new(0xEE);
@@ -56,18 +60,34 @@ DWORD eng_setup_c(playable_nation_data* nation_data) {
 	pMem = (BYTE*)cm0102_new(0xEE);
 	eng_league_2_init(pMem, *current_year, get_comp(ENG_LEAGUE_2_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
+	// National League
+	pMem = (BYTE*)cm0102_new(0xEE);
+	eng_conf_init(pMem, *current_year, get_comp(ENG_CONFERENCE_9CF()));
+	nation_comps[i++] = (DWORD)pMem;
+	// National League North
+	pMem = (BYTE*)cm0102_new(0xEE);
+	eng_conf_n_init(pMem, *current_year, get_comp(ENG_CONFERENCE_NORTH_9CF()));
+	nation_comps[i++] = (DWORD)pMem;
+	// National League South
+	pMem = (BYTE*)cm0102_new(0xEE);
+	eng_conf_s_init(pMem, *current_year, get_comp(ENG_CONFERENCE_SOUTH_9CF()));
+	nation_comps[i++] = (DWORD)pMem;
 	if ((selected & 4) != 0) {
-		// National League
+		// Step 7
 		pMem = (BYTE*)cm0102_new(0xEE);
-		eng_conf_init(pMem, *current_year, get_comp(ENG_CONFERENCE_9CF()));
+		eng_northern_init(pMem, *current_year, get_comp(ENG_NORTHERN_9CF()));
 		nation_comps[i++] = (DWORD)pMem;
-		// National League North
+
 		pMem = (BYTE*)cm0102_new(0xEE);
-		eng_conf_n_init(pMem, *current_year, get_comp(ENG_CONFERENCE_NORTH_9CF()));
+		eng_isthmian_init(pMem, *current_year, get_comp(ENG_ISTHMIAN_9CF()));
 		nation_comps[i++] = (DWORD)pMem;
-		// National League South
+
 		pMem = (BYTE*)cm0102_new(0xEE);
-		eng_conf_s_init(pMem, *current_year, get_comp(ENG_CONFERENCE_SOUTH_9CF()));
+		eng_southern_central_init(pMem, *current_year, get_comp(ENG_SOUTHERN_CENTRAL_9CF()));
+		nation_comps[i++] = (DWORD)pMem;
+
+		pMem = (BYTE*)cm0102_new(0xEE);
+		eng_southern_south_init(pMem, *current_year, get_comp(ENG_SOUTHERN_SOUTH_9CF()));
 		nation_comps[i++] = (DWORD)pMem;
 	}
 	// FA Cup
@@ -82,16 +102,15 @@ DWORD eng_setup_c(playable_nation_data* nation_data) {
 	pMem = (BYTE*)cm0102_new(0xF6);
 	eng_league_trophy_init(pMem, *current_year, get_comp(ENG_LEAGUE_TROPHY_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
+	// FA Trophy
+	pMem = (BYTE*)cm0102_new(0xB2);
+	eng_fa_trophy_init(pMem, *current_year, get_comp(ENG_FA_TROPHY_9CF()));
+	nation_comps[i++] = (DWORD)pMem;
 	// Charity Shield
 	pMem = (BYTE*)cm0102_new(0xB2);
 	eng_charity_init(pMem, *current_year, get_comp(ENG_CHARITY_SHIELD_9CF()));
 	nation_comps[i++] = (DWORD)pMem;
-	// FA Trophy
-	if ((selected & 4) != 0) {
-		pMem = (BYTE*)cm0102_new(0xB2);
-		eng_fa_trophy_init(pMem, *current_year, get_comp(ENG_FA_TROPHY_9CF()));
-		nation_comps[i++] = (DWORD)pMem;
-	}
+
 	BYTE* cm_date = new BYTE[8];
 	convert_to_cm_date(cm_date, 20, June, START_YEAR, -1);
 	nation_data->update_day = *(WORD*)cm_date;
@@ -163,6 +182,10 @@ void setup_eng_nation() {
 	setup_eng_conf();
 	setup_eng_conf_n();
 	setup_eng_conf_s();
+	setup_eng_northern();
+	setup_eng_isthmian();
+	setup_eng_southern_central();
+	setup_eng_southern_south();
 	setup_eng_fa_cup();
 	setup_eng_league_cup();
 	setup_eng_league_trophy();
@@ -177,8 +200,6 @@ void england_restructure() {
 	if (configFile.GetBool("useEnglandAcademyTeams"))
 	{
 		cm3_club_comps* eng_academy = get_comp(ENG_ACADEMY_9CF());
-		strcpy_s(eng_academy->ClubCompName, "English Academy League");
-		strcpy_s(eng_academy->ClubCompNameShort, "Academy League");
 		eng_academy->ClubCompReputation = 1;
 		vector<string> eng_reserves = {
 			"Arsenal FC U21",

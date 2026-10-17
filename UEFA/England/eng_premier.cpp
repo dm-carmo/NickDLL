@@ -66,24 +66,46 @@ void eng_premier_prom_rel_update(BYTE* _this, int a2) {
 	v1 = *(DWORD*)eng_league_2;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(eng_league_2);
 
+	BYTE* eng_conf = get_loaded_league(ENG_CONFERENCE_9CF());
+	v1 = *(DWORD*)eng_conf;
+	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(eng_conf);
+
+	BYTE* eng_conf_n = get_loaded_league(ENG_CONFERENCE_NORTH_9CF());
+	v1 = *(DWORD*)eng_conf_n;
+	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(eng_conf_n);
+
+	BYTE* eng_conf_s = get_loaded_league(ENG_CONFERENCE_SOUTH_9CF());
+	v1 = *(DWORD*)eng_conf_s;
+	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(eng_conf_s);
+
 	process_promotion_relegation_689C80(_this, _this, eng_champ, 1, a2, -1, -1);
 	process_promotion_relegation_689C80(_this, eng_champ, eng_league_1, 1, a2, -1, -1);
 	process_promotion_relegation_689C80(_this, eng_league_1, eng_league_2, 1, a2, -1, -1);
+	process_promotion_relegation_689C80(_this, eng_league_2, eng_conf, 1, a2, -1, -1);
+	process_promotion_relegation_689C80(_this, eng_conf, eng_conf_n, 1, a2, -1, -1);
+	process_promotion_relegation_689C80(_this, eng_conf, eng_conf_s, 1, a2, -1, -1);
 
-	BYTE* eng_conf = get_loaded_league(ENG_CONFERENCE_9CF());
-	if (eng_conf) {
-		v1 = *(DWORD*)eng_conf;
-		(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(eng_conf);
-		BYTE* eng_conf_n = get_loaded_league(ENG_CONFERENCE_NORTH_9CF());
-		v1 = *(DWORD*)eng_conf_n;
-		(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(eng_conf_n);
-		BYTE* eng_conf_s = get_loaded_league(ENG_CONFERENCE_SOUTH_9CF());
-		v1 = *(DWORD*)eng_conf_s;
-		(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(eng_conf_s);
+	BYTE* eng_north = get_loaded_league(ENG_NORTHERN_9CF());
+	BYTE* eng_isth = get_loaded_league(ENG_ISTHMIAN_9CF());
+	BYTE* eng_south_c = get_loaded_league(ENG_SOUTHERN_CENTRAL_9CF());
+	BYTE* eng_south_s = get_loaded_league(ENG_SOUTHERN_SOUTH_9CF());
+	if (eng_north && eng_isth && eng_south_c && eng_south_s) {
+		v1 = *(DWORD*)eng_north;
+		(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(eng_north);
 
-		process_promotion_relegation_689C80(_this, eng_league_2, eng_conf, 1, a2, -1, -1);
-		process_promotion_relegation_689C80(_this, eng_conf, eng_conf_n, 1, a2, -1, -1);
-		process_promotion_relegation_689C80(_this, eng_conf, eng_conf_s, 1, a2, -1, -1);
+		v1 = *(DWORD*)eng_isth;
+		(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(eng_isth);
+
+		v1 = *(DWORD*)eng_south_c;
+		(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(eng_south_c);
+
+		v1 = *(DWORD*)eng_south_s;
+		(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(eng_south_s);
+
+		process_promotion_relegation_689C80(_this, eng_conf_n, eng_north, 1, a2, -1, -1);
+		process_promotion_relegation_689C80(_this, eng_conf_n, eng_isth, 1, a2, -1, -1);
+		process_promotion_relegation_689C80(_this, eng_conf_s, eng_south_c, 1, a2, -1, -1);
+		process_promotion_relegation_689C80(_this, eng_conf_s, eng_south_s, 1, a2, -1, -1);
 	}
 }
 
@@ -100,16 +122,16 @@ void __declspec(naked) eng_premier_prom_rel_update_c()
 	}
 }
 
-void __fastcall eng_extra_non_playable_swaps(BYTE* _this)
+void __fastcall eng_conf_n_s_relegation(BYTE* _this)
 {
-	vector<cm3_clubs*> conf_clubs = find_clubs_of_comp(ENG_CONFERENCE_9CF());
 	vector<cm3_clubs*> conf_n_clubs = find_clubs_of_comp(ENG_CONFERENCE_NORTH_9CF());
-	vector<cm3_clubs*> conf_s_clubs = find_clubs_of_comp(ENG_CONFERENCE_SOUTH_9CF());
+	vector<cm3_clubs*> relegated_clubs = get_random_weighted_clubs(conf_n_clubs, 4, false);
 
-	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(conf_n_clubs, 2, true);
-	vector<cm3_clubs*> promoted_clubs2 = get_random_weighted_clubs(conf_s_clubs, 2, true);
+	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(ENG_NORTHERN_9CF(), NATION_ENGLAND_9CF());
+	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(lower_clubs, 2, true);
+	lower_clubs = find_clubs_of_comp(ENG_ISTHMIAN_9CF(), NATION_ENGLAND_9CF());
+	vector<cm3_clubs*> promoted_clubs2 = get_random_weighted_clubs(lower_clubs, 2, true);
 	move(promoted_clubs2.begin(), promoted_clubs2.end(), back_inserter(promoted_clubs));
-	vector<cm3_clubs*> relegated_clubs = get_random_weighted_clubs(conf_clubs, 4, false);
 
 	for (unsigned int j = 0; j < relegated_clubs.size(); j++) {
 		cm3_clubs* clubToRelegate = relegated_clubs[j];
@@ -121,16 +143,16 @@ void __fastcall eng_extra_non_playable_swaps(BYTE* _this)
 		promote_club_6830B0((BYTE*)clubToPromote, (DWORD)topDivision, 1);
 	}
 
-	conf_n_clubs = find_clubs_of_comp(ENG_CONFERENCE_NORTH_9CF());
-	conf_s_clubs = find_clubs_of_comp(ENG_CONFERENCE_SOUTH_9CF());
-	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_ENGLAND_9CF());
-
-	promoted_clubs = get_random_weighted_clubs(lower_clubs, 8, true);
+	vector<cm3_clubs*> conf_s_clubs = find_clubs_of_comp(ENG_CONFERENCE_SOUTH_9CF());
 	relegated_clubs = get_random_weighted_clubs(conf_n_clubs, 4, false);
-	vector<cm3_clubs*> relegated_clubs2 = get_random_weighted_clubs(conf_s_clubs, 4, false);
-	move(relegated_clubs2.begin(), relegated_clubs2.end(), back_inserter(relegated_clubs));
 
-	for (unsigned int j = 0; j < 8; j++) {
+	lower_clubs = find_clubs_of_comp(ENG_SOUTHERN_CENTRAL_9CF(), NATION_ENGLAND_9CF());
+	promoted_clubs = get_random_weighted_clubs(lower_clubs, 2, true);
+	lower_clubs = find_clubs_of_comp(ENG_SOUTHERN_SOUTH_9CF(), NATION_ENGLAND_9CF());
+	promoted_clubs2 = get_random_weighted_clubs(lower_clubs, 2, true);
+	move(promoted_clubs2.begin(), promoted_clubs2.end(), back_inserter(promoted_clubs));
+
+	for (unsigned int j = 0; j < relegated_clubs.size(); j++) {
 		cm3_clubs* clubToRelegate = relegated_clubs[j];
 		cm3_clubs* clubToPromote = promoted_clubs[j];
 
@@ -141,17 +163,27 @@ void __fastcall eng_extra_non_playable_swaps(BYTE* _this)
 	}
 }
 
-void __fastcall eng_swap_between_lower_and_lower_b(BYTE* _this)
+void __fastcall eng_level_7_inactive_swaps(BYTE* _this)
 {
+	vector<cm3_clubs*> north_clubs = find_clubs_of_comp(ENG_NORTHERN_9CF(), NATION_ENGLAND_9CF());
+	vector<cm3_clubs*> relegated_clubs = get_random_weighted_clubs(north_clubs, 4, false);
+
+	vector<cm3_clubs*> isthm_clubs = find_clubs_of_comp(ENG_ISTHMIAN_9CF(), NATION_ENGLAND_9CF());
+	vector<cm3_clubs*> relegated_clubs2 = get_random_weighted_clubs(isthm_clubs, 4, false);
+	move(relegated_clubs2.begin(), relegated_clubs2.end(), back_inserter(relegated_clubs));
+
+	vector<cm3_clubs*> southc_clubs = find_clubs_of_comp(ENG_SOUTHERN_CENTRAL_9CF(), NATION_ENGLAND_9CF());
+	relegated_clubs2 = get_random_weighted_clubs(southc_clubs, 4, false);
+	move(relegated_clubs2.begin(), relegated_clubs2.end(), back_inserter(relegated_clubs));
+
+	vector<cm3_clubs*> souths_clubs = find_clubs_of_comp(ENG_SOUTHERN_SOUTH_9CF(), NATION_ENGLAND_9CF());
+	relegated_clubs2 = get_random_weighted_clubs(souths_clubs, 4, false);
+	move(relegated_clubs2.begin(), relegated_clubs2.end(), back_inserter(relegated_clubs));
+
 	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_ENGLAND_9CF());
-	vector<cm3_clubs*> lower_b_clubs = find_clubs_of_comp(A_LOWER_B_9CF(), NATION_ENGLAND_9CF());
-	unsigned int num_to_swap = lower_clubs.size() / 8;
-	if (lower_b_clubs.size() < num_to_swap) num_to_swap = lower_b_clubs.size();
+	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(lower_clubs, relegated_clubs.size(), true);
 
-	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(lower_b_clubs, num_to_swap, true);
-	vector<cm3_clubs*> relegated_clubs = get_random_weighted_clubs(lower_clubs, num_to_swap, false);
-
-	for (unsigned int j = 0; j < num_to_swap; j++) {
+	for (unsigned int j = 0; j < relegated_clubs.size(); j++) {
 		cm3_clubs* clubToRelegate = relegated_clubs[j];
 		cm3_clubs* clubToPromote = promoted_clubs[j];
 
@@ -175,6 +207,26 @@ void sort_conf_n_s_clubs() {
 	}
 }
 
+void sort_level_7_clubs() {
+	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(ENG_NORTHERN_9CF());
+	vector<cm3_clubs*> isthmian_clubs = find_clubs_of_comp(ENG_ISTHMIAN_9CF());
+	vector<cm3_clubs*> south_c_clubs = find_clubs_of_comp(ENG_SOUTHERN_CENTRAL_9CF());
+	vector<cm3_clubs*> south_s_clubs = find_clubs_of_comp(ENG_SOUTHERN_SOUTH_9CF());
+	move(isthmian_clubs.begin(), isthmian_clubs.end(), back_inserter(available_clubs));
+	move(south_c_clubs.begin(), south_c_clubs.end(), back_inserter(available_clubs));
+	move(south_s_clubs.begin(), south_s_clubs.end(), back_inserter(available_clubs));
+	sort(available_clubs.begin(), available_clubs.end(), compareClubLatitude);
+	sort(available_clubs.begin() + 44, available_clubs.end(), compareClubLongitude);
+
+	for (size_t i = 0; i < available_clubs.size(); i++)
+	{
+		if (i < 22) available_clubs[i]->ClubDivision = get_comp(ENG_NORTHERN_9CF());
+		else if (i < 44) available_clubs[i]->ClubDivision = get_comp(ENG_SOUTHERN_CENTRAL_9CF());
+		else if (i < 66) available_clubs[i]->ClubDivision = get_comp(ENG_ISTHMIAN_9CF());
+		else available_clubs[i]->ClubDivision = get_comp(ENG_SOUTHERN_SOUTH_9CF());
+	}
+}
+
 char eng_premier_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	data->f76 = 0;
@@ -185,6 +237,10 @@ char eng_premier_update(BYTE* _this) {
 	BYTE* eng_conf = get_loaded_league(ENG_CONFERENCE_9CF());
 	BYTE* eng_conf_n = get_loaded_league(ENG_CONFERENCE_NORTH_9CF());
 	BYTE* eng_conf_s = get_loaded_league(ENG_CONFERENCE_SOUTH_9CF());
+	BYTE* eng_north = get_loaded_league(ENG_NORTHERN_9CF());
+	BYTE* eng_isth = get_loaded_league(ENG_ISTHMIAN_9CF());
+	BYTE* eng_south_c = get_loaded_league(ENG_SOUTHERN_CENTRAL_9CF());
+	BYTE* eng_south_s = get_loaded_league(ENG_SOUTHERN_SOUTH_9CF());
 
 	// All teams that were in D1 must be professional
 	update_club_pro_status_68A980(_this, Professional, Relegated, -3, 1);
@@ -198,30 +254,47 @@ char eng_premier_update(BYTE* _this) {
 	// All teams that were in D4 must be professional
 	update_club_pro_status_68A980(eng_league_2, Professional, Relegated, -3, 1);
 	update_club_pro_status_68A980(eng_league_2, Professional, -3, Relegated, 1);
-	if (eng_conf)
+	// All teams that were not relegated from D5 must be semi-professional or higher
+	update_club_pro_status_68A980(eng_conf, SemiProfessional, Relegated, -3, 1);
+	// All teams that were in D6 must be semi-professional
+	update_club_pro_status_68A980(eng_conf_n, SemiProfessional, Relegated, -3, 1);
+	update_club_pro_status_68A980(eng_conf_n, SemiProfessional, -3, Relegated, 1);
+	update_club_pro_status_68A980(eng_conf_n, SemiProfessional, -3, Relegated, 0);
+	update_club_pro_status_68A980(eng_conf_s, SemiProfessional, Relegated, -3, 1);
+	update_club_pro_status_68A980(eng_conf_s, SemiProfessional, -3, Relegated, 1);
+	update_club_pro_status_68A980(eng_conf_s, SemiProfessional, -3, Relegated, 0);
+	if (eng_north && eng_isth && eng_south_c && eng_south_s)
 	{
-		// All teams that were not relegated from D5 must be semi-professional or higher
-		update_club_pro_status_68A980(eng_conf, SemiProfessional, Relegated, -3, 1);
-		// All teams that were in D6 must be semi-professional
-		update_club_pro_status_68A980(eng_conf_n, SemiProfessional, Relegated, -3, 1);
-		update_club_pro_status_68A980(eng_conf_n, SemiProfessional, -3, Relegated, 1);
-		update_club_pro_status_68A980(eng_conf_n, SemiProfessional, -3, Relegated, 0);
-		update_club_pro_status_68A980(eng_conf_s, SemiProfessional, Relegated, -3, 1);
-		update_club_pro_status_68A980(eng_conf_s, SemiProfessional, -3, Relegated, 1);
-		update_club_pro_status_68A980(eng_conf_s, SemiProfessional, -3, Relegated, 0);
+		// All teams that were not relegated from level 7 must be semi-professional
+		// All teams that were relegated from level 7 must be amateur
+		update_club_pro_status_68A980(eng_north, SemiProfessional, Relegated, -3, 1);
+		update_club_pro_status_68A980(eng_north, SemiProfessional, Relegated, -3, 0);
+		update_club_pro_status_68A980(eng_north, Amateur, -3, Relegated, 0);
+
+		update_club_pro_status_68A980(eng_isth, SemiProfessional, Relegated, -3, 1);
+		update_club_pro_status_68A980(eng_isth, SemiProfessional, Relegated, -3, 0);
+		update_club_pro_status_68A980(eng_isth, Amateur, -3, Relegated, 0);
+
+		update_club_pro_status_68A980(eng_south_c, SemiProfessional, Relegated, -3, 1);
+		update_club_pro_status_68A980(eng_south_c, SemiProfessional, Relegated, -3, 0);
+		update_club_pro_status_68A980(eng_south_c, Amateur, -3, Relegated, 0);
+
+		update_club_pro_status_68A980(eng_south_s, SemiProfessional, Relegated, -3, 1);
+		update_club_pro_status_68A980(eng_south_s, SemiProfessional, Relegated, -3, 0);
+		update_club_pro_status_68A980(eng_south_s, Amateur, -3, Relegated, 0);
 	}
 
 	eng_premier_prom_rel_update(_this, 1);
 
-	if (eng_conf) {
-		generic_prom_rel(NATION_ENGLAND_9CF(), A_LOWER_9CF(), ENG_CONFERENCE_NORTH_9CF(), 1, ENG_CONFERENCE_SOUTH_9CF());
+	if (eng_north && eng_isth && eng_south_c && eng_south_s) {
+		generic_prom_rel(NATION_ENGLAND_9CF(), A_LOWER_9CF(), ENG_NORTHERN_9CF(), 3, ENG_ISTHMIAN_9CF(), ENG_SOUTHERN_CENTRAL_9CF(), ENG_SOUTHERN_SOUTH_9CF());
 	}
 	else {
-		generic_prom_rel(NATION_ENGLAND_9CF(), ENG_CONFERENCE_9CF(), ENG_LEAGUE_2_9CF(), 0);
-		eng_extra_non_playable_swaps(_this);
+		eng_conf_n_s_relegation(_this);
+		eng_level_7_inactive_swaps(_this);
 	}
-	eng_swap_between_lower_and_lower_b(_this);
 	sort_conf_n_s_clubs();
+	sort_level_7_clubs();
 
 	sub_687970(_this, 0);
 	if (data->fixtures_table) {
@@ -261,15 +334,27 @@ char eng_premier_update(BYTE* _this) {
 	v1 = *(DWORD*)eng_league_2;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(eng_league_2);
 
-	if (eng_conf) {
-		v1 = *(DWORD*)eng_conf;
-		(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(eng_conf);
+	v1 = *(DWORD*)eng_conf;
+	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(eng_conf);
 
-		v1 = *(DWORD*)eng_conf_n;
-		(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(eng_conf_n);
+	v1 = *(DWORD*)eng_conf_n;
+	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(eng_conf_n);
 
-		v1 = *(DWORD*)eng_conf_s;
-		(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(eng_conf_s);
+	v1 = *(DWORD*)eng_conf_s;
+	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(eng_conf_s);
+
+	if (eng_north && eng_isth && eng_south_c && eng_south_s) {
+		v1 = *(DWORD*)eng_north;
+		(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(eng_north);
+
+		v1 = *(DWORD*)eng_isth;
+		(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(eng_isth);
+
+		v1 = *(DWORD*)eng_south_c;
+		(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(eng_south_c);
+
+		v1 = *(DWORD*)eng_south_s;
+		(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(eng_south_s);
 	}
 
 	sub_68AA80(_this);

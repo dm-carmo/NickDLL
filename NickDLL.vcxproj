@@ -266,8 +266,10 @@
     <ClCompile Include="UEFA\England\eng_fa_cup.cpp" />
     <ClCompile Include="UEFA\England\eng_fa_trophy.cpp" />
     <ClCompile Include="UEFA\England\eng_champ.cpp" />
+    <ClCompile Include="UEFA\England\eng_isthmian.cpp" />
     <ClCompile Include="UEFA\England\eng_league_cup.cpp" />
     <ClCompile Include="UEFA\England\eng_league_trophy.cpp" />
+    <ClCompile Include="UEFA\England\eng_northern.cpp" />
     <ClCompile Include="UEFA\England\eng_premier.cpp" />
     <ClCompile Include="UEFA\England\eng_league_1.cpp" />
     <ClCompile Include="UEFA\England\eng_setup.cpp" />
@@ -279,6 +281,8 @@
     <ClCompile Include="CONCACAF\concacaf_nations_league.cpp" />
     <ClCompile Include="CONMEBOL\copa_america.cpp" />
     <ClCompile Include="CONMEBOL\copa_america_quals.cpp" />
+    <ClCompile Include="UEFA\England\eng_southern_central.cpp" />
+    <ClCompile Include="UEFA\England\eng_southern_south.cpp" />
     <ClCompile Include="UEFA\euro_champ.cpp" />
     <ClCompile Include="UEFA\euro_champ_quals.cpp" />
     <ClCompile Include="FIFA\fifa_national_setup.cpp" />
@@ -626,8 +630,10 @@
     <ClInclude Include="UEFA\England\eng_fa_cup.h" />
     <ClInclude Include="UEFA\England\eng_fa_trophy.h" />
     <ClInclude Include="UEFA\England\eng_champ.h" />
+    <ClInclude Include="UEFA\England\eng_isthmian.h" />
     <ClInclude Include="UEFA\England\eng_league_cup.h" />
     <ClInclude Include="UEFA\England\eng_league_trophy.h" />
+    <ClInclude Include="UEFA\England\eng_northern.h" />
     <ClInclude Include="UEFA\England\eng_premier.h" />
     <ClInclude Include="UEFA\England\eng_league_1.h" />
     <ClInclude Include="UEFA\England\eng_setup.h" />
@@ -639,6 +645,8 @@
     <ClInclude Include="CONCACAF\concacaf_nations_league.h" />
     <ClInclude Include="CONMEBOL\copa_america.h" />
     <ClInclude Include="CONMEBOL\copa_america_quals.h" />
+    <ClInclude Include="UEFA\England\eng_southern_central.h" />
+    <ClInclude Include="UEFA\England\eng_southern_south.h" />
     <ClInclude Include="UEFA\euro_champ.h" />
     <ClInclude Include="UEFA\euro_champ_quals.h" />
     <ClInclude Include="FIFA\fifa_national_setup.h" />
