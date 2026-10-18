@@ -585,7 +585,7 @@ void ksa_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) ksa_first_vtable->SetPointer(VTableShowThirdInHistory, 0x4110b0);
 	if (configFile.GetBool("showPlayoffWinnerInHistory", true)) ksa_first_vtable->SetPointer(VTableShowHostsInHistory, 0x404480);
 	data->year = year;
-	data->rules = RulesSaudi;
+	data->rules = RulesSaudiArabia;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
 	data->f68 = -1;

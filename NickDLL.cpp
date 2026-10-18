@@ -143,6 +143,8 @@ void Setup()
 	setup_bul_nation();
 	dprintf("New nation: Chile\n");
 	setup_chi_nation();
+	dprintf("New nation: China\n");
+	setup_chn_nation();
 	dprintf("New nation: Colombia\n");
 	setup_col_nation();
 	dprintf("New nation: Czech Republic\n");

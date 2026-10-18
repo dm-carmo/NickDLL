@@ -1095,6 +1095,21 @@
     <ClCompile Include="UEFA\England\eng_southern_south.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AFC\China\chn_setup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AFC\China\chn_first.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AFC\China\chn_premier.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AFC\China\chn_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AFC\China\chn_super.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -2187,6 +2202,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="UEFA\England\eng_southern_south.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AFC\China\chn_setup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AFC\China\chn_first.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AFC\China\chn_premier.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AFC\China\chn_cup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AFC\China\chn_super.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

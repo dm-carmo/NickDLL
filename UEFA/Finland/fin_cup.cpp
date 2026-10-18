@@ -37,10 +37,10 @@ DWORD fin_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		FillFixtureDetails(pMem, fixture_id++, SixthRound, 1, Penalties | ExtraTime, NoTiebreak, 4, 16, 8, 0, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 6, 12), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 6, 24), year, Tuesday, Evening);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 29), year, Tuesday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 1, Penalties | ExtraTime, NoTiebreak, 6, 8, 4, 0, 0, 0, 1, 0);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 6, 25), year, Wednesday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 30), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 21), year, Thursday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 1, Penalties | ExtraTime, NoTiebreak, 6, 4, 2, 0, 0, 0, 1, 0);
 

@@ -10,6 +10,7 @@
 vector<DWORD> france_overseas = {};
 vector<DWORD> england_overseas = {};
 vector<DWORD> brazil_fgn = {};
+vector<DWORD> china_fgn = {};
 vector<DWORD> russia_fgn = {};
 vector<DWORD> finland_fgn = {};
 vector<DWORD> czech_fgn = {};
@@ -560,6 +561,10 @@ int player_check_if_foreign(cm3_staff* person, cm3_nations* nation, int a3) {
 	if (nation->NationID == NATION_BRAZIL_9CF()) {
 		if (first && vector_contains_element(brazil_fgn, first->NationID)) return 0;
 		if (second && vector_contains_element(brazil_fgn, second->NationID)) return 0;
+	}
+	if (nation->NationID == NATION_CHINA_9CF()) {
+		if (first && vector_contains_element(china_fgn, first->NationID)) return 0;
+		if (second && vector_contains_element(china_fgn, second->NationID)) return 0;
 	}
 	if (nation->NationID == NATION_JAPAN_9CF()) {
 		if (first && vector_contains_element(japan_fgn, first->NationID)) return 0;

@@ -4,6 +4,7 @@
 extern vector<DWORD> france_overseas;
 extern vector<DWORD> england_overseas;
 extern vector<DWORD> brazil_fgn;
+extern vector<DWORD> china_fgn;
 extern vector<DWORD> russia_fgn;
 extern vector<DWORD> finland_fgn;
 extern vector<DWORD> czech_fgn;

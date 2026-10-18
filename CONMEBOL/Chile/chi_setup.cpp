@@ -70,10 +70,9 @@ BYTE* rb_chile_init(BYTE* _this, int* a2) {
 
 void chi_foreign_rules(BYTE* _this, cm3_club_comps* comp, BYTE* fgn_rule_arr) {
 	memset(fgn_rule_arr, -1, 42);
-	BYTE max_fgn = 8;
+	BYTE max_fgn = 6;
 	if (comp) {
-		if (comp->ClubCompID == CHI_FIRST_9CF()) max_fgn = 7;
-		else if (comp->ClubCompID == CHI_CUP_9CF()) max_fgn = 6;
+		if (comp->ClubCompID == CHI_FIRST_9CF()) max_fgn = 5;
 		else if (comp->ClubCompID == CHI_SUPER_CUP_9CF()) max_fgn = 4;
 	}
 	*((BYTE*)(fgn_rule_arr + 0x2)) = max_fgn;
@@ -96,6 +95,7 @@ void __declspec(naked) chi_foreign_rules_c()
 BYTE* setup_chile_rules(BYTE* _this, char idx, DWORD country_id, DWORD continent_id, int a5, int a6) {
 	generic_rules_setup(_this, idx, country_id, continent_id, a5, a6);
 	*((DWORD*)(_this)) = (DWORD)chi_rules_vtable->vtable_ptr;
+	*((BYTE*)(_this + 0x13)) = 6; // maximum number of foreign players at the club
 	chi_rules_vtable->SetPointer(VTableRLoanOutsideWindow, 0x412dd0);
 	chi_rules_vtable->SetPointer(VTableRLoanLength, 0x90f1a0);
 	chi_rules_vtable->SetPointer(VTableRForeignRules, (DWORD)chi_foreign_rules_c);

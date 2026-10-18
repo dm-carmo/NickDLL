@@ -49,8 +49,8 @@ DWORD cze_setup_c(playable_nation_data* nation_data) {
 BYTE* rb_czech_init(BYTE* _this, int* a2) {
 	rb_croatia_setup ( _this, a2);
 	*((DWORD*)(_this + 0x17)) = NATION_CZECH_REPUBLIC_9CF();
-	*((BYTE*)(_this + 0x5)) = RulesCzech;
-	*((BYTE*)(_this + 0x1F)) = RulesCzech;
+	*((BYTE*)(_this + 0x5)) = RulesCzechRepublic;
+	*((BYTE*)(_this + 0x1F)) = RulesCzechRepublic;
 	return _this;
 }
 

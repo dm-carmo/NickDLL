@@ -615,14 +615,10 @@ void swe_third_reputation_calc(BYTE* _this, BYTE* club, char stage, char current
 	}
 	else if (stage == 7) {
 		cm3_clubs* club_data = (cm3_clubs*)club;
-		if (club_data->ClubDivision == comp_data->competition_db) {
-			ret_current = 12;
-			ret_min = 12;
-			ret_max = 12;
-		}
-		else {
-			return;
-		}
+		if (club_data->ClubDivision != comp_data->competition_db) return;
+		ret_current = 11 + current;
+		ret_min = 11 + min;
+		ret_max = 11 + max;
 	}
 	ret[0x73] = ret_current;
 	ret[0x74] = ret_min;

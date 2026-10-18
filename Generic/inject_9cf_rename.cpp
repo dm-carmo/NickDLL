@@ -149,6 +149,11 @@ void check_9cf() {
 		NATION_HAITI_9CF(),
 		NATION_AFGHANISTAN_9CF(),
 	};
+	china_fgn = {
+		NATION_CHINESE_TAIPEI_9CF(),
+		NATION_HONG_KONG_9CF(),
+		NATION_MACAU_9CF(),
+	};
 	russia_fgn = {
 		NATION_ARMENIA_9CF(),
 		NATION_BELARUS_9CF(),

@@ -284,6 +284,7 @@ int chi_league_cup_all_teams(BYTE* _this) {
 
 	// D1
 	vector<cm3_clubs*> division_clubs = find_clubs_of_comp(CHI_PREMIER_9CF());
+	sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPos);
 	for (cm3_clubs* club : division_clubs)
 	{
 		vec.push_back(club);

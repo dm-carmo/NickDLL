@@ -61,10 +61,10 @@ enum CompetitionRules : BYTE {
 	RulesWales,
 	RulesAsia,
 	RulesSouthKorea,
-	RulesCzech,
+	RulesCzechRepublic,
 	RulesAustria,
 	RulesSwitzerland,
-	RulesSaudi,
+	RulesSaudiArabia,
 	RulesChile,
 	RulesEgypt,
 	RulesSerbia,
@@ -78,6 +78,15 @@ enum CompetitionRules : BYTE {
 	RulesColombia,
 	RulesUruguay,
 	RulesBulgaria,
+	RulesChina,
+	RulesQatar,
+	RulesUAE,
+	RulesSouthAfrica,
+	RulesHungary,
+	RulesThailand,
+	RulesAlgeria,
+	RulesCyprus,
+	RulesTunisia,
 	CompetitionRules_LENGTH
 };
 

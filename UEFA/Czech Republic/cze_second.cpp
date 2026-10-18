@@ -289,7 +289,7 @@ void cze_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	cze_second_vtable->SetPointer(VTableTableFates, (DWORD)&cze_second_table_fates_c);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) cze_second_vtable->SetPointer(VTableShowThirdInHistory, 0x4110b0);
 	data->year = year;
-	data->rules = RulesCzech;
+	data->rules = RulesCzechRepublic;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) return;
 	data->f68 = -1;

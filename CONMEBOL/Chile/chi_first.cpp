@@ -108,7 +108,7 @@ void chi_first_subs(BYTE* _this)
 	comp_data->relegates_to = -1;
 
 	comp_data->f82 = 2;
-	comp_data->max_bench = 9;
+	comp_data->max_bench = 7;
 	comp_data->max_subs = 5;
 
 	DWORD v1 = *(DWORD*)_this;
@@ -136,6 +136,7 @@ void chi_first_prom_playoffs(BYTE* _this) {
 	WORD total_teams = comp_data->n_teams;
 	DWORD* pTeams = (DWORD*)cm0102_malloc(playoff_teams * 4);
 	BYTE team_order[7] = { 6,0,2,4,5,3,1 };
+	BYTE seeds[7] = { 0 };
 
 	vector<cm3_clubs*> clubs;
 	team_league_stats* table_teams = (team_league_stats*)(comp_data->team_league_table);
@@ -146,6 +147,7 @@ void chi_first_prom_playoffs(BYTE* _this) {
 		}
 	}
 	for (char i = 0; i < playoff_teams; i++) {
+		seeds[team_order[i]] = i + 1;
 		*((DWORD*)(&pTeams[team_order[i]])) = (DWORD)clubs[i];
 	}
 
@@ -155,7 +157,7 @@ void chi_first_prom_playoffs(BYTE* _this) {
 	DWORD v1 = *(DWORD*)_this;
 	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, char, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
 	BYTE* new_stage = (BYTE*)cm0102_new(0xB2);
-	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)(comp_data->competition_db), pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, 0);
+	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)(comp_data->competition_db), pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, &seeds[0]);
 	DWORD* stages_arr = comp_data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
 	sub_51C800(new_stage, 0);
@@ -366,15 +368,15 @@ DWORD chi_first_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 1), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 19), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | NoAwayGoals, 6, 6, 3, 6, 0, 0, 2, 4);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 8, FixedTeamOrderInCup | NoAwayGoals, Penalties | NoAwayGoals, 6, 6, 3, 6, 0, 0, 2, 4);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 24), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 26), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | NoAwayGoals, 6, 4, 2, 1, 6, 0, 2, 4);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 8, FixedTeamOrderInCup | NoAwayGoals, Penalties | NoAwayGoals, 6, 4, 2, 1, 6, 0, 2, 4);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 1), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 3), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, NoAwayGoals, Penalties | NoAwayGoals, 6, 2, 1, 0, 0, 0, 2, 4);
+		FillFixtureDetails(pMem, fixture_id++, Final, 8, NoAwayGoals, ExtraTime | Penalties | NoAwayGoals, 6, 2, 1, 0, 0, 0, 2, 4);
 
 		return (DWORD)pMem;
 	}

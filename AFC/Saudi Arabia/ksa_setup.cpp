@@ -54,17 +54,19 @@ DWORD ksa_setup_c(playable_nation_data* nation_data) {
 BYTE* rb_saudi_init(BYTE* _this, int* a2) {
 	rb_croatia_setup(_this, a2);
 	*((DWORD*)(_this + 0x17)) = NATION_SAUDI_ARABIA_9CF();
-	*((BYTE*)(_this + 0x5)) = RulesSaudi;
-	*((BYTE*)(_this + 0x1F)) = RulesSaudi;
+	*((BYTE*)(_this + 0x5)) = RulesSaudiArabia;
+	*((BYTE*)(_this + 0x1F)) = RulesSaudiArabia;
 	return _this;
 }
 
 void ksa_foreign_rules(BYTE* _this, cm3_club_comps* comp, BYTE* fgn_rule_arr) {
 	memset(fgn_rule_arr, -1, 42);
+	BYTE max_fgn = 10;
 	if (comp) {
-		if (comp->ClubCompID == KSA_PREMIER_9CF()) *((BYTE*)(fgn_rule_arr + 0x2)) = 8;
-		else if (comp->ClubCompID == KSA_FIRST_9CF()) *((BYTE*)(fgn_rule_arr + 0x2)) = 4;
+		if (comp->ClubCompID == KSA_PREMIER_9CF()) max_fgn = 8;
+		else if (comp->ClubCompID == KSA_FIRST_9CF()) max_fgn = 4;
 	}
+	*((BYTE*)(fgn_rule_arr + 0x2)) = max_fgn;
 }
 
 void __declspec(naked) ksa_foreign_rules_c()

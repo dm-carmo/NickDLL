@@ -312,12 +312,19 @@ int chi_cup_all_teams(BYTE* _this) {
 	shuffle(vec.begin() + 8, vec.begin() + 16, rng);
 	shuffle(vec.begin() + 16, vec.begin() + 24, rng);
 	shuffle(vec.begin() + 24, vec.end(), rng);
-	for (DWORD i = 0; i < 8; i++)
+	for (DWORD i = 0; i < 4; i++)
 	{
 		teams[i * 4] = (DWORD)vec[i];
-		teams[i * 4 + 1] = (DWORD)vec[i + 8];
+		teams[i * 4 + 1] = (DWORD)vec[i + 4];
 		teams[i * 4 + 2] = (DWORD)vec[i + 16];
-		teams[i * 4 + 3] = (DWORD)vec[i + 24];
+		teams[i * 4 + 3] = (DWORD)vec[i + 20];
+	}
+	for (DWORD i = 0; i < 4; i++)
+	{
+		teams[(i + 4) * 4] = (DWORD)vec[i + 8];
+		teams[(i + 4) * 4 + 1] = (DWORD)vec[i + 12];
+		teams[(i + 4) * 4 + 2] = (DWORD)vec[i + 24];
+		teams[(i + 4) * 4 + 3] = (DWORD)vec[i + 28];
 	}
 
 	return 1;

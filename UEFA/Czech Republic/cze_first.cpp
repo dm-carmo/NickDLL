@@ -908,7 +908,7 @@ void cze_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	cze_first_vtable->SetPointer(VTableStageNews, (DWORD)&cze_first_stage_news_c);
 	if (configFile.GetBool("showThirdPlaceInHistory", true)) cze_first_vtable->SetPointer(VTableShowThirdInHistory, 0x4110b0);
 	data->year = year;
-	data->rules = RulesCzech;
+	data->rules = RulesCzechRepublic;
 	int loaded = sub_687B10(_this, 1);
 	if (loaded) {
 		if (data->n_rounds != 3) return;
