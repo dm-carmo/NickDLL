@@ -119,7 +119,6 @@ void __declspec(naked) rom_second_free_c()
 	}
 }
 
-// review
 DWORD rom_second_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stage_name_id, DWORD* a5)
 {
 	comp_stats* data = ((comp_stats*)_this);

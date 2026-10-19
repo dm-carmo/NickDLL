@@ -491,32 +491,6 @@ void african_nations_seeded_teams(BYTE* _this) {
 		teamList[i].club = 0;
 		teamList[i].seeding = 6;
 	}
-	//if (year == 2025) {
-	//	teamList[count++].club = get_national_team(NATION_MOROCCO_9CF());
-	//	teamList[count++].club = get_national_team(NATION_MALI_9CF());
-	//	teamList[count++].club = get_national_team(NATION_COMOROS_9CF());
-	//	teamList[count++].club = get_national_team(NATION_ZAMBIA_9CF());
-	//	teamList[count++].club = get_national_team(NATION_EGYPT_9CF());
-	//	teamList[count++].club = get_national_team(NATION_SOUTH_AFRICA_9CF());
-	//	teamList[count++].club = get_national_team(NATION_ANGOLA_9CF());
-	//	teamList[count++].club = get_national_team(NATION_ZIMBABWE_9CF());
-	//	teamList[count++].club = get_national_team(NATION_NIGERIA_9CF());
-	//	teamList[count++].club = get_national_team(NATION_TUNISIA_9CF());
-	//	teamList[count++].club = get_national_team(NATION_TANZANIA_9CF());
-	//	teamList[count++].club = get_national_team(NATION_UGANDA_9CF());
-	//	teamList[count++].club = get_national_team(NATION_SENEGAL_9CF());
-	//	teamList[count++].club = get_national_team(NATION_DR_CONGO_9CF());
-	//	teamList[count++].club = get_national_team(NATION_BENIN_9CF());
-	//	teamList[count++].club = get_national_team(NATION_BOTSWANA_9CF());
-	//	teamList[count++].club = get_national_team(NATION_ALGERIA_9CF());
-	//	teamList[count++].club = get_national_team(NATION_BURKINA_FASO_9CF());
-	//	teamList[count++].club = get_national_team(NATION_SUDAN_9CF());
-	//	teamList[count++].club = get_national_team(NATION_EQUATORIAL_GUINEA_9CF());
-	//	teamList[count++].club = get_national_team(NATION_IVORY_COAST_9CF());
-	//	teamList[count++].club = get_national_team(NATION_CAMEROON_9CF());
-	//	teamList[count++].club = get_national_team(NATION_MOZAMBIQUE_9CF());
-	//	teamList[count++].club = get_national_team(NATION_GABON_9CF());
-	//}
 	if (year == 2027) {
 		vector<cm3_clubs*> clubs;
 		// add the 3 real-life hosts

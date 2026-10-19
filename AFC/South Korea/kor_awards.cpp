@@ -3,7 +3,7 @@
 #include "Helpers\generic_functions.h"
 #include "Helpers\9cf_constants.h"
 
-void kormany_awards(BYTE* _this, int a2) {
+void korea_awards(BYTE* _this, int a2) {
 	DWORD edi = *(DWORD*)(_this + 0x13);
 	*(WORD*)(_this + 0x8) = 8;
 
@@ -53,7 +53,7 @@ void __declspec(naked) kor_awards_c()
 		mov eax, esp
 		push dword ptr[eax + 0x4]
 		push ecx
-		call kormany_awards
+		call korea_awards
 		add esp, 0x8
 		ret 4
 	}

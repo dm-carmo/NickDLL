@@ -152,12 +152,11 @@ int egy_super_teams(BYTE* _this) {
 	comp_data->teams_list = (DWORD*)pMem;
 	teams_seeded* teams = (teams_seeded*)comp_data->teams_list;
 
-	// review once teams are known
-	if (comp_data->year == 2025) {
-		vec.push_back(find_club("Al Ahly FC"));
-		vec.push_back(find_club("Cleopatra FC"));
-		vec.push_back(find_club("Pyramids FC"));
+	if (comp_data->year == 2026) {
 		vec.push_back(find_club("Zamalek SC"));
+		vec.push_back(find_club("Pyramids FC"));
+		vec.push_back(find_club("El Masry SC"));
+		vec.push_back(find_club("Al Ahly FC"));
 	}
 	else
 	{

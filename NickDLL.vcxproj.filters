@@ -1110,6 +1110,27 @@
     <ClCompile Include="AFC\China\chn_super.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AFC\Qatar\qat_setup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AFC\Qatar\qat_qsl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AFC\Qatar\qat_qsl2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AFC\Qatar\qat_amir_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AFC\Qatar\qat_qsl_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AFC\Qatar\qat_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AFC\Japan\jpn_awards.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -2217,6 +2238,27 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AFC\China\chn_super.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AFC\Qatar\qat_setup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AFC\Qatar\qat_qsl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AFC\Qatar\qat_qsl2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AFC\Qatar\qat_amir_cup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AFC\Qatar\qat_qsl_cup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AFC\Qatar\qat_cup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AFC\Japan\jpn_awards.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

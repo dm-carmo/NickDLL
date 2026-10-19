@@ -9,6 +9,7 @@
 #include "jpn_cup.h"
 #include "jpn_league_cup.h"
 #include "jpn_super.h"
+#include "jpn_awards.h"
 #include "Structures\vtable.h"
 
 DWORD* jpn_rules_vtable = (DWORD*)0x96CCFC;
@@ -142,6 +143,7 @@ void setup_jpn_nation() {
 	setup_jpn_cup();
 	setup_jpn_league_cup();
 	setup_jpn_super();
+	setup_jpn_awards();
 
 	WriteVTablePtr(jpn_rules_vtable, VTableRLoanOutsideWindow, 0x412dd0);
 	WriteVTablePtr(jpn_rules_vtable, VTableRForeignRules, (DWORD)jpn_foreign_rules_c);

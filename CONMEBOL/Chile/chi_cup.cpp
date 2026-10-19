@@ -160,18 +160,18 @@ DWORD chi_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 31), year, Monday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 16), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | NoAwayGoals, 4, 16, 8, 16, 0, 0, 2, 4);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 19), year, Saturday);
+		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 1, FixedTeamOrderInCup | NoAwayGoals, Penalties | NoAwayGoals, 4, 16, 8, 16, 0, 0, 2, 4);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 21), year, Monday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 23), year, Wednesday, Evening);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 25), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 7), year, Wednesday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | NoAwayGoals, 4, 8, 4, 0, 0, 0, 2, 4);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 28), year, Monday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 21), year, Wednesday, Evening);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 12), year, Monday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 28), year, Wednesday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | NoAwayGoals, 6, 4, 2, 0, 0, 0, 2, 4);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 26), year, Monday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 2), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 9), year, Wednesday, Evening, NationalStadium);
 		FillFixtureDetails(pMem, fixture_id++, Final, 0, Penalties | ExtraTime, NoTiebreak, 6, 2, 1, 0, 0, 0, 1, 0);
 
@@ -494,6 +494,7 @@ void chi_cup_final_stage_setup(BYTE* _this) {
 	}
 
 	BYTE team_order[16] = { 1,4,3,6,5,0,7,2,9,12,11,14,13,8,15,10 };
+	BYTE seeds[16] = { 0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1 };
 	for (char i = 0; i < playoff_teams; i++) {
 		*((DWORD*)(&pTeams[team_order[i]])) = (DWORD)clubs[i];
 	}
@@ -504,7 +505,7 @@ void chi_cup_final_stage_setup(BYTE* _this) {
 	DWORD v1 = *(DWORD*)_this;
 	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, char, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
 	BYTE* new_stage = (BYTE*)cm0102_new(0xB2);
-	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)(comp_data->competition_db), pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, 0);
+	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)(comp_data->competition_db), pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, &seeds[0]);
 	DWORD* stages_arr = comp_data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
 	comp_data->current_stage = (long)stage_num;

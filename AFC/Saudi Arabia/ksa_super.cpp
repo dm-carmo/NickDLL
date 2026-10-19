@@ -104,11 +104,11 @@ int ksa_super_teams(BYTE* _this) {
 	comp_data->teams_list = (DWORD*)pMem;
 	teams_seeded* teams = (teams_seeded*)comp_data->teams_list;
 
-	if (comp_data->year == 2025) {
-		vec.push_back(find_club("Al-Ittihad Club"));
-		vec.push_back(find_club("Al-Qadsiah FC"));
+	if (comp_data->year == 2026) {
 		vec.push_back(find_club("Al-Nassr FC"));
 		vec.push_back(find_club("Al-Ahli SFC"));
+		vec.push_back(find_club("Al-Qadsiah FC"));
+		vec.push_back(find_club("Al-Kholood Club"));
 	}
 	else
 	{
