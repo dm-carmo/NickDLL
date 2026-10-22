@@ -619,6 +619,28 @@ int init_leagues_list() {
 	pnd_list[idx].main_cup = get_comp(QAT_AMIR_CUP_9CF());
 	idx++;
 
+	cm_date = new BYTE[8];
+	pnd_list[idx].nation = get_country(NATION_UAE_9CF());
+	pnd_list[idx].setup_function_addr = (DWORD)&uae_setup_c;
+	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
+	convert_to_cm_date(pnd_list[idx].end_date, 25, May, *current_year, -1);
+	pnd_list[idx].updates_in_june = 1;
+	convert_to_cm_date(cm_date, 20, June, START_YEAR, -1);
+	pnd_list[idx].update_day = *(WORD*)(cm_date);
+	pnd_list[idx].main_cup = get_comp(UAE_PRESIDENTS_9CF());
+	idx++;
+
+	cm_date = new BYTE[8];
+	pnd_list[idx].nation = get_country(NATION_SOUTH_AFRICA_9CF());
+	pnd_list[idx].setup_function_addr = (DWORD)&rsa_setup_c;
+	convert_to_cm_date(pnd_list[idx].start_date, 25, July, *current_year, -1);
+	convert_to_cm_date(pnd_list[idx].end_date, 6, June, *current_year, -1);
+	pnd_list[idx].updates_in_june = 1;
+	convert_to_cm_date(cm_date, 20, June, START_YEAR, -1);
+	pnd_list[idx].update_day = *(WORD*)(cm_date);
+	pnd_list[idx].main_cup = get_comp(RSA_NEDBANK_CUP_9CF());
+	idx++;
+
 	return 1;
 }
 

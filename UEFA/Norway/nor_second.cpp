@@ -568,6 +568,31 @@ void __declspec(naked) nor_second_reputation_calc_c()
 	}
 }
 
+void nor_second_points_deductions(BYTE* _this, WORD current_year)
+{
+	if (current_year > 2026) return;
+	map<cm3_clubs*, short> point_deduction_map = {
+		{find_club("Lysekloster IL"), -1},
+	};
+	comp_stats* data = (comp_stats*)_this;
+	comp_stats* curr_stage = data;
+	vector<cm3_clubs*> clubs;
+	for (char al = -1; al < 1; al++) {
+		if (al >= 0) {
+			curr_stage = (comp_stats*)(data->stages[al]);
+		}
+		team_league_stats* table_teams = (team_league_stats*)(curr_stage->team_league_table);
+		for (int i = 0; i < curr_stage->n_teams; i++) {
+			team_league_stats* tls = &table_teams[i];
+			auto find_club = point_deduction_map.find(tls->club);
+			if (find_club != point_deduction_map.end()) {
+				tls->points = find_club->second;
+				tls->points_away = find_club->second;
+			}
+		}
+	}
+}
+
 void nor_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 {
 	sub_682200(_this);
@@ -609,6 +634,7 @@ void nor_second_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	}
 	block_reserve_promotion_nor_second(_this);
 	nor_second_reputation_setup(_this);
+	nor_second_points_deductions(_this, year);
 }
 
 void setup_nor_second()

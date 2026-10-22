@@ -2071,6 +2071,15 @@ void setup_misc_functions()
 	WriteBytes(0x820e09, 1, July);
 	WriteBytes(0x820e0e, 1, 1);
 
+	// show proper league name in search, for non-league clubs in playable countries
+	WriteBytes(0x5a39ca, 1, 0xeb);
+
+	// generate staff for playable clubs with rep 1
+	WriteBytes(0x52734a, 1, 0x8c);
+	WriteBytes(0x527616, 1, 0x8c);
+	WriteBytes(0x527917, 1, 0x8c);
+	WriteBytes(0x527c0d, 1, 0x8c);
+
 	// Adjust randomized birth dates
 	DWORD year_diff = START_YEAR - 2001;
 	WriteDWORD(0x527853, 1940 + year_diff);

@@ -817,6 +817,35 @@ void __declspec(naked) ita_ser_d_stage_news_c()
 	}
 }
 
+void ita_ser_d_points_deductions(BYTE* _this, WORD current_year)
+{
+	if (current_year > 2026) return;
+	map<cm3_clubs*, short> point_deduction_map = {
+		{find_club("AC Nardò"), -2},
+		{find_club("Città di Gela"), -1},
+		{find_club("FC Trapani 1905"), -5},
+		{find_club("Siracusa Calcio"), -7},
+	};
+	comp_stats* data = (comp_stats*)_this;
+
+	comp_stats* curr_stage = data;
+	vector<cm3_clubs*> clubs;
+	for (char al = -1; al < 8; al++) {
+		if (al >= 0) {
+			curr_stage = (comp_stats*)(data->stages[al]);
+		}
+		team_league_stats* table_teams = (team_league_stats*)(curr_stage->team_league_table);
+		for (int i = 0; i < curr_stage->n_teams; i++) {
+			team_league_stats* tls = &table_teams[i];
+			auto find_club = point_deduction_map.find(tls->club);
+			if (find_club != point_deduction_map.end()) {
+				tls->points = find_club->second;
+				tls->points_away = find_club->second;
+			}
+		}
+	}
+}
+
 void ita_ser_d_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 {
 	sub_682200(_this);
@@ -855,6 +884,7 @@ void ita_ser_d_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 		ita_ser_d_setup_groups(_this, i);
 	}
 	ita_ser_d_reputation_setup(_this);
+	ita_ser_d_points_deductions(_this, year);
 }
 
 void setup_ita_ser_d()

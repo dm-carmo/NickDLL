@@ -1131,6 +1131,42 @@
     <ClCompile Include="AFC\Japan\jpn_awards.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AFC\UAE\uae_setup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AFC\UAE\uae_premier.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AFC\UAE\uae_first.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AFC\UAE\uae_presidents.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AFC\UAE\uae_league_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AFC\UAE\uae_super.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CAF\South Africa\rsa_setup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CAF\South Africa\rsa_premier.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CAF\South Africa\rsa_champ.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CAF\South Africa\rsa_fa_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CAF\South Africa\rsa_top8_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CAF\South Africa\rsa_knockout_cup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -2259,6 +2295,42 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AFC\Japan\jpn_awards.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AFC\UAE\uae_setup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AFC\UAE\uae_premier.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AFC\UAE\uae_first.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AFC\UAE\uae_presidents.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AFC\UAE\uae_league_cup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AFC\UAE\uae_super.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CAF\South Africa\rsa_setup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CAF\South Africa\rsa_premier.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CAF\South Africa\rsa_champ.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CAF\South Africa\rsa_fa_cup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CAF\South Africa\rsa_top8_cup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CAF\South Africa\rsa_knockout_cup.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

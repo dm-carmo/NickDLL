@@ -161,15 +161,15 @@ DWORD chi_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 31), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 19), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 1, FixedTeamOrderInCup | NoAwayGoals, Penalties | NoAwayGoals, 4, 16, 8, 16, 0, 0, 2, 4);
+		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 8, FixedTeamOrderInCup | NoAwayGoals, Penalties | NoAwayGoals, 4, 16, 8, 16, 0, 0, 2, 4);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 9, 25), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 7), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | NoAwayGoals, 4, 8, 4, 0, 0, 0, 2, 4);
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 8, FixedTeamOrderInCup | NoAwayGoals, Penalties | NoAwayGoals, 4, 8, 4, 0, 0, 0, 2, 4);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 12), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 28), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | NoAwayGoals, 6, 4, 2, 0, 0, 0, 2, 4);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 8, FixedTeamOrderInCup | NoAwayGoals, Penalties | NoAwayGoals, 6, 4, 2, 0, 0, 0, 2, 4);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 2), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 9), year, Wednesday, Evening, NationalStadium);
@@ -484,19 +484,31 @@ void chi_cup_final_stage_setup(BYTE* _this) {
 	DWORD* pTeams = (DWORD*)cm0102_malloc(playoff_teams * 4);
 
 	comp_stats* curr_stage = comp_data;
-	vector<cm3_clubs*> clubs;
+	vector<team_league_stats> sort_first, sort_second;
 
 	for (char al = -1; al < 7; al++) {
 		if (al > -1) curr_stage = (comp_stats*)(comp_data->stages[al]);
 		team_league_stats* table_teams = (team_league_stats*)(curr_stage->team_league_table);
-		clubs.push_back(table_teams[0].club);
-		clubs.push_back(table_teams[1].club);
+		sort_first.push_back(table_teams[0]);
+		sort_second.push_back(table_teams[1]);
 	}
 
-	BYTE team_order[16] = { 1,4,3,6,5,0,7,2,9,12,11,14,13,8,15,10 };
-	BYTE seeds[16] = { 0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1 };
-	for (char i = 0; i < playoff_teams; i++) {
-		*((DWORD*)(&pTeams[team_order[i]])) = (DWORD)clubs[i];
+	sort(sort_first.begin(), sort_first.end(), sortTLS);
+	sort(sort_second.begin(), sort_second.end(), sortTLS);
+
+	BYTE first_seed[8] = { 0,1,2,3,4,5,6,7 };
+	shuffle(begin(first_seed), end(first_seed), rng);
+	BYTE second_seed[8] = { 0,1,2,3,4,5,6,7 };
+	shuffle(begin(second_seed), end(second_seed), rng);
+
+	BYTE team_order[16] = { 0 };
+	for (WORD j = 0; j < playoff_teams / 2; j++) {
+		cm3_clubs* club1 = sort_first[first_seed[j]].club;
+		cm3_clubs* club2 = sort_second[second_seed[j]].club;
+		*((DWORD*)(&pTeams[j * 2])) = (DWORD)club2;
+		*((DWORD*)(&pTeams[j * 2 + 1])) = (DWORD)club1;
+		team_order[j * 2] = second_seed[j] + 8;
+		team_order[j * 2 + 1] = first_seed[j];
 	}
 
 	WORD num_rounds = 0;
@@ -505,7 +517,7 @@ void chi_cup_final_stage_setup(BYTE* _this) {
 	DWORD v1 = *(DWORD*)_this;
 	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, char, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
 	BYTE* new_stage = (BYTE*)cm0102_new(0xB2);
-	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)(comp_data->competition_db), pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, &seeds[0]);
+	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)(comp_data->competition_db), pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, &team_order[0]);
 	DWORD* stages_arr = comp_data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
 	comp_data->current_stage = (long)stage_num;

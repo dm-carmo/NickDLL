@@ -70,7 +70,7 @@ DWORD chi_super_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 1, 20), year, Tuesday, Evening, NeutralStadium);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Wednesday, Evening, NeutralStadium);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup2 | Penalties, NoTiebreak, 6, 4, 2, 4, 0, 0, 1, 0);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 1, FixedTeamOrderInCup | Penalties, NoTiebreak, 6, 4, 2, 4, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 1, 22), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 1, 25), year, Sunday, Afternoon, NeutralStadium);
@@ -107,16 +107,17 @@ int chi_super_teams_first_year(BYTE* _this) {
 	comp_data->teams_list = (DWORD*)pMem;
 	teams_seeded* teams = (teams_seeded*)comp_data->teams_list;
 
-	vec.push_back(find_club("Huachipato FC"));
-	vec.push_back(find_club("Club Deportivo Universidad Católica"));
 	vec.push_back(find_club("Coquimbo Unido"));
+	vec.push_back(find_club("Club Deportivo Universidad Católica"));
+	vec.push_back(find_club("Huachipato FC"));
 	vec.push_back(find_club("Deportes Limache"));
 
-	for (DWORD i = 0; i < vec.size(); i++)
+	BYTE team_order[4] = { 0,2,3,1 };
+	for (WORD i = 0; i < total_teams; i++)
 	{
-		teams[i].club = vec[i];
-		teams[i].seeding = 0;
-		teams[i].f6 = 0;
+		teams[team_order[i]].club = vec[i];
+		teams[team_order[i]].seeding = i % 2;
+		teams[team_order[i]].f6 = 0;
 	}
 
 	return 1;
@@ -134,22 +135,27 @@ int chi_super_teams(BYTE* _this) {
 	vector<cm3_clubs*> d1_clubs = find_clubs_of_comp_last_division(CHI_PREMIER_9CF());
 	sort(d1_clubs.begin(), d1_clubs.end(), compareClubLastDivPos);
 
+	vec.push_back(d1_clubs[0]);
+	vec.push_back(d1_clubs[1]);
+
 	cm3_club_comps* chi_cup = get_comp(CHI_CUP_9CF());
 	cm3_clubs* winner = get_last_comp_winner(chi_cup);
-	if (winner) vec.push_back(winner);
+	if (winner && !vector_contains_element(vec, winner)) vec.push_back(winner);
 	cm3_clubs* runner_up = get_last_comp_runner_up(chi_cup);
-	if (runner_up) vec.push_back(runner_up);
+	if (runner_up && !vector_contains_element(vec, runner_up)) vec.push_back(runner_up);
 
-	for (cm3_clubs* c : d1_clubs) {
-		if (!vector_contains_element(vec, c)) vec.push_back(c);
+	for (size_t i = 2; i < d1_clubs.size(); i++) {
 		if (vec.size() >= 4) break;
+		cm3_clubs* c = d1_clubs[i];
+		if (!vector_contains_element(vec, c)) vec.push_back(c);
 	}
 
-	for (DWORD i = 0; i < vec.size(); i++)
+	BYTE team_order[4] = { 0,2,3,1 };
+	for (WORD i = 0; i < total_teams; i++)
 	{
-		teams[i].club = vec[i];
-		teams[i].seeding = 0;
-		teams[i].f6 = 0;
+		teams[team_order[i]].club = vec[i];
+		teams[team_order[i]].seeding = i % 2;
+		teams[team_order[i]].f6 = 0;
 	}
 
 	return 1;

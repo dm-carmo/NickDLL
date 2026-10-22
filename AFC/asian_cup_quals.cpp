@@ -244,7 +244,7 @@ void asian_cup_quals_all_teams(BYTE* _this) {
 			cm3_clubs* club = table_teams[i].club;
 			if (i < 2) clubs_qual.push_back(club);
 			else if (club->ClubNation->NationID == host3_id || club->ClubNation->NationID == host4_id) {
-				cm3_clubs* popped = clubs_qual[clubs_qual.size()];
+				cm3_clubs* popped = clubs_qual[clubs_qual.size() - 1];
 				clubs_qual.pop_back();
 				clubs_qual.push_back(club);
 				clubs_po.push_back(popped);

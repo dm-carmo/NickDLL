@@ -463,6 +463,25 @@ void __declspec(naked) gre_first_update_c()
 	}
 }
 
+void gre_first_points_deductions(BYTE* _this, WORD current_year)
+{
+	if (current_year > 2026) return;
+	cm3_clubs* volos = find_club("Volos FC");
+	if (volos) {
+		comp_stats* data = (comp_stats*)_this;
+		WORD total_teams = data->n_teams;
+		team_league_stats* table_teams = (team_league_stats*)(data->team_league_table);
+		for (int i = 0; i < total_teams; i++) {
+			team_league_stats* tls = &table_teams[i];
+			if (tls->club == volos) {
+				tls->points = -3;
+				tls->points_away = -3;
+				break;
+			}
+		}
+	}
+}
+
 void gre_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 {
 	sub_682200(_this);
@@ -490,6 +509,7 @@ void gre_first_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	sub_49EE70(pMem2, _this);
 	data->f8 = (DWORD*)pMem2;
 	league_reputation_setup_generic_68A850(_this);
+	gre_first_points_deductions(_this, year);
 }
 
 void gre_first_split_under(BYTE* _this) {

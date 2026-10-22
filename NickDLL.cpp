@@ -165,8 +165,12 @@ void Setup()
 	setup_ksa_nation();
 	dprintf("New nation: Serbia\n");
 	setup_srb_nation();
+	dprintf("New nation: South Africa\n");
+	setup_rsa_nation();
 	dprintf("New nation: Switzerland\n");
 	setup_sui_nation();
+	dprintf("New nation: UAE\n");
+	setup_uae_nation();
 	dprintf("New nation: Ukraine\n");
 	setup_ukr_nation();
 	dprintf("New nation: Uruguay\n");

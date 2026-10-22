@@ -293,7 +293,7 @@ DWORD eng_conf_n_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup3 | Penalties | ExtraTime, NoTiebreak, 5, 4, 2, 2, 4, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 7), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 10), year, Sunday, Afternoon, NationalStadium);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 10), year, Sunday);
 		FillFixtureDetails(pMem, fixture_id++, Final, 0, Penalties | ExtraTime, NoTiebreak, 0, 2, 1, 0, 0, 0, 1, 0);
 
 		return (DWORD)pMem;

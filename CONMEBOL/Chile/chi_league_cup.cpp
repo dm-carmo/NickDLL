@@ -161,7 +161,7 @@ DWORD chi_league_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WOR
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 6, 7), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 8), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | NoAwayGoals, 6, 4, 2, 4, 0, 0, 2, 4);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 8, FixedTeamOrderInCup | NoAwayGoals, Penalties | NoAwayGoals, 6, 4, 2, 4, 0, 0, 2, 4);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 13), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 19), year, Sunday, Afternoon, NeutralStadium);
@@ -466,8 +466,10 @@ void chi_league_cup_final_stage_setup(BYTE* _this) {
 		team_league_stats* table_teams = (team_league_stats*)(curr_stage->team_league_table);
 		clubs.push_back(table_teams[0].club);
 	}
+	sort(clubs.begin(), clubs.end(), compareClubLastDivPos);
 
 	BYTE team_order[4] = { 0,2,3,1 };
+	BYTE seeds[4] = { 0,1,0,1 };
 	for (char i = 0; i < playoff_teams; i++) {
 		*((DWORD*)(&pTeams[team_order[i]])) = (DWORD)clubs[i];
 	}
@@ -478,7 +480,7 @@ void chi_league_cup_final_stage_setup(BYTE* _this) {
 	DWORD v1 = *(DWORD*)_this;
 	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, char, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
 	BYTE* new_stage = (BYTE*)cm0102_new(0xB2);
-	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)(comp_data->competition_db), pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, 0);
+	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)(comp_data->competition_db), pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, &seeds[0]);
 	DWORD* stages_arr = comp_data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
 	comp_data->current_stage = (long)stage_num;
