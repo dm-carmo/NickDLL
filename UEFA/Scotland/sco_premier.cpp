@@ -229,7 +229,7 @@ DWORD sco_premier_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* 
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 18), year, Monday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 21), year, Thursday, Evening);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 20), year, Wednesday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, None, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 5, 2, 1, 2, 0, 0, 2, 3);
 
 		return (DWORD)pMem;

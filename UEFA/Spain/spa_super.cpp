@@ -25,7 +25,7 @@ DWORD spa_super_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 2, 3), year, Wednesday, Evening, AhAhliKSAStadium);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 1, Tuesday, Evening, AhAhliKSAStadium);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 4, FixedTeamOrderInCup2 | Penalties, NoTiebreak, 6, 4, 2, 4, 0, 0, 1, 0, prizeMoneyFile.GetInt("spa_super_semi_qualify"), prizeMoneyFile.GetInt("spa_super_semi_win"), 0);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 1, FixedTeamOrderInCup | Penalties, NoTiebreak, 6, 4, 2, 4, 0, 0, 1, 0, prizeMoneyFile.GetInt("spa_super_semi_qualify"), prizeMoneyFile.GetInt("spa_super_semi_win"), 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 2, 4), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 2, 7), year, Sunday, Afternoon, AhAhliKSAStadium);
@@ -60,27 +60,31 @@ int spa_super_teams(BYTE* _this) {
 
 	comp_data->n_teams = total_teams;
 	comp_data->teams_list = (DWORD*)pMem;
-
 	teams_seeded* teams = (teams_seeded*)comp_data->teams_list;
 	vector<cm3_clubs*> d1_clubs = find_clubs_of_comp_last_division(SPA_FIRST_9CF());
 	sort(d1_clubs.begin(), d1_clubs.end(), compareClubLastDivPos);
 
+	vec.push_back(d1_clubs[0]);
+	vec.push_back(d1_clubs[1]);
+
 	cm3_club_comps* spa_cup = get_comp(SPA_CUP_9CF());
 	cm3_clubs* winner = get_last_comp_winner(spa_cup);
-	if (winner) vec.push_back(winner);
+	if (winner && !vector_contains_element(vec, winner)) vec.push_back(winner);
 	cm3_clubs* runner_up = get_last_comp_runner_up(spa_cup);
-	if (runner_up) vec.push_back(runner_up);
+	if (runner_up && !vector_contains_element(vec, runner_up)) vec.push_back(runner_up);
 
-	for (cm3_clubs* c : d1_clubs) {
-		if (!vector_contains_element(vec, c)) vec.push_back(c);
+	for (size_t i = 2; i < d1_clubs.size(); i++) {
 		if (vec.size() >= 4) break;
+		cm3_clubs* c = d1_clubs[i];
+		if (!vector_contains_element(vec, c)) vec.push_back(c);
 	}
 
-	for (BYTE i = 0; i < vec.size(); i++)
+	BYTE team_order[4] = { 0,2,3,1 };
+	for (WORD i = 0; i < total_teams; i++)
 	{
-		teams[i].club = vec[i];
-		teams[i].seeding = i % 2;
-		teams[i].f6 = 0;
+		teams[team_order[i]].club = vec[i];
+		teams[team_order[i]].seeding = i % 2;
+		teams[team_order[i]].f6 = 0;
 	}
 
 	return 1;

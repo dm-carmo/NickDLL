@@ -20,17 +20,17 @@ DWORD fra_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 8), year, Sunday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 26), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 14), year, Friday);
-		FillFixtureDetails(pMem, fixture_id++, SeventhRound, 0, Penalties | ExtraTime, NoTiebreak, 4, 184, 92, 184, 0, 0, 1, 0, prizeMoneyFile.GetInt("fra_cup_r7_qualify"));
+		FillFixtureDetails(pMem, fixture_id++, SeventhRound, 0, Penalties | ExtraTime, NoTiebreak, 4, 176, 88, 176, 0, 0, 1, 0, prizeMoneyFile.GetInt("fra_cup_r7_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 15), year, Saturday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 28), year, Friday);
-		FillFixtureDetails(pMem, fixture_id++, EighthRound, 1, Penalties | ExtraTime, NoTiebreak, 4, 92, 46, 0, 0, 0, 1, 0, prizeMoneyFile.GetInt("fra_cup_r8_qualify"));
+		FillFixtureDetails(pMem, fixture_id++, EighthRound, 1, Penalties | ExtraTime, NoTiebreak, 4, 92, 46, 4, 176, 0, 1, 0, prizeMoneyFile.GetInt("fra_cup_r8_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 29), year, Saturday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 20), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, RoundOf64, 1, Penalties | ExtraTime, NoTiebreak, 4, 64, 32, 18, 184, 0, 1, 0, prizeMoneyFile.GetInt("fra_cup_r64_qualify"));
+		FillFixtureDetails(pMem, fixture_id++, RoundOf64, 1, Penalties | ExtraTime, NoTiebreak, 4, 64, 32, 18, 180, 0, 1, 0, prizeMoneyFile.GetInt("fra_cup_r64_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 21), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 1, 10), year, Saturday);
@@ -76,7 +76,7 @@ void __declspec(naked) fra_cup_fixture_caller()
 int fra_cup_teams(BYTE* _this) {
 	vector<cm3_clubs*> vec;
 	comp_stats* comp_data = (comp_stats*)_this;
-	WORD total_teams = 202;
+	WORD total_teams = 198;
 	BYTE* pMem = (BYTE*)cm0102_malloc(6 * total_teams);
 
 	comp_data->n_teams = total_teams;
@@ -84,8 +84,17 @@ int fra_cup_teams(BYTE* _this) {
 
 	teams_seeded* teams = (teams_seeded*)comp_data->teams_list;
 
+	// Overseas (7th round)
+	vector<cm3_clubs*> overseas = find_clubs_of_country(NATION_NEW_CALEDONIA_9CF());
+	vector<cm3_clubs*> division_clubs = get_random_weighted_clubs(overseas, 1, true);
+	vec.push_back(overseas[0]);
+
+	overseas = find_clubs_of_country(NATION_TAHITI_9CF());
+	division_clubs = get_random_weighted_clubs(overseas, 1, true);
+	vec.push_back(overseas[0]);
+
 	// National 1
-	vector<cm3_clubs*> division_clubs = find_clubs_of_comp(FRA_NATIONAL_1_9CF(), NATION_FRANCE_9CF());
+	division_clubs = find_clubs_of_comp(FRA_NATIONAL_1_9CF(), NATION_FRANCE_9CF());
 	for (cm3_clubs* club : division_clubs)
 	{
 		DWORD is_main_club;
@@ -95,6 +104,21 @@ int fra_cup_teams(BYTE* _this) {
 			vec.push_back(club);
 		}
 	}
+
+	// Ligue 3
+	division_clubs = find_clubs_of_comp(FRA_THIRD_9CF());
+	for (cm3_clubs* club : division_clubs)
+	{
+		vec.push_back(club);
+	}
+
+	// Ligue 2
+	division_clubs = find_clubs_of_comp(FRA_SECOND_9CF());
+	for (cm3_clubs* club : division_clubs)
+	{
+		vec.push_back(club);
+	}
+
 	// Lower
 	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(FRA_LOWER_9CF(), NATION_FRANCE_9CF());
 	vector<cm3_clubs*> lower_clubs2 = find_clubs_of_comp(A_LOWER_9CF(), NATION_FRANCE_9CF());
@@ -109,24 +133,30 @@ int fra_cup_teams(BYTE* _this) {
 			i--;
 		}
 	}
-	size_t lower_teams = 148 - vec.size();
+	size_t lower_teams = 176 - vec.size();
 	division_clubs = get_random_weighted_clubs(lower_clubs, lower_teams, true);
 	for (cm3_clubs* club : division_clubs)
 	{
 		vec.push_back(club);
 	}
-	// Ligue 3
-	division_clubs = find_clubs_of_comp(FRA_THIRD_9CF());
-	for (cm3_clubs* club : division_clubs)
-	{
-		vec.push_back(club);
-	}
-	// Ligue 2
-	division_clubs = find_clubs_of_comp(FRA_SECOND_9CF());
-	for (cm3_clubs* club : division_clubs)
-	{
-		vec.push_back(club);
-	}
+
+	// Overseas (8th round)
+	overseas = find_clubs_of_country(NATION_GUADELOUPE_9CF());
+	division_clubs = get_random_weighted_clubs(overseas, 1, true);
+	vec.push_back(overseas[0]);
+
+	overseas = find_clubs_of_country(NATION_FRENCH_GUIANA_9CF());
+	division_clubs = get_random_weighted_clubs(overseas, 1, true);
+	vec.push_back(overseas[0]);
+
+	overseas = find_clubs_of_country(NATION_REUNION_9CF());
+	division_clubs = get_random_weighted_clubs(overseas, 1, true);
+	vec.push_back(overseas[0]);
+
+	overseas = find_clubs_of_country(NATION_MARTINIQUE_9CF());
+	division_clubs = get_random_weighted_clubs(overseas, 1, true);
+	vec.push_back(overseas[0]);
+
 	// Ligue 1
 	division_clubs = find_clubs_of_comp(FRA_FIRST_9CF());
 	for (cm3_clubs* club : division_clubs)

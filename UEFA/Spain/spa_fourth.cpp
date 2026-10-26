@@ -195,11 +195,11 @@ DWORD spa_fourth_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* s
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 4), year, Monday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 10), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 6, 20, 10, 20, 0, 0, 2, 7);
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 8, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 6, 20, 10, 20, 0, 0, 2, 7);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 18), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 24), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 6, 10, 5, 0, 0, 0, 2, 7);
+		FillFixtureDetails(pMem, fixture_id++, Final, 8, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 6, 10, 5, 0, 0, 0, 2, 7);
 
 		return (DWORD)pMem;
 	}
@@ -378,11 +378,13 @@ void __declspec(naked) spa_fourth_update_c()
 	}
 }
 
+// Review later: make sure that teams from the same group don't face each other; Semi-Final Leg 1 at worst placed's home; Final Leg 1 at worst placed's home; sort based on Libertadores criteria?
 void spa_fourth_playoffs_prom(BYTE* _this) {
 	char stage_num = 4;
 	comp_stats* comp_data = (comp_stats*)_this;
 	BYTE playoff_teams = 20;
 	DWORD* pTeams = (DWORD*)cm0102_malloc(playoff_teams * 4);
+	BYTE seeds[20] = { 2,5,3,4,2,5,3,4,2,5,3,4,2,5,3,4,2,5,3,4 };
 	cm3_clubs* tmp[20];
 
 	vector<cm3_clubs*> clubs;
@@ -422,7 +424,7 @@ void spa_fourth_playoffs_prom(BYTE* _this) {
 	DWORD v1 = *(DWORD*)_this;
 	BYTE* pFixtures = (BYTE*)(*(int(__thiscall**)(BYTE*, char, WORD*, WORD*, DWORD))(v1 + 0x3C))(_this, stage_num, &num_rounds, &stage_name_id, 0);
 	BYTE* new_stage = (BYTE*)cm0102_new(0xB2);
-	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)comp_data->competition_db, pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, 0);
+	create_cup_stage_data(new_stage, _this, playoff_teams, pTeams, num_rounds, (DWORD)comp_data->competition_db, pFixtures, year, stage_num, 1, stage_name_id, 0x14, 0, 0, 0, &seeds[0]);
 	DWORD* stages_arr = comp_data->stages;
 	*((DWORD*)(&stages_arr[stage_num])) = (DWORD)new_stage;
 	sub_51C800(new_stage, 0);

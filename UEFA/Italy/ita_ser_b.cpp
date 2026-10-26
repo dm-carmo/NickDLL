@@ -316,16 +316,16 @@ DWORD ita_ser_b_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* st
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 17), year, Sunday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 23), year, Saturday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 20), year, Wednesday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 1, FixedTeamOrderInCup | HigherSeedingTiebreak, NoTiebreak, 5, 4, 2, 4, 0, 0, 1, 0);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 24), year, Sunday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 27), year, Wednesday, Evening);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 21), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 23), year, Saturday);
 		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 1, FixedTeamOrderInCup3 | NoAwayGoals, HigherSeedingTiebreak | NoAwayGoals, 6, 4, 2, 2, 4, 0, 2, 4);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 6, 1), year, Monday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 6, 3), year, Thursday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, Final, 1, FixedTeamOrderInCup | NoAwayGoals, HigherSeedingTiebreak | NoAwayGoals, 6, 2, 1, 0, 0, 0, 2, 3);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 5, 28), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 30), year, Saturday);
+		FillFixtureDetails(pMem, fixture_id++, Final, 1, FixedTeamOrderInCup | NoAwayGoals, HigherSeedingTiebreak | NoAwayGoals, 6, 2, 1, 0, 0, 0, 2, 4);
 
 		return (DWORD)pMem;
 	}

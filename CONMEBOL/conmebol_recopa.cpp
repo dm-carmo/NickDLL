@@ -136,7 +136,7 @@ void conmebol_recopa_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	data->f68 = -1;
 	data->current_stage = -1;
 	data->num_stages = 0;
-	data->comp_type = CLUB_DOMESTIC;
+	data->comp_type = CLUB_INTERNATIONAL;
 	data->max_bench = 9;
 	data->max_subs = 5;
 	data->rules = RulesSouthAmerica;

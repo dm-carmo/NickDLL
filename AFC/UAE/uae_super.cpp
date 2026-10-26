@@ -101,7 +101,7 @@ int uae_super_teams(BYTE* _this) {
 
 	teams_seeded* teams = (teams_seeded*)comp_data->teams_list;
 
-	cm3_club_comps* league = get_comp(UAE_FIRST_9CF());
+	cm3_club_comps* league = get_comp(UAE_PREMIER_9CF());
 	cm3_club_comps* cup = get_comp(UAE_PRESIDENTS_9CF());
 	cm3_clubs* cup_champ = get_last_comp_winner(cup);
 	if (cup_champ) vec.push_back(cup_champ);

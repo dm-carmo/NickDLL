@@ -536,6 +536,10 @@ int player_check_if_eu(cm3_staff* person, cm3_nations* nation) {
 		if (first && vector_contains_element(spain_fgn, first->NationID)) return 1;
 		if (second && vector_contains_element(spain_fgn, second->NationID)) return 1;
 	}
+	if (nation->NationID == NATION_FRANCE_9CF()) {
+		if (first && vector_contains_element(france_fgn, first->NationID)) return 1;
+		if (second && vector_contains_element(france_fgn, second->NationID)) return 1;
+	}
 	return 0;
 }
 
@@ -1889,6 +1893,29 @@ void __declspec(naked) jmp_polynesian()
 	}
 }
 
+void __declspec(naked) test_new_finance_tweaks()
+{
+	__asm {
+		mov eax, [esi]
+		mov edx, [esi + 4]
+		shrd eax, edx, 2
+		shr edx, 2
+		jne new_finance_tweak_cap
+		cmp eax, 1000000000
+		jbe new_finance_tweak_nocap
+		new_finance_tweak_cap :
+		mov eax, 1000000000
+			new_finance_tweak_nocap :
+			cmp eax, ecx
+			jle new_finance_tweak_done
+			mov ecx, eax
+			new_finance_tweak_done :
+		mov edx, [esi + 0x94]
+			push 0x59DCF8
+			ret
+	}
+}
+
 void setup_misc_functions()
 {
 	// update game name
@@ -1969,16 +1996,18 @@ void setup_misc_functions()
 
 	// Finance changes
 	if (configFile.GetBool("financeTweaks", false)) {
-		WriteWORD(0x59dc6d, 5000);
-		WriteWORD(0x59dcd0, 5000);
+		WriteJMP(0x59DCF2, (DWORD)&test_new_finance_tweaks);
+		WriteBytes(0x59DCF7, 1, 0x90);
+		//WriteWORD(0x59dc6d, 5000);
+		//WriteWORD(0x59dcd0, 5000);
 
-		//WriteDWORD(0x59dc89, 1500);
+		////WriteDWORD(0x59dc89, 1500);
 
-		WriteDWORD(0x59dbf9, 3500);
-		WriteDWORD(0x59dca5, 3500);
+		//WriteDWORD(0x59dbf9, 3500);
+		//WriteDWORD(0x59dca5, 3500);
 
-		WriteBytes(0x59dce0, 1, 3);
-		WriteBytes(0x59dce7, 1, 6);
+		//WriteBytes(0x59dce0, 1, 3);
+		//WriteBytes(0x59dce7, 1, 6);
 	}
 
 	// Move August 30's international friendlies forward 4 weeks
@@ -2186,4 +2215,16 @@ void setup_misc_functions()
 			WriteBytes(d, 1, 0x12);
 		}
 	}
+
+	// misc - show unplayable leagues abbreviations in cup rounds etc
+	WriteNOP(0x493147, 2);
+	WriteNOP(0x4938c2, 2);
+	WriteNOP(0x493c62, 2);
+	WriteNOP(0x49ddb9, 2);
+	WriteNOP(0x49de4a, 2);
+	WriteNOP(0x49e911, 2);
+
+	// remove Brighton/Wimbledon check from the exe (rented stadiums)
+	WriteNOP(0x829954, 12);
+	WriteDWORD(0x461131, 0x9902A4); // no more Rented Stadium indicator
 }

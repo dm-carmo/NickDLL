@@ -591,17 +591,6 @@ void eng_league_trophy_final_stage_setup(BYTE* _this) {
 	sub_9452CA_free(pTeams);
 	sub_9452CA_free(pFixtures);
 	sub_51C410(new_stage, 0);
-
-	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
-	curr_stage = comp_data;
-	for (char al = -1; al < 15; al++) {
-		if (al > -1) curr_stage = (comp_stats*)(comp_data->stages[al]);
-		team_league_stats t = ((team_league_stats*)(curr_stage->team_league_table))[2];
-		staff_history_knocked_out_86C000(staff_hist_ptr, t.club, (DWORD)(comp_data->competition_db), None, GroupStage, 0xF);
-
-		t = ((team_league_stats*)(curr_stage->team_league_table))[3];
-		staff_history_knocked_out_86C000(staff_hist_ptr, t.club, (DWORD)(comp_data->competition_db), None, GroupStage, 0xF);
-	}
 }
 
 void eng_league_trophy_stages_create(BYTE* _this) {
