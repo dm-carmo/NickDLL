@@ -1167,6 +1167,9 @@
     <ClCompile Include="CAF\South Africa\rsa_knockout_cup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Generic\setup_int_friendlies.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -2331,6 +2334,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CAF\South Africa\rsa_knockout_cup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Generic\setup_int_friendlies.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

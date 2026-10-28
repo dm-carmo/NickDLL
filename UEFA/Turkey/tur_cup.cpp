@@ -80,7 +80,7 @@ DWORD tur_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 6, 29), year, Sunday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 1), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 16), year, Wednesday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, Penalties | ExtraTime, NoTiebreak, 4, 40, 20, 40, 0, 0, 1, 0, prizeMoneyFile.GetInt("tur_cup_r1_qualify"));
 

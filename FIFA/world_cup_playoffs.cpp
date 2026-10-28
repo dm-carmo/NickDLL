@@ -91,11 +91,11 @@ DWORD world_cup_playoffs_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds,
 		WORD r1_teams = num_teams - 2 - num_teams % 2;
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 10), year, Wednesday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 24), year, Thursday, Afternoon);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 23), year, Thursday, Afternoon);
 		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 10, r1_teams, r1_teams / 2, r1_teams, 0, 0, 1, 0);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 25), year, Friday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 29), year, Tuesday, Afternoon);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 24), year, Friday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 28), year, Tuesday, Afternoon);
 		FillFixtureDetails(pMem, fixture_id++, Final, 0, FixedTeamOrderInCup3 | Penalties | ExtraTime, NoTiebreak, 10, 4, 2, num_teams - r1_teams, r1_teams, 0, 1, 0);
 
 		return (DWORD)pMem;

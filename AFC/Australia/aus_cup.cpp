@@ -69,20 +69,20 @@ int aus_cup_teams(BYTE* _this) {
 		vec.push_back(club);
 	}
 	// other
-	division_clubs = find_clubs_of_country(NATION_AUSTRALIA_9CF());
-	sort(division_clubs.begin(), division_clubs.end(), compareClubRep);
-	size_t lower_teams = 32 - vec.size();
-	for (size_t i = 0; i < lower_teams; i++)
-	{
-		int availableIdx = rand() % division_clubs.size();
-		cm3_clubs* lower_club = division_clubs[availableIdx];
-
-		if (vector_contains_element(vec, lower_club))
+	vector<cm3_clubs*> lower_clubs = find_clubs_of_country(NATION_AUSTRALIA_9CF());
+	for (size_t i = 0; i < lower_clubs.size(); i++) {
+		cm3_clubs* c = lower_clubs[i];
+		if (vector_contains_element(vec, c))
+		{
+			lower_clubs.erase(lower_clubs.begin() + i);
 			i--;
-		else
-			vec.push_back(lower_club);
-
-		division_clubs.erase(division_clubs.begin() + availableIdx);
+		}
+	}
+	size_t lower_teams = 32 - vec.size();
+	division_clubs = get_random_weighted_clubs(lower_clubs, lower_teams, true);
+	for (cm3_clubs* club : division_clubs)
+	{
+		vec.push_back(club);
 	}
 
 	for (DWORD i = 0; i < vec.size(); i++)

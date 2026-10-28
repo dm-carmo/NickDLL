@@ -173,7 +173,7 @@ DWORD egy_league_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WOR
 			AddFixtureTV(pMem, fixture_id++, tv_id++);
 		}
 		tv_id = 0;
-		AddFixture(pMem, fixture_id, Date(year + 2, 2, 17), year, Wednesday, Evening);
+		AddFixture(pMem, fixture_id, Date(year + 1, 2, 17), year, Wednesday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Tuesday, Evening);
 		AddFixtureTV(pMem, fixture_id, tv_id++, 1, Thursday, Evening);
 		AddFixtureTV(pMem, fixture_id++, tv_id++);

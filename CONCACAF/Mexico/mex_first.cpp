@@ -8,6 +8,18 @@
 
 vtable* mex_first_vtable = new vtable((BYTE*)0x969798, 0xB4);
 
+void mex_first_aggregate_relegation(BYTE* _this) {
+	BYTE* staff_hist_ptr = (BYTE*)*staff_history;
+	comp_stats* data = (comp_stats*)_this;
+	comp_stats* aggregate = (comp_stats*)(data->stages[3]);
+	team_league_stats* table_teams = (team_league_stats*)(aggregate->team_league_table);
+	WORD nteams = aggregate->n_teams;
+	for (WORD i = nteams; i > nteams - 2; i--) {
+		table_teams[i - 1].league_fate = Relegated;
+		staff_history_relegated_86A1C0(staff_hist_ptr, table_teams[i - 1].club, (DWORD)(data->competition_db));
+	}
+}
+
 void mex_first_free_under(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	data->comp_vtable = (DWORD*)(mex_first_vtable->vtable_ptr);
@@ -59,6 +71,7 @@ void __declspec(naked) mex_first_free_c()
 }
 
 int mex_first_set_champion(BYTE* _this) {
+	if (configFile.GetBool("relegationMexico", false)) mex_first_aggregate_relegation(_this);
 	return 0;
 }
 
@@ -529,9 +542,10 @@ void mex_first_prom_rel_update(BYTE* _this, int a2) {
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(_this);
 
 	BYTE* mex_second = get_loaded_league(MEX_SECOND_9CF());
+	comp_stats* mex_second_data = (comp_stats*)mex_second;
 	v1 = *(DWORD*)mex_second;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(mex_second);
-	//process_promotion_relegation_689C80(_this, _this, mex_second, 1, a2, -1, -1);
+	process_promotion_relegation_689C80(_this, (BYTE*)data->stages[3], (BYTE*)mex_second_data->stages[3], 1, a2, -1, -1);
 }
 
 void __declspec(naked) mex_first_prom_rel_update_c()
@@ -641,22 +655,51 @@ void mex_first_league_table(BYTE* _this) {
 	data->current_stage = idx;
 }
 
+void __fastcall mex_second_relegation(BYTE* _this)
+{
+	vector<cm3_clubs*> relegated_clubs;
+
+	comp_stats* comp_data = (comp_stats*)get_loaded_league(MEX_SECOND_9CF());
+	comp_stats* curr_stage = (comp_stats*)comp_data->stages[3];
+	for (WORD num = 0; num < curr_stage->n_teams; num++) {
+		team_league_stats table_pos = ((team_league_stats*)curr_stage->team_league_table)[num];
+		if (table_pos.league_fate == Relegated) {
+			relegated_clubs.push_back(table_pos.club);
+		}
+	}
+
+	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_MEXICO_9CF());
+	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(available_clubs, relegated_clubs.size(), true);
+
+	for (unsigned int j = 0; j < promoted_clubs.size(); j++) {
+		cm3_clubs* clubToRelegate = relegated_clubs[j];
+		cm3_clubs* clubToPromote = promoted_clubs[j];
+
+		cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
+		cm3_club_comps* bottomDivision = clubToPromote->ClubDivision;
+		relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
+		promote_club_6830B0((BYTE*)clubToPromote, (DWORD)topDivision, 1);
+	}
+}
+
 char mex_first_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	data->f76 = 0;
 
 	BYTE* mex_second = get_loaded_league(MEX_SECOND_9CF());
+	comp_stats* mex_second_data = (comp_stats*)mex_second;
 
-	//// All teams that were in D1 must be professional
-	//update_club_pro_status_68A980(_this, Professional, Relegated, -3, 1);
-	//update_club_pro_status_68A980(_this, Professional, -3, Relegated, 1);
-	//// All teams that were relegated from D2 must be semi-professional
-	//// All teams that were not relegated from D2 must be professional
-	//update_club_pro_status_68A980(mex_second, Professional, Relegated, -3, 1);
-	//update_club_pro_status_68A980(mex_second, SemiProfessional, -3, Relegated, 0);
+	// All teams that were in D1 must be professional
+	update_club_pro_status_68A980(_this, Professional, Relegated, -3, 1);
+	update_club_pro_status_68A980(_this, Professional, -3, Relegated, 1);
+	// All teams that were relegated from D2 must be semi-professional
+	// All teams that were not relegated from D2 must be professional
+	update_club_pro_status_68A980((BYTE*)mex_second_data->stages[3], Professional, Relegated, -3, 1);
+	update_club_pro_status_68A980((BYTE*)mex_second_data->stages[3], SemiProfessional, -3, Relegated, 0);
 
 	DWORD v1 = *(DWORD*)_this;
 	mex_first_prom_rel_update(_this, 1);
+	if (configFile.GetBool("relegationMexico", false)) mex_second_relegation(_this);
 
 	sub_687970(_this, 0);
 	if (data->fixtures_table) {

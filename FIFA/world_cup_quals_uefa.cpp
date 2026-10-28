@@ -136,8 +136,8 @@ DWORD world_cup_quals_uefa_fixtures(BYTE* _this, char stage_idx, WORD* num_round
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 27), year, Sunday, Afternoon);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 30), year, Wednesday, Afternoon);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 4), year, Sunday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 11), year, Wednesday, Afternoon);
-		if (*num_rounds > 4) AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 14), year, Saturday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 13), year, Thursday, Afternoon);
+		if (*num_rounds > 4) AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 18), year, Tuesday, Afternoon);
 
 		return (DWORD)pMem;
 	}
@@ -159,7 +159,7 @@ DWORD world_cup_quals_uefa_fixtures(BYTE* _this, char stage_idx, WORD* num_round
 		WORD teams_r2 = total_teams - teams_r1 / 2;
 
 		int fixture_id = 0;
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 15), year, Sunday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 19), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 23), year, Thursday, Afternoon);
 		if (num_hosts == 1)
 			FillFixtureDetails(pMem, fixture_id++, num_hosts == 1 ? Final : SemiFinal, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 10, teams_r1, teams_r1 / 2, teams_r1, 0, 0, 2, 5);

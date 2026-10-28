@@ -224,7 +224,8 @@ void usa_champ_subs(BYTE* _this)
 	comp_data->promotions = 0;
 	comp_data->prom_playoff = 8;
 	comp_data->rele_playoff = 0;
-	comp_data->relegations = 0;
+	if (configFile.GetBool("relegationUSA", false)) comp_data->relegations = 1;
+	else comp_data->relegations = 0;
 
 	comp_data->promotes_to = -1;
 	comp_data->relegates_to = -1;
@@ -442,10 +443,14 @@ int usa_champ_table_fates(BYTE* _this, cm3_clubs* club, char fate, char stage, B
 				case Promoted:
 					staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
 						*(WORD*)(rounds + playoff_dates_sz * (current_round + 1) + 7), 0xF);
+					if (configFile.GetBool("relegationUSA", false) && current_round == 2) { // Semi-Final
+						staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), 0x64);
+						table[i].league_fate = Promoted;
+					}
 					return 0;
 				case BottomPlayoff:
 					staff_history_comp_runner_up_86B0B0(staff_hist_ptr, club, round_data, a7);
-					table[i].league_fate = Eliminated;
+					if (!configFile.GetBool("relegationUSA", false)) table[i].league_fate = Eliminated;
 					return 0;
 				default:
 					staff_history_knocked_out_86C000(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),

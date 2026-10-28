@@ -86,8 +86,8 @@ DWORD euro_champ_quals_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, W
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 26), year, Sunday, Afternoon);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 29), year, Wednesday, Afternoon);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 3), year, Sunday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 11), year, Wednesday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 14), year, Saturday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 12), year, Thursday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 16), year, Monday, Afternoon);
 
 		return (DWORD)pMem;
 	}
@@ -103,7 +103,7 @@ DWORD euro_champ_quals_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, W
 		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 15), year, Sunday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 17), year, Tuesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 23), year, Thursday, Afternoon);
 		FillFixtureDetails(pMem, fixture_id++, Playoff, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 10, 12, 6, 12, 0, 0, 2, 5);
 

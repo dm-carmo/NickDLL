@@ -107,12 +107,12 @@ DWORD fifa_intercontinental_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_
 		int fixture_id = 0;
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 11), year, Tuesday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 26), year, Sunday, Evening, LargestStadium3);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 8, 26), year, Sunday);
 		AddPlayoffTVFixture(pMem, fixture_id, 0);
 		FillFixtureDetails(pMem, fixture_id++, FirstRound, 0, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 8, 2, 1, 2, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("fifa_intercontinental_cup_r1_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 8, 27), year, Monday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 19), year, Saturday, Afternoon, LargestStadium2);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 9, 19), year, Saturday);
 		FillFixtureDetails(pMem, fixture_id++, SecondRound, 0, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 8, 2, 1, 1, 2, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("fifa_intercontinental_cup_r2_lose"));
 
 		return (DWORD)pMem;

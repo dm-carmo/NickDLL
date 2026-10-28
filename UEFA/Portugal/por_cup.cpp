@@ -119,8 +119,6 @@ int por_cup_teams(BYTE* _this) {
 	// Campeonato de Portugal
 	BYTE selected = get_country(NATION_PORTUGAL_9CF())->NationLeagueSelected;
 	division_clubs = find_clubs_of_comp(POR_FOURTH_9CF());
-	//if ((selected & 4) != 0) sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPosInv);
-	//else sort(division_clubs.begin(), division_clubs.end(), compareClubRep);
 	for (cm3_clubs* club : division_clubs)
 	{
 		DWORD is_main_club;
@@ -129,7 +127,6 @@ int por_cup_teams(BYTE* _this) {
 	}
 	// Liga 3
 	division_clubs = find_clubs_of_comp(POR_THIRD_9CF());
-	//sort(division_clubs.begin(), division_clubs.end(), compareClubLastDivPosInv);
 	for (cm3_clubs* club : division_clubs)
 	{
 		DWORD is_main_club;

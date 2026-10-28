@@ -199,6 +199,7 @@
     <ClCompile Include="CONMEBOL\Uruguay\uru_setup.cpp" />
     <ClCompile Include="CONMEBOL\Uruguay\uru_super.cpp" />
     <ClCompile Include="Generic\setup_default_titlebar_colours.cpp" />
+    <ClCompile Include="Generic\setup_int_friendlies.cpp" />
     <ClCompile Include="UEFA\Austria\aut_cup.cpp" />
     <ClCompile Include="UEFA\Austria\aut_first.cpp" />
     <ClCompile Include="UEFA\Austria\aut_second.cpp" />
@@ -585,6 +586,7 @@
     <ClInclude Include="CONMEBOL\Uruguay\uru_setup.h" />
     <ClInclude Include="CONMEBOL\Uruguay\uru_super.h" />
     <ClInclude Include="Generic\setup_default_titlebar_colours.h" />
+    <ClInclude Include="Generic\setup_int_friendlies.h" />
     <ClInclude Include="UEFA\Austria\aut_cup.h" />
     <ClInclude Include="UEFA\Austria\aut_first.h" />
     <ClInclude Include="UEFA\Austria\aut_second.h" />

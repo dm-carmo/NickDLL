@@ -64,7 +64,8 @@ void hol_second_subs(BYTE* _this)
 	comp_data->promotions = 2;
 	comp_data->prom_playoff = 0;
 	comp_data->rele_playoff = 0;
-	comp_data->relegations = 0;
+	if (configFile.GetBool("relegationNetherlands", false)) comp_data->relegations = 2;
+	else comp_data->relegations = 0;
 
 	comp_data->promotes_to = HOL_FIRST_9CF();
 	comp_data->relegates_to = -1;

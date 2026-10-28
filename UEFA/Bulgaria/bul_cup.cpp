@@ -78,14 +78,22 @@ int bul_cup_teams(BYTE* _this) {
 		if (!ret_club || is_main_club) vec.push_back(club);
 	}
 	// Lower
-	division_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_BULGARIA_9CF());
-	sort(division_clubs.begin(), division_clubs.end(), compareClubRep);
+	size_t lower_teams = total_teams - vec.size();
+	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_BULGARIA_9CF());
+	for (size_t i = 0; i < lower_clubs.size(); i++) {
+		cm3_clubs* c = lower_clubs[i];
+		DWORD is_main_club;
+		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)c, &is_main_club, 1);
+		if (ret_club && !is_main_club)
+		{
+			lower_clubs.erase(lower_clubs.begin() + i);
+			i--;
+		}
+	}
+	division_clubs = get_random_weighted_clubs(lower_clubs, lower_teams, true);
 	for (cm3_clubs* club : division_clubs)
 	{
-		if (vec.size() >= total_teams) break;
-		DWORD is_main_club;
-		cm3_clubs* ret_club = (cm3_clubs*)check_if_reserve_team_540A50((BYTE*)club, &is_main_club, 1);
-		if (!ret_club || is_main_club) vec.push_back(club);
+		vec.push_back(club);
 	}
 	reverse(vec.begin(), vec.end());
 
@@ -163,19 +171,19 @@ DWORD bul_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 5), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 10, 17), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, RoundOf32, 1 | 4, Penalties | ExtraTime, NoTiebreak, 4, 32, 16, 14, 36, 0, 1, 0, 0,0,prizeMoneyFile.GetInt("bul_cup_r32_lose"));
+		FillFixtureDetails(pMem, fixture_id++, RoundOf32, 1 | 4, Penalties | ExtraTime, NoTiebreak, 4, 32, 16, 14, 36, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("bul_cup_r32_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 18), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 12), year, Saturday);
-		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, Penalties | ExtraTime, NoTiebreak, 4, 16, 8, 0, 0, 0, 1, 0, 0,0,prizeMoneyFile.GetInt("bul_cup_r16_lose"));
+		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, Penalties | ExtraTime, NoTiebreak, 4, 16, 8, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("bul_cup_r16_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 13), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 3), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, Penalties | ExtraTime, NoTiebreak, 6, 8, 4, 0, 0, 0, 1, 0, 0,0,prizeMoneyFile.GetInt("bul_cup_qtr_lose"));
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, Penalties | ExtraTime, NoTiebreak, 6, 8, 4, 0, 0, 0, 1, 0, 0, 0, prizeMoneyFile.GetInt("bul_cup_qtr_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 4), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 4, 14), year, Wednesday, Evening);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 6, 4, 2, 0, 0, 0, 2, 7, 0,0,prizeMoneyFile.GetInt("bul_cup_semi_lose"));
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 6, 4, 2, 0, 0, 0, 2, 7, 0, 0, prizeMoneyFile.GetInt("bul_cup_semi_lose"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 5), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 5, 19), year, Wednesday, Evening, NationalStadium);

@@ -113,13 +113,13 @@ DWORD world_cup_quals_ofc_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds
 		int fixture_id = 0;
 		if (stage_idx == 0) {
 			AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 30), year, Monday, Afternoon);
-			AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 12), year, Tuesday, Afternoon);
-			AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 17), year, Saturday, Afternoon);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 12), year, Wednesday, Afternoon);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 17), year, Monday, Afternoon);
 		}
 		else {
 			AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 1), year, Tuesday, Afternoon);
-			AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 13), year, Wednesday, Afternoon);
-			AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 18), year, Sunday, Afternoon);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 13), year, Thursday, Afternoon);
+			AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 18), year, Tuesday, Afternoon);
 		}
 
 		return (DWORD)pMem;
@@ -135,7 +135,7 @@ DWORD world_cup_quals_ofc_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds
 		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 19), year, Monday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 19), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 21), year, Friday, Afternoon);
 		FillFixtureDetails(pMem, fixture_id++, FirstStage, 0, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 10, 4, 2, 4, 0, 0, 1, 0);
 

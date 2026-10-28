@@ -59,6 +59,40 @@ void __declspec(naked) mex_second_free_c()
 }
 
 int mex_second_set_champion(BYTE* _this) {
+	if (configFile.GetBool("relegationMexico", false)) {
+		comp_stats* comp_data = (comp_stats*)_this;
+		comp_stats* aggregate = (comp_stats*)(comp_data->stages[3]);
+		team_league_stats* aggr_table = (team_league_stats*)(aggregate->team_league_table);
+		WORD aggr_teams = aggregate->n_teams;
+		BYTE* staff_hist_ptr = (BYTE*)*staff_history;
+
+		WORD num_promoted = 0;
+
+		for (WORD i = 0; i < aggr_teams; i++) {
+			if (aggr_table[i].league_fate == Promoted) num_promoted++;
+		}
+
+		if (num_promoted < 2) {
+			for (WORD i = 0; i < aggr_teams && num_promoted < 2; i++) {
+				if (aggr_table[i].league_fate != Promoted)
+				{
+					staff_history_promoted_869480(staff_hist_ptr, aggr_table[i].club, (DWORD)(comp_data->competition_db), 0x64);
+					aggr_table[i].league_fate = Promoted;
+					num_promoted++;
+				}
+			}
+		}
+
+		WORD num_relegated = 0;
+		for (WORD i = aggr_teams; i > 0 && num_relegated < 2; i--) {
+			if (aggr_table[i].league_fate != Promoted)
+			{
+				staff_history_relegated_86A1C0(staff_hist_ptr, aggr_table[i - 1].club, (DWORD)(comp_data->competition_db));
+				aggr_table[i].league_fate = Relegated;
+				num_relegated++;
+			}
+		}
+	}
 	return 0;
 }
 
@@ -745,6 +779,9 @@ int mex_second_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, 
 		BYTE* rounds = ((comp_stats*)(stage_data))->rounds_list;
 		WORD current_round = *(WORD*)(round_data + 0x34);
 		team_league_stats* table = (team_league_stats*)(comp_data->team_league_table);
+		comp_stats* aggregate = (comp_stats*)(comp_data->stages[3]);
+		team_league_stats* aggr_table = (team_league_stats*)(aggregate->team_league_table);
+		WORD aggr_teams = aggregate->n_teams;
 		for (int i = 0; i < num_teams; i++) {
 			if (table[i].club != club) continue;
 			DWORD v1 = *(DWORD*)stage_data;
@@ -754,6 +791,17 @@ int mex_second_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, 
 				table[i].league_fate = Champions;
 				*a5 = 1;
 				(*(int(__thiscall**)(BYTE*))(v1 + 0x30))(stage_data);
+				if (configFile.GetBool("relegationMexico", false))
+				{
+					for (WORD i = 0; i < aggr_teams; i++) {
+						if (aggr_table[i].club != club) continue;
+						if (aggr_table[i].league_fate != Promoted) {
+							aggr_table[i].league_fate = Promoted;
+							staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), 0x64);
+						}
+						break;
+					}
+				}
 				return 0;
 			case Promoted:
 				staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),
@@ -779,6 +827,9 @@ int mex_second_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, 
 		WORD current_round = *(WORD*)(round_data + 0x34);
 		comp_stats* curr_stage = (comp_stats*)(comp_data->stages[0]);
 		team_league_stats* table = (team_league_stats*)(curr_stage->team_league_table);
+		comp_stats* aggregate = (comp_stats*)(comp_data->stages[3]);
+		team_league_stats* aggr_table = (team_league_stats*)(aggregate->team_league_table);
+		WORD aggr_teams = aggregate->n_teams;
 		for (int i = 0; i < num_teams; i++) {
 			if (table[i].club != club) continue;
 			DWORD v1 = *(DWORD*)stage_data;
@@ -788,6 +839,17 @@ int mex_second_table_fates(BYTE* _this, cm3_clubs* club, BYTE fate, char stage, 
 				table[i].league_fate = Champions;
 				*a5 = 1;
 				(*(int(__thiscall**)(BYTE*))(v1 + 0x30))(stage_data);
+				if (configFile.GetBool("relegationMexico", false))
+				{
+					for (WORD i = 0; i < aggr_teams; i++) {
+						if (aggr_table[i].club != club) continue;
+						if (aggr_table[i].league_fate != Promoted) {
+							aggr_table[i].league_fate = Promoted;
+							staff_history_promoted_869480(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), 0x64);
+						}
+						break;
+					}
+				}
 				return 0;
 			case Promoted:
 				staff_history_qualified_86BDD0(staff_hist_ptr, club, (DWORD)(comp_data->competition_db), *(WORD*)(round_data + 0x32),

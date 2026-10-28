@@ -226,7 +226,9 @@ enum CupTiebreaks : WORD {
 	FixedTeamOrderInCup = 0x200, // not sure how these work
 	FixedTeamOrderInCup2 = 0x300, // not sure how these work
 	FixedTeamOrderInCup3 = 0x400, // not sure how these work
-	HigherSeedingTiebreak = 0x800
+	HigherSeedingTiebreak = 0x800,
+	UnknownTiebreak1 = 0x1000,
+	Decider4DaysInterval = 0x2000, // without flag, 7 days interval
 };
 
 enum StadiumType {

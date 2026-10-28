@@ -50,12 +50,13 @@ void usa_mls_prom_rel_update(BYTE* _this, int a2) {
 	comp_stats* usa_champ_data = (comp_stats*)usa_champ;
 	v1 = *(DWORD*)usa_champ;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(usa_champ);
-	process_promotion_relegation_689C80(_this, _this, usa_champ, 1, a2, -1, -1);
-	process_promotion_relegation_689C80(_this, mls_conf, usa_champ, 1, a2, -1, -1);
 
 	BYTE* champ_conf = (BYTE*)usa_champ_data->stages[0];
 	v1 = *(DWORD*)champ_conf;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0xA4))(champ_conf);
+
+	process_promotion_relegation_689C80(_this, _this, usa_champ, 1, a2, -1, -1);
+	process_promotion_relegation_689C80(_this, mls_conf, usa_champ, 1, a2, -1, -1);
 	process_promotion_relegation_689C80(_this, _this, champ_conf, 1, a2, -1, -1);
 	process_promotion_relegation_689C80(_this, mls_conf, champ_conf, 1, a2, -1, -1);
 }
@@ -251,7 +252,8 @@ void usa_mls_subs(BYTE* _this)
 	comp_data->promotions = 0;
 	comp_data->prom_playoff = 9;
 	comp_data->rele_playoff = 0;
-	comp_data->relegations = 0;
+	if (configFile.GetBool("relegationUSA", false)) comp_data->relegations = 1;
+	else comp_data->relegations = 0;
 
 	comp_data->promotes_to = -1;
 	comp_data->relegates_to = -1;
@@ -345,7 +347,7 @@ DWORD usa_mls_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 9), year, Sunday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 21), year, Friday, Evening);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 20), year, Thursday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, FirstRound, 8, FixedTeamOrderInCup | Penalties, NoTiebreak, 5, 4, 2, 4, 0, 0, 1, 0);
 
 		return (DWORD)pMem;
@@ -361,20 +363,20 @@ DWORD usa_mls_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds, WORD* stag
 		pMem = (BYTE*)cm0102_malloc(playoff_dates_sz * (*num_rounds));
 
 		int fixture_id = 0;
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 22), year, Saturday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 21), year, Friday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 23), year, Sunday);
-		FillFixtureDetails(pMem, fixture_id++, SecondRound, 8, FixedTeamOrderInCup | USBestOf3 | Penalties, USBestOf3 | Penalties, 5, 16, 8, 16, 0, 0, 2, 6, 0, 0, 0, Penalties);
+		FillFixtureDetails(pMem, fixture_id++, SecondRound, 8, Decider4DaysInterval | FixedTeamOrderInCup | USBestOf3 | Penalties, Decider4DaysInterval | USBestOf3 | Penalties, 5, 16, 8, 16, 0, 0, 2, 3, 0, 0, 0, Penalties);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 6), year, Saturday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 9), year, Tuesday, Evening);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 1), year, Monday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 3), year, Wednesday, Evening);
 		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 8, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 5, 8, 4, 0, 0, 0, 1, 0);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 10), year, Wednesday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 14), year, Sunday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 4), year, Thursday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 7), year, Sunday);
 		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 8, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 5, 4, 2, 0, 0, 0, 1, 0);
 
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 15), year, Monday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 20), year, Saturday, Evening);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 12, 8), year, Monday);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 12, 20), year, Saturday);
 		FillFixtureDetails(pMem, fixture_id++, MLSCup, 8, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 5, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("usa_mls_final_win"), prizeMoneyFile.GetInt("usa_mls_final_lose"));
 
 		return (DWORD)pMem;
@@ -425,10 +427,84 @@ void usa_mls_init(BYTE* _this, WORD year, cm3_club_comps* comp)
 	usa_mls_reputation_setup(_this);
 }
 
+void __fastcall usa_mls_relegation(BYTE* _this)
+{
+	vector<cm3_clubs*> relegated_clubs;
+
+	comp_stats* comp_data = (comp_stats*)get_loaded_league(USA_SECOND_9CF());
+
+	comp_stats* curr_stage = comp_data;
+	for (WORD num = 0; num < curr_stage->n_teams; num++) {
+		for (char al = -1; al < 1; al++) {
+			if (al >= 0) {
+				curr_stage = (comp_stats*)(comp_data->stages[al]);
+			}
+		}
+
+		team_league_stats table_pos = ((team_league_stats*)curr_stage->team_league_table)[num];
+		if (table_pos.league_fate == Relegated) {
+			relegated_clubs.push_back(table_pos.club);
+		}
+	}
+
+	vector<cm3_clubs*> available_clubs = find_clubs_of_comp(USA_THIRD_9CF(), NATION_USA_9CF());
+	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(available_clubs, relegated_clubs.size(), true);
+
+	for (unsigned int j = 0; j < promoted_clubs.size(); j++) {
+		cm3_clubs* clubToRelegate = relegated_clubs[j];
+		cm3_clubs* clubToPromote = promoted_clubs[j];
+
+		cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
+		cm3_club_comps* bottomDivision = clubToPromote->ClubDivision;
+		relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
+		promote_club_6830B0((BYTE*)clubToPromote, (DWORD)topDivision, 1);
+	}
+}
+
+void __fastcall usa_fake_lower_relegation(BYTE* _this)
+{
+	vector<cm3_clubs*> league1_clubs = find_clubs_of_comp(USA_THIRD_9CF(), NATION_USA_9CF());
+	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(A_LOWER_9CF(), NATION_USA_9CF());
+
+	vector<cm3_clubs*> promoted_clubs = get_random_weighted_clubs(lower_clubs, 2, true);
+	vector<cm3_clubs*> relegated_clubs = get_random_weighted_clubs(league1_clubs, 2, false);
+
+	for (unsigned int j = 0; j < relegated_clubs.size(); j++) {
+		cm3_clubs* clubToRelegate = relegated_clubs[j];
+		cm3_clubs* clubToPromote = promoted_clubs[j];
+
+		cm3_club_comps* topDivision = clubToRelegate->ClubDivision;
+		cm3_club_comps* bottomDivision = clubToPromote->ClubDivision;
+		relegate_club_6831A0((BYTE*)clubToRelegate, (DWORD)bottomDivision, 1);
+		promote_club_6830B0((BYTE*)clubToPromote, (DWORD)topDivision, 1);
+	}
+}
+
 char usa_mls_update(BYTE* _this) {
 	comp_stats* data = (comp_stats*)_this;
 	data->f76 = 0;
+
+	BYTE* usa_champ = get_loaded_league(USA_SECOND_9CF());
+	comp_stats* usa_champ_data = (comp_stats*)usa_champ;
+
+	// All teams that were in D1 must be professional
+	update_club_pro_status_68A980(_this, Professional, Relegated, -3, 1);
+	update_club_pro_status_68A980((BYTE*)data->stages[0], Professional, Relegated, -3, 1);
+	update_club_pro_status_68A980(_this, Professional, -3, Relegated, 1);
+	update_club_pro_status_68A980((BYTE*)data->stages[0], Professional, -3, Relegated, 1);
+	// All teams that were relegated from D2 must be semi-professional
+	// All teams that were not relegated from D2 must be professional
+	update_club_pro_status_68A980(usa_champ, Professional, Relegated, -3, 1);
+	update_club_pro_status_68A980((BYTE*)usa_champ_data->stages[0], Professional, Relegated, -3, 1);
+	update_club_pro_status_68A980(usa_champ, SemiProfessional, -3, Relegated, 0);
+	update_club_pro_status_68A980((BYTE*)usa_champ_data->stages[0], SemiProfessional, -3, Relegated, 0);
+
 	usa_mls_prom_rel_update(_this, 1);
+	if (configFile.GetBool("relegationUSA", false))
+	{
+		usa_mls_relegation(_this);
+		usa_fake_lower_relegation(_this);
+	}
 
 	sub_687970(_this, 0);
 	if (data->fixtures_table) {
@@ -458,8 +534,6 @@ char usa_mls_update(BYTE* _this) {
 	}
 	DWORD v1 = *(DWORD*)_this;
 	(DWORD*)(*(int(__thiscall**)(BYTE*))(v1 + 0x5C))(_this);
-
-	BYTE* usa_champ = get_loaded_league(USA_SECOND_9CF());
 
 	v1 = *(DWORD*)usa_champ;
 	(*(int(__thiscall**)(BYTE*))(v1 + 0x8))(usa_champ);

@@ -80,22 +80,20 @@ int usa_cup_teams(BYTE* _this) {
 
 	teams_seeded* teams = (teams_seeded*)comp_data->teams_list;
 
-	cm3_clubs* d2_winner = get_last_comp_winner(get_comp(USA_SECOND_9CF()));
-	cm3_clubs* d2_second = get_last_comp_runner_up(get_comp(USA_SECOND_9CF()));
+	cm3_clubs* d2_winner = NULL;
+	if (!configFile.GetBool("relegationUSA", false)) d2_winner = get_last_comp_winner(get_comp(USA_SECOND_9CF()));
+	cm3_clubs* d2_second = NULL;
+	if (!configFile.GetBool("relegationUSA", false)) d2_second = get_last_comp_runner_up(get_comp(USA_SECOND_9CF()));
 
 	cm3_clubs* d1_winner = get_last_comp_winner(get_comp(USA_MLS_9CF()));
 	cm3_clubs* d1_second = get_last_comp_runner_up(get_comp(USA_MLS_9CF()));
 
 	// D3
-	vector<cm3_clubs*> division_clubs = find_clubs_of_comp(USA_THIRD_9CF());
-	sort(division_clubs.begin(), division_clubs.end(), compareClubRep);
-	for (int i = 0; i < 9; i++)
+	vector<cm3_clubs*> lower_clubs = find_clubs_of_comp(USA_THIRD_9CF());
+	vector<cm3_clubs*> division_clubs = get_random_weighted_clubs(lower_clubs, 9, true);
+	for (cm3_clubs* club : division_clubs)
 	{
-		int availableIdx = rand() % division_clubs.size();
-		cm3_clubs* lower_club = division_clubs[availableIdx];
-		vec.push_back(lower_club);
-
-		division_clubs.erase(division_clubs.begin() + availableIdx);
+		vec.push_back(club);
 	}
 	// D2
 	division_clubs = find_clubs_of_comp(USA_SECOND_9CF());

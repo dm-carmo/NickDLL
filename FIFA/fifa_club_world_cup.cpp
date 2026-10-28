@@ -89,7 +89,7 @@ void fifa_club_world_cup_subs(BYTE* _this)
 	comp_data->n_rounds = 1;
 	comp_data->pts_for_win = 3;
 	comp_data->pts_for_draw = 1;
-	comp_data->f196 = 8;
+	comp_data->f196 = 23;
 	comp_data->comp_type = CLUB_INTERNATIONAL;
 	comp_data->tiebreaker_1 = CurrentPositionTiebreaker;
 	comp_data->tiebreaker_2 = GoalDifferenceTiebreaker;
@@ -278,7 +278,7 @@ DWORD fifa_club_world_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Monday, Morning, LargestStadium6);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Sunday, Morning, LargestStadium3);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Saturday, Morning, NationalStadium);
-		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, FixedTeamOrderInCup2 | Penalties | ExtraTime, NoTiebreak, 8, 16, 8, 16, 0, 0, 1, 0, prizeMoneyFile.GetInt("fifa_cwc_r16_qualify"));
+		FillFixtureDetails(pMem, fixture_id++, RoundOf16, 0, FixedTeamOrderInCup2 | Penalties | ExtraTime, NoTiebreak, 23, 16, 8, 16, 0, 0, 1, 0, prizeMoneyFile.GetInt("fifa_cwc_r16_qualify"));
 		tv_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 2), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 4), year, Friday, Afternoon, VenueUnknown_1);
@@ -287,18 +287,18 @@ DWORD fifa_club_world_cup_fixtures(BYTE* _this, char stage_idx, WORD* num_rounds
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Saturday, Morning, LargestStadium3);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Friday, Morning, LargestStadium5);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++);
-		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup2 | Penalties | ExtraTime, NoTiebreak, 8, 8, 4, 0, 0, 0, 1, 0, prizeMoneyFile.GetInt("fifa_cwc_qtr_qualify"));
+		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup2 | Penalties | ExtraTime, NoTiebreak, 23, 8, 4, 0, 0, 0, 1, 0, prizeMoneyFile.GetInt("fifa_cwc_qtr_qualify"));
 		tv_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 6), year, Sunday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 8), year, Tuesday, Afternoon, VenueUnknown_1);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Wednesday, Afternoon, LargestStadium2);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++, 3, Tuesday, Afternoon, LargestStadium1);
 		AddPlayoffTVFixture(pMem, fixture_id, tv_id++);
-		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup2 | Penalties | ExtraTime, NoTiebreak, 8, 4, 2, 0, 0, 0, 1, 0, prizeMoneyFile.GetInt("fifa_cwc_semi_qualify"));
+		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup2 | Penalties | ExtraTime, NoTiebreak, 23, 4, 2, 0, 0, 0, 1, 0, prizeMoneyFile.GetInt("fifa_cwc_semi_qualify"));
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 7, 10), year, Thursday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year, 7, 13), year, Sunday, Afternoon, NationalStadium);
-		FillFixtureDetails(pMem, fixture_id++, Final, 0, Penalties | ExtraTime, NoTiebreak, 8, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("fifa_cwc_final_win"), prizeMoneyFile.GetInt("fifa_cwc_final_lose"));
+		FillFixtureDetails(pMem, fixture_id++, Final, 0, Penalties | ExtraTime, NoTiebreak, 23, 2, 1, 0, 0, 0, 1, 0, 0, prizeMoneyFile.GetInt("fifa_cwc_final_win"), prizeMoneyFile.GetInt("fifa_cwc_final_lose"));
 
 		return (DWORD)pMem;
 	}
@@ -529,7 +529,7 @@ void fifa_club_world_cup_all_teams(BYTE* _this) {
 	vector<cm3_clubs*> ofc_clubs;
 	for (int i = 0; i < 4; i++) {
 		cm3_clubs* winner = get_last_comp_winner_by_year(get_comp(OFC_CHAMPIONS_LEAGUE_9CF()), year - i - 1);
-		if(winner && !vector_contains_element(ofc_clubs, winner)) ofc_clubs.push_back(winner);
+		if (winner && !vector_contains_element(ofc_clubs, winner)) ofc_clubs.push_back(winner);
 	}
 	if (ofc_clubs.size() > 0) {
 		sort(ofc_clubs.begin(), ofc_clubs.end(), compareClubRep);
@@ -1085,4 +1085,5 @@ void __declspec(naked) fifa_cwc_hosts_adjustment()
 void setup_fifa_club_world_cup() {
 	WriteBytes(0x5fa452, 1, 24);
 	WriteJMP(0x5fa453, (DWORD)&fifa_cwc_hosts_adjustment);
+	WriteDWORD(0x5fa462, 0x9cf224);
 }

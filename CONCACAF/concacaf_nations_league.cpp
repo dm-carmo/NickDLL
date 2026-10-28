@@ -157,16 +157,51 @@ DWORD concacaf_nations_league_fixtures(BYTE* _this, char stage_idx, WORD* num_ro
 {
 	comp_stats* data = (comp_stats*)_this;
 	if (stage_idx == 5) return 0; // best-placed teams
-	if (stage_idx < 9) {
+	if (stage_idx < 1) {
+		if (a5)
+			*a5 = 1;
+		BYTE* pMem = NULL;
+		WORD year = data->year;
+		*num_rounds = 4;
+		*stage_name_id = LeagueA1to4 + stage_idx + 1;
+
+		pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
+
+		int fixture_id = 0;
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 23), year, Thursday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 26), year, Sunday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 30), year, Thursday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 3), year, Saturday, Afternoon);
+
+		return (DWORD)pMem;
+	}
+	else if (stage_idx < 5) {
 		if (a5)
 			*a5 = 1;
 		BYTE* pMem = NULL;
 		WORD year = data->year;
 		*num_rounds = 6;
-		if (stage_idx < 1) *num_rounds = 4;
-		if (stage_idx < 1) *stage_name_id = LeagueA1to4 + stage_idx + 1;
-		else if (stage_idx < 5) *stage_name_id = LeagueB1to4 + stage_idx - 1;
-		else *stage_name_id = LeagueC1to4 + stage_idx - 6;
+		*stage_name_id = LeagueB1to4 + stage_idx - 1;
+
+		pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
+
+		int fixture_id = 0;
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 23), year, Thursday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 26), year, Sunday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 30), year, Thursday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 3), year, Saturday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 13), year, Thursday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 18), year, Tuesday, Afternoon);
+
+		return (DWORD)pMem;
+	}
+	else if (stage_idx < 9) {
+		if (a5)
+			*a5 = 1;
+		BYTE* pMem = NULL;
+		WORD year = data->year;
+		*num_rounds = 6;
+		*stage_name_id = LeagueC1to4 + stage_idx - 6;
 
 		pMem = (BYTE*)cm0102_malloc(fixture_dates_sz * (*num_rounds));
 
@@ -174,18 +209,13 @@ DWORD concacaf_nations_league_fixtures(BYTE* _this, char stage_idx, WORD* num_ro
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 23), year, Wednesday, Afternoon);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 26), year, Saturday, Afternoon);
 		AddFixtureNoTV(pMem, fixture_id++, Date(year, 9, 29), year, Tuesday, Afternoon);
-		if (*num_rounds > 4 && stage_idx > 5) AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 1), year, Thursday, Afternoon);
-		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 3), year, Saturday, Afternoon);
-		if (*num_rounds > 4 && stage_idx > 5) AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 6), year, Tuesday, Afternoon);
-		if (*num_rounds > 4 && stage_idx < 5)
-		{
-			AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 11), year, Wednesday, Afternoon);
-			AddFixtureNoTV(pMem, fixture_id++, Date(year, 11, 14), year, Saturday, Afternoon);
-		}
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 1), year, Thursday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 4), year, Sunday, Afternoon);
+		AddFixtureNoTV(pMem, fixture_id++, Date(year, 10, 6), year, Tuesday, Afternoon);
 
 		return (DWORD)pMem;
 	}
-	// finals
+	// A finals
 	else if (stage_idx == 9) {
 		if (a5)
 			*a5 = 0;
@@ -198,11 +228,11 @@ DWORD concacaf_nations_league_fixtures(BYTE* _this, char stage_idx, WORD* num_ro
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 4), year, Monday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 12), year, Thursday, Afternoon);
+		AddPlayoffFixture(pMem, fixture_id, Date(year, 11, 13), year, Thursday, Afternoon);
 		FillFixtureDetails(pMem, fixture_id++, QuarterFinal, 0, FixedTeamOrderInCup | NoAwayGoals, Penalties | ExtraTime | NoAwayGoals, 10, 8, 4, 8, 0, 0, 2, 5);
 
-		// semi + final to be played at host country eventually
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 18), year, Wednesday);
+		// semi + final to be played at host country eventually?
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 11, 19), year, Wednesday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 23), year, Thursday, Afternoon);
 		AddPlayoffTVFixture(pMem, fixture_id, 0, 3, Wednesday, Afternoon);
 		AddPlayoffTVFixture(pMem, fixture_id, 0, 3, Thursday, Afternoon);
@@ -210,7 +240,7 @@ DWORD concacaf_nations_league_fixtures(BYTE* _this, char stage_idx, WORD* num_ro
 		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup2 | Penalties | ExtraTime, NoTiebreak, 10, 4, 2, 0, 0, 0, 1, 0);
 
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 24), year, Friday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 26), year, Sunday, Afternoon);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 27), year, Monday, Afternoon);
 		FillFixtureDetails(pMem, fixture_id++, Final, 0, Penalties | ExtraTime, NoTiebreak, 10, 2, 1, 0, 0, 0, 1, 0);
 
 		return (DWORD)pMem;
@@ -228,7 +258,7 @@ DWORD concacaf_nations_league_fixtures(BYTE* _this, char stage_idx, WORD* num_ro
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 23), year, Thursday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 26), year, Sunday, Afternoon);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 27), year, Monday, Afternoon);
 		FillFixtureDetails(pMem, fixture_id++, None, 0, Penalties | ExtraTime, NoTiebreak, 10, 2, 1, 2, 0, 0, 1, 0);
 
 		return (DWORD)pMem;
@@ -249,7 +279,7 @@ DWORD concacaf_nations_league_fixtures(BYTE* _this, char stage_idx, WORD* num_ro
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 23), year, Thursday, Afternoon);
 		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 10, 4, 2, 4, 0, 0, 1, 0);
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 24), year, Friday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 26), year, Sunday, Afternoon);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 27), year, Monday, Afternoon);
 		FillFixtureDetails(pMem, fixture_id++, Final, 0, Penalties | ExtraTime, NoTiebreak, 10, 2, 1, 0, 0, 0, 1, 0);
 
 		return (DWORD)pMem;
@@ -267,9 +297,9 @@ DWORD concacaf_nations_league_fixtures(BYTE* _this, char stage_idx, WORD* num_ro
 
 		int fixture_id = 0;
 		AddPlayoffDrawFixture(pMem, fixture_id, Date(year, 10, 4), year, Monday);
-		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 25), year, Saturday, Afternoon);
+		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 24), year, Friday, Afternoon);
 		FillFixtureDetails(pMem, fixture_id++, SemiFinal, 0, FixedTeamOrderInCup | Penalties | ExtraTime, NoTiebreak, 10, 4, 2, 4, 0, 0, 1, 0);
-		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 26), year, Sunday);
+		AddPlayoffDrawFixture(pMem, fixture_id, Date(year + 1, 3, 25), year, Saturday);
 		AddPlayoffFixture(pMem, fixture_id, Date(year + 1, 3, 28), year, Tuesday, Afternoon);
 		FillFixtureDetails(pMem, fixture_id++, Final, 0, Penalties | ExtraTime, NoTiebreak, 10, 2, 1, 0, 0, 0, 1, 0);
 

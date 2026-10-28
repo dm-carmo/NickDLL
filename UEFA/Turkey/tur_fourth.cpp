@@ -595,7 +595,7 @@ void tur_fourth_points_deductions(BYTE* _this, WORD current_year)
 	comp_stats* data = (comp_stats*)_this;
 	comp_stats* curr_stage = data;
 	vector<cm3_clubs*> clubs;
-	for (char al = -1; al < 1; al++) {
+	for (char al = -1; al < 2; al++) {
 		if (al >= 0) {
 			curr_stage = (comp_stats*)(data->stages[al]);
 		}

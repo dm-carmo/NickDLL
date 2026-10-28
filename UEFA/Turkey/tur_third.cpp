@@ -510,10 +510,14 @@ void tur_third_points_deductions(BYTE* _this, WORD current_year)
 {
 	if (current_year > 2026) return;
 	map<cm3_clubs*, short> point_deduction_map = {
+		{find_club("Arnavutköy Belediyesi FSK"), -3},
 		{find_club("GMG Kastamonuspor"), -3},
 		{find_club("Adana Demirspor"), -48},
 		{find_club("Hatayspor"), -6},
-		{find_club("Iskenderunspor"), -2},
+		{find_club("Iskenderunspor"), -3},
+		{find_club("Serik Spor"), -3},
+		{find_club("Inegölspor"), -3},
+		{find_club("MKE Ankaragücü"), -3},
 	};
 	comp_stats* data = (comp_stats*)_this;
 	comp_stats* curr_stage = data;
